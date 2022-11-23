@@ -1,0 +1,111 @@
+.mainContainer {
+    padding: 10px;
+}
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.headerContainer .title {
+    font-size: 1rem;
+}
+.bottomLine {
+    opacity: 0.4;
+    color: grey;
+    margin-bottom: 5px;
+}
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.firstCellFlex {
+    display: flex;
+    align-items: center;
+}
+.firstCellFlex img {
+    width: 40px;
+    height: 40px;
+    /*border-radius: 50%;*/
+}
+.firstCellInfo {
+    margin-left: 10px;
+}
+
+.headerFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.includeContainer {
+    font-weight: 700;
+    margin-left: 15px;
+}
+
+.infoTitle{
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    margin-left: 15px;
+    border-bottom: 1px solid;
+    width: 100%;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.heading{
+    margin-right: 5px;
+}
+
+
+
+.plainPaper{
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+}
+
+.btmBtn{
+    padding: 25px 70px !important;
+    background: #F7A728 !important;
+    color: white !important;
+    border-radius: 5px !important;
+}
+
+.outerFlex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.onboardFlex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.confirmTxt{
+    font-size: 0.8rem;
+}
+
+.boardTxt{
+    margin-bottom: 2px;
+}
+
+.leadDialog{
+    flex: 0.4;
+}
+
+.userFlex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.disabled{
+    opacity: 0.7;
+}

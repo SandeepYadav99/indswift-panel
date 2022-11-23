@@ -1,0 +1,79 @@
+.plainCont {
+    border-radius: 10px;
+    padding: 1.2rem 1.2rem;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    max-height: calc(95vh);
+    overflow-y: scroll;
+}
+.plain{
+    border-radius: 10px;
+    padding: 1.2rem 1.2rem;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+}
+.request{
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding-bottom: 20px;
+}
+
+.heading{
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.desc{
+    font-size: 0.8rem;
+    padding-bottom: 10px;
+}
+
+.additionalFlex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding-top: 7px;
+}
+.additionalFlex>div {
+    flex: 1;
+}
+.statusFlex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statusBtn{
+    flex: 0.3;
+}
+
+.view{
+    color: #0f49a0 !important;
+    text-decoration: underline !important;
+    font-size: 0.8rem !important;
+    margin-left: 5px;
+}
+
+.ticketFlex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 7px;
+}
+
+.selectWidth {
+    width: 100% !important;
+    background-color: white;
+}
+
+.demoStatus{
+    font-size: .8rem;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(32,201,151,.06274509803921569);
+    color: #20c997;
+}

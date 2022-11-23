@@ -1,0 +1,140 @@
+.backgroundColor {
+    background-color: white !important;
+    /*border-top-left-radius: 10px;*/
+    /*border-top-right-radius: 10px;*/
+    border-radius: 10px;
+}
+.paperBackground{
+    padding-top: 10px;
+    /*box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);*/
+    /*background-color: white;*/
+}
+
+.upperFlex{
+    display: flex;
+}
+
+.container{
+    flex: 1;
+}
+
+.barContainer{
+    flex: 3;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.pieContainer{
+    flex: 1.5;
+}
+
+.lowerFlex{
+    display: flex;
+}
+
+.lhs {
+    flex: 1;
+    margin-right: 15px;
+}
+
+.rhs {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.moveFlex{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.inward {
+    font-size: 1rem;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.inventory{
+    font-size: 0.8rem;
+}
+
+.purchaseFlex{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #ededed;
+    padding: 1.2rem;
+}
+
+.value{
+
+}
+
+.paperContainer{
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    margin-bottom: 20px;
+}
+
+.bottomFlex {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    height: 65px;
+    align-items: center;
+    padding: 0px 10px;
+    /*padding: 25px;*/
+}
+
+.imgFlex{
+    display: flex;
+    flex: 1;
+}
+
+.amt{
+    flex: 1;
+    /*border-left: 1px solid #ededed;*/
+}
+
+.purImg {
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+.qty{
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+
+/*LOGISTICS CSS */
+
+.logFlex{
+    display: flex;
+}
+
+.logLhs {
+    flex: 2;
+    margin-right: 15px;
+}
+
+.logRhs {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.btmlogFlex{
+    display: flex;
+}
+
+.logCon{
+    flex: 1;
+    margin-right: 15px;
+}
+
+.logCons{
+    flex: 1;
+    margin-left: 15px;
+}
+/*END*/

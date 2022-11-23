@@ -1,0 +1,47 @@
+.plain{
+    border-radius: 10px;
+    padding: 1.2rem 1.2rem;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+}
+
+.request{
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding-bottom: 10px;
+}
+
+.additionalFlex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding-top: 7px;
+}
+.additionalFlex>div {
+    flex: 1;
+}
+
+.heading{
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.desc{
+    font-size: 0.8rem;
+    padding-bottom: 10px;
+}
+
+.services {
+    background: #F7A728;
+    display: inline-block;
+    font-size: .7rem;
+    color: #fff;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 3px 10px;
+    border-radius: 15px;
+}

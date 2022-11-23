@@ -1,0 +1,105 @@
+.plain{
+    border-radius: 10px;
+    padding: 1.2rem 1.2rem;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+}
+
+.profile{
+    border-radius: 30px;
+    object-fit: cover;
+    height: 50px;
+    width: 50px;
+}
+
+.name{
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.mobileFlex{
+    display: flex;
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    font-size: 0.8rem;
+    /*padding-bottom: 5px;*/
+    padding-top: 3px;
+}
+
+.mob{
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    /*margin-left: 10px;*/
+}
+
+.mobs{
+    font-size: 0.8rem;
+}
+
+
+.cases{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    padding-top: 10px;
+    margin-top: 5px;
+}
+
+.prev{
+    /*color: #0f49a0;*/
+}
+
+.type {
+    background: #F7A728;
+    display: inline-block;
+    font-size: .7rem;
+    color: #fff;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 3px 10px;
+    border-radius: 15px;
+}
+
+.selectWidth {
+    width: 100% !important;
+    background-color: white;
+}
+
+.change{
+    color: #0f49a0 !important;
+    text-decoration: underline !important;
+    font-size: 0.8rem !important;
+}
+
+.assign{
+    font-weight: 600;
+}
+
+.assignedTo{
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.assignee{
+    margin-left: 10px;
+}
+
+.newFlex{
+    display: flex;
+}
+
+.info{
+    margin-left: 15px;
+}
+
+.request{
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding-bottom: 20px;
+}
