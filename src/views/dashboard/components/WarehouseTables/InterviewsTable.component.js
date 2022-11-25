@@ -1,10 +1,10 @@
 import React from "react";
-import {Table, TableRow, TableHead, TableBody, TableCell, TableContainer} from "@material-ui/core";
+import {Table, TableRow, TableHead, TableBody, TableCell, TableContainer, ButtonBase} from "@material-ui/core";
 import styles from './Style.module.css';
 import classNames from "classnames";
 import {makeStyles} from "@material-ui/styles";
 
-const TopProductsTable = () => {
+const InterviewsTable = () => {
     const classes = useStyles();
 
     const _renderFirstCell = (data) => {
@@ -41,7 +41,7 @@ const TopProductsTable = () => {
         } else {
             return (
                 <TableRow>
-                    <TableCell colSpan={2} className={classes.textCenter}>
+                    <TableCell colSpan={6} className={classes.textCenter}>
                         No Details Found
                     </TableCell>
                 </TableRow>
@@ -52,16 +52,20 @@ const TopProductsTable = () => {
     return (
         <div className={classes.bgWhite}>
             <div className={classes.upperFlex}>
-                <div>Top Selling Products</div>
-                <div className={classes.value}>This Month</div>
+                <h3>Interviews List</h3>
+                <div className={classes.value}></div>
             </div>
             <div>
                 <TableContainer className={classes.container}>
                     <Table stickyHeader className="mb-0">
                         <TableHead>
                             <TableRow>
-                                <TableCell className={classes.row}>PRODUCTS</TableCell>
-                                <TableCell className={classes.row}>ORDERS</TableCell>
+                                <TableCell className={classes.row}>SR NO.</TableCell>
+                                <TableCell className={classes.row}>LOCATION</TableCell>
+                                <TableCell className={classes.row}>POSITION CODE</TableCell>
+                                <TableCell className={classes.row}>DESIGNATION</TableCell>
+                                <TableCell className={classes.row}>CANDIDATE</TableCell>
+                                <TableCell className={classes.row}>TIME</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -69,6 +73,9 @@ const TopProductsTable = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+            </div>
+            <div className={'txtCenter'}>
+                <ButtonBase className={'viewBtn'}>View All</ButtonBase>
             </div>
         </div>
     )
@@ -108,4 +115,4 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default TopProductsTable
+export default InterviewsTable

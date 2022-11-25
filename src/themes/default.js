@@ -227,9 +227,11 @@ export default {
                 // borderBottom: '1px solid rgba(224, 224, 224, .5)',
             },
             head: {
-                fontSize: '0.9rem',
+                fontSize: '0.8rem',
                 padding: '15px 10px',
-                background: '#f5f5f5',
+                background: '#ECF7FF',
+                textTransform: 'uppercase',
+                fontWeight: 'bold',
                 '&:first-child': {
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',

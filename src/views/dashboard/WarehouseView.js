@@ -3,8 +3,8 @@ import styles from './Style.module.css';
 import VendorsOrdersTable from "./components/WarehouseTables/VendorsOrdersTable.component";
 import BarChartComponent from "./components/BarChart/BarChart";
 import PieChartComponent from "./components/PieChart/PieChart.view";
-import InventoryCategoryTable from "./components/WarehouseTables/InventoryCategoryTable.component";
-import TopProductsTable from "./components/WarehouseTables/TopProductsTable.component";
+import InventoryCategoryTable from "./components/WarehouseTables/PendingOfferTable.component";
+import TopProductsTable from "./components/WarehouseTables/InterviewsTable.component";
 
 const WarehouseView = () => {
 

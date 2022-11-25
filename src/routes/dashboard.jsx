@@ -16,7 +16,7 @@ import {
     TrackChanges,
     DialerSip, AccountTree, LocalShipping, AssignmentTurnedIn, MoveToInbox, Launch
 } from "@material-ui/icons";
-import DashboardTabs from '../views/dashboard/components/UpperButtons/UpperButtons.view'
+// import DashboardTabs from '../views/dashboard/components/UpperButtons/UpperButtons.view'
 import Country from '../views/Country/CountryList.container';
 import Cities from '../views/Cities/CitiesList.container';
 import UserList from '../views/User/UserList.container';
@@ -28,33 +28,39 @@ import ServiceList from '../views/Services/ServiceList.container';
 import OnBoard from '../views/Lead/components/OnBoard/OnBoard.component';
 import ComingSoon from "../views/ComingSoon/ComingSoon.view";
 
+import EmployeeTab from "../views/Employees/EmployeeTab.view";
+import EmployeeList from "../views/EmployeeList/EmployeeList.container";
+import JobRolesList from "../views/JobRoles/JobRolesList.container";
+import JobRoleCreateView from "../views/JobRoleCreate/JobRoleCreate.view";
+import NewDashboard from "../views/dashboard/NewDashboard.view";
+
 const dashboardRoutes = [
+    {
+        path: "/",
+        sidebarName: "Dashboard",
+        navbarName: "Admin Dashboard",
+        icon: Dashboard,
+        component: NewDashboard,
+        is_sidebar: true,
+    },
     // {
-    //     path: "/",
-    //     sidebarName: "Dashboard",
-    //     navbarName: "Admin Dashboard",
-    //     icon: Dashboard,
-    //     component: DashboardTabs,
+    //     path: 'null',
+    //     sidebarName: "Admin Users",
+    //     navbarName: "Admin Users",
+    //     icon: EventNote,
     //     is_sidebar: true,
+    //     slug: 'admin',
+    //     is_parent: true,
     // },
-    {
-        path: 'null',
-        sidebarName: "Admin Users",
-        navbarName: "Admin Users",
-        icon: EventNote,
-        is_sidebar: true,
-        slug: 'admin',
-        is_parent: true,
-    },
-    {
-        path: 'null',
-        sidebarName: "Masters",
-        navbarName: "Masters",
-        icon: EventNote,
-        is_sidebar: true,
-        slug: 'masters',
-        is_parent: true,
-    },
+    // {
+    //     path: 'null',
+    //     sidebarName: "Masters",
+    //     navbarName: "Masters",
+    //     icon: EventNote,
+    //     is_sidebar: true,
+    //     slug: 'masters',
+    //     is_parent: true,
+    // },
 
     // {
     //     path: "/app/settings",
@@ -65,15 +71,44 @@ const dashboardRoutes = [
     //     is_sidebar: true,
     //     is_protect: true,
     // },
-    // {
-    //     path: "/categories",
-    //     sidebarName: "Categories",
-    //     navbarName: "Categories",
-    //     icon: Dashboard,
-    //     component: CategoryList,
-    //     is_sidebar: true,
-    //     is_protect: true,
-    // },
+    {
+        path: "/employees",
+        sidebarName: "Employee Records",
+        navbarName: "Employee Records",
+        icon: LocalOffer,
+        component: EmployeeList,
+        is_sidebar: true,
+        is_protect: true,
+        // should_regex: true,
+    },
+    {
+        path: "/employee/detail",
+        sidebarName: "Employee Details",
+        navbarName: "Employee Details",
+        icon: Dashboard,
+        component: EmployeeTab,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: "/job/role",
+        sidebarName: "Job Roles(Designation)",
+        navbarName: "Job Roles(Designation)",
+        icon: LocalOffer,
+        component: JobRolesList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+    },
+    {
+        path: "/job/role/create",
+        sidebarName: "Products",
+        navbarName: "Products",
+        icon: LocalOffer,
+        component: JobRoleCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
     // {
     //     path: "/industry",
     //     sidebarName: "Industries",

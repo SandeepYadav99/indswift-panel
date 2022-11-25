@@ -1,0 +1,83 @@
+.backgroundColor {
+    background-color: white !important;
+    /*border-top-left-radius: 10px;*/
+    /*border-top-right-radius: 10px;*/
+    border-radius: 10px;
+}
+.paperBackground{
+    padding-top: 10px;
+    /*box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);*/
+    /*background-color: white;*/
+}
+
+
+
+
+.blueBackground{
+    background-image: url("../../assets/img/employee bg@2x.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    height: 120px;
+    color: white;
+}
+
+.name{
+    font-size: 0.9rem;
+}
+
+.innerContainer{
+    padding: 20px 20px;
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+}
+
+.profileInfo{
+    margin-left: 15px;
+    flex: 1;
+}
+.profileInfo>div{
+    margin-bottom: 7px;
+}
+
+.vertical {
+    border-left: 1px dashed #B8C5D3;
+    height: 70px;
+}
+
+.rightInfo{
+    flex: 1;
+    margin-left: 70px;
+}
+
+.rightInfo>div{
+    margin-bottom: 7px;
+}
+
+.location{
+    width: 150px;
+    display: inline-block;
+}
+
+.newLine{
+    height: 4px;
+    width: 30px;
+    border-radius: 10px;
+    margin-left: 1px;
+    background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
+}
+
+
+
+.profileContainer{
+    display: flex;
+}
+.lhs{
+    flex: 1;
+    margin-right: 10px;
+}
+.rhs{
+    flex: 1;
+    margin-left: 10px;
+}

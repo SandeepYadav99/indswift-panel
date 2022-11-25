@@ -21,6 +21,8 @@ import Cities from './CitiesInfo.reducer';
 import Region from './RegionInfo.reducer';
 import Services from './Service.reducer';
 import LeadReducer from './Lead.reducer';
+import EmployeeReducer from "./Employee.reducer";
+import JobRolesReducer from "./JobRoles.reducer";
 
 const rootReducer = combineReducers({
     state: (state = {}) => state,
@@ -40,7 +42,9 @@ const rootReducer = combineReducers({
     cities: Cities,
     services: Services,
     lead: LeadReducer,
+    employee: EmployeeReducer,
     currency: CurrencyReducer,
+    job_roles: JobRolesReducer,
     // form: formReducer,
 });
 

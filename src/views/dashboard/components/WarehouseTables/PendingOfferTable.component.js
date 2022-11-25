@@ -1,10 +1,10 @@
 import React from "react";
-import {Table, TableRow, TableHead, TableBody, TableCell, TableContainer} from "@material-ui/core";
+import {Table, TableRow, TableHead, TableBody, TableCell, TableContainer, ButtonBase} from "@material-ui/core";
 import styles from './Style.module.css';
 import classNames from "classnames";
 import {makeStyles} from "@material-ui/styles";
 
-const InventoryCategoryTable = () => {
+const PendingOfferTable = () => {
     const classes = useStyles();
 
     const _renderFirstCell = (data) => {
@@ -41,7 +41,7 @@ const InventoryCategoryTable = () => {
         } else {
             return (
                 <TableRow>
-                    <TableCell colSpan={2} className={classes.textCenter}>
+                    <TableCell colSpan={5} className={classes.textCenter}>
                         No Details Found
                     </TableCell>
                 </TableRow>
@@ -52,16 +52,19 @@ const InventoryCategoryTable = () => {
     return (
         <div className={classes.bgWhite}>
             <div className={classes.upperFlex}>
-                <div>Inventory Category</div>
-                <div className={classes.value}>This Month</div>
+                <h3>Pending Offer Letters</h3>
+                <div className={classes.value}></div>
             </div>
             <div>
                 <TableContainer className={classes.container}>
                     <Table stickyHeader className="mb-0">
                         <TableHead>
                             <TableRow>
-                                <TableCell className={classes.row}>AVAILABLE STOCK</TableCell>
-                                {/*<TableCell className={classes.row}>ORDERS</TableCell>*/}
+                                <TableCell className={classes.row}>SR NO.</TableCell>
+                                <TableCell className={classes.row}>OFFER LETTER NO.</TableCell>
+                                <TableCell className={classes.row}>POSITION</TableCell>
+                                <TableCell className={classes.row}>NAME</TableCell>
+                                <TableCell className={classes.row}>DATE</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -69,6 +72,9 @@ const InventoryCategoryTable = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+            </div>
+            <div className={'txtCenter'}>
+                <ButtonBase className={'viewBtn'}>View All</ButtonBase>
             </div>
         </div>
     )
@@ -108,4 +114,4 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default InventoryCategoryTable
+export default PendingOfferTable

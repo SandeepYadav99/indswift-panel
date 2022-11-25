@@ -138,3 +138,86 @@
     margin-left: 15px;
 }
 /*END*/
+
+
+.plainPaper{
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.whiteFlex{
+    display: flex;
+}
+
+.imgBox{
+    background: #2896E9;
+    height: 70px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-right: 25px;
+}
+
+.number{
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.subText{
+    color: #818181;
+    font-size: 0.9rem;
+}
+
+.dashboardFlex{
+    display: flex;
+}
+
+.dashboardFlex>div {
+    flex: 1;
+}
+
+.vertical {
+    border-left: 1px dashed #B8C5D3;
+    max-height: 100px;
+    flex: 0.3;
+}
+
+.numberFlex{
+    display: flex;
+    margin-top: 10px;
+}
+
+.numberFlex>div{
+    flex: 1;
+}
+
+.num{
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+
+.newFlex{
+    display: flex;
+}
+
+.tableFlex{
+    display: flex;
+}
+
+.lhs{
+    flex: 1;
+    margin-left: 15px;
+}
+
+.right{
+    flex: 1;
+    margin-right: 15px;
+}
