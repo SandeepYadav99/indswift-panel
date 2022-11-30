@@ -221,17 +221,18 @@ export default {
                 padding: '10px',
                 borderBottom: '1px solid rgba(224, 224, 224, .3)',
                 // fontWeight: '600',
-                fontFamily: ' \'Inter\', sans-serif',
+                fontFamily: ' \'Montserrat\', sans-serif',
                 fontSize: '14px',
                 // color: 'black !important'
                 // borderBottom: '1px solid rgba(224, 224, 224, .5)',
             },
             head: {
-                fontSize: '0.8rem',
+                fontSize: '0.7rem',
                 padding: '15px 10px',
                 background: '#ECF7FF',
                 textTransform: 'uppercase',
                 fontWeight: 'bold',
+                lineHeight: '1rem',
                 '&:first-child': {
                     borderTopLeftRadius: '10px',
                     borderBottomLeftRadius: '10px',

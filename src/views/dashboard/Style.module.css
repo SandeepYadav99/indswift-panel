@@ -172,7 +172,7 @@
 
 .subText{
     color: #818181;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .dashboardFlex{
@@ -186,7 +186,7 @@
 .vertical {
     border-left: 1px dashed #B8C5D3;
     max-height: 100px;
-    flex: 0.3;
+    flex: 0.2;
 }
 
 .numberFlex{

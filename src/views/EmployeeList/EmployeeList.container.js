@@ -36,21 +36,29 @@ const EmployeeList = ({}) => {
             return (
                 <div className={styles.firstCellFlex}>
 
-                    <div className={styles.driverImgCont}
-                         // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}
-                    >
-                        {/*<img src={product.image_url} alt=""/>*/}
-                    </div>
+                    {/*<div className={styles.driverImgCont}*/}
+                    {/*     // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}*/}
+                    {/*>*/}
+                    {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
+                    {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        {/*<span className={styles.productName}><strong>{`${product.name}`}</strong></span> <br/>*/}
-                        {/*<span>{product.code}</span>*/}
+                        <span className={styles.productName}>Hardeep Kumar</span> <br/>
+                        <span>10001212</span>
                     </div>
                 </div>
             );
         } return null;
     }, []);
 
-
+    const renderContact = useCallback(() => {
+        return (
+            <div>
+                <div>9347873542</div>
+                <div><strong>(O)</strong> hardeep.kumar@indwsiftlabs.com</div>
+                <div><strong>(P)</strong> hardeepkudg@indwsiftlabs.com</div>
+            </div>
+        )
+    },[])
 
 
     const renderCreateForm = useMemo(() => {
@@ -67,7 +75,7 @@ const EmployeeList = ({}) => {
                 key: 'sr_no',
                 label: 'SR No.',
                 sortable: false,
-                render: (temp, all) => <div><b>{all.sr_no}</b></div>,
+                render: (temp, all) => <div>1</div>,
             },
             {
                 key: 'name',
@@ -79,37 +87,39 @@ const EmployeeList = ({}) => {
                 key: 'grade',
                 label: 'Grade',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                render: (temp, all) => <div>G1/P1</div>,
             },
             {
                 key: 'location',
                 label: 'Location',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                render: (temp, all) => <div>NABHA</div>,
             },
             {
                 key: 'designation',
                 label: 'Designation',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                render: (temp, all) => <div>Sr. Manager</div>,
             },
             {
                 key: 'dept',
                 label: 'Dept & Sub Dept.',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                style: { width: '12%'},
+                render: (temp, all) => <div>GMS/HR&A</div>,
             },
             {
                 key: 'contact',
                 label: 'Contact',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                 style: { width: '25%'},
+                render: (temp, all) => <div>{renderContact()}</div>,
             },
             {
                 key: 'dept',
                 label: 'HOD',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                render: (temp, all) => <div>Pawan Kumar Garg</div>,
             },
             {
                 key: 'status',
@@ -120,6 +130,7 @@ const EmployeeList = ({}) => {
             {
                 key: 'user_id',
                 label: 'Action',
+                style: { width: '15%'},
                 render: (temp, all) => (<div>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>

@@ -36,13 +36,13 @@ const JobRolesList = ({}) => {
             return (
                 <div className={styles.firstCellFlex}>
 
-                    <div className={styles.driverImgCont}
-                         // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}
-                    >
-                        {/*<img src={product.image_url} alt=""/>*/}
-                    </div>
+                    {/*<div className={styles.driverImgCont}*/}
+                    {/*     // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}*/}
+                    {/*>*/}
+                    {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
+                    {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        {/*<span className={styles.productName}><strong>{`${product.name}`}</strong></span> <br/>*/}
+                        <span className={styles.productName}>GSKCH/ HR/ SOP <br/>/N/012/ 19.05.2009</span> <br/>
                         {/*<span>{product.code}</span>*/}
                     </div>
                 </div>
@@ -65,7 +65,7 @@ const JobRolesList = ({}) => {
                 key: 'sr_no',
                 label: 'SR No.',
                 sortable: false,
-                render: (temp, all) => <div><b>{all.sr_no}</b></div>,
+                render: (temp, all) => <div>1</div>,
             },
             {
                 key: 'code',
@@ -77,25 +77,25 @@ const JobRolesList = ({}) => {
                 key: 'title',
                 label: 'Job Title',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                render: (temp, all) => <div>Manager<br/><div>HR&A</div></div>,
             },
             {
                 key: 'location',
                 label: 'Location',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                render: (temp, all) => <div>NABHA</div>,
             },
             {
                 key: 'department',
                 label: 'Department',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                render: (temp, all) => <div>GMS/HR&A</div>,
             },
             {
                 key: 'dept',
                 label: 'Reporting',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                render: (temp, all) => <div>Sr.Manager</div>,
             },
             {
                 key: 'status',
@@ -107,7 +107,7 @@ const JobRolesList = ({}) => {
                 key: 'date',
                 label: 'Date',
                 sortable: false,
-                render: (temp, all) => <div></div>,
+                render: (temp, all) => <div>02/06/2022</div>,
             },
             {
                 key: 'user_id',

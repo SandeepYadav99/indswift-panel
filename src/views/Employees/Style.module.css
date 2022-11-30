@@ -3,6 +3,7 @@
     /*border-top-left-radius: 10px;*/
     /*border-top-right-radius: 10px;*/
     border-radius: 10px;
+    box-shadow: 0px 20px 80px #00000011 !important;
 }
 .paperBackground{
     padding-top: 10px;
@@ -80,4 +81,12 @@
 .rhs{
     flex: 1;
     margin-left: 10px;
+}
+
+.outerFlex{
+    display: flex;
+}
+
+.backIcon{
+    color: #919BB0 !important;
 }

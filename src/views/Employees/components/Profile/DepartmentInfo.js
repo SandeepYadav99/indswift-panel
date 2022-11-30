@@ -9,10 +9,17 @@ const DepartmentInfo = () => {
                     <div className={styles.heading}>Department Information</div>
 
                     <div className={styles.mainFlex}>
-                        <div className={styles.left}>
-                            <div className={styles.key}><span className={styles.value}>HOD Name:</span>Aman</div>
-                            <div className={styles.key}><span className={styles.value}>Employee Code:</span>10023</div>
-                            <div className={styles.key}><span className={styles.value}>Location:</span>Delhi</div>
+                        <div className={styles.left} style={{display:'flex'}}>
+                            <div style={{marginRight: '15px'}}>
+                                <img src={require('../../../../assets/img/performance image@2x.png')} height={40}/>
+                            </div>
+
+                            <div>
+                                <div className={styles.key}><span className={styles.value}>HOD Name:</span>Aman</div>
+                                <div className={styles.key}><span className={styles.value}>Employee Code:</span>10023
+                                </div>
+                                <div className={styles.key}><span className={styles.value}>Location:</span>Delhi</div>
+                            </div>
                         </div>
                         <div className={styles.vertical}>
 

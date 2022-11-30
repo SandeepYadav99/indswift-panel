@@ -52,8 +52,8 @@ const PendingOfferTable = () => {
     return (
         <div className={classes.bgWhite}>
             <div className={classes.upperFlex}>
-                <h3>Pending Offer Letters</h3>
-                <div className={classes.value}></div>
+                <div className={styles.titles}>Pending Offer Letters</div>
+                <div className={styles.newLine}/>
             </div>
             <div>
                 <TableContainer className={classes.container}>
@@ -95,10 +95,11 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: '0 0 8px rgb(0 0 0 / 15%)'
     },
     row: {
-        fontWeight: '600'
+        fontWeight: 'bold',
+        fontSize:'0.7rem'
     },
     upperFlex: {
-        display: 'flex',
+        // display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         fontSize: '0.8rem',

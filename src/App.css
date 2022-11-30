@@ -74,7 +74,7 @@ body{
 }
 
 .login .MuiInputBase-input {
-    border-bottom: 1px solid black;
+    /*border-bottom: 1px solid black;*/
 }
 
 .login .MuiInputLabel-root {
@@ -174,6 +174,7 @@ input[type=radio] + label:hover {
     font-size: 0.8rem !important;
     border-radius: 30px !important;
     text-transform: uppercase !important;
+    font-weight: 600 !important;
 }
 
 .plusIcon{
@@ -770,6 +771,13 @@ input[type=radio] + label:hover {
     color: white;
     border-radius: 20px;
     padding: 5px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filterColor{
+    color: #2896E9 !important;
 }
 
 .MuiSwitch-colorSecondary.Mui-checked{
@@ -788,4 +796,30 @@ input[type=radio] + label:hover {
 .viewBtn{
     color: #2896E9 !important;
     font-weight: 600 !important;
+}
+
+.MuiListItemIcon-root{
+ min-width: 32px !important;
+}
+
+.MuiTab-root{
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+}
+
+.MuiTabs-indicator{
+    background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
+}
+
+.MuiTab-textColorPrimary.Mui-selected{
+    color: black !important;
+    font-weight: bold !important;
+}
+
+.MuiTableCell-root{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.MuiTableCell-head{
+    color: black !important;
 }

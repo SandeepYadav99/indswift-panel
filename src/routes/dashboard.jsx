@@ -14,7 +14,15 @@ import {
     NewReleases,
     Receipt,
     TrackChanges,
-    DialerSip, AccountTree, LocalShipping, AssignmentTurnedIn, MoveToInbox, Launch
+    DialerSip,
+    AccountTree,
+    LocalShipping,
+    AssignmentTurnedIn,
+    MoveToInbox,
+    Launch,
+    PeopleOutlined,
+    AssignmentOutlined,
+    DashboardOutlined
 } from "@material-ui/icons";
 // import DashboardTabs from '../views/dashboard/components/UpperButtons/UpperButtons.view'
 import Country from '../views/Country/CountryList.container';
@@ -39,7 +47,7 @@ const dashboardRoutes = [
         path: "/",
         sidebarName: "Dashboard",
         navbarName: "Admin Dashboard",
-        icon: Dashboard,
+        icon: DashboardOutlined,
         component: NewDashboard,
         is_sidebar: true,
     },
@@ -75,7 +83,7 @@ const dashboardRoutes = [
         path: "/employees",
         sidebarName: "Employee Records",
         navbarName: "Employee Records",
-        icon: LocalOffer,
+        icon: AssignmentOutlined,
         component: EmployeeList,
         is_sidebar: true,
         is_protect: true,
@@ -94,7 +102,7 @@ const dashboardRoutes = [
         path: "/job/role",
         sidebarName: "Job Roles(Designation)",
         navbarName: "Job Roles(Designation)",
-        icon: LocalOffer,
+        icon: PeopleOutlined,
         component: JobRolesList,
         is_sidebar: true,
         is_protect: true,

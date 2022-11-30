@@ -38,6 +38,7 @@ const headerStyle = theme => ({
         maxHeight: 57,
         backgroundColor: sidebarColor,
         color: textColor,
+        boxShadow: '0px 20px 80px #00000011'
     },
     container: {
         ...container,

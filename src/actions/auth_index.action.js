@@ -20,10 +20,10 @@ export function actionLoginUser(data, isKeepLogin = null) {
             // const token = data.tokens.access.token;
             localStorage.setItem('jwt_token',  data.token);
             localStorage.setItem('user', JSON.stringify(data));
-            if (isKeepLogin !== null) {
-                localStorage.setItem('keep_login', JSON.stringify(isKeepLogin));
-                sessionStorage.setItem('keep_login', true);
-            }
+            // if (isKeepLogin !== null) {
+            //     localStorage.setItem('keep_login', JSON.stringify(isKeepLogin));
+            //     sessionStorage.setItem('keep_login', true);
+            // }
             setAuthorizationToken(data.token);
             dispatch({ type: AUTH_USER, payload: { token: data.token, name: data.name, id: data.user_id } });
             // dispatch(actionGetProfile());

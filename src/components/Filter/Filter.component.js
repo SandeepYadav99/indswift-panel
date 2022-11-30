@@ -286,7 +286,7 @@ class FilterComponent extends Component {
                             {/*    containerElement={<FilterIcon/>}*/}
                             {/*    primary*/}
                             {/*/>*/}
-                            <Button style={styles.flatButton} onClick={this.handleTouchTap} ><FilterIcon/></Button>
+                            <Button style={styles.flatButton} onClick={this.handleTouchTap} ><FilterIcon className={'filterColor'}/></Button>
                             {/*<Menu*/}
                             {/*    id="simple-menu"*/}
                             {/*    anchorEl={this.state.anchorEl}*/}

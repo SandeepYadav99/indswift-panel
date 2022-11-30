@@ -114,16 +114,19 @@ const sidebarStyle = theme => ({
     textAlign: 'center'
   },
   img: {
-    left: "90px",
-    width: "65px",
-    top: "8px",
+    left: "7px",
+    height: "42px",
+    top: "26px",
     position: "absolute",
     verticalAlign: "middle",
-    border: "0"
+    border: "0",
   },
     sidebarBackgroundColor: {
     backgroundColor: sidebarColor
     },
+  newText: {
+    marginLeft: '10px'
+  },
   background: {
     position: "absolute",
     zIndex: "1",
@@ -162,7 +165,7 @@ const sidebarStyle = theme => ({
     width: 'auto',
     transition: "all 300ms linear",
     margin: "5px 0px 0",
-    borderRadius: "3px",
+    // borderRadius: "3px",
     position: "relative",
     display: "flex",
     padding: "5px 15px",
@@ -180,6 +183,8 @@ const sidebarStyle = theme => ({
     width: "24px",
     height: "30px",
     float: "left",
+    display: 'flex',
+    alignItems: 'center',
     // marginRight: "15px",
     textAlign: "center",
     verticalAlign: "middle",
@@ -189,9 +194,11 @@ const sidebarStyle = theme => ({
     ...defaultFont,
     margin: "0",
     lineHeight: "30px",
-    fontSize: "14px",
-    fontWeight: '500',
-    color: "#000000"
+    fontSize: "12px",
+    fontWeight: '600',
+    color: "#919BB0",
+    fontFamily: 'Montserrat, sans-serif',
+    marginBottom: 'auto'
   },
   whiteFont: {
     color: "#FFFFFF"

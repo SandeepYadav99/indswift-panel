@@ -1,0 +1,13 @@
+.newLine{
+    height: 3px;
+    width: 30px;
+    border-radius: 10px;
+    margin-left: 1px;
+    background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
+}
+
+.titles{
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}

@@ -183,7 +183,6 @@ class ForgotPasswordView extends Component {
                                                                                   className={styles.back}>Resend Link</ButtonBase></span>
                                 {/*<span style={{float:'right',marginTop:'5px'}}><Link to='/login'>Back To Login</Link></span>*/}
                                 <br/>
-
                                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                                     <ButtonBase disabled={this.state.is_calling} variant={'contained'} type="submit"
                                             className={styles.login}>

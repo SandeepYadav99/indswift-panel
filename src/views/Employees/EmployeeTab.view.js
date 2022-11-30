@@ -10,6 +10,7 @@ import history from '../../libs/history.utils';
 import {Button, ButtonBase} from "@material-ui/core";
 import UpperInfo from "./UpperInfo.view";
 import ProfileView from "./Profile.view";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -73,9 +74,16 @@ const EmployeeTab = () => {
         <div>
             <div className={'container'}>
 
-                <div>
-                    <div style={{fontSize:'0.8rem'}}><b>View Employee</b></div>
-                    <div className={styles.newLine}/>
+                <div className={styles.outerFlex}>
+                    <div>
+                        <ButtonBase onClick={() => (history.goBack())}>
+                            <ArrowBackIosIcon fontSize={'small'} className={styles.backIcon}/>
+                        </ButtonBase>
+                    </div>
+                    <div>
+                        <div style={{fontSize:'0.8rem'}}><b>View Employee</b></div>
+                        <div className={styles.newLine}/>
+                    </div>
                 </div>
                 <br/>
                 <div>

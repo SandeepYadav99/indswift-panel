@@ -104,7 +104,7 @@ class Header extends React.Component {
                         {/*<MenuIcon className={'menuItem'}/>*/}
                     </IconButton>
                     <Button href="#" className={classes.title}>
-                        {this.makeBrand()}
+                        {/*{this.makeBrand()}*/}
                     </Button>
 
                     <div className={classes.flexGrow}>

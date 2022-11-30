@@ -163,8 +163,8 @@ const Sidebar = ({...props}) => {
     var brand = (
         <div className={classes.logo}>
             <div className={classes.logoImage}>
-                <div>SkyNet</div>
-                {/*<img src={logo} alt="logo" className={classes.img}/>*/}
+                <img src={logo} alt="logo" className={classes.img}/>
+                <div className={classes.newText}>SkyNet</div>
             </div>
             {logoText}
         </div>

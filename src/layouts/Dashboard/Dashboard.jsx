@@ -9,7 +9,7 @@ import {Snackbar, withStyles} from '@material-ui/core';
 import {Header, Sidebar} from '../../components/index.component';
 import dashboardRoutes from '../../routes/dashboard';
 import appStyle from '../../assets/jss/material-dashboard-react/appStyle';
-import logo from '../../assets/img/upper.png';
+import logo from '../../assets/img/indswift logo@2x.png';
 import CustomRouter from '../../libs/CustomRouter.utils';
 import DashboardSnackbar from '../../components/Snackbar.component';
 
