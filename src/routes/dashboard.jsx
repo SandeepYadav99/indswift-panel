@@ -22,7 +22,7 @@ import {
     Launch,
     PeopleOutlined,
     AssignmentOutlined,
-    DashboardOutlined
+    DashboardOutlined, Subtitles
 } from "@material-ui/icons";
 // import DashboardTabs from '../views/dashboard/components/UpperButtons/UpperButtons.view'
 import Country from '../views/Country/CountryList.container';
@@ -41,6 +41,13 @@ import EmployeeList from "../views/EmployeeList/EmployeeList.container";
 import JobRolesList from "../views/JobRoles/JobRolesList.container";
 import JobRoleCreateView from "../views/JobRoleCreate/JobRoleCreate.view";
 import NewDashboard from "../views/dashboard/NewDashboard.view";
+import LocationList from "../views/Location/LocationList.container";
+import LocationCreateView from "../views/LocationCreate/LocationCreate.view";
+import DepartmentList from "../views/Department/DepartmentList.container";
+import DepartmentCreateView from "../views/Department/DepartmentCreate.view";
+import SubDepartmentList from "../views/SubDepartment/SubDepartmentList.container";
+import SubDepartmentCreateView from "../views/SubDepartment/SubDepartmentCreate.view";
+import LocationDetail from "../views/LocationDetail/LocationDetail.view";
 
 const dashboardRoutes = [
     {
@@ -60,15 +67,15 @@ const dashboardRoutes = [
     //     slug: 'admin',
     //     is_parent: true,
     // },
-    // {
-    //     path: 'null',
-    //     sidebarName: "Masters",
-    //     navbarName: "Masters",
-    //     icon: EventNote,
-    //     is_sidebar: true,
-    //     slug: 'masters',
-    //     is_parent: true,
-    // },
+    {
+        path: 'null',
+        sidebarName: "Masters",
+        navbarName: "Masters",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: 'masters',
+        is_parent: true,
+    },
 
     // {
     //     path: "/app/settings",
@@ -114,6 +121,73 @@ const dashboardRoutes = [
         navbarName: "Products",
         icon: LocalOffer,
         component: JobRoleCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: "/location",
+        sidebarName: "Locations",
+        navbarName: "Locations",
+        icon: PeopleOutlined,
+        component: LocationList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'masters',
+    },
+    {
+        path: "/location/create",
+        sidebarName: "Location",
+        navbarName: "Location",
+        icon: LocalOffer,
+        component: LocationCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: "/location/detail",
+        sidebarName: "Location Detail",
+        navbarName: "Location Detail",
+        icon: LocalOffer,
+        component: LocationDetail,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: "/department",
+        sidebarName: "Department",
+        navbarName: "department",
+        icon: PeopleOutlined,
+        component: DepartmentList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'masters',
+    },
+    {
+        path: "/department/create",
+        sidebarName: "Departments",
+        navbarName: "Departments",
+        icon: LocalOffer,
+        component: DepartmentCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: '/department/subdepartment',
+        sidebarName: "SubDepartment",
+        navbarName: "SubDepartment",
+        icon: Subtitles,
+        component: SubDepartmentList,
+        is_sidebar: false,
+        should_regex: true
+    },
+    {
+        path: "/department/subdepartment/create",
+        sidebarName: "SubDepartments",
+        navbarName: "SubDepartments",
+        icon: LocalOffer,
+        component: SubDepartmentCreateView,
         is_sidebar: false,
         is_protect: true,
     },

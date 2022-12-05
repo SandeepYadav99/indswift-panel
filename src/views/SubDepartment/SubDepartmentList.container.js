@@ -2,10 +2,10 @@
  * Created by charnjeetelectrovese@gmail.com on 12/3/2019.
  */
 import React, {Component, useCallback, useEffect, useMemo} from 'react';
-import {Button, Paper, Checkbox, IconButton, MenuItem} from '@material-ui/core';
+import {Button, Paper, Checkbox, IconButton, MenuItem, ButtonBase} from '@material-ui/core';
 import classNames from 'classnames';
 import {connect, useSelector} from 'react-redux';
-import {Add, InfoOutlined, PrintOutlined} from '@material-ui/icons';
+import {Add, InfoOutlined, OpenInNew, PrintOutlined} from '@material-ui/icons';
 import PageBox from '../../components/PageBox/PageBox.component';
 import SidePanelComponent from '../../components/SidePanel/SidePanel.component';
 import styles from './Style.module.css';
@@ -13,17 +13,18 @@ import DataTables from '../../Datatables/Datatable.table';
 import Constants from '../../config/constants';
 import FilterComponent from '../../components/Filter/Filter.component';
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
-import useEmployeeList from "./EmployeeListHook";
+import useSubDepartmentList from "./SubDepartmentListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
-import CreateView from './Employee.view';
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import history from "../../libs/history.utils"
+// import CreateView from './SubDepartment.view';
 
-
-const EmployeeList = ({}) => {
+const SubDepartmentList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
-        isCalling, configFilter,} = useEmployeeList({});
+        isCalling, configFilter, handleSubSubDepartment} = useSubDepartmentList({});
 
-    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.employee);
+    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.subdepartment);
 
 
     const renderStatus = useCallback((status) => {
@@ -41,8 +42,7 @@ const EmployeeList = ({}) => {
                     {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
                     {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Hardeep Kumar</span> <br/>
-                        <span>10001212</span>
+                        <span className={styles.productName}>Human Resource</span> <br/>
                     </div>
                 </div>
             );
@@ -60,12 +60,13 @@ const EmployeeList = ({}) => {
     },[])
 
 
-    const renderCreateForm = useMemo(() => {
-        return (<CreateView
-            handleDataSave={handleDataSave}
-            data={editData}
-            handleDelete={handleDelete}/>);
-    }, [handleDataSave, editData, handleDelete]);
+    // const renderCreateForm = useMemo(() => {
+    //     return (<CreateView
+    //         handleDataSave={handleDataSave}
+    //         data={editData}
+    //
+    //         handleDelete={handleDelete}/>);
+    // }, [handleDataSave, editData, warehouses, handleDelete]);
 
     const tableStructure = useMemo(() => {
         return [
@@ -77,47 +78,15 @@ const EmployeeList = ({}) => {
             },
             {
                 key: 'name',
-                label: 'Employee Name',
+                label: 'Name',
                 sortable: true,
                 render: (value, all) => <div>{renderFirstCell(all)}</div>,
             },
             {
-                key: 'grade',
-                label: 'Grade',
+                key: 'code',
+                label: 'Code',
                 sortable: false,
-                render: (temp, all) => <div>G1/P1</div>,
-            },
-            {
-                key: 'location',
-                label: 'Location',
-                sortable: false,
-                render: (temp, all) => <div>NABHA</div>,
-            },
-            {
-                key: 'designation',
-                label: 'Designation',
-                sortable: false,
-                render: (temp, all) => <div>Sr. Manager</div>,
-            },
-            {
-                key: 'dept',
-                label: 'Dept & Sub Dept.',
-                sortable: false,
-                style: { width: '12%'},
-                render: (temp, all) => <div>GMS/HR&A</div>,
-            },
-            {
-                key: 'contact',
-                label: 'Contact',
-                sortable: false,
-                 style: { width: '25%'},
-                render: (temp, all) => <div>{renderContact()}</div>,
-            },
-            {
-                key: 'dept',
-                label: 'HOD',
-                sortable: false,
-                render: (temp, all) => <div>Pawan Kumar Garg</div>,
+                render: (temp, all) => <div>1122</div>,
             },
             {
                 key: 'status',
@@ -128,11 +97,9 @@ const EmployeeList = ({}) => {
             {
                 key: 'user_id',
                 label: 'Action',
-                style: { width: '15%'},
                 render: (temp, all) => (<div>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
-                    {/*onClick={() => { handleEdit(all) }}*/}
                 </div>),
             },
 
@@ -167,10 +134,18 @@ const EmployeeList = ({}) => {
             <div>
                 <PageBox>
                     <div className={styles.headerContainer}>
-                       <div>
-                           <span className={styles.title}>Employee Records</span>
-                           <div className={styles.newLine}/>
-                       </div>
+                        <div>
+                            <ButtonBase onClick={() => (history.goBack())}>
+                                <ArrowBackIosIcon fontSize={'small'} className={styles.backArrow}/>
+                            </ButtonBase>
+                            <span className={styles.title}>SubDepartment List</span>
+                            <div className={styles.newLine} style={{marginLeft:'20px'}}/>
+                        </div>
+                        <div>
+                            <ButtonBase onClick={handleSideToggle} className={'createBtn'}>
+                                CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
+                            </ButtonBase>
+                        </div>
                     </div>
 
                     <div>
@@ -192,14 +167,14 @@ const EmployeeList = ({}) => {
                     </div>
 
                 </PageBox>
-                <SidePanelComponent
-                    handleToggle={handleSideToggle}
-                    title={'New Employee'} open={isSidePanel} side={'right'}>
-                    {renderCreateForm}
-                </SidePanelComponent>
+                {/*<SidePanelComponent*/}
+                {/*    handleToggle={handleSideToggle}*/}
+                    {/*    title={'New SubDepartment'} open={isSidePanel} side={'right'}>*/}
+                {/*    /!*{renderCreateForm}*!/*/}
+                {/*</SidePanelComponent>*/}
             </div>
         )
 }
 
 
-export default EmployeeList;
+export default SubDepartmentList;

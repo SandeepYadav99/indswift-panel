@@ -1,33 +1,32 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {
-    actionCreateEmployee, actionDeleteEmployee,
-    actionFetchEmployee,
-    actionSetPageEmployeeRequests,
-    actionUpdateEmployee
-} from "../../actions/Employee.action";
+    actionCreateLocation, actionDeleteLocation,
+    actionFetchLocation,
+    actionSetPageLocation,
+    actionUpdateLocation
+} from "../../actions/Location.action";
 import historyUtils from "../../libs/history.utils";
-import {serviceGetCustomList} from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
 
 
-const useEmployeeList = ({}) => {
+const useLocationList = ({}) => {
     const [isSidePanel, setSidePanel] = useState(false);
     const [isCalling, setIsCalling] = useState(false);
     const [editData, setEditData] = useState(null);
     const dispatch = useDispatch();
     const isMountRef = useRef(false);
-    const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.employee);
+    const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.location);
 
     useEffect(() => {
-
-        // dispatch(actionFetchEmployee());
+        // dispatch(actionFetchLocation());
     }, []);
 
     useEffect(() => {
-        dispatch(actionFetchEmployee(1, sortingData, {
+        dispatch(actionFetchLocation(1, sortingData, {
             query: isMountRef.current ? query : null,
             query_data: isMountRef.current ? queryData : null,
+
         }));
         isMountRef.current = true;
     }, []);
@@ -44,15 +43,15 @@ const useEmployeeList = ({}) => {
     // }
     const handlePageChange = useCallback((type) => {
         console.log('_handlePageChange', type);
-        dispatch(actionSetPageEmployeeRequests(type));
+        dispatch(actionSetPageLocation(type));
     }, []);
 
     const handleDataSave = useCallback((data, type) =>  {
         // this.props.actionChangeStatus({...data, type: type});
         if (type == 'CREATE') {
-            dispatch(actionCreateEmployee(data));
+            dispatch(actionCreateLocation(data));
         } else {
-            dispatch(actionUpdateEmployee(data));
+            dispatch(actionUpdateLocation(data));
         }
         setSidePanel(e => !e);
         setEditData(null);
@@ -60,13 +59,13 @@ const useEmployeeList = ({}) => {
 
     const queryFilter = useCallback((key, value) => {
         console.log('_queryFilter', key, value);
-        // dispatch(actionSetPageEmployeeRequests(1));
-        dispatch(actionFetchEmployee(1, sortingData, {
+        // dispatch(actionSetPageLocationRequests(1));
+        dispatch(actionFetchLocation(1, sortingData, {
             query: key == 'SEARCH_TEXT' ? value : query,
             query_data: key == 'FILTER_DATA' ? value : queryData,
         }));
-        // dispatch(actionFetchEmployee(1, sortingData))
-    }, [sortingData, query, queryData]);
+        // dispatch(actionFetchLocation(1, sortingData))
+    }, [sortingData, query, queryData,]);
 
     const handleFilterDataChange = useCallback((value) => {
         console.log('_handleFilterDataChange', value);
@@ -82,20 +81,19 @@ const useEmployeeList = ({}) => {
 
     const handleSortOrderChange = useCallback((row, order) => {
         console.log(`handleSortOrderChange key:${row} order: ${order}`);
-        dispatch(actionSetPageEmployeeRequests(1));
-        dispatch(actionFetchEmployee(1, {row, order}, {
+        dispatch(actionSetPageLocation(1));
+        dispatch(actionFetchLocation(1, {row, order}, {
             query: query,
             query_data: queryData,
         }))
-    }, [query, queryData, ]);
+    }, [query, queryData]);
 
     const handleRowSize = (page) => {
         console.log(page);
     }
 
-
     const handleDelete = useCallback((id) => {
-        dispatch(actionDeleteEmployee(id));
+        dispatch(actionDeleteLocation(id));
         setSidePanel(false);
         setEditData(null);
     }, [setEditData, setSidePanel]);
@@ -106,14 +104,14 @@ const useEmployeeList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleSideToggle = useCallback(() => {
-        historyUtils.push('/employee/create')
+        historyUtils.push('/location/create')
         // setSidePanel(e => !e);
         // setEditData(null);
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
         LogUtils.log('data', data);
-        historyUtils.push('/employee/detail/') //+data.id
+        historyUtils.push('/location/detail/') //+data.id
     }, []);
 
     const configFilter = useMemo(() => {
@@ -147,4 +145,4 @@ const useEmployeeList = ({}) => {
     }
 };
 
-export default useEmployeeList;
+export default useLocationList;

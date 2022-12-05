@@ -2,7 +2,7 @@
  * Created by charnjeetelectrovese@gmail.com on 12/3/2019.
  */
 import React, {Component, useCallback, useEffect, useMemo} from 'react';
-import {Button, Paper, Checkbox, IconButton, MenuItem} from '@material-ui/core';
+import {Button, Paper, Checkbox, IconButton, MenuItem, ButtonBase} from '@material-ui/core';
 import classNames from 'classnames';
 import {connect, useSelector} from 'react-redux';
 import {Add, InfoOutlined, PrintOutlined} from '@material-ui/icons';
@@ -13,17 +13,16 @@ import DataTables from '../../Datatables/Datatable.table';
 import Constants from '../../config/constants';
 import FilterComponent from '../../components/Filter/Filter.component';
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
-import useEmployeeList from "./EmployeeListHook";
+import useLocationList from "./LocationListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
-import CreateView from './Employee.view';
+import CreateView from './Location.view';
 
-
-const EmployeeList = ({}) => {
+const LocationList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
-        isCalling, configFilter,} = useEmployeeList({});
+        isCalling, configFilter, warehouses} = useLocationList({});
 
-    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.employee);
+    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.location);
 
 
     const renderStatus = useCallback((status) => {
@@ -41,8 +40,7 @@ const EmployeeList = ({}) => {
                     {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
                     {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Hardeep Kumar</span> <br/>
-                        <span>10001212</span>
+                        <span className={styles.productName}>Isli Samba</span> <br/>
                     </div>
                 </div>
             );
@@ -64,8 +62,9 @@ const EmployeeList = ({}) => {
         return (<CreateView
             handleDataSave={handleDataSave}
             data={editData}
+            warehouse={warehouses}
             handleDelete={handleDelete}/>);
-    }, [handleDataSave, editData, handleDelete]);
+    }, [handleDataSave, editData, warehouses, handleDelete]);
 
     const tableStructure = useMemo(() => {
         return [
@@ -77,47 +76,33 @@ const EmployeeList = ({}) => {
             },
             {
                 key: 'name',
-                label: 'Employee Name',
+                label: 'Name',
                 sortable: true,
                 render: (value, all) => <div>{renderFirstCell(all)}</div>,
             },
             {
-                key: 'grade',
-                label: 'Grade',
+                key: 'code',
+                label: 'Code',
                 sortable: false,
-                render: (temp, all) => <div>G1/P1</div>,
+                render: (temp, all) => <div>SAMBA</div>,
             },
             {
-                key: 'location',
-                label: 'Location',
+                key: 'address',
+                label: 'Address',
                 sortable: false,
-                render: (temp, all) => <div>NABHA</div>,
+                render: (temp, all) => <div>Dera Bassi</div>,
             },
             {
-                key: 'designation',
-                label: 'Designation',
+                key: 'city',
+                label: 'City',
                 sortable: false,
-                render: (temp, all) => <div>Sr. Manager</div>,
+                render: (temp, all) => <div>Dera Bassi</div>,
             },
             {
-                key: 'dept',
-                label: 'Dept & Sub Dept.',
+                key: 'state',
+                label: 'State',
                 sortable: false,
-                style: { width: '12%'},
-                render: (temp, all) => <div>GMS/HR&A</div>,
-            },
-            {
-                key: 'contact',
-                label: 'Contact',
-                sortable: false,
-                 style: { width: '25%'},
-                render: (temp, all) => <div>{renderContact()}</div>,
-            },
-            {
-                key: 'dept',
-                label: 'HOD',
-                sortable: false,
-                render: (temp, all) => <div>Pawan Kumar Garg</div>,
+                render: (temp, all) => <div>Punjab</div>,
             },
             {
                 key: 'status',
@@ -128,7 +113,6 @@ const EmployeeList = ({}) => {
             {
                 key: 'user_id',
                 label: 'Action',
-                style: { width: '15%'},
                 render: (temp, all) => (<div>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
@@ -167,10 +151,15 @@ const EmployeeList = ({}) => {
             <div>
                 <PageBox>
                     <div className={styles.headerContainer}>
-                       <div>
-                           <span className={styles.title}>Employee Records</span>
-                           <div className={styles.newLine}/>
-                       </div>
+                        <div>
+                            <span className={styles.title}>Location List</span>
+                            <div className={styles.newLine}/>
+                        </div>
+                        <div>
+                            <ButtonBase onClick={handleSideToggle} className={'createBtn'}>
+                                CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
+                            </ButtonBase>
+                        </div>
                     </div>
 
                     <div>
@@ -194,7 +183,7 @@ const EmployeeList = ({}) => {
                 </PageBox>
                 <SidePanelComponent
                     handleToggle={handleSideToggle}
-                    title={'New Employee'} open={isSidePanel} side={'right'}>
+                    title={'New Location'} open={isSidePanel} side={'right'}>
                     {renderCreateForm}
                 </SidePanelComponent>
             </div>
@@ -202,4 +191,4 @@ const EmployeeList = ({}) => {
 }
 
 
-export default EmployeeList;
+export default LocationList;

@@ -25,7 +25,7 @@ if (localStorage.theme && false) {
 }
 const isKeepLogin = localStorage.keep_login ? JSON.parse(localStorage.keep_login) : false;
 
-if (localStorage.jwt_token && ((!isKeepLogin && sessionStorage.getItem('keep_login')) || isKeepLogin)) {
+if (localStorage.jwt_token) {
     setAuthorizationToken(localStorage.jwt_token);
     store.dispatch({
         type: AUTH_USER,

@@ -22,7 +22,7 @@ import CustomSelectField from "../../components/FormFields/SelectField/SelectFie
 const JobRolesList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
-        isCalling, configFilter, warehouses,toggleBulkDialog,isBulkDialog, handleChangeWareHouse, warehouseId} = useJobRolesList({});
+        isCalling, configFilter, warehouses} = useJobRolesList({});
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.job_roles);
 
