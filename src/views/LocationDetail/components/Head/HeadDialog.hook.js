@@ -6,7 +6,7 @@ const initialForm = {
    name: ''
 }
 
-const useHeadDialogHook = ({orderId, handleToggle,isOpen}) => {
+const useHeadDialogHook = ({orderId, handleToggle,isOpen,showDetails}) => {
     const [form, setForm] = useState(({...initialForm}));
     const [errorData, setErrorData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,19 +34,20 @@ const useHeadDialogHook = ({orderId, handleToggle,isOpen}) => {
 
     const submitToServer = useCallback(() => {
         handleToggle();
-        if (!isSubmitting) {
-            setIsSubmitting(true);
-            handleToggle();
-            // serviceCreateSaleOrderHead({
-            //     ...form,
-            //     order_id: orderId
-            // }).then(res => {
-            //     if (!res.error) {
-            //         handleToggle();
-            //     }
-            //     setIsSubmitting(false);
-            // })
-        }
+        showDetails(true)
+        // if (!isSubmitting) {
+        //     setIsSubmitting(true);
+        //     handleToggle();
+        //     serviceCreateSaleOrderHead({
+        //         ...form,
+        //         order_id: orderId
+        //     }).then(res => {
+        //         if (!res.error) {
+        //             handleToggle();
+        //         }
+        //         setIsSubmitting(false);
+        //     })
+        // }
     }, [form, isSubmitting, setIsSubmitting, orderId, handleToggle]);
 
     const handleSubmit = useCallback(async (e) => {

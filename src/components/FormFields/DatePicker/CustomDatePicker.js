@@ -21,6 +21,7 @@ const CustomDatePicker = ({onChange, minDate, isError, maxDate, value, label, cl
         // console.log(formattedDate);
         onChange && onChange(e);
     }
+    LogUtils.log('CustomDatePicker', isError);
 
     const mD = useMemo(() => {
         const d = new Date();
@@ -43,7 +44,7 @@ const CustomDatePicker = ({onChange, minDate, isError, maxDate, value, label, cl
                     format={
                         "dd-MM-yyyy"
                     }
-                    error={isError}
+                    error={isError ? true : false}
                     minDate={minDate}
                     maxDate={mD}
                     showTodayButton

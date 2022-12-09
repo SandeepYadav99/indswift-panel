@@ -9,13 +9,14 @@ import QuickHeadDialog from "./components/Head/HeadDialog.view";
 
 const LocationDetail = () => {
     const [isHeadDialog, setIsHeadDialog] = useState(false);
+    const [isDetails, setIsDetails] = useState(false)
 
     const toggleHeadDialog = useCallback((data) => {
         setIsHeadDialog(e => !e);
     }, [setIsHeadDialog]);
 
-    const _renderInfo = () => {
-        if(true){
+    const _renderInfo = useCallback(() => {
+        if(!isDetails){
             return (
                 <div className={styles.key}>
                     <span className={styles.value}>Location Head Details:</span>
@@ -25,14 +26,26 @@ const LocationDetail = () => {
         } else {
             return (
                 <div className={styles.left}>
-                    <div className={styles.key}><span className={styles.value}>Employee Name:</span>Aman</div>
-                    <div className={styles.key}><span className={styles.value}>Employee Code:</span>10012</div>
-                    <div className={styles.key}><span className={styles.value}>Phone:</span>849584598</div>
-                    <div className={styles.key}><span className={styles.value}>Email:</span>aman@indswift.in</div>
+                    <div className={styles.key}>
+                        <span className={styles.value}>Location Head Details:</span>
+                        <ButtonBase className={styles.addBtn} onClick={toggleHeadDialog}> Change Head</ButtonBase>
+                    </div>
+
+                   <div className={styles.detailFlex}>
+                       <div>
+                           <img src={require('../../assets/img/performance image@2x.png')} height={50}/>
+                       </div>
+                      <div className={styles.info}>
+                          <div className={styles.key}><span className={styles.value}>Employee Name:</span>Aman</div>
+                          <div className={styles.key}><span className={styles.value}>Employee Code:</span>10012</div>
+                          <div className={styles.key}><span className={styles.value}>Phone:</span>849584598</div>
+                          <div className={styles.key}><span className={styles.value}>Email:</span>aman@indswift.in</div>
+                      </div>
+                   </div>
                 </div>
             )
         }
-    }
+    },[isDetails,setIsDetails])
 
     return (
         <div>
@@ -105,7 +118,7 @@ const LocationDetail = () => {
                 <ButtonBase  type={'button'} className={styles.createBtn}>UPDATE INFORMATION</ButtonBase>
             </div>
 
-            <QuickHeadDialog isOpen={isHeadDialog} handleToggle={toggleHeadDialog}/>
+            <QuickHeadDialog isOpen={isHeadDialog} handleToggle={toggleHeadDialog} showDetails={setIsDetails}/>
         </div>
     )
 }

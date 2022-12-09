@@ -48,6 +48,8 @@ import DepartmentCreateView from "../views/Department/DepartmentCreate.view";
 import SubDepartmentList from "../views/SubDepartment/SubDepartmentList.container";
 import SubDepartmentCreateView from "../views/SubDepartment/SubDepartmentCreate.view";
 import LocationDetail from "../views/LocationDetail/LocationDetail.view";
+import CandidateList from "../views/Candidate/CandidateList.container";
+import CandidateCreateView from "../views/CandidateCreate/CandidateCreate.view";
 
 const dashboardRoutes = [
     {
@@ -67,16 +69,6 @@ const dashboardRoutes = [
     //     slug: 'admin',
     //     is_parent: true,
     // },
-    {
-        path: 'null',
-        sidebarName: "Masters",
-        navbarName: "Masters",
-        icon: EventNote,
-        is_sidebar: true,
-        slug: 'masters',
-        is_parent: true,
-    },
-
     // {
     //     path: "/app/settings",
     //     sidebarName: "App Settings",
@@ -86,6 +78,25 @@ const dashboardRoutes = [
     //     is_sidebar: true,
     //     is_protect: true,
     // },
+    {
+        path: "/job/role",
+        sidebarName: "Job Roles(Designation)",
+        navbarName: "Job Roles(Designation)",
+        icon: PeopleOutlined,
+        component: JobRolesList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+    },
+    {
+        path: "/job/role/create",
+        sidebarName: "Products",
+        navbarName: "Products",
+        icon: LocalOffer,
+        component: JobRoleCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
     {
         path: "/employees",
         sidebarName: "Employee Records",
@@ -106,21 +117,30 @@ const dashboardRoutes = [
         is_protect: true,
     },
     {
-        path: "/job/role",
-        sidebarName: "Job Roles(Designation)",
-        navbarName: "Job Roles(Designation)",
+        path: 'null',
+        sidebarName: "Masters",
+        navbarName: "Masters",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: 'masters',
+        is_parent: true,
+    },
+    {
+        path: "/candidate",
+        sidebarName: "Interview Candidates",
+        navbarName: "Interview Candidates",
         icon: PeopleOutlined,
-        component: JobRolesList,
+        component: CandidateList,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
     },
     {
-        path: "/job/role/create",
-        sidebarName: "Products",
-        navbarName: "Products",
+        path: "/candidate/create",
+        sidebarName: "Location",
+        navbarName: "Location",
         icon: LocalOffer,
-        component: JobRoleCreateView,
+        component: CandidateCreateView,
         is_sidebar: false,
         is_protect: true,
     },

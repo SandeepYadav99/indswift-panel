@@ -32,9 +32,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const QuickHeadDialog = ({isOpen, handleToggle, orderId}) => {
+const QuickHeadDialog = ({isOpen, handleToggle, orderId,showDetails}) => {
     const classes = useStyles();
-    const { changeTextData, errorData, form, handleSubmit, onBlurHandler, removeError, isSubmitting } = useHeadDialogHook({orderId, handleToggle,isOpen});
+    const { changeTextData, errorData, form, handleSubmit, onBlurHandler, removeError, isSubmitting } = useHeadDialogHook({orderId, handleToggle,isOpen,showDetails});
     return (
         <div>
             <Dialog

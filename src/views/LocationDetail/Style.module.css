@@ -120,4 +120,13 @@
     color: #2896E9 !important;
     font-weight: 600 !important;
     font-size: 0.7rem !important;
+    margin-left: 60px !important;
+}
+
+.detailFlex{
+    display: flex;
+}
+
+.info{
+    margin-left: 10px;
 }

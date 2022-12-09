@@ -23,7 +23,8 @@
     display: block;
     padding: 10px 5px;
     color: #fff;
-    background: #4B80EA;
+    background-image: linear-gradient(265deg , #7467F0,#2896E9);
+    /*background: #4B80EA;*/
     transition: background 0.3s;
     /*max-width: 90px;*/
 }
