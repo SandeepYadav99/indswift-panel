@@ -27,6 +27,8 @@ import LocationReducer from "./Location.reducer";
 import DepartmentReducer from "./Department.reducer";
 import SubDepartmentReducer from "./SubDepartment.reducer";
 import CandidateReducer from "./Candidate.reducer";
+import AnnualReducer from "./Annual.reducer";
+import ManpowerReducer from "./Manpower.reducer"
 
 const rootReducer = combineReducers({
     state: (state = {}) => state,
@@ -53,6 +55,8 @@ const rootReducer = combineReducers({
     department: DepartmentReducer,
     subdepartment: SubDepartmentReducer,
     candidate: CandidateReducer,
+    annual: AnnualReducer,
+    manpower: ManpowerReducer,
     // form: formReducer,
 });
 

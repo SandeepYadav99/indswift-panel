@@ -199,8 +199,8 @@ input[type=radio] + label:hover {
     color: #ff4d4f;
 }
 .warning {
-    background-color: rgba(250,139,12,.06274509803921569);
-    color: #fa8b0c;
+    border: 1px solid #20c997;
+    color: #20c997;
 }
 
 .waiting {

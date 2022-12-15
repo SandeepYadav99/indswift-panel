@@ -3,30 +3,30 @@
  */
 import store from '../store';
 import Constants from '../config/constants';
-import {serviceCreateEmployee, serviceGetEmployee, serviceUpdateEmployee,serviceDeleteEmployee} from "../services/Employee.service";
+import {serviceCreateAnnual, serviceGetAnnual, serviceUpdateAnnual,serviceDeleteAnnual} from "../services/Annual.service";
 import EventEmitter from "../libs/Events.utils";
 
-export const FETCH_INIT = 'FETCH_INIT_EMPLOYEE';
-export const FETCHED = 'FETCHED_EMPLOYEE';
-export const FETCHED_FAIL = 'FETCHED_FAIL_EMPLOYEE';
-export const FETCHED_FILTER = 'FETCHED_FILTER_EMPLOYEE';
+export const FETCH_INIT = 'FETCH_INIT_ANNUAL';
+export const FETCHED = 'FETCHED_ANNUAL';
+export const FETCHED_FAIL = 'FETCHED_FAIL_ANNUAL';
+export const FETCHED_FILTER = 'FETCHED_FILTER_ANNUAL';
 // export const NEXT_PREQUESTS = 'NEXT_PREQUESTS';
 // export const PREV_PREQUESTS = 'PREV_PREQUESTS';
-export const FETCH_NEXT = 'FETCH_NEXT_EMPLOYEE';
-export const FILTER = 'FILTER_EMPLOYEE';
-export const RESET_FILTER = 'RESET_FILTER_EMPLOYEE';
-export const SET_SORTING = 'SET_SORTING_EMPLOYEE';
-export const SET_FILTER = 'SET_FILTER_EMPLOYEE';
-export const SET_PAGE = 'SET_PAGE_EMPLOYEE';
-export const CHANGE_PAGE = 'CHANGE_PAGE_EMPLOYEE';
-export const CHANGE_STATUS= 'CHANGE_STATE_EMPLOYEE';
-export const SET_SERVER_PAGE = 'SET_SERVER_PAGE_EMPLOYEE';
-export const CREATE_DATA = 'CREATE_EMPLOYEE';
-export const UPDATE_DATA = 'UPDATE_EMPLOYEE';
-export const DELETE_ITEM = 'DELETE_EMPLOYEE';
+export const FETCH_NEXT = 'FETCH_NEXT_ANNUAL';
+export const FILTER = 'FILTER_ANNUAL';
+export const RESET_FILTER = 'RESET_FILTER_ANNUAL';
+export const SET_SORTING = 'SET_SORTING_ANNUAL';
+export const SET_FILTER = 'SET_FILTER_ANNUAL';
+export const SET_PAGE = 'SET_PAGE_ANNUAL';
+export const CHANGE_PAGE = 'CHANGE_PAGE_ANNUAL';
+export const CHANGE_STATUS= 'CHANGE_STATE_ANNUAL';
+export const SET_SERVER_PAGE = 'SET_SERVER_PAGE_ANNUAL';
+export const CREATE_DATA = 'CREATE_ANNUAL';
+export const UPDATE_DATA = 'UPDATE_ANNUAL';
+export const DELETE_ITEM = 'DELETE_ANNUAL';
 
-export function actionFetchEmployee(index = 1, sorting = {}, filter = {}) {
-    const request = serviceGetEmployee({ index, row: sorting.row, order: sorting.order, ...filter });
+export function actionFetchAnnual(index = 1, sorting = {}, filter = {}) {
+    const request = serviceGetAnnual({ index, row: sorting.row, order: sorting.order, ...filter });
     return (dispatch) => {
         dispatch({type: FETCH_INIT, payload: null});
         request.then((data) => {
@@ -45,8 +45,8 @@ export function actionFetchEmployee(index = 1, sorting = {}, filter = {}) {
     };
 }
 
-export function actionCreateEmployee(data) {
-    const request = serviceCreateEmployee(data);
+export function actionCreateAnnual(data) {
+    const request = serviceCreateAnnual(data);
     return (dispatch) => {
         request.then((data) => {
             if (!data.error) {
@@ -57,8 +57,8 @@ export function actionCreateEmployee(data) {
     }
 }
 
-export function actionUpdateEmployee(data) {
-    const request = serviceUpdateEmployee(data);
+export function actionUpdateAnnual(data) {
+    const request = serviceUpdateAnnual(data);
     return (dispatch) => {
         request.then((data) => {
             if (!data.error) {
@@ -68,15 +68,15 @@ export function actionUpdateEmployee(data) {
     }
 }
 
-export function actionDeleteEmployee(id) {
-    const request = serviceDeleteEmployee({ id: id});
+export function actionDeleteAnnual(id) {
+    const request = serviceDeleteAnnual({ id: id});
     return (dispatch) => {
         dispatch({type: DELETE_ITEM, payload: id})
     }
 }
 
 
-export function actionChangePageEmployeeRequests(page) {
+export function actionChangePageAnnualRequests(page) {
     return (dispatch) => {
         dispatch({type: CHANGE_PAGE, payload: page})
     }
@@ -96,7 +96,7 @@ export function actionChangePageEmployeeRequests(page) {
 //     };
 // }
 
-export function actionFilterEmployeeRequests(value) {
+export function actionFilterAnnualRequests(value) {
     const request = null;////serviceFetchProviderRequests(value);
     return (dispatch) => {
         dispatch({type: FETCH_INIT, payload: null});
@@ -108,7 +108,7 @@ export function actionFilterEmployeeRequests(value) {
 }
 
 
-export function actionChangeStatusEmployeeRequests(id, status) {
+export function actionChangeStatusAnnualRequests(id, status) {
     // const request = serviceFetchProviderRequests(value);
     return (dispatch) => {
         dispatch({type: CHANGE_STATUS, payload: {id, status}});
@@ -119,15 +119,15 @@ export function actionChangeStatusEmployeeRequests(id, status) {
     };
 }
 
-export function actionResetFilterEmployeeRequests() {
+export function actionResetFilterAnnualRequests() {
     return {
         type: RESET_FILTER,
         payload: null,
     };
 }
 
-export function actionSetPageEmployeeRequests(page) {
-    const stateData = store.getState().employee;
+export function actionSetPageAnnualRequests(page) {
+    const stateData = store.getState().annual;
     const currentPage = stateData.currentPage;
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;
@@ -136,7 +136,7 @@ export function actionSetPageEmployeeRequests(page) {
     const serverPage = stateData.serverPage;
 
     if (totalLength <= ((page + 1) * Constants.DEFAULT_PAGE_VALUE)) {
-        store.dispatch(actionFetchEmployee(serverPage + 1, sortingData, {query, query_data: queryData}));
+        store.dispatch(actionFetchAnnual(serverPage + 1, sortingData, {query, query_data: queryData}));
         // this.props.fetchNextUsers(this.props.serverPage + 1, this.props.sorting_data.row, this.props.sorting_data.order, { query: this.props.query, query_data: this.props.query_data });
     }
 

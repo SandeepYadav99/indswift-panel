@@ -50,6 +50,9 @@ import SubDepartmentCreateView from "../views/SubDepartment/SubDepartmentCreate.
 import LocationDetail from "../views/LocationDetail/LocationDetail.view";
 import CandidateList from "../views/Candidate/CandidateList.container";
 import CandidateCreateView from "../views/CandidateCreate/CandidateCreate.view";
+import AnnualList from "../views/AnnualBudgets/AnnualList.container";
+import ManpowerList from "../views/ManpowerPlanning/ManpowerList.container";
+
 
 const dashboardRoutes = [
     {
@@ -124,6 +127,37 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'masters',
         is_parent: true,
+    },
+    {
+        path: 'null',
+        sidebarName: "Budget & Planning",
+        navbarName: "Budget & Planning",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: 'budget',
+        is_parent: true,
+    },
+    {
+        path: "/annual",
+        sidebarName: "Annual Budgets",
+        navbarName: "Annual Budgets",
+        icon: PeopleOutlined,
+        component: AnnualList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'budget',
+    },
+    {
+        path: "/manpower",
+        sidebarName: "Manpower Planning",
+        navbarName: "Manpower Planning",
+        icon: PeopleOutlined,
+        component: ManpowerList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'budget',
     },
     {
         path: "/candidate",
