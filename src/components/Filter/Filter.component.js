@@ -15,6 +15,11 @@ import cstyles from './Style.module.css';
 const styles = {
     flatButton: {
         float: 'right',
+        border: '1px solid #2896E9',
+        borderRadius: '30px',
+        textTransform: 'capitalize',
+        padding: '6px 15px',
+        color: '#2896E9'
     },
 };
 const useStyles = {
@@ -286,7 +291,9 @@ class FilterComponent extends Component {
                             {/*    containerElement={<FilterIcon/>}*/}
                             {/*    primary*/}
                             {/*/>*/}
-                            <Button style={styles.flatButton} onClick={this.handleTouchTap} ><FilterIcon className={'filterColor'}/></Button>
+                            <div>
+                                <Button style={styles.flatButton} onClick={this.handleTouchTap} ><span style={{marginRight:'7px'}}>Filter</span><FilterIcon className={'filterColor'}/></Button>
+                            </div>
                             {/*<Menu*/}
                             {/*    id="simple-menu"*/}
                             {/*    anchorEl={this.state.anchorEl}*/}

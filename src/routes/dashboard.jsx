@@ -52,7 +52,9 @@ import CandidateList from "../views/Candidate/CandidateList.container";
 import CandidateCreateView from "../views/CandidateCreate/CandidateCreate.view";
 import AnnualList from "../views/AnnualBudgets/AnnualList.container";
 import ManpowerList from "../views/ManpowerPlanning/ManpowerList.container";
-
+import JobOpeningsList from "../views/JobOpenings/JobOpeningsList.container";
+import JobOpeningCreateView from "../views/JobOpeningCreate/JobOpeningCreate.view";
+import JobOpeningDetail from "../views/JobOpeningDetail/JobOpeningDetail.view";
 
 const dashboardRoutes = [
     {
@@ -242,6 +244,34 @@ const dashboardRoutes = [
         navbarName: "SubDepartments",
         icon: LocalOffer,
         component: SubDepartmentCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: "/job/openings",
+        sidebarName: "Job Openings",
+        navbarName: "Job Openings",
+        icon: PeopleOutlined,
+        component: JobOpeningsList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+    },
+    {
+        path: "/job/openings/create",
+        sidebarName: "Job Openings Create",
+        navbarName: "Job Openings Create",
+        icon: LocalOffer,
+        component: JobOpeningCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: "/job/openings/detail",
+        sidebarName: "Job Openings Detail",
+        navbarName: "Job Openings Detail",
+        icon: LocalOffer,
+        component: JobOpeningDetail,
         is_sidebar: false,
         is_protect: true,
     },

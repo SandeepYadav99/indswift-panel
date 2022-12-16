@@ -23,6 +23,7 @@ import Services from './Service.reducer';
 import LeadReducer from './Lead.reducer';
 import EmployeeReducer from "./Employee.reducer";
 import JobRolesReducer from "./JobRoles.reducer";
+import JobOpeningsReducer from "./JobOpenings.reducer";
 import LocationReducer from "./Location.reducer";
 import DepartmentReducer from "./Department.reducer";
 import SubDepartmentReducer from "./SubDepartment.reducer";
@@ -51,6 +52,7 @@ const rootReducer = combineReducers({
     employee: EmployeeReducer,
     currency: CurrencyReducer,
     job_roles: JobRolesReducer,
+    job_openings: JobOpeningsReducer,
     location: LocationReducer,
     department: DepartmentReducer,
     subdepartment: SubDepartmentReducer,
