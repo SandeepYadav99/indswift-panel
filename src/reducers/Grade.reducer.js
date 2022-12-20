@@ -17,7 +17,7 @@ import {
     CREATE_DATA,
     UPDATE_DATA,
     DELETE_ITEM
-} from '../actions/SubDepartment.action';
+} from '../actions/Grade.action';
 import Constants from '../config/constants';
 
 function mapPresetPRequest(all, pageId) {

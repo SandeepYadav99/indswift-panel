@@ -130,3 +130,9 @@
 .info{
     margin-left: 10px;
 }
+
+.btmFlex{
+    display: flex;
+    justify-content: space-between;
+    /*align-items: center;*/
+}

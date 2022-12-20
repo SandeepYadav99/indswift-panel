@@ -1,72 +1,71 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {
-    actionCreateManpower, actionDeleteManpower,
-    actionFetchManpower,
-    actionSetPageManpowerRequests,
-    actionUpdateManpower
-} from "../../actions/Manpower.action";
+    actionCreateCadre,
+    actionDeleteCadre,
+    actionFetchCadre,
+    actionSetPageCadre,
+    actionUpdateCadre
+} from "../../actions/Cadre.action";
 import historyUtils from "../../libs/history.utils";
-import {serviceGetCustomList} from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
 
 
-const useManpowerList = ({}) => {
+const useCadreList = ({}) => {
     const [isSidePanel, setSidePanel] = useState(false);
-    const [isInfoPanel, setInfoPanel] = useState(false);
-    const [selectedManpowerId, setSelectedManpowerId] = useState(null);
     const [isCalling, setIsCalling] = useState(false);
     const [editData, setEditData] = useState(null);
-    const [warehouses, setWarehouses] = useState([]);
-    const [selected,setSelected] = useState([]);
-    const [allSelected, setAllSelected] = useState(false)
-    const [warehouseId, setWareHouseId] = useState('');
-    const [type, setType] = useState('');
     const dispatch = useDispatch();
     const isMountRef = useRef(false);
+    const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.subdepartment);
 
-    const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.manpower);
     useEffect(() => {
-
+        // dispatch(actionFetchCadre());
     }, []);
 
-    const resetData = useCallback((sort = {}, updateQuery = {}) => {
-        dispatch(actionFetchManpower(1, {sortingData, ...sort}, {
+    useEffect(() => {
+        dispatch(actionFetchCadre(1, sortingData, {
             query: isMountRef.current ? query : null,
             query_data: isMountRef.current ? queryData : null,
-            warehouse_id: warehouseId,
-            type: type,
-            ...updateQuery
         }));
         isMountRef.current = true;
-    }, [query, queryData, warehouseId, type, sortingData])
+    }, []);
 
-    useEffect(() => {
-        if (warehouseId) {
-            resetData();
-        }
-    }, [warehouseId, type]);
-
+    // const handleCellClick = (rowIndex, columnIndex, row, column) => {
+    //     console.log(`handleCellClick rowIndex: ${rowIndex} columnIndex: ${columnIndex}`);
+    // }
+    // const handlePreviousPageClick = () => {
+    //     console.log('handlePreviousPageClick', 'PREV');
+    // }
+    //
+    // const handleNextPageClick = () => {
+    //     console.log('handleNextPageClick', 'NEXT');
+    // }
     const handlePageChange = useCallback((type) => {
         console.log('_handlePageChange', type);
-        dispatch(actionSetPageManpowerRequests(type));
+        dispatch(actionSetPageCadre(type));
     }, []);
 
     const handleDataSave = useCallback((data, type) =>  {
         // this.props.actionChangeStatus({...data, type: type});
         if (type == 'CREATE') {
-            dispatch(actionCreateManpower(data));
+            dispatch(actionCreateCadre(data));
         } else {
-            dispatch(actionUpdateManpower(data));
+            dispatch(actionUpdateCadre(data));
         }
         setSidePanel(e => !e);
         setEditData(null);
     }, [setSidePanel, setEditData]);
 
     const queryFilter = useCallback((key, value) => {
-        resetData({}, {query: key == 'SEARCH_TEXT' ? value : query,
-            query_data: key == 'FILTER_DATA' ? value : queryData});
-    }, [query, queryData, resetData]);
+        console.log('_queryFilter', key, value);
+        // dispatch(actionSetPageCadreRequests(1));
+        dispatch(actionFetchCadre(1, sortingData, {
+            query: key == 'SEARCH_TEXT' ? value : query,
+            query_data: key == 'FILTER_DATA' ? value : queryData,
+        }));
+        // dispatch(actionFetchCadre(1, sortingData))
+    }, [sortingData, query, queryData,]);
 
     const handleFilterDataChange = useCallback((value) => {
         console.log('_handleFilterDataChange', value);
@@ -79,31 +78,24 @@ const useManpowerList = ({}) => {
     }, [queryFilter]);
 
 
-
     const handleSortOrderChange = useCallback((row, order) => {
         console.log(`handleSortOrderChange key:${row} order: ${order}`);
-        dispatch(actionSetPageManpowerRequests(1));
-        resetData({row, order}, {});
-    }, [resetData]);
+        dispatch(actionSetPageCadre(1));
+        dispatch(actionFetchCadre(1, {row, order}, {
+            query: query,
+            query_data: queryData,
+        }))
+    }, [query, queryData]);
 
     const handleRowSize = (page) => {
         console.log(page);
     }
 
     const handleDelete = useCallback((id) => {
-        dispatch(actionDeleteManpower(id));
+        dispatch(actionDeleteCadre(id));
         setSidePanel(false);
         setEditData(null);
     }, [setEditData, setSidePanel]);
-
-    const handleSideInfo = useCallback((data) => {
-        setInfoPanel(e => !e);
-        setSelectedManpowerId(data?.id);
-    }, [setInfoPanel,setSelectedManpowerId]);
-
-    const handleQueryInfo =  useCallback((data) => {
-        setInfoPanel(true);
-    },[]);
 
     const handleEdit = useCallback((data) => {
         setEditData(data);
@@ -111,31 +103,28 @@ const useManpowerList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleSideToggle = useCallback(() => {
-        setSidePanel(e => !e);
-        setEditData(null);
+        historyUtils.push('/grade/cadre/create')
+        // setSidePanel(e => !e);
+        // setEditData(null);
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
         LogUtils.log('data', data);
-        historyUtils.push('/manpower/detail/'+data.id)
+        historyUtils.push('/grade/cadre/detail/') //+data.id
+    }, []);
+
+    const handleSubCadre = useCallback((data) => {
+        historyUtils.push('/grade/cadre/') //+data.id
     }, []);
 
     const configFilter = useMemo(() => {
         return [
             // {label: 'Country', name: 'country', type: 'text'},
             // {label: 'City', name: 'city', type: 'text'},
-            // {label: 'Request Date', name: 'createdAt', type: 'date'},
-            {label: 'Status', name: 'status', type: 'select', fields: ['INACTIVE', 'ACTIVE']},
+            {label: 'Created Date', options: { maxDate: new Date() },  name: 'createdAt', type: 'date'},
+            // {label: 'Status', name: 'status', type: 'select', fields: ['INACTIVE', 'ACTIVE']},
         ];
     }, []);
-
-
-    const handleChangeWareHouse = useCallback((wareHouseId) => {
-        LogUtils.log('wareHouseId', wareHouseId);
-        setWareHouseId(wareHouseId);
-        setSelected([])
-        setAllSelected(false);
-    }, [setWareHouseId, setSelected, setAllSelected])
 
 
     return {
@@ -156,19 +145,8 @@ const useManpowerList = ({}) => {
         editData,
         isSidePanel,
         configFilter,
-        warehouses,
-        handleChangeWareHouse,
-        warehouseId,
-        selected,
-        allSelected,
-        setAllSelected,
-        type, setType,
-        isInfoPanel,
-        handleSideInfo,
-        selectedManpowerId,
-        setSelectedManpowerId,
-        handleQueryInfo
+        handleSubCadre
     }
 };
 
-export default useManpowerList;
+export default useCadreList;

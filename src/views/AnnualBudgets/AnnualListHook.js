@@ -125,7 +125,7 @@ const useAnnualList = ({}) => {
             // {label: 'Country', name: 'country', type: 'text'},
             // {label: 'City', name: 'city', type: 'text'},
             // {label: 'Request Date', name: 'createdAt', type: 'date'},
-            {label: 'Destination Warehouse', name: 'destination_warehouse_id', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: []},
+             {label: 'Status', name: 'status', type: 'select', fields: ['SANCTIONED']},
         ];
     }, []);
 

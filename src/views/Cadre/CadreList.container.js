@@ -5,7 +5,7 @@ import React, {Component, useCallback, useEffect, useMemo} from 'react';
 import {Button, Paper, Checkbox, IconButton, MenuItem, ButtonBase} from '@material-ui/core';
 import classNames from 'classnames';
 import {connect, useSelector} from 'react-redux';
-import {Add, InfoOutlined, PrintOutlined} from '@material-ui/icons';
+import {Add, InfoOutlined, OpenInNew, PrintOutlined} from '@material-ui/icons';
 import PageBox from '../../components/PageBox/PageBox.component';
 import SidePanelComponent from '../../components/SidePanel/SidePanel.component';
 import styles from './Style.module.css';
@@ -13,16 +13,18 @@ import DataTables from '../../Datatables/Datatable.table';
 import Constants from '../../config/constants';
 import FilterComponent from '../../components/Filter/Filter.component';
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
-import useLocationList from "./LocationListHook";
+import useCadreList from "./CadreListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
-import CreateView from './Location.view';
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import history from "../../libs/history.utils"
+// import CreateView from './Cadre.view';
 
-const LocationList = ({}) => {
+const CadreList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
-        isCalling, configFilter, warehouses} = useLocationList({});
+        isCalling, configFilter, handleSubCadre} = useCadreList({});
 
-    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.location);
+    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.subdepartment);
 
 
     const renderStatus = useCallback((status) => {
@@ -40,7 +42,7 @@ const LocationList = ({}) => {
                     {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
                     {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Isli Samba</span> <br/>
+                        <span className={styles.productName}>Support Staff</span> <br/>
                     </div>
                 </div>
             );
@@ -58,46 +60,39 @@ const LocationList = ({}) => {
     },[])
 
 
-    const renderCreateForm = useMemo(() => {
-        return (<CreateView
-            handleDataSave={handleDataSave}
-            data={editData}
-            warehouse={warehouses}
-            handleDelete={handleDelete}/>);
-    }, [handleDataSave, editData, warehouses, handleDelete]);
+    // const renderCreateForm = useMemo(() => {
+    //     return (<CreateView
+    //         handleDataSave={handleDataSave}
+    //         data={editData}
+    //
+    //         handleDelete={handleDelete}/>);
+    // }, [handleDataSave, editData, warehouses, handleDelete]);
 
     const tableStructure = useMemo(() => {
         return [
-
+            {
+                key: 'grade',
+                label: 'Grade',
+                sortable: false,
+                render: (temp, all) => <div>G8</div>,
+            },
             {
                 key: 'name',
-                label: 'Name',
+                label: 'Level',
                 sortable: true,
                 render: (value, all) => <div>{renderFirstCell(all)}</div>,
             },
             {
-                key: 'code',
-                label: 'Code',
+                key: 'cadre',
+                label: 'Cadre',
                 sortable: false,
-                render: (temp, all) => <div>SAMBA</div>,
+                render: (temp, all) => <div>SS-0</div>,
             },
             {
-                key: 'address',
-                label: 'Address',
+                key: 'cadre',
+                label: 'Cadre Level',
                 sortable: false,
-                render: (temp, all) => <div>Dera Bassi</div>,
-            },
-            {
-                key: 'city',
-                label: 'City',
-                sortable: false,
-                render: (temp, all) => <div>Dera Bassi</div>,
-            },
-            {
-                key: 'state',
-                label: 'State',
-                sortable: false,
-                render: (temp, all) => <div>Punjab</div>,
+                render: (temp, all) => <div>2</div>,
             },
             {
                 key: 'status',
@@ -109,9 +104,8 @@ const LocationList = ({}) => {
                 key: 'user_id',
                 label: 'Action',
                 render: (temp, all) => (<div>
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={()=> handleSideToggle(all)}><Edit fontSize={'small'} /></IconButton>
-                    {/*onClick={() => { handleEdit(all) }}*/}
+                    {/*<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >*/}
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
                 </div>),
             },
 
@@ -147,8 +141,11 @@ const LocationList = ({}) => {
                 <PageBox>
                     <div className={styles.headerContainer}>
                         <div>
-                            <span className={styles.title}>Location List</span>
-                            <div className={styles.newLine}/>
+                            <ButtonBase onClick={() => (history.goBack())}>
+                                <ArrowBackIosIcon fontSize={'small'} className={styles.backArrow}/>
+                            </ButtonBase>
+                            <span className={styles.title}>G8 > Cadre List</span>
+                            <div className={styles.newLine} style={{marginLeft:'20px'}}/>
                         </div>
                         <div>
                             <ButtonBase onClick={handleSideToggle} className={'createBtn'}>
@@ -176,14 +173,14 @@ const LocationList = ({}) => {
                     </div>
 
                 </PageBox>
-                <SidePanelComponent
-                    handleToggle={handleSideToggle}
-                    title={'New Location'} open={isSidePanel} side={'right'}>
-                    {renderCreateForm}
-                </SidePanelComponent>
+                {/*<SidePanelComponent*/}
+                {/*    handleToggle={handleSideToggle}*/}
+                    {/*    title={'New Cadre'} open={isSidePanel} side={'right'}>*/}
+                {/*    /!*{renderCreateForm}*!/*/}
+                {/*</SidePanelComponent>*/}
             </div>
         )
 }
 
 
-export default LocationList;
+export default CadreList;

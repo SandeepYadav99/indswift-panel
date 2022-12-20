@@ -27,6 +27,8 @@ import JobOpeningsReducer from "./JobOpenings.reducer";
 import LocationReducer from "./Location.reducer";
 import DepartmentReducer from "./Department.reducer";
 import SubDepartmentReducer from "./SubDepartment.reducer";
+import GradeReducer from "./Grade.reducer";
+import CadreReducer from "./Cadre.reducer";
 import CandidateReducer from "./Candidate.reducer";
 import AnnualReducer from "./Annual.reducer";
 import ManpowerReducer from "./Manpower.reducer"
@@ -56,6 +58,8 @@ const rootReducer = combineReducers({
     location: LocationReducer,
     department: DepartmentReducer,
     subdepartment: SubDepartmentReducer,
+    grade: GradeReducer,
+    cadre: CadreReducer,
     candidate: CandidateReducer,
     annual: AnnualReducer,
     manpower: ManpowerReducer,

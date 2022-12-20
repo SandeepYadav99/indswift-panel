@@ -4,6 +4,7 @@ import {ButtonBase} from "@material-ui/core";
 import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import classnames from "classnames";
+import CandidatesRecordTable from "./components/CandidatesTable/CandidatesTable.component";
 
 
 const JobOpeningDetail = () => {
@@ -57,9 +58,20 @@ const JobOpeningDetail = () => {
                 </div>
             </div>
 
-            {/*<div className={styles.btnCont}>*/}
-            {/*    <ButtonBase  type={'button'} className={styles.createBtn}>UPDATE INFORMATION</ButtonBase>*/}
-            {/*</div>*/}
+            <div className={styles.plainPaper}>
+                <div className={styles.btmFlex}>
+                    <div style={{flex:'1'}}>
+                        <div className={styles.heading}>Candidates List</div>
+                        <CandidatesRecordTable/>
+                    </div>
+                    <div style={{marginLeft:'20px'}}>
+                        <ButtonBase className={styles.createBtn}>
+                            Add Candidate
+                        </ButtonBase>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
     )

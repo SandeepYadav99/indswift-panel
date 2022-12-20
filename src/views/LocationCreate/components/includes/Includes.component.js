@@ -191,7 +191,7 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
                         handlePress('ADDITION', 0)
                     }}
                 >
-                    <Add fontSize={"small"}/> <span>Add Qualification</span>
+                    <Add fontSize={"small"}/> <span>Department</span>
                 </ButtonBase>
             </div>
             {/*</div>*/}

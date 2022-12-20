@@ -70,22 +70,10 @@ const EmployeeList = ({}) => {
     const tableStructure = useMemo(() => {
         return [
             {
-                key: 'sr_no',
-                label: 'SR No.',
-                sortable: false,
-                render: (temp, all) => <div>1</div>,
-            },
-            {
                 key: 'name',
                 label: 'Employee Name',
                 sortable: true,
                 render: (value, all) => <div>{renderFirstCell(all)}</div>,
-            },
-            {
-                key: 'grade',
-                label: 'Grade',
-                sortable: false,
-                render: (temp, all) => <div>G1/P1</div>,
             },
             {
                 key: 'location',

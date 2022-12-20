@@ -55,6 +55,11 @@ import ManpowerList from "../views/ManpowerPlanning/ManpowerList.container";
 import JobOpeningsList from "../views/JobOpenings/JobOpeningsList.container";
 import JobOpeningCreateView from "../views/JobOpeningCreate/JobOpeningCreate.view";
 import JobOpeningDetail from "../views/JobOpeningDetail/JobOpeningDetail.view";
+import GradeList from "../views/Grade/GradeList.container";
+import GradeCreateView from "../views/Grade/GradeCreate.view";
+import CadreList from "../views/Cadre/CadreList.container";
+import CadreCreateView from "../views/Cadre/CadreCreate.view";
+
 
 const dashboardRoutes = [
     {
@@ -244,6 +249,44 @@ const dashboardRoutes = [
         navbarName: "SubDepartments",
         icon: LocalOffer,
         component: SubDepartmentCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: "/grade",
+        sidebarName: "Grades & Cadre",
+        navbarName: "Grades & Cadre",
+        icon: PeopleOutlined,
+        component: GradeList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'masters',
+    },
+    {
+        path: "/grade/create",
+        sidebarName: "Grades & Cadre",
+        navbarName: "Grades & Cadre",
+        icon: LocalOffer,
+        component: GradeCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: '/grade/cadre',
+        sidebarName: "Cadre",
+        navbarName: "Cadre",
+        icon: Subtitles,
+        component: CadreList,
+        is_sidebar: false,
+        should_regex: true
+    },
+    {
+        path: "/grade/cadre/create",
+        sidebarName: "Cadre",
+        navbarName: "Cadre",
+        icon: LocalOffer,
+        component: CadreCreateView,
         is_sidebar: false,
         is_protect: true,
     },

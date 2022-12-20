@@ -17,7 +17,7 @@ const OfficialInfo = () => {
                     <br/>
                     <div className={styles.mainFlex}>
                         <div className={styles.left}>
-                            <div className={styles.key}><span className={styles.value}>RAP ID:</span>ISLL/HR/ABC/KK</div>
+                            <div className={styles.key}><span className={styles.value}>PRC:</span>ISLL/HR/ABC/KK</div>
                             <div className={styles.key}><span className={styles.value}>Type Of Vacancy:</span>RAP</div>
                             <div className={styles.key}><span className={styles.value}>Place of Posting:</span>Nabha</div>
                             <div className={styles.key}><span className={styles.value}>Candidate Grade:</span>G1</div>

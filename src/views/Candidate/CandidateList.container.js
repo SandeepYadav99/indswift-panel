@@ -87,8 +87,8 @@ const CandidateList = ({}) => {
                 render: (temp, all) => <div>804335234<br/>abc12@gmail.com</div>,
             },
             {
-                key: 'rap_id',
-                label: 'RAP ID',
+                key: 'prc',
+                label: 'PRC',
                 sortable: false,
                 render: (temp, all) => <div>ISLL/HR/ABC/KK</div>,
             },

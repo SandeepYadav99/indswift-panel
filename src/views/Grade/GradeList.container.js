@@ -5,7 +5,7 @@ import React, {Component, useCallback, useEffect, useMemo} from 'react';
 import {Button, Paper, Checkbox, IconButton, MenuItem, ButtonBase} from '@material-ui/core';
 import classNames from 'classnames';
 import {connect, useSelector} from 'react-redux';
-import {Add, InfoOutlined, PrintOutlined} from '@material-ui/icons';
+import {Add, InfoOutlined, OpenInNew, PrintOutlined} from '@material-ui/icons';
 import PageBox from '../../components/PageBox/PageBox.component';
 import SidePanelComponent from '../../components/SidePanel/SidePanel.component';
 import styles from './Style.module.css';
@@ -13,17 +13,16 @@ import DataTables from '../../Datatables/Datatable.table';
 import Constants from '../../config/constants';
 import FilterComponent from '../../components/Filter/Filter.component';
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
-import useLocationList from "./LocationListHook";
+import useGradeList from "./GradeListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
-import CreateView from './Location.view';
+// import CreateView from './Grade.view';
 
-const LocationList = ({}) => {
+const GradeList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
-        isCalling, configFilter, warehouses} = useLocationList({});
+        isCalling, configFilter, handleSubGrade} = useGradeList({});
 
-    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.location);
-
+    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.grade);
 
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status} />
@@ -40,7 +39,7 @@ const LocationList = ({}) => {
                     {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
                     {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Isli Samba</span> <br/>
+                        <span className={styles.productName}>Human Resource</span> <br/>
                     </div>
                 </div>
             );
@@ -58,46 +57,33 @@ const LocationList = ({}) => {
     },[])
 
 
-    const renderCreateForm = useMemo(() => {
-        return (<CreateView
-            handleDataSave={handleDataSave}
-            data={editData}
-            warehouse={warehouses}
-            handleDelete={handleDelete}/>);
-    }, [handleDataSave, editData, warehouses, handleDelete]);
+    // const renderCreateForm = useMemo(() => {
+    //     return (<CreateView
+    //         handleDataSave={handleDataSave}
+    //         data={editData}
+    //
+    //         handleDelete={handleDelete}/>);
+    // }, [handleDataSave, editData, warehouses, handleDelete]);
 
     const tableStructure = useMemo(() => {
         return [
-
+            {
+                key: 'grade',
+                label: 'Grade',
+                sortable: false,
+                render: (temp, all) => <div>G8</div>,
+            },
             {
                 key: 'name',
-                label: 'Name',
+                label: 'Level Name',
                 sortable: true,
                 render: (value, all) => <div>{renderFirstCell(all)}</div>,
             },
             {
-                key: 'code',
-                label: 'Code',
+                key: 'level',
+                label: 'Grade Level',
                 sortable: false,
-                render: (temp, all) => <div>SAMBA</div>,
-            },
-            {
-                key: 'address',
-                label: 'Address',
-                sortable: false,
-                render: (temp, all) => <div>Dera Bassi</div>,
-            },
-            {
-                key: 'city',
-                label: 'City',
-                sortable: false,
-                render: (temp, all) => <div>Dera Bassi</div>,
-            },
-            {
-                key: 'state',
-                label: 'State',
-                sortable: false,
-                render: (temp, all) => <div>Punjab</div>,
+                render: (temp, all) => <div>3</div>,
             },
             {
                 key: 'status',
@@ -109,9 +95,10 @@ const LocationList = ({}) => {
                 key: 'user_id',
                 label: 'Action',
                 render: (temp, all) => (<div>
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={()=> handleSideToggle(all)}><Edit fontSize={'small'} /></IconButton>
-                    {/*onClick={() => { handleEdit(all) }}*/}
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleSubGrade(all)}}>
+                        <OpenInNew fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>Cadre</span>
+                    </IconButton >
                 </div>),
             },
 
@@ -147,7 +134,7 @@ const LocationList = ({}) => {
                 <PageBox>
                     <div className={styles.headerContainer}>
                         <div>
-                            <span className={styles.title}>Location List</span>
+                            <span className={styles.title}>Grade/Level</span>
                             <div className={styles.newLine}/>
                         </div>
                         <div>
@@ -176,14 +163,14 @@ const LocationList = ({}) => {
                     </div>
 
                 </PageBox>
-                <SidePanelComponent
-                    handleToggle={handleSideToggle}
-                    title={'New Location'} open={isSidePanel} side={'right'}>
-                    {renderCreateForm}
-                </SidePanelComponent>
+                {/*<SidePanelComponent*/}
+                {/*    handleToggle={handleSideToggle}*/}
+                    {/*    title={'New Grade'} open={isSidePanel} side={'right'}>*/}
+                {/*    /!*{renderCreateForm}*!/*/}
+                {/*</SidePanelComponent>*/}
             </div>
         )
 }
 
 
-export default LocationList;
+export default GradeList;
