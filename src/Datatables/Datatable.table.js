@@ -376,7 +376,9 @@ class EnhancedTable extends React.Component {
             return (
                 <TableRow style={{height: (dense ? 33 : 53) * emptyRows}}>
                     <TableCell colSpan={this.props.columns.length} classes={{root: classes.centerText}}>
-                        <strong>No Data Available</strong>
+                        <img src={require("../assets/img/ic_search_empty@2x.png")} height={140} style={{marginTop:'25px'}}/>
+                        <div><b>No Results Found</b></div>
+                        <div style={{fontSize:'0.7rem',fontWeight:'500'}}>No matching entries available in our record</div>
                     </TableCell>
                 </TableRow>
             );
