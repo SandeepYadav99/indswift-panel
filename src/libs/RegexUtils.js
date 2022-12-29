@@ -23,6 +23,10 @@ const isDate = (value) => {
         return value instanceof Date && !isNaN(value);
 }
 
+const isSpace = (value) => {
+    return /\s/.test(value);
+}
+
 export {
     isUrl,
     isEmail,
@@ -30,4 +34,5 @@ export {
     isNum,
     isAlpha,
     isDate,
+    isSpace
 };

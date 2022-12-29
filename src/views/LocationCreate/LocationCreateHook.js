@@ -1,11 +1,17 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {isAlphaNum, isNum} from "../../libs/RegexUtils";
-import {serviceGetCustomList, serviceGetKeywords} from "../../services/Common.service";
+import {isAlpha, isAlphaNum, isNum, isSpace} from "../../libs/RegexUtils";
+import {
+    serviceCreateLocation,
+    serviceGetLocationDetails,
+    serviceLocationCheck,
+    serviceUpdateLocation
+} from "../../services/Location.service";
 import useDebounce from "../../hooks/DebounceHook";
-import LogUtils from "../../libs/LogUtils";
-import {serviceCreateLocation, serviceLocationCodeCheck} from "../../services/Location.service";
+import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
-import EventEmitter from "../../libs/Events.utils";
+import LogUtils from "../../libs/LogUtils";
+import {useParams} from "react-router";
+import Constants from "../../config/constants";
 
 const initialForm = {
     name: '',
@@ -14,7 +20,7 @@ const initialForm = {
     city: '',
     state: '',
     pincode: '',
-    is_active: false
+    is_active: true
 };
 
 const useLocationDetail = ({}) => {
@@ -24,42 +30,57 @@ const useLocationDetail = ({}) => {
     const [form, setForm] = useState({...initialForm});
     const [isEdit, setIsEdit] = useState(false);
     const includeRef = useRef(null);
-
-    const checkCodeValidation = useCallback(() => {
-        // serviceLocationCodeCheck({code: code, vendor_ref_code: vendorRefCode}).then((res) => {
-        //     if (!res.error) {
-        //         const errors = JSON.parse(JSON.stringify(errorData));
-        //         if (res.data.code_exists) {
-        //             errors['code'] = 'Location Code Exists'
-        //             setErrorData(errors)
-        //         } else {
-        //             delete errors.code;
-        //             setErrorData(errors);
-        //         }
-        //         if (res?.data?.vendor_ref_code) {
-        //             errors['vendor_ref_code'] = 'Vendor Ref Code Exists'
-        //             setErrorData(errors)
-        //         } else {
-        //             delete errors.vendor_ref_code;
-        //             setErrorData(errors);
-        //         }
-        //     }
-        // });
-    }, [errorData]);
+    const codeDebouncer = useDebounce(form?.code, 500);
+    const { id } = useParams();
 
     useEffect(() => {
-            checkCodeValidation();
-    }, [])
+        if (id) {
+            serviceGetLocationDetails({id: id}).then((res) => {
+               if (!res.error) {
+                   const data = res?.data?.details;
+                   setForm({
+                       ...data,
+                       is_active: data?.status === Constants.GENERAL_STATUS.ACTIVE,
+                   });
+               } else {
+                   SnackbarUtils.error(res?.message);
+               }
+            });
+        }
+    }, [id]);
 
+    const checkCodeValidation = useCallback(() => {
+        if (form?.code) {
+            serviceLocationCheck({code: form?.code, id: id ? id: null}).then((res) => {
+                if (!res.error) {
+                    const errors = JSON.parse(JSON.stringify(errorData));
+                    if (res.data.is_exists) {
+                        errors['code'] = 'Location Code Exists'
+                        setErrorData(errors)
+                    } else {
+                        delete errors.code;
+                        setErrorData(errors);
+                    }
+                }
+            });
+        }
+    }, [errorData, setErrorData, form, id]);
+
+
+    useEffect(() => {
+        if (codeDebouncer) {
+            checkCodeValidation();
+        }
+    }, [codeDebouncer])
 
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = ['name','code','address','city','state','pincode'];
+        let required = ['name', 'code', 'address', 'city', 'state', 'pincode'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
-            } else if (['code', 'vendor_ref_code'].indexOf(val) < 0) {
+            } else if (['code'].indexOf(val) < 0) {
                 delete errors[val]
             }
         });
@@ -74,31 +95,30 @@ const useLocationDetail = ({}) => {
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-            const fd = new FormData();
-            Object.keys(form).forEach(key => {
-                if (key != 'brand' && form[key]) {
-                    fd.append(key, form[key]);
+            let req = null;
+            if (id) {
+                req = serviceUpdateLocation({
+                    ...form
+                });
+            } else {
+                req = serviceCreateLocation({
+                    ...form
+                });
+            }
+            req.then((res) => {
+                LogUtils.log('response', res);
+                if (!res.error) {
+                    historyUtils.push('/locations');
+                } else {
+                    SnackbarUtils.error(res.message);
                 }
+                setIsSubmitting(false);
             });
-            // serviceCreateLocation(fd).then((res) => {
-            //     LogUtils.log('response', res);
-            //     if (!res.error) {
-            //         historyUtils.push('/products');
-            //     } else {
-            //         EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-            //             error: res.message,
-            //             type: 'error'
-            //         });
-            //     }
-            //     setIsSubmitting(false);
-            // });
         }
-    }, [form, isSubmitting, setIsSubmitting]);
+    }, [form, isSubmitting, setIsSubmitting, id]);
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
-        // LogUtils.log('isValid', includeRef.current.isValid(), errors);
-        // const isIncludesValid = includeRef.current.isValid();
         if (Object.keys(errors).length > 0) {
             setErrorData(errors);
             return true;
@@ -108,8 +128,7 @@ const useLocationDetail = ({}) => {
     }, [
         checkFormValidation,
         setErrorData,
-        form,
-        includeRef.current
+        form
     ]);
 
     const removeError = useCallback(
@@ -122,18 +141,27 @@ const useLocationDetail = ({}) => {
     );
 
     const changeTextData = useCallback((text, fieldName) => {
-            let shouldRemoveError = true;
-            const t = {...form};
-            if (fieldName === 'names' || fieldName === 'truck_no' || fieldName == 'idendity_proof') {
-                if (!text || (isNum(text) && text.toString().length <= 30)) {
-                    t[fieldName] = text;
-                }
-            } else {
+        let shouldRemoveError = true;
+        const t = {...form};
+        if (fieldName === 'name' || fieldName === 'city' || fieldName === 'address') {
+            if (!text || (isAlpha(text) && text.toString().length <= 30)) {
                 t[fieldName] = text;
             }
-            setForm(t);
-            shouldRemoveError && removeError(fieldName);
-        }, [removeError, form, setForm]);
+        } else if (fieldName === 'code') {
+            if (!text || (!isSpace(text))) {
+                t[fieldName] = text;
+            }
+            shouldRemoveError = false;
+        } else if (fieldName === 'pincode') {
+                if (!text || (isNum(text))) {
+                    t[fieldName] = text;
+                }
+        } else {
+            t[fieldName] = text;
+        }
+        setForm(t);
+        shouldRemoveError && removeError(fieldName);
+    }, [removeError, form, setForm]);
 
     const onBlurHandler = useCallback(
         type => {
@@ -149,7 +177,7 @@ const useLocationDetail = ({}) => {
 
     const handleReset = useCallback(() => {
         setForm({...initialForm})
-    },[form])
+    }, [form])
 
     return {
         form,
@@ -163,7 +191,8 @@ const useLocationDetail = ({}) => {
         isEdit,
         handleDelete,
         includeRef,
-        handleReset
+        handleReset,
+        id
     };
 };
 

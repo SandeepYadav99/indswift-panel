@@ -9,6 +9,8 @@ import {
 } from "../../actions/SubDepartment.action";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
+import {useParams} from "react-router";
+import RouteName from "../../routes/Route.name";
 
 
 const useSubDepartmentList = ({}) => {
@@ -17,6 +19,7 @@ const useSubDepartmentList = ({}) => {
     const [editData, setEditData] = useState(null);
     const dispatch = useDispatch();
     const isMountRef = useRef(false);
+    const { code } = useParams();
     const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.subdepartment);
 
     useEffect(() => {
@@ -27,9 +30,10 @@ const useSubDepartmentList = ({}) => {
         dispatch(actionFetchSubDepartment(1, sortingData, {
             query: isMountRef.current ? query : null,
             query_data: isMountRef.current ? queryData : null,
+            code: code
         }));
         isMountRef.current = true;
-    }, []);
+    }, [code]);
 
     // const handleCellClick = (rowIndex, columnIndex, row, column) => {
     //     console.log(`handleCellClick rowIndex: ${rowIndex} columnIndex: ${columnIndex}`);
@@ -97,24 +101,21 @@ const useSubDepartmentList = ({}) => {
         setEditData(null);
     }, [setEditData, setSidePanel]);
 
-    const handleEdit = useCallback((data) => {
-        setEditData(data);
-        setSidePanel(e => !e);
-    }, [setEditData, setSidePanel]);
+    const handleCreate = useCallback(() => {
+        historyUtils.push(RouteName.SUB_DEPARTMENTS_CREATE, { code: code });
+    }, []);
 
-    const handleSideToggle = useCallback(() => {
-        historyUtils.push('/department/subdepartment/create')
-        // setSidePanel(e => !e);
-        // setEditData(null);
+    const handleEdit = useCallback((data) => {
+        historyUtils.push(RouteName.SUB_DEPARTMENTS_UPDATE+data.id, { code: code });
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
         LogUtils.log('data', data);
-        historyUtils.push('/department/subdepartment/detail/') //+data.id
+        historyUtils.push('/departments/subdepartments/detail/') //+data.id
     }, []);
 
     const handleSubSubDepartment = useCallback((data) => {
-        historyUtils.push('/department/subdepartment/') //+data.id
+        historyUtils.push('/departments/subdepartments/') //+data.id
     }, []);
 
     const configFilter = useMemo(() => {
@@ -139,13 +140,13 @@ const useSubDepartmentList = ({}) => {
         handleSortOrderChange,
         handleDelete,
         handleEdit,
-        handleSideToggle,
         handleViewDetails,
         isCalling,
         editData,
         isSidePanel,
         configFilter,
-        handleSubSubDepartment
+        handleSubSubDepartment,
+        handleCreate
     }
 };
 

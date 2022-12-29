@@ -13,6 +13,7 @@ import constants from "../../config/constants";
 import AutoCompleteChip from "../../components/FormFields/AutoCompleteText/AutoCompleteChip";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
 import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/CustomAutoComplete";
+import LogUtils from "../../libs/LogUtils";
 
 const useStyles = makeStyles((theme) => ({
     iconBtnError: {
@@ -25,10 +26,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SubDepartmentCreateView = ({}) => {
-    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete,handleReset} = useDepartmentHook({});
+const SubDepartmentCreateView = ({location}) => {
+    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, id} = useDepartmentHook({location});
     const classes = useStyles();
-
         return (
            <div>
 
@@ -76,9 +76,9 @@ const SubDepartmentCreateView = ({}) => {
                                onTextChange={text => {
                                    changeTextData(text, 'code');
                                }}
-                               onBlur={() => {
-                                   onBlurHandler('code');
-                               }}
+                               // onBlur={() => {
+                               //     onBlurHandler('code');
+                               // }}
                            />
                        </div>
                    </div>
@@ -107,7 +107,7 @@ const SubDepartmentCreateView = ({}) => {
                    <div className={styles.btnCont}>
                        <ButtonBase disabled={isSubmitting} type={'button'} onClick={handleSubmit}
                                    className={styles.createBtn}>
-                           Create
+                           {id ? 'Update' : 'Create'}
                        </ButtonBase>
                    </div>
                </div>

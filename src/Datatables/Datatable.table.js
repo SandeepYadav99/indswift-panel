@@ -339,7 +339,7 @@ class EnhancedTable extends React.Component {
         return columns.map((val, index) => {
             return (
                 <TableCell style={('style' in val) ? val.style : {} }>
-                    {val.render(row[val.key], row)}
+                    {val.render(row[val.key], row, index)}
                 </TableCell>
             )
         });

@@ -2,17 +2,13 @@ import React, {useMemo} from 'react';
 import useJobRolesDetail from "./LocationCreateHook";
 import {Button, ButtonBase, MenuItem} from "@material-ui/core";
 import styles from "./Style.module.css";
-import Tooltip from "@material-ui/core/Tooltip";
-import InfoIcon from "@material-ui/icons/Info";
 import {makeStyles} from "@material-ui/styles";
 import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../components/FormFields/TextField/TextField.component";
 import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import constants from "../../config/constants";
-import AutoCompleteChip from "../../components/FormFields/AutoCompleteText/AutoCompleteChip";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
-import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/CustomAutoComplete";
+import Constants from "../../config/constants";
 
 const useStyles = makeStyles((theme) => ({
     iconBtnError: {
@@ -26,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const LocationCreateView = ({}) => {
-    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete,handleReset} = useJobRolesDetail({});
+    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, id} = useJobRolesDetail({});
     const classes = useStyles();
 
         return (
@@ -125,7 +121,10 @@ const LocationCreateView = ({}) => {
                                handleChange={value => {
                                    changeTextData(value, 'state')
                                }}>
-                               <MenuItem value={'TEST'}>Test</MenuItem>
+                               {Constants.STATES.map(state => {
+                               return (<MenuItem value={state} key={state}>{state}</MenuItem>)
+                               })}
+
                            </CustomSelectField>
                        </div>
                        <div className={'formGroup'}>
@@ -171,7 +170,7 @@ const LocationCreateView = ({}) => {
                    <div className={styles.btnCont}>
                        <ButtonBase disabled={isSubmitting} type={'button'} onClick={handleSubmit}
                                    className={styles.createBtn}>
-                           Create
+                           {id ? 'Update' : 'Create'}
                        </ButtonBase>
                    </div>
                </div>

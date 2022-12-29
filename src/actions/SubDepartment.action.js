@@ -9,6 +9,7 @@ import Constants from '../config/constants';
 import {serviceCreateSubDepartment, serviceGetSubDepartment, serviceUpdateSubDepartment,serviceDeleteSubDepartment} from "../services/SubDepartment.service";
 import EventEmitter from "../libs/Events.utils";
 import history from '../libs/history.utils';
+import SnackbarUtils from "../libs/SnackbarUtils";
 
 export const FETCH_INIT = 'FETCH_INIT_SUBDEPARTMENT';
 export const FETCHED = 'FETCHED_SUBDEPARTMENT';
@@ -52,6 +53,7 @@ export function actionFetchSubDepartment(index = 1, sorting = {}, filter = {}, s
                     dispatch({type: CHANGE_PAGE, payload: index - 1});
                 }
             } else {
+                SnackbarUtils.error(data?.message);
                 dispatch({type: FETCHED_FAIL, payload: null});
             }
         });

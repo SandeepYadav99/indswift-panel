@@ -1,53 +1,49 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {isAlphaNum, isNum} from "../../libs/RegexUtils";
-import {serviceGetCustomList, serviceGetKeywords} from "../../services/Common.service";
-import useDebounce from "../../hooks/DebounceHook";
-import LogUtils from "../../libs/LogUtils";
-import {serviceCreateCadre, serviceCadreCodeCheck} from "../../services/Cadre.service";
+import {isAlpha, isAlphaNum, isNum} from "../../libs/RegexUtils";
+import {
+    serviceCreateCadre,
+    serviceCadreCodeCheck,
+    serviceGetCadreDetails,
+    serviceUpdateCadre
+} from "../../services/Cadre.service";
 import historyUtils from "../../libs/history.utils";
 import EventEmitter from "../../libs/Events.utils";
+import SnackbarUtils from "../../libs/SnackbarUtils";
+import {useParams} from "react-router";
+import Constants from "../../config/constants";
 
 const initialForm = {
     name: '',
     level: '',
-    is_active: false
+    is_active: true
 };
 
-const useCadreDetail = ({}) => {
+const useCadreDetail = ({location}) => {
+    const gradeCode = location?.state?.gradeCode;
     const [isLoading, setIsLoading] = useState(false);
     const [errorData, setErrorData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({...initialForm});
     const [isEdit, setIsEdit] = useState(false);
-    const includeRef = useRef(null);
-
-    const checkCodeValidation = useCallback(() => {
-        // serviceCadreCodeCheck({code: code, vendor_ref_code: vendorRefCode}).then((res) => {
-        //     if (!res.error) {
-        //         const errors = JSON.parse(JSON.stringify(errorData));
-        //         if (res.data.code_exists) {
-        //             errors['code'] = 'Cadre Code Exists'
-        //             setErrorData(errors)
-        //         } else {
-        //             delete errors.code;
-        //             setErrorData(errors);
-        //         }
-        //         if (res?.data?.vendor_ref_code) {
-        //             errors['vendor_ref_code'] = 'Vendor Ref Code Exists'
-        //             setErrorData(errors)
-        //         } else {
-        //             delete errors.vendor_ref_code;
-        //             setErrorData(errors);
-        //         }
-        //     }
-        // });
-    }, [errorData]);
+    const { id } = useParams();
 
     useEffect(() => {
-            checkCodeValidation();
-    }, [])
-
-
+        if (id) {
+            setIsLoading(true);
+            serviceGetCadreDetails({id}).then(res => {
+                if (!res.error) {
+                    const data = res?.data?.details;
+                    setForm({
+                        ...data,
+                        is_active: data?.status === Constants.GENERAL_STATUS.ACTIVE,
+                    });
+                } else {
+                    SnackbarUtils.error(res?.message);
+                }
+                setIsLoading(false);
+            });
+        }
+    }, []);
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
@@ -69,32 +65,27 @@ const useCadreDetail = ({}) => {
 
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
-            setIsSubmitting(true);
-            const fd = new FormData();
-            Object.keys(form).forEach(key => {
-                if (key != 'brand' && form[key]) {
-                    fd.append(key, form[key]);
+            setIsSubmitting(true);;
+            let req = serviceCreateCadre;
+            if (id) {
+               req = serviceUpdateCadre;
+            }
+            req({
+                ...form,
+                grade_code: gradeCode,
+            }).then((res) => {
+                if (!res.error) {
+                    historyUtils.goBack();
+                } else {
+                    SnackbarUtils.error(res?.message);
                 }
+                setIsSubmitting(false);
             });
-            // serviceCreateCadre(fd).then((res) => {
-            //     LogUtils.log('response', res);
-            //     if (!res.error) {
-            //         historyUtils.push('/products');
-            //     } else {
-            //         EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-            //             error: res.message,
-            //             type: 'error'
-            //         });
-            //     }
-            //     setIsSubmitting(false);
-            // });
         }
-    }, [form, isSubmitting, setIsSubmitting]);
+    }, [form, isSubmitting, setIsSubmitting, gradeCode, id]);
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
-        // LogUtils.log('isValid', includeRef.current.isValid(), errors);
-        // const isIncludesValid = includeRef.current.isValid();
         if (Object.keys(errors).length > 0) {
             setErrorData(errors);
             return true;
@@ -104,8 +95,7 @@ const useCadreDetail = ({}) => {
     }, [
         checkFormValidation,
         setErrorData,
-        form,
-        includeRef.current
+        form
     ]);
 
     const removeError = useCallback(
@@ -120,11 +110,15 @@ const useCadreDetail = ({}) => {
     const changeTextData = useCallback((text, fieldName) => {
             let shouldRemoveError = true;
             const t = {...form};
-            if (fieldName === 'names' || fieldName === 'truck_no' || fieldName == 'idendity_proof') {
-                if (!text || (isNum(text) && text.toString().length <= 30)) {
+            if (fieldName === 'name') {
+                if (!text || (isAlpha(text) && text.toString().length <= 30)) {
                     t[fieldName] = text;
                 }
-            } else {
+            } else if(fieldName === 'level') {
+                if (!text || isNum(text)) {
+                    t[fieldName] = text;
+                }
+            }  else {
                 t[fieldName] = text;
             }
             setForm(t);
@@ -136,7 +130,7 @@ const useCadreDetail = ({}) => {
             if (form?.[type]) {
                 changeTextData(form?.[type].trim(), type);
             }
-        }, [changeTextData, checkCodeValidation]);
+        }, [changeTextData]);
 
     const handleDelete = useCallback(() => {
 
@@ -158,8 +152,9 @@ const useCadreDetail = ({}) => {
         errorData,
         isEdit,
         handleDelete,
-        includeRef,
-        handleReset
+        handleReset,
+        id,
+        gradeCode
     };
 };
 

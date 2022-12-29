@@ -29,18 +29,12 @@ const DepartmentList = ({}) => {
         return <StatusPill status={status} />
     }, []);
 
-    const renderFirstCell = useCallback((product) => {
-        if (product) {
+    const renderFirstCell = useCallback((obj) => {
+        if (obj) {
             return (
                 <div className={styles.firstCellFlex}>
-
-                    {/*<div className={styles.driverImgCont}*/}
-                    {/*     // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}*/}
-                    {/*>*/}
-                    {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
-                    {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Human Resource</span> <br/>
+                        <span className={styles.productName}>{obj?.name}</span> <br/>
                     </div>
                 </div>
             );
@@ -72,7 +66,7 @@ const DepartmentList = ({}) => {
                 key: 'sr_no',
                 label: 'SR No.',
                 sortable: false,
-                render: (temp, all) => <div>1</div>,
+                render: (temp, all, index) => <div>{index + 1}</div>,
             },
             {
                 key: 'name',
@@ -84,7 +78,7 @@ const DepartmentList = ({}) => {
                 key: 'code',
                 label: 'Code',
                 sortable: false,
-                render: (temp, all) => <div>1122</div>,
+                render: (temp, all) => <div>{all?.code}</div>,
             },
             {
                 key: 'status',
@@ -96,7 +90,7 @@ const DepartmentList = ({}) => {
                 key: 'user_id',
                 label: 'Action',
                 render: (temp, all) => (<div>
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
+                    <IconButton onClick={() => { handleEdit(all) }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleSubDepartment(all)}}>
                         <OpenInNew fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>Sub-Department</span>
                     </IconButton >
@@ -164,11 +158,6 @@ const DepartmentList = ({}) => {
                     </div>
 
                 </PageBox>
-                {/*<SidePanelComponent*/}
-                {/*    handleToggle={handleSideToggle}*/}
-                    {/*    title={'New Department'} open={isSidePanel} side={'right'}>*/}
-                {/*    /!*{renderCreateForm}*!/*/}
-                {/*</SidePanelComponent>*/}
             </div>
         )
 }

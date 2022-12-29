@@ -9,6 +9,7 @@ import {
 } from "../../actions/Department.action";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
+import RouteName from "../../routes/Route.name";
 
 
 const useDepartmentList = ({}) => {
@@ -98,23 +99,15 @@ const useDepartmentList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleEdit = useCallback((data) => {
-        setEditData(data);
-        setSidePanel(e => !e);
-    }, [setEditData, setSidePanel]);
-
-    const handleSideToggle = useCallback(() => {
-        historyUtils.push('/department/create')
-        // setSidePanel(e => !e);
-        // setEditData(null);
+        historyUtils.push(RouteName.DEPARTMENT_UPDATE+data.id);
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
-        LogUtils.log('data', data);
-        historyUtils.push('/department/detail/') //+data.id
+        historyUtils.push('/departments/detail/') //+data.id
     }, []);
 
     const handleSubDepartment = useCallback((data) => {
-        historyUtils.push('/department/subdepartment/') //+data.id
+        historyUtils.push(RouteName.SUB_DEPARTMENTS+data.code) //+
     }, []);
 
     const configFilter = useMemo(() => {
@@ -139,7 +132,6 @@ const useDepartmentList = ({}) => {
         handleSortOrderChange,
         handleDelete,
         handleEdit,
-        handleSideToggle,
         handleViewDetails,
         isCalling,
         editData,

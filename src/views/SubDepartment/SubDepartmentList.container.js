@@ -21,7 +21,7 @@ import history from "../../libs/history.utils"
 
 const SubDepartmentList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
-        handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
+        handleFilterDataChange, handleSearchValueChange,  handleCreate, handleViewDetails, editData, isSidePanel,
         isCalling, configFilter, handleSubSubDepartment} = useSubDepartmentList({});
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.subdepartment);
@@ -31,8 +31,8 @@ const SubDepartmentList = ({}) => {
         return <StatusPill status={status} />
     }, []);
 
-    const renderFirstCell = useCallback((product) => {
-        if (product) {
+    const renderFirstCell = useCallback((obj) => {
+        if (obj) {
             return (
                 <div className={styles.firstCellFlex}>
 
@@ -42,7 +42,7 @@ const SubDepartmentList = ({}) => {
                     {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
                     {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Human Resource</span> <br/>
+                        <span className={styles.productName}>{obj.name}</span> <br/>
                     </div>
                 </div>
             );
@@ -74,7 +74,7 @@ const SubDepartmentList = ({}) => {
                 key: 'sr_no',
                 label: 'SR No.',
                 sortable: false,
-                render: (temp, all) => <div>1</div>,
+                render: (temp, all, index) => <div>{index+1}</div>,
             },
             {
                 key: 'name',
@@ -86,7 +86,7 @@ const SubDepartmentList = ({}) => {
                 key: 'code',
                 label: 'Code',
                 sortable: false,
-                render: (temp, all) => <div>1122</div>,
+                render: (temp, all) => <div>{all?.code}</div>,
             },
             {
                 key: 'status',
@@ -99,7 +99,7 @@ const SubDepartmentList = ({}) => {
                 label: 'Action',
                 render: (temp, all) => (<div>
                     {/*<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >*/}
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
+                    <IconButton onClick={() => { handleEdit(all); }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
                 </div>),
             },
 
@@ -142,7 +142,7 @@ const SubDepartmentList = ({}) => {
                             <div className={styles.newLine} style={{marginLeft:'20px'}}/>
                         </div>
                         <div>
-                            <ButtonBase onClick={handleSideToggle} className={'createBtn'}>
+                            <ButtonBase onClick={handleCreate} className={'createBtn'}>
                                 CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
                             </ButtonBase>
                         </div>
@@ -167,11 +167,6 @@ const SubDepartmentList = ({}) => {
                     </div>
 
                 </PageBox>
-                {/*<SidePanelComponent*/}
-                {/*    handleToggle={handleSideToggle}*/}
-                    {/*    title={'New SubDepartment'} open={isSidePanel} side={'right'}>*/}
-                {/*    /!*{renderCreateForm}*!/*/}
-                {/*</SidePanelComponent>*/}
             </div>
         )
 }

@@ -9,6 +9,7 @@ import {
 } from "../../actions/Grade.action";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
+import RouteName from "../../routes/Route.name";
 
 
 const useGradeList = ({}) => {
@@ -98,15 +99,12 @@ const useGradeList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleEdit = useCallback((data) => {
-        setEditData(data);
-        setSidePanel(e => !e);
-    }, [setEditData, setSidePanel]);
+        historyUtils.push(RouteName.GRADES_UPDATE+data.id);
+    }, []);
 
-    const handleSideToggle = useCallback(() => {
-        historyUtils.push('/grade/create')
-        // setSidePanel(e => !e);
-        // setEditData(null);
-    }, [setEditData, setSidePanel]);
+    const handleCreate = useCallback(() => {
+        historyUtils.push(RouteName.GRADES_CREATE)
+    }, []);
 
     const handleViewDetails = useCallback((data) => {
         LogUtils.log('data', data);
@@ -114,7 +112,7 @@ const useGradeList = ({}) => {
     }, []);
 
     const handleSubGrade = useCallback((data) => {
-        historyUtils.push('/grade/cadre/') //+data.id
+        historyUtils.push(RouteName.CADRES+data?.code); //+data.id
     }, []);
 
     const configFilter = useMemo(() => {
@@ -139,7 +137,7 @@ const useGradeList = ({}) => {
         handleSortOrderChange,
         handleDelete,
         handleEdit,
-        handleSideToggle,
+        handleCreate,
         handleViewDetails,
         isCalling,
         editData,

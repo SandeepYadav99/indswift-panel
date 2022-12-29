@@ -29,8 +29,8 @@ const LocationList = ({}) => {
         return <StatusPill status={status} />
     }, []);
 
-    const renderFirstCell = useCallback((product) => {
-        if (product) {
+    const renderFirstCell = useCallback((obj) => {
+        if (obj) {
             return (
                 <div className={styles.firstCellFlex}>
 
@@ -40,31 +40,13 @@ const LocationList = ({}) => {
                     {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
                     {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Isli Samba</span> <br/>
+                        <span className={styles.productName}>{obj?.name}</span> <br/>
                     </div>
                 </div>
             );
         } return null;
     }, []);
 
-    const renderContact = useCallback(() => {
-        return (
-            <div>
-                <div>9347873542</div>
-                <div><strong>(O)</strong> hardeep.kumar@indwsiftlabs.com</div>
-                <div><strong>(P)</strong> hardeepkudg@indwsiftlabs.com</div>
-            </div>
-        )
-    },[])
-
-
-    const renderCreateForm = useMemo(() => {
-        return (<CreateView
-            handleDataSave={handleDataSave}
-            data={editData}
-            warehouse={warehouses}
-            handleDelete={handleDelete}/>);
-    }, [handleDataSave, editData, warehouses, handleDelete]);
 
     const tableStructure = useMemo(() => {
         return [
@@ -79,25 +61,25 @@ const LocationList = ({}) => {
                 key: 'code',
                 label: 'Code',
                 sortable: false,
-                render: (temp, all) => <div>SAMBA</div>,
+                render: (temp, all) => <div>{all?.code}</div>,
             },
             {
                 key: 'address',
                 label: 'Address',
                 sortable: false,
-                render: (temp, all) => <div>Dera Bassi</div>,
+                render: (temp, all) => <div>{all?.address}</div>,
             },
             {
                 key: 'city',
                 label: 'City',
                 sortable: false,
-                render: (temp, all) => <div>Dera Bassi</div>,
+                render: (temp, all) => <div>{all?.city}</div>,
             },
             {
                 key: 'state',
                 label: 'State',
                 sortable: false,
-                render: (temp, all) => <div>Punjab</div>,
+                render: (temp, all) => <div>{all?.state}</div>,
             },
             {
                 key: 'status',
@@ -176,11 +158,6 @@ const LocationList = ({}) => {
                     </div>
 
                 </PageBox>
-                <SidePanelComponent
-                    handleToggle={handleSideToggle}
-                    title={'New Location'} open={isSidePanel} side={'right'}>
-                    {renderCreateForm}
-                </SidePanelComponent>
             </div>
         )
 }

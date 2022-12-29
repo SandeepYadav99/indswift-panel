@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const CadreCreateView = ({}) => {
-    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete,handleReset} = useCadreHook({});
+const CadreCreateView = ({location}) => {
+    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, gradeCode, onBlurHandler, changeTextData, id} = useCadreHook({location});
     const classes = useStyles();
 
         return (
@@ -35,7 +35,7 @@ const CadreCreateView = ({}) => {
                <div className={styles.outerFlex}>
                   <div>
                       <ButtonBase onClick={() => (history.goBack())}>
-                          <ArrowBackIosIcon fontSize={'small'}/> <span><b>G8 Grade>Create Grade</b></span>
+                          <ArrowBackIosIcon fontSize={'small'}/> <span><b>{gradeCode} Grade>{!id ? 'Create' : 'Update'} Grade</b></span>
                       </ButtonBase>
                       <div className={styles.newLines}/>
                   </div>
@@ -107,7 +107,7 @@ const CadreCreateView = ({}) => {
                    <div className={styles.btnCont}>
                        <ButtonBase disabled={isSubmitting} type={'button'} onClick={handleSubmit}
                                    className={styles.createBtn}>
-                           Create
+                           {id ? 'Update': 'Create'}
                        </ButtonBase>
                    </div>
                </div>

@@ -1,20 +1,24 @@
 import {formDataRequest, getRequest, postRequest} from '../libs/AxiosService.util';
 
 export async function serviceCreateGrade(params) {
-    return await formDataRequest('grade/create', params);
+    return await formDataRequest('grades/create', params);
 }
 export async function serviceUpdateGrade(params) {
-    return await formDataRequest('grade/update', params);
+    return await formDataRequest('grades/update', params);
 }
 
 export async function serviceGetGrade(params) {
-    return await postRequest('grade', params);
+    return await postRequest('grades', params);
+}
+
+export async function serviceGetGradeDetails(params) {
+    return await postRequest('grades/detail', params);
+}
+
+export async function serviceCheckGradeCode(params) {
+    return await postRequest('grades/check', params);
 }
 
 export async function serviceDeleteGrade(params) {
-    return await formDataRequest('grade/delete', params);
-}
-
-export async function serviceGetGradesList() {
-    return await getRequest('grade/list', {});
+    return await formDataRequest('grades/delete', params);
 }

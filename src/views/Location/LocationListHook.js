@@ -8,6 +8,7 @@ import {
 } from "../../actions/Location.action";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
+import RouteName from "../../routes/Route.name";
 
 
 const useLocationList = ({}) => {
@@ -103,15 +104,13 @@ const useLocationList = ({}) => {
         setSidePanel(e => !e);
     }, [setEditData, setSidePanel]);
 
-    const handleSideToggle = useCallback(() => {
-        historyUtils.push('/location/create')
-        // setSidePanel(e => !e);
-        // setEditData(null);
+    const handleSideToggle = useCallback((data) => {
+        historyUtils.push(RouteName.LOCATIONS_UPDATE+data?.id);
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
         LogUtils.log('data', data);
-        historyUtils.push('/location/detail/') //+data.id
+        historyUtils.push('/locations/detail/') //+data.id
     }, []);
 
     const configFilter = useMemo(() => {

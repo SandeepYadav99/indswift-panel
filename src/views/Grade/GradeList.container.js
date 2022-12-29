@@ -19,7 +19,7 @@ import StatusPill from "../../components/Status/StatusPill.component";
 
 const GradeList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
-        handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
+        handleFilterDataChange, handleSearchValueChange,  handleCreate, handleViewDetails, editData, isSidePanel,
         isCalling, configFilter, handleSubGrade} = useGradeList({});
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.grade);
@@ -28,50 +28,28 @@ const GradeList = ({}) => {
         return <StatusPill status={status} />
     }, []);
 
-    const renderFirstCell = useCallback((product) => {
-        if (product) {
+    const renderFirstCell = useCallback((obj) => {
+        if (obj) {
             return (
                 <div className={styles.firstCellFlex}>
-
-                    {/*<div className={styles.driverImgCont}*/}
-                    {/*     // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}*/}
-                    {/*>*/}
-                    {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
-                    {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Human Resource</span> <br/>
+                        <span className={styles.productName}>{obj?.name}</span> <br/>
                     </div>
                 </div>
             );
         } return null;
     }, []);
 
-    const renderContact = useCallback(() => {
-        return (
-            <div>
-                <div>9347873542</div>
-                <div><strong>(O)</strong> hardeep.kumar@indwsiftlabs.com</div>
-                <div><strong>(P)</strong> hardeepkudg@indwsiftlabs.com</div>
-            </div>
-        )
-    },[])
 
 
-    // const renderCreateForm = useMemo(() => {
-    //     return (<CreateView
-    //         handleDataSave={handleDataSave}
-    //         data={editData}
-    //
-    //         handleDelete={handleDelete}/>);
-    // }, [handleDataSave, editData, warehouses, handleDelete]);
 
     const tableStructure = useMemo(() => {
         return [
             {
-                key: 'grade',
+                key: 'code',
                 label: 'Grade',
                 sortable: false,
-                render: (temp, all) => <div>G8</div>,
+                render: (temp, all) => <div>{all?.code}</div>,
             },
             {
                 key: 'name',
@@ -83,7 +61,7 @@ const GradeList = ({}) => {
                 key: 'level',
                 label: 'Grade Level',
                 sortable: false,
-                render: (temp, all) => <div>3</div>,
+                render: (temp, all) => <div>{all?.level}</div>,
             },
             {
                 key: 'status',
@@ -95,7 +73,7 @@ const GradeList = ({}) => {
                 key: 'user_id',
                 label: 'Action',
                 render: (temp, all) => (<div>
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
+                    <IconButton onClick={() => { handleEdit(all) }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleSubGrade(all)}}>
                         <OpenInNew fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>Cadre</span>
                     </IconButton >
@@ -138,7 +116,7 @@ const GradeList = ({}) => {
                             <div className={styles.newLine}/>
                         </div>
                         <div>
-                            <ButtonBase onClick={handleSideToggle} className={'createBtn'}>
+                            <ButtonBase onClick={handleCreate} className={'createBtn'}>
                                 CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
                             </ButtonBase>
                         </div>
@@ -163,11 +141,6 @@ const GradeList = ({}) => {
                     </div>
 
                 </PageBox>
-                {/*<SidePanelComponent*/}
-                {/*    handleToggle={handleSideToggle}*/}
-                    {/*    title={'New Grade'} open={isSidePanel} side={'right'}>*/}
-                {/*    /!*{renderCreateForm}*!/*/}
-                {/*</SidePanelComponent>*/}
             </div>
         )
 }

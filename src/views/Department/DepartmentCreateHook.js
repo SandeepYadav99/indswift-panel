@@ -1,17 +1,23 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {isAlphaNum, isNum} from "../../libs/RegexUtils";
+import {isAlpha, isAlphaNum, isNum, isSpace} from "../../libs/RegexUtils";
 import {serviceGetCustomList, serviceGetKeywords} from "../../services/Common.service";
 import useDebounce from "../../hooks/DebounceHook";
 import LogUtils from "../../libs/LogUtils";
-import {serviceCreateDepartment, serviceDepartmentCodeCheck} from "../../services/Department.service";
+import {
+    serviceCheckDepartment,
+    serviceCreateDepartment,
+    serviceGetDepartmentDetails, serviceUpdateDepartment
+} from "../../services/Department.service";
 import historyUtils from "../../libs/history.utils";
 import EventEmitter from "../../libs/Events.utils";
+import SnackbarUtils from "../../libs/SnackbarUtils";
+import {useParams} from "react-router";
+import Constants from "../../config/constants";
 
 const initialForm = {
     name: '',
     code: '',
-
-    is_active: false
+    is_active: true
 };
 
 const useDepartmentDetail = ({}) => {
@@ -20,33 +26,46 @@ const useDepartmentDetail = ({}) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({...initialForm});
     const [isEdit, setIsEdit] = useState(false);
-    const includeRef = useRef(null);
-
-    const checkCodeValidation = useCallback(() => {
-        // serviceDepartmentCodeCheck({code: code, vendor_ref_code: vendorRefCode}).then((res) => {
-        //     if (!res.error) {
-        //         const errors = JSON.parse(JSON.stringify(errorData));
-        //         if (res.data.code_exists) {
-        //             errors['code'] = 'Department Code Exists'
-        //             setErrorData(errors)
-        //         } else {
-        //             delete errors.code;
-        //             setErrorData(errors);
-        //         }
-        //         if (res?.data?.vendor_ref_code) {
-        //             errors['vendor_ref_code'] = 'Vendor Ref Code Exists'
-        //             setErrorData(errors)
-        //         } else {
-        //             delete errors.vendor_ref_code;
-        //             setErrorData(errors);
-        //         }
-        //     }
-        // });
-    }, [errorData]);
+    const codeDebouncer = useDebounce(form?.code, 500);
+    const { id } = useParams();
 
     useEffect(() => {
+        if (id) {
+            serviceGetDepartmentDetails({id: id}).then((res) => {
+                if(!res.error) {
+                    const data = res?.data?.details;
+                    setForm({
+                        ...data,
+                        is_active: data?.status === Constants.GENERAL_STATUS.ACTIVE
+                    });
+                } else {
+                    SnackbarUtils.error(res?.message);
+                    historyUtils.goBack();
+                }
+            })
+        }
+    }, [id]);
+
+    const checkCodeValidation = useCallback(() => {
+        serviceCheckDepartment({code: form?.code, id: id ? id : null}).then((res) => {
+            if (!res.error) {
+                const errors = JSON.parse(JSON.stringify(errorData));
+                if (res.data.is_exists) {
+                    errors['code'] = 'Department Code Exists'
+                    setErrorData(errors)
+                } else {
+                    delete errors.code;
+                    setErrorData(errors);
+                }
+            }
+        });
+    }, [errorData, setErrorData, form?.code, id]);
+
+    useEffect(() => {
+        if (codeDebouncer) {
             checkCodeValidation();
-    }, [])
+        }
+    }, [codeDebouncer])
 
 
 
@@ -56,7 +75,7 @@ const useDepartmentDetail = ({}) => {
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
-            } else if ([''].indexOf(val) < 0) {
+            } else if (['code'].indexOf(val) < 0) {
                 delete errors[val]
             }
         });
@@ -71,31 +90,24 @@ const useDepartmentDetail = ({}) => {
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-            const fd = new FormData();
-            Object.keys(form).forEach(key => {
-                if (key != 'brand' && form[key]) {
-                    fd.append(key, form[key]);
+            let req = serviceCreateDepartment;
+            if (id) {
+                req = serviceUpdateDepartment;
+            }
+            req({...form}).then((res) => {
+                LogUtils.log('response', res);
+                if (!res.error) {
+                    historyUtils.push('/departments');
+                } else {
+                    SnackbarUtils.success(res.message);
                 }
+                setIsSubmitting(false);
             });
-            // serviceCreateDepartment(fd).then((res) => {
-            //     LogUtils.log('response', res);
-            //     if (!res.error) {
-            //         historyUtils.push('/products');
-            //     } else {
-            //         EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-            //             error: res.message,
-            //             type: 'error'
-            //         });
-            //     }
-            //     setIsSubmitting(false);
-            // });
         }
-    }, [form, isSubmitting, setIsSubmitting]);
+    }, [form, isSubmitting, setIsSubmitting, id]);
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
-        // LogUtils.log('isValid', includeRef.current.isValid(), errors);
-        // const isIncludesValid = includeRef.current.isValid();
         if (Object.keys(errors).length > 0) {
             setErrorData(errors);
             return true;
@@ -105,8 +117,7 @@ const useDepartmentDetail = ({}) => {
     }, [
         checkFormValidation,
         setErrorData,
-        form,
-        includeRef.current
+        form
     ]);
 
     const removeError = useCallback(
@@ -121,10 +132,15 @@ const useDepartmentDetail = ({}) => {
     const changeTextData = useCallback((text, fieldName) => {
             let shouldRemoveError = true;
             const t = {...form};
-            if (fieldName === 'names' || fieldName === 'truck_no' || fieldName == 'idendity_proof') {
-                if (!text || (isNum(text) && text.toString().length <= 30)) {
+            if (fieldName === 'name') {
+                if (!text || (isAlpha(text) && text.toString().length <= 30)) {
                     t[fieldName] = text;
                 }
+            } else if (fieldName === 'code') {
+                if (!text || (!isSpace(text))) {
+                    t[fieldName] = text;
+                }
+                shouldRemoveError = false;
             } else {
                 t[fieldName] = text;
             }
@@ -159,7 +175,6 @@ const useDepartmentDetail = ({}) => {
         errorData,
         isEdit,
         handleDelete,
-        includeRef,
         handleReset
     };
 };

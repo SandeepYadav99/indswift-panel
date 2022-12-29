@@ -9,6 +9,8 @@ import {
 } from "../../actions/Cadre.action";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
+import RouteName from "../../routes/Route.name";
+import {useParams} from "react-router";
 
 
 const useCadreList = ({}) => {
@@ -18,29 +20,17 @@ const useCadreList = ({}) => {
     const dispatch = useDispatch();
     const isMountRef = useRef(false);
     const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.subdepartment);
-
-    useEffect(() => {
-        // dispatch(actionFetchCadre());
-    }, []);
+    const { code } = useParams();
 
     useEffect(() => {
         dispatch(actionFetchCadre(1, sortingData, {
             query: isMountRef.current ? query : null,
             query_data: isMountRef.current ? queryData : null,
+            code: code
         }));
         isMountRef.current = true;
-    }, []);
+    }, [code]);
 
-    // const handleCellClick = (rowIndex, columnIndex, row, column) => {
-    //     console.log(`handleCellClick rowIndex: ${rowIndex} columnIndex: ${columnIndex}`);
-    // }
-    // const handlePreviousPageClick = () => {
-    //     console.log('handlePreviousPageClick', 'PREV');
-    // }
-    //
-    // const handleNextPageClick = () => {
-    //     console.log('handleNextPageClick', 'NEXT');
-    // }
     const handlePageChange = useCallback((type) => {
         console.log('_handlePageChange', type);
         dispatch(actionSetPageCadre(type));
@@ -98,24 +88,18 @@ const useCadreList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleEdit = useCallback((data) => {
-        setEditData(data);
-        setSidePanel(e => !e);
-    }, [setEditData, setSidePanel]);
+        historyUtils.push(RouteName.CADRES_UPDATE+data?.id, { gradeCode: code })
+    }, []);
 
-    const handleSideToggle = useCallback(() => {
-        historyUtils.push('/grade/cadre/create')
-        // setSidePanel(e => !e);
-        // setEditData(null);
-    }, [setEditData, setSidePanel]);
+    const handleCreate = useCallback(() => {
+        historyUtils.push(RouteName.CADRES_CREATE, { gradeCode: code })
+    }, [code]);
 
     const handleViewDetails = useCallback((data) => {
         LogUtils.log('data', data);
         historyUtils.push('/grade/cadre/detail/') //+data.id
     }, []);
 
-    const handleSubCadre = useCallback((data) => {
-        historyUtils.push('/grade/cadre/') //+data.id
-    }, []);
 
     const configFilter = useMemo(() => {
         return [
@@ -139,13 +123,13 @@ const useCadreList = ({}) => {
         handleSortOrderChange,
         handleDelete,
         handleEdit,
-        handleSideToggle,
+        handleCreate,
         handleViewDetails,
         isCalling,
         editData,
         isSidePanel,
         configFilter,
-        handleSubCadre
+        code
     }
 };
 

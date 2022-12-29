@@ -1,25 +1,7 @@
 import {
     Dashboard,
-    SupervisedUserCircle,
-    LibraryBooks,
-    VerifiedUser,
     LocalOffer,
     EventNote,
-    ContactSupport,
-    Settings,
-    Category,
-    MonetizationOn,
-    Flag,
-    ViewCarousel,
-    NewReleases,
-    Receipt,
-    TrackChanges,
-    DialerSip,
-    AccountTree,
-    LocalShipping,
-    AssignmentTurnedIn,
-    MoveToInbox,
-    Launch,
     PeopleOutlined,
     AssignmentOutlined,
     DashboardOutlined, Subtitles
@@ -59,6 +41,7 @@ import GradeList from "../views/Grade/GradeList.container";
 import GradeCreateView from "../views/Grade/GradeCreate.view";
 import CadreList from "../views/Cadre/CadreList.container";
 import CadreCreateView from "../views/Cadre/CadreCreate.view";
+import RouteName from "./Route.name";
 
 
 const dashboardRoutes = [
@@ -186,7 +169,7 @@ const dashboardRoutes = [
         is_protect: true,
     },
     {
-        path: "/location",
+        path: RouteName.LOCATIONS,
         sidebarName: "Locations",
         navbarName: "Locations",
         icon: PeopleOutlined,
@@ -197,16 +180,19 @@ const dashboardRoutes = [
         parent: 'masters',
     },
     {
-        path: "/location/create",
-        sidebarName: "Location",
-        navbarName: "Location",
-        icon: LocalOffer,
+        path: RouteName.LOCATIONS_CREATE,
         component: LocationCreateView,
         is_sidebar: false,
         is_protect: true,
     },
     {
-        path: "/location/detail",
+        path: `${RouteName.LOCATIONS_UPDATE}:id`,
+        component: LocationCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: "/locations/detail",
         sidebarName: "Location Detail",
         navbarName: "Location Detail",
         icon: LocalOffer,
@@ -215,7 +201,7 @@ const dashboardRoutes = [
         is_protect: true,
     },
     {
-        path: "/department",
+        path: RouteName.DEPARTMENTS,
         sidebarName: "Department",
         navbarName: "department",
         icon: PeopleOutlined,
@@ -226,16 +212,31 @@ const dashboardRoutes = [
         parent: 'masters',
     },
     {
-        path: "/department/create",
-        sidebarName: "Departments",
-        navbarName: "Departments",
-        icon: LocalOffer,
+        path: RouteName.DEPARTMENT_CREATE,
         component: DepartmentCreateView,
         is_sidebar: false,
         is_protect: true,
     },
     {
-        path: '/department/subdepartment',
+        path: `${RouteName.DEPARTMENT_UPDATE}:id`,
+        component: DepartmentCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: RouteName.SUB_DEPARTMENTS_CREATE,
+        component: SubDepartmentCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: `${RouteName.SUB_DEPARTMENTS_UPDATE}:id`,
+        component: SubDepartmentCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: `${RouteName.SUB_DEPARTMENTS}:code`,
         sidebarName: "SubDepartment",
         navbarName: "SubDepartment",
         icon: Subtitles,
@@ -244,16 +245,7 @@ const dashboardRoutes = [
         should_regex: true
     },
     {
-        path: "/department/subdepartment/create",
-        sidebarName: "SubDepartments",
-        navbarName: "SubDepartments",
-        icon: LocalOffer,
-        component: SubDepartmentCreateView,
-        is_sidebar: false,
-        is_protect: true,
-    },
-    {
-        path: "/grade",
+        path: RouteName.GRADES,
         sidebarName: "Grades & Cadre",
         navbarName: "Grades & Cadre",
         icon: PeopleOutlined,
@@ -264,32 +256,36 @@ const dashboardRoutes = [
         parent: 'masters',
     },
     {
-        path: "/grade/create",
-        sidebarName: "Grades & Cadre",
-        navbarName: "Grades & Cadre",
-        icon: LocalOffer,
+        path: RouteName.GRADES_CREATE,
         component: GradeCreateView,
         is_sidebar: false,
         is_protect: true,
     },
     {
-        path: '/grade/cadre',
-        sidebarName: "Cadre",
-        navbarName: "Cadre",
-        icon: Subtitles,
-        component: CadreList,
+        path: `${RouteName.GRADES_UPDATE}:id`,
+        component: GradeCreateView,
         is_sidebar: false,
-        should_regex: true
+        is_protect: true,
     },
     {
-        path: "/grade/cadre/create",
-        sidebarName: "Cadre",
-        navbarName: "Cadre",
-        icon: LocalOffer,
+        path: RouteName.CADRES_CREATE,
         component: CadreCreateView,
         is_sidebar: false,
         is_protect: true,
     },
+    {
+        path: `${RouteName.CADRES_UPDATE}:id`,
+        component: CadreCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: `${RouteName.CADRES}:code`,
+        component: CadreList,
+        is_sidebar: false,
+        should_regex: true
+    },
+
     {
         path: "/job/openings",
         sidebarName: "Job Openings",

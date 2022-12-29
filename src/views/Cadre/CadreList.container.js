@@ -21,78 +21,54 @@ import history from "../../libs/history.utils"
 
 const CadreList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
-        handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
-        isCalling, configFilter, handleSubCadre} = useCadreList({});
+        handleFilterDataChange, handleSearchValueChange,  handleCreate, handleViewDetails, editData, code,
+        isCalling, configFilter} = useCadreList({});
 
-    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.subdepartment);
+    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.cadre);
 
 
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status} />
     }, []);
 
-    const renderFirstCell = useCallback((product) => {
-        if (product) {
+    const renderFirstCell = useCallback((obj) => {
+        if (obj) {
             return (
                 <div className={styles.firstCellFlex}>
-
-                    {/*<div className={styles.driverImgCont}*/}
-                    {/*     // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}*/}
-                    {/*>*/}
-                    {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
-                    {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Support Staff</span> <br/>
+                        <span className={styles.productName}>{obj?.name}</span> <br/>
                     </div>
                 </div>
             );
         } return null;
     }, []);
 
-    const renderContact = useCallback(() => {
-        return (
-            <div>
-                <div>9347873542</div>
-                <div><strong>(O)</strong> hardeep.kumar@indwsiftlabs.com</div>
-                <div><strong>(P)</strong> hardeepkudg@indwsiftlabs.com</div>
-            </div>
-        )
-    },[])
-
-
-    // const renderCreateForm = useMemo(() => {
-    //     return (<CreateView
-    //         handleDataSave={handleDataSave}
-    //         data={editData}
-    //
-    //         handleDelete={handleDelete}/>);
-    // }, [handleDataSave, editData, warehouses, handleDelete]);
 
     const tableStructure = useMemo(() => {
         return [
-            {
-                key: 'grade',
-                label: 'Grade',
-                sortable: false,
-                render: (temp, all) => <div>G8</div>,
-            },
+            // {
+            //     key: 'grade',
+            //     label: 'Grade',
+            //     sortable: false,
+            //     render: (temp, all) => <div>G8</div>,
+            // },
+            // {
+            //     key: 'name',
+            //     label: 'Level',
+            //     sortable: true,
+            //     render: (value, all) => <div>{renderFirstCell(all)}</div>,
+            // },
             {
                 key: 'name',
-                label: 'Level',
-                sortable: true,
-                render: (value, all) => <div>{renderFirstCell(all)}</div>,
-            },
-            {
-                key: 'cadre',
                 label: 'Cadre',
                 sortable: false,
-                render: (temp, all) => <div>SS-0</div>,
+                render: (temp, all) => <div>{all?.name}</div>,
             },
             {
-                key: 'cadre',
+                key: 'level',
                 label: 'Cadre Level',
                 sortable: false,
-                render: (temp, all) => <div>2</div>,
+                render: (temp, all) => <div>{all?.level}</div>,
             },
             {
                 key: 'status',
@@ -104,8 +80,8 @@ const CadreList = ({}) => {
                 key: 'user_id',
                 label: 'Action',
                 render: (temp, all) => (<div>
-                    {/*<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >*/}
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
+                    {/*<IconButton className={'t ableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >*/}
+                    <IconButton onClick={() => { handleEdit(all) }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
                 </div>),
             },
 
@@ -144,11 +120,11 @@ const CadreList = ({}) => {
                             <ButtonBase onClick={() => (history.goBack())}>
                                 <ArrowBackIosIcon fontSize={'small'} className={styles.backArrow}/>
                             </ButtonBase>
-                            <span className={styles.title}>G8 > Cadre List</span>
+                            <span className={styles.title}><span className={styles.uppCase}>{code}</span> > Cadre List</span>
                             <div className={styles.newLine} style={{marginLeft:'20px'}}/>
                         </div>
                         <div>
-                            <ButtonBase onClick={handleSideToggle} className={'createBtn'}>
+                            <ButtonBase onClick={handleCreate} className={'createBtn'}>
                                 CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
                             </ButtonBase>
                         </div>
@@ -173,11 +149,6 @@ const CadreList = ({}) => {
                     </div>
 
                 </PageBox>
-                {/*<SidePanelComponent*/}
-                {/*    handleToggle={handleSideToggle}*/}
-                    {/*    title={'New Cadre'} open={isSidePanel} side={'right'}>*/}
-                {/*    /!*{renderCreateForm}*!/*/}
-                {/*</SidePanelComponent>*/}
             </div>
         )
 }
