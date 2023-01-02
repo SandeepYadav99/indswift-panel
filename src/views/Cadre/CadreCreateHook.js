@@ -114,11 +114,13 @@ const useCadreDetail = ({location}) => {
                 if (!text || (isAlpha(text) && text.toString().length <= 30)) {
                     t[fieldName] = text;
                 }
-            } else if(fieldName === 'level') {
-                if (!text || isNum(text)) {
-                    t[fieldName] = text;
-                }
-            }  else {
+            }
+            // else if(fieldName === 'level') {
+            //     if (!text || isNum(text)) {
+            //         t[fieldName] = text;
+            //     }
+            // }
+            else {
                 t[fieldName] = text;
             }
             setForm(t);

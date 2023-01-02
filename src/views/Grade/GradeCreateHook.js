@@ -135,14 +135,16 @@ const useGradeDetail = ({}) => {
             let shouldRemoveError = true;
             const t = {...form};
             if (fieldName === 'name') {
-                if (!text || (isAlpha(text) && text.toString().length <= 30)) {
+                if (!text || (isAlphaNum(text) && text.toString().length <= 30)) {
                     t[fieldName] = text;
                 }
-            } else if(fieldName === 'level') {
-                if (!text || isNum(text)) {
-                    t[fieldName] = text;
-                }
-            }  else if (fieldName === 'code') {
+            }
+            // else if(fieldName === 'level') {
+            //     if (!text || isNum(text)) {
+            //         t[fieldName] = text;
+            //     }
+            // }
+            else if (fieldName === 'code') {
                 if (!text || (!isSpace(text))) {
                     t[fieldName] = text;
                 }

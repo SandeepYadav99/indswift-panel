@@ -19,7 +19,7 @@ import StatusPill from "../../components/Status/StatusPill.component";
 
 const DepartmentList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
-        handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
+        handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel, handleCreate,
         isCalling, configFilter, handleSubDepartment} = useDepartmentList({});
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.department);
@@ -133,7 +133,7 @@ const DepartmentList = ({}) => {
                             <div className={styles.newLine}/>
                         </div>
                         <div>
-                            <ButtonBase onClick={handleSideToggle} className={'createBtn'}>
+                            <ButtonBase onClick={handleCreate} className={'createBtn'}>
                                 CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
                             </ButtonBase>
                         </div>

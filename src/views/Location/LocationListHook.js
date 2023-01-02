@@ -113,6 +113,10 @@ const useLocationList = ({}) => {
         historyUtils.push('/locations/detail/') //+data.id
     }, []);
 
+    const handleCreate = useCallback(() => {
+        historyUtils.push(RouteName.LOCATIONS_CREATE);
+    }, []);
+
     const configFilter = useMemo(() => {
         return [
             // {label: 'Country', name: 'country', type: 'text'},
@@ -141,6 +145,7 @@ const useLocationList = ({}) => {
         editData,
         isSidePanel,
         configFilter,
+        handleCreate
     }
 };
 

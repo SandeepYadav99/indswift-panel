@@ -110,6 +110,10 @@ const useDepartmentList = ({}) => {
         historyUtils.push(RouteName.SUB_DEPARTMENTS+data.code) //+
     }, []);
 
+    const handleCreate = useCallback(() => {
+        historyUtils.push(RouteName.DEPARTMENT_CREATE) //+
+    }, []);
+
     const configFilter = useMemo(() => {
         return [
             // {label: 'Country', name: 'country', type: 'text'},
@@ -137,7 +141,8 @@ const useDepartmentList = ({}) => {
         editData,
         isSidePanel,
         configFilter,
-        handleSubDepartment
+        handleSubDepartment,
+        handleCreate
     }
 };
 
