@@ -3,8 +3,6 @@ import styles from './FileComponent.module.css'
 import classnames from 'classnames'
 import EventEmitter from "../../libs/Events.utils";
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
-import InfoIcon from "@material-ui/icons/Info";
-import Tooltip from "@material-ui/core/Tooltip";
 
 class File extends Component {
     constructor(props) {

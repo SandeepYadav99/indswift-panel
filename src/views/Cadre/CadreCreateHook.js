@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {isAlpha, isAlphaNum, isNum} from "../../libs/RegexUtils";
+import {isAlpha, isAlphaNum, isAlphaNumChars, isNum} from "../../libs/RegexUtils";
 import {
     serviceCreateCadre,
     serviceCadreCodeCheck,
@@ -110,8 +110,8 @@ const useCadreDetail = ({location}) => {
     const changeTextData = useCallback((text, fieldName) => {
             let shouldRemoveError = true;
             const t = {...form};
-            if (fieldName === 'name') {
-                if (!text || (isAlpha(text) && text.toString().length <= 30)) {
+            if (fieldName === 'name' || fieldName == 'level') {
+                if (!text || (isAlphaNumChars(text) && text.toString().length <= 50)) {
                     t[fieldName] = text;
                 }
             }

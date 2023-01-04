@@ -15,7 +15,6 @@ import FilterComponent from '../../components/Filter/Filter.component';
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
 import useLocationList from "./LocationListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
-import CreateView from './Location.view';
 
 const LocationList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
@@ -33,12 +32,6 @@ const LocationList = ({}) => {
         if (obj) {
             return (
                 <div className={styles.firstCellFlex}>
-
-                    {/*<div className={styles.driverImgCont}*/}
-                    {/*     // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}*/}
-                    {/*>*/}
-                    {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
-                    {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
                         <span className={styles.productName}>{obj?.name}</span> <br/>
                     </div>
@@ -50,7 +43,6 @@ const LocationList = ({}) => {
 
     const tableStructure = useMemo(() => {
         return [
-
             {
                 key: 'name',
                 label: 'Name',

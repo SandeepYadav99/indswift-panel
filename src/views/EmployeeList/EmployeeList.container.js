@@ -16,6 +16,7 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
 import useEmployeeList from "./EmployeeListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import CreateView from './Employee.view';
+import UploadCsvDialog from "./components/UploadCsv/UploadCsvDialog.view";
 
 
 const EmployeeList = ({}) => {
@@ -185,6 +186,7 @@ const EmployeeList = ({}) => {
                     title={'New Employee'} open={isSidePanel} side={'right'}>
                     {renderCreateForm}
                 </SidePanelComponent>
+                <UploadCsvDialog isOpen={true}/>
             </div>
         )
 }

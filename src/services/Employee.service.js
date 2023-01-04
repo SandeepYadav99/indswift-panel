@@ -28,6 +28,6 @@ export async function serviceEmployeeVariantCheck (params) {
     return await postRequest('employee/variants/exists', params);
 }
 
-export async function serviceEmployeeDetails (params) {
-    return await postRequest('employee/detail', params);
+export async function serviceEmployeeImportFile(params) {
+    return await postRequest('employees/import', params);
 }

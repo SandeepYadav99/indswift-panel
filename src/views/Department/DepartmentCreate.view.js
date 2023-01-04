@@ -26,16 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 const DepartmentCreateView = ({}) => {
-    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete,handleReset} = useDepartmentHook({});
+    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete,handleReset, id} = useDepartmentHook({});
     const classes = useStyles();
 
         return (
            <div>
-
                <div className={styles.outerFlex}>
                   <div>
                       <ButtonBase onClick={() => (history.goBack())}>
-                          <ArrowBackIosIcon fontSize={'small'}/> <span><b>New Department</b></span>
+                          <ArrowBackIosIcon fontSize={'small'}/> <span><b>{id ? 'Update' : 'New'} Department</b></span>
                       </ButtonBase>
                       <div className={styles.newLines}/>
                   </div>

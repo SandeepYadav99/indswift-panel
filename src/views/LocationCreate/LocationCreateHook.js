@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {isAlpha, isAlphaNum, isNum, isSpace} from "../../libs/RegexUtils";
+import {isAlpha, isAlphaNum, isAlphaNumChars, isEmail, isNum, isSpace} from "../../libs/RegexUtils";
 import {
     serviceCreateLocation,
     serviceGetLocationDetails,
@@ -12,6 +12,7 @@ import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import {useParams} from "react-router";
 import Constants from "../../config/constants";
+import RouteName from "../../routes/Route.name";
 
 const initialForm = {
     name: '',
@@ -106,9 +107,9 @@ const useLocationDetail = ({}) => {
                 });
             }
             req.then((res) => {
-                LogUtils.log('response', res);
+                // { error: true, message: tempRequest.data.response_message, authorization: true, response_code: tempRequest.data.response_code };
                 if (!res.error) {
-                    historyUtils.push('/locations');
+                    historyUtils.push(RouteName.LOCATIONS);
                 } else {
                     SnackbarUtils.error(res.message);
                 }
@@ -128,7 +129,8 @@ const useLocationDetail = ({}) => {
     }, [
         checkFormValidation,
         setErrorData,
-        form
+        form,
+        submitToServer
     ]);
 
     const removeError = useCallback(
@@ -143,13 +145,17 @@ const useLocationDetail = ({}) => {
     const changeTextData = useCallback((text, fieldName) => {
         let shouldRemoveError = true;
         const t = {...form};
-        if (fieldName === 'name' || fieldName === 'city' || fieldName === 'address') {
+        if (fieldName === 'name' || fieldName === 'address') {
+            if (!text || (isAlphaNumChars(text) && text.toString().length <= 50)) {
+                t[fieldName] = text;
+            }
+        } else if (fieldName === 'city') {
             if (!text || (isAlpha(text) && text.toString().length <= 30)) {
                 t[fieldName] = text;
             }
         } else if (fieldName === 'code') {
-            if (!text || (!isSpace(text))) {
-                t[fieldName] = text;
+            if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
+                t[fieldName] = text.toUpperCase();
             }
             shouldRemoveError = false;
         } else if (fieldName === 'pincode') {

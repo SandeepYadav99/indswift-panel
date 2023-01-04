@@ -9,6 +9,7 @@ import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
 import Constants from "../../config/constants";
+import useLocationDetail from "./LocationCreateHook";
 
 const useStyles = makeStyles((theme) => ({
     iconBtnError: {
@@ -22,8 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const LocationCreateView = ({}) => {
-    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, id} = useJobRolesDetail({});
-    const classes = useStyles();
+    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, id} = useLocationDetail({});
 
         return (
            <div>

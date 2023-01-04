@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {isAlpha, isAlphaNum, isNum, isSpace} from "../../libs/RegexUtils";
+import {isAlpha, isAlphaNum, isAlphaNumChars, isNum, isSpace} from "../../libs/RegexUtils";
 import useDebounce from "../../hooks/DebounceHook";
 import historyUtils from "../../libs/history.utils";
 import {
@@ -142,12 +142,12 @@ const useDepartmentDetail = ({location}) => {
             let shouldRemoveError = true;
             const t = {...form};
             if (fieldName === 'name') {
-                if (!text || (isAlpha(text) && text.toString().length <= 30)) {
+                if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
                     t[fieldName] = text;
                 }
             } else if (fieldName === 'code') {
-                if (!text || (!isSpace(text))) {
-                    t[fieldName] = text;
+                if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
+                    t[fieldName] = text.toUpperCase();
                 }
                 shouldRemoveError = false;
             }  else {

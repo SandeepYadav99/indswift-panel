@@ -11,6 +11,10 @@ const isAlphaNum = (value) => {
     return /^[a-zA-Z0-9. ]*$/.test(value);
 }
 
+const isAlphaNumChars = (value) => {
+    return /^[a-zA-Z0-9._&!\-@#+/: ]*$/.test(value);
+}
+
 const isAlpha = (value) => {
     return /^[a-zA-Z ]*$/.test(value);
 }
@@ -27,6 +31,7 @@ const isSpace = (value) => {
     return /\s/.test(value);
 }
 
+
 export {
     isUrl,
     isEmail,
@@ -34,5 +39,5 @@ export {
     isNum,
     isAlpha,
     isDate,
-    isSpace
+    isSpace,isAlphaNumChars
 };

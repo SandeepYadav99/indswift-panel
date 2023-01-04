@@ -6,18 +6,6 @@ import {
     AssignmentOutlined,
     DashboardOutlined, Subtitles
 } from "@material-ui/icons";
-// import DashboardTabs from '../views/dashboard/components/UpperButtons/UpperButtons.view'
-import Country from '../views/Country/CountryList.container';
-import Cities from '../views/Cities/CitiesList.container';
-import UserList from '../views/User/UserList.container';
-import UpperTabs from '../views/User/components/UpperTabs/UpperTabs.view';
-import CategoryList from '../views/Category/CategoryList.container';
-import CurrencyList from "../views/Currency/CurrencyList.container";
-import RegionList from "../views/Region/RegionList.container";
-import ServiceList from '../views/Services/ServiceList.container';
-import OnBoard from '../views/Lead/components/OnBoard/OnBoard.component';
-import ComingSoon from "../views/ComingSoon/ComingSoon.view";
-
 import EmployeeTab from "../views/Employees/EmployeeTab.view";
 import EmployeeList from "../views/EmployeeList/EmployeeList.container";
 import JobRolesList from "../views/JobRoles/JobRolesList.container";
@@ -53,24 +41,6 @@ const dashboardRoutes = [
         component: NewDashboard,
         is_sidebar: true,
     },
-    // {
-    //     path: 'null',
-    //     sidebarName: "Admin Users",
-    //     navbarName: "Admin Users",
-    //     icon: EventNote,
-    //     is_sidebar: true,
-    //     slug: 'admin',
-    //     is_parent: true,
-    // },
-    // {
-    //     path: "/app/settings",
-    //     sidebarName: "App Settings",
-    //     navbarName: "App Settings",
-    //     icon: Settings,
-    //     component: AppSettings,
-    //     is_sidebar: true,
-    //     is_protect: true,
-    // },
     {
         path: "/job/role",
         sidebarName: "Job Roles(Designation)",
