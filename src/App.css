@@ -824,3 +824,9 @@ input[type=radio] + label:hover {
 .MuiTableCell-head{
     color: black !important;
 }
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

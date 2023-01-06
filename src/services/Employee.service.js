@@ -4,30 +4,30 @@
 import {postRequest, formDataRequest} from '../libs/AxiosService.util';
 
 export async function serviceCreateEmployee(params) {
-    return await formDataRequest('employee/create', params);
+    return await formDataRequest('employees/create', params);
 }
 
 export async function serviceUpdateEmployee(params) {
-    return await formDataRequest('employee/update', params);
+    return await formDataRequest('employees/update', params);
 }
 
 export async function serviceDeleteEmployee(params) {
-    return await formDataRequest('employee/delete', params);
+    return await formDataRequest('employees/delete', params);
 }
 
 
 export async function serviceGetEmployee (params) {
-    return await postRequest('employee', params);
+    return await postRequest('employees', params);
 }
 
 export async function serviceEmployeeCodeCheck (params) {
-    return await postRequest('employee/code/exists', params);
+    return await postRequest('employees/code/exists', params);
 }
 
 export async function serviceEmployeeVariantCheck (params) {
-    return await postRequest('employee/variants/exists', params);
+    return await postRequest('employees/variants/exists', params);
 }
 
 export async function serviceEmployeeImportFile(params) {
-    return await postRequest('employees/import', params);
+    return await formDataRequest('employees/import', params);
 }

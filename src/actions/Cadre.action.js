@@ -30,9 +30,6 @@ export const UPDATE_DATA = 'UPDATE_CADRE';
 export const DELETE_ITEM = 'DELETE_CADRE';
 
 export function actionFetchCadre(index = 1, sorting = {}, filter = {}, shouldReset=false) {
-    // const {pathname} = history.location;
-    // const temp = pathname.split('/');
-    // const id = temp[temp.length - 1];
     const request = serviceGetCadre({ index, row: sorting.row , order: sorting.order, ...filter }); // GetCadre
     return (dispatch) => {
         if (shouldReset) {

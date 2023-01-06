@@ -1,13 +1,16 @@
 import {useCallback, useState} from "react";
 import {isAlpha, isNum, isUrl} from "../../../../libs/RegexUtils";
+import {serviceEmployeeImportFile} from "../../../../services/Employee.service";
 
 const initialForm = {
     file: null,
 }
 
-const useUploadCsvDialogHook = ({orderId, handleToggle}) => {
+const useUploadCsvDialogHook = ({orderId, handleToggle, handleCsvUpload}) => {
     const [form, setForm] = useState(JSON.parse(JSON.stringify({...initialForm})));
     const [errorData, setErrorData] = useState({});
+    const [resData, setResData] = useState([]);
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const checkFormValidation = useCallback(() => {
@@ -29,18 +32,23 @@ const useUploadCsvDialogHook = ({orderId, handleToggle}) => {
 
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
-            // setIsSubmitting(true);
-            // serviceCreateSaleOrderNote({
-            //     ...form,
-            //     order_id: orderId
-            // }).then(res => {
-            //     if (!res.error) {
-            //         handleToggle();
-            //     }
-            //     setIsSubmitting(false);
-            // })
+            setIsSubmitted(false);
+            setResData([]);
+            setIsSubmitting(true);
+            const fd = new FormData();
+            Object.keys(form).forEach(key => {
+               fd.append(key, form[key]);
+            });
+            serviceEmployeeImportFile(fd).then(res => {
+                if (!res.error) {
+                    setIsSubmitted(true);
+                    setResData(res.data);
+                    handleCsvUpload();
+                }
+                setIsSubmitting(false);
+            })
         }
-    }, [form, isSubmitting, setIsSubmitting, orderId, handleToggle]);
+    }, [form, isSubmitting, setIsSubmitting, orderId, handleToggle, setIsSubmitting, setResData, handleCsvUpload]);
 
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
@@ -64,13 +72,7 @@ const useUploadCsvDialogHook = ({orderId, handleToggle}) => {
     const changeTextData = useCallback((text, fieldName) => {
         let shouldRemoveError = true;
         const t = {...form};
-        if (fieldName === 'note') {
-            if (!text || (isAlpha(text))) {
-                t[fieldName] = text;
-            }
-        } else {
-            t[fieldName] = text;
-        }
+        t[fieldName] = text;
         setForm(t);
         shouldRemoveError && removeError(fieldName);
     }, [removeError, form, setForm]);
@@ -90,7 +92,9 @@ const useUploadCsvDialogHook = ({orderId, handleToggle}) => {
         removeError,
         handleSubmit,
         errorData,
-        isSubmitting
+        isSubmitting,
+        resData,
+        isSubmitted
     }
 };
 

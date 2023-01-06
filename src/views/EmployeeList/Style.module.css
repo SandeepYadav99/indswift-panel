@@ -107,3 +107,6 @@
     margin-left: 1px;
     background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
 }
+.captialize {
+    text-transform: capitalize;
+}

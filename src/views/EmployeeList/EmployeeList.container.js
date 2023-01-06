@@ -2,10 +2,10 @@
  * Created by charnjeetelectrovese@gmail.com on 12/3/2019.
  */
 import React, {Component, useCallback, useEffect, useMemo} from 'react';
-import {Button, Paper, Checkbox, IconButton, MenuItem} from '@material-ui/core';
+import {Button, Paper, Checkbox, IconButton, MenuItem, ButtonBase} from '@material-ui/core';
 import classNames from 'classnames';
 import {connect, useSelector} from 'react-redux';
-import {Add, InfoOutlined, PrintOutlined} from '@material-ui/icons';
+import {CloudUpload, InfoOutlined, PrintOutlined} from '@material-ui/icons';
 import PageBox from '../../components/PageBox/PageBox.component';
 import SidePanelComponent from '../../components/SidePanel/SidePanel.component';
 import styles from './Style.module.css';
@@ -22,7 +22,7 @@ import UploadCsvDialog from "./components/UploadCsv/UploadCsvDialog.view";
 const EmployeeList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
-        isCalling, configFilter,} = useEmployeeList({});
+        isCalling, configFilter, toggleCsvDialog, isCsvDialog, handleCsvUpload} = useEmployeeList({});
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.employee);
 
@@ -31,31 +31,26 @@ const EmployeeList = ({}) => {
         return <StatusPill status={status} />
     }, []);
 
-    const renderFirstCell = useCallback((product) => {
-        if (product) {
+    const renderFirstCell = useCallback((obj) => {
+        if (obj) {
             return (
                 <div className={styles.firstCellFlex}>
-
-                    {/*<div className={styles.driverImgCont}*/}
-                    {/*     // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}*/}
-                    {/*>*/}
-                    {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
-                    {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Hardeep Kumar</span> <br/>
-                        <span>10001212</span>
+                        <span className={styles.productName}>{obj?.name}</span> <br/>
+                        <span>{obj?.emp_code}</span>
                     </div>
                 </div>
             );
         } return null;
     }, []);
 
-    const renderContact = useCallback(() => {
+    const renderContact = useCallback((obj) => {
         return (
             <div>
-                <div>9347873542</div>
-                <div><strong>(O)</strong> hardeep.kumar@indwsiftlabs.com</div>
-                <div><strong>(P)</strong> hardeepkudg@indwsiftlabs.com</div>
+                {obj?.contact?.official_contact && (<div><strong>(O)</strong> {obj?.contact?.official_contact}</div>)}
+                {obj?.contact?.personal_contact && (<div><strong>(P)</strong> {obj?.contact?.personal_contact}</div>)}
+                {obj?.contact?.official_email && (<div><strong>(O)</strong> {obj?.contact?.official_email}</div>)}
+                {obj?.contact?.personal_email && (<div><strong>(P)</strong> {obj?.contact?.personal_email}</div>)}
             </div>
         )
     },[])
@@ -80,33 +75,33 @@ const EmployeeList = ({}) => {
                 key: 'location',
                 label: 'Location',
                 sortable: false,
-                render: (temp, all) => <div>NABHA</div>,
+                render: (temp, all) => <div className={styles.captialize}>{all?.location.name}</div>,
             },
             {
                 key: 'designation',
                 label: 'Designation',
                 sortable: false,
-                render: (temp, all) => <div>Sr. Manager</div>,
+                render: (temp, all) => <div className={styles.captialize}>{all?.designation}</div>,
             },
             {
                 key: 'dept',
                 label: 'Dept & Sub Dept.',
                 sortable: false,
                 style: { width: '12%'},
-                render: (temp, all) => <div>GMS/HR&A</div>,
+                render: (temp, all) => <div className={styles.captialize}>{all?.department?.name}/{all?.sub_department?.name}</div>,
             },
             {
                 key: 'contact',
                 label: 'Contact',
                 sortable: false,
                  style: { width: '25%'},
-                render: (temp, all) => <div>{renderContact()}</div>,
+                render: (temp, all) => <div>{renderContact(all)}</div>,
             },
             {
                 key: 'dept',
                 label: 'HOD',
                 sortable: false,
-                render: (temp, all) => <div>Pawan Kumar Garg</div>,
+                render: (temp, all) => <div>{all?.hod?.hod_name}</div>,
             },
             {
                 key: 'status',
@@ -160,6 +155,11 @@ const EmployeeList = ({}) => {
                            <span className={styles.title}>Employee Records</span>
                            <div className={styles.newLine}/>
                        </div>
+                        <div>
+                            <ButtonBase onClick={toggleCsvDialog} className={'createBtn'}>
+                                Upload <CloudUpload fontSize={"small"} className={'plusIcon'}></CloudUpload>
+                            </ButtonBase>
+                        </div>
                     </div>
 
                     <div>
@@ -186,7 +186,7 @@ const EmployeeList = ({}) => {
                     title={'New Employee'} open={isSidePanel} side={'right'}>
                     {renderCreateForm}
                 </SidePanelComponent>
-                <UploadCsvDialog isOpen={true}/>
+                <UploadCsvDialog isOpen={isCsvDialog} handleToggle={toggleCsvDialog} handleCsvUpload={handleCsvUpload} />
             </div>
         )
 }
