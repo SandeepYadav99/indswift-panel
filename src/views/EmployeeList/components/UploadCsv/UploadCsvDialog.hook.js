@@ -1,17 +1,29 @@
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {isAlpha, isNum, isUrl} from "../../../../libs/RegexUtils";
-import {serviceEmployeeImportFile} from "../../../../services/Employee.service";
+import {serviceEmployeeImportFile, serviceEmployeeImportVerify} from "../../../../services/Employee.service";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
 const initialForm = {
     file: null,
 }
 
-const useUploadCsvDialogHook = ({orderId, handleToggle, handleCsvUpload}) => {
+const useUploadCsvDialogHook = ({orderId, isOpen, handleToggle, handleCsvUpload}) => {
     const [form, setForm] = useState(JSON.parse(JSON.stringify({...initialForm})));
     const [errorData, setErrorData] = useState({});
+    const [isVerified, setIsVerified] = useState(false);
     const [resData, setResData] = useState([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            setForm({...initialForm});
+            setResData([]);
+            setIsSubmitted(false);
+            setIsVerified(false);
+            setErrorData({});
+        }
+    }, [isOpen]);
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
@@ -32,23 +44,30 @@ const useUploadCsvDialogHook = ({orderId, handleToggle, handleCsvUpload}) => {
 
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
-            setIsSubmitted(false);
             setResData([]);
             setIsSubmitting(true);
             const fd = new FormData();
             Object.keys(form).forEach(key => {
                fd.append(key, form[key]);
             });
-            serviceEmployeeImportFile(fd).then(res => {
+            let req = isVerified ? serviceEmployeeImportFile : serviceEmployeeImportVerify;
+            req(fd).then(res => {
                 if (!res.error) {
+                    if (isVerified) {
+                        handleCsvUpload();
+                        handleToggle();
+                        SnackbarUtils.success('Employee Data Imported Successfully');
+                    }
+                    if (res.data.length === 0) {
+                        setIsVerified(e => !e);
+                    }
                     setIsSubmitted(true);
                     setResData(res.data);
-                    handleCsvUpload();
                 }
                 setIsSubmitting(false);
             })
         }
-    }, [form, isSubmitting, setIsSubmitting, orderId, handleToggle, setIsSubmitting, setResData, handleCsvUpload]);
+    }, [form, isSubmitting, setIsSubmitting, orderId, handleToggle, setIsSubmitting, setResData, handleCsvUpload, isVerified, setIsVerified]);
 
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
@@ -75,7 +94,8 @@ const useUploadCsvDialogHook = ({orderId, handleToggle, handleCsvUpload}) => {
         t[fieldName] = text;
         setForm(t);
         shouldRemoveError && removeError(fieldName);
-    }, [removeError, form, setForm]);
+        setIsVerified(false);
+    }, [removeError, form, setForm, setIsVerified]);
 
     const onBlurHandler = useCallback(
         type => {
@@ -94,7 +114,8 @@ const useUploadCsvDialogHook = ({orderId, handleToggle, handleCsvUpload}) => {
         errorData,
         isSubmitting,
         resData,
-        isSubmitted
+        isSubmitted,
+        isVerified
     }
 };
 

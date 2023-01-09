@@ -24,8 +24,8 @@ export async function serviceEmployeeCodeCheck (params) {
     return await postRequest('employees/code/exists', params);
 }
 
-export async function serviceEmployeeVariantCheck (params) {
-    return await postRequest('employees/variants/exists', params);
+export async function serviceEmployeeImportVerify (params) {
+    return await formDataRequest('employees/import/verify', params);
 }
 
 export async function serviceEmployeeImportFile(params) {

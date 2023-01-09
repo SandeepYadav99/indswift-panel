@@ -46,7 +46,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const UploadCsvDialog = ({isOpen, handleToggle, handleCsvUpload}) => {
     const classes = useStyles();
-    const { changeTextData, errorData, form, handleSubmit, onBlurHandler, removeError, resData, isSubmitted, isSubmitting } = useUploadCsvDialogHook({handleCsvUpload, handleToggle});
+    const { changeTextData, errorData, form, handleSubmit, onBlurHandler, removeError, resData, isSubmitted, isSubmitting, isVerified } = useUploadCsvDialogHook({isOpen, handleCsvUpload, handleToggle});
     const renderTable = useMemo(() => {
         if (resData.length === 0) return 'Success';
         return (
@@ -123,7 +123,7 @@ const UploadCsvDialog = ({isOpen, handleToggle, handleCsvUpload}) => {
                 {/*<DialogActions>*/}
                     <div className={styles.printFlex}>
                         <ButtonBase primary disabled={isSubmitting} onClick={handleSubmit} className={styles.btmBtn}>
-                            Upload Csv
+                            {isVerified ? 'Upload Csv' : 'Verify Csv'}
                         </ButtonBase>
                     </div>
                 {/*</DialogActions>*/}

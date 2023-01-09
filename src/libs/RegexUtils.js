@@ -12,7 +12,7 @@ const isAlphaNum = (value) => {
 }
 
 const isAlphaNumChars = (value) => {
-    return /^[a-zA-Z0-9._&!\-@#+/: ]*$/.test(value);
+    return /^[a-zA-Z0-9._&!\-@#+/:,;()%="' ]*$/.test(value);
 }
 
 const isAlpha = (value) => {
