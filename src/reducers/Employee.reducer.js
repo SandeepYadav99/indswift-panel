@@ -16,7 +16,8 @@ import {
     SET_SERVER_PAGE,
     CREATE_DATA,
     UPDATE_DATA,
-    DELETE_ITEM
+    DELETE_ITEM,
+    GET_EMPLOYEE_DATA
 } from '../actions/Employee.action';
 import Constants from '../config/constants';
 
@@ -29,6 +30,7 @@ function mapPresetPRequest(all, pageId) {
 }
 
 const initialState = {
+    employeeData:[],
     all: [],
     data: [],
     currentPage: 0,
@@ -85,6 +87,12 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
                 prevState.unshift(action.payload);
                 const tableData = mapPresetPRequest(prevState, state.currentPage);
                 return {...state, all: prevState, data: tableData};
+            }
+            return state;
+        }
+        case GET_EMPLOYEE_DATA: {
+            if (action.payload) {
+                return {...state, employeeData: action.payload.data};
             }
             return state;
         }

@@ -10,25 +10,23 @@ import AddressInfo from "./components/Profile/Address";
 import Timeline from "./components/Profile/Timeline";
 import PerformanceReview from "./components/Profile/PerfomanceReview";
 
-const ProfileView = () => {
+const ProfileView = ({data}) => {
     return (
         <div>
             <div className={styles.profileContainer}>
                 <div className={styles.lhs}>
-
-                    <PersonalInfo/>
-                    <ContactInfo/>
-                    <AddressInfo/>
+                    <PersonalInfo data={data} />
+                    <ContactInfo contact={data?.contact}/>
+                    <AddressInfo address={data?.address} />
                     <Timeline/>
 
                 </div>
                 <div className={styles.rhs}>
-
-                    <OfficialDetails/>
-                    <DepartmentInfo/>
-                    <GovtInfo/>
-                    <BankInfo/>
-                    <PerformanceReview/>
+                    <OfficialDetails data={data} />
+                    <DepartmentInfo data={data}/>
+                    <GovtInfo idCards={data?.identity_date}/>
+                    <BankInfo bankD={data?.bank}/>
+                    <PerformanceReview reviewer={data?.pms_reviewer}/>
                 </div>
             </div>
         </div>

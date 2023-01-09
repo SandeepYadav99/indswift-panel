@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./Style.module.css"
 
-const OfficialDetails = () => {
+const OfficialDetails = ({data}) => {
     return (
         <div>
             <div className={styles.plainPaper}>
@@ -10,7 +10,7 @@ const OfficialDetails = () => {
 
                     <div className={styles.mainFlex}>
                         <div className={styles.left}>
-                            <div className={styles.key}><span className={styles.value}>DOJ:</span>03/10/1994</div>
+                            <div className={styles.key}><span className={styles.value}>DOJ:</span>{data?.doj}</div>
                             <div className={styles.key}><span className={styles.value}>Experience With Org:</span>1</div>
                             <div className={styles.key}><span className={styles.value}>Previous Org:</span>Oracle</div>
                             <div className={styles.key}><span className={styles.value}>Past Experience:</span>2</div>

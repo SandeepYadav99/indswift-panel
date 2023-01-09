@@ -23,6 +23,9 @@ export async function serviceGetEmployee (params) {
 export async function serviceEmployeeCodeCheck (params) {
     return await postRequest('employees/code/exists', params);
 }
+export async function serviceEmployeeCodeSubmit (params) {
+    return await postRequest('employees/details', params);
+} 
 
 export async function serviceEmployeeVariantCheck (params) {
     return await postRequest('employees/variants/exists', params);

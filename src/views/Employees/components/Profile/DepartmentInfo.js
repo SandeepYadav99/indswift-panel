@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./Style.module.css"
 
-const DepartmentInfo = () => {
+const DepartmentInfo = ({data}) => {
     return (
         <div>
             <div className={styles.plainPaper}>
@@ -15,8 +15,8 @@ const DepartmentInfo = () => {
                             </div>
 
                             <div>
-                                <div className={styles.key}><span className={styles.value}>HOD Name:</span>Aman</div>
-                                <div className={styles.key}><span className={styles.value}>Employee Code:</span>10023
+                                <div className={styles.key}><span className={styles.value}>HOD Name:</span>{data?.hod?.hod_name}</div>
+                                <div className={styles.key}><span className={styles.value}>Employee Code:</span>{data?.emp_code}
                                 </div>
                                 <div className={styles.key}><span className={styles.value}>Location:</span>Delhi</div>
                             </div>
@@ -25,8 +25,8 @@ const DepartmentInfo = () => {
 
                         </div>
                         <div className={styles.right}>
-                            <div className={styles.key}><span className={styles.value}>Department:</span>Technology</div>
-                            <div className={styles.key}><span className={styles.value}>Sub-Departmetn:</span>Web</div>
+                            <div className={styles.key}><span className={styles.value}>Department:</span>{data?.department?.name}</div>
+                            <div className={styles.key}><span className={styles.value}>Sub-Department:</span>Web</div>
                         </div>
                     </div>
 

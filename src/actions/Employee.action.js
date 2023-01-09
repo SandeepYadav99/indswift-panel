@@ -3,7 +3,7 @@
  */
 import store from '../store';
 import Constants from '../config/constants';
-import {serviceCreateEmployee, serviceGetEmployee, serviceUpdateEmployee,serviceDeleteEmployee} from "../services/Employee.service";
+import {serviceCreateEmployee, serviceGetEmployee, serviceUpdateEmployee,serviceDeleteEmployee, serviceEmployeeCodeSubmit} from "../services/Employee.service";
 import EventEmitter from "../libs/Events.utils";
 
 export const FETCH_INIT = 'FETCH_INIT_EMPLOYEE';
@@ -24,6 +24,8 @@ export const SET_SERVER_PAGE = 'SET_SERVER_PAGE_EMPLOYEE';
 export const CREATE_DATA = 'CREATE_EMPLOYEE';
 export const UPDATE_DATA = 'UPDATE_EMPLOYEE';
 export const DELETE_ITEM = 'DELETE_EMPLOYEE';
+export const GET_EMPLOYEE_DATA = 'GET_EMPLOYEE_DATA';
+
 
 export function actionFetchEmployee(index = 1, sorting = {}, filter = {}) {
     const request = serviceGetEmployee({ index, row: sorting.row, order: sorting.order, ...filter });
@@ -68,6 +70,16 @@ export function actionUpdateEmployee(data) {
     }
 }
 
+export function  actionGetEmployeeDetails  (data) {
+    const request =   serviceEmployeeCodeSubmit({ code: data });
+    return  (dispatch) => {
+        request.then((data) => {
+            if (!data.error) {
+                dispatch({type: GET_EMPLOYEE_DATA, payload: data})
+            }
+        })
+    }
+}
 export function actionDeleteEmployee(id) {
     const request = serviceDeleteEmployee({ id: id});
     return (dispatch) => {
