@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./Style.module.css"
 
-const GovtInfo = () => {
+const GovtInfo = ({idCards}) => {
     return (
         <div>
             <div className={styles.plainPaper}>
@@ -10,10 +10,10 @@ const GovtInfo = () => {
 
                     <div className={styles.mainFlex}>
                         <div className={styles.left}>
-                            <div className={styles.key}><span className={styles.value}>Aadhar Number:</span>102243A34</div>
-                            <div className={styles.key}><span className={styles.value}>PAN Number:</span>102243A34</div>
-                            <div className={styles.key}><span className={styles.value}>ESI Number:</span>102243A34</div>
-                            <div className={styles.key}><span className={styles.value}>UAN Number:</span>102243A34</div>
+                            <div className={styles.key}><span className={styles.value}>Aadhar Number:</span>{idCards?.aadhar_no}</div>
+                            <div className={styles.key}><span className={styles.value}>PAN Number:</span>{idCards?.pan_no}</div>
+                            <div className={styles.key}><span className={styles.value}>ESI Number:</span>{idCards?.esi_no}</div>
+                            <div className={styles.key}><span className={styles.value}>UAN Number:</span>{idCards?.uan_no}</div>
                         </div>
                     </div>
 

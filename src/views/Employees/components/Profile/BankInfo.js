@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./Style.module.css"
 
-const BankInfo = () => {
+const BankInfo = ({bankD}) => {
     return (
         <div>
             <div className={styles.plainPaper}>
@@ -10,9 +10,9 @@ const BankInfo = () => {
 
                     <div className={styles.mainFlex}>
                         <div className={styles.left}>
-                            <div className={styles.key}><span className={styles.value}>Bank Name:</span>HDFC Bank</div>
-                            <div className={styles.key}><span className={styles.value}>Account Number:</span>123125432</div>
-                            <div className={styles.key}><span className={styles.value}>IFSC Code:</span>123HDFC2345</div>
+                            <div className={styles.key}><span className={styles.value}>Bank Name:</span>{bankD?.name}</div>
+                            <div className={styles.key}><span className={styles.value}>Account Number:</span>{bankD?.account_no}</div>
+                            <div className={styles.key}><span className={styles.value}>IFSC Code:</span>{bankD?.ifsc}</div>
                         </div>
                     </div>
 

@@ -71,7 +71,7 @@ const dashboardRoutes = [
         // should_regex: true,
     },
     {
-        path: "/employee/detail",
+        path: "/employees/details/:id",
         sidebarName: "Employee Details",
         navbarName: "Employee Details",
         icon: Dashboard,

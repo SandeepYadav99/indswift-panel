@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from "./Style.module.css"
 
-const AddressInfo = () => {
+const AddressInfo = ({address}) => {
+
     return (
         <div>
             <div className={styles.plainPaper}>
@@ -11,10 +12,11 @@ const AddressInfo = () => {
                     <div className={styles.mainFlex} style={{flexDirection:'column'}}>
                         <div className={styles.left}>
                             <div className={styles.key}>
-                                H.No 890, First Floor,<br/>
+                                {/* H.No 890, First Floor,<br/>
                                 Sector 77B,<br/>
                                 Chandigarh,<br/>
-                                160079
+                                160079 */}
+                                {address?.permanent}
                             </div>
                         </div>
                         <div className={styles.horizontal}>
@@ -26,10 +28,11 @@ const AddressInfo = () => {
                                <div className={styles.heading}>Correspondence Address </div>
 
                                <div className={styles.key}>
-                                   H.No 890, First Floor,<br/>
+                                   {/* H.No 890, First Floor,<br/>
                                    Sector 77B,<br/>
                                    Chandigarh,<br/>
-                                   160079
+                                   160079 */}
+                                   {address?.current}
                                </div>
                            </div>
                         </div>
