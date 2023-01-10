@@ -9,6 +9,7 @@ const success = "#3CD4A0";
 const info = "#9013FE";
 const button = "#2196F3";
 const tableCell = 'rgb(39, 43, 65)'
+const error = '#FF0000';
 
 const lightenRate = 7.5;
 const darkenRate = 15;
@@ -21,6 +22,15 @@ export default {
                 .lighten(lightenRate)
                 .toHexString(),
             dark: tinycolor(primary)
+                .darken(darkenRate)
+                .toHexString()
+        },
+        error: {
+            main: error,
+            light: tinycolor(error)
+                .lighten(lightenRate)
+                .toHexString(),
+            dark: tinycolor(error)
                 .darken(darkenRate)
                 .toHexString()
         },

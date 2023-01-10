@@ -43,6 +43,9 @@ const PersonalInfo = ({ data }) => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Children Name:</span>
+                {/* <span className={styles.valueWrap}>
+                PALLVI, DAKSH KUMAR,sajkhakdhaskhkasdhkhaskhkashkkhhkasd sdfgkjhdkjskfkdhsh
+                </span> */}
                 {data?.family?.children_name}
               </div>
               <div className={styles.key}>

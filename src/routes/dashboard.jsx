@@ -43,7 +43,7 @@ const dashboardRoutes = [
     },
     {
         path: "/job/role",
-        sidebarName: "Job Roles(Designation)",
+        sidebarName: "Job Description",
         navbarName: "Job Roles(Designation)",
         icon: PeopleOutlined,
         component: JobRolesList,

@@ -98,6 +98,8 @@ const EmployeeTab = () => {
             >
               <Tab className={"iconTabs"} label="Profile" />
               <Tab className={"iconTabs"} label="Salary Info" />
+              <Tab className={"iconTabs"} label="Career Progression Chart (CPC)" />
+
             </Tabs>
           </AppBar>
 
@@ -105,7 +107,12 @@ const EmployeeTab = () => {
             <TabPanel value={value} index={0} dir={"ltr"}>
               <ProfileView data={employeeData}/>
             </TabPanel>
-            <TabPanel value={value} index={1} dir={"ltr"}></TabPanel>
+            <TabPanel value={value} index={1} dir={"ltr"}>
+              
+            </TabPanel>
+            <TabPanel value={value} index={2} dir={"ltr"}>
+              
+            </TabPanel>
           </div>
         </div>
       </div>

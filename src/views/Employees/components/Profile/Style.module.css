@@ -17,7 +17,10 @@
     display: flex;
     /*align-items: center;*/
 }
-
+.valueWrap{
+    display: flex;
+    flex-wrap: wrap;
+}
 .vertical {
     border-left: 1px dashed #B8C5D3;
     max-height: 100px;
@@ -28,6 +31,7 @@
     color: #818181;
     font-weight: 500;
     margin-bottom: 7px;
+    display: flex;
 }
 
 .value{

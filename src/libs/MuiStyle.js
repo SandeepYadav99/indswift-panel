@@ -1,3 +1,4 @@
+
 export default (theme) => ({
         btnSuccess: {
             backgroundColor: '#EDFBF6',
@@ -44,5 +45,21 @@ export default (theme) => ({
     },
     iconBtnError: {
         color: theme.palette.error.dark
+    },
+    btnAction: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            color: '#2896e9',
+            padding: '5px 15px',
+            textTransform: 'uppercase',
+            background: '#ffffff',
+            borderRadius: '15px',
+            '&:hover': {
+                // backgroundColor: 'white',
+                color: 'white'
+                
+            }
+
     }
 });
