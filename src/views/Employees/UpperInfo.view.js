@@ -38,7 +38,7 @@ const UpperInfo = ({ data }) => {
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
               <StatusPill
-                status="Active"
+                status="ACTIVE"
                 style={{ color: "#fff", borderColor: "#fff" }}
               />
             </div>

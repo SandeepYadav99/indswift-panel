@@ -12,20 +12,27 @@ const ContactInfo = ({ contact }) => {
             <div className={styles.left}>
               <div className={styles.key}>
                 <span className={styles.value}>Official Number:</span>
-                
-                {contact?.official_contact}
+                <span className={styles.valueWrap}>
+                  {contact?.official_contact}
+                </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Phone Number:</span>
-                {contact?.personal_contact}
+                <span className={styles.valueWrap}>
+                  {contact?.personal_contact}
+                </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Official Email:</span>
-                {contact?.official_email}
+                <span className={styles.valueWrap}>
+                  {contact?.official_email}
+                </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Personal Email:</span>
-                {contact?.personal_email}
+                <span className={styles.valueWrap}>
+                  {contact?.personal_email}
+                </span>
               </div>
             </div>
           </div>

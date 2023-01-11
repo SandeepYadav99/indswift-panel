@@ -56,10 +56,13 @@ export default (theme) => ({
             background: '#ffffff',
             borderRadius: '15px',
             '&:hover': {
-                // backgroundColor: 'white',
-                color: 'white'
-                
+                color: 'white',
+                '& span':{
+                    color:'white'
+                }
+
             }
+
 
     }
 });

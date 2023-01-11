@@ -18,8 +18,8 @@
     /*align-items: center;*/
 }
 .valueWrap{
-    display: flex;
-    flex-wrap: wrap;
+    max-width: 180px;
+    overflow-wrap: anywhere;
 }
 .vertical {
     border-left: 1px dashed #B8C5D3;
