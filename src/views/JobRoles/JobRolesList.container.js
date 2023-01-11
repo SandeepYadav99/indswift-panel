@@ -151,7 +151,7 @@ const JobRolesList = ({}) => {
                 <PageBox>
                     <div className={styles.headerContainer}>
                        <div>
-                           <span className={styles.title}>Job Roles (Designation) List</span>
+                           <span className={styles.title}>Job Description</span>
                            <div className={styles.newLine}/>
                        </div>
                         <div>

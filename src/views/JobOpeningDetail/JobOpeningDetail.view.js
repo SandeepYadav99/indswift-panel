@@ -5,6 +5,7 @@ import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import classnames from "classnames";
 import CandidatesRecordTable from "./components/CandidatesTable/CandidatesTable.component";
+import InterviewerRecordTable from './components/CandidatesTable/InterviewerTable/InterviewerTable.component';
 
 
 const JobOpeningDetail = () => {
@@ -72,6 +73,22 @@ const JobOpeningDetail = () => {
                 </div>
 
             </div>
+            <div className={styles.plainPaper}>
+                <div className={styles.btmFlex}>
+                    <div style={{flex:'1'}}>
+                        <div className={styles.heading}> Interview Panel</div>
+                        <InterviewerRecordTable/>
+                    </div>
+                    <div style={{marginLeft:'20px'}}>
+                        <ButtonBase className={styles.createBtn}>
+                        MODIFY INTERVIEW PANEL
+                        </ButtonBase>
+                    </div>
+                </div>
+
+            </div>
+
+
 
         </div>
     )
