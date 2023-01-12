@@ -15,7 +15,7 @@ export const FETCHED_FILTER = 'FETCHED_FILTER_CANDIDATE';
 // export const NEXT_PREQUESTS = 'NEXT_PREQUESTS';
 // export const PREV_PREQUESTS = 'PREV_PREQUESTS';
 export const FETCH_NEXT = 'FETCH_NEXT_CANDIDATE';
-export const FILTER = 'FILTER_CANDIDATE';
+export const FILTER = 'FILTER_CANDIDATE'; 
 export const RESET_FILTER = 'RESET_FILTER_CANDIDATE';
 export const SET_SORTING = 'SET_SORTING_CANDIDATE';
 export const SET_FILTER = 'SET_FILTER_CANDIDATE';
@@ -26,6 +26,7 @@ export const SET_SERVER_PAGE = 'SET_SERVER_PAGE_CANDIDATE';
 export const CREATE_DATA = 'CREATE_CANDIDATE';
 export const UPDATE_DATA = 'UPDATE_CANDIDATE';
 export const DELETE_ITEM = 'DELETE_CANDIDATE';
+
 
 export function actionFetchCandidate(index = 1, sorting = {}, filter = {}) {
     const request = serviceGetCandidate({ index, row: sorting.row, order: sorting.order, ...filter });
@@ -84,19 +85,6 @@ export function actionChangePageCandidate(page) {
     }
 }
 
-// export function nextPRequestsClick() {
-//     return {
-//         type: NEXT_PREQUESTS,
-//         payload: null,
-//     };
-// }
-//
-// export function prevPRequestsClick() {
-//     return {
-//         type: PREV_PREQUESTS,
-//         payload: null,
-//     };
-// }
 
 export function actionFilterCandidate(value) {
     const request = null;////serviceFetchProviderRequests(value);
@@ -111,13 +99,8 @@ export function actionFilterCandidate(value) {
 
 
 export function actionChangeStatusCandidate(id, status) {
-    // const request = serviceFetchProviderRequests(value);
     return (dispatch) => {
         dispatch({type: CHANGE_STATUS, payload: {id, status}});
-        // request.then((data) => {
-        //     dispatch({type: FILTER_PREQUESTS, payload: data});
-        //     dispatch({type: FETCHED_PREQUESTS, payload: null});
-        // });
     };
 }
 
@@ -134,12 +117,11 @@ export function actionSetPageCandidate(page) {
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;
     const query = stateData.query;
-    const queryData = stateData.query_data;
+    const queryData = stateData.query_data; 
     const serverPage = stateData.serverPage;
 
     if (totalLength <= ((page + 1) * Constants.DEFAULT_PAGE_VALUE)) {
         store.dispatch(actionFetchCandidate(serverPage + 1, sortingData, {query, query_data: queryData}));
-        // this.props.fetchNextUsers(this.props.serverPage + 1, this.props.sorting_data.row, this.props.sorting_data.order, { query: this.props.query, query_data: this.props.query_data });
     }
 
     console.log(currentPage, totalLength);
@@ -147,9 +129,5 @@ export function actionSetPageCandidate(page) {
         type: CHANGE_PAGE,
         payload: page,
     };
-    // if (this.props.totalUsers <= ((this.props.currentPage + 1) * 100)) {
-    //         // this.props.fetchNextUsers(this.props.serverPage + 1, this.props.sorting_data.row, this.props.sorting_data.order);
-    //         this.props.fetchNextUsers(this.props.serverPage + 1, this.props.sorting_data.row, this.props.sorting_data.order, { query: this.props.query, query_data: this.props.query_data });
-    //     }
 
 }

@@ -32,6 +32,8 @@ import CadreReducer from "./Cadre.reducer";
 import CandidateReducer from "./Candidate.reducer";
 import AnnualReducer from "./Annual.reducer";
 import ManpowerReducer from "./Manpower.reducer"
+import HRPolicyReducer from './HRPolicy.reducer';
+import CircularReducer from './Circular.reducer';
 
 const rootReducer = combineReducers({
     state: (state = {}) => state,
@@ -57,6 +59,8 @@ const rootReducer = combineReducers({
     job_openings: JobOpeningsReducer,
     location: LocationReducer,
     department: DepartmentReducer,
+    hrpolicy:HRPolicyReducer,
+    circular:CircularReducer,
     subdepartment: SubDepartmentReducer,
     grade: GradeReducer,
     cadre: CadreReducer,

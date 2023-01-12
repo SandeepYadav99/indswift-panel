@@ -30,6 +30,10 @@ import GradeCreateView from "../views/Grade/GradeCreate.view";
 import CadreList from "../views/Cadre/CadreList.container";
 import CadreCreateView from "../views/Cadre/CadreCreate.view";
 import RouteName from "./Route.name";
+import HRPolicy from "../views/HRPolicy/HRPolicy.container";
+import HRCreateView from "../views/HRPolicy/HRPolicyCreate.view";
+import CircularCreateView from "../views/Circular/CircularCreate.view";
+import Circular from "../views/Circular/Circular.container";
 
 
 const dashboardRoutes = [
@@ -265,6 +269,49 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
+    },
+    {
+        path: 'null',
+        sidebarName: "HR Documents & Updates",
+        navbarName: "HR Documents & Updates",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: 'Hr',
+        is_parent: true,
+    },
+    {
+        path: '/hr',
+        sidebarName: "HR Policies",
+        navbarName: "HR Policies",
+        icon: PeopleOutlined,
+        component: HRPolicy,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'Hr',
+    },
+    {
+        path: '/hr/create',
+        component: HRCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: '/circulars',
+        sidebarName: "Circulars",
+        navbarName: "Circulars",
+        icon: PeopleOutlined,
+        component: Circular,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'Hr',
+    },
+    {
+        path: '/circular/create',
+        component: CircularCreateView,
+        is_sidebar: false,
+        is_protect: true,
     },
     {
         path: "/job/openings/create",
