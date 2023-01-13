@@ -511,7 +511,27 @@ input[type=radio] + label:hover {
     justify-content: space-between;
     align-items: center;
 }
-
+.wrapper{
+    margin-top: 20px;
+}
+.info_Status{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inner{
+    gap: 120px;
+}
+.slider_wrap{
+    display: flex;
+}
+.tags{
+    color: #919BB0;
+    margin-right: 10px;
+}
+.file_Wrapper{
+    width: 48.7%;
+}
 .infoBottomBar {
     border-bottom: 1px solid;
     display: flex;
@@ -536,7 +556,12 @@ input[type=radio] + label:hover {
     margin-right: 5px;
 }
 
+.heading_stats{
+    margin-right: 30px;
+    /* height: 22px; */
+font-size: medium;
 
+}
 
 /**/
 

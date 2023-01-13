@@ -123,7 +123,7 @@ const HRCreateView = ({}) => {
             />
           </div>
         </div>
-        <div className={"formGroup"}>
+        <div className={"formGroup file_Wrapper"}>
           <File
               max_size={2 * 1024 * 1024}
               type={['pdf']}
@@ -146,22 +146,37 @@ const HRCreateView = ({}) => {
           />
         </div>
       </div>
-
+      
       <div className={"plainPaper"}>
-        <div className={"headerFlex"}>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>Status :</div>
-            <div className={"formGroup "}>
-              <span>Inactive</span>
-              <CustomSwitch
+        <div className={"headerFlex wrapper"}>
+          <div className={"infoTitle inner"}>
+            <div className="info_Status">
+              <h4 className={"heading_stats"}>Status</h4>
+              <div className={"slider_wrap "}>
+                <p className="tags">Inactive</p>
+                <CustomSwitch
                 value={form?.is_active}
                 handleChange={() => {
                   changeTextData(!form?.is_active, "is_active");
                 }}
                 label={`Active`}
               />
+              </div>
             </div>
-          </h4>
+            <div className="info_Status">
+              <h4 className={"heading_stats"}>Feature on Dashboard:</h4>
+              <div className={"slider_wrap "}>
+                <p className="tags">No</p>
+                <CustomSwitch
+                  value={form?.dashboard_status}
+                  handleChange={() => {
+                    changeTextData(!form?.dashboard_status, "dashboard_status");
+                  }}
+                  label={`Yes`}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className={styles.btnCont}>

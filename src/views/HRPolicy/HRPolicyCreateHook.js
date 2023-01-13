@@ -27,7 +27,8 @@ const initialForm = {
   revision_no: "",
   policy_document: null,
   imageUrl: "",
-  is_active: true
+  is_active: true,
+  dashboard_status: true
 };
 
 const useHRPolicyDetail = ({}) => {
@@ -141,7 +142,6 @@ const useHRPolicyDetail = ({}) => {
 
   const changeTextData = useCallback(
     (text, fieldName) => {
-      console.log(text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name" || fieldName === "revision_no") {

@@ -48,7 +48,7 @@ const CircularCreateView = ({}) => {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span>
-              <b>{id ? "Update" : "New"} Department</b>
+              <b>{id ? "Update" : "New"} Circulars</b>
             </span>
           </ButtonBase>
           <div className={styles.newLines} />
@@ -58,7 +58,7 @@ const CircularCreateView = ({}) => {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Department Details</div>
+            <div className={"heading"}>Circular Details</div>
             {/*<Tooltip title="Info" aria-label="info" placement="right">*/}
             {/*    <InfoIcon fontSize={'small'}/>*/}
             {/*</Tooltip>*/}
@@ -70,7 +70,7 @@ const CircularCreateView = ({}) => {
             <CustomTextField
               isError={errorData?.name}
               errorText={errorData?.name}
-              label={"Department Name"}
+              label={"Circular Name"}
               value={form?.name}
               onTextChange={(text) => {
                 changeTextData(text, "name");
@@ -81,86 +81,71 @@ const CircularCreateView = ({}) => {
             />
           </div>
           <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.code}
-              errorText={errorData?.code}
-              label={"Department Code"}
-              value={form?.code}
-              onTextChange={(text) => {
-                changeTextData(text, "code");
-              }}
-              onBlur={() => {
-                onBlurHandler("code");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
             <CustomDatePicker
               clearable
-              label={"Candidate Applied Date"}
+              label={"Effective Date"}
               minDate={new Date()}
               onChange={(date) => {
-                changeTextData(date, "applied_date");
+                changeTextData(date, "effective_date");
               }}
-              value={form?.applied_date}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.referred_by}
-              errorText={errorData?.referred_by}
-              label={"Referred By"}
-              value={form?.referred_by}
-              onTextChange={(text) => {
-                changeTextData(text, "referred_by");
-              }}
-              onBlur={() => {
-                onBlurHandler("referred_by");
-              }}
+              value={form?.effective_date}
+              isError={errorData?.effective_date}
             />
           </div>
         </div>
-        <div className={"formGroup"}>
+        <div className={"formGroup file_Wrapper"}>
           <File
             max_size={2 * 1024 * 1024}
-            type={["jpg", "png", "jpeg", "pdf"]}
+            type={["pdf"]}
             fullWidth={true}
-            name="image"
+            name="circular_document"
+            accept={"application/pdf"}
             label=""
-            // default_image={form?.imageUrl ? form?.imageUrl : null}
-            user_image={form?.image}
-            error={errorData?.image}
-            title={'image'}
-            value={form?.image}
+            default_image={form?.circular_document ? form?.circular_document : null}
+            // user_image={form?.image}
+            error={errorData?.circular_document}
+            // title={'image'}
+            value={form?.circular_document}
             // handleChange={this._handleFileChange}
-            placeholder={"Resume"}
-            // onChange={(file) => {
-            //   if (file) {
-            //     changeTextData(file, "image");
-            //   }
-            // }}
+            placeholder={"Circular Document"}
+            onChange={(file) => {
+              if (file) {
+                changeTextData(file, "circular_document");
+              }
+            }}
           />
         </div>
       </div>
 
       <div className={"plainPaper"}>
-        <div className={"headerFlex"}>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>Status</div>
-          </h4>
-        </div>
-
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomSwitch
-              value={form?.is_active}
-              handleChange={() => {
-                changeTextData(!form?.is_active, "is_active");
-              }}
-              label={`Active`}
-            />
+        <div className={"headerFlex wrapper"}>
+          <div className={"infoTitle inner"}>
+            <div className="info_Status">
+              <h4 className={"heading_stats"}>Status</h4>
+              <div className={"slider_wrap "}>
+                <p className="tags">Inactive</p>
+                <CustomSwitch
+                  value={form?.is_active}
+                  handleChange={() => {
+                    changeTextData(!form?.is_active, "is_active");
+                  }}
+                  label={`Active`}
+                />
+              </div>
+            </div>
+            <div className="info_Status">
+              <h4 className={"heading_stats"}>Feature on Dashboard:</h4>
+              <div className={"slider_wrap "}>
+                <p className="tags">No</p>
+                <CustomSwitch
+                  value={form?.dashboard_status}
+                  handleChange={() => {
+                    changeTextData(!form?.dashboard_status, "dashboard_status");
+                  }}
+                  label={`Yes`}
+                />
+              </div>
+            </div>
           </div>
         </div>
 

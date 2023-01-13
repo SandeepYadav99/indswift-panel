@@ -49,13 +49,13 @@ const Circular = ({}) => {
     const tableStructure = useMemo(() => {
         return [
             {
-                key: 'po_no',
+                key: 'circular_name',
                 label: 'CIRCULAR NAME',
                 sortable: false,
                 render: (temp, all, index) => <div>{index + 1}</div>,
             },
             {
-                key: 'po_name',
+                key: 'effective_date',
                 label: 'EFFECTIVE DATE',
                 sortable: false,
                 render: (value, all) => <div>{renderFirstCell(all)}</div>,
@@ -112,7 +112,6 @@ const Circular = ({}) => {
                             </ButtonBase>
                         </div>
                     </div>
-
                     <div>
                         <FilterComponent
                             is_progress={isFetching}

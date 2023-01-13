@@ -7,12 +7,12 @@ import classnames from "classnames";
 import CandidatesRecordTable from "./components/CandidatesTable/CandidatesTable.component";
 import InterviewerRecordTable from "./components/CandidatesTable/InterviewerTable/InterviewerTable.component";
 import useJobOpeningDetail from "./JobOpeningDetail.hook";
-import {WaitingComponent} from "../../components/index.component";
+import { WaitingComponent } from "../../components/index.component";
 
 const JobOpeningDetail = () => {
   const { data, isLoading } = useJobOpeningDetail({});
   if (isLoading) {
-    return (<WaitingComponent/>);
+    return <WaitingComponent />;
   }
   return (
     <div>
@@ -31,7 +31,7 @@ const JobOpeningDetail = () => {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
-            <div className={styles.heading}>RAP Information</div>
+            <div className={styles.heading}>Job Information -</div>
 
             <div className={styles.editBtn}>
               <ButtonBase className={styles.edit}>EDIT</ButtonBase>
@@ -41,51 +41,63 @@ const JobOpeningDetail = () => {
           <div className={styles.mainFlex}>
             <div className={styles.left}>
               <div className={styles.key}>
-                <span className={styles.value}>Location:</span>Nabha
+                <span className={styles.value}>Location:</span>
+                {data.location.name}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Department:</span>GMS/HR&A
+                <span className={styles.value}>Department:</span>
+                {data.department.name}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Sub-Department:</span>HR
+                <span className={styles.value}>Sub-Department:</span>
+                {data.sub_department.name}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Designation:</span>Sr. Manager
+                <span className={styles.value}>Designation:</span>
+                {data.designation.name}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Grade:</span>G1
+                <span className={styles.value}>Grade:</span>
+                {data.grade.name}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Cadre:</span>P1
+                <span className={styles.value}>Cadre:</span>
+                {data.location.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value} style={{ width: "190px" }}>
                   Status:
-                </span>{" "}
-                <span className={classnames("status", "success")}>ACTIVE</span>
+                </span>
+                <span className={classnames("status", "success")}>
+                  {data.status}
+                </span>
               </div>
             </div>
             <div className={styles.vertical}></div>
             <div className={styles.right}>
               <div className={styles.key}>
-                <span className={styles.value}>RAP ID:</span>ISLL/HR/ABC
+                <span className={styles.value}>RAP ID:</span>
+                {data.code}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Vacancy Type:</span>RAP
+                <span className={styles.value}>Vacancy Type:</span>
+                {data.vacancy_type}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Employee ID:</span>
-                121321
+                {data.replacing_person.code}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Employee Name:</span>
-                Aman Rastogi
+                {data.replacing_person.name}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>RAP Date:</span>02/06/2022
+                <span className={styles.value}>RAP Date:</span>
+                {data.createdAtText}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Assigned To:</span>Bhavna
+                <span className={styles.value}>Assigned To:</span>
+                {data.assigned_person.name}
               </div>
             </div>
           </div>
@@ -100,7 +112,6 @@ const JobOpeningDetail = () => {
           </div>
           <div style={{ marginLeft: "20px" }}>
             <ButtonBase className={styles.createBtn}>Add Candidate</ButtonBase>
-
           </div>
         </div>
       </div>
