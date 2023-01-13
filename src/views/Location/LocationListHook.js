@@ -109,8 +109,7 @@ const useLocationList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
-        LogUtils.log('data', data);
-        historyUtils.push('/locations/detail/') //+data.id
+        historyUtils.push(RouteName.LOCATIONS_DETAILS+data.id) //+data.id
     }, []);
 
     const handleCreate = useCallback(() => {

@@ -14,6 +14,8 @@ import AutoCompleteChip from "../../components/FormFields/AutoCompleteText/AutoC
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
 import {Field} from "redux-form";
 import CustomToggle from "../../components/FormFields/CustomToggle";
+import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/CustomAutoComplete";
+import Constants from "../../config/constants";
 
 const useStyles = makeStyles((theme) => ({
     iconBtnError: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const JobOpeningCreateView = ({}) => {
     const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete,
-     includeRef, currency, keywords,handleReset} = useJobOpeningsDetail({});
+     includeRef, currency, keywords,handleReset, listData, filteredSubDepartments, filteredDepartments, filteredEmployees, } = useJobOpeningsDetail({});
     const classes = useStyles();
 
         return (
@@ -57,41 +59,50 @@ const JobOpeningCreateView = ({}) => {
                    <div className={'formFlex'}>
                        <div className={'formGroup'}>
                            <CustomSelectField
-                               isError={errorData?.location}
-                               errorText={errorData?.location}
-                               label={'Location'}
-                               value={form?.location}
-                               handleChange={value => {
-                                   changeTextData(value, 'location')
-                               }}>
-                               <MenuItem value={'NABHA'}>Nabha</MenuItem>
+                               isError={errorData?.location_id}
+                               errorText={errorData?.location_id}
+                               label={"Location"}
+                               value={form?.location_id}
+                               handleChange={(value) => {
+                                   changeTextData(value, "location_id");
+                               }}
+                           >
+                               {listData?.LOCATION_DEPARTMENTS?.map(dT => {
+                                   return (<MenuItem value={dT?.id} key={dT?.id}>{dT?.name}</MenuItem>)
+                               })}
                            </CustomSelectField>
                        </div>
                    </div>
 
-                   <div className={'formFlex'}>
+                   <div className={"formFlex"}>
                        <div className="formGroup">
                            <CustomSelectField
-                               isError={errorData?.department}
-                               errorText={errorData?.department}
-                               label={'Department'}
-                               value={form?.department}
-                               handleChange={value => {
-                                   changeTextData(value, 'department')
-                               }}>
-                               <MenuItem value={'TEST'}>Test</MenuItem>
+                               isError={errorData?.department_id}
+                               errorText={errorData?.department_id}
+                               label={"Department"}
+                               value={form?.department_id}
+                               handleChange={(value) => {
+                                   changeTextData(value, "department_id");
+                               }}
+                           >
+                               {filteredDepartments?.map(dT => {
+                                   return (<MenuItem value={dT?.id} key={dT?.id}>{dT?.name}</MenuItem>)
+                               })}
                            </CustomSelectField>
                        </div>
                        <div className="formGroup">
                            <CustomSelectField
-                               isError={errorData?.sub_department}
-                               errorText={errorData?.sub_department}
-                               label={'Sub-Department'}
-                               value={form?.sub_department}
-                               handleChange={value => {
-                                   changeTextData(value, 'sub_department')
-                               }}>
-                               <MenuItem value={'TEST'}>Test</MenuItem>
+                               isError={errorData?.sub_department_id}
+                               errorText={errorData?.sub_department_id}
+                               label={"Sub-Department"}
+                               value={form?.sub_department_id}
+                               handleChange={(value) => {
+                                   changeTextData(value, "sub_department_id");
+                               }}
+                           >
+                               {filteredSubDepartments?.map(dT => {
+                                   return (<MenuItem value={dT?.id} key={dT?.id}>{dT?.name}</MenuItem>)
+                               })}
                            </CustomSelectField>
                        </div>
                    </div>
@@ -107,75 +118,78 @@ const JobOpeningCreateView = ({}) => {
                                handleChange={value => {
                                    changeTextData(value, 'vacancy_type')
                                }}>
-                               <MenuItem value={'TEST'}>Test</MenuItem>
+                               {Object.keys(Constants.TYPE_OF_VACANCY).map(o => {
+                                   return (<MenuItem value={o} key={o}>{Constants.TYPE_OF_VACANCY[o]}</MenuItem>);
+                               })}
+
                            </CustomSelectField>
                        </div>
                        <div className="formGroup">
-                           <CustomSelectField
-                               isError={errorData?.assigned_to}
-                               errorText={errorData?.assigned_to}
+                           <CustomAutoComplete
+                               autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.label}}
+                               dataset={listData.HR}
+                               datasetKey={'label'}
+                               onTextChange={(text, value) => { changeTextData(text, 'assigned_to') }}
+                               variant={'outlined'}
                                label={'Assigned To Recruiter'}
+                               name={'assigned_to'}
+                               isError={errorData?.assigned_to}
                                value={form?.assigned_to}
-                               handleChange={value => {
-                                   changeTextData(value, 'assigned_to')
-                               }}>
-                               <MenuItem value={'TEST'}>Test</MenuItem>
-                           </CustomSelectField>
+                           />
                        </div>
                    </div>
 
                    <div className={'formFlex'}>
                        <div className="formGroup">
-                           <CustomSelectField
-                               isError={errorData?.associate_job}
-                               errorText={errorData?.associate_job}
+                           <CustomAutoComplete
+                               autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.label}}
+                               dataset={listData.JOB_ROLES}
+                               datasetKey={'label'}
+                               onTextChange={(text, value) => { changeTextData(text, 'job_role') }}
+                               variant={'outlined'}
                                label={'Associate Job Description'}
-                               value={form?.associate_job}
-                               handleChange={value => {
-                                   changeTextData(value, 'associate_job')
-                               }}>
-                               <MenuItem value={'TEST'}>Test</MenuItem>
-                           </CustomSelectField>
+                               name={'job_role'}
+                               isError={errorData?.job_role}
+                               value={form?.job_role}
+                           />
                        </div>
                        <div className="formGroup">
-                           <CustomTextField
-                               isError={errorData?.replacing_person}
-                               errorText={errorData?.replacing_person}
+                           <CustomAutoComplete
+                               autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.label}}
+                               dataset={filteredEmployees}
+                               datasetKey={'label'}
+                               onTextChange={(text, value) => { changeTextData(text, 'replacing_person') }}
+                               variant={'outlined'}
                                label={'Replacing Person'}
+                               name={'replacing_person'}
+                               isError={errorData?.replacing_person}
                                value={form?.replacing_person}
-                               onTextChange={text => {
-                                   changeTextData(text, 'replacing_person');
-                               }}
-                               onBlur={() => {
-                                   onBlurHandler('replacing_person');
-                               }}
                            />
                        </div>
                    </div>
 
                    <div className={'formFlex'} style={{alignItems:"center"}}>
                        <div className="formGroup">
-                           <CustomTextField
-                               isError={errorData?.designation}
-                               errorText={errorData?.designation}
+                           <CustomAutoComplete
+                               autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.name}}
+                               dataset={listData.DESIGNATIONS}
+                               datasetKey={'name'}
+                               onTextChange={(text, value) => { changeTextData(text, 'designation') }}
+                               variant={'outlined'}
                                label={'Designation'}
+                               name={'designation'}
+                               isError={errorData?.designation}
                                value={form?.designation}
-                               onTextChange={text => {
-                                   changeTextData(text, 'designation');
-                               }}
-                               onBlur={() => {
-                                   onBlurHandler('designation');
-                               }}
                            />
                        </div>
                        <div className="formGroup">
-                           <div className={styles.emp}>
-                               <div>Employee ID: <span className={styles.val}>124343</span></div>
+                           {form?.replacing_person && (<div className={styles.emp}>
+                               <div>Employee ID: <span className={styles.val}>{form?.replacing_person?.code}</span></div>
                                <div className={styles.caderFlex}>
-                                   <div>Grade:<span className={styles.val}>2124324</span></div>
-                                   <div style={{marginLeft:'60px'}}>Cader: <span className={styles.val}>N.A</span></div>
+                                   <div>Grade:<span className={styles.val}>{form?.replacing_person?.grade_name}</span></div>
+                                   {/*<div style={{marginLeft:'60px'}}>Cader: <span className={styles.val}>N.A</span></div>*/}
                                </div>
-                           </div>
+                           </div>)}
                        </div>
                    </div>
 

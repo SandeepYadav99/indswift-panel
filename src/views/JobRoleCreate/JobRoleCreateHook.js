@@ -1,24 +1,31 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {isAlphaNum, isNum} from "../../libs/RegexUtils";
-import {serviceGetCustomList, serviceGetKeywords} from "../../services/Common.service";
+import {serviceGetCustomList, serviceGetKeywords, serviceGetList} from "../../services/Common.service";
 import useDebounce from "../../hooks/DebounceHook";
 import LogUtils from "../../libs/LogUtils";
-import {serviceCreateJobRoles, serviceJobRolesCodeCheck} from "../../services/JobRoles.service";
+import {
+    serviceCreateJobRoles,
+    serviceGenerateJobRoleCode,
+    serviceJobRolesCodeCheck
+} from "../../services/JobRoles.service";
 import historyUtils from "../../libs/history.utils";
 import EventEmitter from "../../libs/Events.utils";
+import RouteName from "../../routes/Route.name";
 
 const initialForm = {
-    job_title: '',
+    name: '',
     code: '',
-    location: '',
-    department: '',
-    sub_department: '',
+    location_id: '',
+    department_id: '',
+    sub_department_id: '',
     grade: '',
-    cader: '',
     reporting_to: '',
-    qualification: '',
-    experience: '',
-    is_active: false
+    min_qualification: '',
+    min_experience: '',
+    salary_range: '',
+    description: '',
+    specification: '',
+    is_active: true
 };
 
 const useJobRolesDetail = ({}) => {
@@ -27,7 +34,57 @@ const useJobRolesDetail = ({}) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({...initialForm});
     const [isEdit, setIsEdit] = useState(false);
+    const descriptionRef = useRef(null);
+    const codeDebouncer = useDebounce(form?.department_id, 500);
+    const [listData, setListData] = useState({
+        LOCATION_DEPARTMENTS: [],
+        EMPLOYEES: [],
+        DEPARTMENTS: [],
+        SUB_DEPARTMENTS: [],
+        GRADES: []
+    });
     const includeRef = useRef(null);
+
+    useEffect(() => {
+        serviceGetList(['LOCATION_DEPARTMENTS', 'EMPLOYEES', 'DEPARTMENTS', 'SUB_DEPARTMENTS', 'GRADES']).then(res => {
+            if (!res.error) {
+                setListData(res.data);
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        if (form?.department_id && form?.location_id) {
+            serviceGenerateJobRoleCode({ department_id: form?.department_id, location_id: form?.location_id }).then((res) => {
+                if (!res.error) {
+                    setForm({
+                        ...form,
+                        code: res?.data?.code
+                    });
+                }
+            })
+        }
+    }, [codeDebouncer]);
+
+    // useEffect(() => {
+    //     let locationCode = '';
+    //     let departmentCode = '';
+    //     const locationIndex = listData.LOCATION_DEPARTMENTS.findIndex(o => o.id === form?.location_id);
+    //     if (locationIndex >= 0) {
+    //         locationCode = listData.LOCATION_DEPARTMENTS[locationIndex]?.code;
+    //     }
+    //     const departmentIndex = listData.DEPARTMENTS.findIndex(o => o.id === form?.department_id);
+    //     if (departmentIndex >= 0) {
+    //         departmentCode = listData.DEPARTMENTS[departmentIndex]?.code;
+    //     }
+    //     LogUtils.log('departmentCode', departmentCode, locationCode);
+    //     if (locationCode && departmentCode) {
+    //         setForm({
+    //             ...form,
+    //             code: `ISLL/JAS/${locationCode}/${departmentCode}/XXX`,
+    //         });
+    //     }
+    // }, [form?.department_id, form?.location_id]);
 
     const checkCodeValidation = useCallback(() => {
         // serviceJobRolesCodeCheck({code: code, vendor_ref_code: vendorRefCode}).then((res) => {
@@ -52,14 +109,13 @@ const useJobRolesDetail = ({}) => {
     }, [errorData]);
 
     useEffect(() => {
-            checkCodeValidation();
+        checkCodeValidation();
     }, [])
-
 
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = ['job_title','code','location','department','sub_department','grade','cader','reporting_to','qualification','experience'];
+        let required = ['name', 'code', 'location_id', 'department_id', 'sub_department_id', 'grade_id', 'min_qualification', 'min_experience', 'salary_range'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
@@ -77,20 +133,14 @@ const useJobRolesDetail = ({}) => {
 
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
+            LogUtils.log('form', form);
             setIsSubmitting(true);
-            const fd = new FormData();
-            Object.keys(form).forEach(key => {
-                if (key != 'brand' && form[key]) {
-                    fd.append(key, form[key]);
-                }
-            });
-            const variants = JSON.stringify(includeRef.current.getData());
-            fd.append('variants', variants);
-            fd.append('brand', JSON.stringify(form?.brand));
-            serviceCreateJobRoles(fd).then((res) => {
+            serviceCreateJobRoles({
+                ...form,
+            }).then((res) => {
                 LogUtils.log('response', res);
                 if (!res.error) {
-                    historyUtils.push('/products');
+                    historyUtils.push(RouteName.JOB_ROLES);
                 } else {
                     EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
                         error: res.message,
@@ -104,8 +154,6 @@ const useJobRolesDetail = ({}) => {
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
-        // LogUtils.log('isValid', includeRef.current.isValid(), errors);
-        // const isIncludesValid = includeRef.current.isValid();
         if (Object.keys(errors).length > 0) {
             setErrorData(errors);
             return true;
@@ -116,7 +164,7 @@ const useJobRolesDetail = ({}) => {
         checkFormValidation,
         setErrorData,
         form,
-        includeRef.current
+        submitToServer,
     ]);
 
     const removeError = useCallback(
@@ -129,21 +177,27 @@ const useJobRolesDetail = ({}) => {
     );
 
     const changeTextData = useCallback((text, fieldName) => {
-            let shouldRemoveError = true;
-            const t = {...form};
-            if (fieldName === 'names' || fieldName === 'truck_no' || fieldName == 'idendity_proof') {
-                if (!text || (isNum(text) && text.toString().length <= 30)) {
-                    t[fieldName] = text;
-                }
-            } else {
+        let shouldRemoveError = true;
+        const t = {...form};
+        if (fieldName === 'location_id') {
+            t['department_id'] = '';
+            t['sub_department_id'] = '';
+        }
+        if (fieldName === 'department_id') {
+            t['sub_department_id'] = ''
+        }
+        if (fieldName === 'name') {
+            if (!text || (isAlphaNum(text) && text.toString().length <= 30)) {
                 t[fieldName] = text;
             }
-            setForm(t);
-            shouldRemoveError && removeError(fieldName);
-        }, [removeError, form, setForm]);
+        } else {
+            t[fieldName] = text;
+        }
+        setForm(t);
+        shouldRemoveError && removeError(fieldName);
+    }, [removeError, form, setForm]);
 
-    const onBlurHandler = useCallback(
-        type => {
+    const onBlurHandler = useCallback(type => {
             if (form?.[type]) {
                 changeTextData(form?.[type].trim(), type);
             }
@@ -157,8 +211,23 @@ const useJobRolesDetail = ({}) => {
     const handleReset = useCallback(() => {
         includeRef.current.resetData();
         setForm({...initialForm})
-    },[form])
+    }, [form]);
 
+    const filteredDepartments = useMemo(() => {
+        const locations = listData?.LOCATION_DEPARTMENTS;
+        const index = locations.findIndex(l => l.id === form?.location_id);
+        if (index >= 0) {
+            const departments = locations[index]?.departments;
+            return listData?.DEPARTMENTS?.filter(val => departments.indexOf(val.id) >= 0);
+        }
+        return [];
+    }, [listData, form?.location_id]);
+
+    const filteredSubDepartments = useMemo(() => {
+        return listData?.SUB_DEPARTMENTS?.filter(val => val.department_id === form?.department_id);
+    }, [listData, form?.department_id]);
+
+    descriptionRef.current = changeTextData;
     return {
         form,
         changeTextData,
@@ -171,7 +240,11 @@ const useJobRolesDetail = ({}) => {
         isEdit,
         handleDelete,
         includeRef,
-        handleReset
+        handleReset,
+        listData,
+        filteredDepartments,
+        filteredSubDepartments,
+        descriptionRef
     };
 };
 

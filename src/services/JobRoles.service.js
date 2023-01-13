@@ -24,8 +24,8 @@ export async function serviceJobRolesCodeCheck (params) {
     return await postRequest('job/roles/code/exists', params);
 }
 
-export async function serviceJobRolesVariantCheck (params) {
-    return await postRequest('job/roles/variants/exists', params);
+export async function serviceGenerateJobRoleCode (params) {
+    return await postRequest('job/roles/code', params);
 }
 
 export async function serviceJobRolesDetails (params) {

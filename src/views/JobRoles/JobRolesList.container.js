@@ -31,8 +31,8 @@ const JobRolesList = ({}) => {
         return <StatusPill status={status} />
     }, []);
 
-    const renderFirstCell = useCallback((product) => {
-        if (product) {
+    const renderFirstCell = useCallback((obj) => {
+        if (obj) {
             return (
                 <div className={styles.firstCellFlex}>
 
@@ -42,7 +42,7 @@ const JobRolesList = ({}) => {
                     {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
                     {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>GSKCH/ HR/ SOP <br/>/N/012/ 19.05.2009</span> <br/>
+                        <span className={styles.productName}>{obj?.code}</span> <br/>
                         {/*<span>{product.code}</span>*/}
                     </div>
                 </div>
@@ -65,7 +65,7 @@ const JobRolesList = ({}) => {
                 key: 'sr_no',
                 label: 'SR No.',
                 sortable: false,
-                render: (temp, all) => <div>1</div>,
+                render: (temp, all, index) => <div>{index+1}</div>,
             },
             {
                 key: 'code',
@@ -77,25 +77,25 @@ const JobRolesList = ({}) => {
                 key: 'title',
                 label: 'Job Title',
                 sortable: false,
-                render: (temp, all) => <div>Manager<br/><div>HR&A</div></div>,
+                render: (temp, all) => <div>{all?.name}</div>,
             },
             {
                 key: 'location',
                 label: 'Location',
                 sortable: false,
-                render: (temp, all) => <div>NABHA</div>,
+                render: (temp, all) => <div>{all?.location?.name}</div>,
             },
             {
                 key: 'department',
                 label: 'Department',
                 sortable: false,
-                render: (temp, all) => <div>GMS/HR&A</div>,
+                render: (temp, all) => <div>{all?.department?.name}</div>,
             },
             {
                 key: 'dept',
                 label: 'Reporting',
                 sortable: false,
-                render: (temp, all) => <div>Sr.Manager</div>,
+                render: (temp, all) => <div>{all?.reporting_manager?.name}</div>,
             },
             {
                 key: 'status',
@@ -107,7 +107,7 @@ const JobRolesList = ({}) => {
                 key: 'date',
                 label: 'Date',
                 sortable: false,
-                render: (temp, all) => <div>02/06/2022</div>,
+                render: (temp, all) => <div>{all?.createdAtText}</div>,
             },
             {
                 key: 'user_id',

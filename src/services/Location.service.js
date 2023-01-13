@@ -22,3 +22,15 @@ export async function serviceGetLocation(params) {
 export async function serviceLocationCheck (params) {
     return await postRequest('locations/check', params);
 }
+
+export async function serviceLocationUpdateHead(params) {
+    return await postRequest('locations/update/head', params);
+}
+
+export async function serviceLocationDepartmentUpdate(params) {
+    return await postRequest('locations/update/departments', params);
+}
+
+export async function serviceLocationDepartments(params) {
+    return await postRequest('locations/departments', params);
+}

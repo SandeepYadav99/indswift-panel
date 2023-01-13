@@ -40,19 +40,9 @@ const IncludeFields = ({index, changeData, employees, departments, handlePress, 
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-        if (name === 'quantity') {
-            LogUtils.log('maxQty', data);
-            if (!value || (isNum(value) && data.maxQty >= value)) {
-                changeData(index, {[name]: value});
-            }
-        } else if (name === 'price') {
-            if (!value || isNum(value)) {
-                changeData(index, {[name]: value});
-            }
-        } else {
-            changeData(index, {[name]: value});
-        }
+        changeData(index, {[name]: value});
     }
+
     const handleChangeValue = useCallback((value, key) => {
         changeData(index, {[key]: value});
     }, [changeData, index]);
@@ -66,14 +56,15 @@ const IncludeFields = ({index, changeData, employees, departments, handlePress, 
                     <div className={styles.flex1}>
                         <CustomSelectField
                             fullWidth={true}
-                            isError={errors?.department}
-                            errorText={errors?.department}
+                            isError={errors?.department_id}
+                            errorText={errors?.department_id}
                             label={'Department Name'}
-                            // value={data?.department_id}
+                            value={data?.department_id}
                             onChange={handleChange}
+                            name={'department_id'}
                         >
                             {departments.map(dept => {
-                                return (<MenuItem key={dept.id} value={dept.id}>{dept.label}</MenuItem>);
+                                return (<MenuItem key={dept.id} value={dept.id}>{dept.name}</MenuItem>);
                             })}
                         </CustomSelectField>
                     </div>
@@ -86,27 +77,21 @@ const IncludeFields = ({index, changeData, employees, departments, handlePress, 
                             onTextChange={(text, value) => { handleChangeValue(text, 'employee') }}
                             variant={'outlined'}
                             label={'Employee Name(Employee ID)'}
-                            name={'sku'}
+                            name={'employee'}
                             isError={errors?.employee}
                             value={data?.employee}
                         />
-                        {/*<CustomInputAutocomplete*/}
-                        {/*    options={variants}*/}
-                        {/*    getOptionLabel={(option) => option.sku}*/}
-                        {/*    onChange={(text, value) => { LogUtils.log('val', text, value); handleChangeValue(value, 'sku') }}*/}
-                        {/*    value={data?.sku?.sku}*/}
-                        {/*/>*/}
                     </div>
                     <div className={'textCenter'}>
-                            <ButtonBase
-                                className={styles.removeBtn}
-                                // label={this.props.index == 0 ? "+" : '-'}
-                                onClick={() => {
-                                    handlePress(index == 0 ? "-" : '-', index);
-                                }}
-                            >
-                                {index == 0 ? "Remove" : "Remove" }
-                            </ButtonBase>
+                        <ButtonBase
+                            className={styles.removeBtn}
+                            // label={this.props.index == 0 ? "+" : '-'}
+                            onClick={() => {
+                                handlePress(index == 0 ? "-" : '-', index);
+                            }}
+                        >
+                            {index == 0 ? "Remove" : "Remove" }
+                        </ButtonBase>
                     </div>
                 </div>
             </div>

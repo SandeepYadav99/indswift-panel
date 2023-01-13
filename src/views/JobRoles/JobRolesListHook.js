@@ -9,6 +9,7 @@ import {
 import historyUtils from "../../libs/history.utils";
 import {serviceGetCustomList} from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
+import RouteName from "../../routes/Route.name";
 
 const useJobRolesList = ({}) => {
     const [isSidePanel, setSidePanel] = useState(false);
@@ -107,7 +108,7 @@ const useJobRolesList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleSideToggle = useCallback(() => {
-        historyUtils.push('/job/role/create')
+        historyUtils.push(RouteName.JOB_ROLES_CREATE)
         // setSidePanel(e => !e);
         // setEditData(null);
     }, [setEditData, setSidePanel]);

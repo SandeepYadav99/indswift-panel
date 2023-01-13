@@ -8892,7 +8892,7 @@ stylehacks@^5.1.1:
     browserslist "^4.21.4"
     postcss-selector-parser "^6.0.4"
 
-suneditor-react@^3.4.0:
+suneditor-react@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/suneditor-react/-/suneditor-react-3.4.1.tgz#77be66a6058c1e1b600d618acd5dd3a7d871ab9b"
   integrity sha512-xsfMjy2748x8Bcw/SeT2CeecrBABcJPyCO+LPourVLcQg8QW/A9FbIfP0DghNlBkH/gxy9iviR5wVydg9UW2wQ==

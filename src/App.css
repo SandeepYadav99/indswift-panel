@@ -830,3 +830,7 @@ input[type=radio] + label:hover {
     align-items: center;
     justify-content: center;
 }
+
+.capitalize {
+    text-transform: capitalize;
+}

@@ -13,6 +13,7 @@ import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/Cus
 import useHRPolicyDetail from "./HRPolicyCreateHook";
 import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
 import File from "../../components/FileComponent/FileComponent.component";
+import LogUtils from "../../libs/LogUtils";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -102,9 +103,10 @@ const HRCreateView = ({}) => {
               label={"Effective Date"}
               minDate={new Date()}
               onChange={(date) => {
-                changeTextData(date, "applied_date");
+                changeTextData(date, "effective_date");
               }}
-              value={form?.applied_date}
+              value={form?.effective_date}
+              isError={errorData?.effective_date}
             />
           </div>
           <div className={"formGroup"}>
@@ -124,23 +126,24 @@ const HRCreateView = ({}) => {
         </div>
         <div className={"formGroup"}>
           <File
-            max_size={2 * 1024 * 1024}
-            type={["jpg", "png", "jpeg", "pdf"]}
-            fullWidth={true}
-            name="image"
-            label=""
-            // default_image={form?.imageUrl ? form?.imageUrl : null}
-            user_image={form?.image}
-            error={errorData?.image}
-            title={"image"}
-            value={form?.image}
-            // handleChange={this._handleFileChange}
-            placeholder={"Resume"}
-            onChange={(file) => {
-              if (file) {
-                changeTextData(file, "image");
-              }
-            }}
+              max_size={2 * 1024 * 1024}
+              type={['pdf']}
+              fullWidth={true}
+              name="policy_document"
+              accept={'application/pdf'}
+              label=""
+              default_image={form?.policy_document ? form?.policy_document : null}
+              // user_image={form?.image}
+              error={errorData?.policy_document}
+              // title={'image'}
+              value={form?.policy_document}
+              // handleChange={this._handleFileChange}
+              placeholder={'Policy Document'}
+              onChange={(file) => {
+                if (file) {
+                  changeTextData(file, 'policy_document');
+                }
+              }}
           />
         </div>
       </div>

@@ -46,7 +46,7 @@ const dashboardRoutes = [
         is_sidebar: true,
     },
     {
-        path: "/job/role",
+        path: RouteName.JOB_ROLES,
         sidebarName: "Job Description",
         navbarName: "Job Roles(Designation)",
         icon: PeopleOutlined,
@@ -56,7 +56,7 @@ const dashboardRoutes = [
         should_regex: true,
     },
     {
-        path: "/job/role/create",
+        path: RouteName.JOB_ROLES_CREATE,
         sidebarName: "Products",
         navbarName: "Products",
         icon: LocalOffer,
@@ -166,7 +166,7 @@ const dashboardRoutes = [
         is_protect: true,
     },
     {
-        path: "/locations/detail",
+        path: `${RouteName.LOCATIONS_DETAILS}:id`,
         sidebarName: "Location Detail",
         navbarName: "Location Detail",
         icon: LocalOffer,
@@ -261,7 +261,7 @@ const dashboardRoutes = [
     },
 
     {
-        path: "/job/openings",
+        path: RouteName.JOB_OPENINGS,
         sidebarName: "Job Openings",
         navbarName: "Job Openings",
         icon: PeopleOutlined,
@@ -269,6 +269,15 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
+    },
+    {
+        path: RouteName.JOB_OPENINGS_CREATE,
+        sidebarName: "Job Openings Create",
+        navbarName: "Job Openings Create",
+        icon: LocalOffer,
+        component: JobOpeningCreateView,
+        is_sidebar: false,
+        is_protect: true,
     },
     {
         path: 'null',
@@ -313,15 +322,7 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
     },
-    {
-        path: "/job/openings/create",
-        sidebarName: "Job Openings Create",
-        navbarName: "Job Openings Create",
-        icon: LocalOffer,
-        component: JobOpeningCreateView,
-        is_sidebar: false,
-        is_protect: true,
-    },
+
     {
         path: "/job/openings/detail",
         sidebarName: "Job Openings Detail",

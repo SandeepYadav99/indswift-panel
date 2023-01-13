@@ -2,17 +2,10 @@ import React, {useCallback, useState} from 'react';
 import {Button, ButtonBase, MenuItem} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import Slide from "@material-ui/core/Slide";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
-import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
-import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
 import styles from "./Style.module.css";
 import useHeadDialogHook from "./HeadDialog.hook";
 import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
-
-const vendorDataSet = [{_id: "63216f263a3fb17e4e510c5b", name: "Test(1221)", id: "1221"}]
 
 const useStyles = makeStyles((theme) => ({
     flex: {
@@ -32,9 +25,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const QuickHeadDialog = ({isOpen, handleToggle, orderId,showDetails}) => {
+const QuickHeadDialog = ({isOpen, handleToggle, employees, showDetails, locationId, handleUpdate}) => {
     const classes = useStyles();
-    const { changeTextData, errorData, form, handleSubmit, onBlurHandler, removeError, isSubmitting } = useHeadDialogHook({orderId, handleToggle,isOpen,showDetails});
+    const { changeTextData, errorData, form, handleSubmit, onBlurHandler, removeError, isSubmitting } = useHeadDialogHook({handleUpdate, locationId, employees, handleToggle,isOpen,showDetails});
     return (
         <div>
             <Dialog
@@ -54,9 +47,9 @@ const QuickHeadDialog = ({isOpen, handleToggle, orderId,showDetails}) => {
                 <div className={styles.auto}>
                     <CustomAutoComplete
                         className={classes.textField}
-                        autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.name}}
-                        dataset={vendorDataSet}
-                        datasetKey={'name'}
+                        autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.label}}
+                        dataset={employees}
+                        datasetKey={'label'}
                         onTextChange={(text, value) => {  changeTextData(text, 'name'); }}
                         variant={'outlined'}
                         label={'Employee Name (Employee ID)'}

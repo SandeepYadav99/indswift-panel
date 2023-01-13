@@ -23,12 +23,11 @@ import Constants from "../../config/constants";
 const initialForm = {
   name: "",
   code: "",
-  applied_date: "",
+  effective_date: "",
   revision_no: "",
-  image: null,
+  policy_document: null,
   imageUrl: "",
-  is_active: true,
-  dashboard_status: false,
+  is_active: true
 };
 
 const useHRPolicyDetail = ({}) => {
@@ -82,7 +81,7 @@ const useHRPolicyDetail = ({}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "code", "applied_date", "revision_no", "imageUrl"];
+    let required = ["name", "code", "effective_date", "revision_no", "policy_document"];
     console.log(form, errors);
     required.forEach((val) => {
       if (

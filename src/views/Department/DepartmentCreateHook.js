@@ -1,6 +1,5 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {isAlpha, isAlphaNum, isAlphaNumChars, isNum, isSpace} from "../../libs/RegexUtils";
-import {serviceGetCustomList, serviceGetKeywords} from "../../services/Common.service";
 import useDebounce from "../../hooks/DebounceHook";
 import LogUtils from "../../libs/LogUtils";
 import {
@@ -9,7 +8,6 @@ import {
     serviceGetDepartmentDetails, serviceUpdateDepartment
 } from "../../services/Department.service";
 import historyUtils from "../../libs/history.utils";
-import EventEmitter from "../../libs/Events.utils";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import {useParams} from "react-router";
 import Constants from "../../config/constants";

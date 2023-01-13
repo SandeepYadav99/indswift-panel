@@ -1,7 +1,6 @@
 /* eslint-disable indent,linebreak-style */
 const TABLE_LIMIT = 50;
-const tempLevel = true
-// !(!process.env.NODE_ENV || process.env.NODE_ENV === 'development');
+const tempLevel = !(!process.env.NODE_ENV || process.env.NODE_ENV === 'development');
 const tempDate = new Date();
 export default {
     TIME_ZONE: -(tempDate.getTimezoneOffset()/60),
@@ -386,5 +385,9 @@ export default {
     },
     LOG_ENABLED: true,
     WARNING_ENABLED: true,
-    ERROR_ENABLED: true
+    ERROR_ENABLED: true,
+    TYPE_OF_VACANCY: {
+        RAP: 'Request Against Position',
+        ADDITIONAL_REQUIREMENT: 'Additional Requirement'
+    },
 };

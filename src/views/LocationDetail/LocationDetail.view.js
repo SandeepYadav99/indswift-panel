@@ -3,20 +3,19 @@ import styles from './Style.module.css';
 import {ButtonBase} from "@material-ui/core";
 import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import IncludeForm from "../LocationCreate/components/includes/Includes.component";
+import IncludeForm from "./components/department/Includes.component";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
 import QuickHeadDialog from "./components/Head/HeadDialog.view";
+import useLocationDetail from "./LocationDetailHook";
 
 const LocationDetail = () => {
-    const [isHeadDialog, setIsHeadDialog] = useState(false);
-    const [isDetails, setIsDetails] = useState(false)
+    const { isSubmitting, data, isHeadDialog, isDetails, toggleHeadDialog, setIsDetails, isActive,
+        handleSwitchChange, employees, id, handleHeadUpdate, departments, handleDepartmentUpdate, includeRef, handleUpdateClick, handleEditBtn } = useLocationDetail({});
 
-    const toggleHeadDialog = useCallback((data) => {
-        setIsHeadDialog(e => !e);
-    }, [setIsHeadDialog]);
+
 
     const _renderInfo = useCallback(() => {
-        if(!isDetails){
+        if(!data?.head_id){
             return (
                 <div className={styles.key}>
                     <span className={styles.value}>Location Head Details:</span>
@@ -36,16 +35,16 @@ const LocationDetail = () => {
                            <img src={require('../../assets/img/performance image@2x.png')} height={50}/>
                        </div>
                       <div className={styles.info}>
-                          <div className={styles.key}><span className={styles.value}>Employee Name:</span>Aman</div>
-                          <div className={styles.key}><span className={styles.value}>Employee Code:</span>10012</div>
-                          <div className={styles.key}><span className={styles.value}>Phone:</span>849584598</div>
-                          <div className={styles.key}><span className={styles.value}>Email:</span>aman@indswift.in</div>
+                          <div className={styles.key}><span className={styles.value}>Employee Name:</span> {data?.head?.name}</div>
+                          <div className={styles.key}><span className={styles.value}>Employee Code:</span>{data?.head?.code}</div>
+                          <div className={styles.key}><span className={styles.value}>Phone:</span>{data?.head?.contact}</div>
+                          <div className={styles.key}><span className={styles.value}>Email:</span>{data?.head?.email}</div>
                       </div>
                    </div>
                 </div>
             )
         }
-    },[isDetails,setIsDetails])
+    },[isDetails,setIsDetails, data])
 
     return (
         <div>
@@ -53,7 +52,7 @@ const LocationDetail = () => {
             <div className={styles.outerFlex}>
                 <div>
                     <ButtonBase onClick={() => (history.goBack())}>
-                        <ArrowBackIosIcon fontSize={'small'}/> <span><b>Nabha Location</b></span>
+                        <ArrowBackIosIcon fontSize={'small'}/> <span className={'capitalize'}><b>{data?.name} Location</b></span>
                     </ButtonBase>
                     <div className={styles.newLine}/>
                 </div>
@@ -65,19 +64,19 @@ const LocationDetail = () => {
                         <div className={styles.heading}>Location Information</div>
 
                         <div className={styles.editBtn}>
-                            <ButtonBase className={styles.edit}>EDIT</ButtonBase>
+                            <ButtonBase onClick={handleEditBtn} className={styles.edit}>EDIT</ButtonBase>
                         </div>
                     </div>
 
 
                     <div className={styles.mainFlex}>
                         <div className={styles.left}>
-                            <div className={styles.key}><span className={styles.value}>Location:</span>Nabha</div>
-                            <div className={styles.key}><span className={styles.value}>Location Code:</span>NABHA</div>
-                            <div className={styles.key}><span className={styles.value}>Address:</span>Derabassi - Barwala Rd, Bhagwanpur, Behra, Punjab 140507</div>
-                            <div className={styles.key}><span className={styles.value}>City:</span>Behra</div>
-                            <div className={styles.key}><span className={styles.value}>State:</span>Punjab</div>
-                            <div className={styles.key}><span className={styles.value}>Pincode:</span>140507</div>
+                            <div className={styles.key}><span className={styles.value}>Location:</span>{data?.name}</div>
+                            <div className={styles.key}><span className={styles.value}>Location Code:</span>{data?.code}</div>
+                            <div className={styles.key}><span className={styles.value}>Address:</span>{data?.address}</div>
+                            <div className={styles.key}><span className={styles.value}>City:</span>{data?.city}</div>
+                            <div className={styles.key}><span className={styles.value}>State:</span>{data?.state}</div>
+                            <div className={styles.key}><span className={styles.value}>Pincode:</span>{data?.pincode}</div>
                         </div>
                         <div className={styles.vertical}>
 
@@ -94,10 +93,8 @@ const LocationDetail = () => {
                             </div>
                             <div className={'formGroup'}>
                                 <CustomSwitch
-                                    // value={form?.is_active}
-                                    // handleChange={() => {
-                                    //     changeTextData(!form?.is_active, 'is_active')
-                                    // }}
+                                    value={isActive}
+                                    handleChange={handleSwitchChange}
                                     label={`Active`}
                                 />
                             </div>
@@ -109,16 +106,19 @@ const LocationDetail = () => {
 
             <div className={styles.plainPaper}>
                 <IncludeForm
-                    // ref={includeRef}
-                    // updateInventory={handleInventoryUpdate}
+                    locationId={id}
+                    employees={employees}
+                    departments={departments}
+                    ref={includeRef}
+                    handleUpdate={handleDepartmentUpdate}
                 />
             </div>
 
             <div className={styles.btnCont}>
-                <ButtonBase  type={'button'} className={styles.createBtn}>UPDATE INFORMATION</ButtonBase>
+                <ButtonBase onClick={handleUpdateClick}  type={'button'} className={styles.createBtn}>UPDATE INFORMATION</ButtonBase>
             </div>
 
-            <QuickHeadDialog isOpen={isHeadDialog} handleToggle={toggleHeadDialog} showDetails={setIsDetails}/>
+            <QuickHeadDialog handleUpdate={handleHeadUpdate} locationId={id} employees={employees} isOpen={isHeadDialog} handleToggle={toggleHeadDialog} showDetails={setIsDetails}/>
         </div>
     )
 }

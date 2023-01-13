@@ -3,8 +3,7 @@ import React from "react";
 import ActionButton from "../../components/ActionButton/ActionButton";
 import StatusPill from "../../components/Status/StatusPill.component";
 import styles from "./Style.module.css";
-import { InfoOutlined } from "@material-ui/icons";
-import RepeatRoundedIcon from '@mui/icons-material/RepeatRounded';
+import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
 const UpperInfo = ({ data }) => {
   return (
     <div>
@@ -51,7 +50,7 @@ const UpperInfo = ({ data }) => {
               </div>
               <div className={styles.btnUpper}>
                 <ActionButton>
-                  <RepeatRoundedIcon fontSize={"small"}/>
+                  <RepeatRounded fontSize={"small"}/>
                   <span className={styles.actionBtnSpan}>Reset Password</span>
                 </ActionButton>
               </div>

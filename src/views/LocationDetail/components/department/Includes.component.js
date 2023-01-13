@@ -1,29 +1,44 @@
-/**
- * Created by charnjeetelectrovese@gmail.com on 5/13/2020.
- */
 import React, {useEffect, useState, forwardRef, useImperativeHandle, useCallback, useMemo} from 'react';
 import IncludeFields from './IncludeFields.component';
 import styles from './style.module.css'
-import {Button, ButtonBase, IconButton, MenuItem} from "@material-ui/core";
-import LogUtils from "../../../../libs/LogUtils";
+import {ButtonBase} from "@material-ui/core";
 import {Add} from "@material-ui/icons";
-import {useParams} from "react-router";
+import LogUtils from "../../../../libs/LogUtils";
+import {serviceLocationDepartments} from "../../../../services/Location.service";
+import {WaitingComponent} from "../../../../components/index.component";
 
 const TEMP_OBJ = {
-    department_name: '',
-    name: null,
+    department_id: '',
+    employee: null,
 };
 
-const IncludeForm = ({data, employees, departments, errorData: errorForm, form, changeTextData, handleUpdate}, ref) => {
+const IncludeForm = ({data, employees, locationId, departments, errorData: errorForm, form, changeTextData, handleUpdate}, ref) => {
     const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     const [errorData, setErrorData] = useState({});
+    const [isFetching, setIsFetching] = useState(true);
+
+    useEffect(() => {
+        setIsFetching(true);
+            serviceLocationDepartments({location_id: locationId}).then(res => {
+                if (!res.error) {
+                    const data = res?.data;
+                    setFields(data.map(val => {
+                        return {
+                            department_id: val.department_id,
+                            employee: val.employee,
+                        };
+                    }));
+                }
+                setIsFetching(false);
+            });
+    }, [locationId]);
 
     useImperativeHandle(ref, () => ({
         isValid() {
             return validateData();
         },
         resetData() {
-             setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
+            setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
         },
         getData() {
             return JSON.parse(JSON.stringify(fields));
@@ -36,28 +51,19 @@ const IncludeForm = ({data, employees, departments, errorData: errorForm, form, 
 
     const validateData = (index, type) => {
         const errors = {};
-        // if (type) {
-        //     if (errorData[index]) {
-        //         errorData[index][type] = false;
-        //     }
-        //     setErrorData(errorData);
-        //     return false;
-        // }
         fields.forEach((val, index) => {
             const err = index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-            const required = ['name','department_id'];
+            const required = ['employee', 'department_id'];
             required.forEach((key) => {
                 if (!val[key]) {
                     err[key] = true;
                 }
             });
-            if (val.name === null) {
-                err.name = true;
-            }
             if (Object.keys(err).length > 0) {
                 errors[index] = err;
             }
         });
+        LogUtils.log('errors', errors);
         setErrorData(errors);
         return !(Object.keys(errors).length > 0);
     }
@@ -94,7 +100,6 @@ const IncludeForm = ({data, employees, departments, errorData: errorForm, form, 
     const changeData = (index, data) => {
         const tempData = JSON.parse(JSON.stringify(fields));
         tempData[index] = {...tempData[index], ...data};
-        LogUtils.log('data', data);
         setFields(tempData);
         const errArr = [];
         Object.keys(data).forEach((key) => {
@@ -112,7 +117,6 @@ const IncludeForm = ({data, employees, departments, errorData: errorForm, form, 
     }, [checkExists]);
 
     const handlePress = async (type, index = 0) => {
-        LogUtils.log('type', type, index);
         const oldState = JSON.parse(JSON.stringify(fields));
         if (type == 'ADDITION') {
             oldState.push(JSON.parse(JSON.stringify(TEMP_OBJ)));
@@ -122,43 +126,47 @@ const IncludeForm = ({data, employees, departments, errorData: errorForm, form, 
             }
             oldState.splice(index, 1);
         }
-        LogUtils.log('oldState', oldState);
         setFields(oldState);
         // validateData();
     }
 
     const renderFields = useMemo(() => {
+        // const filteredDepartments = departments.filter(dept => {
+        //     const index =  fields.findIndex(val => val?.department_id === dept?.id);
+        //     return index < 0;
+        // })
+        if (isFetching) {return null};
         return fields.map((val, index) => {
-            // const filteredDepartments = departments.filter(variant => {
-            //     const index =  fields.findIndex(val => val?.sku?.sku === variant?.sku);
-            //     return index < 0;
-            // })
             return (
                 <div>
-                <IncludeFields employees={employees}
-                               departments={departments}
-                               validateData={validateData}
-                               errors={index in errorData ? errorData[index] : null}
-                               changeData={changeData} handlePress={handlePress} data={val} index={index} onBlur={onBlur}/>
+                    <IncludeFields
+                        employees={employees}
+                        departments={departments}
+                        validateData={validateData}
+                        errors={index in errorData ? errorData[index] : null}
+                        changeData={changeData}
+                        handlePress={handlePress}
+                        data={val}
+                        index={index}
+                        onBlur={onBlur}
+                    />
                 </div>
             )
         });
-    }, [employees, errorData, departments, validateData, changeData, handlePress, onBlur, fields]);
+    }, [employees, errorData, departments, validateData, changeData, handlePress, onBlur, fields, isFetching]);
+
+    if (isFetching) {
+        return (<WaitingComponent />);
+    }
 
     return (
         <>
-            {/*<div className={styles.plainPaper}>*/}
             <div className={'headerFlex'}>
                 <h4 className={'infoTitle'}>
-                    <div style={{fontSize:'0.8rem'}}>Location Departments</div>
-                    {/*<Tooltip title="Info" aria-label="info" placement="right">*/}
-                    {/*    <InfoIcon fontSize={'small'}/>*/}
-                    {/*</Tooltip>*/}
+                    <div style={{fontSize: '0.8rem'}}>Location Departments</div>
                 </h4>
             </div>
-
             {renderFields}
-
             <div>
                 <ButtonBase
                     className={styles.addition}
@@ -170,7 +178,6 @@ const IncludeForm = ({data, employees, departments, errorData: errorForm, form, 
                     <Add fontSize={"small"}/> <span>Department</span>
                 </ButtonBase>
             </div>
-            {/*</div>*/}
         </>
     )
 }

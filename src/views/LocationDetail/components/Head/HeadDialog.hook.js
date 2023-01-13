@@ -1,19 +1,21 @@
 import {useCallback, useEffect, useState} from "react";
 import {isAlpha, isNum, isUrl} from "../../../../libs/RegexUtils";
 import LogUtils from "../../../../libs/LogUtils";
+import {serviceLocationUpdateHead} from "../../../../services/Location.service";
 
 const initialForm = {
-   name: ''
+   name: null
 }
 
-const useHeadDialogHook = ({orderId, handleToggle,isOpen,showDetails}) => {
+const useHeadDialogHook = ({employees, handleToggle, isOpen, locationId, showDetails, handleUpdate}) => {
     const [form, setForm] = useState(({...initialForm}));
     const [errorData, setErrorData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+
     useEffect(() => {
-        setForm({...initialForm})
-    }, [isOpen])
+        setForm({...initialForm});
+    }, [isOpen]);
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
@@ -33,22 +35,20 @@ const useHeadDialogHook = ({orderId, handleToggle,isOpen,showDetails}) => {
     }, [form, errorData]);
 
     const submitToServer = useCallback(() => {
-        handleToggle();
         showDetails(true)
-        // if (!isSubmitting) {
-        //     setIsSubmitting(true);
-        //     handleToggle();
-        //     serviceCreateSaleOrderHead({
-        //         ...form,
-        //         order_id: orderId
-        //     }).then(res => {
-        //         if (!res.error) {
-        //             handleToggle();
-        //         }
-        //         setIsSubmitting(false);
-        //     })
-        // }
-    }, [form, isSubmitting, setIsSubmitting, orderId, handleToggle]);
+        if (!isSubmitting) {
+            setIsSubmitting(true);
+            serviceLocationUpdateHead({
+                head_id: form?.name.id,
+                location_id: locationId
+            }).then(res => {
+                if (!res.error) {
+                    handleUpdate(res.data.details);
+                }
+                setIsSubmitting(false);
+            })
+        }
+    }, [form, isSubmitting, setIsSubmitting, employees, locationId, handleUpdate]);
 
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
@@ -79,6 +79,7 @@ const useHeadDialogHook = ({orderId, handleToggle,isOpen,showDetails}) => {
         } else {
             t[fieldName] = text;
         }
+        LogUtils.log('temp', fieldName, text);
         setForm(t);
         shouldRemoveError && removeError(fieldName);
     }, [removeError, form, setForm]);

@@ -2,17 +2,11 @@ import React, {useMemo} from 'react';
 import useDepartmentHook from "./DepartmentCreateHook";
 import {Button, ButtonBase, MenuItem} from "@material-ui/core";
 import styles from "./Style.module.css";
-import Tooltip from "@material-ui/core/Tooltip";
-import InfoIcon from "@material-ui/icons/Info";
 import {makeStyles} from "@material-ui/styles";
-import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../components/FormFields/TextField/TextField.component";
 import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import constants from "../../config/constants";
-import AutoCompleteChip from "../../components/FormFields/AutoCompleteText/AutoCompleteChip";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
-import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 
 const useStyles = makeStyles((theme) => ({
     iconBtnError: {

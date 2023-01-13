@@ -1,23 +1,26 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {isAlphaNum, isNum} from "../../libs/RegexUtils";
-import {serviceGetCustomList, serviceGetKeywords} from "../../services/Common.service";
+import {serviceGetCustomList, serviceGetKeywords, serviceGetList} from "../../services/Common.service";
 import useDebounce from "../../hooks/DebounceHook";
 import LogUtils from "../../libs/LogUtils";
 import {serviceCreateJobOpenings, serviceJobOpeningsCodeCheck} from "../../services/JobOpenings.service";
 import historyUtils from "../../libs/history.utils";
 import EventEmitter from "../../libs/Events.utils";
+import RouteName from "../../routes/Route.name";
+import SnackbarUtils from "../../libs/SnackbarUtils";
 
 const initialForm = {
-    location: '',
-    department: '',
-    sub_department: '',
-    vacancy_type: '',
+    location_id: '',
+    department_id: '',
+    sub_department_id: '',
+    type: '',
     assigned_to: '',
-    associate_job: '',
+    job_role: '',
     replacing_person: '',
-    optional_notes: '',
+    note: '',
+    designation: '',
     is_sourcing: false,
-    is_hiring: false
+    is_hiring: true
 };
 
 const useJobOpeningsDetail = ({}) => {
@@ -27,42 +30,44 @@ const useJobOpeningsDetail = ({}) => {
     const [form, setForm] = useState({...initialForm});
     const [isEdit, setIsEdit] = useState(false);
     const includeRef = useRef(null);
-
-    const checkCodeValidation = useCallback(() => {
-        // serviceJobOpeningsCodeCheck({code: code, vendor_ref_code: vendorRefCode}).then((res) => {
-        //     if (!res.error) {
-        //         const errors = JSON.parse(JSON.stringify(errorData));
-        //         if (res.data.code_exists) {
-        //             errors['code'] = 'JobOpenings Code Exists'
-        //             setErrorData(errors)
-        //         } else {
-        //             delete errors.code;
-        //             setErrorData(errors);
-        //         }
-        //         if (res?.data?.vendor_ref_code) {
-        //             errors['vendor_ref_code'] = 'Vendor Ref Code Exists'
-        //             setErrorData(errors)
-        //         } else {
-        //             delete errors.vendor_ref_code;
-        //             setErrorData(errors);
-        //         }
-        //     }
-        // });
-    }, [errorData]);
+    const [listData, setListData] = useState({
+        LOCATION_DEPARTMENTS: [],
+        EMPLOYEES: [],
+        DEPARTMENTS: [],
+        SUB_DEPARTMENTS: [],
+        JOB_ROLES: [],
+        HR: [],
+        DESIGNATIONS: [],
+    });
 
     useEffect(() => {
-            checkCodeValidation();
-    }, [])
+        if (form?.replacing_person) {
+            const designationId = form?.replacing_person?.designation_id;
+            const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
+            if (index >= 0) {
+                setForm({
+                    ...form,
+                    designation: listData?.DESIGNATIONS[index]
+                });
+            }
+        }
+    }, [form?.replacing_person]);
 
-
+    useEffect(() => {
+        serviceGetList(['LOCATION_DEPARTMENTS', 'EMPLOYEES', 'DEPARTMENTS', 'HR', 'SUB_DEPARTMENTS', 'JOB_ROLES', 'DESIGNATIONS']).then(res => {
+            if (!res.error) {
+                setListData(res.data);
+            }
+        });
+    }, []);
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = ['location','department','sub_department','vacancy_type','assigned_to','associate_job','replacing_person','designation'];
+        let required = ['location_id', 'department_id', 'sub_department_id', 'vacancy_type', 'assigned_to', 'job_role', 'replacing_person', 'designation'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
-            } else if (['code', 'vendor_ref_code'].indexOf(val) < 0) {
+            } else if (['code'].indexOf(val) < 0) {
                 delete errors[val]
             }
         });
@@ -77,24 +82,18 @@ const useJobOpeningsDetail = ({}) => {
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-            const fd = new FormData();
-            Object.keys(form).forEach(key => {
-                if (key != 'brand' && form[key]) {
-                    fd.append(key, form[key]);
-                }
-            });
-            const variants = JSON.stringify(includeRef.current.getData());
-            fd.append('variants', variants);
-            fd.append('brand', JSON.stringify(form?.brand));
-            serviceCreateJobOpenings(fd).then((res) => {
+            serviceCreateJobOpenings({
+                ...form,
+                assigned_to: form?.assigned_to?.id,
+                job_role_id: form?.job_role?.id,
+                designation_id: form?.designation?.id,
+                replace_id: form?.replacing_person?.id,
+            }).then((res) => {
                 LogUtils.log('response', res);
                 if (!res.error) {
-                    historyUtils.push('/products');
+                    historyUtils.push(RouteName.JOB_OPENINGS);
                 } else {
-                    EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-                        error: res.message,
-                        type: 'error'
-                    });
+                    SnackbarUtils.error(res?.error);
                 }
                 setIsSubmitting(false);
             });
@@ -128,25 +127,34 @@ const useJobOpeningsDetail = ({}) => {
     );
 
     const changeTextData = useCallback((text, fieldName) => {
-            let shouldRemoveError = true;
-            const t = {...form};
-            if (fieldName === 'names' || fieldName === 'truck_no' || fieldName == 'idendity_proof') {
-                if (!text || (isNum(text) && text.toString().length <= 30)) {
-                    t[fieldName] = text;
-                }
-            } else {
+        let shouldRemoveError = true;
+        const t = {...form};
+        if (fieldName === 'location_id') {
+            t['department_id'] = '';
+            t['sub_department_id'] = '';
+            t['replacing_person'] = '';
+        }
+        if (fieldName === 'department_id') {
+            t['sub_department_id'] = ''
+            t['replacing_person'] = '';
+        }
+        if (fieldName === 'name') {
+            if (!text || (isNum(text) && text.toString().length <= 30)) {
                 t[fieldName] = text;
             }
-            setForm(t);
-            shouldRemoveError && removeError(fieldName);
-        }, [removeError, form, setForm]);
+        } else {
+            t[fieldName] = text;
+        }
+        setForm(t);
+        shouldRemoveError && removeError(fieldName);
+    }, [removeError, form, setForm]);
 
     const onBlurHandler = useCallback(
         type => {
             if (form?.[type]) {
                 changeTextData(form?.[type].trim(), type);
             }
-        }, [changeTextData, checkCodeValidation]);
+        }, [changeTextData]);
 
     const handleDelete = useCallback(() => {
 
@@ -156,7 +164,27 @@ const useJobOpeningsDetail = ({}) => {
     const handleReset = useCallback(() => {
         includeRef.current.resetData();
         setForm({...initialForm})
-    },[form])
+    }, [form])
+
+    const filteredDepartments = useMemo(() => {
+        const locations = listData?.LOCATION_DEPARTMENTS;
+        const index = locations.findIndex(l => l.id === form?.location_id);
+        if (index >= 0) {
+            const departments = locations[index]?.departments;
+            return listData?.DEPARTMENTS?.filter(val => departments.indexOf(val.id) >= 0);
+        }
+        return [];
+    }, [listData, form?.location_id]);
+
+    const filteredSubDepartments = useMemo(() => {
+        return listData?.SUB_DEPARTMENTS?.filter(val => val.department_id === form?.department_id);
+    }, [listData, form?.department_id]);
+
+    const filteredEmployees = useMemo(() => {
+        return listData.EMPLOYEES.filter(val => {
+            return val.department_id === form?.department_id && val.location_id === form?.location_id;
+        });
+    }, [form?.location_id, form?.department_id, listData]);
 
     return {
         form,
@@ -170,7 +198,11 @@ const useJobOpeningsDetail = ({}) => {
         isEdit,
         handleDelete,
         includeRef,
-        handleReset
+        handleReset,
+        filteredDepartments,
+        filteredSubDepartments,
+        listData,
+        filteredEmployees
     };
 };
 

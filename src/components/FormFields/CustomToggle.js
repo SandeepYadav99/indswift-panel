@@ -41,7 +41,7 @@ const AntSwitch = withStyles((theme) => ({
     checked: {},
 }))(Switch);
 
-export default function CustomToggle({handleChange,leftLabel,rightLabel}) {
+export default function CustomToggle({handleChange,leftLabel,rightLabel, value}) {
 
     // const handleChange = (event) => {
     //     setState({ ...state, [event.target.name]: event.target.checked });
@@ -53,7 +53,7 @@ export default function CustomToggle({handleChange,leftLabel,rightLabel}) {
                 <Grid component="label" container alignItems="center" spacing={1}>
                     <Grid item>{leftLabel}</Grid>
                     <Grid item>
-                        <AntSwitch onChange={(e) => handleChange(e.target.checked)} />
+                        <AntSwitch checked={value}  onChange={(e) => handleChange(e.target.checked)} />
                     </Grid>
                     <Grid item>{rightLabel}</Grid>
                 </Grid>
