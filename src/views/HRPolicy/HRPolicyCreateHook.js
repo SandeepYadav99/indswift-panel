@@ -144,11 +144,7 @@ const useHRPolicyDetail = ({}) => {
       console.log(text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "name") {
-        if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
-          t[fieldName] = text;
-        }
-      } else if (fieldName === 'revision_no') {
+      if (fieldName === "name" || fieldName === "revision_no") {
         if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
           t[fieldName] = text;
         }
@@ -172,7 +168,7 @@ const useHRPolicyDetail = ({}) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData, checkCodeValidation]
+    [changeTextData,checkCodeValidation]
   );
 
   const handleDelete = useCallback(() => {}, []);
