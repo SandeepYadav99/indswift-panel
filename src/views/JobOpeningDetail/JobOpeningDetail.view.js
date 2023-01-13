@@ -6,8 +6,14 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import classnames from "classnames";
 import CandidatesRecordTable from "./components/CandidatesTable/CandidatesTable.component";
 import InterviewerRecordTable from "./components/CandidatesTable/InterviewerTable/InterviewerTable.component";
+import useJobOpeningDetail from "./JobOpeningDetail.hook";
+import {WaitingComponent} from "../../components/index.component";
 
 const JobOpeningDetail = () => {
+  const { data, isLoading } = useJobOpeningDetail({});
+  if (isLoading) {
+    return (<WaitingComponent/>);
+  }
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -94,7 +100,7 @@ const JobOpeningDetail = () => {
           </div>
           <div style={{ marginLeft: "20px" }}>
             <ButtonBase className={styles.createBtn}>Add Candidate</ButtonBase>
-            
+
           </div>
         </div>
       </div>

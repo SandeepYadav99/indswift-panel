@@ -25,5 +25,5 @@ export async function serviceJobOpeningsCodeCheck (params) {
 }
 
 export async function serviceJobOpeningsDetails (params) {
-    return await postRequest('job/openings/detail', params);
+    return await postRequest('job/openings/details', params);
 }

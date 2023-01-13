@@ -9,6 +9,7 @@ import {
 import historyUtils from "../../libs/history.utils";
 import {serviceGetCustomList} from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
+import RouteName from "../../routes/Route.name";
 
 const useJobOpeningsList = ({}) => {
     const [isSidePanel, setSidePanel] = useState(false);
@@ -113,8 +114,7 @@ const useJobOpeningsList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
-        LogUtils.log('data', data);
-        historyUtils.push('/job/openings/detail/') //+data.id
+        historyUtils.push(RouteName.JOB_OPENINGS_DETAILS+data.id) //+data.id
     }, []);
 
     const configFilter = useMemo(() => {

@@ -324,7 +324,7 @@ const dashboardRoutes = [
     },
 
     {
-        path: "/job/openings/detail",
+        path: `${RouteName.JOB_OPENINGS_DETAILS}:id`,
         sidebarName: "Job Openings Detail",
         navbarName: "Job Openings Detail",
         icon: LocalOffer,
