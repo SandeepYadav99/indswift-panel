@@ -26,7 +26,7 @@ const initialForm = {
   applied_date: "",
   revision_no: "",
   image: null,
-  imageUrl: "",
+  imageUrl: null,
   is_active: true,
   dashboard_status: false,
 };
@@ -82,7 +82,7 @@ const useHRPolicyDetail = ({}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "code", "applied_date", "revision_no", "imageUrl"];
+    let required = ["name", "code", "applied_date", "revision_no", "image"];
     console.log(form, errors);
     required.forEach((val) => {
       if (
@@ -123,7 +123,7 @@ const useHRPolicyDetail = ({}) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log(">===", errors);
+    console.log(">===", errors,form);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
@@ -145,11 +145,7 @@ const useHRPolicyDetail = ({}) => {
       console.log(text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "name") {
-        if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
-          t[fieldName] = text;
-        }
-      } else if (fieldName === 'revision_no') {
+      if (fieldName === "name" || fieldName === "revision_no") {
         if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
           t[fieldName] = text;
         }
@@ -173,7 +169,7 @@ const useHRPolicyDetail = ({}) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData, checkCodeValidation]
+    [changeTextData,checkCodeValidation]
   );
 
   const handleDelete = useCallback(() => {}, []);

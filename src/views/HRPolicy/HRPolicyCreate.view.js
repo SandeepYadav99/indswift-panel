@@ -7,7 +7,6 @@ import CustomTextField from "../../components/FormFields/TextField/TextField.com
 import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import constants from "../../config/constants";
-import AutoCompleteChip from "../../components/FormFields/AutoCompleteText/AutoCompleteChip";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
 import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import useHRPolicyDetail from "./HRPolicyCreateHook";
