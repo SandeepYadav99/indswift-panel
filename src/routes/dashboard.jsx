@@ -34,6 +34,8 @@ import HRPolicy from "../views/HRPolicy/HRPolicy.container";
 import HRCreateView from "../views/HRPolicy/HRPolicyCreate.view";
 import CircularCreateView from "../views/Circular/CircularCreate.view";
 import Circular from "../views/Circular/Circular.container";
+import DesignationList from "../views/Designation/DesignationList.container";
+import DesignationCreateView from "../views/Designation/DesignationCreate.view";
 
 
 const dashboardRoutes = [
@@ -228,6 +230,23 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'masters',
+    },
+    {
+        path: RouteName.DESIGNATION,
+        sidebarName: "Designation",
+        navbarName: "Designation",
+        icon: PeopleOutlined,
+        component: DesignationList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'masters',
+    },
+    {
+        path: RouteName.DESIGNATION_CREATE,
+        component: DesignationCreateView,
+        is_sidebar: false,
+        is_protect: true,
     },
     {
         path: RouteName.GRADES_CREATE,

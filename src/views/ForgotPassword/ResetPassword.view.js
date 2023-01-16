@@ -201,10 +201,11 @@ class ResetPasswordView extends Component {
         return (
             <div className={styles.mainLoginView}>
                 <div className={styles.loginFlex1}>
-                    <div className={styles.heading}>
-                        Success is always a <br/>
-                        learning process
+                <div className={styles.heading}>
+                       Human Resourse Management  <br/>
+                        Made Easy
                     </div>
+                    <p>A powerful software to cater all HR needs.</p>
                 </div>
                 <div className={styles.loginFlex2}>
                     {this._renderForm()}

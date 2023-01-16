@@ -17,7 +17,7 @@ const PersonalInfo = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>Domicile State:</span>
                 <span className={styles.valueWrap}>
-                  {data?.family?.father_name}
+                  {data?.state}
                 </span>
               </div>
               <div className={styles.key}>

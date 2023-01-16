@@ -34,6 +34,7 @@ import AnnualReducer from "./Annual.reducer";
 import ManpowerReducer from "./Manpower.reducer"
 import HRPolicyReducer from './HRPolicy.reducer';
 import CircularReducer from './Circular.reducer';
+import DesignationReducer from './Designation.reducer';
 
 const rootReducer = combineReducers({
     state: (state = {}) => state,
@@ -59,6 +60,7 @@ const rootReducer = combineReducers({
     job_openings: JobOpeningsReducer,
     location: LocationReducer,
     department: DepartmentReducer,
+    designation: DesignationReducer,
     hrpolicy:HRPolicyReducer,
     circular:CircularReducer,
     subdepartment: SubDepartmentReducer,

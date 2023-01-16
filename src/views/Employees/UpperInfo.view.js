@@ -27,7 +27,8 @@ const UpperInfo = ({ data }) => {
               {data?.location?.name}
             </div>
             <div>
-              <span className={styles.location}>Department</span> Corporate HBRP
+              <span className={styles.location}>Department</span> 
+              {data?.department?.name}
             </div>
             <div>
               <span className={styles.location}>Sub-Department</span>{" "}
