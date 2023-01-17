@@ -12,6 +12,7 @@ import UpperInfo from "./UpperInfo.view";
 import ProfileView from "./Profile.view";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useEmployeesTab from "./EmployeesTabHook";
+import { actionGetEmployeeDetails } from "../../actions/Employee.action";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -54,9 +55,20 @@ const useStyles = makeStyles({
 const EmployeeTab = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const dispatch = useDispatch();
 
+  const getUrl = () => {
+    let url = window.location.pathname;
+    let getValues = url.split("/")[3];
+    return getValues ? getValues : "";
+  };
+  useEffect(() => {
+    dispatch(actionGetEmployeeDetails(getUrl()));
+  }, []);
   const { employeeData } = useSelector((state) => state.employee);
+
   console.log("employeeData....", employeeData);
+  
   const handleChange = useCallback(
     (event, newValue) => {
       setValue(newValue);
@@ -98,21 +110,21 @@ const EmployeeTab = () => {
             >
               <Tab className={"iconTabs"} label="Profile" />
               <Tab className={"iconTabs"} label="Salary Info" />
-              <Tab className={"iconTabs"} label="Career Progression Chart (CPC)" />
-
+              <Tab
+                className={"iconTabs"}
+                label="Career Progression Chart (CPC)"
+              />
+              <Tab className={"iconTabs"} label="Employee Records" />
             </Tabs>
           </AppBar>
 
           <div className={styles.paperBackground}>
             <TabPanel value={value} index={0} dir={"ltr"}>
-              <ProfileView data={employeeData}/>
+              <ProfileView data={employeeData} />
             </TabPanel>
-            <TabPanel value={value} index={1} dir={"ltr"}>
-              
-            </TabPanel>
-            <TabPanel value={value} index={2} dir={"ltr"}>
-              
-            </TabPanel>
+            <TabPanel value={value} index={1} dir={"ltr"}></TabPanel>
+            <TabPanel value={value} index={2} dir={"ltr"}></TabPanel>
+            <TabPanel value={value} index={3} dir={"ltr"}></TabPanel>
           </div>
         </div>
       </div>

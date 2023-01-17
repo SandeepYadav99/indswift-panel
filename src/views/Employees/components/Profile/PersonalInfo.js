@@ -5,20 +5,22 @@ const PersonalInfo = ({ data }) => {
   return (
     <div>
       <div className={styles.plainPaper}>
-        <div className={styles.newContainer}>
+        <div className={styles.newContainerPersonal}>
           <div className={styles.heading}>Personal Information</div>
 
-          <div className={styles.mainFlex}>
+          <div className={styles.mainFlex2}>
             <div className={styles.left}>
               <div className={styles.key}>
                 <span className={styles.value}>DOB:</span>
                 <span className={styles.valueWrap}>{data?.dob}</span>
               </div>
               <div className={styles.key}>
+                <span className={styles.value}>Gender:</span>
+                <span className={styles.valueWrap}>{data?.gender}</span>
+              </div>
+              <div className={styles.key}>
                 <span className={styles.value}>Domicile State:</span>
-                <span className={styles.valueWrap}>
-                  {data?.state}
-                </span>
+                <span className={styles.valueWrap}>{data?.state}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Father's Name:</span>
@@ -32,15 +34,20 @@ const PersonalInfo = ({ data }) => {
                   {data?.family?.mother_name}
                 </span>
               </div>
+
+              <div className={styles.key}>
+                <span className={styles.value}>Blood Group:</span>
+                <span className={styles.valueWrap}>{data?.blood_group}</span>
+              </div>
+            </div>
+            <div className={styles.vertical}></div>
+            <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>Marital Status:</span>
                 <span className={styles.valueWrap}>
                   {data?.family?.martial_status}
                 </span>
               </div>
-            </div>
-            <div className={styles.vertical}></div>
-            <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>DOM:</span>
                 <span className={styles.valueWrap}>{data?.dom}</span>
@@ -52,18 +59,69 @@ const PersonalInfo = ({ data }) => {
                 </span>
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Children Name:</span>
+                <span className={styles.value}>Spouse DOB:</span>
                 <span className={styles.valueWrap}>
+                  {/* {data?.family?.spouse_name} */}-
+                </span>
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Spouse Gender:</span>
+                <span className={styles.valueWrap}>
+                  {/* {data?.family?.spouse_name} */}-
+                </span>
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>No of Children:</span>
+                <span className={styles.valueWrap}>
+                  {/* {data?.family?.children_name} */}-
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.childrenWrapper}>
+          <div className={styles.heading}>Children Details</div>
+          <div className={styles.mainFlex1}>
+            <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value1}>Name:</span>
+                <span className={styles.valueWrap1}>
                   {data?.family?.children_name}
                 </span>
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Gender:</span>
-                <span className={styles.valueWrap}>{data?.gender}</span>
+                <span className={styles.value1}>Name:</span>
+                <span className={styles.valueWrap1}>
+                  -
+                </span>
+              </div>
+            </div>
+            <div className={styles.right}>
+              <div className={styles.key}>
+                <span className={styles.value1}>DOB:</span>
+                <span className={styles.valueWrap1}>
+                  -
+                </span>
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Blood Group:</span>
-                <span className={styles.valueWrap}>{data?.blood_group}</span>
+                <span className={styles.value1}>DOB:</span>
+                <span className={styles.valueWrap1}>
+                  -
+                </span>
+              </div>
+            </div>
+            <div className={styles.right}>
+              <div className={styles.key}>
+                <span className={styles.value1}>Gender:</span>
+                <span className={styles.valueWrap1}>
+                  -
+                </span>
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value1}>Gender:</span>
+                <span className={styles.valueWrap1}>
+                  -
+                </span>
               </div>
             </div>
           </div>

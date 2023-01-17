@@ -8,10 +8,7 @@ import {
   actionSetPageEmployeeRequests,
   actionUpdateEmployee,
 } from "../../actions/Employee.action";
-import historyUtils from "../../libs/history.utils";
-import { serviceGetCustomList } from "../../services/Common.service";
-import LogUtils from "../../libs/LogUtils";
-import { serviceEmployeeCodeSubmit } from "../../services/Employee.service";
+import historyUtils from "../../libs/history.utils"; 
 
 const useEmployeeList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -147,7 +144,7 @@ const useEmployeeList = ({}) => {
   }, [setEditData, setSidePanel]);
 
   const handleViewDetails = useCallback((data) => {
-    console.log("data", data.emp_code);
+    console.log("data====>", data.emp_code);
     dispatch(actionGetEmployeeDetails(data.emp_code));
     historyUtils.push(`/employees/details/${data.emp_code}`);
   }, []);

@@ -28,7 +28,7 @@ const DepartmentInfo = ({ data }) => {
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Employee Code:</span>
-                  <span className={styles.valueWrap}>{data?.emp_code}</span>
+                  <span className={styles.valueWrap}>{data?.hod?.hod_code}</span>
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Location:</span>
