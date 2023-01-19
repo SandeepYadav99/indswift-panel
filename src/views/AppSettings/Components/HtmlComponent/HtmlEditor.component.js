@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux';
 import {MenuItem, Button} from '@material-ui/core';
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles'
+import {createTheme, MuiThemeProvider} from '@material-ui/core/styles'
 import MUIRichTextEditor from 'mui-rte';
 import { stateToHTML } from 'draft-js-export-html';
 import { convertFromHTML, ContentState, convertToRaw } from 'draft-js'
@@ -29,7 +29,7 @@ const validate = (values) => {
     return errors
 };
 
-const defaultTheme = createMuiTheme()
+const defaultTheme = createTheme()
 
 Object.assign(defaultTheme, {
     overrides: {

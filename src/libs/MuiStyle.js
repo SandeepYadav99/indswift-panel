@@ -55,14 +55,16 @@ export default (theme) => ({
             textTransform: 'uppercase',
             background: '#ffffff',
             borderRadius: '15px',
+            minWidth:'30px !important',
             '&:hover': {
                 color: 'white',
                 '& span':{
                     color:'white'
                 }
-
+            },
+            '&@media(max-width: 1520px)': {
+                padding:'5px'
             }
-
 
     }
 });

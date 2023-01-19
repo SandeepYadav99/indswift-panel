@@ -145,7 +145,7 @@ const useEmployeeList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     console.log("data====>", data.emp_code);
-    dispatch(actionGetEmployeeDetails(data.emp_code));
+    // dispatch(actionGetEmployeeDetails(data.emp_code));
     historyUtils.push(`/employees/details/${data.emp_code}`);
   }, []);
 

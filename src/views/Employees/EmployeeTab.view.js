@@ -57,13 +57,14 @@ const EmployeeTab = () => {
   const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
 
-  const getUrl = () => {
+  const getEmployeeidFromUrl = () => {
     let url = window.location.pathname;
     let getValues = url.split("/")[3];
     return getValues ? getValues : "";
   };
+  
   useEffect(() => {
-    dispatch(actionGetEmployeeDetails(getUrl()));
+    dispatch(actionGetEmployeeDetails(getEmployeeidFromUrl()));
   }, []);
   const { employeeData } = useSelector((state) => state.employee);
 
