@@ -22,13 +22,13 @@ const PerformanceReview = ({reviewer}) => {
 
                     <div className={styles.mainFlex}>
                         <div className={styles.left}>
-                            <div className={styles.key}><span className={styles.value}>Next Review Date:</span>03/10/2023</div>
+                            <div className={styles.key}><span className={styles.value}>Next Review Date:</span>Not Available</div>
                         </div>
                         <div className={styles.vertical}>
 
                         </div>
                         <div className={styles.right}>
-                            <div className={styles.key}><span className={styles.value}>Previous Review Date:</span>03/10/2021</div>
+                            <div className={styles.key}><span className={styles.value}>Previous Review Date:</span>Not Available</div>
                         </div>
                     </div>
                 </div>

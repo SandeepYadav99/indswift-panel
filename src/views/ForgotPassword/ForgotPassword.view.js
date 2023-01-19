@@ -82,6 +82,7 @@ class ForgotPasswordView extends Component {
         this._handleClose = this._handleClose.bind(this);
         this._handleReturn = this._handleReturn.bind(this);
         this._handleBack = this._handleBack.bind(this)
+        this._handleforgetHelp=this._handleforgetHelp.bind(this)
     }
 
     async componentDidMount() {
@@ -130,6 +131,9 @@ class ForgotPasswordView extends Component {
 
     _handleReturn() {
         this.props.history.push('/login');
+    }
+    _handleforgetHelp() {
+        this.props.history.push('/forget/help');
     }
 
 
@@ -191,6 +195,10 @@ class ForgotPasswordView extends Component {
                                                 size={'18px'} color={'primary'}/></div>) : 'Send Link'}
                                     </ButtonBase>
                                 </div>
+                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center',color:'#2896e9',fontSize:'14px',cursor:'pointer'}}>
+                                            <p onClick={this._handleforgetHelp}>Need Help with Password? Contact Admin</p>
+                                </div>
+
                             </div>
                         </form>
                     </div>

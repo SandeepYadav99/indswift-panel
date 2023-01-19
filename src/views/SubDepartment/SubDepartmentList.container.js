@@ -70,12 +70,12 @@ const SubDepartmentList = ({}) => {
 
     const tableStructure = useMemo(() => {
         return [
-            {
-                key: 'sr_no',
-                label: 'SR No.',
-                sortable: false,
-                render: (temp, all, index) => <div>{index+1}</div>,
-            },
+            // {
+            //     key: 'sr_no',
+            //     label: 'SR No.',
+            //     sortable: false,
+            //     render: (temp, all, index) => <div>{index+1}</div>,
+            // },
             {
                 key: 'name',
                 label: 'Name',
@@ -138,7 +138,7 @@ const SubDepartmentList = ({}) => {
                             <ButtonBase onClick={() => (history.goBack())}>
                                 <ArrowBackIosIcon fontSize={'small'} className={styles.backArrow}/>
                             </ButtonBase>
-                            <span className={styles.title}>SubDepartment List</span>
+                            <span className={styles.title}>Sub Department List</span>
                             <div className={styles.newLine} style={{marginLeft:'20px'}}/>
                         </div>
                         <div>
