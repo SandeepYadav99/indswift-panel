@@ -62,12 +62,12 @@ const DepartmentList = ({}) => {
 
     const tableStructure = useMemo(() => {
         return [
-            {
-                key: 'sr_no',
-                label: 'SR No.',
-                sortable: false,
-                render: (temp, all, index) => <div>{index + 1}</div>,
-            },
+            // {
+            //     key: 'sr_no',
+            //     label: 'SR No.',
+            //     sortable: false,
+            //     render: (temp, all, index) => <div>{index + 1}</div>,
+            // },
             {
                 key: 'name',
                 label: 'Name',
