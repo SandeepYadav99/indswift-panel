@@ -29,4 +29,6 @@ export default {
     DESIGNATION: '/designation',
     DESIGNATION_CREATE: '/designation/create',
     DESIGNATION_UPDATE: '/designation/update/',
+    CANDIDATES: '/candidates',
+    CANDIDATES_CREATE: '/candidates/create'
 };

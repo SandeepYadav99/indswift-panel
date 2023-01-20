@@ -34,12 +34,7 @@ const useStyles = {
     }
 };
 
-const vendorDataSet = [{_id: "63216f263a3fb17e4e510c5b", name: "Test", vendor_industry: "FASHION"}]
-
 const IncludeFields = ({index, changeData, variants, handlePress, data, errors, onBlur, currency, listWarehouse}) => {
-    const [isProductDialog, setIsProductDialog] = useState(false);
-    const [selectedProductId, setSelectedProductId] = useState(null);
-    const [selectedVariantId, setSelectedVariantId] = useState(null);
 
     const handleChange = (e) => {
         const name = e.target.name;
@@ -57,27 +52,7 @@ const IncludeFields = ({index, changeData, variants, handlePress, data, errors, 
             changeData(index, {[name]: value});
         }
     }
-    const handleChangeValue = useCallback((value, key) => {
-        if (key === 'sku') {
-            changeData(index, {quantity: '', [key]: value, 'maxQty': value.quantity, 'price': value.variant_price});
-        } else {
-            changeData(index, {[key]: value});
-        }
-    }, [changeData, index]);
 
-    const handleIsFeatured = (e) => {
-        changeData(index, { [e.target.name]: !data.is_included } );
-    }
-
-    const handleServiceChange = (e) => {
-        const { value } = e.target;
-    }
-
-    const toggleProductDialog = useCallback(() => {
-        setIsProductDialog(e => !e);
-        setSelectedProductId(data?.sku?.product_id);
-        setSelectedVariantId(data?.sku?.variant_id)
-    }, [setIsProductDialog, setSelectedProductId, data]);
 
     return (
         <div>
@@ -86,11 +61,11 @@ const IncludeFields = ({index, changeData, variants, handlePress, data, errors, 
 
                     <div className={styles.flex1}>
                         <TextField
-                            error={errors?.name}
+                            error={errors?.degree}
                             onChange={handleChange}
-                            value={data?.name}
+                            value={data?.degree}
                             fullWidth={true}
-                            name={'name'}
+                            name={'degree'}
                             margin={'dense'}
                             variant={'outlined'}
                             label={'Degree Name'}

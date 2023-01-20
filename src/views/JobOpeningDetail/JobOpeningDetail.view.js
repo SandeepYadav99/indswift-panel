@@ -1,16 +1,20 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Style.module.css";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import {ButtonBase, Menu, MenuItem} from "@material-ui/core";
 import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import classnames from "classnames";
 import CandidatesRecordTable from "./components/CandidatesTable/CandidatesTable.component";
-import InterviewerRecordTable from "./components/CandidatesTable/InterviewerTable/InterviewerTable.component";
+import InterviewerRecordTable from "./components/InterviewerList/InterviewerTable/InterviewerTable.component";
 import useJobOpeningDetail from "./JobOpeningDetail.hook";
 import { WaitingComponent } from "../../components/index.component";
+import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
+import CandidateTable from "../../components/CandidateDataTable/CandidateTable.component";
+import InterviewerListComponent from "./components/InterviewerList/InterviewerList.component";
 
 const JobOpeningDetail = () => {
-  const { data, isLoading } = useJobOpeningDetail({});
+  const { data, isLoading, handleAddCandidate, candidateEl, handleCloseCandidateEl, handleCandidateMenu,
+    toggleCandidatePanel, isCandidatePanel, id } = useJobOpeningDetail({});
   if (isLoading) {
     return <WaitingComponent />;
   }
@@ -108,26 +112,31 @@ const JobOpeningDetail = () => {
         <div className={styles.btmFlex}>
           <div style={{ flex: "1" }}>
             <div className={styles.heading}>Candidates List</div>
-            <CandidatesRecordTable />
           </div>
           <div style={{ marginLeft: "20px" }}>
-            <ButtonBase className={styles.createBtn}>Add Candidate</ButtonBase>
+            <ButtonBase  aria-owns={candidateEl ? 'candidateEl' : undefined}
+                         aria-haspopup="true" onClick={handleAddCandidate} className={styles.createBtn}>Add Candidate</ButtonBase>
+            <Menu
+                id="candidateEl"
+                anchorEl={candidateEl}
+                open={Boolean(candidateEl)}
+                onClose={handleCloseCandidateEl}
+            >
+              <MenuItem onClick={() => {handleCandidateMenu('CREATE')}}>Create Candidate</MenuItem>
+              <MenuItem onClick={() => {handleCandidateMenu('ASSOCIATE')}}>Associate Candidate</MenuItem>
+            </Menu>
           </div>
         </div>
+        <CandidatesRecordTable jobId={id} />
       </div>
-      <div className={styles.plainPaper}>
-        <div className={styles.btmFlex}>
-          <div style={{ flex: "1" }}>
-            <div className={styles.heading}> Interview Panel</div>
-            <InterviewerRecordTable />
-          </div>
-          <div style={{ marginLeft: "20px" }}>
-            <ButtonBase className={styles.createBtn}>
-              MODIFY INTERVIEW PANEL
-            </ButtonBase>
-          </div>
-        </div>
-      </div>
+      <InterviewerListComponent jobId={id} />
+      <SidePanelComponent
+          handleToggle={toggleCandidatePanel}
+          title={'Candidates List'}
+          open={isCandidatePanel}
+          side={'right'}>
+        <CandidateTable />
+      </SidePanelComponent>
     </div>
   );
 };

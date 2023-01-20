@@ -126,7 +126,7 @@ const dashboardRoutes = [
         parent: 'budget',
     },
     {
-        path: "/candidate",
+        path: RouteName.CANDIDATES,
         sidebarName: "Interview Candidates",
         navbarName: "Interview Candidates",
         icon: PeopleOutlined,
@@ -136,7 +136,7 @@ const dashboardRoutes = [
         should_regex: true,
     },
     {
-        path: "/candidate/create",
+        path: RouteName.CANDIDATES_CREATE,
         sidebarName: "Location",
         navbarName: "Location",
         icon: LocalOffer,

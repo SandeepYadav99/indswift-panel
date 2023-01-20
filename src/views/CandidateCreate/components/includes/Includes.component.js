@@ -5,17 +5,12 @@ import React, {useEffect, useState, forwardRef, useImperativeHandle, useCallback
 import IncludeFields from './IncludeFields.component';
 import styles from './style.module.css'
 import {Button, ButtonBase, IconButton, MenuItem} from "@material-ui/core";
-import Tooltip from "@material-ui/core/Tooltip";
-import InfoIcon from "@material-ui/icons/Info";
 import LogUtils from "../../../../libs/LogUtils";
-import {isNum, isUrl} from "../../../../libs/RegexUtils";
-import useDebounce from "../../../../hooks/DebounceHook";
-import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
-import {RemoveCircleOutline as RemoveIcon, AddCircle as AddIcon, Add} from "@material-ui/icons";
+import { Add} from "@material-ui/icons";
 import {useParams} from "react-router";
 
 const TEMP_OBJ = {
-    name: '',
+    degree: '',
     marks: ''
 };
 
@@ -68,15 +63,12 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
         // }
         fields.forEach((val, index) => {
             const err = index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-            const required = ['name','department_id'];
+            const required = ['degree','marks'];
             required.forEach((key) => {
                 if (!val[key]) {
                     err[key] = true;
                 }
             });
-            if (val.name === null) {
-                err.name = true;
-            }
             if (Object.keys(err).length > 0) {
                 errors[index] = err;
             }
@@ -171,16 +163,6 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
 
     return (
         <>
-            {/*<div className={styles.plainPaper}>*/}
-            {/*<div className={'headerFlex'}>*/}
-            {/*    <h4 className={'infoTitle'}>*/}
-            {/*        <div style={{fontSize:'0.8rem'}}>Q Departments</div>*/}
-            {/*        /!*<Tooltip title="Info" aria-label="info" placement="right">*!/*/}
-            {/*        /!*    <InfoIcon fontSize={'small'}/>*!/*/}
-            {/*        /!*</Tooltip>*!/*/}
-            {/*    </h4>*/}
-            {/*</div>*/}
-
             {renderFields}
 
             <div>

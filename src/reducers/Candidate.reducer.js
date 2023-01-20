@@ -30,7 +30,7 @@ function mapPresetPRequest(all, pageId) {
 
 const initialState = {
     all: [],
-    data: [{status:'ACTIVE'}],
+    data: [],
     currentPage: 0,
     serverPage: 0,
     query: null, // search text data

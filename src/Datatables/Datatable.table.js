@@ -334,12 +334,12 @@ class EnhancedTable extends React.Component {
     };
 
 
-    _renderTableCells(row) {
+    _renderTableCells(row, indexPr) {
         const {columns} = this.props;
         return columns.map((val, index) => {
             return (
                 <TableCell style={('style' in val) ? val.style : {} }>
-                    {val.render(row[val.key], row, index)}
+                    {val.render(row[val.key], row, indexPr)}
                 </TableCell>
             )
         });
@@ -367,7 +367,7 @@ class EnhancedTable extends React.Component {
                         key={row.id + '' + Math.random()}
                         selected={isItemSelected}
                     >
-                        {this._renderTableCells(row,)}
+                        {this._renderTableCells(row, index)}
                     </TableRow>
                 );
             })

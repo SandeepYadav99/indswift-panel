@@ -16,8 +16,10 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
 import useCandidateList from "./CandidateListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import CreateView from './Candidate.view';
+import LogUtils from "../../libs/LogUtils";
 
-const CandidateList = ({}) => {
+const CandidateList = ({location}) => {
+
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
         isCalling, configFilter, warehouses} = useCandidateList({});
@@ -29,18 +31,12 @@ const CandidateList = ({}) => {
         return <StatusPill status={status} />
     }, []);
 
-    const renderFirstCell = useCallback((product) => {
-        if (product) {
+    const renderFirstCell = useCallback((obj) => {
+        if (obj) {
             return (
                 <div className={styles.firstCellFlex}>
-
-                    {/*<div className={styles.driverImgCont}*/}
-                    {/*     // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}*/}
-                    {/*>*/}
-                    {/*    /!*<img src={product.image_url} alt=""/>*!/*/}
-                    {/*</div>*/}
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>Smriti Sharma</span> <br/>
+                        <span className={styles.productName}>{obj?.name}</span> <br/>
                     </div>
                 </div>
             );
@@ -72,7 +68,7 @@ const CandidateList = ({}) => {
                 key: 'sr_no',
                 label: 'SR No.',
                 sortable: false,
-                render: (temp, all) => <div>1</div>,
+                render: (temp, all, index) => <div>{index+1}</div>,
             },
             {
                 key: 'name',
@@ -84,7 +80,7 @@ const CandidateList = ({}) => {
                 key: 'contact',
                 label: 'Contact',
                 sortable: false,
-                render: (temp, all) => <div>804335234<br/>abc12@gmail.com</div>,
+                render: (temp, all) => <div>{all?.contact}<br/>{all?.email}</div>,
             },
             {
                 key: 'prc',
@@ -126,7 +122,7 @@ const CandidateList = ({}) => {
                 key: 'createdAt',
                 label: 'Created Date',
                 sortable: false,
-                render: (temp, all) => <div>02/06/2022</div>,
+                render: (temp, all) => <div>{all?.createdAtText}</div>,
             },
             {
                 key: 'user_id',

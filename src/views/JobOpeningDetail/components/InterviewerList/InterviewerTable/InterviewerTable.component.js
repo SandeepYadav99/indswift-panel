@@ -2,19 +2,17 @@
  * Created by charnjeetelectrovese@gmail.com on 6/26/2020.
  */
 import React, {Component, useCallback, useMemo} from 'react';
-// import DataTables from '../../../../Datatables/Datatable.table';
 import DataTables from '../../../../../Datatables/Datatable.table'
 import styles from './Style.module.css';
-import classNames from "classnames"; 
-// import FilterComponent from "../../../../components/Filter/Filter.component";
+import classNames from "classnames";
 import useInterviewerList from './InterviewerTableHook';
 import StatusPill from '../../../../../components/Status/StatusPill.component';
 import constants from '../../../../../config/constants';
 
-const InterviewerRecordTable = ({}) => {
+const InterviewerRecordTable = ({jobId}) => {
 
     const { handleSortOrderChange , handleRowSize, handlePageChange,  handleEdit,
-        handleFilterDataChange, handleSearchValueChange, handleViewDetails, editData, isCalling} = useInterviewerList()
+        handleFilterDataChange, handleSearchValueChange, handleViewDetails, editData, isCalling, isInterviewerFetching, currentData, currentPage, data} = useInterviewerList({ jobId})
 
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status} />
@@ -42,31 +40,31 @@ const InterviewerRecordTable = ({}) => {
                 key: 'interviewer',
                 label: 'INTERVIEWER',
                 sortable: false,
-                render: (value, all) => <div>{all.date}</div>,
+                render: (value, all) => <div>{all?.name}</div>,
             },
             {
                 key: 'designation',
                 label: 'DESIGNATION',
                 sortable: false,
-                render: (temp, all) => <div>{all.rank}</div>,
+                render: (temp, all) => <div>{all?.designation_obj?.name}</div>,
             },
             {
                 key: 'department',
                 label: 'DEPARTMENT',
                 sortable: false,
-                render: (temp, all) => <div>{all.points}</div>,
+                render: (temp, all) => <div>{all?.department?.name}</div>,
             },
             {
                 key: 'step sequence',
                 label: 'STEP SEQUENCE',
                 sortable: false,
-                render: (temp, all) => <div>{all.points}</div>,
+                render: (temp, all) => <div>{all?.step}</div>,
             },
             {
                 key: 'shortlist approval',
                 label: 'SHORTLIST APPROVAL',
                 sortable: false,
-                render: (temp, all) => <div>{all.points}</div>,
+                render: (temp, all) => <div>{all?.is_shortlist_approval ? 'Yes' : 'No'}</div>,
             },
         ];
     }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
@@ -85,16 +83,16 @@ const InterviewerRecordTable = ({}) => {
             const datatable = {
                 ...constants.DATATABLE_PROPERTIES,
                 columns: tableStructure,
-                // data: data,
-                // count: allData.length,
-                // page: currentPage,
-                // rowsPerPage: 10,
-                // allRowSelected: false,
-                // showSelection: false
+                data: currentData,
+                count: data.length,
+                page: currentPage,
+                rowsPerPage: 10,
+                allRowSelected: false,
+                showSelection: false
             };
 
             return { datatableFunctions, datatable };
-        }, [ tableStructure, handleSortOrderChange, handlePageChange, handleRowSize,]); // allData, data, currentPage
+        }, [ tableStructure, handleSortOrderChange, handlePageChange, handleRowSize, data, currentPage, currentData]);
 
         return (
            <div>

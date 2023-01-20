@@ -177,7 +177,7 @@ const JobRoleCreateView = ({}) => {
                             }}
                         >
                             <MenuItem value={''} >None</MenuItem>
-                            {listData?.EMPLOYEES?.map(dT => {
+                            {listData?.DESIGNATIONS?.map(dT => {
                                 return (<MenuItem value={dT?.id} key={dT?.id}>{dT?.name}</MenuItem>)
                             })}
                         </CustomSelectField>
@@ -186,7 +186,7 @@ const JobRoleCreateView = ({}) => {
                         <CustomTextField
                             isError={errorData?.min_qualification}
                             errorText={errorData?.min_qualification}
-                            label={"Mini Qualification"}
+                            label={"Min Qualification"}
                             value={form?.min_qualification}
                             onTextChange={(text) => {
                                 changeTextData(text, "min_qualification");
@@ -203,7 +203,7 @@ const JobRoleCreateView = ({}) => {
                         <CustomTextField
                             isError={errorData?.min_experience}
                             errorText={errorData?.min_experience}
-                            label={"Mini Experience"}
+                            label={"Min Experience"}
                             value={form?.min_experience}
                             onTextChange={(text) => {
                                 changeTextData(text, "min_experience");

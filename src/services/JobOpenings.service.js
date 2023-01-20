@@ -27,3 +27,15 @@ export async function serviceJobOpeningsCodeCheck (params) {
 export async function serviceJobOpeningsDetails (params) {
     return await postRequest('job/openings/details', params);
 }
+
+export async function serviceGetJobOpeningCandidates(params) {
+    return await postRequest('job/openings/candidates', params);
+}
+
+export async function serviceAddJobOpeningInterviewers(params) {
+    return await postRequest('job/openings/interviewers/add', params);
+}
+
+export async function serviceGetJobOpeningInterviewers(params) {
+    return await postRequest('job/openings/interviewers', params);
+}

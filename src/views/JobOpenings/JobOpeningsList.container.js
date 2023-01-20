@@ -89,7 +89,7 @@ const JobOpeningsList = ({}) => {
                 key: 'vacancy',
                 label: 'Vacancy',
                 sortable: false,
-                render: (temp, all) => <div>02</div>,
+                render: (temp, all) => <div>01</div>,
             },
 
             {
@@ -102,7 +102,7 @@ const JobOpeningsList = ({}) => {
                 key: 'candidates',
                 label: 'Candidates',
                 sortable: false,
-                render: (temp, all) => <div>10</div>,
+                render: (temp, all) => <div>{all?.total_candidates ? all?.total_candidates : 0}</div>,
             },
             {
                 key: 'status',

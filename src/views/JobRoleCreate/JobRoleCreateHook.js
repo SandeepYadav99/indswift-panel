@@ -38,7 +38,7 @@ const useJobRolesDetail = ({}) => {
     const codeDebouncer = useDebounce(form?.department_id, 500);
     const [listData, setListData] = useState({
         LOCATION_DEPARTMENTS: [],
-        EMPLOYEES: [],
+        DESIGNATIONS: [],
         DEPARTMENTS: [],
         SUB_DEPARTMENTS: [],
         GRADES: []
@@ -46,7 +46,7 @@ const useJobRolesDetail = ({}) => {
     const includeRef = useRef(null);
 
     useEffect(() => {
-        serviceGetList(['LOCATION_DEPARTMENTS', 'EMPLOYEES', 'DEPARTMENTS', 'SUB_DEPARTMENTS', 'GRADES']).then(res => {
+        serviceGetList(['LOCATION_DEPARTMENTS', 'DESIGNATIONS', 'DEPARTMENTS', 'SUB_DEPARTMENTS', 'GRADES']).then(res => {
             if (!res.error) {
                 setListData(res.data);
             }

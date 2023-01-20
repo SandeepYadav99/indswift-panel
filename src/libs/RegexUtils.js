@@ -31,6 +31,10 @@ const isSpace = (value) => {
     return /\s/.test(value);
 }
 
+const isAadhar = (value) => {
+    return /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/.test(value);
+}
+
 
 export {
     isUrl,
@@ -39,5 +43,6 @@ export {
     isNum,
     isAlpha,
     isDate,
-    isSpace,isAlphaNumChars
+    isSpace,isAlphaNumChars,
+    isAadhar
 };

@@ -19,10 +19,10 @@ import StatusPill from "../../../../components/Status/StatusPill.component";
 import useCandidatesList from "./CandidatesHook";
 import FilterComponent from "../../../../components/Filter/Filter.component";
 
-const CandidatesRecordTable = ({}) => {
+const CandidatesRecordTable = ({jobId}) => {
 
     const { handleSortOrderChange , handleRowSize, handlePageChange,  handleEdit,
-        handleFilterDataChange, handleSearchValueChange, handleViewDetails, editData, isCalling} = useCandidatesList()
+        handleFilterDataChange, handleSearchValueChange, handleViewDetails, editData, isCalling, currentData, data, currentPage, isCandidatesFetching} = useCandidatesList({jobId})
 
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status} />
@@ -50,43 +50,43 @@ const CandidatesRecordTable = ({}) => {
                 key: 'name',
                 label: 'Sr. No',
                 sortable: false,
-                render: (value, all) => <div>{all.date}</div>,
+                render: (value, all, index) => <div>{index + 1}</div>,
             },
             {
-                key: 'rank',
+                key: 'name',
                 label: 'Candidate Name',
                 sortable: false,
-                render: (temp, all) => <div>{all.rank}</div>,
+                render: (temp, all) => <div>{all?.name}</div>,
             },
             {
-                key: 'rewards',
+                key: 'contact',
                 label: 'Contact',
                 sortable: false,
-                render: (temp, all) => <div>{all.points}</div>,
+                render: (temp, all) => <div>{all?.contact}</div>,
             },
             {
-                key: 'rewards',
+                key: 'appliedDateText',
                 label: 'Applied On',
                 sortable: false,
-                render: (temp, all) => <div>{all.points}</div>,
+                render: (temp, all) => <div>{all?.appliedDateText}</div>,
             },
             {
                 key: 'rewards',
                 label: 'Status',
                 sortable: false,
-                render: (temp, all) => <div>{all.points}</div>,
+                render: (temp, all) => <div><StatusPill status={all.status} /></div>,
             },
             {
                 key: 'rewards',
                 label: 'Last Updated On',
                 sortable: false,
-                render: (temp, all) => <div>{all.points}</div>,
+                render: (temp, all) => <div>{all?.updatedAtText}</div>,
             },
             {
                 key: 'rewards',
                 label: 'Action',
                 sortable: false,
-                render: (temp, all) => <div>{all.points}</div>,
+                render: (temp, all) => <div>-</div>,
             },
 
         ];
@@ -106,16 +106,16 @@ const CandidatesRecordTable = ({}) => {
             const datatable = {
                 ...Constants.DATATABLE_PROPERTIES,
                 columns: tableStructure,
-                // data: data,
-                // count: allData.length,
-                // page: currentPage,
-                // rowsPerPage: 10,
-                // allRowSelected: false,
-                // showSelection: false
+                data: currentData,
+                count: data.length,
+                page: currentPage,
+                rowsPerPage: 10,
+                allRowSelected: false,
+                showSelection: false
             };
 
             return { datatableFunctions, datatable };
-        }, [ tableStructure, handleSortOrderChange, handlePageChange, handleRowSize,]); // allData, data, currentPage
+        }, [ tableStructure, handleSortOrderChange, handlePageChange, handleRowSize, currentPage, currentData, data]); // allData, data, currentPage
 
         return (
            <div>

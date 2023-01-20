@@ -5,25 +5,48 @@ import React, {useEffect, useState, forwardRef, useImperativeHandle, useCallback
 import IncludeFields from './IncludeFields.component';
 import styles from './style.module.css'
 import {Button, ButtonBase, IconButton, MenuItem} from "@material-ui/core";
-import LogUtils from "../../../../libs/LogUtils";
+import LogUtils from "../../../../../libs/LogUtils";
 import {Add} from "@material-ui/icons";
 import {useParams} from "react-router";
+import {serviceGetList} from "../../../../../services/Common.service";
+import {useSelector} from "react-redux";
+import {WaitingComponent} from "../../../../../components/index.component";
 
 const TEMP_OBJ = {
-    organisation_name: '',
-    duration: '',
-    designation: ''
+    interviewer: '',
+    step: '',
+    is_shortlist_approval: false
 };
 
-const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form, changeTextData, updateInventory, vendorId}, ref) => {
+const IncludeForm = ({data, errorData: errorForm, form, changeTextData}, ref) => {
     const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     const [errorData, setErrorData] = useState({});
-    const [variants, setVariants] = useState([]);
+    const [employees, setEmployees] = useState([]);
     const {id} = useParams();
-
+    const {isInterviewerFetching, interviewers } = useSelector(state => state.job_opening_detail);
+    const [isFetching, setIsFetching] = useState(false);
     useEffect(() => {
-
-    }, []);
+        setIsFetching(true);
+        serviceGetList(['EMPLOYEES']).then((res) => {
+            if (!res.error) {
+                const data = res?.data?.EMPLOYEES;
+                setEmployees(data);
+                const temp = [];
+                interviewers.forEach(interview => {
+                   const index = data.findIndex(val => val.id === interview.id);
+                   if (index >=0 ) {
+                       temp.push({
+                           interviewer: data[index],
+                           step: interview?.step,
+                           is_shortlist_approval: interview?.is_shortlist_approval,
+                       });
+                   }
+                });
+                setFields(temp);
+            }
+            setIsFetching(false);
+        });
+    }, [interviewers]);
 
     useEffect(() => {
         let sku = 0;
@@ -64,7 +87,10 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
         // }
         fields.forEach((val, index) => {
             const err = index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-            const required = ['organisation_name','duration', 'designation'];
+            const required = [
+                'interviewer',
+                'step'
+            ];
             required.forEach((key) => {
                 if (!val[key]) {
                     err[key] = true;
@@ -148,37 +174,28 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
 
     const renderFields = useMemo(() => {
         return fields.map((val, index) => {
-            const tempFilters = variants.filter(variant => {
-                const index =  fields.findIndex(val => val?.sku?.sku === variant?.sku);
+            const tempFilters = employees.filter(employee => {
+                const index =  fields.findIndex(val => val?.interviewer?.id === employee?.id);
                 return index < 0;
             })
             return (
                 <div>
-                <IncludeFields variants={tempFilters}
-                               listWarehouse={listWarehouse}
-                               currency={currency}
+                <IncludeFields employees={tempFilters}
                                validateData={validateData}
                                errors={index in errorData ? errorData[index] : null}
                                changeData={changeData} handlePress={handlePress} data={val} index={index} onBlur={onBlur}/>
                 </div>
             )
         });
-    }, [variants, errorData, listWarehouse, currency, validateData, changeData, handlePress, onBlur, fields]);
+    }, [employees, errorData, validateData, changeData, handlePress, onBlur, fields]);
+
+    if(isFetching) {
+        return (<WaitingComponent />);
+    }
 
     return (
         <>
-            {/*<div className={styles.plainPaper}>*/}
-            {/*<div className={'headerFlex'}>*/}
-            {/*    <h4 className={'infoTitle'}>*/}
-            {/*        <div style={{fontSize:'0.8rem'}}>Q Departments</div>*/}
-            {/*        /!*<Tooltip title="Info" aria-label="info" placement="right">*!/*/}
-            {/*        /!*    <InfoIcon fontSize={'small'}/>*!/*/}
-            {/*        /!*</Tooltip>*!/*/}
-            {/*    </h4>*/}
-            {/*</div>*/}
-
             {renderFields}
-
             <div>
                 <ButtonBase
                     className={styles.addition}
@@ -187,7 +204,7 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
                         handlePress('ADDITION', 0)
                     }}
                 >
-                    <Add fontSize={"small"}/> <span>Add Record</span>
+                    <Add fontSize={"small"}/> <span>Add Interviewer</span>
                 </ButtonBase>
             </div>
             {/*</div>*/}

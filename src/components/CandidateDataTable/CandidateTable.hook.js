@@ -1,20 +1,17 @@
+import React, {useCallback, useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {
     actionCreateCandidate, actionDeleteCandidate,
     actionFetchCandidate,
     actionSetPageCandidate,
     actionUpdateCandidate
 } from "../../actions/Candidate.action";
-import historyUtils from "../../libs/history.utils";
-import LogUtils from "../../libs/LogUtils";
-import RouteName from "../../routes/Route.name";
 
-
-const useCandidateList = ({}) => {
+const useCandidateTable = ({ }) => {
     const [isSidePanel, setSidePanel] = useState(false);
     const [isCalling, setIsCalling] = useState(false);
     const [editData, setEditData] = useState(null);
+    const [selected, setSelected] = useState([]);
     const dispatch = useDispatch();
     const isMountRef = useRef(false);
     const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.candidate);
@@ -34,16 +31,6 @@ const useCandidateList = ({}) => {
         dispatch(actionSetPageCandidate(type));
     }, []);
 
-    const handleDataSave = useCallback((data, type) =>  {
-        // this.props.actionChangeStatus({...data, type: type});
-        if (type == 'CREATE') {
-            dispatch(actionCreateCandidate(data));
-        } else {
-            dispatch(actionUpdateCandidate(data));
-        }
-        setSidePanel(e => !e);
-        setEditData(null);
-    }, [setSidePanel, setEditData]);
 
     const queryFilter = useCallback((key, value) => {
         console.log('_queryFilter', key, value);
@@ -80,54 +67,30 @@ const useCandidateList = ({}) => {
         console.log(page);
     }
 
-    const handleDelete = useCallback((id) => {
-        dispatch(actionDeleteCandidate(id));
-        setSidePanel(false);
-        setEditData(null);
-    }, [setEditData, setSidePanel]);
 
-    const handleEdit = useCallback((data) => {
-        setEditData(data);
-        setSidePanel(e => !e);
-    }, [setEditData, setSidePanel]);
-
-    const handleSideToggle = useCallback(() => {
-        historyUtils.push(RouteName.CANDIDATES_CREATE)
-        // setSidePanel(e => !e);
-        // setEditData(null);
-    }, [setEditData, setSidePanel]);
-
-    const handleViewDetails = useCallback((data) => {
-        LogUtils.log('data', data);
-        historyUtils.push('/candidate/detail/') //+data.id
-    }, []);
-
-    const configFilter = useMemo(() => {
-        return [
-            {label: 'Created Date', options: { maxDate: new Date() },  name: 'createdAt', type: 'date'},
-        ];
-    }, []);
-
+    const handleCheckbox = useCallback((data) => {
+        const tempSelected = JSON.parse(JSON.stringify(selected));
+        const tempIndex = tempSelected.findIndex(sel => sel.id === data.id);
+        if (tempIndex >= 0) {
+            tempSelected.splice(tempIndex, 1);
+        } else {
+            tempSelected.push(data);
+        }
+        setSelected(tempSelected)
+    }, [selected, setSelected]);
 
     return {
         handlePageChange,
-        // handleCellClick,
-        handleDataSave,
         handleFilterDataChange,
         handleSearchValueChange,
-        // handlePreviousPageClick,
-        // handleNextPageClick,
         handleRowSize,
         handleSortOrderChange,
-        handleDelete,
-        handleEdit,
-        handleSideToggle,
-        handleViewDetails,
         isCalling,
         editData,
         isSidePanel,
-        configFilter,
+        handleCheckbox,
+        selected
     }
 };
 
-export default useCandidateList;
+export default useCandidateTable;

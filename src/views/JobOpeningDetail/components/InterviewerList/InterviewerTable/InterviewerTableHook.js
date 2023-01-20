@@ -1,33 +1,32 @@
 import React, {useCallback, useEffect, useMemo, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    actionGetJobOpeningCandidates,
+    actionGetJobOpeningInterviewers
+} from "../../../../../actions/JobOpeningDetail.action";
+import LogUtils from "../../../../../libs/LogUtils";
 
-const useInterviewerList = () => {
+const totalShow = 20;
 
-    const [data,setData] = useState([])
-    const [currentPage,setCurrentPage] = useState(1);
+const useInterviewerList = ({jobId}) => {
+    const dispatch = useDispatch();
+    const [currentPage,setCurrentPage] = useState(0);
     const [currentData,setCurrentData] = useState([]);
-    const [selectedDate,setSelectedDate] = useState(null);
-    const [minDate,setMinDate] = useState(null);
-    const [maxDate,setMaxDate] = useState(null);
-    const [isCalling, setIsCalling] = useState(false);
+    const {isInterviewerFetching, interviewers } = useSelector(state => state.job_opening_detail);
 
     useEffect(() => {
-        const date = new Date();
-        date.setDate(date.getDate() + 1);
-        const maxDate = new Date();
-        maxDate.setMonth(maxDate.getMonth() + 1);
-        // this.setState({
-        //     selectedDate: date,
-        //     minDate: date,
-        //     maxDate: maxDate
-        // });
-    },[])
+        dispatch(actionGetJobOpeningInterviewers(jobId));
+    }, []);
 
-    useEffect(() => {},[])
+    useEffect(() => {
+        _processData();
+    }, [interviewers]);
 
-    const _processData = () =>  {
-        const {data, currentData, currentPage, totalShow} = this.state;
-        const from = (((currentPage) * totalShow) - totalShow);
-        let to = (((currentPage) * totalShow));
+    const _processData = useCallback(() =>  {
+        const data = interviewers;
+        const from = (((currentPage + 1) * totalShow) - totalShow);
+        let to = (((currentPage + 1) * totalShow));
+        LogUtils.log('from', from, to);
         // all.filter((val, index) => {
         //     if (index >= (((currentPage) * totalShow) - totalShow) && index < (((currentPage) * totalShow))) {
         //         return val;
@@ -35,28 +34,17 @@ const useInterviewerList = () => {
         // });
         if (from <= data.length) {
             to = to <= data.length ? to : data.length;
-            this.setState({
-                currentData: data.slice(from, to),
-            });
+            setCurrentData(data.slice(from, to));
         }
-    }
-
-    // const handleCellClick = (rowIndex, columnIndex, row, column) => {
-    //     console.log(`handleCellClick rowIndex: ${rowIndex} columnIndex: ${columnIndex}`);
-    // }
+    }, [setCurrentData, currentPage, interviewers]);
 
     const handlePageChange = useCallback((type) => {
-        console.log('_handlePageChange', type);
-        const {data, totalShow} = this.state;
+        const data = interviewers;
         if (Math.ceil(data.length / totalShow) >= (type + 1)) {
-            this.setState({
-                currentPage: type + 1
-            }, () => {
-                _processData();
-            });
-
+            setCurrentPage(type + 1);
+            _processData()
         }
-    }, []);
+    }, [_processData, setCurrentPage, interviewers]);
 
     const handlePreviousPageClick=()=> {
         console.log('handlePreviousPageClick', 'PREV');
@@ -109,7 +97,10 @@ const useInterviewerList = () => {
         // handleNextPageClick,
         handleRowSize,
         handleSortOrderChange,
-        isCalling,
+        isInterviewerFetching,
+        currentData,
+        data: interviewers,
+        currentPage
     }
 
 }

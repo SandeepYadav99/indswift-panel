@@ -35,6 +35,7 @@ import ManpowerReducer from "./Manpower.reducer"
 import HRPolicyReducer from './HRPolicy.reducer';
 import CircularReducer from './Circular.reducer';
 import DesignationReducer from './Designation.reducer';
+import JobOpeningDetailReducer from "./JobOpeningDetail.reducer";
 
 const rootReducer = combineReducers({
     state: (state = {}) => state,
@@ -69,6 +70,7 @@ const rootReducer = combineReducers({
     candidate: CandidateReducer,
     annual: AnnualReducer,
     manpower: ManpowerReducer,
+    job_opening_detail: JobOpeningDetailReducer
     // form: formReducer,
 });
 
