@@ -23,8 +23,17 @@ body{
     display: flex;
     /*margin-bottom: 10px;*/
 }
+.formFlex1 {
+    display: flex;
+    /*margin-bottom: 10px;*/
+}
 
 .formGroup {
+    flex: 1;
+    padding: 7px 10px;
+    /*padding: 10px 15px*/
+}
+.formGroup1 {
     flex: 1;
     padding: 7px 10px;
     /*padding: 10px 15px*/
@@ -511,6 +520,11 @@ input[type=radio] + label:hover {
     justify-content: space-between;
     align-items: center;
 }
+.headerFlex1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .wrapper{
     margin-top: 20px;
 }
@@ -551,8 +565,22 @@ input[type=radio] + label:hover {
     display: flex;
     align-items: center;
 }
+.infoTitle1{
+    margin-bottom: 10px;
+    /*padding-bottom: 5px;*/
+    margin-left: 15px;
+    /*border-bottom: 1px solid;*/
+    width: 100%;
+    font-weight: 600;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+}
 
 .heading{
+    margin-right: 5px;
+}
+.heading1{
     margin-right: 5px;
 }
 
@@ -633,7 +661,9 @@ font-size: medium;
     margin: 0px auto;
     align-items: center;
 }
-
+.DeclarationHeading{
+    font-weight: bolder;
+}
 .line {
     flex-grow: 1;
     height: 1px;
