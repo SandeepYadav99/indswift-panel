@@ -1,0 +1,75 @@
+import { ButtonBase, IconButton, InputAdornment } from "@material-ui/core";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
+import React from "react";
+import { Field } from "redux-form";
+import CustomTextField from "../../components/FormFields/TextField/TextField.component";
+import {
+  renderOutlinedPasswordField,
+  renderOutlinedTextField,
+} from "../../libs/redux-material.utils";
+import styles from "./Style.module.css";
+
+function EmployeeLogin() {
+  return (
+    <div className={styles.employeeLoginWrapper}>
+      {/* <div className={styles.loginFlex2}> */}
+      <div className={styles.signContainer}>
+        <div className={styles.logoImg}>
+          <img
+            src={require("../../assets/img/login logo@2x.png")}
+            className={styles.sky}
+          />
+        </div>
+        <div className={styles.loginSignupText}>
+          <h1 className={styles.headingText}>Employment Application Login</h1>
+          <div className={styles.newLine} />
+          <p className={styles.newLinetitle}>
+            Enter your email ID and 4 digit unique access code that you have recieved
+          </p>
+        </div>
+        <br />
+        <div>
+          <div>
+            <CustomTextField
+              //    isError={errorData?.name}
+              //    errorText={errorData?.name}
+              label={"Email id"}
+              //    value={form?.name}
+              //    onTextChange={text => {
+              //        changeTextData(text, 'name');
+              //    }}
+              //    onBlur={() => {
+              //        onBlurHandler('name');
+              //    }}
+            />
+          </div>
+          <br/>
+          <div>
+            <CustomTextField
+              //    isError={errorData?.code}
+              //    errorText={errorData?.code}
+              label={"4 Digit Code"}
+              //    value={form?.code}
+              //    onTextChange={text => {
+              //        changeTextData(text, 'code');
+              //    }}
+              //    onBlur={() => {
+              //        onBlurHandler('code');
+              //    }}
+            />
+          </div>
+        </div>
+        <div className={styles.btnWrap}>
+        <ButtonBase className={styles.login}>
+                Submit
+              </ButtonBase>
+        </div>
+        
+      </div>
+
+      {/* </div> */}
+    </div>
+  );
+}
+
+export default EmployeeLogin;
