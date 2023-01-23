@@ -89,7 +89,7 @@ const useHRPolicyList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleEdit = useCallback((data) => {
-        historyUtils.push(RouteName.Department_UPDATE+data.id);
+        historyUtils.push(RouteName.HR_POLICIES_UPDATE+data.id);
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
@@ -101,7 +101,7 @@ const useHRPolicyList = ({}) => {
     }, []);
 
     const handleCreate = useCallback(() => {
-        historyUtils.push('/hr/create') //+
+        historyUtils.push(RouteName.HR_POLICIES_CREATE)
     }, []);
 
     const configFilter = useMemo(() => {

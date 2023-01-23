@@ -76,7 +76,7 @@ class App extends React.Component {
                 tempRoutes.push(<CustomRouter is_protect={prop.is_protect} private exact path={prop.path}
                                               component={prop.component} desktopComponent={prop.desktopComponent}
                                               key={key}
-                                              check={'dsds'}/>);
+                    {...prop}/>);
             }
         })
         return (<Switch>

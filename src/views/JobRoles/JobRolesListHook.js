@@ -102,10 +102,9 @@ const useJobRolesList = ({}) => {
         setEditData(null);
     }, [setEditData, setSidePanel]);
 
-    const handleEdit = useCallback((data) => {
-        setEditData(data);
-        setSidePanel(e => !e);
-    }, [setEditData, setSidePanel]);
+    const handleEditClick = useCallback((data) => {
+        historyUtils.push(RouteName.JOB_ROLES_UPDATE+data.id);
+    }, []);
 
     const handleSideToggle = useCallback(() => {
         historyUtils.push(RouteName.JOB_ROLES_CREATE)
@@ -114,8 +113,7 @@ const useJobRolesList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
-        LogUtils.log('data', data);
-        historyUtils.push('/job/role/detail/'+data.id)
+        historyUtils.push(RouteName.JOB_ROLES_DETAILS+data.id)
     }, []);
 
     const configFilter = useMemo(() => {
@@ -132,7 +130,6 @@ const useJobRolesList = ({}) => {
     }, [setIsBulkDialog]);
 
     const handleChangeWareHouse = useCallback((wareHouseId) => {
-        LogUtils.log('wareHouseId', wareHouseId);
         setWareHouseId(wareHouseId);
     }, [setWareHouseId])
 
@@ -147,7 +144,7 @@ const useJobRolesList = ({}) => {
         handleRowSize,
         handleSortOrderChange,
         handleDelete,
-        handleEdit,
+        handleEditClick,
         handleSideToggle,
         handleViewDetails,
         isCalling,

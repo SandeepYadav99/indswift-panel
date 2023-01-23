@@ -88,7 +88,7 @@ const useCircularList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleEdit = useCallback((data) => {
-        historyUtils.push(RouteName.Department_UPDATE+data.id);
+        historyUtils.push(RouteName.HR_CIRCULARS_UPDATE+data.id);
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
@@ -100,7 +100,7 @@ const useCircularList = ({}) => {
     }, []);
 
     const handleCreate = useCallback(() => {
-        historyUtils.push('/circular/create') //+
+        historyUtils.push(RouteName.HR_CIRCULARS_CREATE) //+
     }, []);
 
     const configFilter = useMemo(() => {

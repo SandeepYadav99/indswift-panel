@@ -9,18 +9,9 @@ import {
     Typography,
     Paper
 } from "@material-ui/core";
-import { VerifiedUser, ShoppingCart as ShopIcon, AttachMoney as MoneyIcon, Store as ProductIcon } from '@material-ui/icons';
-import LineStat from './components/LineStat/LineStat.component';
-import mock from "./mock";
-import Widget from "../../components/Widget/WidgetView";
-import PageTitle from "../../components/PageTitle";
+
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
-// import { Typography } from "../../components/Wrappers/Wrappers";
-import DriversList from './components/Drivers/Drivers.component';
-import Table from "./components/Table/Table";
-import BigStat from "./components/BigStat/BigStat";
-import {WaitingComponent} from "../../components/index.component";
 import StatCard from './components/StatCard/StatCard.component';
 
 const getRandomData = (length, min, max, multiplier = 10, maxDiff = 10) => {

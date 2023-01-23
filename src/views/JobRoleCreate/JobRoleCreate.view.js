@@ -10,6 +10,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import NewEditor from "./components/NewEditor/NewEditor.component";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
 import LogUtils from "../../libs/LogUtils";
+import {WaitingComponent} from "../../components/index.component";
 
 const useStyles = makeStyles((theme) => ({
     iconBtnError: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const JobRoleCreateView = ({}) => {
+const JobRoleCreateView = ({onlyShow}) => {
     const {
         form,
         errorData,
@@ -40,9 +41,18 @@ const JobRoleCreateView = ({}) => {
         listData,
         filteredDepartments,
         filteredSubDepartments,
-        descriptionRef
+        descriptionRef,
+        id
     } = useJobRolesDetail({});
     const classes = useStyles();
+
+    const isDisabled = useMemo(() => {
+        return onlyShow ? true : false;
+    }, [onlyShow]);
+
+    if (isLoading) {
+        return (<WaitingComponent />);
+    }
 
     return (
         <div>
@@ -51,7 +61,7 @@ const JobRoleCreateView = ({}) => {
                     <ButtonBase onClick={() => history.goBack()}>
                         <ArrowBackIosIcon fontSize={"small"}/>{" "}
                         <span>
-              <b>New Job Description</b>
+              <b>{id ? 'Update' : 'New'} Job Description</b>
             </span>
                     </ButtonBase>
                     <div className={styles.newLine}/>
@@ -71,6 +81,7 @@ const JobRoleCreateView = ({}) => {
                 <div className={"formFlex"}>
                     <div className={"formGroup"}>
                         <CustomTextField
+                            disabled={isDisabled}
                             isError={errorData?.name}
                             errorText={errorData?.name}
                             label={"Job Title (Designation)"}
@@ -85,6 +96,7 @@ const JobRoleCreateView = ({}) => {
                     </div>
                     <div className={"formGroup"}>
                         <CustomSelectField
+                            disabled={isDisabled}
                             isError={errorData?.location_id}
                             errorText={errorData?.location_id}
                             label={"Location"}
@@ -102,6 +114,7 @@ const JobRoleCreateView = ({}) => {
                 <div className={"formFlex"}>
                     <div className="formGroup">
                         <CustomSelectField
+                            disabled={isDisabled}
                             isError={errorData?.department_id}
                             errorText={errorData?.department_id}
                             label={"Department"}
@@ -117,6 +130,7 @@ const JobRoleCreateView = ({}) => {
                     </div>
                     <div className="formGroup">
                         <CustomSelectField
+                            disabled={isDisabled}
                             isError={errorData?.sub_department_id}
                             errorText={errorData?.sub_department_id}
                             label={"Sub-Department"}
@@ -135,6 +149,7 @@ const JobRoleCreateView = ({}) => {
                 <div className={"formFlex"}>
                     <div className="formGroup">
                         <CustomSelectField
+                            disabled={isDisabled}
                             isError={errorData?.grade_id}
                             errorText={errorData?.grade_id}
                             label={"Grade"}
@@ -150,6 +165,7 @@ const JobRoleCreateView = ({}) => {
                     </div>
                     <div className={"formGroup"}>
                         <CustomTextField
+                            disabled={isDisabled}
                             inputProps={{ disabled: true }}
                             isError={errorData?.code}
                             errorText={errorData?.code}
@@ -168,6 +184,7 @@ const JobRoleCreateView = ({}) => {
                 <div className={"formFlex"}>
                     <div className="formGroup">
                         <CustomSelectField
+                            disabled={isDisabled}
                             isError={errorData?.reporting_to}
                             errorText={errorData?.reporting_to}
                             label={"Reporting To"}
@@ -184,6 +201,7 @@ const JobRoleCreateView = ({}) => {
                     </div>
                     <div className="formGroup">
                         <CustomTextField
+                            disabled={isDisabled}
                             isError={errorData?.min_qualification}
                             errorText={errorData?.min_qualification}
                             label={"Min Qualification"}
@@ -201,6 +219,7 @@ const JobRoleCreateView = ({}) => {
                 <div className={"formFlex"}>
                     <div className="formGroup">
                         <CustomTextField
+                            disabled={isDisabled}
                             isError={errorData?.min_experience}
                             errorText={errorData?.min_experience}
                             label={"Min Experience"}
@@ -216,6 +235,7 @@ const JobRoleCreateView = ({}) => {
                     {/* form field need to be added on F.E */}
                     <div className="formGroup">
                         <CustomTextField
+                            disabled={isDisabled}
                             isError={errorData?.salary_range}
                             errorText={errorData?.salary_range}
                             label={"Salary Range"}
@@ -238,6 +258,7 @@ const JobRoleCreateView = ({}) => {
                     </h4>
                 </div>
                 <NewEditor
+                    disable={isDisabled}
                     editorData={form?.description}
                     handleChange={(html) => {
                         descriptionRef.current(html, 'description');
@@ -249,7 +270,9 @@ const JobRoleCreateView = ({}) => {
                         <div className={"heading"}>Job Specification</div>
                     </h4>
                 </div>
-                <NewEditor editorData={form?.specification}
+                <NewEditor
+                    disable={isDisabled}
+                    editorData={form?.specification}
                            handleChange={(html) => {
                                descriptionRef.current(html, 'specification');
                            }}/>
@@ -265,6 +288,7 @@ const JobRoleCreateView = ({}) => {
                 <div className={"formFlex"}>
                     <div className={"formGroup"}>
                         <CustomSwitch
+                            disabled={isDisabled}
                             value={form?.is_active}
                             handleChange={() => {
                                 changeTextData(!form?.is_active, "is_active");
@@ -274,16 +298,16 @@ const JobRoleCreateView = ({}) => {
                     </div>
                 </div>
 
-                <div className={styles.btnCont}>
+                {!isDisabled && (<div className={styles.btnCont}>
                     <ButtonBase
                         disabled={isSubmitting}
                         type={"button"}
                         onClick={handleSubmit}
                         className={styles.createBtn}
                     >
-                        Create
+                        {id ? 'Update' : 'Create'}
                     </ButtonBase>
-                </div>
+                </div>)}
             </div>
         </div>
     );

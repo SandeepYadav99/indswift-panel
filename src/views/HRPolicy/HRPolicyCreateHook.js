@@ -19,16 +19,16 @@ import EventEmitter from "../../libs/Events.utils";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import { useParams } from "react-router";
 import Constants from "../../config/constants";
+import RouteName from "../../routes/Route.name";
 
 const initialForm = {
   name: "",
   code: "",
   effective_date: "",
-  revision_no: "",
-  policy_document: null,
-  imageUrl: "",
+  revision_number: "",
+  document: null,
   is_active: true,
-  dashboard_status: true
+  is_featured: true
 };
 
 const useHRPolicyDetail = ({}) => {
@@ -47,6 +47,7 @@ const useHRPolicyDetail = ({}) => {
           const data = res?.data?.details;
           setForm({
             ...data,
+            document: null,
             is_active: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
@@ -82,7 +83,10 @@ const useHRPolicyDetail = ({}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "code", "effective_date", "revision_no", "policy_document"];
+    let required = ["name", "code", "effective_date", "revision_number"];
+    if (!id) {
+      required.push("document");
+    }
     console.log(form, errors);
     required.forEach((val) => {
       if (
@@ -93,7 +97,18 @@ const useHRPolicyDetail = ({}) => {
       } else if (["code"].indexOf(val) < 0) {
         delete errors[val];
       }
-    });
+    }, [errorData, id, form]);
+
+    if (form?.effective_date) {
+      const date = new Date(form?.effective_date);
+      const todayDate = new Date();
+      date.setHours(0,0,0, 0);
+      todayDate.setHours(0,0,0, 0);
+      if (date.getTime() < todayDate.getTime()) {
+        errors['effective_date'] = true;
+      }
+    }
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -109,10 +124,17 @@ const useHRPolicyDetail = ({}) => {
       if (id) {
         req = serviceUpdateHRPolicy;
       }
-      req({ ...form }).then((res) => {
-        LogUtils.log("response", res);
+      const fd = new FormData();
+      Object.keys(form).forEach((key) => {
+        if (['is_active', 'is_featured'].indexOf(key) >= 0) {
+          fd.append(key, JSON.stringify(form[key]));
+        } else {
+          fd.append(key, form[key]);
+        }
+      })
+      req(fd).then((res) => {
         if (!res.error) {
-          historyUtils.push("/hr");
+          historyUtils.push(RouteName.HR_POLICIES);
         } else {
           SnackbarUtils.success(res.message);
         }
@@ -144,7 +166,7 @@ const useHRPolicyDetail = ({}) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "name" || fieldName === "revision_no") {
+      if (fieldName === "name" || fieldName === "revision_number") {
         if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
           t[fieldName] = text;
         }

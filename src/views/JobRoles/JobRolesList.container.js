@@ -20,7 +20,7 @@ import LogUtils from "../../libs/LogUtils";
 import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
 
 const JobRolesList = ({}) => {
-    const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
+    const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEditClick,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
         isCalling, configFilter, warehouses} = useJobRolesList({});
 
@@ -114,14 +114,14 @@ const JobRolesList = ({}) => {
                 label: 'Action',
                 render: (temp, all) => (<div>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={() => { handleEditClick(all) }}><Edit fontSize={'small'} /></IconButton>
                     {/*onClick={() => { handleEdit(all) }}*/}
                 </div>),
             },
 
 
         ];
-    }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+    }, [renderStatus, renderFirstCell, handleViewDetails, isCalling, handleEditClick]);
 
     const tableData = useMemo(() => {
         const datatableFunctions = {

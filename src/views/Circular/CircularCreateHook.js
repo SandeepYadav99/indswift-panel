@@ -1,34 +1,21 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  isAlpha,
-  isAlphaNum,
   isAlphaNumChars,
-  isNum,
-  isSpace,
 } from "../../libs/RegexUtils";
-import {
-  serviceGetCustomList,
-  serviceGetKeywords,
-} from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
-import {
-  serviceCheckDepartment,
-  serviceCreateDepartment,
-  serviceGetDepartmentDetails,
-  serviceUpdateDepartment,
-} from "../../services/Department.service";
 import historyUtils from "../../libs/history.utils";
-import EventEmitter from "../../libs/Events.utils";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import { useParams } from "react-router";
 import Constants from "../../config/constants";
+import RouteName from "../../routes/Route.name";
+import {serviceCreateCircular, serviceGetCircularDetails, serviceUpdateCircular} from "../../services/Circular.service";
 
 const initialForm = {
   name: "",
   effective_date: "",
-  circular_document: null,
+  document: null,
   is_active: true,
-  dashboard_status: true,
+  is_featured: true,
 };
 
 const useCircularDetail = ({}) => {
@@ -41,11 +28,13 @@ const useCircularDetail = ({}) => {
 
   useEffect(() => {
     if (id) {
-      serviceGetDepartmentDetails({ id: id }).then((res) => {
+      serviceGetCircularDetails({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
+
           setForm({
             ...data,
+            document: null,
             is_active: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
@@ -58,7 +47,10 @@ const useCircularDetail = ({}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "effective_date",'circular_document'];
+    let required = ["name", "effective_date"];
+    if (!id) {
+      required.push("document");
+    }
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -69,25 +61,43 @@ const useCircularDetail = ({}) => {
         delete errors[val];
       }
     });
+    if (form?.effective_date) {
+      const date = new Date(form?.effective_date);
+      const todayDate = new Date();
+      date.setHours(0,0,0, 0);
+      todayDate.setHours(0,0,0, 0);
+      if (date.getTime() < todayDate.getTime()) {
+        errors['effective_date'] = true;
+      }
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
       }
     });
+
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData, id]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      let req = serviceCreateDepartment;
+      let req = serviceCreateCircular;
       if (id) {
-        req = serviceUpdateDepartment;
+        req = serviceUpdateCircular;
       }
-      req({ ...form }).then((res) => {
+      const fd = new FormData();
+      Object.keys(form).forEach((key) => {
+        if (['is_active', 'is_featured'].indexOf(key) >= 0) {
+          fd.append(key, JSON.stringify(form[key]));
+        } else {
+          fd.append(key, form[key]);
+        }
+      })
+      req(fd).then((res) => {
         LogUtils.log("response", res);
         if (!res.error) {
-          historyUtils.push("/circular");
+          historyUtils.push(RouteName.HR_CIRCULARS);
         } else {
           SnackbarUtils.success(res.message);
         }

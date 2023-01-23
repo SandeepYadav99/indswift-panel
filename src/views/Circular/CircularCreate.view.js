@@ -98,19 +98,19 @@ const CircularCreateView = ({}) => {
             max_size={2 * 1024 * 1024}
             type={["pdf"]}
             fullWidth={true}
-            name="circular_document"
+            name="document"
             accept={"application/pdf"}
             label=""
-            default_image={form?.circular_document ? form?.circular_document : null}
+            default_image={form?.document ? form?.document : null}
             // user_image={form?.image}
-            error={errorData?.circular_document}
+            error={errorData?.document}
             // title={'image'}
-            value={form?.circular_document}
+            value={form?.document}
             // handleChange={this._handleFileChange}
             placeholder={"Circular Document"}
             onChange={(file) => {
               if (file) {
-                changeTextData(file, "circular_document");
+                changeTextData(file, "document");
               }
             }}
           />
@@ -138,9 +138,9 @@ const CircularCreateView = ({}) => {
               <div className={"slider_wrap "}>
                 <p className="tags">No</p>
                 <CustomSwitch
-                  value={form?.dashboard_status}
+                  value={form?.is_featured}
                   handleChange={() => {
-                    changeTextData(!form?.dashboard_status, "dashboard_status");
+                    changeTextData(!form?.is_featured, "is_featured");
                   }}
                   label={`Yes`}
                 />

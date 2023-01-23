@@ -36,6 +36,8 @@ import CircularCreateView from "../views/Circular/CircularCreate.view";
 import Circular from "../views/Circular/Circular.container";
 import DesignationList from "../views/Designation/DesignationList.container";
 import DesignationCreateView from "../views/Designation/DesignationCreate.view";
+import AppSettings from "../views/AppSettings/AppSettings.container";
+import HRSettings from "../views/HRSettings/HRSettings.container";
 
 
 const dashboardRoutes = [
@@ -65,6 +67,26 @@ const dashboardRoutes = [
         component: JobRoleCreateView,
         is_sidebar: false,
         is_protect: true,
+    },
+    {
+        path: `${RouteName.JOB_ROLES_UPDATE}:id`,
+        sidebarName: "Products",
+        navbarName: "Products",
+        icon: LocalOffer,
+        component: JobRoleCreateView,
+        is_sidebar: false,
+        is_protect: true,
+
+    },
+    {
+        path: `${RouteName.JOB_ROLES_DETAILS}:id`,
+        sidebarName: "Products",
+        navbarName: "Products",
+        icon: LocalOffer,
+        component: JobRoleCreateView,
+        is_sidebar: false,
+        is_protect: true,
+        onlyShow: true,
     },
     {
         path: "/employees",
@@ -308,7 +330,7 @@ const dashboardRoutes = [
         is_parent: true,
     },
     {
-        path: '/hr',
+        path: RouteName.HR_POLICIES,
         sidebarName: "HR Policies",
         navbarName: "HR Policies",
         icon: PeopleOutlined,
@@ -319,13 +341,30 @@ const dashboardRoutes = [
         parent: 'Hr',
     },
     {
-        path: '/hr/create',
+        path: RouteName.HR_SETTINGS,
+        sidebarName: "Settings",
+        navbarName: "Settings",
+        icon: PeopleOutlined,
+        component: HRSettings,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'Hr',
+    },
+    {
+        path: RouteName.HR_POLICIES_CREATE,
         component: HRCreateView,
         is_sidebar: false,
         is_protect: true,
     },
     {
-        path: '/circulars',
+        path: `${RouteName.HR_POLICIES_UPDATE}:id`,
+        component: HRCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: RouteName.HR_CIRCULARS,
         sidebarName: "Circulars",
         navbarName: "Circulars",
         icon: PeopleOutlined,
@@ -336,12 +375,17 @@ const dashboardRoutes = [
         parent: 'Hr',
     },
     {
-        path: '/circular/create',
+        path: RouteName.HR_CIRCULARS_CREATE,
         component: CircularCreateView,
         is_sidebar: false,
         is_protect: true,
     },
-
+    {
+        path: `${RouteName.HR_CIRCULARS_UPDATE}:id`,
+        component: CircularCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
     {
         path: `${RouteName.JOB_OPENINGS_DETAILS}:id`,
         sidebarName: "Job Openings Detail",

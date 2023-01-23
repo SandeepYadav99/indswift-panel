@@ -53,7 +53,7 @@ const HRPolicy = ({}) => {
                 key: 'po_no',
                 label: 'POLICY NUMBER',
                 sortable: false,
-                render: (temp, all, index) => <div>{index + 1}</div>,
+                render: (temp, all, index) => <div>{all?.code}</div>,
             },
             {
                 key: 'po_name',
@@ -62,16 +62,16 @@ const HRPolicy = ({}) => {
                 render: (value, all) => <div>{renderFirstCell(all)}</div>,
             },
             {
-                key: 'rev_code',
+                key: 'revision_no',
                 label: 'REVISION NUMBER',
                 sortable: false,
-                render: (temp, all) => <div>{all?.code}</div>,
+                render: (temp, all) => <div>{all?.revision_number}</div>,
             },
             {
                 key: 'eff_date',
                 label: 'EFFECTIVE DATE',
                 sortable: false,
-                render: (temp, all) => <div>{all?.code}</div>,
+                render: (temp, all) => <div>{all?.effectiveDateText}</div>,
             },
             {
                 key: 'status',
@@ -84,8 +84,6 @@ const HRPolicy = ({}) => {
                 label: 'Action',
                 render: (temp, all) => (<div>
                     <IconButton onClick={() => { handleEdit(all) }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleSubDepartment(all)}}>
-                    </IconButton >
                 </div>),
             },
         ];
@@ -93,7 +91,7 @@ const HRPolicy = ({}) => {
 
     const tableData = useMemo(() => {
         const datatableFunctions = {
-           
+
             onSortOrderChange: handleSortOrderChange,
             onPageChange: handlePageChange,
             onRowSizeChange: handleRowSize,

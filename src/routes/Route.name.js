@@ -18,10 +18,12 @@ export default {
     SUB_DEPARTMENTS: '/departments/subs/',
     SUB_DEPARTMENTS_CREATE: '/departments/subs/create',
     SUB_DEPARTMENTS_UPDATE: '/departments/subs/update/',
+
     JOB_ROLES: '/job/roles/',
     JOB_ROLES_CREATE: '/job/roles/create',
     JOB_ROLES_UPDATE: '/job/roles/update/',
     JOB_ROLES_DETAILS: '/job/roles/details/',
+
     JOB_OPENINGS: '/job/openings/',
     JOB_OPENINGS_CREATE: '/job/openings/create',
     JOB_OPENINGS_UPDATE: '/job/openings/update/',
@@ -30,5 +32,16 @@ export default {
     DESIGNATION_CREATE: '/designation/create',
     DESIGNATION_UPDATE: '/designation/update/',
     CANDIDATES: '/candidates',
-    CANDIDATES_CREATE: '/candidates/create'
+    CANDIDATES_CREATE: '/candidates/create',
+
+    HR_POLICIES: '/hr/policies',
+    HR_POLICIES_CREATE: '/hr/policies/create',
+    HR_POLICIES_UPDATE: '/hr/policies/update/',
+
+    HR_CIRCULARS: '/hr/circulars',
+    HR_CIRCULARS_CREATE: '/hr/circulars/create',
+    HR_CIRCULARS_UPDATE: '/hr/circulars/update/',
+
+    SETTINGS: '/settings',
+    HR_SETTINGS: '/hr/settings',
 };

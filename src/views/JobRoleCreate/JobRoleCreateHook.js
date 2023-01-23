@@ -5,12 +5,16 @@ import useDebounce from "../../hooks/DebounceHook";
 import LogUtils from "../../libs/LogUtils";
 import {
     serviceCreateJobRoles,
-    serviceGenerateJobRoleCode,
-    serviceJobRolesCodeCheck
+    serviceGenerateJobRoleCode, serviceGetJobRoles,
+    serviceJobRolesCodeCheck, serviceJobRolesDetails, serviceUpdateJobRoles
 } from "../../services/JobRoles.service";
 import historyUtils from "../../libs/history.utils";
 import EventEmitter from "../../libs/Events.utils";
 import RouteName from "../../routes/Route.name";
+import {useParams} from "react-router";
+import {serviceGetHRPolicyDetails} from "../../services/HRPolicy.service";
+import Constants from "../../config/constants";
+import SnackbarUtils from "../../libs/SnackbarUtils";
 
 const initialForm = {
     name: '',
@@ -29,7 +33,7 @@ const initialForm = {
 };
 
 const useJobRolesDetail = ({}) => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [errorData, setErrorData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({...initialForm});
@@ -44,6 +48,28 @@ const useJobRolesDetail = ({}) => {
         GRADES: []
     });
     const includeRef = useRef(null);
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            setIsLoading(true);
+            serviceJobRolesDetails({ id: id }).then((res) => {
+                if (!res.error) {
+                    const data = res?.data?.details;
+                    setForm({
+                        ...data,
+                        is_active: data?.status === Constants.GENERAL_STATUS.ACTIVE,
+                    });
+                } else {
+                    SnackbarUtils.error(res?.message);
+                    historyUtils.goBack();
+                }
+                setIsLoading(false);
+            });
+        } else {
+            setIsLoading(false);
+        }
+    }, [id]);
 
     useEffect(() => {
         serviceGetList(['LOCATION_DEPARTMENTS', 'DESIGNATIONS', 'DEPARTMENTS', 'SUB_DEPARTMENTS', 'GRADES']).then(res => {
@@ -55,7 +81,7 @@ const useJobRolesDetail = ({}) => {
 
     useEffect(() => {
         if (form?.department_id && form?.location_id) {
-            serviceGenerateJobRoleCode({ department_id: form?.department_id, location_id: form?.location_id }).then((res) => {
+            serviceGenerateJobRoleCode({ department_id: form?.department_id, location_id: form?.location_id, id: id }).then((res) => {
                 if (!res.error) {
                     setForm({
                         ...form,
@@ -135,7 +161,11 @@ const useJobRolesDetail = ({}) => {
         if (!isSubmitting) {
             LogUtils.log('form', form);
             setIsSubmitting(true);
-            serviceCreateJobRoles({
+            let req = serviceCreateJobRoles;
+            if (id) {
+               req = serviceUpdateJobRoles;
+            }
+            req({
                 ...form,
             }).then((res) => {
                 LogUtils.log('response', res);
@@ -150,7 +180,7 @@ const useJobRolesDetail = ({}) => {
                 setIsSubmitting(false);
             });
         }
-    }, [form, isSubmitting, setIsSubmitting]);
+    }, [form, isSubmitting, setIsSubmitting, id]);
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
@@ -244,7 +274,8 @@ const useJobRolesDetail = ({}) => {
         listData,
         filteredDepartments,
         filteredSubDepartments,
-        descriptionRef
+        descriptionRef,
+        id
     };
 };
 

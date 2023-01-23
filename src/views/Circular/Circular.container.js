@@ -36,15 +36,6 @@ const Circular = ({}) => {
         } return null;
     }, []);
 
-    const renderContact = useCallback(() => {
-        return (
-            <div>
-                <div>9347873542</div>
-                <div><strong>(O)</strong> hardeep.kumar@indwsiftlabs.com</div>
-                <div><strong>(P)</strong> hardeepkudg@indwsiftlabs.com</div>
-            </div>
-        )
-    },[])
 
     const tableStructure = useMemo(() => {
         return [
@@ -52,13 +43,13 @@ const Circular = ({}) => {
                 key: 'circular_name',
                 label: 'CIRCULAR NAME',
                 sortable: false,
-                render: (temp, all, index) => <div>{index + 1}</div>,
+                render: (temp, all, index) => <div>{renderFirstCell(all)}</div>,
             },
             {
                 key: 'effective_date',
                 label: 'EFFECTIVE DATE',
                 sortable: false,
-                render: (value, all) => <div>{renderFirstCell(all)}</div>,
+                render: (value, all) => <div>{all?.effectiveDateText}</div>,
             },
             {
                 key: 'status',
@@ -71,8 +62,6 @@ const Circular = ({}) => {
                 label: 'Action',
                 render: (temp, all) => (<div>
                     <IconButton onClick={() => { handleEdit(all) }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleSubDepartment(all)}}>
-                    </IconButton >
                 </div>),
             },
         ];
@@ -80,7 +69,6 @@ const Circular = ({}) => {
 
     const tableData = useMemo(() => {
         const datatableFunctions = {
-           
             onSortOrderChange: handleSortOrderChange,
             onPageChange: handlePageChange,
             onRowSizeChange: handleRowSize,

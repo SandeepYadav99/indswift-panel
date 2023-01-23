@@ -24,7 +24,7 @@ const CustomRouter = (props) => {
     {...rest}
     render={(childProps) => {
       return (
-        <Component {...childProps} board_type={props.board_type} category={props.category}  />
+        <Component {...childProps} board_type={props.board_type} category={props.category}  {...props}/>
       );
     }
             }

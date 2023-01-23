@@ -110,15 +110,15 @@ const HRCreateView = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.revision_no}
-              errorText={errorData?.revision_no}
+              isError={errorData?.revision_number}
+              errorText={errorData?.revision_number}
               label={"Revision Number"}
-              value={form?.revision_no}
+              value={form?.revision_number}
               onTextChange={(text) => {
-                changeTextData(text, "revision_no");
+                changeTextData(text, "revision_number");
               }}
               onBlur={() => {
-                onBlurHandler("revision_no");
+                onBlurHandler("revision_number");
               }}
             />
           </div>
@@ -128,25 +128,25 @@ const HRCreateView = ({}) => {
               max_size={2 * 1024 * 1024}
               type={['pdf']}
               fullWidth={true}
-              name="policy_document"
+              name="document"
               accept={'application/pdf'}
               label=""
-              default_image={form?.policy_document ? form?.policy_document : null}
+              default_image={form?.document ? form?.document : null}
               // user_image={form?.image}
-              error={errorData?.policy_document}
+              error={errorData?.document}
               // title={'image'}
-              value={form?.policy_document}
+              value={form?.document}
               // handleChange={this._handleFileChange}
               placeholder={'Policy Document'}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, 'policy_document');
+                  changeTextData(file, 'document');
                 }
               }}
           />
         </div>
       </div>
-      
+
       <div className={"plainPaper"}>
         <div className={"headerFlex wrapper"}>
           <div className={"infoTitle inner"}>
@@ -168,9 +168,9 @@ const HRCreateView = ({}) => {
               <div className={"slider_wrap "}>
                 <p className="tags">No</p>
                 <CustomSwitch
-                  value={form?.dashboard_status}
+                  value={form?.is_featured}
                   handleChange={() => {
-                    changeTextData(!form?.dashboard_status, "dashboard_status");
+                    changeTextData(!form?.is_featured, "is_featured");
                   }}
                   label={`Yes`}
                 />
