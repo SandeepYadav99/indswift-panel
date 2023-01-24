@@ -107,6 +107,7 @@ const CandidateTable = ({}) => {
     return (
         <div>
             <div className={'plainPaper'}>
+                <br/>
                 <FilterComponent
                     is_progress={isFetching}
                     filters={[]}

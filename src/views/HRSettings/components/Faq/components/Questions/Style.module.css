@@ -99,3 +99,7 @@
     text-transform: uppercase;
     word-break: break-word;
 }
+.locationText {
+    color: #58aeee;
+    font-weight: bold;
+}

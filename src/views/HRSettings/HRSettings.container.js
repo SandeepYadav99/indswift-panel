@@ -12,6 +12,7 @@ import {WaitingComponent} from "../../components/index.component";
 import useHRSettings from "./HRSettingsHook";
 import {makeStyles} from "@material-ui/styles";
 import FaqListContainer from "./components/Faq/FaqList.container";
+import EmployeeInductionComponent from "./components/EmployeeInduction/EmployeeInduction.component";
 
 const useStyles =  makeStyles(theme => ({
     root: {
@@ -38,7 +39,7 @@ const HRSettings = ({}) => {
     const renderPanel = useCallback((value) => {
         if (value == 0) {
             return (
-                <div>okay</div>
+                <EmployeeInductionComponent />
             );
         } else if (value === 2) {
             return (

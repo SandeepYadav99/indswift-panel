@@ -170,9 +170,9 @@ const CandidateList = ({location}) => {
                             <div className={styles.newLine}/>
                         </div>
                         <div>
-                            <ButtonBase onClick={handleSideToggle} className={'createBtn'}>
-                                CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
-                            </ButtonBase>
+                            {/*<ButtonBase onClick={handleSideToggle} className={'createBtn'}>*/}
+                            {/*    CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>*/}
+                            {/*</ButtonBase>*/}
                         </div>
                     </div>
 

@@ -9,8 +9,8 @@ import csx from 'classnames';
 import {MenuItem, Button, IconButton, withStyles} from '@material-ui/core';
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles'
 import MUIRichTextEditor from 'mui-rte';
-import { stateToHTML } from 'draft-js-export-html';
-import { convertFromHTML, ContentState, convertToRaw, convertFromRaw } from 'draft-js'
+import {stateToHTML} from 'draft-js-export-html';
+import {convertFromHTML, ContentState, convertToRaw, convertFromRaw} from 'draft-js'
 import {
     renderOutlinedTextField,
     renderOutlinedTextFieldWithLimit,
@@ -35,7 +35,6 @@ import InfoIcon from "@material-ui/icons/Info";
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-
 
 
 let requiredFields = [];
@@ -85,9 +84,9 @@ class QuestionsFormView extends Component {
             editor: null,
             editor_data: null,
             anchor: null,
-            is_active: false,
+            is_active: true,
             show_confirm: false,
-            keywords:[]
+            keywords: []
         };
         this.editorRef = null;
         this._handleSubmit = this._handleSubmit.bind(this);
@@ -103,61 +102,34 @@ class QuestionsFormView extends Component {
     }
 
     componentDidMount() {
-        const {data,category} = this.props;
-        if(category){
-            console.log(category)
-             this.props.change('title', category.title);
-             this.props.change('visible_to', category.visible_to);
-        }
-        let htmlData = '';
+        const {data} = this.props;
         if (data) {
             this.setState({
                 is_active: data.status == 'ACTIVE'
             })
-            requiredFields = ['title','visible_to','priority','question'];
+            requiredFields = ['name', 'description', 'priority', 'location_id'];
             Object.keys(data).forEach((val) => {
-                if (['description', 'status'].indexOf(val) < 0) {
+                if (['status'].indexOf(val) < 0) {
                     const temp = data[val];
                     this.props.change(val, temp);
                 }
             });
-            htmlData = data.description;
+            this.props.change('location_id', data?.location?.id);
         } else {
-            htmlData = ''
-            requiredFields = ['title','visible_to','priority','question'];
+            requiredFields = ['name', 'description', 'priority', 'location_id'];
         }
-
-        const contentHTML = convertFromHTML(htmlData)
-
-        const state = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap)
-        const tempData = convertToRaw(state);
-        const entityMap = tempData.entityMap;
-        Object.keys(entityMap).forEach((key, index) => {
-            const tempValue = entityMap[key];
-            if ('data' in tempValue && 'src' in tempValue.data) {
-                entityMap[key].data = { ...tempValue.data, url: tempValue.data.src };
-            }
-        });
-        this.setState({
-            editor_data:  JSON.stringify(tempData),
-        })
 
 
     }
 
     _handleSubmit(tData) {
         const {category} = this.props;
-        const { editor } = this.state;
-        if (editor) {
-            const status = this.state.is_active ? 'ACTIVE' : 'INACTIVE'
-            const {data} = this.props;
-            if (data) {
-                this.props.handleDataSave({...tData, status: status, faq_category_id: category.id,description:editor, id: data.id}, 'UPDATE')
-            } else {
-                this.props.handleDataSave({...tData, status: status, faq_category_id: category.id,description:editor}, 'CREATE')
-            }
+        const status = this.state.is_active ? 'ACTIVE' : 'INACTIVE'
+        const {data} = this.props;
+        if (data) {
+            this.props.handleDataSave({...tData, status: status, facility_id: category?.id, id: data.id}, 'UPDATE')
         } else {
-            EventEmitter.dispatch(EventEmitter.THROW_ERROR, {error: 'Please Enter Description',type:'error'});
+            this.props.handleDataSave({...tData, status: status, facility_id: category?.id}, 'CREATE')
         }
 
     }
@@ -197,11 +169,12 @@ class QuestionsFormView extends Component {
         //     return null;
         // }
     }
+
     handleEditorChange = (content, editor) => {
         // console.log('Content was updated:', content);
     }
 
-    async _handleFileUpload (file) {
+    async _handleFileUpload(file) {
         console.log(this.editorRef);
         if (this.editorRef) {
             this.editorRef.insertAtomicBlockAsync("IMAGE", this._uploadImage(file), "Uploading now...")
@@ -244,56 +217,6 @@ class QuestionsFormView extends Component {
             anchor: anchor
         })
     }
-
-    _renderEditor() {
-        const { editor_data, anchor } = this.state;
-        if (editor_data) {
-            return (<>
-                    {/*<UploadImagePopover*/}
-                    {/*    anchor={anchor}*/}
-                    {/*    onSubmit={(data, insert) => {*/}
-                    {/*        if (insert && data.file) {*/}
-                    {/*            this._handleFileUpload(data.file)*/}
-                    {/*        }*/}
-                    {/*        this._setAnchor(null);*/}
-                    {/*    }}*/}
-                    {/*/>*/}
-                    <MuiThemeProvider theme={defaultTheme}>
-                        <MUIRichTextEditor
-                            ref={(ref) => { this.editorRef = ref; }}
-                            defaultValue={editor_data}
-                            onChange={this._handleEditor}
-                            onSave={this._handleSave}
-                            label="Start typing..."
-                            controls={["bold", "italic", "underline","link"]}
-                            inlineToolbar={true}
-                            customControls={[
-                                {
-                                    name: "upload-image",
-                                    icon: <BackupIcon />,
-                                    type: "callback",
-                                    onClick: (_editorState, _name, anchor) => {
-                                        this._setAnchor(anchor)
-                                    }
-                                }
-                            ]}
-                            draftEditorProps={{
-                                handleDroppedFiles: (_selectionState, files) => {
-                                    if (files.length && (files[0]).name !== undefined) {
-                                        this._handleFileUpload(files[0])
-                                        return "handled"
-                                    }
-                                    return "not-handled"
-                                }
-                            }}
-                        />
-                    </MuiThemeProvider>
-                </>
-            )
-        }
-    }
-
-
 
     _handleChange() {
         this.setState({
@@ -352,73 +275,63 @@ class QuestionsFormView extends Component {
                     </Button>
                 </DialogActions>
             </Dialog>)
-        } return null;
+        }
+        return null;
     }
 
 
     render() {
-        const {handleSubmit, cities, data,faq_type,category} = this.props;
+        const {handleSubmit, cities, data, faq_type, category} = this.props;
         return (
             <div>
-                <div className={styles.headerFlex}>
-                    <h4 className={styles.infoTitle}>
-                        <div className={styles.heading}>Questions</div>
-                        <Tooltip title="Info" aria-label="info" placement="right">
-                            <InfoIcon fontSize={'small'}/>
-                        </Tooltip>
-
-                    </h4>
-                </div>
+              <br/>
+                <br/>
                 <form onSubmit={handleSubmit(this._handleSubmit)}>
                     <div className={styles.category}>
-                        <b>Title</b> - {category.title}
+                        <b>{category?.name} Facility</b>
                     </div>
-
-                    <div className={styles.category}>
-                        <b>Applies To</b> - {category.visible_to}
-                    </div>
-                    {/*<div className={'formFlex'}>*/}
-                    {/*    <div className={'formGroup'}>*/}
-                    {/*        <Field*/}
-                    {/*            fullWidth={true}*/}
-                    {/*            name="title"*/}
-                    {/*            component={renderOutlinedTextFieldWithLimit}*/}
-                    {/*            maxLimit={100}*/}
-                    {/*            margin={'dense'}*/}
-                    {/*            inputProps={{readOnly: 'true'}}*/}
-                    {/*            label="Topic Header/Question"/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
 
                     <div className={'formFlex'}>
                         <div className={'formGroup'}>
                             <Field
                                 fullWidth={true}
-                                name="question"
+                                name="name"
                                 component={renderOutlinedTextFieldWithLimit}
-                                maxLimit={500}
+                                maxLimit={100}
                                 margin={'dense'}
                                 normalize={descNormalize}
-                                label="Question Name"/>
+                                label={`${category?.name?.toUpperCase()} Name`}/>
                         </div>
                     </div>
 
-
-                    {/*<div className={'formFlex'}>*/}
-                    {/*    <div className={'formGroup'}>*/}
-                    {/*        <Field fullWidth={true}*/}
-                    {/*               name="visible_to"*/}
-                    {/*               component={renderOutlinedSelectField}*/}
-                    {/*               margin={'dense'}*/}
-                    {/*               inputProps={{readOnly: 'true'}}*/}
-                    {/*               label="Applies To">*/}
-                    {/*            <MenuItem value={'BOTH'}>General</MenuItem>*/}
-                    {/*            <MenuItem value={'CUSTOMER'}>Customers</MenuItem>*/}
-                    {/*            <MenuItem value={'MANUFACTURE'}>Manufacturers</MenuItem>*/}
-                    {/*        </Field>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
+                    <div className={'formFlex'}>
+                        <div className={'formGroup'}>
+                            <Field
+                                fullWidth={true}
+                                name="description"
+                                component={renderOutlinedTextFieldWithLimit}
+                                maxLimit={500}
+                                margin={'dense'}
+                                rows={3}
+                                multiline
+                                normalize={descNormalize}
+                                label="Description"/>
+                        </div>
+                    </div>
+                    <div className={'formFlex'}>
+                        <div className={'formGroup'}>
+                            <Field fullWidth={true}
+                                   name="location_id"
+                                   component={renderOutlinedSelectField}
+                                   margin={'dense'}
+                                   label="Location">
+                                <MenuItem value={'ALL'}>ALL</MenuItem>
+                                {this.props.locations.map((val) => {
+                                    return (<MenuItem value={val.id} key={val.id}>{val.name}</MenuItem>);
+                                })}
+                            </Field>
+                        </div>
+                    </div>
                     <div className={'formFlex'}>
                         <div className={'formGroup'}>
                             <Field
@@ -431,17 +344,6 @@ class QuestionsFormView extends Component {
                         </div>
                     </div>
 
-                    <div>
-                        <div className={styles.lblTxt}>Answer</div>
-                        <div className={'formFlex'}>
-                            <div className={csx('formGroup', styles.editorContainer)}>
-                                {this._renderEditor()}
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <br/>
 
                     <div className={styles.bottomFlex}>
                         {this._renderStatus()}
@@ -449,7 +351,7 @@ class QuestionsFormView extends Component {
                             <IconButton variant={'contained'} className={this.props.classes.iconBtnError}
                                         onClick={this._handleDelete}
                                         type="button">
-                                <DeleteIcon />
+                                <DeleteIcon/>
                             </IconButton>
                             {/*<span className={styles.delete}>Delete Permanently</span>*/}
                         </div>
@@ -493,10 +395,11 @@ const useStyle = theme => ({
 });
 
 const ReduxForm = reduxForm({
-    form: 'questions',  // a unique identifier for this form
+    form: 'hr_facility_items',  // a unique identifier for this form
     validate,
-    // enableReinitialize: true,
-    // asyncValidate
+    onSubmitFail: errors => {
+        console.log(errors);
+    }
 
 })(withStyles(useStyle, {withTheme: true})(QuestionsFormView));
 

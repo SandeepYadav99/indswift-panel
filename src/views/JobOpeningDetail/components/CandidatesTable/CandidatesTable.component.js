@@ -74,19 +74,19 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         key: "name",
         label: "Candidate Name",
         sortable: false,
-        render: (temp, all) => <div>{all?.name}</div>,
+        render: (temp, all) => <div>{all?.candidate?.name}</div>,
       },
       {
         key: "contact",
         label: "Contact",
         sortable: false,
-        render: (temp, all) => <div>{all?.contact}</div>,
+        render: (temp, all) => <div>{all?.candidate?.contact}</div>,
       },
       {
         key: "appliedDateText",
         label: "Applied On",
         sortable: false,
-        render: (temp, all) => <div>{all?.appliedDateText}</div>,
+        render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
       {
         key: "rewards",

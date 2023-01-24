@@ -12,7 +12,7 @@ import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import CandidateTable from "../../components/CandidateDataTable/CandidateTable.component";
 import InterviewerListComponent from "./components/InterviewerList/InterviewerList.component";
 import CandidateInterviewTable from "../../components/CandidateInterviewDataTable/CandidateInterviewTable.component";
-import CandidateShortlistTable from "../../components/CandidateShortlistDataTable/CandidateTable.component";
+import CandidateShortlistTable from "../../components/CandidateShortlistDataTable/CandidateShortlistTable.component";
 
 const JobOpeningDetail = () => {
   const {
@@ -185,7 +185,7 @@ const JobOpeningDetail = () => {
         open={isCandidateShortlistPanel}
         side={"right"}
       >
-        <CandidateShortlistTable />
+        <CandidateShortlistTable handleClose={toggleCandidateShortlistPanel} jobId={id} />
       </SidePanelComponent>
       <SidePanelComponent
         handleToggle={toggleCandidateInterviewPanel}

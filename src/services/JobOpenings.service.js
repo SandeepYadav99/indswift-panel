@@ -39,3 +39,11 @@ export async function serviceAddJobOpeningInterviewers(params) {
 export async function serviceGetJobOpeningInterviewers(params) {
     return await postRequest('job/openings/interviewers', params);
 }
+
+export async function serviceRejectJobCandidates(params) {
+    return await postRequest('job/openings/candidates/reject', params);
+}
+
+export async function serviceShortlistJobCandidates(params) {
+    return await postRequest('job/openings/candidates/shortlist', params);
+}

@@ -36,8 +36,8 @@ import HRPolicyReducer from './HRPolicy.reducer';
 import CircularReducer from './Circular.reducer';
 import DesignationReducer from './Designation.reducer';
 import JobOpeningDetailReducer from "./JobOpeningDetail.reducer";
-import FaqReducer from './Faq.reducer';
-import FaqQuestion from './Faq_question.reducer';
+import HRFacility from './HRFacility.reducer';
+import HRFacilityItem from './HRFacilityItem.reducer';
 
 const rootReducer = combineReducers({
     state: (state = {}) => state,
@@ -73,8 +73,8 @@ const rootReducer = combineReducers({
     annual: AnnualReducer,
     manpower: ManpowerReducer,
     job_opening_detail: JobOpeningDetailReducer,
-    faq: FaqReducer,
-    faq_question: FaqQuestion,
+    hr_facility: HRFacility,
+    hr_facilities_item: HRFacilityItem,
     // form: formReducer,
 });
 

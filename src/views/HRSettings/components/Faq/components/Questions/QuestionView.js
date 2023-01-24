@@ -7,12 +7,12 @@ import SidePanelComponent from "../../../../../../components/SidePanel/SidePanel
 import QuestionsForm from './QuestionsForm.view'
 import {bindActionCreators} from "redux";
 import {
-    actionChangeStatusFaqQuestion, actionCreateFaqQuestion, actionDeleteFaqQuestion,
-    actionFetchFaqQuestion,
-    actionFilterFaqQuestion,
-    actionResetFilterFaqQuestion,
-    actionSetPageFaqQuestion, actionUpdateFaqQuestion
-} from "../../../../../../actions/Faq_question.action";
+    actionChangeStatusFacilityItem, actionCreateFacilityItem, actionDeleteFacilityItem,
+    actionFetchHRFacilityItem,
+    actionFilterFacilityItem,
+    actionResetFilterFacilityItem,
+    actionSetPageFacilityItem, actionUpdateFacilityItem
+} from "../../../../../../actions/HRFacilityItem.action";
 import {connect} from "react-redux";
 import Accordion from "../../../../../../components/Accordion/Accordion.component";
 
@@ -88,8 +88,9 @@ class QuestionView extends Component{
             return data.map((val,index) => {
                 return (
 
-                        <Accordion quesIndex={index} key={val.id} onEditClick={this._handleEdit} title={val.question} initial="hide">
+                        <Accordion quesIndex={index} key={val.id} onEditClick={this._handleEdit} title={val.name} initial="hide">
                             <div className={'innerHtml'} dangerouslySetInnerHTML={{__html: val.description}}></div>
+                            <div className={styles.locationText}>Locations: {val?.location?.name}</div>
                          </Accordion>
                 )
             })
@@ -99,7 +100,9 @@ class QuestionView extends Component{
     _renderCreateForm () {
         const {category} = this.props;
         if (this.state.side_panel) {
-            return (<QuestionsForm category={category}
+            return (<QuestionsForm
+            locations={this.props.locations}
+                category={category}
                                    handleDataSave={this._handleDataSave}
                                    data={this.state.edit_data}
                                    handleDelete={this._handleDelete}
@@ -116,7 +119,7 @@ class QuestionView extends Component{
                 <div className={styles.plainBg}>
                     <div className={styles.upperFlex}>
                         <div className={styles.title}>
-                            {category ? category.title: ''}
+                            {category ? category?.name?.toUpperCase(): ''} Headers
                         </div>
                         <div>
                             <IconButton
@@ -135,7 +138,7 @@ class QuestionView extends Component{
 
                 <SidePanelComponent
                     handleToggle={this._handleSideToggle}
-                    title={'Add/Manage FAQ Topic'} open={this.state.side_panel} side={'right'}>
+                    title={'Add/Manage Tie-Ups Details'} open={this.state.side_panel} side={'right'}>
                     {this._renderCreateForm()}
                 </SidePanelComponent>
 
@@ -146,27 +149,27 @@ class QuestionView extends Component{
 
 function mapStateToProps(state) {
     return {
-        data: state.faq_question.present,
-        total_count: state.faq_question.all.length,
-        currentPage: state.faq_question.currentPage,
-        serverPage: state.faq_question.serverPage,
-        sorting_data: state.faq_question.sorting_data,
-        is_fetching: state.faq_question.is_fetching,
-        query: state.faq_question.query,
-        query_data: state.faq_question.query_data,
+        data: state.hr_facilities_item.present,
+        total_count: state.hr_facilities_item.all.length,
+        currentPage: state.hr_facilities_item.currentPage,
+        serverPage: state.hr_facilities_item.serverPage,
+        sorting_data: state.hr_facilities_item.sorting_data,
+        is_fetching: state.hr_facilities_item.is_fetching,
+        query: state.hr_facilities_item.query,
+        query_data: state.hr_facilities_item.query_data,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        actionFetchData: actionFetchFaqQuestion,
-        actionSetPage: actionSetPageFaqQuestion,
-        actionResetFilter: actionResetFilterFaqQuestion,
-        actionSetFilter: actionFilterFaqQuestion,
-        actionChangeStatus: actionChangeStatusFaqQuestion,
-        actionCreateFaq: actionCreateFaqQuestion,
-        actionUpdateFaq: actionUpdateFaqQuestion,
-        actionDelete: actionDeleteFaqQuestion
+        actionFetchData: actionFetchHRFacilityItem,
+        actionSetPage: actionSetPageFacilityItem,
+        actionResetFilter: actionResetFilterFacilityItem,
+        actionSetFilter: actionFilterFacilityItem,
+        actionChangeStatus: actionChangeStatusFacilityItem,
+        actionCreateFaq: actionCreateFacilityItem,
+        actionUpdateFaq: actionUpdateFacilityItem,
+        actionDelete: actionDeleteFacilityItem
     }, dispatch);
 }
 

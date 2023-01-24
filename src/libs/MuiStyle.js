@@ -73,5 +73,15 @@ export default (theme) => ({
         borderRadius: '30px',
         textTransform: 'uppercase',
         fontWeight: '600'
-    }
+    },
+    btnBorder: {
+    border: '2px solid #29cb97',
+    borderRadius: '30px',
+    color: '#29cb97',
+    fontSize: '.8rem',
+    fontWeight: '600',
+    padding: '7px 50px',
+    textTransform: 'uppercase',
+    height: '40px',
+}
 });

@@ -17,7 +17,7 @@ import {
     CREATE_DATA,
     UPDATE_DATA,
     DELETE_ITEM
-} from '../actions/Faq_question.action';
+} from '../actions/HRFacility.action';
 import Constants from '../config/constants';
 
 function mapPresetPRequest(all, pageId) {

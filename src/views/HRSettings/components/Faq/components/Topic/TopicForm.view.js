@@ -85,7 +85,7 @@ class Faq extends Component {
             editor: null,
             editor_data: null,
             anchor: null,
-            is_active: false,
+            is_active: true,
             show_confirm: false,
             keywords:[]
         };
@@ -105,15 +105,18 @@ class Faq extends Component {
             this.setState({
                 is_active: data.status == 'ACTIVE'
             })
-            requiredFields = ['title', 'visible_to'];
+            requiredFields = ['name', 'priority'];
             Object.keys(data).forEach((val) => {
                 if (['status'].indexOf(val) < 0) {
                     const temp = data[val];
                     this.props.change(val, temp);
                 }
             });
+            this.setState({
+                is_active: data?.status === 'ACTIVE'
+            });
         } else {
-            requiredFields = ['title', 'visible_to','priority'];
+            requiredFields = ['name','priority'];
         }
     }
 
@@ -223,42 +226,21 @@ class Faq extends Component {
         const {handleSubmit, cities, data,faq_type} = this.props;
         return (
             <div>
-                <div className={styles.headerFlex}>
-                    <h4 className={styles.infoTitle}>
-                        <div className={styles.heading}>FAQ</div>
-                        <Tooltip title="Info" aria-label="info" placement="right">
-                            <InfoIcon fontSize={'small'}/>
-                        </Tooltip>
-
-                    </h4>
-                </div>
+                <br/>
+                <br/>
                 <form onSubmit={handleSubmit(this._handleSubmit)}>
                     <div className={'formFlex'}>
                         <div className={'formGroup'}>
                             <Field
                                 fullWidth={true}
-                                name="title"
+                                name="name"
                                 component={renderOutlinedTextFieldWithLimit}
                                 maxLimit={100}
                                 multiline
                                 rows="1"
                                 margin={'dense'}
                                 normalize={descNormalize}
-                                label="Topic Header/Question"/>
-                        </div>
-                    </div>
-
-                    <div className={'formFlex'}>
-                        <div className={'formGroup'}>
-                            <Field fullWidth={true}
-                                   name="visible_to"
-                                   component={renderOutlinedSelectField}
-                                   margin={'dense'}
-                                   label="Applies To">
-                                <MenuItem value={'BOTH'}>General</MenuItem>
-                                <MenuItem value={'CUSTOMER'}>Customers</MenuItem>
-                                <MenuItem value={'MANUFACTURE'}>Manufacturers</MenuItem>
-                            </Field>
+                                label="Facility Name"/>
                         </div>
                     </div>
 

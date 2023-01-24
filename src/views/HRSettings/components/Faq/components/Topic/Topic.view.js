@@ -8,12 +8,12 @@ import SidePanelComponent from "../../../../../../components/SidePanel/SidePanel
 import TopicForm from './TopicForm.view'
 import {bindActionCreators} from "redux";
 import {
-    actionChangeStatusFaq, actionCreateFaq, actionDeleteFaq,
-    actionFetchFaq,
-    actionFilterFaq,
-    actionResetFilterFaq,
-    actionSetPageFaq, actionUpdateFaq
-} from "../../../../../../actions/Faq.action";
+    actionCreateHRFacility, actionDeleteHRFacility,
+    actionFetchHRFacilities,
+    actionFilterHRFacility,
+    actionResetFilterHRFacility,
+    actionSetPageHRFacility, actionUpdateHRFacility
+} from "../../../../../../actions/HRFacility.action";
 import {connect} from "react-redux";
 
 class TopicView extends Component{
@@ -69,7 +69,7 @@ class TopicView extends Component{
                     <ul className={styles.list}>
                         <li className={styles.item}>
                             <ButtonBase className={(selectedCategory && val.id === selectedCategory.id) ? csx(styles.selected,styles.active) : csx(styles.notSelected)} onClick={this._handleChangeType.bind(this,index,val)}>
-                                <span>{val.title}</span>
+                                <span>{val.name}</span>
                             </ButtonBase>
                             <IconButton onClick={this._handleEdit.bind(this, val)}>
                                 <Edit color={'primary'} fontSize={'small'}/>
@@ -114,9 +114,9 @@ class TopicView extends Component{
     _handleDataSave(data, type) {
         // this.props.actionChangeStatus({...data, type: type});
         if (type == 'CREATE') {
-            this.props.actionCreateFaq(data)
+            this.props.actionCreateHRFacility(data)
         } else {
-            this.props.actionUpdateFaq(data)
+            this.props.actionUpdateHRFacility(data)
         }
         this.setState({
             side_panel: !this.state.side_panel,
@@ -129,7 +129,7 @@ class TopicView extends Component{
             <div>
                 <div className={styles.plainBg}>
                     <div className={styles.upperFlex}>
-                        <div className={styles.title}>Browse By Topic</div>
+                        <div className={styles.title}>Browse By Facilities</div>
                         <div>
                             <IconButton
                                 onClick={this._handleSideToggle}
@@ -146,7 +146,7 @@ class TopicView extends Component{
 
                 <SidePanelComponent
                     handleToggle={this._handleSideToggle}
-                    title={'Add/Manage FAQ'} open={this.state.side_panel} side={'right'}>
+                    title={'Add/Manage Tie-Ups'} open={this.state.side_panel} side={'right'}>
                     {this._renderCreateForm()}
                 </SidePanelComponent>
 
@@ -157,27 +157,26 @@ class TopicView extends Component{
 
 function mapStateToProps(state) {
     return {
-        data: state.faq.present,
-        total_count: state.faq.all.length,
-        currentPage: state.faq.currentPage,
-        serverPage: state.faq.serverPage,
-        sorting_data: state.faq.sorting_data,
-        is_fetching: state.faq.is_fetching,
-        query: state.faq.query,
-        query_data: state.faq.query_data,
+        data: state.hr_facility.present,
+        total_count: state.hr_facility.all.length,
+        currentPage: state.hr_facility.currentPage,
+        serverPage: state.hr_facility.serverPage,
+        sorting_data: state.hr_facility.sorting_data,
+        is_fetching: state.hr_facility.is_fetching,
+        query: state.hr_facility.query,
+        query_data: state.hr_facility.query_data,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        actionFetchData: actionFetchFaq,
-        actionSetPage: actionSetPageFaq,
-        actionResetFilter: actionResetFilterFaq,
-        actionSetFilter: actionFilterFaq,
-        actionChangeStatus: actionChangeStatusFaq,
-        actionCreateFaq: actionCreateFaq,
-        actionUpdateFaq: actionUpdateFaq,
-        actionDelete: actionDeleteFaq
+        actionFetchData: actionFetchHRFacilities,
+        actionSetPage: actionSetPageHRFacility,
+        actionResetFilter: actionResetFilterHRFacility,
+        actionSetFilter: actionFilterHRFacility,
+        actionCreateHRFacility: actionCreateHRFacility,
+        actionUpdateHRFacility: actionUpdateHRFacility,
+        actionDelete: actionDeleteHRFacility
     }, dispatch);
 }
 

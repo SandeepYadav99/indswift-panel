@@ -1,39 +1,36 @@
 /**
  * Created by charnjeetelectrovese@gmail.com on 1/1/2020.
  */
-
-// import { serviceFetchProviderRequests } from '../services/ProviderRequest.service';
-// import { fetchPRequests } from '../services/User.service';
 import store from '../store';
 import Constants from '../config/constants';
 import {
-    serviceCreateFaq,
-    serviceDeleteFaq,
-    serviceFetchFaq,
-    serviceUpdateFaq
-} from "../services/Faq.service";
+    serviceCreateFacilityItem,
+    serviceDeleteFacilityItem,
+    serviceFetchFacilityItems,
+    serviceUpdateFacilityItem
+} from "../services/HRFacilityItem.service";
 import EventEmitter from "../libs/Events.utils";
 
 
-export const FETCH_INIT = 'FETCH_INIT_FAQ';
-export const FETCHED = 'FETCHED_FAQ';
-export const FETCHED_FAIL = 'FETCHED_FAIL_FAQ';
-export const FETCHED_FILTER = 'FETCHED_FILTER_FAQ';
-export const FETCH_NEXT = 'FETCH_NEXT_FAQ';
-export const FILTER = 'FILTER_FAQ';
-export const RESET_FILTER = 'RESET_FILTER_FAQ';
-export const SET_SORTING = 'SET_SORTING_FAQ';
-export const SET_FILTER = 'SET_FILTER_FAQ';
-export const SET_PAGE = 'SET_PAGE_FAQ';
-export const CHANGE_PAGE = 'CHANGE_PAGE_FAQ';
-export const CHANGE_STATUS= 'CHANGE_STATE_FAQ';
-export const SET_SERVER_PAGE = 'SET_SERVER_PAGE_FAQ';
-export const CREATE_DATA = 'CREATE_FAQ';
-export const UPDATE_DATA = 'UPDATE_FAQ';
-export const DELETE_ITEM = 'DELETE_ITEM_FAQ';
+export const FETCH_INIT = 'FETCH_INIT_FAQ_QUESTION';
+export const FETCHED = 'FETCHED_FAQ_QUESTION';
+export const FETCHED_FAIL = 'FETCHED_FAIL_FAQ_QUESTION';
+export const FETCHED_FILTER = 'FETCHED_FILTER_FAQ_QUESTION';
+export const FETCH_NEXT = 'FETCH_NEXT_FAQ_QUESTION';
+export const FILTER = 'FILTER_FAQ_QUESTION';
+export const RESET_FILTER = 'RESET_FILTER_FAQ_QUESTION';
+export const SET_SORTING = 'SET_SORTING_FAQ_QUESTION';
+export const SET_FILTER = 'SET_FILTER_FAQ_QUESTION';
+export const SET_PAGE = 'SET_PAGE_FAQ_QUESTION';
+export const CHANGE_PAGE = 'CHANGE_PAGE_FAQ_QUESTION';
+export const CHANGE_STATUS= 'CHANGE_STATE_FAQ_QUESTION';
+export const SET_SERVER_PAGE = 'SET_SERVER_PAGE_FAQ_QUESTION';
+export const CREATE_DATA = 'CREATE_FAQ_QUESTION';
+export const UPDATE_DATA = 'UPDATE_FAQ_QUESTION';
+export const DELETE_ITEM = 'DELETE_ITEM_FAQ_QUESTION';
 
-export function actionFetchFaq(index = 1, sorting = {}, filter = {}, shouldReset=false) {
-    const request = serviceFetchFaq({ index, row: sorting.row, order: sorting.order, ...filter });
+export function actionFetchHRFacilityItem(id,index = 1, sorting = {}, filter = {}, shouldReset=false) {
+    const request = serviceFetchFacilityItems({facility_id:id, index, row: sorting.row, order: sorting.order, ...filter });
     return (dispatch) => {
         if (shouldReset) {
             dispatch({
@@ -58,8 +55,8 @@ export function actionFetchFaq(index = 1, sorting = {}, filter = {}, shouldReset
     };
 }
 
-export function actionCreateFaq(data) {
-    const request = serviceCreateFaq(data);
+export function actionCreateFacilityItem(data) {
+    const request = serviceCreateFacilityItem(data);
     return (dispatch) => {
         request.then((data) => {
             if (!data.error) {
@@ -72,8 +69,8 @@ export function actionCreateFaq(data) {
     }
 }
 
-export function actionUpdateFaq(data) {
-    const request = serviceUpdateFaq(data);
+export function actionUpdateFacilityItem(data) {
+    const request = serviceUpdateFacilityItem(data);
     return (dispatch) => {
         request.then((data) => {
             if (!data.error) {
@@ -85,8 +82,8 @@ export function actionUpdateFaq(data) {
     }
 }
 
-export function actionDeleteFaq(id) {
-    const request = serviceDeleteFaq({ id: id});
+export function actionDeleteFacilityItem(id) {
+    const request = serviceDeleteFacilityItem({ id: id});
     return (dispatch) => {
         dispatch({type: DELETE_ITEM, payload: id})
     }
@@ -94,7 +91,7 @@ export function actionDeleteFaq(id) {
 
 
 
-export function actionChangePageFaq(page) {
+export function actionChangePageFacilityItem(page) {
     return (dispatch) => {
         dispatch({type: CHANGE_PAGE, payload: page})
     }
@@ -114,7 +111,7 @@ export function actionChangePageFaq(page) {
 //     };
 // }
 
-export function actionFilterFaq(value) {
+export function actionFilterFacilityItem(value) {
     const request = null;////serviceFetchProviderRequests(value);
     return (dispatch) => {
         dispatch({type: FETCH_INIT, payload: null});
@@ -126,7 +123,7 @@ export function actionFilterFaq(value) {
 }
 
 
-export function actionChangeStatusFaq(id, status) {
+export function actionChangeStatusFacilityItem(id, status) {
     // const request = serviceFetchProviderRequests(value);
     return (dispatch) => {
         dispatch({type: CHANGE_STATUS, payload: {id, status}});
@@ -137,15 +134,15 @@ export function actionChangeStatusFaq(id, status) {
     };
 }
 
-export function actionResetFilterFaq() {
+export function actionResetFilterFacilityItem() {
     return {
         type: RESET_FILTER,
         payload: null,
     };
 }
 
-export function actionSetPageFaq(page) {
-    const stateData = store.getState().faq;
+export function actionSetPageFacilityItem(page) {
+    const stateData = store.getState().faq_question;
     const currentPage = stateData.currentPage;
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;
@@ -154,7 +151,7 @@ export function actionSetPageFaq(page) {
     const serverPage = stateData.serverPage;
 
     if (totalLength <= ((page + 1) * Constants.DEFAULT_PAGE_VALUE)) {
-        store.dispatch(actionFetchFaq(serverPage + 1, sortingData, {query, query_data: queryData}));
+        store.dispatch(actionFetchHRFacilityItem(serverPage + 1, sortingData, {query, query_data: queryData}));
         // this.props.fetchNextUsers(this.props.serverPage + 1, this.props.sorting_data.row, this.props.sorting_data.order, { query: this.props.query, query_data: this.props.query_data });
     }
 
