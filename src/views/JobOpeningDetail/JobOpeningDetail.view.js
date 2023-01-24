@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Style.module.css";
-import {ButtonBase, Menu, MenuItem} from "@material-ui/core";
+import { ButtonBase, Menu, MenuItem } from "@material-ui/core";
 import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import classnames from "classnames";
@@ -11,10 +11,27 @@ import { WaitingComponent } from "../../components/index.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import CandidateTable from "../../components/CandidateDataTable/CandidateTable.component";
 import InterviewerListComponent from "./components/InterviewerList/InterviewerList.component";
+import CandidateInterviewTable from "../../components/CandidateInterviewDataTable/CandidateInterviewTable.component";
+import CandidateShortlistTable from "../../components/CandidateShortlistDataTable/CandidateTable.component";
 
 const JobOpeningDetail = () => {
-  const { data, isLoading, handleAddCandidate, candidateEl, handleCloseCandidateEl, handleCandidateMenu,
-    toggleCandidatePanel, isCandidatePanel, id } = useJobOpeningDetail({});
+  const {
+    data,
+    isLoading,
+    handleAddCandidate,
+    candidateEl,
+    handleCloseCandidateEl,
+    handleCandidateMenu,
+    handleCandidateInterviewMenu,
+    handleCandidateShortlistMenu,
+    toggleCandidatePanel,
+    isCandidatePanel,
+    isCandidateInterviewPanel,
+    isCandidateShortlistPanel,
+    toggleCandidateInterviewPanel,
+    toggleCandidateShortlistPanel,
+    id,
+  } = useJobOpeningDetail({});
   if (isLoading) {
     return <WaitingComponent />;
   }
@@ -114,28 +131,70 @@ const JobOpeningDetail = () => {
             <div className={styles.heading}>Candidates List</div>
           </div>
           <div style={{ marginLeft: "20px" }}>
-            <ButtonBase  aria-owns={candidateEl ? 'candidateEl' : undefined}
-                         aria-haspopup="true" onClick={handleAddCandidate} className={styles.createBtn}>Add Candidate</ButtonBase>
-            <Menu
-                id="candidateEl"
-                anchorEl={candidateEl}
-                open={Boolean(candidateEl)}
-                onClose={handleCloseCandidateEl}
+            <ButtonBase
+              aria-owns={candidateEl ? "candidateEl" : undefined}
+              aria-haspopup="true"
+              onClick={handleAddCandidate}
+              className={styles.createBtn}
             >
-              <MenuItem onClick={() => {handleCandidateMenu('CREATE')}}>Create Candidate</MenuItem>
-              <MenuItem onClick={() => {handleCandidateMenu('ASSOCIATE')}}>Associate Candidate</MenuItem>
+              Add Candidate
+            </ButtonBase>
+            <Menu
+              id="candidateEl"
+              anchorEl={candidateEl}
+              open={Boolean(candidateEl)}
+              onClose={handleCloseCandidateEl}
+            >
+              <MenuItem
+                onClick={() => {
+                  handleCandidateMenu("CREATE");
+                }}
+              >
+                Create Candidate
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleCandidateMenu("ASSOCIATE");
+                }}
+              >
+                Associate Candidate
+              </MenuItem>
             </Menu>
           </div>
         </div>
-        <CandidatesRecordTable jobId={id} />
+        <CandidatesRecordTable
+          jobId={id}
+          filterWidth={true}
+          handleCandidateMenu={handleCandidateMenu}
+          handleInterviewSidepanel={handleCandidateInterviewMenu}
+          handleShortlistSidepanel={handleCandidateShortlistMenu}
+
+        />
       </div>
       <InterviewerListComponent jobId={id} />
       <SidePanelComponent
-          handleToggle={toggleCandidatePanel}
-          title={'Candidates List'}
-          open={isCandidatePanel}
-          side={'right'}>
+        handleToggle={toggleCandidatePanel}
+        title={"Candidates List"}
+        open={isCandidatePanel}
+        side={"right"}
+      >
         <CandidateTable />
+      </SidePanelComponent>
+      <SidePanelComponent
+        handleToggle={toggleCandidateShortlistPanel}
+        title={"Shortlist Candidates"}
+        open={isCandidateShortlistPanel}
+        side={"right"}
+      >
+        <CandidateShortlistTable />
+      </SidePanelComponent>
+      <SidePanelComponent
+        handleToggle={toggleCandidateInterviewPanel}
+        title={"Schedule Interview"}
+        open={isCandidateInterviewPanel}
+        side={"right"}
+      >
+        <CandidateInterviewTable />
       </SidePanelComponent>
     </div>
   );

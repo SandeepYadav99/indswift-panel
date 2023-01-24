@@ -136,3 +136,23 @@
     justify-content: space-between;
     align-items: center;
 }
+.edit{
+    color: #29CB97 !important;
+    border: 2px solid #29CB97 !important;
+    padding: 10px 40px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+  }
+  .editBtn1{
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    align-items: center;
+    gap: 20px;
+  }
+  .FilterBtnWrapper{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    /* justify-content: space-between; */
+  }

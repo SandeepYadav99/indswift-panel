@@ -146,7 +146,6 @@ class SidePanelComponent extends Component {
                     {this.props.children}
                     <div>
                     </div>
-
                 </div>
 
             </div>

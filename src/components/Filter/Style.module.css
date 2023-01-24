@@ -19,3 +19,11 @@
 .searchInput:focus {
     outline: none;
 }
+.wwe {
+    align-items: center;
+    display: flex;
+    width: 55% ;
+}
+/* .Style_wwe__casfu{
+    width: "500px !important";
+} */

@@ -270,7 +270,7 @@ class FilterComponent extends Component {
 
     render() {
         return (
-            <div style={{}}>
+            <div className={`${this.props.filterWidth ?cstyles.wwe :"" }`}>
                 <br/>
                 <div style={{ display: 'flex', width: '100%', alignItems: 'center', }}>
                     <div style={{ flex: 1 }}>
@@ -332,7 +332,8 @@ class FilterComponent extends Component {
     }
 }
 FilterComponent.defaultTypes = {
-    is_progress: false
+    is_progress: false,
+    filterWidth: false
 }
 FilterComponent.propTypes = {
     is_progress: PropTypes.bool
