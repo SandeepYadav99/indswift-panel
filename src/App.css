@@ -27,7 +27,11 @@ body{
     display: flex;
     /*margin-bottom: 10px;*/
 }
-
+.formFlex2 {
+    display: flex;
+    width: 100%;
+    /*margin-bottom: 10px;*/
+}
 .formGroup {
     flex: 1;
     padding: 7px 10px;

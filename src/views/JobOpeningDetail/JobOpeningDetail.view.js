@@ -152,13 +152,13 @@ const JobOpeningDetail = () => {
               >
                 Create Candidate
               </MenuItem>
-              <MenuItem
+              {/* <MenuItem
                 onClick={() => {
                   handleCandidateMenu("ASSOCIATE");
                 }}
               >
                 Associate Candidate
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </div>
         </div>
@@ -168,7 +168,6 @@ const JobOpeningDetail = () => {
           handleCandidateMenu={handleCandidateMenu}
           handleInterviewSidepanel={handleCandidateInterviewMenu}
           handleShortlistSidepanel={handleCandidateShortlistMenu}
-
         />
       </div>
       <InterviewerListComponent jobId={id} />
