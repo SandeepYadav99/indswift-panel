@@ -7,7 +7,6 @@ import ProfileUpperinfo from "./components/PersonalDetails/ProfileUpperinfo";
 import styles from "./Style.module.css";
 
 function EmployeeForm({incrementPage}) {
-  console.log("====>",incrementPage)
   return (
     <div className={styles.employeeLoginWrapper}>
       <div className={styles.employeeLoginContainer}>

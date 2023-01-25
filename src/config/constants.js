@@ -43,6 +43,7 @@ export default {
         'WAITING': 'waiting',
         'ACCEPTED': 'success',
         'ACTIVE': 'success',
+        'INACTIVE':'error',
         'SUSPENDED': 'error',
         'ALLOTTED': 'success',
         'COMPLETED': 'success',
