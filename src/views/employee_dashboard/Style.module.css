@@ -1,0 +1,26 @@
+.EmployeeDashboardFlex{
+    display: flex;
+    gap: 20px;
+}
+.EmployeeDashboardWrapper{
+    display: flex;
+    flex-direction: column;
+    gap:25px
+}
+.secondRow{
+    display: flex;
+    gap: 25px;
+}
+.announcementRowWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    flex: 2;
+}
+.EmployeecolumnWrapper{
+    display: flex;
+    flex:1;
+}
+.RecentUpdateWrapper{
+    display: flex;
+}
