@@ -87,6 +87,7 @@ const useJobRolesDetail = ({}) => {
                         ...form,
                         code: res?.data?.code
                     });
+                    removeError("code")
                 }
             })
         }
@@ -137,7 +138,6 @@ const useJobRolesDetail = ({}) => {
     useEffect(() => {
         checkCodeValidation();
     }, [])
-
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};

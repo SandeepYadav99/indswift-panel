@@ -1,0 +1,49 @@
+.userInfoWrapper {
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.UserinfoRight {
+  display: flex;
+  flex-direction: column;
+}
+.username {
+  font-size: 1.125rem;
+  margin: 0;
+  font-weight: 600;
+}
+.userposition {
+  margin: 0;
+  font-size: 0.875rem;
+}
+.usernumber {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.UserinfoContactWrapper > p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+.UserinfoContactWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.quoteDate {
+  font-size: 1.25rem;
+  font-weight: 600;
+  /* color: #FFFFFF; */
+}
+.contactUpper {
+  font-size: 1.25rem;
+  font-weight: 600;
+  max-width: 315px;
+}
+.contactLower {
+  font-size: 0.875rem;
+}

@@ -38,6 +38,7 @@ import DesignationList from "../views/Designation/DesignationList.container";
 import DesignationCreateView from "../views/Designation/DesignationCreate.view";
 import AppSettings from "../views/AppSettings/AppSettings.container";
 import HRSettings from "../views/HRSettings/HRSettings.container";
+import EmployeeDashboard from "../views/employee_dashboard/EmployeeDashboard.view";
 
 
 const dashboardRoutes = [
@@ -48,6 +49,14 @@ const dashboardRoutes = [
         icon: DashboardOutlined,
         component: NewDashboard,
         is_sidebar: true,
+    },
+    {
+        path: "/employeedashboard",
+        sidebarName: "Dashboard",
+        navbarName: "Admin Dashboard",
+        icon: DashboardOutlined,
+        component: EmployeeDashboard,
+        is_sidebar: false,
     },
     {
         path: RouteName.JOB_ROLES,

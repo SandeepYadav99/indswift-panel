@@ -1,13 +1,34 @@
 import { ButtonBase, Checkbox, MenuItem } from "@material-ui/core";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
+import { useRef } from "react";
+import CustomToggle from "../../components/FormFields/CustomToggle";
 import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomTextField from "../../components/FormFields/TextField/TextField.component";
 import { isNum } from "../../libs/RegexUtils";
-import EmployeeIncludeForm from "./components/EmployementHistory/Includes.component";
+// import EmployeeIncludeForm from "./components/EmployementHistory/Includes.component";
 import SalaryDetail from "./components/SalaryDetails/SalaryDetails";
+import useEmployeeFormDetail from "./EmployeeFormHook";
 import styles from "./Style.module.css";
 
 function EmploymentHistory() {
+  const {
+    form,
+    errorData,
+    isSubmitting,
+    isLoading,
+    employees,
+    handleSubmit,
+    removeError,
+    onBlurHandler,
+    changeTextData,
+    historyRef,
+    qualificationRef,
+    isEdit,
+    handleDelete,
+    handleReset,
+    selectedJobId,
+    jobDetails,
+  } = useEmployeeFormDetail({});
   return (
     <div className={styles.employeeLoginWrapper}>
       <div className={styles.employeeLoginContainer}>
@@ -24,8 +45,25 @@ function EmploymentHistory() {
           <div className={styles.newLine} />
         </div>
         <div className={styles.signContainer}>
-          {/* <SalaryDetail /> */}
-          {/* <EmployeeIncludeForm/> */}
+          <div className={"plainPaper"}>
+            <div className={"headerFlex"}>
+              <h4 className={"infoTitle"}>
+                <div className={"heading"}>Employement History</div>
+              </h4>
+              <div style={{ width: "250px" }}>
+                <CustomToggle
+                  value={!form?.is_fresher}
+                  handleChange={() => {
+                    changeTextData(!form?.is_fresher, "is_fresher");
+                  }}
+                  leftLabel={"Fresher"}
+                  rightLabel={"Experienced"}
+                />
+              </div>
+            </div>
+            {!form.is_fresher ? <p>EmployeeHistory Form</p> : ""}
+          </div>
+          {/* <EmployeeIncludeForm /> */}
         </div>
         <div className={styles.signContainer}>
           <SalaryDetail />

@@ -17,53 +17,53 @@
 .loginSignupText {
   text-align: left;
 }
-.QualificationHeader{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* align-items: center; */
+.QualificationHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
 }
 .firstRow {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
-.btnwrap{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.btnwrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.removeBtn{
-    color: red !important;
-    font-size: 0.7rem !important;
-    margin-left: 20px !important;
+.removeBtn {
+  color: red !important;
+  font-size: 0.7rem !important;
+  margin-left: 20px !important;
 }
 .bottomSignUp {
   font-size: 14px;
   font-weight: 500;
 }
-.hideDiv{
-    visibility: hidden;
+.hideDiv {
+  visibility: hidden;
 }
 .flex1 {
-    flex: 1;
-    min-width: 170px;
-    margin: 0px 5px;
+  flex: 1;
+  min-width: 170px;
+  margin: 0px 5px;
 }
-.checkBox{
-    display: flex;
-    justify-content: flex-end;
-    font-size: 0.6rem;
-    align-items: center;
-    color: #2896E9;
-    font-weight: 500;
+.checkBox {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.6rem;
+  align-items: center;
+  color: #2896e9;
+  font-weight: 500;
 }
-.addition{
-    color: #2896E9 !important;
-    font-weight: 600 !important;
-    font-size: 0.7rem !important;
-    padding-top: 10px !important;
+.addition {
+  color: #2896e9 !important;
+  font-weight: 600 !important;
+  font-size: 0.7rem !important;
+  padding-top: 10px !important;
 }
 .subText {
   margin: 20px 0px;
@@ -220,10 +220,10 @@
   justify-content: flex-end;
 }
 .btnCont1 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .createBtn {
   background-color: #29cb97 !important;
   color: #ffffff !important;
@@ -233,7 +233,59 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
-.discriptionWrap{
+.discriptionWrap {
   display: flex;
   margin-top: 15px;
+}
+.FormSubmitWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  /* align-items: center; */
+  width: 90vw;
+  height: 80vh;
+  /* background-color: yellow; */
+}
+.formSubmitContainer {
+  width: 500px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  /* border: 1px solid black; */
+}
+.formSubmitImageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* border-radius: 10px; */
+  background-color: rgba(40, 150, 233, 1);
+}
+.formSubmitBottomWrapper {
+  /* height: 50%; */
+  display: flex;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 40px;
+  box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+  background: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.submitHeader {
+  font-weight: bolder;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.submitDescription {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
