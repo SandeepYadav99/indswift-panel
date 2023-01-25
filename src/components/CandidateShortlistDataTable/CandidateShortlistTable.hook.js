@@ -12,7 +12,8 @@ import {actionGetJobOpeningCandidates} from "../../actions/JobOpeningDetail.acti
 
 const useCandidateShortlistTable = ({jobId, handleClose }) => {
     const [selected, setSelected] = useState([]);
-    const [data, setData] = useState([])
+    const [allData, setAllData] = useState([]);
+    const [data, setData] = useState([]);
     const [currentPage,setCurrentPage] = useState(1);
     const [currentData,setCurrentData] = useState([]);
     const [isDialog, setIsDialog] = useState(false);
@@ -24,13 +25,14 @@ const useCandidateShortlistTable = ({jobId, handleClose }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        setAllData(candidates);
         setData(candidates);
     }, [candidates]);
 
     useEffect(() => {
         // initData();
         _processData();
-    },[currentPage, data])
+    },[currentPage, data]);
 
     const _processData = () =>  {
         const from = (((currentPage) * totalShow) - totalShow);
@@ -67,7 +69,18 @@ const useCandidateShortlistTable = ({jobId, handleClose }) => {
     const handleSearchValueChange = useCallback((value) => {
         console.log('_handleSearchValueChange', value);
         queryFilter('SEARCH_TEXT', value);
-    }, [queryFilter]);
+        if (value) {
+            const tempData = allData.filter((val) => {
+                if (val?.candidate?.name?.match(new RegExp(value, 'ig')) || val?.candidate?.email?.match(new RegExp(value, 'ig'))) {
+                    return val;
+                }
+            });
+            setData(tempData);
+        } else {
+            setData(allData);
+        }
+
+    }, [queryFilter, _processData, data, setData, allData]);
 
 
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useEffect, useRef} from 'react';
+import React, {useCallback, useState, useEffect, useRef, useMemo} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     actionCreateCandidate, actionDeleteCandidate,
@@ -6,41 +6,62 @@ import {
     actionSetPageCandidate,
     actionUpdateCandidate
 } from "../../actions/Candidate.action";
+import {serviceRejectJobCandidates, serviceShortlistJobCandidates} from "../../services/JobOpenings.service";
+import SnackbarUtils from "../../libs/SnackbarUtils";
+import {actionGetJobOpeningCandidates} from "../../actions/JobOpeningDetail.action";
+import Constants from "../../config/constants";
 
-const useCandidateInterviewTable = ({ }) => {
-    const [isSidePanel, setSidePanel] = useState(false);
-    const [isCalling, setIsCalling] = useState(false);
-    const [editData, setEditData] = useState(null);
+const useCandidateInterviewTable = ({jobId, handleClose }) => {
     const [selected, setSelected] = useState([]);
+    const [allData, setAllData] = useState([]);
+    const [data, setData] = useState([]);
+    const [currentPage,setCurrentPage] = useState(1);
+    const [currentData,setCurrentData] = useState([]);
+    const [isDialog, setIsDialog] = useState(false);
+    const [totalShow, setTotalShow] = useState(10);
+    const [isFetching, setIsFetching] = useState(false);
+    const { candidates, isCandidatesFetching } = useSelector((state) => state.job_opening_detail);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const dispatch = useDispatch();
-    const isMountRef = useRef(false);
-    const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.candidate);
 
     useEffect(() => {
-        dispatch(actionFetchCandidate(1, sortingData, {
-            query: isMountRef.current ? query : null,
-            query_data: isMountRef.current ? queryData : null,
+        const status = Constants.JOB_CANDIDATE_STATUS
+        const shortlistedCandidates = candidates.filter((val) => [status.CV_SHORTLISTED, status.INTERVIEW_ALIGNED].indexOf(val.status) >= 0);
+        setAllData(shortlistedCandidates);
+        setData(shortlistedCandidates);
+    }, [candidates]);
 
-        }));
-        isMountRef.current = true;
-    }, []);
+    useEffect(() => {
+        // initData();
+        _processData();
+    },[currentPage, data]);
 
+    const _processData = () =>  {
+        const from = (((currentPage) * totalShow) - totalShow);
+        let to = (((currentPage) * totalShow));
+        // all.filter((val, index) => {
+        //     if (index >= (((currentPage) * totalShow) - totalShow) && index < (((currentPage) * totalShow))) {
+        //         return val;
+        //     }
+        // });
+        if (from <= data.length) {
+            to = to <= data.length ? to : data.length;
+            setCurrentData(data.slice(from, to));
+        }
+    }
 
     const handlePageChange = useCallback((type) => {
         console.log('_handlePageChange', type);
-        dispatch(actionSetPageCandidate(type));
-    }, []);
+        if (Math.ceil(data.length / totalShow) >= (type + 1)) {
+            setCurrentPage(type+1);
+            _processData();
+        }
+    }, [_processData, setCurrentPage, data, totalShow]);
 
 
     const queryFilter = useCallback((key, value) => {
         console.log('_queryFilter', key, value);
-        // dispatch(actionSetPageCandidateRequests(1));
-        dispatch(actionFetchCandidate(1, sortingData, {
-            query: key == 'SEARCH_TEXT' ? value : query,
-            query_data: key == 'FILTER_DATA' ? value : queryData,
-        }));
-        // dispatch(actionFetchCandidate(1, sortingData))
-    }, [sortingData, query, queryData,]);
+    }, []);
 
     const handleFilterDataChange = useCallback((value) => {
         console.log('_handleFilterDataChange', value);
@@ -50,18 +71,24 @@ const useCandidateInterviewTable = ({ }) => {
     const handleSearchValueChange = useCallback((value) => {
         console.log('_handleSearchValueChange', value);
         queryFilter('SEARCH_TEXT', value);
-    }, [queryFilter]);
+        if (value) {
+            const tempData = allData.filter((val) => {
+                if (val?.candidate?.name?.match(new RegExp(value, 'ig')) || val?.candidate?.email?.match(new RegExp(value, 'ig'))) {
+                    return val;
+                }
+            });
+            setData(tempData);
+        } else {
+            setData(allData);
+        }
+
+    }, [queryFilter, _processData, data, setData, allData]);
 
 
 
     const handleSortOrderChange = useCallback((row, order) => {
         console.log(`handleSortOrderChange key:${row} order: ${order}`);
-        dispatch(actionSetPageCandidate(1));
-        dispatch(actionFetchCandidate(1, {row, order}, {
-            query: query,
-            query_data: queryData,
-        }))
-    }, [query, queryData]);
+    }, []);
 
     const handleRowSize = (page) => {
         console.log(page);
@@ -79,17 +106,34 @@ const useCandidateInterviewTable = ({ }) => {
         setSelected(tempSelected)
     }, [selected, setSelected]);
 
+    const toggleConfirmDialog = useCallback((type) => {
+        setIsDialog(e => !e);
+    }, [setIsDialog]);
+
+
+    const handleInterviewSchedule = useCallback(() => {
+        setSelected([]);
+        toggleConfirmDialog();
+        handleClose();
+    }, [toggleConfirmDialog, setSelected, handleClose]);
+
     return {
         handlePageChange,
         handleFilterDataChange,
         handleSearchValueChange,
         handleRowSize,
         handleSortOrderChange,
-        isCalling,
-        editData,
-        isSidePanel,
         handleCheckbox,
-        selected
+        selected,
+        currentPage,
+        currentData,
+        data,
+        allData,
+        isFetching,
+        isDialog,
+        toggleConfirmDialog,
+        isSubmitting,
+        handleInterviewSchedule
     }
 };
 

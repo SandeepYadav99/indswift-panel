@@ -23,8 +23,9 @@ import { Close } from "@material-ui/icons";
 import CustomTextField from "../FormFields/TextField/TextField.component";
 import CustomSelectField from "../FormFields/SelectField/SelectField.component";
 import CustomDatePicker from "../FormFields/DatePicker/CustomDatePicker";
+import ScheduleInterviewDialogComponent from "./ScheduleInterviewDialog.component";
 
-const CandidateInterviewTable = ({}) => {
+const CandidateInterviewTable = ({jobId, handleClose}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -38,17 +39,17 @@ const CandidateInterviewTable = ({}) => {
     toggleProductDialog,
     handleCheckbox,
     selected,
-  } = useCandidateInterviewTable({});
-  const [isOpenPopUp, setIsOpenPopUp] = useState(false);
-  const {
-    data,
-    all: allData,
-    currentPage,
-    is_fetching: isFetching,
-  } = useSelector((state) => state.candidate);
-  const closeSchedulePopUp = () => {
-    setIsOpenPopUp(false);
-  };
+      allData,
+      data,
+      isDialog,
+      currentData,
+      currentPage,
+      isFetching,
+      isSubmitting,
+      toggleConfirmDialog,
+    handleInterviewSchedule
+  } = useCandidateInterviewTable({ handleClose });
+
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
@@ -76,7 +77,7 @@ const CandidateInterviewTable = ({}) => {
     return [
       {
         key: "name",
-        label: "SKU Code",
+        label: "Select",
         sortable: false,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
@@ -85,45 +86,41 @@ const CandidateInterviewTable = ({}) => {
         label: "Candidate",
         sortable: false,
         render: (temp, all) => (
-          <div>
-            {all?.name} <br />
-            {all?.email}
-          </div>
+            <div>
+              {all?.candidate?.name} <br/>
+              {all?.candidate?.email}
+            </div>
         ),
       },
       {
         key: "createdAt",
-        label: "Added Date",
+        label: "Interview Status",
         sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText}</div>,
+        render: (temp, all) => <div><StatusPill status={Constants.INTERVIEW_STATUS_TEXT[all?.interview_status]}/></div>,
       },
       {
         key: "status",
         label: "Status",
         sortable: false,
         render: (temp, all) => (
-          <div>
-            <StatusPill status={all?.status} />
-          </div>
+            <div>
+              <StatusPill status={Constants.JOB_CANDIDATE_STATUS_TEXT[all?.status]}/>
+            </div>
         ),
       },
       {
         key: "resume",
-        label: "Resume",
+        label: "Last Updated",
         sortable: false,
         render: (temp, all) => (
-          <div>
-            <a href={all.resume} target={"_blank"}>
-              Resume
-            </a>
-          </div>
+            <div>
+              {all?.updatedAtText}
+            </div>
         ),
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
-  const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
+
   const tableData = useMemo(() => {
     const datatableFunctions = {
       // onCellClick: this.handleCellClick,
@@ -138,7 +135,7 @@ const CandidateInterviewTable = ({}) => {
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: data,
+      data: currentData,
       count: data.length,
       page: currentPage - 1,
       rowsPerPage: 10,
@@ -154,7 +151,7 @@ const CandidateInterviewTable = ({}) => {
     handleRowSize,
     data,
     currentPage,
-    data,
+    currentData,
   ]); // allData,
 
   return (
@@ -177,14 +174,12 @@ const CandidateInterviewTable = ({}) => {
         <div className={styles.stickBottom}>
           <div className={styles.RequestShortlistWrapper}>
             <div>
-              <p className={styles.heading3}>2 Candidate Selected</p>
+              <p className={styles.heading3}>{selected.length} Candidate Selected</p>
             </div>
             <div className={styles.SlidebtnWrapper2}>
               <ButtonBase
-                onClick={() => {
-                  console.log("insisde");
-                  setIsOpenPopUp(true);
-                }}
+                  disabled={selected.length === 0}
+                onClick={toggleConfirmDialog}
                 className={styles.createBtn}
               >
                 SCHEDULE INTERVIEW
@@ -193,135 +188,7 @@ const CandidateInterviewTable = ({}) => {
           </div>
         </div>
       </div>
-      {isOpenPopUp && (
-        <Dialog
-          fullWidth={true}
-          maxWidth={"md"}
-          keepMounted
-          TransitionComponent={Transition}
-          open={isOpenPopUp}
-          onClose={closeSchedulePopUp}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          // classes={{paper: classes.dialog}}
-        >
-          <div className={styles.InterviewPopUpWrapper}>
-            <div className={styles.closeWrap}>
-              <Close
-                style={{ cursor: "pointer" }}
-                onClick={closeSchedulePopUp}
-              ></Close>
-            </div>
-
-            <div className={styles.loginSignupText}>
-              <h1 className={styles.headingText}>Schedule Interview</h1>
-              <div className={styles.newLine} />
-            </div>
-            <div>
-              <p>Please fill the below details to schedule the interview</p>
-            </div>
-            <div className={"formFlex2"}>
-              <div className={"formGroup1"}>
-                <CustomDatePicker
-                  clearable
-                  label={"Date"}
-                  // minDate={new Date()}
-                  // onChange={(date) => {
-                  //   changeTextData(date, "effective_date");
-                  // }}
-                  // value={form?.effective_date}
-                  // isError={errorData?.effective_date}
-                />
-              </div>
-              <div className={"formGroup1"}>
-                <CustomDatePicker
-                  clearable
-                  label={"D.O.B"}
-                  // minDate={new Date()}
-                  // onChange={(date) => {
-                  //   changeTextData(date, "effective_date");
-                  // }}
-                  // value={form?.effective_date}
-                  // isError={errorData?.effective_date}
-                />
-              </div>
-            </div >
-            <div className={"formFlex2"}>
-              <div className={"formGroup1"}>
-                <CustomSelectField
-                  // isError={errorData?.vacancy_type}
-                  // errorText={errorData?.vacancy_type}
-                  label={"Sequence Rounds"}
-                  // value={form?.vacancy_type}
-                  // handleChange={(value) => {
-                  //   changeTextData(value, "vacancy_type");
-                  // }}
-                >
-                  <MenuItem value="male">1,2,3</MenuItem>
-                  <MenuItem value="female">2</MenuItem>
-                </CustomSelectField>
-              </div>
-              <div className={"formGroup1"}>
-                <CustomSelectField
-                  // isError={errorData?.vacancy_type}
-                  // errorText={errorData?.vacancy_type}
-                  label={"Mode"}
-                  // value={form?.vacancy_type}
-                  // handleChange={(value) => {
-                  //   changeTextData(value, "vacancy_type");
-                  // }}
-                >
-                  <MenuItem value="male">abc</MenuItem>
-                  <MenuItem value="female">xyz</MenuItem>
-                </CustomSelectField>
-              </div>
-            </div>
-            <div style={{width:'100%'}}>
-            <div className={"formGroup file_Wrapper"}>
-              <CustomTextField
-                // isError={errorData?.name}
-                // errorText={errorData?.name}
-                label={"Residence Number (with STD code)"}
-                // value={form?.name}
-                // onTextChange={(text) => {
-                //   changeTextData(text, "name");
-                // }}
-                // onBlur={() => {
-                //   onBlurHandler("name");
-                // }}
-              />
-            </div>
-            </div>
-            
-            <div className={styles.cleckboxWrapper}>
-              <div className={styles.checkBox}>
-                <input
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="Bike"
-                />{" "}
-                <label htmlFor="vehicle1"> Send Email Invite to Candidates</label>
-                <br />
-              </div>
-              <div className={styles.checkBox}>
-                <input
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="Bike"
-                />{" "}
-                <label htmlFor="vehicle1"> Send Email Invite to Interview Panalist</label>
-                <br />
-              </div>
-            </div>
-
-            <div className={styles.confirmedWrapper}>
-              <ButtonBase className={styles.createBtn}>SCHEDULE</ButtonBase>
-            </div>
-          </div>
-        </Dialog>
-      )}
+      <ScheduleInterviewDialogComponent jobId={jobId} selectedCandidates={selected} handleInterviewSchedule={handleInterviewSchedule} isOpen={isDialog} handleDialog={toggleConfirmDialog} />
     </div>
   );
 };

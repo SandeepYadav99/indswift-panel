@@ -47,3 +47,8 @@ export async function serviceRejectJobCandidates(params) {
 export async function serviceShortlistJobCandidates(params) {
     return await postRequest('job/openings/candidates/shortlist', params);
 }
+
+export async function serviceScheduleInterview(params) {
+    return await postRequest('job/openings/interview/schedule', params);
+}
+

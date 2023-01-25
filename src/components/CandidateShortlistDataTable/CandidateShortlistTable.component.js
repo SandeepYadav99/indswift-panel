@@ -57,7 +57,7 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
             return (
                 <div className={styles.flex}>
                     <Checkbox
-                        disabled={data?.status === 'ACTIVE'}
+                        disabled={data?.status !== Constants.JOB_CANDIDATE_STATUS.PENDING}
                         onChange={() => handleCheckbox(data)}
                         checked={selectedIndex >= 0}
                         value="secondary"
@@ -93,7 +93,7 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
                 key: "createdAt",
                 label: "Interview Status",
                 sortable: false,
-                render: (temp, all) => <div><StatusPill status={all?.interview_status}/></div>,
+                render: (temp, all) => <div><StatusPill status={Constants.INTERVIEW_STATUS_TEXT[all?.interview_status]}/></div>,
             },
             {
                 key: "status",
@@ -101,7 +101,7 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
                 sortable: false,
                 render: (temp, all) => (
                     <div>
-                        <StatusPill status={all?.status}/>
+                        <StatusPill status={Constants.JOB_CANDIDATE_STATUS_TEXT[all?.status]}/>
                     </div>
                 ),
             },

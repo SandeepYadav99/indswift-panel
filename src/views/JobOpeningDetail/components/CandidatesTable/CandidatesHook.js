@@ -8,6 +8,7 @@ const totalShow = 20;
 const useCandidatesList = ({jobId}) => {
     const dispatch = useDispatch();
     const [currentPage,setCurrentPage] = useState(0);
+    const [data, setData] = useState(0);
     const [currentData,setCurrentData] = useState([]);
     const {isCandidatesFetching, candidates } = useSelector(state => state.job_opening_detail);
 
@@ -16,32 +17,29 @@ const useCandidatesList = ({jobId}) => {
     }, []);
 
     useEffect(() => {
-        _processData();
+        setData(candidates);
     }, [candidates]);
 
+    useEffect(() => {
+        _processData();
+    }, [data]);
+
     const _processData = useCallback(() =>  {
-        const data = candidates;
         const from = (((currentPage + 1) * totalShow) - totalShow);
         let to = (((currentPage + 1) * totalShow));
         LogUtils.log('from', from, to);
-        // all.filter((val, index) => {
-        //     if (index >= (((currentPage) * totalShow) - totalShow) && index < (((currentPage) * totalShow))) {
-        //         return val;
-        //     }
-        // });
         if (from <= data.length) {
             to = to <= data.length ? to : data.length;
             setCurrentData(data.slice(from, to));
         }
-    }, [setCurrentData, currentPage, candidates]);
+    }, [setCurrentData, currentPage, data]);
 
     const handlePageChange = useCallback((type) => {
-        const data = candidates;
         if (Math.ceil(data.length / totalShow) >= (type + 1)) {
             setCurrentPage(type + 1);
             _processData()
         }
-    }, [_processData, setCurrentPage, candidates]);
+    }, [_processData, setCurrentPage, data]);
 
     const handlePreviousPageClick=()=> {
         console.log('handlePreviousPageClick', 'PREV');
@@ -71,7 +69,18 @@ const useCandidatesList = ({jobId}) => {
     const handleSearchValueChange = useCallback((value) => {
         console.log('_handleSearchValueChange', value);
         queryFilter('SEARCH_TEXT', value);
-    }, [queryFilter]);
+        if (value) {
+            const tempData = candidates.filter((val) => {
+                if (val?.candidate?.name?.match(new RegExp(value, 'ig')) || val?.candidate?.email?.match(new RegExp(value, 'ig'))) {
+                    return val;
+                }
+            });
+            setData(tempData);
+        } else {
+            setData(candidates);
+        }
+
+    }, [queryFilter, _processData, data, setData, candidates]);
 
     const _handleDateChange = (date) => {
         // this.setState({

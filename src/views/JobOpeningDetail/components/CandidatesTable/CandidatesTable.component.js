@@ -94,7 +94,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         sortable: false,
         render: (temp, all) => (
           <div>
-            <StatusPill status={all.status} />
+            <StatusPill status={Constants.JOB_CANDIDATE_STATUS_TEXT[all?.status]} />
           </div>
         ),
       },

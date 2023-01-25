@@ -13,23 +13,12 @@ import CandidateTable from "../../components/CandidateDataTable/CandidateTable.c
 import InterviewerListComponent from "./components/InterviewerList/InterviewerList.component";
 import CandidateInterviewTable from "../../components/CandidateInterviewDataTable/CandidateInterviewTable.component";
 import CandidateShortlistTable from "../../components/CandidateShortlistDataTable/CandidateShortlistTable.component";
+import CandidatePaperComponent from "./components/CandidatePaper/CandidatePaper.component";
 
 const JobOpeningDetail = () => {
   const {
     data,
     isLoading,
-    handleAddCandidate,
-    candidateEl,
-    handleCloseCandidateEl,
-    handleCandidateMenu,
-    handleCandidateInterviewMenu,
-    handleCandidateShortlistMenu,
-    toggleCandidatePanel,
-    isCandidatePanel,
-    isCandidateInterviewPanel,
-    isCandidateShortlistPanel,
-    toggleCandidateInterviewPanel,
-    toggleCandidateShortlistPanel,
     id,
   } = useJobOpeningDetail({});
   if (isLoading) {
@@ -124,77 +113,8 @@ const JobOpeningDetail = () => {
           </div>
         </div>
       </div>
-
-      <div className={styles.plainPaper}>
-        <div className={styles.btmFlex}>
-          <div style={{ flex: "1" }}>
-            <div className={styles.heading}>Candidates List</div>
-          </div>
-          <div style={{ marginLeft: "20px" }}>
-            <ButtonBase
-              aria-owns={candidateEl ? "candidateEl" : undefined}
-              aria-haspopup="true"
-              onClick={handleAddCandidate}
-              className={styles.createBtn}
-            >
-              Add Candidate
-            </ButtonBase>
-            <Menu
-              id="candidateEl"
-              anchorEl={candidateEl}
-              open={Boolean(candidateEl)}
-              onClose={handleCloseCandidateEl}
-            >
-              <MenuItem
-                onClick={() => {
-                  handleCandidateMenu("CREATE");
-                }}
-              >
-                Create Candidate
-              </MenuItem>
-              {/* <MenuItem
-                onClick={() => {
-                  handleCandidateMenu("ASSOCIATE");
-                }}
-              >
-                Associate Candidate
-              </MenuItem> */}
-            </Menu>
-          </div>
-        </div>
-        <CandidatesRecordTable
-          jobId={id}
-          filterWidth={true}
-          handleCandidateMenu={handleCandidateMenu}
-          handleInterviewSidepanel={handleCandidateInterviewMenu}
-          handleShortlistSidepanel={handleCandidateShortlistMenu}
-        />
-      </div>
+      <CandidatePaperComponent jobId={id}/>
       <InterviewerListComponent jobId={id} />
-      <SidePanelComponent
-        handleToggle={toggleCandidatePanel}
-        title={"Candidates List"}
-        open={isCandidatePanel}
-        side={"right"}
-      >
-        <CandidateTable />
-      </SidePanelComponent>
-      <SidePanelComponent
-        handleToggle={toggleCandidateShortlistPanel}
-        title={"Shortlist Candidates"}
-        open={isCandidateShortlistPanel}
-        side={"right"}
-      >
-        <CandidateShortlistTable handleClose={toggleCandidateShortlistPanel} jobId={id} />
-      </SidePanelComponent>
-      <SidePanelComponent
-        handleToggle={toggleCandidateInterviewPanel}
-        title={"Schedule Interview"}
-        open={isCandidateInterviewPanel}
-        side={"right"}
-      >
-        <CandidateInterviewTable />
-      </SidePanelComponent>
     </div>
   );
 };
