@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Style.module.css";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 
 function AnnouncementInfo() {
   return (

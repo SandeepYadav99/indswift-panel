@@ -11,7 +11,7 @@ import {actionGetJobOpeningCandidates} from "../../actions/JobOpeningDetail.acti
 const initialForm = {
     date: null,
     time: null,
-    rounds: [],
+    sequence_rounds: [],
     mode: 'IN_PERSON',
     venue: '',
     is_send_email_candidates: false,
@@ -32,7 +32,7 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = ['date', 'rounds', 'mode', 'venue'];
+        let required = ['date', 'sequence_rounds', 'mode', 'venue'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
@@ -53,6 +53,7 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
             setIsSubmitting(true);
             const candidatIds = selectedCandidates.map(val => val.id);
             serviceScheduleInterview({...form,
+
             id:jobId,
                 candidateIds: candidatIds
             }).then((res) => {

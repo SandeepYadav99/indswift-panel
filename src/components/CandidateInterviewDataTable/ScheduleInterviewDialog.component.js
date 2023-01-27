@@ -73,12 +73,12 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                     <div className={"formGroup1"}>
                         <CustomSelectField
                             multiple
-                            isError={errorData?.rounds}
-                            errorText={errorData?.rounds}
-                            label={"Sequence Rounds"}
-                            value={form?.rounds}
+                            isError={errorData?.sequence_rounds}
+                            errorText={errorData?.sequence_rounds}
+                            label={"Sequence sequence_rounds"}
+                            value={form?.sequence_rounds}
                             handleChange={(value) => {
-                              changeTextData(value, "rounds");
+                              changeTextData(value, "sequence_rounds");
                             }}
                         >
                             {steps.map(val => {

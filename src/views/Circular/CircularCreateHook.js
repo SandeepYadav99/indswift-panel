@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  isAlphaNumChars,
+  isAlphaNumChars, isDate,
 } from "../../libs/RegexUtils";
 import LogUtils from "../../libs/LogUtils";
 import historyUtils from "../../libs/history.utils";
@@ -62,13 +62,17 @@ const useCircularDetail = ({}) => {
       }
     });
     if (form?.effective_date) {
+    if (isDate(form?.effective_date)) {
       const date = new Date(form?.effective_date);
       const todayDate = new Date();
-      date.setHours(0,0,0, 0);
-      todayDate.setHours(0,0,0, 0);
+      date.setHours(0, 0, 0, 0);
+      todayDate.setHours(0, 0, 0, 0);
       if (date.getTime() < todayDate.getTime()) {
         errors['effective_date'] = true;
       }
+    } else {
+      errors['effective_date'] = true;
+    }
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {

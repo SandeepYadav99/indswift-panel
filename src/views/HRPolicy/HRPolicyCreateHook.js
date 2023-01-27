@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   isAlpha,
   isAlphaNum,
-  isAlphaNumChars,
+  isAlphaNumChars, isDate,
   isNum,
   isSpace,
 } from "../../libs/RegexUtils";
@@ -100,11 +100,15 @@ const useHRPolicyDetail = ({}) => {
     }, [errorData, id, form]);
 
     if (form?.effective_date) {
-      const date = new Date(form?.effective_date);
-      const todayDate = new Date();
-      date.setHours(0,0,0, 0);
-      todayDate.setHours(0,0,0, 0);
-      if (date.getTime() < todayDate.getTime()) {
+      if (isDate(form?.effective_date)) {
+        const date = new Date(form?.effective_date);
+        const todayDate = new Date();
+        date.setHours(0, 0, 0, 0);
+        todayDate.setHours(0, 0, 0, 0);
+        if (date.getTime() < todayDate.getTime()) {
+          errors['effective_date'] = true;
+        }
+      } else {
         errors['effective_date'] = true;
       }
     }
