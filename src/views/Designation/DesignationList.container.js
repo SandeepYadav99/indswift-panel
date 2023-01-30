@@ -85,13 +85,13 @@ const DesignationList = ({}) => {
     return [
       {
         key: "designation",
-        label: "DESIGNATION",
+        label: "Sr. No.",
         sortable: false,
         render: (temp, all, index) => <div>{index + 1}</div>,
       },
       {
-        key: "department",
-        label: "DEPARTMENT",
+        key: "name",
+        label: "Designation",
         sortable: true,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
@@ -99,13 +99,13 @@ const DesignationList = ({}) => {
         key: "grade",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => <div>{all?.code}</div>,
+        render: (temp, all) => <div>{all?.grade?.name}/{all.cadre?.name}</div>,
       },
       {
-        key: "location",
-        label: "LOCATION",
+        key: "Progression Department",
+        label: "parent",
         sortable: false,
-        render: (temp, all) => <div>{all?.code}</div>,
+        render: (temp, all) => <div>{all?.parent?.name}</div>,
       },
 
       {

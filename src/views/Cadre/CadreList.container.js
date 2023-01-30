@@ -64,12 +64,12 @@ const CadreList = ({}) => {
                 sortable: false,
                 render: (temp, all) => <div>{all?.name}</div>,
             },
-            {
-                key: 'level',
-                label: 'Cadre Level',
-                sortable: false,
-                render: (temp, all) => <div>{all?.level}</div>,
-            },
+            // {
+            //     key: 'level',
+            //     label: 'Cadre Level',
+            //     sortable: false,
+            //     render: (temp, all) => <div>{all?.level}</div>,
+            // },
             {
                 key: 'status',
                 label: 'Status',

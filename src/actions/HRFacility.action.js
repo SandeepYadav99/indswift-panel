@@ -11,6 +11,7 @@ import {
     serviceUpdateFacility
 } from "../services/HRFacility.service";
 import EventEmitter from "../libs/Events.utils";
+import LogUtils from "../libs/LogUtils";
 
 
 export const FETCH_INIT = 'FETCH_INIT_FAQ';
@@ -60,6 +61,7 @@ export function actionCreateHRFacility(data) {
     const request = serviceCreateFacility(data);
     return (dispatch) => {
         request.then((data) => {
+            LogUtils.log('data', data);
             if (!data.error) {
                 EventEmitter.dispatch(EventEmitter.THROW_ERROR, {error: 'Saved', type: 'success'});
                 dispatch({type: CREATE_DATA, payload: data.data})
@@ -74,6 +76,7 @@ export function actionUpdateHRFacility(data) {
     const request = serviceUpdateFacility(data);
     return (dispatch) => {
         request.then((data) => {
+            LogUtils.log('data', data);
             if (!data.error) {
                 dispatch({type: UPDATE_DATA, payload: data.data})
             } else {

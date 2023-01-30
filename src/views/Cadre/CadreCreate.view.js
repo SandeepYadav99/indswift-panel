@@ -35,7 +35,7 @@ const CadreCreateView = ({location}) => {
                <div className={styles.outerFlex}>
                   <div>
                       <ButtonBase onClick={() => (history.goBack())}>
-                          <ArrowBackIosIcon fontSize={'small'}/> <span><b>{gradeCode} Grade>{!id ? 'Create' : 'Update'} Grade</b></span>
+                          <ArrowBackIosIcon fontSize={'small'}/> <span><b>{gradeCode} Grade>{!id ? 'Create' : 'Update'} Cadre</b></span>
                       </ButtonBase>
                       <div className={styles.newLines}/>
                   </div>
@@ -67,20 +67,20 @@ const CadreCreateView = ({location}) => {
                                }}
                            />
                        </div>
-                       <div className={'formGroup'}>
-                           <CustomTextField
-                               isError={errorData?.level}
-                               errorText={errorData?.level}
-                               label={'Cadre Level'}
-                               value={form?.level}
-                               onTextChange={text => {
-                                   changeTextData(text, 'level');
-                               }}
-                               onBlur={() => {
-                                   onBlurHandler('level');
-                               }}
-                           />
-                       </div>
+                       {/*<div className={'formGroup'}>*/}
+                       {/*    <CustomTextField*/}
+                       {/*        isError={errorData?.level}*/}
+                       {/*        errorText={errorData?.level}*/}
+                       {/*        label={'Cadre Level'}*/}
+                       {/*        value={form?.level}*/}
+                       {/*        onTextChange={text => {*/}
+                       {/*            changeTextData(text, 'level');*/}
+                       {/*        }}*/}
+                       {/*        onBlur={() => {*/}
+                       {/*            onBlurHandler('level');*/}
+                       {/*        }}*/}
+                       {/*    />*/}
+                       {/*</div>*/}
                    </div>
                </div>
 

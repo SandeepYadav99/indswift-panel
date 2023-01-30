@@ -19,6 +19,7 @@ import {
     DELETE_ITEM
 } from '../actions/HRFacility.action';
 import Constants from '../config/constants';
+import LogUtils from "../libs/LogUtils";
 
 function mapPresetPRequest(all, pageId) {
     return all.filter((val, index) => {
@@ -101,7 +102,7 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
         }
         case CREATE_DATA: {
             if (action.payload) {
-                const prevState = state.all;
+                const prevState = [...state.all];
                 prevState.unshift(action.payload);
                 const tableData = mapPresetPRequest(prevState, state.currentPage);
                 return {...state, all: prevState, present: tableData};
@@ -110,15 +111,10 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
         }
         case UPDATE_DATA: {
             if (action.payload) {
-                const prevState = state.all;
-                let tIndex = null;
-                prevState.some((val, index) => {
-                    if (val.id == action.payload.id) {
-                        tIndex = index;
-                        return true;
-                    }
-                });
-                if (tIndex != null) {
+                const prevState = [...state.all];
+                const tIndex = prevState.findIndex(val => val.id === action.payload.id);
+                LogUtils.log('tIndex', tIndex);
+                if (tIndex >= 0) {
                     prevState[tIndex] = action.payload;
                 }
                 const tableData = mapPresetPRequest(prevState, state.currentPage);

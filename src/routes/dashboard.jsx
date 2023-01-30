@@ -280,6 +280,12 @@ const dashboardRoutes = [
         is_protect: true,
     },
     {
+        path: `${RouteName.DESIGNATION_UPDATE}:id`,
+        component: DesignationCreateView,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
         path: RouteName.GRADES_CREATE,
         component: GradeCreateView,
         is_sidebar: false,
