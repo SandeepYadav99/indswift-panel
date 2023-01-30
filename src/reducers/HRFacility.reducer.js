@@ -81,19 +81,12 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
         }
         case DELETE_ITEM: {
             if (action.payload) {
-                let tempIndex = null;
-                const prevState = state.all;
+                const prevState = [...state.all];
                 const id = action.payload;
 
-                prevState.some((val, index) => {
-                    if (val.id == id) {
-                        tempIndex = (index);
-                        return true;
-                    }
-                });
-
-                if (tempIndex != null) {
-                    prevState.splice(tempIndex, 1);
+                const tIndex = prevState.findIndex(val => val.id === id);
+                if (tIndex >= 0) {
+                    prevState.splice(tIndex, 1);
                 }
                 const tableData = mapPresetPRequest(prevState, state.currentPage);
                 return {...state, all: prevState, present: tableData};

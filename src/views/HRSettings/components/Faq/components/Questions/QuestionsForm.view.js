@@ -14,7 +14,7 @@ import {convertFromHTML, ContentState, convertToRaw, convertFromRaw} from 'draft
 import {
     renderOutlinedTextField,
     renderOutlinedTextFieldWithLimit,
-    renderOutlinedSelectField, renderCheckbox, renderAutoComplete, renderFileField,
+    renderOutlinedSelectField, renderCheckbox, renderAutoComplete, renderFileField, renderOutlinedMultipleSelectField,
 } from '../../../../../../libs/redux-material.utils';
 import EventEmitter from "../../../../../../libs/Events.utils";
 import BackupIcon from '@material-ui/icons/Backup'
@@ -114,7 +114,7 @@ class QuestionsFormView extends Component {
                     this.props.change(val, temp);
                 }
             });
-            this.props.change('location_id', data?.location?.id);
+            // this.props.change('location_id', data?.location?.id);
         } else {
             requiredFields = ['name', 'description', 'priority', 'location_id'];
         }
@@ -279,6 +279,13 @@ class QuestionsFormView extends Component {
         return null;
     }
 
+    _convertData(data) {
+        const temp = {};
+        data.forEach((val) => {
+            temp[val.id] = val.name;
+        });
+        return temp;
+    }
 
     render() {
         const {handleSubmit, cities, data, faq_type, category} = this.props;
@@ -322,13 +329,17 @@ class QuestionsFormView extends Component {
                         <div className={'formGroup'}>
                             <Field fullWidth={true}
                                    name="location_id"
-                                   component={renderOutlinedSelectField}
+                                   component={renderOutlinedMultipleSelectField}
                                    margin={'dense'}
-                                   label="Location">
-                                <MenuItem value={'ALL'}>ALL</MenuItem>
-                                {this.props.locations.map((val) => {
-                                    return (<MenuItem value={val.id} key={val.id}>{val.name}</MenuItem>);
-                                })}
+                                   label="Location"
+                                   dataObj={this._convertData(this.props.locations)}
+                                   extract={{value: 'id', title: 'name'}}
+                                   data={this.props.locations}
+                            >
+                                {/*<MenuItem value={'ALL'}>ALL</MenuItem>*/}
+                                {/*{this.props.locations.map((val) => {*/}
+                                {/*    return (<MenuItem value={val.id} key={val.id}>{val.name}</MenuItem>);*/}
+                                {/*})}*/}
                             </Field>
                         </div>
                     </div>
