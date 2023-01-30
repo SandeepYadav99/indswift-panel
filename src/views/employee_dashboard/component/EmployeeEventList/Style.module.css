@@ -1,7 +1,47 @@
 .backgroundColor {
-    background-color: white !important;
-    /*border-top-left-radius: 10px;*/
-    /*border-top-right-radius: 10px;*/
-    border-radius: 10px;
-    box-shadow: 0px 20px 80px #00000011 !important;
-  }
+  background-color: white !important;
+  /*border-top-left-radius: 10px;*/
+  /*border-top-right-radius: 10px;*/
+  /* border-radius: 10px; */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0px 20px 80px #00000011 !important;
+}
+.paperBackground {
+  padding: 10px 12px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: white !important;
+  max-height: 510px;
+  overflow: auto;
+}
+.paperBackground1 {
+  padding: 10px 12px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: white !important;
+}
+.birthdayEventWrapper {
+  /* background-color: yellow; */
+  background-color: white !important;
+
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-bottom: 2px solid #ebedf4;
+}
+.imageNameContainer {
+  display: flex;
+  gap: 15px;
+}
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  /* justify-content: space-between; */
+  font-size: 0.875rem;
+}
+.profileName {
+  font-size: 0.875rem;
+  font-weight: 600;
+}

@@ -1,7 +1,45 @@
 .backgroundColor {
-    background-color: white !important;
-    /*border-top-left-radius: 10px;*/
-    /*border-top-right-radius: 10px;*/
-    border-radius: 10px;
-    box-shadow: 0px 20px 80px #00000011 !important;
-  }
+  background-color: white !important;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* border-radius: 10px; */
+  box-shadow: 0px 20px 80px #00000011 !important;
+}
+.paperBackground {
+  /* width: 25%; */
+}
+.memberWrapper {
+  /* width: 25%; */
+}
+.newMemberWrapper {
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 20px 80px #00000011 !important;
+  background: #ebf9ff;
+  padding: 2rem 1.5rem;
+  justify-content: space-around;
+}
+.imageNameContainer {
+  display: flex;
+  flex-direction: column;
+}
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  /* justify-content: space-between; */
+  font-size: 0.875rem;
+}
+.profileName {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.newMemberCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+}

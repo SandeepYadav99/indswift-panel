@@ -1,4 +1,4 @@
-.RecentUpdateContainer {
+.employeeCategoriesContainer {
   box-shadow: 0px 20px 80px #00000011;
   border-radius: 10px;
   background: #ffffff;
@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  flex: 1;
+  flex: 0.48;
 }
 .title {
   font-size: 0.8rem;
@@ -19,23 +19,32 @@
   margin-left: 1px;
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
-.description {
+.employeeCategoriesCard {
+  padding: 25px 20px;
+  border: 1px solid #919bb0;
+  border-radius: 10px;
   display: flex;
-  /* justify-content: center;
-  align-items: center;
-  gap: 15px; */
   flex-direction: column;
-}
-.descriptionName {
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-.descriptionContainer {
-  display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
 }
-.effectiveDate {
-  color: #818181;
+.employeeCategoriesCardWrapper {
+  display: flex;
+}
+.employeeName {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.categoriesDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.categories {
   font-size: 0.75rem;
+}
+.employeeCategoriesLower {
+  display: flex;
+  gap: 15px;
 }

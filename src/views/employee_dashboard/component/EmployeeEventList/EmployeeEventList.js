@@ -6,6 +6,7 @@ import styles from "./Style.module.css";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
+import BirthdayEvent from "./BirthdayEvent";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -54,9 +55,9 @@ function EmployeeEventList() {
           <Tab className={"iconTabs"} label="Marrige Annierversary " />
         </Tabs>
       </AppBar>
-      <div className={styles.paperBackground}>
+      <div className={styles.paperBackground1}>
         <TabPanel value={value} index={0} dir={"ltr"}>
-          {/* <BirthdayEvent/> */}
+          <BirthdayEvent />
         </TabPanel>
         <TabPanel value={value} index={1} dir={"ltr"}>
           abc

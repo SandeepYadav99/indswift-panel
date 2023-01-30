@@ -6,6 +6,8 @@ import styles from "./Style.module.css";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
+import GenricSlider from "./GenricSlider";
+import NewMembers from "./NewMembers";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,7 +43,7 @@ function Members() {
     [setValue, value]
   );
   return (
-    <div>
+    <div className={styles.memberWrapper}>
       <AppBar position="static" className={styles.backgroundColor}>
         <Tabs
           value={value}
@@ -58,7 +60,18 @@ function Members() {
       </AppBar>
       <div className={styles.paperBackground}>
         <TabPanel value={value} index={0} dir={"ltr"}>
-          hello
+          {/* <GenricSlider>
+            <div>
+              <h1 style={{ width: "25px" }}>fdsgj</h1>
+            </div>
+            <div>
+              <h1 style={{ width: "25px" }}>fdsgj</h1>
+            </div>
+            <div>
+              <h1 style={{ width: "25px" }}>fdsgj</h1>
+            </div>
+          </GenricSlider> */}
+          <NewMembers />
         </TabPanel>
         <TabPanel value={value} index={1} dir={"ltr"}>
           abc

@@ -1,9 +1,13 @@
 import React from "react";
 import AnnouncementInfo from "./component/AnnouncementInfo/AnnouncementInfo";
+import DashboardImageGallary from "./component/DashboardImageGallary/DashboardImageGallary";
+import EmployeeCategories from "./component/EmployeeCategories/EmployeeCategories";
 import EmployeeEventList from "./component/EmployeeEventList/EmployeeEventList";
+import EngagementEvents from "./component/EngagementEvents/EngagementEvents";
 import Members from "./component/Members/Members";
 import QuoteInfo from "./component/QuoteInfo/QuoteInfo";
 import RecentUpdate from "./component/RecentUpdate/RecentUpdate";
+import SocialMedia from "./component/SocialMedia/SocialMedia";
 import ThemeInfo from "./component/ThemeInfo/ThemeInfo";
 import UserInfo from "./component/UserInfo/UserInfo";
 import styles from "./Style.module.css";
@@ -19,14 +23,24 @@ function EmployeeDashboard() {
       <div className={styles.secondRow}>
         <div className={styles.announcementRowWrapper}>
           <AnnouncementInfo />
-          <Members/>
+          <Members />
         </div>
         <div className={styles.EmployeecolumnWrapper}>
-          <EmployeeEventList/>
+          <EmployeeEventList />
         </div>
       </div>
       <div className={styles.RecentUpdateWrapper}>
-        <RecentUpdate/>
+        <div className={styles.RecentUpdateUpperCard}>
+          <RecentUpdate />
+          <EngagementEvents />
+        </div>
+        <div className={styles.RecentUpdateLowerCard}>
+          <EmployeeCategories />
+          {/* <DashboardImageGallary /> */}
+        </div>
+      </div>
+      <div className={styles.SocialMediaOuterWrapper}>
+        <SocialMedia />
       </div>
     </div>
   );
