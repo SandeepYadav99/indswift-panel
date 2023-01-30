@@ -1,26 +1,41 @@
-.EmployeeDashboardFlex{
-    display: flex;
-    gap: 20px;
+.EmployeeDashboardFlex {
+  display: flex;
+  gap: 20px;
 }
-.EmployeeDashboardWrapper{
-    display: flex;
-    flex-direction: column;
-    gap:25px
+.EmployeeDashboardWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
-.secondRow{
-    display: flex;
-    gap: 25px;
+.secondRow {
+  display: flex;
+  gap: 25px;
 }
-.announcementRowWrapper{
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    flex: 2;
+.announcementRowWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  flex: 2;
 }
-.EmployeecolumnWrapper{
-    display: flex;
-    flex:1;
+.EmployeecolumnWrapper {
+  display: flex;
+  flex: 1;
 }
-.RecentUpdateWrapper{
-    display: flex;
+.RecentUpdateWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.RecentUpdateUpperCard {
+  display: flex;
+  gap: 25px;
+}
+.RecentUpdateLowerCard {
+  display: flex;
+  gap: 25px;
+}
+.SocialMediaOuterWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

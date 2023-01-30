@@ -40,4 +40,10 @@
 } */
 .userInfoContainer {
   display: flex;
+  gap: 15px;
+}
+.watermarkWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }

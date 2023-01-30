@@ -1,4 +1,4 @@
-.RecentUpdateContainer {
+.engagementContainer {
   box-shadow: 0px 20px 80px #00000011;
   border-radius: 10px;
   background: #ffffff;
@@ -19,23 +19,11 @@
   margin-left: 1px;
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
-.description {
+.engagementImageContainer {
   display: flex;
-  /* justify-content: center;
-  align-items: center;
-  gap: 15px; */
-  flex-direction: column;
+  justify-content: space-evenly;
 }
-.descriptionName {
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-.descriptionContainer {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.effectiveDate {
-  color: #818181;
-  font-size: 0.75rem;
+.img {
+  width: 150px;
+  height: 150px;
 }
