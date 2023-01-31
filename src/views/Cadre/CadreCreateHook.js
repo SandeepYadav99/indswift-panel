@@ -2,7 +2,7 @@ import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {isAlpha, isAlphaNum, isAlphaNumChars, isNum} from "../../libs/RegexUtils";
 import {
     serviceCreateCadre,
-    serviceCadreCodeCheck,
+    serviceCheckCadreCode,
     serviceGetCadreDetails,
     serviceUpdateCadre
 } from "../../services/Cadre.service";
@@ -11,6 +11,7 @@ import EventEmitter from "../../libs/Events.utils";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import {useParams} from "react-router";
 import Constants from "../../config/constants";
+import useDebounce from "../../hooks/DebounceHook";
 
 const initialForm = {
     name: '',
@@ -25,6 +26,7 @@ const useCadreDetail = ({location}) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({...initialForm});
     const [isEdit, setIsEdit] = useState(false);
+    const codeDebouncer = useDebounce(form?.name, 500);
     const { id } = useParams();
 
     useEffect(() => {
@@ -45,13 +47,35 @@ const useCadreDetail = ({location}) => {
         }
     }, []);
 
+    const checkCodeValidation = useCallback(() => {
+        serviceCheckCadreCode({name: form?.name, id: id ? id : null, grade_id: gradeCode }).then((res) => {
+            if (!res.error) {
+                const errors = JSON.parse(JSON.stringify(errorData));
+                if (res.data.is_exists) {
+                    errors['name'] = 'Cadre Name Exists'
+                    setErrorData(errors)
+                } else {
+                    delete errors.name;
+                    setErrorData(errors);
+                }
+            }
+        });
+    }, [errorData, setErrorData, form?.name, id]);
+
+
+    useEffect(() => {
+        if (codeDebouncer) {
+            checkCodeValidation();
+        }
+    }, [codeDebouncer])
+
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
         let required = ['name','level'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
-            } else if ([''].indexOf(val) < 0) {
+            } else if (['name'].indexOf(val) < 0) {
                 delete errors[val]
             }
         });
@@ -113,6 +137,9 @@ const useCadreDetail = ({location}) => {
             if (fieldName === 'name' || fieldName == 'level') {
                 if (!text || (isAlphaNumChars(text) && text.toString().length <= 50)) {
                     t[fieldName] = text;
+                }
+                if (fieldName === 'name') {
+                    shouldRemoveError = false;
                 }
             }
             // else if(fieldName === 'level') {

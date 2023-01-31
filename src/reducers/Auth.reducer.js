@@ -17,7 +17,8 @@ const initialState = {
         status: 'PENDING',
         is_verified: true,
         is_fetching: true,
-        country_code:  'IN'
+        country_code:  'IN',
+        role: 'OTHER',
     },
     is_authenticated: false
 };
@@ -25,7 +26,11 @@ const initialState = {
 export default function (state = JSON.parse(JSON.stringify(initialState)), action) {
     switch (action.type) {
         case AUTH_USER : {
-            return {...state, is_authenticated: true, user: action.payload}
+            return {...state,
+                is_authenticated: true,
+                user: action.payload,
+                role: action?.payload?.role,
+            }
         }
         case LOGOUT_USER: {
             return {...state, ...(JSON.parse(JSON.stringify(initialState)))};
