@@ -8,15 +8,20 @@ import historyUtils from "../../libs/history.utils";
 import EventEmitter from "../../libs/Events.utils";
 import RouteName from "../../routes/Route.name";
 import SnackbarUtils from "../../libs/SnackbarUtils";
+import {
+    serviceCheckDesignation,
+    serviceCreateDesignation,
+    serviceGetDesignationDetails,
+    serviceUpdateDesignation
+} from "../../services/Designation.service";
+import {useParams} from "react-router";
+import Constants from "../../config/constants";
 
 const initialForm = {
     name: '',
-    location: '',
-    department_id: '',
-    grade: '',
-    cadre: '',
-    designation: '',
-    reporting_to: '',
+    grade_id: '',
+    cadre_id: '',
+    parent_id: '',
     is_active: true
 };
 
@@ -27,44 +32,69 @@ const useDesignationDetail = ({}) => {
     const [form, setForm] = useState({...initialForm});
     const [isEdit, setIsEdit] = useState(false);
     const includeRef = useRef(null);
+    const codeDebouncer = useDebounce(form?.name, 500);
+    const {id} = useParams();
     const [listData, setListData] = useState({
-        LOCATION_DEPARTMENTS: [],
-        EMPLOYEES: [],
-        DEPARTMENTS: [],
-        SUB_DEPARTMENTS: [],
-        JOB_ROLES: [],
-        HR: [],
+        GRADES: [],
+        CADRES: [],
         DESIGNATIONS: [],
     });
 
     useEffect(() => {
-        if (form?.replacing_person) {
-            const designationId = form?.replacing_person?.designation_id;
-            const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
-            if (index >= 0) {
-                setForm({
-                    ...form,
-                    designation: listData?.DESIGNATIONS[index]
-                });
-            }
+        if (id) {
+            serviceGetDesignationDetails({id: id}).then((res) => {
+                if(!res.error) {
+                    const data = res?.data?.details;
+                    setForm({
+                        ...data,
+                        parent_id: data?.parent_id ? data?.parent_id : 'NONE',
+                        is_active: data?.status === Constants.GENERAL_STATUS.ACTIVE
+                    });
+                } else {
+                    SnackbarUtils.error(res?.message);
+                    historyUtils.goBack();
+                }
+            })
         }
-    }, [form?.replacing_person]);
+    }, [id]);
 
     useEffect(() => {
-        serviceGetList(['LOCATION_DEPARTMENTS', 'EMPLOYEES', 'DEPARTMENTS', 'HR', 'SUB_DEPARTMENTS', 'JOB_ROLES', 'DESIGNATIONS']).then(res => {
+        serviceGetList(['GRADES', 'CADRES',  'DESIGNATIONS']).then(res => {
             if (!res.error) {
                 setListData(res.data);
             }
         });
     }, []);
 
+    const checkCodeValidation = useCallback(() => {
+        serviceCheckDesignation({name: form?.name, id: id ? id : null}).then((res) => {
+            if (!res.error) {
+                const errors = JSON.parse(JSON.stringify(errorData));
+                if (res.data.is_exists) {
+                    errors['name'] = 'Designation Name Exists'
+                    setErrorData(errors)
+                } else {
+                    delete errors.name;
+                    setErrorData(errors);
+                }
+            }
+        });
+    }, [errorData, setErrorData, form?.name, id]);
+
+
+    useEffect(() => {
+        if (codeDebouncer) {
+            checkCodeValidation();
+        }
+    }, [codeDebouncer])
+
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = ['location_id', 'department_id', 'sub_department_id', 'vacancy_type', 'assigned_to', 'job_role', 'replacing_person', 'designation'];
+        let required = ['name', 'grade_id', 'cadre_id'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
-            } else if (['code'].indexOf(val) < 0) {
+            } else if (['name'].indexOf(val) < 0) {
                 delete errors[val]
             }
         });
@@ -79,23 +109,24 @@ const useDesignationDetail = ({}) => {
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-            serviceCreateJobOpenings({
+            let req = serviceCreateDesignation;
+            if (id) {
+                req = serviceUpdateDesignation;
+            }
+            req({
                 ...form,
-                assigned_to: form?.assigned_to?.id,
-                job_role_id: form?.job_role?.id,
-                designation_id: form?.designation?.id,
-                replace_id: form?.replacing_person?.id,
+                parent_id: form?.parent_id === 'NONE' ? '' : form?.parent_id,
             }).then((res) => {
                 LogUtils.log('response', res);
                 if (!res.error) {
-                    historyUtils.push(RouteName.JOB_OPENINGS);
+                    historyUtils.push(RouteName.DESIGNATION);
                 } else {
                     SnackbarUtils.error(res?.error);
                 }
                 setIsSubmitting(false);
             });
         }
-    }, [form, isSubmitting, setIsSubmitting]);
+    }, [form, isSubmitting, setIsSubmitting, id]);
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
@@ -111,7 +142,6 @@ const useDesignationDetail = ({}) => {
         checkFormValidation,
         setErrorData,
         form,
-        includeRef.current
     ]);
 
     const removeError = useCallback(
@@ -126,19 +156,14 @@ const useDesignationDetail = ({}) => {
     const changeTextData = useCallback((text, fieldName) => {
         let shouldRemoveError = true;
         const t = {...form};
-        if (fieldName === 'location_id') {
-            t['department_id'] = '';
-            t['sub_department_id'] = '';
-            t['replacing_person'] = '';
-        }
-        if (fieldName === 'department_id') {
-            t['sub_department_id'] = ''
-            t['replacing_person'] = '';
+        if (fieldName === 'grade_id') {
+            t['cadre_id'] = '';
         }
         if (fieldName === 'name') {
-            if (!text || (isNum(text) && text.toString().length <= 30)) {
+            if (!text || (isAlphaNum(text) && text.toString().length <= 30)) {
                 t[fieldName] = text;
             }
+            shouldRemoveError = false;
         } else {
             t[fieldName] = text;
         }
@@ -163,25 +188,11 @@ const useDesignationDetail = ({}) => {
         setForm({...initialForm})
     }, [form])
 
-    const filteredDepartments = useMemo(() => {
-        const locations = listData?.LOCATION_DEPARTMENTS;
-        const index = locations.findIndex(l => l.id === form?.location_id);
-        if (index >= 0) {
-            const departments = locations[index]?.departments;
-            return listData?.DEPARTMENTS?.filter(val => departments.indexOf(val.id) >= 0);
-        }
-        return [];
-    }, [listData, form?.location_id]);
 
-    const filteredSubDepartments = useMemo(() => {
-        return listData?.SUB_DEPARTMENTS?.filter(val => val.department_id === form?.department_id);
-    }, [listData, form?.department_id]);
+    const filteredCadres = useMemo(() => {
+        return listData?.CADRES?.filter(val => val.grade_id === form?.grade_id);
+    }, [listData, form?.grade_id]);
 
-    const filteredEmployees = useMemo(() => {
-        return listData.EMPLOYEES.filter(val => {
-            return val.department_id === form?.department_id && val.location_id === form?.location_id;
-        });
-    }, [form?.location_id, form?.department_id, listData]);
 
     return {
         form,
@@ -196,10 +207,8 @@ const useDesignationDetail = ({}) => {
         handleDelete,
         includeRef,
         handleReset,
-        filteredDepartments,
-        filteredSubDepartments,
         listData,
-        filteredEmployees
+        filteredCadres
     };
 };
 

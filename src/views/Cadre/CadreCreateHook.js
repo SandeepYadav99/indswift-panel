@@ -14,7 +14,7 @@ import Constants from "../../config/constants";
 
 const initialForm = {
     name: '',
-    level: '',
+    level: '1',
     is_active: true
 };
 

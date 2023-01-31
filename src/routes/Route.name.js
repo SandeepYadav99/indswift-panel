@@ -28,9 +28,9 @@ export default {
     JOB_OPENINGS_CREATE: '/job/openings/create',
     JOB_OPENINGS_UPDATE: '/job/openings/update/',
     JOB_OPENINGS_DETAILS: '/job/openings/details/',
-    DESIGNATION: '/designation',
-    DESIGNATION_CREATE: '/designation/create',
-    DESIGNATION_UPDATE: '/designation/update/',
+    DESIGNATION: '/designations',
+    DESIGNATION_CREATE: '/designations/create',
+    DESIGNATION_UPDATE: '/designations/update/',
     CANDIDATES: '/candidates',
     CANDIDATES_CREATE: '/candidates/create',
 

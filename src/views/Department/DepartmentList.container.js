@@ -77,7 +77,7 @@ const DepartmentList = ({}) => {
             {
                 key: 'code',
                 label: 'Code',
-                sortable: false,
+                sortable: true,
                 render: (temp, all) => <div>{all?.code}</div>,
             },
             {

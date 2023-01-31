@@ -35,7 +35,7 @@ const initialState = {
     serverPage: 0,
     query: null, // search text data
     query_data: null, // popover filter data change
-    sorting_data: { row: null, order: null },
+    sorting_data: { row: 'code', order: 'asc' },
     is_fetching: false
 };
 

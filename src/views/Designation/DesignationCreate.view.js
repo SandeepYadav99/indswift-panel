@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/styles";
 import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../components/FormFields/TextField/TextField.component";
 import history from "../../libs/history.utils";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"; 
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useDesignationDetail from "./DesignationCreateHook";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
 
@@ -32,9 +32,8 @@ const DesignationCreateView = ({}) => {
     isEdit,
     handleDelete,
     handleReset,
-    filteredSubDepartments,
-    filteredDepartments,
-    filteredEmployees,
+    listData,
+      filteredCadres
   } = useDesignationDetail({});
   const classes = useStyles();
 
@@ -82,58 +81,18 @@ const DesignationCreateView = ({}) => {
         <div className={"formFlex"}>
           <div className="formGroup">
             <CustomSelectField
-              isError={errorData?.department_id}
-              errorText={errorData?.department_id}
-              label={"Location"}
-              value={form?.department_id}
-              handleChange={(value) => {
-                changeTextData(value, "department_id");
-              }}
-            >
-              {filteredDepartments?.map((dT) => {
-                return (
-                  <MenuItem value={dT?.id} key={dT?.id}>
-                    {dT?.name}
-                  </MenuItem>
-                );
-              })}
-            </CustomSelectField>
-          </div>
-          <div className="formGroup">
-            <CustomSelectField
-              isError={errorData?.sub_department_id}
-              errorText={errorData?.sub_department_id}
-              label={"Department"}
-              value={form?.sub_department_id}
-              handleChange={(value) => {
-                changeTextData(value, "sub_department_id");
-              }}
-            >
-              {filteredSubDepartments?.map((dT) => {
-                return (
-                  <MenuItem value={dT?.id} key={dT?.id}>
-                    {dT?.name}
-                  </MenuItem>
-                );
-              })}
-            </CustomSelectField>
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className="formGroup">
-            <CustomSelectField
-              isError={errorData?.department_id}
-              errorText={errorData?.department_id}
+              isError={errorData?.grade_id}
+              errorText={errorData?.grade_id}
               label={"Grade"}
-              value={form?.department_id}
+              value={form?.grade_id}
               handleChange={(value) => {
-                changeTextData(value, "department_id");
+                changeTextData(value, "grade_id");
               }}
             >
-              {filteredDepartments?.map((dT) => {
+              {listData?.GRADES?.map((dT) => {
                 return (
                   <MenuItem value={dT?.id} key={dT?.id}>
-                    {dT?.name}
+                    {dT?.label}
                   </MenuItem>
                 );
               })}
@@ -141,15 +100,15 @@ const DesignationCreateView = ({}) => {
           </div>
           <div className="formGroup">
             <CustomSelectField
-              isError={errorData?.sub_department_id}
-              errorText={errorData?.sub_department_id}
+              isError={errorData?.cadre_id}
+              errorText={errorData?.cadre_id}
               label={"Cadre"}
-              value={form?.sub_department_id}
+              value={form?.cadre_id}
               handleChange={(value) => {
-                changeTextData(value, "sub_department_id");
+                changeTextData(value, "cadre_id");
               }}
             >
-              {filteredSubDepartments?.map((dT) => {
+              {filteredCadres?.map((dT) => {
                 return (
                   <MenuItem value={dT?.id} key={dT?.id}>
                     {dT?.name}
@@ -162,15 +121,16 @@ const DesignationCreateView = ({}) => {
         <div className={"formFlex"}>
           <div className="formGroup">
             <CustomSelectField
-              isError={errorData?.department_id}
-              errorText={errorData?.department_id}
+              isError={errorData?.parent_id}
+              errorText={errorData?.parent_id}
               label={"Progression Designation (optional)"}
-              value={form?.department_id}
+              value={form?.parent_id}
               handleChange={(value) => {
-                changeTextData(value, "department_id");
+                changeTextData(value, "parent_id");
               }}
             >
-              {filteredDepartments?.map((dT) => {
+              <MenuItem value={'NONE'}>None</MenuItem>
+              {listData.DESIGNATIONS?.map((dT) => {
                 return (
                   <MenuItem value={dT?.id} key={dT?.id}>
                     {dT?.name}
@@ -180,23 +140,7 @@ const DesignationCreateView = ({}) => {
             </CustomSelectField>
           </div>
           <div className="formGroup">
-            <CustomSelectField
-              isError={errorData?.sub_department_id}
-              errorText={errorData?.sub_department_id}
-              label={"Reporting To (optional)"}
-              value={form?.sub_department_id}
-              handleChange={(value) => {
-                changeTextData(value, "sub_department_id");
-              }}
-            >
-              {filteredSubDepartments?.map((dT) => {
-                return (
-                  <MenuItem value={dT?.id} key={dT?.id}>
-                    {dT?.name}
-                  </MenuItem>
-                );
-              })}
-            </CustomSelectField>
+
           </div>
         </div>
       </div>
