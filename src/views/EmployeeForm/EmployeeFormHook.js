@@ -47,21 +47,21 @@ const useEmployeeFormDetail = ({ location }) => {
     return location?.state?.job_id;
   }, [location]);
 
-  useEffect(() => {
-    serviceJobOpeningsDetails({ id: selectedJobId }).then((res) => {
-      if (!res.error) {
-        setJobDetails(res?.data?.details);
-      }
-    });
-  }, [selectedJobId]);
+  // useEffect(() => {
+  //   serviceJobOpeningsDetails({ id: selectedJobId }).then((res) => {
+  //     if (!res.error) {
+  //       setJobDetails(res?.data?.details);
+  //     }
+  //   });
+  // }, [selectedJobId]);
 
-  useEffect(() => {
-    serviceGetList(["EMPLOYEES"]).then((res) => {
-      if (!res.error) {
-        setEmployees(res?.data?.EMPLOYEES);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   serviceGetList(["EMPLOYEES"]).then((res) => {
+  //     if (!res.error) {
+  //       setEmployees(res?.data?.EMPLOYEES);
+  //     }
+  //   });
+  // }, []);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };

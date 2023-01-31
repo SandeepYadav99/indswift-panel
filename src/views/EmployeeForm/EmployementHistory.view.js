@@ -1,16 +1,17 @@
 import { ButtonBase, Checkbox, MenuItem } from "@material-ui/core";
+import { useStyles } from "@material-ui/pickers/views/Calendar/SlideTransition";
 import React, { useCallback, useState } from "react";
 import { useRef } from "react";
 import CustomToggle from "../../components/FormFields/CustomToggle";
 import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomTextField from "../../components/FormFields/TextField/TextField.component";
 import { isNum } from "../../libs/RegexUtils";
-// import EmployeeIncludeForm from "./components/EmployementHistory/Includes.component";
+import EmployeeIncludeForm from "./components/EmployementHistory/EmployeeIncludes.component";
 import SalaryDetail from "./components/SalaryDetails/SalaryDetails";
 import useEmployeeFormDetail from "./EmployeeFormHook";
 import styles from "./Style.module.css";
 
-function EmploymentHistory() {
+function EmploymentHistory({ location }) {
   const {
     form,
     errorData,
@@ -28,7 +29,9 @@ function EmploymentHistory() {
     handleReset,
     selectedJobId,
     jobDetails,
-  } = useEmployeeFormDetail({});
+  } = useEmployeeFormDetail({ location });
+  const classes = useStyles();
+
   return (
     <div className={styles.employeeLoginWrapper}>
       <div className={styles.employeeLoginContainer}>
@@ -48,7 +51,10 @@ function EmploymentHistory() {
           <div className={"plainPaper"}>
             <div className={"headerFlex"}>
               <h4 className={"infoTitle"}>
-                <div className={"heading"}>Employement History</div>
+                <div className={"heading"}>
+                  Employement History{" "}
+                  <span>(Please start from most recent employer)</span>
+                </div>
               </h4>
               <div style={{ width: "250px" }}>
                 <CustomToggle
@@ -61,9 +67,8 @@ function EmploymentHistory() {
                 />
               </div>
             </div>
-            {!form.is_fresher ? <p>EmployeeHistory Form</p> : ""}
+            {!form.is_fresher ? <EmployeeIncludeForm ref={historyRef} /> : ""}
           </div>
-          {/* <EmployeeIncludeForm /> */}
         </div>
         <div className={styles.signContainer}>
           <SalaryDetail />
