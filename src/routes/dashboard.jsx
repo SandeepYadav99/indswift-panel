@@ -39,6 +39,9 @@ import DesignationCreateView from "../views/Designation/DesignationCreate.view";
 import AppSettings from "../views/AppSettings/AppSettings.container";
 import HRSettings from "../views/HRSettings/HRSettings.container";
 import EmployeeDashboard from "../views/employee_dashboard/EmployeeDashboard.view";
+import EmployeeInducation from "../views/EmployeeInducation/EmployeeInducation.container";
+import EmployeeHRPolicy from "../views/EmployeeHRPolicy/EmployeeHRPolicy.container";
+import EmployeeCircular from "../views/EmployeeCircular/EmployeeCircular.container";
 
 
 const dashboardRoutes = [
@@ -50,14 +53,7 @@ const dashboardRoutes = [
         component: NewDashboard,
         is_sidebar: true,
     },
-    {
-        path: "/employeedashboard",
-        sidebarName: "Dashboard",
-        navbarName: "Admin Dashboard",
-        icon: DashboardOutlined,
-        component: EmployeeDashboard,
-        is_sidebar: false,
-    },
+    
     {
         path: RouteName.JOB_ROLES,
         sidebarName: "Job Description",
@@ -124,6 +120,59 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'masters',
         is_parent: true,
+    },
+    {
+        path: 'null',
+        sidebarName: "Emp-Dashboard",
+        navbarName: "Emp-Dashboard",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: 'employeedashboard',
+        is_parent: true,
+    },
+    {
+        path: '/employeedashboard',
+        sidebarName: "Dashboard",
+        navbarName: "Dashboard",
+        icon: PeopleOutlined,
+        component: EmployeeDashboard,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'employeedashboard',
+    },
+    {
+        path: '/employeeInduction',
+        sidebarName: "EmployeeInduction",
+        navbarName: "EmployeeInduction",
+        icon: PeopleOutlined,
+        component: EmployeeInducation,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'employeedashboard',
+    },
+    {
+        path: '/hrpolicy',
+        sidebarName: "EmployeeHRPolicy",
+        navbarName: "EmployeeHRPolicy",
+        icon: PeopleOutlined,
+        component: EmployeeHRPolicy,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'employeedashboard',
+    },
+    {
+        path: '/employeecircular',
+        sidebarName: "EmployeeCircular",
+        navbarName: "EmployeeCircular",
+        icon: PeopleOutlined,
+        component: EmployeeCircular,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'employeedashboard',
     },
     {
         path: 'null',
