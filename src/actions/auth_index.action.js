@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 import { setAuthorizationToken } from '../libs/set_auth_token.utils';
 import history from '../libs/history.utils';
 import {serviceGetProfile} from "../services/index.services";
+import RouteName from "../routes/Route.name";
 
 
 export const AUTH_USER = 'AUTH_USER';
@@ -27,7 +28,11 @@ export function actionLoginUser(data, isKeepLogin = null) {
             setAuthorizationToken(data.token);
             dispatch({ type: AUTH_USER, payload: { ...data, token: data.token,  } });
             // dispatch(actionGetProfile());
-            history.push(`/`);
+            if (data?.should_reset_password) {
+                history.push(RouteName.RESET_PASSWORD_FIRST);
+            } else {
+                history.push(`/`);
+            }
         }
     };
     // return ({type: AUTH_USER, payload: data});

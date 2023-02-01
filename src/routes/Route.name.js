@@ -2,6 +2,7 @@
  * Created by charnjeetelectrovese@gmail.com on 10/30/2019.
  */
 export default {
+    LOGIN: '/login',
     LOCATIONS: '/locations',
     LOCATIONS_CREATE: '/locations/create',
     LOCATIONS_UPDATE: '/locations/update/',
@@ -44,4 +45,7 @@ export default {
 
     SETTINGS: '/settings',
     HR_SETTINGS: '/hr/settings',
+
+    EMPLOYEE_DASHBOARD: '/employee/dashboard',
+    RESET_PASSWORD_FIRST: '/reset/password/first'
 };

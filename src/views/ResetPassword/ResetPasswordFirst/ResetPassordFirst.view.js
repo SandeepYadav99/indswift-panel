@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Field, reduxForm } from "redux-form";
-import styles from "./Forgot.module.css";
+import styles from "./Style.module.css";
 import {
   ButtonBase,
   IconButton,
@@ -8,123 +8,14 @@ import {
   withStyles,
 } from "@material-ui/core";
 
-import DashboardSnackbar from "../../components/Snackbar.component";
-import CustomTextField from "../../components/FormFields/TextField/TextField.component";
+import DashboardSnackbar from "../../../components/Snackbar.component";
+import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import { isAlphaNumChars } from "../../libs/RegexUtils";
+import { isAlphaNumChars } from "../../../libs/RegexUtils";
+import useResetPasswordFirst from "./ResetPasswordFirst.hook";
 
 const ResetPasswordFirst = () => {
-  const initialForm = {
-    currentPassword: "",
-    newPassword: "",
-    verifyNewPassword: "",
-  };
-  const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
-  const [showPasswordNew, setShowPasswordNew] = useState(false);
-  const [showPasswordVerify, setShowPasswordVerify] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorData, setErrorData] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [form, setForm] = useState({ ...initialForm });
-
-  const checkFormValidation = useCallback(() => {
-    const errors = { ...errorData };
-    let required = ["currentPassword", "newPassword", "verifyNewPassword"];
-    required.forEach((val) => {
-      if (
-        !form?.[val] ||
-        (Array.isArray(form?.[val]) && form?.[val].length === 0)
-      ) {
-        errors[val] = true;
-      } else if (form.newPassword !== form.verifyNewPassword) {
-        errors.verifyNewPassword = "New password does not match";
-      } else if (form.newPassword === form.verifyNewPassword) {
-        delete errors.verifyNewPassword;
-      }
-    });
-    console.log("===>", errors);
-    Object.keys(errors).forEach((key) => {
-      if (!errors[key]) {
-        delete errors[key];
-      }
-    });
-    return errors;
-  }, [form, errorData]);
-  const removeError = useCallback(
-    (title) => {
-      const temp = JSON.parse(JSON.stringify(errorData));
-      temp[title] = false;
-      setErrorData(temp);
-    },
-    [setErrorData, errorData]
-  );
-
-  const changeTextData = useCallback(
-    (text, fieldName) => {
-      let shouldRemoveError = true;
-      const t = { ...form };
-      if (
-        fieldName === "currentPassword" ||
-        fieldName === "newPassword" ||
-        fieldName === "verifyNewPassword"
-      ) {
-        if (!text || (isAlphaNumChars(text) && text.toString().length <= 50)) {
-          t[fieldName] = text;
-        }
-      }
-      setForm(t);
-      shouldRemoveError && removeError(fieldName);
-    },
-    [removeError, form, setForm]
-  );
-
-  const handleSubmit = useCallback(async () => {
-    const errors = checkFormValidation();
-    if (Object.keys(errors).length > 0) {
-      setErrorData(errors);
-      return true;
-    }
-
-    // submitToServer();
-  }, [
-    checkFormValidation,
-    setErrorData,
-    form,
-    // submitToServer
-  ]);
-  //   const submitToServer = useCallback(() => {
-  //     if (!isSubmitting) {
-  //       setIsSubmitting(true);
-  //       let req = null;
-  //       if (id) {
-  //         req = serviceUpdateLocation({
-  //           ...form,
-  //         });
-  //       } else {
-  //         req = serviceCreateLocation({
-  //           ...form,
-  //         });
-  //       }
-  //       req.then((res) => {
-  //         // { error: true, message: tempRequest.data.response_message, authorization: true, response_code: tempRequest.data.response_code };
-  //         if (!res.error) {
-  //           historyUtils.push(RouteName.LOCATIONS);
-  //         } else {
-  //           SnackbarUtils.error(res.message);
-  //         }
-  //         setIsSubmitting(false);
-  //       });
-  //     }
-  //   }, [form, isSubmitting, setIsSubmitting,]);
-
-  const onBlurHandler = useCallback(
-    (type) => {
-      if (form?.[type]) {
-        changeTextData(form?.[type].trim(), type);
-      }
-    },
-    [changeTextData]
-  );
+    const {showPasswordCurrent, setShowPasswordCurrent, isSubmitting, onBlurHandler, handleSubmit, form, errorData, changeTextData, showPasswordVerify, setShowPasswordNew, setShowPasswordVerify, showPasswordNew  } = useResetPasswordFirst({});
   return (
     <div className={styles.mainLoginView}>
       <div className={styles.loginFlex1}>
@@ -137,7 +28,7 @@ const ResetPasswordFirst = () => {
         <div className={styles.signContainer}>
           <div className={styles.logoImg}>
             <img
-              src={require("../../assets/img/login logo@2x.png")}
+              src={require("../../../assets/img/login logo@2x.png")}
               className={styles.sky}
             />
           </div>

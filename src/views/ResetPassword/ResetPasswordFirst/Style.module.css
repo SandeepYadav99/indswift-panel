@@ -11,7 +11,7 @@
     /*background-repeat: no-repeat;*/
 }
 .loginFlex1 {
-    background-image: url('../../assets/img/login_image.png');
+    background-image: url('../../../assets/img/login_image.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50%;
@@ -32,10 +32,7 @@
     /*background-color: #FBFBFB;*/
     flex: 1;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    box-sizing: border-box;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 

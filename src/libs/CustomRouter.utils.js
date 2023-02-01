@@ -3,14 +3,17 @@
  */
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import { bindActionCreators } from 'redux';
+import RouteName from "../routes/Route.name";
 
 
 const CustomRouter = (props) => {
     console.log('customRouter', props);
-  const { component: Component, ...rest } = props;
-  if (!props.is_authenticated && props.private) {
+  const { component: Component, roles, ...rest } = props;
+  const { is_authenticated, role } = useSelector(state => state.auth);
+
+  if (!is_authenticated && props.private) {
       return (  <Route {...rest} render = {(childProps) => (
               <Redirect to={{
                   pathname : '/login',
@@ -20,29 +23,27 @@ const CustomRouter = (props) => {
           />
       )
   }
-  return (<Route
-    {...rest}
-    render={(childProps) => {
+  if (roles) {
+      const isThere = roles.indexOf(role);
+      if (isThere < 0) {
+         return (  <Route {...rest} render = {(childProps) => (
+                 <Redirect to={{
+                     pathname : RouteName.EMPLOYEE_DASHBOARD,
+                     state : { from: childProps.location}
+                 }}/>
+             )}
+             />
+         )
+      }
+  }
+  return (<Route {...rest} render={(childProps) => {
       return (
         <Component {...childProps} board_type={props.board_type} category={props.category}  {...props}/>
       );
-    }
-            }
+    }}
   />
   );
 };
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-  }, dispatch);
-}
 
-function mapStateToProps(state) {
-  return {
-    is_authenticated: state.auth.is_authenticated,
-    //   category: state.common.category,
-    //   board_type: state.common.board_type,
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CustomRouter);
+export default (CustomRouter);

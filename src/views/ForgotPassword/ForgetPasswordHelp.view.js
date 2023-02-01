@@ -15,12 +15,15 @@ import {
 } from "@material-ui/core";
 import { Button, withStyles, ButtonBase } from "@material-ui/core";
 import { ArrowBack } from "@material-ui/icons";
-import { serviceForgotPassword } from "../../services/index.services";
+import {serviceForgotPassword, serviceLoginSupport} from "../../services/index.services";
 import DashboardSnackbar from "../../components/Snackbar.component";
 import { Link } from "react-router-dom";
 
 import EventEmitter from "../../libs/Events.utils";
 import { updateTitle } from "../../libs/general.utils";
+import SnackbarUtils from "../../libs/SnackbarUtils";
+import historyUtils from "../../libs/history.utils";
+import RouteName from "../../routes/Route.name";
 
 const validate = (values) => {
   const errors = {};
@@ -101,24 +104,19 @@ class ForgotPasswordHelpView extends Component {
       this.setState({
         is_calling: true,
       });
-      serviceForgotPassword(data).then((val) => {
+      serviceLoginSupport(data).then((val) => {
         if (!val.error) {
-          EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-            error: "Password Reset Email Sent",
-            type: "success",
-          });
+          SnackbarUtils.success("Password Reset Email Sent");
           this.setState({
             is_sent: true,
             is_calling: false,
           });
+          historyUtils.push(RouteName.LOGIN)
         } else {
           this.setState({
             is_calling: false,
           });
-          EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-            error: "Invalid Email Address",
-            type: "error",
-          });
+          SnackbarUtils.error(val.message);
         }
       });
     }

@@ -23,10 +23,7 @@ import { Link } from 'react-router-dom';
 import Slide from '@material-ui/core/Slide';
 import EventEmitter from "../../libs/Events.utils";
 import {updateTitle} from "../../libs/general.utils";
-
-function Transition(props) {
-    return <Slide direction="up" {...props} />;
-}
+import SnackbarUtils from "../../libs/SnackbarUtils";
 
 const validate = (values) => {
     const errors = {}
@@ -113,10 +110,10 @@ class ResetPasswordView extends Component {
     }
 
     _handleSubmit(data) {
-        this.setState({
-            is_calling: true,
-        });
         if (!this.state.is_calling) {
+            this.setState({
+                is_calling: true,
+            });
             serviceResetPassword({
                 ...data,
                 token: this.state.token
@@ -127,16 +124,13 @@ class ResetPasswordView extends Component {
                 if (!val.error) {
                     this.setState({
                         success: true
-                    })
-                    EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-                        error: 'Password Changed Successfully',
-                        type: 'success'
                     });
+                    SnackbarUtils.success('Password Changed Successfully');
                     setTimeout(() => {
                         this.props.history.push('/login');
                     }, 1500);
                 } else {
-                    EventEmitter.dispatch(EventEmitter.THROW_ERROR, {error: 'Invalid Token', type: 'error'});
+                    SnackbarUtils.error( 'Invalid Token');
                 }
             });
         }

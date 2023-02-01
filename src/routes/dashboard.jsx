@@ -42,10 +42,12 @@ import EmployeeDashboard from "../views/employee_dashboard/EmployeeDashboard.vie
 import EmployeeInducation from "../views/EmployeeInducation/EmployeeInducation.container";
 import EmployeeHRPolicy from "../views/EmployeeHRPolicy/EmployeeHRPolicy.container";
 import EmployeeCircular from "../views/EmployeeCircular/EmployeeCircular.container";
+import Constants from "../config/constants";
 import EmployeeEngagement from "../views/EmployeeEngagement/EmployeeEngagement.container";
 import EmployeeDrishti from "../views/EmployeeDrishti/EmployeeDrishti.container";
 import EmployeeIkigai from "../views/EmployeeIkigai/EmployeeIkigai.container";
 
+const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
     {
@@ -55,7 +57,9 @@ const dashboardRoutes = [
         icon: DashboardOutlined,
         component: NewDashboard,
         is_sidebar: true,
+        roles: [Roles.ADMIN],
     },
+
     {
         path: "/employee/engagement",
         sidebarName: "Enagement",
@@ -89,6 +93,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.JOB_ROLES_CREATE,
@@ -107,7 +112,7 @@ const dashboardRoutes = [
         component: JobRoleCreateView,
         is_sidebar: false,
         is_protect: true,
-
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.JOB_ROLES_DETAILS}:id`,
@@ -118,6 +123,7 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
         onlyShow: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: "/employees",
@@ -128,6 +134,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         // should_regex: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: "/employees/details/:id",
@@ -137,6 +144,7 @@ const dashboardRoutes = [
         component: EmployeeTab,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: 'null',
@@ -146,6 +154,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'masters',
         is_parent: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: 'null',
@@ -157,7 +166,7 @@ const dashboardRoutes = [
         is_parent: true,
     },
     {
-        path: '/employeedashboard',
+        path: RouteName.EMPLOYEE_DASHBOARD,
         sidebarName: "Dashboard",
         navbarName: "Dashboard",
         icon: PeopleOutlined,
@@ -208,6 +217,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'budget',
         is_parent: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: "/annual",
@@ -219,6 +229,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'budget',
+        roles: [Roles.ADMIN],
     },
     {
         path: "/manpower",
@@ -230,6 +241,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'budget',
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.CANDIDATES,
@@ -240,6 +252,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.CANDIDATES_CREATE,
@@ -249,6 +262,7 @@ const dashboardRoutes = [
         component: CandidateCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.LOCATIONS,
@@ -260,18 +274,21 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'masters',
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.LOCATIONS_CREATE,
         component: LocationCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.LOCATIONS_UPDATE}:id`,
         component: LocationCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.LOCATIONS_DETAILS}:id`,
@@ -281,6 +298,7 @@ const dashboardRoutes = [
         component: LocationDetail,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.DEPARTMENTS,
@@ -292,30 +310,35 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'masters',
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.DEPARTMENT_CREATE,
         component: DepartmentCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.DEPARTMENT_UPDATE}:id`,
         component: DepartmentCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.SUB_DEPARTMENTS_CREATE,
         component: SubDepartmentCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.SUB_DEPARTMENTS_UPDATE}:id`,
         component: SubDepartmentCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.SUB_DEPARTMENTS}:code`,
@@ -324,7 +347,8 @@ const dashboardRoutes = [
         icon: Subtitles,
         component: SubDepartmentList,
         is_sidebar: false,
-        should_regex: true
+        should_regex: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.GRADES,
@@ -336,6 +360,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'masters',
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.DESIGNATION,
@@ -347,48 +372,56 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'masters',
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.DESIGNATION_CREATE,
         component: DesignationCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.DESIGNATION_UPDATE}:id`,
         component: DesignationCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.GRADES_CREATE,
         component: GradeCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.GRADES_UPDATE}:id`,
         component: GradeCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.CADRES_CREATE,
         component: CadreCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.CADRES_UPDATE}:id`,
         component: CadreCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.CADRES}:code`,
         component: CadreList,
         is_sidebar: false,
-        should_regex: true
+        should_regex: true,
+        roles: [Roles.ADMIN],
     },
 
     {
@@ -400,6 +433,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.JOB_OPENINGS_CREATE,
@@ -409,6 +443,7 @@ const dashboardRoutes = [
         component: JobOpeningCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: 'null',
@@ -418,6 +453,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'Hr',
         is_parent: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.HR_POLICIES,
@@ -429,6 +465,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'Hr',
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.HR_SETTINGS,
@@ -440,18 +477,21 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'Hr',
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.HR_POLICIES_CREATE,
         component: HRCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.HR_POLICIES_UPDATE}:id`,
         component: HRCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.HR_CIRCULARS,
@@ -463,18 +503,21 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'Hr',
+        roles: [Roles.ADMIN],
     },
     {
         path: RouteName.HR_CIRCULARS_CREATE,
         component: CircularCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.HR_CIRCULARS_UPDATE}:id`,
         component: CircularCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     {
         path: `${RouteName.JOB_OPENINGS_DETAILS}:id`,
@@ -484,6 +527,7 @@ const dashboardRoutes = [
         component: JobOpeningDetail,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
     },
     // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];

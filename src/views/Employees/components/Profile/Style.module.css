@@ -35,9 +35,9 @@
     font-size: .7rem;
 }
 .vertical {
-    border-left: 1px dashed #B8C5D3;
+    /*border-left: 1px dashed #B8C5D3;*/
     max-height: 120px;
-    flex: 0.3;
+    /*flex: 0.3;*/
 }
 .childrenWrapper{
     margin-top: 20px;
@@ -46,22 +46,22 @@
     color: #818181;
     font-weight: 500;
     margin-bottom: 7px;
-    display: flex;
+    /*display: flex;*/
 }
 
 .value{
     font-weight: 600;
-    width: 150px;
+    width: 100%;
     color: black;
     display: inline-block;
 }
 .value1{
     font-size: .7rem;
     font-weight: 600;
-    width: 150px;
+    width: 100%;
     color: black;
     display: inline-block;
-    max-width: 130px;
+    /*max-width: 130px;*/
 }
 .newContainer{
     font-size: 0.7rem;

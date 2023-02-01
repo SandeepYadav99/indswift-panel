@@ -9,12 +9,13 @@ import ForgotPassword from "../views/ForgotPassword/ForgotPassword.view";
 import ResetPassword from "../views/ForgotPassword/ResetPassword.view";
 import { Route, Switch } from "react-router-dom";
 import ForgetPasswordHelp from "../views/ForgotPassword/ForgetPasswordHelp.view.js";
-import ResetPassordFirst from "../views/ForgotPassword/ResetPassordFirst.view.js";
+import ResetPasswordFirst from "../views/ResetPassword/ResetPasswordFirst/ResetPassordFirst.view";
 import EmployeeLogin from "../views/EmployeeLogin/EmployeeLogin.js";
 import EmployementHistory from "../views/EmployeeForm/EmployementHistory.view";
 import EmployeeFormSubmit from "../views/EmployeeForm/EmployeeFormSubmit.js";
 import EmployeeForm from "../views/EmployeeForm/EmployeeForm.js";
 import QualificationPage from "../views/EmployeeForm/Qualificationform.js";
+import RouteName from "./Route.name";
 
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
@@ -30,8 +31,8 @@ const RouteComponent = () => (
     {/*<Route path={'/signup'} component={Signup} />*/}
     <Route path={"/forgot/password"} component={ForgotPassword} />
     <Route path={"/forget/help"} component={ForgetPasswordHelp} />
+      <Route path={RouteName.RESET_PASSWORD_FIRST} component={ResetPasswordFirst} />
     <Route path={"/reset/password"} component={ResetPassword} />
-    <Route path={"/first"} component={ResetPassordFirst} />
     <Route path={"/"} component={Dashboard} />
   </Switch>
 );
