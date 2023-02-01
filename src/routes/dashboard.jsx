@@ -42,6 +42,7 @@ import EmployeeDashboard from "../views/employee_dashboard/EmployeeDashboard.vie
 import EmployeeInducation from "../views/EmployeeInducation/EmployeeInducation.container";
 import EmployeeHRPolicy from "../views/EmployeeHRPolicy/EmployeeHRPolicy.container";
 import EmployeeCircular from "../views/EmployeeCircular/EmployeeCircular.container";
+import EmployeeEngagement from "../views/EmployeeEngagement/EmployeeEngagement.container";
 
 
 const dashboardRoutes = [
@@ -51,6 +52,14 @@ const dashboardRoutes = [
         navbarName: "Admin Dashboard",
         icon: DashboardOutlined,
         component: NewDashboard,
+        is_sidebar: true,
+    },
+    {
+        path: "/employee/engagement",
+        sidebarName: "Enagement",
+        navbarName: "Admin Dashboard",
+        icon: DashboardOutlined,
+        component: EmployeeEngagement,
         is_sidebar: true,
     },
     

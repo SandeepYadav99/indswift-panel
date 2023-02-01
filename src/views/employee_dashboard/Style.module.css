@@ -1,6 +1,7 @@
 .EmployeeDashboardFlex {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 .EmployeeDashboardWrapper {
   display: flex;
@@ -10,6 +11,7 @@
 .secondRow {
   display: flex;
   gap: 25px;
+  flex-wrap: wrap;
 }
 .announcementRowWrapper {
   display: flex;

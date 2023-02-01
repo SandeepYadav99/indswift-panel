@@ -32,3 +32,12 @@ export const EmployeeCircularData = {
   fifthRow:
     "New circulars being issued in future will automatically be updated on the platform.",
 };
+
+export const EmployeeEngagementData = {
+  firstRow:
+    "Employee Engagement, Employee Welfare and Employee Empowerment (The 3 E’s) have remained to be 3 key priority areas for Ind-Swift’s performance culture since from our commencement.",
+  secondRow:
+    " Organization has been doing a lot on these 3 aspects with coordination and corporation from all our employees who are integral part of our common identity i.e. “Swift Family”",
+  thirdRow:
+    "E3M as a module comprises of 4 branches, each of which contains further branches. These branches work with different focus on different attributes.",
+};

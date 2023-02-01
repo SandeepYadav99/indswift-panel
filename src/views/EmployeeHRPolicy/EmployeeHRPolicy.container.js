@@ -121,7 +121,7 @@ function EmployeeHRPolicy() {
   return (
     <div className={styles.EmployeeHRWrapper}>
       <InformationCard
-        heading="HR Policies"
+        heading="Circular"
         imageUrl={images}
         data={StaticPolicyData}
       />
