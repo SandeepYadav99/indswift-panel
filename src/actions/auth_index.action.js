@@ -25,7 +25,7 @@ export function actionLoginUser(data, isKeepLogin = null) {
             //     sessionStorage.setItem('keep_login', true);
             // }
             setAuthorizationToken(data.token);
-            dispatch({ type: AUTH_USER, payload: { token: data.token, name: data.name, id: data.user_id } });
+            dispatch({ type: AUTH_USER, payload: { ...data, token: data.token,  } });
             // dispatch(actionGetProfile());
             history.push(`/`);
         }

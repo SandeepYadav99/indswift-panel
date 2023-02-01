@@ -16,6 +16,7 @@ import classNames from 'classnames'
 import EventEmitter from "../../libs/Events.utils";
 import {updateTitle} from "../../libs/general.utils";
 import history from "../../libs/history.utils";
+import SnackbarUtils from "../../libs/SnackbarUtils";
 
 const validate = (values) => {
     const errors = {}
@@ -97,7 +98,7 @@ class LoginView extends Component {
             if (!val.error) {
                 this.props.actionLoginUser(val.data, this.state.is_checked);
             } else {
-                EventEmitter.dispatch(EventEmitter.THROW_ERROR, {error: 'Invalid Credentials! Please verify.', type: 'error'});
+                SnackbarUtils.error('Invalid Credentials! Please verify.');
             }
         });
     }

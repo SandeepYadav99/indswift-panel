@@ -18,3 +18,7 @@ export async function serviceGetCadreDetails(params) {
 export async function serviceDeleteCadre(params) {
     return await formDataRequest('cadres/delete', params);
 }
+
+export async function serviceCheckCadreCode(params) {
+    return await postRequest('cadres/exists', params);
+}
