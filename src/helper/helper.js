@@ -41,3 +41,48 @@ export const EmployeeEngagementData = {
   thirdRow:
     "E3M as a module comprises of 4 branches, each of which contains further branches. These branches work with different focus on different attributes.",
 };
+
+export const EmployeeDrishtiData = {
+  firstRow:
+    "Drishti is not just a symbol of seeing things but it also an epitome of “Equally seeing things”. Drishti enables every living being on planet to see the colours of world equally without any discrimination.",
+  secondRow:
+    "On this principle of equality, Drishti Branch of “Swift E3M” works for area of Employee Welfare covering all employees of organization equally and it covers 3 programs",
+};
+
+export const EmployeeIkigaiData = {
+  firstRow:
+    "IKIGAI is a Japanese word that means “Finding Meaning and Purpose of Life”. Whatever we do in life, it is very important to see meaning in the same without which everything will simply be purposeless, same is true for work as well. “Meaning of Actions” is most important force that keeps a person engaged with life, with work and with others as well. Based on this principle, the IKIGAI branch of S3M works for area of Employee Empowerment that works to empower employees by helping them finding meaning in their work and by helping them in giving channels of open communications.",
+  secondRow:
+    " All above 4 programs of IKIGAI branch are under constant development and further improvement",
+  thirdRow:
+    "One new program termed as RIO (Re-Inventing Opportunities) is in plan to commence that is aimed to propagate succession & career planning models of organization and provide opportunity to employee for re-inventing their careers within organizations.",
+};
+
+export const DrishtiRowFirst = {
+  title: "SEA",
+  content: [
+    "Standing for Swift Employee Advantage. This Program focuses on formulating corporate tie ups with various service providers in external environment like Hospitals, Schools, Institutes, Hotels, Restaurants etc to provide a discounted pricing exclusively and equally for all employees of Ind-Swift.",
+    "Various Camps in this direction has been organized at different sites so far, the latest one was from Doctor Asha Aggarwal which was organized on 21st December 2020 for all Female Employees to bring awareness on their general health matters.",
+    "The program is being expanded with target to organizes at least 2 different nature of camps per quarter at each site consistently.",
+  ],
+};
+
+export const DrishtiRowSecond = {
+  title: "I-AWARE",
+  content: [
+    "Focuses on organizing financial learning camps, credit understanding camps, educations camps, NPS camps, Real-Estate camps etc for awareness and better understanding of employees towards investments/taxation etc.",
+    "Various Camps in this direction has been organized at different sites so far, the latest one was from Doctor Asha Aggarwal which was organized on 21st December 2020 for all Female Employees to bring awareness on their general health matters.",
+    "The program is being expanded with target to organizes at least 2 different nature of camps per quarter at each site consistently.",
+  ],
+};
+
+export const DrishtiRowThird = {
+  title: "SURAKSHA CHAKRA",
+  content: [
+    "Works to provide our employees sufficient insurances (like GMC, GTI, PMJJY, Statutory Coverages etc) for coverages against unforeseen incidents. The program also focuses on organizing in-house medical check-up camps for employees at set periodicity",
+    "Apart from GMC, PMJJY and Statutory Coverages, last year organization was able to bring GTI coverage of Rs 10 Lac each to all employees at extremely economic pricing by virtue of group synergy. Through this we have been able to assist families of 4 of our parted members in those hours of extreme crisis, this shows that how strong bond is shared by our employees with one another.",
+    "This year program is being expended to cover parents of employees in GMC and increase death coverage from Rs 10 Lac to Rs 20 Lac.",
+  ],
+};
+
+export const DrishtiData = [DrishtiRowFirst, DrishtiRowSecond, DrishtiRowThird];

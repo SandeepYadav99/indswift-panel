@@ -43,6 +43,8 @@ import EmployeeInducation from "../views/EmployeeInducation/EmployeeInducation.c
 import EmployeeHRPolicy from "../views/EmployeeHRPolicy/EmployeeHRPolicy.container";
 import EmployeeCircular from "../views/EmployeeCircular/EmployeeCircular.container";
 import EmployeeEngagement from "../views/EmployeeEngagement/EmployeeEngagement.container";
+import EmployeeDrishti from "../views/EmployeeDrishti/EmployeeDrishti.container";
+import EmployeeIkigai from "../views/EmployeeIkigai/EmployeeIkigai.container";
 
 
 const dashboardRoutes = [
@@ -62,7 +64,22 @@ const dashboardRoutes = [
         component: EmployeeEngagement,
         is_sidebar: true,
     },
-    
+    {
+        path: "/employee/drishti",
+        sidebarName: "EmployeeDrishti",
+        navbarName: "Admin Dashboard",
+        icon: DashboardOutlined,
+        component: EmployeeDrishti,
+        is_sidebar: true,
+    },
+    {
+        path: "/employee/ikigai",
+        sidebarName: "EmployeeIkigai",
+        navbarName: "Admin Dashboard",
+        icon: DashboardOutlined,
+        component: EmployeeIkigai,
+        is_sidebar: true,
+    },
     {
         path: RouteName.JOB_ROLES,
         sidebarName: "Job Description",
