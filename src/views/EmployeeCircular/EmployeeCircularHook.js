@@ -4,7 +4,8 @@ import { serviceGetEmployeeCircular } from "../../services/EmployeeCircular.serv
 
 function EmployeeCircularHook() {
   const [employeeCircularData, setemployeeCircularData] = useState([]);
-  const data = EmployeeCircularData;
+  const StaticCircularData = EmployeeCircularData;
+
   useEffect(() => {
     let dataValues = serviceGetEmployeeCircular();
     dataValues
@@ -14,7 +15,7 @@ function EmployeeCircularHook() {
       .catch((err) => console.log(err));
   }, []);
   return {
-    data,
+    StaticCircularData,
     employeeCircularData,
   };
 }

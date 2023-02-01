@@ -1,5 +1,5 @@
 .title {
-  font-size: 1.125rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 .newLine {
@@ -13,4 +13,9 @@
   display: flex;
   flex-direction: column;
   gap: 25px;
+}
+.squareDiv {
+  width: 9px;
+  height: 9px;
+  background: #2896e9;
 }

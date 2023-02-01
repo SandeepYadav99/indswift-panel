@@ -5,7 +5,7 @@ import { serviceGetEmployeeHRPolicy } from "../../services/EmployeeHRPolicy.serv
 
 function EmployeeHRPolicyHook() {
   const [employeeHRData, setemployeeHRData] = useState([]);
-  const data = EmployeeHRData;
+  const StaticPolicyData = EmployeeHRData;
   useEffect(() => {
     let dataValues = serviceGetEmployeeHRPolicy();
     dataValues
@@ -14,10 +14,9 @@ function EmployeeHRPolicyHook() {
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log("====>", employeeHRData);
 
   return {
-    data,
+    StaticPolicyData,
     employeeHRData,
   };
 }
