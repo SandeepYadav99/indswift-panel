@@ -27,8 +27,8 @@
   display: flex;
   flex: 2;
   flex-wrap: wrap;
-  font-size: 0.875rem;
-  min-width: 300px;
+  font-size: 0.8rem;
+  min-width: 500px;
 }
 .imageWrapper {
   display: flex;

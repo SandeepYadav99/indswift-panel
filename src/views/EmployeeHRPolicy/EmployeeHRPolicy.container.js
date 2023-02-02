@@ -5,7 +5,7 @@ import images from "../../assets/img/hr policies illustartion.png";
 import FilterComponent from "../../components/Filter/Filter.component";
 import classNames from "classnames";
 
-import { IconButton } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
@@ -46,7 +46,7 @@ function EmployeeHRPolicy() {
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>{obj?.name}</span> <br />
-            <span className={styles.productName}>
+            <span className={styles.productDate}>
               {obj?.effectiveDateText}
             </span>{" "}
             <br />
@@ -70,27 +70,19 @@ function EmployeeHRPolicy() {
         sortable: false,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
-      // {
-      //   key: "status",
-      //   label: "Status",
-      //   sortable: false,
-      //   render: (temp, all) => <div>{renderStatus(all.status)}</div>,
-      // },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
-              // onClick={() => {
-              //   handleEdit(all);
-              // }}
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
+            <Button
+              color="primary"
+              variant="contained"
+              size="small"
+              onClick={() => console.log("><><", all)}
             >
-              <Edit fontSize={"small"} />
-            </IconButton>
+              view
+            </Button>
           </div>
         ),
       },

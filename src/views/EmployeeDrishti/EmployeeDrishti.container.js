@@ -43,6 +43,14 @@ function EmployeeDrishti() {
           </div>
         </div>
       </div>
+      <div>
+        <div className={styles.cooperateWrapper}>
+          <span className={styles.title}>
+            Ind-Swift Corporate Tie-Ups (SEA)
+          </span>
+          <div className={styles.newLine} />
+        </div>
+      </div>
     </div>
   );
 }

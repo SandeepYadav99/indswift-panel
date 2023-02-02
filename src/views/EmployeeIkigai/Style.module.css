@@ -44,3 +44,13 @@
   padding: 1.2rem;
   padding-left: 0%;
 }
+.squareDivWrapper {
+  display: flex;
+  align-items: baseline;
+}
+.mappedDataWrapperLower {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 20px;
+}

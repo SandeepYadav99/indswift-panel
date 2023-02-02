@@ -45,7 +45,7 @@ function EmployeeCircular() {
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>{obj?.name}</span> <br />
-            <span className={styles.productName}>
+            <span className={styles.productDate}>
               {obj?.effectiveDateText}
             </span>{" "}
             <br />
@@ -81,9 +81,10 @@ function EmployeeCircular() {
         render: (temp, all) => (
           <div>
             <IconButton
-              // onClick={() => {
-              //   handleEdit(all);
-              // }}
+              onClick={() => {
+                console.log(all.document);
+                // handleEdit(all);
+              }}
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}

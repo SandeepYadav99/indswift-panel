@@ -75,7 +75,7 @@ export const DrishtiRowFirst = {
 export const DrishtiRowSecond = {
   title: "I-AWARE",
   content: [
-    "Focuses on organizing financial learning camps, credit understanding camps, educations camps, NPS camps, Real-Estate camps etc for awareness and better understanding of employees towards investments/taxation etc.",
+    "Focuses on organizing financial learning camps, credit understanding camps, educations camps, NPS camps, Real-Estate camps etc for awareness and better understanding of employees towards investments/taxation etc",
     "Various Camps in this direction has been organized at different sites so far, the latest one was from Doctor Asha Aggarwal which was organized on 21st December 2020 for all Female Employees to bring awareness on their general health matters.",
     "The program is being expanded with target to organizes at least 2 different nature of camps per quarter at each site consistently.",
   ],

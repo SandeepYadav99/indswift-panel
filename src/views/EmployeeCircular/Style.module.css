@@ -19,3 +19,11 @@
   height: 9px;
   background: #2896e9;
 }
+.productName {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.productDate {
+  color: #818181;
+  font-size: 0.75rem;
+}
