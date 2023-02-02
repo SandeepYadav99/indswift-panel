@@ -11,9 +11,9 @@ const UpperInfo = ({ data }) => {
         <div className={styles.innerContainer}>
           <div>
             <img
-              src={require("../../assets/img/ic_employee image@2x.png")}
+              src={data?.image}
               height={70}
-            />{" "}
+            />
           </div>
           <div className={styles.profileInfo}>
             <div className={styles.name}>{data?.name}</div>
@@ -27,7 +27,7 @@ const UpperInfo = ({ data }) => {
               {data?.location?.name}
             </div>
             <div>
-              <span className={styles.location}>Department</span> 
+              <span className={styles.location}>Department</span>
               {data?.department?.name}
             </div>
             <div>
