@@ -46,6 +46,7 @@ import Constants from "../config/constants";
 import EmployeeEngagement from "../views/EmployeeEngagement/EmployeeEngagement.container";
 import EmployeeDrishti from "../views/EmployeeDrishti/EmployeeDrishti.container";
 import EmployeeIkigai from "../views/EmployeeIkigai/EmployeeIkigai.container";
+import EmployeeDeepak from "../views/EmployeeDeepak/EmployeeDeepak.container";
 
 const Roles = Constants.ROLES;
 
@@ -60,30 +61,7 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN],
     },
 
-    {
-        path: "/employee/engagement",
-        sidebarName: "Enagement",
-        navbarName: "Admin Dashboard",
-        icon: DashboardOutlined,
-        component: EmployeeEngagement,
-        is_sidebar: true,
-    },
-    {
-        path: "/employee/drishti",
-        sidebarName: "EmployeeDrishti",
-        navbarName: "Admin Dashboard",
-        icon: DashboardOutlined,
-        component: EmployeeDrishti,
-        is_sidebar: true,
-    },
-    {
-        path: "/employee/ikigai",
-        sidebarName: "EmployeeIkigai",
-        navbarName: "Admin Dashboard",
-        icon: DashboardOutlined,
-        component: EmployeeIkigai,
-        is_sidebar: true,
-    },
+    
     {
         path: RouteName.JOB_ROLES,
         sidebarName: "Job Description",
@@ -164,6 +142,55 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'employeedashboard',
         is_parent: true,
+    },
+    {
+        path: 'null',
+        sidebarName: "Swift E3M ",
+        navbarName: "Swift E3M",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: 'swift',
+        is_parent: true,
+    },
+    {
+        path: "/employee/engagement",
+        sidebarName: "E3M Module",
+        navbarName: "Admin Dashboard",
+        icon: DashboardOutlined,
+        component: EmployeeEngagement,
+        is_sidebar: true,
+        parent: 'swift',
+
+    },
+    {
+        path: "/employee/drishti",
+        sidebarName: "Drishti",
+        navbarName: "Admin Dashboard",
+        icon: DashboardOutlined,
+        component: EmployeeDrishti,
+        is_sidebar: true,
+        parent: 'swift',
+
+    },
+    {
+        path: "/employee/deepak",
+        sidebarName: "Deepak",
+        navbarName: "Admin Dashboard",
+        icon: DashboardOutlined,
+        component: EmployeeDeepak,
+        is_sidebar: true,
+        parent: 'swift',
+
+    },
+    {
+        path: "/employee/ikigai",
+        sidebarName: "Ikigai",
+        navbarName: "Admin Dashboard",
+        icon: DashboardOutlined,
+        component: EmployeeIkigai,
+        is_sidebar: true,
+        parent: 'swift',
+
     },
     {
         path: RouteName.EMPLOYEE_DASHBOARD,

@@ -1,34 +1,30 @@
 import React from "react";
 import InformationCard from "../../components/InformationCard/InformationCard.component";
 import styles from "./Style.module.css";
-import DrishtiImage from "../../assets/img/Ikigai illustation.png";
-import { DrishtiData } from "../../helper/helper";
-import EmployeeIkigaiHook from "./EmployeeIkigaiHook";
+import DeepakImage from "../../assets/img/deepak illustartion.png";
+import { DeepakData } from "../../helper/helper";
+import EmployeeDeepakHook from "./EmployeeDeepakHook";
 
-function EmployeeIkigai() {
-  const { staticEmployeeIkigaiData, employeeData } = EmployeeIkigaiHook({});
-  const DrishtiDescription = DrishtiData;
+function EmployeeDeepak() {
+  const { staticEmployeeDeepakData, employeeData } = EmployeeDeepakHook({});
+  const DeepakDescription = DeepakData;
   return (
     <div className={styles.employeeDrishtiWrapper}>
       <InformationCard
-        heading="Ikigai - Employee Empowerment"
-        imageUrl={DrishtiImage}
-        data={staticEmployeeIkigaiData}
+        heading="Deepak - Social Welfare Programs"
+        imageUrl={DeepakImage}
+        data={staticEmployeeDeepakData}
       />
       <div className={styles.programBenefitWrapper}>
         <div>
           <div>
-            <span className={styles.title}>Program Benefits</span>
+            <span className={styles.title}>Program Updates</span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.programDescription}>
-            <p>
-              Currently 4 Programs that are effective under branch of IKIGAI are
-              stated below
-            </p>
             <div>
-              {DrishtiDescription?.length > 0 &&
-                DrishtiDescription?.map((item) => {
+              {DeepakDescription?.length > 0 &&
+                DeepakDescription?.map((item) => {
                   return (
                     <div className={styles.DrishtiDescriptionWrapper}>
                       <span className={styles.title}>{item?.title}</span>
@@ -51,4 +47,4 @@ function EmployeeIkigai() {
   );
 }
 
-export default EmployeeIkigai;
+export default EmployeeDeepak;

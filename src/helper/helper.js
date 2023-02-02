@@ -57,7 +57,12 @@ export const EmployeeIkigaiData = {
   thirdRow:
     "One new program termed as RIO (Re-Inventing Opportunities) is in plan to commence that is aimed to propagate succession & career planning models of organization and provide opportunity to employee for re-inventing their careers within organizations.",
 };
-
+export const EmployeeDeepakData = {
+  firstRow:
+    "No matter how dark and intense the darkness is, just a single “Deepak” is enough to shunt that away. With this thought Deepak Branch of “Swift E3M” works for area of Social Welfare",
+  secondRow:
+    " This branch provides opportunity to employees and organization for coming together and do something for society as a family.",
+};
 export const DrishtiRowFirst = {
   title: "SEA",
   content: [
@@ -86,3 +91,15 @@ export const DrishtiRowThird = {
 };
 
 export const DrishtiData = [DrishtiRowFirst, DrishtiRowSecond, DrishtiRowThird];
+
+export const DeepakData = [
+  {
+    content: [
+      "Distribution of free Food Outside Civil Hospitals of Chandigarh",
+      "Distribution of Cloths to Old Age Home @ Ropar",
+      "Distribution of Winter Clothes to Casual Workers of organization",
+      "Plantation of Trees in and around company premises",
+      "The most recent one was performed at R&D Mohali on 23.12.2020 where employees of R&D Mohali came together and contributed for distribution of Free Winter Clothes (Jackets, Gloves, Caps) to Contract Workers of organization.",
+    ],
+  },
+];
