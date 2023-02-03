@@ -38,7 +38,8 @@ const initialState = {
     query: null, // search text data
     query_data: null, // popover filter data change
     sorting_data: {row: null, order: null},
-    is_fetching: false
+    is_fetching: false,
+    total: 0
 };
 
 export default function (state = JSON.parse(JSON.stringify(initialState)), action) {
@@ -57,7 +58,9 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
                 console.log(newAll)
             }
             const tableData = mapPresetPRequest(newAll, state.currentPage);
-            return {...state, all: newAll, data: tableData, is_fetching: false}; // { ...state , all: newAll, data: tableData, serverPage: 1, currentPage: 1 };
+            return {...state, all: newAll, data: tableData,
+                total: action?.payload?.total,
+                is_fetching: false}; // { ...state , all: newAll, data: tableData, serverPage: 1, currentPage: 1 };
         }
         case SET_SORTING: {
             return {...state, sorting_data: action.payload};

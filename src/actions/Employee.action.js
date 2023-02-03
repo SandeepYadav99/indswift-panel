@@ -26,7 +26,6 @@ export const UPDATE_DATA = 'UPDATE_EMPLOYEE';
 export const DELETE_ITEM = 'DELETE_EMPLOYEE';
 export const GET_EMPLOYEE_DATA = 'GET_EMPLOYEE_DATA';
 
-
 export function actionFetchEmployee(index = 1, sorting = {}, filter = {}) {
     const request = serviceGetEmployee({ index, row: sorting.row, order: sorting.order, ...filter });
     return (dispatch) => {
@@ -35,7 +34,7 @@ export function actionFetchEmployee(index = 1, sorting = {}, filter = {}) {
             dispatch({type: SET_FILTER, payload: filter});
             dispatch({type: SET_SORTING, payload: sorting});
             if (!data.error) {
-                dispatch({type: FETCHED, payload: { data: data.data, page: index }});
+                dispatch({type: FETCHED, payload: { data: data.data.data, total: data?.data?.total, page: index }});
                 dispatch({ type: SET_SERVER_PAGE, payload: index });
                 if (index == 1) {
                     dispatch({type: CHANGE_PAGE, payload: index - 1});

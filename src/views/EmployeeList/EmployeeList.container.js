@@ -43,6 +43,7 @@ const EmployeeList = ({}) => {
     data,
     all: allData,
     currentPage,
+      total,
     is_fetching: isFetching,
   } = useSelector((state) => state.employee);
 
@@ -228,7 +229,7 @@ const EmployeeList = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Employee Records</span>
+            <span className={styles.title}>Total Employee Records: {total}</span>
             <div className={styles.newLine} />
           </div>
           <div>
