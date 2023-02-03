@@ -39,6 +39,8 @@ import JobOpeningDetailReducer from "./JobOpeningDetail.reducer";
 import HRFacility from "./HRFacility.reducer";
 import HRFacilityItem from "./HRFacilityItem.reducer";
 import HRKnowledgeReducer from "./HRKnowledge.reducer";
+import HRUtsavReducer from "./HRUtsav.reducer";
+import HRUtsavItemsReducer from "./HRUtsavItems.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -77,6 +79,8 @@ const rootReducer = combineReducers({
   job_opening_detail: JobOpeningDetailReducer,
   hr_facility: HRFacility,
   hr_facilities_item: HRFacilityItem,
+  hr_utsav: HRUtsavReducer,
+  hr_utsav_items: HRUtsavItemsReducer,
   // form: formReducer,
 });
 
