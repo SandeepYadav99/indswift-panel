@@ -92,6 +92,34 @@ export const DrishtiRowThird = {
 
 export const DrishtiData = [DrishtiRowFirst, DrishtiRowSecond, DrishtiRowThird];
 
+export const IkigaiData = [
+  {
+    title: "PMS",
+    content: [
+      "A scientific, credible and transparent 360 Degree based PMS of organization which is linked with budgets, data and performance of department/individuals is working in organization for ensuring that proper feedback is provided to employee on improvement areas and on arear where they are doing good.",
+      "This area is being worked to introduce concepts of Balanced Scorecards and KRA Sheets in PMS and to automate the same. This will make the process quick, easy and more reliable.",
+      "PMS feedbacks are clear indicators that explain “what is expected out of an employee’s performance” and “how his/her performance can affect entire integrated working of Organization”.",
+    ],
+  },
+  {
+    title: "RAPID LEARNING PROGRAM",
+    content: [
+      "RAPID learning stands for “Recruiting, Aligning, Performing, Inspecting and Developing”. This Program indicates T&D activities of organization.",
+      "Gaps of PMS are used to identify Training Needs of individuals and so developing customized training modules for them. Aftre targeting specific people with specific training modules their improvement in performance in monitored and analysed in next PMS cycle.",
+      "Organization have published PRI (Performance Rating Index) of employees to show year on year improvement in various competencies and so improve “performance capacities” of organization in last few years.",
+      "Clear information about improvement areas and opportunities to learn specific skills make employees more confident about their career plans within the organization, which means finding their IKIGAI within the organization.",
+    ],
+  },
+  {
+    title: "REWARDS AND RECOGNITION PROGRAM",
+    content: [
+      "Organization has a wide and unfirmly applicable R&R program effectively working.",
+      "First R&R ceremony was organized 6 months ago where employees were rewarded with rewards to recognize their “out of the box and discretionary efforts” that they made in areas of Improvisation, Kaizen, Quality Circles, Lean etc.",
+      "Program is constantly working and invite nomination from employees themselves, which enable them to express their own efforts in their own language to top most layers to management.",
+      "Employee who earn R&R not just propagate their own careers as “Key Performers” but they also act as source of collective motivation in all employees.",
+    ],
+  },
+];
 export const DeepakData = [
   {
     content: [

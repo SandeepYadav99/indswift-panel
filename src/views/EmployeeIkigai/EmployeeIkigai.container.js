@@ -2,12 +2,12 @@ import React from "react";
 import InformationCard from "../../components/InformationCard/InformationCard.component";
 import styles from "./Style.module.css";
 import DrishtiImage from "../../assets/img/Ikigai illustation.png";
-import { DrishtiData } from "../../helper/helper";
+import { IkigaiData } from "../../helper/helper";
 import EmployeeIkigaiHook from "./EmployeeIkigaiHook";
 
 function EmployeeIkigai() {
   const { staticEmployeeIkigaiData, employeeData } = EmployeeIkigaiHook({});
-  const DrishtiDescription = DrishtiData;
+  const DrishtiDescription = IkigaiData;
   return (
     <div className={styles.employeeDrishtiWrapper}>
       <InformationCard

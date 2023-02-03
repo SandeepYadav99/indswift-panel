@@ -47,6 +47,9 @@ import EmployeeEngagement from "../views/EmployeeEngagement/EmployeeEngagement.c
 import EmployeeDrishti from "../views/EmployeeDrishti/EmployeeDrishti.container";
 import EmployeeIkigai from "../views/EmployeeIkigai/EmployeeIkigai.container";
 import EmployeeDeepak from "../views/EmployeeDeepak/EmployeeDeepak.container";
+import EmployeeUtsav from "../views/EmployeeUtsav/EmployeeUtsav.container";
+import HRKnowledge from "../views/HRKnowledge/HRKnowledge.container";
+import HRKnowledgeCreateView from "../views/HRKnowledge/HRKnowledgeCreate.view";
 
 const Roles = Constants.ROLES;
 
@@ -178,6 +181,16 @@ const dashboardRoutes = [
         navbarName: "Admin Dashboard",
         icon: DashboardOutlined,
         component: EmployeeDeepak,
+        is_sidebar: true,
+        parent: 'swift',
+
+    },
+    {
+        path: "/employee/utsav",
+        sidebarName: "Utsav",
+        navbarName: "Admin Dashboard",
+        icon: DashboardOutlined,
+        component: EmployeeUtsav,
         is_sidebar: true,
         parent: 'swift',
 
@@ -504,6 +517,25 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'Hr',
+        roles: [Roles.ADMIN],
+    },
+    {
+        path: '/hr/knowledge',
+        sidebarName: "Knowledge Center",
+        navbarName: "Knowledge Center",
+        icon: PeopleOutlined,
+        component: HRKnowledge,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'Hr',
+        roles: [Roles.ADMIN],
+    },
+    {
+        path: RouteName.HR_KNOWLEDGE_CREATE,
+        component: HRKnowledgeCreateView,
+        is_sidebar: false,
+        is_protect: true,
         roles: [Roles.ADMIN],
     },
     {
