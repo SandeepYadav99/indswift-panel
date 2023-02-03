@@ -20,7 +20,8 @@
 }
 .panelOpen {
   max-height: 1000px;
-  background: white;
+  /* background: white; */
+  background: #ebf9ff;
   /*overflow: hidden;*/
 }
 

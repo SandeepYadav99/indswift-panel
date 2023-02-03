@@ -50,6 +50,7 @@ import EmployeeDeepak from "../views/EmployeeDeepak/EmployeeDeepak.container";
 import EmployeeUtsav from "../views/EmployeeUtsav/EmployeeUtsav.container";
 import HRKnowledge from "../views/HRKnowledge/HRKnowledge.container";
 import HRKnowledgeCreateView from "../views/HRKnowledge/HRKnowledgeCreate.view";
+import HRUtsav from "../views/HRUtsav/HRUtsav.container";
 
 const Roles = Constants.ROLES;
 
@@ -63,8 +64,6 @@ const dashboardRoutes = [
         is_sidebar: true,
         roles: [Roles.ADMIN],
     },
-
-    
     {
         path: RouteName.JOB_ROLES,
         sidebarName: "Job Description",
@@ -508,6 +507,18 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN],
     },
     {
+        path: RouteName.HR_CIRCULARS,
+        sidebarName: "Circulars",
+        navbarName: "Circulars",
+        icon: PeopleOutlined,
+        component: Circular,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'Hr',
+        roles: [Roles.ADMIN],
+    },
+    {
         path: RouteName.HR_SETTINGS,
         sidebarName: "Settings",
         navbarName: "Settings",
@@ -546,22 +557,22 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN],
     },
     {
-        path: `${RouteName.HR_POLICIES_UPDATE}:id`,
-        component: HRCreateView,
-        is_sidebar: false,
-        is_protect: true,
-        roles: [Roles.ADMIN],
-    },
-    {
-        path: RouteName.HR_CIRCULARS,
-        sidebarName: "Circulars",
-        navbarName: "Circulars",
+        path: '/hr/utsav',
+        sidebarName: "Utsav",
+        navbarName: "Utsav ",
         icon: PeopleOutlined,
-        component: Circular,
+        component: HRUtsav,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
         parent: 'Hr',
+        roles: [Roles.ADMIN],
+    },
+    {
+        path: `${RouteName.HR_POLICIES_UPDATE}:id`,
+        component: HRCreateView,
+        is_sidebar: false,
+        is_protect: true,
         roles: [Roles.ADMIN],
     },
     {

@@ -54,3 +54,94 @@
   display: flex;
   justify-content: space-between;
 }
+.employeeInducationWrapper {
+  background: #eaf8fe;
+  padding: 1.2rem;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* background: yellow; */
+  margin-top: 20px;
+  gap: 30px;
+}
+.content {
+  display: flex;
+  flex: 2;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  min-width: 500px;
+}
+.imageWrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.achorTag {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: #2896e9;
+}
+.contentFormat {
+  line-height: 1.5;
+  /* margin-bottom: 0;
+  margin-top: 0; */
+}
+.image {
+  /* width: 282px;
+  height: 334px; */
+}
+
+.mappedDataWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 20px;
+}
+.squareDiv {
+  min-width: 9px;
+  width: 9px;
+  height: 9px;
+  background: #2896e9;
+}
+.mappedData {
+  padding: 5px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.DrishtiDescriptionWrapper {
+  padding: 1.2rem;
+  padding-left: 0%;
+}
+.squareDivWrapper {
+  display: flex;
+  align-items: baseline;
+}
+.eventsFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.Catalogue {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}

@@ -1,13 +1,16 @@
 import React from "react";
 import styles from "./Style.module.css";
-import DeepakImage from "../../../assets/img/deepak illustartion.png";
+import GalleryImage from "../../../assets/img/Gallery image 2.jpg";
 
 function GalleryImages() {
   return (
     <div className={styles.imageGalleryWrapper}>
-      {/* <img src={DeepakImage} /> */}
-      <div className={styles.utsavGalleryImage}></div>
-      <div className={styles.imageTitle}>hek</div>
+      <div className={styles.utsavGalleryImage}>
+        <img className={styles.utsavImages} src={GalleryImage} />
+        <div className={styles.imageTitle}>
+          <span>Republic Day Celebrations</span>
+        </div>
+      </div>
     </div>
   );
 }

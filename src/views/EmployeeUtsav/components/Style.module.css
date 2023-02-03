@@ -2,9 +2,34 @@
   border-radius: 10px;
   padding: 1.2rem;
   padding-left: 0%;
+  padding-bottom: 0%;
+  display: flex;
+  /* flex: 1; */
 }
 .utsavGalleryImage {
-  padding: 10px;
-  border: 1px solid black;
-  background-image: url("../../../assets/img/deepak illustartion.png");
+  /* padding: 10px; */
+  /* border: 1px solid black; */
+  position: relative;
+  height: auto;
+  border-radius: 10px;
+}
+.imageTitle {
+  background: black;
+  height: 20%;
+  opacity: 0.6;
+  position: absolute;
+  width: 100%;
+  bottom: 4px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.utsavImages {
+  border-radius: 10px;
+}
+.imageTitle > span {
+  color: #ffffff;
+  font-weight: 600;
 }
