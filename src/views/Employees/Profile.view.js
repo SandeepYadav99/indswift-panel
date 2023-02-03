@@ -18,7 +18,7 @@ const ProfileView = ({ data }) => {
           <PersonalInfo data={data} />
           <ContactInfo contact={data?.contact} />
           <AddressInfo address={data?.address} />
-          <Timeline />
+          {/*<Timeline />*/}
         </div>
         <div className={styles.rhs}>
           <OfficialDetails data={data} />

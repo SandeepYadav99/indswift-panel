@@ -1,7 +1,45 @@
-import React from "react";
+import React, {useMemo} from "react";
 import styles from "./Style.module.css";
 
+const ChildDetail = ({ data }) => {
+  return (
+      <div className={styles.mainFlex1}>
+        <div className={styles.left}>
+          <div className={styles.key}>
+            <span className={styles.value1}>Name:</span>
+            <span className={styles.valueWrap1}>
+                  {data?.name}
+                </span>
+          </div>
+        </div>
+        <div className={styles.right}>
+          <div className={styles.key}>
+            <span className={styles.value1}>DOB:</span>
+            <span className={styles.valueWrap1}>
+                  {data?.dob}
+                </span>
+          </div>
+        </div>
+        <div className={styles.right}>
+          <div className={styles.key}>
+            <span className={styles.value1}>Gender:</span>
+            <span className={styles.valueWrap1}>
+                  {data?.gender}
+                </span>
+          </div>
+        </div>
+      </div>
+  );
+}
+
 const PersonalInfo = ({ data }) => {
+
+  const childDetails = useMemo(() => {
+    return data?.children?.map(dT => {
+      return <ChildDetail data={dT} />
+    })
+  }, [data]);
+
   return (
     <div>
       <div className={styles.plainPaper}>
@@ -73,7 +111,7 @@ const PersonalInfo = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>No of Children:</span>
                 <span className={styles.valueWrap}>
-                  {/* {data?.family?.children_name} */}-
+                  {data?.children?.length}
                 </span>
               </div>
             </div>
@@ -81,50 +119,7 @@ const PersonalInfo = ({ data }) => {
         </div>
         <div className={styles.childrenWrapper}>
           <div className={styles.heading}>Children Details</div>
-          <div className={styles.mainFlex1}>
-            <div className={styles.left}>
-              <div className={styles.key}>
-                <span className={styles.value1}>Name:</span>
-                <span className={styles.valueWrap1}>
-                  {data?.family?.children_name}
-                </span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value1}>Name:</span>
-                <span className={styles.valueWrap1}>
-                  -
-                </span>
-              </div>
-            </div>
-            <div className={styles.right}>
-              <div className={styles.key}>
-                <span className={styles.value1}>DOB:</span>
-                <span className={styles.valueWrap1}>
-                  -
-                </span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value1}>DOB:</span>
-                <span className={styles.valueWrap1}>
-                  -
-                </span>
-              </div>
-            </div>
-            <div className={styles.right}>
-              <div className={styles.key}>
-                <span className={styles.value1}>Gender:</span>
-                <span className={styles.valueWrap1}>
-                  -
-                </span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value1}>Gender:</span>
-                <span className={styles.valueWrap1}>
-                  -
-                </span>
-              </div>
-            </div>
-          </div>
+          {childDetails}
         </div>
       </div>
     </div>
