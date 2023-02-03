@@ -51,6 +51,7 @@ import EmployeeUtsav from "../views/EmployeeUtsav/EmployeeUtsav.container";
 import HRKnowledge from "../views/HRKnowledge/HRKnowledge.container";
 import HRKnowledgeCreateView from "../views/HRKnowledge/HRKnowledgeCreate.view";
 import HRUtsav from "../views/HRUtsav/HRUtsav.container";
+import EmployeeKnowledge from "../views/EmployeeKnowledge/EmployeeKnowledge.container";
 
 const Roles = Constants.ROLES;
 
@@ -243,6 +244,17 @@ const dashboardRoutes = [
         navbarName: "EmployeeCircular",
         icon: PeopleOutlined,
         component: EmployeeCircular,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'employeedashboard',
+    },
+    {
+        path: '/employee/knowledge',
+        sidebarName: "EmployeeKnowledge",
+        navbarName: "EmployeeKnowledge",
+        icon: PeopleOutlined,
+        component: EmployeeKnowledge,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,

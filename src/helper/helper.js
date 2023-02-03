@@ -32,7 +32,20 @@ export const EmployeeCircularData = {
   fifthRow:
     "New circulars being issued in future will automatically be updated on the platform.",
 };
-
+export const EmployeeknowledgeData = {
+  firstRow:
+    "Many innovations and initiatives keep going in the organization at any given point of time, but these interventions do not live to their actual potential until and unless they are properly shared and discussed among all intellectuals of the organization.",
+  secondRow:
+    "This generates the need to have a common “Knowledge Center” where all employees can share anything performed by them that has brought some tangible or intangible synergy to the organization. It can be a study, a kaizen, a model, a theory, an article, a blog or anything which employee feels is worthwhile to share with all provided that it should be an intellectual subject. ",
+  thirdRow:
+    "The achievements, exceptional performances, outstanding projects competed by any employee will also become part of Knowledge center so that everyone in organization can see, appreciate and learn from the efforts being done by their colleagues and friends.",
+  forthRow:
+    "Say for example engineering team of a “Unit” has performed some mechanical changes in plant due to which process efficiencies has improved at that site, it should be shared (through a work paper) with every one so that teams working at other site may also learn and apply the innovations to achieve the same results.",
+  fifthRow:
+    "Knowledge centers if utilized can act as brilliant source of knowledge exchange between employees",
+  sixthRow:
+    "To start with source, some survey reports being done by HR department are shared over the resource. These reports have acted as base for bringing changes in PMS of the organization. On the basis of the outcomes of these reports, organization decided to move towards a more scientific process of performance appraisal in organization. Similarly other employees, departments and teams are encouraged to send the stiff that can be shared here. Learning comes by sharing !",
+};
 export const EmployeeEngagementData = {
   firstRow:
     "Employee Engagement, Employee Welfare and Employee Empowerment (The 3 E’s) have remained to be 3 key priority areas for Ind-Swift’s performance culture since from our commencement.",

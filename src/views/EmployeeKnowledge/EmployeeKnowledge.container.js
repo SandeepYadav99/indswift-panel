@@ -1,7 +1,7 @@
 import React from "react";
 import InformationCard from "../../components/InformationCard/InformationCard.component";
-import EmployeeCircularHook from "./EmployeeCircularHook";
-import Circularimages from "../../assets/img/circulars illustration.png";
+import EmployeeKnowledgeHook from "./EmployeeKnowledgeHook";
+import KnowledgeImages from "../../assets/img/knowledge center illustration.png";
 import FilterComponent from "../../components/Filter/Filter.component";
 import classNames from "classnames";
 import { IconButton } from "@material-ui/core";
@@ -14,7 +14,7 @@ import StatusPill from "../../components/Status/StatusPill.component";
 import { useMemo } from "react";
 import { useCallback } from "react";
 
-function EmployeeCircular() {
+function EmployeeKnowledge() {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -29,10 +29,10 @@ function EmployeeCircular() {
     handleCreate,
     isCalling,
     handleSubDepartment,
-    employeeCircularData,
+    EmployeeKnowledgeData,
     // data,
-    StaticCircularData,
-  } = EmployeeCircularHook({});
+    StaticKnowledgeData,
+  } = EmployeeKnowledgeHook({});
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
@@ -97,7 +97,7 @@ function EmployeeCircular() {
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: employeeCircularData,
+      data: EmployeeKnowledgeData,
     };
 
     return { datatableFunctions, datatable };
@@ -106,17 +106,16 @@ function EmployeeCircular() {
     handleSortOrderChange,
     handlePageChange,
     handleRowSize,
-    employeeCircularData,
+    EmployeeKnowledgeData,
   ]);
   return (
-    <div className={styles.EmployeeCircularWrapper}>
+    <div className={styles.EmployeeKnowledgeWrapper}>
       <InformationCard
         heading="HR Policies"
-        imageUrl={Circularimages}
-        data={StaticCircularData}
+        imageUrl={KnowledgeImages}
+        data={StaticKnowledgeData}
       />
-      <div>
-        {/* <PolicyRecordTable filterWidth={false} /> */}
+      {/* <div>
         <PageBox>
           <div className={styles.headerContainer}>
             <div>
@@ -137,9 +136,9 @@ function EmployeeCircular() {
             </div>
           </div>
         </PageBox>
-      </div>
+      </div> */}
     </div>
   );
 }
 
-export default EmployeeCircular;
+export default EmployeeKnowledge;
