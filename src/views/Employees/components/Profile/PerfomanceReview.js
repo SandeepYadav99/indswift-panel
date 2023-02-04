@@ -14,7 +14,7 @@ const PerformanceReview = ({reviewer}) => {
                         </div>
                         <div className={styles.right}>
                             <div className={styles.key}><span className={styles.value}>Reviewer Name:</span>{reviewer?.name}</div>
-                            <div className={styles.key}><span className={styles.value}>Employee Code:</span>{reviewer?.code}</div>
+                            <div className={styles.key}><span className={styles.value}>Employee Code:</span>{reviewer?.code ? reviewer?.code : 'N/A'}</div>
                         </div>
                     </div>
 

@@ -12,7 +12,7 @@ const DepartmentInfo = ({ data }) => {
             <div className={styles.left} style={{ display: "flex" }}>
               <div style={{ marginRight: "15px" }}>
                 <img
-                  src={require("../../../../assets/img/performance image@2x.png")}
+                  src={data?.hod?.image}
                   height={40}
                 />
               </div>
@@ -23,16 +23,16 @@ const DepartmentInfo = ({ data }) => {
                     HOD Name:
                   </span>
                   <span className={styles.valueWrap}>
-                    {data?.hod?.hod_name}
+                    {data?.hod?.name}
                   </span>
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Employee Code:</span>
-                  <span className={styles.valueWrap}>{data?.hod?.hod_code}</span>
+                  <span className={styles.valueWrap}>{data?.hod?.code}</span>
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Location:</span>
-                  <span className={styles.valueWrap}>Delhi</span>
+                  <span className={styles.valueWrap}>{data?.hod?.location}</span>
                 </div>
               </div>
             </div>
@@ -41,12 +41,12 @@ const DepartmentInfo = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>Department:</span>
                 <span className={styles.valueWrap}>
-                  {data?.department?.name}
+                  {data?.hod?.department}
                 </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Sub-Department:</span>
-                <span className={styles.valueWrap}>Web</span>
+                <span className={styles.valueWrap}>{data?.hod?.sub_department}</span>
               </div>
             </div>
           </div>
