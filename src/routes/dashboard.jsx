@@ -52,6 +52,8 @@ import HRKnowledge from "../views/HRKnowledge/HRKnowledge.container";
 import HRKnowledgeCreateView from "../views/HRKnowledge/HRKnowledgeCreate.view";
 import HRUtsav from "../views/HRUtsav/HRUtsav.container";
 import EmployeeKnowledge from "../views/EmployeeKnowledge/EmployeeKnowledge.container";
+import EmployeePerformance from "../views/EmployeePerformance/EmployeePerformance.container";
+import EmployeeClaim from "../views/EmployeeClaim/EmployeeClaim.container";
 
 const Roles = Constants.ROLES;
 
@@ -255,6 +257,28 @@ const dashboardRoutes = [
         navbarName: "EmployeeKnowledge",
         icon: PeopleOutlined,
         component: EmployeeKnowledge,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'employeedashboard',
+    },
+    {
+        path: '/employee/performance',
+        sidebarName: "EmployeePerformance",
+        navbarName: "EmployeePerformance",
+        icon: PeopleOutlined,
+        component: EmployeePerformance,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'employeedashboard',
+    },
+    {
+        path: '/employee/claim',
+        sidebarName: "EmployeeClaim",
+        navbarName: "EmployeeClaim",
+        icon: PeopleOutlined,
+        component: EmployeeClaim,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,

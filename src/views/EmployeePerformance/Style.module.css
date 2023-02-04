@@ -1,0 +1,24 @@
+.employeePerformaceWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+  height: 85vh;
+}
+.employeePerformacecontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.imageWrapper {
+  display: flexbox;
+}
+.imageWrapper > img {
+  max-width: 100%;
+}
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
