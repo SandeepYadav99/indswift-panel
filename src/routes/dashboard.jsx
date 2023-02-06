@@ -54,6 +54,7 @@ import HRUtsav from "../views/HRUtsav/HRUtsav.container";
 import EmployeeKnowledge from "../views/EmployeeKnowledge/EmployeeKnowledge.container";
 import EmployeePerformance from "../views/EmployeePerformance/EmployeePerformance.container";
 import EmployeeClaim from "../views/EmployeeClaim/EmployeeClaim.container";
+import ReviewCandidate from "../views/ReviewCandidate/ReviewCandidate.container";
 
 const Roles = Constants.ROLES;
 
@@ -623,6 +624,27 @@ const dashboardRoutes = [
         component: CircularCreateView,
         is_sidebar: false,
         is_protect: true,
+        roles: [Roles.ADMIN],
+    },
+    {
+        path: 'null',
+        sidebarName: "Talent Management",
+        navbarName: "Talent Management",
+        icon: AssignmentOutlined,
+        is_sidebar: true,
+        slug: 'tm',
+        is_parent: true,
+        roles: [Roles.ADMIN],
+    },{
+        path: '/tm/review',
+        sidebarName: "Review Candidates",
+        navbarName: "Review Candidates",
+        icon: PeopleOutlined,
+        component: ReviewCandidate,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'tm',
         roles: [Roles.ADMIN],
     },
     {

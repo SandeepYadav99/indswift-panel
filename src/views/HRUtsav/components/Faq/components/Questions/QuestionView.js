@@ -18,6 +18,7 @@ import {
 } from "../../../../../../actions/HRUtsavItems";
 import { connect } from "react-redux";
 import Accordion from "../../../../../../components/Accordion/Accordion.component";
+import GalleryImage from "../../../../../../assets/img/Gallery image 2.jpg";
 
 class QuestionView extends Component {
   constructor(props) {
@@ -106,7 +107,12 @@ class QuestionView extends Component {
               Locations: {val?.location}
             </div>
             <div>
-              <img />
+              <div>
+                <img src={GalleryImage} />
+              </div>
+              <div>
+                <img src={GalleryImage} />
+              </div>
             </div>
           </Accordion>
         );

@@ -41,6 +41,7 @@ import HRFacilityItem from "./HRFacilityItem.reducer";
 import HRKnowledgeReducer from "./HRKnowledge.reducer";
 import HRUtsavReducer from "./HRUtsav.reducer";
 import HRUtsavItemsReducer from "./HRUtsavItems.reducer";
+import ReviewReducer from "./Review.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -81,6 +82,7 @@ const rootReducer = combineReducers({
   hr_facilities_item: HRFacilityItem,
   hr_utsav: HRUtsavReducer,
   hr_utsav_items: HRUtsavItemsReducer,
+  review: ReviewReducer,
   // form: formReducer,
 });
 
