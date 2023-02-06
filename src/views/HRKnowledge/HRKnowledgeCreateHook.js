@@ -24,8 +24,8 @@ import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
 const initialForm = {
   name: "",
-  location_id: '',
-  department_id: '',
+  location_id: "",
+  department_id: "",
   submitted_by: [],
   document: null,
   is_active: true,
@@ -74,13 +74,17 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
       required.push("document");
     }
     console.log(form, errors);
-    required.forEach((val) => {
-        if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)
+    required.forEach(
+      (val) => {
+        if (
+          !form?.[val] ||
+          (Array.isArray(form?.[val]) && form?.[val].length === 0)
         ) {
           errors[val] = true;
         }
-      }, [errorData, id, form]);
-
+      },
+      [errorData, id, form]
+    );
 
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -99,7 +103,7 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
       }
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["is_active", 'submitted_by'].indexOf(key) >= 0) {
+        if (["is_active", "submitted_by"].indexOf(key) >= 0) {
           fd.append(key, JSON.stringify(form[key]));
         } else {
           fd.append(key, form[key]);

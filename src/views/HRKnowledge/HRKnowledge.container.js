@@ -56,7 +56,18 @@ const HRKnowledge = ({}) => {
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
-
+  const renderSubmittion = useCallback((obj) => {
+    console.log("=====>", obj);
+    return (
+      <div>
+        {obj.map((item) => (
+          <ul className={styles.submittionList}>
+            <li>{item.name}</li>
+          </ul>
+        ))}
+      </div>
+    );
+  });
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -73,28 +84,28 @@ const HRKnowledge = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "title",
+        key: "name",
         label: "TITLE",
         sortable: false,
-        render: (temp, all, index) => <div>{all?.code}</div>,
+        render: (temp, all, index) => <div>{all?.name}</div>,
       },
       {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (value, all) => <div>{renderFirstCell(all)}</div>,
+        render: (value, all) => <div>{all?.location?.name}</div>,
       },
       {
-        key: "department",
+        key: "department_id",
         label: "DEPARTMENT",
         sortable: false,
-        render: (temp, all) => <div>{all?.revision_number}</div>,
+        render: (temp, all) => <div>{all?.department?.name}</div>,
       },
       {
         key: "submitted_by",
         label: "SUBMITTED BY",
         sortable: false,
-        render: (temp, all) => <div>{all?.effectiveDateText}</div>,
+        render: (temp, all) => <div>{renderSubmittion(all?.submitted)}</div>,
       },
       {
         key: "status",
