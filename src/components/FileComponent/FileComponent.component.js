@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import styles from './FileComponent.module.css'
-import classnames from 'classnames'
 import EventEmitter from "../../libs/Events.utils";
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import csx from 'classnames';
 
 class File extends Component {
     constructor(props) {
@@ -85,7 +85,7 @@ class File extends Component {
                 <div>
                     <div className={styles.imageBtnContainer}>
                         <div>
-                            <div className={styles.imagePlus} style={{ backgroundImage: "url("+(this._getImageUrl(value))+")",
+                            <div className={csx(styles.imagePlus, this.props.imageClass)} style={{ backgroundImage: "url("+(this._getImageUrl(value))+")",
                                 backgroundSize: 'cover', backgroundPosition: 'center',borderColor: (error ? 'red' : '#c2c2c2')}}></div>
                         </div>
                         <div className={styles.imgLowerContainer}>
@@ -111,7 +111,7 @@ class File extends Component {
                 <div>
                     <div className={styles.imageBtnContainer}>
                         <div>
-                            <div className={styles.imagePlus} style={{ backgroundImage: "url("+(this._getImageUrl(value))+")",
+                            <div className={csx(styles.imagePlus, this.props.imageClass)} style={{ backgroundImage: "url("+(this._getImageUrl(value))+")",
                                 backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', borderRadius:'50%',borderColor: (error ? 'red' : '#c2c2c2')}}></div>
                         </div>
                         <div className={styles.imgLowerContainer}>
