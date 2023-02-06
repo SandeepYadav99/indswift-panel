@@ -21,15 +21,14 @@ import SnackbarUtils from "../../libs/SnackbarUtils";
 import { useParams } from "react-router";
 import Constants from "../../config/constants";
 import RouteName from "../../routes/Route.name";
-
+import { serviceGetList } from "../../services/Common.service";
 const initialForm = {
   name: "",
-  code: "",
-  effective_date: "",
-  revision_number: "",
+  location_id: [],
+  department_id: [],
+  submitted_by: [],
   document: null,
   is_active: true,
-  is_featured: true,
 };
 
 const useHRKnowledgeCreateViewDetail = ({}) => {
@@ -38,9 +37,12 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
-  const codeDebouncer = useDebounce(form?.code, 500);
   const { id } = useParams();
-
+  const [listData, setListData] = useState({
+    LOCATIONS: [],
+    DEPARTMENTS: [],
+    EMPLOYEES: [],
+  });
   useEffect(() => {
     if (id) {
       serviceGetHRKnowledgeDetails({ id: id }).then((res) => {
@@ -58,33 +60,16 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
       });
     }
   }, [id]);
-
-  const checkCodeValidation = useCallback(() => {
-    serviceCheckHRKnowledge({ code: form?.code, id: id ? id : null }).then(
-      (res) => {
-        if (!res.error) {
-          const errors = JSON.parse(JSON.stringify(errorData));
-          if (res.data.is_exists) {
-            errors["code"] = "HRKnowledge Code Exists";
-            setErrorData(errors);
-          } else {
-            delete errors.code;
-            setErrorData(errors);
-          }
-        }
-      }
-    );
-  }, [errorData, setErrorData, form?.code, id]);
-
   useEffect(() => {
-    if (codeDebouncer) {
-      checkCodeValidation();
-    }
-  }, [codeDebouncer]);
-
+    serviceGetList(["LOCATIONS", "DEPARTMENTS", "EMPLOYEES"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "code", "effective_date", "revision_number"];
+    let required = ["name", "location_id", "department_id", "submitted_by"];
     if (!id) {
       required.push("document");
     }
@@ -96,8 +81,6 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
           (Array.isArray(form?.[val]) && form?.[val].length === 0)
         ) {
           errors[val] = true;
-        } else if (["code"].indexOf(val) < 0) {
-          delete errors[val];
         }
       },
       [errorData, id, form]
@@ -134,7 +117,7 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
       }
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["is_active", "is_featured"].indexOf(key) >= 0) {
+        if (["is_active"].indexOf(key) >= 0) {
           fd.append(key, JSON.stringify(form[key]));
         } else {
           fd.append(key, form[key]);
@@ -174,15 +157,10 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "name" || fieldName === "revision_number") {
+      if (fieldName === "name") {
         if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
           t[fieldName] = text;
         }
-      } else if (fieldName === "code") {
-        if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
-          t[fieldName] = text.toUpperCase();
-        }
-        shouldRemoveError = false;
       } else {
         t[fieldName] = text;
       }
@@ -198,7 +176,7 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData, checkCodeValidation]
+    [changeTextData]
   );
 
   const handleDelete = useCallback(() => {}, []);
@@ -220,6 +198,7 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
     handleDelete,
     handleReset,
     id,
+    listData,
   };
 };
 

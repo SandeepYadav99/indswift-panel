@@ -8,8 +8,6 @@ import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import constants from "../../config/constants";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
-import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/CustomAutoComplete";
-import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
 import File from "../../components/FileComponent/FileComponent.component";
 import LogUtils from "../../libs/LogUtils";
 import useHRKnowledgeCreateViewDetail from "./HRKnowledgeCreateHook";
@@ -36,6 +34,7 @@ const HRKnowledgeCreateView = ({}) => {
     changeTextData,
     isEdit,
     handleDelete,
+    listData,
     handleReset,
     id,
   } = useHRKnowledgeCreateViewDetail({});
@@ -59,9 +58,6 @@ const HRKnowledgeCreateView = ({}) => {
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Resource Details</div>
-            {/*<Tooltip title="Info" aria-label="info" placement="right">*/}
-            {/*    <InfoIcon fontSize={'small'}/>*/}
-            {/*</Tooltip>*/}
           </h4>
         </div>
 
@@ -81,46 +77,64 @@ const HRKnowledgeCreateView = ({}) => {
             />
           </div>
           <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.name}
-              errorText={errorData?.name}
+            <CustomSelectField
+              isError={errorData?.location_id}
+              errorText={errorData?.location_id}
               label={"Location"}
-              value={form?.name}
-              onTextChange={(text) => {
-                changeTextData(text, "name");
+              value={form?.location_id}
+              handleChange={(value) => {
+                changeTextData(value, "location_id");
               }}
-              onBlur={() => {
-                onBlurHandler("name");
-              }}
-            />
+            >
+              {listData?.LOCATIONS?.map((dT) => {
+                return (
+                  <MenuItem value={dT?.id} key={dT?.id}>
+                    {dT?.label}
+                  </MenuItem>
+                );
+              })}
+            </CustomSelectField>
           </div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomDatePicker
-              clearable
-              label={"Effective Date"}
-              minDate={new Date()}
-              onChange={(date) => {
-                changeTextData(date, "effective_date");
+            <CustomSelectField
+              isError={errorData?.department_id}
+              errorText={errorData?.department_id}
+              label={"Location"}
+              value={form?.department_id}
+              handleChange={(value) => {
+                changeTextData(value, "department_id");
               }}
-              value={form?.effective_date}
-              isError={errorData?.effective_date}
-            />
+            >
+              {listData?.DEPARTMENTS?.map((dT) => {
+                return (
+                  <MenuItem value={dT?.id} key={dT?.id}>
+                    {dT?.label}
+                  </MenuItem>
+                );
+              })}
+            </CustomSelectField>
           </div>
           <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.revision_number}
-              errorText={errorData?.revision_number}
-              label={"Revision Number"}
-              value={form?.revision_number}
-              onTextChange={(text) => {
-                changeTextData(text, "revision_number");
+            <CustomSelectField
+              multiple
+              isError={errorData?.submitted_by}
+              errorText={errorData?.submitted_by}
+              label={"Submitted By"}
+              value={form?.submitted_by}
+              handleChange={(value) => {
+                changeTextData(value, "submitted_by");
               }}
-              onBlur={() => {
-                onBlurHandler("revision_number");
-              }}
-            />
+            >
+              {listData?.EMPLOYEES?.map((dT) => {
+                return (
+                  <MenuItem value={dT?.id} key={dT?.id}>
+                    {dT?.label}
+                  </MenuItem>
+                );
+              })}
+            </CustomSelectField>
           </div>
         </div>
         <div className={"formGroup file_Wrapper"}>
