@@ -8,7 +8,8 @@ import {
   actionSetPageEmployeeRequests,
   actionUpdateEmployee,
 } from "../../actions/Employee.action";
-import historyUtils from "../../libs/history.utils"; 
+import historyUtils from "../../libs/history.utils";
+import {serviceGetList} from "../../services/Common.service";
 
 const useEmployeeList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -16,6 +17,11 @@ const useEmployeeList = ({}) => {
   const [editData, setEditData] = useState(null);
   const [isCsvDialog, setIsCsvDialog] = useState(false);
   const dispatch = useDispatch();
+    const [listData, setListData] = useState({
+        LOCATIONS: [],
+        GRADES: [],
+        DEPARTMENTS: [],
+    });
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
@@ -36,6 +42,11 @@ const useEmployeeList = ({}) => {
   useEffect(() => {
     initData();
     isMountRef.current = true;
+      serviceGetList(['LOCATIONS', 'GRADES', 'DEPARTMENTS']).then(res => {
+          if (!res.error) {
+              setListData(res.data);
+          }
+      });
   }, []);
 
   // const handleCellClick = (rowIndex, columnIndex, row, column) => {
@@ -153,15 +164,18 @@ const useEmployeeList = ({}) => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
       // {label: 'City', name: 'city', type: 'text'},
-      {
-        label: "Created Date",
-        options: { maxDate: new Date() },
-        name: "createdAt",
-        type: "date",
-      },
+        {label: 'Location', name: 'location_id', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: listData?.LOCATIONS},
+        {label: 'Grade', name: 'grade_id', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: listData?.GRADES},
+        {label: 'Department', name: 'department_id', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: listData?.DEPARTMENTS},
+        {
+            label: "Created Date",
+            options: { maxDate: new Date() },
+            name: "createdAt",
+            type: "date",
+        },
       // {label: 'Status', name: 'status', type: 'select', fields: ['INACTIVE', 'ACTIVE']},
     ];
-  }, []);
+  }, [listData]);
 
   const toggleCsvDialog = useCallback(() => {
     setIsCsvDialog((e) => !e);
