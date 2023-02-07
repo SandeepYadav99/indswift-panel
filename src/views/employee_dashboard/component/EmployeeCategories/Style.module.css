@@ -30,6 +30,7 @@
 }
 .employeeCategoriesCardWrapper {
   display: flex;
+  cursor: pointer;
 }
 .employeeName {
   font-weight: 600;
