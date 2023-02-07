@@ -13,6 +13,7 @@ import ProfileView from "./Profile.view";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useEmployeesTab from "./EmployeesTabHook";
 import { actionGetEmployeeDetails } from "../../actions/Employee.action";
+import SalaryInfo from "./components/Profile/SalaryInfo/SalaryInfo";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -62,14 +63,12 @@ const EmployeeTab = () => {
     let getValues = url.split("/")[3];
     return getValues ? getValues : "";
   };
-  
+
   useEffect(() => {
     dispatch(actionGetEmployeeDetails(getEmployeeidFromUrl()));
   }, []);
   const { employeeData } = useSelector((state) => state.employee);
 
-  console.log("employeeData....", employeeData);
-  
   const handleChange = useCallback(
     (event, newValue) => {
       setValue(newValue);
@@ -123,7 +122,9 @@ const EmployeeTab = () => {
             <TabPanel value={value} index={0} dir={"ltr"}>
               <ProfileView data={employeeData} />
             </TabPanel>
-            <TabPanel value={value} index={1} dir={"ltr"}></TabPanel>
+            <TabPanel value={value} index={1} dir={"ltr"}>
+              <SalaryInfo />
+            </TabPanel>
             <TabPanel value={value} index={2} dir={"ltr"}></TabPanel>
             <TabPanel value={value} index={3} dir={"ltr"}></TabPanel>
           </div>

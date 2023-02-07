@@ -1,0 +1,26 @@
+.tableWrapper {
+  display: flex;
+  padding: 1.2rem;
+  border-bottom: 2px solid #ebedf4;
+  opacity: 1;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.tableComponentField {
+  /* background: red; */
+  flex: 4;
+}
+
+.tableAnnualField {
+  /* background: yellow; */
+  flex: 1;
+}
+.tableMonthlyField {
+  /* background: green; */
+  flex: 1;
+}
+.grossSalaryWrapper {
+  display: flex;
+  font-size: 0.875rem;
+  padding: 5px 0;
+}
