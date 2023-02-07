@@ -75,14 +75,22 @@ function EmployeeHRPolicy() {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <Button
-              color="primary"
-              variant="contained"
-              size="small"
-              onClick={() => console.log("><><", all)}
+            <a
+              style={{ "text-decoration": "none" }}
+              href={all?.document}
+              target="_blank"
             >
-              view
-            </Button>
+              <Button
+                color="primary"
+                variant="contained"
+                size="small"
+                // onClick={() => (
+
+                // )}
+              >
+                view
+              </Button>
+            </a>
           </div>
         ),
       },
@@ -113,12 +121,11 @@ function EmployeeHRPolicy() {
   return (
     <div className={styles.EmployeeHRWrapper}>
       <InformationCard
-        heading="Circular"
+        heading="HR Policies"
         imageUrl={images}
         data={StaticPolicyData}
       />
       <div>
-        {/* <PolicyRecordTable filterWidth={false} /> */}
         <PageBox>
           <div className={styles.headerContainer}>
             <div>
@@ -129,7 +136,6 @@ function EmployeeHRPolicy() {
 
           <div>
             <FilterComponent
-              // is_progress={isFetching}
               filters={configFilter}
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}

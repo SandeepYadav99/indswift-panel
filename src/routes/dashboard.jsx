@@ -61,7 +61,7 @@ const Roles = Constants.ROLES;
 const dashboardRoutes = [
     {
         path: "/",
-        sidebarName: "Dashboard",
+        sidebarName: "HR Dashboard",
         navbarName: "Admin Dashboard",
         icon: DashboardOutlined,
         component: NewDashboard,
@@ -221,8 +221,8 @@ const dashboardRoutes = [
     },
     {
         path: '/employeeInduction',
-        sidebarName: "EmployeeInduction",
-        navbarName: "EmployeeInduction",
+        sidebarName: "Employee Induction",
+        navbarName: "Employee Induction",
         icon: PeopleOutlined,
         component: EmployeeInducation,
         is_sidebar: true,
@@ -232,8 +232,8 @@ const dashboardRoutes = [
     },
     {
         path: '/hrpolicy',
-        sidebarName: "EmployeeHRPolicy",
-        navbarName: "EmployeeHRPolicy",
+        sidebarName: "Employee HRPolicy",
+        navbarName: "Employee HRPolicy",
         icon: PeopleOutlined,
         component: EmployeeHRPolicy,
         is_sidebar: true,
@@ -243,8 +243,8 @@ const dashboardRoutes = [
     },
     {
         path: '/employeecircular',
-        sidebarName: "EmployeeCircular",
-        navbarName: "EmployeeCircular",
+        sidebarName: "Employee Circular",
+        navbarName: "Employee Circular",
         icon: PeopleOutlined,
         component: EmployeeCircular,
         is_sidebar: true,
@@ -254,8 +254,8 @@ const dashboardRoutes = [
     },
     {
         path: '/employee/knowledge',
-        sidebarName: "EmployeeKnowledge",
-        navbarName: "EmployeeKnowledge",
+        sidebarName: "Employee Knowledge",
+        navbarName: "Employee Knowledge",
         icon: PeopleOutlined,
         component: EmployeeKnowledge,
         is_sidebar: true,
@@ -265,8 +265,8 @@ const dashboardRoutes = [
     },
     {
         path: '/employee/performance',
-        sidebarName: "EmployeePerformance",
-        navbarName: "EmployeePerformance",
+        sidebarName: "Employee Performance",
+        navbarName: "Employee Performance",
         icon: PeopleOutlined,
         component: EmployeePerformance,
         is_sidebar: true,
@@ -276,8 +276,8 @@ const dashboardRoutes = [
     },
     {
         path: '/employee/claim',
-        sidebarName: "EmployeeClaim",
-        navbarName: "EmployeeClaim",
+        sidebarName: "Employee Claim",
+        navbarName: "Employee Claim",
         icon: PeopleOutlined,
         component: EmployeeClaim,
         is_sidebar: true,

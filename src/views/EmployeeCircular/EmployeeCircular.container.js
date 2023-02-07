@@ -4,7 +4,7 @@ import EmployeeCircularHook from "./EmployeeCircularHook";
 import Circularimages from "../../assets/img/circulars illustration.png";
 import FilterComponent from "../../components/Filter/Filter.component";
 import classNames from "classnames";
-import { IconButton } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
@@ -71,17 +71,22 @@ function EmployeeCircular() {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
-              onClick={() => {
-                console.log(all.document);
-                // handleEdit(all);
-              }}
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
+            <a
+              style={{ "text-decoration": "none" }}
+              href={all?.document}
+              target="_blank"
             >
-              <Edit fontSize={"small"} />
-            </IconButton>
+              <Button
+                color="primary"
+                variant="contained"
+                size="small"
+                // onClick={() => (
+
+                // )}
+              >
+                view
+              </Button>
+            </a>
           </div>
         ),
       },
@@ -111,7 +116,7 @@ function EmployeeCircular() {
   return (
     <div className={styles.EmployeeCircularWrapper}>
       <InformationCard
-        heading="HR Policies"
+        heading="Circular"
         imageUrl={Circularimages}
         data={StaticCircularData}
       />

@@ -9,7 +9,7 @@ function EmployeeInducation() {
   return (
     <div>
       <InformationCard
-        heading="Employee Engagement Events"
+        heading="Employee Induction Booklet"
         imageachorTag={employeeData?.document}
         imageUrl={employeeData?.cover_image}
         productLink="View Induction Booklet"

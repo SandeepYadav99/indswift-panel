@@ -1,0 +1,29 @@
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.EmployeeCircularWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.squareDiv {
+  width: 9px;
+  height: 9px;
+  background: #2896e9;
+}
+.productName {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.productDate {
+  color: #161616;
+  font-size: 0.75rem;
+}

@@ -4,7 +4,7 @@ import EmployeeKnowledgeHook from "./EmployeeKnowledgeHook";
 import KnowledgeImages from "../../assets/img/knowledge center illustration.png";
 import FilterComponent from "../../components/Filter/Filter.component";
 import classNames from "classnames";
-import { IconButton } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
@@ -36,22 +36,7 @@ function EmployeeKnowledge() {
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
-  const renderFirstCell = useCallback((obj) => {
-    if (obj) {
-      return (
-        <div className={styles.firstCellFlex}>
-          <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span> <br />
-            <span className={styles.productDate}>
-              {obj?.effectiveDateText}
-            </span>{" "}
-            <br />
-          </div>
-        </div>
-      );
-    }
-    return null;
-  }, []);
+
   const tableStructure = useMemo(() => {
     return [
       {
@@ -67,26 +52,46 @@ function EmployeeKnowledge() {
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
+        key: "",
+        label: "",
+        sortable: false,
+        render: (value, all) => <div>{<></>}</div>,
+      },
+      {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
-              onClick={() => {
-                console.log(all.document);
-                // handleEdit(all);
-              }}
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
+            <a
+              style={{ "text-decoration": "none" }}
+              href={all?.document}
+              target="_blank"
             >
-              <Edit fontSize={"small"} />
-            </IconButton>
+              <Button color="primary" variant="contained" size="small">
+                view
+              </Button>
+            </a>
           </div>
         ),
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  const renderFirstCell = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          <div className={classNames(styles.firstCellInfo, "openSans")}>
+            <span className={styles.productName}>{obj?.name}</span> <br />
+            <span className={styles.productDate}>
+              {obj?.location.name}
+            </span>{" "}
+            <br />
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
   const tableData = useMemo(() => {
     const datatableFunctions = {
       onSortOrderChange: handleSortOrderChange,
@@ -111,15 +116,15 @@ function EmployeeKnowledge() {
   return (
     <div className={styles.EmployeeKnowledgeWrapper}>
       <InformationCard
-        heading="HR Policies"
+        heading="Knowledge Center"
         imageUrl={KnowledgeImages}
         data={StaticKnowledgeData}
       />
-      {/* <div>
+      <div>
         <PageBox>
           <div className={styles.headerContainer}>
             <div>
-              <span className={styles.title}>Circulars List</span>
+              <span className={styles.title}>Knowledge Resources</span>
               <div className={styles.newLine} />
             </div>
           </div>
@@ -136,7 +141,7 @@ function EmployeeKnowledge() {
             </div>
           </div>
         </PageBox>
-      </div> */}
+      </div>
     </div>
   );
 }
