@@ -45,3 +45,8 @@
   font-size: 0.875rem;
   font-weight: 600;
 }
+.userImage {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}

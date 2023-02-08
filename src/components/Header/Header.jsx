@@ -23,6 +23,8 @@ import { actionChangeTheme } from '../../actions/AppSettings.action';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Popover from '@material-ui/core/Popover';
+import historyUtils from "../../libs/history.utils";
+import RouteName from "../../routes/Route.name";
 // import HeaderLinks from "./HeaderLinks";
 
 class Header extends React.Component {
@@ -39,7 +41,7 @@ class Header extends React.Component {
         this._handleChangeTheme = this._handleChangeTheme.bind(this);
         this._handleNotification = this._handleNotification.bind(this);
         this._handleNoteClose = this._handleNoteClose.bind(this);
-        // this.activeRoute = this.activeRoute.bind(this);
+        this._handleResetPassword = this._handleResetPassword.bind(this);
     }
     activeRoute = (routeName, otherData) => {
         if (!otherData.should_regex) {
@@ -84,8 +86,13 @@ class Header extends React.Component {
         this.props.actionChangeTheme(themeType == 'dark' ? 'light' : 'dark');
     }
 
+    _handleResetPassword() {
+        historyUtils.push(RouteName.RESET_PASSWORD_FIRST);
+        this.setState({anchorEl: null});
+    }
+
     render() {
-        const {classes, color, themeType} = this.props;
+        const {classes, color, themeType, userData} = this.props;
         const { anchorEl ,note} = this.state;
         const appBarClasses = cx({
             [" " + classes[color]]: color
@@ -111,11 +118,11 @@ class Header extends React.Component {
                         {/*<Switch checked={themeType == 'dark'} onChange={this._handleChangeTheme}/>*/}
                     </div>
                     <div>
-                        <IconButton aria-label="show 3 new notifications" color="inherit" onClick={this._handleNotification}>
-                            <Badge badgeContent={3} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
+                        {/*<IconButton aria-label="show 3 new notifications" color="inherit" onClick={this._handleNotification}>*/}
+                        {/*    <Badge badgeContent={0} color="secondary">*/}
+                        {/*        <NotificationsIcon />*/}
+                        {/*    </Badge>*/}
+                        {/*</IconButton>*/}
                         <Popover
                             // id={id}
                             open={Boolean(note)}
@@ -136,7 +143,7 @@ class Header extends React.Component {
                     </div>
 
                     <div className={classes.logoImage}>
-                        <img src={require('../../assets/img/download.png')} height={30} width={30}/>
+                        <img src={userData?.image} height={30} width={30}/>
                     </div>
 
                     <div>
@@ -155,7 +162,7 @@ class Header extends React.Component {
                             onClose={this._handleClose}
                         >
                             {/*<MenuItem onClick={this._handleClose}>Profile</MenuItem>*/}
-                            {/*<MenuItem onClick={this._handleClose}>My account</MenuItem>*/}
+                            <MenuItem onClick={this._handleResetPassword}>Reset Password</MenuItem>
                             <MenuItem onClick={this._handleLogout}>Logout</MenuItem>
                         </Menu>
                     </div>
@@ -189,6 +196,7 @@ function mapDispatchToProps(dispatch){
 function mapStateToProps(state) {
     return {
         themeType: state.app_setting.theme,
+        userData: state?.auth?.user
     }
 }
 

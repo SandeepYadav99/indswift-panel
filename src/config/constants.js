@@ -2,12 +2,23 @@
 const TABLE_LIMIT = 50;
 const tempLevel =  !(!process.env.NODE_ENV || process.env.NODE_ENV === 'development');
 const tempDate = new Date();
+const isProduction = false;
+
+let url = 'http://91.205.173.97:8111/api/admin/';
+let socketUrl = 'http://91.205.173.97:8111';
+
+if (isProduction) {
+  url = 'http://20.219.160.182:8080/api/admin/';
+  socketUrl = 'http://20.219.160.182:8080';
+}
+
+
 export default {
   TIME_ZONE: -(tempDate.getTimezoneOffset()/60),
   DEFAULT_TIME_FORMAT: 'DD-MM-YYYY, HH:mm',
   APP_NAME: 'IndSwift Panel',
-  DEFAULT_APP_URL: tempLevel ? 'http://91.205.173.97:8111/api/admin/' :'http://localhost:8111/api/admin/',
-  SOCKET_URL: tempLevel ? 'http://91.205.173.97:8111/' : 'http://91.205.173.97:8111/',
+  DEFAULT_APP_URL: tempLevel ? url :'http://localhost:8111/api/admin/',
+  SOCKET_URL: tempLevel ? socketUrl : 'http://91.205.173.97:8111/',
   // DEFAULT_APP_URL: 'http://35.154.147.169:5055/api/',
   DEFAULT_PAGE_VALUE: TABLE_LIMIT,
   GOOGLE_LOGIN_KEY: '1027293586426-qg6lv2vsp57m05tn32m9stku2ljsd1uh.apps.googleusercontent.com',
@@ -91,6 +102,7 @@ export default {
     "Uttarakhand",
     "West Bengal"
   ],
+  MONTHS:  ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   SALES_ORDER_STATUS_COLOR: {
     ACTIVE: 'success',
     PENDING: 'pending_sales',

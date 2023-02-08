@@ -1,17 +1,17 @@
 /**
  * Created by charnjeetelectrovese@gmail.com on 4/30/2020.
  */
-import {DASHBOARD_INIT, DASHBOARD_DONE, DASHBOARD_ADD_DRIVER, DASHBOARD_REMOVE_DRIVER} from "../actions/Dashboard.action";
+import {DASHBOARD_INIT, DASHBOARD_DONE, DASHBOARD_ADMIN_TILES_DONE, DASHBOARD_ADMIN_TILES_INIT} from "../actions/Dashboard.action";
 
 const initialState = {
     error: false,
     is_calling: true,
-    weekly_data: [],
-    total_orders: 0,
-    total_customers: 0,
-    total_revenue: 0,
-    total_products: 0,
-    drivers: [],
+    isTilesLoading: false,
+    tiles: {
+        employees: 0,
+        locations: 0,
+        totalInterviews: 0,
+    }
 };
 
 export default function (state = JSON.parse(JSON.stringify(initialState)), action) {
@@ -26,27 +26,20 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
                 is_calling: false
             }
         }
-        case DASHBOARD_ADD_DRIVER: {
-            if (action.payload) {
-                const prevState = state.drivers;
-                prevState.push(action.payload);
-                return {...state, drivers: prevState};
+        case DASHBOARD_ADMIN_TILES_INIT: {
+            return {
+                ...state,
+                isTilesLoading: true,
             }
         }
-        case DASHBOARD_REMOVE_DRIVER: {
-            if (action.payload) {
-                const prevState = state.drivers;
-                let tIndex = null;
-                prevState.some((val, index) => {
-                    if (val.driver_id == action.payload.driver_id) {
-                        tIndex = index;
-                        return true;
-                    }
-                });
-                if (tIndex != null) {
-                    prevState.splice(tIndex, 1);
+        case DASHBOARD_ADMIN_TILES_DONE: {
+            return {
+                ...state,
+                isTilesLoading: false,
+                tiles: {
+                    ...state.tiles,
+                    ...action.payload,
                 }
-                return {...state, drivers: prevState};
             }
         }
         default: {

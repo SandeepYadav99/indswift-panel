@@ -29,6 +29,8 @@
 .descriptionName {
   font-size: 0.875rem;
   font-weight: 600;
+  text-decoration: none;
+  color: black;
 }
 .descriptionContainer {
   display: flex;

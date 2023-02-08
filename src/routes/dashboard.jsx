@@ -38,7 +38,7 @@ import DesignationList from "../views/Designation/DesignationList.container";
 import DesignationCreateView from "../views/Designation/DesignationCreate.view";
 import AppSettings from "../views/AppSettings/AppSettings.container";
 import HRSettings from "../views/HRSettings/HRSettings.container";
-import EmployeeDashboard from "../views/employee_dashboard/EmployeeDashboard.view";
+import EmployeeDashboard from "../views/EmployeeDashboard/EmployeeDashboard.view";
 import EmployeeInducation from "../views/EmployeeInducation/EmployeeInducation.container";
 import EmployeeHRPolicy from "../views/EmployeeHRPolicy/EmployeeHRPolicy.container";
 import EmployeeCircular from "../views/EmployeeCircular/EmployeeCircular.container";

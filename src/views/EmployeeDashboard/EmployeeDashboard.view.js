@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import AnnouncementInfo from "./component/AnnouncementInfo/AnnouncementInfo";
 import DashboardImageGallary from "./component/DashboardImageGallary/DashboardImageGallary";
 import EmployeeCategories from "./component/EmployeeCategories/EmployeeCategories";
@@ -11,8 +11,16 @@ import SocialMedia from "./component/SocialMedia/SocialMedia";
 import ThemeInfo from "./component/ThemeInfo/ThemeInfo";
 import UserInfo from "./component/UserInfo/UserInfo";
 import styles from "./Style.module.css";
+import {useDispatch} from "react-redux";
+import {actionInitiateEmployeeDashboard} from "../../actions/EmployeeDashboard.action";
 
 function EmployeeDashboard() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(actionInitiateEmployeeDashboard());
+    }, []);
+
   return (
     <div className={styles.EmployeeDashboardWrapper}>
       <div className={styles.EmployeeDashboardFlex}>

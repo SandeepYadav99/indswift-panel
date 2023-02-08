@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './Style.module.css';
 import LocationCard from "./components/LocationCard/LocationCard.view";
 import PendingOfferTable from "./components/WarehouseTables/PendingOfferTable.component";
 import InterviewsTable from "./components/WarehouseTables/InterviewsTable.component";
+import {useDispatch} from "react-redux";
+import {actionGetDashboard} from "../../actions/Dashboard.action";
 
 const NewDashboard = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(actionGetDashboard());
+    }, []);
 
     const _renderTopCards = () => {
         return (
@@ -41,8 +48,8 @@ const NewDashboard = () => {
                             <img src={require("../../assets/img/ic_total interviews@2x.png")} height={50}/>
                         </div>
                         <div>
-                            <div className={styles.number}>28</div>
-                            <div className={styles.subText}>Total Locations</div>
+                            <div className={styles.number}>0</div>
+                            <div className={styles.subText}>Total Interviews</div>
                         </div>
                     </div>
                     <div className={styles.vertical}></div>
