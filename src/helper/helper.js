@@ -17,7 +17,7 @@ export const EmployeeHRData = {
   thirdRow:
     "HR policies and procedures of ISLL act as tactical elements of our strategic plan. On periodic basis policies of the organization undergo detailed review by HR department to align the policy provisions with changes in internal and external environment of the organization",
   forthRow:
-    "This section provides an open access of all HR Polices of the organization to all employees. Employees may use this medium to refer the policies as and when required in their day to day operations. The section will automatically be updated as and when any policy is changed so that employees are always available with recent set of guidelines.",
+    "This section provides an open access of all HR Policies of the organization to all employees. Employees may use this medium to refer the policies as and when required in their day to day operations. The section will automatically be updated as and when any policy is changed so that employees are always available with recent set of guidelines.",
 };
 
 export const EmployeeCircularData = {
@@ -109,7 +109,7 @@ export const IkigaiData = [
   {
     title: "PMS",
     content: [
-      "A scientific, credible and transparent 360 Degree based PMS of organization which is linked with budgets, data and performance of department/individuals is working in organization for ensuring that proper feedback is provided to employee on improvement areas and on after where they are doing good.",
+      "A scientific, credible and transparent 360 Degree based PMS of organization which is linked with budgets, data and performance of department/individuals is working in organization for ensuring that proper feedback is provided to employee on improvement areas and on area where they are doing good.",
       "This area is being worked to introduce concepts of Balanced Scorecards and KRA Sheets in PMS and to automate the same. This will make the process quick, easy and more reliable.",
       "PMS feedbacks are clear indicators that explain “what is expected out of an employee’s performance” and “how his/her performance can affect entire integrated working of Organization”.",
     ],
