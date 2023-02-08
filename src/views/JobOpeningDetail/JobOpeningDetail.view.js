@@ -16,11 +16,7 @@ import CandidateShortlistTable from "../../components/CandidateShortlistDataTabl
 import CandidatePaperComponent from "./components/CandidatePaper/CandidatePaper.component";
 
 const JobOpeningDetail = () => {
-  const {
-    data,
-    isLoading,
-    id,
-  } = useJobOpeningDetail({});
+  const { data, isLoading, id } = useJobOpeningDetail({});
   if (isLoading) {
     return <WaitingComponent />;
   }
@@ -86,7 +82,7 @@ const JobOpeningDetail = () => {
             <div className={styles.vertical}></div>
             <div className={styles.right}>
               <div className={styles.key}>
-                <span className={styles.value}>RAP ID:</span>
+                <span className={styles.value}>PRC:</span>
                 {data.code}
               </div>
               <div className={styles.key}>
@@ -102,7 +98,7 @@ const JobOpeningDetail = () => {
                 {data.replacing_person.name}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>RAP Date:</span>
+                <span className={styles.value}>Indent Date:</span>
                 {data.createdAtText}
               </div>
               <div className={styles.key}>
@@ -113,7 +109,7 @@ const JobOpeningDetail = () => {
           </div>
         </div>
       </div>
-      <CandidatePaperComponent jobId={id}/>
+      <CandidatePaperComponent jobId={id} />
       <InterviewerListComponent jobId={id} />
     </div>
   );
