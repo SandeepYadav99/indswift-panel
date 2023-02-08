@@ -2,7 +2,7 @@ export const InductionData = {
   firstRow:
     "Time to time the booklet will undergo revisions and therefore all employees may also refer to this section to be aware about new added provisions. The Booklet does not contain all the information that employee’s may require during progression in organization, but the objective of this manual is to give basic orientation about the organization and its basic code of conduct ",
   secondRow:
-    "To be aware about organizational Polices & Circulars please refer the relevant section of E-Suvidha, it will address all your administrative queries pertaining to leaves, working hours, facilities etc",
+    "To be aware about organizational Policies & Circulars please refer the relevant section of E-Suvidha, it will address all your administrative queries pertaining to leaves, working hours, facilities etc",
   thirdRow:
     "To be aware about work practices of Organization, please gel up with people around, HR of location is always available for healthy interaction with you and address your rational curiosity about anything.",
   forthRow:
@@ -13,7 +13,7 @@ export const EmployeeHRData = {
   firstRow:
     "Human resource policies are formal rules and procedures that dictate how certain matters should be addressed in the workplace, including employee rights and duties. Without HR policies, a chaotic work environment could result because there are no set rules to follow. Employees must play their part by complying with the human resource policies that relate to them ",
   secondRow:
-    " HR policies at Ind-Swift Laboratories Ltd are designed to promote communication and understanding between various hierarchical layers of organization. Policies are designed in most scientific manner after carefully reviewing the internal and external environment of the organization. Objective of HR polices at Ind-Swift Laboratories Ltd is to establish and maintain consistent practices at the workplace",
+    " HR policies at Ind-Swift Laboratories Ltd are designed to promote communication and understanding between various hierarchical layers of organization. Policies are designed in most scientific manner after carefully reviewing the internal and external environment of the organization. Objective of HR Policies at Ind-Swift Laboratories Ltd is to establish and maintain consistent practices at the workplace",
   thirdRow:
     "HR policies and procedures of ISLL act as tactical elements of our strategic plan. On periodic basis policies of the organization undergo detailed review by HR department to align the policy provisions with changes in internal and external environment of the organization",
   forthRow:
@@ -109,7 +109,7 @@ export const IkigaiData = [
   {
     title: "PMS",
     content: [
-      "A scientific, credible and transparent 360 Degree based PMS of organization which is linked with budgets, data and performance of department/individuals is working in organization for ensuring that proper feedback is provided to employee on improvement areas and on arear where they are doing good.",
+      "A scientific, credible and transparent 360 Degree based PMS of organization which is linked with budgets, data and performance of department/individuals is working in organization for ensuring that proper feedback is provided to employee on improvement areas and on after where they are doing good.",
       "This area is being worked to introduce concepts of Balanced Scorecards and KRA Sheets in PMS and to automate the same. This will make the process quick, easy and more reliable.",
       "PMS feedbacks are clear indicators that explain “what is expected out of an employee’s performance” and “how his/her performance can affect entire integrated working of Organization”.",
     ],
@@ -118,7 +118,7 @@ export const IkigaiData = [
     title: "RAPID LEARNING PROGRAM",
     content: [
       "RAPID learning stands for “Recruiting, Aligning, Performing, Inspecting and Developing”. This Program indicates T&D activities of organization.",
-      "Gaps of PMS are used to identify Training Needs of individuals and so developing customized training modules for them. Aftre targeting specific people with specific training modules their improvement in performance in monitored and analysed in next PMS cycle.",
+      "Gaps of PMS are used to identify Training Needs of individuals and so developing customized training modules for them. After targeting specific people with specific training modules their improvement in performance in monitored and analysed in next PMS cycle.",
       "Organization have published PRI (Performance Rating Index) of employees to show year on year improvement in various competencies and so improve “performance capacities” of organization in last few years.",
       "Clear information about improvement areas and opportunities to learn specific skills make employees more confident about their career plans within the organization, which means finding their IKIGAI within the organization.",
     ],
@@ -137,7 +137,7 @@ export const DeepakData = [
   {
     content: [
       "Distribution of free Food Outside Civil Hospitals of Chandigarh",
-      "Distribution of Cloths to Old Age Home @ Ropar",
+      "Distribution of clothes to Old Age Home @ Ropar",
       "Distribution of Winter Clothes to Casual Workers of organization",
       "Plantation of Trees in and around company premises",
       "The most recent one was performed at R&D Mohali on 23.12.2020 where employees of R&D Mohali came together and contributed for distribution of Free Winter Clothes (Jackets, Gloves, Caps) to Contract Workers of organization.",
