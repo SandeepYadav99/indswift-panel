@@ -9,6 +9,7 @@ import {
 import csx from "classnames";
 import SidePanelComponent from "../../../../../../components/SidePanel/SidePanel.component";
 import { bindActionCreators } from "redux";
+import TopicForm from "./TopicForm.view";
 import {
   actionCreateHRUtsav,
   actionDeleteHRUtsav,
@@ -97,6 +98,17 @@ class TopicView extends Component {
   _handleAddTopic(type) {
     this.props.handleSideToggle(type);
   }
+  _renderCreateForm() {
+    if (this.state.side_panel) {
+      return (
+        <TopicForm
+          handleDataSave={this._handleDataSave}
+          data={this.state.edit_data}
+          handleDelete={this._handleDelete}
+        />
+      );
+    }
+  }
 
   _handleDelete(id) {
     this.props.actionDelete(id);
@@ -141,6 +153,15 @@ class TopicView extends Component {
 
           <div>{this._renderList()}</div>
         </div>
+        <SidePanelComponent
+          handleToggle={this._handleSideToggle}
+          title={"Event Year Creation"}
+          open={this.state.side_panel}
+          side={"right"}
+        >
+          {this._renderCreateForm()}
+        </SidePanelComponent>
+
       </div>
     );
   }

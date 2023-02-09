@@ -241,7 +241,7 @@ class UtsavFaq extends Component {
                 rows="1"
                 margin={"dense"}
                 normalize={descNormalize}
-                label="Facility Name"
+                label="Event Year Name"
               />
             </div>
           </div>
