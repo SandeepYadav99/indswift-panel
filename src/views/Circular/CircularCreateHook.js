@@ -63,13 +63,13 @@ const useCircularDetail = ({}) => {
     });
     if (form?.effective_date) {
     if (isDate(form?.effective_date)) {
-      const date = new Date(form?.effective_date);
-      const todayDate = new Date();
-      date.setHours(0, 0, 0, 0);
-      todayDate.setHours(0, 0, 0, 0);
-      if (date.getTime() < todayDate.getTime()) {
-        errors['effective_date'] = true;
-      }
+      // const date = new Date(form?.effective_date);
+      // const todayDate = new Date();
+      // date.setHours(0, 0, 0, 0);
+      // todayDate.setHours(0, 0, 0, 0);
+      // if (date.getTime() < todayDate.getTime()) {
+      //   errors['effective_date'] = true;
+      // }
     } else {
       errors['effective_date'] = true;
     }
@@ -133,7 +133,7 @@ const useCircularDetail = ({}) => {
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name") {
-        if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
+        if (!text || (isAlphaNumChars(text))) { // && text.toString().length <= 30
           t[fieldName] = text;
         }
       } else {

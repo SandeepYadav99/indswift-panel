@@ -28,6 +28,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Slide from "@material-ui/core/Slide";
+import LogUtils from "../../../../../../libs/LogUtils";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -109,12 +110,18 @@ class QuestionsFormView extends Component {
             });
             requiredFields = ["name", "description", "priority", "location_id"];
             Object.keys(data).forEach((val) => {
-                if (["status"].indexOf(val) < 0) {
+                if (["status", 'images', 'cover_image'].indexOf(val) < 0) {
                     const temp = data[val];
                     this.props.change(val, temp);
                 }
             });
-            // this.props.change('location_id', data?.location?.id);
+            const images = [];
+            data.images.forEach((val) => {
+               images.push(val.image);
+            });
+            this.setState({
+                remote_images: images,
+            })
         } else {
             requiredFields = ["name", "description", "priority", "location_id"];
         }
@@ -124,14 +131,32 @@ class QuestionsFormView extends Component {
         const {category} = this.props;
         const status = this.state.is_active ? "ACTIVE" : "INACTIVE";
         const {data} = this.props;
+        const fd = new FormData();
+        Object.keys(tData).forEach((key) => {
+            if (['images'].indexOf(key) < 0) {
+                if (['location_id'].indexOf(key) >= 0) {
+                    fd.append(key, JSON.stringify(tData[key]));
+                } else {
+                    fd.append(key, tData[key]);
+                }
+            }
+        });
+        tData.images.forEach((val) => {
+            fd.append('images', val);
+        })
+        fd.append('facility_id', category?.id);
+        fd.append('bookmarks', JSON.stringify(this.state.thumbnail_index));
+        if(data) {
+            fd.append('id', data?.id);
+        }
         if (data) {
             this.props.handleDataSave(
-                {...tData, status: status, facility_id: category?.id, id: data.id},
+               fd,
                 "UPDATE"
             );
         } else {
             this.props.handleDataSave(
-                {...tData, status: status, facility_id: category?.id},
+                fd,
                 "CREATE"
             );
         }
@@ -343,8 +368,17 @@ class QuestionsFormView extends Component {
     }
 
     _handleThumbnail(type, index) {
+        const { thumbnail_index } = this.state;
+        const arr = [...thumbnail_index];
+        const tIndex = arr.indexOf(index);
+        if (tIndex >= 0) {
+            arr.splice(tIndex, 1);
+        } else {
+            arr.push(index);
+        }
+        LogUtils.log('arr', arr);
         this.setState({
-            thumbnail_index: index
+            thumbnail_index: arr
         });
     }
 
@@ -360,7 +394,7 @@ class QuestionsFormView extends Component {
                     <div className={styles.imgContainer}>
                         <div className={styles.imgLikeBtn}>
                             <ButtonBase
-                                onClick={this._handleThumbnail.bind(this, 'REMOTE', tempIndex)}>{thumbnail_index == tempIndex ? (
+                                onClick={this._handleThumbnail.bind(this, 'REMOTE', tempIndex)}>{thumbnail_index.indexOf(index) >= 0 ? (
                                 <BookmarkFilled/>) : (<BookmarkEmpty/>)}</ButtonBase>
                         </div>
                         <div className={styles.imgBtn}>
@@ -381,7 +415,7 @@ class QuestionsFormView extends Component {
                     <div className={styles.imgContainer}>
                         <div className={styles.imgLikeBtn}>
                             <ButtonBase
-                                onClick={this._handleThumbnail.bind(this, 'LOCAL', tempIndex)}>{thumbnail_index == tempIndex ? (
+                                onClick={this._handleThumbnail.bind(this, 'LOCAL', tempIndex)}>{thumbnail_index.indexOf(index) >= 0 ? (
                                 <BookmarkFilled/>) : (<BookmarkEmpty/>)}</ButtonBase>
                         </div>
                         <div className={styles.imgBtn}>

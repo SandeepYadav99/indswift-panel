@@ -18,18 +18,18 @@ const BorderLinearProgress = withStyles((theme) => ({
     },
 }))(LinearProgress)
 
-const LocationCard = () => {
+const LocationCard = ({data}) => {
     return (
         <div style={{flex:1}}>
             <div className={styles.plainPaper}>
-                <div className={styles.name}>SAMBA</div>
+                <div className={styles.name}>{data?.name}</div>
 
                 <div className={styles.mainFlex}>
                     <div>
                         <div className={styles.empImg}><img src={require("../../../../assets/img/ic_employees@2x.png")} height={20}/> </div>
                         <div>
                             <div className={styles.title}>No. Of Employees</div>
-                            <div className={styles.value}>608</div>
+                            <div className={styles.value}>{data?.employees}</div>
                         </div>
                     </div>
 
@@ -37,7 +37,7 @@ const LocationCard = () => {
                         <div className={styles.empImg}><img src={require("../../../../assets/img/ic_vacancy@2x.png")} height={20}/> </div>
                         <div>
                             <div className={styles.title}>No. Of Vacancy</div>
-                            <div className={styles.value}>15</div>
+                            <div className={styles.value}>{data?.vacancies}</div>
                         </div>
                     </div>
                 </div>

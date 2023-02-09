@@ -84,7 +84,7 @@ const CircularCreateView = ({}) => {
             <CustomDatePicker
               clearable
               label={"Effective Date"}
-              minDate={new Date()}
+              // minDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "effective_date");
               }}

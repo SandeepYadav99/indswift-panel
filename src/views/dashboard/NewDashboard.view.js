@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import styles from './Style.module.css';
 import LocationCard from "./components/LocationCard/LocationCard.view";
 import PendingOfferTable from "./components/WarehouseTables/PendingOfferTable.component";
 import InterviewsTable from "./components/WarehouseTables/InterviewsTable.component";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {actionGetDashboard} from "../../actions/Dashboard.action";
 
 const NewDashboard = () => {
     const dispatch = useDispatch();
-
+    const { tiles } = useSelector(state => state.dashboard);
     useEffect(() => {
         dispatch(actionGetDashboard());
     }, []);
@@ -23,7 +23,7 @@ const NewDashboard = () => {
                                 <img src={require("../../assets/img/ic_total locations@2x.png")} height={50}/>
                             </div>
                             <div>
-                                <div className={styles.number}>03</div>
+                                <div className={styles.number}>{tiles?.locations}</div>
                                 <div className={styles.subText}>Total Locations</div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@ const NewDashboard = () => {
                                 <img src={require("../../assets/img/ic_total employees@2x.png")} height={50}/>
                             </div>
                             <div>
-                                <div className={styles.number}>2.4k</div>
+                                <div className={styles.number}>{tiles?.employees}</div>
                                 <div className={styles.subText}>Total Employees</div>
                             </div>
                         </div>
@@ -56,15 +56,15 @@ const NewDashboard = () => {
                     <div style={{flex: 1}}>
                         <div className={styles.numberFlex}>
                             <div>
-                                <div className={styles.num}>02</div>
+                                <div className={styles.num}>00</div>
                                 <div className={styles.subText}>Today</div>
                             </div>
                             <div>
-                                <div className={styles.num}>06</div>
+                                <div className={styles.num}>00</div>
                                 <div className={styles.subText}>This Week</div>
                             </div>
                             <div>
-                                <div className={styles.num}>12</div>
+                                <div className={styles.num}>00</div>
                                 <div className={styles.subText}>This Month</div>
                             </div>
                         </div>
@@ -74,14 +74,18 @@ const NewDashboard = () => {
         )
     }
 
+    const locationData = useMemo(() => {
+        return tiles?.locationData?.map((val) => {
+            return ( <LocationCard data={val} />)
+        })
+    }, [tiles?.locationData]);
+
     return (
         <div>
             {_renderTopCards()}
 
             <div className={styles.newFlex}>
-                <LocationCard/>
-                <LocationCard/>
-                <LocationCard/>
+                {locationData}
             </div>
 
             <div className={styles.tableFlex}>

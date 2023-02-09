@@ -82,7 +82,7 @@ const rootReducer = combineReducers({
   hr_facility: HRFacility,
   hr_facilities_item: HRFacilityItem,
   hr_utsav: HRUtsavReducer,
-  hr_utsav_items: HRUtsavItemsReducer,
+  hr_utsav_item: HRUtsavItemsReducer,
   review: ReviewReducer,
   employeeDashboard: EmployeeDashboard
   // form: formReducer,
