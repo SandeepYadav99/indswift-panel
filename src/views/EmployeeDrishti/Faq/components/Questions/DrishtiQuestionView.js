@@ -16,7 +16,7 @@ import {
 import { connect } from "react-redux";
 import Accordion from "../../../../../components/Accordion/Accordion.component";
 
-class QuestionView extends Component {
+class DrishtiQuestionView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,6 +94,7 @@ class QuestionView extends Component {
             onEditClick={this._handleEdit}
             title={val.name}
             initial="hide"
+            isDrishtipage={this.props.isDrishtipage}
           >
             <div
               className={"innerHtml"}
@@ -148,4 +149,7 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionView);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DrishtiQuestionView);

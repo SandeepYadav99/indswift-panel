@@ -15,7 +15,7 @@ import {
 } from "../../../../../actions/HRFacility.action";
 import { connect } from "react-redux";
 
-class TopicView extends Component {
+class DrishtiTopicView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -140,4 +140,4 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopicView);
+export default connect(mapStateToProps, mapDispatchToProps)(DrishtiTopicView);
