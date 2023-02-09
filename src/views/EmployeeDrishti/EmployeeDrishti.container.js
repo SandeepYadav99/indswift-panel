@@ -4,6 +4,7 @@ import EmployeeDrishtiHook from "./EmployeeDrishtiHook";
 import styles from "./Style.module.css";
 import DrishtiImage from "../../assets/img/drishti illustartion.png";
 import { DrishtiData } from "../../helper/helper";
+import DrishtiList from "./Faq/DrishtiList";
 
 function EmployeeDrishti() {
   const { staticEmployeeDrishtiData, employeeData } = EmployeeDrishtiHook({});
@@ -45,10 +46,7 @@ function EmployeeDrishti() {
       </div>
       <div>
         <div className={styles.cooperateWrapper}>
-          <span className={styles.title}>
-            Ind-Swift Corporate Tie-Ups (SEA)
-          </span>
-          <div className={styles.newLine} />
+          <DrishtiList />
         </div>
       </div>
     </div>

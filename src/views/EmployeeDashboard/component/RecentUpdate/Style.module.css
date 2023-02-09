@@ -41,3 +41,8 @@
   color: #818181;
   font-size: 0.75rem;
 }
+.scrollRecentUpdate {
+  max-height: 30vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
