@@ -1,23 +1,18 @@
 import React, { Component } from "react";
 import styles from "./Style.module.css";
 import { ButtonBase, IconButton } from "@material-ui/core";
-import {
-  AddCircleOutline,
-  ControlPointRounded,
-  Edit,
-} from "@material-ui/icons";
+
 import csx from "classnames";
-import SidePanelComponent from "../../../../../../components/SidePanel/SidePanel.component";
 import { bindActionCreators } from "redux";
 import {
-  actionCreateHRUtsav,
-  actionDeleteHRUtsav,
-  actionFetchHRUtsav,
-  actionFilterHRUtsav,
-  actionResetFilterHRUtsav,
-  actionSetPageHRUtsav,
-  actionUpdateHRUtsav,
-} from "../../../../../../actions/HRUtsav.action";
+  actionCreateHRFacility,
+  actionDeleteHRFacility,
+  actionFetchHRFacilities,
+  actionFilterHRFacility,
+  actionResetFilterHRFacility,
+  actionSetPageHRFacility,
+  actionUpdateHRFacility,
+} from "../../../../../actions/HRFacility.action";
 import { connect } from "react-redux";
 
 class TopicView extends Component {
@@ -30,7 +25,6 @@ class TopicView extends Component {
     };
     //this.list = ['Topic Question 1 can be there in 2 lines at max after which it will be truncated','Topic Question 1 can be there in 2 lines at max after which it will be truncated']
     this._handleAddTopic = this._handleAddTopic.bind(this);
-    this._handleSideToggle = this._handleSideToggle.bind(this);
     this._handleDataSave = this._handleDataSave.bind(this);
     this._handleDelete = this._handleDelete.bind(this);
   }
@@ -56,14 +50,6 @@ class TopicView extends Component {
     this.props.handleCategoryChange(val);
   }
 
-  _handleEdit(data) {
-    this.setState({
-      side_panel: !this.state.side_panel,
-      edit_data: data,
-    });
-    this.props.handleCategoryChange(data);
-  }
-
   _renderList() {
     const { active } = this.state;
     const { data, selectedCategory } = this.props;
@@ -82,11 +68,8 @@ class TopicView extends Component {
               >
                 <span>{val.name}</span>
               </ButtonBase>
-              <IconButton onClick={this._handleEdit.bind(this, val)}>
-                <Edit color={"primary"} fontSize={"small"} />
-              </IconButton>
             </li>
-            <hr className={styles.line} />
+            {/* <hr className={styles.line} /> */}
           </ul>
         );
       });
@@ -105,19 +88,12 @@ class TopicView extends Component {
     });
   }
 
-  _handleSideToggle() {
-    this.setState({
-      side_panel: !this.state.side_panel,
-      edit_data: null,
-    });
-  }
-
   _handleDataSave(data, type) {
     // this.props.actionChangeStatus({...data, type: type});
     if (type == "CREATE") {
-      this.props.actionCreateHRUtsav(data);
+      this.props.actionCreateHRFacility(data);
     } else {
-      this.props.actionUpdateHRUtsav(data);
+      this.props.actionUpdateHRFacility(data);
     }
     this.setState({
       side_panel: !this.state.side_panel,
@@ -129,16 +105,7 @@ class TopicView extends Component {
     return (
       <div>
         <div className={styles.plainBg}>
-          <div className={styles.upperFlex}>
-            <div className={styles.title}>Event Year</div>
-            <div>
-              <IconButton onClick={this._handleSideToggle}>
-                <AddCircleOutline color={"primary"} />
-              </IconButton>
-            </div>
-          </div>
-
-          <div>{this._renderList()}</div>
+          <div className={styles.listWrapper}>{this._renderList()}</div>
         </div>
       </div>
     );
@@ -147,27 +114,27 @@ class TopicView extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.hr_utsav.present,
-    total_count: state.hr_utsav.all.length,
-    currentPage: state.hr_utsav.currentPage,
-    serverPage: state.hr_utsav.serverPage,
-    sorting_data: state.hr_utsav.sorting_data,
-    is_fetching: state.hr_utsav.is_fetching,
-    query: state.hr_utsav.query,
-    query_data: state.hr_utsav.query_data,
+    data: state.hr_facility.present,
+    total_count: state.hr_facility.all.length,
+    currentPage: state.hr_facility.currentPage,
+    serverPage: state.hr_facility.serverPage,
+    sorting_data: state.hr_facility.sorting_data,
+    is_fetching: state.hr_facility.is_fetching,
+    query: state.hr_facility.query,
+    query_data: state.hr_facility.query_data,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      actionFetchData: actionFetchHRUtsav,
-      actionSetPage: actionSetPageHRUtsav,
-      actionResetFilter: actionResetFilterHRUtsav,
-      actionSetFilter: actionFilterHRUtsav,
-      actionCreateHRUtsav: actionCreateHRUtsav,
-      actionUpdateHRUtsav: actionUpdateHRUtsav,
-      actionDelete: actionDeleteHRUtsav,
+      actionFetchData: actionFetchHRFacilities,
+      actionSetPage: actionSetPageHRFacility,
+      actionResetFilter: actionResetFilterHRFacility,
+      actionSetFilter: actionFilterHRFacility,
+      actionCreateHRFacility: actionCreateHRFacility,
+      actionUpdateHRFacility: actionUpdateHRFacility,
+      actionDelete: actionDeleteHRFacility,
     },
     dispatch
   );
