@@ -7,8 +7,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import BirthdayEvent from "./BirthdayEvent";
-import {useSelector} from "react-redux";
-import {WaitingComponent} from "../../../../components/index.component";
+import { useSelector } from "react-redux";
+import { WaitingComponent } from "../../../../components/index.component";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -44,10 +44,12 @@ function EmployeeEventList() {
     [setValue, value]
   );
 
-  const { reminders, isDateReminderCalling } = useSelector(state => state.employeeDashboard);
+  const { reminders, isDateReminderCalling } = useSelector(
+    (state) => state.employeeDashboard
+  );
 
   if (isDateReminderCalling) {
-    return (<WaitingComponent />);
+    return <WaitingComponent />;
   }
 
   return (
@@ -60,8 +62,8 @@ function EmployeeEventList() {
           textColor="primary"
         >
           <Tab className={"iconTabs"} label="Birthday's" />
-          <Tab className={"iconTabs"} label="Work Annierversary " />
-          <Tab className={"iconTabs"} label="Marrige Annierversary " />
+          <Tab className={"iconTabs"} label="Work Anniversary " />
+          <Tab className={"iconTabs"} label="Marrige Anniversary " />
         </Tabs>
       </AppBar>
       <div className={styles.paperBackground1}>

@@ -232,8 +232,8 @@ const dashboardRoutes = [
     },
     {
         path: '/hrpolicy',
-        sidebarName: "Employee HRPolicy",
-        navbarName: "Employee HRPolicy",
+        sidebarName: "Employee HR Policy",
+        navbarName: "Employee HR Policy",
         icon: PeopleOutlined,
         component: EmployeeHRPolicy,
         is_sidebar: true,
