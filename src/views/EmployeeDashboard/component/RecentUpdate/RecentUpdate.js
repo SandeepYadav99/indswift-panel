@@ -48,7 +48,9 @@ function RecentUpdate() {
         <span className={styles.title}>Recent Circular & Policies</span>
         <div className={styles.newLine} />
       </div>
-      <div className={styles.scrollRecentUpdate}>{listItems}</div>
+      {/* <div className={styles.scrollRecentUpdate}> */}
+        {listItems}
+        {/* </div> */}
     </div>
   );
 }

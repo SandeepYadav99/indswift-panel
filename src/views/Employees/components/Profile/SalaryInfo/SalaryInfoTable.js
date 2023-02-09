@@ -98,7 +98,7 @@ function SalaryInfoTable() {
             component="Fuel Availed (CTC) - Fringe"
             annual={data?.fuel}
           />{" "}
-          <SaleryInfoField component="VPF - Monthly" annual={data?.vpf} />
+          <SaleryInfoField component="VPF - Monthly" annual={data?.earning2_vpf} />
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Total Earning 2"
@@ -109,14 +109,17 @@ function SalaryInfoTable() {
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Gross Salary (Part A + Part B)"
-            annual={data?.hra}
+            annual={getSumValue(
+              data?.earning_one,
+              data?.earning_two,
+            )}
           />
         </div>{" "}
         <div className={styles.grossWrapper}>
           <div>
             <p className={styles.salaryHeading}>Part C - Earning 3</p>
           </div>
-          <SaleryInfoField component="PLI - Qtrly" annual={data?.hra} />
+          <SaleryInfoField component="PLI - Qtrly" annual={data?.earning_three_pli} />
         </div>
         <div className={styles.grossWrapper}>
           <div>
@@ -130,7 +133,7 @@ function SalaryInfoTable() {
             component="Em ESI- Deduction Part"
             annual={data?.em_esi}
           />
-          <SaleryInfoField component="VPF - 0%" annual={data?.vpf} />
+          <SaleryInfoField component="VPF - 0%" annual={data?.deduction_vpf} />
           <SaleryInfoField component="Em LWF" annual={data?.em_lwf} />
           <SaleryInfoField
             className={styles.grossSalaryRedWrapper}
@@ -170,7 +173,7 @@ function SalaryInfoTable() {
             component="Medical Insurance Premium"
             annual={data?.insurance}
           />{" "}
-          <SaleryInfoField component="Stability Allowance" annual={data?.hva} />{" "}
+          <SaleryInfoField component="Stability Allowance" annual={data?.stability_incentive} />{" "}
           <SaleryInfoField
             component="Retention Allowance"
             annual={data?.retention_allowance}
@@ -198,7 +201,7 @@ function SalaryInfoTable() {
             annual={getSumValue(
               data?.earning_one,
               data?.earning_two,
-              data?.earning_three,
+              data?.earning_three_pli,
               data?.earning_four,
               data?.earning_five
             )}
@@ -211,7 +214,7 @@ function SalaryInfoTable() {
           />
           <SaleryInfoField
             component="Quarterly Payments (Helper + PUG + PLI + Perf Bonus)"
-            annual={getSumValue(data?.helper, data?.pug, data?.perf_bonus)}
+            annual={getSumValue(data?.helper, data?.pug, data?.perf_bonus,data?.earning_three_pli)}
           />
           <SaleryInfoField
             component="Fringe Benefits"
@@ -225,7 +228,7 @@ function SalaryInfoTable() {
           />
           <SaleryInfoField
             component="PF"
-            annual={getSumValue(data?.earning_four, data?.total_deduction)}
+            annual={getSumValue(data?.earning_four, data?.total_deduction,data?.earning2_vpf)}
           />
           <SaleryInfoField
             component="Tenure Based Earning (LTA + Stabiliy + Gratuity + Bonus + Supperann)"
@@ -233,7 +236,8 @@ function SalaryInfoTable() {
               data?.lta,
               data?.gratuity,
               data?.annual_bonus,
-              data?.retention_allowance
+              data?.retention_allowance,
+              data?.stability_incentive
             )}
           />
           <SaleryInfoField

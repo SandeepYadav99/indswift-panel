@@ -70,12 +70,12 @@
 }
 
 .left {
-  flex: 0.5;
+  flex: 1;
   margin-right: 10px;
 }
 
 .right {
-  flex: 1;
+  flex: 4;
   margin-left: 10px;
   overflow: hidden;
 }
