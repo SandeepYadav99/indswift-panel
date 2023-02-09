@@ -28,36 +28,36 @@ function SalaryInfoTable() {
         <div className={styles.grossWrapper}>
           <SaleryInfoField
             component="Incremental Gross Salary"
-            annual={data?.incremental_gross_salary}
+            monthly={data?.incremental_gross_salary}
           />
           <SaleryInfoField
             component="Car Component"
-            annual={data?.car_component}
+            monthly={data?.car_component}
           />
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Total"
-            annual={data?.earning_one}
+            monthly={data?.earning_one}
           />
         </div>
         <div className={styles.grossWrapper}>
           <div>
             <p className={styles.salaryHeading}>Part A - Earning 1</p>
           </div>
-          <SaleryInfoField component="Basic" annual={data?.basic_salary} />
-          <SaleryInfoField component="HRA" annual={data?.hra} />
+          <SaleryInfoField component="Basic" monthly={data?.basic_salary} />
+          <SaleryInfoField component="HRA" monthly={data?.hra} />
           <SaleryInfoField
             component="Education Allowance"
-            annual={data?.education_allowance}
+            monthly={data?.education_allowance}
           />
           <SaleryInfoField
             component="Special Allowance"
-            annual={data?.special_allowance}
+            monthly={data?.special_allowance}
           />
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Total Earning 1"
-            annual={data?.earning_one}
+            monthly={data?.earning_one}
           />
         </div>
         <div className={styles.grossWrapper}>
@@ -66,50 +66,50 @@ function SalaryInfoTable() {
           </div>
           <SaleryInfoField
             component="Professional Upgradation - Qtrly"
-            annual={data?.pug}
+            monthly={data?.pug}
           />
           <SaleryInfoField
             component="Helper Allowance - Qtrly"
-            annual={data?.helper}
+            monthly={data?.helper}
           />{" "}
           <SaleryInfoField
             component="Food Coupens - Fringe"
-            annual={data?.food_coupons}
+            monthly={data?.food_coupons}
           />
           <SaleryInfoField
             component="Gift Coupens - Fringe"
-            annual={data?.gift_coupons}
+            monthly={data?.gift_coupons}
           />{" "}
-          <SaleryInfoField component="LTA - Bimonthly" annual={data?.lta} />
+          <SaleryInfoField component="LTA - Bimonthly" monthly={data?.lta} />
           <SaleryInfoField
             component="Supperannuation - Post Retire"
-            annual={data?.super_annuation}
+            monthly={data?.super_annuation}
           />{" "}
-          <SaleryInfoField component="NPS" annual={data?.nps} />
+          <SaleryInfoField component="NPS" monthly={data?.nps} />
           <SaleryInfoField
             component="Vehicle Maint (CTC) - Fringe"
-            annual={data?.vehicle_maintenance}
+            monthly={data?.vehicle_maintenance}
           />{" "}
           <SaleryInfoField
             component="Vehicle EMIs (CTC) - Monthly"
-            annual={data?.vehicle_emi}
+            monthly={data?.vehicle_emi}
           />
           <SaleryInfoField
             component="Fuel Availed (CTC) - Fringe"
-            annual={data?.fuel}
+            monthly={data?.fuel}
           />{" "}
-          <SaleryInfoField component="VPF - Monthly" annual={data?.earning2_vpf} />
+          <SaleryInfoField component="VPF - Monthly" monthly={data?.earning2_vpf} />
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Total Earning 2"
-            annual={data?.earning_two}
+            monthly={data?.earning_two}
           />
         </div>{" "}
         <div className={styles.grossWrapper}>
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Gross Salary (Part A + Part B)"
-            annual={getSumValue(
+            monthly={getSumValue(
               data?.earning_one,
               data?.earning_two,
             )}
@@ -119,7 +119,7 @@ function SalaryInfoTable() {
           <div>
             <p className={styles.salaryHeading}>Part C - Earning 3</p>
           </div>
-          <SaleryInfoField component="PLI - Qtrly" annual={data?.earning_three_pli} />
+          <SaleryInfoField component="PLI - Qtrly" monthly={data?.earning_three_pli} />
         </div>
         <div className={styles.grossWrapper}>
           <div>
@@ -127,18 +127,18 @@ function SalaryInfoTable() {
           </div>
           <SaleryInfoField
             component="Em PF- Deduction Part (Put Yes if give actual Basic's 12 %)"
-            annual={data?.em_pf}
+            monthly={data?.em_pf}
           />
           <SaleryInfoField
             component="Em ESI- Deduction Part"
-            annual={data?.em_esi}
+            monthly={data?.em_esi}
           />
-          <SaleryInfoField component="VPF - 0%" annual={data?.deduction_vpf} />
-          <SaleryInfoField component="Em LWF" annual={data?.em_lwf} />
+          <SaleryInfoField component="VPF - 0%" monthly={data?.deduction_vpf} />
+          <SaleryInfoField component="Em LWF" monthly={data?.em_lwf} />
           <SaleryInfoField
             className={styles.grossSalaryRedWrapper}
             component="Total Deduction 1"
-            annual={data?.total_deduction}
+            monthly={data?.total_deduction}
           />
         </div>{" "}
         <div className={styles.grossWrapper}>
@@ -149,17 +149,17 @@ function SalaryInfoTable() {
           </div>
           <SaleryInfoField
             component="PF - Er Contribution Part"
-            annual={data?.er_pf}
+            monthly={data?.er_pf}
           />
           <SaleryInfoField
             component="ESI - Er Contribution Part"
-            annual={data?.er_esi}
+            monthly={data?.er_esi}
           />
-          <SaleryInfoField component="Er LWF" annual={data?.er_lwf} />
+          <SaleryInfoField component="Er LWF" monthly={data?.er_lwf} />
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Total Earning 4"
-            annual={data?.earning_four}
+            monthly={data?.earning_four}
           />
         </div>
         <div className={styles.grossWrapper}>
@@ -168,37 +168,37 @@ function SalaryInfoTable() {
               Part E (Organizational Components of CTC) - Earning 5
             </p>
           </div>
-          <SaleryInfoField component="Gratuity" annual={data?.gratuity} />
+          <SaleryInfoField component="Gratuity" monthly={data?.gratuity} />
           <SaleryInfoField
             component="Medical Insurance Premium"
-            annual={data?.insurance}
+            monthly={data?.insurance}
           />{" "}
-          <SaleryInfoField component="Stability Allowance" annual={data?.stability_incentive} />{" "}
+          <SaleryInfoField component="Stability Allowance" monthly={data?.stability_incentive} />{" "}
           <SaleryInfoField
             component="Retention Allowance"
-            annual={data?.retention_allowance}
+            monthly={data?.retention_allowance}
           />
           <SaleryInfoField
             component="Performance Allowance"
-            annual={data?.perf_bonus}
+            monthly={data?.perf_bonus}
           />{" "}
-          <SaleryInfoField component="Bonus" annual={data?.annual_bonus} />
+          <SaleryInfoField component="Bonus" monthly={data?.annual_bonus} />
           <SaleryInfoField
             component="Type II Car Maint"
-            annual={data?.two_car_maintenance}
+            monthly={data?.two_car_maintenance}
           />
-          <SaleryInfoField component="Type II Fuel" annual={data?.two_fuel} />
+          <SaleryInfoField component="Type II Fuel" monthly={data?.two_fuel} />
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Total Earning 5"
-            annual={data?.earning_five}
+            monthly={data?.earning_five}
           />
         </div>
         <div className={styles.grossWrapperBg}>
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Net Composite CTC (Earning 1 + Earning 2 + Earning 3 + Earning 4 + Earning 5)"
-            annual={getSumValue(
+            monthly={getSumValue(
               data?.earning_one,
               data?.earning_two,
               data?.earning_three_pli,
@@ -210,15 +210,15 @@ function SalaryInfoTable() {
         <div className={styles.grossWrapper}>
           <SaleryInfoField
             component="Net Pay [ (Earning 1) - (Deduction 1) ]"
-            annual={netPay()}
+            monthly={netPay()}
           />
           <SaleryInfoField
             component="Quarterly Payments (Helper + PUG + PLI + Perf Bonus)"
-            annual={getSumValue(data?.helper, data?.pug, data?.perf_bonus,data?.earning_three_pli)}
+            monthly={getSumValue(data?.helper, data?.pug, data?.perf_bonus,data?.earning_three_pli)}
           />
           <SaleryInfoField
             component="Fringe Benefits"
-            annual={getSumValue(
+            monthly={getSumValue(
               data?.helper,
               data?.food_coupons,
               data?.vehicle_maintenance,
@@ -228,11 +228,11 @@ function SalaryInfoTable() {
           />
           <SaleryInfoField
             component="PF"
-            annual={getSumValue(data?.earning_four, data?.total_deduction,data?.earning2_vpf)}
+            monthly={getSumValue(data?.earning_four, data?.total_deduction,data?.earning2_vpf)}
           />
           <SaleryInfoField
             component="Tenure Based Earning (LTA + Stabiliy + Gratuity + Bonus + Supperann)"
-            annual={getSumValue(
+            monthly={getSumValue(
               data?.lta,
               data?.gratuity,
               data?.annual_bonus,
@@ -243,7 +243,7 @@ function SalaryInfoTable() {
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Total "
-            annual={getSumValue(
+            monthly={getSumValue(
               getSumValue(
                 data?.lta,
                 data?.gratuity,

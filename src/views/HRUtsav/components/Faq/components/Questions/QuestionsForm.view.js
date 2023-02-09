@@ -453,7 +453,7 @@ class QuestionsFormView extends Component {
                 <br/>
                 <form onSubmit={handleSubmit(this._handleSubmit)}>
                     <div className={styles.category}>
-                        <b>{category?.name} Facility</b>
+                        {/* <b>{category?.name} Facility</b> */}
                     </div>
 
                     <div className={"formFlex"}>
@@ -465,7 +465,7 @@ class QuestionsFormView extends Component {
                                 maxLimit={100}
                                 margin={"dense"}
                                 normalize={descNormalize}
-                                label={`Name`}
+                                label={`Event Name`}
                             />
                         </div>
                     </div>
@@ -486,13 +486,13 @@ class QuestionsFormView extends Component {
                             <Field
                                 fullWidth={true}
                                 name="description"
-                                component={renderOutlinedTextFieldWithLimit}
-                                maxLimit={500}
+                                component={renderOutlinedTextField}
+                                // maxLimit={500}
                                 margin={"dense"}
                                 rows={3}
                                 multiline
                                 normalize={descNormalize}
-                                label="Description"
+                                label="Event Description"
                             />
                         </div>
                     </div>
@@ -564,7 +564,7 @@ class QuestionsFormView extends Component {
                             <Field
                                 name="is_dashboard"
                                 component={renderCheckbox}
-                                label={"Show to event on Dashboard page"}
+                                label={"Show this event on Dashboard page"}
                             />
                         </div>
                     </div>

@@ -2,13 +2,9 @@
  * Created by charnjeetelectrovese@gmail.com on 12/3/2019.
  */
 import React, { Component } from "react";
-import { Button, Paper } from "@material-ui/core";
-
-import classNames from "classnames";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import styles from "./UtsavFaq.module.css";
-import Constants from "../../../../config/constants";
 import TopicView from "./components/Topic/Topic.view";
 import QuestionView from "./components/Questions/QuestionView";
 import { serviceGetList } from "../../../../services/Common.service";
@@ -46,11 +42,17 @@ class UtsavFaqList extends Component {
     return (
       <div>
         {/*<PageBox>*/}
-        <div className={styles.headerContainer}>
-          <span className={styles.title}>
-            Ind-Swift Corporate Tie-Ups (SEA)
-          </span>
-        </div>
+
+        {this.props.isUtsavPage ? (
+          <></>
+        ) : (
+          <div className={styles.headerContainer}>
+            <span className={styles.title}>
+              Ind-Swift Corporate Tie-Ups (SEA)
+            </span>
+          </div>
+        )}
+
         {/*</PageBox>*/}
 
         <div className={styles.outerFlex}>

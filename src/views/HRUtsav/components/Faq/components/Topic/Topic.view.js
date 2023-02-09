@@ -68,6 +68,7 @@ class TopicView extends Component {
     const { active } = this.state;
     const { data, selectedCategory } = this.props;
     if (data.length > 0) {
+      data.sort((a, b) => (a.priority > b.priority ? 1 : -1));
       return data.map((val, index) => {
         return (
           <ul className={styles.list}>

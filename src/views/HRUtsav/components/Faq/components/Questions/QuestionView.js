@@ -106,12 +106,16 @@ class QuestionView extends Component {
             <div className={styles.locationText}>
               Locations: {val?.location}
             </div>
-            <div>
+            <div className={styles.imageFieldContainer}>
               <div>
-                <img src={GalleryImage} />
+                <img className={styles.imgResolution} src={val?.cover_image} />
               </div>
-              <div>
-                <img src={GalleryImage} />
+              <div className={styles.bookmarkedImgWrapper}>
+                {
+                  val.images?.map((item)=>{
+                    return <div className={styles.mappedImageContainer}><img className={styles.mappedImage} src={item?.image}/></div>
+                  })
+                }
               </div>
             </div>
           </Accordion>

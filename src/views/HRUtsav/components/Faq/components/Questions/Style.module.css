@@ -149,3 +149,28 @@
     display: flex;
     flex-wrap: wrap;
 }
+.imageFieldContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.imgResolution{
+    max-width: 800px;
+    max-height: 400px;
+    border-radius: 10px;
+}
+
+.bookmarkedImgWrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.mappedImage{
+    max-height: 140px;
+    border-radius: 10px;
+}
+.mappedImageContainer{
+    display: flex;
+    /* flex: 1; */
+}
