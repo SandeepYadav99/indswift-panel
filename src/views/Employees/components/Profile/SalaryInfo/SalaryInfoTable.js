@@ -37,7 +37,10 @@ function SalaryInfoTable() {
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Total"
-            monthly={data?.earning_one}
+            monthly={getSumValue(
+              data?.incremental_gross_salary,
+              data?.car_component
+            )}
           />
         </div>
         <div className={styles.grossWrapper}>
@@ -98,7 +101,10 @@ function SalaryInfoTable() {
             component="Fuel Availed (CTC) - Fringe"
             monthly={data?.fuel}
           />{" "}
-          <SaleryInfoField component="VPF - Monthly" monthly={data?.earning2_vpf} />
+          <SaleryInfoField
+            component="VPF - Monthly"
+            monthly={data?.earning2_vpf}
+          />
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Total Earning 2"
@@ -109,17 +115,17 @@ function SalaryInfoTable() {
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
             component="Gross Salary (Part A + Part B)"
-            monthly={getSumValue(
-              data?.earning_one,
-              data?.earning_two,
-            )}
+            monthly={getSumValue(data?.earning_one, data?.earning_two)}
           />
         </div>{" "}
         <div className={styles.grossWrapper}>
           <div>
             <p className={styles.salaryHeading}>Part C - Earning 3</p>
           </div>
-          <SaleryInfoField component="PLI - Qtrly" monthly={data?.earning_three_pli} />
+          <SaleryInfoField
+            component="PLI - Qtrly"
+            monthly={data?.earning_three_pli}
+          />
         </div>
         <div className={styles.grossWrapper}>
           <div>
@@ -173,7 +179,10 @@ function SalaryInfoTable() {
             component="Medical Insurance Premium"
             monthly={data?.insurance}
           />{" "}
-          <SaleryInfoField component="Stability Allowance" monthly={data?.stability_incentive} />{" "}
+          <SaleryInfoField
+            component="Stability Allowance"
+            monthly={data?.stability_incentive}
+          />{" "}
           <SaleryInfoField
             component="Retention Allowance"
             monthly={data?.retention_allowance}
@@ -214,7 +223,12 @@ function SalaryInfoTable() {
           />
           <SaleryInfoField
             component="Quarterly Payments (Helper + PUG + PLI + Perf Bonus)"
-            monthly={getSumValue(data?.helper, data?.pug, data?.perf_bonus,data?.earning_three_pli)}
+            monthly={getSumValue(
+              data?.helper,
+              data?.pug,
+              data?.perf_bonus,
+              data?.earning_three_pli
+            )}
           />
           <SaleryInfoField
             component="Fringe Benefits"
@@ -228,7 +242,11 @@ function SalaryInfoTable() {
           />
           <SaleryInfoField
             component="PF"
-            monthly={getSumValue(data?.earning_four, data?.total_deduction,data?.earning2_vpf)}
+            monthly={getSumValue(
+              data?.earning_four,
+              data?.total_deduction,
+              data?.earning2_vpf
+            )}
           />
           <SaleryInfoField
             component="Tenure Based Earning (LTA + Stabiliy + Gratuity + Bonus + Supperann)"
@@ -237,7 +255,8 @@ function SalaryInfoTable() {
               data?.gratuity,
               data?.annual_bonus,
               data?.retention_allowance,
-              data?.stability_incentive
+              data?.stability_incentive,
+              data?.super_annuation
             )}
           />
           <SaleryInfoField

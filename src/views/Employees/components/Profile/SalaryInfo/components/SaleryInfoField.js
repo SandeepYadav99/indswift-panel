@@ -20,7 +20,7 @@ function SaleryInfoField({ className, component, annual, monthly }) {
     <div className={className ? className : styles.grossSalaryWrapper}>
       <div className={styles.tableComponentField}>{component}</div>
       <div className={styles.tableAnnualField}>{getAnnualValues(monthly)}</div>
-      <div className={styles.tableMonthlyField}>{monthly}</div>
+      <div className={styles.tableMonthlyField}>{monthly === null ? 0 :monthly}</div>
     </div>
   );
 }

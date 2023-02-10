@@ -101,7 +101,7 @@ const HRKnowledgeCreateView = ({}) => {
             <CustomSelectField
               isError={errorData?.department_id}
               errorText={errorData?.department_id}
-              label={"Location"}
+              label={"Department"}
               value={form?.department_id}
               handleChange={(value) => {
                 changeTextData(value, "department_id");

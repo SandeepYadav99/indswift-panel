@@ -40,15 +40,15 @@ const Circular = ({}) => {
     const tableStructure = useMemo(() => {
         return [
             {
-                key: 'circular_name',
+                key: 'name',
                 label: 'CIRCULAR NAME',
-                sortable: false,
+                sortable: true,
                 render: (temp, all, index) => <div>{renderFirstCell(all)}</div>,
             },
             {
                 key: 'effective_date',
                 label: 'EFFECTIVE DATE',
-                sortable: false,
+                sortable: true,
                 render: (value, all) => <div>{all?.effectiveDateText}</div>,
             },
             {

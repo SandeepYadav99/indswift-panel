@@ -50,15 +50,15 @@ const HRPolicy = ({}) => {
     const tableStructure = useMemo(() => {
         return [
             {
-                key: 'po_no',
+                key: 'code',
                 label: 'POLICY NUMBER',
                 sortable: false,
                 render: (temp, all, index) => <div>{all?.code}</div>,
             },
             {
-                key: 'po_name',
+                key: 'name',
                 label: 'POLICY NAME',
-                sortable: false,
+                sortable: true,
                 render: (value, all) => <div>{renderFirstCell(all)}</div>,
             },
             {
@@ -68,9 +68,9 @@ const HRPolicy = ({}) => {
                 render: (temp, all) => <div>{all?.revision_number}</div>,
             },
             {
-                key: 'eff_date',
+                key: 'effective_date',
                 label: 'EFFECTIVE DATE',
-                sortable: false,
+                sortable: true,
                 render: (temp, all) => <div>{all?.effectiveDateText}</div>,
             },
             {

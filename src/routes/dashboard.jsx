@@ -587,6 +587,13 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN],
     },
     {
+        path: `${RouteName.HR_KNOWLEDGE_UPDATE}:id`,
+        component: HRKnowledgeCreateView,
+        is_sidebar: false,
+        is_protect: true,
+        roles: [Roles.ADMIN],
+    },
+    {
         path: RouteName.HR_POLICIES_CREATE,
         component: HRCreateView,
         is_sidebar: false,

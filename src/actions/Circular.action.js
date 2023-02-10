@@ -114,12 +114,12 @@ export function actionResetFilterCircular() {
 
 export function actionSetPageCircular(page) {
     const stateData = store.getState().Circular;
-    const currentPage = stateData.currentPage;
-    const totalLength = stateData.all.length;
-    const sortingData = stateData.sorting_data;
-    const query = stateData.query;
-    const queryData = stateData.query_data;
-    const serverPage = stateData.serverPage;
+    const currentPage = stateData?.currentPage;
+    const totalLength = stateData?.all.length;
+    const sortingData = stateData?.sorting_data;
+    const query = stateData?.query;
+    const queryData = stateData?.query_data;
+    const serverPage = stateData?.serverPage;
 
     if (totalLength <= ((page + 1) * Constants.DEFAULT_PAGE_VALUE)) {
         store.dispatch(actionFetchCircular(serverPage + 1, sortingData, {query, query_data: queryData}));
