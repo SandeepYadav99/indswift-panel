@@ -100,8 +100,10 @@
     word-break: break-word;
 }
 .locationText {
-    color: #58aeee;
-    font-weight: bold;
+    /* color: #58aeee; */
+    /* font-weight: bold; */
+    color: black;
+    padding-bottom: 10px;
 }
 
 
@@ -152,7 +154,8 @@
 .imageFieldContainer{
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    margin-top: 10px;
 }
 .imgResolution{
     max-width: 800px;
@@ -173,4 +176,7 @@
 .mappedImageContainer{
     display: flex;
     /* flex: 1; */
+}
+.textDescription{
+    color: black;
 }

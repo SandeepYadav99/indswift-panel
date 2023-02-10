@@ -13,8 +13,8 @@ import Widget from "../../../../components/Widget/WidgetView";
 
 const getRandomData = () =>
     Array(7)
-        .fill()
-        .map(() => ({ value: Math.floor(Math.random() * 10) + 1 }));
+        ?.fill()
+        ?.map(() => ({ value: Math.floor(Math.random() * 10) + 1 }));
 
 class LineStat extends PureComponent {
 
@@ -25,7 +25,7 @@ class LineStat extends PureComponent {
                 yAxes: [{
                     ticks: {
                         reverse: false,
-                        stepSize: 5
+                        stepSize: 500000
                     },
                 }]
             },
@@ -57,6 +57,7 @@ class LineStat extends PureComponent {
             // scaleLabel : "<%= Number(value).toFixed(0).replace('.', ',') + '°C'%>"
         }
         this._getData = this._getData.bind(this);
+        // console.log("===?",this.props.you)
     }
 
 
@@ -73,7 +74,7 @@ class LineStat extends PureComponent {
         gradient.addColorStop(1, 'rgba(88,80,236,0)');
 
         return {
-            labels: data.map((val) => {  return val.date; }),
+            labels: data?.map((val) => {  return val.date; }),
             datasets: [
                 {
                     label: 'My First dataset',
@@ -95,7 +96,7 @@ class LineStat extends PureComponent {
                     pointHoverBorderWidth: 2,
                     pointRadius: 7,
                     pointHitRadius: 10,
-                    data: data.map((val) => { return val.count; })
+                    data: data?.map((val) => { return val.count; })
                 }
             ],
         };
@@ -110,7 +111,7 @@ class LineStat extends PureComponent {
             <Widget
                 header={
                     <div className={classes.title}>
-                        <Typography variant="h5">Weekly Data</Typography>
+                        {/* <Typography variant="h5">Weekly Data</Typography> */}
                     </div>
                 }
                 upperTitle

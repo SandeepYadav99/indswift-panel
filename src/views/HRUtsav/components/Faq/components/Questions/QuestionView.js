@@ -98,14 +98,15 @@ class QuestionView extends Component {
             onEditClick={this._handleEdit}
             title={val.name}
             initial="hide"
-          >
+          >{console.log("===>",val)}
+          <div className={styles.locationText}>
+               {val?.createdAtText}
+            </div>
             <div
-              className={"innerHtml"}
+              className={styles.textDescription}
               dangerouslySetInnerHTML={{ __html: val.description }}
             ></div>
-            <div className={styles.locationText}>
-              Locations: {val?.location}
-            </div>
+            
             <div className={styles.imageFieldContainer}>
               <div>
                 <img className={styles.imgResolution} src={val?.cover_image} />

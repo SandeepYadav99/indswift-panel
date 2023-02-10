@@ -7,9 +7,13 @@ function RecentUpdate() {
   const { isCircularCalling, circulars } = useSelector(
     (state) => state.employeeDashboard
   );
-
+const startfiveValues=(value)=>{
+  if(value){
+    return value.slice(0,5)
+  }
+}
   const listItems = useMemo(() => {
-    return circulars.map((data) => {
+    return startfiveValues(circulars)?.map((data) => {
       return (
         <div className={styles.descriptionContainer}>
           <div>

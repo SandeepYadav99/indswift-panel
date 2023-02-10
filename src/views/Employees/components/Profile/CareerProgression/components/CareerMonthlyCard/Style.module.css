@@ -1,0 +1,60 @@
+.careerMonthlyContainer {
+  border-radius: 10px;
+  border: 1px solid #b8c5d3;
+  /* flex: 0.2; */
+  padding-top: 10px;
+  padding-bottom: 25px;
+  min-width: 220px;
+}
+.monthContainer{
+    display: flex;
+}
+.monthWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+}
+.salaryinfo {
+  display: flex;
+  flex-direction: column;
+}
+.dgm {
+  background: #2896e9 0% 0% no-repeat padding-box;
+  color: white;
+  padding: 5px 0;
+  display: flex;
+  justify-content: center;
+}
+.ctcWrap {
+  padding: 5px 1rem;
+  display: flex;
+  justify-content: space-around;
+  /* gap: 2.5rem; */
+}
+.dgmGreen {
+  background: #29cb97 0% 0% no-repeat padding-box;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 5px 0;
+  font-size: 0.875rem;
+}
+.ctcyear {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.ctclabel {
+  font-size: 0.875rem;
+}
+.monthDate {
+  font-size: 0.875rem;
+}
+
+.progressWrapper{
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: 11px;
+
+}

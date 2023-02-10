@@ -14,6 +14,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useEmployeesTab from "./EmployeesTabHook";
 import { actionGetEmployeeDetails } from "../../actions/Employee.action";
 import SalaryInfo from "./components/Profile/SalaryInfo/SalaryInfo";
+import CareerProgression from "./components/Profile/CareerProgression/CareerProgression";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -125,7 +126,9 @@ const EmployeeTab = () => {
             <TabPanel value={value} index={1} dir={"ltr"}>
               <SalaryInfo />
             </TabPanel>
-            <TabPanel value={value} index={2} dir={"ltr"}></TabPanel>
+            <TabPanel value={value} index={2} dir={"ltr"}>
+              <CareerProgression/>
+            </TabPanel>
             <TabPanel value={value} index={3} dir={"ltr"}></TabPanel>
           </div>
         </div>

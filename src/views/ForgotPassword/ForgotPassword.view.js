@@ -183,8 +183,8 @@ class ForgotPasswordView extends Component {
                                            component={renderOutlinedTextField}
                                            label="Employee ID"/>
                                 </div>
-                                <span className={styles.bottomSignup}><ButtonBase onClick={this._handleBack}
-                                                                                  className={styles.back}>Resend Link</ButtonBase></span>
+                                {/* <span className={styles.bottomSignup}><ButtonBase onClick={this._handleBack}
+                                                                                  className={styles.back}>Resend Link</ButtonBase></span> */}
                                 {/*<span style={{float:'right',marginTop:'5px'}}><Link to='/login'>Back To Login</Link></span>*/}
                                 <br/>
                                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
