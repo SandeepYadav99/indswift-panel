@@ -55,6 +55,7 @@ import EmployeeKnowledge from "../views/EmployeeKnowledge/EmployeeKnowledge.cont
 import EmployeePerformance from "../views/EmployeePerformance/EmployeePerformance.container";
 import EmployeeClaim from "../views/EmployeeClaim/EmployeeClaim.container";
 import ReviewCandidate from "../views/ReviewCandidate/ReviewCandidate.container";
+import ViewDocuments from "../views/ViewDocuments/ViewDocuments";
 
 const Roles = Constants.ROLES;
 
@@ -633,6 +634,7 @@ const dashboardRoutes = [
         is_protect: true,
         roles: [Roles.ADMIN],
     },
+
     {
         path: 'null',
         sidebarName: "Talent Management",
@@ -664,6 +666,16 @@ const dashboardRoutes = [
         is_protect: true,
         roles: [Roles.ADMIN],
     },
+    {
+        path: `${RouteName.VIEW_DOCUMENTS}`,
+        sidebarName: "",
+        navbarName: "",
+        icon: LocalOffer,
+        component: ViewDocuments,
+        is_sidebar: false,
+        is_protect: false,
+    },
+
     // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 

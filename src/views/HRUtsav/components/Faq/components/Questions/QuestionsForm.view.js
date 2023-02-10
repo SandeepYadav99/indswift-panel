@@ -123,7 +123,7 @@ class QuestionsFormView extends Component {
                 remote_images: images,
             })
         } else {
-            requiredFields = ["name", "description", "priority", "location_id"];
+            requiredFields = ["name", "description", "priority", "location_id", 'images', 'cover_image'];
         }
     }
 

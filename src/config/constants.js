@@ -1,8 +1,6 @@
 /* eslint-disable indent,linebreak-style */
 const TABLE_LIMIT = 50;
-const tempLevel = !(
-  !process.env.NODE_ENV || process.env.NODE_ENV === "development"
-);
+const tempLevel = !(!process.env.NODE_ENV || process.env.NODE_ENV === "development");
 
 const tempDate = new Date();
 const isProduction = false;
@@ -19,12 +17,8 @@ export default {
   TIME_ZONE: -(tempDate.getTimezoneOffset() / 60),
   DEFAULT_TIME_FORMAT: "DD-MM-YYYY, HH:mm",
   APP_NAME: "IndSwift Panel",
-  DEFAULT_APP_URL: tempLevel
-    ? "http://91.205.173.97:8111/api/admin/"
-    : "http://localhost:8111/api/admin/",
-  SOCKET_URL: tempLevel
-    ? "http://91.205.173.97:8111/"
-    : "http://91.205.173.97:8111/",
+  DEFAULT_APP_URL: tempLevel ? url : "http://localhost:8111/api/admin/",
+  SOCKET_URL: tempLevel ? socketUrl : "http://91.205.173.97:8111/",
   // DEFAULT_APP_URL: 'http://35.154.147.169:5055/api/',
   DEFAULT_PAGE_VALUE: TABLE_LIMIT,
   GOOGLE_LOGIN_KEY:

@@ -5,7 +5,7 @@ import images from "../../assets/img/hr policies illustartion.png";
 import FilterComponent from "../../components/Filter/Filter.component";
 import classNames from "classnames";
 
-import { Button, IconButton } from "@material-ui/core";
+import {Button, ButtonBase, IconButton} from "@material-ui/core";
 
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
@@ -15,6 +15,8 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import StatusPill from "../../components/Status/StatusPill.component";
 import { useMemo } from "react";
 import { useCallback } from "react";
+import RouteName from "../../routes/Route.name";
+import historyUtils from "../../libs/history.utils";
 function EmployeeHRPolicy() {
   const {
     handleSortOrderChange,
@@ -75,10 +77,11 @@ function EmployeeHRPolicy() {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <a
+            <ButtonBase
               style={{ "text-decoration": "none" }}
-              href={all?.document}
-              target="_blank"
+              onClick={() => {
+                historyUtils.push(RouteName.VIEW_DOCUMENTS, { url: all?.document });
+              }}
             >
               <Button
                 color="primary"
@@ -90,7 +93,7 @@ function EmployeeHRPolicy() {
               >
                 view
               </Button>
-            </a>
+            </ButtonBase>
           </div>
         ),
       },

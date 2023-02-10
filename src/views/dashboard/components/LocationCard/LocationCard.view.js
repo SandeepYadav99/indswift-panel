@@ -20,7 +20,7 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 const LocationCard = ({data}) => {
     return (
-        <div style={{flex:1}}>
+        <div className={styles.locationCont}>
             <div className={styles.plainPaper}>
                 <div className={styles.name}>{data?.name}</div>
 

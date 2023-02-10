@@ -206,6 +206,7 @@
 
 .newFlex{
     display: flex;
+    flex-wrap: wrap;
 }
 
 .tableFlex{
