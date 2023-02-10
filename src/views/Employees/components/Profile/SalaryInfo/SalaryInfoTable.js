@@ -76,16 +76,16 @@ function SalaryInfoTable() {
             monthly={data?.helper}
           />{" "}
           <SaleryInfoField
-            component="Food Coupens - Fringe"
+            component="Food Coupons  - Fringe"
             monthly={data?.food_coupons}
           />
           <SaleryInfoField
-            component="Gift Coupens - Fringe"
+            component="Gift Coupons - Fringe"
             monthly={data?.gift_coupons}
           />{" "}
           <SaleryInfoField component="LTA - Bimonthly" monthly={data?.lta} />
           <SaleryInfoField
-            component="Supperannuation - Post Retire"
+            component="Superannuation - Post Retire"
             monthly={data?.super_annuation}
           />{" "}
           <SaleryInfoField component="NPS" monthly={data?.nps} />
@@ -249,7 +249,7 @@ function SalaryInfoTable() {
             )}
           />
           <SaleryInfoField
-            component="Tenure Based Earning (LTA + Stabiliy + Gratuity + Bonus + Supperann)"
+            component="Tenure Based Earning  (LTA + Stability + Gratuity + Bonus + Retention Allowance + Supperann)"
             monthly={getSumValue(
               data?.lta,
               data?.gratuity,
