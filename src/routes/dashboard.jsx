@@ -30,30 +30,30 @@ import GradeCreateView from "../views/Grade/GradeCreate.view";
 import CadreList from "../views/Cadre/CadreList.container";
 import CadreCreateView from "../views/Cadre/CadreCreate.view";
 import RouteName from "./Route.name";
-import HRPolicy from "../views/HRPolicy/HRPolicy.container";
-import HRCreateView from "../views/HRPolicy/HRPolicyCreate.view";
-import CircularCreateView from "../views/Circular/CircularCreate.view";
-import Circular from "../views/Circular/Circular.container";
+import HRPolicy from "../views/HR/HRPolicy/HRPolicy.container";
+import HRCreateView from "../views/HR/HRPolicy/HRPolicyCreate.view";
+import CircularCreateView from "../views/HR/Circular/CircularCreate.view";
+import Circular from "../views/HR/Circular/Circular.container";
 import DesignationList from "../views/Designation/DesignationList.container";
 import DesignationCreateView from "../views/Designation/DesignationCreate.view";
 import AppSettings from "../views/AppSettings/AppSettings.container";
-import HRSettings from "../views/HRSettings/HRSettings.container";
-import EmployeeDashboard from "../views/EmployeeDashboard/EmployeeDashboard.view";
-import EmployeeInducation from "../views/EmployeeInducation/EmployeeInducation.container";
-import EmployeeHRPolicy from "../views/EmployeeHRPolicy/EmployeeHRPolicy.container";
-import EmployeeCircular from "../views/EmployeeCircular/EmployeeCircular.container";
+import HRSettings from "../views/HR/HRSettings/HRSettings.container";
+import EmployeeDashboard from "../views/Employees/EmployeeDashboard/EmployeeDashboard.view";
+import EmployeeInducation from "../views/EmployeePanel/EmployeeInducation/EmployeeInducation.container";
+import EmployeeHRPolicy from "../views/EmployeePanel/EmployeeHRPolicy/EmployeeHRPolicy.container";
+import EmployeeCircular from "../views/EmployeePanel/EmployeeCircular/EmployeeCircular.container";
 import Constants from "../config/constants";
 import EmployeeEngagement from "../views/EmployeeEngagement/EmployeeEngagement.container";
-import EmployeeDrishti from "../views/EmployeeDrishti/EmployeeDrishti.container";
-import EmployeeIkigai from "../views/EmployeeIkigai/EmployeeIkigai.container";
-import EmployeeDeepak from "../views/EmployeeDeepak/EmployeeDeepak.container";
-import EmployeeUtsav from "../views/EmployeeUtsav/EmployeeUtsav.container";
-import HRKnowledge from "../views/HRKnowledge/HRKnowledge.container";
-import HRKnowledgeCreateView from "../views/HRKnowledge/HRKnowledgeCreate.view";
-import HRUtsav from "../views/HRUtsav/HRUtsav.container";
-import EmployeeKnowledge from "../views/EmployeeKnowledge/EmployeeKnowledge.container";
+import EmployeeDrishti from "../views/EmployeePanel/EmployeeDrishti/EmployeeDrishti.container";
+import EmployeeIkigai from "../views/EmployeePanel/EmployeeIkigai/EmployeeIkigai.container";
+import EmployeeDeepak from "../views/EmployeePanel/EmployeeDeepak/EmployeeDeepak.container";
+import EmployeeUtsav from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsav.container";
+import HRKnowledge from "../views/HR/HRKnowledge/HRKnowledge.container";
+import HRKnowledgeCreateView from "../views/HR/HRKnowledge/HRKnowledgeCreate.view";
+import HRUtsav from "../views/HR/HRUtsav/HRUtsav.container";
+import EmployeeKnowledge from "../views/EmployeePanel/EmployeeKnowledge/EmployeeKnowledge.container";
 import EmployeePerformance from "../views/EmployeePerformance/EmployeePerformance.container";
-import EmployeeClaim from "../views/EmployeeClaim/EmployeeClaim.container";
+import EmployeeClaim from "../views/EmployeePanel/EmployeeClaim/EmployeeClaim.container";
 import ReviewCandidate from "../views/ReviewCandidate/ReviewCandidate.container";
 import ViewDocuments from "../views/ViewDocuments/ViewDocuments";
 
@@ -286,7 +286,7 @@ const dashboardRoutes = [
         parent: 'swift',
 
     },
-   
+
     {
         path: 'null',
         sidebarName: "Budget & Planning",

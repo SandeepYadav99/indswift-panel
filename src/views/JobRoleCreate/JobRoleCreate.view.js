@@ -185,10 +185,10 @@ const JobRoleCreateView = ({ onlyShow }) => {
               }}
             >
               <MenuItem value={""}>None</MenuItem>
-              {listData?.DESIGNATIONS?.map((dT) => {
+              {listData?.JOB_ROLES?.map((dT) => {
                 return (
                   <MenuItem value={dT?.id} key={dT?.id}>
-                    {dT?.name}
+                    {dT?.label}
                   </MenuItem>
                 );
               })}
