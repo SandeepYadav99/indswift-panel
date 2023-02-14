@@ -56,6 +56,7 @@ import EmployeePerformance from "../views/EmployeePerformance/EmployeePerformanc
 import EmployeeClaim from "../views/EmployeePanel/EmployeeClaim/EmployeeClaim.container";
 import ReviewCandidate from "../views/ReviewCandidate/ReviewCandidate.container";
 import ViewDocuments from "../views/ViewDocuments/ViewDocuments";
+import EmployeeListCreate from "../views/EmployeeList/EmployeeListCreate";
 
 const Roles = Constants.ROLES;
 
@@ -117,6 +118,17 @@ const dashboardRoutes = [
         icon: AssignmentOutlined,
         component: EmployeeList,
         is_sidebar: true,
+        is_protect: true,
+        // should_regex: true,
+        roles: [Roles.ADMIN],
+    },
+    {
+        path: "/employees/create",
+        sidebarName: "Employee Records",
+        navbarName: "Employee Records",
+        icon: AssignmentOutlined,
+        component: EmployeeListCreate,
+        is_sidebar: false,
         is_protect: true,
         // should_regex: true,
         roles: [Roles.ADMIN],

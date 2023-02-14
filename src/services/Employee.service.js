@@ -34,3 +34,6 @@ export async function serviceEmployeeImportVerify (params) {
 export async function serviceEmployeeImportFile(params) {
     return await formDataRequest('employees/import', params);
 }
+export async function serviceCheckEmployeeExists(params) {
+    return await postRequest('employees/exists', params);
+}
