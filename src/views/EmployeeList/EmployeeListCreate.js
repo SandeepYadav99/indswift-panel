@@ -49,7 +49,11 @@ const EmployeeListCreate = ({}) => {
   //   return numbers ? numbers.reduce((sum, value) => sum + value !=="" ? parseInt(value): 0, 0) : "-";
   // };
   const getSumValue = (...numbers) => {
-    return numbers ? numbers.reduce((sum, value) => sum + value, 0) : "-";
+    return numbers ? numbers.reduce((sum, value) => {
+      if (value) {
+        return sum + parseFloat(value);
+      } return sum;
+    }, 0) : "-";
   };
   console.log("=====>", listData);
   const classes = useStyles();
@@ -400,7 +404,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
           <div className={"formGroup"}>
-            {/* <CustomAutoComplete
+            <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
                 getOptionLabel: (option) => {
@@ -417,12 +421,12 @@ const EmployeeListCreate = ({}) => {
               name={"hod_id"}
               isError={errorData?.hod_id}
               value={form?.hod_id}
-            /> */}
+            />
           </div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            {/* <CustomAutoComplete
+             <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
                 getOptionLabel: (option) => option?.label,
@@ -437,7 +441,7 @@ const EmployeeListCreate = ({}) => {
               name={"associate"}
               isError={errorData?.associate}
               value={form?.associate}
-            /> */}
+            />
           </div>
           <div className={"formGroup"}></div>
         </div>

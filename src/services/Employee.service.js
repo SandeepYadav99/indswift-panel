@@ -25,7 +25,7 @@ export async function serviceEmployeeCodeCheck (params) {
 }
 export async function serviceEmployeeCodeSubmit (params) {
     return await postRequest('employees/details', params);
-} 
+}
 
 export async function serviceEmployeeImportVerify (params) {
     return await formDataRequest('employees/import/verify', params);
@@ -34,6 +34,14 @@ export async function serviceEmployeeImportVerify (params) {
 export async function serviceEmployeeImportFile(params) {
     return await formDataRequest('employees/import', params);
 }
+
+export async function serviceGetEmployeeProgression(params) {
+    return await postRequest('employee/progressions', params);
+}
 export async function serviceCheckEmployeeExists(params) {
     return await postRequest('employees/exists', params);
+}
+
+export async function serviceGetEmployeeEditInfo(params) {
+    return await postRequest('employees/edit/info', params);
 }

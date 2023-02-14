@@ -1,0 +1,19 @@
+.TotalSumWrapper{
+    background: #F5F7FB 0% 0% no-repeat padding-box;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 5px;
+    border-radius: 10px;
+}
+.topWrapper{
+    margin-left: 15px;
+    font-size: .875rem;
+}
+.nameFonts{
+    font-weight: normal;
+}
+.amountFonts{
+    color: #29CB97;
+    font-weight: bold;
+}

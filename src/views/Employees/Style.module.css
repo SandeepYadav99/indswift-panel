@@ -116,11 +116,11 @@ color: white;
   gap: 14px;
 }
 .btnWrap {
-  width: 30%;
+  /*width: 30%;*/
 }
 .btnUpper {
   gap: 10px;
-  
+
 }
 .btnUpper >.MuiButton-root{
   min-width: 30px !important;

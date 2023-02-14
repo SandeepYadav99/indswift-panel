@@ -57,6 +57,7 @@ import EmployeeClaim from "../views/EmployeePanel/EmployeeClaim/EmployeeClaim.co
 import ReviewCandidate from "../views/ReviewCandidate/ReviewCandidate.container";
 import ViewDocuments from "../views/ViewDocuments/ViewDocuments";
 import EmployeeListCreate from "../views/EmployeeList/EmployeeListCreate";
+import EmployeeEdit from "../views/EmployeeEdit/EmployeeEdit";
 
 const Roles = Constants.ROLES;
 
@@ -112,7 +113,7 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN],
     },
     {
-        path: "/employees",
+        path: RouteName.EMPLOYEES,
         sidebarName: "Employee Records",
         navbarName: "Employee Records",
         icon: AssignmentOutlined,
@@ -123,11 +124,20 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN],
     },
     {
-        path: "/employees/create",
+        path: RouteName.EMPLOYEE_CREATE,
         sidebarName: "Employee Records",
         navbarName: "Employee Records",
         icon: AssignmentOutlined,
         component: EmployeeListCreate,
+        is_sidebar: false,
+        is_protect: true,
+        // should_regex: true,
+        roles: [Roles.ADMIN],
+    },
+    {
+        path: `${RouteName.EMPLOYEE_UPDATE}:id`,
+        icon: AssignmentOutlined,
+        component: EmployeeEdit,
         is_sidebar: false,
         is_protect: true,
         // should_regex: true,

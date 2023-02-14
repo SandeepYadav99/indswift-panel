@@ -4,46 +4,46 @@ import progressArrow  from '../../../../../../../assets/img/ic_arrow.png';
 import uparrow  from '../../../../../../../assets/img/ic_upwards_whitearrow.png'
 
 
-function CareerMonthlyCard({lastCard}) {
+function CareerMonthlyCard({isLast, data}) {
   return (
     <div className={styles.monthContainer}>
       <div className={styles.careerMonthlyContainer}>
         <div className={styles.monthWrap}>
-          <span className={styles.ctcyear}>April 2018</span>
-          <span className={styles.monthDate}>(15/06/2010 - 31/03/2011)</span>
+          <span className={styles.ctcyear}>{data?.headerText}</span>
+          <span className={styles.monthDate}>({data?.fromText} - {data?.toText})</span>
         </div>
         <div className={styles.dgm}>
-          <span>DGM</span>
+          <span>{data?.designation?.name}</span>
         </div>
         <div className={styles.salaryinfo}>
           <div className={styles.ctcWrap}>
             <span className={styles.ctclabel}>CTC</span>
-            <span className={styles.ctcyear}>19883</span>
+            <span className={styles.ctcyear}>{data?.ctc}</span>
           </div>
           <div className={styles.ctcWrap}>
             <span className={styles.ctclabel}>Salary:</span>
-            <span className={styles.ctcyear}>19883</span>
+            <span className={styles.ctcyear}>{data?.salary}</span>
           </div>
           <div className={styles.ctcWrap}>
             <span className={styles.ctclabel}>PLI:</span>
-            <span className={styles.ctcyear}>19883</span>
+            <span className={styles.ctcyear}>{data?.pli}</span>
           </div>{" "}
           <div className={styles.ctcWrap}>
             <span className={styles.ctclabel}>Others:</span>
-            <span className={styles.ctcyear}>19883</span>
+            <span className={styles.ctcyear}>{data?.others}</span>
           </div>
         </div>
         <div className={styles.dgmGreen}>
-          <span>Increment: 22948</span>
-          <span>12% <img src={uparrow}/></span>
+          <span>Increment: {data?.increment}</span>
+          <span>{data?.percentage}% {data?.percentage > 0 && (<img src={uparrow}/>)}</span>
         </div>
       </div>
       {
-        lastCard ? <></>:  <div className={styles.progressWrapper}>
+        isLast ? <></>:  <div className={styles.progressWrapper}>
         <img src={progressArrow}/>
       </div>
       }
-     
+
     </div>
   );
 }

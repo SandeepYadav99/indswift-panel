@@ -10,6 +10,7 @@ import {
 } from "../../actions/Employee.action";
 import historyUtils from "../../libs/history.utils";
 import {serviceGetList} from "../../services/Common.service";
+import RouteName from "../../routes/Route.name";
 
 const useEmployeeList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -149,7 +150,7 @@ const useEmployeeList = ({}) => {
   );
 
   const handleSideToggle = useCallback(() => {
-    historyUtils.push("/employee/create");
+    historyUtils.push(RouteName.EMPLOYEE_CREATE);
     // setSidePanel(e => !e);
     // setEditData(null);
   }, [setEditData, setSidePanel]);

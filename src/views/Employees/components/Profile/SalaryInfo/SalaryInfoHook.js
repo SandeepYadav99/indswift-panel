@@ -17,6 +17,7 @@ function SalaryInfoHook() {
       })
       .catch((err) => console.log(err));
   }, []);
+
   return {
     EmployeeSalaryInfo,
   };

@@ -5,10 +5,10 @@ import MuiStyle from '../../libs/MuiStyle';
 
 const useStyle = makeStyles(MuiStyle);
 
-const ActionButton=({children})=> {
+const ActionButton=({children, ...rest})=> {
 const classes = useStyle();
   return (
-    <Button className={classes.btnAction}>{children}</Button>
+    <Button className={classes.btnAction} {...rest}>{children}</Button>
   )
 }
 

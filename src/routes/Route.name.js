@@ -53,5 +53,9 @@ export default {
   EMPLOYEE_DASHBOARD: "/employee/dashboard",
   RESET_PASSWORD_FIRST: "/reset/password/first",
 
-  VIEW_DOCUMENTS: '/view/documents'
+  VIEW_DOCUMENTS: '/view/documents',
+
+  EMPLOYEES: '/employees',
+  EMPLOYEE_UPDATE: '/employees/update/',
+  EMPLOYEE_CREATE: '/employees/create',
 };

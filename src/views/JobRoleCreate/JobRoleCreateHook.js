@@ -141,7 +141,7 @@ const useJobRolesDetail = ({}) => {
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = ['name', 'code', 'location_id', 'department_id', 'sub_department_id', 'grade_id', 'min_qualification', 'min_experience', 'salary_range'];
+        let required = ['name', 'code', 'location_id', 'department_id', 'grade_id', 'min_qualification', 'min_experience', 'salary_range'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
@@ -184,6 +184,7 @@ const useJobRolesDetail = ({}) => {
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
+        LogUtils.log('errors', errors);
         if (Object.keys(errors).length > 0) {
             setErrorData(errors);
             return true;
