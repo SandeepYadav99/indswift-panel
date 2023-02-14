@@ -58,6 +58,7 @@ import ReviewCandidate from "../views/ReviewCandidate/ReviewCandidate.container"
 import ViewDocuments from "../views/ViewDocuments/ViewDocuments";
 import EmployeeListCreate from "../views/EmployeeList/EmployeeListCreate";
 import EmployeeEdit from "../views/EmployeeEdit/EmployeeEdit";
+import EmployeeEditVersionListContainer from "../views/EmployeeEditVersions/ListView/EmployeeEditVersionList.container";
 
 const Roles = Constants.ROLES;
 
@@ -689,6 +690,16 @@ const dashboardRoutes = [
         is_protect: true,
         roles: [Roles.ADMIN],
     },
+    // {
+    //     path: `${RouteName.EMPLOYEE_VERSIONS}`,
+    //     sidebarName: "Employee Changes",
+    //     navbarName: "Employee Changes",
+    //     icon: LocalOffer,
+    //     component: EmployeeEditVersionListContainer,
+    //     is_sidebar: true,
+    //     is_protect: true,
+    //     roles: [Roles.ADMIN],
+    // },
     {
         path: `${RouteName.VIEW_DOCUMENTS}`,
         sidebarName: "",

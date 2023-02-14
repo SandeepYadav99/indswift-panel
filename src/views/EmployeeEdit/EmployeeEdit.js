@@ -19,6 +19,8 @@ import useEmployeeEditHook from "./EmployeeEditHook";
 import TotalSum from "./components/TotalSum/TotalSum";
 import constants from "../../config/constants";
 import ChildrenIncludeForm from "./components/includes/ChildrenIncludes.component";
+import {getSumValue} from "../../libs/general.utils";
+import {WaitingComponent} from "../../components/index.component";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -43,16 +45,10 @@ const EmployeeListCreate = ({}) => {
     filteredCadres,
     getLevelValues,
     ChildenRef,
+      editData,
+      isLoading
   } = useEmployeeEditHook({});
-  // const getSumValue = (...numbers) => {
-  //   console.log("====number>",numbers)
-  //   return numbers ? numbers.reduce((sum, value) => sum + value !=="" ? parseInt(value): 0, 0) : "-";
-  // };
-  const getSumValue = (...numbers) => {
-    return numbers ? numbers.reduce((sum, value) => sum + value, 0) : "-";
-  };
-  console.log("=====>", listData);
-  const classes = useStyles();
+
   const image = useMemo(() => {
     return (
         <File
@@ -66,6 +62,7 @@ const EmployeeListCreate = ({}) => {
             show_image={true}
             error={errorData?.image}
             value={form?.image}
+            default_image={editData?.image ? editData?.image : null}
             onChange={(file) => {
               if (file) {
                 changeTextData(file, "image");
@@ -73,7 +70,12 @@ const EmployeeListCreate = ({}) => {
             }}
         />
     );
-  }, [form?.image, changeTextData]);
+  }, [form?.image, editData?.image, changeTextData]);
+
+  if (isLoading) {
+      return (<WaitingComponent />);
+  }
+
   return (
       <div>
         <div className={styles.outerFlex}>
@@ -81,7 +83,7 @@ const EmployeeListCreate = ({}) => {
             <ButtonBase onClick={() => history.goBack()}>
               <ArrowBackIosIcon fontSize={"small"} />{" "}
               <span>
-              <b>{"New"} Employee</b>
+              <b>Update Employee</b>
             </span>
             </ButtonBase>
             <div className={styles.newLines} />
@@ -118,6 +120,7 @@ const EmployeeListCreate = ({}) => {
 
                 <div className={"formGroup"}>
                   <CustomTextField
+                      disabled={true}
                       isError={errorData?.emp_code}
                       errorText={errorData?.emp_code}
                       label={"Employee Code"}
@@ -174,7 +177,7 @@ const EmployeeListCreate = ({}) => {
               >
                 {constants.STATES.map((state) => {
                   return (
-                      <MenuItem value={state} key={state}>
+                      <MenuItem value={state.toUpperCase()} key={state.toUpperCase()}>
                         {state}
                       </MenuItem>
                   );
@@ -430,13 +433,13 @@ const EmployeeListCreate = ({}) => {
                   dataset={listData?.JOB_ROLES}
                   datasetKey={"label"}
                   onTextChange={(text, value) => {
-                    changeTextData(text, "associate");
+                    changeTextData(text, "job_role_id");
                   }}
                   variant={"outlined"}
                   label={"Associate Job Role"}
-                  name={"associate"}
-                  isError={errorData?.associate}
-                  value={form?.associate}
+                  name={"job_role_id"}
+                  isError={errorData?.job_role_id}
+                  value={form?.job_role_id}
               />
             </div>
             <div className={"formGroup"}></div>
@@ -674,8 +677,10 @@ const EmployeeListCreate = ({}) => {
                     changeTextData(value, "martial_status");
                   }}
               >
-                <MenuItem value="1">1</MenuItem>
-                <MenuItem value="2">2</MenuItem>
+                <MenuItem value="Divorce">Divorce</MenuItem>
+                <MenuItem value="Married">Married</MenuItem>
+                <MenuItem value="Unmarried">Unmarried</MenuItem>
+                <MenuItem value="Widow">Widow</MenuItem>
               </CustomSelectField>
             </div>
             <div className={"formGroup"}>
@@ -708,12 +713,12 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={"formGroup"}>
               <CustomSelectField
-                  isError={errorData?.cadre_id}
-                  errorText={errorData?.cadre_id}
+                  isError={errorData?.spouse_gender}
+                  errorText={errorData?.spouse_gender}
                   label={"Spouse Gender"}
-                  value={form?.cadre_id}
+                  value={form?.spouse_gender}
                   handleChange={(value) => {
-                    changeTextData(value, "cadre_id");
+                    changeTextData(value, "spouse_gender");
                   }}
               >
                 <MenuItem value="MALE">Male</MenuItem>
@@ -726,44 +731,21 @@ const EmployeeListCreate = ({}) => {
               <CustomDatePicker
                   clearable
                   label={"Spouse DOB"}
-                  // minDate={new Date()}
+                  maxDate={new Date()}
                   onChange={(date) => {
                     changeTextData(date, "spouse_dob");
                   }}
                   value={form?.spouse_dob}
                   isError={errorData?.spouse_dob}
               />
-              {/* <CustomSelectField
-              isError={errorData?.state}
-              errorText={errorData?.state}
-              label={"Spouse DOB"}
-              value={form?.state}
-              handleChange={(value) => {
-                changeTextData(value, "state");
-              }}
-            >
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
-            </CustomSelectField> */}
             </div>
             <div className={"formGroup"}>
-              <CustomSelectField
-                  isError={errorData?.hod_id}
-                  errorText={errorData?.hod_id}
-                  label={"No. of Children"}
-                  value={form?.hod_id}
-                  handleChange={(value) => {
-                    changeTextData(value, "hod_id");
-                  }}
-              >
-                <MenuItem value="1">1</MenuItem>
-                <MenuItem value="2">2</MenuItem>
-              </CustomSelectField>
+
             </div>
           </div>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
-              <ChildrenIncludeForm ref={ChildenRef} />
+              <ChildrenIncludeForm ref={ChildenRef} data={form?.children} />
             </div>
           </div>
         </div>
@@ -812,33 +794,36 @@ const EmployeeListCreate = ({}) => {
           <div className={"headerFlex"}>
             <h4 className={"infoTitle"}>
               <div className={"heading"}>Employee Performance Review</div>
-              {/*<Tooltip title="Info" aria-label="info" placement="right">*/}
-              {/*    <InfoIcon fontSize={'small'}/>*/}
-              {/*</Tooltip>*/}
             </h4>
           </div>
 
           <div className={"formFlex"}>
             <div className={"formGroup"}>
-              <CustomTextField
-                  isError={errorData?.pms_reviewer_id}
-                  errorText={errorData?.pms_reviewer_id}
-                  label={"Reviewer Name"}
-                  value={form?.pms_reviewer_id}
-                  onTextChange={(text) => {
-                    changeTextData(text, "pms_reviewer_id");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("pms_reviewer_id");
-                  }}
-              />
+                <CustomAutoComplete
+                    autoCompleteProps={{
+                        freeSolo: false,
+                        getOptionLabel: (option) => {
+                            return option?.label;
+                        },
+                    }}
+                    dataset={listData?.EMPLOYEES}
+                    datasetKey={"label"}
+                    onTextChange={(text, value) => {
+                        changeTextData(text, "pms_reviewer_id");
+                    }}
+                    variant={"outlined"}
+                    label={"Reviewer Name"}
+                    name={"pms_reviewer_id"}
+                    isError={errorData?.pms_reviewer_id}
+                    value={form?.pms_reviewer_id}
+                />
             </div>
 
             <div className={"formGroup"}>
               <CustomDatePicker
                   clearable
                   label={"Previous Review Date"}
-                  // minDate={new Date()}
+                  maxDate={new Date()}
                   onChange={(date) => {
                     changeTextData(date, "previous_review_date");
                   }}
@@ -852,7 +837,7 @@ const EmployeeListCreate = ({}) => {
               <CustomDatePicker
                   clearable
                   label={"Next Review Date"}
-                  // minDate={new Date()}
+                  minDate={new Date()}
                   onChange={(date) => {
                     changeTextData(date, "next_review_date");
                   }}

@@ -58,4 +58,6 @@ export default {
   EMPLOYEES: '/employees',
   EMPLOYEE_UPDATE: '/employees/update/',
   EMPLOYEE_CREATE: '/employees/create',
+
+  EMPLOYEE_VERSIONS: '/employee/versions'
 };

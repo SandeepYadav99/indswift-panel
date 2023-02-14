@@ -18,9 +18,9 @@ import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 
 const TEMP_OBJ = {
-  child_name: "",
-  child_gender: "",
-  child_dob: "",
+  name: "",
+  gender: "",
+  dob: "",
 };
 
 const ChildrenIncludeForm = (
@@ -39,6 +39,7 @@ const ChildrenIncludeForm = (
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
+  const [isChanged, setIsChanged] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {}, []);
@@ -63,7 +64,10 @@ const ChildrenIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      return JSON.parse(JSON.stringify(fields));
+      return {
+        data: JSON.parse(JSON.stringify(fields)),
+        isChanged: isChanged,
+      };
     },
   }));
 
@@ -83,7 +87,7 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["child_name", "child_gender", "child_dob"];
+      const required = ["name", "gender", "dob"];
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -99,7 +103,14 @@ const ChildrenIncludeForm = (
 
   useEffect(() => {
     if (data) {
-      setFields(data);
+      const filteredData = [];
+      data.forEach(dT => {
+        filteredData.push({
+          ...TEMP_OBJ,
+          ...dT,
+        });
+      });
+      setFields(filteredData);
     }
   }, [data]);
 
@@ -129,12 +140,13 @@ const ChildrenIncludeForm = (
   const changeData = (index, data) => {
     const tempData = JSON.parse(JSON.stringify(fields));
     tempData[index] = { ...tempData[index], ...data };
-    LogUtils.log("data", data);
+    LogUtils.log("changeDataChildren", data);
     setFields(tempData);
     const errArr = [];
     Object.keys(data).forEach((key) => {
       errArr.push(key);
     });
+    setIsChanged(true);
     removeErrors(index, errArr);
   };
 

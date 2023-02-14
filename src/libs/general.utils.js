@@ -23,3 +23,11 @@ export const updateTitle = (title) => {
 export const getObjData = (value, txt = 'N/A') => {
     return value ? value : txt;
 }
+
+export const getSumValue = (...numbers) => {
+    return numbers ? numbers.reduce((sum, value) => {
+        if (value) {
+            return sum + parseFloat(value);
+        } return sum;
+    }, 0) : "-";
+};

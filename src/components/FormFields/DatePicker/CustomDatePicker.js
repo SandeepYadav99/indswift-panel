@@ -21,7 +21,6 @@ const CustomDatePicker = ({onChange, minDate, isError, maxDate, value, label, cl
         // console.log(formattedDate);
         onChange && onChange(e);
     }
-    LogUtils.log('CustomDatePicker', isError);
 
     const mD = useMemo(() => {
         const d = new Date();

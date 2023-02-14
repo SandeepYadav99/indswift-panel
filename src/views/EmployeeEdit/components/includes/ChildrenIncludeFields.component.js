@@ -47,8 +47,8 @@ const ChildrenIncludeFields = ({
   const handleChange = (e) => {
     const name = e?.target?.name;
     const value = e?.target?.value;
-    if (name === "child_dob") {
-      changeData(index,{['child_dob'] : value})
+    if (name === "dob") {
+      changeData(index,{['dob'] : value})
     } else {
       changeData(index, { [name]: value });
     }
@@ -63,11 +63,11 @@ const changeTextData=(value,key)=>{
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <TextField
-              error={errors?.child_name}
+              error={errors?.name}
               onChange={handleChange}
-              value={data?.child_name}
+              value={data?.name}
               fullWidth={true}
-              name={"child_name"}
+              name={"name"}
               margin={"dense"}
               variant={"outlined"}
               label={"Child Name"}
@@ -75,32 +75,33 @@ const changeTextData=(value,key)=>{
           </div>
           <div className={styles.flex1}>
             <CustomSelectField
-              name="child_gender"
-              isError={errors?.child_gender}
-              errorText={errors?.child_gender}
+              name="gender"
+              isError={errors?.gender}
+              errorText={errors?.gender}
               label={"Child Gender"}
-              value={data?.child_gender}
+              value={data?.gender}
               onChange={handleChange}
               //   handleChange={(value) => {
-              //     changeTextData(value, "child_gender");
+              //     changeTextData(value, "gender");
               //   }}
             >
+              <MenuItem value="NA">NA</MenuItem>
               <MenuItem value="MALE">Male</MenuItem>
               <MenuItem value="FEMALE">Female</MenuItem>
             </CustomSelectField>
           </div>
           <div className={styles.flex1}>
             <CustomDatePicker
-              name="child_dob"
+              name="dob"
               clearable
               label={"Child DOB"}
               // onChange={handleChange}
-              // minDate={new Date()}
+              maxDate={new Date()}
                 onChange={(date) => {
-                  changeTextData(date, "child_dob");
+                  changeTextData(date, "dob");
                 }}
-              value={data?.child_dob}
-              isError={errors?.child_dob}
+              value={data?.dob}
+              isError={errors?.dob}
             />
           </div>
           <div className={"textCenter"}>
