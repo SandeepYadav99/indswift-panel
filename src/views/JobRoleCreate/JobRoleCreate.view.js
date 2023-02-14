@@ -9,7 +9,6 @@ import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import NewEditor from "./components/NewEditor/NewEditor.component";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
-import LogUtils from "../../libs/LogUtils";
 import { WaitingComponent } from "../../components/index.component";
 
 const useStyles = makeStyles((theme) => ({

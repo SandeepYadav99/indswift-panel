@@ -14,6 +14,9 @@ import { serviceGetList } from "../../services/Common.service";
 import { serviceCheckEmployeeExists } from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
 import { useMemo } from "react";
+import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
+import SnackbarUtils from "../../libs/SnackbarUtils";
+import historyUtils from "../../libs/history.utils";
 
 function EmployeeListCreateHook() {
   const initialForm = {
@@ -43,7 +46,9 @@ function EmployeeListCreateHook() {
     father_name: "",
     mother_name: "",
     spouse_name: "",
-    children_name: "",
+    spouse_dob: "",
+
+    // children_name: "abc",
     permanent_address: "",
     current_address: "",
     pan_no: "",
@@ -52,56 +57,59 @@ function EmployeeListCreateHook() {
     bank_account_no: "",
     bank_name: "",
     ifsc: "",
-    before_experience: "",
-    company_experience: "",
-    total_experience: "",
-    previous_organisation: "",
-    uan_no: "",
-    esi_no: "",
-    basic_salary: "",
-    hra: "",
-    education_allowance: "",
-    medical_allowance: "",
-    special_allowance: "",
-    earning_one: "",
-    pug: "",
-    helper: "",
-    food_coupons: "",
-    gift_coupons: "",
-    lta: "",
-    super_annuation: "",
-    nps: "",
-    vehicle_maintenance: "",
-    vehicle_emi: "",
-    fuel: "",
-    vpf: "",
-    earning_two: "",
-    gross: "",
-    earning_three_pli: "",
-    er_pf: "",
-    er_esi: "",
-    er_lwf: "",
-    earning_four: "",
-    gratuity: "",
-    insurance: "",
-    driver_incentive: "",
-    perf_bonus: "",
-    annual_bonus: "",
-    two_car_maintenance: "",
-    two_fuel: "",
-    earning_five: "",
-    monthly_ctc: "",
-    em_pf: "",
-    em_esi: "",
-    em_lwf: "",
-    total_deduction: "",
-    total_pf: "",
-    retention_allowance: "",
-    car_component: "",
-    incremental_gross_salary: "",
-    earning2_vpf: "",
-    deduction_vpf: "",
-    stability_incentive: "",
+    before_experience: 0,
+    company_experience: 0,
+    total_experience: 0,
+    previous_organisation: 0,
+    uan_no: 0,
+    esi_no: 0,
+    basic_salary: 0,
+    hra: 0,
+    education_allowance: 0,
+    medical_allowance: 0,
+    special_allowance: 0,
+    earning_one: 0,
+    pug: 0,
+    helper: 0,
+    food_coupons: 0,
+    gift_coupons: 0,
+    lta: 0,
+    super_annuation: 0,
+    nps: 0,
+    vehicle_maintenance: 0,
+    vehicle_emi: 0,
+    fuel: 0,
+    vpf: 0,
+    earning_two: 0,
+    gross: 0,
+    earning_three_pli: 0,
+    er_pf: 0,
+    er_esi: 0,
+    er_lwf: 0,
+    earning_four: 0,
+    gratuity: 0,
+    insurance: 0,
+    driver_incentive: 0,
+    perf_bonus: 0,
+    annual_bonus: 0,
+    two_car_maintenance: 0,
+    two_fuel: 0,
+    earning_five: 0,
+    monthly_ctc: 0,
+    em_pf: 0,
+    em_esi: 0,
+    em_lwf: 0,
+    total_deduction: 0,
+    total_pf: 0,
+    retention_allowance: 0,
+    car_component: 0,
+    incremental_gross_salary: 0,
+    earning2_vpf: 0,
+    deduction_vpf: 0,
+    associate: 0,
+    stability_incentive: 0,
+    next_review_date: "",
+    previous_review_date: "",
     is_address_same: false,
   };
   const [form, setForm] = useState({ ...initialForm });
@@ -110,6 +118,8 @@ function EmployeeListCreateHook() {
   const includeRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const codeDebouncer = useDebounce(form?.emp_code, 500);
+  const ChildenRef = useRef(null);
+
   const [listData, setListData] = useState({
     LOCATION_DEPARTMENTS: [],
     EMPLOYEES: [],
@@ -159,8 +169,11 @@ function EmployeeListCreateHook() {
       "sub_department_id",
       "hod_id",
       "pms_reviewer_id",
+      "next_review_date",
+      "previous_review_date",
       "gender",
       "dob",
+      "associate",
       "state",
       "blood_group",
       "official_contact",
@@ -173,7 +186,8 @@ function EmployeeListCreateHook() {
       "father_name",
       "mother_name",
       "spouse_name",
-      "children_name",
+      "spouse_dob",
+      // "children_name",
       "permanent_address",
       "current_address",
       "pan_no",
@@ -193,7 +207,7 @@ function EmployeeListCreateHook() {
       "education_allowance",
       "medical_allowance",
       "special_allowance",
-      "earning_one",
+      // "earning_one",
       "pug",
       "helper",
       "food_coupons",
@@ -205,13 +219,13 @@ function EmployeeListCreateHook() {
       "vehicle_emi",
       "fuel",
       "vpf",
-      "earning_two",
+      // "earning_two",
       "gross",
-      "earning_three_pli",
+      // "earning_three_pli",
       "er_pf",
       "er_esi",
       "er_lwf",
-      "earning_four",
+      // "earning_four",
       "gratuity",
       "insurance",
       // "driver_incentive",
@@ -219,7 +233,7 @@ function EmployeeListCreateHook() {
       "annual_bonus",
       "two_car_maintenance",
       "two_fuel",
-      "earning_five",
+      // "earning_five",
       "monthly_ctc",
       "em_pf",
       "em_esi",
@@ -229,14 +243,14 @@ function EmployeeListCreateHook() {
       "retention_allowance",
       "car_component",
       "incremental_gross_salary",
-      "earning2_vpf",
+      // "earning2_vpf",
       "deduction_vpf",
       "stability_incentive",
     ];
     required.forEach((val) => {
       if (
         !form?.[val] ||
-        (Array.isArray(form?.[val]) && form?.[val].length === 0)
+        (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
       ) {
         errors[val] = true;
       } else if (["emp_code"].indexOf(val) < 0) {
@@ -292,7 +306,7 @@ function EmployeeListCreateHook() {
         }
       } else if (fieldName === "is_address_same") {
         if (text) {
-          t.correspondence_address = t?.permanent_address;
+          t.current_address = t?.permanent_address;
         }
         t[fieldName] = text;
       } else {
@@ -337,35 +351,47 @@ function EmployeeListCreateHook() {
     [changeTextData, checkCodeValidation]
   );
   const submitToServer = useCallback(() => {
+    console.log("before");
     if (!isSubmitting) {
       setIsSubmitting(true);
-      // serviceCreateJobOpenings({
-      //     ...form,
-      //     assigned_to: form?.assigned_to?.id,
-      //     job_role_id: form?.job_role?.id,
-      //     designation_id: form?.designation?.id,
-      //     replace_id: form?.replacing_person?.id,
-      // }).then((res) => {
-      //     LogUtils.log('response', res);
-      //     if (!res.error) {
-      //         historyUtils.push(RouteName.JOB_OPENINGS);
-      //     } else {
-      //         SnackbarUtils.error(res?.error);
-      //     }
-      //     setIsSubmitting(false);
-      // });
+      const fd = new FormData();
+      Object.keys(form).forEach((key) => {
+        if (key != "referred_by" && form[key]) {
+          fd.append(key, form[key]);
+        }
+      });
+      fd.append("qualifications", JSON.stringify(ChildenRef.current.getData()));
+
+      console.log("Api hit", fd);
+      serviceCreateEmployees(fd).then((res) => {
+        if (!res.error) {
+          historyUtils.push("/employees");
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
     }
   }, [form, isSubmitting, setIsSubmitting]);
   const handleSubmit = useCallback(async () => {
+    console.log("before validatin");
     const errors = checkFormValidation();
-    if (Object.keys(errors).length > 0) {
+    console.log("1");
+    const isIncludesValid = ChildenRef.current.isValid();
+    console.log("2 ===>", isIncludesValid);
+    if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
+      // || !isIncludesValid
       setErrorData(errors);
       return true;
     }
-    submitToServer();
+    console.log("4");
+    if (isIncludesValid) {
+      submitToServer();
+    }
   }, [
     checkFormValidation,
     setErrorData,
+    ChildenRef.current,
     form,
     // includeRef.current
   ]);
@@ -375,7 +401,7 @@ function EmployeeListCreateHook() {
   }, [form]);
   const filteredDepartments = useMemo(() => {
     const locations = listData?.LOCATION_DEPARTMENTS;
-    const index = locations.findIndex((l) => l.id === form?.location_id);
+    const index = locations?.findIndex((l) => l.id === form?.location_id);
     if (index >= 0) {
       const departments = locations[index]?.departments;
       return listData?.DEPARTMENTS?.filter(
@@ -393,21 +419,30 @@ function EmployeeListCreateHook() {
   const filteredCadres = useMemo(() => {
     return listData?.CADRES?.filter((val) => val.grade_id === form?.grade_id);
   }, [listData, form?.grade_id]);
+
+  const getLevelValues = useMemo(() => {
+    const index = listData?.GRADES?.findIndex(
+      (value) => value.id === form.grade_id
+    );
+    return index >= 0 ? listData.GRADES[index]?.name : " ";
+  }, [listData, form?.grade_id]);
   const filteredEmployees = useMemo(() => {
-    return listData.EMPLOYEES.filter((val) => {
+    return listData?.EMPLOYEES?.filter((val) => {
       return (
         val.department_id === form?.department_id &&
         val.location_id === form?.location_id
       );
     });
   }, [form?.location_id, form?.department_id, listData]);
-  const getLevelValues = useMemo(() => {
-    return listData.GRADES.filter((value) => {
-      console.log("hi", value);
-      return;
+
+  const filteredAssociateJobRole = useMemo(() => {
+    return listData.JOB_ROLES?.filter((val) => {
+      return (
+        val.department_id === form?.department_id &&
+        val.location_id === form?.location_id
+      );
     });
-  });
-  console.log("====>", getLevelValues);
+  }, [form?.location_id, form?.department_id, listData]);
   return {
     form,
     errorData,
@@ -420,7 +455,9 @@ function EmployeeListCreateHook() {
     filteredSubDepartments,
     filteredEmployees,
     filteredCadres,
-    label,
+    getLevelValues,
+    filteredAssociateJobRole,
+    ChildenRef,
   };
 }
 

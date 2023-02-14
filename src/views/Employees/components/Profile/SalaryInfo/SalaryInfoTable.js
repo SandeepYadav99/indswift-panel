@@ -221,7 +221,7 @@ function SalaryInfoTable() {
             component="Net Pay [ (Earning 1) - (Deduction 1) ]"
             monthly={netPay()}
           />
-          <SaleryInfoField
+          {/* <SaleryInfoField
             component="Quarterly Payments (Helper + PUG + PLI + Perf Bonus)"
             monthly={getSumValue(
               data?.helper,
@@ -280,7 +280,7 @@ function SalaryInfoTable() {
               getSumValue(data?.helper, data?.pug, data?.perf_bonus),
               netPay()
             )}
-          />
+          /> */}
         </div>
       </div>
     </div>

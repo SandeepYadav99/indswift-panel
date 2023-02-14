@@ -1,5 +1,10 @@
 import React, { useMemo } from "react";
-import { Button, ButtonBase, MenuItem } from "@material-ui/core";
+import {
+  Button,
+  ButtonBase,
+  InputAdornment,
+  MenuItem,
+} from "@material-ui/core";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
@@ -13,7 +18,7 @@ import File from "../../components/FileComponent/FileComponent.component";
 import EmployeeListCreateHook from "./EmployeeListCreateHook";
 import TotalSum from "./components/UploadCsv/TotalSum/TotalSum";
 import constants from "../../config/constants";
-
+import ChildrenIncludeForm from "./components/UploadCsv/includes/ChildrenIncludes.component";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -36,8 +41,16 @@ const EmployeeListCreate = ({}) => {
     filteredSubDepartments,
     filteredEmployees,
     filteredCadres,
-    label
+    getLevelValues,
+    ChildenRef,
   } = EmployeeListCreateHook({});
+  // const getSumValue = (...numbers) => {
+  //   console.log("====number>",numbers)
+  //   return numbers ? numbers.reduce((sum, value) => sum + value !=="" ? parseInt(value): 0, 0) : "-";
+  // };
+  const getSumValue = (...numbers) => {
+    return numbers ? numbers.reduce((sum, value) => sum + value, 0) : "-";
+  };
   console.log("=====>", listData);
   const classes = useStyles();
   const image = useMemo(() => {
@@ -178,8 +191,11 @@ const EmployeeListCreate = ({}) => {
                 changeTextData(value, "blood_group");
               }}
             >
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="A">A</MenuItem>
+              <MenuItem value="B">B</MenuItem>
+              <MenuItem value="AB">AB</MenuItem>
+              <MenuItem value="B">B</MenuItem>
+              <MenuItem value="O">O</MenuItem>
             </CustomSelectField>
           </div>
         </div>
@@ -335,7 +351,6 @@ const EmployeeListCreate = ({}) => {
               label={"Grade"}
               value={form?.grade_id}
               handleChange={(value) => {
-                console.log(">==>",form)
                 changeTextData(value, "grade_id");
               }}
             >
@@ -371,10 +386,11 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              inputProps={{ disabled: true }}
               isError={errorData?.grade_id}
               errorText={errorData?.grade_id}
               label={"Level"}
-              value={label}
+              value={getLevelValues}
               onTextChange={(text) => {
                 changeTextData(text, "grade_id");
               }}
@@ -382,24 +398,14 @@ const EmployeeListCreate = ({}) => {
                 onBlurHandler("grade_id");
               }}
             />
-            {/* <CustomSelectField
-            // disabled
-              isError={errorData?.grade_id}
-              errorText={errorData?.grade_id}
-              label={"Level"}
-              value={form?.grade_id}
-              handleChange={(value) => {
-                changeTextData(value, "grade_id");
-              }}
-            >
-              
-            </CustomSelectField> */}
           </div>
           <div className={"formGroup"}>
-            <CustomAutoComplete
+            {/* <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
-                getOptionLabel: (option) => option.label,
+                getOptionLabel: (option) => {
+                  return option?.label;
+                },
               }}
               dataset={filteredEmployees}
               datasetKey={"label"}
@@ -411,35 +417,27 @@ const EmployeeListCreate = ({}) => {
               name={"hod_id"}
               isError={errorData?.hod_id}
               value={form?.hod_id}
-            />
-            {/* <CustomSelectField
-              isError={errorData?.hod_id}
-              errorText={errorData?.hod_id}
-              label={"HOD Name"}
-              value={form?.hod_id}
-              handleChange={(value) => {
-                changeTextData(value, "hod_id");
-              }}
-            >
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
-            </CustomSelectField> */}
+            /> */}
           </div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomSelectField
-              isError={errorData?.state}
-              errorText={errorData?.state}
-              label={"Associate Job Role"}
-              value={form?.state}
-              handleChange={(value) => {
-                changeTextData(value, "state");
+            {/* <CustomAutoComplete
+              autoCompleteProps={{
+                freeSolo: false,
+                getOptionLabel: (option) => option?.label,
               }}
-            >
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
-            </CustomSelectField>
+              dataset={listData?.JOB_ROLES}
+              datasetKey={"label"}
+              onTextChange={(text, value) => {
+                changeTextData(text, "associate");
+              }}
+              variant={"outlined"}
+              label={"Associate Job Role"}
+              name={"associate"}
+              isError={errorData?.associate}
+              value={form?.associate}
+            /> */}
           </div>
           <div className={"formGroup"}></div>
         </div>
@@ -466,6 +464,11 @@ const EmployeeListCreate = ({}) => {
               }}
               onBlur={() => {
                 onBlurHandler("official_contact");
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">+91</InputAdornment>
+                ),
               }}
             />
           </div>
@@ -496,6 +499,11 @@ const EmployeeListCreate = ({}) => {
               }}
               onBlur={() => {
                 onBlurHandler("personal_contact");
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">+91</InputAdornment>
+                ),
               }}
             />
           </div>
@@ -708,14 +716,24 @@ const EmployeeListCreate = ({}) => {
                 changeTextData(value, "cadre_id");
               }}
             >
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="MALE">Male</MenuItem>
+              <MenuItem value="FEMALE">Female</MenuItem>
             </CustomSelectField>
           </div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomSelectField
+            <CustomDatePicker
+              clearable
+              label={"Spouse DOB"}
+              // minDate={new Date()}
+              onChange={(date) => {
+                changeTextData(date, "spouse_dob");
+              }}
+              value={form?.spouse_dob}
+              isError={errorData?.spouse_dob}
+            />
+            {/* <CustomSelectField
               isError={errorData?.state}
               errorText={errorData?.state}
               label={"Spouse DOB"}
@@ -726,7 +744,7 @@ const EmployeeListCreate = ({}) => {
             >
               <MenuItem value="1">1</MenuItem>
               <MenuItem value="2">2</MenuItem>
-            </CustomSelectField>
+            </CustomSelectField> */}
           </div>
           <div className={"formGroup"}>
             <CustomSelectField
@@ -745,20 +763,8 @@ const EmployeeListCreate = ({}) => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomSelectField
-              isError={errorData?.state}
-              errorText={errorData?.state}
-              label={"Associate Job Role"}
-              value={form?.state}
-              handleChange={(value) => {
-                changeTextData(value, "state");
-              }}
-            >
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
-            </CustomSelectField>
+            <ChildrenIncludeForm ref={ChildenRef} />
           </div>
-          <div className={"formGroup"}></div>
         </div>
       </div>
       <div className={"plainPaper"}>
@@ -827,16 +833,17 @@ const EmployeeListCreate = ({}) => {
               }}
             />
           </div>
+
           <div className={"formGroup"}>
             <CustomDatePicker
               clearable
               label={"Previous Review Date"}
               // minDate={new Date()}
               onChange={(date) => {
-                changeTextData(date, "dom");
+                changeTextData(date, "previous_review_date");
               }}
-              value={form?.dom}
-              isError={errorData?.dom}
+              value={form?.previous_review_date}
+              isError={errorData?.previous_review_date}
             />
           </div>
         </div>
@@ -847,10 +854,10 @@ const EmployeeListCreate = ({}) => {
               label={"Next Review Date"}
               // minDate={new Date()}
               onChange={(date) => {
-                changeTextData(date, "dom");
+                changeTextData(date, "next_review_date");
               }}
-              value={form?.dom}
-              isError={errorData?.dom}
+              value={form?.next_review_date}
+              isError={errorData?.next_review_date}
             />
           </div>
           <div className={"formGroup"}></div>
@@ -897,7 +904,10 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <TotalSum
             firstName="Incremental Gross Salary + Car Component: "
-            firstAmount="₹4,678,910"
+            firstAmount={getSumValue(
+              form?.incremental_gross_salary,
+              form?.car_component
+            )}
           />
         </div>
         <div className={"headerFlex"}>
@@ -971,8 +981,13 @@ const EmployeeListCreate = ({}) => {
         </div>
         <div className={"formFlex"}>
           <TotalSum
-            firstName="Incremental Gross Salary + Car Component: "
-            firstAmount="₹4,678,910"
+            firstName="Total Earnings 1: "
+            firstAmount={getSumValue(
+              form?.education_allowance,
+              form?.special_allowance,
+              form?.education_allowance,
+              form?.hra
+            )}
           />
         </div>
         <div className={"headerFlex"}>
@@ -1161,7 +1176,41 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <TotalSum
             firstName="Incremental Gross Salary + Car Component: "
-            firstAmount="₹4,678,910"
+            firstAmount={getSumValue(
+              form?.pug,
+              form?.helper,
+              form?.food_coupons,
+              form?.gift_coupons,
+              form?.lta,
+              form?.super_annuation,
+              form?.nps,
+              form?.vehicle_maintenance,
+              form?.vehicle_emi,
+              form?.earning2_vpf,
+              form?.fuel
+            )}
+            secondName="Gross Salary (Part A + Part B) :"
+            secondAmount={getSumValue(
+              getSumValue(
+                form?.pug,
+                form?.helper,
+                form?.food_coupons,
+                form?.gift_coupons,
+                form?.lta,
+                form?.super_annuation,
+                form?.nps,
+                form?.vehicle_maintenance,
+                form?.vehicle_emi,
+                form?.earning2_vpf,
+                form?.fuel
+              ),
+              getSumValue(
+                form?.education_allowance,
+                form?.special_allowance,
+                form?.education_allowance,
+                form?.hra
+              )
+            )}
           />
         </div>
         <div className={"headerFlex"}>
@@ -1264,7 +1313,8 @@ const EmployeeListCreate = ({}) => {
         </div>
         <div className={"formFlex"}>
           <TotalSum
-            firstName="Incremental Gross Salary + Car Component: "
+            customClass={styles.redField}
+            firstName="Total Deduction 1:  "
             firstAmount="₹4,678,910"
           />
         </div>

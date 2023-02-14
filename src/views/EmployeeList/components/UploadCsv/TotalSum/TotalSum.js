@@ -1,17 +1,29 @@
 import React from "react";
 import styles from "./Style.module.css";
 
-function TotalSum({ firstName, firstAmount, secondName, secondAmount }) {
+function TotalSum({
+  firstName,
+  firstAmount,
+  secondName,
+  secondAmount,
+  customClass,
+}) {
   return (
     <div className={styles.TotalSumWrapper}>
       <div className={styles.topWrapper}>
         <span className={styles.nameFonts}>{firstName}</span>
-        <span className={styles.amountFonts}>{firstAmount}</span>
+        <span
+          className={customClass ? customClass : styles.amountFonts}
+        >{` ₹ ${firstAmount}`}</span>
       </div>
-      <div>
-        <span>{secondName}</span>
-        <span>{secondAmount}</span>
-      </div>
+      {secondAmount && (
+        <div>
+          <span className={styles.nameFonts}>{secondName}</span>
+          <span
+            className={customClass ? customClass : styles.amountFonts}
+          >{`₹ ${secondAmount}`}</span>
+        </div>
+      )}
     </div>
   );
 }
