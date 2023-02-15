@@ -8,15 +8,11 @@ import DownArrow from "../../../assets/img/ic_dropdown.png";
 import GalleryImages from "./components/GalleryImages";
 
 function EmployeeUtsav() {
-  const { staticEmployeeDeepakData, employeeData } = EmployeeUtsavHook({});
+  const { handleViewDetails, employeeUtsavData } = EmployeeUtsavHook({});
   const DeepakDescription = DeepakData;
+   
   return (
     <div className={styles.employeeDrishtiWrapper}>
-      {/* <InformationCard
-        heading="Deepak - Social Welfare Programs"
-        imageUrl={DeepakImage}
-        data={staticEmployeeDeepakData}
-      /> */}
       <div className={styles.employeeInducationWrapper}>
         <div>
           <div>
@@ -96,42 +92,34 @@ function EmployeeUtsav() {
           </div>
         </div>
       </div>
-      <div className={styles.imageGalleryWrapper}>
-        <div className={styles.headingContainer}>
-          <span className={styles.title}>Events Catalogue-2022</span>
-          <img src={DownArrow} />
-        </div>
-        <div className={styles.Catalogue}>
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-        </div>
-      </div>
-      <div className={styles.imageGalleryWrapper}>
-        <div className={styles.headingContainer}>
-          <span className={styles.title}>Events Catalogue-2020</span>
-          <img src={DownArrow} />
-        </div>
-        <div className={styles.Catalogue}>
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-          <GalleryImages />
-        </div>
-      </div>
+      {employeeUtsavData?.map((item,index) => {
+        return (
+          item?.items?.length > 0 && (
+            <div className={styles.imageGalleryWrapper} key={`utsav_galery${index}`}>
+              <div className={styles.headingContainer}>
+                <span className={styles.title}>{item?.name}</span>
+                <img style={{ cursor: "pointer" }} src={DownArrow} />
+              </div>
+              {item.items && (
+                <div className={styles.Catalogue}>
+                  {item?.items.map((images,id) => {
+                    return images?.cover_image ? (
+                      <GalleryImages
+                      key={`gallery_image${id}`}
+                        onClick={()=>handleViewDetails(images?.id)}
+                        imageUrl={images?.cover_image}
+                        name={images?.name}
+                      />
+                    ) : (
+                      <></>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )
+        );
+      })}
     </div>
   );
 }

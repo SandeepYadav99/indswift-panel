@@ -1,22 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { EmployeeDeepakData } from "../../../helper/helper";
+import historyUtils from "../../../libs/history.utils";
+import { serviceGetUtsavDetails } from "../../../services/EmployeeUtsav.service";
 
 function EmployeeUtsavHook() {
-  const [employeeData, setemployeeData] = useState([]);
+  const [employeeUtsavData, setemployeeUtsavData] = useState([]);
   const staticEmployeeDeepakData = EmployeeDeepakData;
 
-  // useEffect(() => {
-  //   let dataValues = serviceGetEmployeeInduction();
-  //   dataValues
-  //     .then((data) => {
-  //       setemployeeData(data.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
+  useEffect(() => {
+    let dataValues = serviceGetUtsavDetails({});
+    dataValues
+      .then((data) => {
+        setemployeeUtsavData(data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  const handleViewDetails = useCallback((data) => {
+    console.log("=====>", data);
+    historyUtils.push(`/employee/utsav/${data}`);  
+  }, []);
+  console.log("employeeData", employeeUtsavData);
   return {
     staticEmployeeDeepakData,
-    employeeData,
+    employeeUtsavData,
+    handleViewDetails,
   };
 }
 
