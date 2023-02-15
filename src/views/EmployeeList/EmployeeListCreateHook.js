@@ -163,34 +163,33 @@ function EmployeeListCreateHook() {
       "image",
       "name",
       "doj",
-      // "designation_id",
       "grade_id",
       "cadre_id",
-      'spouse_gender',
+      // 'spouse_gender',
       "location_id",
       "department_id",
       "sub_department_id",
       'designation_id',
       "hod_id",
       "pms_reviewer_id",
-      "next_review_date",
-      "previous_review_date",
+      // "next_review_date",
+      // "previous_review_date",
       "gender",
       "dob",
       "associate",
       "state",
       "blood_group",
-      "official_contact",
+      // "official_contact",
       "personal_contact",
-      "official_email",
-      "personal_email",
+      // "official_email",
+      // "personal_email",
       // "higher_education",
       "martial_status",
-      "dom",
+      // "dom",
       "father_name",
       "mother_name",
-      "spouse_name",
-      "spouse_dob",
+      // "spouse_name",
+      // "spouse_dob",
       // "children_name",
       "permanent_address",
       "current_address",
@@ -205,7 +204,7 @@ function EmployeeListCreateHook() {
       // "total_experience",
       "previous_organisation",
       "uan_no",
-      "esi_no",
+      // "esi_no",
       "basic_salary",
       "hra",
       "education_allowance",
@@ -225,7 +224,7 @@ function EmployeeListCreateHook() {
       // "vpf",
       // "earning_two",
       // "gross",
-      // "earning_three_pli",
+      "earning_three_pli",
       "er_pf",
       "er_esi",
       "er_lwf",
@@ -247,7 +246,7 @@ function EmployeeListCreateHook() {
       "retention_allowance",
       "car_component",
       "incremental_gross_salary",
-      // "earning2_vpf",
+      "earning2_vpf",
       "deduction_vpf",
       "stability_incentive",
     ];
@@ -361,8 +360,7 @@ function EmployeeListCreateHook() {
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
         LogUtils.log('key', key);
-        if (['hod_id', 'pms_reviewer_id', 'designation_id', 'job_role_id'].indexOf(key) >= 0 && form[key]) {
-          
+        if (['hod_id', 'pms_reviewer_id', 'designation_id', 'job_role_id','associate'].indexOf(key) >= 0 && form[key]) {
           fd.append(key, form[key]?.id);
         } else if (form[key]) {
           fd.append(key, form[key]);
@@ -387,15 +385,15 @@ function EmployeeListCreateHook() {
     console.log("1");
     const isIncludesValid = ChildenRef.current.isValid();
     console.log("2 ===>", isIncludesValid);
-    if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
+    if (Object.keys(errors)?.length > 0  ) {
       // || !isIncludesValid
       setErrorData(errors);
       return true;
     }
     console.log("4");
-    if (isIncludesValid) {
+    // if (isIncludesValid) {
       submitToServer();
-    }
+    // }
   }, [
     checkFormValidation,
     setErrorData,

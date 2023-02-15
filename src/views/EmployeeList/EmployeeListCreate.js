@@ -138,7 +138,7 @@ const EmployeeListCreate = ({}) => {
                 <CustomDatePicker
                   clearable
                   label={"Date of Birth"}
-                  // minDate={new Date()}
+                  maxDate={new Date()}
                   onChange={(date) => {
                     changeTextData(date, "dob");
                   }}
@@ -339,6 +339,7 @@ const EmployeeListCreate = ({}) => {
             <CustomDatePicker
               clearable
               label={"DOJ"}
+              maxDate={new Date()}
               // minDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "doj");
@@ -708,6 +709,7 @@ const EmployeeListCreate = ({}) => {
             <CustomDatePicker
               clearable
               label={"Date of Marriage"}
+              maxDate={new Date()}
               // minDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "dom");
@@ -752,6 +754,7 @@ const EmployeeListCreate = ({}) => {
             <CustomDatePicker
               clearable
               label={"Spouse DOB"}
+              maxDate={new Date()}
               // minDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "spouse_dob");
