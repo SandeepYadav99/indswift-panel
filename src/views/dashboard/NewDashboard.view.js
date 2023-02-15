@@ -84,9 +84,9 @@ const NewDashboard = () => {
         <div>
             {_renderTopCards()}
 
-            <div className={styles.newFlex}>
+            {/* <div className={styles.newFlex}>
                 {locationData}
-            </div>
+            </div> */}
 
             <div className={styles.tableFlex}>
                 <div className={styles.lhs}>

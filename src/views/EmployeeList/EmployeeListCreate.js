@@ -44,18 +44,16 @@ const EmployeeListCreate = ({}) => {
     getLevelValues,
     ChildenRef,
   } = EmployeeListCreateHook({});
-  // const getSumValue = (...numbers) => {
-  //   console.log("====number>",numbers)
-  //   return numbers ? numbers.reduce((sum, value) => sum + value !=="" ? parseInt(value): 0, 0) : "-";
-  // };
   const getSumValue = (...numbers) => {
-    return numbers ? numbers.reduce((sum, value) => {
-      if (value) {
-        return sum + parseFloat(value);
-      } return sum;
-    }, 0) : "-";
+    return numbers
+      ? numbers.reduce((sum, value) => {
+          if (value) {
+            return sum + parseFloat(value);
+          }
+          return sum;
+        }, 0)
+      : "-";
   };
-  console.log("=====>", listData);
   const classes = useStyles();
   const image = useMemo(() => {
     return (
@@ -195,11 +193,14 @@ const EmployeeListCreate = ({}) => {
                 changeTextData(value, "blood_group");
               }}
             >
-              <MenuItem value="A">A</MenuItem>
-              <MenuItem value="B">B</MenuItem>
-              <MenuItem value="AB">AB</MenuItem>
-              <MenuItem value="B">B</MenuItem>
-              <MenuItem value="O">O</MenuItem>
+              <MenuItem value="O+">O+</MenuItem>
+              <MenuItem value="O-">O-</MenuItem>
+              <MenuItem value="A+">A+</MenuItem>
+              <MenuItem value="A-">A-</MenuItem>
+              <MenuItem value="B+">B+</MenuItem>
+              <MenuItem value="B-">B-</MenuItem>
+              <MenuItem value="AB+">AB+</MenuItem>
+              <MenuItem value="AB-">AB-</MenuItem>
             </CustomSelectField>
           </div>
         </div>
@@ -238,30 +239,30 @@ const EmployeeListCreate = ({}) => {
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
-              isError={errorData?.uan_no}
-              errorText={errorData?.uan_no}
-              label={"ESI Number"}
-              value={form?.uan_no}
-              onTextChange={(text) => {
-                changeTextData(text, "uan_no");
-              }}
-              onBlur={() => {
-                onBlurHandler("uan_no");
-              }}
-            />
-          </div>
-
-          <div className={"formGroup"}>
-            <CustomTextField
               isError={errorData?.esi_no}
               errorText={errorData?.esi_no}
-              label={"UAN Number"}
+              label={"ESI Number"}
               value={form?.esi_no}
               onTextChange={(text) => {
                 changeTextData(text, "esi_no");
               }}
               onBlur={() => {
                 onBlurHandler("esi_no");
+              }}
+            />
+          </div>
+           
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.uan_no}
+              errorText={errorData?.uan_no}
+              label={"UAN Number"}
+              value={form?.uan_no}
+              onTextChange={(text) => {
+                changeTextData(text, "uan_no");
+              }}
+              onBlur={() => {
+                onBlurHandler("uan_no");
               }}
             />
           </div>
@@ -426,7 +427,7 @@ const EmployeeListCreate = ({}) => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-             <CustomAutoComplete
+            <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
                 getOptionLabel: (option) => option?.label,
@@ -443,7 +444,26 @@ const EmployeeListCreate = ({}) => {
               value={form?.associate}
             />
           </div>
-          <div className={"formGroup"}></div>
+          <div className={"formGroup"}>
+            <CustomAutoComplete
+              autoCompleteProps={{
+                freeSolo: false,
+                getOptionLabel: (option) => {
+                  return option?.label;
+                },
+              }}
+              dataset={listData?.DESIGNATIONS}
+              datasetKey={"label"}
+              onTextChange={(text, value) => {
+                changeTextData(text, "designation_id");
+              }}
+              variant={"outlined"}
+              label={"DESIGNATION"}
+              name={"designation_id"}
+              isError={errorData?.designation_id}
+              value={form?.designation_id}
+            />
+          </div>
         </div>
       </div>
       <div className={"plainPaper"}>
@@ -678,8 +698,10 @@ const EmployeeListCreate = ({}) => {
                 changeTextData(value, "martial_status");
               }}
             >
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="Divorce">Divorce</MenuItem>
+              <MenuItem value="Married">Married</MenuItem>
+              <MenuItem value="Unmarried">Unmarried</MenuItem>
+              <MenuItem value="Widow">Widow</MenuItem>
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
@@ -712,12 +734,12 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomSelectField
-              isError={errorData?.cadre_id}
-              errorText={errorData?.cadre_id}
+              isError={errorData?.spouse_gender}
+              errorText={errorData?.spouse_gender}
               label={"Spouse Gender"}
-              value={form?.cadre_id}
+              value={form?.spouse_gender}
               handleChange={(value) => {
-                changeTextData(value, "cadre_id");
+                changeTextData(value, "spouse_gender");
               }}
             >
               <MenuItem value="MALE">Male</MenuItem>
@@ -737,21 +759,9 @@ const EmployeeListCreate = ({}) => {
               value={form?.spouse_dob}
               isError={errorData?.spouse_dob}
             />
-            {/* <CustomSelectField
-              isError={errorData?.state}
-              errorText={errorData?.state}
-              label={"Spouse DOB"}
-              value={form?.state}
-              handleChange={(value) => {
-                changeTextData(value, "state");
-              }}
-            >
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
-            </CustomSelectField> */}
           </div>
           <div className={"formGroup"}>
-            <CustomSelectField
+            {/* <CustomSelectField
               isError={errorData?.hod_id}
               errorText={errorData?.hod_id}
               label={"No. of Children"}
@@ -762,7 +772,7 @@ const EmployeeListCreate = ({}) => {
             >
               <MenuItem value="1">1</MenuItem>
               <MenuItem value="2">2</MenuItem>
-            </CustomSelectField>
+            </CustomSelectField> */}
           </div>
         </div>
         <div className={"formFlex"}>
@@ -989,7 +999,7 @@ const EmployeeListCreate = ({}) => {
             firstAmount={getSumValue(
               form?.education_allowance,
               form?.special_allowance,
-              form?.education_allowance,
+              form?.basic_salary,
               form?.hra
             )}
           />
@@ -1209,7 +1219,7 @@ const EmployeeListCreate = ({}) => {
                 form?.fuel
               ),
               getSumValue(
-                form?.education_allowance,
+                form?.basic_salary,
                 form?.special_allowance,
                 form?.education_allowance,
                 form?.hra
@@ -1243,7 +1253,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <TotalSum
             firstName="Incremental Gross Salary + Car Component: "
-            firstAmount="₹4,678,910"
+            firstAmount={form?.earning_three_pli}
           />
         </div>
         <div className={"headerFlex"}>
@@ -1319,7 +1329,12 @@ const EmployeeListCreate = ({}) => {
           <TotalSum
             customClass={styles.redField}
             firstName="Total Deduction 1:  "
-            firstAmount="₹4,678,910"
+            firstAmount={getSumValue(
+              form?.em_pf,
+              form?.em_esi,
+              form?.deduction_vpf,
+              form?.em_lwf
+            )}
           />
         </div>
         <div className={"headerFlex"}>
@@ -1380,7 +1395,10 @@ const EmployeeListCreate = ({}) => {
           <div className={"formGroup"}></div>
         </div>
         <div className={"formFlex"}>
-          <TotalSum firstName="Total Earnings 4 :" firstAmount="₹4,678,910" />
+          <TotalSum
+            firstName="Total Earnings 4 :"
+            firstAmount={getSumValue(form?.er_pf, form?.er_esi, form?.er_lwf)}
+          />
         </div>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
@@ -1518,7 +1536,19 @@ const EmployeeListCreate = ({}) => {
           </div>
         </div>{" "}
         <div className={"formFlex"}>
-          <TotalSum firstName="Total Earnings 5 :  " firstAmount="₹4,678,910" />
+          <TotalSum
+            firstName="Total Earnings 5 :  "
+            firstAmount={getSumValue(
+              form?.gratuity,
+              form?.insurance,
+              form?.stability_incentive,
+              form?.retention_allowance,
+              form?.perf_bonus,
+              form?.annual_bonus,
+              form?.two_car_maintenance,
+              form?.two_fuel
+            )}
+          />
         </div>
       </div>
       <div className={"plainPaper"}>

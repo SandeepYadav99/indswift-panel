@@ -31,6 +31,7 @@ function EmployeeListCreateHook() {
     department_id: "",
     sub_department_id: "",
     hod_id: "",
+    designation_id:"",
     pms_reviewer_id: "",
     gender: "",
     dob: "",
@@ -47,7 +48,7 @@ function EmployeeListCreateHook() {
     mother_name: "",
     spouse_name: "",
     spouse_dob: "",
-
+    spouse_gender:"",
     // children_name: "abc",
     permanent_address: "",
     current_address: "",
@@ -61,8 +62,8 @@ function EmployeeListCreateHook() {
     company_experience: 0,
     total_experience: 0,
     previous_organisation: 0,
-    uan_no: 0,
-    esi_no: 0,
+    uan_no: "",
+    esi_no: "",
     basic_salary: 0,
     hra: 0,
     education_allowance: 0,
@@ -164,9 +165,11 @@ function EmployeeListCreateHook() {
       // "designation_id",
       "grade_id",
       "cadre_id",
+      'spouse_gender',
       "location_id",
       "department_id",
       "sub_department_id",
+      'designation_id',
       "hod_id",
       "pms_reviewer_id",
       "next_review_date",
@@ -198,14 +201,14 @@ function EmployeeListCreateHook() {
       "ifsc",
       "before_experience",
       // "company_experience",
-      "total_experience",
+      // "total_experience",
       "previous_organisation",
       "uan_no",
       "esi_no",
       "basic_salary",
       "hra",
       "education_allowance",
-      "medical_allowance",
+      // "medical_allowance",
       "special_allowance",
       // "earning_one",
       "pug",
@@ -218,9 +221,9 @@ function EmployeeListCreateHook() {
       "vehicle_maintenance",
       "vehicle_emi",
       "fuel",
-      "vpf",
+      // "vpf",
       // "earning_two",
-      "gross",
+      // "gross",
       // "earning_three_pli",
       "er_pf",
       "er_esi",
@@ -234,12 +237,12 @@ function EmployeeListCreateHook() {
       "two_car_maintenance",
       "two_fuel",
       // "earning_five",
-      "monthly_ctc",
+      // "monthly_ctc",
       "em_pf",
       "em_esi",
       "em_lwf",
-      "total_deduction",
-      "total_pf",
+      // "total_deduction",
+      // "total_pf",
       "retention_allowance",
       "car_component",
       "incremental_gross_salary",
@@ -351,7 +354,7 @@ function EmployeeListCreateHook() {
     [changeTextData, checkCodeValidation]
   );
   const submitToServer = useCallback(() => {
-    console.log("before");
+    console.log("before ====?",form);
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
@@ -434,7 +437,7 @@ function EmployeeListCreateHook() {
       );
     });
   }, [form?.location_id, form?.department_id, listData]);
-
+ 
   const filteredAssociateJobRole = useMemo(() => {
     return listData.JOB_ROLES?.filter((val) => {
       return (

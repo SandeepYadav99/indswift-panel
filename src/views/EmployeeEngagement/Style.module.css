@@ -20,3 +20,6 @@
 .engagementModuleImage {
   overflow: auto;
 }
+.flex1dir{
+  flex: 1;
+}

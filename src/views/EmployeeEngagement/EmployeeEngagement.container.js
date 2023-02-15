@@ -9,6 +9,7 @@ import DrishtiImage from "../../assets/img/ic_drishti_white.png";
 import DeepakImage from "../../assets/img/ic_deepak_white.png";
 import IkagaiImage from "../../assets/img/ikagai_white.png";
 import UtsavImage from "../../assets/img/ic_utsav_white.png";
+import { Link } from "react-router-dom";
 
 function EmployeeEngagement() {
   const { StaticEngagementData, employeeData } = EmployeeEngagementHook({});
@@ -27,26 +28,54 @@ function EmployeeEngagement() {
         <img className={styles.engagementModuleImage} src={Chart} />
       </div>
       <div className={styles.cardsWrapper}>
-        <EngagementCard
-          imageUrl={DrishtiImage}
-          department="Employee Welfare"
-          name="DRISHTI"
-        />
-        <EngagementCard
-          imageUrl={DeepakImage}
-          department="Social Welfare"
-          name="DEEPAK"
-        />
-        <EngagementCard
-          imageUrl={UtsavImage}
-          department="Employee Engagement"
-          name="UTSAV"
-        />
-        <EngagementCard
-          imageUrl={IkagaiImage}
-          department="Employee Empowerment"
-          name="IKIGAI"
-        />
+        <div className={styles.flex1dir}>
+          <Link
+            to="/employee/drishti"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <EngagementCard
+              imageUrl={DrishtiImage}
+              department="Employee Welfare"
+              name="DRISHTI"
+            />
+          </Link>
+        </div>
+        <div className={styles.flex1dir}>
+          <Link
+            to="/employee/deepak"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <EngagementCard
+              imageUrl={DeepakImage}
+              department="Social Welfare"
+              name="DEEPAK"
+            />
+          </Link>
+        </div>
+        <div className={styles.flex1dir}>
+          <Link
+            to="/employee/utsav"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <EngagementCard
+              imageUrl={UtsavImage}
+              department="Employee Engagement"
+              name="UTSAV"
+            />
+          </Link>
+        </div>
+        <div className={styles.flex1dir}>
+          <Link
+            to="/employee/ikigai"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <EngagementCard
+              imageUrl={IkagaiImage}
+              department="Employee Empowerment"
+              name="IKIGAI"
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );

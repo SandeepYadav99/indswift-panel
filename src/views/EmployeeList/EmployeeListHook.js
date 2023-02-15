@@ -64,7 +64,9 @@ const useEmployeeList = ({}) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPageEmployeeRequests(type));
   }, []);
-
+  const handleCreate = useCallback(() => {
+    historyUtils.push(RouteName.EMPLOYEE_CREATE) //+
+}, []);
   const handleDataSave = useCallback(
     (data, type) => {
       // this.props.actionChangeStatus({...data, type: type});
@@ -207,6 +209,7 @@ const useEmployeeList = ({}) => {
     toggleCsvDialog,
     isCsvDialog,
     handleCsvUpload,
+    handleCreate
   };
 };
 
