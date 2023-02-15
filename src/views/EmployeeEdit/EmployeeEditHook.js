@@ -114,7 +114,7 @@ const initialForm = {
 };
 
 function EmployeeListCreateHook() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [form, setForm] = useState({ ...initialForm });
   const [editData, setEditData] = useState({});
   const [errorData, setErrorData] = useState({});

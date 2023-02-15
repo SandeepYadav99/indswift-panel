@@ -1,6 +1,7 @@
 import LogUtils from "../../libs/LogUtils";
 import useViewDocuments from "./ViewDocumentsHook";
 import {useEffect, useState} from "react";
+import GenericSlider from "../EmployeePanel/EmployeeDashboard/component/Members/GenricSlider";
 
 
 const ViewDocuments = ({location}) => {

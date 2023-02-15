@@ -7,11 +7,14 @@
   flex-direction: column;
   gap: 20px;
   flex: 1;
+  max-width: 45%;
 }
+
 .title {
   font-size: 0.8rem;
   font-weight: 600;
 }
+
 .newLine {
   height: 4px;
   width: 30px;
@@ -19,11 +22,26 @@
   margin-left: 1px;
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
+
 .engagementImageContainer {
+  /*display: flex;*/
+  /*justify-content: space-evenly;*/
+  /*width: 100%;*/
+  margin-top: 15px;
+  margin-bottom:15px;
   display: flex;
-  justify-content: space-evenly;
+  overflow: hidden;
 }
+
 .img {
   width: 150px;
   height: 150px;
+  margin: auto;
+}
+
+.sliderBlock {
+  width: 100%;
+  flex: 1;
+  position: relative;
+  display: block;
 }
