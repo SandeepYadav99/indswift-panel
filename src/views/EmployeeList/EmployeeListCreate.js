@@ -251,7 +251,7 @@ const EmployeeListCreate = ({}) => {
               }}
             />
           </div>
-           
+
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.uan_no}
@@ -834,17 +834,23 @@ const EmployeeListCreate = ({}) => {
 
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.pms_reviewer_id}
-              errorText={errorData?.pms_reviewer_id}
-              label={"Reviewer Name"}
-              value={form?.pms_reviewer_id}
-              onTextChange={(text) => {
+            <CustomAutoComplete
+              autoCompleteProps={{
+                freeSolo: false,
+                getOptionLabel: (option) => {
+                  return option?.label;
+                },
+              }}
+              dataset={listData?.EMPLOYEES}
+              datasetKey={"label"}
+              onTextChange={(text, value) => {
                 changeTextData(text, "pms_reviewer_id");
               }}
-              onBlur={() => {
-                onBlurHandler("pms_reviewer_id");
-              }}
+              variant={"outlined"}
+              label={"Reviewer Name"}
+              name={"pms_reviewer_id"}
+              isError={errorData?.pms_reviewer_id}
+              value={form?.pms_reviewer_id}
             />
           </div>
 

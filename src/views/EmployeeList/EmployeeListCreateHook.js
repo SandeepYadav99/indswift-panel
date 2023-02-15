@@ -17,6 +17,7 @@ import { useMemo } from "react";
 import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
+import LogUtils from "../../libs/LogUtils";
 
 function EmployeeListCreateHook() {
   const initialForm = {
@@ -359,11 +360,15 @@ function EmployeeListCreateHook() {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (key != "referred_by" && form[key]) {
+        LogUtils.log('key', key);
+        if (['hod_id', 'pms_reviewer_id', 'designation_id', 'job_role_id'].indexOf(key) >= 0 && form[key]) {
+          
+          fd.append(key, form[key]?.id);
+        } else if (form[key]) {
           fd.append(key, form[key]);
         }
       });
-      fd.append("qualifications", JSON.stringify(ChildenRef.current.getData()));
+      fd.append("children", JSON.stringify(ChildenRef.current.getData()));
 
       console.log("Api hit", fd);
       serviceCreateEmployees(fd).then((res) => {
@@ -394,8 +399,8 @@ function EmployeeListCreateHook() {
   }, [
     checkFormValidation,
     setErrorData,
-    ChildenRef.current,
     form,
+    submitToServer
     // includeRef.current
   ]);
 
