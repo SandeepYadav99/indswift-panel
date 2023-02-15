@@ -2,13 +2,15 @@ import React from "react";
 import styles from "./Style.module.css";
 import GalleryImage from "../../../../assets/img/Gallery image 2.jpg";
 
-function GalleryImages() {
+function GalleryImages({name,imageUrl,onClick}) {
   return (
-    <div className={styles.imageGalleryWrapper}>
+    <div className={styles.imageGalleryWrapper} onClick={onClick}>
       <div className={styles.utsavGalleryImage}>
-        <img className={styles.utsavImages} src={GalleryImage} />
+       <div className={styles.wrapper}>
+       <img className={styles.utsavImages} src={imageUrl} />
+        </div> 
         <div className={styles.imageTitle}>
-          <span>Republic Day Celebrations</span>
+          <span>{name}</span>
         </div>
       </div>
     </div>

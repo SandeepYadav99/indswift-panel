@@ -59,6 +59,7 @@ import ViewDocuments from "../views/ViewDocuments/ViewDocuments";
 import EmployeeListCreate from "../views/EmployeeList/EmployeeListCreate";
 import EmployeeEdit from "../views/EmployeeEdit/EmployeeEdit";
 import EmployeeEditVersionListContainer from "../views/EmployeeEditVersions/ListView/EmployeeEditVersionList.container";
+import EmployeeUtsavDetail from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsavDetail";
 
 const Roles = Constants.ROLES;
 
@@ -296,6 +297,16 @@ const dashboardRoutes = [
         icon: DashboardOutlined,
         component: EmployeeUtsav,
         is_sidebar: true,
+        parent: 'swift',
+
+    },
+    {
+        path: "/employee/utsav/:id",
+        sidebarName: "Utsav",
+        navbarName: "Admin Dashboard",
+        icon: DashboardOutlined,
+        component: EmployeeUtsavDetail,
+        is_sidebar: false,
         parent: 'swift',
 
     },
