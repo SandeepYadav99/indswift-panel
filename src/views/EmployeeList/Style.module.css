@@ -197,3 +197,7 @@
   font-weight: bold;
 
 }
+.btnWrapperGap{
+  display: flex;
+  gap: 15px;
+}
