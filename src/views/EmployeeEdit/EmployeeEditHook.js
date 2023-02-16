@@ -60,7 +60,7 @@ const initialForm = {
   before_experience: 0,
   company_experience: 0,
   total_experience: 0,
-  previous_organisation: 0,
+  previous_organisation: "",
   uan_no: 0,
   esi_no: 0,
   basic_salary: 0,

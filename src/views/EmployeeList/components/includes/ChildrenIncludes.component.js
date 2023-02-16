@@ -12,15 +12,15 @@ import React, {
 import IncludeFields from "./ChildrenIncludeFields.component";
 import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
-import LogUtils from "../../../../../libs/LogUtils";
+import LogUtils from "../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 
 const TEMP_OBJ = {
-  child_name: "",
-  child_gender: "",
-  child_dob: "",
+  name: "",
+  gender: "",
+  dob: "",
 };
 
 const ChildrenIncludeForm = (

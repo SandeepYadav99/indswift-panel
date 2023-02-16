@@ -32,7 +32,6 @@ function EmployeeListCreateHook() {
     department_id: "",
     sub_department_id: "",
     hod_id: "",
-    designation_id:"",
     pms_reviewer_id: "",
     gender: "",
     dob: "",
@@ -62,7 +61,7 @@ function EmployeeListCreateHook() {
     before_experience: 0,
     company_experience: 0,
     total_experience: 0,
-    previous_organisation: 0,
+    previous_organisation: "",
     uan_no: "",
     esi_no: "",
     basic_salary: 0,
@@ -252,8 +251,8 @@ function EmployeeListCreateHook() {
     ];
     required.forEach((val) => {
       if (
-        !form?.[val] ||
-        (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
+          (!form?.[val] && parseInt(form?.[val]) != 0)  ||
+          (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
       ) {
         errors[val] = true;
       } else if (["emp_code"].indexOf(val) < 0) {
@@ -440,7 +439,7 @@ function EmployeeListCreateHook() {
       );
     });
   }, [form?.location_id, form?.department_id, listData]);
- 
+
   const filteredAssociateJobRole = useMemo(() => {
     return listData.JOB_ROLES?.filter((val) => {
       return (

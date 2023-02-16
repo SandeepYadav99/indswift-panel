@@ -16,9 +16,9 @@ import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/Cus
 import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
 import File from "../../components/FileComponent/FileComponent.component";
 import EmployeeListCreateHook from "./EmployeeListCreateHook";
-import TotalSum from "./components/UploadCsv/TotalSum/TotalSum";
+import TotalSum from "./components/TotalSum/TotalSum";
 import constants from "../../config/constants";
-import ChildrenIncludeForm from "./components/UploadCsv/includes/ChildrenIncludes.component";
+import ChildrenIncludeForm from "./components/includes/ChildrenIncludes.component";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -409,9 +409,7 @@ const EmployeeListCreate = ({}) => {
             <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
-                getOptionLabel: (option) => {
-                  return option?.label;
-                },
+                getOptionLabel: (option) => option?.label || ""
               }}
               dataset={filteredEmployees}
               datasetKey={"label"}
@@ -431,7 +429,7 @@ const EmployeeListCreate = ({}) => {
             <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
-                getOptionLabel: (option) => option?.label,
+                getOptionLabel: (option) => option?.label || "",
               }}
               dataset={listData?.JOB_ROLES}
               datasetKey={"label"}
@@ -449,9 +447,7 @@ const EmployeeListCreate = ({}) => {
             <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
-                getOptionLabel: (option) => {
-                  return option?.label;
-                },
+                getOptionLabel: (option) => option?.label || ""
               }}
               dataset={listData?.DESIGNATIONS}
               datasetKey={"label"}
@@ -840,9 +836,7 @@ const EmployeeListCreate = ({}) => {
             <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
-                getOptionLabel: (option) => {
-                  return option?.label;
-                },
+                getOptionLabel: (option) => option?.label || ""
               }}
               dataset={listData?.EMPLOYEES}
               datasetKey={"label"}
