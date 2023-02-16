@@ -21,6 +21,8 @@ const initialState = {
     isTilesCalling: false,
     tiles: {
         theme: null,
+        utsavImages: [],
+        utsavEvents: [],
     }
 };
 

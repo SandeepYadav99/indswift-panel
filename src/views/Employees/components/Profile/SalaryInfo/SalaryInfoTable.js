@@ -5,11 +5,34 @@ import styles from "./Style.module.css";
 function SalaryInfoTable() {
   const { EmployeeSalaryInfo: data } = SalaryInfoHook({});
 
+  // const getSumValue = (...numbers) => {
+  //   return numbers ? numbers.reduce((sum, value) => sum + value, 0) : "-";
+  // };
   const getSumValue = (...numbers) => {
-    return numbers ? numbers.reduce((sum, value) => sum + value, 0) : "-";
+    return numbers
+      ? numbers.reduce((sum, value) => {
+          if (value) {
+            return sum + parseFloat(value);
+          }
+          return sum;
+        }, 0)
+      : "-";
   };
+  console.log(data?.earning_one,data?.earning_two)
   const netPay = () => {
-    return data ? data?.earning_one - data?.total_deduction : "-";
+    console.log(
+      parseFloat(data?.earning_one),
+      data?.earning_one,
+      parseFloat(data?.total_deduction),
+      data?.total_deduction
+    );
+    {
+      if (data?.earning_one && data?.total_deduction) {
+        return data
+          ? parseFloat(data?.earning_one) - parseFloat(data?.total_deduction)
+          : "-";
+      }
+    }
   };
   return (
     <div className={styles.salaryInfoWrapper}>

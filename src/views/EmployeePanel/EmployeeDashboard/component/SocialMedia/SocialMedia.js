@@ -15,7 +15,7 @@ function SocialMedia() {
           target="_blank"
         >
           <img
-            style={{ cursor: "pointer" }}
+            className={styles.socialLogos}
             alt="Facebook"
             src={require("../../../../../assets/img/facebook.png")}
           />
@@ -27,7 +27,7 @@ function SocialMedia() {
           target="_blank"
         >
           <img
-            style={{ cursor: "pointer" }}
+            className={styles.socialLogos}
             src={require("../../../../../assets/img/linkedin.png")}
             alt="Linkedin"
           />
@@ -39,7 +39,7 @@ function SocialMedia() {
           target="_blank"
         >
           <img
-            style={{ cursor: "pointer" }}
+            className={styles.socialLogos}
             alt="Twitter"
             src={require("../../../../../assets/img/twitter.png")}
           />
@@ -51,7 +51,7 @@ function SocialMedia() {
           target="_blank"
         >
           <img
-            style={{ cursor: "pointer" }}
+            className={styles.socialLogos}
             alt="Instagram"
             src={require("../../../../../assets/img/insta.png")}
           />
@@ -66,7 +66,7 @@ function SocialMedia() {
           target="_blank"
         >
           <img
-            style={{ cursor: "pointer" }}
+            className={styles.socialLogos}
             alt="YouTube"
             src={require("../../../../../assets/img/youtube.png")}
           />

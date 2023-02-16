@@ -2,10 +2,11 @@
   box-shadow: 0px 20px 80px #00000011;
   border-radius: 10px;
   background: #ffffff;
-  padding: 1.2rem 2rem;
+  padding: .8rem 1.6rem;
   display: flex;
   width: 70%;
   justify-content: space-between;
+  align-items: center;
 }
 .title {
   font-size: 0.8rem;
@@ -23,3 +24,11 @@
   flex-direction: column;
   justify-content: center;
 }
+.socialLogos{
+  width: 25px;
+  height: 25px;
+  cursor: "pointer"
+}
+/* .socialLogos:hover{
+  color: aqua;
+} */

@@ -31,7 +31,7 @@ function EmployeeDashboard() {
       <div className={styles.secondRow}>
         <div className={styles.announcementRowWrapper}>
           <AnnouncementInfo />
-          <Members />
+          {/* <Members /> */}
         </div>
         <div className={styles.EmployeecolumnWrapper}>
           <EmployeeEventList />

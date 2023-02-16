@@ -7,36 +7,44 @@ function RecentUpdate() {
   const { isCircularCalling, circulars } = useSelector(
     (state) => state.employeeDashboard
   );
-const startfiveValues=(value)=>{
-  if(value){
-    return value.slice(0,5)
-  }
-}
+  const startfiveValues = (value) => {
+    if (value) {
+      return value.slice(0, 5);
+    }
+  };
   const listItems = useMemo(() => {
-    return startfiveValues(circulars)?.map((data) => {
+    let listLength = startfiveValues(circulars).length - 1;
+    return startfiveValues(circulars)?.map((data, index) => {
       return (
-        <div className={styles.descriptionContainer}>
-          <div>
-            <img
-              src={
-                data?.type === "CIRCULAR"
-                  ? require("../../../../../assets/img/circular.png")
-                  : require("../../../../../assets/img/policy.png")
-              }
-            />
+        <div key={` recent_event${index}`}>
+          <div className={styles.descriptionContainer}>
+            <div>
+              <img
+                src={
+                  data?.type === "CIRCULAR"
+                    ? require("../../../../../assets/img/circular.png")
+                    : require("../../../../../assets/img/policy.png")
+                }
+              />
+            </div>
+            <div className={styles.description}>
+              <a
+                target={"_blank"}
+                href={data?.document}
+                className={styles.descriptionName}
+              >
+                {data?.name}
+              </a>
+              <span className={styles.effectiveDate}>
+                Effective Date: {data?.effectiveDateText}
+              </span>
+            </div>
           </div>
-          <div className={styles.description}>
-            <a
-              target={"_blank"}
-              href={data?.document}
-              className={styles.descriptionName}
-            >
-              {data?.name}
-            </a>
-            <span className={styles.effectiveDate}>
-              Effective Date: {data?.effectiveDateText}
-            </span>
-          </div>
+          { listLength && (listLength === index) ? (
+            <></>
+          ) : (
+            <div className={styles.horizontalLine}></div>
+          )}
         </div>
       );
     });
@@ -53,8 +61,8 @@ const startfiveValues=(value)=>{
         <div className={styles.newLine} />
       </div>
       {/* <div className={styles.scrollRecentUpdate}> */}
-        {listItems}
-        {/* </div> */}
+      {listItems}
+      {/* </div> */}
     </div>
   );
 }

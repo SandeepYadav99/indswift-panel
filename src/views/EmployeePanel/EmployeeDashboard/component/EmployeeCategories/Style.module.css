@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  flex: 0.48;
+  flex: 0.5;
 }
 .title {
   font-size: 0.8rem;
@@ -20,17 +20,27 @@
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
 .employeeCategoriesCard {
-  padding: 25px 20px;
-  border: 1px solid #919bb0;
+  padding: 25px 0px;
+  /* border: 1px solid #919bb0; */
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /* background-color: #919bb0; */
+  /* width: inherit; */
 }
 .employeeCategoriesCardWrapper {
+  flex: 1;
+  width: 100%;
+  justify-content: center;
+  /* width: 25%; */
   display: flex;
   cursor: pointer;
+  border: 1px solid #919bb0;
+  border-radius: 10px;
+
+  /* background-color: #7467f0; */
 }
 .employeeName {
   font-weight: 600;
@@ -40,10 +50,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 5px;
 }
 .categories {
   font-size: 0.75rem;
+  word-break: break-word
 }
 .employeeCategoriesLower {
   display: flex;

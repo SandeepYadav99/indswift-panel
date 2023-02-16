@@ -5,12 +5,16 @@ import styles from "./Style.module.css";
 import DrishtiImage from "../../../assets/img/drishti illustartion.png";
 import { DrishtiData } from "../../../helper/helper";
 import DrishtiList from "./Faq/DrishtiList";
+import { useEffect } from "react";
 
 function EmployeeDrishti() {
   const { staticEmployeeDrishtiData, employeeData } = EmployeeDrishtiHook({});
   const DrishtiDescription = DrishtiData;
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
   return (
-    <div className={styles.employeeDrishtiWrapper}>
+    <div className={styles.employeeDrishtiWrapper} >
       <InformationCard
         heading="Drishti - Employee Welfare Programs"
         imageUrl={DrishtiImage}

@@ -12,9 +12,9 @@ function BirthdayEvent({data}) {
              </div>
              <div className={styles.profileContainer}>
                <span className={styles.profileName}>{emp?.gender === 'MALE' ? 'MR.' : 'MRS.'} {emp?.name}</span>
-               <span className={styles.profilePosition}>Manager</span>
+               <span className={styles.profilePosition}>{emp?.designation}</span>
                <span className={styles.profileAddress}>
-              {emp?.designation} - ({emp?.department} - {emp?.location})
+               {`${emp?.department} - ${emp?.location}`}
             </span>
              </div>
            </div>

@@ -6,10 +6,10 @@
   display: flex;
   flex-direction: row;
   flex: 1;
-  /* background-image: url('../../../../assets/img/background21.png');
+  background-image: url('./../../../../../assets/img/ic_quotes_bg.png');
   background-repeat: no-repeat;
-  background-size:inherit; */
-
+  background-size:cover;
+  color: white;
 }
 
 .UserinfoRight {
@@ -50,4 +50,10 @@
 }
 .contactLower {
   font-size: 0.875rem;
+}
+.dateWrapper{
+  display: flex;
+}
+.dateWrapper > p{
+  margin-top: 0;
 }

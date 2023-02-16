@@ -40,12 +40,12 @@ function UserInfo() {
               <p className={styles.userposition}>{userData?.designation_obj?.name}, {userData?.location?.name}</p>
               <p className={styles.usernumber}>{userData?.emp_code}</p>
             </div>
-            <div>
+            {/* <div>
               <img
                 src={require("../../../../../assets/img/logo_watermark.png")}
                 className={styles.logo}
               />
-            </div>
+            </div> */}
           </div>
           <div className={styles.UserinfoContactWrapper}>
             <p>{contact}</p>

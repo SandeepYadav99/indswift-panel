@@ -62,8 +62,8 @@ function EmployeeEventList() {
           textColor="primary"
         >
           <Tab className={"iconTabs"} label="Birthday's" />
-          <Tab className={"iconTabs"} label="Work Anniversary " />
-          <Tab className={"iconTabs"} label="Marrige Anniversary " />
+          <Tab className={"iconTabs"} label="Work Anniversaries " />
+          <Tab className={"iconTabs"} label="Marrige Anniversaries " />
         </Tabs>
       </AppBar>
       <div className={styles.paperBackground1}>
@@ -71,10 +71,10 @@ function EmployeeEventList() {
           <BirthdayEvent data={reminders?.birthdays} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={"ltr"}>
-          <BirthdayEvent data={reminders?.workAnniversaries} />
+          <BirthdayEvent data={reminders?.marriageAnniversaries} />
         </TabPanel>
         <TabPanel value={value} index={2} dir={"ltr"}>
-          <BirthdayEvent data={reminders?.marriageAnniversaries} />
+          <BirthdayEvent data={reminders?.workAnniversaries} />
         </TabPanel>
       </div>
     </div>

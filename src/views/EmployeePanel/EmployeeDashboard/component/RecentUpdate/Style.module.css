@@ -47,3 +47,7 @@
   overflow: scroll;
   overflow-x: hidden;
 } */
+.horizontalLine {
+  border-bottom: 2px solid #ebedf4;
+  margin-top: 15px;
+}
