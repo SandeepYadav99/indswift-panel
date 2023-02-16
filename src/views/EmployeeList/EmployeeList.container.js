@@ -234,14 +234,14 @@ const EmployeeList = ({}) => {
             <span className={styles.title}>Total Employee Records: {total}</span>
             <div className={styles.newLine} />
           </div>
-          <div>
-            {/* <ButtonBase onClick={toggleCsvDialog} className={"createBtn"}>
+          <div className={styles.btnWrapperGap}>
+            <ButtonBase onClick={toggleCsvDialog} className={"createBtn"}>
               Upload{" "}
               <CloudUpload
                 fontSize={"small"}
                 className={"plusIcon"}
               ></CloudUpload>
-            </ButtonBase> */}
+            </ButtonBase>
             <ButtonBase onClick={handleCreate} className={'createBtn'}>
                                 CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
                             </ButtonBase>
