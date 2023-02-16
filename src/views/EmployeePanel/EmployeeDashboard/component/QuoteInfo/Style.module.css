@@ -29,27 +29,29 @@
   font-size: 0.875rem;
   font-weight: 600;
 }
-.UserinfoContactWrapper > p {
+/* .UserinfoContactWrapper > p {
   margin: 0;
   font-size: 0.875rem;
-}
+} */
 .UserinfoContactWrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 .quoteDate {
-  font-size: 1.25rem;
+  font-size: .875rem;
   font-weight: 600;
   /* color: #FFFFFF; */
 }
 .contactUpper {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
   max-width: 315px;
+  margin: 0;
 }
 .contactLower {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
+  margin: 0;
 }
 .dateWrapper{
   display: flex;

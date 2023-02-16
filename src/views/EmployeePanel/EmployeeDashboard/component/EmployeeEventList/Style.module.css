@@ -7,13 +7,19 @@
   border-top-right-radius: 10px;
   box-shadow: 0px 20px 80px #00000011 !important;
 }
+.eventBirthdayWrapper{
+  flex: 1;
+}
 .paperBackground {
   padding: 10px 12px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   background-color: white !important;
-  max-height: 510px;
+  /* height: 510px; */
+  /* height: 85vh; */
   overflow: auto;
+  max-height: 510px;
+  min-height: 510px;
 }
 .paperBackground1 {
   padding: 10px 12px;
@@ -42,11 +48,46 @@
   font-size: 0.875rem;
 }
 .profileName {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 .userImage {
   width: 70px;
   height: 70px;
   object-fit: cover;
+}
+.parentWrapper{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.noEventWrapper {
+  /* background-color: yellow; */
+  background-color: white !important;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 15px;
+}
+.noEvent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.noEvent >span{
+  margin-top: 20px;
+  font-size: .875rem;
+  font-weight: 600;
+}
+.workLogo{
+  border-radius: 5px;
+  background-color: #2896E9 ;
+  padding: 3px 8px;
+}
+.profilePosition{
+  font-size: .7rem;
+}
+.profileAddress{
+  font-size: .7rem;
 }

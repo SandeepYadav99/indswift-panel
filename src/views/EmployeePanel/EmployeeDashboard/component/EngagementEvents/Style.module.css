@@ -34,9 +34,10 @@
 }
 
 .img {
-  width: 150px;
-  height: 150px;
+  max-width: 200px;
+  max-height: 200px;
   margin: auto;
+  border-radius: 10px;
 }
 
 .sliderBlock {

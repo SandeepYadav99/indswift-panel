@@ -53,7 +53,7 @@ function EmployeeEventList() {
   }
 
   return (
-    <div>
+    <div className={styles.eventBirthdayWrapper}>
       <AppBar position="static" className={styles.backgroundColor}>
         <Tabs
           value={value}
@@ -71,7 +71,7 @@ function EmployeeEventList() {
           <BirthdayEvent data={reminders?.birthdays} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={"ltr"}>
-          <BirthdayEvent data={reminders?.marriageAnniversaries} />
+          <BirthdayEvent isWorkPage={true} data={reminders?.marriageAnniversaries} />
         </TabPanel>
         <TabPanel value={value} index={2} dir={"ltr"}>
           <BirthdayEvent data={reminders?.workAnniversaries} />

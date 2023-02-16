@@ -1,9 +1,9 @@
-import React, {useMemo} from "react";
+import React, { useMemo } from "react";
 import styles from "./Style.module.css";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 function UserInfo() {
-  const { user: userData  } = useSelector(state => state.auth);
+  const { user: userData } = useSelector((state) => state.auth);
   const contact = useMemo(() => {
     if (userData?.contact?.official_contact) {
       return userData?.contact?.official_contact;
@@ -11,7 +11,7 @@ function UserInfo() {
     if (userData?.contact?.personal_contact) {
       return userData?.contact?.personal_contact;
     }
-    return '';
+    return "";
   }, [userData]);
 
   const email = useMemo(() => {
@@ -21,23 +21,22 @@ function UserInfo() {
     if (userData?.contact?.personal_email) {
       return userData?.contact?.personal_email;
     }
-    return '';
+    return "";
   }, [userData]);
 
   return (
     <div className={styles.userInfoWrapper}>
       <div className={styles.userInfoContainer}>
         <div className={styles.imageWrapeer}>
-          <img
-            src={userData?.image}
-            className={styles.img}
-          />
+          <img src={userData?.image} className={styles.img} />
         </div>
         <div className={styles.UserinfoRight}>
           <div className={styles.watermarkWrapper}>
             <div>
               <p className={styles.username}>{userData?.name}</p>
-              <p className={styles.userposition}>{userData?.designation_obj?.name}, {userData?.location?.name}</p>
+              <p className={styles.userposition}>
+                {userData?.designation_obj?.name}, {userData?.location?.name}
+              </p>
               <p className={styles.usernumber}>{userData?.emp_code}</p>
             </div>
             {/* <div>
@@ -48,8 +47,14 @@ function UserInfo() {
             </div> */}
           </div>
           <div className={styles.UserinfoContactWrapper}>
-            <p>{contact}</p>
-            <p>{email}</p>
+            <div className={styles.contactInfo}>
+              <img src={require("../../../../../assets/img/ic_contact.png")} />
+              <span>{contact}</span>
+            </div>
+            <div className={styles.contactInfo}>
+              <img src={require("../../../../../assets/img/ic_email.png")} />
+              <span>{email}</span>
+            </div>
           </div>
         </div>
       </div>
