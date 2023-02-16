@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from "./Style.module.css"
 
-const PerformanceReview = ({reviewer}) => {
+const PerformanceReview = ({reviewer,image}) => {
+    console.log(">--reviewer",reviewer)
     return (
         <div>
             <div className={styles.plainPaper}>
@@ -10,7 +11,7 @@ const PerformanceReview = ({reviewer}) => {
 
                     <div className={styles.mainFlex}>
                         <div style={{marginRight:'15px'}}>
-                            <img src={reviewer?.image} height={40}/>
+                            <img src={image} height={40}/>
                         </div>
                         <div className={styles.right}>
                             <div className={styles.key}><span className={styles.value}>Reviewer Name:</span>{reviewer?.name}</div>

@@ -15,7 +15,7 @@ function EngagementEvents() {
         <span className={styles.title}>Employee Engagement Events</span>
         <div className={styles.newLine} />
       </div>
-      <div className={styles.engagementImageContainer}></div>
+      {/* <div className={styles.engagementImageContainer}></div> */}
       <div className={styles.sliderBlock}>
         {isTilesCalling ? (
           <WaitingComponent />

@@ -9,7 +9,7 @@ function RecentUpdate() {
   );
   const startfiveValues = (value) => {
     if (value) {
-      return value.slice(0, 5);
+      return value.slice(0, 3);
     }
   };
   const listItems = useMemo(() => {

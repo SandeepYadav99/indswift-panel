@@ -856,6 +856,7 @@ const EmployeeListCreate = ({}) => {
               clearable
               label={"Previous Review Date"}
               // minDate={new Date()}
+              maxDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "previous_review_date");
               }}
@@ -869,7 +870,7 @@ const EmployeeListCreate = ({}) => {
             <CustomDatePicker
               clearable
               label={"Next Review Date"}
-              // minDate={new Date()}
+              minDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "next_review_date");
               }}
@@ -890,6 +891,10 @@ const EmployeeListCreate = ({}) => {
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
+              inputProps={{ min: 0 }}
+              // InputProps={{ min: 0 }}
+              // min={0}
+              // minValue="0"
               isError={errorData?.incremental_gross_salary}
               errorText={errorData?.incremental_gross_salary}
               label={"Incremental Gross Salary"}

@@ -5,20 +5,32 @@ import { useSelector } from "react-redux";
 function UserInfo() {
   const { user: userData } = useSelector((state) => state.auth);
   const contact = useMemo(() => {
-    if (userData?.contact?.official_contact) {
+    if (
+      userData?.contact?.official_contact &&
+      userData?.contact?.official_contact !== "NA"
+    ) {
       return userData?.contact?.official_contact;
     }
-    if (userData?.contact?.personal_contact) {
+    if (
+      userData?.contact?.personal_contact &&
+      userData?.contact?.personal_contact !== "NA"
+    ) {
       return userData?.contact?.personal_contact;
     }
     return "";
   }, [userData]);
 
   const email = useMemo(() => {
-    if (userData?.contact?.official_email) {
+    if (
+      userData?.contact?.official_email &&
+      userData?.contact?.official_email !== "NA"
+    ) {
       return userData?.contact?.official_email;
     }
-    if (userData?.contact?.personal_email) {
+    if (
+      userData?.contact?.personal_email &&
+      userData?.contact?.personal_email !== "NA"
+    ) {
       return userData?.contact?.personal_email;
     }
     return "";

@@ -50,7 +50,7 @@ function EmployeeListCreateHook() {
     mother_name: "",
     spouse_name: "",
     spouse_dob: "",
-    spouse_gender:"",
+    spouse_gender: "",
     // children_name: "abc",
     permanent_address: "",
     current_address: "",
@@ -160,7 +160,7 @@ function EmployeeListCreateHook() {
     const errors = { ...errorData };
     let required = [
       "emp_code",
-      "image",
+      // "image",
       "name",
       "doj",
       "grade_id",
@@ -169,7 +169,7 @@ function EmployeeListCreateHook() {
       "location_id",
       "department_id",
       "sub_department_id",
-      'designation_id',
+      "designation_id",
       "hod_id",
       "pms_reviewer_id",
       // "next_review_date",
@@ -210,8 +210,8 @@ function EmployeeListCreateHook() {
     ];
     required.forEach((val) => {
       if (
-          (!form?.[val] && parseInt(form?.[val]) != 0)  ||
-          (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
+        (!form?.[val] && parseInt(form?.[val]) != 0) ||
+        (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
       ) {
         errors[val] = true;
       } else if (["emp_code"].indexOf(val) < 0) {
@@ -230,7 +230,18 @@ function EmployeeListCreateHook() {
     if (form?.personal_email && !isEmail(form?.personal_email)) {
       errors["personal_email"] = true;
     }
-
+    if (
+      form?.personal_contact &&
+      (!isNum(form?.personal_contact) || form?.personal_contact?.length !== 10)
+    ) {
+      errors["personal_contact"] = true;
+    }
+    if (
+      form?.official_contact &&
+      (!isNum(form?.official_contact) || form?.official_contact?.length !== 10)
+    ) {
+      errors["official_contact"] = true;
+    }
     if (form?.aadhar_no && !isAadhar(form?.aadhar_no)) {
       errors["aadhar_no"] = true;
     }
@@ -324,13 +335,22 @@ function EmployeeListCreateHook() {
     [changeTextData, checkCodeValidation]
   );
   const submitToServer = useCallback(() => {
-    console.log("before ====?",form);
+    console.log("before ====?", form);
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        LogUtils.log('key', key);
-        if (['hod_id', 'pms_reviewer_id', 'designation_id', 'job_role_id','associate'].indexOf(key) >= 0 && form[key]) {
+        LogUtils.log("key", key);
+        if (
+          [
+            "hod_id",
+            "pms_reviewer_id",
+            "designation_id",
+            "job_role_id",
+            "associate",
+          ].indexOf(key) >= 0 &&
+          form[key]
+        ) {
           fd.append(key, form[key]?.id);
         } else if (form[key]) {
           fd.append(key, form[key]);
@@ -361,13 +381,13 @@ function EmployeeListCreateHook() {
     }
     console.log("4");
     // if (isIncludesValid) {
-      submitToServer();
+    submitToServer();
     // }
   }, [
     checkFormValidation,
     setErrorData,
     form,
-    submitToServer
+    submitToServer,
     // includeRef.current
   ]);
 

@@ -11,6 +11,7 @@ import Timeline from "./components/Profile/Timeline";
 import PerformanceReview from "./components/Profile/PerfomanceReview";
 
 const ProfileView = ({ data }) => {
+  console.log("===?",data)
   return (
     <div>
       <div className={styles.profileContainer}>
@@ -25,7 +26,7 @@ const ProfileView = ({ data }) => {
           <DepartmentInfo data={data} />
           <GovtInfo idCards={data?.identity_date} />
           <BankInfo bankD={data?.bank} />
-          <PerformanceReview reviewer={data?.pms_reviewer} />
+          <PerformanceReview reviewer={data?.pms_reviewer} image={data?.image}/>
         </div>
       </div>
     </div>

@@ -10,9 +10,9 @@ import { useEffect } from "react";
 function EmployeeDrishti() {
   const { staticEmployeeDrishtiData, employeeData } = EmployeeDrishtiHook({});
   const DrishtiDescription = DrishtiData;
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className={styles.employeeDrishtiWrapper} >
       <InformationCard
