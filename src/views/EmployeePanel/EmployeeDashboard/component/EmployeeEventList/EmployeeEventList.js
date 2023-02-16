@@ -71,10 +71,13 @@ function EmployeeEventList() {
           <BirthdayEvent data={reminders?.birthdays} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={"ltr"}>
-          <BirthdayEvent isWorkPage={true} data={reminders?.marriageAnniversaries} />
+          <BirthdayEvent
+            isWorkPage={true}
+            data={reminders?.workAnniversaries}
+          />
         </TabPanel>
         <TabPanel value={value} index={2} dir={"ltr"}>
-          <BirthdayEvent data={reminders?.workAnniversaries} />
+          <BirthdayEvent data={reminders?.marriageAnniversaries} />
         </TabPanel>
       </div>
     </div>

@@ -442,7 +442,25 @@ const EmployeeListCreate = ({}) => {
                   value={form?.job_role_id}
               />
             </div>
-            <div className={"formGroup"}></div>
+            <div className={"formGroup"}>
+            <CustomAutoComplete
+              autoCompleteProps={{
+                freeSolo: false,
+                getOptionLabel: (option) => option?.label || "",
+              }}
+              dataset={listData?.DESIGNATIONS}
+              datasetKey={"label"}
+              onTextChange={(text, value) => {
+                changeTextData(text, "designation_id");
+              }}
+              variant={"outlined"}
+              label={"DESIGNATION"}
+              name={"designation_id"}
+              isError={errorData?.designation_id}
+              value={form?.designation_id}
+            />
+          </div>
+            {/* <div className={"formGroup"}></div> */}
           </div>
         </div>
         <div className={"plainPaper"}>
