@@ -155,9 +155,9 @@ const ChildrenIncludeForm = (
     if (type == "ADDITION") {
       oldState.push(JSON.parse(JSON.stringify(TEMP_OBJ)));
     } else {
-      if (oldState.length === 1) {
-        return true;
-      }
+      // if (oldState.length === 1) {
+      //   return true;
+      // }
       oldState.splice(index, 1);
     }
     LogUtils.log("oldState", oldState);

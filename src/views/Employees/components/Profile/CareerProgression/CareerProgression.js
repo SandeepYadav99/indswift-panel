@@ -36,7 +36,7 @@ function CareerProgression({}) {
   // [{ date: 'abc', count: 30 }, { date: 'abc', count: 30 }]
 
   const annualTransition = useMemo(() => {
-    return history.map((data, index) => {
+    return [...history].reverse().map((data, index) => {
      return ((<CareerMonthlyCard data={data} isLast={index +1 === history.length} />))
     });
   }, [history]);
