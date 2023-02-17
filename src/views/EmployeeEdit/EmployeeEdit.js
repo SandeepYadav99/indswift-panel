@@ -413,7 +413,7 @@ const EmployeeListCreate = ({}) => {
                       return option?.label;
                     },
                   }}
-                  dataset={filteredEmployees}
+                  dataset={listData?.EMPLOYEES}
                   datasetKey={"label"}
                   onTextChange={(text, value) => {
                     changeTextData(text, "hod_id");
