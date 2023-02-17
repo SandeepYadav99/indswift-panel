@@ -185,21 +185,24 @@ const EmployeeListCreate = ({}) => {
               </CustomSelectField>
             </div>
             <div className={"formGroup"}>
-              <CustomSelectField
-                  isError={errorData?.blood_group}
-                  errorText={errorData?.blood_group}
-                  label={"Blood Group"}
-                  value={form?.blood_group}
-                  handleChange={(value) => {
-                    changeTextData(value, "blood_group");
-                  }}
-              >
-                <MenuItem value="A">A</MenuItem>
-                <MenuItem value="B">B</MenuItem>
-                <MenuItem value="AB">AB</MenuItem>
-                <MenuItem value="B">B</MenuItem>
-                <MenuItem value="O">O</MenuItem>
-              </CustomSelectField>
+                <CustomSelectField
+                    isError={errorData?.blood_group}
+                    errorText={errorData?.blood_group}
+                    label={"Blood Group"}
+                    value={form?.blood_group}
+                    handleChange={(value) => {
+                        changeTextData(value, "blood_group");
+                    }}
+                >
+                    <MenuItem value="O+">O+</MenuItem>
+                    <MenuItem value="O-">O-</MenuItem>
+                    <MenuItem value="A+">A+</MenuItem>
+                    <MenuItem value="A-">A-</MenuItem>
+                    <MenuItem value="B+">B+</MenuItem>
+                    <MenuItem value="B-">B-</MenuItem>
+                    <MenuItem value="AB+">AB+</MenuItem>
+                    <MenuItem value="AB-">AB-</MenuItem>
+                </CustomSelectField>
             </div>
           </div>
           <div className={"formFlex"}>
@@ -986,9 +989,9 @@ const EmployeeListCreate = ({}) => {
             <TotalSum
                 firstName="Total Earnings 1: "
                 firstAmount={getSumValue(
+                    form?.basic_salary,
                     form?.education_allowance,
                     form?.special_allowance,
-                    form?.education_allowance,
                     form?.hra
                 )}
             />
@@ -1177,44 +1180,44 @@ const EmployeeListCreate = ({}) => {
             <div className={"formGroup"}></div>
           </div>
           <div className={"formFlex"}>
-            <TotalSum
-                firstName="Incremental Gross Salary + Car Component: "
-                firstAmount={getSumValue(
-                    form?.pug,
-                    form?.helper,
-                    form?.food_coupons,
-                    form?.gift_coupons,
-                    form?.lta,
-                    form?.super_annuation,
-                    form?.nps,
-                    form?.vehicle_maintenance,
-                    form?.vehicle_emi,
-                    form?.earning2_vpf,
-                    form?.fuel
-                )}
-                secondName="Gross Salary (Part A + Part B) :"
-                secondAmount={getSumValue(
-                    getSumValue(
-                        form?.pug,
-                        form?.helper,
-                        form?.food_coupons,
-                        form?.gift_coupons,
-                        form?.lta,
-                        form?.super_annuation,
-                        form?.nps,
-                        form?.vehicle_maintenance,
-                        form?.vehicle_emi,
-                        form?.earning2_vpf,
-                        form?.fuel
-                    ),
-                    getSumValue(
-                        form?.education_allowance,
-                        form?.special_allowance,
-                        form?.education_allowance,
-                        form?.hra
-                    )
-                )}
-            />
+              <TotalSum
+                  firstName="Incremental Gross Salary + Car Component: "
+                  firstAmount={getSumValue(
+                      form?.pug,
+                      form?.helper,
+                      form?.food_coupons,
+                      form?.gift_coupons,
+                      form?.lta,
+                      form?.super_annuation,
+                      form?.nps,
+                      form?.vehicle_maintenance,
+                      form?.vehicle_emi,
+                      form?.earning2_vpf,
+                      form?.fuel
+                  )}
+                  secondName="Gross Salary (Part A + Part B) :"
+                  secondAmount={getSumValue(
+                      getSumValue(
+                          form?.pug,
+                          form?.helper,
+                          form?.food_coupons,
+                          form?.gift_coupons,
+                          form?.lta,
+                          form?.super_annuation,
+                          form?.nps,
+                          form?.vehicle_maintenance,
+                          form?.vehicle_emi,
+                          form?.earning2_vpf,
+                          form?.fuel
+                      ),
+                      getSumValue(
+                          form?.basic_salary,
+                          form?.special_allowance,
+                          form?.education_allowance,
+                          form?.hra
+                      )
+                  )}
+              />
           </div>
           <div className={"headerFlex"}>
             <h4 className={"infoTitle"}>
@@ -1240,10 +1243,10 @@ const EmployeeListCreate = ({}) => {
             <div className={"formGroup"}></div>
           </div>
           <div className={"formFlex"}>
-            <TotalSum
-                firstName="Incremental Gross Salary + Car Component: "
-                firstAmount="₹4,678,910"
-            />
+              <TotalSum
+                  firstName="Incremental Gross Salary + Car Component: "
+                  firstAmount={form?.earning_three_pli}
+              />
           </div>
           <div className={"headerFlex"}>
             <h4 className={"infoTitle"}>
@@ -1315,11 +1318,16 @@ const EmployeeListCreate = ({}) => {
             </div>
           </div>
           <div className={"formFlex"}>
-            <TotalSum
-                customClass={styles.redField}
-                firstName="Total Deduction 1:  "
-                firstAmount="₹4,678,910"
-            />
+              <TotalSum
+                  customClass={styles.redField}
+                  firstName="Total Deduction 1:  "
+                  firstAmount={getSumValue(
+                      form?.em_pf,
+                      form?.em_esi,
+                      form?.deduction_vpf,
+                      form?.em_lwf
+                  )}
+              />
           </div>
           <div className={"headerFlex"}>
             <h4 className={"infoTitle"}>
@@ -1379,7 +1387,10 @@ const EmployeeListCreate = ({}) => {
             <div className={"formGroup"}></div>
           </div>
           <div className={"formFlex"}>
-            <TotalSum firstName="Total Earnings 4 :" firstAmount="₹4,678,910" />
+              <TotalSum
+                  firstName="Total Earnings 4 :"
+                  firstAmount={getSumValue(form?.er_pf, form?.er_esi, form?.er_lwf)}
+              />
           </div>
           <div className={"headerFlex"}>
             <h4 className={"infoTitle"}>
@@ -1517,7 +1528,19 @@ const EmployeeListCreate = ({}) => {
             </div>
           </div>{" "}
           <div className={"formFlex"}>
-            <TotalSum firstName="Total Earnings 5 :  " firstAmount="₹4,678,910" />
+              <TotalSum
+                  firstName="Total Earnings 5 :  "
+                  firstAmount={getSumValue(
+                      form?.gratuity,
+                      form?.insurance,
+                      form?.stability_incentive,
+                      form?.retention_allowance,
+                      form?.perf_bonus,
+                      form?.annual_bonus,
+                      form?.two_car_maintenance,
+                      form?.two_fuel
+                  )}
+              />
           </div>
         </div>
         <div className={"plainPaper"}>

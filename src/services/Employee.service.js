@@ -45,3 +45,7 @@ export async function serviceCheckEmployeeExists(params) {
 export async function serviceGetEmployeeEditInfo(params) {
     return await postRequest('employees/edit/info', params);
 }
+
+export async function serviceChangeEmployeePassword(params) {
+    return await postRequest('employees/change/password', params);
+}

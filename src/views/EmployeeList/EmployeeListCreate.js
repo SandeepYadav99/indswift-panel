@@ -176,9 +176,9 @@ const EmployeeListCreate = ({}) => {
             >
               {constants.STATES.map((state) => {
                 return (
-                  <MenuItem value={state} key={state}>
-                    {state}
-                  </MenuItem>
+                    <MenuItem value={state.toUpperCase()} key={state.toUpperCase()}>
+                      {state}
+                    </MenuItem>
                 );
               })}
             </CustomSelectField>

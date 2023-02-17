@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 
-export default function GenericSlider({ children }) {
+export default function GenericSlider({ children, sliderSettings }) {
   const settings = {
     // dots: true,
     // infinite: true,
@@ -20,6 +20,7 @@ export default function GenericSlider({ children }) {
     slidesToScroll: 1,
       autoplay: true,
       autoplaySpeed: 1000,
+    ...(sliderSettings? sliderSettings : {})
   };
 
   return (

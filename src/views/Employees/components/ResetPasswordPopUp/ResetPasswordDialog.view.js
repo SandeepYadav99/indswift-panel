@@ -36,7 +36,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ResetPasswordDialog = ({ isOpen, handleToggle }) => {
+const ResetPasswordDialog = ({ isOpen, handleToggle, empId }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -51,7 +51,7 @@ const ResetPasswordDialog = ({ isOpen, handleToggle }) => {
     isVerified,
     showPasswordCurrent,
     setShowPasswordCurrent,
-  } = useResetPasswordDialogHook({ isOpen, handleToggle });
+  } = useResetPasswordDialogHook({ isOpen, handleToggle, empId });
 
   return (
     <div>
@@ -83,6 +83,15 @@ const ResetPasswordDialog = ({ isOpen, handleToggle }) => {
               <CustomTextField
                 type={showPasswordCurrent ? "text" : "password"}
                 label={"Set Password"}
+                    value={form?.password}
+                    onTextChange={(text) => {
+                      changeTextData(text, "password");
+                    }}
+                    isError={errorData?.password}
+                    errorText={errorData?.password}
+                    onBlur={() => {
+                      onBlurHandler("password");
+                    }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -101,27 +110,18 @@ const ResetPasswordDialog = ({ isOpen, handleToggle }) => {
                     </InputAdornment>
                   ),
                 }}
-                //   value={form?.currentPassword}
-                //   onTextChange={(text) => {
-                //     changeTextData(text, "currentPassword");
-                //   }}
-                //   isError={errorData?.currentPassword}
-                //   errorText={errorData?.currentPassword}
-                //   onBlur={() => {
-                //     onBlurHandler("currentPassword");
-                //   }}
               />
             </div>
             <div className={styles.checkBox}>
               <input
                 type="checkbox"
-                name={"isSame"}
-                value={"isSame"}
+                name={"sharePassword"}
+                value={"sharePassword"}
                 onClick={() => {
-                  changeTextData(!form?.is_address_same, "is_address_same");
+                  changeTextData(!form?.share_password, "share_password");
                 }}
                 id="vehicle1"
-                checked={form?.is_address_same}
+                checked={form?.share_password}
               />
               <label htmlFor="vehicle1">
                 Share password on registered email
@@ -134,15 +134,13 @@ const ResetPasswordDialog = ({ isOpen, handleToggle }) => {
               onClick={handleSubmit}
               disabled={isSubmitting}
               className={"createBtnreset"}
-              
+
             >
-              Reset 
+              Reset
             </ButtonBase>
           </div>
         </div>
 
-        {/*</DialogActions>*/}
-        <div className={styles.tableCont}></div>
       </Dialog>
     </div>
   );

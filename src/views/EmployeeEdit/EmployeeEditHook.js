@@ -136,7 +136,6 @@ function EmployeeListCreateHook() {
     GRADES: [],
     CADRES: [],
   });
-  const [label, setLabel] = useState("");
 
   useEffect(() => {
      Promise.allSettled([
@@ -145,6 +144,7 @@ function EmployeeListCreateHook() {
     ]).then((promises) => {
       const listData = promises[0]?.value?.data;
       const empData = promises[1]?.value?.data;
+      listData.EMPLOYEES = listData.EMPLOYEES.filter((emp) => emp.id !== id);
       setListData(listData);
       const hodIndex = listData?.EMPLOYEES.findIndex((val) => val.id === empData?.hod_id);
       if (hodIndex >= 0) {
@@ -158,6 +158,11 @@ function EmployeeListCreateHook() {
       if (jobRoleIndex >= 0) {
         empData.job_role_id = listData?.JOB_ROLES[jobRoleIndex];
       }
+
+       const designationIndex = listData?.DESIGNATIONS.findIndex((val) => val.id === empData?.designation_id);
+       if (designationIndex >= 0) {
+         empData.designation_id = listData?.DESIGNATIONS[designationIndex];
+       }
       setForm({
         ...initialForm,
         ...empData,

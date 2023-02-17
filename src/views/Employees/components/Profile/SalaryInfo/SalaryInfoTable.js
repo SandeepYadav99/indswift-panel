@@ -2,30 +2,15 @@ import React from "react";
 import SaleryInfoField from "./components/SaleryInfoField";
 import SalaryInfoHook from "./SalaryInfoHook";
 import styles from "./Style.module.css";
+import {getSumValue} from "../../../../../libs/general.utils";
 function SalaryInfoTable() {
   const { EmployeeSalaryInfo: data } = SalaryInfoHook({});
 
   // const getSumValue = (...numbers) => {
   //   return numbers ? numbers.reduce((sum, value) => sum + value, 0) : "-";
   // };
-  const getSumValue = (...numbers) => {
-    return numbers
-      ? numbers.reduce((sum, value) => {
-          if (value) {
-            return sum + parseFloat(value);
-          }
-          return sum;
-        }, 0)
-      : "-";
-  };
-  console.log(data?.earning_one,data?.earning_two)
+
   const netPay = () => {
-    console.log(
-      parseFloat(data?.earning_one),
-      data?.earning_one,
-      parseFloat(data?.total_deduction),
-      data?.total_deduction
-    );
     {
       if (data?.earning_one && data?.total_deduction) {
         return data

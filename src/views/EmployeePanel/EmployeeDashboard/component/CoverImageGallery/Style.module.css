@@ -1,13 +1,12 @@
 .coverImageGalleryWrapper {
-  display: flex;
-  flex: 1;
-  border-radius: 10px;
-  gap: 10px;
-  /* overflow: scroll; */
-  /* overflow: hidden; */
-  /* max-height: 300px; */
+    box-shadow: 0px 20px 80px #00000011;
+    background: #ffffff;
+    flex: 1;
+    max-width: 100%;
+    max-height: 300px;
 }
 .imgWrapper {
+    height: 300px;
   width: 100%;
   object-fit: cover;
   border-radius: 10px;
@@ -17,11 +16,11 @@
   position: relative;
 }
 .imgWrapper img {
-  max-height: 280px;
+  max-height: 300px;
   width: 100%;
   min-width: 150px;
   /* aspect-ratio: 5/2.5; */
-  border-radius: 10px;
+  /*border-radius: 10px;*/
 }
 
 .blackStrip{
@@ -36,8 +35,11 @@
     justify-content: center;
     align-items: center;
 }
-.galleryImageWrapper{
-    display: flex;
+.gallerImage{
+    object-fit: cover;
+    height: 100% !important;
+    width: 100% !important;
+    /*aspect-ratio: 5/2.5;*/
 }
 .textName{
   color: white;

@@ -29,5 +29,5 @@ export const getSumValue = (...numbers) => {
         if (value) {
             return sum + parseFloat(value);
         } return sum;
-    }, 0) : "-";
+    }, 0) : 0;
 };

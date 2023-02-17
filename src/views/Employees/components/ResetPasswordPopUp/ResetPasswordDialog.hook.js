@@ -1,18 +1,22 @@
-import { useCallback, useEffect, useState } from "react";
-import { isAlpha, isNum, isUrl } from "../../../../libs/RegexUtils";
- 
+import {useCallback, useEffect, useState} from "react";
+import LogUtils from "../../../../libs/LogUtils";
+import {serviceChangeEmployeePassword} from "../../../../services/Employee.service";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
+import {useSelector} from "react-redux";
 
 const initialForm = {
-  reset_form: null,
+  password: '',
+    share_password: false
 };
 
 const useResetPasswordDialogHook = ({
   isOpen,
+    handleToggle
 }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
+    const { employeeData } = useSelector((state) => state.employee);
   const [errorData, setErrorData] = useState({});
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
@@ -51,6 +55,58 @@ const useResetPasswordDialogHook = ({
     [removeError, form, setForm, setIsVerified]
   );
 
+    const checkFormValidation = useCallback(() => {
+        const errors = {...errorData};
+        let required = ['password'];
+        required.forEach(val => {
+            if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
+                errors[val] = true;
+            } else if ([].indexOf(val) < 0) {
+                delete errors[val]
+            }
+        });
+        Object.keys(errors).forEach(key => {
+            if (!errors[key]) {
+                delete errors[key];
+            }
+        })
+        return errors;
+    }, [form, errorData]);
+
+    const submitToServer = useCallback(() => {
+        if (!isSubmitting) {
+            setIsSubmitting(true);
+            serviceChangeEmployeePassword({
+                emp_id: employeeData?.id,
+                ...form
+            }).then(res => {
+                if (!res.error) {
+                    SnackbarUtils.success('Password Changed Successfully');
+                    handleToggle();
+                } else {
+                    SnackbarUtils.error(res?.message);
+                }
+                setIsSubmitting(false);
+            })
+        }
+    }, [form, isSubmitting, setIsSubmitting, employeeData, handleToggle ]);
+
+    const handleSubmit = useCallback(async () => {
+        const errors = checkFormValidation();
+        LogUtils.log('errors', errors);
+        if (Object.keys(errors).length > 0) {
+            setErrorData(errors);
+            return true;
+        }
+        submitToServer();
+
+    }, [
+        checkFormValidation,
+        setErrorData,
+        form,
+        submitToServer
+    ]);
+
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {
@@ -65,7 +121,7 @@ const useResetPasswordDialogHook = ({
     changeTextData,
     onBlurHandler,
     removeError,
-    // handleSubmit,
+    handleSubmit,
     errorData,
     isSubmitting,
     resData,
@@ -73,7 +129,7 @@ const useResetPasswordDialogHook = ({
     isVerified,
     showPasswordCurrent,
     setShowPasswordCurrent
-    
+
 
   };
 };
