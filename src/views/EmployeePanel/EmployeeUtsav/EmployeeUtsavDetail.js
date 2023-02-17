@@ -54,7 +54,7 @@ function EmployeeUtsavDetail() {
       {employeeUtsavDetailData.images && (
         <div className={styles.galleryImageWrapper}>
           <div>
-            <span className={styles.title}>Program Benefits</span>
+            <span className={styles.title}>Event Gallery</span>
             <div className={styles.newLine} />
           </div>
           {employeeUtsavDetailData?.images && (

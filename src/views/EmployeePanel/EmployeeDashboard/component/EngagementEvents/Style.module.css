@@ -36,6 +36,7 @@
 .img {
   width: 200px;
   height: 200px;
+  object-fit: cover;
   margin: auto;
   border-radius: 10px;
 }

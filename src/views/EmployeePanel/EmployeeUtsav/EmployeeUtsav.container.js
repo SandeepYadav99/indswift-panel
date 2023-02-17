@@ -98,7 +98,7 @@ function EmployeeUtsav() {
             <div className={styles.imageGalleryWrapper} key={`utsav_galery${index}`}>
               <div className={styles.headingContainer}>
                 <span className={styles.title}>{item?.name}</span>
-                <img style={{ cursor: "pointer" }} src={DownArrow} />
+                {/* <img style={{ cursor: "pointer" }} src={DownArrow} /> */}
               </div>
               {item.items && (
                 <div className={styles.Catalogue}>

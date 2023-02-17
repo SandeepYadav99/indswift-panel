@@ -61,9 +61,9 @@ function EmployeeEventList() {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab className={"iconTabs"} label="Birthday's" />
-          <Tab className={"iconTabs"} label="Work Anniversaries " />
-          <Tab className={"iconTabs"} label="Marrige Anniversaries " />
+          <Tab className={"iconTabsEvents"} label="Birthday's" />
+          <Tab className={"iconTabsEvents"} label="Work Anniversaries " />
+          <Tab className={"iconTabsEvents"} label="Marrige Anniversaries " />
         </Tabs>
       </AppBar>
       <div className={styles.paperBackground1}>

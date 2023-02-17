@@ -87,7 +87,6 @@ class QuestionView extends Component {
   _renderQuestions() {
     const { category } = this.props;
     const { data } = this.props;
-
     if (Array.isArray(data) && data.length > 0) {
       data.sort((a, b) => (a.priority > b.priority ? 1 : -1));
       return data.map((val, index) => {
@@ -98,9 +97,11 @@ class QuestionView extends Component {
             onEditClick={this._handleEdit}
             title={val.name}
             initial="hide"
-          >{console.log("===>",val)}
-          <div className={styles.locationText}>
-               {val?.createdAtText}
+          >
+            {console.log("===>", val.images)}
+            <div className={styles.locationText}>
+              {val?.createdAtText}
+              {/* {val?.updatedAtText} */}
             </div>
             <div
               className={styles.textDescription}
@@ -112,11 +113,27 @@ class QuestionView extends Component {
                 <img className={styles.imgResolution} src={val?.cover_image} />
               </div>
               <div className={styles.bookmarkedImgWrapper}>
-                {
-                  val.images?.map((item)=>{
-                    return <div className={styles.mappedImageContainer}><img className={styles.mappedImage} src={item?.image}/></div>
-                  })
-                }
+                {Array.isArray(val.images) && val.images.length <= 6
+                  ? val.images?.map((item) => {
+                      return (
+                        <div className={styles.mappedImageContainer}>
+                          <img
+                            className={styles.mappedImage}
+                            src={item?.image}
+                          />
+                        </div>
+                      );
+                    })
+                  : val.images.slice(0, 6)?.map((item) => {
+                      return (
+                        <div className={styles.mappedImageContainer}>
+                          <img
+                            className={styles.mappedImage}
+                            src={item?.image}
+                          />
+                        </div>
+                      );
+                    })}
               </div>
             </div>
           </Accordion>

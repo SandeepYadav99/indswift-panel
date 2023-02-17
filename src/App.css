@@ -148,6 +148,14 @@ input[type=radio] + label:hover {
     flex-direction: row;
     font-size: 0.7rem;
 }
+.iconTabsEvents .MuiTab-wrapper {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.7rem;
+}
+.iconTabsEvents{
+    flex: 1;
+}
 
 .MuiTab-labelIcon .MuiTab-wrapper > *:first-child{
     margin-right: 10px;
@@ -184,6 +192,15 @@ input[type=radio] + label:hover {
     background-color: #29CB97 !important;
     color: #ffffff !important;
     padding: 10px 20px !important;
+    font-size: 0.8rem !important;
+    border-radius: 30px !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+}
+.createBtnreset{
+    background-color: #29CB97 !important;
+    color: #ffffff !important;
+    padding: 10px 30px !important;
     font-size: 0.8rem !important;
     border-radius: 30px !important;
     text-transform: uppercase !important;
