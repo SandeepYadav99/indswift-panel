@@ -11,7 +11,7 @@ function CoverImageGallery() {
 
   return (
     <div className={styles.coverImageGalleryWrapper}>
-        <GenricSlider sliderSettings={{  slidesToShow: 1, }}>
+        <GenricSlider sliderSettings={{  slidesToShow: 1,speed:3000 }}>
             {tiles?.utsavEvents.map((item) => {
                 return (
                     <div className={styles.imgWrapper}>
@@ -20,7 +20,7 @@ function CoverImageGallery() {
                             src={item.cover_image}
                         />
                         <div className={styles.blackStrip}>
-                            <label className={styles.textName}>hello</label>
+                            <label className={styles.textName}>{item?.name}</label>
                         </div>
                     </div>
                 );
