@@ -434,13 +434,13 @@ const EmployeeListCreate = ({}) => {
               dataset={listData?.JOB_ROLES}
               datasetKey={"label"}
               onTextChange={(text, value) => {
-                changeTextData(text, "associate");
+                changeTextData(text, "job_role_id");
               }}
               variant={"outlined"}
               label={"Associate Job Role"}
-              name={"associate"}
-              isError={errorData?.associate}
-              value={form?.associate}
+              name={"job_role_id"}
+              isError={errorData?.job_role_id}
+              value={form?.job_role_id}
             />
           </div>
           <div className={"formGroup"}>

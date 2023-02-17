@@ -375,7 +375,7 @@ function EmployeeListCreateHook() {
         if (key != 'image') {
           const newData = form?.[key];
           const oldData = editData?.[key];
-          if (['hod_id', 'pms_reviewer_id', 'job_role_id'].indexOf(key) >= 0) {
+          if (['hod_id', 'pms_reviewer_id', 'job_role_id', 'designation_id'].indexOf(key) >= 0) {
             changedData.push({
               is_json: false,
               key: key,

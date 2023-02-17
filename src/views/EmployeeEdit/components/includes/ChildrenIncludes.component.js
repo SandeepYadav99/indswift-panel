@@ -162,18 +162,17 @@ const ChildrenIncludeForm = (
   );
 
   const handlePress = async (type, index = 0) => {
-    LogUtils.log("type", type, index);
     const oldState = JSON.parse(JSON.stringify(fields));
     if (type == "ADDITION") {
       oldState.push(JSON.parse(JSON.stringify(TEMP_OBJ)));
     } else {
-      if (oldState.length === 1) {
-        return true;
-      }
+      // if (oldState.length === 1) {
+      //   return true;
+      // }
       oldState.splice(index, 1);
     }
-    LogUtils.log("oldState", oldState);
     setFields(oldState);
+    setIsChanged(true);
     // validateData();
   };
 
