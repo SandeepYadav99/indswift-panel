@@ -99,13 +99,13 @@ const PersonalInfo = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>Spouse DOB:</span>
                 <span className={styles.valueWrap}>
-                  {/* {data?.family?.spouse_name} */}-
+                  {data?.family?.spouse_dob}
                 </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Spouse Gender:</span>
                 <span className={styles.valueWrap}>
-                  {/* {data?.family?.spouse_name} */}-
+                   {data?.family?.spouse_gender}
                 </span>
               </div>
               <div className={styles.key}>

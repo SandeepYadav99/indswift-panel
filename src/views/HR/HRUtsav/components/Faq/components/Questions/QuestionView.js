@@ -100,7 +100,7 @@ class QuestionView extends Component {
           >
             {console.log("===>", val.images)}
             <div className={styles.locationText}>
-              {val?.createdAtText}
+              {val?.eventDateText}
               {/* {val?.updatedAtText} */}
             </div>
             <div

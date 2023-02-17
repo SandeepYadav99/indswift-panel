@@ -108,7 +108,7 @@ class QuestionsFormView extends Component {
             this.setState({
                 is_active: data.status == "ACTIVE",
             });
-            requiredFields = ["name", "description", "priority", "location_id"];
+            requiredFields = ["name", "description", "priority", "location_id", 'date'];
             Object.keys(data).forEach((val) => {
                 if (["status", 'images', 'cover_image'].indexOf(val) < 0) {
                     const temp = data[val];
@@ -123,7 +123,8 @@ class QuestionsFormView extends Component {
                 remote_images: images,
             })
         } else {
-            requiredFields = ["name", "description", "priority", "location_id", 'images', 'cover_image'];
+            requiredFields = ["name", "description", "priority", "location_id", 'images', 'cover_image', 'date'];
+            this.props.change('date', new Date());
         }
     }
 
