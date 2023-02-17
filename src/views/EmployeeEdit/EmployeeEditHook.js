@@ -385,8 +385,8 @@ function EmployeeListCreateHook() {
               is_json: false,
               key: key,
               db_value: newData?.id,
-              new_value: newData.id,
-              old_value: oldData ? oldData : null,
+              new_value: newData?.id,
+              old_value: oldData ? oldData?.id : null,
             });
           } else {
             changedData.push({
