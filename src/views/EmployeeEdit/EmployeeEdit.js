@@ -139,7 +139,7 @@ const EmployeeListCreate = ({}) => {
                   <CustomDatePicker
                       clearable
                       label={"Date of Birth"}
-                      // minDate={new Date()}
+                      maxDate={new Date()}
                       onChange={(date) => {
                         changeTextData(date, "dob");
                       }}
@@ -340,6 +340,7 @@ const EmployeeListCreate = ({}) => {
               <CustomDatePicker
                   clearable
                   label={"DOJ"}
+                  maxDate={new Date()}
                   // minDate={new Date()}
                   onChange={(date) => {
                     changeTextData(date, "doj");
@@ -706,6 +707,7 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={"formGroup"}>
               <CustomDatePicker
+                  maxDate={new Date()}
                   clearable
                   label={"Date of Marriage"}
                   // minDate={new Date()}

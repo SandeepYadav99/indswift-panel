@@ -10,7 +10,7 @@ import GalleryImages from "./components/GalleryImages";
 function EmployeeUtsav() {
   const { handleViewDetails, employeeUtsavData } = EmployeeUtsavHook({});
   const DeepakDescription = DeepakData;
-   
+
   return (
     <div className={styles.employeeDrishtiWrapper}>
       <div className={styles.employeeInducationWrapper}>
@@ -92,21 +92,25 @@ function EmployeeUtsav() {
           </div>
         </div>
       </div>
-      {employeeUtsavData?.map((item,index) => {
+      {employeeUtsavData?.map((item, index) => {
+        employeeUtsavData.sort((a, b) => (a.priority > b.priority ? -1 : 1));
         return (
           item?.items?.length > 0 && (
-            <div className={styles.imageGalleryWrapper} key={`utsav_galery${index}`}>
+            <div
+              className={styles.imageGalleryWrapper}
+              key={`utsav_galery${index}`}
+            >
               <div className={styles.headingContainer}>
                 <span className={styles.title}>{item?.name}</span>
                 {/* <img style={{ cursor: "pointer" }} src={DownArrow} /> */}
               </div>
               {item.items && (
                 <div className={styles.Catalogue}>
-                  {item?.items.map((images,id) => {
+                  {item?.items.map((images, id) => {
                     return images?.cover_image ? (
                       <GalleryImages
-                      key={`gallery_image${id}`}
-                        onClick={()=>handleViewDetails(images?.id)}
+                        key={`gallery_image${id}`}
+                        onClick={() => handleViewDetails(images?.id)}
                         imageUrl={images?.cover_image}
                         name={images?.name}
                       />

@@ -892,9 +892,6 @@ const EmployeeListCreate = ({}) => {
             <CustomTextField
               type={"number"}
               inputProps={{ min: 0 }}
-              // InputProps={{ min: 0 }}
-              // min={0}
-              // minValue="0"
               isError={errorData?.incremental_gross_salary}
               errorText={errorData?.incremental_gross_salary}
               label={"Incremental Gross Salary"}

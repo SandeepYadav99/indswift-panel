@@ -20,6 +20,7 @@ import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
 import {serviceEditEmployeeVersion} from "../../services/EmployeeEdit.service";
+const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allowance', 'special_allowance', 'earning_one', 'pug', 'helper', 'food_coupons', 'gift_coupons', 'lta', 'super_annuation', 'nps', 'vehicle_maintenance', 'vehicle_emi', 'fuel', 'vpf', 'earning_two', 'gross', 'earning_three_pli', 'er_pf', 'er_esi', 'er_lwf', 'earning_four', 'gratuity', 'insurance', 'driver_incentive', 'perf_bonus', 'annual_bonus', 'two_car_maintenance', 'two_fuel', 'earning_five', 'monthly_ctc', 'em_pf', 'em_esi', 'em_lwf', 'total_deduction', 'total_pf', 'retention_allowance', 'car_component', 'incremental_gross_salary', 'earning2_vpf', 'deduction_vpf','stability_incentive'];
 
 const initialForm = {
   emp_code: "",
@@ -218,51 +219,8 @@ function EmployeeListCreateHook() {
       "previous_organisation",
       "uan_no",
       // "esi_no",
-      "basic_salary",
-      "hra",
-      "education_allowance",
-      "medical_allowance",
-      "special_allowance",
-      // "earning_one",
-      "pug",
-      "helper",
-      "food_coupons",
-      "gift_coupons",
-      "lta",
-      "super_annuation",
-      "nps",
-      "vehicle_maintenance",
-      "vehicle_emi",
-      "fuel",
-      "vpf",
-      // "earning_two",
-      "gross",
-      // "earning_three_pli",
-      "er_pf",
-      "er_esi",
-      "er_lwf",
-      // "earning_four",
-      "gratuity",
-      "insurance",
-      // "driver_incentive",
-      "perf_bonus",
-      "annual_bonus",
-      "two_car_maintenance",
-      "two_fuel",
-      // "earning_five",
-      "monthly_ctc",
-      "em_pf",
-      "em_esi",
-      "em_lwf",
-      "total_deduction",
-      "total_pf",
-      "retention_allowance",
-      "car_component",
-      "incremental_gross_salary",
-      // "earning2_vpf",
-      "deduction_vpf",
-      "stability_incentive",
-    ];
+      ...SALARY_KEYS,
+       ];
     required.forEach((val) => {
       if (
           (!form?.[val] && parseInt(form?.[val]) != 0)  ||
@@ -273,6 +231,11 @@ function EmployeeListCreateHook() {
         delete errors[val];
       }
     });
+    // SALARY_KEYS.forEach((val) => {
+    //   if (form?.[val] && form?.[val] >= 0) {
+    //     errors[val] = true;
+    //   }
+    // })
     if (form?.official_email && !isEmail(form?.official_email)) {
       errors["official_email"] = true;
     }
@@ -327,6 +290,10 @@ function EmployeeListCreateHook() {
             t.current_address = t?.permanent_address;
           }
           t[fieldName] = text;
+        }else if (SALARY_KEYS.indexOf(fieldName) >= 0) {
+          if (!text || (isNum(text))) {
+            t[fieldName] = text;
+          }
         } else {
           t[fieldName] = text;
         }
