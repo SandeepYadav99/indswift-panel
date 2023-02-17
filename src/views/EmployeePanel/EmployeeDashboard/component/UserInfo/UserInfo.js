@@ -46,9 +46,14 @@ function UserInfo() {
           <div className={styles.watermarkWrapper}>
             <div>
               <p className={styles.username}>{userData?.name}</p>
-              <p className={styles.userposition}>
-                {userData?.designation_obj?.name}, {userData?.location?.name}
-              </p>
+              {userData?.designation_obj?.name && userData?.location?.name ? (
+                <p className={styles.userposition}>
+                  {userData?.designation_obj?.name}, {userData?.location?.name}
+                </p>
+              ) : (
+                <></>
+              )}
+
               <p className={styles.usernumber}>{userData?.emp_code}</p>
             </div>
             {/* <div>

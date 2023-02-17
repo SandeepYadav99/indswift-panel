@@ -1,6 +1,5 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import AnnouncementInfo from "./component/AnnouncementInfo/AnnouncementInfo";
-import DashboardImageGallary from "./component/DashboardImageGallary/DashboardImageGallary";
 import EmployeeCategories from "./component/EmployeeCategories/EmployeeCategories";
 import EmployeeEventList from "./component/EmployeeEventList/EmployeeEventList";
 import EngagementEvents from "./component/EngagementEvents/EngagementEvents";
@@ -11,15 +10,16 @@ import SocialMedia from "./component/SocialMedia/SocialMedia";
 import ThemeInfo from "./component/ThemeInfo/ThemeInfo";
 import UserInfo from "./component/UserInfo/UserInfo";
 import styles from "./Style.module.css";
-import {useDispatch} from "react-redux";
-import {actionInitiateEmployeeDashboard} from "../../../actions/EmployeeDashboard.action";
+import { useDispatch } from "react-redux";
+import { actionInitiateEmployeeDashboard } from "../../../actions/EmployeeDashboard.action";
+import CoverImageGallery from "./component/CoverImageGallery/CoverImageGallery";
 
 function EmployeeDashboard() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(actionInitiateEmployeeDashboard());
-    }, []);
+  useEffect(() => {
+    dispatch(actionInitiateEmployeeDashboard());
+  }, []);
 
   return (
     <div className={styles.EmployeeDashboardWrapper}>
@@ -30,8 +30,10 @@ function EmployeeDashboard() {
       </div>
       <div className={styles.secondRow}>
         <div className={styles.announcementRowWrapper}>
-          <AnnouncementInfo />
+          {/* <AnnouncementInfo /> */}
           {/* <Members /> */}
+          <EngagementEvents />
+          <CoverImageGallery />
         </div>
         <div className={styles.EmployeecolumnWrapper}>
           <EmployeeEventList />
@@ -40,11 +42,12 @@ function EmployeeDashboard() {
       <div className={styles.RecentUpdateWrapper}>
         <div className={styles.RecentUpdateUpperCard}>
           <RecentUpdate />
-          <EngagementEvents />
+          <EmployeeCategories />
+          {/* <EngagementEvents /> */}
         </div>
         <div className={styles.RecentUpdateLowerCard}>
-          <EmployeeCategories />
-          {/* <DashboardImageGallary /> */}
+          {/* <EmployeeCategories /> */}
+          {/* <CoverImageGallery/> */}
         </div>
       </div>
       <div className={styles.SocialMediaOuterWrapper}>
