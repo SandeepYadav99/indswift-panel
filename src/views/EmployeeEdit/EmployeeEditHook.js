@@ -386,7 +386,7 @@ function EmployeeListCreateHook() {
               key: key,
               db_value: newData?.id,
               new_value: newData.id,
-              old_value: oldData ? oldData : null,
+              old_value: oldData ? oldData.id : null,
             });
           } else {
             changedData.push({
