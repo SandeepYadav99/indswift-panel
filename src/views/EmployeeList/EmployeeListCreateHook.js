@@ -213,6 +213,7 @@ function EmployeeListCreateHook() {
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
         (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
       ) {
+        LogUtils.log('called', val, form?.[val]);
         errors[val] = true;
       } else if (["emp_code"].indexOf(val) < 0) {
         delete errors[val];
@@ -220,7 +221,7 @@ function EmployeeListCreateHook() {
     });
 
     SALARY_KEYS.forEach((val) => {
-      if (form?.[val] && form?.[val] >= 0) {
+      if (form?.[val] && form?.[val] < 0) {
         errors[val] = true;
       }
     })
@@ -374,8 +375,7 @@ function EmployeeListCreateHook() {
     const errors = checkFormValidation();
     const isIncludesValid = ChildenRef.current.isValid();
 
-    if (Object.keys(errors)?.length > 0  ) {
-      // || !isIncludesValid
+    if (Object.keys(errors)?.length > 0  || !isIncludesValid) {
       setErrorData(errors);
       return true;
     }
