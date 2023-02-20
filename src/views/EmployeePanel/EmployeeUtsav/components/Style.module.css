@@ -29,8 +29,8 @@
 .utsavImages {
   border-radius: 10px;
   object-fit: cover;
-  /* aspect-ratio: 16/9; */
-  height: 250px;
+  aspect-ratio: 16/9;
+  /* height: 250px; */
   width: 250px;
   /* height: 50%;
   width: 50%; */

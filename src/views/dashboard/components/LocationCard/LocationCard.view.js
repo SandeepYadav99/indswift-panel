@@ -42,7 +42,7 @@ const LocationCard = ({data}) => {
                     </div>
                 </div>
 
-                <div>
+                {/* <div>
                     <div className={styles.txt}>Vacancy Rate</div>
                     <div className={styles.barFlex}>
                         <div className={styles.bar}>
@@ -50,7 +50,7 @@ const LocationCard = ({data}) => {
                         </div>
                         <div className={styles.per}>50 %</div>
                     </div>
-                </div>
+                </div> */}
 
             </div>
         </div>

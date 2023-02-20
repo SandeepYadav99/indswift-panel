@@ -2,10 +2,12 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 import {
   isAadhar,
+  isAccountNum,
   isAlpha,
   isAlphaNum,
   isAlphaNumChars,
   isEmail,
+  IsIFSCCode,
   isNum,
   isSpace,
 } from "../../libs/RegexUtils";
@@ -231,11 +233,11 @@ function EmployeeListCreateHook() {
         delete errors[val];
       }
     });
-    // SALARY_KEYS.forEach((val) => {
-    //   if (form?.[val] && form?.[val] >= 0) {
-    //     errors[val] = true;
-    //   }
-    // })
+    SALARY_KEYS.forEach((val) => {
+      if (form?.[val] && form?.[val] < 0) {
+        errors[val] = true;
+      }
+    })
     if (form?.official_email && !isEmail(form?.official_email)) {
       errors["official_email"] = true;
     }
@@ -246,7 +248,12 @@ function EmployeeListCreateHook() {
     if (form?.aadhar_no && !isAadhar(form?.aadhar_no)) {
       errors["aadhar_no"] = true;
     }
-
+    if (form?.bank_account_no && !isAccountNum(form?.bank_account_no)) {
+      errors["bank_account_no"] = true;
+    }
+    if (form?.ifsc && !IsIFSCCode(form?.ifsc)) {
+      errors["ifsc"] = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

@@ -35,6 +35,16 @@ const isAadhar = (value) => {
     return /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/.test(value);
 }
 
+const isAccountNum=(value)=>{
+    return /^\d{9,18}$/.test(value)
+}
+
+const IsIFSCCode=(value)=>{
+    return /^[A-Z]{4}0[A-Z0-9]{6}$/.test(value)
+}
+// Account Number: ^\d{9,18}$
+// IFSC: regex = "^[A-Z]{4}0[A-Z0-9]{6}$";
+
 
 export {
     isUrl,
@@ -44,5 +54,7 @@ export {
     isAlpha,
     isDate,
     isSpace,isAlphaNumChars,
-    isAadhar
+    isAadhar,
+    IsIFSCCode,
+    isAccountNum
 };

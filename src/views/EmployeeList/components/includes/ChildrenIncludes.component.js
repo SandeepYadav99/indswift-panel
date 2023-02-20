@@ -36,12 +36,11 @@ const ChildrenIncludeForm = (
   },
   ref
 ) => {
-  const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
+  const [fields, setFields] = useState([]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
   const { id } = useParams();
 
-  useEffect(() => {}, []);
 
   useEffect(() => {
     let sku = 0;
@@ -50,6 +49,7 @@ const ChildrenIncludeForm = (
       sku++;
       if (val.quantity && !isNaN(val.quantity)) {
         qty += parseInt(val.quantity);
+        // console.log("><>",qty)
       }
     });
     // updateInventory(sku, qty);
@@ -83,7 +83,7 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [""];
+      const required = ["name","gender","dob"];
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -166,8 +166,10 @@ const ChildrenIncludeForm = (
   };
 
   const renderFields = useMemo(() => {
+    // console.log("fields",fields)
     return fields.map((val, index) => {
       const tempFilters = variants.filter((variant) => {
+        // console.log("===>",variants)
         const index = fields.findIndex((val) => val?.sku?.sku === variant?.sku);
         return index < 0;
       });
@@ -212,7 +214,7 @@ const ChildrenIncludeForm = (
             handlePress("ADDITION", 0);
           }}
         >
-          <Add fontSize={"small"} /> <span>Add Children</span>
+          <Add fontSize={"small"}  /> <span>Add Children</span>
         </ButtonBase>
       </div>
       {/*</div>*/}

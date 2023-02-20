@@ -93,6 +93,7 @@ const changeTextData=(value,key)=>{
               //     changeTextData(value, "gender");
               //   }}
             >
+              <MenuItem value="NA">NA</MenuItem>
               <MenuItem value="MALE">Male</MenuItem>
               <MenuItem value="FEMALE">Female</MenuItem>
             </CustomSelectField>

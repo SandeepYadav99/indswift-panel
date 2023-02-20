@@ -27,7 +27,8 @@ function EmployeeUtsavDetail() {
                   </span>
                   <div className={styles.newLine} />
                   <div className={styles.date}>
-                    <span>{employeeUtsavDetailData?.createdAtText}</span>
+                    {/* <span>{employeeUtsavDetailData?.createdAtText}</span> */}
+                    <span>{employeeUtsavDetailData?.eventDateText}</span>
                   </div>
                 </div>
                 <div className={styles.contentWrapper}>

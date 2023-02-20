@@ -1567,7 +1567,7 @@ const EmployeeListCreate = ({}) => {
                 className={styles.createBtn}
                 onClick={handleSubmit}
             >
-              CREATE
+              UPDATE
             </ButtonBase>
           </div>
         </div>
