@@ -312,6 +312,7 @@ export default {
   ROLES: {
     ADMIN: "ADMIN",
     OTHERS: "OTHERS",
+    CORPORATE_HR: 'CORPORATE_HR',
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,

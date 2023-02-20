@@ -79,3 +79,9 @@
   margin-left: 10px;
   overflow: hidden;
 }
+
+@media (max-width: 767px) {
+  .outerFlex {
+    flex-direction: column;
+  }
+}

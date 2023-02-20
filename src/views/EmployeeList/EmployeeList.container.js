@@ -117,7 +117,7 @@ const EmployeeList = ({}) => {
         label: "Grade/Cadre",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.captialize}>{all?.grade?.code}</div>
+          <div className={styles.captialize}>{all?.grade?.code} / {all?.cadre?.code}</div>
         ),
       },
       {
@@ -133,7 +133,7 @@ const EmployeeList = ({}) => {
         label: "Designation",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.captialize}>{all?.designation}</div>
+          <div className={styles.captialize}>{all?.designation?.name}</div>
         ),
       },
       {

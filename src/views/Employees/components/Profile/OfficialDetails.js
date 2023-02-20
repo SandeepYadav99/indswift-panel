@@ -60,7 +60,7 @@ const OfficialDetails = ({ data }) => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Cadre:</span>
-                <span className={styles.valueWrap}>-</span>
+                <span className={styles.valueWrap}>{data?.cadre?.code}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Level:</span>

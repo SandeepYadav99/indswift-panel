@@ -49,3 +49,7 @@ export async function serviceGetEmployeeEditInfo(params) {
 export async function serviceChangeEmployeePassword(params) {
     return await postRequest('employees/change/password', params);
 }
+
+export async function serviceChangeEmployeeStatus(params) {
+    return await postRequest('employees/change/status', params);
+}

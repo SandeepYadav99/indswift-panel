@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import LogUtils from "../../../../libs/LogUtils";
-import { serviceChangeEmployeePassword } from "../../../../services/Employee.service";
+import {serviceChangeEmployeePassword, serviceChangeEmployeeStatus} from "../../../../services/Employee.service";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import { useSelector } from "react-redux";
 
 const initialForm={
-  status:"",
+  emp_status:"",
   effective_date:"",
-  last_working:"",
-  optional_notes:"",
-  notify_team:false
+  last_working_date:"",
+  note:"",
+  is_notify_email:false
 }
 const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
   const [form, setForm] = useState(
@@ -56,7 +56,7 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["status","effective_date","last_working"];
+    let required = ["emp_status","effective_date","last_working_date"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -78,12 +78,12 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      serviceChangeEmployeePassword({
-        emp_id: employeeData?.id,
+      serviceChangeEmployeeStatus({
+        employee_id: employeeData?.id,
         ...form,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Password Changed Successfully");
+          SnackbarUtils.success("Request Placed Successfully");
           handleToggle();
         } else {
           SnackbarUtils.error(res?.message);
@@ -92,7 +92,7 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
       });
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle]);
-  // employeeData
+
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     console.log("===?",form,errors)
@@ -101,7 +101,7 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
       setErrorData(errors);
       return true;
     }
-    // submitToServer();
+    submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(

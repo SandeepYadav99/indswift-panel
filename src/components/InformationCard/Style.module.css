@@ -59,6 +59,23 @@
   padding-top: 10px;
 }
 
+@media (max-width: 767px) {
+  .employeeInducationWrapper{
+    padding: 0.8rem;
+  }
+  .content{
+    min-width: auto !important;
+    width: 100%;
+  }
+  .contentWrapper {
+    flex-direction: column;
+  }
+  .imageWrapper img{
+    width: 100%;
+    height: auto;
+  }
+}
+
 
 @media (max-width: 767px) {
   .Login_mainLoginView__dRY-L {

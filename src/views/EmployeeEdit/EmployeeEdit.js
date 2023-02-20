@@ -21,6 +21,7 @@ import constants from "../../config/constants";
 import ChildrenIncludeForm from "./components/includes/ChildrenIncludes.component";
 import {getSumValue} from "../../libs/general.utils";
 import {WaitingComponent} from "../../components/index.component";
+import Constants from "../../config/constants";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -1553,7 +1554,8 @@ const EmployeeListCreate = ({}) => {
                 <div className={"slider_wrap "}>
                   <p className="tags">Inactive</p>
                   <CustomSwitch
-                      value={form?.is_active}
+                      disabled
+                      value={editData?.status === Constants.GENERAL_STATUS.ACTIVE}
                       handleChange={() => {
                         changeTextData(!form?.is_active, "is_active");
                       }}

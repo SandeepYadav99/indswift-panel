@@ -84,26 +84,17 @@ const UpdateStatusDialog = ({ isOpen, handleToggle, empId }) => {
           <div className={styles.fieldWrapper}>
             <div>
               <CustomSelectField
-                isError={errorData?.status}
-                errorText={errorData?.status}
+                isError={errorData?.emp_status}
+                errorText={errorData?.emp_status}
                 label={"Status"}
-                value={form?.status}
+                value={form?.emp_status}
                 handleChange={(value) => {
-                  changeTextData(value, "status");
+                  changeTextData(value, "emp_status");
                 }}
               >
-                <MenuItem value="1">1</MenuItem>
-                <MenuItem value="2">2</MenuItem>
-                <MenuItem value="3">3</MenuItem>
-
-
-                {/* {listData?.LOCATION_DEPARTMENTS?.map((dT) => {
-                return (
-                  <MenuItem value={dT?.id} key={dT?.id}>
-                    {dT?.name}
-                  </MenuItem>
-                );
-              })} */}
+                {['ACTIVE', 'RESIGNED', 'TERMINATED', 'RETIRED', 'EXPIRED', 'ABSCONDED', 'INACTIVE',].map((val) => {
+                  return (<MenuItem value={val} key={val}>{val}</MenuItem>);
+                })}
               </CustomSelectField>
             </div>
           </div>
@@ -128,25 +119,25 @@ const UpdateStatusDialog = ({ isOpen, handleToggle, empId }) => {
                 label={"Last Working Day"}
                 minDate={new Date()}
                 onChange={(date) => {
-                  changeTextData(date, "last_working");
+                  changeTextData(date, "last_working_date");
                 }}
-                value={form?.last_working}
-                isError={errorData?.last_working}
+                value={form?.last_working_date}
+                isError={errorData?.last_working_date}
               />
             </div>
           </div>
           <div className={styles.fieldWrapper}>
             <div>
               <CustomTextField
-                isError={errorData?.optional_notes}
-                errorText={errorData?.optional_notes}
+                isError={errorData?.note}
+                errorText={errorData?.note}
                 label={"Notes (if any)"}
-                value={form?.optional_notes}
+                value={form?.note}
                 onTextChange={(text) => {
-                  changeTextData(text, "optional_notes");
+                  changeTextData(text, "note");
                 }}
                 onBlur={() => {
-                  onBlurHandler("optional_notes");
+                  onBlurHandler("note");
                 }}
                 multiline
                 rows={3}
@@ -158,10 +149,10 @@ const UpdateStatusDialog = ({ isOpen, handleToggle, empId }) => {
                 name={"notifyTeam"}
                 value={"notifyTeam"}
                 onClick={() => {
-                  changeTextData(!form?.notify_team, "notify_team");
+                  changeTextData(!form?.is_notify_email, "is_notify_email");
                 }}
                 id="notifyTeam"
-                checked={form?.notify_team}
+                checked={form?.is_notify_email}
               />
               <label htmlFor="notifyTeam">Notify team on email</label>
               <br />

@@ -17,7 +17,7 @@ const UpperInfo = ({ data, handleToggle,handleStatusToggle }) => {
           </div>
           <div className={styles.profileInfo}>
             <div className={styles.name}>{data?.name}</div>
-            <div>{data.designation}</div>
+            <div>{data?.designation?.name}</div>
             <div>Employee Code: {data?.emp_code}</div>
           </div>
           <div className={styles.vertical}></div>
