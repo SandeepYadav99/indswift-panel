@@ -13,6 +13,7 @@ const initialForm = {
     time: null,
     sequence_rounds: [],
     mode: 'IN_PERSON',
+    interview_link:'',
     venue: '',
     is_send_email_candidates: false,
     is_send_email_interviewers: false,

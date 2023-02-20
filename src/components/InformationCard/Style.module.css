@@ -58,3 +58,19 @@
   /* margin-top: 10px; */
   padding-top: 10px;
 }
+
+
+@media (max-width: 767px) {
+  .Login_mainLoginView__dRY-L {
+      flex-direction: column;
+  }
+  .Login_signContainer__KxluJ{
+      margin: 10% 4%;
+  }
+  .Login_loginFlex1__BcqbB{
+      min-height: 240px;
+  }
+  .Login_mainLoginView__dRY-L{
+      height: 100%;
+  }
+}

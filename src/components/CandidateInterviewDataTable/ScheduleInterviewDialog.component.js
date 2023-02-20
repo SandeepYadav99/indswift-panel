@@ -101,6 +101,23 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                         </CustomSelectField>
                     </div>
                 </div>
+                <div className={"formFlex2"}>
+                    <div className={"formGroup1"}>
+                    <CustomTextField
+                            isError={errorData?.interview_link}
+                            errorText={errorData?.interview_link}
+                            label={"Interview Link"}
+                            value={form?.name}
+                            onTextChange={(text) => {
+                                changeTextData(text, "interview_link");
+                            }}
+                            onBlur={() => {
+                                onBlurHandler("interview_link");
+                            }}
+                        />
+                    </div>
+                    <div className={"formGroup1"}> </div>
+                </div>
 
                 <div className={styles.cleckboxWrapper}>
                     <div className={styles.checkBox}>

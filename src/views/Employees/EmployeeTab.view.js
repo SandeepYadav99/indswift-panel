@@ -16,6 +16,7 @@ import { actionGetEmployeeDetails } from "../../actions/Employee.action";
 import SalaryInfo from "./components/Profile/SalaryInfo/SalaryInfo";
 import CareerProgression from "./components/Profile/CareerProgression/CareerProgression";
 import ResetPasswordDialog from "./components/ResetPasswordPopUp/ResetPasswordDialog.view";
+import UpdateStatusDialog from "./components/UpdateStatusPopUp/UpdateStatusDialog.view";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -60,6 +61,7 @@ const EmployeeTab = () => {
   const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
   const [isResetDialog, setIsResetDialog] = useState(false);
+  const [isUpdateDialog, setIsUpdateDialog] = useState(false);
   const getEmployeeidFromUrl = () => {
     let url = window.location.pathname;
     let getValues = url.split("/")[3];
@@ -77,6 +79,9 @@ const EmployeeTab = () => {
     },
     [setValue, value]
   );
+  const toggleStatusDialog = useCallback(() => {
+    setIsUpdateDialog((e) => !e);
+  }, [isUpdateDialog]);
   const toggleResetDialog = useCallback(() => {
     setIsResetDialog((e) => !e);
   }, [isResetDialog]);
@@ -105,12 +110,18 @@ const EmployeeTab = () => {
             data={employeeData}
             isResetDialog={isResetDialog}
             handleToggle={toggleResetDialog}
+            // isStatusDialog={isStatusDialog}
+            handleStatusToggle={toggleStatusDialog}
           />
         </div>
 
         <ResetPasswordDialog
           isOpen={isResetDialog}
           handleToggle={toggleResetDialog}
+        />
+        <UpdateStatusDialog
+          isOpen={isUpdateDialog}
+          handleToggle={toggleStatusDialog}
         />
         <div>
           <AppBar position="static" className={styles.backgroundColor}>

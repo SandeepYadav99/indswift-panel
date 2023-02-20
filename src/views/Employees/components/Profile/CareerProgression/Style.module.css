@@ -55,3 +55,31 @@
   /* margin-left: 15px; */
   margin-right: 22px;
 }
+.careerWrapperCPc{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+}
+.imageWrapperCpc{
+  /* background: blue; */
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.titleWrpapper{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+.noCpcTitle{
+  font-weight: 600;
+}
+.noCpcdec{
+  font-size: .875rem;
+}

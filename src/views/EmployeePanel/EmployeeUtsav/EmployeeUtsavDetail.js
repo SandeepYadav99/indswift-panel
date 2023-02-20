@@ -22,10 +22,17 @@ function EmployeeUtsavDetail() {
             <div className={styles.employeeInducationWrapper}>
               <div>
                 <div>
-                  <span className={styles.title}>
+                  {
+                    employeeUtsavDetailData?.name && 
+                    <>
+                    <span className={styles.title}>
                     {employeeUtsavDetailData?.name}
                   </span>
                   <div className={styles.newLine} />
+                    </>
+                    
+                  }
+                  
                   <div className={styles.date}>
                     {/* <span>{employeeUtsavDetailData?.createdAtText}</span> */}
                     <span>{employeeUtsavDetailData?.eventDateText}</span>

@@ -20,6 +20,9 @@ const JobOpeningDetail = () => {
   if (isLoading) {
     return <WaitingComponent />;
   }
+  const valencyChange=(value)=>{
+    return value ? value.replace(/_/, " "): "NA"
+  }
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -68,7 +71,7 @@ const JobOpeningDetail = () => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Cadre:</span>
-                {data.location.name}
+                {data?.cadre?.name ? data?.cadre?.name : "NA"}
               </div>
               <div className={styles.key}>
                 <span className={styles.value} style={{ width: "190px" }}>
@@ -87,7 +90,7 @@ const JobOpeningDetail = () => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Vacancy Type:</span>
-                {data.vacancy_type}
+                {valencyChange(data.vacancy_type)}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Employee ID:</span>

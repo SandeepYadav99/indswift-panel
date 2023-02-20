@@ -10,11 +10,19 @@ import { useEffect } from "react";
 function EmployeeDrishti() {
   const { staticEmployeeDrishtiData, employeeData } = EmployeeDrishtiHook({});
   const DrishtiDescription = DrishtiData;
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
   useEffect(() => {
-    window.scrollTo(0, 0);
+    setTimeout(() => {
+      scrollToTop()
+    }, 100);
   }, []);
   return (
-    <div className={styles.employeeDrishtiWrapper} >
+    <div className={styles.employeeDrishtiWrapper}>
       <InformationCard
         heading="Drishti - Employee Welfare Programs"
         imageUrl={DrishtiImage}

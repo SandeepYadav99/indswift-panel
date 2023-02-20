@@ -356,6 +356,16 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN],
     },
     {
+        path: 'null',
+        sidebarName: "Recruitment Management",
+        navbarName: "Recruitment Management",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: 'recruitment',
+        is_parent: true,
+        roles: [Roles.ADMIN],
+    },
+    {
         path: RouteName.CANDIDATES,
         sidebarName: "Interview Candidates",
         navbarName: "Interview Candidates",
@@ -364,6 +374,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
+        parent: 'recruitment',
         roles: [Roles.ADMIN],
     },
     {
@@ -545,6 +556,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
+        parent: 'recruitment',
         roles: [Roles.ADMIN],
     },
     {

@@ -4,6 +4,9 @@ import {Search as SearchIcon} from "@material-ui/icons";
 import cstyles from "../../../../../components/Filter/Style.module.css";
 
 const OfficialInfo = ({ details, isStatic }) => {
+    const vacancyChange=(value)=>{
+        return value ? value.replace(/_/, " "): "NA"
+      }
     const renderDetails = useMemo(() => {
         if (details) {
             return (
@@ -11,7 +14,7 @@ const OfficialInfo = ({ details, isStatic }) => {
                     <div className={styles.mainFlex}>
                         <div className={styles.left}>
                             <div className={styles.key}><span className={styles.value}>PRC:</span>{details?.code}</div>
-                            <div className={styles.key}><span className={styles.value}>Type Of Vacancy:</span>{details?.vacancy_type}</div>
+                            <div className={styles.key}><span className={styles.value}>Type Of Vacancy:</span>{vacancyChange(details?.vacancy_type)}</div>
                             <div className={styles.key}><span className={styles.value}>Place of Posting:</span>{details?.location?.name}</div>
                             <div className={styles.key}><span className={styles.value}>Candidate Grade:</span>{details?.grade?.name}</div>
                         </div>
