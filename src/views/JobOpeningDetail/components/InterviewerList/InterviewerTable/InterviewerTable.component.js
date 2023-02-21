@@ -22,11 +22,11 @@ const InterviewerRecordTable = ({jobId}) => {
         if (product) {
             return (
                 <div className={styles.firstCellFlex}>
-                    {/*<div>*/}
-                    {/*    <img src={user.image} alt=""/>*/}
-                    {/*</div>*/}
+                    <div>
+                       <img src={product.image} alt=""/>
+                    </div>
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span><strong></strong></span> <br/>
+                        <span>{product?.name} </span> <br/>
                     </div>
                 </div>
             );
@@ -40,7 +40,7 @@ const InterviewerRecordTable = ({jobId}) => {
                 key: 'interviewer',
                 label: 'INTERVIEWER',
                 sortable: false,
-                render: (value, all) => <div>{all?.name}</div>,
+                render: (value, all) => <div>{renderFirstCell(all)}</div>,
             },
             {
                 key: 'designation',

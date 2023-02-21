@@ -40,8 +40,7 @@ const JobOpeningDetail = () => {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
-            <div className={styles.heading}>Job Information -</div>
-
+            <div className={styles.heading}>Job Information - <span>{data?.code}</span></div>
             <div className={styles.editBtn}>
               <ButtonBase className={styles.edit}>EDIT</ButtonBase>
             </div>
@@ -94,11 +93,11 @@ const JobOpeningDetail = () => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Employee ID:</span>
-                {data.replacing_person.code}
+                {data?.replacing_person?.code ? data?.replacing_person?.code : "NA"}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Employee Name:</span>
-                {data.replacing_person.name}
+                {data?.replacing_person?.name ? data?.replacing_person?.name : "NA"}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Indent Date:</span>

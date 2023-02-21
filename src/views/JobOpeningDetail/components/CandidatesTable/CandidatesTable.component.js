@@ -42,7 +42,19 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
-
+  const renderContact = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          <div >
+            <span className={styles.productName}>{obj?.contact}</span> <br />
+            <span>{obj?.email}</span>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
   const renderFirstCell = useCallback((product) => {
     if (product) {
       return (
@@ -80,7 +92,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         key: "contact",
         label: "Contact",
         sortable: false,
-        render: (temp, all) => <div>{all?.candidate?.contact}</div>,
+        render: (temp, all) => <div>{renderContact(all?.candidate)}</div>,
       },
       {
         key: "appliedDateText",

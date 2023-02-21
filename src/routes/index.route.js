@@ -16,6 +16,7 @@ import EmployeeFormSubmit from "../views/EmployeeForm/EmployeeFormSubmit.js";
 import EmployeeForm from "../views/EmployeeForm/EmployeeForm.js";
 import QualificationPage from "../views/EmployeeForm/Qualificationform.js";
 import RouteName from "./Route.name";
+import EvaluationForm from "../views/EvaluationForm/EvaluationForm.view.js";
 
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
@@ -27,6 +28,7 @@ const RouteComponent = () => (
     <Route path={"/2"} component={QualificationPage} />
     <Route path={"/3"} component={EmployementHistory} />
     <Route path={"/4"} component={EmployeeFormSubmit} />
+    <Route path={"/5"} component={EvaluationForm} />
 
     {/*<Route path={'/signup'} component={Signup} />*/}
     <Route path={"/forgot/password"} component={ForgotPassword} />
