@@ -99,9 +99,8 @@ const useCandidateList = ({}) => {
 
     const handleViewDetails = useCallback((data) => {
         LogUtils.log('data', data);
-        historyUtils.push('/candidate/detail/') //+data.id
+        historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data.id}`) //+data.id
     }, []);
-
     const configFilter = useMemo(() => {
         return [
             {label: 'Created Date', options: { maxDate: new Date() },  name: 'createdAt', type: 'date'},

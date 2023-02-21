@@ -60,6 +60,7 @@ import EmployeeListCreate from "../views/EmployeeList/EmployeeListCreate";
 import EmployeeEdit from "../views/EmployeeEdit/EmployeeEdit";
 import EmployeeEditVersionListContainer from "../views/EmployeeEditVersions/ListView/EmployeeEditVersionList.container";
 import EmployeeUtsavDetail from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsavDetail";
+import CandidateDetails from "../views/Candidates/CandidateDetails/CandidateDetails.view";
 
 const Roles = Constants.ROLES;
 
@@ -375,6 +376,15 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'recruitment',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CANDIDATES_DETAILS}:id`,
+        sidebarName: "Candidate Details",
+        navbarName: "Candidate Details",
+        component: CandidateDetails,
+        is_sidebar: false,
+        is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {

@@ -10,7 +10,9 @@ export async function serviceUpdateCandidate(params) {
 export async function serviceDeleteCandidate(params) {
     return await postRequest('candidates/delete', params);
 }
-
+export async function serviceGetCandidateDetails(params) {
+    return await postRequest('candidates/details', params);
+}
 export async function serviceGetCandidate(params) {
     return await postRequest('candidates', params);
 }

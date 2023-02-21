@@ -34,6 +34,7 @@ export default {
   DESIGNATION_UPDATE: "/designations/update/",
   CANDIDATES: "/candidates",
   CANDIDATES_CREATE: "/candidates/create",
+  CANDIDATES_DETAILS:"/candidates/details/",
 
   HR_POLICIES: "/hr/policies",
   HR_POLICIES_CREATE: "/hr/policies/create",

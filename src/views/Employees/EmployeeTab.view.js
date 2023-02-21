@@ -17,6 +17,7 @@ import SalaryInfo from "./components/Profile/SalaryInfo/SalaryInfo";
 import CareerProgression from "./components/Profile/CareerProgression/CareerProgression";
 import ResetPasswordDialog from "./components/ResetPasswordPopUp/ResetPasswordDialog.view";
 import UpdateStatusDialog from "./components/UpdateStatusPopUp/UpdateStatusDialog.view";
+import EmployeeRecord from "./components/Profile/EmployeeRecord/EmployeeRecord";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -151,7 +152,9 @@ const EmployeeTab = () => {
             <TabPanel value={value} index={2} dir={"ltr"}>
               <CareerProgression />
             </TabPanel>
-            <TabPanel value={value} index={3} dir={"ltr"}></TabPanel>
+            <TabPanel value={value} index={3} dir={"ltr"}>
+              <EmployeeRecord/>
+            </TabPanel>
           </div>
         </div>
       </div>

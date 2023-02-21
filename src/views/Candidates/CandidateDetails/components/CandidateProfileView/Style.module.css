@@ -1,0 +1,11 @@
+.profileContainer {
+    display: flex;
+  }
+  .lhs {
+    flex: 1;
+    margin-right: 10px;
+  }
+  .rhs {
+    flex: 1;
+    margin-left: 10px;
+  }

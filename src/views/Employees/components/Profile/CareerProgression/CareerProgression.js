@@ -44,7 +44,7 @@ function CareerProgression({}) {
     });
   }, [history]);
 
-  return (!otherValues.length && !history.length && !lineStatistics.length ) ? (
+  return ( !history.length ) ? (
     <div className={styles.careerWrapperCPc}>
       <div className={styles.imageWrapperCpc}>
         <img src={noCPCimage} />

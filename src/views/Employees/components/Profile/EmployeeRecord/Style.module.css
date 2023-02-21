@@ -1,0 +1,85 @@
+.careerProgressionWrapper {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 20px 80px #00000011;
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+  .title {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .newLine {
+    height: 4px;
+    width: 30px;
+    border-radius: 10px;
+    margin-left: 1px;
+    background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+  }
+  .careerWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .careerHeading {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .InfoContainer{
+    padding-top: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    /* justify-content: space-between; */
+  
+  }
+  .InfoWrapper {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* padding-top: 1.2rem; */
+  }
+  .chartWrapper{
+    flex: 3;
+  }
+  .CareerMonthlyCardWrapper{
+    display: flex;
+    margin-top: 25px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    /* -webkit-overflow-scrolling: touch; */
+  }
+  .horizontalLine{
+    border-left: 1px dashed #B8C5D3;
+    /* margin-left: 15px; */
+    margin-right: 22px;
+  }
+  .careerWrapperCPc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+  }
+  .imageWrapperCpc{
+    /* background: blue; */
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .titleWrpapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+      align-items: center;
+      gap: 15px;
+  }
+  .noCpcTitle{
+    font-weight: 600;
+  }
+  .noCpcdec{
+    font-size: .875rem;
+  }
