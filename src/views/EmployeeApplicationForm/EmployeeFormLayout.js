@@ -1,5 +1,5 @@
 import React from "react";
-import EmployeeForm from "./EmployeeForm";
+import EmployeePersonalForm from "./EmployeeForm";
 
 function EmployeeFormLayout() {
   const [selectedPage, setSelectedPage] = useState(1);
@@ -12,7 +12,7 @@ function EmployeeFormLayout() {
 
   return (
     <>
-      {selectedPage === 1 && <EmployeeForm incrementPage={incrementPage} />}
+      {selectedPage === 1 && <EmployeePersonalForm incrementPage={incrementPage} />}
       {selectedPage === 2 && (
         <QualificationPage
           incrementPage={incrementPage}
@@ -20,7 +20,7 @@ function EmployeeFormLayout() {
         />
       )}
       {selectedPage === 3 && (
-        <EmployeeForm
+        <EmployeePersonalForm
           incrementPage={incrementPage}
           decrementPage={decrementPage}
         />

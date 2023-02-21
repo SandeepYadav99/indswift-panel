@@ -6,21 +6,16 @@ import DrishtiImage from "../../../assets/img/drishti illustartion.png";
 import { DrishtiData } from "../../../helper/helper";
 import DrishtiList from "./Faq/DrishtiList";
 import { useEffect } from "react";
+import EventEmitter from "../../../libs/Events.utils";
 
 function EmployeeDrishti() {
   const { staticEmployeeDrishtiData, employeeData } = EmployeeDrishtiHook({});
   const DrishtiDescription = DrishtiData;
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  };
+
   useEffect(() => {
-    setTimeout(() => {
-      scrollToTop()
-    }, 100);
+    EventEmitter.dispatch(EventEmitter.MOVE_TO_TOP);
   }, []);
+
   return (
     <div className={styles.employeeDrishtiWrapper}>
       <InformationCard

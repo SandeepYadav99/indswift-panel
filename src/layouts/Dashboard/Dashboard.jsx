@@ -1,5 +1,5 @@
 /* eslint-disable indent,no-mixed-spaces-and-tabs */
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import classNames from 'classnames';
@@ -13,6 +13,7 @@ import logo from '../../assets/img/indswift logo@2x.png';
 import CustomRouter from '../../libs/CustomRouter.utils';
 import DashboardSnackbar from '../../components/Snackbar.component';
 import {makeStyles} from "@material-ui/styles";
+import EventEmitter from "../../libs/Events.utils";
 
 const useStyles = makeStyles(appStyle);
 
@@ -23,16 +24,23 @@ const Dashboard = ({title, ...props}) => {
     const [snackbar, setSnackbar] = useState(false);
     const [message, setMessage] = useState('');
     const {user_profile, role} = useSelector(state => state.auth);
+    const mainPanelRef = useRef(null);
 
     useEffect(() => {
-        window.addEventListener('resize', handleResize)
+        window.addEventListener('resize', handleResize);
+        EventEmitter.subscribe(EventEmitter.MOVE_TO_TOP, moveToTop);
         return () => {
-            window.removeEventListener('resize', handleResize)
+            EventEmitter.unsubscribe(EventEmitter.MOVE_TO_TOP);
+            window.removeEventListener('resize', handleResize);
         }
     }, []);
 
     useEffect(() => {
         // this.refs.mainPanel.scrollTop = 0;
+    }, []);
+
+    const moveToTop = useCallback(() => {
+        mainPanelRef.current.scrollTop = 0;
     }, []);
 
     const handleDrawerToggle = useCallback(() => {
@@ -78,7 +86,7 @@ const Dashboard = ({title, ...props}) => {
     }, [dashboardRoutes, role]);
 
     return (
-        <div className={classNames(classes.wrapper,'bottomAction')}>
+        <div ref={mainPanelRef} className={classNames(classes.wrapper,'bottomAction')}>
             <Sidebar
                 routes={sideBarRoutes}
                 logoText={title}

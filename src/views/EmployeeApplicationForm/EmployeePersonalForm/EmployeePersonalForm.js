@@ -1,18 +1,21 @@
 import { ButtonBase } from "@material-ui/core";
 import React, { useState } from "react";
-import ContactDetails from "./components/PersonalDetails/ContactDetails";
-import FamilyDetails from "./components/PersonalDetails/FamilyDetails";
-import ProfileUpper from "./components/PersonalDetails/ProfileUpper";
-import ProfileUpperinfo from "./components/PersonalDetails/ProfileUpperinfo";
-import styles from "./Style.module.css";
+import ContactDetails from "../components/PersonalDetails/ContactDetails";
+import FamilyDetails from "../components/PersonalDetails/FamilyDetails";
+import ProfileUpper from "../components/PersonalDetails/ProfileUpper";
+import ProfilePersonalForm from "../components/PersonalDetails/ProfilePersonalForm";
+import styles from "../Style.module.css";
+import useEmployeePersonalForm from "./EmployeePersonalFormHook";
+import handleSubmit from "redux-form/lib/handleSubmit";
 
-function EmployeeForm({incrementPage}) {
+function EmployeePersonalForm({incrementPage}) {
+  const { refPersonalForm, handleSubmit } = useEmployeePersonalForm({});
   return (
     <div className={styles.employeeLoginWrapper}>
       <div className={styles.employeeLoginContainer}>
         <div className={styles.logoImg}>
           <img
-            src={require("../../assets/img/login logo@2x.png")}
+            src={require("../../../assets/img/login logo@2x.png")}
             className={styles.sky}
           />
         </div>
@@ -24,7 +27,7 @@ function EmployeeForm({incrementPage}) {
         </div>
         <div className={styles.signContainer}>
           <ProfileUpper />
-          <ProfileUpperinfo />
+          <ProfilePersonalForm ref={refPersonalForm} />
         </div>
         <div className={styles.signContainer}>
           <ContactDetails />
@@ -36,7 +39,7 @@ function EmployeeForm({incrementPage}) {
           <div className={styles.btnCont}>
             <ButtonBase
               type={"button"}
-              onClick={incrementPage}
+              onClick={handleSubmit}
               className={styles.createBtn}
             >
               NEXT
@@ -48,4 +51,4 @@ function EmployeeForm({incrementPage}) {
   );
 }
 
-export default EmployeeForm;
+export default EmployeePersonalForm;

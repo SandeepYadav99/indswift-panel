@@ -11,10 +11,10 @@ import { Route, Switch } from "react-router-dom";
 import ForgetPasswordHelp from "../views/ForgotPassword/ForgetPasswordHelp.view.js";
 import ResetPasswordFirst from "../views/ResetPassword/ResetPasswordFirst/ResetPassordFirst.view";
 import EmployeeLogin from "../views/EmployeeLogin/EmployeeLogin.js";
-import EmployementHistory from "../views/EmployeeForm/EmployementHistory.view";
-import EmployeeFormSubmit from "../views/EmployeeForm/EmployeeFormSubmit.js";
-import EmployeeForm from "../views/EmployeeForm/EmployeeForm.js";
-import QualificationPage from "../views/EmployeeForm/Qualificationform.js";
+import EmployementHistory from "../views/EmployeeApplicationForm/EmployementHistory.view";
+import EmployeeFormSubmit from "../views/EmployeeApplicationForm/EmployeeFormSubmit.js";
+import EmployeePersonalForm from "../views/EmployeeApplicationForm/EmployeePersonalForm/EmployeePersonalForm";
+import QualificationPage from "../views/EmployeeApplicationForm/Qualificationform.js";
 import RouteName from "./Route.name";
 import EvaluationForm from "../views/EvaluationForm/EvaluationForm.view.js";
 
@@ -24,7 +24,7 @@ const RouteComponent = () => (
   <Switch>
     <Route path={"/login"} component={Login} />
     <Route path={"/employeelogin"} component={EmployeeLogin} />
-    <Route path={"/1"} component={EmployeeForm} />
+    <Route path={"/1"} component={EmployeePersonalForm} />
     <Route path={"/2"} component={QualificationPage} />
     <Route path={"/3"} component={EmployementHistory} />
     <Route path={"/4"} component={EmployeeFormSubmit} />
