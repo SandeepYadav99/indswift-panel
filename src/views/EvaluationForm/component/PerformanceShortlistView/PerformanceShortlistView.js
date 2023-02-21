@@ -11,7 +11,7 @@ import activefour from "./../../../../assets/img/ic_4.png";
 import five from "./../../../../assets/img/ic_5_inactive.png";
 import activefive from "./../../../../assets/img/ic_5.png";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
-function PerformanceView({ title, question }) {
+function PerformanceShortlistView({ title, question }) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const handleClick = (index) => {
     // console.log("===>", typeof index);
@@ -33,21 +33,10 @@ function PerformanceView({ title, question }) {
         >
           <img id="1" src={activeIndex == 1 ? activeone : one} />
           <span id="1" className={styles.performanceindex}>
-            Unsatisfactory
+            Rejected
           </span>
-          <span id="1">(Less than 30 %)</span>
         </div>
-        <div
-          className={styles.emojCard}
-          id="2"
-          onClick={(e) => handleClick(e.target.id)}
-        >
-          <img id="2" src={activeIndex == 2 ? activetwo : two} />
-          <span id="2" className={styles.performanceindex}>
-            Below Average
-          </span>
-          <span id="2">((b/w 30 % to 50%))</span>
-        </div>
+
         <div
           className={styles.emojCard}
           id="3"
@@ -55,21 +44,10 @@ function PerformanceView({ title, question }) {
         >
           <img id="3" src={activeIndex == 3 ? activethree : three} />
           <span id="3" className={styles.performanceindex}>
-            Average
+            Shortlisted
           </span>
-          <span id="3">((b/w 50 % to 70%))</span>
         </div>
-        <div
-          className={styles.emojCard}
-          id="4"
-          onClick={(e) => handleClick(e.target.id)}
-        >
-          <img id="4" src={activeIndex == 4 ? activefour : four} />
-          <span id="4" className={styles.performanceindex}>
-            Above Average
-          </span>
-          <span id="4">((b/w 70 % to 90 %))</span>
-        </div>
+
         <div
           className={styles.emojCard}
           id="5"
@@ -77,9 +55,8 @@ function PerformanceView({ title, question }) {
         >
           <img id="5" src={activeIndex == 5 ? activefive : five} />
           <span id="5" className={styles.performanceindex}>
-            Exceptional
+            Selected
           </span>
-          <span id="5">((Above 90%))</span>
         </div>
       </div>
       <div>
@@ -102,4 +79,4 @@ function PerformanceView({ title, question }) {
   );
 }
 
-export default PerformanceView;
+export default PerformanceShortlistView;

@@ -12,6 +12,7 @@ import noCPCimage from "./../../../../../assets/img/ic_no cpc info.png";
 function CareerProgression({}) {
   const { otherData, history, lineStatistics,isLoading } = useCareerProgression({});
   let otherValues=  otherData ? Object.values(otherData):[];
+  console.log(otherData,history,lineStatistics)
   const options = {
     scales: {
       y: {

@@ -13,7 +13,8 @@
 }
 .emojWrapper{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    /* gap: 50px; */
 }
 .emojCard{
     /* flex: 1; */
