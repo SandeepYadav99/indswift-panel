@@ -9,16 +9,14 @@ import React, {
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import LogUtils from "../../../../libs/LogUtils";
 import {
-  RemoveCircleOutline as RemoveIcon,
-  AddCircle as AddIcon,
   Add,
 } from "@material-ui/icons";
 import { useParams } from "react-router";
 import styles from "../../Style.module.css";
 import IncludSalaryField from "./IncludeSalaryField";
 const TEMP_OBJ = {
-  name: "",
-  marks: "",
+  payment_type: "",
+  amount: "",
 };
 
 const IncludeSalary = (
@@ -31,36 +29,21 @@ const IncludeSalary = (
     changeTextData,
     updateInventory,
     vendorId,
-    SalaryTagType,
+    salaryTagType,
     firstfield,
-    Secondfield,
-    thirdfield,
-    forthfield,
+    secondfield,
   },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
-  const [variants, setVariants] = useState([]);
-  const { id } = useParams();
-
-  useEffect(() => {}, []);
-
-  useEffect(() => {
-    let sku = 0;
-    let qty = 0;
-    fields.forEach((val) => {
-      sku++;
-      if (val.quantity && !isNaN(val.quantity)) {
-        qty += parseInt(val.quantity);
-      }
-    });
-    // updateInventory(sku, qty);
-  }, [fields]);
 
   useImperativeHandle(ref, () => ({
     isValid() {
       return validateData();
+    },
+    setData(data) {
+      setFields([...data]);
     },
     resetData() {
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -70,17 +53,13 @@ const IncludeSalary = (
     },
   }));
 
-  const getState = () => {
-    return fields;
-  };
-
   const validateData = (index, type) => {
     const errors = {};
 
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["name", "department_id"];
+      const required = ["payment_type", "amount"];
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -167,16 +146,9 @@ const IncludeSalary = (
 
   const renderFields = useMemo(() => {
     return fields.map((val, index) => {
-      const tempFilters = variants.filter((variant) => {
-        const index = fields.findIndex((val) => val?.sku?.sku === variant?.sku);
-        return index < 0;
-      });
       return (
         <div>
           <IncludSalaryField
-            variants={tempFilters}
-            listWarehouse={listWarehouse}
-            currency={currency}
             validateData={validateData}
             errors={index in errorData ? errorData[index] : null}
             changeData={changeData}
@@ -185,18 +157,13 @@ const IncludeSalary = (
             index={index}
             onBlur={onBlur}
             firstfield={firstfield}
-            Secondfield={Secondfield}
-            thirdfield={thirdfield}
-            forthfield={forthfield}
+            secondfield={secondfield}
           />
         </div>
       );
     });
   }, [
-    variants,
     errorData,
-    listWarehouse,
-    currency,
     validateData,
     changeData,
     handlePress,
@@ -215,10 +182,9 @@ const IncludeSalary = (
             handlePress("ADDITION", 0);
           }}
         >
-          <Add fontSize={"small"} /> <span>{SalaryTagType}</span>
+          <Add fontSize={"small"} /> <span>{salaryTagType}</span>
         </ButtonBase>
       </div>
-      {/*</div>*/}
     </>
   );
 };

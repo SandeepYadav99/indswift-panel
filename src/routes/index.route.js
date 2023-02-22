@@ -11,7 +11,7 @@ import { Route, Switch } from "react-router-dom";
 import ForgetPasswordHelp from "../views/ForgotPassword/ForgetPasswordHelp.view.js";
 import ResetPasswordFirst from "../views/ResetPassword/ResetPasswordFirst/ResetPassordFirst.view";
 import EmployeeLogin from "../views/EmployeeLogin/EmployeeLogin.js";
-import EmployementHistory from "../views/EmployeeApplicationForm/EmployementHistory.view";
+import EmployementHistory from "../views/EmployeeApplicationForm/EmploymentHistoryForm/EmployementHistory.view";
 import EmployeeFormSubmit from "../views/EmployeeApplicationForm/EmployeeFormSubmit.js";
 import EmployeePersonalForm from "../views/EmployeeApplicationForm/EmployeePersonalForm/EmployeePersonalForm";
 import QualificationPage from "../views/EmployeeApplicationForm/QualificationForm/QualificationForm.js";

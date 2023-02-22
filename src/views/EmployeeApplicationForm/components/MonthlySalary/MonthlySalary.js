@@ -1,6 +1,3 @@
-/**
- * Created by charnjeetelectrovese@gmail.com on 5/13/2020.
- */
 import React, {
   useEffect,
   useState,
@@ -9,28 +6,24 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
-import LogUtils from "../../../../../libs/LogUtils";
-import { Add } from "@material-ui/icons";
+import LogUtils from "../../../../libs/LogUtils";
+import {
+  RemoveCircleOutline as RemoveIcon,
+  AddCircle as AddIcon,
+  Add,
+} from "@material-ui/icons";
 import { useParams } from "react-router";
-import IncludeFields from "./FamilyDetailFields.component";
-
-// const TEMP_OBJ = {
-//   name: "",
-//   relation: "",
-//   dob: "",
-//   occupation: ''
-// };
-
+import styles from "../../Style.module.css";
+import IncludSalaryField from "./MonthlySalaryField";
 const TEMP_OBJ = {
-  name: "",
-  relation: "",
-  dob: new Date(),
-  occupation: ''
+  ctc: "",
+  in_hand: "",
+  payment_type: "",
+  amount: ""
 };
 
-const FamilyDetailComponent = (
+const MonthlySalary = (
   {
     data,
     currency,
@@ -40,13 +33,17 @@ const FamilyDetailComponent = (
     changeTextData,
     updateInventory,
     vendorId,
+    SalaryTagType,
+    firstfield,
+    Secondfield,
+    thirdfield,
+    forthfield,
   },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
-  const [isChanged, setIsChanged] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {}, []);
@@ -74,10 +71,7 @@ const FamilyDetailComponent = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      return {
-        data: JSON.parse(JSON.stringify(fields)),
-        isChanged: isChanged,
-      };
+      return JSON.parse(JSON.stringify(fields));
     },
   }));
 
@@ -87,22 +81,19 @@ const FamilyDetailComponent = (
 
   const validateData = (index, type) => {
     const errors = {};
-    // if (type) {
-    //     if (errorData[index]) {
-    //         errorData[index][type] = false;
-    //     }
-    //     setErrorData(errorData);
-    //     return false;
-    // }
+
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["name", "relation", "dob", 'occupation'];
+      const required = ['ctc', 'in_hand', 'payment_type', 'amount'];
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
         }
       });
+      if (val.name === null) {
+        err.name = true;
+      }
       if (Object.keys(err).length > 0) {
         errors[index] = err;
       }
@@ -113,14 +104,7 @@ const FamilyDetailComponent = (
 
   useEffect(() => {
     if (data) {
-      const filteredData = [];
-      data.forEach(dT => {
-        filteredData.push({
-          ...TEMP_OBJ,
-          ...dT,
-        });
-      });
-      setFields(filteredData);
+      setFields(data);
     }
   }, [data]);
 
@@ -150,13 +134,12 @@ const FamilyDetailComponent = (
   const changeData = (index, data) => {
     const tempData = JSON.parse(JSON.stringify(fields));
     tempData[index] = { ...tempData[index], ...data };
-    LogUtils.log("changeDataChildren", data);
+    LogUtils.log("data", data);
     setFields(tempData);
     const errArr = [];
     Object.keys(data).forEach((key) => {
       errArr.push(key);
     });
-    setIsChanged(true);
     removeErrors(index, errArr);
   };
 
@@ -172,17 +155,18 @@ const FamilyDetailComponent = (
   );
 
   const handlePress = async (type, index = 0) => {
+    LogUtils.log("type", type, index);
     const oldState = JSON.parse(JSON.stringify(fields));
     if (type == "ADDITION") {
       oldState.push(JSON.parse(JSON.stringify(TEMP_OBJ)));
     } else {
-      // if (oldState.length === 1) {
-      //   return true;
-      // }
+      if (oldState.length === 1) {
+        return true;
+      }
       oldState.splice(index, 1);
     }
+    LogUtils.log("oldState", oldState);
     setFields(oldState);
-    setIsChanged(true);
     // validateData();
   };
 
@@ -194,7 +178,7 @@ const FamilyDetailComponent = (
       });
       return (
         <div>
-          <IncludeFields
+          <IncludSalaryField
             variants={tempFilters}
             listWarehouse={listWarehouse}
             currency={currency}
@@ -205,6 +189,10 @@ const FamilyDetailComponent = (
             data={val}
             index={index}
             onBlur={onBlur}
+            firstfield={firstfield}
+            Secondfield={Secondfield}
+            thirdfield={thirdfield}
+            forthfield={forthfield}
           />
         </div>
       );
@@ -224,7 +212,6 @@ const FamilyDetailComponent = (
   return (
     <>
       {renderFields}
-
       <div>
         <ButtonBase
           className={styles.addition}
@@ -233,7 +220,7 @@ const FamilyDetailComponent = (
             handlePress("ADDITION", 0);
           }}
         >
-          <Add fontSize={"small"} /> <span>Add Family Members</span>
+          <Add fontSize={"small"} /> <span>Add Monthly Payment</span>
         </ButtonBase>
       </div>
       {/*</div>*/}
@@ -241,4 +228,4 @@ const FamilyDetailComponent = (
   );
 };
 
-export default forwardRef(FamilyDetailComponent);
+export default forwardRef(MonthlySalary);

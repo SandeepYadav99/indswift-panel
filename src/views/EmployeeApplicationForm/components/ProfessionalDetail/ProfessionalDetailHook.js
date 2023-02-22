@@ -57,6 +57,11 @@ const useProfessionalDetail = ({}, ref) => {
     isValid() {
       return handleSubmit();
     },
+    setData(data) {
+      setForm({
+        ...data
+      })
+    },
     resetData() {
       setForm(JSON.parse(JSON.stringify(initialForm)));
     },

@@ -7,7 +7,7 @@ import styles from "../Style.module.css";
 import useQualificationForm from "./QualificationFormHook";
 
 function QualificationPage() {
-  const { refProfessionalDetails, refQualificationDetails, handleSubmit } = useQualificationForm({});
+  const { refProfessionalDetails, refQualificationDetails, handleSubmit, isSubmitting } = useQualificationForm({});
 
   return (
     <div className={styles.employeeLoginWrapper}>
@@ -39,6 +39,7 @@ function QualificationPage() {
           <div className={styles.btnCont1}>
             <ButtonBase className={styles.edit}>PREVIOUS</ButtonBase>
             <ButtonBase
+                disabled={isSubmitting}
               type={"button"}
               onClick={handleSubmit}
               className={styles.createBtn}
