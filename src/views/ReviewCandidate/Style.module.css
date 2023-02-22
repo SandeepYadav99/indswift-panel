@@ -81,7 +81,14 @@
     background-color: rgba(250, 139, 12, 0.082);
     color: rgb(250, 139, 12);
 }
-
+.openIcon{
+    color: #2896E9 !important;
+}
+.subText{
+    font-size: 0.7rem;
+    margin-left: 5px;
+    color: #2896E9;
+}
 .industry{
     font-size: 0.7rem;
     font-weight: 600;
