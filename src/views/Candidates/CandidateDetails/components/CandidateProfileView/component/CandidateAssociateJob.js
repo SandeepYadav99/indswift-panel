@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Style.module.css";
 
 const CandidateAssociateJob = ({ data }) => {
@@ -11,17 +12,27 @@ const CandidateAssociateJob = ({ data }) => {
             <div className={styles.left}>
               <div className={styles.key}>
                 <span className={styles.value}>RAP ID:</span>
-                <span className={styles.valueWrap}>
-                  {data?.job_opening?.code}
-                </span>
+                <Link
+                  to={`/job/openings/details/${data?.job_opening?.id}`}
+                  target="_blank"
+                  style={{color: "#2896e9" }}
+                >
+                  <span className={styles.valueWrap}>
+                    {data?.job_opening?.code}
+                  </span>
+                </Link>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Type of Vacancy:</span>
-                <span className={styles.valueWrap}>{data?.job_opening?.vacancy_type}</span>
+                <span className={styles.valueWrap}>
+                  {data?.job_opening?.vacancy_type}
+                </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Place of Posting:</span>
-                {/* <span className={styles.valueWrap}>{data?.state}</span> */}
+                <span className={styles.valueWrap}>
+                  {data?.job_opening?.location?.name}
+                </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Candidate Grade:</span>
@@ -44,7 +55,9 @@ const CandidateAssociateJob = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>Associated HR:</span>
                 <span className={styles.valueWrap}>
-                  {/* {data?.previous_ctc} */}
+                  {data?.job_opening?.assigned_person?.name
+                    ? data?.job_opening?.assigned_person?.name
+                    : ""}
                 </span>
               </div>
             </div>

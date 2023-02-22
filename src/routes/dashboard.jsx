@@ -61,6 +61,7 @@ import EmployeeEdit from "../views/EmployeeEdit/EmployeeEdit";
 import EmployeeEditVersionListContainer from "../views/EmployeeEditVersions/ListView/EmployeeEditVersionList.container";
 import EmployeeUtsavDetail from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsavDetail";
 import CandidateDetails from "../views/Candidates/CandidateDetails/CandidateDetails.view";
+import InterviewSchedule from "../views/InterviewSchedule/InterviewSchedule.container";
 
 const Roles = Constants.ROLES;
 
@@ -707,6 +708,18 @@ const dashboardRoutes = [
         navbarName: "Review Candidates",
         icon: PeopleOutlined,
         component: ReviewCandidate,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'tm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: '/tm/interview',
+        sidebarName: "Interview Schedule",
+        navbarName: "Interview Schedule",
+        icon: PeopleOutlined,
+        component: InterviewSchedule,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,

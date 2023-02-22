@@ -33,74 +33,74 @@ const ProfessionalDetail = ({}, ref) => {
       <div className={"formFlex1"}>
         <div className="formGroup1">
           <CustomTextField
-            // isError={errorData?.name}
-            // errorText={errorData?.name}
+            isError={errorData?.referer_name}
+            errorText={errorData?.referer_name}
             label={"Name"}
-            // value={form?.name}
-            // onTextChange={(text) => {
-            //   changeTextData(text, "name");
-            // }}
-            // onBlur={() => {
-            //   onBlurHandler("name");
-            // }}
+            value={form?.referer_name}
+            onTextChange={(text) => {
+              changeTextData(text, "referer_name");
+            }}
+            onBlur={() => {
+              onBlurHandler("referer_name");
+            }}
           />
         </div>
         <div className="formGroup1">
           <CustomTextField
-            // isError={errorData?.name}
-            // errorText={errorData?.name}
+            isError={errorData?.referer_designation}
+            errorText={errorData?.referer_designation}
             label={"Designation"}
-            // value={form?.name}
-            // onTextChange={(text) => {
-            //   changeTextData(text, "name");
-            // }}
-            // onBlur={() => {
-            //   onBlurHandler("name");
-            // }}
+            value={form?.referer_designation}
+            onTextChange={(text) => {
+              changeTextData(text, "referer_designation");
+            }}
+            onBlur={() => {
+              onBlurHandler("referer_designation");
+            }}
           />
         </div>
         <div className="formGroup1">
           <CustomTextField
-            // isError={errorData?.name}
-            // errorText={errorData?.name}
+            isError={errorData?.referer_department}
+            errorText={errorData?.referer_department}
             label={"Department"}
-            // value={form?.name}
-            // onTextChange={(text) => {
-            //   changeTextData(text, "name");
-            // }}
-            // onBlur={() => {
-            //   onBlurHandler("name");
-            // }}
+            value={form?.referer_department}
+            onTextChange={(text) => {
+              changeTextData(text, "referer_department");
+            }}
+            onBlur={() => {
+              onBlurHandler("referer_department");
+            }}
           />
         </div>
         <div className="formGroup1">
           <CustomTextField
-            // isError={errorData?.name}
-            // errorText={errorData?.name}
+            isError={errorData?.referer_location}
+            errorText={errorData?.referer_location}
             label={"Location"}
-            // value={form?.name}
-            // onTextChange={(text) => {
-            //   changeTextData(text, "name");
-            // }}
-            // onBlur={() => {
-            //   onBlurHandler("name");
-            // }}
+            value={form?.referer_location}
+            onTextChange={(text) => {
+              changeTextData(text, "referer_location");
+            }}
+            onBlur={() => {
+              onBlurHandler("referer_location");
+            }}
           />
         </div>
       </div>
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
-            // isError={errorData?.vacancy_type}
-            // errorText={errorData?.vacancy_type}
+            isError={errorData?.is_bond}
+            errorText={errorData?.is_bond}
             label={"Covered Under any kind bond/contract"}
-            // value={form?.vacancy_type}
-            // handleChange={(value) => {
-            //   changeTextData(value, "vacancy_type");
-            // }}
+            value={form?.is_bond}
+            handleChange={(value) => {
+              changeTextData(value, "is_bond");
+            }}
           >
-            <MenuItem value="yes">yes</MenuItem>
-            <MenuItem value="no">no</MenuItem>
+            <MenuItem value="YES">Yes</MenuItem>
+            <MenuItem value="NO">No</MenuItem>
           </CustomSelectField>
         </div>
       </div>
@@ -110,88 +110,88 @@ const ProfessionalDetail = ({}, ref) => {
             clearable
             label={"Date of Expiry"}
             minDate={new Date()}
-            // onChange={(date) => {
-            //   changeTextData(date, "effective_date");
-            // }}
-            // value={form?.effective_date}
-            // isError={errorData?.effective_date}
+            onChange={(date) => {
+              changeTextData(date, "bond_expiry_date");
+            }}
+            value={form?.bond_expiry_date}
+            isError={errorData?.bond_expiry_date}
           />
         </div>
       </div>
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
-            // isError={errorData?.vacancy_type}
-            // errorText={errorData?.vacancy_type}
+            isError={errorData?.is_convicted}
+            errorText={errorData?.is_convicted}
             label={
               "Any history of prosecution,fined or conviction by court of law of any offence"
             }
-            // value={form?.vacancy_type}
-            // handleChange={(value) => {
-            //   changeTextData(value, "vacancy_type");
-            // }}
+            value={form?.is_convicted}
+            handleChange={(value) => {
+              changeTextData(value, "is_convicted");
+            }}
           >
-            <MenuItem value="yes">yes</MenuItem>
-            <MenuItem value="no">no</MenuItem>
+            <MenuItem value="YES">Yes</MenuItem>
+            <MenuItem value="NO">No</MenuItem>
           </CustomSelectField>
         </div>
       </div>
       <div className="formGroup1">
         <CustomTextField
-          // isError={errorData?.name}
-          // errorText={errorData?.name}
+          isError={errorData?.pending_case_brief}
+          errorText={errorData?.pending_case_brief}
           label={"Details of pending case"}
-          // value={form?.name}
-          // onTextChange={(text) => {
-          //   changeTextData(text, "name");
-          // }}
-          // onBlur={() => {
-          //   onBlurHandler("name");
-          // }}
+          value={form?.pending_case_brief}
+          onTextChange={(text) => {
+            changeTextData(text, "pending_case_brief");
+          }}
+          onBlur={() => {
+            onBlurHandler("pending_case_brief");
+          }}
         />
       </div>
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
-            // isError={errorData?.vacancy_type}
-            // errorText={errorData?.vacancy_type}
+            isError={errorData?.is_personal_transport}
+            errorText={errorData?.is_personal_transport}
             label={"Do you possess a personal transport"}
-            // value={form?.vacancy_type}
-            // handleChange={(value) => {
-            //   changeTextData(value, "vacancy_type");
-            // }}
+            value={form?.is_personal_transport}
+            handleChange={(value) => {
+              changeTextData(value, "is_personal_transport");
+            }}
           >
-            <MenuItem value="yes">yes</MenuItem>
-            <MenuItem value="no">no</MenuItem>
+            <MenuItem value="YES">Yes</MenuItem>
+            <MenuItem value="NO">No</MenuItem>
           </CustomSelectField>
         </div>
       </div>
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
-            // isError={errorData?.vacancy_type}
-            // errorText={errorData?.vacancy_type}
+            isError={errorData?.is_ailments}
+            errorText={errorData?.is_ailments}
             label={"Suffer from any ailments"}
-            // value={form?.vacancy_type}
-            // handleChange={(value) => {
-            //   changeTextData(value, "vacancy_type");
-            // }}
+            value={form?.is_ailments}
+            handleChange={(value) => {
+              changeTextData(value, "is_ailments");
+            }}
           >
-            <MenuItem value="yes">yes</MenuItem>
-            <MenuItem value="no">no</MenuItem>
+            <MenuItem value="YES">Yes</MenuItem>
+            <MenuItem value="NO">No</MenuItem>
           </CustomSelectField>
         </div>
       </div>
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
-            // isError={errorData?.vacancy_type}
-            // errorText={errorData?.vacancy_type}
+            isError={errorData?.ailment_type}
+            errorText={errorData?.ailment_type}
             label={"Type"}
-            // value={form?.vacancy_type}
-            // handleChange={(value) => {
-            //   changeTextData(value, "vacancy_type");
-            // }}
+            value={form?.ailment_type}
+            handleChange={(value) => {
+              changeTextData(value, "ailment_type");
+            }}
           >
             <MenuItem value="1">Physical Disability</MenuItem>
             <MenuItem value="2">other</MenuItem>
@@ -200,87 +200,87 @@ const ProfessionalDetail = ({}, ref) => {
       </div>
       <div className="formGroup1">
         <CustomTextField
-          // isError={errorData?.name}
-          // errorText={errorData?.name}
+          isError={errorData?.ailment_details}
+          errorText={errorData?.ailment_details}
           label={"Specify Details"}
-          // value={form?.name}
-          // onTextChange={(text) => {
-          //   changeTextData(text, "name");
-          // }}
-          // onBlur={() => {
-          //   onBlurHandler("name");
-          // }}
+          value={form?.ailment_details}
+          onTextChange={(text) => {
+            changeTextData(text, "ailment_details");
+          }}
+          onBlur={() => {
+            onBlurHandler("ailment_details");
+          }}
         />
       </div>{" "}
       <div className="formGroup1">
-        <CustomTextField
-          // isError={errorData?.name}
-          // errorText={errorData?.name}
-          label={"Any Relative working in the ISLL"}
-          // value={form?.name}
-          // onTextChange={(text) => {
-          //   changeTextData(text, "name");
-          // }}
-          // onBlur={() => {
-          //   onBlurHandler("name");
-          // }}
-        />
+      <CustomSelectField
+            isError={errorData?.is_any_relative}
+            errorText={errorData?.is_any_relative}
+            label={"Any Relative working in the ISLL"}
+            value={form?.is_any_relative}
+            handleChange={(value) => {
+              changeTextData(value, "is_any_relative");
+            }}
+          >
+           <MenuItem value="YES">Yes</MenuItem>
+            <MenuItem value="NO">No</MenuItem>
+          </CustomSelectField>
       </div>
       <div className={"formFlex1"}>
         <div className="formGroup1">
           <CustomTextField
-            // isError={errorData?.name}
-            // errorText={errorData?.name}
+            isError={errorData?.relative_name}
+            errorText={errorData?.relative_name}
             label={"Name"}
-            // value={form?.name}
-            // onTextChange={(text) => {
-            //   changeTextData(text, "name");
-            // }}
-            // onBlur={() => {
-            //   onBlurHandler("name");
-            // }}
+            value={form?.relative_name}
+            onTextChange={(text) => {
+              changeTextData(text, "relative_name");
+            }}
+            onBlur={() => {
+              onBlurHandler("relative_name");
+            }}
           />
         </div>
         <div className="formGroup1">
           <CustomTextField
-            // isError={errorData?.name}
-            // errorText={errorData?.name}
+            isError={errorData?.relative_designation}
+            errorText={errorData?.relative_designation}
             label={"Designation"}
-            // value={form?.name}
-            // onTextChange={(text) => {
-            //   changeTextData(text, "name");
-            // }}
-            // onBlur={() => {
-            //   onBlurHandler("name");
-            // }}
+            value={form?.relative_designation}
+            onTextChange={(text) => {
+              changeTextData(text, "relative_designation");
+            }}
+            onBlur={() => {
+              onBlurHandler("relative_designation");
+            }}
           />
         </div>
         <div className="formGroup1">
           <CustomTextField
-            // isError={errorData?.name}
-            // errorText={errorData?.name}
+            isError={errorData?.relative_department}
+            errorText={errorData?.relative_department}
             label={"Department"}
-            // value={form?.name}
-            // onTextChange={(text) => {
-            //   changeTextData(text, "name");
-            // }}
-            // onBlur={() => {
-            //   onBlurHandler("name");
-            // }}
+            value={form?.relative_department}
+            onTextChange={(text) => {
+              changeTextData(text, "relative_department");
+            }}
+            onBlur={() => {
+              onBlurHandler("relative_department");
+            }}
           />
         </div>
         <div className="formGroup1">
           <CustomTextField
-            // isError={errorData?.name}
-            // errorText={errorData?.name}
+            isError={errorData?.relative_relation}
+            errorText={errorData?.relative_relation}
             label={"Relation (if applicable)"}
-            // value={form?.name}
-            // onTextChange={(text) => {
-            //   changeTextData(text, "name");
-            // }}
-            // onBlur={() => {
-            //   onBlurHandler("name");
-            // }}
+            value={form?.relative_relation}
+            onTextChange={(text) => {
+              changeTextData(text, "relative_relation");
+            }}
+            onBlur={() => {
+              onBlurHandler("relative_relation");
+            }}
           />
         </div>
       </div>
