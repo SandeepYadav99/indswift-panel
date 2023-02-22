@@ -1,17 +1,20 @@
 import { ButtonBase } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React from "react";
-import ProfessionalDetail from "./components/ProfessionalDetail/ProfessionalDetail";
-import QualificationDetail from "./components/Qualification/QualificationDetails";
-import styles from "./Style.module.css";
+import ProfessionalDetail from "../components/ProfessionalDetail/ProfessionalDetail";
+import QualificationDetail from "../components/Qualification/IncludeQualification";
+import styles from "../Style.module.css";
+import useQualificationForm from "./QualificationFormHook";
 
 function QualificationPage() {
+  const { refProfessionalDetails, refQualificationDetails, handleSubmit } = useQualificationForm({});
+
   return (
     <div className={styles.employeeLoginWrapper}>
       <div className={styles.employeeLoginContainer}>
         <div className={styles.logoImg}>
           <img
-            src={require("../../assets/img/login logo@2x.png")}
+            src={require("../../../assets/img/login logo@2x.png")}
             className={styles.sky}
           />
         </div>
@@ -22,17 +25,22 @@ function QualificationPage() {
           <div className={styles.newLine} />
         </div>
         <div className={styles.signContainer}>
-          <QualificationDetail />
+          <div className={styles.QualificationHeader}>
+            <h4 className={"infoTitle1"}>
+              <div className={"heading1"}>Qualification Details</div>
+            </h4>
+          <QualificationDetail ref={refQualificationDetails} />
+          </div>
         </div>
         <div className={styles.signContainer}>
-          <ProfessionalDetail />
+          <ProfessionalDetail ref={refProfessionalDetails} />
         </div>
         <div className={styles.btnContainer}>
           <div className={styles.btnCont1}>
             <ButtonBase className={styles.edit}>PREVIOUS</ButtonBase>
             <ButtonBase
               type={"button"}
-              // onClick={handleSubmit}
+              onClick={handleSubmit}
               className={styles.createBtn}
             >
               NEXT

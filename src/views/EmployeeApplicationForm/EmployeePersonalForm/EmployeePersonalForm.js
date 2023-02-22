@@ -1,15 +1,15 @@
 import { ButtonBase } from "@material-ui/core";
 import React, { useState } from "react";
-import ContactDetails from "../components/PersonalDetails/ContactDetails";
-import FamilyDetails from "../components/PersonalDetails/FamilyDetails";
+import ContactDetails from "../components/PersonalDetails/Contact/ContactDetails";
 import ProfileUpper from "../components/PersonalDetails/ProfileUpper";
-import ProfilePersonalForm from "../components/PersonalDetails/ProfilePersonalForm";
+import ProfilePersonalForm from "../components/PersonalDetails/PersonalInfo/ProfilePersonalForm";
 import styles from "../Style.module.css";
 import useEmployeePersonalForm from "./EmployeePersonalFormHook";
 import handleSubmit from "redux-form/lib/handleSubmit";
+import FamilyDetailComponent from "../components/PersonalDetails/FamilyDetails/FamilyDetails.component";
 
 function EmployeePersonalForm({incrementPage}) {
-  const { refPersonalForm, handleSubmit } = useEmployeePersonalForm({});
+  const { refPersonalForm, handleSubmit, refContactForm, refFamilyDetail } = useEmployeePersonalForm({});
   return (
     <div className={styles.employeeLoginWrapper}>
       <div className={styles.employeeLoginContainer}>
@@ -30,10 +30,10 @@ function EmployeePersonalForm({incrementPage}) {
           <ProfilePersonalForm ref={refPersonalForm} />
         </div>
         <div className={styles.signContainer}>
-          <ContactDetails />
+          <ContactDetails ref={refContactForm} />
         </div>
         <div className={styles.signContainer}>
-          <FamilyDetails />
+          <FamilyDetailComponent ref={refFamilyDetail} />
         </div>
         <div className={styles.btnContainer}>
           <div className={styles.btnCont}>

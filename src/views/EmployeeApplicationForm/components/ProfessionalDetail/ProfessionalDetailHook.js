@@ -1,21 +1,29 @@
 import {useCallback, useEffect, useImperativeHandle, useRef, useState} from "react";
-import useDebounce from "../../../../hooks/DebounceHook";
-import {useParams} from "react-router";
 import {isAlpha, isAlphaNumChars, isNum, isSpace} from "../../../../libs/RegexUtils";
 
+
 const initialForm = {
-    dob: '',
-    gender: '',
-    birthplace: '',
-    blood_group: '',
-    dom: '',
-    aadhar_no: '',
-    pan_no: '',
-    passport_no: '',
-    passport_expiry_date: '',
+    is_referred: '',
+    referer_name: '',
+    referer_designation: '',
+    referer_department: '',
+    referer_location: '',
+    is_bond: '',
+    bond_expiry_date: 'test',
+    is_convicted: '',
+    pending_case_brief: '',
+    is_personal_transport: '',
+    is_ailments: '',
+    ailment_type: '',
+    ailment_details: '',
+    is_any_relative: '',
+    relative_name: '',
+    relative_designation: '',
+    relative_department: '',
+    relative_relation: ''
 };
 
-const useProfilePersonalForm = ({}, ref) => {
+const useProfessionalDetail = ({}, ref) => {
     const [isLoading, setIsLoading] = useState(false);
     const [errorData, setErrorData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,7 +48,7 @@ const useProfilePersonalForm = ({}, ref) => {
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = ['dob', 'gender', 'birthplace', 'blood_group', 'dom', 'aadhar_no', 'pan_no', 'passport_no', 'passport_expiry_date'];
+        let required = ['is_referred', 'gender', 'birthplace', 'blood_group', 'aadhar_no', 'pan_no'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
@@ -61,9 +69,9 @@ const useProfilePersonalForm = ({}, ref) => {
         const errors = checkFormValidation();
         if (Object.keys(errors).length > 0) {
             setErrorData(errors);
-            return errors;
+            return false;
         }
-        return {};
+        return true;
     }, [
         checkFormValidation,
         setErrorData,
@@ -119,4 +127,4 @@ const useProfilePersonalForm = ({}, ref) => {
     };
 };
 
-export default useProfilePersonalForm;
+export default useProfessionalDetail;

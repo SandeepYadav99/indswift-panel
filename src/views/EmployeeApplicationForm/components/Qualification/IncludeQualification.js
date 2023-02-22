@@ -6,9 +6,12 @@ import {useParams} from "react-router";
 import styles from "../../Style.module.css";
 import IncludeQualificationField from './IncludeQualificationField';
 const TEMP_OBJ = {
-    name: '',
-    marks: '',
-    
+    qualification: '10',
+    degree_name: 'DEG_NAME',
+    institute_name: 'INS_NAME',
+    passing_year: '2010',
+    cgpa: '8',
+    degree_type: 'FULL_TIME',
 };
 
 const IncludeQualification = ({data, currency, listWarehouse, errorData: errorForm, form, changeTextData, updateInventory, vendorId}, ref) => {
@@ -51,10 +54,10 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
 
     const validateData = (index, type) => {
         const errors = {};
-        
+
         fields.forEach((val, index) => {
             const err = index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-            const required = ['name','department_id'];
+            const required = ['qualification', 'degree_name', 'institute_name', 'passing_year', 'cgpa', 'degree_type'];
             required.forEach((key) => {
                 if (!val[key]) {
                     err[key] = true;

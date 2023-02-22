@@ -1,10 +1,12 @@
 import { MenuItem } from "@material-ui/core";
-import React from "react";
+import React, {forwardRef} from "react";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
+import useProfessionalDetail from "./ProfessionalDetailHook";
 
-function ProfessionalDetail() {
+const ProfessionalDetail = ({}, ref) => {
+    const { changeTextData, errorData, form, handleReset, includeRef, isEdit, isLoading, isSubmitting, onBlurHandler, removeError } = useProfessionalDetail({}, ref);
   return (
     <>
       <div className={"headerFlex1"}>
@@ -15,16 +17,16 @@ function ProfessionalDetail() {
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
-            // isError={errorData?.vacancy_type}
-            // errorText={errorData?.vacancy_type}
+            isError={errorData?.is_referred}
+            errorText={errorData?.is_referred}
             label={"Referred by IISL Employee"}
-            // value={form?.vacancy_type}
-            // handleChange={(value) => {
-            //   changeTextData(value, "vacancy_type");
-            // }}
+            value={form?.is_referred}
+            handleChange={(value) => {
+              changeTextData(value, "is_referred");
+            }}
           >
-            <MenuItem value="male">Yes</MenuItem>
-            <MenuItem value="female">No</MenuItem>
+            <MenuItem value="YES">Yes</MenuItem>
+            <MenuItem value="NO">No</MenuItem>
           </CustomSelectField>
         </div>
       </div>
@@ -286,4 +288,4 @@ function ProfessionalDetail() {
   );
 }
 
-export default ProfessionalDetail;
+export default forwardRef(ProfessionalDetail);

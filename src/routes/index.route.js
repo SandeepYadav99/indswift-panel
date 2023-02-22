@@ -14,7 +14,7 @@ import EmployeeLogin from "../views/EmployeeLogin/EmployeeLogin.js";
 import EmployementHistory from "../views/EmployeeApplicationForm/EmployementHistory.view";
 import EmployeeFormSubmit from "../views/EmployeeApplicationForm/EmployeeFormSubmit.js";
 import EmployeePersonalForm from "../views/EmployeeApplicationForm/EmployeePersonalForm/EmployeePersonalForm";
-import QualificationPage from "../views/EmployeeApplicationForm/Qualificationform.js";
+import QualificationPage from "../views/EmployeeApplicationForm/QualificationForm/QualificationForm.js";
 import RouteName from "./Route.name";
 import EvaluationForm from "../views/EvaluationForm/EvaluationForm.view.js";
 import NextPageForm from "../views/EvaluationForm/component/NextPageForm/NextPageForm.js";
@@ -34,7 +34,7 @@ const RouteComponent = () => (
     <Route path={"/6"} component={NextPageForm} />
     <Route path={"/7"} component={SubmitEvaluationForm} />
 
-    
+
     {/*<Route path={'/signup'} component={Signup} />*/}
     <Route path={"/forgot/password"} component={ForgotPassword} />
     <Route path={"/forget/help"} component={ForgetPasswordHelp} />

@@ -5,6 +5,14 @@
   width: 100vw;
   height: 100vh;
 }
+.flexContainer {
+  display: flex;
+  align-items: center;
+
+}
+.qualificationFormCont {
+  flex: 1;
+}
 .employeeLoginContainer {
   margin-top: 40px;
   width: 70%;
@@ -26,7 +34,6 @@
 .firstRow {
   flex: 1;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
 }
 .btnwrap {
