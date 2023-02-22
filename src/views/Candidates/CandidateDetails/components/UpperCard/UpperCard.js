@@ -16,21 +16,22 @@ const UpperCard = ({ data, handleToggle,handleStatusToggle }) => {
           </div>
           <div className={styles.profileInfo}>
             <div className={styles.name}>{data?.name}</div>
-            <div>{data?.designation?.name}</div>
-            <div>Employee Code: {data?.emp_code}</div>
+            <div>{data?.email}</div>
+            <div>{data?.contact}</div>
+            <a target="_blank" href={data?.resume}> <span>View Resume</span></a>
           </div>
           <div className={styles.vertical}></div>
           <div className={styles.rightInfo}>
             <div>
-              <span className={styles.location}>Location</span>{" "}
-              {data?.location?.name}
+              <span className={styles.location}>Referred by:</span>{" "}
+              {data?.referred_obj?.name}
             </div>
             <div>
-              <span className={styles.location}>Department</span>
-              {data?.department?.name}
+              <span className={styles.location}>Date of Application:</span>
+              {data?.appliedDateText}
             </div>
             <div>
-              <span className={styles.location}>Sub-Department</span>{" "}
+              <span className={styles.location}>Updated On:</span>{" "}
               {data?.sub_department?.name}
             </div>
           </div>
@@ -51,7 +52,7 @@ const UpperCard = ({ data, handleToggle,handleStatusToggle }) => {
               <div className={styles.btnUpper}>
                 <ActionButton onClick={handleToggle}>
                   <RepeatRounded fontSize={"small"} />
-                  <span className={styles.actionBtnSpan}>Reset Password</span>
+                  <span className={styles.actionBtnSpan}>Update PRC</span>
                 </ActionButton>
               </div>
               

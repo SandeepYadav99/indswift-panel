@@ -2,7 +2,6 @@ import React from 'react';
 import styles from "./Style.module.css"
 
 const CandidateAddressInfo = ({address}) => {
-
     return (
         <div>
             <div className={styles.plainPaper}>
@@ -16,11 +15,10 @@ const CandidateAddressInfo = ({address}) => {
                                 Sector 77B,<br/>
                                 Chandigarh,<br/>
                                 160079 */}
-                                {address?.permanent}
+                                {address?.permanent_address}
                             </div>
                         </div>
                         <div className={styles.horizontal}>
-
                         </div>
                         <div className={styles.right}>
 
@@ -32,7 +30,7 @@ const CandidateAddressInfo = ({address}) => {
                                    Sector 77B,<br/>
                                    Chandigarh,<br/>
                                    160079 */}
-                                   {address?.current}
+                                   {address?.correspondence_address}
                                </div>
                            </div>
                         </div>

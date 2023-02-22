@@ -9,6 +9,8 @@ import { useParams } from "react-router";
 import { serviceGetCandidateDetails } from "../../../services/Candidate.service";
 import CandidateProfileView from "./components/CandidateProfileView/CandidateProfileView";
 import { useState } from "react";
+import CandidateStatusDialog from "./components/CandidateStatusPopUp/CandidateStatusDialog.view";
+import UpdatePRCDialog from "./components/UpdatePRCPopUp/UpdatePRCDialog.view";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -49,28 +51,38 @@ const useStyles = makeStyles({
 });
 function CandidateDetails() {
   const [value, setValue] = React.useState(0);
-  const [candidateData,setCandidateData]=useState([])
-  const {id}=useParams()
-  console.log("id",id)
-    useEffect(() => {
-      let dataValues = serviceGetCandidateDetails({id});
-      dataValues
-        .then((data) => {
-          console.log("=================>",data)
-          setCandidateData(data?.data?.details);
-        })
-        .catch((err) => console.log(err));
-    }, []);
-  // 
+  const [candidateData, setCandidateData] = useState([]);
+  const [isResetDialog, setIsResetDialog] = useState(false);
+  const [isUpdateDialog, setIsUpdateDialog] = useState(false);
+  const { id } = useParams();
+  console.log("id", id);
+  useEffect(() => {
+    let dataValues = serviceGetCandidateDetails({ id });
+    dataValues
+      .then((data) => {
+        console.log("=================>", data);
+        setCandidateData(data?.data?.details);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  //
   const handleChange = useCallback(
     (event, newValue) => {
       setValue(newValue);
     },
     [setValue, value]
   );
+  const toggleStatusDialog = useCallback(() => {
+    setIsUpdateDialog((e) => !e);
+  }, [isUpdateDialog]);
+  const toggleResetDialog = useCallback(() => {
+    setIsResetDialog((e) => !e);
+  }, [isResetDialog]);
   return (
     <div>
-      <UpperCard />
+      <UpperCard data={candidateData}  
+            handleToggle={toggleResetDialog}
+            handleStatusToggle={toggleStatusDialog}/>
       <div>
         <AppBar position="static" className={styles.backgroundColor}>
           <Tabs
@@ -81,17 +93,21 @@ function CandidateDetails() {
           >
             <Tab className={"iconTabs"} label="Profile" />
             <Tab className={"iconTabs"} label="Interview History" />
-             
           </Tabs>
         </AppBar>
-
+        <UpdatePRCDialog
+          isOpen={isResetDialog}
+          handleToggle={toggleResetDialog}
+        />
+        <CandidateStatusDialog
+          isOpen={isUpdateDialog}
+          handleToggle={toggleStatusDialog}
+        />
         <div className={styles.paperBackground}>
           <TabPanel value={value} index={0} dir={"ltr"}>
-            <CandidateProfileView data={candidateData}/>
-            {/* <ProfileView data={employeeData} /> */}
+            <CandidateProfileView data={candidateData} />
           </TabPanel>
-          <TabPanel value={value} index={1} dir={"ltr"}>
-          </TabPanel>
+          <TabPanel value={value} index={1} dir={"ltr"}></TabPanel>
         </div>
       </div>
     </div>

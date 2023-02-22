@@ -25,6 +25,10 @@
     display: flex;
     gap: 20px;
 }
+.mainFlex3{
+    display: flex;
+    flex-direction: column;
+}
 .valueWrap{
     max-width: 180px;
     overflow-wrap: anywhere;
@@ -48,7 +52,20 @@
     margin-bottom: 7px;
     /*display: flex;*/
 }
-
+.key1{
+    width: 50%;
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 7px;
+    /*display: flex;*/
+}
+.key4{
+    flex: 1;
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 7px;
+    /*display: flex;*/
+}
 .value{
     font-weight: 600;
     width: 100%;
@@ -92,4 +109,13 @@
 .posted{
     font-size: 0.7rem;
     margin-left: 10px;
+}
+.left1{
+    flex: 1;
+    display: flex;
+}
+.uploadTag{
+    color: #2896e9;
+  text-decoration: underline;
+  font-size: .75rem;
 }

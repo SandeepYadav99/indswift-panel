@@ -38,7 +38,9 @@
   .profileInfo > div {
     margin-bottom: 7px;
   }
-  
+  .profileInfo > a{
+    color: white;
+  }
   .vertical {
     border-left: 1px dashed #b8c5d3;
     height: 70px;
