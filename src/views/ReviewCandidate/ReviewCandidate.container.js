@@ -1,18 +1,22 @@
 /**
  * Created by charnjeetelectrovese@gmail.com on 12/3/2019.
  */
-import React, { Component, useCallback, useEffect, useMemo } from "react";
-import {
-  Button,
-  Paper,
-  Checkbox,
-  IconButton,
-  MenuItem,
-  ButtonBase,
-} from "@material-ui/core";
+import React, {
+  Component,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import { Add, InfoOutlined, PrintOutlined } from "@material-ui/icons";
+import {
+  Add,
+  InfoOutlined,
+  OpenInNew,
+  PrintOutlined,
+} from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -22,6 +26,7 @@ import FilterComponent from "../../components/Filter/Filter.component";
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import useReviewCandidate from "./ReviewCandidateHook";
 import StatusPill from "../../components/Status/StatusPill.component";
+import RejectDialog from "./component/RejectPopUp/RejectDialog.view";
 
 const ReviewCandidate = ({}) => {
   const {
@@ -40,7 +45,9 @@ const ReviewCandidate = ({}) => {
     handleCreate,
     isCalling,
     configFilter,
+    isRejectPopUp,
     warehouses,
+    toggleRejectDialog,
   } = useReviewCandidate({});
 
   const {
@@ -119,11 +126,13 @@ const ReviewCandidate = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              onClick={() => handleSideToggle(all)}
+              // onClick={() => {
+              //   handleSubDepartment(all);
+              // }}
             >
-              <Edit fontSize={"small"} />
+              <OpenInNew fontSize={"small"} className={styles.openIcon} />{" "}
+              <span className={styles.subText}>View Profile</span>
             </IconButton>
-            {/*onClick={() => { handleEdit(all) }}*/}
           </div>
         ),
       },
@@ -132,12 +141,8 @@ const ReviewCandidate = ({}) => {
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
-      // onCellClick: this.handleCellClick,
-      // onCellDoubleClick: this.handleCellDoubleClick,
-      // onFilterValueChange: this._handleSearchValueChange.bind(this),
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
       onRowSizeChange: handleRowSize,
     };
 
@@ -169,7 +174,10 @@ const ReviewCandidate = ({}) => {
             <div className={styles.newLine} />
           </div>
         </div>
-
+        <RejectDialog
+          isOpen={isRejectPopUp}
+          handleToggle={toggleRejectDialog}
+        />
         <div>
           <FilterComponent
             is_progress={isFetching}
