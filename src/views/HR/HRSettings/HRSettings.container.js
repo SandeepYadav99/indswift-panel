@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/styles";
 import FaqListContainer from "./components/Faq/FaqList.container";
 import EmployeeInductionComponent from "./components/EmployeeInduction/EmployeeInduction.component";
 import MonthlyTheme from "./components/MonthlyTheme/MonthlyTheme";
+import CAGRView from "./components/CAGR/CAGRView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +46,9 @@ const HRSettings = ({}) => {
     } else if (value === 1) {
       return <MonthlyTheme />;
     }
+    else if (value ===3){
+      return <CAGRView/>
+    }
     return <h1>{value}</h1>;
   }, []);
 
@@ -63,6 +67,8 @@ const HRSettings = ({}) => {
             <Tab label="Employee Induction" {...a11yProps(0)} />
             <Tab label="Monthly Theme" {...a11yProps(1)} />
             <Tab label="Drishti Updates" {...a11yProps(2)} />
+            <Tab label="CAGR values" {...a11yProps(3)} />
+
           </Tabs>
           <div className={styles.tabPanel}>{renderPanel(tabIndex)}</div>
         </div>
