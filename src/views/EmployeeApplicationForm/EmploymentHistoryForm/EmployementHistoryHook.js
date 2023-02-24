@@ -7,10 +7,11 @@ import {
 } from "../../../services/CandidateEAF.service";
 import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-
-const candidateId = '63d0e5eea347c9171a88d205';
+import useEAFSession from "../EAFSessionHook";
+import RouteName from "../../../routes/Route.name";
 
 const useEmploymentHistory = ({}) => {
+  const { candidateId } = useEAFSession();
   const [isTermChecked, setIsTermChecked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFresher, setIsFresher] = useState(true);
@@ -19,20 +20,22 @@ const useEmploymentHistory = ({}) => {
   const refAdditional = useRef(null);
 
   useEffect(() => {
-    serviceGetCandidateEAFEmployment({candidate_id: candidateId}).then((res) => {
-      if (!res.error) {
-        const tempData = res?.data?.details;
-        if (tempData) {
-          const { employment_history, additional_data, is_employment, ...rest } = tempData;
-          refEmpHistory.current?.setData(employment_history);
-          if (employment_history?.length > 0) {
-            setIsFresher(false);
+    if (candidateId) {
+      serviceGetCandidateEAFEmployment({candidate_id: candidateId}).then((res) => {
+        if (!res.error) {
+          const tempData = res?.data?.details;
+          if (tempData) {
+            const { employment_history, additional_data, is_employment, ...rest } = tempData;
+            refEmpHistory.current?.setData(employment_history);
+            if (employment_history?.length > 0) {
+              setIsFresher(false);
+            }
+            refSalary.current?.setData(rest);
+            refAdditional.current?.setData(additional_data);
           }
-          refSalary.current?.setData(rest);
-          refAdditional.current?.setData(additional_data);
         }
-      }
-    });
+      });
+    }
   }, [candidateId]);
 
   const handleSubmit = useCallback(() => {
@@ -53,7 +56,7 @@ const useEmploymentHistory = ({}) => {
           additional_data: additionalData,
         }).then((res) => {
           if (!res.error) {
-            historyUtils.push('/4');
+            historyUtils.push(RouteName.EAF_SUCCESS);
           } else {
             SnackbarUtils.error(res?.message);
           }
@@ -61,7 +64,7 @@ const useEmploymentHistory = ({}) => {
         });
       }
     }
-  }, [isSubmitting, setIsSubmitting, isFresher]);
+  }, [isSubmitting, setIsSubmitting, isFresher, candidateId]);
 
   return {
     refEmpHistory,

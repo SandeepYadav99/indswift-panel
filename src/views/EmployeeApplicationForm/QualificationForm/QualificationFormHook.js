@@ -6,25 +6,28 @@ import {
 } from "../../../services/CandidateEAF.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
-
-const candidateId = '63d0e5eea347c9171a88d205';
+import useEAFSession from "../EAFSessionHook";
+import RouteName from "../../../routes/Route.name";
 
 const useQualificationForm = ({}) => {
+    const { candidateId } = useEAFSession();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const refQualificationDetails = useRef(null);
     const refProfessionalDetails = useRef(null);
 
     useEffect(() => {
-        serviceGetCandidateEAFQualification({candidate_id: candidateId}).then((res) => {
-            if (!res.error) {
-                const tempData = res?.data?.details;
-                if (tempData) {
-                    const { qualification, professional_details } = tempData;
-                    qualification && refQualificationDetails.current?.setData(qualification);
-                    professional_details && refProfessionalDetails.current?.setData(professional_details);
-                }
-            }
-        });
+       if (candidateId) {
+           serviceGetCandidateEAFQualification({candidate_id: candidateId}).then((res) => {
+               if (!res.error) {
+                   const tempData = res?.data?.details;
+                   if (tempData) {
+                       const { qualification, professional_details } = tempData;
+                       qualification && refQualificationDetails.current?.setData(qualification);
+                       professional_details && refProfessionalDetails.current?.setData(professional_details);
+                   }
+               }
+           });
+       }
     }, [candidateId]);
 
     const handleSubmit = useCallback(() => {
@@ -43,7 +46,7 @@ const useQualificationForm = ({}) => {
                     professional_details: professionalDetails?.data,
                 }).then((res) => {
                     if (!res.error) {
-                        historyUtils.push('/3');
+                        historyUtils.push(RouteName.EAF_EMPLOYMENT_FORM);
                     } else {
                         SnackbarUtils.error(res?.message);
                     }
@@ -51,7 +54,7 @@ const useQualificationForm = ({}) => {
                 })
             }
         }
-    }, [isSubmitting, setIsSubmitting]);
+    }, [isSubmitting, setIsSubmitting, candidateId]);
 
     return {
         refQualificationDetails,

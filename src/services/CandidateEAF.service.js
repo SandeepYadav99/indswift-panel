@@ -24,3 +24,10 @@ export async function serviceGetCandidateEAFQualification (params) {
 export async function serviceGetCandidateEAFEmployment (params) {
     return await postRequest('candidate/eaf/get/employment', params);
 }
+
+export async function serviceLoginCandidateEaf (params) {
+    return await postRequest('candidate/eaf/authenticate', params);
+}
+export async function serviceGetCandidateEAFDetails (params) {
+    return await postRequest('candidates/eaf/details', params);
+}

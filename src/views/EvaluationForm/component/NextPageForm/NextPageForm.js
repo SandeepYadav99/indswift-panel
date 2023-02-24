@@ -9,6 +9,7 @@ function NextPageForm() {
   const toggleResetDialog = useCallback(() => {
     setIsResetDialog((e) => !e);
   }, [isResetDialog]);
+
   return (
     <div className={styles.evaluationFormWrapper}>
       <div>

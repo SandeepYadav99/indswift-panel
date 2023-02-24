@@ -60,5 +60,11 @@ export default {
   EMPLOYEE_UPDATE: '/employees/update/',
   EMPLOYEE_CREATE: '/employees/create',
 
-  EMPLOYEE_VERSIONS: '/employee/versions'
+  EMPLOYEE_VERSIONS: '/employee/versions',
+
+  EAF_LOGIN: '/eaf/login',
+  EAF_PERSONAL_DATA: '/eaf/personal',
+  EAF_QUALIFICATION_FORM: '/eaf/qualification',
+  EAF_EMPLOYMENT_FORM: '/eaf/employment',
+  EAF_SUCCESS: '/eaf/success',
 };
