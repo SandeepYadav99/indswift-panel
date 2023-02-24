@@ -30,6 +30,7 @@ const EmployeeList = ({}) => {
     handleSearchValueChange,
     handleSideToggle,
     handleViewDetails,
+    handleViewUpdate,
     editData,
     isSidePanel,
     isCalling,
@@ -186,10 +187,15 @@ const EmployeeList = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
+              onClick={
+                ()=>{
+                  handleViewUpdate(all)
+                }
+              }
             >
               <Edit fontSize={"small"} />
             </IconButton>
-            {/*onClick={() => { handleEdit(all) }}*/}
+            {/* onClick={() => { handleEdit(all) }} */}
           </div>
         ),
       },

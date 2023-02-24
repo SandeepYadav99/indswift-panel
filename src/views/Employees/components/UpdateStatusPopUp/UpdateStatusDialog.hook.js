@@ -1,16 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 import LogUtils from "../../../../libs/LogUtils";
-import {serviceChangeEmployeePassword, serviceChangeEmployeeStatus} from "../../../../services/Employee.service";
+import {
+  serviceChangeEmployeePassword,
+  serviceChangeEmployeeStatus,
+} from "../../../../services/Employee.service";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import { useSelector } from "react-redux";
 
-const initialForm={
-  emp_status:"",
-  effective_date:"",
-  last_working_date:"",
-  note:"",
-  is_notify_email:false
-}
+const initialForm = {
+  emp_status: "",
+  effective_date: "",
+  last_working_date: "",
+  note: "",
+  is_notify_email: false,
+};
 const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
@@ -56,7 +59,7 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["emp_status","effective_date","last_working_date"];
+    let required = ["emp_status", "effective_date", "last_working_date"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -67,6 +70,9 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
         delete errors[val];
       }
     });
+    if (form?.emp_status === "ACTIVE") {
+      delete errors["last_working_date"];
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -95,8 +101,8 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("===?",form,errors)
-    LogUtils.log("errors", errors);
+    console.log("===>", { form, errors });
+    // LogUtils.log("errors", errors);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;

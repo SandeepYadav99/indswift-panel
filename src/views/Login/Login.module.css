@@ -222,20 +222,6 @@
     background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
 }
 
-@media (max-width: 767px) {
-    .mainLoginView {
-        flex-direction: column;
-    }
-    .loginFlex2{
-        margin: 10% 4%;
-    }
-    .loginFlex1{
-        min-height: 240px;
-    }
-    .signContainer{
-        margin: 0%;
-    }
-}
 
 @media (max-width: 767px) {
     .mainLoginView {
@@ -245,7 +231,8 @@
         margin: 10% 4%;
     }
     .loginFlex1{
-        min-height: 240px;
+        display: none;
+        /* min-height: 240px; */
     }
     .signContainer{
         margin: 0%;

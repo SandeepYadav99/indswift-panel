@@ -23,6 +23,7 @@ import { Link } from 'react-router-dom';
 
 import EventEmitter from "../../libs/Events.utils";
 import {updateTitle} from "../../libs/general.utils";
+import SnackbarUtils from '../../libs/SnackbarUtils';
 
 const validate = (values) => {
     const errors = {}
@@ -118,6 +119,8 @@ class ForgotPasswordView extends Component {
                         is_calling: false,
                     })
                     EventEmitter.dispatch(EventEmitter.THROW_ERROR, {error: 'Invalid Email Address', type: 'error'});
+                    SnackbarUtils.error("User Doesn't Exists")
+
                 }
             });
         }
