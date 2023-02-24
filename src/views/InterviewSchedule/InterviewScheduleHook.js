@@ -1,11 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {
-    actionCreateCandidateInterview, actionDeleteCandidateInterview,
-    actionFetchCandidateInterview,
-    actionSetPageCandidateInterview,
-    actionUpdateCandidateInterview
-} from "../../actions/CandidateInterview.action";
+    actionCreateInterviewSchedule, actionDeleteInterviewSchedule,
+    actionFetchInterviewSchedule,
+    actionSetPageInterviewSchedule,
+    actionUpdateInterviewSchedule
+} from "../../actions/InterviewSchedules.action";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
 import historyUtils from "../../libs/history.utils";
@@ -17,10 +17,10 @@ const useInterviewSchedule = ({}) => {
     const [editData, setEditData] = useState(null);
     const dispatch = useDispatch();
     const isMountRef = useRef(false);
-    const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.candidateInterview);
+    const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.interviewSchedule);
 
     useEffect(() => {
-        dispatch(actionFetchCandidateInterview(1, sortingData, {
+        dispatch(actionFetchInterviewSchedule(1, sortingData, {
             query: isMountRef.current ? query : null,
             query_data: isMountRef.current ? queryData : null,
 
@@ -31,15 +31,15 @@ const useInterviewSchedule = ({}) => {
 
     const handlePageChange = useCallback((type) => {
         console.log('_handlePageChange', type);
-        dispatch(actionSetPageCandidateInterview(type));
+        dispatch(actionSetPageInterviewSchedule(type));
     }, []);
 
     const handleDataSave = useCallback((data, type) =>  {
         // this.props.actionChangeStatus({...data, type: type});
         if (type == 'CREATE') {
-            dispatch(actionCreateCandidateInterview(data));
+            dispatch(actionCreateInterviewSchedule(data));
         } else {
-            dispatch(actionUpdateCandidateInterview(data));
+            dispatch(actionUpdateInterviewSchedule(data));
         }
         setSidePanel(e => !e);
         setEditData(null);
@@ -47,12 +47,12 @@ const useInterviewSchedule = ({}) => {
 
     const queryFilter = useCallback((key, value) => {
         console.log('_queryFilter', key, value);
-        // dispatch(actionSetPageCandidateInterviewRequests(1));
-        dispatch(actionFetchCandidateInterview(1, sortingData, {
+        // dispatch(actionSetPageInterviewScheduleRequests(1));
+        dispatch(actionFetchInterviewSchedule(1, sortingData, {
             query: key == 'SEARCH_TEXT' ? value : query,
             query_data: key == 'FILTER_DATA' ? value : queryData,
         }));
-        // dispatch(actionFetchCandidateInterview(1, sortingData))
+        // dispatch(actionFetchInterviewSchedule(1, sortingData))
     }, [sortingData, query, queryData,]);
 
     const handleFilterDataChange = useCallback((value) => {
@@ -69,8 +69,8 @@ const useInterviewSchedule = ({}) => {
 
     const handleSortOrderChange = useCallback((row, order) => {
         console.log(`handleSortOrderChange key:${row} order: ${order}`);
-        dispatch(actionSetPageCandidateInterview(1));
-        dispatch(actionFetchCandidateInterview(1, {row, order}, {
+        dispatch(actionSetPageInterviewSchedule(1));
+        dispatch(actionFetchInterviewSchedule(1, {row, order}, {
             query: query,
             query_data: queryData,
         }))
@@ -81,7 +81,7 @@ const useInterviewSchedule = ({}) => {
     }
 
     const handleDelete = useCallback((id) => {
-        dispatch(actionDeleteCandidateInterview(id));
+        dispatch(actionDeleteInterviewSchedule(id));
         setSidePanel(false);
         setEditData(null);
     }, [setEditData, setSidePanel]);

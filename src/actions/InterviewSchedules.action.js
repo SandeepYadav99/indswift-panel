@@ -1,30 +1,30 @@
 import store from '../store';
 import Constants from '../config/constants';
-import {serviceCreateCandidateInterview, serviceGetCandidateInterview, serviceUpdateCandidateInterview,serviceDeleteCandidateInterview} from "../services/CandidateInterview.service";
+import {serviceCreateInterviewSchedule, serviceGetInterviewSchedule, serviceUpdateInterviewSchedule,serviceDeleteInterviewSchedule} from "../services/InterviewSchedule.service";
 import EventEmitter from "../libs/Events.utils";
 
 
-export const FETCH_INIT = 'FETCH_INIT_CANDIDATE_INTERVIEW';
-export const FETCHED = 'FETCHED_CANDIDATE_INTERVIEW';
-export const FETCHED_FAIL = 'FETCHED_FAIL_CANDIDATE_INTERVIEW';
-export const FETCHED_FILTER = 'FETCHED_FILTER_CANDIDATE_INTERVIEW';
- 
-export const FETCH_NEXT = 'FETCH_NEXT_CANDIDATE_INTERVIEW';
-export const FILTER = 'FILTER_CANDIDATE_INTERVIEW'; 
-export const RESET_FILTER = 'RESET_FILTER_CANDIDATE_INTERVIEW';
-export const SET_SORTING = 'SET_SORTING_CANDIDATE_INTERVIEW';
-export const SET_FILTER = 'SET_FILTER_CANDIDATE_INTERVIEW';
-export const SET_PAGE = 'SET_PAGE_CANDIDATE_INTERVIEW';
-export const CHANGE_PAGE = 'CHANGE_PAGE_CANDIDATE_INTERVIEW';
-export const CHANGE_STATUS= 'CHANGE_STATE_CANDIDATE_INTERVIEW';
-export const SET_SERVER_PAGE = 'SET_SERVER_PAGE_CANDIDATE_INTERVIEW';
-export const CREATE_DATA = 'CREATE_CANDIDATE_INTERVIEW';
-export const UPDATE_DATA = 'UPDATE_CANDIDATE_INTERVIEW';
-export const DELETE_ITEM = 'DELETE_CANDIDATE_INTERVIEW';
+export const FETCH_INIT = 'FETCH_INIT_INTERVIEW_SCHEDULE';
+export const FETCHED = 'FETCHED_INTERVIEW_SCHEDULE';
+export const FETCHED_FAIL = 'FETCHED_FAIL_INTERVIEW_SCHEDULE';
+export const FETCHED_FILTER = 'FETCHED_FILTER_INTERVIEW_SCHEDULE';
+
+export const FETCH_NEXT = 'FETCH_NEXT_INTERVIEW_SCHEDULE';
+export const FILTER = 'FILTER_INTERVIEW_SCHEDULE';
+export const RESET_FILTER = 'RESET_FILTER_INTERVIEW_SCHEDULE';
+export const SET_SORTING = 'SET_SORTING_INTERVIEW_SCHEDULE';
+export const SET_FILTER = 'SET_FILTER_INTERVIEW_SCHEDULE';
+export const SET_PAGE = 'SET_PAGE_INTERVIEW_SCHEDULE';
+export const CHANGE_PAGE = 'CHANGE_PAGE_INTERVIEW_SCHEDULE';
+export const CHANGE_STATUS= 'CHANGE_STATE_INTERVIEW_SCHEDULE';
+export const SET_SERVER_PAGE = 'SET_SERVER_PAGE_INTERVIEW_SCHEDULE';
+export const CREATE_DATA = 'CREATE_INTERVIEW_SCHEDULE';
+export const UPDATE_DATA = 'UPDATE_INTERVIEW_SCHEDULE';
+export const DELETE_ITEM = 'DELETE_INTERVIEW_SCHEDULE';
 
 
-export function actionFetchCandidateInterview(index = 1, sorting = {}, filter = {}) {
-    const request = serviceGetCandidateInterview({ index, row: sorting.row, order: sorting.order, ...filter });
+export function actionFetchInterviewSchedule(index = 1, sorting = {}, filter = {}) {
+    const request = serviceGetInterviewSchedule({ index, row: sorting.row, order: sorting.order, ...filter });
     return (dispatch) => {
         dispatch({type: FETCH_INIT, payload: null});
         request.then((data) => {
@@ -43,8 +43,8 @@ export function actionFetchCandidateInterview(index = 1, sorting = {}, filter = 
     };
 }
 
-export function actionCreateCandidateInterview(data) {
-    const request = serviceCreateCandidateInterview(data);
+export function actionCreateInterviewSchedule(data) {
+    const request = serviceCreateInterviewSchedule(data);
     return (dispatch) => {
         request.then((data) => {
             if (!data.error) {
@@ -55,8 +55,8 @@ export function actionCreateCandidateInterview(data) {
     }
 }
 
-export function actionUpdateCandidateInterview(data) {
-    const request = serviceUpdateCandidateInterview(data);
+export function actionUpdateInterviewSchedule(data) {
+    const request = serviceUpdateInterviewSchedule(data);
     return (dispatch) => {
         request.then((data) => {
             if (!data.error) {
@@ -66,22 +66,22 @@ export function actionUpdateCandidateInterview(data) {
     }
 }
 
-export function actionDeleteCandidateInterview(id) {
-    const request = serviceDeleteCandidateInterview({ id: id});
+export function actionDeleteInterviewSchedule(id) {
+    const request = serviceDeleteInterviewSchedule({ id: id});
     return (dispatch) => {
         dispatch({type: DELETE_ITEM, payload: id})
     }
 }
 
 
-export function actionChangePageCandidateInterview(page) {
+export function actionChangePageInterviewSchedule(page) {
     return (dispatch) => {
         dispatch({type: CHANGE_PAGE, payload: page})
     }
 }
 
 
-export function actionFilterCandidateInterview(value) {
+export function actionFilterInterviewSchedule(value) {
     const request = null;////serviceFetchProviderRequests(value);
     return (dispatch) => {
         dispatch({type: FETCH_INIT, payload: null});
@@ -93,30 +93,30 @@ export function actionFilterCandidateInterview(value) {
 }
 
 
-export function actionChangeStatusCandidateInterview(id, status) {
+export function actionChangeStatusInterviewSchedule(id, status) {
     return (dispatch) => {
         dispatch({type: CHANGE_STATUS, payload: {id, status}});
     };
 }
 
-export function actionResetFilterCandidateInterview() {
+export function actionResetFilterInterviewSchedule() {
     return {
         type: RESET_FILTER,
         payload: null,
     };
 }
 
-export function actionSetPageCandidateInterview(page) {
+export function actionSetPageInterviewSchedule(page) {
     const stateData = store.getState().candidateInterview;
     const currentPage = stateData.currentPage;
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;
     const query = stateData.query;
-    const queryData = stateData.query_data; 
+    const queryData = stateData.query_data;
     const serverPage = stateData.serverPage;
 
     if (totalLength <= ((page + 1) * Constants.DEFAULT_PAGE_VALUE)) {
-        store.dispatch(actionFetchCandidateInterview(serverPage + 1, sortingData, {query, query_data: queryData}));
+        store.dispatch(actionFetchInterviewSchedule(serverPage + 1, sortingData, {query, query_data: queryData}));
     }
 
     console.log(currentPage, totalLength);

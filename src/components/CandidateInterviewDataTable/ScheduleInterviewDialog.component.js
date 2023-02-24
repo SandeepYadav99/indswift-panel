@@ -7,13 +7,15 @@ import CustomTextField from "../FormFields/TextField/TextField.component";
 import React from "react";
 import useScheduleInterview from "./ScheduleInterviewDialog.hook";
 import CustomDateTimePicker from "../FormFields/DatePicker/CustomDateTimePicker";
+import LogUtils from "../../libs/LogUtils";
+import CustomSelect from "../FormFields/SelectField/CustomSelect";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, selectedCandidates, jobId, handleDialog}) => {
-    const { id, changeTextData, errorData, form, handleDelete, handleReset, handleSubmit, isSubmitting, isLoading, onBlurHandler, removeError, steps } = useScheduleInterview({selectedCandidates, jobId, handleInterviewSchedule})
+    const { id, changeTextData, errorData, form, handleDelete, handleReset, handleSubmit, isSubmitting, isLoading, onBlurHandler, removeError, interviewers } = useScheduleInterview({selectedCandidates, jobId, handleInterviewSchedule})
     return (
         <Dialog
             fullWidth={true}
@@ -77,12 +79,14 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                             errorText={errorData?.sequence_rounds}
                             label={"Sequence sequence_rounds"}
                             value={form?.sequence_rounds}
+                            id={'SEQUEST_ROUND'}
                             handleChange={(value) => {
+                                LogUtils.log('changeTextData', value);
                               changeTextData(value, "sequence_rounds");
                             }}
                         >
-                            {steps.map(val => {
-                               return (<MenuItem value={val}>{val}</MenuItem>);
+                            {interviewers.map(val => {
+                               return (<MenuItem value={val.interviewer_id}>{val.step}</MenuItem>);
                             })}
                         </CustomSelectField>
                     </div>

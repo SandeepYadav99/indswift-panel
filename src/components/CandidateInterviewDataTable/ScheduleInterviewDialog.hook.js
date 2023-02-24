@@ -13,7 +13,7 @@ const initialForm = {
     time: null,
     sequence_rounds: [],
     mode: 'IN_PERSON',
-    interview_link:'',
+    interview_link: '',
     venue: '',
     is_send_email_candidates: false,
     is_send_email_interviewers: false,
@@ -25,11 +25,11 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({...initialForm});
     const dispatch = useDispatch();
-    const { interviewers } = useSelector((state) => state.job_opening_detail);
+    const {interviewers} = useSelector((state) => state.job_opening_detail);
 
-    const steps = useMemo(() => {
-        return interviewers.map(val => val.step);
-    }, [interviewers]);
+    // const steps = useMemo(() => {
+    //     return interviewers.map(val => val.step);
+    // }, [interviewers]);
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
@@ -52,10 +52,26 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-            const candidatIds = selectedCandidates.map(val => val.id);
-            serviceScheduleInterview({...form,
 
-            id:jobId,
+            const candidatIds = selectedCandidates.map(val => val.candidate_id);
+            const interviewerIds = form?.sequence_rounds;
+            const steps = [];
+            interviewerIds.forEach((val) => {
+                const index = interviewers.findIndex(interviewer => interviewer.interviewer_id === val);
+                if (index >= 0) {
+                    steps.push({
+                        interviewer_id: val,
+                        step: interviewers[index]?.step
+                    });
+                }
+                ;
+            });
+            serviceScheduleInterview({
+                ...form,
+                interview_date: form?.date,
+                sequence_rounds: steps,
+                interviewers: interviewerIds,
+                id: jobId,
                 candidateIds: candidatIds
             }).then((res) => {
                 LogUtils.log('response', res);
@@ -68,7 +84,7 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
                 setIsSubmitting(false);
             });
         }
-    }, [form, isSubmitting, setIsSubmitting, jobId, handleInterviewSchedule, selectedCandidates]);
+    }, [form, isSubmitting, setIsSubmitting, jobId, interviewers, handleInterviewSchedule, selectedCandidates]);
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
@@ -123,7 +139,7 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
 
     const handleReset = useCallback(() => {
         setForm({...initialForm})
-    },[form])
+    }, [form])
 
     return {
         form,
@@ -136,7 +152,7 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
         errorData,
         handleDelete,
         handleReset,
-        steps
+        interviewers
     };
 };
 

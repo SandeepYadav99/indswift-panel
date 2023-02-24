@@ -20,7 +20,7 @@ const InterviewSchedule = ({location}) => {
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
         isCalling, configFilter, warehouses} = useInterviewSchedule({});
 
-    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.candidate);
+    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.interviewSchedule);
 
 
     const renderStatus = useCallback((status) => {
@@ -32,7 +32,7 @@ const InterviewSchedule = ({location}) => {
             return (
                 <div className={styles.firstCellFlex}>
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>{obj?.name}</span> <br/>
+                        <span className={styles.productName}>{obj?.candidate?.name}</span> <br/>
                     </div>
                 </div>
             );
@@ -70,31 +70,31 @@ const InterviewSchedule = ({location}) => {
                 key: 'code',
                 label: 'PRC',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job_details?.code}</div>,
+                render: (temp, all) => <div>{all?.job?.code}</div>,
             },
             {
                 key: 'department',
                 label: 'Designation/Department',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job_details?.department}</div>,
+                render: (temp, all) => <div>{all?.job?.designation}/{all?.job?.department}</div>,
             },
             {
                 key: 'schedule',
                 label: 'SCHEDULE',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job_details?.job_role}</div>,
+                render: (temp, all) => <div>{all?.interviewDateText}</div>,
             },
             {
                 key: 'round',
                 label: 'ROUND',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job_details?.assigned_person}</div>,
+                render: (temp, all) => <div>{all?.step}</div>,
             },
             {
                 key: 'venue',
                 label: 'VENUE/MODE',
                 sortable: false,
-                render: (temp, all) => <div>{all?.createdAtText}</div>,
+                render: (temp, all) => <div>{all?.venue}/{all?.mode}</div>,
             },
             {
                 key: 'user_id',
