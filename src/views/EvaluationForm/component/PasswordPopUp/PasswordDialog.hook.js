@@ -76,18 +76,19 @@ const usePasswordDialogHook = ({
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-            serviceChangeEmployeePassword({
-                emp_id: employeeData?.id,
-                ...form
-            }).then(res => {
-                if (!res.error) {
-                    SnackbarUtils.success('Password Changed Successfully');
-                    handleToggle();
-                } else {
-                    SnackbarUtils.error(res?.message);
-                }
-                setIsSubmitting(false);
-            })
+            // serviceChangeEmployeePassword({
+            //     emp_id: employeeData?.id,
+            //     ...form
+            // })
+            // .then(res => {
+            //     if (!res.error) {
+            //         SnackbarUtils.success('Password Changed Successfully');
+            //         handleToggle();
+            //     } else {
+            //         SnackbarUtils.error(res?.message);
+            //     }
+            //     setIsSubmitting(false);
+            // })
         }
     }, [form, isSubmitting, setIsSubmitting, employeeData, handleToggle ]);
 
@@ -98,7 +99,7 @@ const usePasswordDialogHook = ({
             setErrorData(errors);
             return true;
         }
-        submitToServer();
+        // submitToServer();
 
     }, [
         checkFormValidation,

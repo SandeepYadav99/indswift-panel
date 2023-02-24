@@ -1,14 +1,23 @@
 import { ButtonBase, Checkbox } from "@material-ui/core";
 import React, { useCallback, useState } from "react";
+import { useEffect } from "react";
 import CandidateInfo from "../CandidateInfo/CandidateInfo";
 import PasswordDialog from "../PasswordPopUp/PasswordDialog.view";
 import PerformanceShortlistView from "../PerformanceShortlistView/PerformanceShortlistView";
+import NextPageHook from "./NextPageHook";
 import styles from "./Style.module.css";
 function NextPageForm() {
-  const [isResetDialog, setIsResetDialog] = useState(false);
-  const toggleResetDialog = useCallback(() => {
-    setIsResetDialog((e) => !e);
-  }, [isResetDialog]);
+  const {
+    isResetDialog,
+    form,
+    errorData,
+    toggleResetDialog,
+    handleRatingChange,
+    handleSubmit,
+    isDeclarationChecked,
+    setIsDeclarationChecked,
+    handleDeclarationCheckbox,
+  } = NextPageHook({});
 
   return (
     <div className={styles.evaluationFormWrapper}>
@@ -29,6 +38,8 @@ function NextPageForm() {
           </div>
           <div className={styles.candidateInfoContainer2}>
             <PerformanceShortlistView
+              handleChange={handleRatingChange}
+              type="overall"
               title="Overall Impression and Recommendation"
               question=" Summary of your perceptions of the candidate’s strengths/weaknesses. Final comments and recommendations for proceeding with the candidate."
             />
@@ -41,8 +52,8 @@ function NextPageForm() {
                   <Checkbox
                     style={{ padding: 0, marginRight: "10px" }}
                     name={"is_mandatory"}
-                    //  checked={val.is_mandatory}
-                    //  onChange={(e) => this._handleMenuClick(e,index)}
+                     checked={isDeclarationChecked}
+                     onChange={handleDeclarationCheckbox}
                   />
                   <div>
                     <span>
@@ -62,7 +73,7 @@ function NextPageForm() {
                   <ButtonBase className={styles.edit}>PREVIOUS</ButtonBase>
                   <ButtonBase
                     type={"button"}
-                    onClick={toggleResetDialog}
+                    onClick={handleSubmit}
                     className={styles.createBtn}
                   >
                     SUBMIT

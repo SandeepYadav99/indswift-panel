@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import styles from "./Style.module.css";
-import one from "./../../../../assets/img/ic_1_inactive.png";
-import activeone from "./../../../../assets/img/ic_1.png";
-import two from "./../../../../assets/img/ic_2_inactive.png";
-import activetwo from "./../../../../assets/img/ic_2.png";
-import three from "./../../../../assets/img/ic_3_inactive.png";
-import activethree from "./../../../../assets/img/ic_3.png";
-import four from "./../../../../assets/img/ic_4_inactive.png";
-import activefour from "./../../../../assets/img/ic_4.png";
-import five from "./../../../../assets/img/ic_5_inactive.png";
-import activefive from "./../../../../assets/img/ic_5.png";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
-function PerformanceShortlistView({ title, question }) {
+import images from "../PerformanceView/PerformanceImages";
+
+import { useEffect } from "react";
+function PerformanceShortlistView({ title, question, handleChange, type }) {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [note, setNote] = useState("");
+
+  useEffect(() => {
+    handleChange && handleChange(type, { value: activeIndex, note: note });
+  }, [activeIndex, note]);
+
   const handleClick = (index) => {
-    // console.log("===>", typeof index);
     setActiveIndex(index === activeIndex ? -1 : index);
   };
   return (
@@ -26,37 +24,37 @@ function PerformanceShortlistView({ title, question }) {
         <span>{question}</span>
       </div>
       <div className={styles.emojWrapper}>
-        <div
-          className={styles.emojCard}
-          id="1"
-          onClick={(e) => handleClick(e.target.id)}
-        >
-          <img id="1" src={activeIndex == 1 ? activeone : one} />
-          <span id="1" className={styles.performanceindex}>
-            Rejected
-          </span>
+        <div className={styles.emojCard} onClick={(e) => handleClick(1)}>
+          <img
+            src={
+              activeIndex == 1
+                ? images?.unsatisfactortory.active
+                : images?.unsatisfactortory.inactive
+            }
+          />
+          <span className={styles.performanceindex}>Rejected</span>
         </div>
 
-        <div
-          className={styles.emojCard}
-          id="3"
-          onClick={(e) => handleClick(e.target.id)}
-        >
-          <img id="3" src={activeIndex == 3 ? activethree : three} />
-          <span id="3" className={styles.performanceindex}>
-            Shortlisted
-          </span>
+        <div className={styles.emojCard} id="3" onClick={(e) => handleClick(2)}>
+          <img
+            src={
+              activeIndex == 2
+                ? images?.average.active
+                : images?.average.inactive
+            }
+          />
+          <span className={styles.performanceindex}>Shortlisted</span>
         </div>
 
-        <div
-          className={styles.emojCard}
-          id="5"
-          onClick={(e) => handleClick(e.target.id)}
-        >
-          <img id="5" src={activeIndex == 5 ? activefive : five} />
-          <span id="5" className={styles.performanceindex}>
-            Selected
-          </span>
+        <div className={styles.emojCard} onClick={(e) => handleClick(3)}>
+          <img
+            src={
+              activeIndex == 3
+                ? images?.exceptional.active
+                : images?.exceptional.inactive
+            }
+          />
+          <span className={styles.performanceindex}>Selected</span>
         </div>
       </div>
       <div>
@@ -64,13 +62,10 @@ function PerformanceShortlistView({ title, question }) {
           // isError={errorData?.note}
           // errorText={errorData?.note}
           label={"Please write related Comments"}
-          // value={form?.note}
-          // onTextChange={(text) => {
-          //   changeTextData(text, "note");
-          // }}
-          // onBlur={() => {
-          //   onBlurHandler("note");
-          // }}
+          value={note}
+          onTextChange={(text) => {
+            setNote(text);
+          }}
           multiline
           rows={3}
         />
