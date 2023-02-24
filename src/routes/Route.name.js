@@ -34,7 +34,7 @@ export default {
   DESIGNATION_UPDATE: "/designations/update/",
   CANDIDATES: "/candidates",
   CANDIDATES_CREATE: "/candidates/create",
-  CANDIDATES_DETAILS:"/candidates/details/",
+  CANDIDATES_DETAILS: "/candidates/details/",
 
   HR_POLICIES: "/hr/policies",
   HR_POLICIES_CREATE: "/hr/policies/create",
@@ -43,6 +43,10 @@ export default {
   HR_KNOWLEDGE: "/hr/Knowledge",
   HR_KNOWLEDGE_CREATE: "/hr/Knowledge/create",
   HR_KNOWLEDGE_UPDATE: "/hr/Knowledge/update/",
+
+  HR_ANNOUNCEMENT: "/hr/announcements",
+  HR_ANNOUNCEMENT_CREATE: "/hr/announcements/create",
+  HR_ANNOUNCEMENT_UPDATE: "/hr/announcements/update/",
 
   HR_CIRCULARS: "/hr/circulars",
   HR_CIRCULARS_CREATE: "/hr/circulars/create",
@@ -54,11 +58,11 @@ export default {
   EMPLOYEE_DASHBOARD: "/employee/dashboard",
   RESET_PASSWORD_FIRST: "/reset/password/first",
 
-  VIEW_DOCUMENTS: '/view/documents',
+  VIEW_DOCUMENTS: "/view/documents",
 
-  EMPLOYEES: '/employees',
-  EMPLOYEE_UPDATE: '/employees/update/',
-  EMPLOYEE_CREATE: '/employees/create',
+  EMPLOYEES: "/employees",
+  EMPLOYEE_UPDATE: "/employees/update/",
+  EMPLOYEE_CREATE: "/employees/create",
 
-  EMPLOYEE_VERSIONS: '/employee/versions'
+  EMPLOYEE_VERSIONS: "/employee/versions",
 };
