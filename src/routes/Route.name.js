@@ -44,9 +44,9 @@ export default {
   HR_KNOWLEDGE_CREATE: "/hr/Knowledge/create",
   HR_KNOWLEDGE_UPDATE: "/hr/Knowledge/update/",
 
-  HR_ANNOUNCEMENT: "/hr/announcements",
-  HR_ANNOUNCEMENT_CREATE: "/hr/announcements/create",
-  HR_ANNOUNCEMENT_UPDATE: "/hr/announcements/update/",
+  HR_ANNOUNCEMENT: "/hr/announcement",
+  HR_ANNOUNCEMENT_CREATE: "/hr/announcement/create",
+  HR_ANNOUNCEMENT_UPDATE: "/hr/announcement/update/",
 
   HR_CIRCULARS: "/hr/circulars",
   HR_CIRCULARS_CREATE: "/hr/circulars/create",
@@ -65,4 +65,10 @@ export default {
   EMPLOYEE_CREATE: "/employees/create",
 
   EMPLOYEE_VERSIONS: "/employee/versions",
+
+  EAF_LOGIN: "/eaf/login",
+  EAF_PERSONAL_DATA: "/eaf/personal",
+  EAF_QUALIFICATION_FORM: "/eaf/qualification",
+  EAF_EMPLOYMENT_FORM: "/eaf/employment",
+  EAF_SUCCESS: "/eaf/success",
 };

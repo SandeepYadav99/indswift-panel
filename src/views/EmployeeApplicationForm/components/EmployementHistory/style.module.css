@@ -1,6 +1,6 @@
 .flexContainer {
-  /*display: flex;*/
-  /*align-items: center;*/
+  display: flex;
+  align-items: center;
 }
 .flex1 {
   flex: 1;
@@ -123,4 +123,8 @@
 }
 .hideDiv {
   visibility: hidden;
+}
+
+.qualificationFormCont {
+  flex: 1;
 }

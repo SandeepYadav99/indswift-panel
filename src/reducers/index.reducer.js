@@ -30,6 +30,7 @@ import SubDepartmentReducer from "./SubDepartment.reducer";
 import GradeReducer from "./Grade.reducer";
 import CadreReducer from "./Cadre.reducer";
 import CandidateReducer from "./Candidate.reducer";
+import InterviewScheduleReducer from "./InterviewSchedule.reducer";
 import AnnualReducer from "./Annual.reducer";
 import ManpowerReducer from "./Manpower.reducer";
 import HRPolicyReducer from "./HRPolicy.reducer";
@@ -80,6 +81,7 @@ const rootReducer = combineReducers({
   grade: GradeReducer,
   cadre: CadreReducer,
   candidate: CandidateReducer,
+  interviewSchedule: InterviewScheduleReducer,
   annual: AnnualReducer,
   manpower: ManpowerReducer,
   job_opening_detail: JobOpeningDetailReducer,

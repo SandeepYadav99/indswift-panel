@@ -12,6 +12,7 @@ import RouteName from "../../routes/Route.name";
 
 const useReviewCandidate = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
+  const [isRejectPopUp,setIsRejectPopUp]=useState(false)
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
@@ -32,7 +33,9 @@ const useReviewCandidate = ({}) => {
     );
     isMountRef.current = true;
   }, []);
-
+  const toggleRejectDialog = useCallback(() => {
+    setIsRejectPopUp((e) => !e);
+  }, [isRejectPopUp]);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPageReview(type));
@@ -164,6 +167,8 @@ const useReviewCandidate = ({}) => {
     isSidePanel,
     configFilter,
     handleCreate,
+    isRejectPopUp,
+    toggleRejectDialog
   };
 };
 

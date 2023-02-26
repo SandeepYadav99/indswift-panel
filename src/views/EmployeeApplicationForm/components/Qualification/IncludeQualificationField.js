@@ -73,6 +73,7 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
                         errorText={errorData?.cgpa}
                         label={"Percentage/CGPA"}
                         value={form?.cgpa}
+                        type={'number'}
                         onTextChange={(text) => {
                             changeTextData(text, "cgpa");
                         }}

@@ -6,12 +6,12 @@ import {useParams} from "react-router";
 import styles from "../../Style.module.css";
 import IncludeQualificationField from './IncludeQualificationField';
 const TEMP_OBJ = {
-    qualification: '10',
-    degree_name: 'DEG_NAME',
-    institute_name: 'INS_NAME',
-    passing_year: '2010',
-    cgpa: '8',
-    degree_type: 'FULL_TIME',
+    qualification: '',
+    degree_name: '',
+    institute_name: '',
+    passing_year: '',
+    cgpa: '',
+    degree_type: '',
 };
 
 const IncludeQualification = ({data, currency, listWarehouse, errorData: errorForm, form, changeTextData, updateInventory, vendorId}, ref) => {
@@ -39,6 +39,9 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
     useImperativeHandle(ref, () => ({
         isValid() {
             return validateData();
+        },
+        setData(data) {
+            setFields([...data]);
         },
         resetData() {
              setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);

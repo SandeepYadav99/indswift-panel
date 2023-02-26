@@ -95,14 +95,14 @@ function CandidateDetails() {
             <Tab className={"iconTabs"} label="Interview History" />
           </Tabs>
         </AppBar>
-        <UpdatePRCDialog
+        {/* <UpdatePRCDialog
           isOpen={isResetDialog}
           handleToggle={toggleResetDialog}
         />
         <CandidateStatusDialog
           isOpen={isUpdateDialog}
           handleToggle={toggleStatusDialog}
-        />
+        /> */}
         <div className={styles.paperBackground}>
           <TabPanel value={value} index={0} dir={"ltr"}>
             <CandidateProfileView data={candidateData} />

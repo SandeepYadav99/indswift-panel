@@ -11,7 +11,6 @@ import Timeline from "./components/Profile/Timeline";
 import PerformanceReview from "./components/Profile/PerfomanceReview";
 
 const ProfileView = ({ data }) => {
-  console.log("===?",data)
   return (
     <div>
       <div className={styles.profileContainer}>

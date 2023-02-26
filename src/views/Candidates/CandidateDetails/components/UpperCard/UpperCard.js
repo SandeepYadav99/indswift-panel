@@ -5,20 +5,26 @@ import styles from "./Style.module.css";
 import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import ActionButton from "../../../../../components/ActionButton/ActionButton";
-
-const UpperCard = ({ data, handleToggle,handleStatusToggle }) => {
+import DefaultImg from "../../../../../assets/img/download.png"
+const UpperCard = ({ data, handleToggle, handleStatusToggle }) => {
+  const splitDate = (value) => {
+    return value ? value.split(" ")[0] : "";
+  };
   return (
     <div>
       <div className={styles.blueBackground}>
         <div className={styles.innerContainer}>
           <div>
-            <img src={data?.image} height={70} />
+            <img src={data?.image ? data?.image:DefaultImg} height={70} />
           </div>
           <div className={styles.profileInfo}>
             <div className={styles.name}>{data?.name}</div>
             <div>{data?.email}</div>
             <div>{data?.contact}</div>
-            <a target="_blank" href={data?.resume}> <span>View Resume</span></a>
+            <a target="_blank" href={data?.resume}>
+              {" "}
+              <span>View Resume</span>
+            </a>
           </div>
           <div className={styles.vertical}></div>
           <div className={styles.rightInfo}>
@@ -32,7 +38,7 @@ const UpperCard = ({ data, handleToggle,handleStatusToggle }) => {
             </div>
             <div>
               <span className={styles.location}>Updated On:</span>{" "}
-              {data?.sub_department?.name}
+              {splitDate(data?.updatedAtText)}
             </div>
           </div>
           <div className={styles.btnWrap}>
@@ -55,7 +61,6 @@ const UpperCard = ({ data, handleToggle,handleStatusToggle }) => {
                   <span className={styles.actionBtnSpan}>Update PRC</span>
                 </ActionButton>
               </div>
-              
             </div>
           </div>
         </div>

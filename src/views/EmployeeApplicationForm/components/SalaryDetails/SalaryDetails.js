@@ -1,11 +1,11 @@
-import { MenuItem } from "@material-ui/core";
-import React from "react";
-import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
-import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
+import React, {forwardRef} from "react";
 import styles from "../../Style.module.css";
 import IncludeSalary from "./IncludeSalary";
+import MonthlySalary from "../MonthlySalary/MonthlySalary";
+import useSalaryDetails from "./SalaryDetailsHook";
 
-function SalaryDetail() {
+function SalaryDetail({}, ref) {
+  const { refBenefits, refAnnual, refQuarterly, refMonthly} = useSalaryDetails({}, ref);
   return (
     <>
       <div className={styles.QualificationHeader}>
@@ -13,31 +13,28 @@ function SalaryDetail() {
           <div className={"heading1"}>Current CTC Details</div>
         </h4>
         {/* <br /> */}
+        <MonthlySalary ref={refMonthly} />
         <IncludeSalary
-          SalaryTagType=" Add Monthly Payment"
+            ref={refQuarterly}
+          salaryTagType=" Add Quaterly Payment"
           firstfield="CTC Per month"
-          Secondfield="In hand Salary (per month)"
-          thirdfield="Monthly Payment Type"
-          forthfield="Monthly Payment Amount"
-        />
-        <IncludeSalary
-          SalaryTagType=" Add Quaterly Payment"
-          firstfield="CTC Per month"
-          Secondfield="In hand Salary (per month)"
+          secondfield="Quarterly Payment Amount"
         />{" "}
         <IncludeSalary
-          SalaryTagType=" Add Annual Payment"
+            ref={refAnnual}
+          salaryTagType=" Add Annual Payment"
           firstfield="CTC Per month"
-          Secondfield="In hand Salary (per month)"
+          secondfield="Annual Payment Amount"
         />{" "}
         <IncludeSalary
-          SalaryTagType=" Add Long Term Benefits"
+            ref={refBenefits}
+          salaryTagType=" Add Long Term Benefits"
           firstfield="CTC Per month"
-          Secondfield="In hand Salary (per month)"
+          secondfield="Long Term Benefits Amount"
         />
       </div>
     </>
   );
 }
 
-export default SalaryDetail;
+export default forwardRef(SalaryDetail);

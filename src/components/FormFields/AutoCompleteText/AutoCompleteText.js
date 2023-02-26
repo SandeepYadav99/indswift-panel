@@ -4,7 +4,6 @@ import {TextField} from "@material-ui/core";
 
 
 const AutoCompleteText = ({ isError, errorText, value, icon, label, onChange, onTextChange, inputProps, dataset, ...rest }) => {
-
     const [isOpen, setIsOpen] = useState(false);
 
     const handleChange = useCallback((e, value, reason) => {

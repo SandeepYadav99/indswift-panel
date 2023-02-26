@@ -9,7 +9,7 @@ import {
   actionUpdateEmployee,
 } from "../../actions/Employee.action";
 import historyUtils from "../../libs/history.utils";
-import {serviceGetList} from "../../services/Common.service";
+import { serviceGetList } from "../../services/Common.service";
 import RouteName from "../../routes/Route.name";
 
 const useEmployeeList = ({}) => {
@@ -18,11 +18,11 @@ const useEmployeeList = ({}) => {
   const [editData, setEditData] = useState(null);
   const [isCsvDialog, setIsCsvDialog] = useState(false);
   const dispatch = useDispatch();
-    const [listData, setListData] = useState({
-        LOCATIONS: [],
-        GRADES: [],
-        DEPARTMENTS: [],
-    });
+  const [listData, setListData] = useState({
+    LOCATIONS: [],
+    GRADES: [],
+    DEPARTMENTS: [],
+  });
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
@@ -43,11 +43,11 @@ const useEmployeeList = ({}) => {
   useEffect(() => {
     initData();
     isMountRef.current = true;
-      serviceGetList(['LOCATIONS', 'GRADES', 'DEPARTMENTS']).then(res => {
-          if (!res.error) {
-              setListData(res.data);
-          }
-      });
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
   }, []);
 
   // const handleCellClick = (rowIndex, columnIndex, row, column) => {
@@ -65,8 +65,8 @@ const useEmployeeList = ({}) => {
     dispatch(actionSetPageEmployeeRequests(type));
   }, []);
   const handleCreate = useCallback(() => {
-    historyUtils.push(RouteName.EMPLOYEE_CREATE) //+
-}, []);
+    historyUtils.push(RouteName.EMPLOYEE_CREATE); //+
+  }, []);
   const handleDataSave = useCallback(
     (data, type) => {
       // this.props.actionChangeStatus({...data, type: type});
@@ -162,20 +162,41 @@ const useEmployeeList = ({}) => {
     // dispatch(actionGetEmployeeDetails(data.emp_code));
     historyUtils.push(`/employees/details/${data.emp_code}`);
   }, []);
+  const handleViewUpdate = useCallback((data) => {
+    historyUtils.push(`${RouteName.EMPLOYEE_UPDATE}${data?.id}`);
+  }, []);
 
   const configFilter = useMemo(() => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
       // {label: 'City', name: 'city', type: 'text'},
-        {label: 'Location', name: 'location_id', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: listData?.LOCATIONS},
-        {label: 'Grade', name: 'grade_id', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: listData?.GRADES},
-        {label: 'Department', name: 'department_id', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: listData?.DEPARTMENTS},
-        {
-            label: "Created Date",
-            options: { maxDate: new Date() },
-            name: "createdAt",
-            type: "date",
-        },
+      {
+        label: "Location",
+        name: "location_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.LOCATIONS,
+      },
+      {
+        label: "Grade",
+        name: "grade_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.GRADES,
+      },
+      {
+        label: "Department",
+        name: "department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
+      },
+      {
+        label: "Created Date",
+        options: { maxDate: new Date() },
+        name: "createdAt",
+        type: "date",
+      },
       // {label: 'Status', name: 'status', type: 'select', fields: ['INACTIVE', 'ACTIVE']},
     ];
   }, [listData]);
@@ -202,6 +223,7 @@ const useEmployeeList = ({}) => {
     handleEdit,
     handleSideToggle,
     handleViewDetails,
+    handleViewUpdate,
     isCalling,
     editData,
     isSidePanel,
@@ -209,7 +231,7 @@ const useEmployeeList = ({}) => {
     toggleCsvDialog,
     isCsvDialog,
     handleCsvUpload,
-    handleCreate
+    handleCreate,
   };
 };
 

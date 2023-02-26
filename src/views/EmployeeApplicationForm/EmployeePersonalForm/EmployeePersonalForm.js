@@ -9,7 +9,7 @@ import handleSubmit from "redux-form/lib/handleSubmit";
 import FamilyDetailComponent from "../components/PersonalDetails/FamilyDetails/FamilyDetails.component";
 
 function EmployeePersonalForm({incrementPage}) {
-  const { refPersonalForm, handleSubmit, refContactForm, refFamilyDetail } = useEmployeePersonalForm({});
+  const { refPersonalForm, handleSubmit, refContactForm, refFamilyDetail, isSubmitting, candidateData, image, handleImageChange } = useEmployeePersonalForm({});
   return (
     <div className={styles.employeeLoginWrapper}>
       <div className={styles.employeeLoginContainer}>
@@ -26,7 +26,7 @@ function EmployeePersonalForm({incrementPage}) {
           <div className={styles.newLine} />
         </div>
         <div className={styles.signContainer}>
-          <ProfileUpper />
+          <ProfileUpper image={image} handleImageChange={handleImageChange()} data={candidateData} />
           <ProfilePersonalForm ref={refPersonalForm} />
         </div>
         <div className={styles.signContainer}>
@@ -38,6 +38,7 @@ function EmployeePersonalForm({incrementPage}) {
         <div className={styles.btnContainer}>
           <div className={styles.btnCont}>
             <ButtonBase
+                disabled={isSubmitting}
               type={"button"}
               onClick={handleSubmit}
               className={styles.createBtn}

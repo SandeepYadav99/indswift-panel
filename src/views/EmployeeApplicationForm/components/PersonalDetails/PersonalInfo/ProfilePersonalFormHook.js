@@ -18,14 +18,15 @@ import {isAlpha, isAlphaNumChars, isNum, isSpace} from "../../../../../libs/Rege
 
 const initialForm = {
     dob: new Date(),
-    gender: 'MALE',
-    birthplace: 'TESt',
-    blood_group: 'A+',
+    gender: '',
+    birthplace: '',
+    blood_group: '',
     dom: '',
-    aadhar_no: 'test',
-    pan_no: 'test',
-    uan_no: 'test',
-    passport_no: 'PASSPORT',
+    religion: '',
+    aadhar_no: '',
+    pan_no: '',
+    uan_no: '',
+    passport_no: '',
     passport_expiry_date: new Date(),
 };
 
@@ -40,6 +41,9 @@ const useProfilePersonalForm = ({}, ref) => {
     useImperativeHandle(ref, () => ({
         isValid() {
             return handleSubmit();
+        },
+        setData(data) {
+            setForm({...form, ...data});
         },
         resetData() {
             setForm(JSON.parse(JSON.stringify(initialForm)));

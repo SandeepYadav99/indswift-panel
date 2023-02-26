@@ -18,9 +18,12 @@ import { useParams } from "react-router";
 import EmployeeIncludeFields from "./EmployeeIncludeFields.component";
 
 const TEMP_OBJ = {
-  organization: "",
-  duration: "",
+  employer_name: "",
   designation: "",
+  joining_date: "",
+  joining_ctc: "",
+  resignation_date: "",
+  leaving_ctc: ""
 };
 
 const EmployeeIncludeForm = ({
@@ -28,12 +31,7 @@ const EmployeeIncludeForm = ({
   currency,
   listWarehouse,
   errorData: errorForm,
-  form,
-  changeTextData,
-  updateInventory,
-  vendorId,
-  ref,
-}) => {
+}, ref) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
@@ -56,6 +54,9 @@ const EmployeeIncludeForm = ({
   useImperativeHandle(ref, () => ({
     isValid() {
       return validateData();
+    },
+    setData(data) {
+      setFields([...data]);
     },
     resetData() {
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -81,7 +82,7 @@ const EmployeeIncludeForm = ({
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["name", "department_id"];
+      const required = ['employer_name', 'designation', 'joining_date', 'joining_ctc', 'resignation_date', 'leaving_ctc',];
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -221,4 +222,4 @@ const EmployeeIncludeForm = ({
   );
 };
 
-export default EmployeeIncludeForm;
+export default forwardRef(EmployeeIncludeForm);

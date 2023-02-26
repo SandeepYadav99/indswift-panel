@@ -24,10 +24,10 @@ import IncludeFields from "./FamilyDetailFields.component";
 // };
 
 const TEMP_OBJ = {
-  name: "REL NAME",
-  relation: "FATHER",
+  name: "",
+  relation: "",
   dob: new Date(),
-  occupation: 'OCCUPATION'
+  occupation: ''
 };
 
 const FamilyDetailComponent = (
@@ -66,6 +66,9 @@ const FamilyDetailComponent = (
   useImperativeHandle(ref, () => ({
     isValid() {
       return validateData();
+    },
+    setData(data) {
+      setFields([...data]);
     },
     resetData() {
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);

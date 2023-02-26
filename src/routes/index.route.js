@@ -10,8 +10,8 @@ import ResetPassword from "../views/ForgotPassword/ResetPassword.view";
 import { Route, Switch } from "react-router-dom";
 import ForgetPasswordHelp from "../views/ForgotPassword/ForgetPasswordHelp.view.js";
 import ResetPasswordFirst from "../views/ResetPassword/ResetPasswordFirst/ResetPassordFirst.view";
-import EmployeeLogin from "../views/EmployeeLogin/EmployeeLogin.js";
-import EmployementHistory from "../views/EmployeeApplicationForm/EmployementHistory.view";
+import EmployeeLogin from "../views/EmployeeApplicationForm/Login/CandidateLogin";
+import EmployementHistory from "../views/EmployeeApplicationForm/EmploymentHistoryForm/EmployementHistory.view";
 import EmployeeFormSubmit from "../views/EmployeeApplicationForm/EmployeeFormSubmit.js";
 import EmployeePersonalForm from "../views/EmployeeApplicationForm/EmployeePersonalForm/EmployeePersonalForm";
 import QualificationPage from "../views/EmployeeApplicationForm/QualificationForm/QualificationForm.js";
@@ -25,11 +25,11 @@ const indexRoutes = [{ path: "/", component: Dashboard }];
 const RouteComponent = () => (
   <Switch>
     <Route path={"/login"} component={Login} />
-    <Route path={"/employeelogin"} component={EmployeeLogin} />
-    <Route path={"/1"} component={EmployeePersonalForm} />
-    <Route path={"/2"} component={QualificationPage} />
-    <Route path={"/3"} component={EmployementHistory} />
-    <Route path={"/4"} component={EmployeeFormSubmit} />
+    <Route path={RouteName.EAF_LOGIN} component={EmployeeLogin} />
+    <Route path={RouteName.EAF_PERSONAL_DATA} component={EmployeePersonalForm} />
+    <Route path={RouteName.EAF_QUALIFICATION_FORM} component={QualificationPage} />
+    <Route path={RouteName.EAF_EMPLOYMENT_FORM} component={EmployementHistory} />
+    <Route path={RouteName.EAF_SUCCESS} component={EmployeeFormSubmit} />
     <Route path={"/5"} component={EvaluationForm} />
     <Route path={"/6"} component={NextPageForm} />
     <Route path={"/7"} component={SubmitEvaluationForm} />

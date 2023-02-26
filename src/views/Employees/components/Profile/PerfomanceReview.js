@@ -2,7 +2,6 @@ import React from 'react';
 import styles from "./Style.module.css"
 
 const PerformanceReview = ({reviewer,image}) => {
-    console.log(">--reviewer",reviewer)
     return (
         <div>
             <div className={styles.plainPaper}>
