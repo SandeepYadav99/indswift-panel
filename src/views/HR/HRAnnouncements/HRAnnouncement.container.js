@@ -28,30 +28,30 @@ import useHRAnnouncementList from "./HRAnnouncementHook";
 
 const HRAnnouncement = ({}) => {
   const {
-    //   handleSortOrderChange,
-    //   handleRowSize,
-    //   handlePageChange,
-    //   handleDataSave,
-    //   handleDelete,
-    //   handleEdit,
-    //   handleFilterDataChange,
-    //   handleSearchValueChange,
-    //   handleSideToggle,
-    //   handleViewDetails,
-    //   editData,
-    //   isSidePanel,
+    handleSortOrderChange,
+    handleRowSize,
+    handlePageChange,
+    handleDataSave,
+    handleDelete,
+    handleEdit,
+    handleFilterDataChange,
+    handleSearchValueChange,
+    handleSideToggle,
+    handleViewDetails,
+    editData,
+    isSidePanel,
     handleCreate,
-    //   isCalling,
-    //   configFilter,
-    //   handleSubDepartment,
+    isCalling,
+    configFilter,
+    handleSubDepartment,
   } = useHRAnnouncementList({});
 
-  // const {
-  //   data,
-  //   all: allData,
-  //   currentPage,
-  //   is_fetching: isFetching,
-  // } = useSelector((state) => state.HRAnnouncement);
+  const {
+    data,
+    all: allData,
+    currentPage,
+    is_fetching: isFetching,
+  } = useSelector((state) => state.hr_announcement);
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
@@ -107,17 +107,17 @@ const HRAnnouncement = ({}) => {
         render: (temp, all) => <div>{renderStatus(all.status)}</div>,
       },
       {
-        key: "user_id",
+        key: "_id",
         label: "Action",
         render: (temp, all) => (
           <div>
             <IconButton
               onClick={() => {
-                // handleEdit(all);
+                handleEdit(all);
               }}
               className={"tableActionBtn"}
               color="secondary"
-              // disabled={isCalling}
+              disabled={isCalling}
             >
               <Edit fontSize={"small"} />
             </IconButton>
@@ -125,32 +125,32 @@ const HRAnnouncement = ({}) => {
         ),
       },
     ];
-  }, []);
-  // renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling;
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+
   const tableData = useMemo(() => {
     const datatableFunctions = {
-      // onSortOrderChange: handleSortOrderChange,
-      // onPageChange: handlePageChange,
-      // onRowSizeChange: handleRowSize,
+      onSortOrderChange: handleSortOrderChange,
+      onPageChange: handlePageChange,
+      onRowSizeChange: handleRowSize,
     };
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: [],
-      count: 0,
-      page: 1,
+      data: data,
+      count: allData.length,
+      page: currentPage,
     };
 
     return { datatableFunctions, datatable };
   }, [
-    // allData,
+    allData,
     tableStructure,
-    // handleSortOrderChange,
-    // handlePageChange,
-    // handleRowSize,
-    // data,
-    // currentPage,
+    handleSortOrderChange,
+    handlePageChange,
+    handleRowSize,
+    data,
+    currentPage,
   ]);
 
   return (
@@ -170,10 +170,10 @@ const HRAnnouncement = ({}) => {
 
         <div>
           <FilterComponent
-          // is_progress={isFetching}
-          // filters={configFilter}
-          // handleSearchValueChange={handleSearchValueChange}
-          // handleFilterDataChange={handleFilterDataChange}
+            is_progress={isFetching}
+            filters={configFilter}
+            handleSearchValueChange={handleSearchValueChange}
+            handleFilterDataChange={handleFilterDataChange}
           />
           <div>
             <br />

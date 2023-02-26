@@ -1,7 +1,7 @@
 import { formDataRequest, postRequest } from "../libs/AxiosService.util";
 
 export async function serviceCreateHRAnnouncement(params) {
-  return await formDataRequest("/hr/announcment/create", params);
+  return await formDataRequest("hr/announcment/create", params);
 }
 
 export async function serviceUpdateHRAnnouncement(params) {

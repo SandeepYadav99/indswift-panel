@@ -25,7 +25,7 @@ const useHRAnnouncementList = ({}) => {
   } = useSelector((state) => state.department);
 
   useEffect(() => {
-    // dispatch(actionFetchHRAnnouncement());
+    dispatch(actionFetchHRAnnouncement());
   }, []);
 
   useEffect(() => {
@@ -121,7 +121,7 @@ const useHRAnnouncementList = ({}) => {
 
   const handleEdit = useCallback(
     (data) => {
-      historyUtils.push(RouteName.HR_ANNOUNCEMENT_UPDATE + data.id);
+      historyUtils.push(RouteName.HR_ANNOUNCEMENT_UPDATE + data._id);
     },
     [setEditData, setSidePanel]
   );

@@ -23,11 +23,9 @@ import Constants from "../../../config/constants";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 const initialForm = {
-  name: "",
-  location_id: "",
-  department_id: "",
-  submitted_by: [],
-  document: null,
+  title: "",
+  date: "",
+  link: "",
   is_active: true,
 };
 
@@ -69,7 +67,8 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
   }, []);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["title", "date", "link", "submitted_by"];
+    let required = ["title", "date", "link"];
+    console.log(id, "==id");
     if (!id) {
       required.push("document");
     }
@@ -103,7 +102,7 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
       }
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["is_active", "submitted_by"].indexOf(key) >= 0) {
+        if (["is_active"].indexOf(key) >= 0) {
           fd.append(key, JSON.stringify(form[key]));
         } else {
           fd.append(key, form[key]);

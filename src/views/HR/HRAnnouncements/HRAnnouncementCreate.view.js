@@ -109,10 +109,8 @@ const HRAnnouncementCreateView = ({}) => {
         <div className={"formGroup file_Wrapper"}>
           <File
             max_size={2 * 1024 * 1024}
-            type={["pdf"]}
             fullWidth={true}
             name="document"
-            accept={"application/pdf"}
             label=""
             default_image={form?.document ? form?.document : null}
             // user_image={form?.image}
@@ -156,7 +154,7 @@ const HRAnnouncementCreateView = ({}) => {
             onClick={handleSubmit}
             className={styles.createBtn}
           >
-            Create
+            {id ? "Update" : "Create"}
           </ButtonBase>
         </div>
       </div>
