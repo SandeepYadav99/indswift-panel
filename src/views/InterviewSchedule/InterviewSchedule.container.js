@@ -2,7 +2,7 @@ import React, {Component, useCallback, useEffect, useMemo} from 'react';
 import {Button, Paper, Checkbox, IconButton, MenuItem, ButtonBase} from '@material-ui/core';
 import classNames from 'classnames';
 import {connect, useSelector} from 'react-redux';
-import {Add, InfoOutlined, PrintOutlined} from '@material-ui/icons';
+import {Add, AssignmentOutlined, InfoOutlined, OpenInNew, PeopleOutlined, PrintOutlined} from '@material-ui/icons';
 import PageBox from '../../components/PageBox/PageBox.component';
 import SidePanelComponent from '../../components/SidePanel/SidePanel.component';
 import styles from './Style.module.css';
@@ -12,6 +12,7 @@ import FilterComponent from '../../components/Filter/Filter.component';
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
 import useInterviewSchedule from "./InterviewScheduleHook";
 import StatusPill from '../../components/Status/StatusPill.component';
+// import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 // import CreateView from './Candidate.view';
 
 const InterviewSchedule = ({location}) => {
@@ -100,8 +101,14 @@ const InterviewSchedule = ({location}) => {
                 key: 'user_id',
                 label: 'Action',
                 render: (temp, all) => (<div>
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
+                    {/* <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton > */}
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}>
+                        <PeopleOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>View Profile</span>
+                    </IconButton >
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleEdit(all)}}>
+                        <AssignmentOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>Record Feedback</span>
+                    </IconButton >
+                    {/* <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton> */}
                     {/*onClick={() => { handleEdit(all) }}*/}
                 </div>),
             },
@@ -167,11 +174,7 @@ const InterviewSchedule = ({location}) => {
                     </div>
 
                 </PageBox>
-                <SidePanelComponent
-                    handleToggle={handleSideToggle}
-                    title={'New Candidate'} open={isSidePanel} side={'right'}>
-                    {/* {renderCreateForm} */}
-                </SidePanelComponent>
+                
             </div>
         )
 }
