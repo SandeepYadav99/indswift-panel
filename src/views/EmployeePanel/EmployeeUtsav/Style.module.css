@@ -243,3 +243,23 @@
   max-width: 200px;
   max-height: 400px;
 }
+@media (max-width: 767px) {
+  .employeeInducationWrapper{
+    padding: 0.8rem;
+  }
+  .content{
+    min-width: auto !important;
+    width: 100%;
+  }
+  .contentWrapper {
+    flex-direction: column;
+  }
+  .imageWrapper img{
+    width: 100%;
+    height: auto;
+  }
+  .imgdimesion{
+    width: 100%;
+    height: auto;
+  }
+}
