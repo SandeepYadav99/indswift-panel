@@ -4,7 +4,8 @@ import {
     EventNote,
     PeopleOutlined,
     AssignmentOutlined,
-    DashboardOutlined, Subtitles
+    DashboardOutlined, Subtitles,
+    PersonRounded
 } from "@material-ui/icons";
 import EmployeeTab from "../views/Employees/EmployeeTab.view";
 import EmployeeList from "../views/EmployeeList/EmployeeList.container";
@@ -74,6 +75,15 @@ const dashboardRoutes = [
         component: NewDashboard,
         is_sidebar: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: RouteName.MY_PROFILE,
+        sidebarName: "My Profile",
+        navbarName: "My Profile",
+        icon: PersonRounded,
+        component: EmployeeTab,
+        is_sidebar: true,
+        is_protect: true,
     },
     {
         path: RouteName.JOB_ROLES,

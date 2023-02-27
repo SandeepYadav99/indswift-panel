@@ -25,8 +25,6 @@ function NextPageHook() {
     },
     [form, setForm, isDeclarationChecked]
   );
-
-  console.log(",.,", form, "ll>", isDeclarationChecked);
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     if (!errors) {

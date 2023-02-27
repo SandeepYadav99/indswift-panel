@@ -67,4 +67,6 @@ export default {
   EAF_QUALIFICATION_FORM: '/eaf/qualification',
   EAF_EMPLOYMENT_FORM: '/eaf/employment',
   EAF_SUCCESS: '/eaf/success',
+
+  MY_PROFILE: '/my/profile'
 };

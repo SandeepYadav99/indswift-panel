@@ -9,8 +9,8 @@ let url = "http://91.205.173.97:8111/api/admin/";
 let socketUrl = "http://91.205.173.97:8111";
 
 if (isProduction) {
-  url = "http://20.219.160.182:8080/api/admin/";
-  socketUrl = "http://20.219.160.182:8080";
+  url = "https://api.indswiftlabs.com/api/admin/";
+  socketUrl = "https://api.indswiftlabs.com";
 }
 
 export default {

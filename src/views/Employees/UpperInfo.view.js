@@ -7,7 +7,7 @@ import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 
-const UpperInfo = ({ data, handleToggle,handleStatusToggle }) => {
+const UpperInfo = ({ data, handleToggle,handleStatusToggle, isAdmin }) => {
   return (
     <div>
       <div className={styles.blueBackground}>
@@ -42,7 +42,7 @@ const UpperInfo = ({ data, handleToggle,handleStatusToggle }) => {
                 style={{ color: "#fff", borderColor: "#fff" }}
               />
             </div>
-            <div className={styles.actionWrap}>
+            {isAdmin && (<div className={styles.actionWrap}>
               <div className={styles.btnUpper}>
                 <ActionButton onClick={handleStatusToggle}>
                   <InfoOutlined fontSize={"small"} />
@@ -67,7 +67,7 @@ const UpperInfo = ({ data, handleToggle,handleStatusToggle }) => {
                   <span className={styles.actionBtnSpan}>Edit</span>
                 </ActionButton>
               </div>
-            </div>
+            </div>)}
           </div>
         </div>
       </div>
