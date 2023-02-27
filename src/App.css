@@ -546,6 +546,11 @@ input[type=radio] + label:hover {
     justify-content: space-between;
     align-items: center;
 }
+.headerFlex3 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 .wrapper{
     margin-top: 20px;
 }
@@ -910,3 +915,8 @@ font-size: medium;
 .capitalize {
     text-transform: capitalize;
 }
+@media (max-width: 767px) {
+    .iconTabsEvents{
+      padding: 6px 8px !important;
+    }
+  }
