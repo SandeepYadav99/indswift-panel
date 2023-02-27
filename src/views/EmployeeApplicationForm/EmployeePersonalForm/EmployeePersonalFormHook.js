@@ -79,7 +79,9 @@ const useEmployeePersonalForm = ({}) => {
     }, [isSubmitting, setIsSubmitting, candidateId, image]);
 
     const handleImageChange = useCallback((file) => {
-        setImage(file)
+        if (file) {
+            setImage(file);
+        }
     }, [setImage]);
 
     return {

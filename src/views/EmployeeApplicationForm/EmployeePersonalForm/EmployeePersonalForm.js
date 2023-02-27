@@ -26,7 +26,7 @@ function EmployeePersonalForm({incrementPage}) {
           <div className={styles.newLine} />
         </div>
         <div className={styles.signContainer}>
-          <ProfileUpper image={image} handleImageChange={handleImageChange()} data={candidateData} />
+          <ProfileUpper image={image} handleImageChange={handleImageChange} data={candidateData} />
           <ProfilePersonalForm ref={refPersonalForm} />
         </div>
         <div className={styles.signContainer}>

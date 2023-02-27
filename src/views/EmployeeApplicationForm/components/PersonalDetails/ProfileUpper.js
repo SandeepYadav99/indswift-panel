@@ -1,6 +1,7 @@
 import { ButtonBase } from "@material-ui/core";
 import React from "react";
 import styles from "../../Style.module.css";
+import LogUtils from "../../../../libs/LogUtils";
 
 function ProfileUpper({data, image, handleImageChange}) {
   return (
@@ -14,7 +15,7 @@ function ProfileUpper({data, image, handleImageChange}) {
       <div className={styles.profileimg}>
         <ButtonBase className={styles.edit}>UPLOAD NEW PICTURE</ButtonBase>
         <div>
-        <img src={image ? require("../../../../assets/img/ic_employee image@2x.png") : URL.createObjectURL(image)} />
+        <img src={!image ? require("../../../../assets/img/ic_employee image@2x.png") : URL.createObjectURL(image)} />
         </div>
       </div>
     </div>
