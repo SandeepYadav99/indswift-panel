@@ -31,6 +31,7 @@
 }
 .RecentUpdateUpperCard {
   display: flex;
+  flex-wrap: wrap;
   gap: 25px;
 }
 .RecentUpdateLowerCard {
@@ -42,4 +43,13 @@
   justify-content: center;
   align-items: center;
   flex: 1;
+}
+
+@media (max-width: 767px) {
+  .EmployeeDashboardFlex {
+      flex-direction: column;
+  }
+  .RecentUpdateUpperCard{
+    flex-direction: column;
+  }
 }

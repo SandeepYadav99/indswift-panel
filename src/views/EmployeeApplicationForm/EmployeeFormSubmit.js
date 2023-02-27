@@ -19,7 +19,7 @@ function EmployeeFormSubmit() {
             <p>We are pleased to inform you that your application form is shared with the HR and our interview panel</p>
           </div>
           <div>
-            <p>We will connect with you for the future process at earliest </p>
+            <p>We will connect with you for the further process at earliest </p>
           </div>
         </div>
       </div>

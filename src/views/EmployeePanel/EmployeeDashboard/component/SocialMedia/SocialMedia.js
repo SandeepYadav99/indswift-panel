@@ -1,15 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Style.module.css";
-
+import socialImages from "./SocialImages";
 function SocialMedia() {
+  const [hoveredfacebook, setHoveredfacebook] = useState(false);
+  const [hoveredInsta, setHoveredInsta] = useState(false);
+  const [hoveredtwitter, setHoveredtwitter] = useState(false);
+  const [hoveredYouTube, setHoveredYouTube] = useState(false);
+  const [hoveredLinkdin, setHoveredLinkdin] = useState(false);
+
+  const handleHoverfacebook = () => {
+    setHoveredfacebook(true);
+  };
+  const handleHoverInsta = () => {
+    setHoveredInsta(true);
+  };
+  const handleHovertwitter = () => {
+    setHoveredtwitter(true);
+  };
+  const handleHoverYouTube = () => {
+    setHoveredYouTube(true);
+  };
+  const handleHoverLinkdin = () => {
+    setHoveredLinkdin(true);
+  };
+
+  const handleMouseLeavefacebook = () => {
+    setHoveredfacebook(false);
+  };
+  const handleMouseLeaveInsta = () => {
+    setHoveredInsta(false);
+  };
+  const handleMouseLeavetwitter = () => {
+    setHoveredtwitter(false);
+  };
+  const handleMouseLeaveYouTube = () => {
+    setHoveredYouTube(false);
+  };
+  const handleMouseLeaveLinkdin = () => {
+    setHoveredLinkdin(false);
+  };
   return (
     <div className={styles.socialMediaWrapper}>
       <div className={styles.socialMediaHeading}>
         <span className={styles.title}>We are Social!</span>
         <div className={styles.newLine} />
       </div>
-      <div>
+      <div
+        className={styles.logoWrapper}
+        onMouseEnter={handleHoverfacebook}
+        onMouseLeave={handleMouseLeavefacebook}
+      >
         <Link
           to={{ pathname: "https://www.facebook.com/indswiftlabs849/" }}
           target="_blank"
@@ -17,23 +58,39 @@ function SocialMedia() {
           <img
             className={styles.socialLogos}
             alt="Facebook"
-            src={require("../../../../../assets/img/facebook.png")}
+            src={
+              hoveredfacebook
+                ? socialImages.facebook.active
+                : socialImages.facebook.inactive
+            }
           />
         </Link>
       </div>
-      <div>
+      <div
+        className={styles.logoWrapper}
+        onMouseEnter={handleHoverLinkdin}
+        onMouseLeave={handleMouseLeaveLinkdin}
+      >
         <Link
           to={{ pathname: "https://www.linkedin.com/company/indswiftlabs" }}
           target="_blank"
         >
           <img
             className={styles.socialLogos}
-            src={require("../../../../../assets/img/linkedin.png")}
+            src={
+              hoveredLinkdin
+                ? socialImages.linkdin.active
+                : socialImages.linkdin.inactive
+            }
             alt="Linkedin"
           />
         </Link>
       </div>
-      <div>
+      <div
+        className={styles.logoWrapper}
+        onMouseEnter={handleHovertwitter}
+        onMouseLeave={handleMouseLeavetwitter}
+      >
         <Link
           to={{ pathname: "https://twitter.com/indswiftlabs" }}
           target="_blank"
@@ -41,11 +98,19 @@ function SocialMedia() {
           <img
             className={styles.socialLogos}
             alt="Twitter"
-            src={require("../../../../../assets/img/twitter.png")}
+            src={
+              hoveredtwitter
+                ? socialImages.twitter.active
+                : socialImages.twitter.inactive
+            }
           />
         </Link>
       </div>
-      <div>
+      <div
+        className={styles.logoWrapper}
+        onMouseEnter={handleHoverInsta}
+        onMouseLeave={handleMouseLeaveInsta}
+      >
         <Link
           to={{ pathname: "https://www.instagram.com/indswiftlabsltd/" }}
           target="_blank"
@@ -53,11 +118,19 @@ function SocialMedia() {
           <img
             className={styles.socialLogos}
             alt="Instagram"
-            src={require("../../../../../assets/img/insta.png")}
+            src={
+              hoveredInsta
+                ? socialImages.instagram.active
+                : socialImages.instagram.inactive
+            }
           />
         </Link>
       </div>
-      <div>
+      <div
+        className={styles.logoWrapper}
+        onMouseEnter={handleHoverYouTube}
+        onMouseLeave={handleMouseLeaveYouTube}
+      >
         <Link
           to={{
             pathname:
@@ -68,7 +141,11 @@ function SocialMedia() {
           <img
             className={styles.socialLogos}
             alt="YouTube"
-            src={require("../../../../../assets/img/youtube.png")}
+            src={
+              hoveredYouTube
+                ? socialImages.youtube.active
+                : socialImages.youtube.inactive
+            }
           />
         </Link>
       </div>

@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Style.module.css";
 import GenricSlider from "../Members/GenricSlider";
 import { useSelector } from "react-redux";
-import {WaitingComponent} from "../../../../../components/index.component";
+import { WaitingComponent } from "../../../../../components/index.component";
 
 function EngagementEvents() {
   const { isTilesCalling, tiles } = useSelector(
     (state) => state.employeeDashboard
   );
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
 
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  console.log("isMobile", isMobile);
   return (
     <div className={styles.engagementContainer}>
       <div>
@@ -20,10 +34,10 @@ function EngagementEvents() {
         {isTilesCalling ? (
           <WaitingComponent />
         ) : (
-          <GenricSlider>
-            {tiles?.utsavImages.map((item) => {
+          <GenricSlider sliderSettings={{ slidesToShow: isMobile ? 2 : 3 }}>
+            {tiles?.utsavImages.map((item,index) => {
               return (
-                <div>
+                <div className={styles.imgWrapper} key={`Engagement_${index}`}>
                   <img className={styles.img} src={item?.image} />
                 </div>
               );

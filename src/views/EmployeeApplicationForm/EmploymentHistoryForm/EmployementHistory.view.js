@@ -77,7 +77,7 @@ function EmploymentHistory({ }) {
                 form are true and correct to my knowledge and belief. I
                 understand that any incorrect statement of facts/willful
                 concealment of any material or facts will render me liable to
-                termination from the services of the conpany
+                termination from the services of the company
               </p>
             </div>
           </div>

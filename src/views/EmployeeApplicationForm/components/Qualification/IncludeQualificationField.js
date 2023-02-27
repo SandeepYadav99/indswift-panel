@@ -90,7 +90,7 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
                         }}
                     >
                         <MenuItem value="FULL_TIME">Full Time</MenuItem>
-                        <MenuItem value="PART_TIME">PartTime</MenuItem>
+                        <MenuItem value="PART_TIME">Part Time</MenuItem>
                     </CustomSelectField>
                 </div>
             </div>

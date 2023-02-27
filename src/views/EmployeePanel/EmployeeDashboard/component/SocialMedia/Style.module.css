@@ -24,6 +24,9 @@
   flex-direction: column;
   justify-content: center;
 }
+.logoWrapper{
+  /* flex: 1; */
+}
 .socialLogos{
   width: 25px;
   height: 25px;
@@ -32,3 +35,9 @@
 /* .socialLogos:hover{
   color: aqua;
 } */
+@media (max-width: 767px) {
+  .socialMediaWrapper {
+    width: 100%;
+  }
+   
+}
