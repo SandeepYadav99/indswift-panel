@@ -1,6 +1,8 @@
 /* eslint-disable indent,linebreak-style */
 const TABLE_LIMIT = 50;
-const tempLevel = !(!process.env.NODE_ENV || process.env.NODE_ENV === "development");
+const tempLevel = !(
+  !process.env.NODE_ENV || process.env.NODE_ENV === "development"
+);
 
 const tempDate = new Date();
 const isProduction = false;
@@ -312,7 +314,7 @@ export default {
   ROLES: {
     ADMIN: "ADMIN",
     OTHERS: "OTHERS",
-    CORPORATE_HR: 'CORPORATE_HR',
+    CORPORATE_HR: "CORPORATE_HR",
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,

@@ -32,6 +32,16 @@ body{
     width: 100%;
     /*margin-bottom: 10px;*/
 }
+.formGroup1 {
+    flex: 1;
+    padding: 7px 10px;
+    /*padding: 10px 15px*/
+}
+.formGroup2 {
+    flex: 1;
+    padding: 7px 10px;
+    /*padding: 10px 15px*/
+}
 .formGroup {
     flex: 1;
     padding: 7px 10px;
