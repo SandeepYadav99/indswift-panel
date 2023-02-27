@@ -34,7 +34,6 @@ const RouteComponent = () => (
     <Route path={"/5"} component={EvaluationForm} />
     <Route path={"/6"} component={NextPageForm} />
     <Route path={"/7"} component={SubmitEvaluationForm} />
-    <Route path={"/8"} component={ProfileEditCreate} />
 
 
 

@@ -63,6 +63,7 @@ import EmployeeEditVersionListContainer from "../views/EmployeeEditVersions/List
 import EmployeeUtsavDetail from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsavDetail";
 import CandidateDetails from "../views/Candidates/CandidateDetails/CandidateDetails.view";
 import InterviewSchedule from "../views/InterviewSchedule/InterviewSchedule.container";
+import ProfileEditCreate from "../views/ProfileEditForm/ProfileEditCreate";
 
 const Roles = Constants.ROLES;
 
@@ -82,6 +83,15 @@ const dashboardRoutes = [
         navbarName: "My Profile",
         icon: PersonRounded,
         component: EmployeeTab,
+        is_sidebar: true,
+        is_protect: true,
+    },
+    {
+        path: `${RouteName.MY_PROFILE_UPDATE}:id`,
+        sidebarName: "My Profile",
+        navbarName: "My Profile",
+        icon: PersonRounded,
+        component: ProfileEditCreate,
         is_sidebar: true,
         is_protect: true,
     },

@@ -68,5 +68,6 @@ export default {
   EAF_EMPLOYMENT_FORM: '/eaf/employment',
   EAF_SUCCESS: '/eaf/success',
 
-  MY_PROFILE: '/my/profile'
+  MY_PROFILE: '/my/profile',
+  MY_PROFILE_UPDATE: '/my/profile/update/'
 };

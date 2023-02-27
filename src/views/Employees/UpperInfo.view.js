@@ -35,13 +35,34 @@ const UpperInfo = ({ data, handleToggle,handleStatusToggle, isAdmin }) => {
               {data?.sub_department?.name}
             </div>
           </div>
-          <div className={styles.btnWrap}>
-            <div className={styles.statusWrap}>
-              <StatusPill
-                status="ACTIVE"
-                style={{ color: "#fff", borderColor: "#fff" }}
+         {!isAdmin && <div className={styles.activeEditWrapper}>
+          <div className={styles.statusWrapper}>
+          <StatusPill
+              status={data?.status}
+              // style={{ color: "#fff", borderColor: "#fff" }}
               />
             </div>
+            
+              <div className={styles.btnUpper2}>
+                <ActionButton
+                  onClick={() => {
+                    historyUtils.push(
+                      `${RouteName.MY_PROFILE_UPDATE}${data?.id}`
+                    );
+                  }}
+                >
+                  <RepeatRounded fontSize={"small"} />
+                  <span className={styles.actionBtnSpan}>Edit</span>
+                </ActionButton>
+              </div>
+          </div>}
+          <div className={styles.btnWrap}>
+            {isAdmin &&<div className={styles.statusWrap}>
+              <StatusPill
+                status={data?.status}
+                // style={{ color: "#fff", borderColor: "#fff" }}
+              />
+            </div>}
             {isAdmin && (<div className={styles.actionWrap}>
               <div className={styles.btnUpper}>
                 <ActionButton onClick={handleStatusToggle}>

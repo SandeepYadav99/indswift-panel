@@ -21,7 +21,7 @@ function EmployeePersonalForm({incrementPage}) {
         </div>
         <div className={styles.loginSignupText}>
           <h1 className={styles.headingText}>
-            Employment Application FormFields
+            Employment Application Form
           </h1>
           <div className={styles.newLine} />
         </div>
