@@ -120,12 +120,21 @@ color: white;
 }
 .btnUpper {
   gap: 10px;
-
 }
 .btnUpper >.MuiButton-root{
   min-width: 30px !important;
   background-color: red;
 }
+.activeEditWrapper{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: self-end;
+  gap: 30px;
+
+}
+
 @media (max-width: 1520px) {
   .actionBtnSpan{
     display: none;
