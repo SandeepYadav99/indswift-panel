@@ -54,7 +54,7 @@ export default {
     PENDING: "warning",
     WAITING: "waiting",
     ACCEPTED: "success",
-    ACTIVE: "success",
+    ACTIVE: "warning",
     INACTIVE: "error",
     SUSPENDED: "error",
     ALLOTTED: "success",
@@ -63,6 +63,12 @@ export default {
     Received: "success",
     "Partially Received": "success",
     Pending: "warning",
+    TERMINATED:"error",
+    ABSCONDED:'error',
+    RESIGNED:'error',
+    EXPIRED:'success',
+
+
   },
   STATES: [
     "Andaman and Nicobar Islands",
