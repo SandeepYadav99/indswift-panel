@@ -73,7 +73,7 @@ const EmployeeIncludeFields = ({
                             <CustomDatePicker
                                 clearable
                                 label={"Joining Date"}
-                                minDate={new Date()}
+                                // maxDate={new Date()}
                                 onChange={(date) => {
                                     changeTextData(date, "joining_date");
                                 }}
@@ -104,7 +104,7 @@ const EmployeeIncludeFields = ({
                             <CustomDatePicker
                                 clearable
                                 label={"Date of Resignation"}
-                                minDate={new Date()}
+                                // maxDate={new Date()}
                                 onChange={(date) => {
                                   changeTextData(date, "resignation_date");
                                 }}
