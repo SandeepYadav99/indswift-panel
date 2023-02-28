@@ -72,7 +72,7 @@ function EmploymentHistory({ }) {
               />
             </div>
             <div>
-              <p style={{ padding: 0, margin: 0, fontWeight: "500" ,fontSize:".875rem", lineHeight:"1.4"}}>
+              <p style={{ padding: 0, margin: 0, fontWeight: "400" ,fontSize:".875rem", lineHeight:"1.4"}}>
                 I solemnly declare that all the particulars furnished in this
                 form are true and correct to my knowledge and belief. I
                 clearly understand that any incorrect statement of facts/willful

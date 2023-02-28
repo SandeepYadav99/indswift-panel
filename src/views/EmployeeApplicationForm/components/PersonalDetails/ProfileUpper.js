@@ -15,7 +15,7 @@ function ProfileUpper({data, image, handleImageChange}) {
       <div className={styles.profileimg}>
         <ButtonBase className={styles.edit}>UPLOAD NEW PICTURE</ButtonBase>
         <div>
-        <img src={!image ? require("../../../../assets/img/ic_employee image@2x.png") : URL.createObjectURL(image)} />
+        <img className={styles.applicationImage} src={!image ? require("../../../../assets/img/ic_employee image@2x.png") : URL.createObjectURL(image)} />
         </div>
       </div>
     </div>

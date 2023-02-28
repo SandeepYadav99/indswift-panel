@@ -16,19 +16,19 @@ import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import IncludeFields from "./FamilyDetailFields.component";
 
-// const TEMP_OBJ = {
-//   name: "",
-//   relation: "",
-//   dob: "",
-//   occupation: ''
-// };
-
 const TEMP_OBJ = {
   name: "",
   relation: "",
-  dob: new Date(),
+  dob: "",
   occupation: ''
 };
+
+// const TEMP_OBJ = {
+//   name: "",
+//   relation: "",
+//   dob: new Date(),
+//   occupation: ''
+// };
 
 const FamilyDetailComponent = (
   {
@@ -223,6 +223,11 @@ const FamilyDetailComponent = (
 
   return (
     <>
+     <div className={"headerFlex1"}>
+        <h4 className={"infoTitle1"}>
+          <div className={"heading1"}>Family Details</div>
+        </h4>
+      </div>
       {renderFields}
 
       <div>

@@ -143,7 +143,7 @@ class Header extends React.Component {
                     </div>
 
                     <div className={classes.logoImage}>
-                        <img src={userData?.image} height={30} width={30}/>
+                        <img src={userData?.image} height={30} width={30} style={{borderRadius:"50%"}}/>
                     </div>
 
                     <div>
