@@ -2,24 +2,54 @@ import LogUtils from "../../libs/LogUtils";
 import useViewDocuments from "./ViewDocumentsHook";
 import {useEffect, useState} from "react";
 import styles from './Style.module.css';
+import { Document, Page } from 'react-pdf/dist/esm/entry.parcel2';
+import {Button} from "@material-ui/core";
 
 
 const ViewDocuments = ({location}) => {
-    const {} = useViewDocuments({});
+    const { width, height } = useViewDocuments({});
     const { url } = location?.state;
+    const [numPages, setNumPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [blob, setBlob] = useState(null);
+    // const url = 'https://api.indswiftlabs.com/public/hr_policies/1677572910522_policy.pdf';
+    const onDocumentLoadSuccess = ({ numPages }) => {
+        setNumPages(numPages);
+    };
+
+    const goToPrevPage = () =>
+        setPageNumber(pageNumber - 1 <= 1 ? 1 : pageNumber - 1);
+
+    const goToNextPage = () =>
+        setPageNumber(
+            pageNumber + 1 >= numPages ? numPages : pageNumber + 1,
+        );
+
     // const [blob, setBlob] = useState(null);
     //
-    // useEffect(() => {
-    //     LogUtils.log(url);
-    //     fetch(url).then(r => r.blob()).then((res) => {
-    //         LogUtils.log('res', res);
-    //         setBlob(res);
-    //     })
-    // }, []);
+    useEffect(() => {
+        fetch(url).then(r => r.blob()).then((res) => {
+            setBlob(res);
+        })
+    }, []);
+
 
     return (
         <div className={styles.mainContainer}>
-            <iframe className={styles.iFrame} src={url} target="_parent" />
+            <nav>
+                <Button onClick={goToPrevPage}>Prev</Button>
+                <Button onClick={goToNextPage}>Next</Button>
+                <p>
+                    Page {pageNumber} of {numPages}
+                </p>
+            </nav>
+            <Document
+                file={blob}
+                onLoadSuccess={onDocumentLoadSuccess}
+            >
+                <Page width={width < 400 ? 300 : 600} pageNumber={pageNumber} />
+            </Document>
+
         </div>
     );
 };

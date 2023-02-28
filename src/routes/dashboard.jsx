@@ -775,7 +775,7 @@ const dashboardRoutes = [
         component: EmployeeEditVersionListContainer,
         is_sidebar: true,
         is_protect: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: process.env.NODE_ENV === "development" ? [Roles.ADMIN, Roles.CORPORATE_HR] : [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.VIEW_DOCUMENTS}`,

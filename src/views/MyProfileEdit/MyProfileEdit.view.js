@@ -75,7 +75,7 @@ const MyProfileEditView = ({}) => {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span>
-              <b>Update Employee</b>
+              <b>My Profile Edit</b>
             </span>
           </ButtonBase>
           <div className={styles.newLines} />
@@ -97,6 +97,7 @@ const MyProfileEditView = ({}) => {
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomTextField
+                    disabled={true}
                   isError={errorData?.name}
                   errorText={errorData?.name}
                   label={"Employee Name"}
