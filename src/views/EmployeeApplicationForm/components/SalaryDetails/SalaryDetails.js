@@ -17,19 +17,19 @@ function SalaryDetail({}, ref) {
         <IncludeSalary
             ref={refQuarterly}
           salaryTagType=" Add Quaterly Payment"
-          firstfield="CTC Per month"
+          firstfield="Quaterly payment type"
           secondfield="Quarterly Payment Amount"
         />{" "}
         <IncludeSalary
             ref={refAnnual}
           salaryTagType=" Add Annual Payment"
-          firstfield="CTC Per month"
+          firstfield="Annual payment type"
           secondfield="Annual Payment Amount"
         />{" "}
         <IncludeSalary
             ref={refBenefits}
           salaryTagType=" Add Long Term Benefits"
-          firstfield="CTC Per month"
+          firstfield="Long term benefit type"
           secondfield="Long Term Benefits Amount"
         />
       </div>

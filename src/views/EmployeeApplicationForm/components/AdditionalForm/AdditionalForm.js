@@ -40,7 +40,7 @@ const AdditionalForm = ({}, ref) => {
                     <CustomDatePicker
                         clearable
                         label={"Interview Date"}
-                        minDate={new Date()}
+                        // minDate={new Date()}
                         onChange={(date) => {
                           changeTextData(date, "interview_date");
                         }}
