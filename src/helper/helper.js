@@ -50,9 +50,11 @@ export const EmployeeEngagementData = {
   firstRow:
     "Employee Engagement, Employee Welfare and Employee Empowerment (The 3 E’s) have remained to be 3 key priority areas for Ind-Swift’s performance culture since from our commencement.",
   secondRow:
-    " Organization has been doing a lot on these 3 aspects with coordination and corporation from all our employees who are integral part of our common identity i.e. “Swift Family”",
+    "Organization has been doing a lot on these 3 aspects with coordination and corporation from all our employees who are integral part of our common identity i.e. “Swift Family”.",
   thirdRow:
-    "HCM as a module comprises of 4 branches, each of which contains further branches. These branches work with different focus on different attributes.",
+    "We are touching all areas of Human Development & Happiness in organization by means our “Swift Happiness Capitalization Module (S-HCM)”.",
+  forthRow:
+    "Swift-HCM as a module comprises of 4 branches, each of which contains further programs and interventions. These branches work with different focus on different attributes.",
 };
 
 export const EmployeeDrishtiData = {
@@ -102,16 +104,16 @@ export const DrishtiData = [DrishtiRowFirst, DrishtiRowSecond, DrishtiRowThird];
 
 export const IkigaiData = [
   {
-    title: 'Performance Management Framework (PMS, PLI, DISHA, C-GSP)',
+    title: "Performance Management Framework (PMS, PLI, DISHA, C-GSP)",
     content: [
       " A scientific, credible and transparent 360 Degree based PMS of organization which is linked with budgets, data and performance of department/individuals is working in organization for ensuring that proper feedback is provided to employee on improvement areas and on area where they are doing good.",
-      'PMS feedbacks are clear indicators that explain “what is expected out of an employee’s performance” and “how his/her performance can affect entire integrated working of Organization”.',
+      "PMS feedbacks are clear indicators that explain “what is expected out of an employee’s performance” and “how his/her performance can affect entire integrated working of Organization”.",
     ],
   },
   {
     title: "Learning Management Framework (I-Learn, LMS)",
     content: [
-      'Clear information about improvement areas and opportunities to learn specific skills make employees more confident about their career plans within the organization, which means finding their IKIGAI within the organization.',
+      "Clear information about improvement areas and opportunities to learn specific skills make employees more confident about their career plans within the organization, which means finding their IKIGAI within the organization.",
     ],
   },
   {

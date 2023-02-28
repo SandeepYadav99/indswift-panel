@@ -189,4 +189,9 @@ color: white;
   .actionWrap{
     top: 12px;
   }
+  .activeEditWrapper{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+  }
 }

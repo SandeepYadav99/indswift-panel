@@ -3,6 +3,7 @@ import styles from "./Style.module.css";
 import GenricSlider from "../Members/GenricSlider";
 import { useSelector } from "react-redux";
 import { WaitingComponent } from "../../../../../components/index.component";
+import { Link } from "react-router-dom";
 
 function EngagementEvents() {
   const { isTilesCalling, tiles } = useSelector(
@@ -24,6 +25,9 @@ function EngagementEvents() {
   }, []);
   console.log("isMobile", isMobile);
   return (
+    <Link to="/employee/utsav"
+    style={{ textDecoration: "none", color: "black" }}
+    >
     <div className={styles.engagementContainer}>
       <div>
         <span className={styles.title}>Employee Engagement Events</span>
@@ -34,7 +38,7 @@ function EngagementEvents() {
         {isTilesCalling ? (
           <WaitingComponent />
         ) : (
-          <GenricSlider sliderSettings={{ slidesToShow: isMobile ? 2 : 3 }}>
+          <GenricSlider sliderSettings={{ slidesToShow: isMobile ? 2 : 3 ,className:'myCustomClass'}}>
             {tiles?.utsavImages.map((item,index) => {
               return (
                 <div className={styles.imgWrapper} key={`Engagement_${index}`}>
@@ -46,6 +50,8 @@ function EngagementEvents() {
         )}
       </div>
     </div>
+    </Link>
+    
   );
 }
 
