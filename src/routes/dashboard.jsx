@@ -274,9 +274,20 @@ const dashboardRoutes = [
         // parent: 'employeedashboard',
     },
     {
+        path: '/employee/learning',
+        sidebarName: " Learning Management System",
+        navbarName: " Learning Management System",
+        icon: PeopleOutlined,
+        component: EmployeeClaim,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'employeedashboard',
+    },
+    {
         path: 'null',
-        sidebarName: "Swift E3M ",
-        navbarName: "Swift E3M",
+        sidebarName: "Swift-HCM ",
+        navbarName: "Swift-HCM",
         icon: EventNote,
         is_sidebar: true,
         slug: 'swift',
@@ -284,7 +295,7 @@ const dashboardRoutes = [
     },
     {
         path: "/employee/engagement",
-        sidebarName: "E3M Module",
+        sidebarName: "HCM Module",
         navbarName: "Admin Dashboard",
         icon: DashboardOutlined,
         component: EmployeeEngagement,
@@ -333,8 +344,8 @@ const dashboardRoutes = [
 
     },
     {
-        path: "/employee/ikigai",
-        sidebarName: "Ikigai",
+        path: "/employee/udeshya",
+        sidebarName: "Udeshya",
         navbarName: "Admin Dashboard",
         icon: DashboardOutlined,
         component: EmployeeIkigai,

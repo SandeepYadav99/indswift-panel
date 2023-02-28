@@ -2,7 +2,7 @@ export const InductionData = {
   firstRow:
     "Time to time the booklet will undergo revisions and therefore all employees may also refer to this section to be aware about new added provisions. The Booklet does not contain all the information that employee’s may require during progression in organization, but the objective of this manual is to give basic orientation about the organization and its basic code of conduct ",
   secondRow:
-    "To be aware about organizational Policies & Circulars please refer the relevant section of E-Suvidha, it will address all your administrative queries pertaining to leaves, working hours, facilities etc",
+    "To be aware about organizational Policies & Circulars please refer the relevant section of SkyNet, it will address all your administrative queries pertaining to leaves, working hours, facilities etc",
   thirdRow:
     "To be aware about work practices of Organization, please gel up with people around, HR of location is always available for healthy interaction with you and address your rational curiosity about anything.",
   forthRow:
@@ -52,54 +52,49 @@ export const EmployeeEngagementData = {
   secondRow:
     " Organization has been doing a lot on these 3 aspects with coordination and corporation from all our employees who are integral part of our common identity i.e. “Swift Family”",
   thirdRow:
-    "E3M as a module comprises of 4 branches, each of which contains further branches. These branches work with different focus on different attributes.",
+    "HCM as a module comprises of 4 branches, each of which contains further branches. These branches work with different focus on different attributes.",
 };
 
 export const EmployeeDrishtiData = {
   firstRow:
     "Drishti is not just a symbol of seeing things but it also an epitome of “Equally seeing things”. Drishti enables every living being on planet to see the colours of world equally without any discrimination.",
   secondRow:
-    "On this principle of equality, Drishti Branch of “Swift E3M” works for area of Employee Welfare covering all employees of organization equally and it covers 3 programs",
+    "On this principle of equality, Drishti Branch of “Swift SkyNet” works for area of Employee Welfare covering all employees of organization equally and it includes 3 programs.",
 };
 
 export const EmployeeIkigaiData = {
   firstRow:
-    "IKIGAI is a Japanese word that means “Finding Meaning and Purpose of Life”. Whatever we do in life, it is very important to see meaning in the same without which everything will simply be purposeless, same is true for work as well. “Meaning of Actions” is most important force that keeps a person engaged with life, with work and with others as well. Based on this principle, the IKIGAI branch of S3M works for area of Employee Empowerment that works to empower employees by helping them finding meaning in their work and by helping them in giving channels of open communications.",
+    "Udeshya means “Finding Meaning and Purpose of Life”. Whatever we do in life, it is very important to see meaning in the same without which everything will simply be purposeless, same is true for work as well.",
   secondRow:
-    " All above 4 programs of IKIGAI branch are under constant development and further improvement",
-  thirdRow:
-    "One new program termed as RIO (Re-Inventing Opportunities) is in plan to commence that is aimed to propagate succession & career planning models of organization and provide opportunity to employee for re-inventing their careers within organizations.",
+    "“Meaning of Actions” is most important force that keeps a person engaged with life, with work and with others as well. Based on this principle, the Udeshya branch of SkyNet works for area of Employee Empowerment that operates to empower employees by helping them finding meaning in their work and by helping them in giving channels of open communications.",
 };
 export const EmployeeDeepakData = {
   firstRow:
-    "No matter how dark and intense the darkness is, just a single “Deepak” is enough to shunt that away. With this thought Deepak Branch of “Swift E3M” works for area of Social Welfare",
+    "No matter how dark and intense the darkness is, just a single “Deepak” is enough to shunt that away. With this thought Deepak Branch of “SkyNet” works for area of Social Welfare",
   secondRow:
-    " This branch provides opportunity to employees and organization for coming together and do something for society as a family.",
+    "This branch provides opportunity to employees and organization for coming together and do something for society as a family.",
 };
 export const DrishtiRowFirst = {
   title: "SEA",
   content: [
-    "Standing for Swift Employee Advantage. This Program focuses on formulating corporate tie ups with various service providers in external environment like Hospitals, Schools, Institutes, Hotels, Restaurants etc to provide a discounted pricing exclusively and equally for all employees of Ind-Swift.",
-    "Various Camps in this direction has been organized at different sites so far, the latest one was from Doctor Asha Aggarwal which was organized on 21st December 2020 for all Female Employees to bring awareness on their general health matters.",
-    "The program is being expanded with target to organizes at least 2 different nature of camps per quarter at each site consistently.",
+    "Standing for Swift Employee Advantage. This Program focuses on formulating corporate tie ups with various service providers in external environment like Hospitals, Schools, Institutes, Hotels, restaurants etc to provide a discounted pricing exclusively and equally for all employees of Ind-Swift.",
+    "Organization runs 15+ Corporate Tie Ups under SEA that provides substantial discounts to all employees of Ind-Swift for availing services from these terminals.",
+    
   ],
 };
 
 export const DrishtiRowSecond = {
   title: "I-AWARE",
   content: [
-    "Focuses on organizing financial learning camps, credit understanding camps, educations camps, NPS camps, Real-Estate camps etc for awareness and better understanding of employees towards investments/taxation etc",
-    "Various Camps in this direction has been organized at different sites so far, the latest one was from Doctor Asha Aggarwal which was organized on 21st December 2020 for all Female Employees to bring awareness on their general health matters.",
-    "The program is being expanded with target to organizes at least 2 different nature of camps per quarter at each site consistently.",
+    "This program focus on organizing financial learning camps, credit understanding camps, educations camps, NPS camps, Real-Estate camps etc for awareness and better understanding of employees towards investments/taxation etc.",
+    "Objective is to enhance knowledge and awareness of employees for their financial & social wellbeing.",
   ],
 };
 
 export const DrishtiRowThird = {
   title: "SURAKSHA CHAKRA",
   content: [
-    "Works to provide our employees sufficient insurances (like GMC, GTI, PMJJY, Statutory Coverages etc) for coverages against unforeseen incidents. The program also focuses on organizing in-house medical check-up camps for employees at set periodicity",
-    "Apart from GMC, PMJJY and Statutory Coverages, last year organization was able to bring GTI coverage of Rs 10 Lac each to all employees at extremely economic pricing by virtue of group synergy. Through this we have been able to assist families of 4 of our parted members in those hours of extreme crisis, this shows that how strong bond is shared by our employees with one another.",
-    "This year program is being expended to cover parents of employees in GMC and increase death coverage from Rs 10 Lac to Rs 20 Lac.",
+    "This program works to provide our employees & their families sufficient insurances (like NPS, Supperannuation, GMC, GTI, SC, PHC, Medical Camps, Elephant Statutory Coverages etc) for coverages against unforeseen incidents. The program also focuses on organizing in-house medical check-up camps for employees at set periodicity",
   ],
 };
 
@@ -107,27 +102,23 @@ export const DrishtiData = [DrishtiRowFirst, DrishtiRowSecond, DrishtiRowThird];
 
 export const IkigaiData = [
   {
-    title: "PMS",
+    title: 'Performance Management Framework (PMS, PLI, DISHA, C-GSP)',
     content: [
-      "A scientific, credible and transparent 360 Degree based PMS of organization which is linked with budgets, data and performance of department/individuals is working in organization for ensuring that proper feedback is provided to employee on improvement areas and on area where they are doing good.",
-      "This area is being worked to introduce concepts of Balanced Scorecards and KRA Sheets in PMS and to automate the same. This will make the process quick, easy and more reliable.",
-      "PMS feedbacks are clear indicators that explain “what is expected out of an employee’s performance” and “how his/her performance can affect entire integrated working of Organization”.",
+      " A scientific, credible and transparent 360 Degree based PMS of organization which is linked with budgets, data and performance of department/individuals is working in organization for ensuring that proper feedback is provided to employee on improvement areas and on area where they are doing good.",
+      'PMS feedbacks are clear indicators that explain “what is expected out of an employee’s performance” and “how his/her performance can affect entire integrated working of Organization”.',
     ],
   },
   {
-    title: "RAPID LEARNING PROGRAM",
+    title: "Learning Management Framework (I-Learn, LMS)",
     content: [
-      "RAPID learning stands for “Recruiting, Aligning, Performing, Inspecting and Developing”. This Program indicates T&D activities of organization.",
-      "Gaps of PMS are used to identify Training Needs of individuals and so developing customized training modules for them. After targeting specific people with specific training modules their improvement in performance in monitored and analysed in next PMS cycle.",
-      "Organization have published PRI (Performance Rating Index) of employees to show year on year improvement in various competencies and so improve “performance capacities” of organization in last few years.",
-      "Clear information about improvement areas and opportunities to learn specific skills make employees more confident about their career plans within the organization, which means finding their IKIGAI within the organization.",
+      'Clear information about improvement areas and opportunities to learn specific skills make employees more confident about their career plans within the organization, which means finding their IKIGAI within the organization.',
     ],
   },
   {
-    title: "REWARDS AND RECOGNITION PROGRAM",
+    title: "Rewards & Recognition Framework",
     content: [
-      "Organization has a wide and unfirmly applicable R&R program effectively working.",
-      "First R&R ceremony was organized 6 months ago where employees were rewarded with rewards to recognize their “out of the box and discretionary efforts” that they made in areas of Improvisation, Kaizen, Quality Circles, Lean etc.",
+      "Organization has a wide and uniformly applicable R&R program effectively working.",
+      "R&R ceremonies are organized where employees were rewarded with rewards to recognize their “out of the box and discretionary efforts” that they made in areas of Improvisation, Kaizen, Quality Circles, Lean etc.",
       "Program is constantly working and invite nomination from employees themselves, which enable them to express their own efforts in their own language to top most layers to management.",
       "Employee who earn R&R not just propagate their own careers as “Key Performers” but they also act as source of collective motivation in all employees.",
     ],
@@ -137,10 +128,10 @@ export const DeepakData = [
   {
     content: [
       "Distribution of free Food Outside Civil Hospitals of Chandigarh",
-      "Distribution of clothes to Old Age Home @ Ropar",
+      "Distribution of clothes to Old Age Home ",
       "Distribution of Winter Clothes to Casual Workers of organization",
       "Plantation of Trees in and around company premises",
-      "The most recent one was performed at R&D Mohali on 23.12.2020 where employees of R&D Mohali came together and contributed for distribution of Free Winter Clothes (Jackets, Gloves, Caps) to Contract Workers of organization.",
+      "Distribution of Free Winter Clothes (Jackets, Gloves, Caps) to Contract Workers of organization.",
     ],
   },
 ];

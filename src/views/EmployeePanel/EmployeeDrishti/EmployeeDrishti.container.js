@@ -26,7 +26,7 @@ function EmployeeDrishti() {
       <div className={styles.programBenefitWrapper}>
         <div>
           <div>
-            <span className={styles.title}>Program Benefits</span>
+            <span className={styles.title}>Programs under Drishti</span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.programDescription}>
