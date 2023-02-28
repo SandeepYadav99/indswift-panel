@@ -17,10 +17,30 @@
 }
 .tableMonthlyField {
   /* background: green; */
+  margin-left: 10px;
   flex: 1;
 }
 .grossSalaryWrapper {
   display: flex;
   font-size: 0.875rem;
   padding: 5px 0;
+  flex-wrap: wrap;
+}
+.salaryWrapper{
+  display: flex;
+  flex: 1;
+  /* flex-wrap: wrap; */
+  gap: 5px;
+  /* justify-content: flex-start; */
+}
+@media (max-width: 767px) {
+  .tableComponentField{
+    flex: 1;
+  }
+  .salaryWrapper{
+    flex: 1;
+  }
+  .grossSalaryWrapper{
+    gap: 5px;
+  }
 }
