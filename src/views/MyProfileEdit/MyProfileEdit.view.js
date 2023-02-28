@@ -19,7 +19,7 @@ import ChildrenIncludeForm from "./components/includes/ChildrenIncludes.componen
 import { getSumValue } from "../../libs/general.utils";
 import { WaitingComponent } from "../../components/index.component";
 import Constants from "../../config/constants";
-import ProfileEditCreateHook from "./ProfileEditCreateHook";
+import useMyProfileEdit from "./MyProfileEditHook";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -29,24 +29,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfileEditCreate = ({}) => {
+const MyProfileEditView = ({}) => {
   const {
     form,
     errorData,
-    listData,
     changeTextData,
     onBlurHandler,
-    removeError,
     handleSubmit,
-    filteredDepartments,
-    filteredSubDepartments,
-    filteredEmployees,
-    filteredCadres,
-    getLevelValues,
     ChildenRef,
     editData,
     isLoading,
-  } = ProfileEditCreateHook({});
+  } = useMyProfileEdit({});
 
   const image = useMemo(() => {
     return (
@@ -478,7 +471,7 @@ const ProfileEditCreate = ({}) => {
           </div>
         </div>
       </div>
-      
+
       <div className={"plainPaper"}>
         <div className={"headerFlex3 wrapper"}>
           <ButtonBase
@@ -494,4 +487,4 @@ const ProfileEditCreate = ({}) => {
   );
 };
 
-export default ProfileEditCreate;
+export default MyProfileEditView;

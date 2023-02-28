@@ -42,12 +42,12 @@ const UpperInfo = ({ data, handleToggle,handleStatusToggle, isAdmin }) => {
               // style={{ color: "#fff", borderColor: "#fff" }}
               />
             </div>
-            
+
               <div className={styles.btnUpper2}>
                 <ActionButton
                   onClick={() => {
                     historyUtils.push(
-                      `${RouteName.MY_PROFILE_UPDATE}${data?.id}`
+                      `${RouteName.MY_PROFILE_UPDATE}`
                     );
                   }}
                 >

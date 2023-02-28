@@ -3,16 +3,14 @@ import LogUtils from "../../../../libs/LogUtils";
 import {serviceChangeEmployeePassword} from "../../../../services/Employee.service";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import {useSelector} from "react-redux";
+import {servicePasswordVerify} from "../../../../services/index.services";
 
 const initialForm = {
   password: '',
     share_password: false
 };
 
-const usePasswordDialogHook = ({
-  isOpen,
-    handleToggle
-}) => {
+const usePasswordDialogHook = ({ isOpen, handleToggle, handleVerify }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -76,21 +74,23 @@ const usePasswordDialogHook = ({
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-            // serviceChangeEmployeePassword({
-            //     emp_id: employeeData?.id,
-            //     ...form
-            // })
-            // .then(res => {
-            //     if (!res.error) {
-            //         SnackbarUtils.success('Password Changed Successfully');
-            //         handleToggle();
-            //     } else {
-            //         SnackbarUtils.error(res?.message);
-            //     }
-            //     setIsSubmitting(false);
-            // })
+            servicePasswordVerify({
+                ...form
+            })
+            .then(res => {
+                if (!res.error) {
+                    if (res.data) {
+                        handleVerify();
+                    } else {
+                        SnackbarUtils.error('Password does not match');
+                    }
+                } else {
+                    SnackbarUtils.error(res?.message);
+                }
+                setIsSubmitting(false);
+            })
         }
-    }, [form, isSubmitting, setIsSubmitting, employeeData, handleToggle ]);
+    }, [form, isSubmitting, setIsSubmitting, employeeData, handleVerify ]);
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
@@ -99,7 +99,7 @@ const usePasswordDialogHook = ({
             setErrorData(errors);
             return true;
         }
-        // submitToServer();
+        submitToServer();
 
     }, [
         checkFormValidation,

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import face from "./../../../../assets/img/download.png";
 
-function CandidateInfo() {
+const CandidateInfo = ({ data }) => {
   return (
     <div className={styles.candidateInfoWrapper}>
       <div className={styles.leftField}>
@@ -15,10 +15,10 @@ function CandidateInfo() {
           </div>
           <div className={styles.desWrapper}>
             <span>
-              <strong>Aman Sharma</strong>
+              <strong>{data?.candidate?.name}</strong>
             </span>
             <span>Support Engineer</span>
-            <a href="#">Candidate Resume Link</a>
+            <a href={data?.candidate?.resume} target={'_blank'}>Candidate Resume Link</a>
           </div>
         </div>
       </div>
@@ -28,13 +28,13 @@ function CandidateInfo() {
         </div>
         <div className={styles.desWrapper}>
             <span>
-              <strong>Srikant Tripathi</strong>
-              <strong> . 24/12/2022</strong>
+              <strong>{data?.interviewer?.name}</strong>
+              <strong> . {data?.interviewDateText}</strong>
             </span>
-            <span>Mumbai Office</span>
-            <span>F2F Interview</span>
+            <span>{data?.venue}</span>
+            <span>{data?.mode} Interview</span>
           </div>
-        
+
       </div>
     </div>
   );

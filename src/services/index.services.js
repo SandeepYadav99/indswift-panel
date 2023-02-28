@@ -30,3 +30,7 @@ export async function serviceChangePassword(params) {
 export async function serviceLoginSupport(params) {
     return await postRequest('login/support', params);
 }
+
+export async function servicePasswordVerify(params) {
+    return await postRequest('password/verify', params);
+}

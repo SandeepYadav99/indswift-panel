@@ -63,7 +63,7 @@ import EmployeeEditVersionListContainer from "../views/EmployeeEditVersions/List
 import EmployeeUtsavDetail from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsavDetail";
 import CandidateDetails from "../views/Candidates/CandidateDetails/CandidateDetails.view";
 import InterviewSchedule from "../views/InterviewSchedule/InterviewSchedule.container";
-import ProfileEditCreate from "../views/ProfileEditForm/ProfileEditCreate";
+import MyProfileEditView from "../views/MyProfileEdit/MyProfileEdit.view";
 
 const Roles = Constants.ROLES;
 
@@ -87,12 +87,12 @@ const dashboardRoutes = [
         is_protect: true,
     },
     {
-        path: `${RouteName.MY_PROFILE_UPDATE}:id`,
+        path: `${RouteName.MY_PROFILE_UPDATE}`,
         sidebarName: "My Profile",
         navbarName: "My Profile",
         icon: PersonRounded,
-        component: ProfileEditCreate,
-        is_sidebar: true,
+        component: MyProfileEditView,
+        is_sidebar: false,
         is_protect: true,
     },
     {
@@ -735,7 +735,7 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
-        path: '/tm/interview',
+        path: RouteName.INTERVIEW_SCHEDULE,
         sidebarName: "Interview Schedule",
         navbarName: "Interview Schedule",
         icon: PeopleOutlined,

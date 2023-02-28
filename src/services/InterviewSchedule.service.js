@@ -11,7 +11,7 @@ export async function serviceDeleteInterviewSchedule(params) {
     return await postRequest('interviewer/schedules/delete', params);
 }
 export async function serviceGetInterviewScheduleDetails(params) {
-    return await postRequest('interviewer/schedules/details', params);
+    return await postRequest('interviewer/schedules/detail', params);
 }
 export async function serviceGetInterviewSchedule(params) {
     return await postRequest('interviewer/schedules', params);

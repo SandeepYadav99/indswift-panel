@@ -6,7 +6,8 @@ import PasswordDialog from "../PasswordPopUp/PasswordDialog.view";
 import PerformanceShortlistView from "../PerformanceShortlistView/PerformanceShortlistView";
 import NextPageHook from "./NextPageHook";
 import styles from "./Style.module.css";
-function NextPageForm() {
+import SnackbarComponent from "../../../../components/Snackbar.component";
+function NextPageForm({ data, handlePrev, isSubmitting, handleSubmit: handleSubmitProp }) {
   const {
     isResetDialog,
     form,
@@ -15,9 +16,9 @@ function NextPageForm() {
     handleRatingChange,
     handleSubmit,
     isDeclarationChecked,
-    setIsDeclarationChecked,
     handleDeclarationCheckbox,
-  } = NextPageHook({});
+    handlePasswordVerified
+  } = NextPageHook({handleSubmitProp, handlePrev});
 
   return (
     <div className={styles.evaluationFormWrapper}>
@@ -34,7 +35,7 @@ function NextPageForm() {
         </div>
         <div className={styles.evaluationContainer}>
           <div className={styles.candidateInfoContainer2}>
-            <CandidateInfo />
+            <CandidateInfo data={data} />
           </div>
           <div className={styles.candidateInfoContainer2}>
             <PerformanceShortlistView
@@ -67,11 +68,13 @@ function NextPageForm() {
               <PasswordDialog
                 isOpen={isResetDialog}
                 handleToggle={toggleResetDialog}
+                handleVerify={handlePasswordVerified}
               />
               <div className={styles.btnContainer}>
                 <div className={styles.btnCont1}>
-                  <ButtonBase className={styles.edit}>PREVIOUS</ButtonBase>
+                  <ButtonBase disabled={isSubmitting} onClick={handlePrev} className={styles.edit}>PREVIOUS</ButtonBase>
                   <ButtonBase
+                      disabled={!isDeclarationChecked || isSubmitting}
                     type={"button"}
                     onClick={handleSubmit}
                     className={styles.createBtn}
@@ -84,6 +87,7 @@ function NextPageForm() {
           </div>
         </div>
       </div>
+      <SnackbarComponent />
     </div>
   );
 }

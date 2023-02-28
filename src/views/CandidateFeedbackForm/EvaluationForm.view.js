@@ -1,13 +1,16 @@
-import { ButtonBase } from "@material-ui/core";
+import {ButtonBase, Snackbar} from "@material-ui/core";
 import React from "react";
 import { useCallback } from "react";
 import CandidateInfo from "./component/CandidateInfo/CandidateInfo";
 import PerformanceView from "./component/PerformanceView/PerformanceView";
-import UseEvaluationFormHook from "./EvaluationForm.hook";
+import useEvaluationFormHook from "./EvaluationForm.hook";
 import styles from "./Style.module.css";
+import {WaitingComponent} from "../../components/index.component";
+import SnackbarComponent from "../../components/Snackbar.component";
 
-function EvaluationForm() {
-  const { handleRatingChange,handleSubmit } = UseEvaluationFormHook({});
+function EvaluationForm({ data, handleNext, isSubmitting }) {
+  const { handleRatingChange,handleSubmit, errorData } = useEvaluationFormHook({handleNext});
+
 
   return (
     <div className={styles.evaluationFormWrapper}>
@@ -24,7 +27,7 @@ function EvaluationForm() {
         </div>
         <div className={styles.evaluationContainer}>
           <div className={styles.candidateInfoContainer2}>
-            <CandidateInfo />
+            <CandidateInfo data={data} />
           </div>
           <div className={styles.candidateInfoContainer2}>
             <div className={styles.rankingWrapper}>
@@ -41,12 +44,14 @@ function EvaluationForm() {
             <div className={styles.horizontalLine}></div>
             <PerformanceView
               handleChange={handleRatingChange}
+              isError={errorData?.experience}
               type="experience"
               title="1. Experience"
               question="Does the candidate acquired Relevant skills or qualifications through past work experiences?"
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView
+                isError={errorData?.educational}
               handleChange={handleRatingChange}
               type="educational"
               title="2. Educational"
@@ -54,6 +59,7 @@ function EvaluationForm() {
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView
+                isError={errorData?.exposure}
               handleChange={handleRatingChange}
               type="exposure"
               title="3. Exposure"
@@ -61,6 +67,7 @@ function EvaluationForm() {
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView
+                isError={errorData?.expertise}
               handleChange={handleRatingChange}
               type="expertise"
               title="4. Expertise i.e. Technical/Functional Qualifications & Skills"
@@ -68,6 +75,7 @@ function EvaluationForm() {
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView
+                isError={errorData?.communication}
               handleChange={handleRatingChange}
               type="communication"
               title="5. Communication"
@@ -75,6 +83,7 @@ function EvaluationForm() {
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView
+                isError={errorData?.candidate}
               handleChange={handleRatingChange}
               type="candidate"
               title="6. Candidate"
@@ -82,6 +91,7 @@ function EvaluationForm() {
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView
+                isError={errorData?.knowledge}
               handleChange={handleRatingChange}
               type="knowledge"
               title="7. Knowledge"
@@ -89,6 +99,7 @@ function EvaluationForm() {
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView
+                isError={errorData?.teambuilding}
               handleChange={handleRatingChange}
               type="teambuilding"
               title="8. Teambuilding/Interpersonal Skills"
@@ -96,6 +107,7 @@ function EvaluationForm() {
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView
+                isError={errorData?.initiative}
               handleChange={handleRatingChange}
               type="initiative"
               title="9. Initiative, Self-Innovation"
@@ -105,6 +117,7 @@ function EvaluationForm() {
           <div className={styles.btnContainer}>
             <div className={styles.btnCont1}>
               <ButtonBase
+                  disabled={isSubmitting}
                 type={"button"}
                 onClick={handleSubmit}
                 className={styles.createBtn}
@@ -115,6 +128,7 @@ function EvaluationForm() {
           </div>
         </div>
       </div>
+      <SnackbarComponent/>
     </div>
   );
 }

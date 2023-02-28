@@ -25,6 +25,7 @@ import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
 import { serviceEditEmployeeVersion } from "../../services/EmployeeEdit.service";
+import {useSelector} from "react-redux";
 
 const initialForm = {
   name: "",
@@ -52,83 +53,33 @@ const initialForm = {
   is_address_same: false,
 };
 
-function ProfileEditCreateHook() {
+function useMyProfileEdit() {
   const [isLoading, setIsLoading] = useState(true);
   const [form, setForm] = useState({ ...initialForm });
   const [editData, setEditData] = useState({});
   const [errorData, setErrorData] = useState({});
-  const { id } = useParams();
+  const { user: { user_id: id } } = useSelector(state => state.auth);
   const changedFields = useRef([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const ChildenRef = useRef(null);
   const codeDebouncer = useDebounce(form?.emp_code, 500);
 
-  const [listData, setListData] = useState({
-    LOCATION_DEPARTMENTS: [],
-    EMPLOYEES: [],
-    DEPARTMENTS: [],
-    SUB_DEPARTMENTS: [],
-    JOB_ROLES: [],
-    HR: [],
-    DESIGNATIONS: [],
-    LEVEL: [],
-    GRADES: [],
-    CADRES: [],
-  });
 
   useEffect(() => {
-    Promise.allSettled([
-      serviceGetList([
-        "LOCATION_DEPARTMENTS",
-        "EMPLOYEES",
-        "DEPARTMENTS",
-        "HR",
-        "SUB_DEPARTMENTS",
-        "JOB_ROLES",
-        "DESIGNATIONS",
-        "GRADES",
-        "CADRES",
-        "LEVEL",
-      ]),
-      serviceGetEmployeeEditInfo({ emp_id: id }),
-    ]).then((promises) => {
-      const listData = promises[0]?.value?.data;
-      const empData = promises[1]?.value?.data;
-      listData.EMPLOYEES = listData.EMPLOYEES.filter((emp) => emp.id !== id);
-      setListData(listData);
-      const hodIndex = listData?.EMPLOYEES.findIndex(
-        (val) => val.id === empData?.hod_id
-      );
-      if (hodIndex >= 0) {
-        empData.hod_id = listData?.EMPLOYEES[hodIndex];
-      }
-      const pmsIndex = listData?.EMPLOYEES.findIndex(
-        (val) => val.id === empData?.pms_reviewer_id
-      );
-      if (pmsIndex >= 0) {
-        empData.pms_reviewer_id = listData?.EMPLOYEES[pmsIndex];
-      }
-      const jobRoleIndex = listData?.JOB_ROLES.findIndex(
-        (val) => val.id === empData?.job_role_id
-      );
-      if (jobRoleIndex >= 0) {
-        empData.job_role_id = listData?.JOB_ROLES[jobRoleIndex];
-      }
-
-      const designationIndex = listData?.DESIGNATIONS.findIndex(
-        (val) => val.id === empData?.designation_id
-      );
-      if (designationIndex >= 0) {
-        empData.designation_id = listData?.DESIGNATIONS[designationIndex];
-      }
-      setForm({
-        ...initialForm,
-        ...empData,
-        image: "",
-      });
-      setEditData(empData);
-      setIsLoading(false);
-    });
+   if (id) {
+     Promise.allSettled([
+       serviceGetEmployeeEditInfo({ emp_id: id }),
+     ]).then((promises) => {
+       const empData = promises[0]?.value?.data;
+       setForm({
+         ...initialForm,
+         ...empData,
+         image: "",
+       });
+       setEditData(empData);
+       setIsLoading(false);
+     });
+   }
   }, [id]);
 
   const checkFormValidation = useCallback(() => {
@@ -345,7 +296,6 @@ function ProfileEditCreateHook() {
   return {
     form,
     errorData,
-    listData,
     changeTextData,
     onBlurHandler,
     removeError,
@@ -356,4 +306,4 @@ function ProfileEditCreateHook() {
   };
 }
 
-export default ProfileEditCreateHook;
+export default useMyProfileEdit;

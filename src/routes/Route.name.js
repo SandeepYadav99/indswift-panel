@@ -69,5 +69,11 @@ export default {
   EAF_SUCCESS: '/eaf/success',
 
   MY_PROFILE: '/my/profile',
-  MY_PROFILE_UPDATE: '/my/profile/update/'
+  MY_PROFILE_UPDATE: '/my/profile/edit',
+
+  CANDIDATE_FEEDBACK_SUCCESS: '/candidate/feedback/success',
+  CANDIDATE_FEEDBACK: '/candidate/feedback/',
+
+  INTERVIEW_SCHEDULE: '/interview/schedule'
+
 };

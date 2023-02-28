@@ -1,6 +1,8 @@
 import { ButtonBase } from "@material-ui/core";
 import React from "react";
 import styles from "./Style.module.css";
+import historyUtils from "../../../../libs/history.utils";
+import RouteName from "../../../../routes/Route.name";
 function SubmitEvaluationForm() {
   return (
     <div className={styles.FormSubmitWrapper}>
@@ -25,13 +27,15 @@ function SubmitEvaluationForm() {
             //   onClick={handleSubmit}
             //   disabled={isSubmitting}
               className={"createBtnreset"}
-
+              onClick={() => {
+                historyUtils.push(RouteName.INTERVIEW_SCHEDULE);
+              }}
             >
               close
             </ButtonBase>
           </div>
         </div>
-       
+
       </div>
     </div>
   );
