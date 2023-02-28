@@ -40,6 +40,8 @@ import JobOpeningDetailReducer from "./JobOpeningDetail.reducer";
 import HRFacility from "./HRFacility.reducer";
 import HRFacilityItem from "./HRFacilityItem.reducer";
 import HRKnowledgeReducer from "./HRKnowledge.reducer";
+import HRAnnouncementReducer from "./HRAnnouncement.reducer";
+
 import HRUtsavReducer from "./HRUtsav.reducer";
 import HRUtsavItemsReducer from "./HRUtsavItems.reducer";
 import ReviewReducer from "./Review.reducer";
@@ -73,6 +75,7 @@ const rootReducer = combineReducers({
   designation: DesignationReducer,
   hrpolicy: HRPolicyReducer,
   hrknowledge: HRKnowledgeReducer,
+  hr_announcement: HRAnnouncementReducer,
   circular: CircularReducer,
   subdepartment: SubDepartmentReducer,
   grade: GradeReducer,
@@ -88,7 +91,7 @@ const rootReducer = combineReducers({
   hr_utsav_item: HRUtsavItemsReducer,
   review: ReviewReducer,
   employeeDashboard: EmployeeDashboard,
-  employee_versions: EmployeeVersions
+  employee_versions: EmployeeVersions,
   // form: formReducer,
 });
 

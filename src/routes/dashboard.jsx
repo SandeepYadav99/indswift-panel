@@ -50,6 +50,8 @@ import EmployeeIkigai from "../views/EmployeePanel/EmployeeIkigai/EmployeeIkigai
 import EmployeeDeepak from "../views/EmployeePanel/EmployeeDeepak/EmployeeDeepak.container";
 import EmployeeUtsav from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsav.container";
 import HRKnowledge from "../views/HR/HRKnowledge/HRKnowledge.container";
+import HRAnnouncement from "../views/HR/HRAnnouncements/HRAnnouncement.container";
+import HRAnnouncementCreateView from "../views/HR/HRAnnouncements/HRAnnouncementCreate.view"
 import HRKnowledgeCreateView from "../views/HR/HRKnowledge/HRKnowledgeCreate.view";
 import HRUtsav from "../views/HR/HRUtsav/HRUtsav.container";
 import EmployeeKnowledge from "../views/EmployeePanel/EmployeeKnowledge/EmployeeKnowledge.container";
@@ -667,6 +669,32 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'Hr',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: '/hr/announcement',
+        sidebarName: "Announcements",
+        navbarName: "Announcements",
+        icon: PeopleOutlined,
+        component: HRAnnouncement,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'Hr',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: RouteName.HR_ANNOUNCEMENT_CREATE,
+        component: HRAnnouncementCreateView,
+        is_sidebar: false,
+        is_protect: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.HR_ANNOUNCEMENT_UPDATE}:id`,
+        component: HRAnnouncementCreateView,
+        is_sidebar: false,
+        is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {

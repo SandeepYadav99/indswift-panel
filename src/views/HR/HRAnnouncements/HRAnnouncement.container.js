@@ -1,6 +1,3 @@
-/**
- * Created by charnjeetelectrovese@gmail.com on 12/3/2019.
- */
 import React, { Component, useCallback, useEffect, useMemo } from "react";
 import {
   Button,
@@ -18,20 +15,18 @@ import {
   OpenInNew,
   PrintOutlined,
 } from "@material-ui/icons";
-import PageBox from "../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
+import PageBox from "../../../components/PageBox/PageBox.component";
+import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
-import Constants from "../../config/constants";
-import FilterComponent from "../../components/Filter/Filter.component";
+import DataTables from "../../../Datatables/Datatable.table";
+import Constants from "../../../config/constants";
+import FilterComponent from "../../../components/Filter/Filter.component";
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
-import useCadreList from "./CadreListHook";
-import StatusPill from "../../components/Status/StatusPill.component";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import history from "../../libs/history.utils";
-// import CreateView from './Cadre.view';
+import StatusPill from "../../../components/Status/StatusPill.component";
+import useHRAnnouncementList from "./HRAnnouncementHook";
+// import StatusPill from "../../components/Status/StatusPill.component";
 
-const CadreList = ({}) => {
+const HRAnnouncement = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -41,25 +36,37 @@ const CadreList = ({}) => {
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
-    handleCreate,
+    handleSideToggle,
     handleViewDetails,
     editData,
-    code,
+    isSidePanel,
+    handleCreate,
     isCalling,
     configFilter,
-  } = useCadreList({});
+    handleSubDepartment,
+  } = useHRAnnouncementList({});
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.cadre);
+  } = useSelector((state) => state.hr_announcement);
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
-
+  const renderSubmittion = useCallback((obj) => {
+    return (
+      <div>
+        {obj.map((item) => (
+          <ul className={styles.submittionList}>
+            <li>{item.name}</li>
+          </ul>
+        ))}
+      </div>
+    );
+  });
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -75,42 +82,35 @@ const CadreList = ({}) => {
 
   const tableStructure = useMemo(() => {
     return [
-      // {
-      //     key: 'grade',
-      //     label: 'Grade',
-      //     sortable: false,
-      //     render: (temp, all) => <div>G8</div>,
-      // },
-      // {
-      //     key: 'name',
-      //     label: 'Level',
-      //     sortable: true,
-      //     render: (value, all) => <div>{renderFirstCell(all)}</div>,
-      // },
       {
-        key: "name",
-        label: "Cadre",
+        key: "image",
+        label: "IMAGE",
         sortable: false,
-        render: (temp, all) => <div>{all?.name}</div>,
+        render: (temp, all, index) => <div>{all?.image}</div>,
       },
-      // {
-      //     key: 'level',
-      //     label: 'Cadre Level',
-      //     sortable: false,
-      //     render: (temp, all) => <div>{all?.level}</div>,
-      // },
+      {
+        key: "title",
+        label: "ANNOUNCEMENTS TITLE",
+        sortable: false,
+        render: (value, all) => <div>{all?.title}</div>,
+      },
+      {
+        key: "date",
+        label: "DATE",
+        sortable: false,
+        render: (temp, all) => <div>{all?.date}</div>,
+      },
       {
         key: "status",
-        label: "Status",
-        sortable: true,
+        label: "STATUS",
+        sortable: false,
         render: (temp, all) => <div>{renderStatus(all.status)}</div>,
       },
       {
-        key: "user_id",
+        key: "_id",
         label: "Action",
         render: (temp, all) => (
           <div>
-            {/*<IconButton className={'t ableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >*/}
             <IconButton
               onClick={() => {
                 handleEdit(all);
@@ -129,12 +129,8 @@ const CadreList = ({}) => {
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
-      // onCellClick: this.handleCellClick,
-      // onCellDoubleClick: this.handleCellDoubleClick,
-      // onFilterValueChange: this._handleSearchValueChange.bind(this),
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
       onRowSizeChange: handleRowSize,
     };
 
@@ -162,16 +158,8 @@ const CadreList = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <ButtonBase onClick={() => history.goBack()}>
-              <ArrowBackIosIcon
-                fontSize={"small"}
-                className={styles.backArrow}
-              />
-            </ButtonBase>
-            <span className={styles.title}>
-              <span className={styles.uppCase}>{code}</span> Cadre List
-            </span>
-            <div className={styles.newLine} style={{ marginLeft: "20px" }} />
+            <span className={styles.title}>Announcements</span>
+            <div className={styles.newLine} />
           </div>
           <div>
             <ButtonBase onClick={handleCreate} className={"createBtn"}>
@@ -202,4 +190,4 @@ const CadreList = ({}) => {
   );
 };
 
-export default CadreList;
+export default HRAnnouncement;
