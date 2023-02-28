@@ -119,7 +119,8 @@
     gap: 5px;
   }
   .grossSalaryGreenWrapper{
-    align-items: flex-start
+    align-items: flex-start;
+    gap: 5px
   }
    
 }
