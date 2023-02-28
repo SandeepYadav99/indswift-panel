@@ -17,7 +17,7 @@ function EmployeeEngagement() {
   return (
     <div className={styles.employeeEngagementWrapper}>
       <InformationCard
-        heading="Employee Engagement Events"
+        heading="Swift HCM (Swift-Happiness Capitalization Module)"
         imageachorTag={employeeData?.document}
         imageUrl={images}
         productLink="View Induction Booklet"
@@ -72,7 +72,7 @@ function EmployeeEngagement() {
             <EngagementCard
               imageUrl={IkagaiImage}
               department="Employee Empowerment"
-              name="Udeshya"
+              name="UDESHYA"
             />
           </Link>
         </div>

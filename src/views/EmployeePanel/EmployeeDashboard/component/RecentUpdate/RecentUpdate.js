@@ -2,6 +2,8 @@ import React, { useMemo } from "react";
 import styles from "./Style.module.css";
 import { useSelector } from "react-redux";
 import { WaitingComponent } from "../../../../../components/index.component";
+import historyUtils from "../../../../../libs/history.utils";
+import RouteName from "../../../../../routes/Route.name";
 
 function RecentUpdate() {
   const { isCircularCalling, circulars } = useSelector(
@@ -28,19 +30,22 @@ function RecentUpdate() {
               />
             </div>
             <div className={styles.description}>
-              <a
-                target={"_blank"}
-                href={data?.document}
+              <div
                 className={styles.descriptionName}
+                onClick={() => {
+                  historyUtils.push(RouteName.VIEW_DOCUMENTS, {
+                    url: data?.document,
+                  });
+                }}
               >
                 {data?.name}
-              </a>
+              </div>
               <span className={styles.effectiveDate}>
                 Effective Date: {data?.effectiveDateText}
               </span>
             </div>
           </div>
-          { listLength && (listLength === index) ? (
+          {listLength && listLength === index ? (
             <></>
           ) : (
             <div className={styles.horizontalLine}></div>
