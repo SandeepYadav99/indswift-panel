@@ -1,26 +1,25 @@
 import LogUtils from "../../libs/LogUtils";
 import useViewDocuments from "./ViewDocumentsHook";
 import {useEffect, useState} from "react";
-import GenericSlider from "../EmployeePanel/EmployeeDashboard/component/Members/GenricSlider";
+import styles from './Style.module.css';
 
 
 const ViewDocuments = ({location}) => {
     const {} = useViewDocuments({});
     const { url } = location?.state;
-    const [blob, setBlob] = useState(null);
+    // const [blob, setBlob] = useState(null);
+    //
+    // useEffect(() => {
+    //     LogUtils.log(url);
+    //     fetch(url).then(r => r.blob()).then((res) => {
+    //         LogUtils.log('res', res);
+    //         setBlob(res);
+    //     })
+    // }, []);
 
-    useEffect(() => {
-        LogUtils.log(url);
-        fetch(url).then(r => r.blob()).then((res) => {
-            LogUtils.log('res', res);
-            setBlob(res);
-        })
-    }, []);
-
-    LogUtils.error('url', url);
     return (
-        <div>
-            <iframe src={blob} target="_parent" />
+        <div className={styles.mainContainer}>
+            <iframe className={styles.iFrame} src={url} target="_parent" />
         </div>
     );
 };
