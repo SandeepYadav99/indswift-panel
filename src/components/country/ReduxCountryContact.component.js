@@ -16,7 +16,6 @@ class ReduxCountryContact extends Component {
     }
 
     _handleChange(phone) {
-        console.log('redux country contact', phone);
         this.props.onChange(phone);
     }
 

@@ -12,13 +12,14 @@ function EmployeeUtsavHook() {
     let dataValues = serviceGetUtsavDetails({});
     dataValues
       .then((data) => {
+        data.data.sort((a, b) => (a.priority > b.priority ? -1 : 1));
         setemployeeUtsavData(data.data);
       })
       .catch((err) => console.log(err));
   }, []);
   const handleViewDetails = useCallback((data) => {
     console.log("=====>", data);
-    historyUtils.push(`/employee/utsav/${data}`);  
+    historyUtils.push(`/employee/utsav/${data}`);
   }, []);
   console.log("employeeData", employeeUtsavData);
   return {

@@ -10,7 +10,6 @@ function EmployeeUtsavDetailHook() {
     let dataValues = serviceGetUtsavDetailsInfo(id);
     dataValues
       .then((data) => {
-        console.log({data})
         setemployeeUtsavDetailData(data?.data?.details);
       })
       .catch((err) => console.log(err));

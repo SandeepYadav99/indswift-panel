@@ -32,7 +32,6 @@ const useCircularList = ({}) => {
     }, []);
 
     const handlePageChange = useCallback((type) => {
-        console.log('_handlePageChange', type);
         dispatch(actionSetPageCircular(type));
     }, []);
 
@@ -48,7 +47,6 @@ const useCircularList = ({}) => {
     }, [setSidePanel, setEditData]);
 
     const queryFilter = useCallback((key, value) => {
-        console.log('_queryFilter', key, value);
         // dispatch(actionSetPageCircularRequests(1));
         dispatch(actionFetchCircular(1, sortingData, {
             query: key == 'SEARCH_TEXT' ? value : query,
@@ -58,18 +56,15 @@ const useCircularList = ({}) => {
     }, [sortingData, query, queryData,]);
 
     const handleFilterDataChange = useCallback((value) => {
-        console.log('_handleFilterDataChange', value);
         queryFilter('FILTER_DATA', value);
     }, [queryFilter]);
 
     const handleSearchValueChange = useCallback((value) => {
-        console.log('_handleSearchValueChange', value);
         queryFilter('SEARCH_TEXT', value);
     }, [queryFilter]);
 
 
     const handleSortOrderChange = useCallback((row, order) => {
-        console.log(`handleSortOrderChange key:${row} order: ${order}`);
         dispatch(actionSetPageCircular(1));
         dispatch(actionFetchCircular(1, {row, order}, {
             query: query,
@@ -78,7 +73,6 @@ const useCircularList = ({}) => {
     }, [query, queryData]);
 
     const handleRowSize = (page) => {
-        console.log(page);
     }
 
     const handleDelete = useCallback((id) => {

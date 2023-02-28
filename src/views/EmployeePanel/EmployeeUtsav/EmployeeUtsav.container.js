@@ -134,7 +134,6 @@ function EmployeeUtsav() {
         </div>
       </div>
       {employeeUtsavData?.map((item, index) => {
-        employeeUtsavData.sort((a, b) => (a.priority > b.priority ? -1 : 1));
         return (
           item?.items?.length > 0 && (
             <div

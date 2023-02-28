@@ -925,6 +925,9 @@ font-size: medium;
 .capitalize {
     text-transform: capitalize;
 }
+.textLayer {
+    display: none !important;
+}
 @media (max-width: 767px) {
     .iconTabsEvents{
       padding: 6px 8px !important;

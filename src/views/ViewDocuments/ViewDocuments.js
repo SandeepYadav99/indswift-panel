@@ -12,7 +12,7 @@ const ViewDocuments = ({location}) => {
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
     const [blob, setBlob] = useState(null);
-    // const url = 'https://api.indswiftlabs.com/public/hr_policies/1677572910522_policy.pdf';
+    // const url = 'https://api.indswiftlabs.com/public/hr_knowledge_center/1677586396972_BES_2021.pdf';
     const onDocumentLoadSuccess = ({ numPages }) => {
         setNumPages(numPages);
     };
@@ -47,7 +47,7 @@ const ViewDocuments = ({location}) => {
                 file={blob}
                 onLoadSuccess={onDocumentLoadSuccess}
             >
-                <Page width={width < 400 ? 300 : 600} pageNumber={pageNumber} />
+                <Page width={width < 400 ? 300 : 0} pageNumber={pageNumber} />
             </Document>
 
         </div>

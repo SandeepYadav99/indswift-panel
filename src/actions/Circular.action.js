@@ -125,11 +125,10 @@ export function actionSetPageCircular(page) {
         store.dispatch(actionFetchCircular(serverPage + 1, sortingData, {query, query_data: queryData}));
     }
 
-    console.log(currentPage, totalLength);
     return {
         type: CHANGE_PAGE,
         payload: page,
     };
-    
+
 
 }

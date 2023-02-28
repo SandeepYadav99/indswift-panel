@@ -1,15 +1,15 @@
 /**
  * Created by charnjeetelectrovese@gmail.com on 7/9/2019.
  */
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import {connect, useSelector} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RouteName from "../routes/Route.name";
+import {WaitingComponent} from "../components/index.component";
 
 
 const CustomRouter = (props) => {
-    console.log('customRouter', props);
   const { component: Component, roles, ...rest } = props;
   const { is_authenticated, role } = useSelector(state => state.auth);
 
@@ -38,7 +38,9 @@ const CustomRouter = (props) => {
   }
   return (<Route {...rest} render={(childProps) => {
       return (
+          <Suspense fallback={<WaitingComponent/>}>
         <Component {...childProps} board_type={props.board_type} category={props.category}  {...props}/>
+          </Suspense>
       );
     }}
   />

@@ -33,7 +33,6 @@ const useHRPolicyList = ({}) => {
     }, []);
 
     const handlePageChange = useCallback((type) => {
-        console.log('_handlePageChange', type);
         dispatch(actionSetPageHRPolicy(type));
     }, []);
 
@@ -49,7 +48,6 @@ const useHRPolicyList = ({}) => {
     }, [setSidePanel, setEditData]);
 
     const queryFilter = useCallback((key, value) => {
-        console.log('_queryFilter', key, value);
         // dispatch(actionSetPageHRPolicyRequests(1));
         dispatch(actionFetchHRPolicy(1, sortingData, {
             query: key == 'SEARCH_TEXT' ? value : query,
@@ -59,18 +57,15 @@ const useHRPolicyList = ({}) => {
     }, [sortingData, query, queryData,]);
 
     const handleFilterDataChange = useCallback((value) => {
-        console.log('_handleFilterDataChange', value);
         queryFilter('FILTER_DATA', value);
     }, [queryFilter]);
 
     const handleSearchValueChange = useCallback((value) => {
-        console.log('_handleSearchValueChange', value);
         queryFilter('SEARCH_TEXT', value);
     }, [queryFilter]);
 
 
     const handleSortOrderChange = useCallback((row, order) => {
-        console.log(`handleSortOrderChange key:${row} order: ${order}`);
         dispatch(actionSetPageHRPolicy(1));
         dispatch(actionFetchHRPolicy(1, {row, order}, {
             query: query,
@@ -79,7 +74,6 @@ const useHRPolicyList = ({}) => {
     }, [query, queryData]);
 
     const handleRowSize = (page) => {
-        console.log(page);
     }
 
     const handleDelete = useCallback((id) => {

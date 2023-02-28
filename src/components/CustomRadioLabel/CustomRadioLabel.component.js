@@ -12,7 +12,6 @@ class CustomRadioLabel extends Component {
 
     onValueChange(event) {
         const data = event.target.value;
-        console.log(data)
         // this.props.handleChange(data)
     }
 

@@ -327,7 +327,6 @@ class RoutesList extends Component {
     }
 
     _callCenter(data) {
-        console.log('Google map', data);
         if (window.google && this.map) {
             var location = new window.google.maps.LatLng(data[0], data[1]);
             // this.map.setZoom(14);
