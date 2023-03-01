@@ -95,7 +95,11 @@ const styles = theme => ({
   widgetBody: {
     paddingBottom: theme.spacing.unit * 3,
     paddingRight: theme.spacing.unit * 3,
-    paddingLeft: theme.spacing.unit * 3
+    paddingLeft: theme.spacing.unit * 3,
+    [theme.breakpoints.down("xs")]: {
+      paddingRight:"8px",
+      paddingLeft:"8px",
+      },
   },
   noPadding: {
     padding: 0

@@ -52,7 +52,7 @@ const UpperInfo = ({ data, handleToggle,handleStatusToggle, isAdmin }) => {
                   }}
                 >
                   <RepeatRounded fontSize={"small"} />
-                  <span className={styles.actionBtnSpan}>Edit</span>
+                  <span className={styles.actionBtnSpan2}>Edit</span>
                 </ActionButton>
               </div>
           </div>}
