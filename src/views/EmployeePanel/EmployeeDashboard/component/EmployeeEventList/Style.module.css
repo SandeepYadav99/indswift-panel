@@ -96,6 +96,14 @@
       width: 250px;
   }
   .paperBackground{
-    height: auto;
+    height: 300px;
+  }
+ .paperBackground1{
+  padding: 10px 5px;
+ }
+}
+@media (max-width: 767px) {
+  .birthdayEventWrapper{
+    padding-left: 0;
   }
 }

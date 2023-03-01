@@ -101,5 +101,8 @@
   .userInfoContainer {
     gap: 8px;
   }
-   
+   .userInfoWrapper{
+    padding-left: .8rem;
+    padding-right: .4rem;
+   }
 }

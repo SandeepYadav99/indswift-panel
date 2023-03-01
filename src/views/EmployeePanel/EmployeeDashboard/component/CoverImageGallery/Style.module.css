@@ -55,4 +55,7 @@
     width: 100%;
     min-width: 100px;
   }
+  .coverImageGalleryWrapper{
+    width: calc(100vw - 64px); 
+  }
 }

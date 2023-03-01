@@ -23,3 +23,8 @@
   font-weight: 600;
   font-size: .875rem;
 }
+@media(max-width:767px){
+  .userInfoWrapper{
+    padding-left: .8rem;
+    padding-right: .4rem;  }
+}

@@ -193,7 +193,7 @@ function EmployeeListCreateHook() {
       // "previous_review_date",
       "gender",
       "dob",
-      "job_role_id",
+      // "job_role_id",
       "state",
       "blood_group",
       // "official_contact",
