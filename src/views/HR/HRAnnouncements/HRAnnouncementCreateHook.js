@@ -27,6 +27,7 @@ const initialForm = {
   date: "",
   link: "",
   is_active: true,
+  image: "",
 };
 
 const useHRAnnouncementCreateViewDetail = ({}) => {
@@ -48,8 +49,8 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
           const data = res?.data?.details;
           setForm({
             ...data,
-            document: null,
             is_active: data?.status === Constants.GENERAL_STATUS.ACTIVE,
+            date: new Date(data?.date),
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -68,9 +69,8 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["title", "date", "link"];
-    console.log(id, "==id");
     if (!id) {
-      required.push("document");
+      required.push("image");
     }
     console.log(form, errors);
     required.forEach(
@@ -105,7 +105,11 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
         if (["is_active"].indexOf(key) >= 0) {
           fd.append(key, JSON.stringify(form[key]));
         } else {
-          fd.append(key, form[key]);
+          if (key === "date") {
+            fd.append(key, new Date(form[key]));
+          } else {
+            fd.append(key, form[key]);
+          }
         }
       });
       req(fd).then((res) => {
