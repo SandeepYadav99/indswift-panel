@@ -113,7 +113,6 @@ const HRAnnouncementCreateView = ({}) => {
             fullWidth={true}
             name="document"
             label=""
-            type={["jpg", "png", "pdf"]}
             default_image={form?.document ? form?.document : null}
             // user_image={form?.image}
             error={errorData?.image}
