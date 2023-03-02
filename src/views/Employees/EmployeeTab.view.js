@@ -168,7 +168,7 @@ const EmployeeTab = () => {
               <CareerProgression />
             </TabPanel>
             <TabPanel value={value} index={3} dir={"ltr"}>
-              <EmployeeRecord/>
+              <EmployeeRecord />
             </TabPanel>
           </div>
         </div>
