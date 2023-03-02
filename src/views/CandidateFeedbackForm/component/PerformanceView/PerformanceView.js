@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import images from "./PerformanceImages";
 
 const ratings = [1, 2, 3, 4, 5];
-function PerformanceView({ type, title, question, handleChange }) {
+function PerformanceView({ type, title, question, handleChange, isError }) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [note, setNote] = useState("");
 
@@ -19,7 +19,7 @@ function PerformanceView({ type, title, question, handleChange }) {
   };
 
   return (
-    <div className={styles.PerformanceViewWrapper}>
+    <div className={styles.PerformanceViewWrapper} style={{ backgroundColor: isError ? '#ff000010' : '#FFF' }}>
       <div className={styles.titleWrapper}>
         <span>{title}</span>
       </div>

@@ -36,7 +36,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const PasswordDialog = ({ isOpen, handleToggle, empId }) => {
+const PasswordDialog = ({ isOpen, handleToggle, empId, handleVerify }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -51,7 +51,7 @@ const PasswordDialog = ({ isOpen, handleToggle, empId }) => {
     isVerified,
     showPasswordCurrent,
     setShowPasswordCurrent,
-  } = usePasswordDialogHook({ isOpen, handleToggle, empId });
+  } = usePasswordDialogHook({ isOpen, handleToggle, empId, handleVerify });
 
   return (
     <div>
@@ -69,7 +69,7 @@ const PasswordDialog = ({ isOpen, handleToggle, empId }) => {
         {/*<DialogTitle id="alert-dialog-title">*/}
         <div className={styles.resetPasswordWrapper}>
           <div className={styles.resetWrapper}>
-            
+
             <ButtonBase
               classes={{ root: classes.closeBtn }}
               onClick={handleToggle}
@@ -117,7 +117,7 @@ const PasswordDialog = ({ isOpen, handleToggle, empId }) => {
                 }}
               />
             </div>
-            
+
           </div>
           <div className={styles.printFlex}>
             <ButtonBase

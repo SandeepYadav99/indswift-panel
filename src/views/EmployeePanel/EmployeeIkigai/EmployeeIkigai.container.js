@@ -11,21 +11,17 @@ function EmployeeIkigai() {
   return (
     <div className={styles.employeeDrishtiWrapper}>
       <InformationCard
-        heading="Ikigai - Employee Empowerment"
+        heading="Udeshya"
         imageUrl={DrishtiImage}
         data={staticEmployeeIkigaiData}
       />
       <div className={styles.programBenefitWrapper}>
         <div>
           <div>
-            <span className={styles.title}>Program Benefits</span>
+            <span className={styles.title}>Programs under Udeshya</span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.programDescription}>
-            <p>
-              Currently 4 Programs that are effective under branch of IKIGAI are
-              stated below
-            </p>
             <div>
               {DrishtiDescription?.length > 0 &&
                 DrishtiDescription?.map((item) => {
@@ -47,7 +43,7 @@ function EmployeeIkigai() {
                 })}
               <div className={styles.DrishtiDescriptionWrapper}>
                 <span className={styles.title}>
-                  EFS (EMPLOYEE FEEDBACK SYSTEM)
+                  Employee Feedback Systems (BB, Sehyog, Surveys, Sarthak)
                 </span>
                 <div>
                   <div className={styles.mappedDataWrapperLower}>
@@ -55,7 +51,7 @@ function EmployeeIkigai() {
                       <div className={styles.squareDiv}></div>
                     </div>
                     <span className={styles.mappedData}>
-                      Organization firmly believe that employees working down
+                      Organization firmly believes that employees working down
                       and across the hierarchies must have clear and equally
                       available communication channels through which they may
                       express their concerns/ideas/suggestion to top management
@@ -72,26 +68,13 @@ function EmployeeIkigai() {
                       <div className={styles.squareDiv}></div>
                     </div>
                     <span className={styles.mappedData}>
-                      Various actions were performed in organization based on
-                      feedback of employees collected through above 3
-                      interventions. Some of changes that were propagated based
-                      on feedback from employees are: <br />{" "}
+                      Re-Inventing Opportunities (Role Upliftment, Succession &
+                      Career Planning) <br />{" "}
                       <span>
-                        1. Adopting new 360 Degree based PMS and Training
-                        methods effectively working
-                      </span>
-                      <br />
-                      <span>
-                        {" "}
-                        2. Performing compensation fitments exercise.
-                      </span>
-                      <br /> <span>3. Providing GMC, GTI.</span> <br />
-                      <span>
-                        4. Interaction of New Canteen, New Buses, New automatic
-                        Payroll systems, Revision of existing policies,
-                        Automation of leave procedures, Uniformity of Salary
-                        structures, Launch E-Suvidha, Launch of New Website,
-                        Launch of Compensation grading activities etc
+                        This program is aimed to propagate succession & career
+                        planning models of organization and provide opportunity
+                        to employee for re-inventing their careers within
+                        organizations
                       </span>
                     </span>
                   </div>
@@ -100,11 +83,21 @@ function EmployeeIkigai() {
                       <div className={styles.squareDiv}></div>
                     </div>
                     <span className={styles.mappedData}>
-                      These actions are evident to establish that employees of
-                      organization have very strong and fair communication
-                      channels through which they can use their empowerment in
-                      development of organization.
+                      Protsahan (Employee Education and Scholarship Scheme)
                       <br />
+                      <span>
+                        1. Protsahan is an education assistance program that
+                        offers scholarship for academic upliftment of employees
+                        and their children.{" "}
+                      </span>
+                      <br />
+                      <span>
+                        2.Program aims at providing crucial financial assistance
+                        to eligible children of our employees in the form of an
+                        “academic scholarship, through which, they may realize
+                        their dreams of building exceptional careers in fields
+                        of their choice
+                      </span>
                     </span>
                   </div>
                 </div>

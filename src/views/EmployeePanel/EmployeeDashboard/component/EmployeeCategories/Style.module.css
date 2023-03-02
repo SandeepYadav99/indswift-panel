@@ -21,7 +21,7 @@
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
 .employeeCategoriesCard {
-  padding: 25px 0px;
+  padding: 25px 10px;
   /* border: 1px solid #919bb0; */
   border-radius: 10px;
   display: flex;
@@ -62,9 +62,15 @@
 }
 .categories {
   font-size: 0.75rem;
-  word-break: break-word;
+  text-align: center;
+  word-break: keep-all;
 }
 .employeeCategoriesLower {
   display: flex;
   gap: 15px;
+}
+@media (max-width: 767px) {
+  .employeeCategoriesLower {
+      flex-wrap: wrap;
+  }
 }

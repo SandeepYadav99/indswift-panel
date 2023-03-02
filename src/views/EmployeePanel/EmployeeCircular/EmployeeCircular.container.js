@@ -13,6 +13,8 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import { useMemo } from "react";
 import { useCallback } from "react";
+import historyUtils from "../../../libs/history.utils";
+import RouteName from "../../../routes/Route.name";
 
 function EmployeeCircular() {
   const {
@@ -73,13 +75,15 @@ function EmployeeCircular() {
           <div>
             <a
               style={{ "text-decoration": "none" }}
-              href={all?.document}
-              target="_blank"
+              onClick={() => {
+                historyUtils.push(RouteName.VIEW_DOCUMENTS, { url: all?.document });
+              }}
             >
               <Button
                 color="primary"
                 variant="contained"
                 size="small"
+                
                 // onClick={() => (
 
                 // )}

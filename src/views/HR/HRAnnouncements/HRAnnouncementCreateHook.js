@@ -26,6 +26,7 @@ const initialForm = {
   title: "",
   date: "",
   link: "",
+  document: null,
   is_active: true,
   image: "",
 };

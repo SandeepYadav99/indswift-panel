@@ -203,3 +203,18 @@
     color: grey;
     text-align: center;
 }
+@media (max-width: 767px) {
+    .mainLoginView {
+        flex-direction: column;
+    }
+    .loginFlex2{
+        margin: 10% 4%;
+    }
+    .loginFlex1{
+        display: none;
+        /* min-height: 240px; */
+    }
+    .signContainer{
+        margin: 0%;
+    }
+}

@@ -55,7 +55,6 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
                 newAll = [...newData];
             } else {
                 newAll = [...state.all, ...newData];
-                console.log(newAll)
             }
             const tableData = mapPresetPRequest(newAll, state.currentPage);
             return {...state, all: newAll, data: tableData,

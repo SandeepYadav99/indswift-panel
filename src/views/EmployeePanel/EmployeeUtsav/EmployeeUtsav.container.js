@@ -16,7 +16,7 @@ function EmployeeUtsav() {
       <div className={styles.employeeInducationWrapper}>
         <div>
           <div>
-            <span className={styles.title}>Utsav @ Ind Swift</span>
+            <span className={styles.title}>Utsav</span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.contentWrapper}>
@@ -25,65 +25,106 @@ function EmployeeUtsav() {
                 Life is just an another name of Celebrations. Apart from work,
                 recognition, growth and appreciation; organization make special
                 efforts to make the stay of employees at Ind-Swift not less than
-                a Celebration in itself. Based in this principle, Utsav Branch
-                of “Swift E3M” works for area of Employee Engagement that works
-                to organize various events and celebrations on festivals,
-                birthdays etc at different sites and give time to employees for
-                celebrating important events with their family @ work. UTSAV
-                deals with propagating Employee Engagement in organization by
-                two means- Events -
+                a Celebration in itself. 
+              </p>
+              <p>
+                Based in this principle, Utsav Branch of “SkyNet” works for area
+                of Employee Engagement that works to organize various events and
+                celebrations on festivals, birthdays etc at different sites and
+                give time to employees for celebrating important events with
+                their family @ work. 
               </p>
               <div className={styles.eventsFlex}>
-                <span className={styles.title}>Events</span>
-                <p>- By organizing festivals & gatherings on occasions. </p>
+                <span className={styles.title}>Programs under Utsav</span>
+                <p>
+                  UTSAV deals with propagating Employee Engagement in
+                  organization by two means- -
+                </p>
+              </div>
+              <div className={styles.mappedDataWrapper2}>
+                <div>
+                  <span className={styles.title}>Events</span>
+                </div>
+                <div>
+                  {/* <div className={styles.squareDivWrapper}> */}
+                  {/* <div className={styles.squareDiv}></div> */}
+                  <span
+                  // className={styles.mappedData}
+                  >
+                    Organization observes every month on a certain Theme, all
+                    site HRs organize at least one event per month that matches
+                    theme of that month. This is apart from routine
+                    celebrations, events and festivals.
+                  </span>
+                  {/* </div> */}
+                </div>
+              </div>
+              <div className={styles.SubhekshWrapper}>
+                <span className={styles.title}>Subheksha</span>
+                <span>
+                  Under this program, organization is conducting 3
+                  interventions-
+                </span>
+              </div>
+              <div className={styles.descWrapper}>
+                <span className={styles.title}>
+                  Alumni Relation Management (CFL)
+                </span>
+                <div className={styles.mappedDataWrapper}>
+                  <span className={styles.mappedData2}>
+                    Employees who leave the organization but have been
+                    performing well are added in a special alumni group known as
+                    CFL (Colleagues for Life). These employees are awarded with
+                    Alumni Certificates on separation, and they are added in a
+                    special WhatsApp group to keep them connected with
+                    organization. They are also eligible to re-apply in
+                    organization after 6 months of separation.
+                  </span>
+                </div>
               </div>
 
-              <div className={styles.mappedDataWrapper}>
-                <div className={styles.squareDivWrapper}>
-                  <div className={styles.squareDiv}></div>
+              <div className={styles.descWrapper}>
+                <span className={styles.title}>Service Tenure Ceremonies</span>
+                <div className={styles.mappedDataWrapper}>
+                  <span className={styles.mappedData2}>
+                    One of the core strengths of our great organization is our
+                    stable, confident, and determined workforce.
+                    <br />
+                    <p className={styles.restrictPadding}>
+                      {" "}
+                      It is very easy to start a journey, but it takes a great
+                      sense of responsibility to continue that journey while
+                      overcoming all the obstacles and hurdles. In Today’s
+                      unstable world, it takes a lot of courage to stay
+                      committed with a single cause.
+                    </p>
+                    <br />
+                    <p className={styles.restrictPadding}>
+                      Organization appreciates employees who have dedicated
+                      their careers in making the dream “Ind-Swift” a reality,
+                      therefore organisation commenced a monthly activity known
+                      as
+                      <strong> "Service Award Ceremony"</strong> .
+                    </p>
+                     
+                    <br />
+                    This ceremony is organized on every 25th working date of the
+                    month, where organization honour those employees who have
+                    completed 5 years, 10 years, 15 year, 20 years, 25 years,
+                    25+ years, or retirement of their journey with organization.
+                  </span>
                 </div>
-                <span className={styles.mappedData}>
-                  From 1st Jan 2023 we are launching Theme based months, when
-                  every month will have an observance theme, all site HRs are
-                  required to organize at least one event per month that matches
-                  theme of that month. This is part from routine celebrations,
-                  events and festivals.
-                </span>
               </div>
-              <span className={styles.title}>Subheksh</span>
-              <div className={styles.mappedDataWrapper}>
-                <div className={styles.squareDivWrapper}>
-                  <div className={styles.squareDiv}></div>
-                </div>
-                <span className={styles.mappedData}>
-                  In this arm we are already giving Alumni Certificates to
-                  outgoing Employees. Please share list of all employees who
-                  have been given Alumni Certificates since from the program
-                  started with their personal working mobile numbers to create a
-                  CFL (Colleagues for Life) Whatss-App group. @Bhawana please
-                  take these details and let’s create the group, moving forward
-                  all Alumni Details will be coordinated from Ms Bhawana.
+              <div className={styles.descWrapper}>
+                <span className={styles.title}>
+                  Organizational Tokens (Diaries, Calendars etc)
                 </span>
-              </div>
-              <div className={styles.mappedDataWrapper}>
-                <div className={styles.squareDivWrapper}>
-                  <div className={styles.squareDiv}></div>
+                <div className={styles.mappedDataWrapper}>
+                  <span className={styles.mappedData2}>
+                    Organization distributes several appreciation and gestures
+                    tokens to employees at set periodicity.
+                  </span>
                 </div>
-                <span className={styles.mappedData}>
-                  Under Subheskha we are now starting another initiative in
-                  which on 24th Working day of each month, each site HR will
-                  organize a ceremony where those employees will be invited who
-                  have completed 5 years, 10 years, 15 years. 20-year sand 25
-                  years in the organization plus all retiring employees of site
-                  in that month. Trophies and mementos for these cases will be
-                  sent to each site in first week of January for initial 6
-                  months (based on your master data), and site HR’s will
-                  organize these ceremonies in a set order. Bhawana will share
-                  schedule of ceremonies to each site and each site will
-                  accordingly conduct this ceremony and submit back
-                  pictures/details of event to Bhawana, that will be circulated
-                  organization wide from Corporate HR.
-                </span>
               </div>
             </div>
             <div className={styles.imageWrapper}>
@@ -93,7 +134,6 @@ function EmployeeUtsav() {
         </div>
       </div>
       {employeeUtsavData?.map((item, index) => {
-        employeeUtsavData.sort((a, b) => (a.priority > b.priority ? -1 : 1));
         return (
           item?.items?.length > 0 && (
             <div

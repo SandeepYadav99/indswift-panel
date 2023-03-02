@@ -35,7 +35,6 @@ class ResizablePanels extends React.Component {
     }
 
     startResize = (event, index) => {
-        console.log('startResizer', event.clientX);
         this.setState({
             isDragging: true,
             currentPanel: true,

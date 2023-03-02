@@ -111,9 +111,10 @@ const HRAnnouncementCreateView = ({}) => {
             max_size={2 * 1024 * 1024}
             type={["png", "jpeg", "jpg"]}
             fullWidth={true}
-            name="image"
-            accept={"image/*"}
-            label="Please Upload Image"
+            name="document"
+            label=""
+            type={["jpg", "png", "pdf"]}
+            default_image={form?.document ? form?.document : null}
             // user_image={form?.image}
             error={errorData?.image}
             // title={'image'}

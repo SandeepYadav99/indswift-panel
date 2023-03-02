@@ -18,7 +18,7 @@ function EmployeeDeepak() {
       <div className={styles.programBenefitWrapper}>
         <div>
           <div>
-            <span className={styles.title}>Program Updates</span>
+            <span className={styles.title}>Some interventions that organization has applied in this direction- </span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.programDescription}>

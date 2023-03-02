@@ -120,15 +120,78 @@ color: white;
 }
 .btnUpper {
   gap: 10px;
-
 }
 .btnUpper >.MuiButton-root{
   min-width: 30px !important;
   background-color: red;
 }
+.activeEditWrapper{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: self-end;
+  gap: 30px;
+
+}
+
 @media (max-width: 1520px) {
   .actionBtnSpan{
     display: none;
     margin-left: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .profileContainer{
+    flex-direction: column;
+  }
+  .lhs{
+    margin-right: 0;
+  }
+  .rhs{
+    margin-left: 0;
+  }
+  .mfdc{
+    flex-direction: column;
+  }
+  .blueBackground{
+    height: 100%;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+  }
+  .blueBackground .innerContainer{
+    flex-direction: column;
+  }
+  .profileInfo{
+    margin: 0;
+    padding-top: 10px;
+    text-align: center;
+  }
+  .vertical{
+    display: none;
+  }
+  .rightInfo{
+    margin: 0;
+    text-align: center;
+  }
+  .rightInfo > div{
+    display: flex;
+    flex-direction: column;justify-content: center;
+  }
+  .rightInfo > div span{
+    width: auto;
+  }
+  .btnWrap .statusWrap{
+    text-align: center;
+    bottom: 0;
+  }
+  .actionWrap{
+    top: 12px;
+  }
+  .activeEditWrapper{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
   }
 }

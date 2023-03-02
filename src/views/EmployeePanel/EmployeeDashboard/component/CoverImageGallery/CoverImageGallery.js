@@ -12,9 +12,9 @@ function CoverImageGallery() {
   return (
     <div className={styles.coverImageGalleryWrapper}>
         <GenricSlider sliderSettings={{  slidesToShow: 1,speed:3000 }}>
-            {tiles?.utsavEvents.map((item) => {
+            {tiles?.utsavEvents.map((item,index) => {
                 return (
-                    <div className={styles.imgWrapper}>
+                    <div className={styles.imgWrapper} key={`CoverImage_${index}`}>
                         <img
                             className={styles.gallerImage}
                             src={item.cover_image}

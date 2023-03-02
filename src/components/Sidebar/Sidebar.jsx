@@ -51,9 +51,10 @@ class CustomListItem extends React.Component {
         });
         return (
             <NavLink
-                to={prop.path}
+                to={prop?.is_external ? {pathname: prop.path} : prop.path}
                 className={classes.item}
                 activeClassName="active"
+                target={prop?.is_external ? '_blank' : '_self'}
                 // key={key}
             >
                 <ListItem button className={classes.itemLink + listItemClasses}>

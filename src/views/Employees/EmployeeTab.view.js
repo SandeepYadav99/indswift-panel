@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -18,6 +18,7 @@ import CareerProgression from "./components/Profile/CareerProgression/CareerProg
 import ResetPasswordDialog from "./components/ResetPasswordPopUp/ResetPasswordDialog.view";
 import UpdateStatusDialog from "./components/UpdateStatusPopUp/UpdateStatusDialog.view";
 import EmployeeRecord from "./components/Profile/EmployeeRecord/EmployeeRecord";
+import {useParams} from "react-router";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -60,18 +61,31 @@ const useStyles = makeStyles({
 const EmployeeTab = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [empId, setEmpId] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
   const [isResetDialog, setIsResetDialog] = useState(false);
   const [isUpdateDialog, setIsUpdateDialog] = useState(false);
-  const getEmployeeidFromUrl = () => {
-    let url = window.location.pathname;
-    let getValues = url.split("/")[3];
-    return getValues ? getValues : "";
-  };
+  const { user: { emp_code } } = useSelector(state => state.auth);
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(actionGetEmployeeDetails(getEmployeeidFromUrl()));
-  }, []);
+    if (id) {
+      setEmpId(id);
+      setIsAdmin(true);
+    } else {
+      setIsAdmin(false);
+      setEmpId(emp_code);
+    }
+  }, [id, emp_code])
+
+
+  useEffect(() => {
+    if (empId) {
+      dispatch(actionGetEmployeeDetails(empId));
+    }
+  }, [empId]);
+
   const { employeeData } = useSelector((state) => state.employee);
 
   const handleChange = useCallback(
@@ -89,7 +103,7 @@ const EmployeeTab = () => {
   return (
     <div>
       <div className={"container"}>
-        <div className={styles.outerFlex}>
+        {isAdmin && (<div className={styles.outerFlex}>
           <div>
             <ButtonBase onClick={() => history.goBack()}>
               <ArrowBackIosIcon
@@ -104,10 +118,11 @@ const EmployeeTab = () => {
             </div>
             <div className={styles.newLine} />
           </div>
-        </div>
+        </div>)}
         <br />
         <div>
           <UpperInfo
+              isAdmin={isAdmin}
             data={employeeData}
             isResetDialog={isResetDialog}
             handleToggle={toggleResetDialog}

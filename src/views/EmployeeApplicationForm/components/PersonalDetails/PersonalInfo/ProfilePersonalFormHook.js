@@ -3,32 +3,33 @@ import useDebounce from "../../../../../hooks/DebounceHook";
 import {useParams} from "react-router";
 import {isAlpha, isAlphaNumChars, isNum, isSpace} from "../../../../../libs/RegexUtils";
 
-// const initialForm = {
-//     dob: '',
-//     gender: '',
-//     birthplace: '',
-//     blood_group: '',
-//     dom: '',
-//     aadhar_no: '',
-//     pan_no: '',
-//     uan_no: '',
-// passport_no: '',
-//passport_expiry_date: '',
-// };
-
 const initialForm = {
-    dob: new Date(),
+    dob: '',
     gender: '',
     birthplace: '',
     blood_group: '',
     dom: '',
-    religion: '',
+    religion:'',
     aadhar_no: '',
     pan_no: '',
     uan_no: '',
     passport_no: '',
-    passport_expiry_date: new Date(),
+    passport_expiry_date: '',
 };
+
+// const initialForm = {
+//     dob: new Date(),
+//     gender: '',
+//     birthplace: '',
+//     blood_group: '',
+//     dom: '',
+//     religion: '',
+//     aadhar_no: '',
+//     pan_no: '',
+//     uan_no: '',
+//     passport_no: '',
+//     passport_expiry_date: new Date(),
+// };
 
 const useProfilePersonalForm = ({}, ref) => {
     const [isLoading, setIsLoading] = useState(false);

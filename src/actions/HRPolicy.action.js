@@ -125,11 +125,10 @@ export function actionSetPageHRPolicy(page) {
         store.dispatch(actionFetchHRPolicy(serverPage + 1, sortingData, {query, query_data: queryData}));
     }
 
-    console.log(currentPage, totalLength);
     return {
         type: CHANGE_PAGE,
         payload: page,
     };
-    
+
 
 }

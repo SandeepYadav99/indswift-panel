@@ -66,9 +66,18 @@ export default {
 
   EMPLOYEE_VERSIONS: "/employee/versions",
 
-  EAF_LOGIN: "/eaf/login",
-  EAF_PERSONAL_DATA: "/eaf/personal",
-  EAF_QUALIFICATION_FORM: "/eaf/qualification",
-  EAF_EMPLOYMENT_FORM: "/eaf/employment",
-  EAF_SUCCESS: "/eaf/success",
+  EAF_LOGIN: '/eaf/login',
+  EAF_PERSONAL_DATA: '/eaf/personal',
+  EAF_QUALIFICATION_FORM: '/eaf/qualification',
+  EAF_EMPLOYMENT_FORM: '/eaf/employment',
+  EAF_SUCCESS: '/eaf/success',
+
+  MY_PROFILE: '/my/profile',
+  MY_PROFILE_UPDATE: '/my/profile/edit',
+
+  CANDIDATE_FEEDBACK_SUCCESS: '/candidate/feedback/success',
+  CANDIDATE_FEEDBACK: '/candidate/feedback/',
+
+  INTERVIEW_SCHEDULE: '/interview/schedule'
+
 };

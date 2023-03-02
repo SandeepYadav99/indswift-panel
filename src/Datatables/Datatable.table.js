@@ -78,7 +78,6 @@ const headCells = [
 function EnhancedTableHead(props) {
     const {classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columns, allRowSelected, showSelection} = props;
     const createSortHandler = (property) => event => {
-        console.log('createSortHandler', event, property);
         onRequestSort(event, property);
     };
 
@@ -359,7 +358,7 @@ class EnhancedTable extends React.Component {
                     <TableRow
                         hover
                         onClick={event => {
-                            console.log('tablerowclick', event.target.innerHTML)
+                            // console.log('tablerowclick', event.target.innerHTML)
                         }}
                         role="checkbox"
                         aria-checked={isItemSelected}

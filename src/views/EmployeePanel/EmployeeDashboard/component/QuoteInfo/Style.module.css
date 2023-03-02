@@ -59,3 +59,8 @@
 .dateWrapper > p{
   margin-top: 0;
 }
+@media(max-width:767px){
+  .userInfoWrapper{
+    padding-left: .8rem;
+    padding-right: .4rem;  }
+}

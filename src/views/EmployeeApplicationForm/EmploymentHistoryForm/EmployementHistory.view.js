@@ -28,7 +28,7 @@ function EmploymentHistory({ }) {
         </div>
         <div className={styles.loginSignupText}>
           <h1 className={styles.headingText}>
-            Employment Application FormFields
+            Employment Application Form
           </h1>
           <div className={styles.newLine} />
         </div>
@@ -72,12 +72,12 @@ function EmploymentHistory({ }) {
               />
             </div>
             <div>
-              <p style={{ padding: 0, margin: 0, fontWeight: "500" }}>
+              <p style={{ padding: 0, margin: 0, fontWeight: "400" ,fontSize:".875rem", lineHeight:"1.4"}}>
                 I solemnly declare that all the particulars furnished in this
                 form are true and correct to my knowledge and belief. I
-                understand that any incorrect statement of facts/willful
+                clearly understand that any incorrect statement of facts/willful
                 concealment of any material or facts will render me liable to
-                termination from the services of the conpany
+                termination from the services of the company
               </p>
             </div>
           </div>

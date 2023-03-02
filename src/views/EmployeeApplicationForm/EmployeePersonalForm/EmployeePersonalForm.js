@@ -21,12 +21,12 @@ function EmployeePersonalForm({incrementPage}) {
         </div>
         <div className={styles.loginSignupText}>
           <h1 className={styles.headingText}>
-            Employment Application FormFields
+            Employment Application Form
           </h1>
           <div className={styles.newLine} />
         </div>
         <div className={styles.signContainer}>
-          <ProfileUpper image={image} handleImageChange={handleImageChange()} data={candidateData} />
+          <ProfileUpper image={image} handleImageChange={handleImageChange} data={candidateData} />
           <ProfilePersonalForm ref={refPersonalForm} />
         </div>
         <div className={styles.signContainer}>

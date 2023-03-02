@@ -1,69 +1,133 @@
+import {lazy} from "react";
 import {
     Dashboard,
     LocalOffer,
     EventNote,
     PeopleOutlined,
     AssignmentOutlined,
-    DashboardOutlined, Subtitles
+    DashboardOutlined, Subtitles,
+    PersonRounded,
+    FingerprintOutlined
 } from "@material-ui/icons";
-import EmployeeTab from "../views/Employees/EmployeeTab.view";
-import EmployeeList from "../views/EmployeeList/EmployeeList.container";
-import JobRolesList from "../views/JobRoles/JobRolesList.container";
-import JobRoleCreateView from "../views/JobRoleCreate/JobRoleCreate.view";
-import NewDashboard from "../views/dashboard/NewDashboard.view";
-import LocationList from "../views/Locations/Location/LocationList.container";
-import LocationCreateView from "../views/Locations/LocationCreate/LocationCreate.view";
-import DepartmentList from "../views/Department/DepartmentList.container";
-import DepartmentCreateView from "../views/Department/DepartmentCreate.view";
-import SubDepartmentList from "../views/SubDepartment/SubDepartmentList.container";
-import SubDepartmentCreateView from "../views/SubDepartment/SubDepartmentCreate.view";
-import LocationDetail from "../views/Locations/LocationDetail/LocationDetail.view";
-import CandidateList from "../views/Candidates/Candidate/CandidateList.container";
-import CandidateCreateView from "../views/Candidates/CandidateCreate/CandidateCreate.view";
-import AnnualList from "../views/AnnualBudgets/AnnualList.container";
-import ManpowerList from "../views/ManpowerPlanning/ManpowerList.container";
-import JobOpeningsList from "../views/JobOpenings/JobOpeningsList.container";
-import JobOpeningCreateView from "../views/JobOpeningCreate/JobOpeningCreate.view";
-import JobOpeningDetail from "../views/JobOpeningDetail/JobOpeningDetail.view";
-import GradeList from "../views/Grade/GradeList.container";
-import GradeCreateView from "../views/Grade/GradeCreate.view";
-import CadreList from "../views/Cadre/CadreList.container";
-import CadreCreateView from "../views/Cadre/CadreCreate.view";
 import RouteName from "./Route.name";
-import HRPolicy from "../views/HR/HRPolicy/HRPolicy.container";
-import HRCreateView from "../views/HR/HRPolicy/HRPolicyCreate.view";
-import CircularCreateView from "../views/HR/Circular/CircularCreate.view";
-import Circular from "../views/HR/Circular/Circular.container";
-import DesignationList from "../views/Designation/DesignationList.container";
-import DesignationCreateView from "../views/Designation/DesignationCreate.view";
-import AppSettings from "../views/AppSettings/AppSettings.container";
-import HRSettings from "../views/HR/HRSettings/HRSettings.container";
-import EmployeeDashboard from "../views/EmployeePanel/EmployeeDashboard/EmployeeDashboard.view";
-import EmployeeInducation from "../views/EmployeePanel/EmployeeInducation/EmployeeInducation.container";
-import EmployeeHRPolicy from "../views/EmployeePanel/EmployeeHRPolicy/EmployeeHRPolicy.container";
-import EmployeeCircular from "../views/EmployeePanel/EmployeeCircular/EmployeeCircular.container";
 import Constants from "../config/constants";
-import EmployeeEngagement from "../views/EmployeeEngagement/EmployeeEngagement.container";
-import EmployeeDrishti from "../views/EmployeePanel/EmployeeDrishti/EmployeeDrishti.container";
-import EmployeeIkigai from "../views/EmployeePanel/EmployeeIkigai/EmployeeIkigai.container";
-import EmployeeDeepak from "../views/EmployeePanel/EmployeeDeepak/EmployeeDeepak.container";
-import EmployeeUtsav from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsav.container";
-import HRKnowledge from "../views/HR/HRKnowledge/HRKnowledge.container";
-import HRAnnouncement from "../views/HR/HRAnnouncements/HRAnnouncement.container";
-import HRAnnouncementCreateView from "../views/HR/HRAnnouncements/HRAnnouncementCreate.view"
-import HRKnowledgeCreateView from "../views/HR/HRKnowledge/HRKnowledgeCreate.view";
-import HRUtsav from "../views/HR/HRUtsav/HRUtsav.container";
-import EmployeeKnowledge from "../views/EmployeePanel/EmployeeKnowledge/EmployeeKnowledge.container";
-import EmployeePerformance from "../views/EmployeePerformance/EmployeePerformance.container";
-import EmployeeClaim from "../views/EmployeePanel/EmployeeClaim/EmployeeClaim.container";
-import ReviewCandidate from "../views/ReviewCandidate/ReviewCandidate.container";
-import ViewDocuments from "../views/ViewDocuments/ViewDocuments";
-import EmployeeListCreate from "../views/EmployeeList/EmployeeListCreate";
-import EmployeeEdit from "../views/EmployeeEdit/EmployeeEdit";
-import EmployeeEditVersionListContainer from "../views/EmployeeEditVersions/ListView/EmployeeEditVersionList.container";
-import EmployeeUtsavDetail from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsavDetail";
-import CandidateDetails from "../views/Candidates/CandidateDetails/CandidateDetails.view";
-import InterviewSchedule from "../views/InterviewSchedule/InterviewSchedule.container";
+
+// import EmployeeTab from "../views/Employees/EmployeeTab.view";
+// import EmployeeList from "../views/EmployeeList/EmployeeList.container";
+// import JobRolesList from "../views/JobRoles/JobRolesList.container";
+// import JobRoleCreateView from "../views/JobRoleCreate/JobRoleCreate.view";
+// // import NewDashboard from "../views/dashboard/NewDashboard.view";
+//
+// import LocationList from "../views/Locations/Location/LocationList.container";
+// import LocationCreateView from "../views/Locations/LocationCreate/LocationCreate.view";
+// import DepartmentList from "../views/Department/DepartmentList.container";
+// import DepartmentCreateView from "../views/Department/DepartmentCreate.view";
+// import SubDepartmentList from "../views/SubDepartment/SubDepartmentList.container";
+// import SubDepartmentCreateView from "../views/SubDepartment/SubDepartmentCreate.view";
+// import LocationDetail from "../views/Locations/LocationDetail/LocationDetail.view";
+// import CandidateList from "../views/Candidates/Candidate/CandidateList.container";
+// import CandidateCreateView from "../views/Candidates/CandidateCreate/CandidateCreate.view";
+// import AnnualList from "../views/AnnualBudgets/AnnualList.container";
+// import ManpowerList from "../views/ManpowerPlanning/ManpowerList.container";
+// import JobOpeningsList from "../views/JobOpenings/JobOpeningsList.container";
+// import JobOpeningCreateView from "../views/JobOpeningCreate/JobOpeningCreate.view";
+// import JobOpeningDetail from "../views/JobOpeningDetail/JobOpeningDetail.view";
+// import GradeList from "../views/Grade/GradeList.container";
+// import GradeCreateView from "../views/Grade/GradeCreate.view";
+// import CadreList from "../views/Cadre/CadreList.container";
+// import CadreCreateView from "../views/Cadre/CadreCreate.view";
+// import HRPolicy from "../views/HR/HRPolicy/HRPolicy.container";
+// import HRCreateView from "../views/HR/HRPolicy/HRPolicyCreate.view";
+// import CircularCreateView from "../views/HR/Circular/CircularCreate.view";
+// import Circular from "../views/HR/Circular/Circular.container";
+// import DesignationList from "../views/Designation/DesignationList.container";
+// import DesignationCreateView from "../views/Designation/DesignationCreate.view";
+// import AppSettings from "../views/AppSettings/AppSettings.container";
+// import HRSettings from "../views/HR/HRSettings/HRSettings.container";
+// import EmployeeDashboard from "../views/EmployeePanel/EmployeeDashboard/EmployeeDashboard.view";
+// import EmployeeInducation from "../views/EmployeePanel/EmployeeInducation/EmployeeInducation.container";
+// import EmployeeHRPolicy from "../views/EmployeePanel/EmployeeHRPolicy/EmployeeHRPolicy.container";
+// import EmployeeCircular from "../views/EmployeePanel/EmployeeCircular/EmployeeCircular.container";
+// import EmployeeEngagement from "../views/EmployeeEngagement/EmployeeEngagement.container";
+// import EmployeeDrishti from "../views/EmployeePanel/EmployeeDrishti/EmployeeDrishti.container";
+// import EmployeeIkigai from "../views/EmployeePanel/EmployeeIkigai/EmployeeIkigai.container";
+// import EmployeeDeepak from "../views/EmployeePanel/EmployeeDeepak/EmployeeDeepak.container";
+// import EmployeeUtsav from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsav.container";
+// import HRKnowledge from "../views/HR/HRKnowledge/HRKnowledge.container";
+// import HRAnnouncement from "../views/HR/HRAnnouncements/HRAnnouncement.container";
+// import HRAnnouncementCreateView from "../views/HR/HRAnnouncements/HRAnnouncementCreate.view"
+// import HRKnowledgeCreateView from "../views/HR/HRKnowledge/HRKnowledgeCreate.view";
+// import HRUtsav from "../views/HR/HRUtsav/HRUtsav.container";
+// import EmployeeKnowledge from "../views/EmployeePanel/EmployeeKnowledge/EmployeeKnowledge.container";
+// import EmployeePerformance from "../views/EmployeePerformance/EmployeePerformance.container";
+// import EmployeeClaim from "../views/EmployeePanel/EmployeeClaim/EmployeeClaim.container";
+// import ReviewCandidate from "../views/ReviewCandidate/ReviewCandidate.container";
+// import ViewDocuments from "../views/ViewDocuments/ViewDocuments";
+// import EmployeeListCreate from "../views/EmployeeList/EmployeeListCreate";
+// import EmployeeEdit from "../views/EmployeeEdit/EmployeeEdit";
+// import EmployeeEditVersionListContainer from "../views/EmployeeEditVersions/ListView/EmployeeEditVersionList.container";
+// import EmployeeUtsavDetail from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsavDetail";
+// import CandidateDetails from "../views/Candidates/CandidateDetails/CandidateDetails.view";
+// import InterviewSchedule from "../views/InterviewSchedule/InterviewSchedule.container";
+// import MyProfileEditView from "../views/MyProfileEdit/MyProfileEdit.view";
+
+const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
+const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
+const CircularCreateView = lazy(() => import( "../views/HR/Circular/CircularCreate.view"));
+const Circular = lazy(() => import( "../views/HR/Circular/Circular.container"));
+const DesignationList = lazy(() => import( "../views/Designation/DesignationList.container"));
+const DesignationCreateView = lazy(() => import( "../views/Designation/DesignationCreate.view"));
+const AppSettings = lazy(() => import( "../views/AppSettings/AppSettings.container"));
+const HRSettings = lazy(() => import( "../views/HR/HRSettings/HRSettings.container"));
+const EmployeeDashboard = lazy(() => import( "../views/EmployeePanel/EmployeeDashboard/EmployeeDashboard.view"));
+const EmployeeInducation = lazy(() => import( "../views/EmployeePanel/EmployeeInducation/EmployeeInducation.container"));
+const EmployeeHRPolicy = lazy(() => import( "../views/EmployeePanel/EmployeeHRPolicy/EmployeeHRPolicy.container"));
+const EmployeeCircular = lazy(() => import( "../views/EmployeePanel/EmployeeCircular/EmployeeCircular.container"));
+const EmployeeEngagement = lazy(() => import( "../views/EmployeeEngagement/EmployeeEngagement.container"));
+const EmployeeDrishti = lazy(() => import( "../views/EmployeePanel/EmployeeDrishti/EmployeeDrishti.container"));
+const EmployeeIkigai = lazy(() => import( "../views/EmployeePanel/EmployeeIkigai/EmployeeIkigai.container"));
+const EmployeeDeepak = lazy(() => import( "../views/EmployeePanel/EmployeeDeepak/EmployeeDeepak.container"));
+const EmployeeUtsav = lazy(() => import( "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsav.container"));
+const HRKnowledge = lazy(() => import( "../views/HR/HRKnowledge/HRKnowledge.container"));
+const HRAnnouncement = lazy(() => import( "../views/HR/HRAnnouncements/HRAnnouncement.container"));
+const HRAnnouncementCreateView = lazy(() => import( "../views/HR/HRAnnouncements/HRAnnouncementCreate.view"));
+const HRKnowledgeCreateView = lazy(() => import( "../views/HR/HRKnowledge/HRKnowledgeCreate.view"));
+const HRUtsav = lazy(() => import( "../views/HR/HRUtsav/HRUtsav.container"));
+const EmployeeKnowledge = lazy(() => import( "../views/EmployeePanel/EmployeeKnowledge/EmployeeKnowledge.container"));
+const EmployeePerformance = lazy(() => import( "../views/EmployeePerformance/EmployeePerformance.container"));
+const EmployeeClaim = lazy(() => import( "../views/EmployeePanel/EmployeeClaim/EmployeeClaim.container"));
+const ReviewCandidate = lazy(() => import( "../views/ReviewCandidate/ReviewCandidate.container"));
+const ViewDocuments = lazy(() => import( "../views/ViewDocuments/ViewDocuments"));
+const EmployeeListCreate = lazy(() => import( "../views/EmployeeList/EmployeeListCreate"));
+const EmployeeEdit = lazy(() => import( "../views/EmployeeEdit/EmployeeEdit"));
+const EmployeeEditVersionListContainer = lazy(() => import( "../views/EmployeeEditVersions/ListView/EmployeeEditVersionList.container"));
+const EmployeeUtsavDetail = lazy(() => import( "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsavDetail"));
+const CandidateDetails = lazy(() => import( "../views/Candidates/CandidateDetails/CandidateDetails.view"));
+const InterviewSchedule = lazy(() => import( "../views/InterviewSchedule/InterviewSchedule.container"));
+const MyProfileEditView = lazy(() => import( "../views/MyProfileEdit/MyProfileEdit.view"));
+const HRPolicy = lazy(() => import( "../views/HR/HRPolicy/HRPolicy.container"));
+const EmployeeTab = lazy(() => import( "../views/Employees/EmployeeTab.view"));
+const EmployeeList = lazy(() => import( "../views/EmployeeList/EmployeeList.container"));
+const JobRolesList = lazy(() => import( "../views/JobRoles/JobRolesList.container"));
+const JobRoleCreateView = lazy(() => import( "../views/JobRoleCreate/JobRoleCreate.view"));
+const LocationList = lazy(() => import( "../views/Locations/Location/LocationList.container"));
+const LocationCreateView = lazy(() => import( "../views/Locations/LocationCreate/LocationCreate.view"));
+const DepartmentList = lazy(() => import( "../views/Department/DepartmentList.container"));
+const DepartmentCreateView = lazy(() => import( "../views/Department/DepartmentCreate.view"));
+const SubDepartmentList = lazy(() => import( "../views/SubDepartment/SubDepartmentList.container"));
+const SubDepartmentCreateView = lazy(() => import( "../views/SubDepartment/SubDepartmentCreate.view"));
+const LocationDetail = lazy(() => import( "../views/Locations/LocationDetail/LocationDetail.view"));
+const CandidateList = lazy(() => import( "../views/Candidates/Candidate/CandidateList.container"));
+const CandidateCreateView = lazy(() => import( "../views/Candidates/CandidateCreate/CandidateCreate.view"));
+const AnnualList = lazy(() => import( "../views/AnnualBudgets/AnnualList.container"));
+const ManpowerList = lazy(() => import( "../views/ManpowerPlanning/ManpowerList.container"));
+const JobOpeningsList = lazy(() => import( "../views/JobOpenings/JobOpeningsList.container"));
+const JobOpeningCreateView = lazy(() => import( "../views/JobOpeningCreate/JobOpeningCreate.view"));
+const JobOpeningDetail = lazy(() => import( "../views/JobOpeningDetail/JobOpeningDetail.view"));
+const GradeList = lazy(() => import( "../views/Grade/GradeList.container"));
+const GradeCreateView = lazy(() => import( "../views/Grade/GradeCreate.view"));
+const CadreList = lazy(() => import( "../views/Cadre/CadreList.container"));
+const CadreCreateView = lazy(() => import( "../views/Cadre/CadreCreate.view"));
 
 const Roles = Constants.ROLES;
 
@@ -76,6 +140,24 @@ const dashboardRoutes = [
         component: NewDashboard,
         is_sidebar: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: RouteName.MY_PROFILE,
+        sidebarName: "My Profile",
+        navbarName: "My Profile",
+        icon: PersonRounded,
+        component: EmployeeTab,
+        is_sidebar: true,
+        is_protect: true,
+    },
+    {
+        path: `${RouteName.MY_PROFILE_UPDATE}`,
+        sidebarName: "My Profile",
+        navbarName: "My Profile",
+        icon: PersonRounded,
+        component: MyProfileEditView,
+        is_sidebar: false,
+        is_protect: true,
     },
     {
         path: RouteName.JOB_ROLES,
@@ -256,9 +338,20 @@ const dashboardRoutes = [
         // parent: 'employeedashboard',
     },
     {
+        path: '/employee/learning',
+        sidebarName: " Learning Management System",
+        navbarName: " Learning Management System",
+        icon: PeopleOutlined,
+        component: EmployeeClaim,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'employeedashboard',
+    },
+    {
         path: 'null',
-        sidebarName: "Swift E3M ",
-        navbarName: "Swift E3M",
+        sidebarName: "Swift-HCM ",
+        navbarName: "Swift-HCM",
         icon: EventNote,
         is_sidebar: true,
         slug: 'swift',
@@ -266,7 +359,7 @@ const dashboardRoutes = [
     },
     {
         path: "/employee/engagement",
-        sidebarName: "E3M Module",
+        sidebarName: "HCM Module",
         navbarName: "Admin Dashboard",
         icon: DashboardOutlined,
         component: EmployeeEngagement,
@@ -315,8 +408,8 @@ const dashboardRoutes = [
 
     },
     {
-        path: "/employee/ikigai",
-        sidebarName: "Ikigai",
+        path: "/employee/udeshya",
+        sidebarName: "Udeshya",
         navbarName: "Admin Dashboard",
         icon: DashboardOutlined,
         component: EmployeeIkigai,
@@ -743,7 +836,7 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
-        path: '/tm/interview',
+        path: RouteName.INTERVIEW_SCHEDULE,
         sidebarName: "Interview Schedule",
         navbarName: "Interview Schedule",
         icon: PeopleOutlined,
@@ -772,7 +865,7 @@ const dashboardRoutes = [
         component: EmployeeEditVersionListContainer,
         is_sidebar: true,
         is_protect: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: process.env.NODE_ENV === "development" ? [Roles.ADMIN, Roles.CORPORATE_HR] : [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.VIEW_DOCUMENTS}`,
@@ -781,6 +874,16 @@ const dashboardRoutes = [
         icon: LocalOffer,
         component: ViewDocuments,
         is_sidebar: false,
+        is_protect: false,
+    },
+    {
+        path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',
+        sidebarName: "Attendance Management",
+        navbarName: "",
+        icon: FingerprintOutlined,
+        is_external: true,
+        component: (<div></div>),
+        is_sidebar: true,
         is_protect: false,
     },
 

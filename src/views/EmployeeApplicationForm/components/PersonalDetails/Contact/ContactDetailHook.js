@@ -1,23 +1,23 @@
 import {useCallback, useImperativeHandle, useRef, useState} from "react";
 import {isAlphaNumChars} from "../../../../../libs/RegexUtils";
 
-// const initialForm = {
-//     emergency_contact: '',
-//     emergency_name: '',
-//     emergency_relation: '',
-//     permanent_address: '',
-//     current_address: '',
-//     residence_contact: '',
-// };
-
 const initialForm = {
-    emergency_contact: '1231231231',
-    emergency_name: 'EM NAME',
-    emergency_relation: 'FATHER',
-    permanent_address: 'PERM ADDRESS',
-    current_address: 'CURR ADDRESS',
-    residence_contact: '1231231231',
+    emergency_contact: '',
+    emergency_name: '',
+    emergency_relation: '',
+    permanent_address: '',
+    current_address: '',
+    residence_contact: '',
 };
+
+// const initialForm = {
+//     emergency_contact: '1231231231',
+//     emergency_name: 'EM NAME',
+//     emergency_relation: 'FATHER',
+//     permanent_address: 'PERM ADDRESS',
+//     current_address: 'CURR ADDRESS',
+//     residence_contact: '1231231231',
+// };
 
 const useContactDetail = ({}, ref) => {
     const [isLoading, setIsLoading] = useState(false);

@@ -9,6 +9,16 @@ import PropTypes from "prop-types";
 import BirthdayEvent from "./BirthdayEvent";
 import { useSelector } from "react-redux";
 import { WaitingComponent } from "../../../../../components/index.component";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    overflow: 'auto',
+    '-webkit-overflow-scrolling': 'touch',
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: 0,
+    },
+  },
+}));
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -36,6 +46,8 @@ TabPanel.propTypes = {
 };
 
 function EmployeeEventList() {
+  const classes = useStyles();
+  const theme = useTheme();
   const [value, setValue] = useState(0);
   const handleChange = useCallback(
     (event, newValue) => {
@@ -56,6 +68,7 @@ function EmployeeEventList() {
     <div className={styles.eventBirthdayWrapper}>
       <AppBar position="static" className={styles.backgroundColor}>
         <Tabs
+          classes={{ root: classes.root }}
           value={value}
           onChange={handleChange}
           indicatorColor="primary"

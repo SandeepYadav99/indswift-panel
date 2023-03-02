@@ -50,23 +50,23 @@ const JobOpeningDetail = () => {
             <div className={styles.left}>
               <div className={styles.key}>
                 <span className={styles.value}>Location:</span>
-                {data.location.name}
+                {data?.location?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Department:</span>
-                {data.department.name}
+                {data?.department?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Sub-Department:</span>
-                {data.sub_department.name}
+                {data?.sub_department?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Designation:</span>
-                {data.designation.name}
+                {data?.designation?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Grade:</span>
-                {data.grade.name}
+                {data?.grade?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Cadre:</span>
@@ -77,7 +77,7 @@ const JobOpeningDetail = () => {
                   Status:
                 </span>
                 <span className={classnames("status", "success")}>
-                  {data.status}
+                  {data?.status}
                 </span>
               </div>
             </div>
@@ -85,11 +85,11 @@ const JobOpeningDetail = () => {
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>PRC:</span>
-                {data.code}
+                {data?.code}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Vacancy Type:</span>
-                {valencyChange(data.vacancy_type)}
+                {valencyChange(data?.vacancy_type)}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Employee ID:</span>
@@ -101,11 +101,11 @@ const JobOpeningDetail = () => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Indent Date:</span>
-                {data.createdAtText}
+                {data?.createdAtText}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Assigned To:</span>
-                {data.assigned_person.name}
+                {data?.assigned_person?.name}
               </div>
             </div>
           </div>

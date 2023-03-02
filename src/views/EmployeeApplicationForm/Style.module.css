@@ -5,6 +5,11 @@
   /* width: 100vw; */
   /* height: 100vh; */
 }
+.applicationImage{
+  border-radius: 12px;
+  max-width: 160px;
+  height: auto;
+}
 .flexContainer {
   display: flex;
   align-items: center;

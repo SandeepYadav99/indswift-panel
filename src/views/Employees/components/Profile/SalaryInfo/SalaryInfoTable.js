@@ -30,8 +30,11 @@ function SalaryInfoTable() {
       <div className={styles.salaryTableContainer}>
         <div className={styles.tableWrapper}>
           <div className={styles.tableComponentField}>component</div>
+          <div className={styles.salaryWrapper2}>
           <div className={styles.tableAnnualField}>Annual</div>
           <div className={styles.tableMonthlyField}>Monthly</div>
+          </div>
+          
         </div>
         <div className={styles.grossWrapper}>
           <SaleryInfoField

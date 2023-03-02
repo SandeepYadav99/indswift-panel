@@ -3,7 +3,7 @@ import InformationCard from "../../components/InformationCard/InformationCard.co
 import EmployeeEngagementHook from "./EmployeeEngagementHook";
 import styles from "./Style.module.css";
 import images from "../../assets/img/indswift family illustration.png";
-import Chart from "../../assets/img/Swift E3M Infographic.png";
+import Chart from "../../assets/img/Swift_HCM.png";
 import EngagementCard from "./components/EngagementCards/EngagementCard";
 import DrishtiImage from "../../assets/img/ic_drishti_white.png";
 import DeepakImage from "../../assets/img/ic_deepak_white.png";
@@ -17,7 +17,7 @@ function EmployeeEngagement() {
   return (
     <div className={styles.employeeEngagementWrapper}>
       <InformationCard
-        heading="Employee Engagement Events"
+        heading="Swift HCM (Swift-Happiness Capitalization Module)"
         imageachorTag={employeeData?.document}
         imageUrl={images}
         productLink="View Induction Booklet"
@@ -66,13 +66,13 @@ function EmployeeEngagement() {
         </div>
         <div className={styles.flex1dir}>
           <Link
-            to="/employee/ikigai"
+            to="/employee/udeshya"
             style={{ textDecoration: "none", color: "black" }}
           >
             <EngagementCard
               imageUrl={IkagaiImage}
               department="Employee Empowerment"
-              name="IKIGAI"
+              name="UDESHYA"
             />
           </Link>
         </div>

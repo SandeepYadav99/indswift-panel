@@ -37,7 +37,7 @@ function EmployeeCategories() {
   return (
     <div className={styles.employeeCategoriesContainer}>
       <div>
-        <span className={styles.title}>IndSwift - E3M</span>
+        <span className={styles.title}>IndSwift-HCM</span>
         <div className={styles.newLine} />
       </div>
       <div className={styles.employeeCategoriesLower}>
@@ -132,7 +132,7 @@ function EmployeeCategories() {
           onMouseLeave={handleMouseLeaveIkigai}
         >
           <Link
-            to="/employee/ikigai"
+            to="/employee/udeshya"
             style={{ textDecoration: "none", color: "black" }}
           >
             <div className={styles.employeeCategoriesCard}>
@@ -148,7 +148,7 @@ function EmployeeCategories() {
                 )}
               </div>
               <div className={styles.categoriesDescription}>
-                <span className={styles.employeeName}>IKIGAI</span>
+                <span className={styles.employeeName}>Udeshya</span>
                 <span className={styles.categories}>Employee Empowerment</span>
               </div>
             </div>

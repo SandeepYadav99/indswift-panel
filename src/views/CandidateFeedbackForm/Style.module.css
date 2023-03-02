@@ -77,7 +77,7 @@
   }
   .horizontalLine {
     border-bottom: 2px solid #ebedf4;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
   }
   .btnContainer {
     width: 80%;
@@ -98,4 +98,3 @@
     text-transform: uppercase !important;
     font-weight: 600 !important;
   }
-  

@@ -7,7 +7,7 @@ import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 
-const UpperInfo = ({ data, handleToggle,handleStatusToggle }) => {
+const UpperInfo = ({ data, handleToggle,handleStatusToggle, isAdmin }) => {
   return (
     <div>
       <div className={styles.blueBackground}>
@@ -35,14 +35,35 @@ const UpperInfo = ({ data, handleToggle,handleStatusToggle }) => {
               {data?.sub_department?.name}
             </div>
           </div>
-          <div className={styles.btnWrap}>
-            <div className={styles.statusWrap}>
-              <StatusPill
-                status="ACTIVE"
-                style={{ color: "#fff", borderColor: "#fff" }}
+         {!isAdmin && <div className={styles.activeEditWrapper}>
+          <div className={styles.statusWrapper}>
+          <StatusPill
+              status={data?.status}
+              // style={{ color: "#fff", borderColor: "#fff" }}
               />
             </div>
-            <div className={styles.actionWrap}>
+
+              <div className={styles.btnUpper2}>
+                <ActionButton
+                  onClick={() => {
+                    historyUtils.push(
+                      `${RouteName.MY_PROFILE_UPDATE}`
+                    );
+                  }}
+                >
+                  <RepeatRounded fontSize={"small"} />
+                  <span className={styles.actionBtnSpan2}>Edit</span>
+                </ActionButton>
+              </div>
+          </div>}
+          <div className={styles.btnWrap}>
+            {isAdmin &&<div className={styles.statusWrap}>
+              <StatusPill
+                status={data?.status}
+                // style={{ color: "#fff", borderColor: "#fff" }}
+              />
+            </div>}
+            {isAdmin && (<div className={styles.actionWrap}>
               <div className={styles.btnUpper}>
                 <ActionButton onClick={handleStatusToggle}>
                   <InfoOutlined fontSize={"small"} />
@@ -67,7 +88,7 @@ const UpperInfo = ({ data, handleToggle,handleStatusToggle }) => {
                   <span className={styles.actionBtnSpan}>Edit</span>
                 </ActionButton>
               </div>
-            </div>
+            </div>)}
           </div>
         </div>
       </div>

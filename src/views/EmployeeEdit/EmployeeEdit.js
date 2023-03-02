@@ -875,7 +875,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"plainPaper"}>
           <div className={"headerFlex"}>
             <h4 className={"infoTitle"}>
-              <div className={"heading"}>Employee Annual Salary Details</div>
+              <div className={"heading"}>Employee Monthly Salary Details</div>
             </h4>
           </div>
           <div className={"formFlex"}>

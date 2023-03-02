@@ -19,7 +19,7 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
       <div className={styles.qualificationFormCont}>
             <div className={styles.firstRow}>
                 <div className={styles.flex1}>
-                    <CustomSelectField
+                    {/* <CustomSelectField
                         isError={errorData?.qualification}
                         errorText={errorData?.qualification}
                         label={"Qualification"}
@@ -30,7 +30,16 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
                     >
                         <MenuItem value="10">10th</MenuItem>
                         <MenuItem value="12">12th</MenuItem>
-                    </CustomSelectField>
+                    </CustomSelectField> */}
+                    <CustomTextField
+                        isError={errorData?.qualification}
+                        errorText={errorData?.qualification}
+                        label={"Qualification"}
+                        value={form?.qualification}
+                        onTextChange={(text) => {
+                            changeTextData(text, "qualification");
+                        }}
+                    />
                 </div>
                 <div className={styles.flex1}>
                     <CustomTextField
@@ -90,7 +99,7 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
                         }}
                     >
                         <MenuItem value="FULL_TIME">Full Time</MenuItem>
-                        <MenuItem value="PART_TIME">PartTime</MenuItem>
+                        <MenuItem value="PART_TIME">Part Time</MenuItem>
                     </CustomSelectField>
                 </div>
             </div>
