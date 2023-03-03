@@ -6,7 +6,7 @@ import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import ActionButton from "../../../../../components/ActionButton/ActionButton";
 import DefaultImg from "../../../../../assets/img/download.png"
-const UpperCard = ({ data, handleToggle, handleStatusToggle }) => {
+const UpperCard = ({ data, handleToggle, handleStatusToggle,handleOfferPage }) => {
   const splitDate = (value) => {
     return value ? value.split(" ")[0] : "";
   };
@@ -43,10 +43,15 @@ const UpperCard = ({ data, handleToggle, handleStatusToggle }) => {
           </div>
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
+            <ActionButton onClick={()=>handleOfferPage(data)}>
+                  <InfoOutlined fontSize={"small"} />
+                  <span className={styles.actionBtnSpan}>Extend Offer</span>
+                </ActionButton>              <div>
               <StatusPill
                 status="ACTIVE"
                 style={{ color: "#fff", borderColor: "#fff" }}
               />
+              </div>
             </div>
             <div className={styles.actionWrap}>
               <div className={styles.btnUpper}>

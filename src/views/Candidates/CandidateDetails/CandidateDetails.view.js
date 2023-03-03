@@ -11,6 +11,8 @@ import CandidateProfileView from "./components/CandidateProfileView/CandidatePro
 import { useState } from "react";
 import CandidateStatusDialog from "./components/CandidateStatusPopUp/CandidateStatusDialog.view";
 import UpdatePRCDialog from "./components/UpdatePRCPopUp/UpdatePRCDialog.view";
+import historyUtils from "../../../libs/history.utils";
+import RouteName from "../../../routes/Route.name";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -60,7 +62,6 @@ function CandidateDetails() {
     let dataValues = serviceGetCandidateDetails({ id });
     dataValues
       .then((data) => {
-        console.log("=================>", data);
         setCandidateData(data?.data?.details);
       })
       .catch((err) => console.log(err));
@@ -78,11 +79,17 @@ function CandidateDetails() {
   const toggleResetDialog = useCallback(() => {
     setIsResetDialog((e) => !e);
   }, [isResetDialog]);
+  const handleOfferPage = (data) => {
+    historyUtils.push(RouteName.CANDIDATES_OFFER + data?.id);
+  };
   return (
     <div>
-      <UpperCard data={candidateData}  
-            handleToggle={toggleResetDialog}
-            handleStatusToggle={toggleStatusDialog}/>
+      <UpperCard
+        data={candidateData}
+        handleToggle={toggleResetDialog}
+        handleStatusToggle={toggleStatusDialog}
+        handleOfferPage={handleOfferPage}
+      />
       <div>
         <AppBar position="static" className={styles.backgroundColor}>
           <Tabs

@@ -128,6 +128,7 @@ const GradeList = lazy(() => import( "../views/Grade/GradeList.container"));
 const GradeCreateView = lazy(() => import( "../views/Grade/GradeCreate.view"));
 const CadreList = lazy(() => import( "../views/Cadre/CadreList.container"));
 const CadreCreateView = lazy(() => import( "../views/Cadre/CadreCreate.view"));
+const CandidateOfferLetter=lazy(()=> import("../views/Candidates/CandidateOfferLetter/CandidateOfferLetter.view"));
 
 const Roles = Constants.ROLES;
 
@@ -479,6 +480,15 @@ const dashboardRoutes = [
         sidebarName: "Candidate Details",
         navbarName: "Candidate Details",
         component: CandidateDetails,
+        is_sidebar: false,
+        is_protect: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CANDIDATES_OFFER}:id`,
+        sidebarName: "Candidate Offer",
+        navbarName: "Candidate Offer",
+        component: CandidateOfferLetter,
         is_sidebar: false,
         is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
