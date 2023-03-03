@@ -1,7 +1,7 @@
 import React, {useMemo} from "react";
 import styles from "./Style.module.css";
 import {useSelector} from "react-redux";
-import {WaitingComponent} from "../../../../../components/index.component";
+import WaitingComponent from "../../../../../components/Waiting.component";
 
 function ThemeInfo() {
   const { isTilesCalling, tiles } = useSelector(state => state.employeeDashboard);

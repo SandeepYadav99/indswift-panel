@@ -15,7 +15,7 @@ import {Paper} from "@material-ui/core";
 import {serviceGetCustomerDetail} from "../../../../services/ProviderUser.service";
 import {serviceCreateUser, serviceUpdateUser} from "../../../../services/User.service";
 import history from '../../../../libs/history.utils';
-import {WaitingComponent} from "../../../../components/index.component";
+import WaitingComponent from "../../../../components/Waiting.component";
 import EventEmitter from "../../../../libs/Events.utils";
 
 function TabPanel(props) {

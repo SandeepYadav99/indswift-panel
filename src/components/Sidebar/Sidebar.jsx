@@ -16,7 +16,6 @@ import {
 } from "@material-ui/core";
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-// import { HeaderLinks } from "../../components/index.component";
 
 import sidebarStyle from "../../assets/jss/material-dashboard-react/sidebarStyle.jsx";
 

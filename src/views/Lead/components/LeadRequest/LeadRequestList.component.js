@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {useSelector} from "react-redux";
-import {WaitingComponent} from "../../../../components/index.component";
+import WaitingComponent from "../../../../components/Waiting.component";
 import LeadRequest from "./LeadRequest.component";
 import styles from './Style.module.css';
 

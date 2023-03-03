@@ -1,20 +1,16 @@
 /* eslint-disable indent */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 // import { createStore, applyMiddleware, compose } from 'redux';
 // import thunk from 'redux-thunk';
 // // import { logger } from 'redux-logger';
 import './index.css';
-// import reducer from './reducers/index.reducer';
 import App from './App';
-import One from './views/One.view';
 import * as serviceWorker from './serviceWorker';
 import {setAuthorizationToken, setAxiosTimezone} from './libs/set_auth_token.utils';
 import store from './store';
 import {AUTH_USER} from "./actions/auth_index.action";
-import { actionGetDashboard } from './actions/Dashboard.action';
-import {connectToSocket} from "./libs/socket.utils";
 import {actionChangeTheme, actionGetAppSettings} from "./actions/AppSettings.action";
 
 setAxiosTimezone();

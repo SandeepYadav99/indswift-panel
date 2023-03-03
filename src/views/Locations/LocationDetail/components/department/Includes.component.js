@@ -5,7 +5,7 @@ import {ButtonBase} from "@material-ui/core";
 import {Add} from "@material-ui/icons";
 import LogUtils from "../../../../../libs/LogUtils";
 import {serviceLocationDepartments} from "../../../../../services/Location.service";
-import {WaitingComponent} from "../../../../../components/index.component";
+import WaitingComponent from "../../../../../components/Waiting.component";
 
 const TEMP_OBJ = {
     department_id: '',

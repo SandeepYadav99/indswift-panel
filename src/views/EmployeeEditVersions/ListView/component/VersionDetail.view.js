@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import useVersionDetails from "./VersionDetail.hook";
-import {WaitingComponent} from "../../../../components/index.component";
+import WaitingComponent from "../../../../components/Waiting.component";
 import styles from './Style.module.css';
 import EmployeeInfoComponent from "./EmployeeInfo.component";
 import ChangeLogInfoTextComponent from "./ChangeLogInfoText.component";

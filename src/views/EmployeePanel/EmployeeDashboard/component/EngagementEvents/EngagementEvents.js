@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Style.module.css";
 import GenricSlider from "../Members/GenricSlider";
 import { useSelector } from "react-redux";
-import { WaitingComponent } from "../../../../../components/index.component";
+import WaitingComponent  from "../../../../../components/Waiting.component";
 import { Link } from "react-router-dom";
 
 function EngagementEvents() {
@@ -51,7 +51,7 @@ function EngagementEvents() {
       </div>
     </div>
     </Link>
-    
+
   );
 }
 

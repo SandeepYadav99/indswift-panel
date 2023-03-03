@@ -9,7 +9,7 @@ import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import NewEditor from "./components/NewEditor/NewEditor.component";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
-import { WaitingComponent } from "../../components/index.component";
+import WaitingComponent  from "../../components/Waiting.component";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {

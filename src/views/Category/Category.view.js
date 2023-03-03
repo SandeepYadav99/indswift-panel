@@ -2,19 +2,11 @@ import React, {Component} from 'react';
 import PageBox from '../../components/PageBox/PageBox.component';
 import startsWith from 'lodash.startswith';
 import {Button, MenuItem, withStyles, FormControlLabel, Switch,IconButton} from '@material-ui/core';
-import { Delete as DeleteIcon } from '@material-ui/icons';
 import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux';
 import {
-    renderTextField,
-    renderSelectField,
     renderOutlinedTextField,
-    renderOutlinedSelectField,
-    renderFileField,
-    renderOutlinedMultipleSelectField
 } from '../../libs/redux-material.utils';
-import EventEmitter from "../../libs/Events.utils";
-import {CountryPhone} from '../../components/index.component';
 import styles from './Style.module.css';
 
 import Dialog from "@material-ui/core/Dialog";

@@ -117,7 +117,7 @@ const UpdateStatusDialog = ({ isOpen, handleToggle, empId }) => {
               <CustomDatePicker
                 clearable
                 label={"Last Working Day"}
-                minDate={new Date()}
+                // minDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "last_working_date");
                 }}

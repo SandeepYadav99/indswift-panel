@@ -13,6 +13,7 @@ import {
 import styles from "./style.module.css";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
+import LogUtils from "../../../../libs/LogUtils";
 
 const useStyles = {
   toggleDiv: {
@@ -80,10 +81,9 @@ const changeTextData=(value,key)=>{
               errorText={errors?.gender}
               label={"Child Gender"}
               value={data?.gender}
-              onChange={handleChange}
-              //   handleChange={(value) => {
-              //     changeTextData(value, "gender");
-              //   }}
+                handleChange={(value) => {
+                  changeTextData(value, "gender");
+                }}
             >
               <MenuItem value="NA">NA</MenuItem>
               <MenuItem value="MALE">Male</MenuItem>

@@ -3,12 +3,7 @@ import styles from "./Style.module.css";
 import {Button, ButtonBase} from "@material-ui/core";
 import File from "../../../../../../components/FileComponent/FileComponent.component";
 import {Add as AddIcon, CloudUpload as UploadIcon, DeleteOutline as DeleteIcon,Videocam} from '@material-ui/icons';
-// import {
-//     serviceChangeThumbnailIndexProvider,
-//     serviceDeleteImageProvider,
-//     serviceUploadProviderImages
-// } from "../../../services/Provider.service";
-import {WaitingComponent} from "../../../../../../components/index.component";
+import WaitingComponent from "../../../../../../components/Waiting.component";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";

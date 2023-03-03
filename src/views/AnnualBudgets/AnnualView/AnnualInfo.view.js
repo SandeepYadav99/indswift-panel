@@ -1,6 +1,6 @@
 import React, {Component, useCallback, useEffect, useMemo, useState} from 'react';
 import {serviceAnnualDetail} from "../../../services/Annual.service";
-import {WaitingComponent} from "../../../components/index.component";
+import WaitingComponent from "../../../components/Waiting.component";
 import Constants from "../../../config/constants";
 import styles from "../Style.module.css";
 import classnames from "classnames";

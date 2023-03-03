@@ -5,7 +5,6 @@ import CandidateInfo from "./component/CandidateInfo/CandidateInfo";
 import PerformanceView from "./component/PerformanceView/PerformanceView";
 import useEvaluationFormHook from "./EvaluationForm.hook";
 import styles from "./Style.module.css";
-import {WaitingComponent} from "../../components/index.component";
 import SnackbarComponent from "../../components/Snackbar.component";
 
 function EvaluationForm({ data, handleNext, isSubmitting }) {

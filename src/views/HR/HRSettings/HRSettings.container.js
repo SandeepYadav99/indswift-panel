@@ -8,7 +8,6 @@ import { bindActionCreators } from "redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import { withStyles, Tabs, Tab } from "@material-ui/core";
-import { WaitingComponent } from "../../../components/index.component";
 import useHRSettings from "./HRSettingsHook";
 import { makeStyles } from "@material-ui/styles";
 import FaqListContainer from "./components/Faq/FaqList.container";

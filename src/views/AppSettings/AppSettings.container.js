@@ -8,8 +8,7 @@ import {bindActionCreators} from 'redux';
 import PageBox from '../../components/PageBox/PageBox.component';
 import styles from './Style.module.css';
 import {withStyles, Tabs, Tab} from "@material-ui/core";
-import Geofencing from './Components/Geofencing/Geofencing.component';
-import {WaitingComponent} from "../../components/index.component";
+import WaitingComponent from "../../components/Waiting.component";
 import {actionUpdateGeoFence, actionUpdatePolicies} from "../../actions/AppSettings.action";
 import HtmlEditor from './Components/HtmlComponent/HtmlEditor.component';
 

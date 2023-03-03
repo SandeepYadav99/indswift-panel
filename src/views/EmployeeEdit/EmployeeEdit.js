@@ -20,7 +20,7 @@ import TotalSum from "./components/TotalSum/TotalSum";
 import constants from "../../config/constants";
 import ChildrenIncludeForm from "./components/includes/ChildrenIncludes.component";
 import {getSumValue} from "../../libs/general.utils";
-import {WaitingComponent} from "../../components/index.component";
+import WaitingComponent from "../../components/Waiting.component";
 import Constants from "../../config/constants";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {

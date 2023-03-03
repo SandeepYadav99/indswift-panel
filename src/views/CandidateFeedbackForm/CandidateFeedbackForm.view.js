@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import useCandidateFeedback from "./CandidateFeedbackForm.hook";
 import EvaluationForm from "./EvaluationForm.view";
-import {WaitingComponent} from "../../components/index.component";
+import WaitingComponent from "../../components/Waiting.component";
 import NextPageForm from "./component/NextPageForm/NextPageForm";
 import SnackbarComponent from "../../components/Snackbar.component";
 

@@ -1,7 +1,7 @@
 .mainContainer {
     width: 100%;
     height: 90vh;
-    overflow: hidden;
+    position: relative;
 }
 
 .iFrame {
@@ -17,6 +17,31 @@
     height: 100vh;
     /*background: red;*/
 }
-.pdfViewer {
-
+.blockage {
+    position: absolute;
+    /*background: red;*/
+    width: 30%;
+    height: 100%;
+    right: 0px;
+}
+.blockage2 {
+    position: absolute;
+    /*background: red;*/
+    width: 30%;
+    height: 100%;
+    left: 0px;
+}
+.bottomBlock {
+    position: absolute;
+    /*background: red;*/
+    width: 100%;
+    height: 100px;
+    left: 0px;
+}
+.topBlock {
+    position: absolute;
+    /*background: red;*/
+    width: 100%;
+    height: 100px;
+    bottom: 0px;
 }

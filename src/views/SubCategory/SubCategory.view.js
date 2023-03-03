@@ -14,7 +14,6 @@ import {
     renderOutlinedMultipleSelectField
 } from '../../libs/redux-material.utils';
 import EventEmitter from "../../libs/Events.utils";
-import {CountryPhone} from '../../components/index.component';
 import styles from './Style.module.css';
 
 import Dialog from "@material-ui/core/Dialog";

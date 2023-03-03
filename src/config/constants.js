@@ -16,6 +16,7 @@ if (isProduction) {
 }
 
 export default {
+  is_development: (process.env.NODE_ENV === 'development' || !isProduction ),
   TIME_ZONE: -(tempDate.getTimezoneOffset() / 60),
   DEFAULT_TIME_FORMAT: "DD-MM-YYYY, HH:mm",
   APP_NAME: "IndSwift Panel",

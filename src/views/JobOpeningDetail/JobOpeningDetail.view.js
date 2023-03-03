@@ -4,15 +4,9 @@ import { ButtonBase, Menu, MenuItem } from "@material-ui/core";
 import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import classnames from "classnames";
-import CandidatesRecordTable from "./components/CandidatesTable/CandidatesTable.component";
-import InterviewerRecordTable from "./components/InterviewerList/InterviewerTable/InterviewerTable.component";
 import useJobOpeningDetail from "./JobOpeningDetail.hook";
-import { WaitingComponent } from "../../components/index.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
-import CandidateTable from "../../components/CandidateDataTable/CandidateTable.component";
+import WaitingComponent  from "../../components/Waiting.component";
 import InterviewerListComponent from "./components/InterviewerList/InterviewerList.component";
-import CandidateInterviewTable from "../../components/CandidateInterviewDataTable/CandidateInterviewTable.component";
-import CandidateShortlistTable from "../../components/CandidateShortlistDataTable/CandidateShortlistTable.component";
 import CandidatePaperComponent from "./components/CandidatePaper/CandidatePaper.component";
 
 const JobOpeningDetail = () => {

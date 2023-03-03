@@ -72,6 +72,7 @@ const useEmployeePersonalForm = ({}) => {
         if (image) {
           fd.append("image", image);
         }
+        fd.append('candidate_id', candidateId);
         fd.append("contact", JSON.stringify(contactData?.data));
         fd.append("family", JSON.stringify(familyData?.data));
         serviceCandidateEafUpdatePersonal(fd).then((res) => {

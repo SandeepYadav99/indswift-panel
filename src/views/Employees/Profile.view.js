@@ -9,6 +9,7 @@ import BankInfo from "./components/Profile/BankInfo";
 import AddressInfo from "./components/Profile/Address";
 import Timeline from "./components/Profile/Timeline";
 import PerformanceReview from "./components/Profile/PerfomanceReview";
+import ProfileDisclaimer from "./components/ProfileDisclaimer/ProfileDisclaimer";
 
 const ProfileView = ({ data }) => {
   return (
@@ -28,6 +29,7 @@ const ProfileView = ({ data }) => {
           <PerformanceReview reviewer={data?.pms_reviewer} image={data?.image}/>
         </div>
       </div>
+      <ProfileDisclaimer />
     </div>
   );
 };

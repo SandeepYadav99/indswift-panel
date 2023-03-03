@@ -3,7 +3,6 @@ import styles from './Style.module.css';
 import {Button, ButtonBase, capitalize} from "@material-ui/core";
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import Rating from '@material-ui/lab/Rating';
-import {WaitingComponent} from "../../../../components/index.component";
 import ImageGalleryComponent from "./components/ImageGallery/ImageGallery.component";
 
 

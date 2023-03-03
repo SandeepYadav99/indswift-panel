@@ -10,7 +10,7 @@ import {Add} from "@material-ui/icons";
 import {useParams} from "react-router";
 import {serviceGetList} from "../../../../../services/Common.service";
 import {useSelector} from "react-redux";
-import {WaitingComponent} from "../../../../../components/index.component";
+import WaitingComponent from "../../../../../components/Waiting.component";
 
 const TEMP_OBJ = {
     interviewer: '',

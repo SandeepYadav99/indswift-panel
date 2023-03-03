@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import styles from "./Style.module.css";
 import { useSelector } from "react-redux";
-import { WaitingComponent } from "../../../../../components/index.component";
+import WaitingComponent  from "../../../../../components/Waiting.component";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
 

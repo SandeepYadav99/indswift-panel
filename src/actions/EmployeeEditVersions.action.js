@@ -106,7 +106,7 @@ export function actionResetFilterEmployeeVersion() {
 }
 
 export function actionSetPageEmployeeVersion(page) {
-    const stateData = store.getState().location;
+    const stateData = store.getState().employee_versions;
     const currentPage = stateData.currentPage;
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;

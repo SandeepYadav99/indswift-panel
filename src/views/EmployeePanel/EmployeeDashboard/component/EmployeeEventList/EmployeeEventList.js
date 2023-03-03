@@ -8,7 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import BirthdayEvent from "./BirthdayEvent";
 import { useSelector } from "react-redux";
-import { WaitingComponent } from "../../../../../components/index.component";
+import WaitingComponent  from "../../../../../components/Waiting.component";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {

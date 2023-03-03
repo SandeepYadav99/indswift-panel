@@ -6,7 +6,7 @@ import csx from "classnames";
 import File from "../../../../../components/FileComponent/FileComponent.component";
 import Constants from "../../../../../config/constants";
 import MonthlyThemeItem from "./MonthlyThemeItem";
-import {WaitingComponent} from "../../../../../components/index.component";
+import WaitingComponent from "../../../../../components/Waiting.component";
 
 function MonthlyTheme() {
   const {

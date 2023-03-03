@@ -7,7 +7,7 @@ import {bindActionCreators} from "redux";
 import {actionGetQuoteDetails, actionGetQuoteNotes} from "../../actions/Quotes.action";
 import LeadNoteList from "./components/Note/NoteList.component";
 import Concern from "./components/Concern/Concern.view";
-import {WaitingComponent} from "../../components/index.component";
+import WaitingComponent from "../../components/Waiting.component";
 import {ButtonBase} from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../libs/history.utils";

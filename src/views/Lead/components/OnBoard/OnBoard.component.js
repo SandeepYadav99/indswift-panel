@@ -12,7 +12,7 @@ import {
     renderOutlinedMultipleSelectField, renderCountryContact, renderCheckbox
 } from '../../../../libs/redux-material.utils';
 import EventEmitter from "../../../../libs/Events.utils";
-import {CountryPhone, WaitingComponent} from '../../../../components/index.component';
+import WaitingComponent from '../../../../components/Waiting.component';
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";

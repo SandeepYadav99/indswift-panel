@@ -20,7 +20,7 @@ import Business from './components/Business/Business.component'
 import ServiceInterest from "./components/ServicesInterest/ServicesInterest.component";
 import {serviceGetCustomList} from "../../services/Common.service";
 import {serviceGetLeadUserDetails, serviceUpdateLeadUserData} from "../../services/Lead.service";
-import {WaitingComponent} from "../../components/index.component";
+import WaitingComponent from "../../components/Waiting.component";
 
 let CreateProvider = null;
 

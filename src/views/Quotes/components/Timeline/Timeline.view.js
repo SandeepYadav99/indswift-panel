@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styles from './Style.module.css'
 import {serviceGetQuoteTimeline} from "../../../../services/Quotes.service";
 import EventEmitter from "../../../../libs/Events.utils";
-import {WaitingComponent} from "../../../../components/index.component";
+import WaitingComponent from "../../../../components/Waiting.component";
 import Constants from '../../../../config/constants'
 
 class Timeline extends Component{

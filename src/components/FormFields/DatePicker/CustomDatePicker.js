@@ -27,6 +27,7 @@ const CustomDatePicker = ({onChange, minDate, isError, maxDate, value, label, cl
         d.setFullYear(d.getFullYear() + 10);
         return maxDate ? maxDate : d;
     }, [maxDate]);
+
     if (clearable) {
         return (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>

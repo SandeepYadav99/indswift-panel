@@ -5,7 +5,7 @@ import Select from '@material-ui/core/Select';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {actionChangeQuotePriority, actionChangeQuoteStatus} from "../../../../actions/Quotes.action";
-import {WaitingComponent} from "../../../../components/index.component";
+import WaitingComponent from "../../../../components/Waiting.component";
 import constants from "../../../../config/constants";
 import AssignedDialog from '../AssignedDialog/AssignedDialog.view';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';

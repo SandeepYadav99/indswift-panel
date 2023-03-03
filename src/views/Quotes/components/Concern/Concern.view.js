@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styles from './Style.module.css'
-import {WaitingComponent} from "../../../../components/index.component";
+import WaitingComponent from "../../../../components/Waiting.component";
 
 class Concern extends Component{
     constructor(props) {
