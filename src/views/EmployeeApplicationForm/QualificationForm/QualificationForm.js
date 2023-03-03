@@ -1,5 +1,4 @@
 import { ButtonBase } from "@material-ui/core";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
 import React from "react";
 import ProfessionalDetail from "../components/ProfessionalDetail/ProfessionalDetail";
 import QualificationDetail from "../components/Qualification/IncludeQualification";
@@ -37,7 +36,7 @@ function QualificationPage() {
         </div>
         <div className={styles.btnContainer}>
           <div className={styles.btnCont1}>
-            <ButtonBase className={styles.edit}>PREVIOUS</ButtonBase>
+            <ButtonBase className={styles.edit1}>PREVIOUS</ButtonBase>
             <ButtonBase
                 disabled={isSubmitting}
               type={"button"}

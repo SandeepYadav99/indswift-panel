@@ -19,18 +19,6 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
       <div className={styles.qualificationFormCont}>
             <div className={styles.firstRow}>
                 <div className={styles.flex1}>
-                    {/* <CustomSelectField
-                        isError={errorData?.qualification}
-                        errorText={errorData?.qualification}
-                        label={"Qualification"}
-                        value={form?.qualification}
-                        handleChange={(value) => {
-                            changeTextData(value, "qualification");
-                        }}
-                    >
-                        <MenuItem value="10">10th</MenuItem>
-                        <MenuItem value="12">12th</MenuItem>
-                    </CustomSelectField> */}
                     <CustomTextField
                         isError={errorData?.qualification}
                         errorText={errorData?.qualification}

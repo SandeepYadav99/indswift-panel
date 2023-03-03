@@ -1,5 +1,5 @@
 import {useCallback, useImperativeHandle, useRef, useState} from "react";
-import {isAlphaNumChars} from "../../../../../libs/RegexUtils";
+import {isAlphaNumChars, isNum} from "../../../../../libs/RegexUtils";
 
 const initialForm = {
     emergency_contact: '',
@@ -64,6 +64,18 @@ const useContactDetail = ({}, ref) => {
                 delete errors[val]
             }
         });
+        if (
+            form?.emergency_contact &&
+            (!isNum(form?.emergency_contact) || form?.emergency_contact?.length !== 10)
+          ) {
+            errors["emergency_contact"] = true;
+          }
+          if (
+            form?.residence_contact &&
+            (!isNum(form?.residence_contact) || form?.residence_contact?.length !== 10)
+          ) {
+            errors["residence_contact"] = true;
+          }
         Object.keys(errors).forEach(key => {
             if (!errors[key]) {
                 delete errors[key];

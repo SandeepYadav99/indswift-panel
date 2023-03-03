@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useImperativeHandle, useRef, useState} from "react";
 import useDebounce from "../../../../../hooks/DebounceHook";
 import {useParams} from "react-router";
-import {isAlpha, isAlphaNumChars, isNum, isSpace} from "../../../../../libs/RegexUtils";
+import {isAadhar, isAlpha, isAlphaNumChars, isNum, isSpace} from "../../../../../libs/RegexUtils";
 
 const initialForm = {
     dob: '',
@@ -67,6 +67,9 @@ const useProfilePersonalForm = ({}, ref) => {
                 delete errors[val]
             }
         });
+        if (form?.aadhar_no && !isAadhar(form?.aadhar_no)) {
+            errors["aadhar_no"] = true;
+          }
         Object.keys(errors).forEach(key => {
             if (!errors[key]) {
                 delete errors[key];
