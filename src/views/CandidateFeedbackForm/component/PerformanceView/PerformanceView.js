@@ -47,7 +47,7 @@ function PerformanceView({ type, title, question, handleChange, isError }) {
             }
           />
           <span className={styles.performanceindex}>Below Average</span>
-          <span>((b/w 30 % to 50%))</span>
+          <span>(b/w 30 % to 50%)</span>
         </div>
         <div className={styles.emojCard} onClick={(e) => handleClick(3)}>
           <img
@@ -58,7 +58,7 @@ function PerformanceView({ type, title, question, handleChange, isError }) {
             }
           />
           <span className={styles.performanceindex}>Average</span>
-          <span>((b/w 50 % to 70%))</span>
+          <span>(b/w 50 % to 70%)</span>
         </div>
         <div className={styles.emojCard} onClick={(e) => handleClick(4)}>
           <img
@@ -69,7 +69,7 @@ function PerformanceView({ type, title, question, handleChange, isError }) {
             }
           />
           <span className={styles.performanceindex}>Above Average</span>
-          <span>((b/w 70 % to 90 %))</span>
+          <span>(b/w 70 % to 90 %)</span>
         </div>
         <div className={styles.emojCard} onClick={(e) => handleClick(5)}>
           <img
@@ -80,7 +80,7 @@ function PerformanceView({ type, title, question, handleChange, isError }) {
             }
           />
           <span className={styles.performanceindex}>Exceptional</span>
-          <span>((Above 90%))</span>
+          <span>(Above 90%)</span>
         </div>
       </div>
       <div>

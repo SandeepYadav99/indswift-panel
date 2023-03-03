@@ -1,9 +1,16 @@
 import { ButtonBase } from "@material-ui/core";
 import React from "react";
 import styles from "../../Style.module.css";
-import LogUtils from "../../../../libs/LogUtils";
+import { useState } from "react";
 
-function ProfileUpper({data, image, handleImageChange}) {
+function ProfileUpper({ data, image, handleImageChange, error }) {
+  const getImgUrl = (image) => {
+    if (image) {
+      return URL.createObjectURL(image);
+    } else {
+      return require("../../../../assets/img/ic_employee image@2x.png");
+    }
+  };
   return (
     <div className={styles.ProfileUpperWrapper}>
       <div className={styles.profileName}>
@@ -13,9 +20,20 @@ function ProfileUpper({data, image, handleImageChange}) {
         <p>{data?.contact}</p>
       </div>
       <div className={styles.profileimg}>
-        <ButtonBase className={styles.edit}>UPLOAD NEW PICTURE</ButtonBase>
+        <ButtonBase className={styles.edit}>
+          <label htmlFor="imageUpload" className={styles.labelWrapper}>
+            UPLOAD NEW PICTURE
+          </label>
+        </ButtonBase>
+        <input
+          type="file"
+          id="imageUpload"
+          accept=".jpg,.jpeg,.png"
+          onChange={handleImageChange}
+          style={{ display: "none" }}
+        />
         <div>
-        <img className={styles.applicationImage} src={!image ? require("../../../../assets/img/ic_employee image@2x.png") : URL.createObjectURL(image)} />
+          <img className={styles.applicationImage} src={getImgUrl(image)} />
         </div>
       </div>
     </div>
