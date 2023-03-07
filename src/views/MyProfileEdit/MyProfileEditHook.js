@@ -1,30 +1,11 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { useState } from "react";
-import {
-  isAadhar,
-  isAccountNum,
-  isAlpha,
-  isAlphaNum,
-  isAlphaNumChars,
-  isEmail,
-  IsIFSCCode,
-  isNum,
-  isSpace,
-} from "../../libs/RegexUtils";
-import { useParams } from "react-router";
-import { serviceGetList } from "../../services/Common.service";
-import {
-  serviceCheckEmployeeExists,
-  serviceGetEmployeeEditInfo,
-} from "../../services/Employee.service";
+import React, {useCallback, useEffect, useRef, useState} from "react";
+import {isAadhar, isAlphaNumChars, isEmail, isSpace,} from "../../libs/RegexUtils";
+import {serviceCheckEmployeeExists, serviceGetEmployeeEditInfo,} from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
-import { useMemo } from "react";
-import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
-import RouteName from "../../routes/Route.name";
-import { serviceEditEmployeeVersion } from "../../services/EmployeeEdit.service";
+import {serviceEditEmployeeVersion} from "../../services/EmployeeEdit.service";
 import {useSelector} from "react-redux";
 
 const initialForm = {
@@ -138,7 +119,6 @@ function useMyProfileEdit() {
   );
   const changeTextData = useCallback(
     (text, fieldName) => {
-      LogUtils.log("changeTextData", text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name" || fieldName === "address") {
@@ -153,6 +133,9 @@ function useMyProfileEdit() {
       } else if (fieldName === "is_address_same") {
         if (text) {
           t.current_address = t?.permanent_address;
+          if (changedFields.current.indexOf('current_address') < 0) {
+            changedFields.current = [...changedFields.current, 'current_address'];
+          }
         }
         t[fieldName] = text;
         shouldRemoveError = false;

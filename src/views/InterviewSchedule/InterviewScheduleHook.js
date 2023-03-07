@@ -99,7 +99,7 @@ const useInterviewSchedule = ({}) => {
 
     const handleViewDetails = useCallback((data) => {
         LogUtils.log('data', data);
-        historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data.id}`) //+data.id
+        historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data.candidate_id}`) //+data.id
     }, []);
     const configFilter = useMemo(() => {
         return [

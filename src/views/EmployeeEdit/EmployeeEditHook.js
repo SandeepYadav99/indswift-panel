@@ -1,27 +1,23 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { useState } from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {
   isAadhar,
   isAccountNum,
   isAlpha,
-  isAlphaNum,
   isAlphaNumChars,
   isEmail,
   IsIFSCCode,
   isNum,
   isSpace,
 } from "../../libs/RegexUtils";
-import { useParams } from "react-router";
-import { serviceGetList } from "../../services/Common.service";
+import {useParams} from "react-router";
+import {serviceGetList} from "../../services/Common.service";
 import {serviceCheckEmployeeExists, serviceGetEmployeeEditInfo} from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
-import { useMemo } from "react";
-import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
-import RouteName from "../../routes/Route.name";
 import {serviceEditEmployeeVersion} from "../../services/EmployeeEdit.service";
+
 const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allowance', 'special_allowance', 'earning_one', 'pug', 'helper', 'food_coupons', 'gift_coupons', 'lta', 'super_annuation', 'nps', 'vehicle_maintenance', 'vehicle_emi', 'fuel', 'vpf', 'earning_two', 'gross', 'earning_three_pli', 'er_pf', 'er_esi', 'er_lwf', 'earning_four', 'gratuity', 'insurance', 'driver_incentive', 'perf_bonus', 'annual_bonus', 'two_car_maintenance', 'two_fuel', 'earning_five', 'monthly_ctc', 'em_pf', 'em_esi', 'em_lwf', 'total_deduction', 'total_pf', 'retention_allowance', 'car_component', 'incremental_gross_salary', 'earning2_vpf', 'deduction_vpf','stability_incentive'];
 
 const initialForm = {
@@ -295,6 +291,9 @@ function EmployeeListCreateHook() {
         } else if (fieldName === "is_address_same") {
           if (text) {
             t.current_address = t?.permanent_address;
+            if (changedFields.current.indexOf('current_address') < 0) {
+              changedFields.current = [...changedFields.current, 'current_address'];
+            }
           }
           t[fieldName] = text;
         }else if (SALARY_KEYS.indexOf(fieldName) >= 0) {

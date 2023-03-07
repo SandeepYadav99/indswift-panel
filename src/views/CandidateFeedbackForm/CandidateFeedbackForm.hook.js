@@ -45,7 +45,7 @@ const useCandidateFeedback = ({}) => {
                 ...data,
                 schedule_id: interviewData?.id,
                 candidate_id: interviewData?.candidate_id,
-                job_opening_id: interviewData?.job_id,
+                job_id: interviewData?.job_id,
                 interviewer_id: interviewData?.interviewer_id,
                 interview_id: interviewData?.interview_id,
                 step: interviewData?.step,

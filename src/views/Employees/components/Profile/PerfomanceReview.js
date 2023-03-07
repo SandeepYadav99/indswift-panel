@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./Style.module.css"
 
-const PerformanceReview = ({reviewer,image}) => {
+const PerformanceReview = ({reviewer}) => {
     return (
         <div>
             <div className={styles.plainPaper}>
@@ -10,7 +10,7 @@ const PerformanceReview = ({reviewer,image}) => {
 
                     <div className={styles.mainFlex}>
                         <div style={{marginRight:'15px'}}>
-                            <img src={reviewer?.image ? reviewer?.image : image } height={40}/>
+                            <img src={reviewer?.image ? reviewer?.image : require('../../../../assets/img/logos/ic_logo.png') } height={40}/>
                         </div>
                         <div className={styles.right}>
                             <div className={styles.key}><span className={styles.value}>Reviewer Name:</span>{reviewer?.name}</div>
