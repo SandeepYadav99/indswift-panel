@@ -79,6 +79,7 @@ export default {
   CANDIDATE_FEEDBACK_SUCCESS: '/candidate/feedback/success',
   CANDIDATE_FEEDBACK: '/candidate/feedback/',
 
-  INTERVIEW_SCHEDULE: '/interview/schedule'
+  INTERVIEW_SCHEDULE: '/interview/schedule',
 
+  CV_SHORTLIST_LIST: '/cv/shortlist/'
 };

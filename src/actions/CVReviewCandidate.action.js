@@ -124,7 +124,7 @@ export function actionResetFilterReview() {
 }
 
 export function actionSetPageReview(page) {
-  const stateData = store.getState().review;
+  const stateData = store.getState().cvReview;
   const currentPage = stateData.currentPage;
   const totalLength = stateData.all.length;
   const sortingData = stateData.sorting_data;

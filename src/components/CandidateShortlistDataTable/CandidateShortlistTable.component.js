@@ -47,7 +47,8 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
         toggleConfirmDialog,
         dialogText,
         handleDialogConfirm,
-        isSubmitting
+        isSubmitting,
+        handleRequestShortlist
     } = useCandidateShortlistTable({jobId, handleClose});
 
 
@@ -190,7 +191,7 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
                                 }} className={styles.edit}>SHORTLIST</ButtonBase>
                             </div>
                             <div>
-                                <ButtonBase className={styles.createBtn}>
+                                <ButtonBase onClick={handleRequestShortlist} className={styles.createBtn}>
                                     REQUEST SHORTLIST
                                 </ButtonBase>
                             </div>

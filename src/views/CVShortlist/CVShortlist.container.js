@@ -1,61 +1,41 @@
 /**
  * Created by charnjeetelectrovese@gmail.com on 12/3/2019.
  */
-import React, {
-  Component,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
+import React, {useCallback, useMemo,} from "react";
+import {IconButton} from "@material-ui/core";
 import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
-import {
-  Add,
-  InfoOutlined,
-  OpenInNew,
-  PrintOutlined,
-} from "@material-ui/icons";
+import {useSelector} from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
-import useReviewCandidate from "./ReviewCandidateHook";
+import useCVShortlist from "./CVShortlistHook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import RejectDialog from "./component/RejectPopUp/RejectDialog.view";
 
-const ReviewCandidate = ({}) => {
+const CVShortlist = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
-    handleSideToggle,
     handleViewDetails,
-    editData,
-    isSidePanel,
-    handleCreate,
     isCalling,
     configFilter,
     isRejectPopUp,
-    warehouses,
     toggleRejectDialog,
-  } = useReviewCandidate({});
+    handleUpdate
+  } = useCVShortlist({});
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.location);
+  } = useSelector((state) => state.cvShortlist);
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
@@ -66,7 +46,7 @@ const ReviewCandidate = ({}) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span> <br />
+            <span className={styles.productName}>{obj?.candidate?.name}</span> <br />
           </div>
         </div>
       );
@@ -78,66 +58,50 @@ const ReviewCandidate = ({}) => {
     return [
       {
         key: "name",
-        label: "PRC",
+        label: "NAME",
         sortable: true,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
-        key: "designation",
-        label: "DESIGNATION",
+        key: "experience",
+        label: "EXPERIENCE",
         sortable: false,
-        render: (temp, all) => <div>{all?.code}</div>,
+        render: (temp, all) => <div>{all?.candidate?.experience}</div>,
       },
       {
-        key: "department",
-        label: "DEPARTMENT",
+        key: "resume",
+        label: "Resume",
         sortable: false,
-        render: (temp, all) => <div>{all?.address}</div>,
+        render: (temp, all) => <div><a target={'_blank'} href={all?.candidate?.resume}>Link</a></div>,
       },
-      {
-        key: "location",
-        label: "LOCATION",
-        sortable: false,
-        render: (temp, all) => <div>{all?.city}</div>,
-      },
-      {
-        key: "cv",
-        label: "CV PENDING REVIEW",
-        sortable: false,
-        render: (temp, all) => <div>{all?.state}</div>,
-      },
-
       {
         key: "user_id",
         label: "Action",
-        render: (temp, all) => (
-          <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              // onClick={() => {
-              //   handleSubDepartment(all);
-              // }}
-            >
-              <OpenInNew fontSize={"small"} className={styles.openIcon} />{" "}
-              <span className={styles.subText}>View Profile</span>
-            </IconButton>
-          </div>
-        ),
+        render: (temp, all) => {
+          return (all?.status === Constants.GENERAL_STATUS.PENDING && (
+              <div>
+                <IconButton
+                    className={"tableActionBtn"}
+                    color="secondary"
+                    disabled={isCalling}
+                    onClick={() => { handleUpdate(all, 'REJECT') }}
+                >
+                  <span className={styles.subText}>Reject</span>
+                </IconButton>
+                <IconButton
+                    className={"tableActionBtn"}
+                    color="secondary"
+                    disabled={isCalling}
+                    onClick={() => { handleUpdate(all, 'ACCEPT') }}
+                >
+                  <span className={styles.subText}>Accept</span>
+                </IconButton>
+              </div>
+          ))
+        }
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, handleUpdate]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -200,4 +164,4 @@ const ReviewCandidate = ({}) => {
   );
 };
 
-export default ReviewCandidate;
+export default CVShortlist;

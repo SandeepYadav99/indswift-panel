@@ -6,7 +6,7 @@ import {
   actionFetchReview,
   actionSetPageReview,
   actionUpdateReview,
-} from "../../actions/ReviewCandidate.action";
+} from "../../actions/CVReviewCandidate.action";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 
@@ -22,7 +22,7 @@ const useReviewCandidate = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.location);
+  } = useSelector((state) => state.cvReview);
 
   useEffect(() => {
     dispatch(
@@ -119,11 +119,8 @@ const useReviewCandidate = ({}) => {
 
   const handleEdit = useCallback(
     (data) => {
-      setEditData(data);
-      setSidePanel((e) => !e);
-    },
-    [setEditData, setSidePanel]
-  );
+      historyUtils.push(`${RouteName.CV_SHORTLIST_LIST}${data?.job_id}`);
+    },[]);
 
   const handleSideToggle = useCallback(
     (data) => {

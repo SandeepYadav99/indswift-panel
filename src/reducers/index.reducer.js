@@ -44,9 +44,10 @@ import HRAnnouncementReducer from "./HRAnnouncement.reducer";
 
 import HRUtsavReducer from "./HRUtsav.reducer";
 import HRUtsavItemsReducer from "./HRUtsavItems.reducer";
-import ReviewReducer from "./Review.reducer";
 import EmployeeDashboard from "./EmployeeDashboard.reducer";
 import EmployeeVersions from "./EmployeeEditVersion.reducer";
+import CVReviewReducer from "./CVReview.reducer";
+import CVShortlistReducer from "./CVShortlist.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -89,7 +90,8 @@ const rootReducer = combineReducers({
   hr_facilities_item: HRFacilityItem,
   hr_utsav: HRUtsavReducer,
   hr_utsav_item: HRUtsavItemsReducer,
-  review: ReviewReducer,
+  cvReview: CVReviewReducer,
+  cvShortlist: CVShortlistReducer,
   employeeDashboard: EmployeeDashboard,
   employee_versions: EmployeeVersions,
   // form: formReducer,

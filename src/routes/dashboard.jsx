@@ -96,7 +96,7 @@ const HRUtsav = lazy(() => import( "../views/HR/HRUtsav/HRUtsav.container"));
 const EmployeeKnowledge = lazy(() => import( "../views/EmployeePanel/EmployeeKnowledge/EmployeeKnowledge.container"));
 const EmployeePerformance = lazy(() => import( "../views/EmployeePerformance/EmployeePerformance.container"));
 const EmployeeClaim = lazy(() => import( "../views/EmployeePanel/EmployeeClaim/EmployeeClaim.container"));
-const ReviewCandidate = lazy(() => import( "../views/ReviewCandidate/ReviewCandidate.container"));
+const ReviewCandidate = lazy(() => import( "../views/CVReviewCandidate/ReviewCandidate.container"));
 const ViewDocuments = lazy(() => import( "../views/ViewDocuments/ViewDocuments"));
 const EmployeeListCreate = lazy(() => import( "../views/EmployeeList/EmployeeListCreate"));
 const EmployeeEdit = lazy(() => import( "../views/EmployeeEdit/EmployeeEdit"));
@@ -129,7 +129,7 @@ const GradeCreateView = lazy(() => import( "../views/Grade/GradeCreate.view"));
 const CadreList = lazy(() => import( "../views/Cadre/CadreList.container"));
 const CadreCreateView = lazy(() => import( "../views/Cadre/CadreCreate.view"));
 const CandidateOfferLetter=lazy(()=> import("../views/Candidates/CandidateOfferLetter/CandidateOfferLetter.view"));
-
+const CVShortlistList = lazy( () => import('../views/CVShortlist/CVShortlist.container'));
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -833,7 +833,8 @@ const dashboardRoutes = [
         slug: 'tm',
         is_parent: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
-    },{
+    },
+    {
         path: '/tm/review',
         sidebarName: "Review Candidates",
         navbarName: "Review Candidates",
@@ -845,6 +846,19 @@ const dashboardRoutes = [
         parent: 'tm',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
+    {
+        path: `${RouteName.CV_SHORTLIST_LIST}:id`,
+        sidebarName: "Review Candidates",
+        navbarName: "Review Candidates",
+        icon: PeopleOutlined,
+        component: CVShortlistList,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'tm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+
     {
         path: RouteName.INTERVIEW_SCHEDULE,
         sidebarName: "Interview Schedule",

@@ -6,7 +6,11 @@ import {
     actionSetPageCandidate,
     actionUpdateCandidate
 } from "../../actions/Candidate.action";
-import {serviceRejectJobCandidates, serviceShortlistJobCandidates} from "../../services/JobOpenings.service";
+import {
+    serviceRejectJobCandidates,
+    serviceRequestCVShortlist,
+    serviceShortlistJobCandidates
+} from "../../services/JobOpenings.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import {actionGetJobOpeningCandidates} from "../../actions/JobOpeningDetail.action";
 
@@ -149,6 +153,23 @@ const useCandidateShortlistTable = ({jobId, handleClose }) => {
 
     }, [dialogType, selected, setSelected, setIsDialog, jobId, setIsSubmitting, isSubmitting, handleClose]);
 
+    const handleRequestShortlist = useCallback(() => {
+        if (!isSubmitting) {
+            setIsSubmitting(true);
+            const candidateIds = selected.map(val => val.candidate_id);
+            serviceRequestCVShortlist({ candidate_ids: candidateIds, job_id: jobId }).then((res) => {
+                if(!res.error) {
+                    SnackbarUtils.success('Request placed successfully');
+                    setSelected([]);
+                    handleClose();
+                } else {
+                    SnackbarUtils.error(res?.message);
+                }
+                setIsSubmitting(false);
+            })
+        }
+    }, [selected, setIsSubmitting, isSubmitting, jobId, setSelected, handleClose]);
+
     return {
         handlePageChange,
         handleFilterDataChange,
@@ -166,7 +187,8 @@ const useCandidateShortlistTable = ({jobId, handleClose }) => {
         dialogType,
         dialogText,
         handleDialogConfirm,
-        isSubmitting
+        isSubmitting,
+        handleRequestShortlist
     }
 };
 

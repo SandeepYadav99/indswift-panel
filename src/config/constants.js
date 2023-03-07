@@ -24,8 +24,7 @@ export default {
   SOCKET_URL: tempLevel ? socketUrl : "http://91.205.173.97:8111/",
   // DEFAULT_APP_URL: 'http://35.154.147.169:5055/api/',
   DEFAULT_PAGE_VALUE: TABLE_LIMIT,
-  GOOGLE_LOGIN_KEY:
-    "1027293586426-qg6lv2vsp57m05tn32m9stku2ljsd1uh.apps.googleusercontent.com",
+  GOOGLE_LOGIN_KEY: "1027293586426-qg6lv2vsp57m05tn32m9stku2ljsd1uh.apps.googleusercontent.com",
   GOOGLE_MAP_KEY: "AIzaSyDUTIV7DaCvMUMg3qElE-sxdj4zR-dxhFM",
   FACEBOOK_LOGIN_KEY: "213504989180156",
   DATATABLE_PROPERTIES: {

@@ -13,7 +13,7 @@ import {
   CREATE_DATA,
   UPDATE_DATA,
   DELETE_ITEM,
-} from "../actions/ReviewCandidate.action";
+} from "../actions/CVReviewCandidate.action";
 import Constants from "../config/constants";
 
 function mapPresetPRequest(all, pageId) {
