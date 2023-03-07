@@ -13,6 +13,7 @@ import CandidateStatusDialog from "./components/CandidateStatusPopUp/CandidateSt
 import UpdatePRCDialog from "./components/UpdatePRCPopUp/UpdatePRCDialog.view";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import InterviewHistory from "./components/InterviewHistory/InterviewHistory.view";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -114,7 +115,9 @@ function CandidateDetails() {
           <TabPanel value={value} index={0} dir={"ltr"}>
             <CandidateProfileView data={candidateData} />
           </TabPanel>
-          <TabPanel value={value} index={1} dir={"ltr"}></TabPanel>
+          <TabPanel value={value} index={1} dir={"ltr"}>
+            <InterviewHistory/>
+          </TabPanel>
         </div>
       </div>
     </div>

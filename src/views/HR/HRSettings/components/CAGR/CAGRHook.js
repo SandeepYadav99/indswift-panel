@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useCallback } from "react";
+import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import { serviceChangeEmployeeCAGR } from "../../../../../services/AppSettings.service";
 
 function useCAGRHook() {
   const initialForm = {
@@ -8,12 +10,13 @@ function useCAGRHook() {
   };
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const changeTextData = useCallback(
     (text, fieldName) => {
       const t = { ...form };
       t[fieldName] = text;
       setForm(t);
-      console.log("===>",form,errorData)
     },
     [form, setForm,errorData]
   );
@@ -21,14 +24,12 @@ function useCAGRHook() {
     const errors = { ...errorData };
     ["company_cagr", "manpower_cagr"].forEach((val) => {
       if (!form?.[val]) {
-        console.log('insideloop',val)
         errors[val] = true;
       }
       else{
         delete errors[val]
       }
     });
-    console.log("inside validation",{ errors, form });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -36,14 +37,29 @@ function useCAGRHook() {
     });
     return errors;
   }, [form, errorData]);
+  const submitToServer = useCallback(() => {
+    if (!isSubmitting) {
+        setIsSubmitting(true);
+        serviceChangeEmployeeCAGR ({
+            // emp_id: employeeData?.id,
+            ...form
+        }).then(res => {
+            if (!res.error) {
+                // SnackbarUtils.success('Password Changed Successfully');
+            } else {
+                SnackbarUtils.error(res?.message);
+            }
+            setIsSubmitting(false);
+        })
+    }
+}, [form, isSubmitting, setIsSubmitting ]);
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     setErrorData({ ...errors });
-    console.log("error", errorData);
-    if (!errors) {
-      // submitToServer();
+    if (Object.keys(errors).length === 0) {
+      submitToServer();
     } else {
-      // console.log("===errors", errors);
+      console.log(form,errors,'errorFiels')
     }
   }, [
     checkFormValidation,

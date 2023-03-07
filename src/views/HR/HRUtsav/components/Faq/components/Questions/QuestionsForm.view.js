@@ -462,10 +462,10 @@ class QuestionsFormView extends Component {
                             <Field
                                 fullWidth={true}
                                 name="name"
-                                component={renderOutlinedTextFieldWithLimit}
-                                maxLimit={100}
+                                component={renderOutlinedTextField}
+                                // maxLimit={100}
                                 margin={"dense"}
-                                normalize={descNormalize}
+                                // normalize={descNormalize}
                                 label={`Event Name`}
                             />
                         </div>
@@ -492,7 +492,7 @@ class QuestionsFormView extends Component {
                                 margin={"dense"}
                                 rows={3}
                                 multiline
-                                normalize={descNormalize}
+                                // normalize={descNormalize}
                                 label="Event Description"
                             />
                         </div>

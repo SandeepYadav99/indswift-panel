@@ -48,8 +48,8 @@ const UpperCard = ({ data, handleToggle, handleStatusToggle,handleOfferPage }) =
                   <span className={styles.actionBtnSpan}>Extend Offer</span>
                 </ActionButton>              <div>
               <StatusPill
-                status="ACTIVE"
-                style={{ color: "#fff", borderColor: "#fff" }}
+                status={data?.status}
+                // style={{ color: "#fff", borderColor: "#fff" }}
               />
               </div>
             </div>

@@ -30,13 +30,13 @@ const ContactInfo = ({ contact }) => {
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>Official Email:</span>
-                <span className={styles.valueWrap}>
+                <span className={styles.valueWrapemail}>
                   {contact?.official_email ? contact?.official_email : "N/A"}
                 </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Personal Email:</span>
-                <span className={styles.valueWrap}>
+                <span className={styles.valueWrapemail}>
                   {contact?.personal_email ? contact?.personal_email : "N/A"}
                 </span>
               </div>

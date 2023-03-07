@@ -113,8 +113,8 @@ class QuestionView extends Component {
                 <img className={styles.imgResolution} src={val?.cover_image} />
               </div>
               <div className={styles.bookmarkedImgWrapper}>
-                {Array.isArray(val.images) && val.images.length <= 6
-                  ? val.images?.map((item) => {
+                {Array.isArray(val?.images) && val?.images?.length <= 6
+                  ? val?.images?.map((item) => {
                       return (
                         <div className={styles.mappedImageContainer}>
                           <img
@@ -124,7 +124,7 @@ class QuestionView extends Component {
                         </div>
                       );
                     })
-                  : val.images.slice(0, 6)?.map((item) => {
+                  : val?.images?.slice(0, 6)?.map((item) => {
                       return (
                         <div className={styles.mappedImageContainer}>
                           <img

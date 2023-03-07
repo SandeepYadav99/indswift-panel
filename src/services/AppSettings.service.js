@@ -19,3 +19,6 @@ export async function serviceUpdatePolicies(params) {
 export async function serviceUploadEmployeeInduction(params) {
     return await formDataRequest('app/settings/upload/induction', params);
 }
+export async function serviceChangeEmployeeCAGR(params) {
+    return await postRequest('app/settings/update/cagr', params);
+}
