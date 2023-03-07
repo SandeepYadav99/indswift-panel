@@ -39,6 +39,12 @@
     overflow-wrap: anywhere;
     font-size: .7rem;
 }
+.valueWrap12{
+    text-transform: uppercase;
+    max-width: 140px;
+    overflow-wrap: anywhere;
+    font-size: .7rem;
+}
 .vertical {
     /*border-left: 1px dashed #B8C5D3;*/
     max-height: 120px;
