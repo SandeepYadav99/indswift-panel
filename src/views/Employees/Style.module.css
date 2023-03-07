@@ -22,6 +22,7 @@
 
 .name {
   font-size: 0.9rem;
+  text-transform: uppercase;
 }
 
 .innerContainer {

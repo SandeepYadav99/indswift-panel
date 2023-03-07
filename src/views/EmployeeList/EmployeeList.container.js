@@ -159,7 +159,7 @@ const EmployeeList = ({}) => {
         key: "hod",
         label: "HOD",
         sortable: false,
-        render: (temp, all) => <div>{all?.hod?.hod_name}</div>,
+        render: (temp, all) => <div className={styles.HODUpperCase}>{all?.hod?.hod_name}</div>,
       },
       {
         key: "status",

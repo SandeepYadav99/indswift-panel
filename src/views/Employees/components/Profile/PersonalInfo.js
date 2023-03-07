@@ -7,7 +7,7 @@ const ChildDetail = ({ data }) => {
         <div className={styles.left}>
           <div className={styles.key}>
             <span className={styles.value1}>Name:</span>
-            <span className={styles.valueWrap1}>
+            <span className={styles.valueWrap12}>
                   {data?.name}
                 </span>
           </div>
@@ -23,7 +23,7 @@ const ChildDetail = ({ data }) => {
         <div className={styles.right}>
           <div className={styles.key}>
             <span className={styles.value1}>Gender:</span>
-            <span className={styles.valueWrap1}>
+            <span className={styles.valueWrap12}>
                   {data?.gender}
                 </span>
           </div>

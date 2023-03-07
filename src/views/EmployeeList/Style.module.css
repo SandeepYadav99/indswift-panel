@@ -46,13 +46,15 @@
   align-items: center;
 }
 .productName {
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 .productCat {
   text-transform: capitalize;
   font-size: 12px;
 }
-
+.HODUpperCase{
+  text-transform: uppercase;
+}
 .belowLabel {
   font-weight: bold;
   margin-left: 10px;
