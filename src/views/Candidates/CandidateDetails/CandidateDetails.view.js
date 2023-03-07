@@ -6,7 +6,7 @@ import styles from "./Style.module.css";
 
 import UpperCard from "./components/UpperCard/UpperCard";
 import { useParams } from "react-router";
-import { serviceGetCandidateDetails } from "../../../services/Candidate.service";
+import {serviceGetCandidateDetails, serviceGetCandidateJobHistory} from "../../../services/Candidate.service";
 import CandidateProfileView from "./components/CandidateProfileView/CandidateProfileView";
 import { useState } from "react";
 import CandidateStatusDialog from "./components/CandidateStatusPopUp/CandidateStatusDialog.view";
@@ -66,6 +66,7 @@ function CandidateDetails() {
         setCandidateData(data?.data?.details);
       })
       .catch((err) => console.log(err));
+    serviceGetCandidateJobHistory({ candidate_id: id });
   }, []);
   //
   const handleChange = useCallback(

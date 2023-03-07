@@ -26,7 +26,7 @@ const useCandidateInterviewTable = ({jobId, handleClose }) => {
 
     useEffect(() => {
         const status = Constants.JOB_CANDIDATE_STATUS
-        const shortlistedCandidates = candidates.filter((val) => [status.CV_SHORTLISTED, status.INTERVIEW_ALIGNED].indexOf(val.status) >= 0);
+        const shortlistedCandidates = candidates.filter((val) => [status.CV_SHORTLISTED, status.INTERVIEW_ALIGNED, status.SELECTED].indexOf(val.status) >= 0);
         setAllData(shortlistedCandidates);
         setData(shortlistedCandidates);
     }, [candidates]);

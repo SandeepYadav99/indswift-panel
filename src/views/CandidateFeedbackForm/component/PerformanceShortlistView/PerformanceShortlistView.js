@@ -35,21 +35,21 @@ function PerformanceShortlistView({ title, question, handleChange, type }) {
           <span className={styles.performanceindex}>Rejected</span>
         </div>
 
-        <div className={styles.emojCard} id="3" onClick={(e) => handleClick(2)}>
+        {/*<div className={styles.emojCard} id="3" onClick={(e) => handleClick(2)}>*/}
+        {/*  <img*/}
+        {/*    src={*/}
+        {/*      activeIndex == 2*/}
+        {/*        ? images?.average.active*/}
+        {/*        : images?.average.inactive*/}
+        {/*    }*/}
+        {/*  />*/}
+        {/*  <span className={styles.performanceindex}>Shortlisted</span>*/}
+        {/*</div>*/}
+
+        <div className={styles.emojCard} onClick={(e) => handleClick(2)}>
           <img
             src={
               activeIndex == 2
-                ? images?.average.active
-                : images?.average.inactive
-            }
-          />
-          <span className={styles.performanceindex}>Shortlisted</span>
-        </div>
-
-        <div className={styles.emojCard} onClick={(e) => handleClick(3)}>
-          <img
-            src={
-              activeIndex == 3
                 ? images?.exceptional.active
                 : images?.exceptional.inactive
             }

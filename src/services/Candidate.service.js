@@ -17,6 +17,6 @@ export async function serviceGetCandidate(params) {
     return await postRequest('candidates', params);
 }
 
-export async function serviceCandidateCheck (params) {
-    return await postRequest('candidates/check', params);
+export async function serviceGetCandidateJobHistory (params) {
+    return await postRequest('candidates/details/job/history', params);
 }

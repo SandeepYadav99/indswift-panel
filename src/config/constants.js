@@ -168,6 +168,7 @@ export default {
     COMPLETED: "Completed",
     INTERVIEW_COMPLETED: "Interview Completed",
     INTERVIEW_REJECTED: "Interview Rejected",
+    SELECTED: 'SELECTED'
   },
   JOB_CANDIDATE_STATUS_TEXT: {
     ACTIVE: "Active",

@@ -109,20 +109,20 @@ const HRAnnouncementCreateView = ({}) => {
         <div className={"formGroup file_Wrapper"}>
           <File
             max_size={2 * 1024 * 1024}
+            type={["png", "jpeg", "jpg"]}
             fullWidth={true}
             name="document"
             label=""
-            type={['jpg', 'png', 'pdf']}
             default_image={form?.document ? form?.document : null}
             // user_image={form?.image}
-            error={errorData?.document}
+            error={errorData?.image}
             // title={'image'}
-            value={form?.document}
+            value={form?.image}
             // handleChange={this._handleFileChange}
-            placeholder={"Upload Image"}
+            placeholder={"Upload New Image"}
             onChange={(file) => {
               if (file) {
-                changeTextData(file, "document");
+                changeTextData(file, "image");
               }
             }}
           />
