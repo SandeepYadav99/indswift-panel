@@ -1,7 +1,92 @@
 .summaryWrapper {
   padding: 1.2rem;
   border-radius: 10px;
-  background: #f5f7fb 0% 0% no-repeat padding-box;
-  box-shadow: 0px 20px 80px #00000011;
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.mappedCardContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  /* flex-wrap: wrap; */
+}
+.mappedCard {
+  width: 50%;
+  padding: 1.2rem;
+  background: #efefef 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+.imageNameContainer {
+  display: flex;
+  gap: 5px;
+}
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.nameContainer > span {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.imageContainer {
+  display: flex;
+}
+.imageContainer > img {
+  width: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+}
+.date {
+  font-size: 0.875rem;
+}
+.statusWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.statusColor {
+  display: flex;
+  gap: 10px;
+}
+.coloredStatus {
+  color: #29cb97;
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+.coloredStatusRed{
+  color: #E92828;
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+.coloredStatusPending{
+  color: #919BB0;
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+.starimg {
+  width: 15px;
+  aspect-ratio: 1/1;
+}
+.SummaryViewstar {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 15px;
+}
+.starWrapper{
+  display: flex;
+  gap: 5px;
+  font-size: .875rem;
+  font-weight: 600;
+  align-items: center;
 }

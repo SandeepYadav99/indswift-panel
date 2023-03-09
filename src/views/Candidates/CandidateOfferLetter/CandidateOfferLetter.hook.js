@@ -1,9 +1,11 @@
 import React from "react";
 import { useCallback } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import {
   isNum,
 } from "../../../libs/RegexUtils";
+import { serviceGetList } from "../../../services/Common.service";
 const SALARY_KEYS = [
   "basic_salary",
   "hra",
@@ -107,6 +109,19 @@ function CandidateOfferLetterHook() {
   };
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
+  const [listData, setListData] = useState({
+    LOCATION_DEPARTMENTS: [],
+  });
+  useEffect(() => {
+    serviceGetList([
+      "LOCATION_DEPARTMENTS",
+    ]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
+  console.log("listData",listData)
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
@@ -188,6 +203,7 @@ function CandidateOfferLetterHook() {
   return {
     form,
     errorData,
+    listData,
     changeTextData,
     onBlurHandler,
     handleSubmit,

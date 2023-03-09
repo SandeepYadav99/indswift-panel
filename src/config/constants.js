@@ -69,6 +69,8 @@ export default {
     ABSCONDED:'error',
     RESIGNED:'error',
     EXPIRED:'success',
+    REJECTED:'error',
+    PENDING:'pending'
 
 
   },

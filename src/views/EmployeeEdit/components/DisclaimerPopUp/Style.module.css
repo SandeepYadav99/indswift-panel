@@ -1,0 +1,74 @@
+.upperFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  margin-top: 15px;
+  /* margin-left: 20px; */
+}
+
+.printFlex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 30px;
+  padding-top: 10px;
+}
+
+.btmBtn {
+  background-color: #29cb97 !important;
+  padding: 15px 50px !important;
+  color: white !important;
+  border-radius: 5px !important;
+}
+.loginSignupText {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  /* text-align: left; */
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.headingText {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: black;
+  font-size: 1.5rem;
+  margin-bottom: 2px;
+  /*font-family: CircularStd-Bold;*/
+}
+.tableCont {
+  padding: 10px 10px;
+  max-height: 200px;
+  overflow: scroll;
+}
+.resetWrapper {
+  display: flex;
+}
+.resetPasswordWrapper {
+  padding: 1.2rem;
+}
+.fieldWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.checkBox > label {
+  font-size: 0.75rem;
+}
+.checkBox {
+  display: flex;
+  align-items: center;
+}
+.textWrapper{
+    font-size: .875rem;
+}

@@ -9,9 +9,10 @@ import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
 import CustomDateTimePicker from "../../../components/FormFields/DatePicker/CustomDateTimePicker";
+import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 
 function CandidateOfferLetter() {
-  const { form, errorData, changeTextData, onBlurHandler, handleSubmit } =
+  const { form, errorData, listData,changeTextData, onBlurHandler, handleSubmit } =
     CandidateOfferLetterHook({});
   const getSumValue = (...numbers) => {
     return numbers
@@ -69,6 +70,24 @@ function CandidateOfferLetter() {
                 onBlurHandler("reporting_location");
               }}
             />
+            {/* <CustomAutoComplete
+                  autoCompleteProps={{
+                    freeSolo: false,
+                    getOptionLabel: (option) => {
+                      return option?.label;
+                    },
+                  }}
+                  dataset={listData?.EMPLOYEES}
+                  datasetKey={"label"}
+                  onTextChange={(text, value) => {
+                    changeTextData(text, "reporting_location");
+                  }}
+                  variant={"outlined"}
+                  label={"Reporting Location"}
+                  name={"reporting_location"}
+                  isError={errorData?.reporting_location}
+                  value={form?.reporting_location}
+              /> */}
           </div>
         </div>
         <div className={"formFlex"}>
