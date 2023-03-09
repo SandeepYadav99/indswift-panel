@@ -72,7 +72,8 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
                 sequence_rounds: steps,
                 interviewers: interviewerIds,
                 id: jobId,
-                candidateIds: candidatIds
+                candidateIds: candidatIds,
+                link: form?.interview_link
             }).then((res) => {
                 LogUtils.log('response', res);
                 if (!res.error) {

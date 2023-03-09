@@ -15,12 +15,14 @@ import FilterComponent from '../../../components/Filter/Filter.component';
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
 import useLocationList from "./LocationListHook";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import useAuthenticate from "../../../hooks/AuthenticateHook";
 
 const LocationList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel, handleCreate,
         isCalling, configFilter, warehouses} = useLocationList({});
 
+    const { isCorporateHR } = useAuthenticate();
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.location);
 
 
@@ -84,8 +86,7 @@ const LocationList = ({}) => {
                 label: 'Action',
                 render: (temp, all) => (<div>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={()=> handleSideToggle(all)}><Edit fontSize={'small'} /></IconButton>
-                    {/*onClick={() => { handleEdit(all) }}*/}
+                    {isCorporateHR && (<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={()=> handleSideToggle(all)}><Edit fontSize={'small'} /></IconButton>)}
                 </div>),
             },
 
@@ -125,9 +126,9 @@ const LocationList = ({}) => {
                             <div className={styles.newLine}/>
                         </div>
                         <div>
-                            <ButtonBase onClick={handleCreate} className={'createBtn'}>
+                            {isCorporateHR && (<ButtonBase onClick={handleCreate} className={'createBtn'}>
                                 CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
-                            </ButtonBase>
+                            </ButtonBase>)}
                         </div>
                     </div>
 

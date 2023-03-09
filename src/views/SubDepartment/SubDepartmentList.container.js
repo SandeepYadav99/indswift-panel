@@ -17,12 +17,15 @@ import useSubDepartmentList from "./SubDepartmentListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../libs/history.utils"
+import useAuthenticate from "../../hooks/AuthenticateHook";
 // import CreateView from './SubDepartment.view';
 
 const SubDepartmentList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleCreate, handleViewDetails, editData, isSidePanel,
         isCalling, configFilter, handleSubSubDepartment} = useSubDepartmentList({});
+
+    const { isCorporateHR } = useAuthenticate();
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.subdepartment);
 
@@ -99,7 +102,7 @@ const SubDepartmentList = ({}) => {
                 label: 'Action',
                 render: (temp, all) => (<div>
                     {/*<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >*/}
-                    <IconButton onClick={() => { handleEdit(all); }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
+                    {isCorporateHR && (<IconButton onClick={() => { handleEdit(all); }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>)}
                 </div>),
             },
 
@@ -142,9 +145,9 @@ const SubDepartmentList = ({}) => {
                             <div className={styles.newLine} style={{marginLeft:'20px'}}/>
                         </div>
                         <div>
-                            <ButtonBase onClick={handleCreate} className={'createBtn'}>
+                            {isCorporateHR && (<ButtonBase onClick={handleCreate} className={'createBtn'}>
                                 CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
-                            </ButtonBase>
+                            </ButtonBase>)}
                         </div>
                     </div>
 

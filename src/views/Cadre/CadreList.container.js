@@ -29,6 +29,7 @@ import useCadreList from "./CadreListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../libs/history.utils";
+import useAuthenticate from "../../hooks/AuthenticateHook";
 // import CreateView from './Cadre.view';
 
 const CadreList = ({}) => {
@@ -48,6 +49,8 @@ const CadreList = ({}) => {
     isCalling,
     configFilter,
   } = useCadreList({});
+
+  const { isCorporateHR } = useAuthenticate();
 
   const {
     data,
@@ -111,7 +114,7 @@ const CadreList = ({}) => {
         render: (temp, all) => (
           <div>
             {/*<IconButton className={'t ableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >*/}
-            <IconButton
+            {isCorporateHR && (<IconButton
               onClick={() => {
                 handleEdit(all);
               }}
@@ -120,7 +123,7 @@ const CadreList = ({}) => {
               disabled={isCalling}
             >
               <Edit fontSize={"small"} />
-            </IconButton>
+            </IconButton>)}
           </div>
         ),
       },
@@ -174,9 +177,9 @@ const CadreList = ({}) => {
             <div className={styles.newLine} style={{ marginLeft: "20px" }} />
           </div>
           <div>
-            <ButtonBase onClick={handleCreate} className={"createBtn"}>
+            {isCorporateHR && (<ButtonBase onClick={handleCreate} className={"createBtn"}>
               CREATE <Add fontSize={"small"} className={"plusIcon"}></Add>
-            </ButtonBase>
+            </ButtonBase>)}
           </div>
         </div>
 

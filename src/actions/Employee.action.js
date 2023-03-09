@@ -5,6 +5,8 @@ import store from '../store';
 import Constants from '../config/constants';
 import {serviceCreateEmployee, serviceGetEmployee, serviceUpdateEmployee,serviceDeleteEmployee, serviceEmployeeCodeSubmit} from "../services/Employee.service";
 import EventEmitter from "../libs/Events.utils";
+import SnackbarUtils from "../libs/SnackbarUtils";
+import historyUtils from "../libs/history.utils";
 
 export const FETCH_INIT = 'FETCH_INIT_EMPLOYEE';
 export const FETCHED = 'FETCHED_EMPLOYEE';
@@ -70,13 +72,16 @@ export function actionUpdateEmployee(data) {
 }
 
 export function  actionGetEmployeeDetails  (data) {
-    const request =   serviceEmployeeCodeSubmit({ code: data });
+    const request =  serviceEmployeeCodeSubmit({ code: data });
     return  (dispatch) => {
         request.then((data) => {
             if (!data.error) {
                 dispatch({type: GET_EMPLOYEE_DATA, payload: data})
+            } else {
+                SnackbarUtils.error(data?.message);
+                historyUtils.goBack();
             }
-        })
+        });
     }
 }
 export function actionDeleteEmployee(id) {

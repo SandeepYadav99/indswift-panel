@@ -60,7 +60,7 @@ const IncludeFields = ({index, changeData, employees, departments, handlePress, 
                             errorText={errors?.department_id}
                             label={'Department Name'}
                             value={data?.department_id}
-                            onChange={handleChange}
+                            handleChange={(val) => { handleChangeValue(val, 'department_id') }}
                             name={'department_id'}
                         >
                             {departments.map(dept => {

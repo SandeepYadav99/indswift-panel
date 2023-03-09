@@ -68,9 +68,6 @@ const CandidateCreateView = ({location}) => {
                                }}
                            />
                        </div>
-                   </div>
-
-                   <div className={'formFlex'}>
                        <div className={'formGroup'}>
                            <CustomTextField
                                isError={errorData?.contact}
@@ -89,6 +86,9 @@ const CandidateCreateView = ({location}) => {
                                }}
                            />
                        </div>
+                   </div>
+
+                   <div className={'formFlex'}>
                        <div className={'formGroup'}>
                            <CustomTextField
                                isError={errorData?.father_name}
@@ -100,6 +100,20 @@ const CandidateCreateView = ({location}) => {
                                }}
                                onBlur={() => {
                                    onBlurHandler('father_name');
+                               }}
+                           />
+                       </div>
+                       <div className={'formGroup'}>
+                           <CustomTextField
+                               isError={errorData?.source}
+                               errorText={errorData?.source}
+                               label={'Source'}
+                               value={form?.source}
+                               onTextChange={text => {
+                                   changeTextData(text, 'source');
+                               }}
+                               onBlur={() => {
+                                   onBlurHandler('source');
                                }}
                            />
                        </div>

@@ -28,7 +28,7 @@ const CandidatePersonalInfo = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>Source:</span>
                 <span className={styles.valueWrap}>
-                  {data?.family?.spouse_dob}
+                  {data?.source}
                 </span>
               </div>
               <div className={styles.key}>

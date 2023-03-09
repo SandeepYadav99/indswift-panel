@@ -26,6 +26,7 @@ const initialForm = {
     resume: null,
     is_fresher: true,
     is_address_same: false,
+    source: '',
 };
 
 const useCandidateDetail = ({location}) => {
@@ -63,7 +64,7 @@ const useCandidateDetail = ({location}) => {
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = ['name', 'contact', 'email', 'applied_date', 'permanent_address', 'previous_ctc', 'resume'];
+        let required = ['name', 'contact', 'email', 'applied_date', 'permanent_address', 'previous_ctc', 'resume', 'source'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;

@@ -15,13 +15,14 @@ import FilterComponent from '../../components/Filter/Filter.component';
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
 import useDepartmentList from "./DepartmentListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
+import useAuthenticate from "../../hooks/AuthenticateHook";
 // import CreateView from './Department.view';
 
 const DepartmentList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel, handleCreate,
         isCalling, configFilter, handleSubDepartment} = useDepartmentList({});
-
+    const { isCorporateHR } = useAuthenticate();
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.department);
 
 
@@ -90,7 +91,7 @@ const DepartmentList = ({}) => {
                 key: 'user_id',
                 label: 'Action',
                 render: (temp, all) => (<div>
-                    <IconButton onClick={() => { handleEdit(all) }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
+                    {isCorporateHR && (<IconButton onClick={() => { handleEdit(all) }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>)}
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleSubDepartment(all)}}>
                         <OpenInNew fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>Sub-Department</span>
                     </IconButton >
@@ -133,9 +134,9 @@ const DepartmentList = ({}) => {
                             <div className={styles.newLine}/>
                         </div>
                         <div>
-                            <ButtonBase onClick={handleCreate} className={'createBtn'}>
+                            {isCorporateHR && (<ButtonBase onClick={handleCreate} className={'createBtn'}>
                                 CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
-                            </ButtonBase>
+                            </ButtonBase>)}
                         </div>
                     </div>
 
