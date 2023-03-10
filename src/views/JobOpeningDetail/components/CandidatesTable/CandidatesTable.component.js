@@ -114,7 +114,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         key: "rewards",
         label: "Last Updated On",
         sortable: false,
-        render: (temp, all) => <div>{console.log("all===>",all)}{all?.updatedAtText}</div>,
+        render: (temp, all) => <div>{all?.updatedAtText}</div>,
       },
       {
         key: "rewards",

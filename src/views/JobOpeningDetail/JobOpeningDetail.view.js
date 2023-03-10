@@ -73,6 +73,10 @@ const JobOpeningDetail = () => {
                 <span className={classnames("status", "success")}>
                   {data?.status}
                 </span>
+                <span className={classnames("status", "success")} style={{marginLeft:'10px'}}>
+                  {/* {data?.status} */}
+                  {data?.is_sourcing ? 'SOURCING': 'NOSOURCING'}
+                </span>
               </div>
             </div>
             <div className={styles.vertical}></div>
@@ -95,7 +99,7 @@ const JobOpeningDetail = () => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Employee Experience:</span>
-                {data?.replacing_person?.total_experience ? data?.replacing_person?.total_experience : "NA"} yrs
+                {data?.replacing_person?.total_experience ? `${data?.replacing_person?.total_experience} yrs`  : "NA"} 
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Indent Date:</span>

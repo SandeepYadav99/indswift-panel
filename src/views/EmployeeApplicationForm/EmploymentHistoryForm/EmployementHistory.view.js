@@ -42,10 +42,15 @@ function EmploymentHistory({ isDisabled}) {
               <h4 className={"infoTitle"}>
                 <div className={"heading"}>
                   Employment History
-                  <span>(Please start from most recent employer)</span>
+                  {
+                    !isDisabled && 
+                    <span>(Please start from most recent employer)</span>
+                  }
+                  
                 </div>
               </h4>
-              <div style={{ width: "250px" }}>
+              {
+                !isDisabled && <div style={{ width: "250px" }}>
                 <CustomToggle
                   value={!isFresher}
                   handleChange={() => {
@@ -55,6 +60,7 @@ function EmploymentHistory({ isDisabled}) {
                   rightLabel={"Experienced"}
                 />
               </div>
+              }
             </div>
             <div style={{ display: isFresher ? 'none' : 'block' }}>
               <EmployeeIncludeForm ref={refEmpHistory} isDisabled={isDisabled}/>

@@ -46,7 +46,7 @@ const InterviewerRecordTable = ({jobId}) => {
                 key: 'designation',
                 label: 'DESIGNATION',
                 sortable: false,
-                render: (temp, all) => <div>{all?.designation_obj?.name}</div>,
+                render: (temp, all) => <div>{all?.designation?.name}</div>,
             },
             {
                 key: 'department',

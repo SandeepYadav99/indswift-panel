@@ -20,8 +20,8 @@ import RouteName from "../../routes/Route.name";
 const InterviewSchedule = ({location}) => {
 
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
-        handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
-        isCalling, configFilter, warehouses} = useInterviewSchedule({});
+        handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,changeRoute
+        ,isCalling, configFilter, warehouses} = useInterviewSchedule({});
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.interviewSchedule);
 
@@ -41,16 +41,15 @@ const InterviewSchedule = ({location}) => {
             );
         } return null;
     }, []);
-
-    const renderContact = useCallback(() => {
-        return (
-            <div>
-                <div>9347873542</div>
-                <div><strong>(O)</strong> hardeep.kumar@indwsiftlabs.com</div>
-                <div><strong>(P)</strong> hardeepkudg@indwsiftlabs.com</div>
-            </div>
-        )
-    },[])
+    const renderPRCCell = useCallback((obj) => {
+        if (obj) {
+            return (
+                <div className={styles.prcWrapper} onClick={()=>changeRoute(obj)} >
+                    <div>{obj?.job?.code}</div>
+                </div>
+            );
+        } return null;
+    }, []);
 
 
     // const renderCreateForm = useMemo(() => {
@@ -73,7 +72,7 @@ const InterviewSchedule = ({location}) => {
                 key: 'code',
                 label: 'PRC',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job?.code}</div>,
+                render: (temp, all) => <div>{renderPRCCell(all)}</div>,
             },
             {
                 key: 'department',

@@ -126,6 +126,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                 <div className={styles.cleckboxWrapper}>
                     <div className={styles.checkBox}>
                         <input
+                            checked={form?.is_send_email_candidates}
                             type="checkbox"
                             id="is_send_email_candidates"
                             name="is_send_email_candidates"
@@ -138,6 +139,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                     </div>
                     <div className={styles.checkBox}>
                         <input
+                            checked={form?.is_send_email_interviewers}
                             type="checkbox"
                             id="is_send_email_interviewers"
                             name="is_send_email_interviewers"
