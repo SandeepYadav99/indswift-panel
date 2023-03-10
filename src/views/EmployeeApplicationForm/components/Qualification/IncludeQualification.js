@@ -5,6 +5,7 @@ import {RemoveCircleOutline as RemoveIcon, AddCircle as AddIcon, Add} from "@mat
 import {useParams} from "react-router";
 import styles from "../../Style.module.css";
 import IncludeQualificationField from './IncludeQualificationField';
+import CustomTextField from '../../../../components/FormFields/TextField/TextField.component';
 const TEMP_OBJ = {
     qualification: '',
     degree_name: '',
@@ -12,6 +13,7 @@ const TEMP_OBJ = {
     passing_year: '',
     cgpa: '',
     degree_type: '',
+    other_certificate:''
 };
 
 const IncludeQualification = ({data, currency, listWarehouse, errorData: errorForm, form, changeTextData, updateInventory, vendorId,isDisabled}, ref) => {
@@ -90,7 +92,6 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
     const checkExists = useCallback(async (index, key, value) => {
 
     }, []);
-
     const removeErrors = useCallback((index, key) => {
         const errors = JSON.parse(JSON.stringify(errorData));
         if (errors[index] != undefined) {
@@ -177,6 +178,20 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
                     <Add fontSize={"small"}/> <span>Add Qualification</span>
                 </ButtonBase>
             </div>}
+            <div className={styles.firstRow}>
+                <div className={styles.flex1}>
+                    <CustomTextField
+                        disabled={isDisabled ? true : false}
+                        isError={errorData?.other_certificate}
+                        errorText={errorData?.other_certificate}
+                        label={"Other Professional Certificates (if any)"}
+                        value={form?.other_certificate}
+                        onTextChange={(text) => {
+                            changeData(text, "other_certificate");
+                        }}
+                    />
+                </div>
+                </div>
             {/*</div>*/}
         </>
     )

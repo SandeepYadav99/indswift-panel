@@ -176,6 +176,21 @@ const ProfessionalDetail = ({isDisabled}, ref) => {
           </CustomSelectField>
         </div>
       </div>
+      <div className="formGroup1">
+        <CustomTextField
+          disabled={isDisabled ? true: false}
+          isError={errorData?.transport_details}
+          errorText={errorData?.transport_details}
+          label={"Specify transport details"}
+          value={form?.transport_details}
+          onTextChange={(text) => {
+            changeTextData(text, "transport_details");
+          }}
+          onBlur={() => {
+            onBlurHandler("transport_details");
+          }}
+        />
+      </div>
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField

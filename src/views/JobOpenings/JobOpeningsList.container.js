@@ -114,7 +114,7 @@ const JobOpeningsList = ({}) => {
                 key: 'user_id',
                 label: 'Action',
                 render: (temp, all) => (<div>
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined style={{ color: '#2896e9' }} fontSize={'small'} /></IconButton >
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
                     {/*onClick={() => { handleEdit(all) }}*/}
                 </div>),

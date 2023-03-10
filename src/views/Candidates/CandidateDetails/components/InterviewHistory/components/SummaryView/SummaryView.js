@@ -4,6 +4,9 @@ import styles from "./Style.module.css";
 import DefaultImg from "../../../../../../../assets/img/download.png";
 import star from "../../../../../../../assets/img/star.png";
 function SummaryView({ title, statustitle, status, profile }) {
+  const ChangeUnderScore=(value)=>{
+    return value ? value.replace(/_/, " "): "NA"
+  }
   return (
     <div className={styles.summaryWrapper}>
       <div className={styles.title}>{title}</div>
@@ -30,7 +33,8 @@ function SummaryView({ title, statustitle, status, profile }) {
                 </div>
                 <div className={styles.starWrapper}>
                   <img className={styles.starimg} src={star} />
-                  <span>{item?.rating ? item?.rating : "-"}</span>
+                  <span>{item?.rating ? Math.floor(item?.rating * 10)/10 : "-"}</span>
+                  {/* <span>{item?.rating ? item?.rating.toFixed(1) : "-"}</span> */}
                 </div>
               </div>
             </div>
@@ -48,7 +52,7 @@ function SummaryView({ title, statustitle, status, profile }) {
                 : styles.coloredStatus
             }
           >
-            {status}
+            {ChangeUnderScore(status)}
           </span>
         </div>
         <div>

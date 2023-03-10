@@ -35,6 +35,7 @@ const initialForm = {
   is_convicted: "",
   pending_case_brief: "",
   is_personal_transport: "",
+  transport_details:"",
   is_ailments: "",
   ailment_type: "",
   ailment_details: "",
@@ -74,7 +75,6 @@ const useProfessionalDetail = ({}, ref) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    console.log("====>", form?.["is_referred"]);
     let required = [
       "is_referred",
       "is_bond",
@@ -119,6 +119,16 @@ const useProfessionalDetail = ({}, ref) => {
         errors["bond_expiry_date"] = true;
       } else if (form?.["is_bond"] === "NO") {
         delete errors["bond_expiry_date"];
+      }
+    }
+    if (form?.["is_personal_transport"]) {
+      if (
+        form?.["is_personal_transport"] === "YES" &&
+        form?.["transport_details"]?.length === 0
+      ) {
+        errors["transport_details"] = true;
+      } else if (form?.["is_personal_transport"] === "NO") {
+        delete errors["transport_details"];
       }
     }
     if (form?.["is_convicted"]) {
