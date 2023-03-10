@@ -117,14 +117,15 @@ const useCandidateShortlistTable = ({jobId, handleClose }) => {
         if (dialogType === 'REJECTED') {
             return (<p>
                 Are you sure you want to{" "}
-                <strong>REJECT CANDIDATES - {selected.length} CANDIDATES</strong>. The
-                candidates once rejected will be sent automatic email regarding
-                rejection.
+                <strong>REJECT CANDIDATES - {selected.length} {selected.length === 1 ?  'CANDIDATE' :'CANDIDATES'}</strong>.
+                 {/* The */}
+                {/* candidates once rejected will be sent automatic email regarding
+                rejection. */}
             </p>);
         } else {
             return (<p>
                 Are you sure you want to{" "}
-                <strong>SHORTLIST CANDIDATES - {selected.length} CANDIDATES</strong>. The
+                <strong>SHORTLIST CANDIDATES - {selected.length} {selected.length === 1 ?  'CANDIDATE' :'CANDIDATES'}</strong>. The
                 candidates once shortlisted will be sent automatic email regarding
                 interview.
             </p>);

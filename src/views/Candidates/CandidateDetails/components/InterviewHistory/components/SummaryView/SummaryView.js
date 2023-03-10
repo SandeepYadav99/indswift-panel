@@ -9,8 +9,8 @@ function SummaryView({ title, statustitle, status, profile }) {
       <div className={styles.title}>{title}</div>
       <div className={styles.mappedCardContainer}>
         {profile?.length &&
-          profile?.map((item) => (
-            <div className={styles.mappedCard}>
+          profile?.map((item,index) => (
+            <div className={styles.mappedCard} key={`SummaryView_${index}`}>
               <div className={styles.imageNameContainer}>
                 <div className={styles.imageContainer}>
                   <img

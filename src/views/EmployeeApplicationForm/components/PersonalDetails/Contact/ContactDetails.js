@@ -5,7 +5,7 @@ import CustomTextField from "../../../../../components/FormFields/TextField/Text
 import styles from "../../../Style.module.css";
 import useContactDetail from "./ContactDetailHook";
 
-function ContactDetails({ }, ref) {
+function ContactDetails({ isDisabled}, ref) {
   const { changeTextData, errorData, form, handleReset, includeRef, isEdit, isLoading, isSubmitting, onBlurHandler, removeError } = useContactDetail({ }, ref);
   return (
     <>
@@ -17,6 +17,7 @@ function ContactDetails({ }, ref) {
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomTextField
+            disabled={isDisabled ? true : false}
             isError={errorData?.current_address}
             errorText={errorData?.current_address}
             label={"Present Address"}
@@ -28,15 +29,16 @@ function ContactDetails({ }, ref) {
               onBlurHandler("current_address");
             }}
           />
-          <div className={styles.checkBox}>
+          {! isDisabled && <div className={styles.checkBox}>
             <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />{" "}
-            <label htmlFor="vehicle1"> Same Correspondence Address</label>
+            <label htmlFor="vehicle1"> Same Permanent Address</label>
             <br />
-          </div>
+          </div>}
         </div>
 
         <div className={"formGroup1"}>
           <CustomTextField
+            disabled={isDisabled ? true : false}
             isError={errorData?.permanent_address}
             errorText={errorData?.permanent_address}
             label={"Permanent Address"}
@@ -54,6 +56,7 @@ function ContactDetails({ }, ref) {
       <div className={"formFlex1"}>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true : false}
             isError={errorData?.residence_contact}
             errorText={errorData?.residence_contact}
             label={"Residence Number (with STD code)"}
@@ -68,6 +71,7 @@ function ContactDetails({ }, ref) {
         </div>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true : false}
             isError={errorData?.emergency_name}
             errorText={errorData?.emergency_name}
             label={"Emergency Contact Name"}
@@ -85,6 +89,7 @@ function ContactDetails({ }, ref) {
       <div className={"formFlex1"}>
         <div className="formGroup1">
           <CustomSelectField
+            disabled={isDisabled ? true : false}
             isError={errorData?.emergency_relation}
             errorText={errorData?.emergency_relation}
             label={"Emergency Contact Relation"}
@@ -99,6 +104,7 @@ function ContactDetails({ }, ref) {
         </div>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true : false}
             isError={errorData?.emergency_contact}
             errorText={errorData?.emergency_contact}
             label={"Emergency Contact Number"}

@@ -7,7 +7,7 @@ import CustomSelectField from "../../../../components/FormFields/SelectField/Sel
 import {MenuItem} from "@material-ui/core";
 
 
-const AdditionalForm = ({}, ref) => {
+const AdditionalForm = ({isDisabled}, ref) => {
     const { changeTextData, form, errorData, handleReset, includeRef, isEdit, isLoading, isSubmitting, onBlurHandler, removeError} = useAdditionalForm({}, ref);
     return (
         <div className={styles.signContainer}>
@@ -20,6 +20,7 @@ const AdditionalForm = ({}, ref) => {
             <div className={"formFlex1"}>
                 <div className={"formGroup1"}>
                     <CustomSelectField
+                        disabled={isDisabled ? true : false}
                         isError={errorData?.is_interviewed_before}
                         errorText={errorData?.is_interviewed_before}
                         label={"Interview by IISL before"}
@@ -38,6 +39,7 @@ const AdditionalForm = ({}, ref) => {
             <div className={"formFlex1"}>
                 <div className="formGroup1">
                     <CustomDatePicker
+                        disabled={isDisabled ? true : false}
                         clearable
                         label={"Interview Date"}
                         // minDate={new Date()}
@@ -50,6 +52,7 @@ const AdditionalForm = ({}, ref) => {
                 </div>
                 <div className="formGroup1">
                     <CustomTextField
+                        disabled={isDisabled ? true : false}
                         isError={errorData?.interviewed_for}
                         errorText={errorData?.interviewed_for}
                         label={"Position Interviewed For"}
@@ -67,6 +70,7 @@ const AdditionalForm = ({}, ref) => {
             <div className={"formFlex1"}>
                 <div className="formGroup1">
                     <CustomTextField
+                        disabled={isDisabled ? true : false}
                         isError={errorData?.note}
                         errorText={errorData?.note}
                         label={"Any additonal Information"}

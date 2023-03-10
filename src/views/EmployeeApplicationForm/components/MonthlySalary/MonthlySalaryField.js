@@ -17,6 +17,7 @@ const IncludSalaryField = ({
   Secondfield,
   thirdfield,
   forthfield,
+  isDisabled
 }) => {
   const [isProductDialog, setIsProductDialog] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
@@ -40,6 +41,7 @@ const IncludSalaryField = ({
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <TextField
+                disabled={isDisabled ? true : false}
                 error={errors?.ctc}
                 onChange={handleChange}
                 value={data?.ctc}
@@ -53,6 +55,7 @@ const IncludSalaryField = ({
           </div>
           <div className={styles.flex1}>
             <TextField
+                disabled={isDisabled ? true : false}
                 error={errors?.in_hand}
                 onChange={handleChange}
                 value={data?.in_hand}
@@ -68,6 +71,7 @@ const IncludSalaryField = ({
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <TextField
+                disabled={isDisabled ? true : false}
                 error={errors?.payment_type}
                 onChange={handleChange}
                 value={data?.payment_type}
@@ -80,6 +84,7 @@ const IncludSalaryField = ({
           </div>
           <div className={styles.flex1}>
             <TextField
+                disabled={isDisabled ? true : false}
                 error={errors?.amount}
                 onChange={handleChange}
                 value={data?.amount}
@@ -93,7 +98,8 @@ const IncludSalaryField = ({
           </div>
         </div>
       </div>
-      <div className={"textCenter"}>
+      {
+        !isDisabled && <div className={"textCenter"}>
         <ButtonBase
             className={styles.removeBtn}
             // label={this.props.index == 0 ? "+" : '-'}
@@ -104,6 +110,8 @@ const IncludSalaryField = ({
           {index == 0 ? "Remove" : "Remove"}
         </ButtonBase>
       </div>
+      }
+      
       <br />
     </div>
   );

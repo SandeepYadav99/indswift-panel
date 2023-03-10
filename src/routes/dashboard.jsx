@@ -11,6 +11,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+import CandidateInfo from "../views/Candidates/CandidateInfo/CandidateInfo.view";
 
 // import EmployeeTab from "../views/Employees/EmployeeTab.view";
 // import EmployeeList from "../views/EmployeeList/EmployeeList.container";
@@ -480,6 +481,15 @@ const dashboardRoutes = [
         sidebarName: "Candidate Details",
         navbarName: "Candidate Details",
         component: CandidateDetails,
+        is_sidebar: false,
+        is_protect: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CANDIDATES_INFO}:id`,
+        sidebarName: "Candidate Details",
+        navbarName: "Candidate Details",
+        component: CandidateInfo,
         is_sidebar: false,
         is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],

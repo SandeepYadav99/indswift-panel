@@ -26,7 +26,7 @@ const EmployeeIncludeFields = ({
                                    data,
                                    errors,
                                    onBlur,
-
+                                    isDisabled
                                }) => {
 
     const handleChange = (e) => {
@@ -46,6 +46,7 @@ const EmployeeIncludeFields = ({
                     <div className={styles.firstRow}>
                         <div className={styles.flex1}>
                             <TextField
+                                disabled={isDisabled ? true : false}
                                 error={errors?.employer_name}
                                 onChange={handleChange}
                                 value={data?.employer_name}
@@ -59,6 +60,7 @@ const EmployeeIncludeFields = ({
 
                         <div className={styles.flex1}>
                             <TextField
+                                disabled={isDisabled ? true : false}
                                 error={errors?.designation}
                                 onChange={handleChange}
                                 value={data?.designation}
@@ -71,6 +73,7 @@ const EmployeeIncludeFields = ({
                         </div>
                         <div className={styles.flex1}>
                             <CustomDatePicker
+                                disabled={isDisabled ? true : false}
                                 clearable
                                 label={"Joining Date"}
                                 // maxDate={new Date()}
@@ -84,6 +87,7 @@ const EmployeeIncludeFields = ({
 
                         <div className={styles.flex1}>
                             <TextField
+                                disabled={isDisabled ? true : false}
                                 error={errors?.joining_ctc}
                                 onChange={handleChange}
                                 value={data?.joining_ctc}
@@ -102,6 +106,7 @@ const EmployeeIncludeFields = ({
                         <div className={styles.flex1}></div>
                         <div className={styles.flex1}>
                             <CustomDatePicker
+                                disabled={isDisabled ? true : false}
                                 clearable
                                 label={"Date of Resignation"}
                                 // maxDate={new Date()}
@@ -114,6 +119,7 @@ const EmployeeIncludeFields = ({
                         </div>
                         <div className={styles.flex1}>
                             <TextField
+                                disabled={isDisabled ? true : false}
                                 error={errors?.leaving_ctc}
                                 onChange={handleChange}
                                 value={data?.leaving_ctc}
@@ -128,7 +134,8 @@ const EmployeeIncludeFields = ({
 
                     </div>
                 </div>
-                <div className={styles.btnCont}>
+                {
+                    !isDisabled && <div className={styles.btnCont}>
                     <div className={"textCenter"}>
                         <ButtonBase
                             className={styles.removeBtn}
@@ -141,6 +148,8 @@ const EmployeeIncludeFields = ({
                         </ButtonBase>
                     </div>
                 </div>
+                }
+                
             </div>
         </div>
     );

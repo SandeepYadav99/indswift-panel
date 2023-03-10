@@ -38,14 +38,15 @@ const MonthlySalary = (
     Secondfield,
     thirdfield,
     forthfield,
+    isDisabled
   },
   ref
+  
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
   const { id } = useParams();
-
   useEffect(() => {}, []);
 
   useEffect(() => {
@@ -179,6 +180,7 @@ const MonthlySalary = (
       return (
         <div>
           <IncludSalaryField
+            isDisabled={isDisabled}
             variants={tempFilters}
             listWarehouse={listWarehouse}
             currency={currency}
@@ -212,7 +214,8 @@ const MonthlySalary = (
   return (
     <>
       {renderFields}
-      <div>
+      {
+        !isDisabled && <div>
         <ButtonBase
           className={styles.addition}
           label={"+"}
@@ -223,6 +226,8 @@ const MonthlySalary = (
           <Add fontSize={"small"} /> <span>Add Monthly Payment</span>
         </ButtonBase>
       </div>
+      }
+      
       {/*</div>*/}
     </>
   );

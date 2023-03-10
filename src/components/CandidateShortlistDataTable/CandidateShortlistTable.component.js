@@ -173,7 +173,7 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
                 <div className={styles.stickbottom}>
                     <div className={styles.RequestShortlistWrapper}>
                         <div>
-                            <p className={styles.heading3}>{selected.length} Candidate Selected</p>
+                            <p className={styles.heading3}>{selected.length} {selected.length === 1 || selected.length === 0 ? "Candidate" : "Candidates"} Selected</p>
                         </div>
                         <div className={styles.SlidebtnWrapper2}>
                             <div className={styles.editBtn2}>
@@ -188,7 +188,7 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
                                 </ButtonBase>
                                 <ButtonBase disabled={selected.length === 0 || isSubmitting} onClick={() => {
                                     toggleConfirmDialog('SHORTLISTED')
-                                }} className={styles.edit}>SHORTLIST</ButtonBase>
+                                }} className={styles.edit}>SHORTLISTED</ButtonBase>
                             </div>
                             <div>
                                 <ButtonBase onClick={handleRequestShortlist} className={styles.createBtn}>

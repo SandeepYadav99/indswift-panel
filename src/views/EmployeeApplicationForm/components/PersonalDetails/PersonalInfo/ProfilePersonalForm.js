@@ -7,7 +7,7 @@ import styles from "../../../Style.module.css";
 import useProfilePersonalForm from "./ProfilePersonalFormHook";
 
 
-function ProfilePersonalForm({}, ref) {
+function ProfilePersonalForm({isDisabled}, ref) {
     const {
         form,
         changeTextData,
@@ -26,6 +26,7 @@ function ProfilePersonalForm({}, ref) {
             <div className={"formFlex1"}>
                 <div className={"formGroup1"}>
                     <CustomDatePicker
+                        disabled={isDisabled ? true: false}
                         clearable
                         label={"D.O.B"}
                         maxDate={new Date()}
@@ -38,6 +39,7 @@ function ProfilePersonalForm({}, ref) {
                 </div>
                 <div className={"formGroup1"}>
                     <CustomSelectField
+                    disabled={isDisabled ? true: false}
                         isError={errorData?.gender}
                         errorText={errorData?.gender}
                         label={"Gender"}
@@ -54,6 +56,7 @@ function ProfilePersonalForm({}, ref) {
             <div className={"formFlex1"}>
                 <div className={"formGroup1"}>
                     <CustomTextField
+                    disabled={isDisabled ? true: false}
                         isError={errorData?.birthplace}
                         errorText={errorData?.birthplace}
                         label={"Place Of Birth"}
@@ -68,6 +71,7 @@ function ProfilePersonalForm({}, ref) {
                 </div>
                 <div className={"formGroup1"}>
                     <CustomDatePicker
+                    disabled={isDisabled ? true: false}
                         clearable
                         label={"Date of Marriage (if applicable)"}
                         maxDate={new Date()}
@@ -82,6 +86,7 @@ function ProfilePersonalForm({}, ref) {
             <div className={"formFlex1"}>
                 <div className={"formGroup1"}>
                     <CustomTextField
+                    disabled={isDisabled ? true: false}
                         isError={errorData?.religion}
                         errorText={errorData?.religion}
                         label={"Religion (Optional)"}
@@ -96,6 +101,7 @@ function ProfilePersonalForm({}, ref) {
                 </div>
                 <div className={"formGroup1"}>
                     <CustomSelectField
+                    disabled={isDisabled ? true: false}
                         isError={errorData?.blood_group}
                         errorText={errorData?.blood_group}
                         label={"Blood Group"}
@@ -118,6 +124,7 @@ function ProfilePersonalForm({}, ref) {
             <div className={"formFlex1"}>
                 <div className={"formGroup1"}>
                     <CustomTextField
+                    disabled={isDisabled ? true: false}
                         isError={errorData?.aadhar_no}
                         errorText={errorData?.aadhar_no}
                         label={"Aadhar Number"}
@@ -132,6 +139,7 @@ function ProfilePersonalForm({}, ref) {
                 </div>
                 <div className={"formGroup1"}>
                     <CustomTextField
+                        disabled={isDisabled ? true: false}
                         isError={errorData?.pan_no}
                         errorText={errorData?.pan_no}
                         label={"PAN No"}
@@ -148,6 +156,7 @@ function ProfilePersonalForm({}, ref) {
             <div className="formFlex1">
                 <div className={"formGroup1"}>
                     <CustomTextField
+                        disabled={isDisabled ? true: false}
                         isError={errorData?.passport_no}
                         errorText={errorData?.passport_no}
                         label={"Passport No"}
@@ -162,6 +171,7 @@ function ProfilePersonalForm({}, ref) {
                 </div>
                 <div className={"formGroup1"}>
                     <CustomDatePicker
+                         disabled={isDisabled ? true: false}
                         clearable
                         label={"Expiry Date of Passport"}
                         minDate={new Date()}
@@ -176,6 +186,7 @@ function ProfilePersonalForm({}, ref) {
             <div className="formFlex1">
                 <div className={"formGroup1"}>
                     <CustomTextField
+                        disabled={isDisabled ? true: false}
                         isError={errorData?.uan_no}
                         errorText={errorData?.uan_no}
                         label={"PF UAN No"}

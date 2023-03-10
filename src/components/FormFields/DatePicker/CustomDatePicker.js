@@ -13,8 +13,9 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import LogUtils from "../../../libs/LogUtils";
 import {InputAdornment} from "@material-ui/core";
+import { rest } from 'lodash';
 
-const CustomDatePicker = ({onChange, minDate, isError, maxDate, value, label, clearable}) => {
+const CustomDatePicker = ({onChange, minDate, isError, maxDate, value, label, clearable,...rest}) => {
     const handleOnChange = (e, d) => {
         // const tempDate  = new Date(e);
         // const formattedDate = tempDate.getDate() + "-" + (tempDate.getMonth() + 1) + "-" + tempDate.getFullYear();
@@ -48,6 +49,7 @@ const CustomDatePicker = ({onChange, minDate, isError, maxDate, value, label, cl
                     minDate={minDate}
                     maxDate={mD}
                     showTodayButton
+                    {...rest}
                     // KeyboardButtonProps={{
                     //     'aria-label': 'change time',
                     // }}

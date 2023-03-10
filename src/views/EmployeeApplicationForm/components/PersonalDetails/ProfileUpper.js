@@ -3,7 +3,7 @@ import React from "react";
 import styles from "../../Style.module.css";
 import { useState } from "react";
 
-function ProfileUpper({ data, image, handleImageChange, error }) {
+function ProfileUpper({ data, image, handleImageChange, error,isDisabled }) {
   const getImgUrl = (image) => {
     if (image) {
       return URL.createObjectURL(image);
@@ -20,7 +20,8 @@ function ProfileUpper({ data, image, handleImageChange, error }) {
         <p>{data?.contact}</p>
       </div>
       <div className={styles.profileimg}>
-        <ButtonBase className={styles.edit}>
+        {
+          !isDisabled &&  <><ButtonBase className={styles.edit}>
           <label htmlFor="imageUpload" className={styles.labelWrapper}>
             UPLOAD NEW PICTURE
           </label>
@@ -32,6 +33,9 @@ function ProfileUpper({ data, image, handleImageChange, error }) {
           onChange={handleImageChange}
           style={{ display: "none" }}
         />
+        </>
+        }
+       
         <div>
           <img className={styles.applicationImage} src={getImgUrl(image)} />
         </div>

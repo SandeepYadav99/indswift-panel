@@ -14,7 +14,7 @@ const TEMP_OBJ = {
     degree_type: '',
 };
 
-const IncludeQualification = ({data, currency, listWarehouse, errorData: errorForm, form, changeTextData, updateInventory, vendorId}, ref) => {
+const IncludeQualification = ({data, currency, listWarehouse, errorData: errorForm, form, changeTextData, updateInventory, vendorId,isDisabled}, ref) => {
     const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     const [errorData, setErrorData] = useState({});
     const [variants, setVariants] = useState([]);
@@ -151,6 +151,7 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
             return (
                 <div>
                 <IncludeQualificationField variants={tempFilters}
+                                isDisabled={isDisabled}
                                listWarehouse={listWarehouse}
                                currency={currency}
                                validateData={validateData}
@@ -165,7 +166,7 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
         <>
             {renderFields}
 
-            <div>
+            { !isDisabled && <div>
                 <ButtonBase
                     className={styles.addition}
                     label={"+"}
@@ -175,7 +176,7 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
                 >
                     <Add fontSize={"small"}/> <span>Add Qualification</span>
                 </ButtonBase>
-            </div>
+            </div>}
             {/*</div>*/}
         </>
     )

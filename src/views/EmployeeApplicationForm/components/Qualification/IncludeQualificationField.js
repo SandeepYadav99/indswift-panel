@@ -9,7 +9,7 @@ import {isNum} from "../../../../libs/RegexUtils";
 import styles from "../../Style.module.css";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 
-const IncludeQualificationField = ({index, changeData, variants, handlePress, data: form, errors: errorData}) => {
+const IncludeQualificationField = ({index, changeData, variants, handlePress, data: form, errors: errorData,isDisabled}) => {
 
     const changeTextData = (value, key) => {
         changeData(index, {[key]: value});
@@ -20,6 +20,7 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
             <div className={styles.firstRow}>
                 <div className={styles.flex1}>
                     <CustomTextField
+                        disabled={isDisabled ? true : false}
                         isError={errorData?.qualification}
                         errorText={errorData?.qualification}
                         label={"Qualification"}
@@ -31,6 +32,7 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
                 </div>
                 <div className={styles.flex1}>
                     <CustomTextField
+                        disabled={isDisabled ? true : false}
                         isError={errorData?.degree_name}
                         errorText={errorData?.degree_name}
                         label={"Name of Degree/Specialization"}
@@ -42,6 +44,7 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
                 </div>
                 <div className={styles.flex1}>
                     <CustomTextField
+                        disabled={isDisabled ? true : false}
                         isError={errorData?.institute_name}
                         errorText={errorData?.institute_name}
                         label={"Institute/University"}
@@ -55,6 +58,7 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
             <div className={styles.firstRow}>
                 <div className={styles.flex1}>
                     <CustomTextField
+                        disabled={isDisabled ? true : false}
                         isError={errorData?.passing_year}
                         errorText={errorData?.passing_year}
                         label={"Passing Year"}
@@ -66,6 +70,7 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
                 </div>
                 <div className={styles.flex1}>
                     <CustomTextField
+                        disabled={isDisabled ? true : false}
                         isError={errorData?.cgpa}
                         errorText={errorData?.cgpa}
                         label={"Percentage/CGPA"}
@@ -78,6 +83,7 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
                 </div>
                 <div className={styles.flex1}>
                     <CustomSelectField
+                        disabled={isDisabled ? true : false}
                         isError={errorData?.degree_type}
                         errorText={errorData?.degree_type}
                         label={"Degree Type"}
@@ -92,7 +98,8 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
                 </div>
             </div>
       </div>
-      <div className={styles.btnCont}>
+      {
+        !isDisabled && <div className={styles.btnCont}>
         <div className={"textCenter"}>
           <ButtonBase
               className={styles.removeBtn}
@@ -105,6 +112,8 @@ const IncludeQualificationField = ({index, changeData, variants, handlePress, da
           </ButtonBase>
         </div>
       </div>
+      }
+      
             <br/>
         </div>);
 };

@@ -20,7 +20,7 @@ const TEMP_OBJ = {
   name: "",
   relation: "",
   dob: "",
-  occupation: ''
+  occupation: "",
 };
 
 // const TEMP_OBJ = {
@@ -40,6 +40,7 @@ const FamilyDetailComponent = (
     changeTextData,
     updateInventory,
     vendorId,
+    isDisabled,
   },
   ref
 ) => {
@@ -97,7 +98,7 @@ const FamilyDetailComponent = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["name", "relation", "dob", 'occupation'];
+      const required = ["name", "relation", "dob", "occupation"];
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -114,7 +115,7 @@ const FamilyDetailComponent = (
   useEffect(() => {
     if (data) {
       const filteredData = [];
-      data.forEach(dT => {
+      data.forEach((dT) => {
         filteredData.push({
           ...TEMP_OBJ,
           ...dT,
@@ -195,6 +196,7 @@ const FamilyDetailComponent = (
       return (
         <div>
           <IncludeFields
+            isDisabled={isDisabled}
             variants={tempFilters}
             listWarehouse={listWarehouse}
             currency={currency}
@@ -223,24 +225,26 @@ const FamilyDetailComponent = (
 
   return (
     <>
-     <div className={"headerFlex1"}>
+      <div className={"headerFlex1"}>
         <h4 className={"infoTitle1"}>
           <div className={"heading1"}>Family Details</div>
         </h4>
       </div>
       {renderFields}
+      {!isDisabled && (
+        <div>
+          <ButtonBase
+            className={styles.addition}
+            label={"+"}
+            onClick={() => {
+              handlePress("ADDITION", 0);
+            }}
+          >
+            <Add fontSize={"small"} /> <span>Add Family Members</span>
+          </ButtonBase>
+        </div>
+      )}
 
-      <div>
-        <ButtonBase
-          className={styles.addition}
-          label={"+"}
-          onClick={() => {
-            handlePress("ADDITION", 0);
-          }}
-        >
-          <Add fontSize={"small"} /> <span>Add Family Members</span>
-        </ButtonBase>
-      </div>
       {/*</div>*/}
     </>
   );

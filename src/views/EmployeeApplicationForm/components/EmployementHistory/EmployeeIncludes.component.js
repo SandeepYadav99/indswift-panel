@@ -23,15 +23,13 @@ const TEMP_OBJ = {
   joining_date: "",
   joining_ctc: "",
   resignation_date: "",
-  leaving_ctc: ""
+  leaving_ctc: "",
 };
 
-const EmployeeIncludeForm = ({
-  data,
-  currency,
-  listWarehouse,
-  errorData: errorForm,
-}, ref) => {
+const EmployeeIncludeForm = (
+  { data, currency, listWarehouse, errorData: errorForm ,isDisabled},
+  ref
+) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
@@ -82,7 +80,14 @@ const EmployeeIncludeForm = ({
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ['employer_name', 'designation', 'joining_date', 'joining_ctc', 'resignation_date', 'leaving_ctc',];
+      const required = [
+        "employer_name",
+        "designation",
+        "joining_date",
+        "joining_ctc",
+        "resignation_date",
+        "leaving_ctc",
+      ];
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -176,6 +181,7 @@ const EmployeeIncludeForm = ({
       return (
         <div>
           <EmployeeIncludeFields
+            isDisabled={isDisabled}
             variants={tempFilters}
             listWarehouse={listWarehouse}
             currency={currency}
@@ -205,18 +211,20 @@ const EmployeeIncludeForm = ({
   return (
     <>
       {renderFields}
+      {!isDisabled && (
+        <div>
+          <ButtonBase
+            className={styles.addition}
+            label={"+"}
+            onClick={() => {
+              handlePress("ADDITION", 0);
+            }}
+          >
+            <Add fontSize={"small"} /> <span>Add Record</span>
+          </ButtonBase>
+        </div>
+      )}
 
-      <div>
-        <ButtonBase
-          className={styles.addition}
-          label={"+"}
-          onClick={() => {
-            handlePress("ADDITION", 0);
-          }}
-        >
-          <Add fontSize={"small"} /> <span>Add Record</span>
-        </ButtonBase>
-      </div>
       {/*</div>*/}
     </>
   );

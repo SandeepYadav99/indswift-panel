@@ -8,7 +8,7 @@ import useEmployeePersonalForm from "./EmployeePersonalFormHook";
 import handleSubmit from "redux-form/lib/handleSubmit";
 import FamilyDetailComponent from "../components/PersonalDetails/FamilyDetails/FamilyDetails.component";
 
-function EmployeePersonalForm({incrementPage}) {
+function EmployeePersonalForm({incrementPage,isDisabled}) {
   const { refPersonalForm, handleSubmit, refContactForm, refFamilyDetail, isSubmitting, candidateData, image, handleImageChange,error } = useEmployeePersonalForm({});
   return (
     <div className={styles.employeeLoginWrapper}>
@@ -26,16 +26,17 @@ function EmployeePersonalForm({incrementPage}) {
           <div className={styles.newLine} />
         </div>
         <div className={styles.signContainer}>
-          <ProfileUpper image={image} error={error} handleImageChange={handleImageChange} data={candidateData} />
-          <ProfilePersonalForm ref={refPersonalForm} />
+          <ProfileUpper isDisabled= {isDisabled} image={image} error={error} handleImageChange={handleImageChange} data={candidateData} />
+          <ProfilePersonalForm isDisabled= {isDisabled} ref={refPersonalForm} />
         </div>
         <div className={styles.signContainer}>
-          <ContactDetails ref={refContactForm} />
+          <ContactDetails isDisabled= {isDisabled} ref={refContactForm} />
         </div>
         <div className={styles.signContainer}>
-          <FamilyDetailComponent ref={refFamilyDetail} />
+          <FamilyDetailComponent isDisabled= {isDisabled} ref={refFamilyDetail} />
         </div>
-        <div className={styles.btnContainer}>
+        {
+          !isDisabled && <div className={styles.btnContainer}>
           <div className={styles.btnCont}>
             <ButtonBase
                 disabled={isSubmitting}
@@ -47,6 +48,8 @@ function EmployeePersonalForm({incrementPage}) {
             </ButtonBase>
           </div>
         </div>
+        }
+        
       </div>
     </div>
   );

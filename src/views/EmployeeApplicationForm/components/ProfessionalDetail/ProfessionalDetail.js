@@ -5,7 +5,7 @@ import CustomSelectField from "../../../../components/FormFields/SelectField/Sel
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import useProfessionalDetail from "./ProfessionalDetailHook";
 
-const ProfessionalDetail = ({}, ref) => {
+const ProfessionalDetail = ({isDisabled}, ref) => {
     const { changeTextData, errorData, form, handleReset, includeRef, isEdit, isLoading, isSubmitting, onBlurHandler, removeError } = useProfessionalDetail({}, ref);
   return (
     <>
@@ -17,6 +17,7 @@ const ProfessionalDetail = ({}, ref) => {
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
+            disabled={isDisabled ? true: false}
             isError={errorData?.is_referred}
             errorText={errorData?.is_referred}
             label={"Referred by IISL Employee"}
@@ -33,6 +34,7 @@ const ProfessionalDetail = ({}, ref) => {
       <div className={"formFlex1"}>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true: false}
             isError={errorData?.referer_name}
             errorText={errorData?.referer_name}
             label={"Name"}
@@ -47,6 +49,7 @@ const ProfessionalDetail = ({}, ref) => {
         </div>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true: false}
             isError={errorData?.referer_designation}
             errorText={errorData?.referer_designation}
             label={"Designation"}
@@ -61,6 +64,7 @@ const ProfessionalDetail = ({}, ref) => {
         </div>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true: false}
             isError={errorData?.referer_department}
             errorText={errorData?.referer_department}
             label={"Department"}
@@ -75,6 +79,7 @@ const ProfessionalDetail = ({}, ref) => {
         </div>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true: false}
             isError={errorData?.referer_location}
             errorText={errorData?.referer_location}
             label={"Location"}
@@ -91,6 +96,7 @@ const ProfessionalDetail = ({}, ref) => {
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
+            disabled={isDisabled ? true: false}
             isError={errorData?.is_bond}
             errorText={errorData?.is_bond}
             label={"Covered Under any kind bond/contract"}
@@ -107,6 +113,7 @@ const ProfessionalDetail = ({}, ref) => {
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomDatePicker
+            disabled={isDisabled ? true: false}
             clearable
             label={"Date of Expiry"}
             minDate={new Date()}
@@ -121,6 +128,7 @@ const ProfessionalDetail = ({}, ref) => {
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
+            disabled={isDisabled ? true: false}
             isError={errorData?.is_convicted}
             errorText={errorData?.is_convicted}
             label={
@@ -138,6 +146,7 @@ const ProfessionalDetail = ({}, ref) => {
       </div>
       <div className="formGroup1">
         <CustomTextField
+          disabled={isDisabled ? true: false}
           isError={errorData?.pending_case_brief}
           errorText={errorData?.pending_case_brief}
           label={"Details of pending case"}
@@ -153,6 +162,7 @@ const ProfessionalDetail = ({}, ref) => {
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
+            disabled={isDisabled ? true: false}
             isError={errorData?.is_personal_transport}
             errorText={errorData?.is_personal_transport}
             label={"Do you possess a personal transport"}
@@ -169,6 +179,7 @@ const ProfessionalDetail = ({}, ref) => {
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
+            disabled={isDisabled ? true: false}
             isError={errorData?.is_ailments}
             errorText={errorData?.is_ailments}
             label={"Suffer from any ailments"}
@@ -185,6 +196,7 @@ const ProfessionalDetail = ({}, ref) => {
       <div className={"formFlex1"}>
         <div className={"formGroup1"}>
           <CustomSelectField
+            disabled={isDisabled ? true: false}
             isError={errorData?.ailment_type}
             errorText={errorData?.ailment_type}
             label={"Type"}
@@ -200,6 +212,7 @@ const ProfessionalDetail = ({}, ref) => {
       </div>
       <div className="formGroup1">
         <CustomTextField
+          disabled={isDisabled ? true: false}
           isError={errorData?.ailment_details}
           errorText={errorData?.ailment_details}
           label={"Specify Details"}
@@ -214,6 +227,7 @@ const ProfessionalDetail = ({}, ref) => {
       </div>{" "}
       <div className="formGroup1">
       <CustomSelectField
+            disabled={isDisabled ? true: false}
             isError={errorData?.is_any_relative}
             errorText={errorData?.is_any_relative}
             label={"Any Relative working in the ISLL"}
@@ -229,6 +243,7 @@ const ProfessionalDetail = ({}, ref) => {
       <div className={"formFlex1"}>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true: false}
             isError={errorData?.relative_name}
             errorText={errorData?.relative_name}
             label={"Name"}

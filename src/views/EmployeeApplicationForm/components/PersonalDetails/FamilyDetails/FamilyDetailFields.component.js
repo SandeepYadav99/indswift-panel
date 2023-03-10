@@ -44,6 +44,7 @@ const ChildrenIncludeFields = ({
                                    onBlur,
                                    currency,
                                    listWarehouse,
+                                   isDisabled
                                }) => {
     const handleChange = (e) => {
         const name = e?.target?.name;
@@ -64,6 +65,7 @@ const ChildrenIncludeFields = ({
                 <div className={styles.firstRow}>
                     <div className={styles.flex1}>
                         <CustomSelectField
+                        disabled={isDisabled ? true : false}
                             isError={errorData?.relation}
                             errorText={errorData?.relation}
                             label={"Relation"}
@@ -76,6 +78,7 @@ const ChildrenIncludeFields = ({
                             <MenuItem value="MOTHER">Mother</MenuItem>
                         </CustomSelectField>
                         <CustomTextField
+                        disabled={isDisabled ? true : false}
                             isError={errorData?.name}
                             errorText={errorData?.name}
                             label={"Relation Name"}
@@ -87,6 +90,7 @@ const ChildrenIncludeFields = ({
                     </div>
                     <div className={styles.flex1}>
                         <CustomDatePicker
+                        disabled={isDisabled ? true : false}
                             clearable
                             label={"D.O.B"}
                             maxDate={new Date()}
@@ -97,6 +101,7 @@ const ChildrenIncludeFields = ({
                             isError={errorData?.dob}
                         />
                         <CustomTextField
+                        disabled={isDisabled ? true : false}
                             isError={errorData?.occupation}
                             errorText={errorData?.occupation}
                             label={"Occupation"}
@@ -106,7 +111,8 @@ const ChildrenIncludeFields = ({
                             }}
                         />
                     </div>
-                    <div className={"textCenter"}>
+                    {
+                        !isDisabled && <div className={"textCenter"}>
                         <ButtonBase
                             className={styles.removeBtn}
                             // label={this.props.index == 0 ? "+" : '-'}
@@ -117,6 +123,8 @@ const ChildrenIncludeFields = ({
                             {index == 0 ? "Remove" : "Remove"}
                         </ButtonBase>
                     </div>
+                    }
+                    
                 </div>
 
             </div>

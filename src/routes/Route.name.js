@@ -36,6 +36,7 @@ export default {
   CANDIDATES_CREATE: "/candidates/create",
   CANDIDATES_DETAILS: "/candidates/details/",
   CANDIDATES_OFFER:"/candidates/offer/",
+  CANDIDATES_INFO:"/candidates/info/",
 
   HR_POLICIES: "/hr/policies",
   HR_POLICIES_CREATE: "/hr/policies/create",

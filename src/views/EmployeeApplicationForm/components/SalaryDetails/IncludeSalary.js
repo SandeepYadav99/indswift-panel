@@ -32,6 +32,7 @@ const IncludeSalary = (
     salaryTagType,
     firstfield,
     secondfield,
+    isDisabled
   },
   ref
 ) => {
@@ -149,6 +150,7 @@ const IncludeSalary = (
       return (
         <div>
           <IncludSalaryField
+            isDisabled={isDisabled}
             validateData={validateData}
             errors={index in errorData ? errorData[index] : null}
             changeData={changeData}
@@ -174,7 +176,8 @@ const IncludeSalary = (
   return (
     <>
       {renderFields}
-      <div>
+      {
+        !isDisabled && <div>
         <ButtonBase
           className={styles.addition}
           label={"+"}
@@ -185,6 +188,8 @@ const IncludeSalary = (
           <Add fontSize={"small"} /> <span>{salaryTagType}</span>
         </ButtonBase>
       </div>
+      }
+      
     </>
   );
 };

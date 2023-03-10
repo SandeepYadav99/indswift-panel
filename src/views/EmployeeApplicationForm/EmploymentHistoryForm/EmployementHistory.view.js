@@ -13,14 +13,15 @@ import styles from "../Style.module.css";
 import AdditionalForm from "../components/AdditionalForm/AdditionalForm";
 import useEmploymentHistory from "./EmployementHistoryHook";
 
-function EmploymentHistory({ }) {
+function EmploymentHistory({ isDisabled}) {
   const {isSubmitting, isFresher, setIsFresher, handleSubmit, refAdditional, refEmpHistory, refSalary, isTermChecked, setIsTermChecked} = useEmploymentHistory({});
   const classes = useStyles();
 
   return (
     <div className={styles.employeeLoginWrapper}>
       <div className={styles.employeeLoginContainer}>
-        <div className={styles.logoImg}>
+        {
+          !isDisabled && <><div className={styles.logoImg}>
           <img
             src={require("../../../assets/img/login logo@2x.png")}
             className={styles.sky}
@@ -32,6 +33,9 @@ function EmploymentHistory({ }) {
           </h1>
           <div className={styles.newLine} />
         </div>
+          </>
+        }
+        
         <div className={styles.signContainer}>
           <div className={"plainPaper"}>
             <div className={"headerFlex"}>
@@ -53,15 +57,16 @@ function EmploymentHistory({ }) {
               </div>
             </div>
             <div style={{ display: isFresher ? 'none' : 'block' }}>
-              <EmployeeIncludeForm ref={refEmpHistory} />
+              <EmployeeIncludeForm ref={refEmpHistory} isDisabled={isDisabled}/>
             </div>
           </div>
         </div>
         <div className={styles.signContainer}>
-          <SalaryDetail ref={refSalary} />
+          <SalaryDetail isDisabled={isDisabled} ref={refSalary} />
         </div>
-        <AdditionalForm ref={refAdditional} />
-        <div className={styles.signContainer}>
+        <AdditionalForm ref={refAdditional} isDisabled={isDisabled}/>
+        {
+          !isDisabled && <div className={styles.signContainer}>
           <div className={styles.discriptionWrap}>
             <div style={{ gap: "5px" }}>
               <Checkbox
@@ -96,6 +101,8 @@ function EmploymentHistory({ }) {
             </div>
           </div>
         </div>
+        }
+        
       </div>
     </div>
   );

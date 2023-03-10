@@ -15,8 +15,8 @@ const IncludSalaryField = ({
   errors,
   firstfield,
   secondfield,
+  isDisabled,
 }) => {
-
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -28,6 +28,7 @@ const IncludSalaryField = ({
       <div className={styles.firstRow}>
         <div className={styles.flex1}>
           <TextField
+            disabled={isDisabled ? true : false}
             error={errors?.payment_type}
             onChange={handleChange}
             value={data?.payment_type}
@@ -40,29 +41,32 @@ const IncludSalaryField = ({
         </div>
         <div className={styles.flex1}>
           <TextField
+            disabled={isDisabled ? true : false}
             error={errors?.amount}
             onChange={handleChange}
+            // value="$3"
             value={data?.amount}
             fullWidth={true}
             name={"amount"}
             margin={"dense"}
             variant={"outlined"}
             label={secondfield}
-            type={'number'}
+            type={"number"}
           />
         </div>
-
-        <div className={"textCenter"}>
-          <ButtonBase
-            className={styles.removeBtn}
-            // label={this.props.index == 0 ? "+" : '-'}
-            onClick={() => {
-              handlePress(index == 0 ? "-" : "-", index);
-            }}
-          >
-            {index == 0 ? "Remove" : "Remove"}
-          </ButtonBase>
-        </div>
+        {!isDisabled && (
+          <div className={"textCenter"}>
+            <ButtonBase
+              className={styles.removeBtn}
+              // label={this.props.index == 0 ? "+" : '-'}
+              onClick={() => {
+                handlePress(index == 0 ? "-" : "-", index);
+              }}
+            >
+              {index == 0 ? "Remove" : "Remove"}
+            </ButtonBase>
+          </div>
+        )}
       </div>
       <br />
     </div>
