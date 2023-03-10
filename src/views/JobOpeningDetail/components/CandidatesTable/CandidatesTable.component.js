@@ -76,12 +76,12 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
 
   const tableStructure = useMemo(() => {
     return [
-      {
-        key: "name",
-        label: "Sr. No",
-        sortable: false,
-        render: (value, all, index) => <div>{index + 1}</div>,
-      },
+      // {
+      //   key: "name",
+      //   label: "Sr. No",
+      //   sortable: false,
+      //   render: (value, all, index) => <div>{index + 1}</div>,
+      // },
       {
         key: "name",
         label: "Candidate Name",
@@ -114,7 +114,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         key: "rewards",
         label: "Last Updated On",
         sortable: false,
-        render: (temp, all) => <div>{all?.updatedAtText}</div>,
+        render: (temp, all) => <div>{console.log("all===>",all)}{all?.updatedAtText}</div>,
       },
       {
         key: "rewards",

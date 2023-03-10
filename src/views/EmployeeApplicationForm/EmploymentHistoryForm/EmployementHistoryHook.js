@@ -18,7 +18,12 @@ const useEmploymentHistory = ({}) => {
   const refEmpHistory = useRef(null);
   const refSalary = useRef(null);
   const refAdditional = useRef(null);
-
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
   useEffect(() => {
     if (candidateId) {
       serviceGetCandidateEAFEmployment({candidate_id: candidateId}).then((res) => {
@@ -57,6 +62,7 @@ const useEmploymentHistory = ({}) => {
         }).then((res) => {
           if (!res.error) {
             historyUtils.push(RouteName.EAF_SUCCESS);
+            handleScrollToTop()
           } else {
             SnackbarUtils.error(res?.message);
           }
@@ -65,7 +71,10 @@ const useEmploymentHistory = ({}) => {
       }
     }
   }, [isSubmitting, setIsSubmitting, isFresher, candidateId]);
-
+  const handlePreviousPage=useCallback(()=>{
+    historyUtils.push(RouteName.EAF_QUALIFICATION_FORM);
+    handleScrollToTop()
+},[]);
   return {
     refEmpHistory,
     handleSubmit,
@@ -75,7 +84,8 @@ const useEmploymentHistory = ({}) => {
     isFresher,
     setIsFresher,
     isTermChecked,
-    setIsTermChecked
+    setIsTermChecked,
+    handlePreviousPage
   }
 };
 

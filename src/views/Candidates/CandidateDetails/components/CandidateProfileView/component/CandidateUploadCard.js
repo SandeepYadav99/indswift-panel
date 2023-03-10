@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Style.module.css";
+import RouteName from "../../../../../../routes/Route.name";
 
 const CandidateUploadCard = ({ data }) => {
   return (
@@ -20,7 +21,7 @@ const CandidateUploadCard = ({ data }) => {
                 </a>
               </div>
               <div className={styles.key}>
-                <a className={styles.uploadTag} target="_blank" href="#">
+                <a className={styles.uploadTag}  href={`${RouteName.CANDIDATES_INFO}${data?.enc_id}`}>
                   EAF Form
                 </a>
               </div>

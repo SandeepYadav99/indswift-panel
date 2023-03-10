@@ -14,7 +14,7 @@ import AdditionalForm from "../components/AdditionalForm/AdditionalForm";
 import useEmploymentHistory from "./EmployementHistoryHook";
 
 function EmploymentHistory({ isDisabled}) {
-  const {isSubmitting, isFresher, setIsFresher, handleSubmit, refAdditional, refEmpHistory, refSalary, isTermChecked, setIsTermChecked} = useEmploymentHistory({});
+  const {isSubmitting, isFresher, setIsFresher, handleSubmit,handlePreviousPage, refAdditional, refEmpHistory, refSalary, isTermChecked, setIsTermChecked} = useEmploymentHistory({});
   const classes = useStyles();
 
   return (
@@ -89,7 +89,7 @@ function EmploymentHistory({ isDisabled}) {
 
           <div className={styles.btnContainer}>
             <div className={styles.btnCont1}>
-              <ButtonBase className={styles.edit}>PREVIOUS</ButtonBase>
+              <ButtonBase className={styles.edit1} onClick={handlePreviousPage}>PREVIOUS</ButtonBase>
               <ButtonBase
                   disabled={isSubmitting||!isTermChecked}
                 type={"button"}

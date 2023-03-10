@@ -14,7 +14,12 @@ const useQualificationForm = ({}) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const refQualificationDetails = useRef(null);
     const refProfessionalDetails = useRef(null);
-
+    const handleScrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      };
     useEffect(() => {
        if (candidateId) {
            serviceGetCandidateEAFQualification({candidate_id: candidateId}).then((res) => {
@@ -29,7 +34,10 @@ const useQualificationForm = ({}) => {
            });
        }
     }, [candidateId]);
-
+const handlePreviousPage=useCallback(()=>{
+    historyUtils.push(RouteName.EAF_PERSONAL_DATA);
+    handleScrollToTop()
+},[]);
     const handleSubmit = useCallback(() => {
         if (!isSubmitting) {
             const isQualificationValid = refQualificationDetails.current.isValid();
@@ -47,6 +55,7 @@ const useQualificationForm = ({}) => {
                 }).then((res) => {
                     if (!res.error) {
                         historyUtils.push(RouteName.EAF_EMPLOYMENT_FORM);
+                        handleScrollToTop()
                     } else {
                         SnackbarUtils.error(res?.message);
                     }
@@ -61,6 +70,7 @@ const useQualificationForm = ({}) => {
         refProfessionalDetails,
         handleSubmit,
         isSubmitting,
+        handlePreviousPage
     }
 };
 

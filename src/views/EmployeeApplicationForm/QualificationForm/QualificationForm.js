@@ -10,6 +10,7 @@ function QualificationPage({ isDisabled }) {
     refProfessionalDetails,
     refQualificationDetails,
     handleSubmit,
+    handlePreviousPage,
     isSubmitting,
   } = useQualificationForm({});
 
@@ -46,7 +47,7 @@ function QualificationPage({ isDisabled }) {
         {
           !isDisabled && <div className={styles.btnContainer}>
           <div className={styles.btnCont1}>
-            <ButtonBase className={styles.edit1}>PREVIOUS</ButtonBase>
+            <ButtonBase className={styles.edit1} onClick={handlePreviousPage}>PREVIOUS</ButtonBase>
             <ButtonBase
               disabled={isSubmitting}
               type={"button"}

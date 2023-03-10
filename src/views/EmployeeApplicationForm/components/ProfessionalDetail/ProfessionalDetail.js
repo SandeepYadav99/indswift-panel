@@ -258,6 +258,7 @@ const ProfessionalDetail = ({isDisabled}, ref) => {
         </div>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true: false}
             isError={errorData?.relative_designation}
             errorText={errorData?.relative_designation}
             label={"Designation"}
@@ -272,6 +273,7 @@ const ProfessionalDetail = ({isDisabled}, ref) => {
         </div>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true: false}
             isError={errorData?.relative_department}
             errorText={errorData?.relative_department}
             label={"Department"}
@@ -286,6 +288,7 @@ const ProfessionalDetail = ({isDisabled}, ref) => {
         </div>
         <div className="formGroup1">
           <CustomTextField
+            disabled={isDisabled ? true: false}
             isError={errorData?.relative_relation}
             errorText={errorData?.relative_relation}
             label={"Relation (if applicable)"}

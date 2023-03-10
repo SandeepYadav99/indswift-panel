@@ -77,10 +77,10 @@ const JobOpeningDetail = () => {
             </div>
             <div className={styles.vertical}></div>
             <div className={styles.right}>
-              <div className={styles.key}>
+              {/* <div className={styles.key}>
                 <span className={styles.value}>PRC:</span>
                 {data?.code}
-              </div>
+              </div> */}
               <div className={styles.key}>
                 <span className={styles.value}>Vacancy Type:</span>
                 {valencyChange(data?.vacancy_type)}

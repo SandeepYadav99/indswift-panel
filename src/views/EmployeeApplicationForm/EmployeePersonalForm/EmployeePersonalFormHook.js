@@ -48,7 +48,12 @@ const useEmployeePersonalForm = ({}) => {
       );
     }
   }, [candidateId]);
-
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
   const handleSubmit = useCallback(() => {
     if (!isSubmitting) {
       const isPersonalFormValid = refPersonalForm.current.isValid();
@@ -78,6 +83,7 @@ const useEmployeePersonalForm = ({}) => {
         serviceCandidateEafUpdatePersonal(fd).then((res) => {
           if (!res.error) {
             historyUtils.push(RouteName.EAF_QUALIFICATION_FORM);
+            handleScrollToTop()
           } else {
             SnackbarUtils.error(res?.message);
           }
