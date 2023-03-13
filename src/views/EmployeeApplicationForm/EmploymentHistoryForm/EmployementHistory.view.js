@@ -100,7 +100,7 @@ function EmploymentHistory({ isDisabled}) {
                   disabled={isSubmitting||!isTermChecked}
                 type={"button"}
                 onClick={handleSubmit}
-                className={styles.createBtn}
+                className={isSubmitting||!isTermChecked ? styles.disabledBtn: styles.createBtn}
               >
                 SUBMIT
               </ButtonBase>

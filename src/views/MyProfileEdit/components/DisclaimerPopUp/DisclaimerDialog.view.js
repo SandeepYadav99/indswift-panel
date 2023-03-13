@@ -44,7 +44,6 @@ const DisclaimerDialog = ({ isOpen, handleToggle, empId ,handleSubmit}) => {
     isSubmitting
 
   } = useDisclaimerDialogHook({ isOpen, handleToggle, empId });
-console.log("handleSumit",handleSubmit)
   return (
     <div>
       <Dialog
@@ -99,10 +98,10 @@ console.log("handleSumit",handleSubmit)
                 onClick={() => {
                   setIs_Checked(!is_Checked);;
                 }}
-                id="vehicle1"
+                id="disclamier"
                 checked={is_Checked}
               />
-              <label htmlFor="vehicle1" className={styles.checkBoxDes}>
+              <label htmlFor="disclaminer" className={styles.checkBoxDes}>
               I agree to the disclaimer
               </label>
               <br />

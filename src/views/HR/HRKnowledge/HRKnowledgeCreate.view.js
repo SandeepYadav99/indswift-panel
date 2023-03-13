@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Button, ButtonBase, MenuItem } from "@material-ui/core";
+import { Button, ButtonBase, MenuItem, TextField } from "@material-ui/core";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
@@ -11,6 +11,8 @@ import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import File from "../../../components/FileComponent/FileComponent.component";
 import LogUtils from "../../../libs/LogUtils";
 import useHRKnowledgeCreateViewDetail from "./HRKnowledgeCreateHook";
+import { Autocomplete } from "@material-ui/lab";
+// import Autocomplete from '@mui/material/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -117,7 +119,7 @@ const HRKnowledgeCreateView = ({}) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
-            <CustomSelectField
+            {/* <CustomSelectField
               multiple
               isError={errorData?.submitted_by}
               errorText={errorData?.submitted_by}
@@ -134,7 +136,28 @@ const HRKnowledgeCreateView = ({}) => {
                   </MenuItem>
                 );
               })}
-            </CustomSelectField>
+            </CustomSelectField> */}
+             
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              onChange={(e,value) => {
+                // console.log("value",value)
+                changeTextData(value, "submitted_by");
+              }}
+              // id="tags-standard"
+              options={listData?.EMPLOYEES}
+              getOptionLabel={(option) => option.name}
+              defaultValue={form?.submitted_by}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  // variant="standard"
+                  label="Submitted By"
+                  // placeholder="Favorites"
+                />
+              )}
+            />
           </div>
         </div>
         <div className={"formGroup file_Wrapper"}>

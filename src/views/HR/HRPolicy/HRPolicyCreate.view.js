@@ -125,7 +125,7 @@ const HRCreateView = ({}) => {
         </div>
         <div className={"formGroup file_Wrapper"}>
           <File
-              max_size={2 * 1024 * 1024}
+              max_size={5 * 1024 * 1024}
               type={['pdf']}
               fullWidth={true}
               name="document"
@@ -151,7 +151,7 @@ const HRCreateView = ({}) => {
         <div className={"headerFlex wrapper"}>
           <div className={"infoTitle inner"}>
             <div className="info_Status">
-              <h4 className={"heading_stats"}>Status</h4>
+              <h4 className={"heading_stats"}>Status </h4>
               <div className={"slider_wrap "}>
                 <p className="tags">Inactive</p>
                 <CustomSwitch

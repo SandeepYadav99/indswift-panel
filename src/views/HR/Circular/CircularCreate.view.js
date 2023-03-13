@@ -95,7 +95,7 @@ const CircularCreateView = ({}) => {
         </div>
         <div className={"formGroup file_Wrapper"}>
           <File
-            max_size={2 * 1024 * 1024}
+            max_size={5 * 1024 * 1024}
             type={["pdf"]}
             fullWidth={true}
             name="document"

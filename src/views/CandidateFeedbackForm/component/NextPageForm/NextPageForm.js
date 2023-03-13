@@ -77,7 +77,7 @@ function NextPageForm({ data, handlePrev, isSubmitting, handleSubmit: handleSubm
                       disabled={!isDeclarationChecked || isSubmitting}
                     type={"button"}
                     onClick={handleSubmit}
-                    className={styles.createBtn}
+                    className={ !isDeclarationChecked || isSubmitting ? styles.disabledBtn :styles.createBtn}
                   >
                     SUBMIT
                   </ButtonBase>

@@ -147,7 +147,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                                 changeTextData(!form?.is_send_email_interviewers, 'is_send_email_interviewers');
                             }}
                         />
-                        <label htmlFor="is_send_email_interviewers"> Send Email Invite to Interview Panalist</label>
+                        <label htmlFor="is_send_email_interviewers"> Send Email Invite to Interview Panelist</label>
                         <br />
                     </div>
                 </div>

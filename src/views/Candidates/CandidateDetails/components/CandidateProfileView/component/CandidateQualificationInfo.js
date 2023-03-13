@@ -21,7 +21,7 @@ const CandidateQualificationInfo = ({ qualification }) => {
                       <span className={styles.valueWrap}>{item?.degree}</span>
                     </div>
                     <div className={styles.key1}>
-                      <span className={styles.value}>Degree Name:</span>
+                      <span className={styles.value}>Degree Marks:</span>
                       <span className={styles.valueWrap}>{item?.marks}</span>
                     </div>
                   </div>

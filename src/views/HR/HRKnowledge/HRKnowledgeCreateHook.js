@@ -102,6 +102,11 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
         req = serviceUpdateHRKnowledge;
       }
       const fd = new FormData();
+      const submittedIDs =
+        Array.isArray(form.submitted_by) && form.submitted_by.length > 0
+          ? form.submitted_by.map((item)=>item.id)
+          : [];
+      form.submitted_by = submittedIDs;
       Object.keys(form).forEach((key) => {
         if (["is_active", "submitted_by"].indexOf(key) >= 0) {
           fd.append(key, JSON.stringify(form[key]));
@@ -122,7 +127,7 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log(">===", errors);
+    console.log(">===", errors, form);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
@@ -144,9 +149,10 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name") {
-        if (!text || (isAlphaNumChars(text)   // &&   text.toString().length <= 30 
-        )
-         ) {
+        if (
+          !text ||
+          isAlphaNumChars(text) // &&   text.toString().length <= 30
+        ) {
           t[fieldName] = text;
         }
       } else {
