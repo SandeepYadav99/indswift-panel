@@ -117,3 +117,8 @@
 .prcWrapper{
     cursor: pointer;
 }
+.btnWrapContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

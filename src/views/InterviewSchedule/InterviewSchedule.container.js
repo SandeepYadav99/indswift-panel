@@ -25,7 +25,9 @@ const InterviewSchedule = ({location}) => {
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.interviewSchedule);
 
-
+    const removeUnderScore=(value)=>{
+        return value ? value.replace(/_/, " "): ""
+      } 
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status} />
     }, []);
@@ -96,13 +98,12 @@ const InterviewSchedule = ({location}) => {
                 key: 'venue',
                 label: 'VENUE/MODE',
                 sortable: false,
-                render: (temp, all) => <div>{all?.venue}/{all?.mode}</div>,
+                render: (temp, all) => <div>{all?.venue}/{removeUnderScore(all?.mode)}</div>,
             },
             {
                 key: 'user_id',
                 label: 'Action',
-                render: (temp, all) => (<div>
-                    {/* <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton > */}
+                render: (temp, all) => (<div className={styles.btnWrapContainer}>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}>
                         <PeopleOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>View Profile</span>
                     </IconButton >
@@ -111,8 +112,7 @@ const InterviewSchedule = ({location}) => {
                     }}>
                         <AssignmentOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>Record Feedback</span>
                     </IconButton >
-                    {/* <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton> */}
-                    {/*onClick={() => { handleEdit(all) }}*/}
+                    
                 </div>),
             },
 

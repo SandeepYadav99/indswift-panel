@@ -54,7 +54,7 @@ function EvaluationForm({ data, handleNext, isSubmitting }) {
               handleChange={handleRatingChange}
               type="educational"
               title="2. Educational"
-              question=" Background Does the candidate have the appropriate educational qualifications or training for this position?"
+              question="Does the candidate have the appropriate educational qualifications or training for this position?"
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView
@@ -86,7 +86,7 @@ function EvaluationForm({ data, handleNext, isSubmitting }) {
               handleChange={handleRatingChange}
               type="candidate"
               title="6. Candidate"
-              question=" Interest/Attitude How much interest did the candidate show in the position and the organization?"
+              question="How much interest did the candidate show in the position and the organization?"
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView
@@ -94,7 +94,7 @@ function EvaluationForm({ data, handleNext, isSubmitting }) {
               handleChange={handleRatingChange}
               type="knowledge"
               title="7. Knowledge"
-              question=" About Organization & Role How well the candidate researched the organization & role prior to the interview?"
+              question=" How well the candidate researched the organization & role prior to the interview?"
             />
             <div className={styles.horizontalLine}></div>
             <PerformanceView

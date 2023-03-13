@@ -3,6 +3,9 @@ import styles from "./Style.module.css";
 import face from "./../../../../assets/img/download.png";
 
 const CandidateInfo = ({ data }) => {
+  const removeUnderScore=(value)=>{
+    return value ? value.replace(/_/, " "): ""
+  } 
   return (
     <div className={styles.candidateInfoWrapper}>
       <div className={styles.leftField}>
@@ -31,7 +34,7 @@ const CandidateInfo = ({ data }) => {
               <strong>{data?.interviewer?.name}</strong>
               <strong> . {data?.interviewDateText}</strong>
             </span>
-            <span>{data?.venue}</span>
+            <span>{removeUnderScore(data?.venue)}</span>
             <span>{data?.mode} Interview</span>
           </div>
 
