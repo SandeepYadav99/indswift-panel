@@ -36,23 +36,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DisclaimerDialog = ({ isOpen, handleToggle, empId }) => {
+const DisclaimerDialog = ({ isOpen, handleToggle, empId ,handleSubmit}) => {
   const classes = useStyles();
   const {
-    changeTextData,
-    errorData,
-    form,
-    handleSubmit,
-    onBlurHandler,
-    removeError,
-    resData,
-    isSubmitted,
-    isSubmitting,
-    isVerified,
-    showPasswordCurrent,
-    setShowPasswordCurrent,
-  } = useDisclaimerDialogHook({ isOpen, handleToggle, empId });
+    is_Checked,
+    setIs_Checked,
+    isSubmitting
 
+  } = useDisclaimerDialogHook({ isOpen, handleToggle, empId });
+console.log("handleSumit",handleSubmit)
   return (
     <div>
       <Dialog
@@ -98,18 +90,19 @@ const DisclaimerDialog = ({ isOpen, handleToggle, empId }) => {
                 data maintained by employee on SkyNet.
               </span>
             </div>
-            <div className={styles.checkBox}>
+            <div className={styles.checkBox} >
               <input
+              className={styles.checkbox32}
                 type="checkbox"
                 name={"sharePassword"}
                 value={"sharePassword"}
                 onClick={() => {
-                  changeTextData(!form?.share_password, "share_password");
+                  setIs_Checked(!is_Checked);;
                 }}
                 id="vehicle1"
-                checked={form?.share_password}
+                checked={is_Checked}
               />
-              <label htmlFor="vehicle1">
+              <label htmlFor="vehicle1" className={styles.checkBoxDes}>
               I agree to the disclaimer
               </label>
               <br />
@@ -118,8 +111,8 @@ const DisclaimerDialog = ({ isOpen, handleToggle, empId }) => {
           <div className={styles.printFlex}>
             <ButtonBase
               onClick={handleSubmit}
-              disabled={isSubmitting}
-              className={"createBtnreset"}
+              disabled={!is_Checked}
+              className={ !is_Checked ? styles.disabledBtn:"createBtnreset"}
             >
               I Agree
             </ButtonBase>

@@ -20,6 +20,8 @@ import { getSumValue } from "../../libs/general.utils";
 import WaitingComponent  from "../../components/Waiting.component";
 import Constants from "../../config/constants";
 import useMyProfileEdit from "./MyProfileEditHook";
+import DisclaimerDialog from "./components/DisclaimerPopUp/DisclaimerDialog.view";
+import { useCallback } from "react";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -39,6 +41,9 @@ const MyProfileEditView = ({}) => {
     ChildenRef,
     editData,
     isLoading,
+    isOpen,
+    setIsOpen,
+      toggleDialog
   } = useMyProfileEdit({});
 
   const image = useMemo(() => {
@@ -67,7 +72,7 @@ const MyProfileEditView = ({}) => {
   if (isLoading) {
     return <WaitingComponent />;
   }
-
+  
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -81,6 +86,7 @@ const MyProfileEditView = ({}) => {
           <div className={styles.newLines} />
         </div>
       </div>
+      <DisclaimerDialog handleSubmit={handleSubmit} isOpen={isOpen} handleToggle={toggleDialog}/>
 
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
@@ -478,7 +484,8 @@ const MyProfileEditView = ({}) => {
           <ButtonBase
             type={"button"}
             className={styles.createBtn}
-            onClick={handleSubmit}
+            onClick={()=>setIsOpen(true)}
+            // onClick={handleSubmit}
           >
             UPDATE
           </ButtonBase>

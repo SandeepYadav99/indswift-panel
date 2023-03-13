@@ -241,30 +241,29 @@ const EmployeeListCreate = ({}) => {
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
-                  isError={errorData?.uan_no}
-                  errorText={errorData?.uan_no}
-                  label={"ESI Number"}
-                  value={form?.uan_no}
-                  onTextChange={(text) => {
-                    changeTextData(text, "uan_no");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("uan_no");
-                  }}
-              />
-            </div>
-
-            <div className={"formGroup"}>
-              <CustomTextField
                   isError={errorData?.esi_no}
                   errorText={errorData?.esi_no}
-                  label={"UAN Number"}
+                  label={"ESI Number"}
                   value={form?.esi_no}
                   onTextChange={(text) => {
                     changeTextData(text, "esi_no");
                   }}
                   onBlur={() => {
                     onBlurHandler("esi_no");
+                  }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  isError={errorData?.uan_no}
+                  errorText={errorData?.uan_no}
+                  label={"UAN Number"}
+                  value={form?.uan_no}
+                  onTextChange={(text) => {
+                    changeTextData(text, "uan_no");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("uan_no");
                   }}
               />
             </div>

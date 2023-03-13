@@ -1,12 +1,20 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
-import {isAadhar, isAlphaNumChars, isEmail, isSpace,} from "../../libs/RegexUtils";
-import {serviceCheckEmployeeExists, serviceGetEmployeeEditInfo,} from "../../services/Employee.service";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import {
+  isAadhar,
+  isAlphaNumChars,
+  isEmail,
+  isSpace,
+} from "../../libs/RegexUtils";
+import {
+  serviceCheckEmployeeExists,
+  serviceGetEmployeeEditInfo,
+} from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
-import {serviceEditEmployeeVersion} from "../../services/EmployeeEdit.service";
-import {useSelector} from "react-redux";
+import { serviceEditEmployeeVersion } from "../../services/EmployeeEdit.service";
+import { useSelector } from "react-redux";
 
 const initialForm = {
   name: "",
@@ -39,30 +47,34 @@ function useMyProfileEdit() {
   const [form, setForm] = useState({ ...initialForm });
   const [editData, setEditData] = useState({});
   const [errorData, setErrorData] = useState({});
-  const { user: { user_id: id } } = useSelector(state => state.auth);
+  const {
+    user: { user_id: id },
+  } = useSelector((state) => state.auth);
   const changedFields = useRef([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const ChildenRef = useRef(null);
   const codeDebouncer = useDebounce(form?.emp_code, 500);
-
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-   if (id) {
-     Promise.allSettled([
-       serviceGetEmployeeEditInfo({ emp_id: id }),
-     ]).then((promises) => {
-       const empData = promises[0]?.value?.data;
-       setForm({
-         ...initialForm,
-         ...empData,
-         image: "",
-       });
-       setEditData(empData);
-       setIsLoading(false);
-     });
-   }
+    if (id) {
+      Promise.allSettled([serviceGetEmployeeEditInfo({ emp_id: id })]).then(
+        (promises) => {
+          const empData = promises[0]?.value?.data;
+          setForm({
+            ...initialForm,
+            ...empData,
+            image: "",
+          });
+          setEditData(empData);
+          setIsLoading(false);
+        }
+      );
+    }
   }, [id]);
-
+  const toggleDialog = useCallback(() => {
+    setIsOpen((e) => !e);
+  }, [isOpen]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     const required = [
@@ -133,8 +145,11 @@ function useMyProfileEdit() {
       } else if (fieldName === "is_address_same") {
         if (text) {
           t.current_address = t?.permanent_address;
-          if (changedFields.current.indexOf('current_address') < 0) {
-            changedFields.current = [...changedFields.current, 'current_address'];
+          if (changedFields.current.indexOf("current_address") < 0) {
+            changedFields.current = [
+              ...changedFields.current,
+              "current_address",
+            ];
           }
         }
         t[fieldName] = text;
@@ -259,9 +274,11 @@ function useMyProfileEdit() {
     if (isIncludesValid) {
       const { isChanged } = ChildenRef.current.getData();
       if (changedFields.current.length === 0 && !isChanged) {
+        setIsOpen(false)
         SnackbarUtils.error("No Data Changed");
         return true;
       }
+      setIsOpen(false)
       submitToServer();
     }
   }, [
@@ -286,6 +303,9 @@ function useMyProfileEdit() {
     ChildenRef,
     editData,
     isLoading,
+    isOpen,
+    setIsOpen,
+    toggleDialog,
   };
 }
 
