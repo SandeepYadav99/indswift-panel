@@ -20,7 +20,7 @@ const CandidateInfo = ({ data }) => {
             <span>
               <strong>{data?.candidate?.name}</strong>
             </span>
-            <span>Support Engineer</span>
+            {/* <span>Support Engineer</span> */}
             <a href={data?.candidate?.resume} target={'_blank'}>Candidate Resume Link</a>
           </div>
         </div>
