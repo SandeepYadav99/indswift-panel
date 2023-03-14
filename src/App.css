@@ -250,7 +250,10 @@ input[type=radio] + label:hover {
     background-color: rgba(254,129,127,.06274509803921569);
     color: #FE817F;
 }
-
+.Pending{
+    border: 1px solid #F4881B;
+    color: #F4881B;
+}
 .priority .MuiOutlinedInput-root {
     position: relative;
     border-radius: 15px;

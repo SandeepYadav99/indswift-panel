@@ -35,7 +35,7 @@ const CandidateInfo = ({ data }) => {
               <strong> . {data?.interviewDateText}</strong>
             </span>
             <span>{removeUnderScore(data?.venue)}</span>
-            <span>{data?.mode} Interview</span>
+            <span>{removeUnderScore(data?.mode)} Interview</span>
           </div>
 
       </div>
