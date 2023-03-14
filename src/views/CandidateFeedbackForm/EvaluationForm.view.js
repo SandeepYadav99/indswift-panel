@@ -53,7 +53,7 @@ function EvaluationForm({ data, handleNext, isSubmitting }) {
                 isError={errorData?.educational}
               handleChange={handleRatingChange}
               type="educational"
-              title="2. Educational"
+              title="2. Educational Background"
               question="Does the candidate have the appropriate educational qualifications or training for this position?"
             />
             <div className={styles.horizontalLine}></div>
@@ -85,7 +85,7 @@ function EvaluationForm({ data, handleNext, isSubmitting }) {
                 isError={errorData?.candidate}
               handleChange={handleRatingChange}
               type="candidate"
-              title="6. Candidate"
+              title="6. Candidate Interest/Attitude"
               question="How much interest did the candidate show in the position and the organization?"
             />
             <div className={styles.horizontalLine}></div>
@@ -93,7 +93,7 @@ function EvaluationForm({ data, handleNext, isSubmitting }) {
                 isError={errorData?.knowledge}
               handleChange={handleRatingChange}
               type="knowledge"
-              title="7. Knowledge"
+              title="7. Knowledge About Organization & Role"
               question=" How well the candidate researched the organization & role prior to the interview?"
             />
             <div className={styles.horizontalLine}></div>

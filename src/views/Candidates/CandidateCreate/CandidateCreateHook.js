@@ -15,6 +15,7 @@ const initialForm = {
     contact: '',
     father_name: '',
     email: '',
+    experience:'',
     aadhar: '',
     city: '',
     state: '',

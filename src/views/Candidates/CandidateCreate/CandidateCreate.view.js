@@ -73,7 +73,6 @@ const CandidateCreateView = ({ location }) => {
             <div className={"heading"}>Personal Information</div>
           </h4>
         </div>
-
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
@@ -89,8 +88,11 @@ const CandidateCreateView = ({ location }) => {
               }}
             />
           </div>
+          
+        </div>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomTextField
+          <CustomTextField
               isError={errorData?.contact}
               errorText={errorData?.contact}
               label={"Contact"}
@@ -109,11 +111,8 @@ const CandidateCreateView = ({ location }) => {
               }}
             />
           </div>
-        </div>
-
-        <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomTextField
+          <CustomTextField
               isError={errorData?.father_name}
               errorText={errorData?.father_name}
               label={"Father Name"}
@@ -126,8 +125,11 @@ const CandidateCreateView = ({ location }) => {
               }}
             />
           </div>
+        </div>
+
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomSelectField
+          <CustomSelectField
               isError={errorData?.source}
               errorText={errorData?.source}
               label={"Source"}
@@ -141,6 +143,21 @@ const CandidateCreateView = ({ location }) => {
               <MenuItem value="CONSULTANT">Consultant</MenuItem>
               <MenuItem value="CAMPUS">Campus</MenuItem>
             </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
+          <CustomTextField
+            type="number"
+              isError={errorData?.experience}
+              errorText={errorData?.experience}
+              label={"Candidate Experience"}
+              value={form?.experience}
+              onTextChange={(text) => {
+                changeTextData(text, "experience");
+              }}
+              onBlur={() => {
+                onBlurHandler("experience");
+              }}
+            />
           </div>
         </div>
 
