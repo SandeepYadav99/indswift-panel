@@ -19,6 +19,13 @@
   border-radius: 30px !important;
   font-weight: 600 !important;
 }
+.disabledBtnReject{
+    color: #615f5f !important;
+    border: 2px solid #615f5f !important;
+    padding: 10px 40px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+}
 .editBtn2 {
   display: flex;
   justify-content: space-between;

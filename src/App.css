@@ -242,7 +242,10 @@ input[type=radio] + label:hover {
     border: 1px solid #20c997;
     color: #20c997;
 }
-
+.nosourcing{
+    border: 1px solid #818181;
+    color: #818181;
+}
 .waiting {
     background-color: rgba(254,129,127,.06274509803921569);
     color: #FE817F;

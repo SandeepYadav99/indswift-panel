@@ -70,7 +70,9 @@ export default {
     RESIGNED:'error',
     EXPIRED:'success',
     REJECTED:'error',
-    PENDING:'pending'
+    PENDING:'pending',
+    SOURCING:'warning',
+    NOSOURCING:'nosourcing'
 
 
   },

@@ -179,7 +179,7 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
                             <div className={styles.editBtn2}>
                                 <ButtonBase
                                     disabled={selected.length === 0 || isSubmitting}
-                                    className={styles.edit}
+                                    className={selected.length === 0 || isSubmitting ? styles.disabledBtnReject:styles.edit}
                                     onClick={() => {
                                         toggleConfirmDialog('REJECTED')
                                     }}

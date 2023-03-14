@@ -119,30 +119,10 @@ const HRKnowledgeCreateView = ({}) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
-            {/* <CustomSelectField
-              multiple
-              isError={errorData?.submitted_by}
-              errorText={errorData?.submitted_by}
-              label={"Submitted By"}
-              value={form?.submitted_by}
-              handleChange={(value) => {
-                changeTextData(value, "submitted_by");
-              }}
-            >
-              {listData?.EMPLOYEES?.map((dT) => {
-                return (
-                  <MenuItem value={dT?.id} key={dT?.id}>
-                    {dT?.label}
-                  </MenuItem>
-                );
-              })}
-            </CustomSelectField> */}
-             
             <Autocomplete
               multiple
               id="tags-outlined"
               onChange={(e,value) => {
-                // console.log("value",value)
                 changeTextData(value, "submitted_by");
               }}
               // id="tags-standard"
@@ -152,9 +132,8 @@ const HRKnowledgeCreateView = ({}) => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  // variant="standard"
+                  variant="outlined"
                   label="Submitted By"
-                  // placeholder="Favorites"
                 />
               )}
             />

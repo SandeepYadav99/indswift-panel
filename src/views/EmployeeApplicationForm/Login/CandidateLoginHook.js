@@ -22,7 +22,11 @@ const useCandidateLogin = ({}) => {
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
-            } else if (['code'].indexOf(val) < 0) {
+            }
+            else if (form?.code.length < 4){
+                errors.code="Please Enter 4 digit OTP"
+            }
+             else if (['code'].indexOf(val) < 0) {
                 delete errors[val]
             }
         });

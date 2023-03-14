@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import Reacts from "react";
 import styles from "./Style.module.css";
 import { ButtonBase, Menu, MenuItem } from "@material-ui/core";
 import history from "../../libs/history.utils";
@@ -8,6 +8,7 @@ import useJobOpeningDetail from "./JobOpeningDetail.hook";
 import WaitingComponent  from "../../components/Waiting.component";
 import InterviewerListComponent from "./components/InterviewerList/InterviewerList.component";
 import CandidatePaperComponent from "./components/CandidatePaper/CandidatePaper.component";
+import StatusPill from "../../components/Status/StatusPill.component";
 
 const JobOpeningDetail = () => {
   const { data, isLoading, id } = useJobOpeningDetail({});
@@ -73,9 +74,9 @@ const JobOpeningDetail = () => {
                 <span className={classnames("status", "success")}>
                   {data?.status}
                 </span>
-                <span className={classnames("status", "success")} style={{marginLeft:'10px'}}>
+                <span style={{marginLeft:'10px'}}>
                   {/* {data?.status} */}
-                  {data?.is_sourcing ? 'SOURCING': 'NOSOURCING'}
+                  <StatusPill status={data?.is_sourcing ? 'SOURCING': 'NOSOURCING'}/>
                 </span>
               </div>
             </div>

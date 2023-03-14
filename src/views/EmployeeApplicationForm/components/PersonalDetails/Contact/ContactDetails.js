@@ -56,6 +56,7 @@ function ContactDetails({ isDisabled}, ref) {
       <div className={"formFlex1"}>
         <div className="formGroup1">
           <CustomTextField
+            type="number"
             disabled={isDisabled ? true : false}
             isError={errorData?.residence_contact}
             errorText={errorData?.residence_contact}
@@ -104,6 +105,7 @@ function ContactDetails({ isDisabled}, ref) {
         </div>
         <div className="formGroup1">
           <CustomTextField
+            type="number"
             disabled={isDisabled ? true : false}
             isError={errorData?.emergency_contact}
             errorText={errorData?.emergency_contact}

@@ -324,9 +324,9 @@ const CandidateCreateView = ({location}) => {
 
 
                <div className={styles.btnCont}>
-                   <ButtonBase  className={styles.saveBtn} style={{marginRight:'30px'}}>
+                   {/* <ButtonBase  className={styles.saveBtn} style={{marginRight:'30px'}}>
                        Save & Align Interview
-                   </ButtonBase>
+                   </ButtonBase> */}
                    <ButtonBase  disabled={isSubmitting} type={'button'} onClick={handleSubmit}
                                className={styles.createBtn}>
                        Save Profile

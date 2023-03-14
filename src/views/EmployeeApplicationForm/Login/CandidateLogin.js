@@ -30,7 +30,7 @@ function CandidateLogin() {
             <CustomTextField
                  isError={errorData?.email}
                  errorText={errorData?.email}
-              label={"Email id"}
+                 label={"Email id"}
                  value={form?.email}
                  onTextChange={text => {
                      changeTextData(text, 'email');
@@ -45,7 +45,7 @@ function CandidateLogin() {
             <CustomTextField
                  isError={errorData?.code}
                  errorText={errorData?.code}
-              label={"4 Digit Code"}
+                 label={"4 Digit Code"}
                  value={form?.code}
                  onTextChange={text => {
                      changeTextData(text, 'code');

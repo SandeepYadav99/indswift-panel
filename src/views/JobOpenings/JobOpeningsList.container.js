@@ -104,7 +104,7 @@ const JobOpeningsList = ({}) => {
                 key: 'status',
                 label: 'Status',
                 sortable: true,
-                render: (temp, all) => <div><div className={classNames('status','success')}>{all?.is_sourcing ? 'SOURCING' : 'NOSOURCING'}</div><br/><br/>{renderStatus(all.status)}</div>,
+                render: (temp, all) => <div>{renderStatus(all?.is_sourcing ? 'SOURCING' : 'NOSOURCING')}<br/><br/>{renderStatus(all.status)}</div>,
             }, {
                 key: 'createdAt',
                 label: 'Created Date',
