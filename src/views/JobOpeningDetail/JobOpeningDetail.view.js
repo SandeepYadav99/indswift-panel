@@ -36,9 +36,9 @@ const JobOpeningDetail = () => {
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
             <div className={styles.heading}>Job Information - <span>{data?.code}</span></div>
-            <div className={styles.editBtn}>
+            {/* <div className={styles.editBtn}>
               <ButtonBase className={styles.edit}>EDIT</ButtonBase>
-            </div>
+            </div> */}
           </div>
 
           <div className={styles.mainFlex}>

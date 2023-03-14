@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function InterviewHistory({ historyDetail, historyData }) {
   return (
     <div className={styles.historyWrapper}>
-      {historyData.map((item, index) => {
+      {historyData?.map((item, index) => {
         return (
           <div className={styles.interviewWrapper} key={`historyCard_${index}`}>
             <div className={styles.titleWrapper}>

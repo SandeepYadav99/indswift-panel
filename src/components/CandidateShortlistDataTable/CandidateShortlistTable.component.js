@@ -188,10 +188,11 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
                                 </ButtonBase>
                                 <ButtonBase disabled={selected.length === 0 || isSubmitting} onClick={() => {
                                     toggleConfirmDialog('SHORTLISTED')
-                                }} className={styles.edit}>SHORTLISTED</ButtonBase>
+                                }} className={selected.length === 0 || isSubmitting ? styles.disabledBtnReject :styles.edit}>SHORTLISTED</ButtonBase>
                             </div>
                             <div>
-                                <ButtonBase onClick={handleRequestShortlist} className={styles.createBtn}>
+                                <ButtonBase  disabled={selected.length === 0 || isSubmitting} onClick={handleRequestShortlist}
+                                 className={selected.length === 0 || isSubmitting ? styles.disabledCreatebtn:styles.createBtn}>
                                     REQUEST SHORTLIST
                                 </ButtonBase>
                             </div>
