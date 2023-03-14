@@ -16,6 +16,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, selectedCandidates, jobId, handleDialog}) => {
     const { id, changeTextData, errorData, form, handleDelete, handleReset, handleSubmit, isSubmitting, isLoading, onBlurHandler, removeError, interviewers } = useScheduleInterview({selectedCandidates, jobId, handleInterviewSchedule})
+    const filteredArray = interviewers.filter((obj, index, self) => {
+        return index === self.findIndex((o) => o?.step === obj?.step);
+      });
+    const sortedfilteredArray=filteredArray?.length > 0 ? filteredArray.sort((a,b)=>a?.step >b?.step ? 1 :-1):[]
     return (
         <Dialog
             fullWidth={true}
@@ -85,7 +89,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                               changeTextData(value, "sequence_rounds");
                             }}
                         >
-                            {interviewers.map(val => {
+                            {sortedfilteredArray?.map(val => {
                                return (<MenuItem value={val.interviewer_id}>{val.step}</MenuItem>);
                             })}
                         </CustomSelectField>

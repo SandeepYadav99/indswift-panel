@@ -126,6 +126,9 @@
     gap: 10px;
   
   }
+  .btnUpper21{
+    visibility: hidden;
+  }
   .btnUpper >.MuiButton-root{
     min-width: 30px !important;
     background-color: red;
