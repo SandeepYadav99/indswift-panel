@@ -8,6 +8,7 @@ import RouteName from "../../../routes/Route.name";
 import historyUtils from "../../../libs/history.utils";
 import { useParams } from "react-router";
 import { useCallback } from "react";
+import LogUtils from "../../../libs/LogUtils";
 
 function useCandidateDetails() {
   const [value, setValue] = React.useState(0);
@@ -18,18 +19,23 @@ function useCandidateDetails() {
   const [historyDetail, setHistoryDetail] = useState([]);
   const { id } = useParams();
   useEffect(() => {
+
     Promise.allSettled([
       serviceGetCandidateDetails({ id }),
+    ]).then((promises) => {
+      const dataValues = promises[0]?.value?.data;
+      setCandidateData(dataValues?.details);
+    });
+
+    Promise.allSettled([
       serviceGetCandidateJobHistory({ candidate_id: id }),
       serviceCandidateHistory({ candidate_id: id }),
     ]).then((promises) => {
-      const dataValues = promises[0]?.value?.data;
-      const historyData = promises[1]?.value?.data;
-      const historyDetailed = promises[2]?.value?.data;
-      setCandidateData(dataValues?.details);
+      const historyData = promises[0]?.value?.data;
+      const historyDetailed = promises[1]?.value?.data;
       setHistoryData(historyData);
       setHistoryDetail(historyDetailed);
-    });
+    })
   }, [id]);
   //
   const handleChange = useCallback(
@@ -41,12 +47,17 @@ function useCandidateDetails() {
   const toggleStatusDialog = useCallback(() => {
     setIsUpdateDialog((e) => !e);
   }, [isUpdateDialog]);
+
   const toggleResetDialog = useCallback(() => {
     setIsResetDialog((e) => !e);
   }, [isResetDialog]);
-  const handleOfferPage = (data) => {
-    historyUtils.push(RouteName.CANDIDATES_OFFER + data?.id);
-  };
+
+  const handleOfferPage = useCallback((data) => {
+    historyUtils.push(RouteName.CANDIDATES_OFFER, {
+      candidate_id: data?.id,
+      job_id: data?.job_opening_id,
+    });
+  }, []);
   return {
     value,
     candidateData,

@@ -47,7 +47,8 @@ const CandidateInterviewTable = ({jobId, handleClose}) => {
       isFetching,
       isSubmitting,
       toggleConfirmDialog,
-    handleInterviewSchedule
+    handleInterviewSchedule,
+      interviewers
   } = useCandidateInterviewTable({ handleClose });
 
   const renderStatus = useCallback((status) => {
@@ -170,20 +171,19 @@ const CandidateInterviewTable = ({jobId, handleClose}) => {
             {...tableData.datatableFunctions}
           />
         </div>
-
         <div className={styles.stickBottom}>
           <div className={styles.RequestShortlistWrapper}>
             <div>
               <p className={styles.heading3}>{selected.length} Candidate Selected</p>
             </div>
             <div className={styles.SlidebtnWrapper2}>
-              <ButtonBase
+              {(interviewers.length > 0) && (<ButtonBase
                   disabled={selected.length === 0}
                 onClick={toggleConfirmDialog}
                 className={styles.createBtn}
               >
                 SCHEDULE INTERVIEW
-              </ButtonBase>
+              </ButtonBase>)}
             </div>
           </div>
         </div>

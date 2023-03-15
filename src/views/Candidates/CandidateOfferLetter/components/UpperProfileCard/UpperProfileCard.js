@@ -6,13 +6,11 @@ const UpperProfileCard = ({ data, handleToggle, handleStatusToggle }) => {
     <div>
       <div className={styles.blueBackground}>
       <div className={styles.candidateInfo}>Candidate Info</div>
-        <div className={styles.innerContainer}>           
+        <div className={styles.innerContainer}>
           <div className={styles.profileInfo}>
             <div className={styles.name}>{data?.name}</div>
-            <div>Smriti Sharma</div>
-            <div>smritisharma@gmail.com</div>
+            <div>{data?.email}</div>
             <a target="_blank" href={data?.resume}>
-              {" "}
               <span>View Resume</span>
             </a>
           </div>
@@ -20,22 +18,22 @@ const UpperProfileCard = ({ data, handleToggle, handleStatusToggle }) => {
           <div className={styles.rightInfo}>
             <div>
               <span className={styles.location}>Designation:</span>{" "}
-              {data?.referred_obj?.name}
+              {data?.job_opening?.designation?.name}
             </div>
             <div>
               <span className={styles.location}>Department:</span>
-              {data?.appliedDateText}
+              {data?.job_opening?.department?.name}
             </div>
             <div>
               <span className={styles.location}>Grade:</span>{" "}
-              {/* {splitDate(data?.updatedAtText)} */}
+              {data?.job_opening?.grade?.code}
             </div>
             <div>
               <span className={styles.location}>PRC:</span>
-              {/* {data?.appliedDateText} */}
+               {data?.job_opening?.code}
             </div>
           </div>
-           
+
         </div>
       </div>
     </div>

@@ -17,6 +17,7 @@ const useEmployeeList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [isCsvDialog, setIsCsvDialog] = useState(false);
+  const [isCPCDialog, setIsCPCDialog] = useState(false);
   const dispatch = useDispatch();
   const [listData, setListData] = useState({
     LOCATIONS: [],
@@ -205,8 +206,17 @@ const useEmployeeList = ({}) => {
     setIsCsvDialog((e) => !e);
   }, [setIsCsvDialog]);
 
+  const toggleCPCDialog = useCallback(() => {
+    setIsCPCDialog((e) => !e);
+  }, [setIsCPCDialog]);
+
+
   const handleCsvUpload = useCallback(() => {
     initData();
+  }, []);
+
+  const handleCPCUpload = useCallback(() => {
+
   }, []);
 
   return {
@@ -232,6 +242,9 @@ const useEmployeeList = ({}) => {
     isCsvDialog,
     handleCsvUpload,
     handleCreate,
+    isCPCDialog,
+    toggleCPCDialog,
+    handleCPCUpload
   };
 };
 

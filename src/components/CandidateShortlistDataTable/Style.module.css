@@ -1,5 +1,5 @@
 .RequestShortlistWrapper {
-  width: 783px;
+  width: 100%;
   padding-bottom: 15px;
   /* display: flex; */
   /* position: fixed;
@@ -66,8 +66,10 @@
   font-weight: 600;
 }
 .stickbottom {
-  position: fixed;
+  position: relative;
   bottom: 0;
+  /*padding-top: 1.2rem;*/
+  width: 100%;
 }
 .loginSignupText {
   text-align: left;

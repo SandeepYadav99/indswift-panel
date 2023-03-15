@@ -88,10 +88,10 @@ const changeTextData=(value,key)=>{
               errorText={errors?.gender}
               label={"Child Gender"}
               value={data?.gender}
-              onChange={handleChange}
-              //   handleChange={(value) => {
-              //     changeTextData(value, "gender");
-              //   }}
+              // onChange={handleChange}
+                handleChange={(value) => {
+                  changeTextData(value, "gender");
+                }}
             >
               <MenuItem value="NA">NA</MenuItem>
               <MenuItem value="MALE">Male</MenuItem>

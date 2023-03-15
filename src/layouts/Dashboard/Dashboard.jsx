@@ -12,6 +12,7 @@ import CustomRouter from '../../libs/CustomRouter.utils';
 import DashboardSnackbar from '../../components/Snackbar.component';
 import {makeStyles} from "@material-ui/styles";
 import EventEmitter from "../../libs/Events.utils";
+import Constants from "../../config/constants";
 
 const useStyles = makeStyles(appStyle);
 
@@ -77,6 +78,9 @@ const Dashboard = ({title, ...props}) => {
     const sideBarRoutes = useMemo(() => {
         return dashboardRoutes.filter((val, index) => {
             if (val.roles) {
+                if (val.roles.indexOf(Constants.ROLES.GENERAL) >= 0) {
+                    return true;
+                }
                 const isThere = val.roles.indexOf(role);
                 return isThere >= 0;
             } return true;
