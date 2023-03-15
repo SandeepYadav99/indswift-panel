@@ -3,6 +3,8 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import {actionGetJobOpeningCandidates} from "../../../../actions/JobOpeningDetail.action";
 import LogUtils from "../../../../libs/LogUtils";
+import historyUtils from "../../../../libs/history.utils";
+import RouteName from "../../../../routes/Route.name";
 
 const totalShow = 10;
 const useCandidatesList = ({jobId}) => {
@@ -23,6 +25,10 @@ const useCandidatesList = ({jobId}) => {
     useEffect(() => {
         _processData();
     }, [data, currentPage]);
+
+    const handleViewDetails = useCallback((data) => {
+        historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data?.candidate_id}`) //+data.id
+    }, []);
 
     const _processData = useCallback(() =>  {
         const from = (((currentPage) * totalShow) - totalShow);
@@ -110,7 +116,8 @@ const useCandidatesList = ({jobId}) => {
         isCandidatesFetching,
         currentData,
         data: candidates,
-        currentPage
+        currentPage,
+        handleViewDetails
     }
 
 }

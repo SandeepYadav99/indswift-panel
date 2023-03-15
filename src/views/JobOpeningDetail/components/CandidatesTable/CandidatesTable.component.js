@@ -14,7 +14,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import ReduxDatePicker from "../../../../components/ReduxDatePicker/ReduxDatePicker.component";
 import Tooltip from "@material-ui/core/Tooltip";
 import InfoIcon from "@material-ui/icons/Info";
-import { Add, CachedOutlined } from "@material-ui/icons";
+import { Add, CachedOutlined, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
 import useCandidatesList from "./CandidatesHook";
 import FilterComponent from "../../../../components/Filter/Filter.component";
@@ -144,7 +144,9 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         key: "rewards",
         label: "Action",
         sortable: false,
-        render: (temp, all) => <div>-</div>,
+        render: (temp, all) => <div>
+          <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
+        </div>,
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);

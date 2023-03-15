@@ -52,9 +52,16 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-
             const candidatIds = selectedCandidates.map(val => val.candidate_id);
-            const interviewerIds = form?.sequence_rounds;
+            //start
+
+            const interviewerIdBySequence=interviewers.filter((item)=>form?.sequence_rounds.includes(item.interviewer_id))
+            const getId=interviewerIdBySequence.map((item)=>item.step)
+            const IDSameStep=interviewers.filter(obj => getId.includes(obj.step));
+            const getInterviewerIds= IDSameStep.map((item)=>item.interviewer_id)
+
+            // end
+            const interviewerIds = getInterviewerIds;
             const steps = [];
             interviewerIds.forEach((val) => {
                 const index = interviewers.findIndex(interviewer => interviewer.interviewer_id === val);

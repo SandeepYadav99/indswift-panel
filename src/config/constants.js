@@ -72,9 +72,9 @@ export default {
     REJECTED:'error',
     // PENDING:'pending',
     SOURCING:'warning',
-    NOSOURCING:'nosourcing'
-
-
+    NOSOURCING:'nosourcing',
+    'CV Rejected':'error',
+    'Pending':'pending'
   },
   STATES: [
     "Andaman and Nicobar Islands",

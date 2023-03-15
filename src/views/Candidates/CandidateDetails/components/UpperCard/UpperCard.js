@@ -60,7 +60,7 @@ const UpperCard = ({ data, handleToggle, handleStatusToggle,handleOfferPage }) =
                   <span className={styles.actionBtnSpan}>Update Status</span>
                 </ActionButton>
               </div>
-              <div className={styles.btnUpper}>
+              <div className={styles.btnUpper21}>
                 <ActionButton onClick={handleToggle}>
                   <RepeatRounded fontSize={"small"} />
                   <span className={styles.actionBtnSpan}>Update PRC</span>
