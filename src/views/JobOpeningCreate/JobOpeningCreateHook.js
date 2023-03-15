@@ -82,6 +82,11 @@ const useJobOpeningsDetail = ({}) => {
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
+            if (form.vacancy_type === 'RAB'){
+                SnackbarUtils.error('Budget Not Approved')
+                setIsSubmitting(false)
+                return false
+            }
             serviceCreateJobOpenings({
                 ...form,
                 assigned_to: form?.assigned_to?.id,

@@ -7,7 +7,7 @@ import SidePanelComponent from "../../../../components/SidePanel/SidePanel.compo
 import useInterviewerList from "./InterviewerListHook";
 import InterviewerFormComponent from "./InterviewerForm/InterviewerForm.component";
 
-const InterviewerListComponent = ({jobId}) => {
+const InterviewerListComponent = ({jobId,isInterviewStatus,handleChangeInterviewStatus}) => {
     const {toggleSidePanel, isPanel, } = useInterviewerList({jobId});
     return (
         <div className={styles.plainPaper}>
@@ -21,7 +21,7 @@ const InterviewerListComponent = ({jobId}) => {
                     </ButtonBase>
                 </div>
             </div>
-            <InterviewerRecordTable jobId={jobId} />
+            <InterviewerRecordTable jobId={jobId} isInterviewStatus={isInterviewStatus} handleChangeInterviewStatus={handleChangeInterviewStatus} />
             <SidePanelComponent
                 handleToggle={toggleSidePanel}
                 title={'Add/Edit Interviewer'}

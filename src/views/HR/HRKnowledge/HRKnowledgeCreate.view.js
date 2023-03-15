@@ -41,7 +41,7 @@ const HRKnowledgeCreateView = ({}) => {
     id,
   } = useHRKnowledgeCreateViewDetail({});
   const classes = useStyles();
-
+  // const getOptionLabel = (option) => `${option.name} - ${option.code}`;
   return (
     <div>
       <div className={styles.outerFlex}>

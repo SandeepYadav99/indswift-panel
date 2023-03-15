@@ -77,6 +77,9 @@
     .noScrollbar > .noScrollbar{
         max-height: calc(83vh - 20px) !important;
     }
+    .sideUpper{
+        width: 100%;
+    }
 }
 
 @media (max-width: 767px) {

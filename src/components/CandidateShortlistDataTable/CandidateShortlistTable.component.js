@@ -6,14 +6,6 @@ import {
     Button,
     ButtonBase,
     Checkbox,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    IconButton,
-    Slide,
-    withStyles,
 } from "@material-ui/core";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";

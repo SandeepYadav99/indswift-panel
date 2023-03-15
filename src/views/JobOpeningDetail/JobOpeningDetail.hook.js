@@ -7,7 +7,11 @@ const useJobOpeningDetail = ({}) => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
-
+  const [isInterviewStatus,setIsInterviewStatus]=useState(-1)
+  const handleChangeInterviewStatus=(value)=>{
+    console.log('interviewValues',value)
+    setIsInterviewStatus(value)
+  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -26,6 +30,8 @@ const useJobOpeningDetail = ({}) => {
     isLoading,
     data,
     id,
+    isInterviewStatus,
+    handleChangeInterviewStatus
   };
 };
 

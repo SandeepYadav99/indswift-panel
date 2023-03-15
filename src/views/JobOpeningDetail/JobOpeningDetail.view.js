@@ -11,7 +11,7 @@ import CandidatePaperComponent from "./components/CandidatePaper/CandidatePaper.
 import StatusPill from "../../components/Status/StatusPill.component";
 
 const JobOpeningDetail = () => {
-  const { data, isLoading, id } = useJobOpeningDetail({});
+  const { data, isLoading, id , isInterviewStatus ,handleChangeInterviewStatus} = useJobOpeningDetail({});
   if (isLoading) {
     return <WaitingComponent />;
   }
@@ -115,7 +115,7 @@ const JobOpeningDetail = () => {
         </div>
       </div>
       <CandidatePaperComponent jobId={id} />
-      <InterviewerListComponent jobId={id} />
+      <InterviewerListComponent jobId={id} isInterviewStatus={isInterviewStatus} handleChangeInterviewStatus={handleChangeInterviewStatus}/>
     </div>
   );
 };

@@ -156,3 +156,10 @@
     align-items: center;
     /* justify-content: space-between; */
   }
+
+  @media(max-width:1500px) {
+    .FilterBtnWrapper{ 
+        margin-top:15px;
+         justify-content: space-between; 
+      }
+  }
