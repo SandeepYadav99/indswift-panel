@@ -131,6 +131,7 @@ const CadreList = lazy(() => import( "../views/Cadre/CadreList.container"));
 const CadreCreateView = lazy(() => import( "../views/Cadre/CadreCreate.view"));
 const CandidateOfferLetter=lazy(()=> import("../views/Candidates/CandidateOfferLetter/CandidateOfferLetter.view"));
 const CVShortlistList = lazy( () => import('../views/CVShortlist/CVShortlist.container'));
+const JobOpeningUpdateView=lazy(()=> import("../views/JobOpeningUpdate/JobOpeningUpdate.view"))
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -690,6 +691,16 @@ const dashboardRoutes = [
         navbarName: "Job Openings Create",
         icon: LocalOffer,
         component: JobOpeningCreateView,
+        is_sidebar: false,
+        is_protect: true,
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.JOB_OPENINGS_UPDATE}:id`,
+        sidebarName: "Job Openings Create",
+        navbarName: "Job Openings Create",
+        icon: LocalOffer,
+        component: JobOpeningUpdateView,
         is_sidebar: false,
         is_protect: true,
         roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],

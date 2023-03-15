@@ -117,6 +117,10 @@ const useJobOpeningsList = ({}) => {
         historyUtils.push(RouteName.JOB_OPENINGS_DETAILS+data.id) //+data.id
     }, []);
 
+    const handleViewEditDetails = useCallback((data) => {
+        historyUtils.push(RouteName.JOB_OPENINGS_UPDATE+data.id) //+data.id
+    }, []);
+
     const configFilter = useMemo(() => {
         return [
             // {label: 'Country', name: 'country', type: 'text'},
@@ -155,6 +159,7 @@ const useJobOpeningsList = ({}) => {
         configFilter,
         toggleBulkDialog,
         isBulkDialog,
+        handleViewEditDetails,
         handleChangeWareHouse,
         warehouseId
     }

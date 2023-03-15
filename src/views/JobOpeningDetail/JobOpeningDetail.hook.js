@@ -2,6 +2,8 @@ import { useParams } from "react-router";
 import React, { useCallback, useEffect, useState } from "react";
 import { serviceJobOpeningsDetails } from "../../services/JobOpenings.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
+import historyUtils from "../../libs/history.utils";
+import RouteName from "../../routes/Route.name";
 
 const useJobOpeningDetail = ({}) => {
   const { id } = useParams();
@@ -25,13 +27,16 @@ const useJobOpeningDetail = ({}) => {
     });
   }, [id]);
 
-
+  const handleViewEditDetails = useCallback((data) => {
+    historyUtils.push(RouteName.JOB_OPENINGS_UPDATE+data.id) 
+}, []);
   return {
     isLoading,
     data,
     id,
     isInterviewStatus,
-    handleChangeInterviewStatus
+    handleChangeInterviewStatus,
+    handleViewEditDetails
   };
 };
 

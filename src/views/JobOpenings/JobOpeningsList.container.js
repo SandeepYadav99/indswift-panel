@@ -21,7 +21,7 @@ import CustomSelectField from "../../components/FormFields/SelectField/SelectFie
 
 const JobOpeningsList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
-        handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
+        handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails,handleViewEditDetails, editData, isSidePanel,
         isCalling, configFilter, warehouses} = useJobOpeningsList({});
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.job_openings);
@@ -115,7 +115,7 @@ const JobOpeningsList = ({}) => {
                 label: 'Action',
                 render: (temp, all) => (<div>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined style={{ color: '#2896e9' }} fontSize={'small'} /></IconButton >
-                    {/* <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton> */}
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={() => {handleViewEditDetails(all)}}><Edit fontSize={'small'} /></IconButton>
                     {/*onClick={() => { handleEdit(all) }}*/}
                 </div>),
             },
