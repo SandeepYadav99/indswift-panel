@@ -54,7 +54,13 @@ const UpperCard = ({ data, handleToggle, handleStatusToggle,handleOfferPage }) =
               </div>
             </div>
             <div className={styles.actionWrap}>
-              <div className={styles.btnUpper}>
+              {/* <div className={styles.btnUpper}>
+                <ActionButton onClick={handleStatusToggle}>
+                  <InfoOutlined fontSize={"small"} />
+                  <span className={styles.actionBtnSpan}>Update Status</span>
+                </ActionButton>
+              </div> */}
+              <div className={styles.btnUpper21}>
                 <ActionButton onClick={handleStatusToggle}>
                   <InfoOutlined fontSize={"small"} />
                   <span className={styles.actionBtnSpan}>Update Status</span>

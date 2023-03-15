@@ -34,7 +34,7 @@ const CandidatePersonalInfo = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>Candidate Experience:</span>
                 <span className={styles.valueWrap}>
-                  {data?.employment_history?.duration}
+                  {data?.experience}
                 </span>
               </div>
               <div className={styles.key}>
