@@ -40,7 +40,8 @@ const ReviewCandidate = ({}) => {
     isCalling,
     configFilter,
     isRejectPopUp,
-    toggleRejectDialog
+    toggleRejectDialog,
+    jobOpeningPage
   } = useReviewCandidate({});
 
   const {
@@ -58,7 +59,7 @@ const ReviewCandidate = ({}) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
-          <div className={classNames(styles.firstCellInfo, "openSans")}>
+          <div className={classNames(styles.firstCellInfo,styles.hyperlinkText, "openSans")} onClick={()=>jobOpeningPage(obj?.job)}>
             <span className={styles.productName}>{obj?.job?.code}</span> <br />
           </div>
         </div>

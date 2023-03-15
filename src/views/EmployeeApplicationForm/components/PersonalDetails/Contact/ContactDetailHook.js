@@ -8,6 +8,7 @@ const initialForm = {
     permanent_address: '',
     current_address: '',
     residence_contact: '',
+    is_address_same: false,
 };
 
 // const initialForm = {
@@ -114,6 +115,16 @@ const useContactDetail = ({}, ref) => {
             if (!text || (isAlphaNumChars(text) && text.toString().length <= 50)) {
                 t[fieldName] = text;
             }
+        }else if (fieldName === 'emergency_contact' || fieldName === 'residence_contact' ) {
+            if (!text || (isNum(text) && text.toString().length <= 10)) {
+                t[fieldName] = text;
+            }
+        }
+        else if (fieldName === 'is_address_same') {
+            if (text) {
+                t.permanent_address = t?.current_address;
+            }
+            t[fieldName] = text;
         } else {
             t[fieldName] = text;
         }

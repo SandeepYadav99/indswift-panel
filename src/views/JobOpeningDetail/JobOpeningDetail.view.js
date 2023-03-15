@@ -61,11 +61,11 @@ const JobOpeningDetail = () => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Grade:</span>
-                {data?.grade?.name}
+                {data?.grade?.code}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Cadre:</span>
-                {data?.cadre?.name ? data?.cadre?.name : "NA"}
+                {data?.cadre?.name ? data?.cadre?.code : "NA"}
               </div>
               <div className={styles.key}>
                 <span className={styles.value} style={{ width: "190px" }}>

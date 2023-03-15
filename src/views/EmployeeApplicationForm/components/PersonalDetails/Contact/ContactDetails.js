@@ -30,8 +30,13 @@ function ContactDetails({ isDisabled}, ref) {
             }}
           />
           {! isDisabled && <div className={styles.checkBox}>
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />{" "}
-            <label htmlFor="vehicle1"> Same Permanent Address</label>
+            <input type="checkbox" id="addressCheckbox" name="addressCheckbox" value="isSameValue" 
+            onClick={() => {
+              changeTextData(!form?.is_address_same, "is_address_same");
+            }}
+            checked={form?.is_address_same}
+            />{" "}
+            <label htmlFor="addressCheckbox"> Same Permanent Address</label>
             <br />
           </div>}
         </div>

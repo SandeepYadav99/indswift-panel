@@ -84,7 +84,14 @@ const useCandidateLogin = ({}) => {
     const changeTextData = useCallback((text, fieldName) => {
         let shouldRemoveError = true;
         const t = {...form};
+        if(fieldName ==='code'){
+            if (text.toString()?.length <= 4){
+                t[fieldName] = text;
+            }
+        }
+        else{
         t[fieldName] = text;
+        }
         setForm(t);
         shouldRemoveError && removeError(fieldName);
     }, [removeError, form, setForm]);

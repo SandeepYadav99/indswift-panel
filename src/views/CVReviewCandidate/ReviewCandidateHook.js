@@ -121,6 +121,11 @@ const useReviewCandidate = ({}) => {
     (data) => {
       historyUtils.push(`${RouteName.CV_SHORTLIST_LIST}${data?.job_id}`);
     },[]);
+  
+    const jobOpeningPage = useCallback(
+      (data) => {
+        historyUtils.push(`${RouteName.JOB_OPENINGS_DETAILS}${data?.id}`);
+      },[]);
 
   const handleSideToggle = useCallback(
     (data) => {
@@ -165,7 +170,8 @@ const useReviewCandidate = ({}) => {
     configFilter,
     handleCreate,
     isRejectPopUp,
-    toggleRejectDialog
+    toggleRejectDialog,
+    jobOpeningPage
   };
 };
 
