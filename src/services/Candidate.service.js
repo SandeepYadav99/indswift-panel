@@ -24,3 +24,7 @@ export async function serviceGetCandidateJobHistory (params) {
 export async function serviceCandidateHistory (params) {
     return await postRequest('candidates/events/history', params);
 }
+
+export async function serviceCreateCandidateOfferLetter (params) {
+    return await postRequest('candidates/offer/letter/create', params);
+}

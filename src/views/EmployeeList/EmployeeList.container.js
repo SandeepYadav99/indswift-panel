@@ -17,6 +17,7 @@ import useEmployeeList from "./EmployeeListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import CreateView from "./Employee.view";
 import UploadCsvDialog from "./components/UploadCsv/UploadCsvDialog.view";
+import CPCDialogView from "./components/CPCDialog/CPCDialog.view";
 
 const EmployeeList = ({}) => {
   const {
@@ -38,8 +39,10 @@ const EmployeeList = ({}) => {
     toggleCsvDialog,
     isCsvDialog,
     handleCsvUpload,
-    handleCreate
-
+    handleCreate,
+    isCPCDialog,
+    toggleCPCDialog,
+    handleCPCUpload
   } = useEmployeeList({});
 
   const {
@@ -241,6 +244,13 @@ const EmployeeList = ({}) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrapperGap}>
+            {/*<ButtonBase onClick={toggleCPCDialog} className={"createBtn"}>*/}
+            {/*  Upload{" "}*/}
+            {/*  <CloudUpload*/}
+            {/*      fontSize={"small"}*/}
+            {/*      className={"plusIcon"}*/}
+            {/*  ></CloudUpload>*/}
+            {/*</ButtonBase>*/}
             <ButtonBase onClick={toggleCsvDialog} className={"createBtn"}>
               Upload{" "}
               <CloudUpload
@@ -284,6 +294,11 @@ const EmployeeList = ({}) => {
         isOpen={isCsvDialog}
         handleToggle={toggleCsvDialog}
         handleCsvUpload={handleCsvUpload}
+      />
+      <CPCDialogView
+          isOpen={isCPCDialog}
+          handleToggle={toggleCPCDialog}
+          handleCsvUpload={handleCPCUpload}
       />
     </div>
   );

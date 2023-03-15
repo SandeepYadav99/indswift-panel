@@ -24,7 +24,7 @@ const useCandidateShortlistTable = ({jobId, handleClose }) => {
     const [totalShow, setTotalShow] = useState(10);
     const [isFetching, setIsFetching] = useState(false);
     const [dialogType, setDialogType] = useState('REJECTED');
-    const { candidates, isCandidatesFetching } = useSelector((state) => state.job_opening_detail);
+    const { candidates, isCandidatesFetching, interviewers } = useSelector((state) => state.job_opening_detail);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const dispatch = useDispatch();
 
@@ -155,6 +155,10 @@ const useCandidateShortlistTable = ({jobId, handleClose }) => {
     }, [dialogType, selected, setSelected, setIsDialog, jobId, setIsSubmitting, isSubmitting, handleClose]);
 
     const handleRequestShortlist = useCallback(() => {
+        if (interviewers.length === 0) {
+            SnackbarUtils.error('No Interviewer Added. Please add Panelists first');
+            return true;
+        }
         if (!isSubmitting) {
             setIsSubmitting(true);
             const candidateIds = selected.map(val => val.candidate_id);
@@ -163,13 +167,19 @@ const useCandidateShortlistTable = ({jobId, handleClose }) => {
                     SnackbarUtils.success('Request placed successfully');
                     setSelected([]);
                     handleClose();
+                    dispatch(actionGetJobOpeningCandidates(jobId));
                 } else {
                     SnackbarUtils.error(res?.message);
                 }
                 setIsSubmitting(false);
             })
         }
-    }, [selected, setIsSubmitting, isSubmitting, jobId, setSelected, handleClose]);
+    }, [selected, setIsSubmitting, isSubmitting, jobId, setSelected, handleClose, interviewers]);
+
+    const canShortlist = useMemo(() => {
+        return interviewers.some((interviewer) => interviewer.is_shortlist_approval === true);
+    }, [interviewers]);
+
 
     return {
         handlePageChange,
@@ -189,7 +199,8 @@ const useCandidateShortlistTable = ({jobId, handleClose }) => {
         dialogText,
         handleDialogConfirm,
         isSubmitting,
-        handleRequestShortlist
+        handleRequestShortlist,
+        canShortlist
     }
 };
 

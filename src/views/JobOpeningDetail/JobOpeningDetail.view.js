@@ -103,6 +103,10 @@ const JobOpeningDetail = () => {
                 {data?.replacing_person?.total_experience ? `${data?.replacing_person?.total_experience} yrs`  : "NA"} 
               </div>
               <div className={styles.key}>
+                <span className={styles.value}>Replacing Employee CTC:</span>
+                Rs. {data?.replacing_person?.ctc}
+              </div>
+              <div className={styles.key}>
                 <span className={styles.value}>Indent Date:</span>
                 {data?.createdAtText}
               </div>

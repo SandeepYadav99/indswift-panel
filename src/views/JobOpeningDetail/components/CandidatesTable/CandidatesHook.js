@@ -6,11 +6,11 @@ import LogUtils from "../../../../libs/LogUtils";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 
-const totalShow = 20;
+const totalShow = 10;
 const useCandidatesList = ({jobId}) => {
     const dispatch = useDispatch();
-    const [currentPage,setCurrentPage] = useState(0);
-    const [data, setData] = useState(0);
+    const [currentPage,setCurrentPage] = useState(1);
+    const [data, setData] = useState([]);
     const [currentData,setCurrentData] = useState([]);
     const {isCandidatesFetching, candidates } = useSelector(state => state.job_opening_detail);
 
@@ -24,24 +24,30 @@ const useCandidatesList = ({jobId}) => {
 
     useEffect(() => {
         _processData();
-    }, [data]);
+    }, [data, currentPage]);
+
     const handleViewDetails = useCallback((data) => {
         historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data?.candidate_id}`) //+data.id
     }, []);
+
     const _processData = useCallback(() =>  {
-        const from = (((currentPage + 1) * totalShow) - totalShow);
-        let to = (((currentPage + 1) * totalShow));
-        LogUtils.log('from', from, to);
+        const from = (((currentPage) * totalShow) - totalShow);
+        let to = (((currentPage) * totalShow));
+        // all.filter((val, index) => {
+        //     if (index >= (((currentPage) * totalShow) - totalShow) && index < (((currentPage) * totalShow))) {
+        //         return val;
+        //     }
+        // });
         if (from <= data.length) {
             to = to <= data.length ? to : data.length;
             setCurrentData(data.slice(from, to));
         }
-    }, [setCurrentData, currentPage, data]);
+    }, [setCurrentData, currentPage, data, totalShow]);
 
     const handlePageChange = useCallback((type) => {
         if (Math.ceil(data.length / totalShow) >= (type + 1)) {
-            setCurrentPage(type + 1);
-            _processData()
+            // setCurrentPage(type + 1);
+            // _processData()
         }
     }, [_processData, setCurrentPage, data]);
 

@@ -25,6 +25,7 @@ const OfficialDetails = ({ data }) => {
                   </span>
                 )}
               </div>
+
               <div className={styles.key}>
                 <span className={styles.value}>Previous Org:</span>
                 <span className={styles.valueWrap1}>

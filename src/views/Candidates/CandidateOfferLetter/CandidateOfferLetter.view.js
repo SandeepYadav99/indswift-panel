@@ -11,9 +11,9 @@ import history from "../../../libs/history.utils";
 import CustomDateTimePicker from "../../../components/FormFields/DatePicker/CustomDateTimePicker";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 
-function CandidateOfferLetter() {
-  const { form, errorData, listData,changeTextData, onBlurHandler, handleSubmit } =
-    CandidateOfferLetterHook({});
+const CandidateOfferLetter = ({location}) => {
+  const { form, errorData, listData,changeTextData, onBlurHandler, handleSubmit, candidateData, isSubmitting } =
+    CandidateOfferLetterHook({location});
   const getSumValue = (...numbers) => {
     return numbers
       ? numbers.reduce((sum, value) => {
@@ -37,7 +37,7 @@ function CandidateOfferLetter() {
           <div className={styles.newLines} />
         </div>
       </div>
-      <UpperProfileCard />
+      <UpperProfileCard data={candidateData} />
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
@@ -58,36 +58,17 @@ function CandidateOfferLetter() {
             />
           </div>
           <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.reporting_location}
-              errorText={errorData?.reporting_location}
-              label={"Reporting Location"}
-              value={form?.reporting_location}
-              onTextChange={(text) => {
-                changeTextData(text, "reporting_location");
-              }}
-              onBlur={() => {
-                onBlurHandler("reporting_location");
-              }}
+            <CustomAutoComplete
+                autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.label}}
+                dataset={listData?.LOCATIONS}
+                datasetKey={'label'}
+                onTextChange={(text, value) => { changeTextData(text, 'reporting_location') }}
+                variant={'outlined'}
+                label={'Reporting Location'}
+                name={'reporting_location'}
+                isError={errorData?.reporting_location}
+                value={form?.reporting_location}
             />
-            {/* <CustomAutoComplete
-                  autoCompleteProps={{
-                    freeSolo: false,
-                    getOptionLabel: (option) => {
-                      return option?.label;
-                    },
-                  }}
-                  dataset={listData?.EMPLOYEES}
-                  datasetKey={"label"}
-                  onTextChange={(text, value) => {
-                    changeTextData(text, "reporting_location");
-                  }}
-                  variant={"outlined"}
-                  label={"Reporting Location"}
-                  name={"reporting_location"}
-                  isError={errorData?.reporting_location}
-                  value={form?.reporting_location}
-              /> */}
           </div>
         </div>
         <div className={"formFlex"}>
@@ -97,10 +78,10 @@ function CandidateOfferLetter() {
               label={"Expected Response Date"}
               minDate={new Date()}
               onChange={(date) => {
-                changeTextData(date, "response_date");
+                changeTextData(date, "expected_response_date");
               }}
-              value={form?.response_date}
-              isError={errorData?.response_date}
+              value={form?.expected_response_date}
+              isError={errorData?.expected_response_date}
             />
           </div>
           <div className={"formGroup"}></div>
@@ -787,6 +768,7 @@ function CandidateOfferLetter() {
           type={"button"}
           className={styles.createBtn}
           onClick={handleSubmit}
+          disabled={isSubmitting}
         >
           preview Offer letter
         </ButtonBase>

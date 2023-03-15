@@ -98,7 +98,31 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         key: "appliedDateText",
         label: "Applied On",
         sortable: false,
+        render: (temp, all) => <div>{all?.candidate?.applied_date}</div>,
+      //  candidate?.applied_date
+      },
+      {
+        key: "appliedDateText",
+        label: "Associated On",
+        sortable: false,
         render: (temp, all) => <div>{all?.createdAtText}</div>,
+      },
+      {
+        key: "rating",
+        label: "Rating",
+        sortable: false,
+        render: (temp, all) => <div>-</div>,
+      //  {all?.rating ? all?.rating : 0}
+      },
+      {
+        key: "rewards",
+        label: "Interview Status",
+        sortable: false,
+        render: (temp, all) => (
+            <div>
+              <StatusPill status={Constants.INTERVIEW_STATUS_TEXT[all?.interview_status]} />
+            </div>
+        ),
       },
       {
         key: "rewards",
@@ -143,7 +167,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
       columns: tableStructure,
       data: currentData,
       count: data.length,
-      page: currentPage,
+      page: currentPage -1,
       rowsPerPage: 10,
       allRowSelected: false,
       showSelection: false,

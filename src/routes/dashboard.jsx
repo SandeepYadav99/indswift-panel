@@ -462,7 +462,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'recruitment',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
     {
         path: RouteName.CANDIDATES,
@@ -474,7 +474,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'recruitment',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CANDIDATES_DETAILS}:id`,
@@ -483,7 +483,7 @@ const dashboardRoutes = [
         component: CandidateDetails,
         is_sidebar: false,
         is_protect: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CANDIDATES_INFO}:id`,
@@ -492,16 +492,16 @@ const dashboardRoutes = [
         component: CandidateInfo,
         is_sidebar: false,
         is_protect: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER,  Roles.CORPORATE_HR],
     },
     {
-        path: `${RouteName.CANDIDATES_OFFER}:id`,
+        path: `${RouteName.CANDIDATES_OFFER}`,
         sidebarName: "Candidate Offer",
         navbarName: "Candidate Offer",
         component: CandidateOfferLetter,
         is_sidebar: false,
         is_protect: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
     {
         path: RouteName.CANDIDATES_CREATE,
@@ -511,7 +511,7 @@ const dashboardRoutes = [
         component: CandidateCreateView,
         is_sidebar: false,
         is_protect: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
     {
         path: RouteName.LOCATIONS,
@@ -672,7 +672,6 @@ const dashboardRoutes = [
         should_regex: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
-
     {
         path: RouteName.JOB_OPENINGS,
         sidebarName: "Job Openings",
@@ -683,7 +682,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'recruitment',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
     {
         path: RouteName.JOB_OPENINGS_CREATE,
@@ -693,7 +692,17 @@ const dashboardRoutes = [
         component: JobOpeningCreateView,
         is_sidebar: false,
         is_protect: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.JOB_OPENINGS_DETAILS}:id`,
+        sidebarName: "Job Openings Detail",
+        navbarName: "Job Openings Detail",
+        icon: LocalOffer,
+        component: JobOpeningDetail,
+        is_sidebar: false,
+        is_protect: true,
+        roles: [Roles.ADMIN, Roles.RECRUITER,  Roles.CORPORATE_HR],
     },
     {
         path: 'null',
@@ -842,7 +851,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'tm',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },
     {
         path: '/tm/review',
@@ -854,7 +863,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'tm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CV_SHORTLIST_LIST}:id`,
@@ -866,7 +875,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'tm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },
 
     {
@@ -879,18 +888,9 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'tm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },
-    {
-        path: `${RouteName.JOB_OPENINGS_DETAILS}:id`,
-        sidebarName: "Job Openings Detail",
-        navbarName: "Job Openings Detail",
-        icon: LocalOffer,
-        component: JobOpeningDetail,
-        is_sidebar: false,
-        is_protect: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
-    },
+
     {
         path: `${RouteName.EMPLOYEE_VERSIONS}`,
         sidebarName: "Employee Changes",

@@ -188,7 +188,7 @@ const JobOpeningCreateView = ({}) => {
                                <div className={styles.caderFlex}>
                                    <div>Grade:<span className={styles.val}>{form?.replacing_person?.grade_name}</span></div>
                                    <div style={{marginLeft:'60px'}}>Cader: <span className={styles.val}>
-                                    {form?.replacing_person?.cadre ? form?.replacing_person?.cadre : 'N.A'}</span></div>
+                                    {form?.replacing_person?.cadre ? form?.replacing_person?.cadre : 'N/A'}</span></div>
                                </div>
                            </div>)}
                        </div>

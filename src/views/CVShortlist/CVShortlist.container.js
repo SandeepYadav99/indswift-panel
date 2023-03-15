@@ -78,7 +78,7 @@ const CVShortlist = ({}) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => {
-          return (all?.status === Constants.GENERAL_STATUS.PENDING && (
+          return ((all?.status === Constants.GENERAL_STATUS.PENDING && all?.is_permit) && (
               <div>
                 <IconButton
                     className={"tableActionBtn"}
@@ -116,6 +116,7 @@ const CVShortlist = ({}) => {
       data: data,
       count: allData.length,
       page: currentPage,
+      rowsPerPage: 10
     };
 
     return { datatableFunctions, datatable };

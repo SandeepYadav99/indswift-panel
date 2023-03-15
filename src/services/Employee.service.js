@@ -35,6 +35,14 @@ export async function serviceEmployeeImportFile(params) {
     return await formDataRequest('employees/import', params);
 }
 
+export async function serviceEmployeeCPCImportVerify (params) {
+    return await formDataRequest('employees/cpc/import/verify', params);
+}
+
+export async function serviceEmployeeCPCImportFile(params) {
+    return await formDataRequest('employees/cpc/import', params);
+}
+
 export async function serviceGetEmployeeProgression(params) {
     return await postRequest('employee/progressions', params);
 }
@@ -52,4 +60,8 @@ export async function serviceChangeEmployeePassword(params) {
 
 export async function serviceChangeEmployeeStatus(params) {
     return await postRequest('employees/change/status', params);
+}
+
+export async function serviceExportEmployees(params) {
+    return await postRequest('employees/export', params);
 }

@@ -96,9 +96,9 @@ const CandidateList = ({location}) => {
             },
             {
                 key: 'department',
-                label: 'Department',
+                label: 'Department/SubDept',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job_details?.department}</div>,
+                render: (temp, all) => <div>{all?.job_details?.department} / {all?.job_details?.sub_department}</div>,
             },
             {
                 key: 'applied',

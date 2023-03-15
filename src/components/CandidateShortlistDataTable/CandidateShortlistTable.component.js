@@ -40,7 +40,8 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
         dialogText,
         handleDialogConfirm,
         isSubmitting,
-        handleRequestShortlist
+        handleRequestShortlist,
+        canShortlist
     } = useCandidateShortlistTable({jobId, handleClose});
 
 
@@ -183,10 +184,10 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
                                 }} className={selected.length === 0 || isSubmitting ? styles.disabledBtnReject :styles.edit}>SHORTLISTED</ButtonBase>
                             </div>
                             <div>
-                                <ButtonBase  disabled={selected.length === 0 || isSubmitting} onClick={handleRequestShortlist}
-                                 className={selected.length === 0 || isSubmitting ? styles.disabledCreatebtn:styles.createBtn}>
+                                {canShortlist && (<ButtonBase  disabled={selected.length === 0 || isSubmitting} onClick={handleRequestShortlist}
+                                                               className={selected.length === 0 || isSubmitting ? styles.disabledCreatebtn:styles.createBtn}>
                                     REQUEST SHORTLIST
-                                </ButtonBase>
+                                </ButtonBase>)}
                             </div>
                         </div>
                     </div>

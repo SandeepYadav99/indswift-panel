@@ -20,7 +20,7 @@ const useCandidateInterviewTable = ({jobId, handleClose }) => {
     const [isDialog, setIsDialog] = useState(false);
     const [totalShow, setTotalShow] = useState(10);
     const [isFetching, setIsFetching] = useState(false);
-    const { candidates, isCandidatesFetching } = useSelector((state) => state.job_opening_detail);
+    const { candidates, isCandidatesFetching, interviewers } = useSelector((state) => state.job_opening_detail);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const dispatch = useDispatch();
 
@@ -133,7 +133,8 @@ const useCandidateInterviewTable = ({jobId, handleClose }) => {
         isDialog,
         toggleConfirmDialog,
         isSubmitting,
-        handleInterviewSchedule
+        handleInterviewSchedule,
+        interviewers
     }
 };
 

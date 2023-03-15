@@ -5,7 +5,7 @@ const tempLevel = !(
 );
 
 const tempDate = new Date();
-const isProduction = false;
+const isProduction = true;
 
 let url = "http://91.205.173.97:8111/api/admin/";
 let socketUrl = "http://91.205.173.97:8111";
@@ -70,7 +70,7 @@ export default {
     RESIGNED:'error',
     EXPIRED:'success',
     REJECTED:'error',
-    PENDING:'pending',
+    // PENDING:'pending',
     SOURCING:'warning',
     NOSOURCING:'nosourcing',
     'CV Rejected':'error',
@@ -171,7 +171,8 @@ export default {
     COMPLETED: "Completed",
     INTERVIEW_COMPLETED: "Interview Completed",
     INTERVIEW_REJECTED: "Interview Rejected",
-    SELECTED: 'SELECTED'
+    SELECTED: 'SELECTED',
+
   },
   JOB_CANDIDATE_STATUS_TEXT: {
     ACTIVE: "Active",
@@ -183,6 +184,12 @@ export default {
     SELECTED: "Selected",
     PENDING: "Pending",
     CV_SHORTLISTED: "CV Shortlisted",
+    PENDING_REVIEW: 'Pending Review',
+    INTERVIEW_REJECTED: 'Interview Rejected',
+    JOINING: 'Joining',
+    DROPPED: 'Dropped',
+    ON_HOLD: 'On Hold',
+    OFFER_LETTER: "Offer Letter"
   },
   SOCKET_EVENTS: {
     NEW_ORDER: "COMPANY_NEW_ORDER",
@@ -326,6 +333,8 @@ export default {
     ADMIN: "ADMIN",
     OTHERS: "OTHERS",
     CORPORATE_HR: "CORPORATE_HR",
+    RECRUITER: 'RECRUITER',
+    GENERAL: 'GENERAL',
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,
