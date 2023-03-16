@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const CustomAutoComplete = ({isError, errorText, icon, label, onChange, onTextChange, inputProps, dataset, datasetKey, value, autoCompleteProps, ...rest }) => {
+const CustomAutoComplete = ({isError, errorText, icon, label, onChange, onTextChange, inputProps, dataset, datasetKey, value, autoCompleteProps,disabledList=false, ...rest }) => {
     const classes = useStyles();
     const {
         getRootProps,
@@ -81,7 +81,7 @@ const CustomAutoComplete = ({isError, errorText, icon, label, onChange, onTextCh
 
                 />
             </div>
-            {(groupedOptions?.length > 0 ) ? (
+            {(groupedOptions?.length > 0 && !disabledList ) ? (
                 <ul className={classes.listbox} {...getListboxProps()}>
                     {groupedOptions.map((option, index) => (
                         <li {...getOptionProps({ option, index })}>{datasetKey ? option[datasetKey] : option }</li>

@@ -42,7 +42,7 @@ const JobOpeningUpdateView = ({}) => {
                <div className={'plainPaper'}>
                    <div className={'headerFlex'}>
                        <h4 className={'infoTitle'}>
-                           <div className={'heading'}>Create Active Job Opening</div>
+                           <div className={'heading'}>Job Opening Details</div>
                            {/*<Tooltip title="Info" aria-label="info" placement="right">*/}
                            {/*    <InfoIcon fontSize={'small'}/>*/}
                            {/*</Tooltip>*/}
@@ -140,6 +140,7 @@ const JobOpeningUpdateView = ({}) => {
                    <div className={'formFlex'}>
                        <div className="formGroup">
                            <CustomAutoComplete
+                                disabledList={true}
                                 disabled={true}
                                autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.label}}
                                dataset={listData.JOB_ROLES}
@@ -170,6 +171,7 @@ const JobOpeningUpdateView = ({}) => {
                    <div className={'formFlex'} style={{alignItems:"center"}}>
                        <div className="formGroup">
                            <CustomAutoComplete
+                                disabledList={true}
                                 disabled={true}
                                autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.name}}
                                dataset={listData.DESIGNATIONS}

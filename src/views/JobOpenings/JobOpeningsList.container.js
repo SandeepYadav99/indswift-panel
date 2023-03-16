@@ -77,7 +77,7 @@ const JobOpeningsList = ({}) => {
                 key: 'department',
                 label: 'Department',
                 sortable: false,
-                render: (temp, all) => <div>{all?.department?.name}/{all?.sub_department?.name}</div>,
+                render: (temp, all) => <div>{all?.department?.name}{all?.sub_department?.name ? '/': ''}{all?.sub_department?.name}</div>,
             },
             {
                 key: 'designation',

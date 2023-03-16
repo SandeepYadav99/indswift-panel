@@ -71,9 +71,7 @@ const JobOpeningDetail = () => {
                 <span className={styles.value} style={{ width: "190px" }}>
                   Status:
                 </span>
-                <span className={classnames("status", "success")}>
-                  {data?.status}
-                </span>
+                <StatusPill status={data?.status}/>
                 <span style={{marginLeft:'10px'}}>
                   {/* {data?.status} */}
                   <StatusPill status={data?.is_sourcing ? 'SOURCING': 'NOSOURCING'}/>

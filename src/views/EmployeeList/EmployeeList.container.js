@@ -251,13 +251,13 @@ const EmployeeList = ({}) => {
             {/*      className={"plusIcon"}*/}
             {/*  ></CloudUpload>*/}
             {/*</ButtonBase>*/}
-            <ButtonBase onClick={toggleCsvDialog} className={"createBtn"}>
+            {/* <ButtonBase onClick={toggleCsvDialog} className={"createBtn"}>
               Upload{" "}
               <CloudUpload
                 fontSize={"small"}
                 className={"plusIcon"}
               ></CloudUpload>
-            </ButtonBase>
+            </ButtonBase> */}
             <ButtonBase onClick={handleCreate} className={'createBtn'}>
                                 CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
                             </ButtonBase>

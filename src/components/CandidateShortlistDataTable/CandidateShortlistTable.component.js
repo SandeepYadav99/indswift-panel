@@ -51,7 +51,7 @@ const CandidateShortlistTable = ({jobId, handleClose}) => {
             return (
                 <div className={styles.flex}>
                     <Checkbox
-                        disabled={data?.status !== Constants.JOB_CANDIDATE_STATUS.PENDING}
+                        disabled={data?.status !== Constants.JOB_CANDIDATE_STATUS.PENDING || data?.status !== Constants.JOB_CANDIDATE_STATUS.PENDING_REVIEW}
                         onChange={() => handleCheckbox(data)}
                         checked={selectedIndex >= 0}
                         value="secondary"

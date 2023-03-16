@@ -107,7 +107,13 @@ const useCandidateInterviewTable = ({jobId, handleClose }) => {
     }, [selected, setSelected]);
 
     const toggleConfirmDialog = useCallback((type) => {
-        setIsDialog(e => !e);
+        if(selected?.length === 0){
+            SnackbarUtils.error('Interview panel not defined');
+        }
+        else{
+            setIsDialog(e => !e);
+        }
+        
     }, [setIsDialog]);
 
 

@@ -23,7 +23,8 @@ const initialForm = {
     note: '',
     designation: '',
     is_sourcing: false,
-    is_hiring: true
+    is_hiring: true,
+    vacancy_type:''
 };
 
 const useJobOpeningsEditDetail = ({}) => {
@@ -56,6 +57,7 @@ const useJobOpeningsEditDetail = ({}) => {
                        assigned_to: data?.assigned_person,
                        replacing_person:data?.replacing_person,
                        is_active: data?.status === constants.GENERAL_STATUS.ACTIVE,
+                       job_role:data?.job_role_id
                    });
                } else {
                    SnackbarUtils.error(res?.message);
@@ -83,12 +85,16 @@ const useJobOpeningsEditDetail = ({}) => {
         if (!isLoading) {
             const assignedIndex = listData.EMPLOYEES.findIndex(val => val.id === form?.assigned_to.id);
             const replacingIndex=filteredEmployees?.findIndex(val=> val.id === form?.replacing_person?.id)
+            const associatejobIndex=listData.JOB_ROLES.findIndex(val => val.id === form?.job_role)
             const tempForm = {...form};
             if (assignedIndex >= 0) {
                tempForm.assigned_to =   listData.EMPLOYEES[assignedIndex];
             } 
             if(replacingIndex >=0){
                 tempForm.replacing_person=filteredEmployees[replacingIndex]
+            }
+            if(associatejobIndex >=0){
+                tempForm.job_role=listData.JOB_ROLES[associatejobIndex]
             }
             setForm({
                 ...tempForm

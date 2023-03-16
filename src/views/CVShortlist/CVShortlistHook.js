@@ -123,15 +123,19 @@ const useCVShortlist = ({}) => {
 
   const configFilter = useMemo(() => {
     return [
-      {
-        label: "Created Date",
-        options: { maxDate: new Date() },
-        name: "createdAt",
-        type: "date",
-      },
+      // {
+      //   label: "Created Date",
+      //   options: { maxDate: new Date() },
+      //   name: "createdAt",
+      //   type: "date",
+      // },
     ];
   }, []);
-
+  const candidatePage = useCallback(
+    (data) => {
+      console.log(data)
+      historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data?.id}`);
+    },[]);
   const handleUpdate =  useCallback((data, type) => {
       LogUtils.log('data', data, type);
       dispatch(actionUpdateCVShortlist(data?.id, type));
@@ -153,7 +157,8 @@ const useCVShortlist = ({}) => {
     handleCreate,
     isRejectPopUp,
     toggleRejectDialog,
-      handleUpdate
+      handleUpdate,
+      candidatePage
   };
 };
 

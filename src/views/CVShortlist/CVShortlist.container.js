@@ -27,7 +27,8 @@ const CVShortlist = ({}) => {
     configFilter,
     isRejectPopUp,
     toggleRejectDialog,
-    handleUpdate
+    handleUpdate,
+    candidatePage
   } = useCVShortlist({});
 
   const {
@@ -45,7 +46,7 @@ const CVShortlist = ({}) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
-          <div className={classNames(styles.firstCellInfo, "openSans")}>
+          <div className={classNames(styles.firstCellInfo,styles.hyperlinkText, "openSans")} onClick={()=>candidatePage(obj?.candidate)}>
             <span className={styles.productName}>{obj?.candidate?.name}</span> <br />
           </div>
         </div>

@@ -53,7 +53,7 @@ export default {
     COMPLETED: "COMPLETED",
   },
   STATUS: {
-    PENDING: "warning",
+    PENDING: "pending",
     WAITING: "waiting",
     ACCEPTED: "success",
     ACTIVE: "warning",
@@ -64,7 +64,7 @@ export default {
     RECEIVED: "success",
     Received: "success",
     "Partially Received": "success",
-    Pending: "warning",
+    Pending: "pending",
     TERMINATED:"error",
     ABSCONDED:'error',
     RESIGNED:'error',
@@ -160,6 +160,7 @@ export default {
     SELECTED: "SELECTED",
     PENDING: "PENDING",
     CV_SHORTLISTED: "CV_SHORTLISTED",
+    PENDING_REVIEW:"PENDING_REVIEW"
   },
   INTERVIEW_STATUS_TEXT: {
     PENDING: "Pending",

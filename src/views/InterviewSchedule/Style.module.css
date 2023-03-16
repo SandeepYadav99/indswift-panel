@@ -20,6 +20,11 @@
     justify-content: space-between;
     align-items: center;
 }
+.hyperlinkText{
+    color: #2896E9;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
 .firstCellFlex {
     display: flex;
     align-items: center;

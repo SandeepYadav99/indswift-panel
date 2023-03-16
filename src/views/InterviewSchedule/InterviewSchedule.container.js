@@ -46,7 +46,7 @@ const InterviewSchedule = ({location}) => {
     const renderPRCCell = useCallback((obj) => {
         if (obj) {
             return (
-                <div className={styles.prcWrapper} onClick={()=>changeRoute(obj)} >
+                <div className={styles.hyperlinkText} onClick={()=>changeRoute(obj)} >
                     <div>{obj?.job?.code}</div>
                 </div>
             );

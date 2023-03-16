@@ -178,7 +178,7 @@ const CandidateInterviewTable = ({jobId, handleClose}) => {
             </div>
             <div className={styles.SlidebtnWrapper2}>
               {(interviewers.length > 0) && (<ButtonBase
-                  disabled={selected.length === 0}
+                  // disabled={selected.length === 0}
                 onClick={toggleConfirmDialog}
                 className={styles.createBtn}
               >
