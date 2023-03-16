@@ -238,7 +238,7 @@ const JobOpeningUpdateView = ({}) => {
                        <div className={styles.btnCont}>
                            <ButtonBase disabled={isSubmitting} type={'button'} onClick={handleSubmit}
                                        className={styles.createBtn}>
-                               Create
+                               UPDATE
                            </ButtonBase>
                        </div>
                    </div>
