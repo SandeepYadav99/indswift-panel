@@ -114,7 +114,7 @@ const useCandidateInterviewTable = ({jobId, handleClose }) => {
             setIsDialog(e => !e);
         }
         
-    }, [setIsDialog]);
+    }, [setIsDialog,selected]);
 
 
     const handleInterviewSchedule = useCallback(() => {
