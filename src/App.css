@@ -311,7 +311,20 @@ input[type=radio] + label:hover {
     border-radius: 3px !important;
     margin-right: 10px !important;
 }
-
+.tableActionBtnError{
+    padding: 6px !important;
+    color: #E92828 !important;
+    border: 1px solid #E92828 !important;
+    border-radius: 3px !important;
+    margin-right: 10px !important;
+}
+.tableActionBtnSuccess{
+    padding: 6px !important;
+    color: #29CB97 !important;
+    border: 1px solid #29CB97 !important;
+    border-radius: 3px !important;
+    margin-right: 10px !important;
+}
 
 .pending_lead {
     background-color: #f274744f;

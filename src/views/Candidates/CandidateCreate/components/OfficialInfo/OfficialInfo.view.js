@@ -16,7 +16,7 @@ const OfficialInfo = ({ details, isStatic }) => {
                             <div className={styles.key}><span className={styles.value}>PRC:</span>{details?.code}</div>
                             <div className={styles.key}><span className={styles.value}>Type Of Vacancy:</span>{vacancyChange(details?.vacancy_type)}</div>
                             <div className={styles.key}><span className={styles.value}>Place of Posting:</span>{details?.location?.name}</div>
-                            <div className={styles.key}><span className={styles.value}>Candidate Grade:</span>{details?.grade?.name}</div>
+                            <div className={styles.key}><span className={styles.value}>Candidate Grade:</span>{details?.grade?.code}</div>
                         </div>
                         <div className={styles.vertical}>
 

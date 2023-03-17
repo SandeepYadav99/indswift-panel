@@ -1,10 +1,10 @@
 /**
  * Created by charnjeetelectrovese@gmail.com on 12/3/2019.
  */
-import React, {useCallback, useMemo,} from "react";
-import {ButtonBase, IconButton} from "@material-ui/core";
+import React, { useCallback, useMemo } from "react";
+import { ButtonBase, IconButton } from "@material-ui/core";
 import classNames from "classnames";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
@@ -30,7 +30,7 @@ const CVShortlist = ({}) => {
     isRejectPopUp,
     toggleRejectDialog,
     handleUpdate,
-    candidatePage
+    candidatePage,
   } = useCVShortlist({});
 
   const {
@@ -44,12 +44,32 @@ const CVShortlist = ({}) => {
     return <StatusPill status={status} />;
   }, []);
 
+  const renderExperience = useCallback((exp) => {
+    if (exp == "0") {
+      return exp;
+    } else if (exp == "1") {
+      return `${exp} yr`;
+    } else if (exp > "1") {
+      return `${exp} yrs`;
+    } else {
+      return "-";
+    }
+  }, []);
+
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
-          <div className={classNames(styles.firstCellInfo,styles.hyperlinkText, "openSans")} onClick={()=>candidatePage(obj?.candidate)}>
-            <span className={styles.productName}>{obj?.candidate?.name}</span> <br />
+          <div
+            className={classNames(
+              styles.firstCellInfo,
+              styles.hyperlinkText,
+              "openSans"
+            )}
+            onClick={() => candidatePage(obj?.candidate)}
+          >
+            <span className={styles.productName}>{obj?.candidate?.name}</span>{" "}
+            <br />
           </div>
         </div>
       );
@@ -69,42 +89,64 @@ const CVShortlist = ({}) => {
         key: "experience",
         label: "EXPERIENCE",
         sortable: false,
-        render: (temp, all) => <div>{all?.candidate?.experience}</div>,
+        render: (temp, all) => (
+          <div>{renderExperience(all?.candidate?.experience)}</div>
+        ),
       },
       {
         key: "resume",
         label: "Resume",
         sortable: false,
-        render: (temp, all) => <div><a target={'_blank'} href={all?.candidate?.resume}>Link</a></div>,
+        render: (temp, all) => (
+          <div>
+            <a target={"_blank"} href={all?.candidate?.resume}>
+              Link
+            </a>
+          </div>
+        ),
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => {
-          return ((all?.status === Constants.GENERAL_STATUS.PENDING && all?.is_permit) && (
+          return (
+            all?.status === Constants.GENERAL_STATUS.PENDING &&
+            all?.is_permit && (
               <div>
                 <IconButton
-                    className={"tableActionBtn"}
-                    color="secondary"
-                    disabled={isCalling}
-                    onClick={() => { handleUpdate(all, 'REJECT') }}
+                  className={"tableActionBtnError"}
+                  color="error"
+                  disabled={isCalling}
+                  onClick={() => {
+                    handleUpdate(all, "REJECT");
+                  }}
                 >
-                  <span className={styles.subText}>Reject</span>
+                  <span className={styles.subTextError}>Reject</span>
                 </IconButton>
                 <IconButton
-                    className={"tableActionBtn"}
-                    color="secondary"
-                    disabled={isCalling}
-                    onClick={() => { handleUpdate(all, 'ACCEPT') }}
+                  className={"tableActionBtnSuccess"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    handleUpdate(all, "ACCEPT");
+                  }}
                 >
                   <span className={styles.subText}>Accept</span>
                 </IconButton>
               </div>
-          ))
-        }
+            )
+          );
+        },
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, handleUpdate]);
+  }, [
+    renderStatus,
+    renderFirstCell,
+    handleViewDetails,
+    handleEdit,
+    isCalling,
+    handleUpdate,
+  ]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -119,7 +161,7 @@ const CVShortlist = ({}) => {
       data: data,
       count: allData.length,
       page: currentPage,
-      rowsPerPage: 10
+      rowsPerPage: 10,
     };
 
     return { datatableFunctions, datatable };
@@ -137,13 +179,12 @@ const CVShortlist = ({}) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
-        <ButtonBase onClick={() => history.goBack()}>
-        <ArrowBackIosIcon fontSize={"small"} />{" "}
-
-          <div>
-            <span className={styles.title}>Job Openings Pending Review</span>
-            <div className={styles.newLine} />
-          </div>
+          <ButtonBase onClick={() => history.goBack()}>
+            <ArrowBackIosIcon fontSize={"small"} />{" "}
+            <div>
+              <span className={styles.title}>Shortlist Candidates</span>
+              <div className={styles.newLine} />
+            </div>
           </ButtonBase>
         </div>
         <RejectDialog

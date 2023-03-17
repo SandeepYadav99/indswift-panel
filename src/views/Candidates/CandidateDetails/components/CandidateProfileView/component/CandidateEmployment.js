@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styles from "./Style.module.css";
 
 const CandidateEmployment = ({ history }) => {
   let dataLength = history?.length - 1;
+  const renderExperience = useCallback((exp) => {
+    if (exp == "0") {
+      return exp;
+    } else if (exp == "1") {
+      return `${exp} yr`;
+    } else if (exp > "1") {
+      return `${exp} yrs`;
+    } else {
+      return "-";
+    }
+  }, []);
   return (
     <div>
       <div className={styles.plainPaper}>
@@ -28,7 +39,7 @@ const CandidateEmployment = ({ history }) => {
                     <span className={styles.value}>
                       Work Duration In Years:
                     </span>
-                    <span className={styles.valueWrap}>{item?.duration}</span>
+                    <span className={styles.valueWrap}>{renderExperience(item?.duration)}</span>
                   </div>
                 </div>
                 {index === dataLength ? (

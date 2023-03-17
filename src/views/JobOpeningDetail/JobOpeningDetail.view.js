@@ -9,6 +9,7 @@ import WaitingComponent  from "../../components/Waiting.component";
 import InterviewerListComponent from "./components/InterviewerList/InterviewerList.component";
 import CandidatePaperComponent from "./components/CandidatePaper/CandidatePaper.component";
 import StatusPill from "../../components/Status/StatusPill.component";
+import VacanciesList from "./components/VacanciesList/VacanciesList";
 
 const JobOpeningDetail = () => {
   const { data, isLoading, id , isInterviewStatus ,handleChangeInterviewStatus,handleViewEditDetails} = useJobOpeningDetail({});
@@ -118,6 +119,7 @@ const JobOpeningDetail = () => {
       </div>
       <CandidatePaperComponent jobId={id} />
       <InterviewerListComponent jobId={id} isInterviewStatus={isInterviewStatus} handleChangeInterviewStatus={handleChangeInterviewStatus}/>
+      <VacanciesList/>
     </div>
   );
 };

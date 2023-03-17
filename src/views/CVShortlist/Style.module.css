@@ -87,7 +87,12 @@
 .subText{
     font-size: 0.7rem;
     margin-left: 5px;
-    color: #2896E9;
+    color: #29CB97;
+}
+.subTextError{
+    font-size: 0.7rem;
+    margin-left: 5px;
+    color: #E92828;
 }
 .industry{
     font-size: 0.7rem;

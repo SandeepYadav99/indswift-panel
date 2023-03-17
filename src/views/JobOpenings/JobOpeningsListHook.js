@@ -28,6 +28,7 @@ const useJobOpeningsList = ({}) => {
     const isMountRef = useRef(false);
     const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.job_openings);
 
+    const status=[{id:'ACTIVE',name:'ACTIVE'},{id:'INACTIVE',name:'INACTIVE'}]
     useEffect(() => {
         serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
           if (!res.error) {
@@ -142,13 +143,13 @@ const useJobOpeningsList = ({}) => {
                 custom: { extract: { id: "id", title: "name" } },
                 fields: listData?.LOCATIONS,
               },
-            //   {
-            //     label: "status",
-            //     name: "status",
-            //     type: "selectObject",
-            //     custom: { extract: { id: "id", title: "name" } },
-            //     fields: constants.JOB_CANDIDATE_STATUS_TEXT,
-            //   },
+              {
+                label: "status",
+                name: "status",
+                type: "selectObject",
+                custom: { extract: { id: "id", title: "name" } },
+                fields: status,
+              },
               {
                 label: "Department",
                 name: "department_id",

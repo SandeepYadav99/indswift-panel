@@ -5,8 +5,13 @@ import styles from "./Style.module.css";
 import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import ActionButton from "../../../../../components/ActionButton/ActionButton";
-import DefaultImg from "../../../../../assets/img/download.png"
-const UpperCard = ({ data, handleToggle, handleStatusToggle,handleOfferPage }) => {
+import DefaultImg from "../../../../../assets/img/download.png";
+const UpperCard = ({
+  data,
+  handleToggle,
+  handleStatusToggle,
+  handleOfferPage,
+}) => {
   const splitDate = (value) => {
     return value ? value.split(" ")[0] : "";
   };
@@ -15,7 +20,7 @@ const UpperCard = ({ data, handleToggle, handleStatusToggle,handleOfferPage }) =
       <div className={styles.blueBackground}>
         <div className={styles.innerContainer}>
           <div>
-            <img src={data?.image ? data?.image:DefaultImg} height={70} />
+            <img src={data?.image ? data?.image : DefaultImg} height={70} />
           </div>
           <div className={styles.profileInfo}>
             <div className={styles.name}>{data?.name}</div>
@@ -31,6 +36,7 @@ const UpperCard = ({ data, handleToggle, handleStatusToggle,handleOfferPage }) =
             <div>
               <span className={styles.location}>Referred by:</span>{" "}
               {data?.referred_obj?.name}
+              {data?.referred_obj?.code && data?.referred_obj?.code !== 'N/A' ? ` (${data?.referred_obj?.code})` : ''}
             </div>
             <div>
               <span className={styles.location}>Date of Application:</span>
@@ -43,14 +49,15 @@ const UpperCard = ({ data, handleToggle, handleStatusToggle,handleOfferPage }) =
           </div>
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
-            <ActionButton onClick={()=>handleOfferPage(data)}>
-                  <InfoOutlined fontSize={"small"} />
-                  <span className={styles.actionBtnSpan}>Extend Offer</span>
-                </ActionButton>              <div>
-              <StatusPill
-                status={data?.status}
-                // style={{ color: "#fff", borderColor: "#fff" }}
-              />
+              <ActionButton onClick={() => handleOfferPage(data)}>
+                <InfoOutlined fontSize={"small"} />
+                <span className={styles.actionBtnSpan}>Extend Offer</span>
+              </ActionButton>{" "}
+              <div>
+                <StatusPill
+                  status={data?.status}
+                  // style={{ color: "#fff", borderColor: "#fff" }}
+                />
               </div>
             </div>
             <div className={styles.actionWrap}>

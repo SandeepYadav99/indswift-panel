@@ -6,7 +6,7 @@ import star from "../../../../../../../assets/img/star.png";
 import historyUtils from "../../../../../../../libs/history.utils";
 import { useCallback } from "react";
 import RouteName from "../../../../../../../routes/Route.name";
-function SummaryView({ title, statustitle, status, profile, rating, cvList }) {
+function SummaryView({ title, statustitle, status, profile, rating, cvList,date }) {
   const ChangeUnderScore = (value) => {
     return value ? value.replace(/_/, " ") : "NA";
   };
@@ -17,7 +17,6 @@ function SummaryView({ title, statustitle, status, profile, rating, cvList }) {
     },
     []
   );
-  console.log("cvList", cvList);
   return (
     <div className={styles.summaryWrapper}>
       <div className={styles.title}>{title}</div>
@@ -117,7 +116,7 @@ function SummaryView({ title, statustitle, status, profile, rating, cvList }) {
           )}
         </div>
         <div>
-          {/* <span className={styles.date}>02/12/2022 | 03:40 PM</span> */}
+          <span className={styles.date}>{date}</span>
         </div>
       </div>
     </div>

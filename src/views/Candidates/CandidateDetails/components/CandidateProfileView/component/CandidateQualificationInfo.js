@@ -22,7 +22,7 @@ const CandidateQualificationInfo = ({ qualification }) => {
                     </div>
                     <div className={styles.key1}>
                       <span className={styles.value}>Degree Marks:</span>
-                      <span className={styles.valueWrap}>{item?.marks}</span>
+                      <span className={styles.valueWrap}>{item?.marks ? `${item?.marks} %`:''}</span>
                     </div>
                   </div>
                   {  index === dataLength ? (

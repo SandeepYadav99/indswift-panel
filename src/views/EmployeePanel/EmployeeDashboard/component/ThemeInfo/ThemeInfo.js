@@ -5,7 +5,16 @@ import WaitingComponent from "../../../../../components/Waiting.component";
 
 function ThemeInfo() {
   const { isTilesCalling, tiles } = useSelector(state => state.employeeDashboard);
-
+  const linearGradientProp= `linear-gradient(
+    90deg,
+    #161616 0%,
+    #262626cc 15%,
+    #2d2d2dbf 30%,
+    #33333399 45%,
+    #40404073 68%,
+    #49494900 83%,
+    #63636300 100%
+  )`
   const data = useMemo(() => {
     return tiles?.theme;
   }, [tiles?.theme]);
@@ -15,7 +24,7 @@ function ThemeInfo() {
   }
 
   return (
-    <div className={styles.userInfoWrapper} style={{ backgroundImage: `url(${data?.cover_image})` }}>
+    <div className={styles.userInfoWrapper} style={{ backgroundImage: `${linearGradientProp}, url(${data?.cover_image})` }}>
       <div className={styles.themeContainer}>
         <div>
           <p className={styles.themeInfoUpper}>

@@ -17,14 +17,17 @@
   max-width: 270px;
   font-weight: 600;
   font-size: 1rem;
+  color: #ffffff;
 }
 .themeInfoUpper {
   margin-top: 0;
   font-weight: 600;
-  font-size: .875rem;
+  font-size: 0.875rem;
+  color: #ffffff;
 }
-@media(max-width:767px){
-  .userInfoWrapper{
-    padding-left: .8rem;
-    padding-right: .4rem;  }
+@media (max-width: 767px) {
+  .userInfoWrapper {
+    padding-left: 0.8rem;
+    padding-right: 0.4rem;
+  }
 }

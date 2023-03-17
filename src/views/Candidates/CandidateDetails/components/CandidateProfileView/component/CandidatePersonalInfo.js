@@ -1,7 +1,18 @@
-import React, { useMemo } from "react";
+import React, { useCallback } from "react";
 import styles from "./Style.module.css";
 
 const CandidatePersonalInfo = ({ data }) => {
+  const renderExperience = useCallback((exp) => {
+    if (exp == "0") {
+      return exp;
+    } else if (exp == "1") {
+      return `${exp} year`;
+    } else if (exp > "1") {
+      return `${exp} years`;
+    } else {
+      return "-";
+    }
+  }, []);
   return (
     <div>
       <div className={styles.plainPaper}>
@@ -34,13 +45,13 @@ const CandidatePersonalInfo = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>Candidate Experience:</span>
                 <span className={styles.valueWrap}>
-                  {data?.experience}
+                  {renderExperience(data?.experience)}
                 </span>
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Previous CTC:</span>
+                <span className={styles.value}>Previous Annual CTC:</span>
                 <span className={styles.valueWrap}>
-                  {data?.previous_ctc}
+                  {data?.previous_ctc ? `${data?.previous_ctc} LPA`: ''}
                 </span>
               </div>
             </div>
