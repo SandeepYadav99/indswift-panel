@@ -26,7 +26,9 @@ const CandidateList = ({location}) => {
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.candidate);
 
-
+    const removeUnderScore=(value)=>{
+        return value ? value.replace(/_/, "_"): ""
+      }  
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status} />
     }, []);
@@ -116,7 +118,7 @@ const CandidateList = ({location}) => {
                 key: 'status',
                 label: 'Status',
                 sortable: true,
-                render: (temp, all) => <div>{renderStatus(all.status)}</div>,
+                render: (temp, all) => <div>{renderStatus(removeUnderScore(all?.status))}</div>,
             },
             {
                 key: 'createdAt',

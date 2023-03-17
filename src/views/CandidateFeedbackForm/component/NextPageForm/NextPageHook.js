@@ -1,6 +1,7 @@
 import React from "react";
 import {useState} from "react";
 import {useCallback} from "react";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
 const initialForm = {
     overall: {
@@ -28,6 +29,10 @@ const useNextPage = ({handleSubmitProp}) => {
         [form, setForm, isDeclarationChecked]
     );
     const handleSubmit = useCallback(async () => {
+        if(form.overall.value == '-1'){
+            SnackbarUtils.error('Please Select the Overall Rating');
+            return false
+        }
         const errors = checkFormValidation();
         if (Object.keys(errors).length === 0) {
             toggleResetDialog();
@@ -35,7 +40,6 @@ const useNextPage = ({handleSubmitProp}) => {
         } else {
             const message = Object.keys(errors).join(", ");
             console.log("===errors", message, errors);
-            // SnackbarUtils.error('No Data Changed');
         }
     }, [
         checkFormValidation,

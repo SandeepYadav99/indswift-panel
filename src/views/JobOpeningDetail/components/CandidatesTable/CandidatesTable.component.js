@@ -7,13 +7,6 @@ import DataTables from "../../../../Datatables/Datatable.table";
 import Constants from "../../../../config/constants";
 import styles from "./Style.module.css";
 import classNames from "classnames";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import ReduxDatePicker from "../../../../components/ReduxDatePicker/ReduxDatePicker.component";
-import Tooltip from "@material-ui/core/Tooltip";
-import InfoIcon from "@material-ui/icons/Info";
 import { Add, CachedOutlined, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
 import useCandidatesList from "./CandidatesHook";
@@ -111,7 +104,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         key: "rating",
         label: "Rating",
         sortable: false,
-        render: (temp, all) => <div>-</div>,
+        render: (temp, all) => <div>{all?.rating}</div>,
       //  {all?.rating ? all?.rating : 0}
       },
       {
@@ -168,9 +161,10 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
       data: currentData,
       count: data.length,
       page: currentPage -1,
-      rowsPerPage: 10,
+      rowsPerPage: 15,
       allRowSelected: false,
       showSelection: false,
+      hidePagination:true,
     };
 
     return { datatableFunctions, datatable };

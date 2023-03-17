@@ -76,7 +76,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-    const {classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columns, allRowSelected, showSelection} = props;
+    const {classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columns, allRowSelected, showSelection,hidePagination} = props;
     const createSortHandler = (property) => event => {
         onRequestSort(event, property);
     };
@@ -387,7 +387,7 @@ class EnhancedTable extends React.Component {
     render() {
         const {classes} = this.props;
         const {order, orderBy, selected, dense} = this.state;
-        const {page, rowsPerPageOptions, rowsPerPage, count, allRowSelected} = this.props;
+        const {page, rowsPerPageOptions, rowsPerPage, count, allRowSelected,hidePagination} = this.props;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
         return (
@@ -419,7 +419,9 @@ class EnhancedTable extends React.Component {
                             </TableBody>
                         </Table>
                     </div>
-                    <TablePagination
+                    {
+                        hidePagination ? <></>:
+                        <TablePagination
                         rowsPerPageOptions={rowsPerPageOptions}
                         component="div"
                         count={count}
@@ -428,6 +430,8 @@ class EnhancedTable extends React.Component {
                         onChangePage={this._handleChangePage}
                         onChangeRowsPerPage={this._handleChangeRowsPerPage}
                     />
+                    }
+                    
                 </div>
             </div>
         );

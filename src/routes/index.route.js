@@ -19,6 +19,7 @@ import RouteName from "./Route.name";
 import SubmitEvaluationForm from "../views/CandidateFeedbackForm/component/SubmitEvaluationForm/SubmitEvaluationForm.js";
 import CustomRouter from "../libs/CustomRouter.utils";
 import CandidateFeedbackForm from "../views/CandidateFeedbackForm/CandidateFeedbackForm.view";
+import CandidateFeedbackFormDetail from "../views/CandidateFeedbackFormView/CandidateFeedbackFormView.js";
 
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
@@ -32,6 +33,9 @@ const RouteComponent = () => (
     <Route path={RouteName.EAF_SUCCESS} component={EmployeeFormSubmit} />
       <Route path={RouteName.CANDIDATE_FEEDBACK_SUCCESS} protect={true} component={SubmitEvaluationForm} />
     <CustomRouter path={`${RouteName.CANDIDATE_FEEDBACK}:id`} private={true} component={CandidateFeedbackForm} />
+    <CustomRouter path={`${RouteName.CANDIDATE_FEEDBACK_VIEW}:id`} private={true} component={CandidateFeedbackFormDetail} />
+    {/* <CustomRouter path={`/1`} private={true} component={CandidateFeedbackFormDetail} /> */}
+
 
 
 

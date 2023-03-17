@@ -72,7 +72,9 @@ function NextPageForm({ data, handlePrev, isSubmitting, handleSubmit: handleSubm
               />
               <div className={styles.btnContainer}>
                 <div className={styles.btnCont1}>
-                  <ButtonBase disabled={isSubmitting} onClick={handlePrev} className={styles.edit}>PREVIOUS</ButtonBase>
+                  <div style={{visibility:'hidden'}}>
+                    <ButtonBase disabled={isSubmitting} onClick={handlePrev} className={styles.edit}>PREVIOUS</ButtonBase>
+                    </div>
                   <ButtonBase
                       disabled={!isDeclarationChecked || isSubmitting}
                     type={"button"}

@@ -20,11 +20,14 @@ const CandidateUploadCard = ({ data }) => {
                   Resume
                 </a>
               </div>
-              <div className={styles.key}>
+              {
+                data?.is_eaf && <div className={styles.key}>
                 <a className={styles.uploadTag}  href={`${RouteName.CANDIDATES_INFO}${data?.enc_id}`}>
                   EAF Form
                 </a>
               </div>
+              }
+              
             </div>
           </div>
         </div>

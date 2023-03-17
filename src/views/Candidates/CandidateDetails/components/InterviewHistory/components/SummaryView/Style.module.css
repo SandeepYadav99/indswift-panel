@@ -83,6 +83,11 @@
   align-items: end;
   gap: 15px;
 }
+.hyperlinkText{
+  color: #2896E9;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
 .starWrapper{
   display: flex;
   gap: 5px;

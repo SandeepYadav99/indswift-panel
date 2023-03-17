@@ -1,0 +1,85 @@
+.evaluationFormWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: #fbfbfb 0% 0% no-repeat padding-box;
+}
+.evaluationContainer {
+  margin-top: 40px;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.logoImg {
+  text-align: center;
+  width: 100%;
+}
+.wrapper{
+  width: 100%;
+}
+.sky {
+  height: 90px;
+  width: 100px;
+}
+.loginSignupText {
+  text-align: center;
+}
+.candidateInfoContainer {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.candidateInfoContainer2 {
+  width: 80%;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.candidateInfoContainer21{
+  width: 80%;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.rankingWrapper{
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.2rem;
+  gap: 10px;
+}
+.horizontalLine {
+  border-bottom: 2px solid #ebedf4;
+  /*margin-top: 15px;*/
+}
+.heading{
+  font-weight: 600;
+  padding-left: 1.2rem;
+}
+.btnContainer {
+  width: 80%;
+  padding: 20px 0;
+  border-radius: 10px ;
+}
+.btnCont1 {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}

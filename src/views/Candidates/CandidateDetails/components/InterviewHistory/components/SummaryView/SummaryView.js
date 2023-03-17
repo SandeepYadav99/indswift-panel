@@ -3,16 +3,27 @@ import StatusPill from "../../../../../../../components/Status/StatusPill.compon
 import styles from "./Style.module.css";
 import DefaultImg from "../../../../../../../assets/img/download.png";
 import star from "../../../../../../../assets/img/star.png";
-function SummaryView({ title, statustitle, status, profile }) {
-  const ChangeUnderScore=(value)=>{
-    return value ? value.replace(/_/, " "): "NA"
-  }
+import historyUtils from "../../../../../../../libs/history.utils";
+import { useCallback } from "react";
+import RouteName from "../../../../../../../routes/Route.name";
+function SummaryView({ title, statustitle, status, profile, rating, cvList }) {
+  const ChangeUnderScore = (value) => {
+    return value ? value.replace(/_/, " ") : "NA";
+  };
+  const feedbackDetailPage = useCallback(
+    (data) => {
+      console.log(data)
+      historyUtils.push(RouteName.CANDIDATE_FEEDBACK_VIEW + data?.id);
+    },
+    []
+  );
+  console.log("cvList", cvList);
   return (
     <div className={styles.summaryWrapper}>
       <div className={styles.title}>{title}</div>
       <div className={styles.mappedCardContainer}>
-        {profile?.length &&
-          profile?.map((item,index) => (
+        {profile?.length ? (
+          profile?.map((item, index) => (
             <div className={styles.mappedCard} key={`SummaryView_${index}`}>
               <div className={styles.imageNameContainer}>
                 <div className={styles.imageContainer}>
@@ -25,6 +36,12 @@ function SummaryView({ title, statustitle, status, profile }) {
                 <div className={styles.nameContainer}>
                   <span>{item?.employee?.name}</span>
                   <div className={styles.date}>{item?.createdAtText}</div>
+                  <span
+                    className={styles.hyperlinkText}
+                    onClick={() => feedbackDetailPage(item)}
+                  >
+                    View feedback
+                  </span>
                 </div>
               </div>
               <div className={styles.SummaryViewstar}>
@@ -33,13 +50,51 @@ function SummaryView({ title, statustitle, status, profile }) {
                 </div>
                 <div className={styles.starWrapper}>
                   <img className={styles.starimg} src={star} />
-                  <span>{item?.rating ? Math.floor(item?.rating * 10)/10 : "-"}</span>
+                  <span>
+                    {item?.rating ? Math.floor(item?.rating * 10) / 10 : "-"}
+                  </span>
                   {/* <span>{item?.rating ? item?.rating.toFixed(1) : "-"}</span> */}
                 </div>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <></>
+        )}
+        {cvList?.length ? (
+          cvList.map((item, index) => (
+            <div className={styles.mappedCard} key={`SummaryView_${index}`}>
+              <div className={styles.imageNameContainer}>
+                <div className={styles.imageContainer}>
+                  <img
+                    src={
+                      item?.employee?.image ? item?.employee?.image : DefaultImg
+                    }
+                  />
+                </div>
+                <div className={styles.nameContainer}>
+                  <span>{item?.employee?.name}</span>
+                  <div className={styles.date}>{item?.updatedAtText}</div>
+                </div>
+              </div>
+              <div className={styles.SummaryViewstar}>
+                <div className={styles.buttonWrapper}>
+                  <StatusPill status={item?.status} />
+                </div>
+                <div className={styles.starWrapper}>
+                  <img className={styles.starimg} src={star} />
+                  <span>
+                    {item?.rating ? Math.floor(item?.rating * 10) / 10 : "-"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <></>
+        )}
       </div>
+
       <div className={styles.statusWrapper}>
         <div className={styles.statusColor}>
           <span className={styles.date}>{statustitle} </span>
@@ -54,6 +109,12 @@ function SummaryView({ title, statustitle, status, profile }) {
           >
             {ChangeUnderScore(status)}
           </span>
+          {rating && (
+            <div className={styles.starWrapper}>
+              <img className={styles.starimg} src={star} />
+              <span>{rating ? Math.floor(rating * 10) / 10 : "-"}</span>
+            </div>
+          )}
         </div>
         <div>
           {/* <span className={styles.date}>02/12/2022 | 03:40 PM</span> */}

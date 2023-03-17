@@ -2,7 +2,7 @@
  * Created by charnjeetelectrovese@gmail.com on 12/3/2019.
  */
 import React, {useCallback, useMemo,} from "react";
-import {IconButton} from "@material-ui/core";
+import {ButtonBase, IconButton} from "@material-ui/core";
 import classNames from "classnames";
 import {useSelector} from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
@@ -13,6 +13,8 @@ import FilterComponent from "../../components/Filter/Filter.component";
 import useCVShortlist from "./CVShortlistHook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import RejectDialog from "./component/RejectPopUp/RejectDialog.view";
+import history from "../../libs/history.utils";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const CVShortlist = ({}) => {
   const {
@@ -135,10 +137,14 @@ const CVShortlist = ({}) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
+        <ButtonBase onClick={() => history.goBack()}>
+        <ArrowBackIosIcon fontSize={"small"} />{" "}
+
           <div>
             <span className={styles.title}>Job Openings Pending Review</span>
             <div className={styles.newLine} />
           </div>
+          </ButtonBase>
         </div>
         <RejectDialog
           isOpen={isRejectPopUp}

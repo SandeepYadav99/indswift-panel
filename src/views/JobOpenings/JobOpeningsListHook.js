@@ -10,6 +10,8 @@ import historyUtils from "../../libs/history.utils";
 import {serviceGetCustomList} from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
+import { serviceGetList } from "../../services/Common.service";
+import constants from "../../config/constants";
 
 const useJobOpeningsList = ({}) => {
     const [isSidePanel, setSidePanel] = useState(false);
@@ -17,11 +19,22 @@ const useJobOpeningsList = ({}) => {
     const [editData, setEditData] = useState(null);
     const [isBulkDialog, setIsBulkDialog] = useState(false);
     const [warehouseId, setWareHouseId] = useState('ALL');
+    const [listData, setListData] = useState({
+        LOCATIONS: [],
+        GRADES: [],
+        DEPARTMENTS: [],
+      });
     const dispatch = useDispatch();
     const isMountRef = useRef(false);
     const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.job_openings);
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
+          if (!res.error) {
+            setListData(res.data);
+          }
+        });
+      }, []);
 
     useEffect(() => {
         dispatch(actionFetchJobOpenings(1, sortingData, {
@@ -120,15 +133,37 @@ const useJobOpeningsList = ({}) => {
     const handleViewEditDetails = useCallback((data) => {
         historyUtils.push(RouteName.JOB_OPENINGS_UPDATE+data.id) //+data.id
     }, []);
-
     const configFilter = useMemo(() => {
         return [
-            // {label: 'Country', name: 'country', type: 'text'},
-            // {label: 'City', name: 'city', type: 'text'},
-            {label: 'Created Date', options: { maxDate: new Date() },  name: 'createdAt', type: 'date'},
-            // {label: 'Status', name: 'status', type: 'select', fields: ['INACTIVE', 'ACTIVE']},
+            {
+                label: "Location",
+                name: "location_id",
+                type: "selectObject",
+                custom: { extract: { id: "id", title: "name" } },
+                fields: listData?.LOCATIONS,
+              },
+            //   {
+            //     label: "status",
+            //     name: "status",
+            //     type: "selectObject",
+            //     custom: { extract: { id: "id", title: "name" } },
+            //     fields: constants.JOB_CANDIDATE_STATUS_TEXT,
+            //   },
+              {
+                label: "Department",
+                name: "department_id",
+                type: "selectObject",
+                custom: { extract: { id: "id", title: "name" } },
+                fields: listData?.DEPARTMENTS,
+              },
+              {
+                label: "Created Date",
+                options: { maxDate: new Date() },
+                name: "createdAt",
+                type: "date",
+              },
         ];
-    }, []);
+    }, [listData]);
 
     const toggleBulkDialog = useCallback(() => {
         setIsBulkDialog(e => !e);

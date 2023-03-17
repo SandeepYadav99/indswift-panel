@@ -1,0 +1,48 @@
+.PerformanceViewWrapper{
+    display: flex;
+    flex-direction: row;
+    /* gap: 5px; */
+    padding: 1.2rem;
+    border-radius: 10px;
+    background-color: #fff;
+    justify-content: space-between;
+}
+.titleWrapper > span{
+    font-weight: 600;
+    font-size: .875rem;
+}
+.questionWrapper > span{
+    font-size: .875rem;
+}
+.emojWrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.ratingText{
+    font-size: .875rem;
+    font-weight: 400;
+}
+.emojCard{
+    /* flex: 1; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+.emojCard >span{
+    font-size: .875rem;
+}
+.performanceindex{
+    font-weight: 600;
+}
+.upperfeedback{
+    display: flex;
+    flex-direction: column;
+}
+.feedbackContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

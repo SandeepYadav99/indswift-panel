@@ -122,6 +122,7 @@ const InterviewerRecordTable = ({
       rowsPerPage: 10,
       allRowSelected: false,
       showSelection: false,
+      hidePagination:true
     };
 
     return { datatableFunctions, datatable };
