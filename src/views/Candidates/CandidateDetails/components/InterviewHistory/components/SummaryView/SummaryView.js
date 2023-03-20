@@ -88,12 +88,6 @@ function SummaryView({
                 <div className={styles.buttonWrapper}>
                   <StatusPill status={item?.status} />
                 </div>
-                <div className={styles.starWrapper}>
-                  <img className={styles.starimg} src={star} />
-                  <span>
-                    {item?.rating ? Math.floor(item?.rating * 10) / 10 : "-"}
-                  </span>
-                </div>
               </div>
             </div>
           ))

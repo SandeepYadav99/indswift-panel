@@ -132,6 +132,8 @@ const CadreCreateView = lazy(() => import( "../views/Cadre/CadreCreate.view"));
 const CandidateOfferLetter=lazy(()=> import("../views/Candidates/CandidateOfferLetter/CandidateOfferLetter.view"));
 const CVShortlistList = lazy( () => import('../views/CVShortlist/CVShortlist.container'));
 const JobOpeningUpdateView=lazy(()=> import("../views/JobOpeningUpdate/JobOpeningUpdate.view"))
+const CandidateOLR=lazy(()=> import('../views/Candidates/CandidateOLR/CandidateOLR.view'))
+
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -500,6 +502,15 @@ const dashboardRoutes = [
         sidebarName: "Candidate Offer",
         navbarName: "Candidate Offer",
         component: CandidateOfferLetter,
+        is_sidebar: false,
+        is_protect: true,
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CANDIDATES_OFFER_DETAILS}`,
+        sidebarName: "Candidate Offer Details",
+        navbarName: "Candidate Offer Details",
+        component: CandidateOLR,
         is_sidebar: false,
         is_protect: true,
         roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
