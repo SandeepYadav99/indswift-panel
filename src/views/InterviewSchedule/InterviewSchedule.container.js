@@ -27,7 +27,7 @@ const InterviewSchedule = ({location}) => {
 
     const removeUnderScore=(value)=>{
         return value ? value.replace(/_/, " "): ""
-      } 
+      }
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status} />
     }, []);
@@ -107,12 +107,12 @@ const InterviewSchedule = ({location}) => {
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}>
                         <PeopleOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>View Profile</span>
                     </IconButton >
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {
+                    {all.can_feedback && (<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {
                         historyUtils.push(`${RouteName.CANDIDATE_FEEDBACK}${all?.id}`)
                     }}>
                         <AssignmentOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>Record Feedback</span>
-                    </IconButton >
-                    
+                    </IconButton >)}
+
                 </div>),
             },
 

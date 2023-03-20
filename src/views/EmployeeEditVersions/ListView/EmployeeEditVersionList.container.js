@@ -46,13 +46,13 @@ const EmployeeVersionList = ({}) => {
     const tableStructure = useMemo(() => {
         return [
             {
-                key: 'employee.name',
+                key: 'emp.name',
                 label: 'Employee Name',
                 sortable: true,
                 render: (value, all) => <div>{renderFirstCell(all)}</div>,
             },
             {
-                key: 'code',
+                key: 'emp.emp_code',
                 label: 'Code',
                 sortable: false,
                 render: (temp, all) => <div>{all?.employee?.code}</div>,

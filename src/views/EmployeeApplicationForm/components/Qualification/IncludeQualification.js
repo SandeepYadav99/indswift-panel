@@ -13,13 +13,13 @@ const TEMP_OBJ = {
     passing_year: '',
     cgpa: '',
     degree_type: '',
-    other_certificate:''
 };
 
 const IncludeQualification = ({data, currency, listWarehouse, errorData: errorForm, form, changeTextData, updateInventory, vendorId,isDisabled}, ref) => {
     const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     const [errorData, setErrorData] = useState({});
     const [variants, setVariants] = useState([]);
+    const [otherCertificates, setOtherCertificates] = useState('');
     const {id} = useParams();
 
     useEffect(() => {
@@ -42,14 +42,20 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
         isValid() {
             return validateData();
         },
-        setData(data) {
+        setData(data, otherData) {
             setFields([...data]);
+            if (otherData) {
+
+            }
         },
         resetData() {
              setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
         },
         getData() {
-            return JSON.parse(JSON.stringify(fields));
+            return {
+                fields: JSON.parse(JSON.stringify(fields)),
+                otherCertificates: otherCertificates,
+            };
         }
     }));
 
@@ -182,12 +188,10 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
                 <div className={styles.flex1}>
                     <CustomTextField
                         disabled={isDisabled ? true : false}
-                        isError={errorData?.other_certificate}
-                        errorText={errorData?.other_certificate}
                         label={"Other Professional Certificates (if any)"}
-                        value={form?.other_certificate}
+                        value={otherCertificates}
                         onTextChange={(text) => {
-                            changeData(text, "other_certificate");
+                            setOtherCertificates(text);
                         }}
                     />
                 </div>

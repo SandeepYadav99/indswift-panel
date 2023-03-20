@@ -484,7 +484,7 @@ const dashboardRoutes = [
         component: CandidateDetails,
         is_sidebar: false,
         is_protect: true,
-        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.GENERAL, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CANDIDATES_INFO}:id`,

@@ -74,7 +74,6 @@ export default {
     SOURCING:'warning',
     NOSOURCING:'nosourcing',
     'CV Rejected':'error',
-    'Pending':'pending'
   },
   STATES: [
     "Andaman and Nicobar Islands",

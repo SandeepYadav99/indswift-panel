@@ -50,7 +50,8 @@ const handlePreviousPage=useCallback(()=>{
                 const professionalDetails = refProfessionalDetails?.current?.getData();
                 serviceCandidateEAFUpdateQualification({
                     candidate_id: candidateId,
-                    qualification: qualificationData,
+                    qualification: qualificationData.fields,
+                    other_professional_certifications: qualificationData.otherCertificates,
                     professional_details: professionalDetails?.data,
                 }).then((res) => {
                     if (!res.error) {

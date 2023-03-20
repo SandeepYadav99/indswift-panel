@@ -104,8 +104,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         key: "rating",
         label: "Rating",
         sortable: false,
-        render: (temp, all) => <div>{all?.rating}</div>,
-      //  {all?.rating ? all?.rating : 0}
+        render: (temp, all) => <div>{all?.rating ? all?.rating : 0}</div>,
       },
       {
         key: "rewards",
@@ -164,7 +163,6 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
       rowsPerPage: 15,
       allRowSelected: false,
       showSelection: false,
-      hidePagination:true,
     };
 
     return { datatableFunctions, datatable };

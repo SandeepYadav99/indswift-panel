@@ -92,7 +92,7 @@ const useEmployeeVersionList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageEmployeeVersion(1));
+      // dispatch(actionSetPageEmployeeVersion(1));
       dispatch(
         actionFetchEmployeeVersion(
           1,
