@@ -27,7 +27,7 @@ const CandidateList = ({location}) => {
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.candidate);
 
     const removeUnderScore=(value)=>{
-        return value ? value.replace(/_/, "_"): ""
+        return value ? value.replace(/_/g, " "): ""
       }  
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status} />
@@ -142,9 +142,6 @@ const CandidateList = ({location}) => {
 
     const tableData = useMemo(() => {
         const datatableFunctions = {
-            // onCellClick: this.handleCellClick,
-            // onCellDoubleClick: this.handleCellDoubleClick,
-            // onFilterValueChange: this._handleSearchValueChange.bind(this),
             onSortOrderChange: handleSortOrderChange,
             onPageChange: handlePageChange,
             // onRowSelection: this.handleRowSelection,

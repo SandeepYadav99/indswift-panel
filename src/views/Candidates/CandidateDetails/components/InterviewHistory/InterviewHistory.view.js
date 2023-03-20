@@ -39,7 +39,7 @@ function InterviewHistory({ historyDetail, historyData }) {
               status={item?.status}
               title="Interview Feedback"
               statustitle="Interview Final Status:"
-              profile={item?.interview_feedback}
+              InterviewList={item?.interview_feedback}
               rating={item?.rating}
               date={item?.status_updated_on}
             />

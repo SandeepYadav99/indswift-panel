@@ -3,10 +3,14 @@ import React from "react";
 import styles from "../../Style.module.css";
 import { useState } from "react";
 
-function ProfileUpper({ data, image, handleImageChange, error,isDisabled }) {
+function ProfileUpper({ data, image, handleImageChange, error, isDisabled }) {
   const getImgUrl = (image) => {
     if (image) {
-      return URL.createObjectURL(image);
+      if (typeof image === "object") {
+        return URL.createObjectURL(image);
+      } else {
+        return image;
+      }
     } else {
       return require("../../../../assets/img/ic_employee image@2x.png");
     }
@@ -20,22 +24,23 @@ function ProfileUpper({ data, image, handleImageChange, error,isDisabled }) {
         <p>{data?.contact}</p>
       </div>
       <div className={styles.profileimg}>
-        {
-          !isDisabled &&  <><ButtonBase className={styles.edit}>
-          <label htmlFor="imageUpload" className={styles.labelWrapper}>
-            UPLOAD NEW PICTURE
-          </label>
-        </ButtonBase>
-        <input
-          type="file"
-          id="imageUpload"
-          accept=".jpg,.jpeg,.png"
-          onChange={handleImageChange}
-          style={{ display: "none" }}
-        />
-        </>
-        }
-       
+        {!isDisabled && (
+          <>
+            <ButtonBase className={styles.edit}>
+              <label htmlFor="imageUpload" className={styles.labelWrapper}>
+                UPLOAD NEW PICTURE
+              </label>
+            </ButtonBase>
+            <input
+              type="file"
+              id="imageUpload"
+              accept=".jpg,.jpeg,.png"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+          </>
+        )}
+
         <div>
           <img className={styles.applicationImage} src={getImgUrl(image)} />
         </div>

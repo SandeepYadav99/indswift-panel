@@ -6,23 +6,27 @@ import star from "../../../../../../../assets/img/star.png";
 import historyUtils from "../../../../../../../libs/history.utils";
 import { useCallback } from "react";
 import RouteName from "../../../../../../../routes/Route.name";
-function SummaryView({ title, statustitle, status, profile, rating, cvList,date }) {
+function SummaryView({
+  title,
+  statustitle,
+  status,
+  InterviewList,
+  rating,
+  cvList,
+  date,
+}) {
   const ChangeUnderScore = (value) => {
-    return value ? value.replace(/_/, " ") : "NA";
+    return value ? value.replace(/_/g, " ") : "NA";
   };
-  const feedbackDetailPage = useCallback(
-    (data) => {
-      console.log(data)
-      historyUtils.push(RouteName.CANDIDATE_FEEDBACK_VIEW + data?.id);
-    },
-    []
-  );
+  const feedbackDetailPage = useCallback((data) => {
+    historyUtils.push(RouteName.CANDIDATE_FEEDBACK_VIEW + data?.feedback_id);
+  }, []);
   return (
     <div className={styles.summaryWrapper}>
       <div className={styles.title}>{title}</div>
       <div className={styles.mappedCardContainer}>
-        {profile?.length ? (
-          profile?.map((item, index) => (
+        {InterviewList?.length ? (
+          InterviewList?.map((item, index) => (
             <div className={styles.mappedCard} key={`SummaryView_${index}`}>
               <div className={styles.imageNameContainer}>
                 <div className={styles.imageContainer}>
@@ -32,15 +36,19 @@ function SummaryView({ title, statustitle, status, profile, rating, cvList,date 
                     }
                   />
                 </div>
+
                 <div className={styles.nameContainer}>
                   <span>{item?.employee?.name}</span>
                   <div className={styles.date}>{item?.createdAtText}</div>
-                  <span
-                    className={styles.hyperlinkText}
-                    onClick={() => feedbackDetailPage(item)}
-                  >
-                    View feedback
-                  </span>
+                  { item?.interview_status &&
+                    item?.interview_status !== "PENDING" && (
+                      <span
+                        className={styles.hyperlinkText}
+                        onClick={() => feedbackDetailPage(item)}
+                      >
+                        View feedback
+                      </span>
+                    )}
                 </div>
               </div>
               <div className={styles.SummaryViewstar}>
@@ -61,8 +69,8 @@ function SummaryView({ title, statustitle, status, profile, rating, cvList,date 
           <></>
         )}
         {cvList?.length ? (
-          cvList.map((item, index) => (
-            <div className={styles.mappedCard} key={`SummaryView_${index}`}>
+          cvList?.map((item, index) => (
+            <div className={styles.mappedCard} key={`SummaryViewCV_${index}`}>
               <div className={styles.imageNameContainer}>
                 <div className={styles.imageContainer}>
                   <img

@@ -96,7 +96,6 @@ const useRejectDialogHook = ({ isOpen, handleToggle }) => {
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     console.log("===?",form,errors)
-    LogUtils.log("errors", errors);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;

@@ -545,6 +545,10 @@ class QuestionsFormView extends Component {
                         </div>
                     </div>
                     {this._renderImages()}
+                    <div className={styles.bookmarkLabelWrapper}>
+                        <span className={styles.bookmarkHeading}>Images Note:</span>
+                        <span>Bookmarked Images will show on Employees Dashboard Event Section</span>
+                    </div>
                     <div className={'formFlex'}>
                         <div className={'formGroup'}>
                             <Field

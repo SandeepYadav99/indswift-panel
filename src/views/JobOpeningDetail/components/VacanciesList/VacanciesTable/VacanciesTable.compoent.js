@@ -1,13 +1,176 @@
-import React from 'react'
+import React, { Component, useCallback, useMemo } from "react";
+import { Button, ButtonBase, IconButton, withStyles } from "@material-ui/core";
+import DataTables from "../../../../../Datatables/Datatable.table";
+import styles from "./Style.module.css";
+import classNames from "classnames";
+import { Add, CachedOutlined, Edit, InfoOutlined } from "@material-ui/icons";
+import StatusPill from "../../../../../components/Status/StatusPill.component";
+import FilterComponent from "../../../../../components/Filter/Filter.component";
+import useVacancyList from "./VacanciesTableHook";
+import constants from "../../../../../config/constants";
+import Constants from "../../../../../config/constants";
 
 function VacanciesTable() {
-  return (
-    <div className={styles.plainPaper}>
-            
-             
-             
-             
+  const {
+    handleSortOrderChange,
+    handleRowSize,
+    handlePageChange,
+    handleEdit,
+    handleFilterDataChange,
+    handleSearchValueChange,
+    handleViewDetails,
+    editData,
+    isCalling,
+    currentData,
+    data,
+    currentPage,
+
+
+    isCandidatesFetching,
+  } = useVacancyList({  });
+
+  const renderStatus = useCallback((status) => {
+    return <StatusPill status={status} />;
+  }, []);
+  const renderContact = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          <div >
+            <span className={styles.productName}>{obj?.contact}</span> <br />
+            <span>{obj?.email}</span>
+          </div>
         </div>
+      );
+    }
+    return null;
+  }, []);
+  const renderFirstCell = useCallback((product) => {
+    if (product) {
+      return (
+        <div className={styles.firstCellFlex}>
+          {/*<div>*/}
+          {/*    <img src={user.image} alt=""/>*/}
+          {/*</div>*/}
+          <div className={classNames(styles.firstCellInfo, "openSans")}>
+            <span>
+              <strong></strong>
+            </span>{" "}
+            <br />
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
+
+  const tableStructure = useMemo(() => {
+    return [
+      {
+        key: "name",
+        label: "Employee",
+        sortable: false,
+        render: (temp, all) => <div>{all?.candidate?.name}</div>,
+      },
+      {
+        key: "designation",
+        label: "Designation",
+        sortable: false,
+        render: (temp, all) => <div>{renderContact(all?.candidate)}</div>,
+      },
+      {
+        key: "appliedDateText",
+        label: "Date Added",
+        sortable: false,
+        render: (temp, all) => <div>{all?.candidate?.applied_date}</div>,
+      //  candidate?.applied_date
+      },
+      {
+        key: "rewards",
+        label: "Employee Status",
+        sortable: false,
+        render: (temp, all) => (
+            <div>
+              <StatusPill status={constants.INTERVIEW_STATUS_TEXT[all?.interview_status]} />
+            </div>
+        ),
+      },
+      {
+        key: "rewards",
+        label: "REPLEACEMENT STATUS",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            <StatusPill status={Constants.JOB_CANDIDATE_STATUS_TEXT[all?.status]} />
+          </div>
+        ),
+      },
+      {
+        key: "Replacement Status",
+        label: "Action",
+        sortable: false,
+        render: (temp, all) => <div>
+          <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><Edit fontSize={'small'} /></IconButton >
+        </div>,
+      },
+    ];
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+
+  const tableData = useMemo(() => {
+    const datatableFunctions = {
+      onSortOrderChange: handleSortOrderChange,
+      onPageChange: handlePageChange,
+      onRowSizeChange: handleRowSize,
+    };
+
+    const datatable = {
+      ...Constants.DATATABLE_PROPERTIES,
+      columns: tableStructure,
+      data: currentData,
+      count: data.length,
+      page: currentPage -1,
+      rowsPerPage: 15,
+      allRowSelected: false,
+      showSelection: false,
+      hidePagination:true,
+    };
+
+    return { datatableFunctions, datatable };
+  }, [
+    tableStructure,
+    handleSortOrderChange,
+    handlePageChange,
+    handleRowSize,
+    currentPage,
+    currentData,
+    data,
+  ]); // allData, data, currentPage
+
+  return (
+    <div>
+      <div>
+        <div >
+          <div className={styles.FilterBtnWrapper}>
+            <FilterComponent
+              // is_progress={isFetching}
+              handleSearchValueChange={handleSearchValueChange}
+              handleFilterDataChange={handleFilterDataChange}
+            />
+             
+          </div>
+
+          <div>
+            <br />
+            <div style={{ width: "100%" }}>
+              <DataTables
+                {...tableData.datatable}
+                {...tableData.datatableFunctions}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

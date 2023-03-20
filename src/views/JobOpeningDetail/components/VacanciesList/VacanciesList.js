@@ -3,10 +3,20 @@ import { ButtonBase, Menu, MenuItem } from "@material-ui/core";
 import styles from "./Style.module.css";
 import VacanciesListHook from "./VacanciesListHook";
 import VacanciesDialog from "./VacanciesPopUp/VacanciesDialog.view";
+import NewPositionDialog from "./NewPositionPopUp/NewPositionDialog.view";
+import VacanciesTable from "./VacanciesTable/VacanciesTable.compoent";
 
 function VacanciesList() {
-  const { handleCandidateMenu, toggleReplaceDialog, isReplacingPopUp } =
-    VacanciesListHook({});
+  const {
+    handleCandidateMenu,
+    toggleReplaceDialog,
+    isReplacingPopUp,
+    isNewPosition,
+    togglePositionDialog,
+    handleAddCandidate,
+    candidateEl,
+    handleCloseCandidateEl,
+  } = VacanciesListHook({});
   return (
     <div className={styles.plainPaper}>
       <div className={styles.btmFlex}>
@@ -14,18 +24,28 @@ function VacanciesList() {
           <div className={styles.heading}>Vacancies </div>
         </div>
         <VacanciesDialog
-                isOpen={isReplacingPopUp}
-                handleToggle={toggleReplaceDialog}
-                // handleVerify={handlePasswordVerified}
-              />
+          isOpen={isReplacingPopUp}
+          handleToggle={toggleReplaceDialog}
+        />
+        <NewPositionDialog
+          isOpen={isNewPosition}
+          handleToggle={togglePositionDialog}
+        />
         <div style={{ marginLeft: "20px" }}>
           <ButtonBase
             //  onClick={toggleSidePanel
+            aria-owns={candidateEl ? "candidateVacancy" : undefined}
+            aria-haspopup="true"
             className={styles.createBtn}
           >
             ADD VACANCY
           </ButtonBase>
-          <Menu>
+          <Menu 
+          id="candidateVacancy"
+          anchorEl={candidateEl}
+          open={Boolean(candidateEl)}
+          onClose={handleCloseCandidateEl}
+          >
             <MenuItem
               onClick={() => {
                 handleCandidateMenu("NEW");
@@ -43,6 +63,7 @@ function VacanciesList() {
           </Menu>
         </div>
       </div>
+      <VacanciesTable/>
       {/* <InterviewerRecordTable jobId={jobId} isInterviewStatus={isInterviewStatus} handleChangeInterviewStatus={handleChangeInterviewStatus} /> */}
     </div>
   );

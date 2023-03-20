@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import handleSubmit from "redux-form/lib/handleSubmit";
 import LogUtils from "../../../libs/LogUtils";
 import {
   serviceCandidateEafUpdatePersonal,
@@ -8,7 +7,6 @@ import {
 } from "../../../services/CandidateEAF.service";
 import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import { serviceGetCandidateDetails } from "../../../services/Candidate.service";
 import RouteName from "../../../routes/Route.name";
 import useEAFSession from "../EAFSessionHook";
 
@@ -30,6 +28,7 @@ const useEmployeePersonalForm = ({}) => {
           if (!res.error) {
             const tempData = res?.data;
             setCandidateData(tempData?.details);
+            setImage(tempData?.details?.image)
           }
         }
       );
