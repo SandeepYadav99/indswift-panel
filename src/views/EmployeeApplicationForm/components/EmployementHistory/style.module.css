@@ -75,11 +75,6 @@
   margin-bottom: 40px;
 }
 .headerTitle {
-  /*margin-bottom: 15px;*/
-  /*padding-bottom: 5px;*/
-  /*margin-left: 15px;*/
-  /*border-bottom: 1px solid;*/
-  /*width: 100%;*/
   flex: 4;
   font-weight: 600;
   display: flex;
@@ -126,5 +121,13 @@
 }
 
 .qualificationFormCont {
+  flex: 1;
+}
+.historyfieldWrapper{
+  display: flex;
+  flex: 1;
+}
+.historyfieldWrapperHide{
+  display: flex;
   flex: 1;
 }

@@ -184,7 +184,7 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
                     <Add fontSize={"small"}/> <span>Add Qualification</span>
                 </ButtonBase>
             </div>}
-            <div className={styles.firstRow}>
+            <div className={styles.firstRow} style={{marginTop:'15px'}}>
                 <div className={styles.flex1}>
                     <CustomTextField
                         disabled={isDisabled ? true : false}
