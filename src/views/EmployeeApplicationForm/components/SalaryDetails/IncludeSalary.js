@@ -60,7 +60,7 @@ const IncludeSalary = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["payment_type", "amount"];
+      const required = [];
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;

@@ -52,3 +52,17 @@
     display: flex;
     gap: 5px;
 }
+.resumeLink{
+  color: #2896E9;
+}
+.starWrapper{
+  display: flex;
+  gap: 5px;
+  font-size: .875rem;
+  font-weight: 600;
+  align-items: center;
+}
+.starimg {
+  width: 15px;
+  aspect-ratio: 1/1;
+}

@@ -86,7 +86,7 @@ const MonthlySalary = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ['ctc', 'in_hand', 'payment_type', 'amount'];
+      const required = ['ctc', 'in_hand'];
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;

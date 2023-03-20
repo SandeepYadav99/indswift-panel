@@ -271,8 +271,12 @@ input[type=radio] + label:hover {
 .MuiInputLabel-outlined.MuiInputLabel-shrink{
     background: white;
 }
-
-
+.Selected{
+    color: #20c997;
+}
+.Rejected{
+    color: #ff4d4f;
+}
 .pending {
     background-color: rgba(250,139,12,.06274509803921569);
     color: #fa8b0c;
