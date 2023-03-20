@@ -1,9 +1,19 @@
 import React from 'react'
+import { useCallback } from 'react';
+import { useState } from 'react';
 
-function CandidateOLR() {
+function CandidateOLRHook() {
+  const [isApprovalPopUp, setIsApprovalPopUp] = useState(false);
+  const toggleApprovalDialog = useCallback(() => {
+    setIsApprovalPopUp((e) => !e);
+  }, [isApprovalPopUp]);
   return (
-    <div>CandidateOLR</div>
+    {
+      isApprovalPopUp,
+      toggleApprovalDialog
+
+    }
   )
 }
 
-export default CandidateOLR
+export default CandidateOLRHook

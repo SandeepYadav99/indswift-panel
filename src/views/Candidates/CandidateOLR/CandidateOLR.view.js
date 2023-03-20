@@ -6,10 +6,17 @@ import historyUtils from "../../../libs/history.utils";
 import CandidateDetails from "./components/CandidateDetails/CandidateDetails";
 import ReplacementDetails from "./components/ReplacementDetails/ReplacementDetails";
 import SalaryDetails from "./components/SalaryDetails/SalaryDetails";
+import ApprovalDialog from "./components/ApprovalPopUp/ApprovalDialog.view";
+import CandidateOLRHook from "./CandidateOLR.hook";
 
 function CandidateOLR() {
+  const { isApprovalPopUp, toggleApprovalDialog } = CandidateOLRHook({});
   return (
     <div className={"container"}>
+      <ApprovalDialog
+        isOpen={isApprovalPopUp}
+        handleToggle={toggleApprovalDialog}
+      />
       <div className={styles.outerFlex}>
         <div>
           <ButtonBase onClick={() => historyUtils.goBack()}>
@@ -34,14 +41,14 @@ function CandidateOLR() {
         </span>
       </div>
       <div className={styles.btnCont1}>
-            <ButtonBase
-              type={"button"}
-              // onClick={handleSubmit}
-              className={styles.createBtn}
-            >
-              SHARE FOR APPROVAL
-            </ButtonBase>
-          </div>
+        <ButtonBase
+          type={"button"}
+          // onClick={handleSubmit}
+          className={styles.createBtn}
+        >
+          SHARE FOR APPROVAL
+        </ButtonBase>
+      </div>
     </div>
   );
 }

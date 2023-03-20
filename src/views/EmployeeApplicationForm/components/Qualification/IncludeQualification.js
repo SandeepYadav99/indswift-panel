@@ -45,7 +45,7 @@ const IncludeQualification = ({data, currency, listWarehouse, errorData: errorFo
         setData(data, otherData) {
             setFields([...data]);
             if (otherData) {
-
+                setOtherCertificates(otherData)
             }
         },
         resetData() {

@@ -40,7 +40,7 @@ function useEvaluationFormHook({handleNext}) {
             setForm(t);
             removeError(type);
         },
-        [form, setForm]
+        [form, setForm,errorData]
     );
 
     const removeError = useCallback((key) => {

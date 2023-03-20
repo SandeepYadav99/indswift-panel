@@ -26,8 +26,8 @@ const useQualificationForm = ({}) => {
                if (!res.error) {
                    const tempData = res?.data?.details;
                    if (tempData) {
-                       const { qualification, professional_details } = tempData;
-                       qualification && refQualificationDetails.current?.setData(qualification);
+                       const { qualification, professional_details ,other_professional_certifications} = tempData;
+                       qualification && refQualificationDetails.current?.setData(qualification,other_professional_certifications);
                        professional_details && refProfessionalDetails.current?.setData(professional_details);
                    }
                }
