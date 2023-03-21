@@ -46,7 +46,7 @@ const CandidateTable = ({}) => {
     const tableStructure = useMemo(() => {
         return [
             {
-                key: 'name',
+                key: 'sku_code',
                 label: 'SKU Code',
                 sortable: false,
                 render: (value, all) => <div>{renderFirstCell(all)}</div>,

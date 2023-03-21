@@ -77,7 +77,7 @@ const PolicyRecordTable = ({ jobId, filterWidth }) => {
       },
 
       {
-        key: "rewards",
+        key: "status",
         label: "Status",
         sortable: false,
         render: (temp, all) => (

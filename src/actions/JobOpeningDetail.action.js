@@ -3,14 +3,15 @@ import {
     serviceGetJobOpeningCandidates,
     serviceGetJobOpeningInterviewers
 } from "../services/JobOpenings.service";
-import EventEmitter from "../libs/Events.utils";
-import {CREATE_DATA} from "./JobOpenings.action";
+import {serviceGetVacancies} from "../services/Vacancy.service";
 
 
 export const INIT_JOB_CANDIDATES = 'INIT_JOB_CANDIDATES';
 export const DONE_JOB_CANDIDATES = 'DONE_JOB_CANDIDATES';
 export const INIT_JOB_INTERVIEWERS = 'INIT_JOB_INTERVIEWERS';
 export const DONE_JOB_INTERVIEWERS = 'DONE_JOB_INTERVIEWERS';
+export const INIT_JOB_VACANCIES = 'INIT_JOB_VACANCIES';
+export const DONE_JOB_VACANCIES = 'DONE_JOB_VACANCIES';
 
 export function actionGetJobOpeningCandidates(openingId) {
     const request = serviceGetJobOpeningCandidates({ id: openingId });
@@ -32,6 +33,19 @@ export function actionGetJobOpeningInterviewers(openingId) {
         request.then((data) => {
             if (!data.error) {
                 dispatch({type: DONE_JOB_INTERVIEWERS, payload: data.data})
+            }
+        })
+    }
+}
+
+
+export function actionGetJobOpeningVacancies(openingId) {
+    const request = serviceGetVacancies({ job_id: openingId });
+    return (dispatch) => {
+        dispatch({ type: INIT_JOB_VACANCIES, payload: null });
+        request.then((data) => {
+            if (!data.error) {
+                dispatch({type: DONE_JOB_VACANCIES, payload: data.data})
             }
         })
     }

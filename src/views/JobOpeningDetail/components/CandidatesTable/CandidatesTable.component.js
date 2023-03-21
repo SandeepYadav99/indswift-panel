@@ -95,7 +95,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
       //  candidate?.applied_date
       },
       {
-        key: "appliedDateText",
+        key: "associated_on",
         label: "Associated On",
         sortable: false,
         render: (temp, all) => <div>{all?.createdAtText}</div>,
@@ -107,7 +107,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         render: (temp, all) => <div>{all?.rating ? all?.rating : 0}</div>,
       },
       {
-        key: "rewards",
+        key: "status",
         label: "Interview Status",
         sortable: false,
         render: (temp, all) => (
@@ -117,7 +117,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         ),
       },
       {
-        key: "rewards",
+        key: "job_status",
         label: "Status",
         sortable: false,
         render: (temp, all) => (
@@ -127,13 +127,13 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         ),
       },
       {
-        key: "rewards",
+        key: "updatedAt",
         label: "Last Updated On",
         sortable: false,
         render: (temp, all) => <div>{all?.updatedAtText}</div>,
       },
       {
-        key: "rewards",
+        key: "action_key",
         label: "Action",
         sortable: false,
         render: (temp, all) => <div>

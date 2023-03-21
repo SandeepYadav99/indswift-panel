@@ -99,7 +99,7 @@ const JobOpeningDetail = () => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Employee Experience:</span>
-                {data?.replacing_person?.total_experience ? `${data?.replacing_person?.total_experience} yrs`  : "NA"} 
+                {data?.replacing_person?.total_experience ? `${data?.replacing_person?.total_experience} yrs`  : "NA"}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Employee CTC:</span>
@@ -119,7 +119,7 @@ const JobOpeningDetail = () => {
       </div>
       <CandidatePaperComponent jobId={id} />
       <InterviewerListComponent jobId={id} isInterviewStatus={isInterviewStatus} handleChangeInterviewStatus={handleChangeInterviewStatus}/>
-      <VacanciesList/>
+      <VacanciesList jobId={id} prc={data.code}/>
     </div>
   );
 };

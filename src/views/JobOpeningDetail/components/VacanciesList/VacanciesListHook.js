@@ -1,11 +1,16 @@
 import React from "react";
 import { useCallback } from "react";
 import { useState } from "react";
+import {useDispatch} from "react-redux";
+import {actionGetJobOpeningVacancies} from "../../../../actions/JobOpeningDetail.action";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
-function VacanciesListHook() {
+function VacanciesListHook({ jobId }) {
   const [candidateEl, setCandidateEl] = useState(null);
   const [isNewPosition, setIsNewPosition] = useState(false);
   const [isReplacingPopUp, setIsReplacingPopUp] = useState(false);
+  const dispatch = useDispatch();
+
   const toggleReplaceDialog = useCallback(() => {
     setIsReplacingPopUp((e) => !e);
   }, [setIsReplacingPopUp]);
@@ -13,6 +18,7 @@ function VacanciesListHook() {
   const togglePositionDialog = useCallback(() => {
     setIsNewPosition((e) => !e);
   }, [setIsNewPosition]);
+
   const handleCandidateMenu = useCallback(
     (type) => {
       if (type === "NEW") {
@@ -35,6 +41,13 @@ function VacanciesListHook() {
     setCandidateEl(null);
   }, [setCandidateEl]);
 
+  const handleSubmit = useCallback(() => {
+    setIsReplacingPopUp(false);
+    setIsNewPosition(false);
+    dispatch(actionGetJobOpeningVacancies(jobId));
+    SnackbarUtils.success('Vacancy Added Successfully');
+  }, [setIsReplacingPopUp, setIsNewPosition, jobId]);
+
   return {
     handleAddCandidate,
     candidateEl,
@@ -44,6 +57,7 @@ function VacanciesListHook() {
     isReplacingPopUp,
     isNewPosition,
     togglePositionDialog,
+    handleSubmit
   };
 }
 

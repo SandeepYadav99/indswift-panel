@@ -10,7 +10,7 @@ import useVacancyList from "./VacanciesTableHook";
 import constants from "../../../../../config/constants";
 import Constants from "../../../../../config/constants";
 
-function VacanciesTable() {
+function VacanciesTable({jobId}) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -24,10 +24,8 @@ function VacanciesTable() {
     currentData,
     data,
     currentPage,
-
-
-    isCandidatesFetching,
-  } = useVacancyList({  });
+    isVacanciesFetching,
+  } = useVacancyList({ jobId });
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
@@ -86,7 +84,7 @@ function VacanciesTable() {
       //  candidate?.applied_date
       },
       {
-        key: "rewards",
+        key: "status",
         label: "Employee Status",
         sortable: false,
         render: (temp, all) => (
@@ -96,7 +94,7 @@ function VacanciesTable() {
         ),
       },
       {
-        key: "rewards",
+        key: "emp_status",
         label: "REPLEACEMENT STATUS",
         sortable: false,
         render: (temp, all) => (
@@ -156,7 +154,7 @@ function VacanciesTable() {
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}
             />
-             
+
           </div>
 
           <div>

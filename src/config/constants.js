@@ -5,7 +5,7 @@ const tempLevel = !(
 );
 
 const tempDate = new Date();
-const isProduction = true;
+const isProduction = false;
 
 let url = "http://91.205.173.97:8111/api/admin/";
 let socketUrl = "http://91.205.173.97:8111";
@@ -74,6 +74,10 @@ export default {
     SOURCING:'warning',
     NOSOURCING:'nosourcing',
     'CV Rejected':'error',
+  },
+  VACANCY_TYPE: {
+    RAP: 'RAP',
+    ADDITIONAL_REQUIREMENT: 'ADDITIONAL_REQUIREMENT',
   },
   STATES: [
     "Andaman and Nicobar Islands",

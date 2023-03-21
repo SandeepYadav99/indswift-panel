@@ -3,13 +3,15 @@ import LogUtils from "../../../../../libs/LogUtils";
 import {useSelector} from "react-redux";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { serviceGetList} from "../../../../../services/Common.service";
+import {serviceCreateVacancy} from "../../../../../services/Vacancy.service";
+import Constants from "../../../../../config/constants";
 
 const initialForm = {
   employee_id:'',
   reason:''
 };
 
-const useVacanciesDialogHook = ({ isOpen, handleToggle, handleVerify }) => {
+const useVacanciesDialogHook = ({ isOpen, handleSubmitProp, jobId, handleVerify }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -25,7 +27,7 @@ const useVacanciesDialogHook = ({ isOpen, handleToggle, handleVerify }) => {
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
-       
+
     }
   }, [isOpen]);
 
@@ -78,30 +80,31 @@ const useVacanciesDialogHook = ({ isOpen, handleToggle, handleVerify }) => {
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-            const req= 'API CALL'
+            const req= serviceCreateVacancy({
+                job_id: jobId,
+                employee_id: form?.employee_id?.id,
+                reason: form?.reason,
+                type: Constants.VACANCY_TYPE.RAP,
+            });
             req.then(res => {
                 if (!res.error) {
-                    if (res.data) {
-                        handleVerify();
-                    } else {
-                        SnackbarUtils.error('Password does not match');
-                    }
+                    handleSubmitProp();
                 } else {
                     SnackbarUtils.error(res?.message);
                 }
                 setIsSubmitting(false);
             })
         }
-    }, [form, isSubmitting, setIsSubmitting, employeeData, handleVerify ]);
+    }, [form, isSubmitting, setIsSubmitting, handleVerify, jobId, handleSubmitProp ]);
 
-    const handleSubmit = useCallback(async () => {
+    const handleSubmit = useCallback( () => {
         const errors = checkFormValidation();
         LogUtils.log('errors', errors);
         if (Object.keys(errors).length > 0) {
             setErrorData(errors);
             return true;
         }
-        // submitToServer();
+        submitToServer();
 
     }, [
         checkFormValidation,

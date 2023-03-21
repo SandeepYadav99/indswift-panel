@@ -39,7 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const VacanciesDialog = ({ isOpen, handleToggle, empId, handleVerify }) => {
+const VacanciesDialog = ({ isOpen, handleToggle, empId, handleVerify, jobId, handleSubmit: handleSubmitProp }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -50,7 +50,7 @@ const VacanciesDialog = ({ isOpen, handleToggle, empId, handleVerify }) => {
     removeError,
     isSubmitting,
     employees,
-  } = useVacanciesDialogHook({ isOpen, handleToggle, empId, handleVerify });
+  } = useVacanciesDialogHook({ isOpen, handleToggle, jobId, handleSubmitProp });
 
   return (
     <div>
@@ -122,7 +122,7 @@ const VacanciesDialog = ({ isOpen, handleToggle, empId, handleVerify }) => {
                   "INACTIVE",
                 ].map((val) => {
                   return (
-                    <MenuItem value={val} key={val}>
+                    <MenuItem value={val} key={'REASON'+val}>
                       {val}
                     </MenuItem>
                   );

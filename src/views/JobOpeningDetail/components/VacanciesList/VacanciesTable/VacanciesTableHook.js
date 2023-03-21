@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { actionGetJobOpeningCandidates } from "../../../../../actions/JobOpeningDetail.action";
+import {
+  actionGetJobOpeningCandidates,
+  actionGetJobOpeningVacancies
+} from "../../../../../actions/JobOpeningDetail.action";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
 
@@ -10,16 +13,16 @@ const useVacancyList = ({ jobId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
-  // const {isCandidatesFetching, candidates } = useSelector(state => state.job_opening_detail);
-  const candidates = [];
-  const isCandidatesFetching = false;
-  useEffect(() => {
-    // dispatch(actionGetJobOpeningCandidates(jobId));
-  }, []);
+  const {isVacanciesFetching, vacancies } = useSelector(state => state.job_opening_detail);
 
   useEffect(() => {
-    setData(candidates);
-  }, [candidates]);
+    dispatch(actionGetJobOpeningVacancies(jobId));
+  }, []);
+
+
+  useEffect(() => {
+    setData(vacancies);
+  }, [vacancies]);
 
   useEffect(() => {
     _processData();
@@ -81,7 +84,7 @@ const useVacancyList = ({ jobId }) => {
       console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
       if (value) {
-        const tempData = candidates.filter((val) => {
+        const tempData = vacancies.filter((val) => {
           if (
             val?.candidate?.name?.match(new RegExp(value, "ig")) ||
             val?.candidate?.email?.match(new RegExp(value, "ig"))
@@ -91,10 +94,10 @@ const useVacancyList = ({ jobId }) => {
         });
         setData(tempData);
       } else {
-        setData(candidates);
+        setData(vacancies);
       }
     },
-    [queryFilter, _processData, data, setData, candidates]
+    [queryFilter, _processData, data, setData, vacancies]
   );
 
   const _handleDateChange = (date) => {
@@ -117,9 +120,9 @@ const useVacancyList = ({ jobId }) => {
     // handleNextPageClick,
     handleRowSize,
     handleSortOrderChange,
-    isCandidatesFetching,
+    isVacanciesFetching,
     currentData,
-    data: candidates,
+    data: vacancies,
     currentPage,
     handleViewDetails,
   };
