@@ -33,7 +33,7 @@ function VacanciesList() {
         />
         <div style={{ marginLeft: "20px" }}>
           <ButtonBase
-            //  onClick={toggleSidePanel
+             onClick={handleAddCandidate}
             aria-owns={candidateEl ? "candidateVacancy" : undefined}
             aria-haspopup="true"
             className={styles.createBtn}
@@ -58,7 +58,7 @@ function VacanciesList() {
                 handleCandidateMenu("REPLACING");
               }}
             >
-              Replecing Person
+              Replacing Person
             </MenuItem>
           </Menu>
         </div>
