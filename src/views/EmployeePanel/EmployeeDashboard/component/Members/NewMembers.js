@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./Style.module.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const IndividualList = () => {
   return (
     <div className={styles.newMemberCard}>
@@ -16,13 +20,36 @@ const IndividualList = () => {
     </div>
   );
 };
+
 function NewMembers() {
+  const sliderRef = useRef(null);
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    width: 500,
+    responsive: [
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 1
+        }
+      }
+    ]
+  };
   return (
     <div className={styles.newMemberWrapper}>
-      <IndividualList />
-      <IndividualList />
-      <IndividualList />
-      <IndividualList />
+      <Slider {...settings} ref={sliderRef} className={styles.customSliderWrapper}>
+        <IndividualList />
+        <IndividualList />
+        <IndividualList />
+        <IndividualList />
+        <IndividualList />
+        <IndividualList />
+      </Slider>
     </div>
   );
 }

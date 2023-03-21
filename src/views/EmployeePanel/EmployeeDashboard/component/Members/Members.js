@@ -17,7 +17,6 @@ function TabPanel(props) {
       role="tabpanel"
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
-      // aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -51,30 +50,19 @@ function Members() {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab className={"iconTabs"} label="New Member of Ind swift Family" />
+          <Tab className={"iconTabsEvents"} label="New Member of Ind swift Family" />
           <Tab
-            className={"iconTabs"}
+            className={"iconTabsEvents"}
             label="Seperation from Ind Swift Family"
           />
         </Tabs>
       </AppBar>
       <div className={styles.paperBackground}>
         <TabPanel value={value} index={0} dir={"ltr"}>
-          {/* <GenricSlider>
-            <div>
-              <h1 style={{ width: "25px" }}>fdsgj</h1>
-            </div>
-            <div>
-              <h1 style={{ width: "25px" }}>fdsgj</h1>
-            </div>
-            <div>
-              <h1 style={{ width: "25px" }}>fdsgj</h1>
-            </div>
-          </GenricSlider> */}
           <NewMembers />
         </TabPanel>
         <TabPanel value={value} index={1} dir={"ltr"}>
-          abc
+        <NewMembers />
         </TabPanel>
       </div>
     </div>
