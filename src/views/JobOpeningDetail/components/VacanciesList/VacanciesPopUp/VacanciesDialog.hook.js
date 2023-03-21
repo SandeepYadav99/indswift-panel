@@ -2,6 +2,7 @@ import {useCallback, useEffect, useState} from "react";
 import LogUtils from "../../../../../libs/LogUtils";
 import {useSelector} from "react-redux";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import { serviceGetList} from "../../../../../services/Common.service";
 
 const initialForm = {
   employee_id:'',
@@ -19,6 +20,7 @@ const useVacanciesDialogHook = ({ isOpen, handleToggle, handleVerify }) => {
   const [resData, setResData] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
     if (isOpen) {
@@ -27,6 +29,13 @@ const useVacanciesDialogHook = ({ isOpen, handleToggle, handleVerify }) => {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    serviceGetList(['EMPLOYEES']).then((res) => {
+        if (!res.error) {
+            setEmployees(res?.data?.EMPLOYEES);
+        }
+    });
+}, [])
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
@@ -122,8 +131,8 @@ const useVacanciesDialogHook = ({ isOpen, handleToggle, handleVerify }) => {
     isSubmitted,
     isVerified,
     showPasswordCurrent,
-    setShowPasswordCurrent
-
+    setShowPasswordCurrent,
+    employees
 
   };
 };

@@ -11,10 +11,10 @@ import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
-import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
 import useVacanciesDialogHook from "./VacanciesDialog.hook";
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import SearchIcon from "@material-ui/icons/Search";
+import CustomAutoComplete from "../../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -48,12 +48,8 @@ const VacanciesDialog = ({ isOpen, handleToggle, empId, handleVerify }) => {
     handleSubmit,
     onBlurHandler,
     removeError,
-    resData,
-    isSubmitted,
     isSubmitting,
-    isVerified,
-    showPasswordCurrent,
-    setShowPasswordCurrent,
+    employees,
   } = useVacanciesDialogHook({ isOpen, handleToggle, empId, handleVerify });
 
   return (
@@ -89,39 +85,48 @@ const VacanciesDialog = ({ isOpen, handleToggle, empId, handleVerify }) => {
           {/*</DialogTitle>*/}
           <div className={styles.fieldWrapper}>
             <div>
-              <CustomTextField
-                type={"text"}
-                label={"Interview Name (Employee ID)"}
-                value={form?.employee_id}
-                onTextChange={(text) => {
-                  changeTextData(text, "employee_id");
-                }}
-                isError={errorData?.employee_id}
-                errorText={errorData?.employee_id}
-                onBlur={() => {
-                  onBlurHandler("employee_id");
-                }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
+            <CustomAutoComplete
+              autoCompleteProps={{
+                freeSolo: false,
+                getOptionLabel: (option) => option.label,
+              }}
+              dataset={employees}
+              datasetKey={"label"}
+              onTextChange={(text, value) => {
+                changeTextData(text, "employee_id");
+              }}
+              variant={"outlined"}
+              label={"Interview Name (Employee ID)"}
+              name={"employee_id"}
+              isError={errorData?.employee_id}
+              value={form?.employee_id}
+            />
             </div>
             <div>
-              <CustomSelectField
+            <CustomSelectField
                 isError={errorData?.reason}
                 errorText={errorData?.reason}
                 label={"Reason"}
                 value={form?.reason}
                 handleChange={(value) => {
-                    changeTextData(value, "reason");
+                  changeTextData(value, "reason");
                 }}
               >
-                <MenuItem value="1">1</MenuItem>
-                <MenuItem value="2">2</MenuItem>
+                {[
+                  "ACTIVE",
+                  "RESIGNED",
+                  "TERMINATED",
+                  "RETIRED",
+                  "EXPIRED",
+                  "ABSCONDED",
+                  "INACTIVE",
+                ].map((val) => {
+                  return (
+                    <MenuItem value={val} key={val}>
+                      {val}
+                    </MenuItem>
+                  );
+                })}
               </CustomSelectField>
             </div>
           </div>
