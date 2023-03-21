@@ -7,6 +7,11 @@ import UpperCard from "./components/UpperCard/UpperCard";
 import CandidateProfileView from "./components/CandidateProfileView/CandidateProfileView";
 import InterviewHistory from "./components/InterviewHistory/InterviewHistory.view";
 import useCandidateDetails from "./CandidateDetails.hook";
+import UpdatePRCDialog from "./components/UpdatePRCPopUp/UpdatePRCDialog.view";
+import CandidateStatusDialog from "./components/CandidateStatusPopUp/CandidateStatusDialog.view";
+import ExtendOfferDialog from "./components/ExtendOfferPopUp/ExtendOfferDialog.view";
+import ReoccuringDialog from "./components/ReoccuringPopUp/ReoccuringDialog.view";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -57,6 +62,10 @@ function CandidateDetails() {
     toggleStatusDialog,
     handleOfferPage,
     toggleResetDialog,
+    isExtendDialog,
+    toggleExtendDialog,
+    toggleReoccuringDialog,
+    isReoccuring,
   } = useCandidateDetails({});
   return (
     <div>
@@ -78,6 +87,14 @@ function CandidateDetails() {
             <Tab className={"iconTabs"} label="Interview History" />
           </Tabs>
         </AppBar>
+        <ExtendOfferDialog
+          isOpen={isExtendDialog}
+          handleToggle={toggleExtendDialog}
+        />
+        <ReoccuringDialog
+          isOpen={isReoccuring}
+          handleToggle={toggleReoccuringDialog}
+        />
         {/* <UpdatePRCDialog
           isOpen={isResetDialog}
           handleToggle={toggleResetDialog}

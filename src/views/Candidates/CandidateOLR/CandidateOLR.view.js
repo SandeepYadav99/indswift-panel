@@ -8,14 +8,24 @@ import ReplacementDetails from "./components/ReplacementDetails/ReplacementDetai
 import SalaryDetails from "./components/SalaryDetails/SalaryDetails";
 import ApprovalDialog from "./components/ApprovalPopUp/ApprovalDialog.view";
 import CandidateOLRHook from "./CandidateOLR.hook";
+import RejectOLRDialog from "./components/RejectOLRPopUp/RejectOLRDialog.view";
 
 function CandidateOLR() {
-  const { isApprovalPopUp, toggleApprovalDialog } = CandidateOLRHook({});
+  const {
+    isApprovalPopUp,
+    toggleApprovalDialog,
+    isRejectPopUp,
+    toggleRejectDialog,
+  } = CandidateOLRHook({});
   return (
     <div className={"container"}>
       <ApprovalDialog
         isOpen={isApprovalPopUp}
         handleToggle={toggleApprovalDialog}
+      />
+      <RejectOLRDialog
+        isOpen={isRejectPopUp}
+        handleToggle={toggleRejectDialog}
       />
       <div className={styles.outerFlex}>
         <div>

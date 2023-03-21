@@ -26,7 +26,8 @@
     gap: 20px;
 }
 .valueWrap{
-    max-width: 180px;
+    flex: 1;
+    /* max-width: 180px; */
     overflow-wrap: anywhere;
     text-transform: uppercase;
 }
@@ -54,6 +55,7 @@
     margin-top: 20px;
 }
 .key{
+    display: flex;
     color: #818181;
     font-weight: 500;
     margin-bottom: 7px;
@@ -62,7 +64,7 @@
 
 .value{
     font-weight: 600;
-    width: 100%;
+    flex: 1;
     color: black;
     display: inline-block;
 }

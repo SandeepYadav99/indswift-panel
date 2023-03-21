@@ -48,6 +48,7 @@ import EmployeeDashboard from "./EmployeeDashboard.reducer";
 import EmployeeVersions from "./EmployeeEditVersion.reducer";
 import CVReviewReducer from "./CVReview.reducer";
 import CVShortlistReducer from "./CVShortlist.reducer";
+import ReviewOLRReducer from "./ReviewOLR.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -94,6 +95,7 @@ const rootReducer = combineReducers({
   cvShortlist: CVShortlistReducer,
   employeeDashboard: EmployeeDashboard,
   employee_versions: EmployeeVersions,
+  review_olr:ReviewOLRReducer
   // form: formReducer,
 });
 

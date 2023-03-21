@@ -133,6 +133,7 @@ const CandidateOfferLetter=lazy(()=> import("../views/Candidates/CandidateOfferL
 const CVShortlistList = lazy( () => import('../views/CVShortlist/CVShortlist.container'));
 const JobOpeningUpdateView=lazy(()=> import("../views/JobOpeningUpdate/JobOpeningUpdate.view"))
 const CandidateOLR=lazy(()=> import('../views/Candidates/CandidateOLR/CandidateOLR.view'))
+const ReviewOLR=lazy(()=>import('../views/ReviewOLR/ReviewOLR.container'))
 
 const Roles = Constants.ROLES;
 
@@ -906,6 +907,18 @@ const dashboardRoutes = [
         navbarName: "Interview Schedule",
         icon: PeopleOutlined,
         component: InterviewSchedule,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'tm',
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    },
+    {
+        path: RouteName.REVIEW_OLR,
+        sidebarName: "Review OLR",
+        navbarName: "Review OLR",
+        icon: PeopleOutlined,
+        component: ReviewOLR,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,

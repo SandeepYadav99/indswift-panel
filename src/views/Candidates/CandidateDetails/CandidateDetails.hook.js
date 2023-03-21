@@ -11,21 +11,22 @@ import { useCallback } from "react";
 import LogUtils from "../../../libs/LogUtils";
 
 function useCandidateDetails() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const [candidateData, setCandidateData] = useState([]);
   const [isResetDialog, setIsResetDialog] = useState(false);
   const [isUpdateDialog, setIsUpdateDialog] = useState(false);
+  const [isExtendDialog, setIsExtendDialog] = useState(false);
+  const [isReoccuring, setIsReoccuring] = useState(false);
   const [historyData, setHistoryData] = useState([]);
   const [historyDetail, setHistoryDetail] = useState([]);
   const { id } = useParams();
   useEffect(() => {
-
-    Promise.allSettled([
-      serviceGetCandidateDetails({ id }),
-    ]).then((promises) => {
-      const dataValues = promises[0]?.value?.data;
-      setCandidateData(dataValues?.details);
-    });
+    Promise.allSettled([serviceGetCandidateDetails({ id })]).then(
+      (promises) => {
+        const dataValues = promises[0]?.value?.data;
+        setCandidateData(dataValues?.details);
+      }
+    );
 
     Promise.allSettled([
       serviceGetCandidateJobHistory({ candidate_id: id }),
@@ -35,7 +36,7 @@ function useCandidateDetails() {
       const historyDetailed = promises[1]?.value?.data;
       setHistoryData(historyData);
       setHistoryDetail(historyDetailed);
-    })
+    });
   }, [id]);
   //
   const handleChange = useCallback(
@@ -51,6 +52,14 @@ function useCandidateDetails() {
   const toggleResetDialog = useCallback(() => {
     setIsResetDialog((e) => !e);
   }, [isResetDialog]);
+
+  const toggleExtendDialog = useCallback(() => {
+    setIsExtendDialog((e) => !e);
+  }, [isExtendDialog]);
+
+  const toggleReoccuringDialog = useCallback(() => {
+    setIsReoccuring((e) => !e);
+  }, [isReoccuring]);
 
   const handleOfferPage = useCallback((data) => {
     historyUtils.push(RouteName.CANDIDATES_OFFER, {
@@ -68,7 +77,11 @@ function useCandidateDetails() {
     handleChange,
     toggleStatusDialog,
     handleOfferPage,
-    toggleResetDialog
+    toggleResetDialog,
+    isExtendDialog,
+    toggleExtendDialog,
+    toggleReoccuringDialog,
+    isReoccuring,
   };
 }
 
