@@ -10,7 +10,7 @@ import useVacancyList from "./VacanciesTableHook";
 import constants from "../../../../../config/constants";
 import Constants from "../../../../../config/constants";
 
-function VacanciesTable({jobId}) {
+function VacanciesTable({ jobId }) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -26,35 +26,24 @@ function VacanciesTable({jobId}) {
     currentPage,
     isVacanciesFetching,
   } = useVacancyList({ jobId });
-
   const renderStatus = useCallback((status) => {
-    return <StatusPill status={status} />;
-  }, []);
-  const renderContact = useCallback((obj) => {
-    if (obj) {
-      return (
-        <div className={styles.firstCellFlex}>
-          <div >
-            <span className={styles.productName}>{obj?.contact}</span> <br />
-            <span>{obj?.email}</span>
-          </div>
-        </div>
-      );
+    if (status) {
+      return <StatusPill status={status} />;
     }
-    return null;
   }, []);
   const renderFirstCell = useCallback((product) => {
     if (product) {
       return (
         <div className={styles.firstCellFlex}>
-          {/*<div>*/}
-          {/*    <img src={user.image} alt=""/>*/}
-          {/*</div>*/}
+          {product.image && (
+            <div>
+              <img src={product.image} alt="" />
+            </div>
+          )}
+
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span>
-              <strong></strong>
-            </span>{" "}
-            <br />
+            <span>{product?.name} </span> <br />
+            <span>{product?.emp_code}</span>
           </div>
         </div>
       );
@@ -68,48 +57,50 @@ function VacanciesTable({jobId}) {
         key: "name",
         label: "Employee",
         sortable: false,
-        render: (temp, all) => <div>{all?.candidate?.name}</div>,
+        render: (temp, all) => <div>{renderFirstCell(all?.employee)}</div>,
       },
       {
         key: "designation",
         label: "Designation",
         sortable: false,
-        render: (temp, all) => <div>{renderContact(all?.candidate)}</div>,
+        render: (temp, all) => <div>{all?.designation}</div>,
       },
       {
         key: "appliedDateText",
         label: "Date Added",
         sortable: false,
-        render: (temp, all) => <div>{all?.candidate?.applied_date}</div>,
-      //  candidate?.applied_date
+        render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
       {
         key: "status",
         label: "Employee Status",
         sortable: false,
-        render: (temp, all) => (
-            <div>
-              <StatusPill status={constants.INTERVIEW_STATUS_TEXT[all?.interview_status]} />
-            </div>
-        ),
+        render: (temp, all) => renderStatus(all?.emp?.status),
       },
       {
         key: "emp_status",
         label: "REPLEACEMENT STATUS",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            <StatusPill status={Constants.JOB_CANDIDATE_STATUS_TEXT[all?.status]} />
-          </div>
-        ),
+        render: (temp, all) => renderStatus(all?.status),
       },
       {
         key: "Replacement Status",
         label: "Action",
         sortable: false,
-        render: (temp, all) => <div>
-          <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><Edit fontSize={'small'} /></IconButton >
-        </div>,
+        render: (temp, all) => (
+          <div>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+        ),
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
@@ -126,11 +117,11 @@ function VacanciesTable({jobId}) {
       columns: tableStructure,
       data: currentData,
       count: data.length,
-      page: currentPage -1,
+      page: currentPage - 1,
       rowsPerPage: 15,
       allRowSelected: false,
       showSelection: false,
-      hidePagination:true,
+      hidePagination: true,
     };
 
     return { datatableFunctions, datatable };
@@ -147,14 +138,13 @@ function VacanciesTable({jobId}) {
   return (
     <div>
       <div>
-        <div >
+        <div>
           <div className={styles.FilterBtnWrapper}>
             <FilterComponent
               // is_progress={isFetching}
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}
             />
-
           </div>
 
           <div>
@@ -169,7 +159,7 @@ function VacanciesTable({jobId}) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default VacanciesTable
+export default VacanciesTable;
