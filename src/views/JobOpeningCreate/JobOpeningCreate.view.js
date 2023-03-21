@@ -2,17 +2,11 @@ import React, {useMemo} from 'react';
 import useJobOpeningsDetail from "./JobOpeningCreateHook";
 import {Button, ButtonBase, MenuItem} from "@material-ui/core";
 import styles from "./Style.module.css";
-import Tooltip from "@material-ui/core/Tooltip";
-import InfoIcon from "@material-ui/icons/Info";
 import {makeStyles} from "@material-ui/styles";
 import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../components/FormFields/TextField/TextField.component";
 import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import constants from "../../config/constants";
-import AutoCompleteChip from "../../components/FormFields/AutoCompleteText/AutoCompleteChip";
-import CustomSwitch from "../../components/FormFields/CustomSwitch";
-import {Field} from "redux-form";
 import CustomToggle from "../../components/FormFields/CustomToggle";
 import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import Constants from "../../config/constants";
@@ -197,15 +191,15 @@ const JobOpeningCreateView = ({}) => {
                    <div className={'formFlex'}>
                        <div className="formGroup">
                            <CustomTextField
-                               isError={errorData?.optional_notes}
-                               errorText={errorData?.optional_notes}
+                               isError={errorData?.note}
+                               errorText={errorData?.note}
                                label={'Optional Notes'}
-                               value={form?.optional_notes}
+                               value={form?.note}
                                onTextChange={text => {
-                                   changeTextData(text, 'optional_notes');
+                                   changeTextData(text, 'note');
                                }}
                                onBlur={() => {
-                                   onBlurHandler('optional_notes');
+                                   onBlurHandler('note');
                                }}
                                multiline
                                rows={5}

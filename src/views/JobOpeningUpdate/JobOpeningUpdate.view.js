@@ -199,15 +199,15 @@ const JobOpeningUpdateView = ({}) => {
                    <div className={'formFlex'}>
                        <div className="formGroup">
                            <CustomTextField
-                               isError={errorData?.optional_notes}
-                               errorText={errorData?.optional_notes}
+                               isError={errorData?.note}
+                               errorText={errorData?.note}
                                label={'Optional Notes'}
-                               value={form?.optional_notes}
+                               value={form?.note}
                                onTextChange={text => {
-                                   changeTextData(text, 'optional_notes');
+                                   changeTextData(text, 'note');
                                }}
                                onBlur={() => {
-                                   onBlurHandler('optional_notes');
+                                   onBlurHandler('note');
                                }}
                                multiline
                                rows={5}
