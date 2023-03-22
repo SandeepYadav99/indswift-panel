@@ -10,6 +10,7 @@ import AddressInfo from "./components/Profile/Address";
 import Timeline from "./components/Profile/Timeline";
 import PerformanceReview from "./components/Profile/PerfomanceReview";
 import ProfileDisclaimer from "./components/ProfileDisclaimer/ProfileDisclaimer";
+import NomineeDetails from "./components/Profile/NomineeDetails";
 
 const ProfileView = ({ data }) => {
   return (
@@ -27,6 +28,7 @@ const ProfileView = ({ data }) => {
           <GovtInfo idCards={data?.identity_date} />
           <BankInfo bankD={data?.bank} />
           <PerformanceReview reviewer={data?.pms_reviewer} image={data?.image}/>
+          {/* <NomineeDetails/> */}
         </div>
       </div>
       <ProfileDisclaimer />

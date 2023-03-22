@@ -28,10 +28,6 @@ const AddressInfo = ({address}) => {
                                <div className={styles.heading}>Correspondence Address </div>
 
                                <div className={styles.key}>
-                                   {/* H.No 890, First Floor,<br/>
-                                   Sector 77B,<br/>
-                                   Chandigarh,<br/>
-                                   160079 */}
                                    {address?.current}
                                </div>
                            </div>
