@@ -29,6 +29,7 @@ const initialForm = {
 
 const useJobOpeningsEditDetail = ({}) => {
     const [isLoading, setIsLoading] = useState(true);
+    const [isReoccuring,setIsReoccuring]=useState(false)
     const [errorData, setErrorData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({...initialForm});
@@ -59,6 +60,7 @@ const useJobOpeningsEditDetail = ({}) => {
                        is_active: data?.status === constants.GENERAL_STATUS.ACTIVE,
                        job_role:data?.job_role_id
                    });
+                   setIsReoccuring(data?.is_recurring)
                } else {
                    SnackbarUtils.error(res?.message);
                }
@@ -67,19 +69,19 @@ const useJobOpeningsEditDetail = ({}) => {
         }
     }, [id]);
 
-    // useEffect(() => {
-    //     if (form?.replacing_person) {
-    //         const designationId = form?.replacing_person?.designation_id;
-    //         const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
+    useEffect(() => {
+        if (form?.replacing_person) {
+            const designationId = form?.replacing_person?.designation_id;
+            const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
         
-    //         if (index >= 0) {
-    //             setForm({
-    //                 ...form,
-    //                 designation: listData?.DESIGNATIONS[index]
-    //             });
-    //         }
-    //     }
-    // }, [form?.replacing_person]);
+            if (index >= 0) {
+                setForm({
+                    ...form,
+                    designation: listData?.DESIGNATIONS[index]
+                });
+            }
+        }
+    }, [form?.replacing_person]);
 
     useEffect(() => {
         if (!isLoading) {
@@ -264,7 +266,8 @@ const useJobOpeningsEditDetail = ({}) => {
         filteredDepartments,
         filteredSubDepartments,
         listData,
-        filteredEmployees
+        filteredEmployees,
+        isReoccuring
     };
 };
 

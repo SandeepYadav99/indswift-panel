@@ -11,7 +11,7 @@ const StatusPill = ({style, status}) => {
         return className;
     }, [status]);
 
-    return (<span className={classNames('status', clName)} style={style ? style : {}}>{(status)}</span>);
+    return (<span className={classNames('status', clName)} style={style ? style : {whiteSpace:'nowrap'}} >{(status)}</span>);
 };
 
 export default StatusPill;

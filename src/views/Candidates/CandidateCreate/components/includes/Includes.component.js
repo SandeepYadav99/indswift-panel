@@ -14,15 +14,14 @@ const TEMP_OBJ = {
     marks: ''
 };
 
-const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form, changeTextData, updateInventory, vendorId}, ref) => {
+const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form, changeTextData, updateInventory, vendorId,isReoccuring}, ref) => {
     const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     const [errorData, setErrorData] = useState({});
     const [variants, setVariants] = useState([]);
     const {id} = useParams();
 
     useEffect(() => {
-
-    }, []);
+    }, [isReoccuring]);
 
     useEffect(() => {
         let sku = 0;
@@ -63,12 +62,12 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
         // }
         fields.forEach((val, index) => {
             const err = index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-            const required = ['degree','marks'];
-            required.forEach((key) => {
+            const required = ['degree'];
+            { !isReoccuring && required.forEach((key) => {
                 if (!val[key]) {
                     err[key] = true;
                 }
-            });
+            });}
             if (Object.keys(err).length > 0) {
                 errors[index] = err;
             }
@@ -81,7 +80,7 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
         if (data) {
             setFields(data);
         }
-    }, [data]);
+    }, [data,isReoccuring]);
 
     const isValid = () => {
         return validateData();

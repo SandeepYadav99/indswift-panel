@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 const JobOpeningUpdateView = ({}) => {
     const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete,
-     includeRef, currency, keywords,handleReset, listData, filteredSubDepartments, filteredDepartments, filteredEmployees, } = useJobOpeningsEditDetail({});
+     includeRef, currency, keywords,handleReset, listData, filteredSubDepartments, filteredDepartments, filteredEmployees, isReoccuring} = useJobOpeningsEditDetail({});
     const classes = useStyles();
 
         return (
@@ -155,6 +155,8 @@ const JobOpeningUpdateView = ({}) => {
                        </div>
                        <div className="formGroup">
                            <CustomAutoComplete
+                                disabledList={isReoccuring}
+                                disabled={isReoccuring}
                                autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.label}}
                                dataset={filteredEmployees}
                                datasetKey={'label'}

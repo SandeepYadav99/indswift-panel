@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const IndividualList = () => {
+const IndividualList = ({ data, isSperatedPage }) => {
   return (
     <div className={styles.newMemberCard}>
       <div className={styles.imageNameContainer}>
@@ -12,16 +12,27 @@ const IndividualList = () => {
           <img src={require("../../../../../assets/img/image_guy.png")} />
         </div>
         <div className={styles.profileContainer}>
-          <span className={styles.profileName}>MR RISHAB MEHTA</span>
-          <span className={styles.profilePosition}>5 Jan - Sr. Officer</span>
-          <span className={styles.profileAddress}>Accounts (Mumbai)</span>
+          <span className={styles.profileName}>{data?.name}</span>
+          {isSperatedPage ? (
+            <span className={styles.profilePosition}>{`${
+              data?.separatedAt && data?.separatedAt
+            } - ${data?.designation}`}</span>
+          ) : (
+            <span className={styles.profilePosition}>{`${
+              data?.doj && data?.doj
+            } - ${data?.designation}`}</span>
+          )}
+
+          <span
+            className={styles.profilePosition}
+          >{` ${data?.department} (${data?.location})`}</span>
         </div>
       </div>
     </div>
   );
 };
 
-function NewMembers() {
+function NewMembers({ data, isSperatedPage }) {
   const sliderRef = useRef(null);
   const settings = {
     infinite: true,
@@ -35,20 +46,25 @@ function NewMembers() {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          initialSlide: 1
-        }
-      }
-    ]
+          initialSlide: 1,
+        },
+      },
+    ],
   };
   return (
     <div className={styles.newMemberWrapper}>
-      <Slider {...settings} ref={sliderRef} className={styles.customSliderWrapper}>
-        <IndividualList />
-        <IndividualList />
-        <IndividualList />
-        <IndividualList />
-        <IndividualList />
-        <IndividualList />
+      <Slider
+        {...settings}
+        ref={sliderRef}
+        className={styles.customSliderWrapper}
+      >
+        {data?.map((item, index) => (
+          <IndividualList
+            key={`joined_${index}`}
+            data={item}
+            isSperatedPage={isSperatedPage}
+          />
+        ))}
       </Slider>
     </div>
   );

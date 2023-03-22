@@ -12,6 +12,12 @@
     margin-bottom: 20px;
     font-weight: 600;
 }
+.Nomineeheading{
+    font-size: 0.7rem;
+    margin-top: 5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
 
 .mainFlex{
     display: flex;
@@ -103,4 +109,11 @@
 .posted{
     font-size: 0.7rem;
     margin-left: 10px;
+}
+.nomineeLine{
+    width: 100%;
+    border-top: 0.5px solid #B8C5D3;
+}
+.nomineeWrapper{
+    margin:15px 0;
 }

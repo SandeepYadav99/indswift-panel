@@ -8,6 +8,8 @@ import Tab from "@material-ui/core/Tab";
 import PropTypes from "prop-types";
 import GenricSlider from "./GenricSlider";
 import NewMembers from "./NewMembers";
+import { useSelector } from "react-redux";
+import WaitingComponent from "../../../../../components/Waiting.component";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,6 +43,11 @@ function Members() {
     },
     [setValue, value]
   );
+  const { joined, separated } = useSelector(
+    (state) => state.employeeDashboard.tiles
+  );
+  const { isTilesCalling } = useSelector((state) => state.employeeDashboard);
+
   return (
     <div className={styles.memberWrapper}>
       <AppBar position="static" className={styles.backgroundColor}>
@@ -50,7 +57,10 @@ function Members() {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab className={"iconTabsEvents"} label="New Member of Ind swift Family" />
+          <Tab
+            className={"iconTabsEvents"}
+            label="New Member of Ind swift Family"
+          />
           <Tab
             className={"iconTabsEvents"}
             label="Seperation from Ind Swift Family"
@@ -59,10 +69,14 @@ function Members() {
       </AppBar>
       <div className={styles.paperBackground}>
         <TabPanel value={value} index={0} dir={"ltr"}>
-          <NewMembers />
+          {isTilesCalling ? <WaitingComponent /> : <NewMembers data={joined} />}
         </TabPanel>
         <TabPanel value={value} index={1} dir={"ltr"}>
-        <NewMembers />
+          {isTilesCalling ? (
+            <WaitingComponent />
+          ) : (
+            <NewMembers data={separated} isSperatedPage={true} />
+          )}
         </TabPanel>
       </div>
     </div>

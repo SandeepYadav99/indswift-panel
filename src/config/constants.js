@@ -74,6 +74,9 @@ export default {
     SOURCING:'warning',
     NOSOURCING:'nosourcing',
     'CV Rejected':'error',
+    'INTERVIEW REJECTED' : 'error',
+    'Interview Rejected' :'error',
+    'PENDING REVIEW':'pending',
   },
   VACANCY_TYPE: {
     RAP: 'RAP',

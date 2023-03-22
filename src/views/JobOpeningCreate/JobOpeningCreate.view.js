@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 const JobOpeningCreateView = ({}) => {
     const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete,
-     includeRef, currency, keywords,handleReset, listData, filteredSubDepartments, filteredDepartments, filteredEmployees, } = useJobOpeningsDetail({});
+     includeRef, currency, keywords,handleReset, listData, filteredSubDepartments, filteredDepartments, filteredEmployees,isDesignationDisabled } = useJobOpeningsDetail({});
     const classes = useStyles();
 
         return (
@@ -165,6 +165,8 @@ const JobOpeningCreateView = ({}) => {
                    <div className={'formFlex'} style={{alignItems:"center"}}>
                        <div className="formGroup">
                            <CustomAutoComplete
+                                disabled={isDesignationDisabled}
+                                disabledList={isDesignationDisabled}
                                autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.name}}
                                dataset={listData.DESIGNATIONS}
                                datasetKey={'name'}
