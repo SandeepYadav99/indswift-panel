@@ -117,9 +117,9 @@ const JobOpeningDetail = () => {
           </div>
         </div>
       </div>
-      <CandidatePaperComponent jobId={id} />
+      <CandidatePaperComponent isRecurring={data?.is_recurring} jobId={id} />
       <InterviewerListComponent jobId={id} isInterviewStatus={isInterviewStatus} handleChangeInterviewStatus={handleChangeInterviewStatus}/>
-      <VacanciesList jobId={id} prc={data.code}/>
+      {data?.is_recurring && (<VacanciesList jobId={id} prc={data.code}/>)}
     </div>
   );
 };

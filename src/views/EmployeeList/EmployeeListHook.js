@@ -11,6 +11,7 @@ import {
 import historyUtils from "../../libs/history.utils";
 import { serviceGetList } from "../../services/Common.service";
 import RouteName from "../../routes/Route.name";
+import {serviceExportEmployees} from "../../services/Employee.service";
 
 const useEmployeeList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -219,6 +220,15 @@ const useEmployeeList = ({}) => {
 
   }, []);
 
+  const handleCsvDownload = useCallback(() => {
+    serviceExportEmployees({}).then(res => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    })
+  }, []);
+
   return {
     handlePageChange,
     // handleCellClick,
@@ -244,7 +254,8 @@ const useEmployeeList = ({}) => {
     handleCreate,
     isCPCDialog,
     toggleCPCDialog,
-    handleCPCUpload
+    handleCPCUpload,
+    handleCsvDownload
   };
 };
 

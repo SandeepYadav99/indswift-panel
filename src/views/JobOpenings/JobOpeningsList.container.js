@@ -89,7 +89,7 @@ const JobOpeningsList = ({}) => {
                 key: 'vacancy',
                 label: 'Vacancy',
                 sortable: false,
-                render: (temp, all) => <div>01</div>,
+                render: (temp, all) => <div>{all?.total_vacancies}</div>,
             }, {
                 key: 'assigned_to',
                 label: 'Assigned To',

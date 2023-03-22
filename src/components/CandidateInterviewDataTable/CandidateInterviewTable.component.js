@@ -25,7 +25,7 @@ import CustomSelectField from "../FormFields/SelectField/SelectField.component";
 import CustomDatePicker from "../FormFields/DatePicker/CustomDatePicker";
 import ScheduleInterviewDialogComponent from "./ScheduleInterviewDialog.component";
 
-const CandidateInterviewTable = ({jobId, handleClose}) => {
+const CandidateInterviewTable = ({jobId, handleClose, isRecurring}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -188,7 +188,7 @@ const CandidateInterviewTable = ({jobId, handleClose}) => {
           </div>
         </div>
       </div>
-      <ScheduleInterviewDialogComponent jobId={jobId} selectedCandidates={selected} handleInterviewSchedule={handleInterviewSchedule} isOpen={isDialog} handleDialog={toggleConfirmDialog} />
+      <ScheduleInterviewDialogComponent isRecurring={isRecurring} jobId={jobId} selectedCandidates={selected} handleInterviewSchedule={handleInterviewSchedule} isOpen={isDialog} handleDialog={toggleConfirmDialog} />
     </div>
   );
 };

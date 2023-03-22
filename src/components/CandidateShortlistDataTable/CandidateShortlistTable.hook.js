@@ -134,7 +134,7 @@ const useCandidateShortlistTable = ({jobId, handleClose }) => {
 
     const handleDialogConfirm = useCallback(() => {
         if (!isSubmitting) {
-            const candidatIds = selected.map(val => val.id);
+            const candidatIds = selected.map(val => val.candidate_id);
             let req = serviceRejectJobCandidates;
             if (dialogType === 'SHORTLISTED') {
                 req = serviceShortlistJobCandidates;

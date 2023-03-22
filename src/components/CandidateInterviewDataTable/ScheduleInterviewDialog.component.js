@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, selectedCandidates, jobId, handleDialog}) => {
+const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, selectedCandidates, jobId, handleDialog, isRecurring}) => {
     const { id, changeTextData, errorData, form, handleDelete, handleReset, handleSubmit, isSubmitting, isLoading, onBlurHandler, removeError, interviewers } = useScheduleInterview({selectedCandidates, jobId, handleInterviewSchedule})
     const filteredArray = interviewers.filter((obj, index, self) => {
         return index === self.findIndex((o) => o?.step === obj?.step);
@@ -52,7 +52,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                         <CustomDateTimePicker
                             clearable
                             label={"Date & Time"}
-                            minDate={new Date()}
+                            minDate={isRecurring ? new Date('1970-01-01') : new Date()}
                             onChange={(date) => {
                               changeTextData(date, "date");
                             }}

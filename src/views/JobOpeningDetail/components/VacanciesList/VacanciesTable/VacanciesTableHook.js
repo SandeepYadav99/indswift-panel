@@ -86,8 +86,8 @@ const useVacancyList = ({ jobId }) => {
       if (value) {
         const tempData = vacancies.filter((val) => {
           if (
-            val?.candidate?.name?.match(new RegExp(value, "ig")) ||
-            val?.candidate?.email?.match(new RegExp(value, "ig"))
+            val?.employee?.name?.match(new RegExp(value, "ig")) ||
+            val?.designation?.match(new RegExp(value, "ig"))
           ) {
             return val;
           }

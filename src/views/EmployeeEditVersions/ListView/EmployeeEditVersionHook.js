@@ -6,6 +6,7 @@ import {
 } from "../../../actions/EmployeeEditVersions.action";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import {serviceGetList} from "../../../services/Common.service";
 
 const useEmployeeVersionList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -13,6 +14,7 @@ const useEmployeeVersionList = ({}) => {
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
+  const [employees, setEmployees] = useState([]);
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -24,7 +26,15 @@ const useEmployeeVersionList = ({}) => {
     { id: "PENDING", name: "PENDING" },
     { id: "REJECTED", name: "REJECTED" },
   ];
-  console.log('queryquery',query,sortingData)
+
+    useEffect(() => {
+        serviceGetList(['EMPLOYEES']).then((res) => {
+            if (!res.error) {
+                setEmployees(res?.data?.EMPLOYEES);
+            }
+        });
+    }, [])
+
   useEffect(() => {
     dispatch(
       actionFetchEmployeeVersion(1, sortingData, {
@@ -45,6 +55,7 @@ const useEmployeeVersionList = ({}) => {
   // const handleNextPageClick = () => {
   //     console.log('handleNextPageClick', 'NEXT');
   // }
+
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPageEmployeeVersion(type));
@@ -150,21 +161,21 @@ const useEmployeeVersionList = ({}) => {
       // {label: 'Country', name: 'country', type: 'text'},
       // {label: 'City', name: 'city', type: 'text'},
       {
-        label: "status",
+        label: "Status",
         name: "status",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: status,
       },
-      {
-        label: "Created Date",
-        options: { maxDate: new Date() },
-        name: "createdAt",
-        type: "date",
-      },
-      // {label: 'Status', name: 'status', type: 'select', fields: ['INACTIVE', 'ACTIVE']},
+      // {
+      //   label: "Created Date",
+      //   options: { maxDate: new Date() },
+      //   name: "createdAt",
+      //   type: "date",
+      // },
+        {label: 'Changed By', name: 'edited_by', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: employees},
     ];
-  }, []);
+  }, [employees]);
 
   return {
     handlePageChange,

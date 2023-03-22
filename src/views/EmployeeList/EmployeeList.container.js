@@ -5,7 +5,7 @@ import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import { Add, CloudUpload, InfoOutlined, PrintOutlined } from "@material-ui/icons";
+import { Add, CloudUpload, InfoOutlined, CloudDownload, PrintOutlined } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -42,7 +42,8 @@ const EmployeeList = ({}) => {
     handleCreate,
     isCPCDialog,
     toggleCPCDialog,
-    handleCPCUpload
+    handleCPCUpload,
+    handleCsvDownload
   } = useEmployeeList({});
 
   const {
@@ -244,20 +245,22 @@ const EmployeeList = ({}) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrapperGap}>
-            {/*<ButtonBase onClick={toggleCPCDialog} className={"createBtn"}>*/}
-            {/*  Upload{" "}*/}
-            {/*  <CloudUpload*/}
-            {/*      fontSize={"small"}*/}
-            {/*      className={"plusIcon"}*/}
-            {/*  ></CloudUpload>*/}
-            {/*</ButtonBase>*/}
-            {/* <ButtonBase onClick={toggleCsvDialog} className={"createBtn"}>
-              Upload{" "}
+
+            <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
+              Download
+              <CloudDownload
+                  fontSize={"small"}
+                  className={"plusIcon"}
+              ></CloudDownload>
+            </ButtonBase>
+
+            <ButtonBase onClick={toggleCsvDialog} className={"createBtn"}>
+              Upload
               <CloudUpload
                 fontSize={"small"}
                 className={"plusIcon"}
               ></CloudUpload>
-            </ButtonBase> */}
+            </ButtonBase>
             <ButtonBase onClick={handleCreate} className={'createBtn'}>
                                 CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
                             </ButtonBase>
@@ -303,5 +306,11 @@ const EmployeeList = ({}) => {
     </div>
   );
 };
-
+{/*<ButtonBase onClick={toggleCPCDialog} className={"createBtn"}>*/}
+{/*  Upload{" "}*/}
+{/*  <CloudUpload*/}
+{/*      fontSize={"small"}*/}
+{/*      className={"plusIcon"}*/}
+{/*  ></CloudUpload>*/}
+{/*</ButtonBase>*/}
 export default EmployeeList;

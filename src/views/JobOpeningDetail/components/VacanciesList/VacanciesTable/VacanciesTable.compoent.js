@@ -75,7 +75,7 @@ function VacanciesTable({ jobId }) {
         key: "status",
         label: "Employee Status",
         sortable: false,
-        render: (temp, all) => renderStatus(all?.emp?.status),
+        render: (temp, all) => renderStatus(all?.employee?.status),
       },
       {
         key: "emp_status",

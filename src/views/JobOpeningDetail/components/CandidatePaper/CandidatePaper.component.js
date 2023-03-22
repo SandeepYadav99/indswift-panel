@@ -11,7 +11,7 @@ import CandidateInterviewTable
     from "../../../../components/CandidateInterviewDataTable/CandidateInterviewTable.component";
 
 
-const CandidatePaperComponent = ({jobId}) => {
+const CandidatePaperComponent = ({jobId, isRecurring}) => {
     const {  handleAddCandidate,
         candidateEl,
         handleCloseCandidateEl,
@@ -92,7 +92,7 @@ const CandidatePaperComponent = ({jobId}) => {
                 open={isCandidateInterviewPanel}
                 side={"right"}
             >
-                <CandidateInterviewTable  jobId={jobId} handleClose={toggleCandidateInterviewPanel} />
+                <CandidateInterviewTable isRecurring={isRecurring}  jobId={jobId} handleClose={toggleCandidateInterviewPanel} />
             </SidePanelComponent>
         </div>
     )

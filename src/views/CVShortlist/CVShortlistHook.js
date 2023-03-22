@@ -53,11 +53,12 @@ const useCVShortlist = ({}) => {
         actionFetchCVShortlist(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+            job_id: id
         })
       );
       // dispatch(actionFetchCVShortlist(1, sortingData))
     },
-    [sortingData, query, queryData]
+    [sortingData, query, queryData, id]
   );
 
   const handleFilterDataChange = useCallback(
