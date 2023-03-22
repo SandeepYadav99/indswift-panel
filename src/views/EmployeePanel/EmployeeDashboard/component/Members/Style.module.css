@@ -31,11 +31,12 @@
   gap: 4px;
   align-items: center;
   /* justify-content: space-between; */
-  font-size: 0.875rem;
+  font-size: 0.8rem;
 }
 .profileName {
   font-size: 0.875rem;
   font-weight: 600;
+  text-align: center;
 }
 .newMemberCard {
   display: flex;
@@ -53,6 +54,9 @@
   width: 40vw;
   display: flex;
   /* flex: 1; */
+}
+.profilePosition{
+  text-align: center;
 }
 @media (max-width: 1200px) {
   .customSliderWrapper{

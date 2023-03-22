@@ -50,6 +50,7 @@ const CandidateCreateView = ({ location }) => {
     handleReset,
     selectedJobId,
     jobDetails,
+    isReoccuring
   } = useCandidateDetail({ location });
   const classes = useStyles();
 
@@ -362,7 +363,7 @@ const CandidateCreateView = ({ location }) => {
             <div className={"heading"}>Qualification Information</div>
           </h4>
         </div>
-        <IncludeForm ref={qualificationRef} />
+        <IncludeForm ref={qualificationRef} isReoccuring={isReoccuring}/>
       </div>
 
       <div className={"plainPaper"}>

@@ -29,6 +29,7 @@ const initialForm = {
 
 const useJobOpeningsEditDetail = ({}) => {
     const [isLoading, setIsLoading] = useState(true);
+    const [isReoccuring,setIsReoccuring]=useState(false)
     const [errorData, setErrorData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({...initialForm});
@@ -59,6 +60,7 @@ const useJobOpeningsEditDetail = ({}) => {
                        is_active: data?.status === constants.GENERAL_STATUS.ACTIVE,
                        job_role:data?.job_role_id
                    });
+                   setIsReoccuring(data?.is_recurring)
                } else {
                    SnackbarUtils.error(res?.message);
                }
@@ -264,7 +266,8 @@ const useJobOpeningsEditDetail = ({}) => {
         filteredDepartments,
         filteredSubDepartments,
         listData,
-        filteredEmployees
+        filteredEmployees,
+        isReoccuring
     };
 };
 

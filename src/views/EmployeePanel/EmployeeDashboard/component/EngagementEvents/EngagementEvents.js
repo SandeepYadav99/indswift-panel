@@ -23,7 +23,6 @@ function EngagementEvents() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  console.log("isMobile", isMobile);
   return (
     <Link to="/employee/utsav"
     style={{ textDecoration: "none", color: "black" }}
