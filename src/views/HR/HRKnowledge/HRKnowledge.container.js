@@ -57,7 +57,7 @@ const HRKnowledge = ({}) => {
     return <StatusPill status={status} />;
   }, []);
   const renderSubmittion = useCallback((obj) => {
-    console.log("=====>", obj);
+    // console.log("=====>", obj);
     return (
       <div>
         {obj.map((item) => (

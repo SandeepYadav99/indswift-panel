@@ -63,7 +63,7 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
         // }
         fields.forEach((val, index) => {
             const err = index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-            const required = ['degree','marks'];
+            const required = ['degree'];
             required.forEach((key) => {
                 if (!val[key]) {
                     err[key] = true;
