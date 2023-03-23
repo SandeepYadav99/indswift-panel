@@ -76,12 +76,14 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                     </div>
                 </div >
                 <div className={"formFlex2"}>
-                    <div className={"formGroup1"}>
-                        <CustomSelectField
+                    <div className={"formGroup221"}>
+                        {
+                            isRecurring ? 
+                            <CustomSelectField
                             multiple
                             isError={errorData?.sequence_rounds}
                             errorText={errorData?.sequence_rounds}
-                            label={"Sequence sequence_rounds"}
+                            label={"Interview Panel"}
                             value={form?.sequence_rounds}
                             id={'SEQUEST_ROUND'}
                             handleChange={(value) => {
@@ -89,10 +91,27 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                               changeTextData(value, "sequence_rounds");
                             }}
                         >
-                            {sortedfilteredArray?.map(val => {
-                               return (<MenuItem value={val.interviewer_id}>{val.step}</MenuItem>);
+                            {interviewers?.map(val => {
+                               return (<MenuItem value={val?.interviewer_id}>{`${val?.name} - ${val?.emp_code}`}</MenuItem>);
                             })}
+                        </CustomSelectField> :
+                        <CustomSelectField
+                        multiple
+                        isError={errorData?.sequence_rounds}
+                        errorText={errorData?.sequence_rounds}
+                        label={"Sequence sequence_rounds"}
+                        value={form?.sequence_rounds}
+                        id={'SEQUEST_ROUND'}
+                        handleChange={(value) => {
+                            LogUtils.log('changeTextData', value);
+                          changeTextData(value, "sequence_rounds");
+                        }}
+                    >
+                        {sortedfilteredArray?.map(val => {
+                           return (<MenuItem value={val?.interviewer_id}>{val?.step}</MenuItem>);
+                        })}
                         </CustomSelectField>
+                        }
                     </div>
                     <div className={"formGroup1"}>
                         <CustomSelectField

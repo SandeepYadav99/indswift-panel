@@ -37,6 +37,13 @@ body{
     padding: 7px 10px;
     /*padding: 10px 15px*/
 }
+.formGroup221 {
+    flex: 1;
+    padding: 7px 10px;
+}
+.formGroup221 .MuiSelect-selectMenu{
+    white-space: normal !important;
+}
 .formGroup2 {
     flex: 1;
     padding: 7px 10px;

@@ -95,6 +95,43 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
         }
     }, [form, isSubmitting, setIsSubmitting, jobId, interviewers, handleInterviewSchedule, selectedCandidates]);
 
+    const submitToServerRP = useCallback(() => {
+        if (!isSubmitting) {
+            setIsSubmitting(true);
+            const candidatIds = selectedCandidates.map(val => val.candidate_id);
+            const interviewerIds = form?.sequence_rounds;
+            const steps = [];
+            interviewerIds.forEach((val) => {
+                const index = interviewers.findIndex(interviewer => interviewer.interviewer_id === val);
+                if (index >= 0) {
+                    steps.push({
+                        interviewer_id: val,
+                        step: interviewers[index]?.step
+                    });
+                }
+                ;
+            });
+
+            serviceScheduleInterview({
+                ...form,
+                interview_date: form?.date,
+                sequence_rounds: steps,
+                interviewers: form?.sequence_rounds,
+                id: jobId,
+                candidateIds: candidatIds,
+                link: form?.interview_link
+            }).then((res) => {
+                LogUtils.log('response', res);
+                if (!res.error) {
+                    dispatch(actionGetJobOpeningCandidates(jobId));
+                    handleInterviewSchedule();
+                } else {
+                    SnackbarUtils.success(res.message);
+                }
+                setIsSubmitting(false);
+            });
+        }
+    }, [form, isSubmitting, setIsSubmitting, jobId, interviewers, handleInterviewSchedule, selectedCandidates]);
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
         LogUtils.log('errors', errors);
@@ -102,7 +139,12 @@ const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidate
             setErrorData(errors);
             return true;
         }
-        submitToServer();
+        if(isRecurring){
+            submitToServerRP()
+        }
+        else{
+            submitToServer();
+        }
 
     }, [
         checkFormValidation,
