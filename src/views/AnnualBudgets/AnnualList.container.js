@@ -30,7 +30,6 @@ const AnnualList = ({}) => {
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.annual);
 
     useEffect(() => {
-        console.log('data', data);
         LogUtils.log('products', data);
     }, [data]);
 
@@ -91,6 +90,12 @@ const AnnualList = ({}) => {
                 render: (value, all) => <div>HUMAN RESOURCES</div>,
             },
             {
+                key: 'sub_department',
+                label: 'SUB DEPARTMENT',
+                sortable: true,
+                render: (value, all) => <div>Accounts</div>,
+            },
+            {
                 key: 'budget',
                 label: 'Budget',
                 sortable: false,
@@ -101,12 +106,6 @@ const AnnualList = ({}) => {
                 label: 'Posted',
                 sortable: false,
                 render: (temp, all) => <div>10</div>,
-            },
-            {
-                key: 'transferred',
-                label: 'Transferred',
-                sortable: false,
-                render: (temp, all) => <div>02</div>,
             },
             {
                 key: 'vacancies',
@@ -122,7 +121,7 @@ const AnnualList = ({}) => {
             },
             {
                 key: 'spent',
-                label: 'Actual Spent',
+                label: 'ESTIMATED SPENT',
                 sortable: false,
                 render: (temp, all) => <div>90,00,00</div>,
             },
@@ -239,13 +238,13 @@ const AnnualList = ({}) => {
                     </div>
                 </div>
 
-                <div>
-                    <FilterComponent
+                <div style={{marginTop:"30px"}}>
+                    {/* <FilterComponent
                         is_progress={isFetching}
                         filters={configFilter}
                         handleSearchValueChange={handleSearchValueChange}
                         handleFilterDataChange={handleFilterDataChange}
-                    />
+                    /> */}
                     <div>
                         <br/>
                         <div style={{width: '100%'}}>

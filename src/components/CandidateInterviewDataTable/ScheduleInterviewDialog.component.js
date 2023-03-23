@@ -15,7 +15,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, selectedCandidates, jobId, handleDialog, isRecurring}) => {
-    const { id, changeTextData, errorData, form, handleDelete, handleReset, handleSubmit, isSubmitting, isLoading, onBlurHandler, removeError, interviewers } = useScheduleInterview({selectedCandidates, jobId, handleInterviewSchedule})
+    const { id, changeTextData, errorData, form, handleDelete, handleReset, handleSubmit, isSubmitting, isLoading, onBlurHandler, removeError, interviewers } = useScheduleInterview({selectedCandidates, jobId, handleInterviewSchedule,isRecurring})
     const filteredArray = interviewers.filter((obj, index, self) => {
         return index === self.findIndex((o) => o?.step === obj?.step);
       });

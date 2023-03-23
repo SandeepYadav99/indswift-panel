@@ -28,7 +28,6 @@ const ManpowerList = ({}) => {
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.manpower);
 
     useEffect(() => {
-        console.log('data', data);
         LogUtils.log('products', data);
     }, [data]);
 
@@ -89,6 +88,12 @@ const ManpowerList = ({}) => {
                 render: (value, all) => <div>HUMAN RESOURCES</div>,
             },
             {
+                key: 'sub_department',
+                label: ' sub Department',
+                sortable: true,
+                render: (value, all) => <div>Accounts</div>,
+            },
+            {
                 key: 'sanctioned',
                 label: 'Sanctioned',
                 sortable: false,
@@ -107,14 +112,8 @@ const ManpowerList = ({}) => {
                 render: (temp, all) => <div>02</div>,
             },
             {
-                key: 'joining',
-                label: 'Joining',
-                sortable: false,
-                render: (temp, all) => <div>03</div>,
-            },
-            {
-                key: 'spent',
-                label: 'Transferred',
+                key: 'offered',
+                label: 'offered',
                 sortable: false,
                 render: (temp, all) => <div>03</div>,
             },
@@ -129,12 +128,6 @@ const ManpowerList = ({}) => {
                 label: 'Active Hiring',
                 sortable: false,
                 render: (temp, all) => <div>02</div>,
-            },
-            {
-                key: 'vacancies',
-                label: 'Budget',
-                sortable: false,
-                render: (temp, all) => <div><div className={styles.budget}>90,00,000</div>01,00,000,00</div>,
             },
             {
                 key: 'user_id',
@@ -240,13 +233,13 @@ const ManpowerList = ({}) => {
                     </div>
                 </div>
 
-                <div>
-                    <FilterComponent
+                <div style={{marginTop:'30px'}}>
+                    {/* <FilterComponent
                         is_progress={isFetching}
                         filters={configFilter}
                         handleSearchValueChange={handleSearchValueChange}
                         handleFilterDataChange={handleFilterDataChange}
-                    />
+                    /> */}
                     <div>
                         <br/>
                         <div style={{width: '100%'}}>

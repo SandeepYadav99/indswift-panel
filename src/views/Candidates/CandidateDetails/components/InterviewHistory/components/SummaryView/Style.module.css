@@ -44,7 +44,7 @@
 .imageContainer > img {
   width: 40px;
   aspect-ratio: 1/1;
-  border-radius: 10px;
+  border-radius: 50%;
 }
 .date {
   font-size: 0.875rem;

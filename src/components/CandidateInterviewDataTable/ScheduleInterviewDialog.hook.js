@@ -8,18 +8,19 @@ import {serviceScheduleInterview} from "../../services/JobOpenings.service";
 import {actionGetJobOpeningCandidates} from "../../actions/JobOpeningDetail.action";
 
 
-const initialForm = {
-    date: null,
-    time: null,
-    sequence_rounds: [],
-    mode: 'IN_PERSON',
-    interview_link: '',
-    venue: '',
-    is_send_email_candidates: true,
-    is_send_email_interviewers: true,
-};
 
-const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidates}) => {
+
+const useScheduleInterview = ({jobId, handleInterviewSchedule, selectedCandidates,isRecurring}) => {
+    const initialForm = {
+        date: null,
+        time: null,
+        sequence_rounds: [],
+        mode: 'IN_PERSON',
+        interview_link: '',
+        venue: '',
+        is_send_email_candidates: isRecurring ? false :true,
+        is_send_email_interviewers: isRecurring ? false :true,
+    };
     const [isLoading, setIsLoading] = useState(false);
     const [errorData, setErrorData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
