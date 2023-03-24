@@ -37,48 +37,42 @@ function EmployeeRecordTable() {
 
   return (
     <>
-    <div className={styles.careerWrapperCPc}>
-      <div className={styles.imageWrapperCpc}>
-        <img src={noCPCimage} />
-        <div className={styles.titleWrpapper}>
-          <span className={styles.noCpcTitle}>No Information Available</span>
-          <span className={styles.noCpcdec}>
-            Currently no CPC Inofrmation is available
-          </span>
+    <div>
+      <PageBox>
+        <div className={styles.headerContainer}>
+          <div>
+            <span className={styles.title}>Letters List</span>
+            <div className={styles.newLine} />
+          </div>
+          <div>
+            <ButtonBase onClick={handleSideToggle} className={"createBtn"}>
+              CREATE <Add fontSize={"small"} className={"plusIcon"}></Add>
+            </ButtonBase>
+          </div>
         </div>
-      </div>
+        <br />
+        <br />
+        <div className={styles.EmployeeListWrapper}>
+        <div className={styles.colorCode}></div>
+        <div className={styles.grossWrapper21}>
+          <EmployeeList
+          title="Increment Letter for 2022 - Appraisal Letter"
+          component="Letter Head Number: AL/CC/1042022"
+           monthly={20} />
+        </div>
+        </div>
+        
+      </PageBox>
+      <SidePanelComponent
+        handleToggle={handleSideToggle}
+        title={"Upload Employee Records"}
+        open={isSidePanel}
+        side={"right"}
+      >
+        {renderCreateForm}
+      </SidePanelComponent>
     </div>
     </>
-    // <div>
-    //   <PageBox>
-    //     <div className={styles.headerContainer}>
-    //       <div>
-    //         <span className={styles.title}>Letters List</span>
-    //         <div className={styles.newLine} />
-    //       </div>
-    //       <div>
-    //         <ButtonBase onClick={handleSideToggle} className={"createBtn"}>
-    //           CREATE <Add fontSize={"small"} className={"plusIcon"}></Add>
-    //         </ButtonBase>
-    //       </div>
-    //     </div>
-    //     <br />
-    //     <br />
-
-    //     <div className={styles.grossWrapper}>
-    //       <EmployeeList component="Incremental Gross Salary" monthly={20} />
-         
-    //     </div>
-    //   </PageBox>
-    //   <SidePanelComponent
-    //     handleToggle={handleSideToggle}
-    //     title={"Upload Employee Records"}
-    //     open={isSidePanel}
-    //     side={"right"}
-    //   >
-    //     {renderCreateForm}
-    //   </SidePanelComponent>
-    // </div>
   );
 }
 

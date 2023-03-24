@@ -24,7 +24,7 @@ function BirthdayEvent({ data, isWorkPage }) {
                 </div>
                 <div className={styles.profileContainer}>
                   <span className={styles.profileName}>
-                    {emp?.gender === "MALE" ? "MR." : "MRS."} {emp?.name}
+                     {emp?.name}
                   </span>
                   <span className={styles.profilePosition}>
                     {emp?.designation}

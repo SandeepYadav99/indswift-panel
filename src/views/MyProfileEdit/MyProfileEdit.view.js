@@ -210,6 +210,7 @@ const MyProfileEditView = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
               isError={errorData?.aadhar_no}
               errorText={errorData?.aadhar_no}
               label={"Aadhar Number"}
@@ -225,6 +226,7 @@ const MyProfileEditView = ({}) => {
 
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
               isError={errorData?.pan_no}
               errorText={errorData?.pan_no}
               label={"PAN Number"}
@@ -241,6 +243,7 @@ const MyProfileEditView = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
               type={"number"}
               isError={errorData?.esi_no}
               errorText={errorData?.esi_no}
@@ -257,6 +260,7 @@ const MyProfileEditView = ({}) => {
 
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
               isError={errorData?.uan_no}
               errorText={errorData?.uan_no}
               label={"UAN Number"}

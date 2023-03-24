@@ -1,9 +1,5 @@
-import React from "react";
-import { useEffect } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { serviceGetEmployeeSalaryInfo } from "../../../../../services/employeeSalaryInfo.service";
 
 function EmployeeRecordList() {
   const [isSidePanel, setSidePanel] = useState(false);

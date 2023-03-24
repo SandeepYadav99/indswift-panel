@@ -77,6 +77,8 @@ export default {
     'INTERVIEW REJECTED' : 'error',
     'Interview Rejected' :'error',
     'PENDING REVIEW':'pending',
+    'Pending Review':'pending',
+    'CV SHORTLIST REJECTED':'error'
   },
   VACANCY_TYPE: {
     RAP: 'RAP',
