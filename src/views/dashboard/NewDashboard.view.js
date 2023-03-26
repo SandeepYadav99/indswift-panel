@@ -88,11 +88,11 @@ const NewDashboard = () => {
                 {locationData}
             </div>
 
-            <div className={styles.tableFlex}>
-                <div className={styles.lhs}>
+            <div className={styles.tableFlex21}>
+                <div className={styles.lhsPending }>
                     <PendingOfferTable/>
                 </div>
-                <div className={styles.rhs}>
+                <div className={styles.rhsInterview}>
                     <InterviewsTable/>
                 </div>
             </div>

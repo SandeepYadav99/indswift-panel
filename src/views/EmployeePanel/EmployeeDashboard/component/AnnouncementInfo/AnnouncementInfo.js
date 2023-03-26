@@ -5,11 +5,11 @@ import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 function AnnouncementInfo() {
   return (
     <div className={styles.AnnouncementInfoWrapper}>
-      <div>
+      <div className={styles.imageWrapper}>
       <img src={require("../../../../../assets/img/cert.png")} />
       </div>
-      <div>
-        <div>
+      <div className={styles.announcementDes}>
+        <div className={styles.titleWrapper}>
           <span className={styles.title}>Latest Announcements</span>
           <div className={styles.newLine} />
         </div>

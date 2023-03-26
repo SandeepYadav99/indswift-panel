@@ -3,47 +3,45 @@
   background: #ffffff;
   flex: 1;
   max-width: 100%;
-  max-height: 300px;
+  max-height: 500px;
+  border-radius: 10px;
 }
 .imgWrapper {
   height: 300px;
   width: 100%;
   object-fit: cover;
   border-radius: 10px;
-  /* overflow: scroll; */
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 .imgWrapper img {
   max-height: 300px;
-  border-radius: 10px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
   width: 100%;
   min-width: 150px;
   /* aspect-ratio: 5/2.5; */
   /*border-radius: 10px;*/
 }
 
-.blackStrip {
-  background: black;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* width: 200px; */
-  height: 17%;
-  opacity: 0.6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .gallerImage {
   object-fit: cover;
-  height: 100% !important;
+  height: 80% !important;
   width: 100% !important;
   /*aspect-ratio: 5/2.5;*/
 }
+.gallaryDesWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 20%;
+  padding: 0 30px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
 .textName {
-  color: white;
+  font-weight: 600;
+  color: black;
 }
 .mappedImgWrapper {
   display: flex;
@@ -55,7 +53,7 @@
     width: 100%;
     min-width: 100px;
   }
-  .coverImageGalleryWrapper{
-    width: calc(100vw - 64px); 
+  .coverImageGalleryWrapper {
+    width: calc(100vw - 64px);
   }
 }

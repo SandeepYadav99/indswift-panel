@@ -66,6 +66,7 @@ function EmployeeEventList() {
 
   return (
     <div className={styles.eventBirthdayWrapper}>
+      <div className={styles.eventBgImage}></div>
       <AppBar position="static" className={styles.backgroundColor}>
         <Tabs
           classes={{ root: classes.root }}

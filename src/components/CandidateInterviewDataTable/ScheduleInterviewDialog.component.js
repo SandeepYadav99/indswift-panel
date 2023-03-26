@@ -99,7 +99,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                         multiple
                         isError={errorData?.sequence_rounds}
                         errorText={errorData?.sequence_rounds}
-                        label={"Sequence sequence_rounds"}
+                        label={"Sequence Rounds"}
                         value={form?.sequence_rounds}
                         id={'SEQUEST_ROUND'}
                         handleChange={(value) => {

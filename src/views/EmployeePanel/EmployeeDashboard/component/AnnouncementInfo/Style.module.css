@@ -12,6 +12,12 @@
   font-size: 0.875rem;
   font-weight: 600;
 }
+.announcementDes{
+  flex: 3;
+}
+.titleWrapper{
+  margin-bottom: 20px;
+}
 .newLine {
   height: 4px;
   width: 30px;
@@ -20,10 +26,20 @@
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
 .description {
+  padding: .2rem;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
+}
+.description:hover{
+  color: #ffffff;
+  background-color: #2896e9;
+}
+.imageWrapper{
+  /* max-width: 200px; */
+  aspect-ratio: 1/1;
 }
 .description > p {
   font-size: 0.75rem;

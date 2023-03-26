@@ -109,7 +109,7 @@ class QuestionView extends Component {
             ></div>
 
             <div className={styles.imageFieldContainer}>
-              <div>
+              <div className={styles.accImageWrapper}>
                 <img className={styles.imgResolution} src={val?.cover_image} />
               </div>
               <div className={styles.bookmarkedImgWrapper}>

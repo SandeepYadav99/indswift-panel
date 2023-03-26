@@ -22,6 +22,7 @@ import Constants from "../../config/constants";
 import useMyProfileEdit from "./MyProfileEditHook";
 import DisclaimerDialog from "./components/DisclaimerPopUp/DisclaimerDialog.view";
 import { useCallback } from "react";
+import IncludeVacancy from "./components/vacancyField/IncludeVacancy";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -45,7 +46,7 @@ const MyProfileEditView = ({}) => {
     setIsOpen,
       toggleDialog
   } = useMyProfileEdit({});
-
+const refQuarterly=null
   const image = useMemo(() => {
     return (
       <File
@@ -479,6 +480,22 @@ const MyProfileEditView = ({}) => {
                 onBlurHandler("current_address");
               }}
             />
+          </div>
+        </div>
+      </div>
+      <div className={"plainPaper"}>
+        <div className={"headerFlex"}>
+          <h4 className={"infoTitle"}>
+            <div className={"heading"}>Employee Nominee Details</div>
+          </h4>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+          <IncludeVacancy
+          ref={refQuarterly}
+          firstfield="Quaterly payment type"
+          secondfield="Quarterly Payment Amount"
+        />
           </div>
         </div>
       </div>
