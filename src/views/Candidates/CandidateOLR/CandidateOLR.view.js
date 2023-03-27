@@ -53,7 +53,7 @@ function CandidateOLR() {
       <div className={styles.btnCont1}>
         <ButtonBase
           type={"button"}
-          // onClick={handleSubmit}
+          onClick={toggleApprovalDialog}
           className={styles.createBtn}
         >
           SHARE FOR APPROVAL

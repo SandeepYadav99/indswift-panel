@@ -93,9 +93,10 @@ const ApprovalDialog = ({ isOpen, handleToggle, empId, handleVerify }) => {
             
           </div>
           <div className={styles.btnCont1}>
-            <ButtonBase className={styles.edit1} >KEEP AS DRAFT</ButtonBase>
+            <ButtonBase className={styles.edit1} onClick={handleToggle} >KEEP AS DRAFT</ButtonBase>
             <ButtonBase
               type={"button"}
+              onClick={handleToggle}
               // onClick={handleSubmit}
               className={styles.createBtn}
             >
