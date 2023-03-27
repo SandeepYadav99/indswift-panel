@@ -16,12 +16,14 @@ function CandidateOLR() {
     toggleApprovalDialog,
     isRejectPopUp,
     toggleRejectDialog,
-      data
+      data,
+      id
   } = CandidateOLRHook({});
 
   return (
     <div className={"container"}>
       <ApprovalDialog
+          offerId={id}
         isOpen={isApprovalPopUp}
         handleToggle={toggleApprovalDialog}
       />

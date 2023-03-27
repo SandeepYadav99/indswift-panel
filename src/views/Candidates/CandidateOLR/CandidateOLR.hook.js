@@ -33,7 +33,8 @@ function CandidateOLRHook() {
     toggleApprovalDialog,
     isRejectPopUp,
     toggleRejectDialog,
-    data
+    data,
+    id
   };
 }
 

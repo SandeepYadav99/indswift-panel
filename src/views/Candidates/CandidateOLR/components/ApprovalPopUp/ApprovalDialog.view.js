@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import {
   Button,
   ButtonBase,
- 
+
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
@@ -10,6 +10,7 @@ import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import DefaultImg from "../../../../../assets/img/download.png";
+import useApprovalDialog from "./ApprovalDialog.hook";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,9 +36,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ApprovalDialog = ({ isOpen, handleToggle, empId, handleVerify }) => {
+const ApprovalDialog = ({ isOpen, handleToggle, offerId }) => {
   const classes = useStyles();
-  
+
+  const { } = useApprovalDialog({ offerId });
 
   return (
     <div>
@@ -90,7 +92,7 @@ const ApprovalDialog = ({ isOpen, handleToggle, empId, handleVerify }) => {
                 </div>
               </div>
             </div>
-            
+
           </div>
           <div className={styles.btnCont1}>
             <ButtonBase className={styles.edit1} onClick={handleToggle} >KEEP AS DRAFT</ButtonBase>
