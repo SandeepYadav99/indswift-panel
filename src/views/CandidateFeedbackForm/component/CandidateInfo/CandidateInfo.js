@@ -4,7 +4,7 @@ import face from "./../../../../assets/img/download.png";
 
 const CandidateInfo = ({ data }) => {
   const removeUnderScore=(value)=>{
-    return value ? value.replace(/_/, " "): ""
+    return value ? value.replace(/_/g, " "): ""
   } 
   return (
     <div className={styles.candidateInfoWrapper}>

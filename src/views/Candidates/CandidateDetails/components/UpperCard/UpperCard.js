@@ -15,6 +15,9 @@ const UpperCard = ({
   const splitDate = (value) => {
     return value ? value.split(" ")[0] : "";
   };
+  const removeUnderScore=(value)=>{
+    return value ? value.replace(/_/g, " "): ""
+  } 
   return (
     <div>
       <div className={styles.blueBackground}>
@@ -55,7 +58,7 @@ const UpperCard = ({
               </ActionButton>{" "}
               <div>
                 <StatusPill
-                  status={data?.status}
+                  status={removeUnderScore(data?.status)}
                   // style={{ color: "#fff", borderColor: "#fff" }}
                 />
               </div>
