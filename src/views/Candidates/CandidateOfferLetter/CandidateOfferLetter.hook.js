@@ -7,10 +7,11 @@ import { serviceGetList } from "../../../services/Common.service";
 import historyUtils from "../../../libs/history.utils";
 import {
   serviceCreateCandidateOfferLetter,
-  serviceGetCandidateDetails,
+  serviceGetCandidateDetails, serviceGetCandidateOfferLetter,
 } from "../../../services/Candidate.service";
 import LogUtils from "../../../libs/LogUtils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
+import RouteName from "../../../routes/Route.name";
 const SALARY_KEYS = [
   "basic_salary",
   "hra",
@@ -65,7 +66,7 @@ function CandidateOfferLetterHook({ location }) {
     expected_response_date: "",
     reporting_company: "",
     note: "",
-    is_amrf: 'No',
+    is_amrf: false,
     basic_salary: 0,
     hra: 0,
     education_allowance: 0,
@@ -113,7 +114,6 @@ function CandidateOfferLetterHook({ location }) {
     stability_incentive: 0,
     next_review_date: "",
     previous_review_date: "",
-    is_address_same: false,
   };
 
   const [form, setForm] = useState({ ...initialForm });
@@ -124,26 +124,6 @@ function CandidateOfferLetterHook({ location }) {
     LOCATIONS: [],
   });
 
-  useEffect(() => {
-    serviceGetList(["LOCATIONS"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!candidateId) {
-      historyUtils.goBack();
-    } else {
-      Promise.allSettled([
-        serviceGetCandidateDetails({ id: candidateId }),
-      ]).then((promises) => {
-        const dataValues = promises[0]?.value?.data;
-        setCandidateData(dataValues?.details);
-      });
-    }
-  }, [candidateId]);
 
   const { candidateId, jobId } = useMemo(() => {
     return {
@@ -151,6 +131,37 @@ function CandidateOfferLetterHook({ location }) {
       jobId: location?.state?.job_id,
     };
   }, [location]);
+
+  useEffect(() => {
+    if (!candidateId) {
+      historyUtils.goBack();
+    } else {
+      Promise.allSettled([
+        serviceGetCandidateDetails({ id: candidateId }),
+        serviceGetCandidateOfferLetter({ candidate_id: candidateId, job_id: jobId }),
+        serviceGetList(["LOCATIONS"])
+      ]).then((promises) => {
+        const dataValues = promises[0]?.value?.data;
+        setCandidateData(dataValues?.details);
+        const offerLetter = promises[1]?.value?.data;
+        const listData = promises[2]?.value?.data;
+        setListData(listData);
+        if (offerLetter) {
+          const index = listData.LOCATIONS?.findIndex(val => val.id == offerLetter?.location_id);
+          if (index >= 0) {
+            offerLetter.reporting_location = listData?.LOCATIONS[index];
+          }
+          setForm({
+            ...initialForm,
+            ...offerLetter,
+            ...offerLetter?.salary,
+            letter_id: offerLetter?.id
+          });
+        }
+      });
+    }
+  }, [candidateId, jobId, setForm]);
+
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -227,8 +238,9 @@ function CandidateOfferLetterHook({ location }) {
         location_id: form?.reporting_location?.id,
       }).then((res) => {
         if (!res.error) {
+          const data = res?.data;
           SnackbarUtils.success("Offer Letter Created Successfully");
-          historyUtils.goBack();
+          historyUtils.replace(RouteName.CANDIDATES_OFFER_DETAILS+data?.id);
         } else {
           SnackbarUtils.error(res?.message);
         }

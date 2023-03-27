@@ -1,8 +1,6 @@
 import React from 'react'
 import styles from './Style.module.css'
-function ReplacementDetails() {
-
-    const data={}
+function ReplacementDetails({data}) {
   return (
     <div className={styles.plainPaper}>
         <div className={styles.newContainerPersonal}>
@@ -16,11 +14,11 @@ function ReplacementDetails() {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Name:</span>
-                <span className={styles.valueWrap}>{data?.gender}</span>
+                <span className={styles.valueWrap}>{data?.replacing_person?.name}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Designation:</span>
-                <span className={styles.valueWrap}>{data?.gender}</span>
+                <span className={styles.valueWrap}>{data?.replacing_person?.designation}</span>
               </div>
             </div>
             <div className={styles.vertical}></div>
@@ -28,27 +26,26 @@ function ReplacementDetails() {
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Grade:</span>
                 <span className={styles.valueWrap}>
-                  {data?.family?.martial_status}
+                 {data?.replacing_person?.grade}
                 </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Experience:</span>
                 <span className={styles.valueWrap}>
-                  {data?.family?.spouse_dob}
+                  {data?.replacing_person?.experience}
                 </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing CTC (LPA):</span>
                 <span className={styles.valueWrap}>
-                  
-                   {/* {data?.family?.spouse_gender} */}
+                    Rs. {data?.replacing_person?.ctc} /-
                 </span>
               </div>
-               
+
             </div>
           </div>
         </div>
-        
+
       </div>
   )
 }

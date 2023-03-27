@@ -16,7 +16,9 @@ function CandidateOLR() {
     toggleApprovalDialog,
     isRejectPopUp,
     toggleRejectDialog,
+      data
   } = CandidateOLRHook({});
+
   return (
     <div className={"container"}>
       <ApprovalDialog
@@ -41,13 +43,13 @@ function CandidateOLR() {
         </div>
       </div>
       <br />
-      <CandidateDetails />
-      <ReplacementDetails />
-      <SalaryDetails />
+      <CandidateDetails data={data} />
+      <ReplacementDetails data={data} />
+      <SalaryDetails data={data}/>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Corporate HR Comments</div>
         <span className={styles.spanWrapper}>
-          Looking Forward to the approval of offer letter as soon as possible.
+          <span style={{ textTransform: 'capitalize' }}>{data?.comment}</span>
         </span>
       </div>
       <div className={styles.btnCont1}>

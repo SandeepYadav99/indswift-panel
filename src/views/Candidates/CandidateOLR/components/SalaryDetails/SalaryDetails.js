@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./Style.module.css";
-function SalaryDetails() {
-  const data = {};
+function SalaryDetails({data}) {
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainerPersonal}>
@@ -34,31 +33,30 @@ function SalaryDetails() {
             <div className={styles.key}>
               <span className={styles.value}>Annualized Value Change from Replaced Cost:</span>
               <span className={styles.valueWrap}>
-                {data?.family?.martial_status}
+                {data?.salary_change?.annual_replaced_change}
               </span>
             </div>
             <div className={styles.key}>
               <span className={styles.value}>% Change from Replaced Cost:</span>
               <span className={styles.valueWrap}>
-                {data?.family?.spouse_dob}
+                {data?.salary_change?.annual_replaced_percentage}
               </span>
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Annualized Value Change WRT past CTC:</span>
               <span className={styles.valueWrap}>
-                {/* {data?.family?.spouse_gender} */}
+                 {data?.salary_change?.annual_past_change}
               </span>
             </div>
             <div className={styles.key}>
               <span className={styles.value}>% Hike Offered to Candidate WRT past CTC:</span>
               <span className={styles.valueWrap}>
-                {/* {data?.family?.spouse_gender} */}
+                 {data?.salary_change?.hike_percentage}
               </span>
             </div><div className={styles.key}>
               <span className={styles.value}>AMRF Available:</span>
               <span className={styles.valueWrap}>
-                
-                {/* {data?.family?.spouse_gender} */}
+                 {data?.is_amrf ? 'Yes' : 'No'}
               </span>
             </div>
           </div>

@@ -1,31 +1,29 @@
 import React from 'react'
 import styles from './Style.module.css'
-function CandidateDetails() {
-
-    const data={}
+function CandidateDetails({ data }) {
   return (
     <div className={styles.plainPaper}>
         <div className={styles.newContainerPersonal}>
-          <div className={styles.heading}>Candidate Details - Suraj Kumar</div>
+          <div className={styles.heading}>Candidate Details - {data?.candidate?.name}</div>
 
           <div className={styles.mainFlex2}>
             <div className={styles.left}>
               <div className={styles.key}>
                 <span className={styles.value}>Place of Posting:</span>
-                <span className={styles.valueWrap}>{data?.dob}</span>
+                <span className={styles.valueWrap}>{data?.reporting_location?.name}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Designation:</span>
-                <span className={styles.valueWrap}>{data?.gender}</span>
+                <span className={styles.valueWrap}>{data?.job_data?.designation?.name}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Department:</span>
-                <span className={styles.valueWrap}>{data?.state}</span>
+                <span className={styles.valueWrap}>{data?.job_data?.department?.name}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Grade:</span>
                 <span className={styles.valueWrap}>
-                  {data?.family?.father_name}
+                  {data?.job_data?.grade?.name}
                 </span>
               </div>
               <div className={styles.key}>
@@ -40,7 +38,7 @@ function CandidateDetails() {
               <div className={styles.key}>
                 <span className={styles.value}>Experience:</span>
                 <span className={styles.valueWrap}>
-                  {data?.family?.martial_status}
+                  {data?.candidate?.experience}
                 </span>
               </div>
               <div className={styles.key}>
@@ -50,7 +48,7 @@ function CandidateDetails() {
               <div className={styles.key}>
                 <span className={styles.value}>Type of Vacancy:</span>
                 <span className={styles.valueWrap}>
-                  {data?.family?.spouse_name}
+                  {data?.job_data?.vacancy_type}
                 </span>
               </div>
               <div className={styles.key}>
@@ -62,15 +60,14 @@ function CandidateDetails() {
               <div className={styles.key}>
                 <span className={styles.value}>Candidate Relocating From:</span>
                 <span className={styles.valueWrap}>
-                  
-                   {/* {data?.family?.spouse_gender} */}
+                    {data?.candidate?.city}, {data?.candidate?.state}
                 </span>
               </div>
-               
+
             </div>
           </div>
         </div>
-        
+
       </div>
   )
 }

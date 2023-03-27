@@ -818,12 +818,12 @@ const CandidateOfferLetter = ({ location }) => {
               value={form?.is_amrf}
             >
               <FormControlLabel
-                value="Yes"
+                value={true}
                 control={<Radio />}
                 label="Yes"
                 labelPlacement="Yes"
               />
-              <FormControlLabel value="No" control={<Radio />} label="No"  sx={{ ml: 2 }}/>
+              <FormControlLabel value={false} control={<Radio />} label="No"  sx={{ ml: 2 }}/>
             </RadioGroup>
           </FormControl>
         </div>
@@ -838,15 +838,15 @@ const CandidateOfferLetter = ({ location }) => {
         <div className={"formFlex"}>
           <div className="formGroup">
             <CustomTextField
-              isError={errorData?.note}
-              errorText={errorData?.note}
+              isError={errorData?.comment}
+              errorText={errorData?.comment}
               label={"Any Comments from Recruiter HR"}
-              value={form?.note}
+              value={form?.comment}
               onTextChange={(text) => {
-                changeTextData(text, "note");
+                changeTextData(text, "comment");
               }}
               onBlur={() => {
-                onBlurHandler("note");
+                onBlurHandler("comment");
               }}
               multiline
               rows={1}

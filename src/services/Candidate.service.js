@@ -29,6 +29,11 @@ export async function serviceCreateCandidateOfferLetter (params) {
     return await postRequest('candidates/offer/letter/create', params);
 }
 
+export async function serviceGetCandidateOfferLetter(params) {
+    return await postRequest('candidates/offer/letter/form/details', params);
+}
+
 export async function serviceGetCandidatePRCS(params) {
     return await postRequest('candidates/prcs', params);
 }
+

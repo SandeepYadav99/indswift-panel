@@ -508,7 +508,7 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
     {
-        path: `${RouteName.CANDIDATES_OFFER_DETAILS}`,
+        path: `${RouteName.CANDIDATES_OFFER_DETAILS}:id`,
         sidebarName: "Candidate Offer Details",
         navbarName: "Candidate Offer Details",
         component: CandidateOLR,
