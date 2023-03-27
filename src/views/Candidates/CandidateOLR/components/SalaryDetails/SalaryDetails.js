@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Style.module.css";
+import {getSumValue} from "../../../../../libs/general.utils";
 function SalaryDetails({data}) {
   return (
     <div className={styles.plainPaper}>
@@ -9,22 +10,22 @@ function SalaryDetails({data}) {
             <div className={styles.heading}>CTC Details</div>
             <div className={styles.key21}>
               <span className={styles.value21}>Gross:</span>
-              <span className={styles.valueWrap21}>{data?.dob}</span>
+              <span className={styles.valueWrap21}>{getSumValue(data?.salary?.earning_one, data?.salary?.earning_two)}</span>
             </div>
             <div className={styles.key21}>
               <span className={styles.value21}>PLI:</span>
-              <span className={styles.valueWrap21}>{data?.gender}</span>
+              <span className={styles.valueWrap21}>{getSumValue(data?.salary?.earning_three_pli)}</span>
             </div>
             <div className={styles.key21}>
               <span className={styles.value21}>Stability Allowance:</span>
-              <span className={styles.valueWrap21}>{data?.gender}</span>
+              <span className={styles.valueWrap21}>{getSumValue(data?.salary?.stability_incentive)}</span>
             </div>
             <div className={styles.key21}>
               <span className={styles.value21}>Others (Er PF, Gratuity, Bonus, MC):</span>
-              <span className={styles.valueWrap21}>{data?.gender}</span>
+              <span className={styles.valueWrap21}>{getSumValue(data?.salary?.earning_four, data?.salary?.earning_five, -(data?.salary?.earning_three_pli))}</span>
             </div><div className={styles.key21}>
-              <span className={styles.value21}>Total CTC:</span>
-              <span className={styles.valueWrap21}>{data?.gender}</span>
+              <span className={styles.value21}>Total CTC: </span>
+              <span className={styles.valueWrap21}>{getSumValue(data?.salary?.earning_one, data?.salary?.earning_two, data?.salary?.earning_four, data?.salary?.earning_five, data?.salary?.earning_three_pli)}</span>
             </div>
           </div>
           <div className={styles.right}>

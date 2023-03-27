@@ -19,7 +19,7 @@ const ReviewOLR = ({location}) => {
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,changeRoute
         ,isCalling, configFilter, warehouses} = useReviewOLR({});
 
-    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.interviewSchedule);
+    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.review_olr);
 
     const removeUnderScore=(value)=>{
         return value ? value.replace(/_/, " "): ""
@@ -43,7 +43,7 @@ const ReviewOLR = ({location}) => {
         if (obj) {
             return (
                 <div className={styles.hyperlinkText} onClick={()=>changeRoute(obj)} >
-                    <div>{obj?.job?.code}</div>
+                    <div>{obj?.job_details?.code}</div>
                 </div>
             );
         } return null;
@@ -67,25 +67,25 @@ const ReviewOLR = ({location}) => {
                 key: 'department',
                 label: 'DESIGNATION/ DEPARTMENT',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job?.designation}/{all?.job?.department}</div>,
+                render: (temp, all) => <div>{all?.job_details?.designation}/{all?.job_details?.department}</div>,
             },
             {
                 key: 'replacing_person',
                 label: 'REPLACING PERSON',
                 sortable: false,
-                render: (temp, all) => <div>{all?.interviewDateText}</div>,
+                render: (temp, all) => <div>{all?.replacing_person?.name} <br/> {all?.replacing_person?.code}</div>,
             },
             {
                 key: 'status',
                 label: 'STATUS',
                 sortable: false,
-                render: (temp, all) => <div>{all?.step}</div>,
+                render: (temp, all) => <div><StatusPill status={all?.status} /></div>,
             },
             {
                 key: 'finalized_on',
                 label: 'FINALIZED ON',
                 sortable: false,
-                render: (temp, all) => <div>{all?.venue}/{removeUnderScore(all?.mode)}</div>,
+                render: (temp, all) => <div>{all?.createdAtText}</div>,
             },
             {
                 key: 'user_id',
@@ -94,11 +94,13 @@ const ReviewOLR = ({location}) => {
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}>
                         <PeopleOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>View Profile</span>
                     </IconButton >
-                    {all.can_feedback && (<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {
-                        historyUtils.push(`${RouteName.CANDIDATE_FEEDBACK}${all?.id}`)
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {
+                        historyUtils.push(`${RouteName.CANDIDATES_OFFER_DETAILS}${all?.offer_id}`, {
+                            isReview: true,
+                        });
                     }}>
                         <AssignmentOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>View OLR Sheet</span>
-                    </IconButton >)}
+                    </IconButton >
 
                 </div>),
             },

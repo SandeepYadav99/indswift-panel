@@ -83,6 +83,6 @@ export default {
   CANDIDATE_FEEDBACK_VIEW:'/candidate/view/feedback/',
 
   INTERVIEW_SCHEDULE: '/interview/schedule',
-  REVIEW_OLR: '/review/olr',
+  REVIEW_OLR: '/olr',
   CV_SHORTLIST_LIST: '/cv/shortlist/'
 };

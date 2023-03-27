@@ -4,7 +4,9 @@ import { useState } from "react";
 import {useParams} from "react-router";
 import {serviceGetOfferLetterDetails} from "../../../services/OfferLetter.service";
 
-function CandidateOLRHook() {
+function CandidateOLRHook({location}) {
+  const isReview = location?.state?.isReview;
+  const isApproval = location?.state?.isApproval;
   const [isApprovalPopUp, setIsApprovalPopUp] = useState(false);
   const [isRejectPopUp, setIsRejectPopUp] = useState(false);
   const [data, setData] = useState(null);
@@ -34,7 +36,9 @@ function CandidateOLRHook() {
     isRejectPopUp,
     toggleRejectDialog,
     data,
-    id
+    id,
+    isReview,
+    isApproval
   };
 }
 

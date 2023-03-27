@@ -10,15 +10,17 @@ import ApprovalDialog from "./components/ApprovalPopUp/ApprovalDialog.view";
 import CandidateOLRHook from "./CandidateOLR.hook";
 import RejectOLRDialog from "./components/RejectOLRPopUp/RejectOLRDialog.view";
 
-function CandidateOLR() {
+function CandidateOLR({location}) {
   const {
     isApprovalPopUp,
     toggleApprovalDialog,
     isRejectPopUp,
     toggleRejectDialog,
       data,
-      id
-  } = CandidateOLRHook({});
+      id,
+      isReview,
+      isApproval
+  } = CandidateOLRHook({location});
 
   return (
     <div className={"container"}>
@@ -54,7 +56,7 @@ function CandidateOLR() {
           <span style={{ textTransform: 'capitalize' }}>{data?.comment}</span>
         </span>
       </div>
-      <div className={styles.btnCont1}>
+        {isApproval && (<div className={styles.btnCont1}>
         <ButtonBase
           type={"button"}
           onClick={toggleApprovalDialog}
@@ -62,7 +64,7 @@ function CandidateOLR() {
         >
           SHARE FOR APPROVAL
         </ButtonBase>
-      </div>
+      </div>)}
     </div>
   );
 }

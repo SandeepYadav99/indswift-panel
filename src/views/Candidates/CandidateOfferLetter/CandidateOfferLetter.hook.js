@@ -240,7 +240,9 @@ function CandidateOfferLetterHook({ location }) {
         if (!res.error) {
           const data = res?.data;
           SnackbarUtils.success("Offer Letter Created Successfully");
-          historyUtils.replace(RouteName.CANDIDATES_OFFER_DETAILS+data?.id);
+          historyUtils.replace(RouteName.CANDIDATES_OFFER_DETAILS+data?.id, {
+            isApproval: true,
+          });
         } else {
           SnackbarUtils.error(res?.message);
         }

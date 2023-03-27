@@ -29,7 +29,7 @@ const useReviewOLR = ({}) => {
     }, []);
 
     const changeRoute = useCallback((data) => {
-        historyUtils.push(RouteName.JOB_OPENINGS_DETAILS+data?.job?.id) //+data.id
+        historyUtils.push(RouteName.JOB_OPENINGS_DETAILS+data?.job_details?.id) //+data.id
     }, []);
     const handlePageChange = useCallback((type) => {
         dispatch(actionSetPageReviewOLR(type));
@@ -92,7 +92,7 @@ const useReviewOLR = ({}) => {
 
     const handleViewDetails = useCallback((data) => {
         LogUtils.log('data', data);
-        historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data.candidate_id}`) 
+        historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data.candidate_id}`)
     }, []);
     const configFilter = useMemo(() => {
         return [
