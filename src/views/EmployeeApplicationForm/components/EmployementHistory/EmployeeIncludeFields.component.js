@@ -141,7 +141,7 @@ const EmployeeIncludeFields = ({
         </div>
         {!isDisabled && (
           <div className={styles.btnCont}>
-            <div className={"textCenter"}>
+            <div className={styles.textCenter}>
               <ButtonBase
                 className={styles.removeBtn}
                 // label={this.props.index == 0 ? "+" : '-'}

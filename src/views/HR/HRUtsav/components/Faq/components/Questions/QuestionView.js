@@ -98,7 +98,6 @@ class QuestionView extends Component {
             title={val.name}
             initial="hide"
           >
-            {console.log("===>", val.images)}
             <div className={styles.locationText}>
               {val?.eventDateText}
               {/* {val?.updatedAtText} */}
@@ -159,7 +158,6 @@ class QuestionView extends Component {
 
   render() {
     const { category } = this.props;
-
     return (
       <div>
         <div className={styles.plainBg}>
@@ -182,7 +180,7 @@ class QuestionView extends Component {
 
         <SidePanelComponent
           handleToggle={this._handleSideToggle}
-          title={"Add/Manage Tie-Ups Details"}
+          title={`Add Event to ${category?.name} `}
           open={this.state.side_panel}
           side={"right"}
         >

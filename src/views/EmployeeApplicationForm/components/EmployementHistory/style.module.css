@@ -131,3 +131,31 @@
   display: flex;
   flex: 1;
 }
+.textCenter {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .flexContainer{
+    flex-direction: column;
+  }
+  .qualificationFormCont{
+    width: 100%;
+  }
+  .flex1{
+    flex: 1;
+    min-width: 0;
+  }
+  .firstRow{
+    flex-direction: column;
+  }
+  .historyfieldWrapper{
+    width: 100%;
+    flex-direction: column;
+  }
+  .btnCont{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+}

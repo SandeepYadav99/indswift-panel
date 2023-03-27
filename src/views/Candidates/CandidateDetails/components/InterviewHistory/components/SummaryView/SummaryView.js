@@ -118,7 +118,7 @@ function SummaryView({
           )}
         </div>
         <div>
-          <span className={styles.date}>{date}</span>
+          {status !== "PENDING" && <span className={styles.date}>{date}</span>}
         </div>
       </div>
     </div>
