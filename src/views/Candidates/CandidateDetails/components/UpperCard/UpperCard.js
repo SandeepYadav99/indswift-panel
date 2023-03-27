@@ -11,13 +11,23 @@ const UpperCard = ({
   handleToggle,
   handleStatusToggle,
   handleOfferPage,
+  handleToggleExtendPage,
+  handleToggleRPDialog
 }) => {
   const splitDate = (value) => {
     return value ? value.split(" ")[0] : "";
   };
   const removeUnderScore=(value)=>{
     return value ? value.replace(/_/g, " "): ""
-  } 
+  }
+  const handlePRCPopUp=()=>{
+    if (data?.job_opening?.is_recurring){
+      handleToggleRPDialog()
+    }
+    else{
+      handleToggleExtendPage()
+    }
+  }
   return (
     <div>
       <div className={styles.blueBackground}>
@@ -52,7 +62,7 @@ const UpperCard = ({
           </div>
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
-              <ActionButton onClick={() => handleOfferPage(data)}>
+              <ActionButton onClick={() => handlePRCPopUp()}>
                 <InfoOutlined fontSize={"small"} />
                 <span className={styles.actionBtnSpan}>Extend Offer</span>
               </ActionButton>{" "}

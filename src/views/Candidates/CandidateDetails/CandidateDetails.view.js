@@ -74,6 +74,8 @@ function CandidateDetails() {
         handleToggle={toggleResetDialog}
         handleStatusToggle={toggleStatusDialog}
         handleOfferPage={handleOfferPage}
+        handleToggleExtendPage={toggleExtendDialog}
+        handleToggleRPDialog={toggleReoccuringDialog}
       />
       <div>
         <AppBar position="static" className={styles.backgroundColor}>
