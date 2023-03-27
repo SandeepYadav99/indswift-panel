@@ -39,8 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const ApprovalDialog = ({ isOpen, handleToggle, offerId }) => {
   const classes = useStyles();
 
-  const { } = useApprovalDialog({ offerId });
-
+  const { panelists ,handleSubmit } = useApprovalDialog({ offerId });
   return (
     <div>
       <Dialog
@@ -74,32 +73,34 @@ const ApprovalDialog = ({ isOpen, handleToggle, offerId }) => {
           </div>
           {/*</DialogTitle>*/}
           <div className={styles.fieldWrapper}>
-          <div className={styles.mappedCard} key={`Approval_index`}>
+            {
+              panelists?.map((item,index)=> (
+                <div className={styles.mappedCard} key={`Approval_index_${index}`}>
               <div className={styles.imageNameContainer}>
                 <div className={styles.imageContainer}>
                   <img
-                    src={ DefaultImg }
+                    src={ item?.image ?  item?.image : DefaultImg }
                   />
                 </div>
                 <div className={styles.nameContainer}>
-                  <span>Shashank Rastogi</span>
-                  <div className={styles.date}>Manager</div>
+                  <span>{item?.name}</span>
+                  <div className={styles.date}>{item?.designation?.name}</div>
                 </div>
               </div>
               <div className={styles.SummaryViewstar}>
                 <div className={styles.buttonWrapper}>
-                <div className={styles.date}>Human Resource</div>
+                <div className={styles.date}>{item?.department?.name}</div>
                 </div>
               </div>
             </div>
-
+              ) )
+            }
           </div>
           <div className={styles.btnCont1}>
-            <ButtonBase className={styles.edit1} onClick={handleToggle} >KEEP AS DRAFT</ButtonBase>
+            <ButtonBase className={styles.edit1} onClick={()=>handleSubmit('DRAFTED')} >KEEP AS DRAFT</ButtonBase>
             <ButtonBase
               type={"button"}
-              onClick={handleToggle}
-              // onClick={handleSubmit}
+              onClick={()=>handleSubmit('APPROVAL_DUE')}
               className={styles.createBtn}
             >
               CONFIRM

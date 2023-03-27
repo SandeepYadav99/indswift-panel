@@ -31,6 +31,12 @@
     overflow-wrap: anywhere;
     text-transform: uppercase;
 }
+.valueWrap21{
+    flex: 1;
+    max-width: 180px;
+    overflow-wrap: anywhere;
+    text-transform: uppercase;
+}
 .valueWrapemail{
     max-width: 180px;
     overflow-wrap: anywhere;
@@ -55,8 +61,21 @@
     margin-bottom: 7px;
     /*display: flex;*/
 }
-
+.key21{
+    display: flex;
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 7px;
+    /*display: flex;*/
+}
 .value{
+    font-weight: 600;
+    width: 100%;
+    color: black;
+    display: inline-block;
+}
+.value21{
+    flex: 1;
     font-weight: 600;
     width: 100%;
     color: black;
