@@ -1,13 +1,14 @@
-import React, {useMemo} from "react";
+import React, { useMemo } from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import {
-  isNum,
-} from "../../../libs/RegexUtils";
+import { isNum } from "../../../libs/RegexUtils";
 import { serviceGetList } from "../../../services/Common.service";
 import historyUtils from "../../../libs/history.utils";
-import {serviceCreateCandidateOfferLetter, serviceGetCandidateDetails} from "../../../services/Candidate.service";
+import {
+  serviceCreateCandidateOfferLetter,
+  serviceGetCandidateDetails,
+} from "../../../services/Candidate.service";
 import LogUtils from "../../../libs/LogUtils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 const SALARY_KEYS = [
@@ -62,6 +63,9 @@ function CandidateOfferLetterHook({ location }) {
     joining_date: "",
     reporting_location: "",
     expected_response_date: "",
+    reporting_company: "",
+    note: "",
+    is_amrf: 'No',
     basic_salary: 0,
     hra: 0,
     education_allowance: 0,
@@ -112,7 +116,6 @@ function CandidateOfferLetterHook({ location }) {
     is_address_same: false,
   };
 
-
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
   const [candidateData, setCandidateData] = useState(null);
@@ -121,11 +124,8 @@ function CandidateOfferLetterHook({ location }) {
     LOCATIONS: [],
   });
 
-
   useEffect(() => {
-    serviceGetList([
-      "LOCATIONS",
-    ]).then((res) => {
+    serviceGetList(["LOCATIONS"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -145,11 +145,11 @@ function CandidateOfferLetterHook({ location }) {
     }
   }, [candidateId]);
 
-  const {candidateId, jobId} = useMemo(() => {
+  const { candidateId, jobId } = useMemo(() => {
     return {
       candidateId: location?.state?.candidate_id,
       jobId: location?.state?.job_id,
-    }
+    };
   }, [location]);
 
   const checkFormValidation = useCallback(() => {
@@ -157,6 +157,7 @@ function CandidateOfferLetterHook({ location }) {
     let required = [
       "joining_date",
       "reporting_location",
+      "reporting_company",
       "expected_response_date",
       ...SALARY_KEYS,
       ,
@@ -223,34 +224,29 @@ function CandidateOfferLetterHook({ location }) {
         candidate_id: candidateId,
         job_id: jobId,
         ...form,
-        location_id: form?.reporting_location?.id
+        location_id: form?.reporting_location?.id,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success('Offer Letter Created Successfully');
+          SnackbarUtils.success("Offer Letter Created Successfully");
           historyUtils.goBack();
         } else {
           SnackbarUtils.error(res?.message);
         }
         setIsSubmitting(false);
-      })
+      });
     }
   }, [candidateId, jobId, form, isSubmitting, setIsSubmitting]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    LogUtils.log('errors', errors);
+    LogUtils.log("errors", errors);
     if (Object.keys(errors)?.length > 0) {
       setErrorData(errors);
       return true;
     }
-    LogUtils.log('server', form);
+    LogUtils.log("server", form);
     submitToServer();
-  }, [
-    checkFormValidation,
-    setErrorData,
-    form,
-    submitToServer,
-  ]);
+  }, [checkFormValidation, setErrorData, form, submitToServer]);
   return {
     form,
     errorData,
@@ -259,7 +255,7 @@ function CandidateOfferLetterHook({ location }) {
     onBlurHandler,
     handleSubmit,
     candidateData,
-    isSubmitting
+    isSubmitting,
   };
 }
 

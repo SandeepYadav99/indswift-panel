@@ -17,7 +17,11 @@
   color: #e92828;
   font-weight: bold;
 }
-
+.radioWrapper{
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
 .newLines {
   height: 4px;
   width: 30px;
@@ -30,4 +34,8 @@
   align-items: center;
   justify-content: flex-end;
   margin: 20px 0px;
+}
+.amrfHeading{
+  margin-left: 15px;
+  font-size: .875rem;
 }

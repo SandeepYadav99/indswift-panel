@@ -1,4 +1,12 @@
-import { ButtonBase } from "@material-ui/core";
+import {
+  ButtonBase,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 import React from "react";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
@@ -10,10 +18,20 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
 import CustomDateTimePicker from "../../../components/FormFields/DatePicker/CustomDateTimePicker";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
+import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
+import CustomRadioLabel from "../../../components/CustomRadioLabel/CustomRadioLabel.component";
 
-const CandidateOfferLetter = ({location}) => {
-  const { form, errorData, listData,changeTextData, onBlurHandler, handleSubmit, candidateData, isSubmitting } =
-    CandidateOfferLetterHook({location});
+const CandidateOfferLetter = ({ location }) => {
+  const {
+    form,
+    errorData,
+    listData,
+    changeTextData,
+    onBlurHandler,
+    handleSubmit,
+    candidateData,
+    isSubmitting,
+  } = CandidateOfferLetterHook({ location });
   const getSumValue = (...numbers) => {
     return numbers
       ? numbers.reduce((sum, value) => {
@@ -59,15 +77,20 @@ const CandidateOfferLetter = ({location}) => {
           </div>
           <div className={"formGroup"}>
             <CustomAutoComplete
-                autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.label}}
-                dataset={listData?.LOCATIONS}
-                datasetKey={'label'}
-                onTextChange={(text, value) => { changeTextData(text, 'reporting_location') }}
-                variant={'outlined'}
-                label={'Reporting Location'}
-                name={'reporting_location'}
-                isError={errorData?.reporting_location}
-                value={form?.reporting_location}
+              autoCompleteProps={{
+                freeSolo: false,
+                getOptionLabel: (option) => option.label,
+              }}
+              dataset={listData?.LOCATIONS}
+              datasetKey={"label"}
+              onTextChange={(text, value) => {
+                changeTextData(text, "reporting_location");
+              }}
+              variant={"outlined"}
+              label={"Reporting Location"}
+              name={"reporting_location"}
+              isError={errorData?.reporting_location}
+              value={form?.reporting_location}
             />
           </div>
         </div>
@@ -84,10 +107,23 @@ const CandidateOfferLetter = ({location}) => {
               isError={errorData?.expected_response_date}
             />
           </div>
-          <div className={"formGroup"}></div>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.reporting_company}
+              errorText={errorData?.reporting_company}
+              label={"Reporting Company"}
+              value={form?.reporting_company}
+              handleChange={(value) => {
+                changeTextData(value, "reporting_company");
+              }}
+            >
+              <MenuItem value="EBL">EBL</MenuItem>
+              <MenuItem value="ISL">ISL</MenuItem>
+              <MenuItem value="ISLL">ISLL</MenuItem>
+            </CustomSelectField>
+          </div>
         </div>
       </div>
-
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
@@ -763,6 +799,61 @@ const CandidateOfferLetter = ({location}) => {
           />
         </div>
       </div>
+      <div className={"plainPaper"}>
+        <div className={"headerFlex"}>
+          <h4 className={"infoTitle"}>
+            <div className={"heading"}>AMRF Attachment</div>
+          </h4>
+        </div>
+        <div className={styles.radioWrapper}>
+          <div className={styles.amrfHeading} id='amrf_avail'>
+            Is AMRF Available
+          </div>
+          <FormControl>
+            <RadioGroup
+              row
+              aria-labelledby="amrf_avail"
+              name="position"
+              defaultValue={form?.is_amrf}
+              value={form?.is_amrf}
+            >
+              <FormControlLabel
+                value="Yes"
+                control={<Radio />}
+                label="Yes"
+                labelPlacement="Yes"
+              />
+              <FormControlLabel value="No" control={<Radio />} label="No"  sx={{ ml: 2 }}/>
+            </RadioGroup>
+          </FormControl>
+        </div>
+      </div>
+
+      <div className={"plainPaper"}>
+        <div className={"headerFlex"}>
+          <h4 className={"infoTitle"}>
+            <div className={"heading"}>Additional Comments</div>
+          </h4>
+        </div>
+        <div className={"formFlex"}>
+          <div className="formGroup">
+            <CustomTextField
+              isError={errorData?.note}
+              errorText={errorData?.note}
+              label={"Any Comments from Recruiter HR"}
+              value={form?.note}
+              onTextChange={(text) => {
+                changeTextData(text, "note");
+              }}
+              onBlur={() => {
+                onBlurHandler("note");
+              }}
+              multiline
+              rows={1}
+            />
+          </div>
+        </div>
+      </div>
       <div className={styles.btnWrapper}>
         <ButtonBase
           type={"button"}
@@ -770,11 +861,11 @@ const CandidateOfferLetter = ({location}) => {
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
-          preview Offer letter
+          VIEW OLR SHEET
         </ButtonBase>
       </div>
     </div>
   );
-}
+};
 
 export default CandidateOfferLetter;
