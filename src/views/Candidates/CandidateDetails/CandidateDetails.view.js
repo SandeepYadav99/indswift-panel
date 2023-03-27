@@ -66,6 +66,7 @@ function CandidateDetails() {
     toggleExtendDialog,
     toggleReoccuringDialog,
     isReoccuring,
+      id
   } = useCandidateDetails({});
   return (
     <div>
@@ -90,13 +91,14 @@ function CandidateDetails() {
           </Tabs>
         </AppBar>
         <ExtendOfferDialog
+            candidateId={id}
           isOpen={isExtendDialog}
           handleToggle={toggleExtendDialog}
         />
-        <ReoccuringDialog
-          isOpen={isReoccuring}
-          handleToggle={toggleReoccuringDialog}
-        />
+        {/*<ReoccuringDialog*/}
+        {/*  isOpen={isReoccuring}*/}
+        {/*  handleToggle={toggleReoccuringDialog}*/}
+        {/*/>*/}
         {/* <UpdatePRCDialog
           isOpen={isResetDialog}
           handleToggle={toggleResetDialog}

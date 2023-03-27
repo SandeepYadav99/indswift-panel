@@ -37,22 +37,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ExtendOfferDialog = ({ isOpen, handleToggle, empId }) => {
+const ExtendOfferDialog = ({ isOpen, handleToggle, candidateId }) => {
   const classes = useStyles();
   const {
     changeTextData,
     errorData,
     form,
     handleSubmit,
-    onBlurHandler,
-    removeError,
-    resData,
-    isSubmitted,
     isSubmitting,
-    isVerified,
-    showPasswordCurrent,
-    setShowPasswordCurrent,
-  } = useExtendOfferDialogHook({ isOpen, handleToggle, empId });
+      jobs,
+  } = useExtendOfferDialogHook({ isOpen, handleToggle, candidateId });
 
   return (
     <div>
@@ -82,21 +76,18 @@ const ExtendOfferDialog = ({ isOpen, handleToggle, empId }) => {
           <div className={styles.fieldWrapper}>
             <div>
               <CustomSelectField
-                isError={errorData?.emp_status}
-                errorText={errorData?.emp_status}
+                isError={errorData?.job_id}
+                errorText={errorData?.job_id}
                 label={"Select PRC"}
-                value={form?.emp_status}
+                value={form?.job_id}
                 handleChange={(value) => {
-                  changeTextData(value, "emp_status");
+                  changeTextData(value, "job_id");
                 }}
               >
-                {[
-                  "ACTIVE",
-                  "RESIGNED",
-                ].map((val) => {
+                {jobs.map((val) => {
                   return (
-                    <MenuItem value={val} key={val}>
-                      {val}
+                    <MenuItem value={val?.job_openings?.id} key={val?._id}>
+                      {val?.job_openings?.code}
                     </MenuItem>
                   );
                 })}

@@ -8,7 +8,6 @@ import RouteName from "../../../routes/Route.name";
 import historyUtils from "../../../libs/history.utils";
 import { useParams } from "react-router";
 import { useCallback } from "react";
-import LogUtils from "../../../libs/LogUtils";
 
 function useCandidateDetails() {
   const [value, setValue] = useState(0);
@@ -82,6 +81,7 @@ function useCandidateDetails() {
     toggleExtendDialog,
     toggleReoccuringDialog,
     isReoccuring,
+    id
   };
 }
 

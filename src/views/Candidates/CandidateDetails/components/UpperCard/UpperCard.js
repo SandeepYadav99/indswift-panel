@@ -21,12 +21,13 @@ const UpperCard = ({
     return value ? value.replace(/_/g, " "): ""
   }
   const handlePRCPopUp=()=>{
-    if (data?.job_opening?.is_recurring){
+    handleToggleExtendPage()
+    /*if (data?.job_opening?.is_recurring){
       handleToggleRPDialog()
     }
     else{
       handleToggleExtendPage()
-    }
+    }*/
   }
   return (
     <div>

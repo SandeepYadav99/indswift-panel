@@ -2,29 +2,30 @@ import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { serviceChangeEmployeeStatus } from "../../../../../services/Employee.service";
+import {serviceGetCandidatePRCS} from "../../../../../services/Candidate.service";
+import historyUtils from "../../../../../libs/history.utils";
+import RouteName from "../../../../../routes/Route.name";
 
 const initialForm={
-  emp_status:"",
+  job_id:"",
 }
-const useExtendOfferDialogHook = ({ isOpen, handleToggle }) => {
+const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
-  const { employeeData } = useSelector((state) => state.employee);
   const [errorData, setErrorData] = useState({});
-  const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-  const [resData, setResData] = useState([]);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
-      setResData([]);
-      setIsSubmitted(false);
-      setIsVerified(false);
       setErrorData({});
+      serviceGetCandidatePRCS({ candidate_id: candidateId }).then((res) => {
+        if (!res.error) {
+          setJobs(res?.data);
+        }
+      })
     }
   }, [isOpen]);
 
@@ -44,14 +45,13 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle }) => {
       t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
-      setIsVerified(false);
     },
-    [removeError, form, setForm, setIsVerified]
+    [removeError, form, setForm]
   );
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["emp_status"];
+    let required = ["job_id"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -72,21 +72,12 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle }) => {
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
-      setIsSubmitting(true);
-      serviceChangeEmployeeStatus({
-        employee_id: employeeData?.id,
-        ...form,
-      }).then((res) => {
-        if (!res.error) {
-          SnackbarUtils.success("Request Placed Successfully");
-          handleToggle();
-        } else {
-          SnackbarUtils.error(res?.message);
-        }
-        setIsSubmitting(false);
+      historyUtils.push(RouteName.CANDIDATES_OFFER, {
+        candidate_id: candidateId,
+        job_id: form?.job_id,
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, handleToggle]);
+  }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -95,7 +86,7 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle }) => {
       setErrorData(errors);
       return true;
     }
-    // submitToServer();
+    submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(
@@ -115,11 +106,7 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle }) => {
     handleSubmit,
     errorData,
     isSubmitting,
-    resData,
-    isSubmitted,
-    isVerified,
-    showPasswordCurrent,
-    setShowPasswordCurrent,
+    jobs
   };
 };
 
