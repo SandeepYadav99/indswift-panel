@@ -437,7 +437,7 @@ const CandidateOfferLetter = ({ location }) => {
         </div>
         <div className={"formFlex"}>
           <TotalSum
-            firstName="Incremental Gross Salary + Car Component: "
+            firstName="Total Earnings 2: "
             firstAmount={getSumValue(
               form?.pug,
               form?.helper,
@@ -498,12 +498,12 @@ const CandidateOfferLetter = ({ location }) => {
           </div>
           <div className={"formGroup"}></div>
         </div>
-        <div className={"formFlex"}>
+        {/* <div className={"formFlex"}>
           <TotalSum
             firstName="Incremental Gross Salary + Car Component: "
             firstAmount={form?.earning_three_pli}
           />
-        </div>
+        </div> */}
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Part D - Deduction 1</div>

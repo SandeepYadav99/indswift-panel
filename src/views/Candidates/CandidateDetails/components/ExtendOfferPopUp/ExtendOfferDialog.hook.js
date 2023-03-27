@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import SnackbarUtils from "../../../../../libs/SnackbarUtils";
-import { serviceChangeEmployeeStatus } from "../../../../../services/Employee.service";
-import {serviceGetCandidatePRCS} from "../../../../../services/Candidate.service";
+import { serviceGetCandidatePRCS } from "../../../../../services/Candidate.service";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
 
 const initialForm={
   job_id:"",
-}
+  employee_id:'',
+};
 const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
@@ -16,7 +14,8 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [jobs, setJobs] = useState([]);
-
+  const [IsReoccuring,setIsReoccuring]= useState(false)
+  const [employeeList,setEmployeeList]=useState([])
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
@@ -29,6 +28,16 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (jobs?.length > 0) {
+      const CheckReoccuring = jobs.findIndex(
+        (item) => item?.job_openings?.id === form?.job_id
+      );
+      const getValue=jobs[CheckReoccuring]
+      setEmployeeList(getValue?.vacancies)
+      setIsReoccuring(getValue?.job_openings?.is_recurring)
+    }
+  }, [form.job_id,IsReoccuring,jobs]);
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
@@ -62,26 +71,28 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
         delete errors[val];
       }
     });
+     if (IsReoccuring && form['employee_id']?.length === 0 || form['employee_id'] === null){
+      errors['employee_id'] = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
       }
     });
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData,IsReoccuring]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       historyUtils.push(RouteName.CANDIDATES_OFFER, {
         candidate_id: candidateId,
         job_id: form?.job_id,
+        replacing_id: form?.employee_id
       });
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId]);
-
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("===?",form,errors)
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
@@ -106,7 +117,9 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
     handleSubmit,
     errorData,
     isSubmitting,
-    jobs
+    IsReoccuring,
+    jobs,
+    employeeList
   };
 };
 

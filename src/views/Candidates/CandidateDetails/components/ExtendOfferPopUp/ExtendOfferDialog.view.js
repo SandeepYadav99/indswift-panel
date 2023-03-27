@@ -10,8 +10,6 @@ import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
-import CustomDatePicker from "../../../../../components/FormFields/DatePicker/CustomDatePicker";
-import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
 import useExtendOfferDialogHook from "./ExtendOfferDialog.hook";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,9 +43,10 @@ const ExtendOfferDialog = ({ isOpen, handleToggle, candidateId }) => {
     form,
     handleSubmit,
     isSubmitting,
+    IsReoccuring,
       jobs,
+      employeeList
   } = useExtendOfferDialogHook({ isOpen, handleToggle, candidateId });
-
   return (
     <div>
       <Dialog
@@ -84,7 +83,7 @@ const ExtendOfferDialog = ({ isOpen, handleToggle, candidateId }) => {
                   changeTextData(value, "job_id");
                 }}
               >
-                {jobs.map((val) => {
+                {jobs?.map((val) => {
                   return (
                     <MenuItem value={val?.job_openings?.id} key={val?._id}>
                       {val?.job_openings?.code}
@@ -94,6 +93,27 @@ const ExtendOfferDialog = ({ isOpen, handleToggle, candidateId }) => {
               </CustomSelectField>
             </div>
           </div>
+          { IsReoccuring && <div className={styles.fieldWrapper}>
+            <div>
+              <CustomSelectField
+                isError={errorData?.employee_id}
+                errorText={errorData?.employee_id}
+                label={"Select Employees"}
+                value={form?.employee_id}
+                handleChange={(value) => {
+                  changeTextData(value, "employee_id");
+                }}
+              >
+                {employeeList?.map((val) => {
+                  return (
+                    <MenuItem value={val?.employee?.id} key={val?._id}>
+                      {val?.employee?.name}
+                    </MenuItem>
+                  );
+                })}
+              </CustomSelectField>
+            </div>
+          </div>}
           <div className={styles.printFlex}>
             <ButtonBase
               onClick={handleSubmit}
