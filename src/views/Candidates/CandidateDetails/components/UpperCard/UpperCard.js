@@ -12,6 +12,7 @@ const UpperCard = ({
   handleStatusToggle,
   handleOfferPage,
   handleToggleExtendPage,
+  handleToggleShareDialog,
   handleToggleRPDialog
 }) => {
   const splitDate = (value) => {
@@ -75,12 +76,12 @@ const UpperCard = ({
               </div>
             </div>
             <div className={styles.actionWrap}>
-              {/* <div className={styles.btnUpper}>
-                <ActionButton onClick={handleStatusToggle}>
+              <div className={styles.btnUpper}>
+                <ActionButton onClick={handleToggleShareDialog}>
                   <InfoOutlined fontSize={"small"} />
-                  <span className={styles.actionBtnSpan}>Update Status</span>
+                  <span className={styles.actionBtnSpan}>Share Offer</span>
                 </ActionButton>
-              </div> */}
+              </div>
               <div className={styles.btnUpper21}>
                 <ActionButton onClick={handleStatusToggle}>
                   <InfoOutlined fontSize={"small"} />

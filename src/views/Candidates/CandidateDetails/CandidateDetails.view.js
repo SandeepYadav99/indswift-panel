@@ -11,6 +11,7 @@ import UpdatePRCDialog from "./components/UpdatePRCPopUp/UpdatePRCDialog.view";
 import CandidateStatusDialog from "./components/CandidateStatusPopUp/CandidateStatusDialog.view";
 import ExtendOfferDialog from "./components/ExtendOfferPopUp/ExtendOfferDialog.view";
 import ReoccuringDialog from "./components/ReoccuringPopUp/ReoccuringDialog.view";
+import ShareOfferDialog from "./components/ShareOfferPopUp/ShareOfferDialog.view";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,8 +66,10 @@ function CandidateDetails() {
     isExtendDialog,
     toggleExtendDialog,
     toggleReoccuringDialog,
+    toggleShareDialog,
+    isShareDialog,
     isReoccuring,
-      id
+    id,
   } = useCandidateDetails({});
   return (
     <div>
@@ -77,6 +80,7 @@ function CandidateDetails() {
         handleOfferPage={handleOfferPage}
         handleToggleExtendPage={toggleExtendDialog}
         handleToggleRPDialog={toggleReoccuringDialog}
+        handleToggleShareDialog={toggleShareDialog}
       />
       <div>
         <AppBar position="static" className={styles.backgroundColor}>
@@ -90,8 +94,13 @@ function CandidateDetails() {
             <Tab className={"iconTabs"} label="Interview History" />
           </Tabs>
         </AppBar>
+        <ShareOfferDialog
+          candidateId={id}
+          isOpen={isShareDialog}
+          handleToggle={toggleShareDialog}
+        />
         <ExtendOfferDialog
-            candidateId={id}
+          candidateId={id}
           isOpen={isExtendDialog}
           handleToggle={toggleExtendDialog}
         />
