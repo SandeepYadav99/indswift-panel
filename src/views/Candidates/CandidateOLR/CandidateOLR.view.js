@@ -1,5 +1,5 @@
 import { ButtonBase } from "@material-ui/core";
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../../libs/history.utils";
@@ -9,23 +9,67 @@ import SalaryDetails from "./components/SalaryDetails/SalaryDetails";
 import ApprovalDialog from "./components/ApprovalPopUp/ApprovalDialog.view";
 import CandidateOLRHook from "./CandidateOLR.hook";
 import RejectOLRDialog from "./components/RejectOLRPopUp/RejectOLRDialog.view";
+import DataTables from "../../../Datatables/Datatable.table";
+import Constants from "../../../config/constants";
 
-function CandidateOLR({location}) {
+function CandidateOLR({ location }) {
   const {
     isApprovalPopUp,
     toggleApprovalDialog,
     isRejectPopUp,
     toggleRejectDialog,
-      data,
-      id,
-      isReview,
-      isApproval
-  } = CandidateOLRHook({location});
+    data,
+    id,
+    isReview,
+    isApproval,
+    handleRowSize,
+    handlePageChange,
+    tableDataValue,
+  } = CandidateOLRHook({ location });
+  const tableData = useMemo(() => {
+    const datatableFunctions = {
+      onPageChange: handlePageChange,
+    };
 
+    const datatable = {
+      ...Constants.DATATABLE_PROPERTIES,
+      columns: tableStructure,
+      data: tableDataValue,
+    };
+
+    return { datatableFunctions, datatable };
+  }, [
+    tableStructure,
+    handlePageChange,
+    handleRowSize,
+    tableDataValue,
+  ]);
+  const tableStructure = useMemo(() => {
+    return [
+      {
+        key: "name",
+        label: "APPROVING PERSON",
+        sortable: false,
+        render: (value, all) => <div>Shashank Rastogi</div>,
+      },
+      {
+        key: "designation",
+        label: "DESIGNATION",
+        sortable: false,
+        render: (value, all) => <div>Manager</div>,
+      },
+      {
+        key: "department",
+        label: "DEPARTMENT",
+        sortable: false,
+        render: (value, all) => <div>DEPARTMENT</div>,
+      },
+    ];
+  }, [tableDataValue]);
   return (
     <div className={"container"}>
       <ApprovalDialog
-          offerId={id}
+        offerId={id}
         isOpen={isApprovalPopUp}
         handleToggle={toggleApprovalDialog}
       />
@@ -53,18 +97,50 @@ function CandidateOLR({location}) {
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Corporate HR Comments</div>
         <span className={styles.spanWrapper}>
-          <span style={{ textTransform: 'capitalize' }}>{data?.comment}</span>
+          <span style={{ textTransform: "capitalize" }}>{data?.comment}</span>
         </span>
       </div>
-        {isApproval && (<div className={styles.btnCont1}>
-        <ButtonBase
-          type={"button"}
-          onClick={toggleApprovalDialog}
-          className={styles.createBtn}
-        >
-          SHARE FOR APPROVAL
-        </ButtonBase>
-      </div>)}
+      <div className={styles.plainPaper}>
+        <div className={styles.heading}>Approval Authority</div>
+        <div>
+          {/* <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          /> */}
+        </div>
+      </div>
+      {isReview && (
+        <div className={styles.btnReviewWrapper}>
+          <div className={styles.isReviewBtnContainer}>
+            <ButtonBase
+              type={"button"}
+              onClick={toggleRejectDialog}
+              className={styles.RejectBtn}
+            >
+              Reject
+            </ButtonBase>
+            <ButtonBase
+              type={"button"}
+              // onClick={toggleApprovalDialog}
+              className={styles.createBtn}
+            >
+              Approve
+            </ButtonBase>
+          </div>
+        </div>
+      )}
+
+      {isApproval && (
+        <div className={styles.btnCont1}>
+          <ButtonBase
+            type={"button"}
+            onClick={toggleApprovalDialog}
+            className={styles.createBtn}
+          >
+            SHARE FOR APPROVAL
+          </ButtonBase>
+        </div>
+      )}
     </div>
   );
 }

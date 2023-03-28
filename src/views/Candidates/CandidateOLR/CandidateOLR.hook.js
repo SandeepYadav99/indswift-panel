@@ -11,7 +11,7 @@ function CandidateOLRHook({location}) {
   const [isRejectPopUp, setIsRejectPopUp] = useState(false);
   const [data, setData] = useState(null);
   const { id } = useParams();
-
+const [tableDataValue,setTableDataValue]=useState([{name:'shasank',designation:'manager',department:'Human Resourse'}])
   useEffect(() => {
     if (id) {
       serviceGetOfferLetterDetails({ id: id }).then(res => {
@@ -38,7 +38,8 @@ function CandidateOLRHook({location}) {
     data,
     id,
     isReview,
-    isApproval
+    isApproval,
+    tableDataValue
   };
 }
 

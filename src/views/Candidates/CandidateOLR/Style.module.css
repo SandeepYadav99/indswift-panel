@@ -43,3 +43,24 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
+.btnReviewWrapper{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.isReviewBtnContainer{
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+.RejectBtn{
+  color: #E92828 !important;
+  border: 2px solid #E92828;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
