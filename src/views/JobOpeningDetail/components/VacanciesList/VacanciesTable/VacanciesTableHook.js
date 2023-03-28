@@ -122,6 +122,7 @@ const useVacancyList = ({ jobId }) => {
     handleSortOrderChange,
     isVacanciesFetching,
     data: vacancies,
+    currentData,
     currentPage,
     handleViewDetails,
   };

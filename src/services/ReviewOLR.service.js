@@ -20,3 +20,11 @@ export async function serviceGetReviewOLR(params) {
 export async function serviceReviewOLRCheck (params) {
     return await postRequest('olr/check', params);
 }
+
+export async function serviceReviewOLRApprove(params) {
+    return await postRequest('olr/accept', params);
+}
+
+export async function serviceReviewOLRReject(params) {
+    return await postRequest('olr/reject', params);
+}

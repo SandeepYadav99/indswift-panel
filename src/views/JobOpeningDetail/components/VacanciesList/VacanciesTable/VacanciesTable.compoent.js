@@ -22,6 +22,7 @@ function VacanciesTable({ jobId }) {
     editData,
     isCalling,
     data,
+      currentData,
     currentPage,
     isVacanciesFetching,
   } = useVacancyList({ jobId });
@@ -114,10 +115,10 @@ function VacanciesTable({ jobId }) {
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: data,
+      data: currentData,
       count: data.length,
       page: currentPage - 1,
-      rowsPerPage: 50,
+      rowsPerPage: 15,
       allRowSelected: false,
       showSelection: false,
       hidePagination: true,

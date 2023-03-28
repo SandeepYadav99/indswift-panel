@@ -33,7 +33,7 @@ const InterviewerRecordTable = ({
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
- 
+
   const checkStatus = () => {
     if (data?.length === 0) {
       handleChangeInterviewStatus(-1);
@@ -116,10 +116,10 @@ const InterviewerRecordTable = ({
     const datatable = {
       ...constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: data,
+      data: currentData,
       count: data.length,
       page: currentPage,
-      rowsPerPage: 50,
+      rowsPerPage: 10,
       allRowSelected: false,
       showSelection: false,
       hidePagination:true

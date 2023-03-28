@@ -76,7 +76,7 @@ const useRejectOLRDialogHook = ({ isOpen, handleToggle }) => {
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
-      setIsSubmitting(true);
+      // setIsSubmitting(true);
       // serviceChangeEmployeeStatus({
       //   employee_id: employeeData?.id,
       //   ...form,
@@ -100,7 +100,7 @@ const useRejectOLRDialogHook = ({ isOpen, handleToggle }) => {
       setErrorData(errors);
       return true;
     }
-    // submitToServer();
+    submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(

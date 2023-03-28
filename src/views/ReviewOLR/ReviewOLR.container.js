@@ -94,13 +94,14 @@ const ReviewOLR = ({location}) => {
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}>
                         <PeopleOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>View Profile</span>
                     </IconButton >
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {
+                    {all.status === Constants.OFFER_LETTER_STATUS.PENDING && (<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {
                         historyUtils.push(`${RouteName.CANDIDATES_OFFER_DETAILS}${all?.offer_id}`, {
                             isReview: true,
+                            reviewId: all?.id
                         });
                     }}>
                         <AssignmentOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>View OLR Sheet</span>
-                    </IconButton >
+                    </IconButton >)}
 
                 </div>),
             },

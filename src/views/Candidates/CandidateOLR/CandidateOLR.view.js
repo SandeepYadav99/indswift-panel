@@ -24,6 +24,11 @@ function CandidateOLR({ location }) {
     isReview,
     isApproval,
     panelList,
+    handleRowSize,
+    handlePageChange,
+    tableDataValue,
+    handleApproveReview,
+    isSubmitting
   } = CandidateOLRHook({ location });
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
@@ -124,8 +129,9 @@ function CandidateOLR({ location }) {
             </ButtonBase>
             <ButtonBase
               type={"button"}
-              // onClick={toggleApprovalDialog}
+              onClick={handleApproveReview}
               className={styles.createBtn}
+              disabled={isSubmitting}
             >
               Approve
             </ButtonBase>
