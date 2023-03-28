@@ -63,10 +63,10 @@ const UpperCard = ({
           </div>
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
-              <ActionButton onClick={() => handlePRCPopUp()}>
+              {data?.is_selected && (<ActionButton onClick={() => handlePRCPopUp()}>
                 <InfoOutlined fontSize={"small"} />
                 <span className={styles.actionBtnSpan}>Extend Offer</span>
-              </ActionButton>{" "}
+              </ActionButton>)}
               <div>
                 <StatusPill
                   status={removeUnderScore(data?.status)}

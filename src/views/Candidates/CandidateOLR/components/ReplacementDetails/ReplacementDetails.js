@@ -1,6 +1,11 @@
 import React from 'react'
 import styles from './Style.module.css'
 function ReplacementDetails({data}) {
+  const textValue = (key) => {
+    if (key) {
+      return key;
+    } return '-';
+  }
   return (
     <div className={styles.plainPaper}>
         <div className={styles.newContainerPersonal}>
@@ -10,15 +15,15 @@ function ReplacementDetails({data}) {
             <div className={styles.left}>
               <div className={styles.key}>
                 <span className={styles.value}>Vaccant Tenure (Days):</span>
-                <span className={styles.valueWrap}>{data?.dob}</span>
+                <span className={styles.valueWrap}>-</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Name:</span>
-                <span className={styles.valueWrap}>{data?.replacing_person?.name}</span>
+                <span className={styles.valueWrap}>{textValue(data?.replacing_person?.name)}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Designation:</span>
-                <span className={styles.valueWrap}>{data?.replacing_person?.designation}</span>
+                <span className={styles.valueWrap}>{textValue(data?.replacing_person?.designation)}</span>
               </div>
             </div>
             <div className={styles.vertical}></div>
@@ -26,19 +31,19 @@ function ReplacementDetails({data}) {
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Grade:</span>
                 <span className={styles.valueWrap}>
-                 {data?.replacing_person?.grade}
+                 {textValue(data?.replacing_person?.grade)}
                 </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Experience:</span>
                 <span className={styles.valueWrap}>
-                  {data?.replacing_person?.experience}
+                  {textValue(data?.replacing_person?.experience)}
                 </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing CTC (LPA):</span>
                 <span className={styles.valueWrap}>
-                    Rs. {data?.replacing_person?.ctc} /-
+                     {data?.replacing_person?.ctc ? `Rs. ${data?.replacing_person?.ctc} /-` : '-'}
                 </span>
               </div>
 

@@ -29,7 +29,7 @@ function CandidateDetails({ data }) {
               <div className={styles.key}>
                 <span className={styles.value}>Qualification:</span>
                 <span className={styles.valueWrap}>
-                  {data?.family?.mother_name}
+                  {/*{(data?.candidate?.qualifications?.map((val) => val.degree))?.join(', ')}*/}
                 </span>
               </div>
             </div>

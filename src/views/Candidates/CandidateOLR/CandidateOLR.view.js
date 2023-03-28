@@ -78,15 +78,6 @@ function CandidateOLR({ location }) {
   }, [tableStructure, panelList]);
   return (
     <div className={"container"}>
-      <ApprovalDialog
-        offerId={id}
-        isOpen={isApprovalPopUp}
-        handleToggle={toggleApprovalDialog}
-      />
-      <RejectOLRDialog
-        isOpen={isRejectPopUp}
-        handleToggle={toggleRejectDialog}
-      />
       <div className={styles.outerFlex}>
         <div>
           <ButtonBase onClick={() => historyUtils.goBack()}>
@@ -110,14 +101,14 @@ function CandidateOLR({ location }) {
           <span style={{ textTransform: "capitalize" }}>{data?.comment}</span>
         </span>
       </div>
-      <div className={styles.plainPaper}>
+      {isReview && (<div className={styles.plainPaper}>
         <div className={styles.heading}>Approval Authority</div>
         <div>
           <DataTables
             {...tableData.datatable}
           />
         </div>
-      </div>
+      </div>)}
       {/* <PdfViewer>
       </PdfViewer> */}
       {isReview && (
@@ -153,6 +144,16 @@ function CandidateOLR({ location }) {
           </ButtonBase>
         </div>
       )}
+
+      <ApprovalDialog
+          offerId={id}
+          isOpen={isApprovalPopUp}
+          handleToggle={toggleApprovalDialog}
+      />
+      <RejectOLRDialog
+          isOpen={isRejectPopUp}
+          handleToggle={toggleRejectDialog}
+      />
     </div>
   );
 }
