@@ -15,6 +15,7 @@ function useCandidateDetails() {
   const [isResetDialog, setIsResetDialog] = useState(false);
   const [isUpdateDialog, setIsUpdateDialog] = useState(false);
   const [isExtendDialog, setIsExtendDialog] = useState(false);
+  const [isShareDialog, setIsShareDialog] = useState(false);
   const [isReoccuring, setIsReoccuring] = useState(false);
   const [historyData, setHistoryData] = useState([]);
   const [historyDetail, setHistoryDetail] = useState([]);
@@ -56,6 +57,10 @@ function useCandidateDetails() {
     setIsExtendDialog((e) => !e);
   }, [isExtendDialog]);
 
+  const toggleShareDialog = useCallback(() => {
+    setIsShareDialog((e) => !e);
+  }, [isShareDialog]); 
+
   const toggleReoccuringDialog = useCallback(() => {
     setIsReoccuring((e) => !e);
   }, [isReoccuring]);
@@ -81,6 +86,8 @@ function useCandidateDetails() {
     toggleExtendDialog,
     toggleReoccuringDialog,
     isReoccuring,
+    toggleShareDialog,
+    isShareDialog,
     id
   };
 }

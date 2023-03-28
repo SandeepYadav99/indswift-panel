@@ -19,40 +19,45 @@ function EmployeeUtsavDetail() {
               </span>
             </ButtonBase>
             <div className={styles.newLineMargin} />
-            <div className={styles.employeeInducationWrapper}>
+            <div className={styles.employeeInducationWrapper21}>
               <div>
                 <div>
-                  {
-                    employeeUtsavDetailData?.name && 
+                  {employeeUtsavDetailData?.name && (
                     <>
-                    <span className={styles.title}>
-                    {employeeUtsavDetailData?.name}
-                  </span>
-                  <div className={styles.newLine} />
+                      <div className={styles.headingWrapper}>
+                        <div>
+                          <span className={styles.title}>
+                            {employeeUtsavDetailData?.name}
+                          </span>
+                          <div className={styles.newLine} />
+                        </div>
+
+                        <span className={styles.title}>
+                          {employeeUtsavDetailData?.eventDateText}
+                        </span>
+                      </div>
                     </>
-                    
-                  }
-                  
+                  )}
+
                   <div className={styles.date}>
-                    {/* <span>{employeeUtsavDetailData?.createdAtText}</span> */}
-                    <span>{employeeUtsavDetailData?.eventDateText}</span>
+                    {employeeUtsavDetailData?.cover_image && (
+                      <div className={styles.imageWrapper}>
+                        <img
+                          className={styles.utsavimage}
+                          src={employeeUtsavDetailData?.cover_image}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className={styles.contentWrapper}>
-                  <div className={styles.content}>
-                    <p className={styles.contentFormat}>
-                      {employeeUtsavDetailData?.description || ""}
-                    </p>
-                  </div>
-
-                  {employeeUtsavDetailData?.cover_image && (
-                    <div className={styles.imageWrapper}>
-                      <img
-                        className={styles.utsavimage}
-                        src={employeeUtsavDetailData?.cover_image}
-                      />
+                  <div className={styles.content21}>
+                    <div className={styles.contentCont}>
+                      <p className={styles.contentFormat}>
+                        {employeeUtsavDetailData?.description || ""}
+                      </p>
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>

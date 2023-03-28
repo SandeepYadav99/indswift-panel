@@ -21,6 +21,7 @@ import CustomRouter from "../libs/CustomRouter.utils";
 import CandidateFeedbackForm from "../views/CandidateFeedbackForm/CandidateFeedbackForm.view";
 import CandidateFeedbackFormDetail from "../views/CandidateFeedbackFormView/CandidateFeedbackFormView.js";
 import OfferConfirmation from "../views/OfferConfirmation/OfferConfirmation.view.js";
+import ShareSuccess from "../views/Candidates/CandidateDetails/components/ShareSuccess/ShareSuccess.js";
 
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
@@ -37,6 +38,7 @@ const RouteComponent = () => (
     <CustomRouter path={`${RouteName.CANDIDATE_FEEDBACK_VIEW}:id`} private={true} component={CandidateFeedbackFormDetail} />
     {/* <CustomRouter path={`/1`} private={true} component={CandidateFeedbackFormDetail} /> */}
     <Route path={"/offer"} component={OfferConfirmation} />
+    <Route path={RouteName.CANDIDATES_SUCCESS} component={ShareSuccess} />
 
 
 
