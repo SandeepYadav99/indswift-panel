@@ -15,14 +15,13 @@ import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDateP
 import File from "../../components/FileComponent/FileComponent.component";
 import constants from "../../config/constants";
 import ChildrenIncludeForm from "./components/includes/ChildrenIncludes.component";
+import ValancyIncludesComponent from "./components/ValancyInclude/ValancyIncludes.component";
 // import ChildrenIncludeForm from "../../components/includes/ChildrenIncludes.component";
-import { getSumValue } from "../../libs/general.utils";
-import WaitingComponent  from "../../components/Waiting.component";
+import WaitingComponent from "../../components/Waiting.component";
 import Constants from "../../config/constants";
 import useMyProfileEdit from "./MyProfileEditHook";
 import DisclaimerDialog from "./components/DisclaimerPopUp/DisclaimerDialog.view";
 import { useCallback } from "react";
-import IncludeVacancy from "./components/vacancyField/IncludeVacancy";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -44,9 +43,9 @@ const MyProfileEditView = ({}) => {
     isLoading,
     isOpen,
     setIsOpen,
-      toggleDialog
+    toggleDialog,
   } = useMyProfileEdit({});
-const refQuarterly=null
+  const refQuarterly = null;
   const image = useMemo(() => {
     return (
       <File
@@ -87,7 +86,11 @@ const refQuarterly=null
           <div className={styles.newLines} />
         </div>
       </div>
-      <DisclaimerDialog handleSubmit={handleSubmit} isOpen={isOpen} handleToggle={toggleDialog}/>
+      <DisclaimerDialog
+        handleSubmit={handleSubmit}
+        isOpen={isOpen}
+        handleToggle={toggleDialog}
+      />
 
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
@@ -104,7 +107,7 @@ const refQuarterly=null
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomTextField
-                    disabled={true}
+                  disabled={true}
                   isError={errorData?.name}
                   errorText={errorData?.name}
                   label={"Employee Name"}
@@ -483,7 +486,7 @@ const refQuarterly=null
           </div>
         </div>
       </div>
-      {/* <div className={"plainPaper"}>
+      <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Employee Nominee Details</div>
@@ -491,21 +494,22 @@ const refQuarterly=null
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-          <IncludeVacancy
-          ref={refQuarterly}
-          firstfield="Quaterly payment type"
-          secondfield="Quarterly Payment Amount"
-        />
+            <ValancyIncludesComponent title="ESI" data={form?.children} />
+            <ValancyIncludesComponent title="PF" data={form?.children} />
+            <ValancyIncludesComponent title="Group Term" data={form?.children} />
+            <ValancyIncludesComponent title="Group Medi-claim" data={form?.children} />
+            <ValancyIncludesComponent title="Group Gratuity" data={form?.children} />
+
           </div>
         </div>
-      </div> */}
+      </div>
 
       <div className={"plainPaper"}>
         <div className={"headerFlex3 wrapper"}>
           <ButtonBase
             type={"button"}
             className={styles.createBtn}
-            onClick={()=>setIsOpen(true)}
+            onClick={() => setIsOpen(true)}
             // onClick={handleSubmit}
           >
             UPDATE

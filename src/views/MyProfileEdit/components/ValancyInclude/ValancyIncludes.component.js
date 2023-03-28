@@ -1,3 +1,6 @@
+/**
+ * Created by charnjeetelectrovese@gmail.com on 5/13/2020.
+ */
 import React, {
   useEffect,
   useState,
@@ -6,28 +9,28 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
+import IncludeFields from "./ValancyIncludeFields.component";
+import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import LogUtils from "../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
-import styles from "./Style.module.css";
-import IncludeVacancyField from "./IncludeVacancyField";
+import { useParams } from "react-router";
+import ValancyIncludeFields from "./ValancyIncludeFields.component";
 
-const TEMP_OBJ={
-  name:'',
-  Relation:'',
-  DOB:'',
-  Aadhar_no:''
-}
-const IncludeVacancy = (
+const TEMP_OBJ = {
+  name: "",
+  Relation: "",
+  dob: "",
+  aadhar_no: "",
+};
+
+const ValancyIncludeForm = (
   {
     data,
     currency,
     listWarehouse,
     errorData: errorForm,
-    form,
-    changeTextData,
-    updateInventory,
-    vendorId,
+    title
   },
   ref
 ) => {
@@ -35,8 +38,9 @@ const IncludeVacancy = (
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
   const [isChanged, setIsChanged] = useState(false);
+  const [count, setCount] = useState(true);
+  const { id } = useParams();
 
-  useEffect(() => {}, []);
 
   useEffect(() => {
     let sku = 0;
@@ -47,7 +51,6 @@ const IncludeVacancy = (
         qty += parseInt(val.quantity);
       }
     });
-    // updateInventory(sku, qty);
   }, [fields]);
 
   useImperativeHandle(ref, () => ({
@@ -81,7 +84,7 @@ const IncludeVacancy = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["name", "gender", "dob"];
+      const required = ["name", "Relation", "dob", "aadhar_no"];
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -98,7 +101,7 @@ const IncludeVacancy = (
   useEffect(() => {
     if (data) {
       const filteredData = [];
-      data.forEach(dT => {
+      data.forEach((dT) => {
         filteredData.push({
           ...TEMP_OBJ,
           ...dT,
@@ -156,7 +159,7 @@ const IncludeVacancy = (
   );
 
   const handlePress = async (type, index = 0) => {
-    const oldState = JSON.parse(JSON.stringify());
+    const oldState = JSON.parse(JSON.stringify(fields));
     if (type == "ADDITION") {
       oldState.push(JSON.parse(JSON.stringify(TEMP_OBJ)));
     } else {
@@ -167,8 +170,10 @@ const IncludeVacancy = (
     }
     setFields(oldState);
     setIsChanged(true);
+    setCount((s)=>!s)
     // validateData();
   };
+
   const renderFields = useMemo(() => {
     return fields.map((val, index) => {
       const tempFilters = variants.filter((variant) => {
@@ -176,9 +181,11 @@ const IncludeVacancy = (
         return index < 0;
       });
       return (
-        <div>
-          <IncludeVacancyField
-            // isDisabled={isDisabled}
+        <div className={styles.fieldWrapper}>
+          <ValancyIncludeFields
+            variants={tempFilters}
+            listWarehouse={listWarehouse}
+            currency={currency}
             validateData={validateData}
             errors={index in errorData ? errorData[index] : null}
             changeData={changeData}
@@ -186,29 +193,43 @@ const IncludeVacancy = (
             data={val}
             index={index}
             onBlur={onBlur}
+            title={title}
           />
         </div>
       );
     });
-  }, [errorData, validateData, changeData, handlePress, onBlur, fields]);
+  }, [
+    variants,
+    errorData,
+    listWarehouse,
+    currency,
+    validateData,
+    changeData,
+    handlePress,
+    onBlur,
+    fields,
+    count
+  ]);
 
   return (
     <>
-    <div className={styles.NomineeWrapper}>
-      <div className={styles.headingText}>Esi</div>
-      <ButtonBase
-        className={styles.addition}
-        label={"+"}
-        onClick={() => {
-          handlePress("ADDITION", 0);
-        }}
-      >
-        <Add fontSize={"small"} /> <span>Add Nominee</span>
-      </ButtonBase>
-    </div>
-      
+      <div className={styles.headingWrapper}>
+        <div className={styles.heading}>{title}</div>
+        {count  && (
+          <ButtonBase
+            className={styles.addition}
+            label={"+"}
+            onClick={() => {
+              handlePress("ADDITION", 0);
+            }}
+          >
+            <Add fontSize={"small"} /> <span>Add Nominee</span>
+          </ButtonBase>
+        )}
+      </div>
+      {renderFields}
     </>
   );
 };
 
-export default forwardRef(IncludeVacancy);
+export default forwardRef(ValancyIncludeForm);
