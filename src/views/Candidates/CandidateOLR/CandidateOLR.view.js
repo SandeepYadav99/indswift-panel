@@ -12,6 +12,7 @@ import RejectOLRDialog from "./components/RejectOLRPopUp/RejectOLRDialog.view";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import classNames from "classnames";
+import PdfViewer from "./components/OfferPdfView/OfferPdfView";
 
 function CandidateOLR({ location }) {
   const {
@@ -117,6 +118,8 @@ function CandidateOLR({ location }) {
           />
         </div>
       </div>
+      {/* <PdfViewer>
+      </PdfViewer> */}
       {isReview && (
         <div className={styles.btnReviewWrapper}>
           <div className={styles.isReviewBtnContainer}>
