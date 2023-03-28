@@ -1,5 +1,5 @@
 import { ButtonBase } from "@material-ui/core";
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../../libs/history.utils";
@@ -11,6 +11,7 @@ import CandidateOLRHook from "./CandidateOLR.hook";
 import RejectOLRDialog from "./components/RejectOLRPopUp/RejectOLRDialog.view";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
+import classNames from "classnames";
 
 function CandidateOLR({ location }) {
   const {
@@ -22,50 +23,53 @@ function CandidateOLR({ location }) {
     id,
     isReview,
     isApproval,
-    handleRowSize,
-    handlePageChange,
-    tableDataValue,
+    panelList,
   } = CandidateOLRHook({ location });
-  const tableData = useMemo(() => {
-    const datatableFunctions = {
-      onPageChange: handlePageChange,
-    };
-
-    const datatable = {
-      ...Constants.DATATABLE_PROPERTIES,
-      columns: tableStructure,
-      data: tableDataValue,
-    };
-
-    return { datatableFunctions, datatable };
-  }, [
-    tableStructure,
-    handlePageChange,
-    handleRowSize,
-    tableDataValue,
-  ]);
+  const renderFirstCell = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          <div className={styles.firstFieldWrapper}>
+            <img className={styles.panelListImg} src={obj?.image} />
+            <span>{obj?.name}</span>
+            <br />
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
   const tableStructure = useMemo(() => {
     return [
       {
         key: "name",
         label: "APPROVING PERSON",
         sortable: false,
-        render: (value, all) => <div>Shashank Rastogi</div>,
+        render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (value, all) => <div>Manager</div>,
+        render: (value, all) => <div>{all?.designation?.name}</div>,
       },
       {
         key: "department",
         label: "DEPARTMENT",
         sortable: false,
-        render: (value, all) => <div>DEPARTMENT</div>,
+        render: (value, all) => <div>{all?.department?.name}</div>,
       },
     ];
-  }, [tableDataValue]);
+  }, [panelList]);
+  const tableData = useMemo(() => {
+    const datatable = {
+      ...Constants.DATATABLE_PROPERTIES,
+      columns: tableStructure,
+      data: panelList,
+      hidePagination: true,
+    };
+    return { datatable };
+  }, [tableStructure, panelList]);
   return (
     <div className={"container"}>
       <ApprovalDialog
@@ -93,7 +97,7 @@ function CandidateOLR({ location }) {
       <br />
       <CandidateDetails data={data} />
       <ReplacementDetails data={data} />
-      <SalaryDetails data={data}/>
+      <SalaryDetails data={data} />
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Corporate HR Comments</div>
         <span className={styles.spanWrapper}>
@@ -103,10 +107,9 @@ function CandidateOLR({ location }) {
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Approval Authority</div>
         <div>
-          {/* <DataTables
+          <DataTables
             {...tableData.datatable}
-            {...tableData.datatableFunctions}
-          /> */}
+          />
         </div>
       </div>
       {isReview && (

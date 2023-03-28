@@ -55,6 +55,11 @@
   align-items: center;
   gap: 30px;
 }
+.firstFieldWrapper{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 .RejectBtn{
   color: #E92828 !important;
   border: 2px solid #E92828;
@@ -63,4 +68,8 @@
   border-radius: 30px !important;
   text-transform: uppercase !important;
   font-weight: 600 !important;
+}
+.panelListImg{
+  width: 40px;
+  aspect-ratio: 1/1;
 }

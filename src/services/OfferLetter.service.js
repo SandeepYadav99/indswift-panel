@@ -12,3 +12,6 @@ export async function serviceGetOLRPanelist(params) {
 export async function serviceSubmitOfferStatus(params) {
     return await postRequest('candidates/offer/letter/update/status', params);
 }
+export async function serviceGetPanelistDetails(params) {
+    return await postRequest('olr/panelists', params);
+}

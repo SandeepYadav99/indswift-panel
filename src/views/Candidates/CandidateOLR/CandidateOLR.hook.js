@@ -2,21 +2,31 @@ import React, {useEffect} from "react";
 import { useCallback } from "react";
 import { useState } from "react";
 import {useParams} from "react-router";
-import {serviceGetOfferLetterDetails} from "../../../services/OfferLetter.service";
+import {serviceGetOfferLetterDetails,serviceGetPanelistDetails} from "../../../services/OfferLetter.service";
 
 function CandidateOLRHook({location}) {
   const isReview = location?.state?.isReview;
   const isApproval = location?.state?.isApproval;
   const [isApprovalPopUp, setIsApprovalPopUp] = useState(false);
   const [isRejectPopUp, setIsRejectPopUp] = useState(false);
+  const [panelList,setPanelList]=useState([])
   const [data, setData] = useState(null);
   const { id } = useParams();
-const [tableDataValue,setTableDataValue]=useState([{name:'shasank',designation:'manager',department:'Human Resourse'}])
+
   useEffect(() => {
     if (id) {
       serviceGetOfferLetterDetails({ id: id }).then(res => {
         if (!res.error) {
           setData(res?.data);
+        }
+      })
+    }
+  }, [id]);
+  useEffect(() => {
+    if (id) {
+      serviceGetPanelistDetails({ offer_id: id }).then(res => {
+        if (!res.error) {
+          setPanelList(res?.data)
         }
       })
     }
@@ -39,7 +49,7 @@ const [tableDataValue,setTableDataValue]=useState([{name:'shasank',designation:'
     id,
     isReview,
     isApproval,
-    tableDataValue
+    panelList,
   };
 }
 
