@@ -121,7 +121,6 @@ const useVacancyList = ({ jobId }) => {
     handleRowSize,
     handleSortOrderChange,
     isVacanciesFetching,
-    currentData,
     data: vacancies,
     currentPage,
     handleViewDetails,

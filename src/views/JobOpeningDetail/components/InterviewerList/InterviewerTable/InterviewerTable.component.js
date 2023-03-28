@@ -116,10 +116,10 @@ const InterviewerRecordTable = ({
     const datatable = {
       ...constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: currentData,
+      data: data,
       count: data.length,
       page: currentPage,
-      rowsPerPage: 10,
+      rowsPerPage: 50,
       allRowSelected: false,
       showSelection: false,
       hidePagination:true

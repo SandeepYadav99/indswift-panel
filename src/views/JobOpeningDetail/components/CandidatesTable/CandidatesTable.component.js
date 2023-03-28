@@ -157,12 +157,13 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: currentData,
+      data: data,
       count: data.length,
       page: currentPage -1,
-      rowsPerPage: 15,
+      rowsPerPage: 50,
       allRowSelected: false,
       showSelection: false,
+      hidePagination: true,
     };
 
     return { datatableFunctions, datatable };
