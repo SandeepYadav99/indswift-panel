@@ -1,5 +1,7 @@
 import { ButtonBase } from "@material-ui/core";
 import React from "react";
+import historyUtils from "../../../../libs/history.utils";
+import RouteName from "../../../../routes/Route.name";
 import styles from "./Style.module.css";
 function SubmittedResponse() {
   return (
@@ -26,17 +28,19 @@ function SubmittedResponse() {
             <span> You can reach out to the HR for further assistance. </span>
           </div>
           <div>
-          <div className={styles.btnContainer}>
-          <div className={styles.btnCont1}>
-            <ButtonBase
-              type={"button"}
-              // onClick={handleSubmit}
-              className={styles.createBtn}
-            >
-              Close
-            </ButtonBase>
-          </div>
-        </div>
+            <div className={styles.btnContainer}>
+              <div className={styles.btnCont1}>
+                <ButtonBase
+                  type={"button"}
+                  onClick={() => {
+                    historyUtils.push(RouteName.OFFER_LOGIN);
+                  }}
+                  className={styles.createBtn}
+                >
+                  Close
+                </ButtonBase>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -4,9 +4,11 @@ import historyUtils from "../../../libs/history.utils";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import EmployeeUtsavDetailHook from "./EmployeeUtsavDetailHook";
+import ImageGalleryDialog from "./components/ImageGalleryPopUp/ImageGalleryDialog.view";
 
 function EmployeeUtsavDetail() {
-  const { employeeUtsavDetailData } = EmployeeUtsavDetailHook();
+  const { employeeUtsavDetailData, toggleDialog, isOpen,currentIndex } =
+    EmployeeUtsavDetailHook();
   return (
     <div className={styles.employeeDetailWrapper}>
       {employeeUtsavDetailData && (
@@ -64,6 +66,7 @@ function EmployeeUtsavDetail() {
           </div>
         </div>
       )}
+      <ImageGalleryDialog isOpen={isOpen} handleToggle={toggleDialog} data={employeeUtsavDetailData} currentIndex={currentIndex}/>
       {employeeUtsavDetailData.images && (
         <div className={styles.galleryImageWrapper}>
           <div>
@@ -72,10 +75,10 @@ function EmployeeUtsavDetail() {
           </div>
           {employeeUtsavDetailData?.images && (
             <div className={styles.imageWrapper2}>
-              {employeeUtsavDetailData?.images.map((item) => {
+              {employeeUtsavDetailData?.images?.map((item,index) => {
                 return (
-                  <div>
-                    <img className={styles.imgdimesion} src={item.image} />
+                  <div key={`utasvImage_${index}`}>
+                    <img className={styles.imgdimesion} src={item.image} id={index+1} onClick={(e)=>toggleDialog(e)}/>
                   </div>
                 );
               })}
