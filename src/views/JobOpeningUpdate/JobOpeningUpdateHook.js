@@ -68,20 +68,19 @@ const useJobOpeningsEditDetail = ({}) => {
             });
         }
     }, [id]);
-
-    useEffect(() => {
-        if (form?.replacing_person) {
-            const designationId = form?.replacing_person?.designation_id;
-            const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
+    // useEffect(() => {
+    //     if (form?.replacing_person) {
+    //         const designationId = form?.replacing_person?.designation_id;
+    //         const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
         
-            if (index >= 0) {
-                setForm({
-                    ...form,
-                    designation: listData?.DESIGNATIONS[index]
-                });
-            }
-        }
-    }, [form?.replacing_person]);
+    //         if (index >= 0) {
+    //             setForm({
+    //                 ...form,
+    //                 designation: listData?.DESIGNATIONS[index]
+    //             });
+    //         }
+    //     }
+    // }, [form?.replacing_person]);
 
     useEffect(() => {
         if (!isLoading) {
@@ -206,7 +205,14 @@ const useJobOpeningsEditDetail = ({}) => {
             if (!text || (isNum(text) && text.toString().length <= 30)) {
                 t[fieldName] = text;
             }
-        } else {
+        } 
+        if (fieldName === 'replacing_person') {
+            t[fieldName] = text;
+            const designationId = form?.replacing_person?.designation_id;
+            const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
+            t['designation'] = listData?.DESIGNATIONS[index];
+        }
+         else {
             t[fieldName] = text;
         }
         setForm(t);

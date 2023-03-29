@@ -78,7 +78,7 @@ function EmployeeUtsavDetail() {
               {employeeUtsavDetailData?.images?.map((item,index) => {
                 return (
                   <div key={`utasvImage_${index}`}>
-                    <img className={styles.imgdimesion} src={item.image} id={index+1} onClick={(e)=>toggleDialog(e)}/>
+                    <img className={styles.imgdimesion} src={item.image} id={index} onClick={(e)=>toggleDialog(e)}/>
                   </div>
                 );
               })}

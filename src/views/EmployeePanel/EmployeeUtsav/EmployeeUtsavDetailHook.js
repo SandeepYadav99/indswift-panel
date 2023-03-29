@@ -6,10 +6,12 @@ import { serviceGetUtsavDetailsInfo } from "../../../services/EmployeeUtsav.serv
 function EmployeeUtsavDetailHook() {
   const [employeeUtsavDetailData, setemployeeUtsavDetailData] = useState({});
   const [isOpen, setIsOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const toggleDialog = useCallback(
     (e) => {
-      setCurrentIndex(e.currentTarget.id);
+      if (!isOpen){
+        setCurrentIndex(e.currentTarget.id);
+      }
       setIsOpen((s) => !s);
     },
     [isOpen, currentIndex]

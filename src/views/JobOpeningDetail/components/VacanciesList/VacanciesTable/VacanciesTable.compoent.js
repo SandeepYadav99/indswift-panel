@@ -121,7 +121,6 @@ function VacanciesTable({ jobId }) {
       rowsPerPage: 15,
       allRowSelected: false,
       showSelection: false,
-      hidePagination: true,
     };
 
     return { datatableFunctions, datatable };
