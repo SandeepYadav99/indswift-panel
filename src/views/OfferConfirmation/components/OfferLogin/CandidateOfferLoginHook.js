@@ -48,7 +48,7 @@ const useCandidateOfferLogin = ({}) => {
                 if (!res.error) {
                     const data = res?.data;
                     sessionStorage.setItem("CANDIDATE_ID", data?.id);
-                    historyUtils.push(RouteName.EAF_PERSONAL_DATA);
+                    historyUtils.push(RouteName.OFFER_LETTER);
                 } else {
                     SnackbarUtils.error(res?.message);
                 }

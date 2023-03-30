@@ -69,12 +69,6 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
 
   const tableStructure = useMemo(() => {
     return [
-      // {
-      //   key: "name",
-      //   label: "Sr. No",
-      //   sortable: false,
-      //   render: (value, all, index) => <div>{index + 1}</div>,
-      // },
       {
         key: "name",
         label: "Candidate Name",
@@ -163,7 +157,6 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
       rowsPerPage: 15,
       allRowSelected: false,
       showSelection: false,
-      hidePagination: true,
     };
 
     return { datatableFunctions, datatable };

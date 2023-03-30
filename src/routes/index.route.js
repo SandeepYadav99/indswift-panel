@@ -22,6 +22,8 @@ import CandidateFeedbackForm from "../views/CandidateFeedbackForm/CandidateFeedb
 import CandidateFeedbackFormDetail from "../views/CandidateFeedbackFormView/CandidateFeedbackFormView.js";
 import OfferConfirmation from "../views/OfferConfirmation/OfferConfirmation.view.js";
 import ShareSuccess from "../views/Candidates/CandidateDetails/components/ShareSuccess/ShareSuccess.js";
+import CandidateOfferLogin from "../views/OfferConfirmation/components/OfferLogin/CandidateOfferLogin.js";
+import SubmittedResponse from "../views/OfferConfirmation/components/SubmittedResponse/SubmittedResponse.js";
 
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
@@ -36,9 +38,11 @@ const RouteComponent = () => (
       <Route path={RouteName.CANDIDATE_FEEDBACK_SUCCESS} protect={true} component={SubmitEvaluationForm} />
     <CustomRouter path={`${RouteName.CANDIDATE_FEEDBACK}:id`} private={true} component={CandidateFeedbackForm} />
     <CustomRouter path={`${RouteName.CANDIDATE_FEEDBACK_VIEW}:id`} private={true} component={CandidateFeedbackFormDetail} />
-    {/* <CustomRouter path={`/1`} private={true} component={CandidateFeedbackFormDetail} /> */}
-    <Route path={"/offer"} component={OfferConfirmation} />
+    <Route path={RouteName.OFFER_LOGIN} component={CandidateOfferLogin} />
+    <Route path={RouteName.OFFER_LETTER} component={OfferConfirmation} />
     <Route path={RouteName.CANDIDATES_SUCCESS} component={ShareSuccess} />
+    <Route path={RouteName.OFFER_SUCCESS} component={SubmittedResponse} />
+
 
 
 

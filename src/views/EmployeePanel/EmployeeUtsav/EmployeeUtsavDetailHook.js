@@ -5,6 +5,17 @@ import { serviceGetUtsavDetailsInfo } from "../../../services/EmployeeUtsav.serv
 
 function EmployeeUtsavDetailHook() {
   const [employeeUtsavDetailData, setemployeeUtsavDetailData] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const toggleDialog = useCallback(
+    (e) => {
+      if (!isOpen){
+        setCurrentIndex(e.currentTarget.id);
+      }
+      setIsOpen((s) => !s);
+    },
+    [isOpen, currentIndex]
+  );
   const id = useParams();
   useEffect(() => {
     let dataValues = serviceGetUtsavDetailsInfo(id);
@@ -17,6 +28,9 @@ function EmployeeUtsavDetailHook() {
 
   return {
     employeeUtsavDetailData,
+    toggleDialog,
+    isOpen,
+    currentIndex,
   };
 }
 

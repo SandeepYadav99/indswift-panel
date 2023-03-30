@@ -165,8 +165,8 @@ const JobOpeningCreateView = ({}) => {
                    <div className={'formFlex'} style={{alignItems:"center"}}>
                        <div className="formGroup">
                            <CustomAutoComplete
-                                disabled={isDesignationDisabled}
-                                disabledList={isDesignationDisabled}
+                                // disabled={isDesignationDisabled}
+                                // disabledList={isDesignationDisabled}
                                autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.name}}
                                dataset={listData.DESIGNATIONS}
                                datasetKey={'name'}

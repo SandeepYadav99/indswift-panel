@@ -10,9 +10,7 @@ const UpperProfileCard = ({ data, handleToggle, handleStatusToggle }) => {
           <div className={styles.profileInfo}>
             <div className={styles.name}>{data?.name}</div>
             <div>{data?.email}</div>
-            <a target="_blank" href={data?.resume}>
-              <span>View Resume</span>
-            </a>
+            <div>{data?.contact}</div>
           </div>
           <div className={styles.vertical}></div>
           <div className={styles.rightInfo}>
