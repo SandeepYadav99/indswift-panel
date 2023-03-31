@@ -44,8 +44,8 @@ const useVacancyList = ({ jobId }) => {
   const handlePageChange = useCallback(
     (type) => {
       if (Math.ceil(data.length / totalShow) >= type + 1) {
-        // setCurrentPage(type + 1);
-        // _processData()
+        setCurrentPage(type + 1);
+        _processData()
       }
     },
     [_processData, setCurrentPage, data]

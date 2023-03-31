@@ -154,7 +154,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
       data: currentData,
       count: data.length,
       page: currentPage -1,
-      rowsPerPage: 15,
+      rowsPerPage: 10,
       allRowSelected: false,
       showSelection: false,
     };
