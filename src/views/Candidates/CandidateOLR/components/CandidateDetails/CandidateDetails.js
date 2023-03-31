@@ -1,10 +1,12 @@
-import React from 'react'
-import styles from './Style.module.css'
+import React from "react";
+import styles from "./Style.module.css";
 function CandidateDetails({ data }) {
   return (
     <div className={styles.plainPaper}>
-        <div className={styles.newContainerPersonal}>
-          <div className={styles.heading}>Candidate Details - {data?.candidate?.name}</div>
+      <div className={styles.newContainerPersonal}>
+        <div className={styles.heading}>
+          Candidate Details - {data?.candidate?.name}
+        </div>
 
           <div className={styles.mainFlex2}>
             <div className={styles.left}>
@@ -38,38 +40,40 @@ function CandidateDetails({ data }) {
               <div className={styles.key}>
                 <span className={styles.value}>Experience:</span>
                 <span className={styles.valueWrap}>
-                  {data?.candidate?.experience}
+                  {data?.candidate?.experience > 1
+                    ? `${data?.candidate?.experience} years`
+                    : `${data?.candidate?.experience} year`}
                 </span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Source of Hiring:</span>
-                <span className={styles.valueWrap}>{data?.dom}</span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Type of Vacancy:</span>
-                <span className={styles.valueWrap}>
-                  {data?.job_data?.vacancy_type}
-                </span>
-              </div>
-              <div className={styles.key}>
+              )}
+            </div>
+            <div className={styles.key}>
+              <span className={styles.value}>Source of Hiring:</span>
+              <span className={styles.valueWrap}>{data?.dom}</span>
+            </div>
+            <div className={styles.key}>
+              <span className={styles.value}>Type of Vacancy:</span>
+              <span className={styles.valueWrap}>
+                {data?.job_data?.vacancy_type}
+              </span>
+            </div>
+            {/* <div className={styles.key}>
                 <span className={styles.value}>OLC Issued:</span>
                 <span className={styles.valueWrap}>
                   {data?.family?.spouse_dob}
                 </span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Candidate Relocating From:</span>
-                <span className={styles.valueWrap}>
-                    {data?.candidate?.city}, {data?.candidate?.state}
-                </span>
-              </div>
-
+              </div> */}
+            <div className={styles.key}>
+              <span className={styles.value}>Candidate Relocating From:</span>
+              <span className={styles.valueWrap}>
+                {data?.candidate?.city}{" "}
+                {data?.candidate?.state && `, ${data?.candidate?.state}`}
+              </span>
             </div>
           </div>
         </div>
-
       </div>
-  )
+    </div>
+  );
 }
 
 export default CandidateDetails;

@@ -1,5 +1,6 @@
-import React from 'react'
-import styles from './Style.module.css'
+import React from "react";
+import styles from "./Style.module.css";
+
 function ReplacementDetails({data}) {
   const textValue = (key) => {
     if (key) {
@@ -8,8 +9,8 @@ function ReplacementDetails({data}) {
   }
   return (
     <div className={styles.plainPaper}>
-        <div className={styles.newContainerPersonal}>
-          <div className={styles.heading}>Replacement (RAP/RAB) Details</div>
+      <div className={styles.newContainerPersonal}>
+        <div className={styles.heading}>Replacement (RAP/RAB) Details</div>
 
           <div className={styles.mainFlex2}>
             <div className={styles.left}>
@@ -38,21 +39,26 @@ function ReplacementDetails({data}) {
                 <span className={styles.value}>Replacing Experience:</span>
                 <span className={styles.valueWrap}>
                   {textValue(data?.replacing_person?.experience)}
+                  {data?.replacing_person?.experience > 1
+                    ? `${data?.replacing_person?.experience} years`
+                    : `${data?.replacing_person?.experience} year`}
                 </span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Replacing CTC (LPA):</span>
+              )}
+            </div>
+            <div className={styles.key}>
+              <span className={styles.value}>Replacing CTC (LPA):</span>
+              {data?.replacing_person?.ctc && (
                 <span className={styles.valueWrap}>
                      {data?.replacing_person?.ctc ? `Rs. ${data?.replacing_person?.ctc} /-` : '-'}
+                  Rs. {data?.replacing_person?.ctc} /-
                 </span>
-              </div>
-
+              )}
             </div>
           </div>
         </div>
-
       </div>
-  )
+    </div>
+  );
 }
 
 export default ReplacementDetails;

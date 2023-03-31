@@ -46,6 +46,9 @@ const validate = (values) => {
             errors[field] = 'Required'
         }
     });
+    if (values.location_id?.length === 0){
+        errors.location_id = 'Required'
+    }
     if (values.title && !/^[A-Z ]*$/i.test(values.title)) {
         errors.title = 'Only alphabets are allowed';
     }
