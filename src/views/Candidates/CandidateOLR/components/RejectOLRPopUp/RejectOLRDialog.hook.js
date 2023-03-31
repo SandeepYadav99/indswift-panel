@@ -4,13 +4,13 @@ import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { useSelector } from "react-redux";
 import LogUtils from "../../../../../libs/LogUtils";
 
-const initialForm={
-  is_incorrect_info:false,
-  is_joining:false,
-  is_layout:false,
-  is_underqualified:false,
-  note:""
-}
+const initialForm = {
+  is_incorrect_info: false,
+  is_joining: false,
+  is_layout: false,
+  is_underqualified: false,
+  note: "",
+};
 const useRejectOLRDialogHook = ({ isOpen, handleToggle }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
@@ -94,11 +94,13 @@ const useRejectOLRDialogHook = ({ isOpen, handleToggle }) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("===?",form,errors)
-    LogUtils.log("errors", errors);
+    console.log("===?", form, errors);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
+    }
+    if (!Object.values(form).includes(true)) {
+      SnackbarUtils.error("Please Select the Reason");
     }
     submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);

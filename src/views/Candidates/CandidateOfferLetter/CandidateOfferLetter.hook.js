@@ -7,7 +7,8 @@ import { serviceGetList } from "../../../services/Common.service";
 import historyUtils from "../../../libs/history.utils";
 import {
   serviceCreateCandidateOfferLetter,
-  serviceGetCandidateDetails, serviceGetCandidateOfferLetter,
+  serviceGetCandidateDetails,
+  serviceGetCandidateOfferLetter,
 } from "../../../services/Candidate.service";
 import LogUtils from "../../../libs/LogUtils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
@@ -138,8 +139,11 @@ function CandidateOfferLetterHook({ location }) {
     } else {
       Promise.allSettled([
         serviceGetCandidateDetails({ id: candidateId }),
-        serviceGetCandidateOfferLetter({ candidate_id: candidateId, job_id: jobId }),
-        serviceGetList(["LOCATIONS"])
+        serviceGetCandidateOfferLetter({
+          candidate_id: candidateId,
+          job_id: jobId,
+        }),
+        serviceGetList(["LOCATIONS"]),
       ]).then((promises) => {
         const dataValues = promises[0]?.value?.data;
         setCandidateData(dataValues?.details);
@@ -147,7 +151,9 @@ function CandidateOfferLetterHook({ location }) {
         const listData = promises[2]?.value?.data;
         setListData(listData);
         if (offerLetter) {
-          const index = listData.LOCATIONS?.findIndex(val => val.id == offerLetter?.location_id);
+          const index = listData.LOCATIONS?.findIndex(
+            (val) => val.id == offerLetter?.location_id
+          );
           if (index >= 0) {
             offerLetter.reporting_location = listData?.LOCATIONS[index];
           }
@@ -155,7 +161,7 @@ function CandidateOfferLetterHook({ location }) {
             ...initialForm,
             ...offerLetter,
             ...offerLetter?.salary,
-            letter_id: offerLetter?.id
+            letter_id: offerLetter?.id,
           });
         }
       });
@@ -187,6 +193,15 @@ function CandidateOfferLetterHook({ location }) {
         errors[val] = true;
       }
     });
+    if (form?.expected_response_date) {
+      const date = new Date(form?.expected_response_date);
+      const todayDate = new Date();
+      date.setHours(0, 0, 0, 0);
+      todayDate.setHours(0, 0, 0, 0);
+      if (date.getTime() < todayDate.getTime()) {
+        errors["expected_response_date"] = true;
+      }
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

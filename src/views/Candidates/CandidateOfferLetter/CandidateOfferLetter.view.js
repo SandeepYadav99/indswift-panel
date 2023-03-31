@@ -67,7 +67,7 @@ const CandidateOfferLetter = ({ location }) => {
             <CustomDateTimePicker
               clearable
               label={"Joining Date & Time"}
-              minDate={new Date()}
+              // minDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "joining_date");
               }}
@@ -127,7 +127,7 @@ const CandidateOfferLetter = ({ location }) => {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Employee Monthly Salary Details</div>
+            <div className={"heading"}>Employee Annual Salary Details</div>
           </h4>
         </div>
         <div className={"formFlex"}>

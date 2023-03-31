@@ -31,6 +31,9 @@ const useReviewOLR = ({}) => {
     const changeRoute = useCallback((data) => {
         historyUtils.push(RouteName.JOB_OPENINGS_DETAILS+data?.job_details?.id) //+data.id
     }, []);
+    const changeEmployeeRoute = useCallback((data) => {
+        historyUtils.push(`/employees/details/${data?.code}`);
+    }, []);
     const handlePageChange = useCallback((type) => {
         dispatch(actionSetPageReviewOLR(type));
     }, []);
@@ -97,6 +100,8 @@ const useReviewOLR = ({}) => {
     const configFilter = useMemo(() => {
         return [
             {label: 'Created Date', options: { maxDate: new Date() },  name: 'createdAt', type: 'date'},
+            {label: 'Status', name: 'status', type: 'select', fields: ['APPROVED', 'PENDING','REJECTED']},
+
         ];
     }, []);
 
@@ -115,7 +120,8 @@ const useReviewOLR = ({}) => {
         editData,
         isSidePanel,
         configFilter,
-        changeRoute
+        changeRoute,
+        changeEmployeeRoute
     }
 };
 
