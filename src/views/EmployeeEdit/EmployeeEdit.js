@@ -802,6 +802,7 @@ const EmployeeListCreate = ({}) => {
                   isError={errorData?.before_experience}
                   errorText={errorData?.before_experience}
                   label={"Past Experience"}
+                  type={'number'}
                   value={form?.before_experience}
                   onTextChange={(text) => {
                     changeTextData(text, "before_experience");

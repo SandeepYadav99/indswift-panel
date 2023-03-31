@@ -1,20 +1,26 @@
-import { Button, ButtonBase } from "@material-ui/core";
-import React from "react";
-
+import React,{useCallback, useState} from "react";
 import styles from "./Style.module.css";
 import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import ActionButton from "../../../../../components/ActionButton/ActionButton";
 import DefaultImg from "../../../../../assets/img/download.png";
+import ShareOfferDialog from "../ShareOfferPopUp/ShareOfferDialog.view";
+
 const UpperCard = ({
   data,
   handleToggle,
   handleStatusToggle,
   handleOfferPage,
   handleToggleExtendPage,
-  handleToggleShareDialog,
-  handleToggleRPDialog
+  handleShare
 }) => {
+  const [isShareDialog, setIsShareDialog] = useState(false);
+
+  const toggleShareDialog = useCallback(() => {
+    setIsShareDialog((e) => !e);
+  }, [isShareDialog]);
+
+
   const splitDate = (value) => {
     return value ? value.split(" ")[0] : "";
   };
@@ -64,7 +70,7 @@ const UpperCard = ({
           </div>
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
-              {data?.is_selected && (<ActionButton onClick={() => handlePRCPopUp()}>
+              {(data?.is_selected && !data?.is_offer_letter_sent) && (<ActionButton onClick={() => handlePRCPopUp()}>
                 <InfoOutlined fontSize={"small"} />
                 <span className={styles.actionBtnSpan}>Extend Offer</span>
               </ActionButton>)}
@@ -77,10 +83,10 @@ const UpperCard = ({
             </div>
             <div className={styles.actionWrap}>
               <div className={styles.btnUpper}>
-                <ActionButton onClick={handleToggleShareDialog}>
+                {data?.is_offer_letter_approved && (<ActionButton onClick={toggleShareDialog}>
                   <InfoOutlined fontSize={"small"} />
                   <span className={styles.actionBtnSpan}>Share Offer</span>
-                </ActionButton>
+                </ActionButton>)}
               </div>
               <div className={styles.btnUpper21}>
                 <ActionButton onClick={handleStatusToggle}>
@@ -98,6 +104,14 @@ const UpperCard = ({
           </div>
         </div>
       </div>
+      <ShareOfferDialog
+          handleShare={handleShare}
+          pdf={data?.offer_letter_path}
+          offerId={data?.offer_id}
+          candidateId={data?.id}
+          isOpen={isShareDialog}
+          handleToggle={toggleShareDialog}
+      />
     </div>
   );
 };

@@ -31,7 +31,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const RejectOLRDialog = ({ isOpen, handleToggle, empId }) => {
+const RejectOLRDialog = ({ isOpen, handleToggle, reviewId }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -41,7 +41,7 @@ const RejectOLRDialog = ({ isOpen, handleToggle, empId }) => {
     onBlurHandler,
     removeError,
     isSubmitting,
-  } = useRejectOLRDialogHook({ isOpen, handleToggle, empId });
+  } = useRejectOLRDialogHook({ isOpen, handleToggle, reviewId });
 
   return (
     <div>

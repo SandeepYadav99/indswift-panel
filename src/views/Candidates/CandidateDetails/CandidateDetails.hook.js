@@ -15,7 +15,7 @@ function useCandidateDetails() {
   const [isResetDialog, setIsResetDialog] = useState(false);
   const [isUpdateDialog, setIsUpdateDialog] = useState(false);
   const [isExtendDialog, setIsExtendDialog] = useState(false);
-  const [isShareDialog, setIsShareDialog] = useState(false);
+
   const [isReoccuring, setIsReoccuring] = useState(false);
   const [historyData, setHistoryData] = useState([]);
   const [historyDetail, setHistoryDetail] = useState([]);
@@ -57,9 +57,6 @@ function useCandidateDetails() {
     setIsExtendDialog((e) => !e);
   }, [isExtendDialog]);
 
-  const toggleShareDialog = useCallback(() => {
-    setIsShareDialog((e) => !e);
-  }, [isShareDialog]); 
 
   const toggleReoccuringDialog = useCallback(() => {
     setIsReoccuring((e) => !e);
@@ -71,6 +68,11 @@ function useCandidateDetails() {
       job_id: data?.job_opening_id,
     });
   }, []);
+
+  const handleShare = useCallback(() => {
+
+  }, []);
+
   return {
     value,
     candidateData,
@@ -86,9 +88,8 @@ function useCandidateDetails() {
     toggleExtendDialog,
     toggleReoccuringDialog,
     isReoccuring,
-    toggleShareDialog,
-    isShareDialog,
-    id
+    id,
+    handleShare
   };
 }
 

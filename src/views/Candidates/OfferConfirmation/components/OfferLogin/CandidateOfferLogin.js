@@ -1,9 +1,9 @@
 import { ButtonBase, IconButton, InputAdornment } from "@material-ui/core";
 import React from "react";
-import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
+import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
 import styles from "./Style.module.css";
 import useCandidateOfferLogin from "./CandidateOfferLoginHook";
-import SnackbarComponent from "../../../../components/Snackbar.component"
+import SnackbarComponent from "../../../../../components/Snackbar.component"
 
 function CandidateOfferLogin() {
   const { changeTextData, errorData, form, handleDelete,handleSubmit, isSubmitting, onBlurHandler, removeError } = useCandidateOfferLogin({});
@@ -13,7 +13,7 @@ function CandidateOfferLogin() {
       <div className={styles.signContainer}>
         <div className={styles.logoImg}>
           <img
-            src={require("../../../../assets/img/login logo@2x.png")}
+            src={require("../../../../../assets/img/login logo@2x.png")}
             className={styles.sky}
           />
         </div>

@@ -2,14 +2,14 @@ import styles from "./Style.module.css";
 import { Close } from "@material-ui/icons";
 import { ButtonBase, Dialog, MenuItem, Slide } from "@material-ui/core";
 import React from "react";
-import historyUtils from "../../../../libs/history.utils";
-import RouteName from "../../../../routes/Route.name";
+import historyUtils from "../../../../../libs/history.utils";
+import RouteName from "../../../../../routes/Route.name";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const AcceptanceDialog = ({ isOpen, handleDialog }) => {
+const AcceptanceDialog = ({ isOpen, handleDialog, isSubmitting, handleConfirm }) => {
   return (
     <Dialog
       // fullWidth={true}
@@ -38,10 +38,9 @@ const AcceptanceDialog = ({ isOpen, handleDialog }) => {
         </div>
         <div className={styles.confirmedWrapper}>
           <ButtonBase
+              disabled={isSubmitting}
             className={styles.createBtn}
-            onClick={() => {
-              historyUtils.push(RouteName.OFFER_SUCCESS);
-            }}
+            onClick={handleConfirm}
           >
             ACCEPT
           </ButtonBase>

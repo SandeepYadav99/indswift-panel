@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./Style.module.css";
+import React from 'react'
+import styles from './Style.module.css'
 function CandidateDetails({ data }) {
   return (
     <div className={styles.plainPaper}>
@@ -44,19 +44,18 @@ function CandidateDetails({ data }) {
                     ? `${data?.candidate?.experience} years`
                     : `${data?.candidate?.experience} year`}
                 </span>
-              )}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Source of Hiring:</span>
-              <span className={styles.valueWrap}>{data?.dom}</span>
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Type of Vacancy:</span>
-              <span className={styles.valueWrap}>
-                {data?.job_data?.vacancy_type}
-              </span>
-            </div>
-            {/* <div className={styles.key}>
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Source of Hiring:</span>
+                <span className={styles.valueWrap}>{data?.candidate?.source}</span>
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Type of Vacancy:</span>
+                <span className={styles.valueWrap}>
+                  {data?.job_data?.vacancy_type}
+                </span>
+              </div>
+              <div className={styles.key}>
                 <span className={styles.value}>OLC Issued:</span>
                 <span className={styles.valueWrap}>
                   {data?.family?.spouse_dob}

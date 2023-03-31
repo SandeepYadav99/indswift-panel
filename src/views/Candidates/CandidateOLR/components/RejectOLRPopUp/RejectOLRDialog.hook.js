@@ -3,6 +3,8 @@ import { serviceChangeEmployeeStatus} from "../../../../../services/Employee.ser
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { useSelector } from "react-redux";
 import LogUtils from "../../../../../libs/LogUtils";
+import {serviceReviewOLRReject} from "../../../../../services/ReviewOLR.service";
+import historyUtils from "../../../../../libs/history.utils";
 
 const initialForm = {
   is_incorrect_info: false,
@@ -11,11 +13,10 @@ const initialForm = {
   is_underqualified: false,
   note: "",
 };
-const useRejectOLRDialogHook = ({ isOpen, handleToggle }) => {
+const useRejectOLRDialogHook = ({ isOpen, handleToggle, reviewId }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
-  const { employeeData } = useSelector((state) => state.employee);
   const [errorData, setErrorData] = useState({});
   const [isVerified, setIsVerified] = useState(false);
   const [resData, setResData] = useState([]);
@@ -48,6 +49,9 @@ const useRejectOLRDialogHook = ({ isOpen, handleToggle }) => {
       t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
+      if ( ['is_incorrect_info', 'is_joining', 'is_layout', 'is_underqualified'].indexOf(fieldName) >= 0) {
+        removeError('is_incorrect_info');
+      }
       setIsVerified(false);
     },
     [removeError, form, setForm, setIsVerified]
@@ -66,6 +70,9 @@ const useRejectOLRDialogHook = ({ isOpen, handleToggle }) => {
         delete errors[val];
       }
     });
+    if (!form?.is_incorrect_info && !form?.is_joining && !form?.is_layout && !form?.is_underqualified) {
+      errors['is_incorrect_info'] = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -76,21 +83,29 @@ const useRejectOLRDialogHook = ({ isOpen, handleToggle }) => {
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
-      // setIsSubmitting(true);
-      // serviceChangeEmployeeStatus({
-      //   employee_id: employeeData?.id,
-      //   ...form,
-      // }).then((res) => {
-      //   if (!res.error) {
-      //     SnackbarUtils.success("Request Placed Successfully");
-      //     handleToggle();
-      //   } else {
-      //     SnackbarUtils.error(res?.message);
-      //   }
-      //   setIsSubmitting(false);
-      // });
+      setIsSubmitting(true);
+      const reasonsArr = [];
+      Object.keys(form).forEach((key) => {
+        if (form?.[key]) {
+          reasonsArr.push(key);
+        }
+      });
+      serviceReviewOLRReject({
+        review_id: reviewId,
+        comment: form?.note ? form?.note : '',
+        reason: reasonsArr.join(', '),
+      }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Rejected Successfully");
+          handleToggle();
+          historyUtils.goBack();
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
     }
-  }, [form, isSubmitting, setIsSubmitting, handleToggle]);
+  }, [form, isSubmitting, setIsSubmitting, handleToggle, reviewId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();

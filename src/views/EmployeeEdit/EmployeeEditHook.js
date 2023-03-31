@@ -288,6 +288,10 @@ function EmployeeListCreateHook() {
           if (!text || isNum(text)) {
             t[fieldName] = text;
           }
+        } else if (fieldName === 'before_experience') {
+          if (!text || (isNum(text))) {
+            t[fieldName] = text;
+          }
         } else if (fieldName === "is_address_same") {
           if (text) {
             t.current_address = t?.permanent_address;

@@ -69,11 +69,14 @@ function CandidateDetails() {
     toggleShareDialog,
     isShareDialog,
     isReoccuring,
+    handleShare,
     id,
   } = useCandidateDetails({});
+
   return (
     <div>
       <UpperCard
+          handleShare={handleShare}
         data={candidateData}
         handleToggle={toggleResetDialog}
         handleStatusToggle={toggleStatusDialog}
@@ -94,11 +97,7 @@ function CandidateDetails() {
             <Tab className={"iconTabs"} label="Interview History" />
           </Tabs>
         </AppBar>
-        <ShareOfferDialog
-          candidateId={id}
-          isOpen={isShareDialog}
-          handleToggle={toggleShareDialog}
-        />
+
         <ExtendOfferDialog
           candidateId={id}
           isOpen={isExtendDialog}

@@ -76,9 +76,9 @@ export default {
   EAF_EMPLOYMENT_FORM: '/eaf/employment',
   EAF_SUCCESS: '/eaf/success',
 
-  OFFER_LOGIN:'/offer/login',
-  OFFER_LETTER:'/offer/letter',
-  OFFER_SUCCESS:'/offer/success',
+  OFFER_LOGIN:'/candidate/offer/login',
+  OFFER_LETTER:'/candidate/offer/letter',
+  OFFER_SUCCESS:'/candidate/offer/success',
 
   MY_PROFILE: '/my/profile',
   MY_PROFILE_UPDATE: '/my/profile/edit',

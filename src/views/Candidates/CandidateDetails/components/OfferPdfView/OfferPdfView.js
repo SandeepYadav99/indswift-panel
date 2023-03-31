@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
 import styles from "./Style.module.css";
-function PdfViewer({ children, handleToggle }) {
+function PdfViewer({ children, handleShare, handleToggle, isSubmitting }) {
   return (
     <div className={styles.PdfViewWrapper}>
       <div className={styles.innerPdfCont}>
@@ -23,10 +23,9 @@ function PdfViewer({ children, handleToggle }) {
           </div>
           <div>
             <ButtonBase
+                disabled={isSubmitting}
               className={styles.createBtn}
-              onClick={() => {
-                historyUtils.push(RouteName.CANDIDATES_SUCCESS);
-              }}
+              onClick={handleShare}
             >
               share with candidate
             </ButtonBase>

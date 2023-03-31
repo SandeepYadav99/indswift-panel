@@ -1,9 +1,10 @@
 import {useCallback, useState} from "react";
-import {isEmail} from "../../../../libs/RegexUtils";
-import {serviceLoginCandidateEaf} from "../../../../services/CandidateEAF.service";
-import historyUtils from "../../../../libs/history.utils";
-import SnackbarUtils from "../../../../libs/SnackbarUtils";
-import RouteName from "../../../../routes/Route.name";
+import {isEmail} from "../../../../../libs/RegexUtils";
+import {serviceLoginCandidateEaf} from "../../../../../services/CandidateEAF.service";
+import historyUtils from "../../../../../libs/history.utils";
+import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import RouteName from "../../../../../routes/Route.name";
+import {serviceAuthenticateCandidateOfferLetter} from "../../../../../services/CandidateOfferLetterReview.service";
 
 
 const initialForm = {
@@ -44,7 +45,7 @@ const useCandidateOfferLogin = ({}) => {
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-            serviceLoginCandidateEaf({ ...form }).then((res) => {
+            serviceAuthenticateCandidateOfferLetter({ ...form }).then((res) => {
                 if (!res.error) {
                     const data = res?.data;
                     sessionStorage.setItem("CANDIDATE_ID", data?.id);
@@ -63,7 +64,7 @@ const useCandidateOfferLogin = ({}) => {
             setErrorData(errors);
             return true;
         }
-        // submitToServer();
+        submitToServer();
 
     }, [
         checkFormValidation,

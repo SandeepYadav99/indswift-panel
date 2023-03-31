@@ -28,7 +28,8 @@ function CandidateOLR({ location }) {
     handlePageChange,
     tableDataValue,
     handleApproveReview,
-    isSubmitting
+    isSubmitting,
+    reviewId
   } = CandidateOLRHook({ location });
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
@@ -150,6 +151,7 @@ function CandidateOLR({ location }) {
           handleToggle={toggleApprovalDialog}
       />
       <RejectOLRDialog
+          reviewId={reviewId}
           isOpen={isRejectPopUp}
           handleToggle={toggleRejectDialog}
       />

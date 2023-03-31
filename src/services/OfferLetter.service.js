@@ -15,3 +15,7 @@ export async function serviceSubmitOfferStatus(params) {
 export async function serviceGetPanelistDetails(params) {
     return await postRequest('olr/panelists', params);
 }
+
+export async function serviceOfferLetterShareCandidate(params) {
+    return await postRequest('candidates/offer/letter/share', params);
+}

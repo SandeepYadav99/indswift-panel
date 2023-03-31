@@ -20,10 +20,10 @@ import SubmitEvaluationForm from "../views/CandidateFeedbackForm/component/Submi
 import CustomRouter from "../libs/CustomRouter.utils";
 import CandidateFeedbackForm from "../views/CandidateFeedbackForm/CandidateFeedbackForm.view";
 import CandidateFeedbackFormDetail from "../views/CandidateFeedbackFormView/CandidateFeedbackFormView.js";
-import OfferConfirmation from "../views/OfferConfirmation/OfferConfirmation.view.js";
+import OfferConfirmation from "../views/Candidates/OfferConfirmation/OfferConfirmation.view.js";
 import ShareSuccess from "../views/Candidates/CandidateDetails/components/ShareSuccess/ShareSuccess.js";
-import CandidateOfferLogin from "../views/OfferConfirmation/components/OfferLogin/CandidateOfferLogin.js";
-import SubmittedResponse from "../views/OfferConfirmation/components/SubmittedResponse/SubmittedResponse.js";
+import CandidateOfferLogin from "../views/Candidates/OfferConfirmation/components/OfferLogin/CandidateOfferLogin.js";
+import SubmittedResponse from "../views/Candidates/OfferConfirmation/components/SubmittedResponse/SubmittedResponse.js";
 
 const indexRoutes = [{ path: "/", component: Dashboard }];
 

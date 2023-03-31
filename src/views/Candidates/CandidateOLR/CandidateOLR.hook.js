@@ -72,7 +72,8 @@ function CandidateOLRHook({location}) {
     panelList,
     tableDataValue,
     handleApproveReview,
-    isSubmitting
+    isSubmitting,
+    reviewId
   };
 }
 

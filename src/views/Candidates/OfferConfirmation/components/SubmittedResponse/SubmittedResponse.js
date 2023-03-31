@@ -1,15 +1,16 @@
 import { ButtonBase } from "@material-ui/core";
 import React from "react";
-import historyUtils from "../../../../libs/history.utils";
-import RouteName from "../../../../routes/Route.name";
+import historyUtils from "../../../../../libs/history.utils";
+import RouteName from "../../../../../routes/Route.name";
 import styles from "./Style.module.css";
-function SubmittedResponse() {
+function SubmittedResponse({ location }) {
+  const type = location?.state?.type;
   return (
     <div className={styles.FormSubmitWrapper}>
       <div className={styles.formSubmitContainer}>
         <div className={styles.formSubmitImageWrapper}>
           <img
-            src={require("../../../../assets/img/ic_successfully submited.png")}
+            src={require("../../../../../assets/img/ic_successfully submited.png")}
             className={styles.sky}
           />
         </div>
@@ -19,7 +20,7 @@ function SubmittedResponse() {
           </div>
           <div className={styles.submitDescription}>
             <p>
-              You have <strong>Accepted</strong> the Offer letter
+              You have <strong>{type}</strong> the Offer letter
             </p>
           </div>
           <div className={styles.responseLower}>

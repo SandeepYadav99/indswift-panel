@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/styles";
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import useShareOfferDialogHook from "./ShareOfferDialog.hook";
 import PdfViewer from "../OfferPdfView/OfferPdfView";
+import ViewDocuments from "../../../../ViewDocuments/ViewDocuments";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -30,9 +31,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ShareOfferDialog = ({ isOpen, handleToggle, candidateId }) => {
+const ShareOfferDialog = ({ isOpen, handleToggle, offerId, pdf }) => {
   const classes = useStyles();
-  const {} = useShareOfferDialogHook({ isOpen, handleToggle, candidateId });
+  const {
+    handleShare,
+    isSubmitting
+  } = useShareOfferDialogHook({ isOpen, handleToggle, offerId });
   return (
     <div>
       <Dialog
@@ -47,8 +51,8 @@ const ShareOfferDialog = ({ isOpen, handleToggle, candidateId }) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <PdfViewer handleToggle={handleToggle}>
-
+        <PdfViewer isSubmitting={isSubmitting} handleShare={handleShare} handleToggle={handleToggle}>
+          <ViewDocuments location={{state: { url: pdf }}} />
         </PdfViewer>
       </Dialog>
     </div>
