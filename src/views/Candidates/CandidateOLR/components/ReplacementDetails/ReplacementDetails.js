@@ -38,19 +38,17 @@ function ReplacementDetails({data}) {
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Experience:</span>
                 <span className={styles.valueWrap}>
-                  {textValue(data?.replacing_person?.experience)}
-                  {data?.replacing_person?.experience > 1
-                    ? `${data?.replacing_person?.experience} years`
-                    : `${data?.replacing_person?.experience} year`}
+                  {textValue(data?.replacing_person?.experience) !== '-' ? (data?.replacing_person?.experience > 1
+                      ? `${data?.replacing_person?.experience} years`
+                      : `${data?.replacing_person?.experience} year`) : '-'}
                 </span>
-              )}
+
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Replacing CTC (LPA):</span>
               {data?.replacing_person?.ctc && (
                 <span className={styles.valueWrap}>
                      {data?.replacing_person?.ctc ? `Rs. ${data?.replacing_person?.ctc} /-` : '-'}
-                  Rs. {data?.replacing_person?.ctc} /-
                 </span>
               )}
             </div>

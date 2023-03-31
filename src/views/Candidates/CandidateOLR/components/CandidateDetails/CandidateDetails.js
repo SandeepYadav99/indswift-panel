@@ -58,9 +58,9 @@ function CandidateDetails({ data }) {
               <div className={styles.key}>
                 <span className={styles.value}>OLC Issued:</span>
                 <span className={styles.valueWrap}>
-                  {data?.family?.spouse_dob}
+                  {data?.code}
                 </span>
-              </div> */}
+              </div>
             <div className={styles.key}>
               <span className={styles.value}>Candidate Relocating From:</span>
               <span className={styles.valueWrap}>
