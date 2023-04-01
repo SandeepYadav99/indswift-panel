@@ -89,7 +89,7 @@ const JobOpeningsList = ({}) => {
                 key: 'vacancy',
                 label: 'Vacancy',
                 sortable: false,
-                render: (temp, all) => <div>{all?.total_vacancies}</div>,
+                render: (temp, all) => <div>{all?.is_recurring ? all?.total_vacancies : 1}</div>,
             }, {
                 key: 'assigned_to',
                 label: 'Assigned To',

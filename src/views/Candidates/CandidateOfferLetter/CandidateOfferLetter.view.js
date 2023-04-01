@@ -67,7 +67,7 @@ const CandidateOfferLetter = ({ location }) => {
             <CustomDateTimePicker
               clearable
               label={"Joining Date & Time"}
-              // minDate={new Date()}
+              minDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "joining_date");
               }}

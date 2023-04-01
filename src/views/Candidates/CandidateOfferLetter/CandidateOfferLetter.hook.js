@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { isNum } from "../../../libs/RegexUtils";
+import {isDate, isNum} from "../../../libs/RegexUtils";
 import { serviceGetList } from "../../../services/Common.service";
 import historyUtils from "../../../libs/history.utils";
 import {
@@ -193,6 +193,17 @@ function CandidateOfferLetterHook({ location }) {
         errors[val] = true;
       }
     });
+    if (isDate(form?.joining_date)) {
+      const date = new Date(form?.joining_date);
+      const todayDate = new Date();
+      date.setHours(0, 0, 0, 0);
+      todayDate.setHours(0, 0, 0, 0);
+      if (date.getTime() < todayDate.getTime()) {
+        errors['joining_date'] = true;
+      }
+    } else {
+      errors['joining_date'] = true;
+    }
     if (form?.expected_response_date) {
       const date = new Date(form?.expected_response_date);
       const todayDate = new Date();
