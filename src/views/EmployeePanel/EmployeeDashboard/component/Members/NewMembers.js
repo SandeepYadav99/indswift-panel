@@ -3,13 +3,15 @@ import styles from "./Style.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import pre from "../../../../../assets/img/ic_arrow_left.png";
+import next from "../../../../../assets/img/ic_arrow_right.png";
 
 const IndividualList = ({ data, isSperatedPage }) => {
   return (
     <div className={styles.newMemberCard}>
       <div className={styles.imageNameContainer}>
         <div className={styles.imageWrapper}>
-          <img src={require("../../../../../assets/img/image_guy.png")} />
+          <img className={styles.indImage} src={data?.image ? data?.image : require("../../../../../assets/img/image_guy.png")} />
         </div>
         <div className={styles.profileContainer}>
           <span className={styles.profileName}>{data?.name}</span>
@@ -40,6 +42,8 @@ function NewMembers({ data, isSperatedPage }) {
     slidesToShow: 4,
     slidesToScroll: 1,
     width: 500,
+    prevArrow: <img src={pre} />,
+    nextArrow: <img src={next} />,
     responsive: [
       {
         breakpoint: 767,

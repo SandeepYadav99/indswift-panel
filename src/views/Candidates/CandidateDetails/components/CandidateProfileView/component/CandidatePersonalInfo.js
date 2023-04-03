@@ -34,6 +34,10 @@ const CandidatePersonalInfo = ({ data }) => {
                 <span className={styles.value}>Domicile State:</span>
                 <span className={styles.valueWrap}>{data?.state}</span>
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Aadhar Number:</span>
+                <span className={styles.valueWrap}>{data?.aadhar}</span>
+              </div>
             </div>
             <div className={styles.right}>
               <div className={styles.key}>

@@ -96,7 +96,7 @@ const VacanciesDialog = ({ isOpen, handleToggle, empId, handleVerify, jobId, han
                 changeTextData(text, "employee_id");
               }}
               variant={"outlined"}
-              label={"Interview Name (Employee ID)"}
+              label={"Replacing Person (Employee ID)"}
               name={"employee_id"}
               isError={errorData?.employee_id}
               value={form?.employee_id}

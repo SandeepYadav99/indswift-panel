@@ -143,6 +143,7 @@ const CandidateCreateView = ({ location }) => {
               <MenuItem value="DATABASE">Database</MenuItem>
               <MenuItem value="CONSULTANT">Consultant</MenuItem>
               <MenuItem value="CAMPUS">Campus</MenuItem>
+              <MenuItem value="WALKIN">Walk-in</MenuItem>
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
