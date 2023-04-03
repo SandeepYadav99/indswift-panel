@@ -51,7 +51,7 @@ const CandidatePersonalInfo = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>Previous Annual CTC:</span>
                 <span className={styles.valueWrap}>
-                  {data?.previous_ctc ? `${data?.previous_ctc} LPA`: ''}
+                  {data?.previous_ctc ? `${data?.previous_ctc}`: ''}
                 </span>
               </div>
             </div>

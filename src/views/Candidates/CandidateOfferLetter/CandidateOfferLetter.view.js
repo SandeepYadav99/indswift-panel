@@ -67,7 +67,7 @@ const CandidateOfferLetter = ({ location }) => {
             <CustomDateTimePicker
               clearable
               label={"Joining Date & Time"}
-              minDate={new Date()}
+              // minDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "joining_date");
               }}
@@ -848,8 +848,8 @@ const CandidateOfferLetter = ({ location }) => {
               onBlur={() => {
                 onBlurHandler("comment");
               }}
+              InputLabelProps={{ shrink: form?.comment }}
               multiline
-              rows={1}
             />
           </div>
         </div>

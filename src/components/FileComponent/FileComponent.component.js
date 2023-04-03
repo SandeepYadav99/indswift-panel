@@ -3,6 +3,7 @@ import styles from './FileComponent.module.css'
 import EventEmitter from "../../libs/Events.utils";
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import csx from 'classnames';
+import SnackbarUtils from '../../libs/SnackbarUtils';
 
 class File extends Component {
     constructor(props) {
@@ -39,6 +40,7 @@ class File extends Component {
                     totalValid++;
                 } else {
                     isError = true;
+                    SnackbarUtils.error(`Maximum file upload size is ${this?.props?.max_size/(1024 * 1024)} MB`);
                     console.log('error')
                 }
                 tempTotal++;

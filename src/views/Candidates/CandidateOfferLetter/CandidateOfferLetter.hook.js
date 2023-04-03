@@ -193,17 +193,17 @@ function CandidateOfferLetterHook({ location }) {
         errors[val] = true;
       }
     });
-    if (isDate(form?.joining_date)) {
-      const date = new Date(form?.joining_date);
-      const todayDate = new Date();
-      date.setHours(0, 0, 0, 0);
-      todayDate.setHours(0, 0, 0, 0);
-      if (date.getTime() < todayDate.getTime()) {
-        errors['joining_date'] = true;
-      }
-    } else {
-      errors['joining_date'] = true;
-    }
+    // if (isDate(form?.joining_date)) {
+    //   const date = new Date(form?.joining_date);
+    //   const todayDate = new Date();
+    //   date.setHours(0, 0, 0, 0);
+    //   todayDate.setHours(0, 0, 0, 0);
+    //   if (date.getTime() < todayDate.getTime()) {
+    //     errors['joining_date'] = true;
+    //   }
+    // } else {
+    //   errors['joining_date'] = true;
+    // }
     if (form?.expected_response_date) {
       const date = new Date(form?.expected_response_date);
       const todayDate = new Date();
@@ -265,7 +265,7 @@ function CandidateOfferLetterHook({ location }) {
       }).then((res) => {
         if (!res.error) {
           const data = res?.data;
-          SnackbarUtils.success("Offer Letter Created Successfully");
+          SnackbarUtils.success("OLR generated Successfully");
           historyUtils.replace(RouteName.CANDIDATES_OFFER_DETAILS+data?.id, {
             isApproval: true,
           });

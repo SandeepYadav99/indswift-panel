@@ -71,7 +71,9 @@ const useEmployeePersonalForm = ({}) => {
         const familyData = refFamilyDetail.current.getData();
         const fd = new FormData();
         Object.keys(personalData?.data).forEach((key) => {
+          if(key !== 'image'){
           fd.append(key, personalData?.data?.[key]);
+          }
         });
         if (image) {
           fd.append("image", image);
