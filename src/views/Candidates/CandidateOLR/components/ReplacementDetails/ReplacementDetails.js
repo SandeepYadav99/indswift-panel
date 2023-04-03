@@ -16,7 +16,7 @@ function ReplacementDetails({data}) {
             <div className={styles.left}>
               <div className={styles.key}>
                 <span className={styles.value}>Vaccant Tenure (Days):</span>
-                <span className={styles.valueWrap}>-</span>
+                <span className={styles.valueWrap}>{data?.vacancy_tenure}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Replacing Name:</span>

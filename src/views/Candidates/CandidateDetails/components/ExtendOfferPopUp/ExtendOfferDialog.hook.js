@@ -2,10 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { serviceGetCandidatePRCS } from "../../../../../services/Candidate.service";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
+import LogUtils from "../../../../../libs/LogUtils";
 
 const initialForm={
   job_id:"",
-  employee_id:'',
+  vacancy_id:'',
 };
 const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const [form, setForm] = useState(
@@ -71,8 +72,8 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
         delete errors[val];
       }
     });
-     if (IsReoccuring && form['employee_id']?.length === 0 || form['employee_id'] === null){
-      errors['employee_id'] = true;
+     if (IsReoccuring && form['vacancy_id']?.length === 0 || form['vacancy_id'] === null){
+      errors['vacancy_id'] = true;
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -84,10 +85,18 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
+      const index = employeeList.findIndex(val => val.id === form?.vacancy_id);
+      let replacingId = null;
+      if (index >= 0) {
+        const item = employeeList[index];
+        replacingId = item?.employee?.id ? item?.employee?.id : null;
+      }
+      LogUtils.log('submitToServer', index, replacingId, form?.vacancy_id)
       historyUtils.push(RouteName.CANDIDATES_OFFER, {
         candidate_id: candidateId,
         job_id: form?.job_id,
-        replacing_id: form?.employee_id
+        replacing_id: replacingId,
+        vacancy_id: form?.vacancy_id ? form?.vacancy_id : null,
       });
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId]);

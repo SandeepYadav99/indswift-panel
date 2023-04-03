@@ -126,10 +126,12 @@ function CandidateOfferLetterHook({ location }) {
   });
 
 
-  const { candidateId, jobId } = useMemo(() => {
+  const { candidateId, jobId, replacingId, vacancyId } = useMemo(() => {
     return {
       candidateId: location?.state?.candidate_id,
       jobId: location?.state?.job_id,
+      replacingId: location?.state?.replacing_id,
+      vacancyId: location?.state?.vacancy_id,
     };
   }, [location]);
 
@@ -262,6 +264,8 @@ function CandidateOfferLetterHook({ location }) {
         job_id: jobId,
         ...form,
         location_id: form?.reporting_location?.id,
+        vacancy_id: vacancyId,
+        replacing_id: replacingId,
       }).then((res) => {
         if (!res.error) {
           const data = res?.data;
@@ -275,7 +279,7 @@ function CandidateOfferLetterHook({ location }) {
         setIsSubmitting(false);
       });
     }
-  }, [candidateId, jobId, form, isSubmitting, setIsSubmitting]);
+  }, [candidateId, jobId, form, isSubmitting, setIsSubmitting, replacingId, vacancyId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();

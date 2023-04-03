@@ -96,18 +96,18 @@ const ExtendOfferDialog = ({ isOpen, handleToggle, candidateId }) => {
           { IsReoccuring && <div className={styles.fieldWrapper}>
             <div>
               <CustomSelectField
-                isError={errorData?.employee_id}
-                errorText={errorData?.employee_id}
+                isError={errorData?.vacancy_id}
+                errorText={errorData?.vacancy_id}
                 label={"Select Employees"}
-                value={form?.employee_id}
+                value={form?.vacancy_id}
                 handleChange={(value) => {
-                  changeTextData(value, "employee_id");
+                  changeTextData(value, "vacancy_id");
                 }}
               >
-                {employeeList?.map((val) => {
+                {employeeList?.map((val, index) => {
                   return (
-                    <MenuItem value={val?.employee?.id} key={val?._id}>
-                      {val?.employee?.name}
+                    <MenuItem value={val?.id} key={val?.id}>
+                      {val?.employee?.name} - {val?.createdAtText}
                     </MenuItem>
                   );
                 })}
