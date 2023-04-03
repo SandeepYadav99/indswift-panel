@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Style.module.css'
 function CandidateDetails({ data }) {
+  const Quallength = data?.candidate?.qualifications?.length - 1;
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainerPersonal}>
@@ -25,7 +26,7 @@ function CandidateDetails({ data }) {
               <div className={styles.key}>
                 <span className={styles.value}>Grade:</span>
                 <span className={styles.valueWrap}>
-                  {data?.job_data?.grade?.name}
+                  {data?.job_data?.grade?.code}
                 </span>
               </div>
               <div className={styles.key}>
@@ -39,11 +40,14 @@ function CandidateDetails({ data }) {
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>Experience:</span>
-                <span className={styles.valueWrap}>
+                {
+                  data?.candidate?.experience !== undefined && 
+                  <span className={styles.valueWrap}>
                   {data?.candidate?.experience > 1
                     ? `${data?.candidate?.experience} years`
                     : `${data?.candidate?.experience} year`}
                 </span>
+                } 
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Source of Hiring:</span>
@@ -55,12 +59,12 @@ function CandidateDetails({ data }) {
                   {data?.job_data?.vacancy_type}
                 </span>
               </div>
-              <div className={styles.key}>
+              {/* <div className={styles.key}>
                 <span className={styles.value}>OLC Issued:</span>
                 <span className={styles.valueWrap}>
                   {data?.code}
                 </span>
-              </div>
+              </div> */}
             <div className={styles.key}>
               <span className={styles.value}>Candidate Relocating From:</span>
               <span className={styles.valueWrap}>

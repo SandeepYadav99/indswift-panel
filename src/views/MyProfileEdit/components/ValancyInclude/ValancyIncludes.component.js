@@ -38,7 +38,7 @@ const ValancyIncludeForm = (
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
   const [isChanged, setIsChanged] = useState(false);
-  const [count, setCount] = useState(true);
+  const [count, setCount] = useState(data?.length ? false :true);
   const { id } = useParams();
 
 
@@ -137,7 +137,7 @@ const ValancyIncludeForm = (
   const changeData = (index, data) => {
     const tempData = JSON.parse(JSON.stringify(fields));
     tempData[index] = { ...tempData[index], ...data };
-    LogUtils.log("changeDataChildren", data);
+    LogUtils.log("valancyValue", data);
     setFields(tempData);
     const errArr = [];
     Object.keys(data).forEach((key) => {

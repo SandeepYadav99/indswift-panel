@@ -82,7 +82,7 @@ const ValancyIncludeFields = ({
             margin={"dense"}
             variant={"outlined"}
             label="Relation"
-            type={"number"}
+            // type={"number"}
           />
         </div>
       </div>
@@ -93,7 +93,9 @@ const ValancyIncludeFields = ({
             clearable
             label={"Child DOB"}
             maxDate={new Date()}
-            onChange={handleChange}
+            onChange={(date) => {
+              changeTextData(date, "dob");
+          }}
             value={data?.dob}
             isError={errors?.dob}
           />
