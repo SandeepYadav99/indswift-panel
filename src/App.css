@@ -958,6 +958,14 @@ font-size: medium;
 .textLayer {
     display: none !important;
 }
+.CandidateInfoWrappers .MuiInputBase-root.Mui-disabled{
+    background: #EBEDF4 0% 0% no-repeat padding-box !important;
+    color: black !important;
+}
+.CandidateInfoWrappers .MuiInputLabel-outlined.MuiInputLabel-shrink{
+    color: rgba(0, 0, 0, 0.70) !important;
+}
+
 @media (max-width: 767px) {
     .iconTabsEvents{
       padding: 6px 8px !important;

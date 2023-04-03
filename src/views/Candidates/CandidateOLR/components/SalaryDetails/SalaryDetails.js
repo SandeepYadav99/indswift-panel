@@ -39,9 +39,14 @@ function SalaryDetails({data}) {
             </div>
             <div className={styles.key21}>
               <span className={styles.value21}>% Change from Replaced Cost:</span>
-              <span className={styles.valueWrap21}>
-                {data?.salary_change?.annual_replaced_percentage}
-              </span>
+              {
+                 <span className={styles.valueWrap21}>
+                 {data?.salary_change?.annual_replaced_percentage !== undefined 
+                 ?  `${data?.salary_change?.annual_replaced_percentage} %`
+                 : ''}
+               </span>
+              }
+              
             </div>
             <div className={styles.key21}>
               <span className={styles.value21}>Annualized Value Change WRT past CTC:</span>
@@ -51,9 +56,13 @@ function SalaryDetails({data}) {
             </div>
             <div className={styles.key21}>
               <span className={styles.value21}>% Hike Offered to Candidate WRT past CTC:</span>
-              <span className={styles.valueWrap21}>
-                 {data?.salary_change?.hike_percentage}
+              {
+                data?.salary_change?.hike_percentage && data?.salary_change?.hike_percentage !== undefined && 
+                <span className={styles.valueWrap21}>
+                 {`${data?.salary_change?.hike_percentage} %`}
               </span>
+              }
+              
             </div><div className={styles.key21}>
               <span className={styles.value21}>AMRF Available:</span>
               <span className={styles.valueWrap21}>

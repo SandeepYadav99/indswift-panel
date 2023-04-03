@@ -9,7 +9,7 @@ import styles from "./Style.module.css";
 function CandidateInfo() {
   const { handlePreviousPage } = useCandidateInfo({});
   return (
-    <div>
+    <div className="CandidateInfoWrappers">
       <EmployeePersonalForm isDisabled={true} />
       <QualificationPage isDisabled={true} />
       <EmployementHistory isDisabled={true} />
