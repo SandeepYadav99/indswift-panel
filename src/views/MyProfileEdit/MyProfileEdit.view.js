@@ -486,7 +486,7 @@ const MyProfileEditView = ({}) => {
           </div>
         </div>
       </div>
-      <div className={"plainPaper"}>
+      {/* <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Employee Nominee Details</div>
@@ -502,7 +502,7 @@ const MyProfileEditView = ({}) => {
 
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className={"plainPaper"}>
         <div className={"headerFlex3 wrapper"}>
