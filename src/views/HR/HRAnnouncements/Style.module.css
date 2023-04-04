@@ -15,6 +15,11 @@
   color: grey;
   margin-bottom: 5px;
 }
+.imageAnn{
+  border-radius: 8px;
+  width: 45px;
+  aspect-ratio: 1/1;
+}
 .headerContainer {
   display: flex;
   justify-content: space-between;
@@ -184,4 +189,41 @@
 .submittionList {
   list-style-type: none;
   padding: 0;
+}
+.ProfileUpperinfoWrap {
+  padding-top: 10px;
+}
+.edit {
+  color: #29cb97 !important;
+  border: 2px solid #29cb97 !important;
+  /* padding: 10px 30px !important; */
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+}
+.labelWrapper{
+  padding: 10px 30px;
+  cursor: pointer;
+}
+.linkClass{
+  color: #2896E9;
+}
+.applicationImage{
+  border-radius: 10px;
+  width: 150px;
+  aspect-ratio: 1/1;
+  /* height: auto; */
+}
+.imageUploaderWrapper{
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+.titleWrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: .875rem;
 }

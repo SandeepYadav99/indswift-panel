@@ -37,10 +37,23 @@ const HRAnnouncementCreateView = ({}) => {
     handleDelete,
     listData,
     handleReset,
+    handleImageChange,
+    image,
     id,
   } = useHRAnnouncementCreateViewDetail({});
   const classes = useStyles();
-
+  const getImgUrl = (image) => {
+    if (image) {
+      if (typeof image === "object") {
+        return URL.createObjectURL(image);
+      } else {
+        return image;
+      }
+    }
+    else {
+      return require("../../../assets/img/ic_announcement.png");
+    }
+  };
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -106,27 +119,24 @@ const HRAnnouncementCreateView = ({}) => {
             />
           </div>
         </div>
-        <div className={"formGroup file_Wrapper"}>
-          <File
-            max_size={2 * 1024 * 1024}
-            type={["png", "jpeg", "jpg"]}
-            fullWidth={true}
-            name="document"
-            label=""
-            default_image={form?.document ? form?.document : null}
-            // user_image={form?.image}
-            error={errorData?.image}
-            // title={'image'}
-            value={form?.image}
-            // handleChange={this._handleFileChange}
-            placeholder={"Upload New Image"}
-            onChange={(file) => {
-              if (file) {
-                changeTextData(file, "image");
-              }
-            }}
-          />
+        <div className={styles.imageUploaderWrapper}>
+        <div className={styles.titleWrapper}>
+          <span>Upload Image</span>
+          <img className={styles.applicationImage} src={getImgUrl(image)} />
         </div>
+            <ButtonBase className={styles.edit}>
+              <label htmlFor="imageUploadAnnounce" className={styles.labelWrapper}>
+                UPLOAD NEW IMAGE
+              </label>
+            </ButtonBase>
+            <input
+              type="file"
+              id="imageUploadAnnounce"
+              accept=".jpg,.jpeg,.png"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+          </div>
       </div>
 
       <div className={"plainPaper"}>

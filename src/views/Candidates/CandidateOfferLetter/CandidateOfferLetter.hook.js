@@ -195,17 +195,14 @@ function CandidateOfferLetterHook({ location }) {
         errors[val] = true;
       }
     });
-    // if (isDate(form?.joining_date)) {
-    //   const date = new Date(form?.joining_date);
-    //   const todayDate = new Date();
-    //   date.setHours(0, 0, 0, 0);
-    //   todayDate.setHours(0, 0, 0, 0);
-    //   if (date.getTime() < todayDate.getTime()) {
-    //     errors['joining_date'] = true;
-    //   }
-    // } else {
-    //   errors['joining_date'] = true;
-    // }
+    if (form?.joining_date && form?.expected_response_date) {
+      const joinDate = new Date(form?.joining_date);
+      const expectedDate= new Date(form?.expected_response_date)
+      expectedDate.setHours(0, 0, 0, 0);
+      if (joinDate.getTime() < expectedDate.getTime()) {
+        errors['joining_date'] = true;
+      }
+    }
     if (form?.expected_response_date) {
       const date = new Date(form?.expected_response_date);
       const todayDate = new Date();
