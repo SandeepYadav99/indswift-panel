@@ -15,8 +15,9 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [jobs, setJobs] = useState([]);
-  const [IsReoccuring,setIsReoccuring]= useState(false)
-  const [employeeList,setEmployeeList]=useState([])
+  const [IsReoccuring,setIsReoccuring]= useState(false);
+  const [employeeList, setEmployeeList]=useState([]);
+
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
@@ -31,12 +32,16 @@ const useExtendOfferDialogHook = ({ isOpen, handleToggle, candidateId }) => {
 
   useEffect(() => {
     if (jobs?.length > 0) {
-      const CheckReoccuring = jobs.findIndex(
+      const checkReoccuring = jobs.findIndex(
         (item) => item?.job_openings?.id === form?.job_id
       );
-      const getValue=jobs[CheckReoccuring]
-      setEmployeeList(getValue?.vacancies)
-      setIsReoccuring(getValue?.job_openings?.is_recurring)
+      if (checkReoccuring >= 0) {
+        const getValue = jobs[checkReoccuring]
+        setEmployeeList(getValue?.vacancies.filter((val) => val.status !== 'HIRED'));
+        setIsReoccuring(getValue?.job_openings?.is_recurring)
+      } else {
+        setEmployeeList([]);
+      }
     }
   }, [form.job_id,IsReoccuring,jobs]);
   const removeError = useCallback(

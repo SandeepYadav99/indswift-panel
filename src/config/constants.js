@@ -361,6 +361,7 @@ export default {
     CORPORATE_HR: "CORPORATE_HR",
     RECRUITER: 'RECRUITER',
     GENERAL: 'GENERAL',
+    OLR: 'OLR'
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,

@@ -13,65 +13,6 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import CandidateInfo from "../views/Candidates/CandidateInfo/CandidateInfo.view";
 
-// import EmployeeTab from "../views/Employees/EmployeeTab.view";
-// import EmployeeList from "../views/EmployeeList/EmployeeList.container";
-// import JobRolesList from "../views/JobRoles/JobRolesList.container";
-// import JobRoleCreateView from "../views/JobRoleCreate/JobRoleCreate.view";
-// // import NewDashboard from "../views/dashboard/NewDashboard.view";
-//
-// import LocationList from "../views/Locations/Location/LocationList.container";
-// import LocationCreateView from "../views/Locations/LocationCreate/LocationCreate.view";
-// import DepartmentList from "../views/Department/DepartmentList.container";
-// import DepartmentCreateView from "../views/Department/DepartmentCreate.view";
-// import SubDepartmentList from "../views/SubDepartment/SubDepartmentList.container";
-// import SubDepartmentCreateView from "../views/SubDepartment/SubDepartmentCreate.view";
-// import LocationDetail from "../views/Locations/LocationDetail/LocationDetail.view";
-// import CandidateList from "../views/Candidates/Candidate/CandidateList.container";
-// import CandidateCreateView from "../views/Candidates/CandidateCreate/CandidateCreate.view";
-// import AnnualList from "../views/AnnualBudgets/AnnualList.container";
-// import ManpowerList from "../views/ManpowerPlanning/ManpowerList.container";
-// import JobOpeningsList from "../views/JobOpenings/JobOpeningsList.container";
-// import JobOpeningCreateView from "../views/JobOpeningCreate/JobOpeningCreate.view";
-// import JobOpeningDetail from "../views/JobOpeningDetail/JobOpeningDetail.view";
-// import GradeList from "../views/Grade/GradeList.container";
-// import GradeCreateView from "../views/Grade/GradeCreate.view";
-// import CadreList from "../views/Cadre/CadreList.container";
-// import CadreCreateView from "../views/Cadre/CadreCreate.view";
-// import HRPolicy from "../views/HR/HRPolicy/HRPolicy.container";
-// import HRCreateView from "../views/HR/HRPolicy/HRPolicyCreate.view";
-// import CircularCreateView from "../views/HR/Circular/CircularCreate.view";
-// import Circular from "../views/HR/Circular/Circular.container";
-// import DesignationList from "../views/Designation/DesignationList.container";
-// import DesignationCreateView from "../views/Designation/DesignationCreate.view";
-// import AppSettings from "../views/AppSettings/AppSettings.container";
-// import HRSettings from "../views/HR/HRSettings/HRSettings.container";
-// import EmployeeDashboard from "../views/EmployeePanel/EmployeeDashboard/EmployeeDashboard.view";
-// import EmployeeInducation from "../views/EmployeePanel/EmployeeInducation/EmployeeInducation.container";
-// import EmployeeHRPolicy from "../views/EmployeePanel/EmployeeHRPolicy/EmployeeHRPolicy.container";
-// import EmployeeCircular from "../views/EmployeePanel/EmployeeCircular/EmployeeCircular.container";
-// import EmployeeEngagement from "../views/EmployeeEngagement/EmployeeEngagement.container";
-// import EmployeeDrishti from "../views/EmployeePanel/EmployeeDrishti/EmployeeDrishti.container";
-// import EmployeeIkigai from "../views/EmployeePanel/EmployeeIkigai/EmployeeIkigai.container";
-// import EmployeeDeepak from "../views/EmployeePanel/EmployeeDeepak/EmployeeDeepak.container";
-// import EmployeeUtsav from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsav.container";
-// import HRKnowledge from "../views/HR/HRKnowledge/HRKnowledge.container";
-// import HRAnnouncement from "../views/HR/HRAnnouncements/HRAnnouncement.container";
-// import HRAnnouncementCreateView from "../views/HR/HRAnnouncements/HRAnnouncementCreate.view"
-// import HRKnowledgeCreateView from "../views/HR/HRKnowledge/HRKnowledgeCreate.view";
-// import HRUtsav from "../views/HR/HRUtsav/HRUtsav.container";
-// import EmployeeKnowledge from "../views/EmployeePanel/EmployeeKnowledge/EmployeeKnowledge.container";
-// import EmployeePerformance from "../views/EmployeePerformance/EmployeePerformance.container";
-// import EmployeeClaim from "../views/EmployeePanel/EmployeeClaim/EmployeeClaim.container";
-// import ReviewCandidate from "../views/ReviewCandidate/ReviewCandidate.container";
-// import ViewDocuments from "../views/ViewDocuments/ViewDocuments";
-// import EmployeeListCreate from "../views/EmployeeList/EmployeeListCreate";
-// import EmployeeEdit from "../views/EmployeeEdit/EmployeeEdit";
-// import EmployeeEditVersionListContainer from "../views/EmployeeEditVersions/ListView/EmployeeEditVersionList.container";
-// import EmployeeUtsavDetail from "../views/EmployeePanel/EmployeeUtsav/EmployeeUtsavDetail";
-// import CandidateDetails from "../views/Candidates/CandidateDetails/CandidateDetails.view";
-// import InterviewSchedule from "../views/InterviewSchedule/InterviewSchedule.container";
-// import MyProfileEditView from "../views/MyProfileEdit/MyProfileEdit.view";
-
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
 const CircularCreateView = lazy(() => import( "../views/HR/Circular/CircularCreate.view"));
@@ -514,7 +455,7 @@ const dashboardRoutes = [
         component: CandidateOLR,
         is_sidebar: false,
         is_protect: true,
-        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR, Roles.OLR, Roles.GENERAL],
     },
     {
         path: RouteName.CANDIDATES_CREATE,
@@ -923,7 +864,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'tm',
-        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.OLR, Roles.CORPORATE_HR],
     },
 
     {

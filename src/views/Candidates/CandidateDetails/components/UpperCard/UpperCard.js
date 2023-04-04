@@ -1,10 +1,12 @@
-import React,{useCallback, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import styles from "./Style.module.css";
 import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import ActionButton from "../../../../../components/ActionButton/ActionButton";
 import DefaultImg from "../../../../../assets/img/download.png";
 import ShareOfferDialog from "../ShareOfferPopUp/ShareOfferDialog.view";
+import {useSelector} from "react-redux";
+import Constants from "../../../../../config/constants";
 
 const UpperCard = ({
   data,
@@ -15,11 +17,18 @@ const UpperCard = ({
   handleShare
 }) => {
   const [isShareDialog, setIsShareDialog] = useState(false);
-
+  const {user_profile, role} = useSelector(state => state.auth);
   const toggleShareDialog = useCallback(() => {
     setIsShareDialog((e) => !e);
   }, [isShareDialog]);
 
+  const isRecruiter = useMemo(() => {
+    const arr = [Constants.ROLES.RECRUITER, Constants.ROLES.CORPORATE_HR];
+    if (Constants.is_development) {
+      arr.push(Constants.ROLES.ADMIN);
+    }
+    return arr.indexOf(role) >= 0;
+  }, [role]);
 
   const splitDate = (value) => {
     return value ? value.split(" ")[0] : "";
@@ -70,7 +79,7 @@ const UpperCard = ({
           </div>
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
-              {(data?.is_selected && !data?.is_offer_letter_sent) && (<ActionButton onClick={() => handlePRCPopUp()}>
+              {(isRecruiter && data?.is_selected && !data?.is_offer_letter_sent) && (<ActionButton onClick={() => handlePRCPopUp()}>
                 <InfoOutlined fontSize={"small"} />
                 <span className={styles.actionBtnSpan}>Extend Offer</span>
               </ActionButton>)}
@@ -83,7 +92,7 @@ const UpperCard = ({
             </div>
             <div className={styles.actionWrap}>
               <div className={styles.btnUpper}>
-                {data?.is_offer_letter_approved && (<ActionButton onClick={toggleShareDialog}>
+                {(isRecruiter && data?.is_offer_letter_approved) && (<ActionButton onClick={toggleShareDialog}>
                   <InfoOutlined fontSize={"small"} />
                   <span className={styles.actionBtnSpan}>Share Offer</span>
                 </ActionButton>)}
