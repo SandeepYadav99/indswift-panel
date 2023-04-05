@@ -42,7 +42,7 @@ function EmployeeDashboard() {
       <div className={styles.RecentUpdateWrapper}>
         <div className={styles.RecentUpdateUpperCard}>
           <RecentUpdate />
-          {/* <AnnouncementInfo /> */}
+          <AnnouncementInfo />
           {/*<Members />*/}
           {/* <EngagementEvents /> */}
         </div>

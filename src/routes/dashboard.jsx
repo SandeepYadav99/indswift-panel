@@ -12,6 +12,8 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import CandidateInfo from "../views/Candidates/CandidateInfo/CandidateInfo.view";
+import ClaimsList from "../views/ClaimsManagement/ClaimsList/ClaimsList.container";
+import ClaimsDetail from "../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view";
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -895,6 +897,40 @@ const dashboardRoutes = [
         component: ViewDocuments,
         is_sidebar: false,
         is_protect: false,
+    },
+    {
+        path: 'null',
+        sidebarName: "Claim Management",
+        navbarName: "Claim Management",
+        icon: AssignmentOutlined,
+        is_sidebar: true,
+        slug: 'cm',
+        is_parent: true,
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CLAIMS_LIST}`,
+        sidebarName: "Claims List",
+        navbarName: "Claims List",
+        icon: PeopleOutlined,
+        component: ClaimsList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CLAIMS_DETAILS}:id`,
+        sidebarName: "Claims List",
+        navbarName: "Claims List",
+        icon: PeopleOutlined,
+        component: ClaimsDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },
     {
         path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',

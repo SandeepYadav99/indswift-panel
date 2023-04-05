@@ -7,7 +7,7 @@ const CandidateUploadCard = ({ data }) => {
     <div>
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-          <div className={styles.heading}>Candidate Uploads</div>
+          <div className={styles.heading}>Candidate Documents</div>
 
           <div className={styles.mainFlex}>
             <div className={styles.left}>

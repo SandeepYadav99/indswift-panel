@@ -49,6 +49,7 @@ import EmployeeVersions from "./EmployeeEditVersion.reducer";
 import CVReviewReducer from "./CVReview.reducer";
 import CVShortlistReducer from "./CVShortlist.reducer";
 import ReviewOLRReducer from "./ReviewOLR.reducer";
+import ClaimsReducer from "./Claims.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -83,6 +84,7 @@ const rootReducer = combineReducers({
   grade: GradeReducer,
   cadre: CadreReducer,
   candidate: CandidateReducer,
+  claims:ClaimsReducer,
   interviewSchedule: InterviewScheduleReducer,
   annual: AnnualReducer,
   manpower: ManpowerReducer,

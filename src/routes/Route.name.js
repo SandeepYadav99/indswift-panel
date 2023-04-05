@@ -90,5 +90,8 @@ export default {
 
   INTERVIEW_SCHEDULE: '/interview/schedule',
   REVIEW_OLR: '/olr',
-  CV_SHORTLIST_LIST: '/cv/shortlist/'
+  CV_SHORTLIST_LIST: '/cv/shortlist/',
+
+  CLAIMS_LIST:'/cm/claims' ,
+  CLAIMS_DETAILS:'/cm/details/'
 };
