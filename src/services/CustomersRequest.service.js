@@ -11,6 +11,6 @@ export async function serviceGetCustomers(params) {
     return await postRequest('customers', params);
 }
 
-export async function serviceGetCustomerByContact(params) {
-    return await postRequest('customers/detail/contact', params);
+export async function serviceGetCandidate(params) {
+    return await postRequest('customers/detail', params);
 }

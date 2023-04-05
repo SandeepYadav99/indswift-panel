@@ -60,8 +60,7 @@ const JobOpeningsList = ({}) => {
 
 
     const tableStructure = useMemo(() => {
-        return [
-            {
+        return [{
                 key: 'sr_no',
                 label: 'PRC',
                 sortable: false,
@@ -100,6 +99,11 @@ const JobOpeningsList = ({}) => {
                 label: 'Candidates',
                 sortable: false,
                 render: (temp, all) => <div>{all?.total_candidates ? all?.total_candidates : 0}</div>,
+            } , {
+                key: 'age',
+                label: 'Aging',
+                sortable: false,
+                render: (temp, all) => <div>{all?.age}</div>,
             }, {
                 key: 'status',
                 label: 'Status',

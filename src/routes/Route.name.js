@@ -34,6 +34,7 @@ export default {
   DESIGNATION_UPDATE: "/designations/update/",
   CANDIDATES: "/candidates",
   CANDIDATES_CREATE: "/candidates/create",
+  CANDIDATES_UPDATE: "/candidates/update/",
   CANDIDATES_DETAILS: "/candidates/details/",
   CANDIDATES_OFFER:"/candidates/offer/",
   CANDIDATES_OFFER_DETAILS:'/candidates/offer/details/',

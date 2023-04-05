@@ -468,6 +468,16 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
     {
+        path: `${RouteName.CANDIDATES_UPDATE}:id`,
+        sidebarName: "Location",
+        navbarName: "Location",
+        icon: LocalOffer,
+        component: CandidateCreateView,
+        is_sidebar: false,
+        is_protect: true,
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    },
+    {
         path: RouteName.LOCATIONS,
         sidebarName: "Locations",
         navbarName: "Locations",

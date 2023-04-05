@@ -50,7 +50,9 @@ const CandidateCreateView = ({ location }) => {
     handleReset,
     selectedJobId,
     jobDetails,
-    isReoccuring
+    isReoccuring,
+      editData,
+      isEditEnabled
   } = useCandidateDetail({ location });
   const classes = useStyles();
 
@@ -89,7 +91,7 @@ const CandidateCreateView = ({ location }) => {
               }}
             />
           </div>
-          
+
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -317,7 +319,7 @@ const CandidateCreateView = ({ location }) => {
               name="image"
               label=""
               accept={"application/pdf,application/msword,image/*"}
-              default_image={form?.imageUrl ? form?.imageUrl : null}
+              link={editData?.resume ? editData?.resume : null}
               // user_image={form?.image}
               error={errorData?.resume}
               // title={'image'}
@@ -349,14 +351,14 @@ const CandidateCreateView = ({ location }) => {
         </div>
       </div>
 
-      <div className={"plainPaper"}>
+      {!isEditEnabled && (<div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Official Information</div>
           </h4>
         </div>
         <OfficialInfo isStatic={selectedJobId} details={jobDetails} />
-      </div>
+      </div>)}
 
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>

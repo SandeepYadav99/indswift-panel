@@ -4,7 +4,11 @@ export async function serviceCreateCandidate(params) {
     return await formDataRequest('candidates/create', params);
 }
 export async function serviceUpdateCandidate(params) {
-    return await postRequest('candidates/update', params);
+    return await formDataRequest('candidates/update', params);
+}
+
+export async function serviceCandidateEditData(params) {
+    return await postRequest('candidates/edit/data', params);
 }
 
 export async function serviceDeleteCandidate(params) {

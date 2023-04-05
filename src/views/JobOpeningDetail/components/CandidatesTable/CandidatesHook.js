@@ -103,6 +103,11 @@ const useCandidatesList = ({jobId}) => {
         const batchId = e.target.value;
     }
 
+    const handleEdit = useCallback((all) => {
+        historyUtils.push(`${RouteName.CANDIDATES_UPDATE}${all.candidate_id}`, {
+            isEdit: true,
+        });
+    }, []);
 
     return {
         handlePageChange,
@@ -117,7 +122,8 @@ const useCandidatesList = ({jobId}) => {
         currentData,
         data: candidates,
         currentPage,
-        handleViewDetails
+        handleViewDetails,
+        handleEdit
     }
 
 }

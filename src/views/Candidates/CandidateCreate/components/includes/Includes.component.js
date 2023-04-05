@@ -44,7 +44,10 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
         },
         getData() {
             return JSON.parse(JSON.stringify(fields));
-        }
+        },
+        setData(data) {
+            setFields([...data]);
+        },
     }));
 
     const getState = () => {

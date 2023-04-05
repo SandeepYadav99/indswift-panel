@@ -7,12 +7,17 @@ import {
 } from "../../../services/Common.service";
 import useDebounce from "../../../hooks/DebounceHook";
 import LogUtils from "../../../libs/LogUtils";
-import { serviceCreateCandidate } from "../../../services/Candidate.service";
+import {
+  serviceCandidateEditData,
+  serviceCreateCandidate,
+  serviceGetCandidateDetails, serviceUpdateCandidate
+} from "../../../services/Candidate.service";
 import historyUtils from "../../../libs/history.utils";
 import EventEmitter from "../../../libs/Events.utils";
 import RouteName from "../../../routes/Route.name";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { serviceJobOpeningsDetails } from "../../../services/JobOpenings.service";
+import {useParams} from "react-router";
 
 const initialForm = {
   name: "",
@@ -35,29 +40,69 @@ const initialForm = {
 };
 
 const useCandidateDetail = ({ location }) => {
+  const isEditEnabled = location.state?.isEdit;
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
+  const [editData, setEditData] = useState(null);
   const qualificationRef = useRef(null);
   const historyRef = useRef(null);
   const [jobDetails, setJobDetails] = useState(null);
   const [employees, setEmployees] = useState([]);
   const [isReoccuring, setIsReoccuring] = useState(false);
+  const {id} = useParams();
 
   const selectedJobId = useMemo(() => {
     return location?.state?.job_id;
   }, [location]);
 
   useEffect(() => {
-    serviceJobOpeningsDetails({ id: selectedJobId }).then((res) => {
-      if (!res.error) {
-        setJobDetails(res?.data?.details);
-        setIsReoccuring(res?.data?.details?.is_recurring)
-      }
-    });
-  }, [selectedJobId]);
+    if (selectedJobId && !isEditEnabled) {
+      serviceJobOpeningsDetails({id: selectedJobId}).then((res) => {
+        if (!res.error) {
+          setJobDetails(res?.data?.details);
+          setIsReoccuring(res?.data?.details?.is_recurring)
+        }
+      });
+    }
+  }, [selectedJobId, isEditEnabled]);
+
+  useEffect(() => {
+    if (id) {
+      serviceCandidateEditData({ id: id }).then((res) => {
+        if (!res.error) {
+          const data = res?.data?.details;
+          setEditData(data);
+          const form = {
+            ...initialForm,
+          };
+          Object.keys(initialForm).forEach((key) => {
+            if (key !== 'resume' && data?.[key]) {
+              form[key] = data?.[key];
+            }
+          });
+          if (data?.referred_obj?.id) {
+            form.referred_by = data?.referred_obj;
+          }
+          if (data?.qualifications?.length > 0) {
+            qualificationRef?.current?.setData(data?.qualifications);
+          }
+          if (data?.employment_history?.length > 0) {
+            setTimeout(() => {
+              historyRef?.current?.setData(data?.employment_history);
+            }, 0);
+            form['is_fresher'] = false;
+          }
+          setForm({
+            ...initialForm,
+            ...form,
+          });
+        }
+      })
+    }
+  }, [id]);
 
   useEffect(() => {
     serviceGetList(["EMPLOYEES"]).then((res) => {
@@ -75,9 +120,11 @@ const useCandidateDetail = ({ location }) => {
       "applied_date",
       "permanent_address",
       "previous_ctc",
-      "resume",
       "source",
     ];
+    if (!isEditEnabled) {
+      required.push('resume');
+    }
     let requiredRPfields = ["name", "contact", "email", "resume"];
     {
       isReoccuring
@@ -133,17 +180,20 @@ const useCandidateDetail = ({ location }) => {
       }
     });
     return errors;
-  }, [form, errorData,isReoccuring]);
+  }, [form, errorData,isReoccuring, isEditEnabled]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (key != "referred_by" && form[key]) {
+        if (["referred_by", "resume"].indexOf(key)  <0  && form[key]) {
           fd.append(key, form[key]);
         }
       });
+      if (form?.resume) {
+        fd.append('resume', form?.resume);
+      }
       if (form?.referred_by) {
         fd.append("referred_by", form?.referred_by?.id);
       }
@@ -157,8 +207,15 @@ const useCandidateDetail = ({ location }) => {
           JSON.stringify(historyRef?.current?.getData())
         );
       }
-      fd.append("job_opening_id", selectedJobId);
-      serviceCreateCandidate(fd).then((res) => {
+      if (!isEditEnabled) {
+        fd.append("job_opening_id", selectedJobId);
+      }
+      let req = serviceCreateCandidate;
+      if (isEditEnabled) {
+        req = serviceUpdateCandidate;
+        fd.append('id', id);
+      }
+      req(fd).then((res) => {
         if (!res.error) {
           if (selectedJobId) {
             historyUtils.goBack();
@@ -171,7 +228,7 @@ const useCandidateDetail = ({ location }) => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, selectedJobId]);
+  }, [form, isSubmitting, setIsSubmitting, selectedJobId, isEditEnabled, id]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -264,6 +321,8 @@ const useCandidateDetail = ({ location }) => {
     jobDetails,
     selectedJobId,
     isReoccuring,
+    isEditEnabled,
+    editData,
   };
 };
 

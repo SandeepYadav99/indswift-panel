@@ -84,6 +84,12 @@ function VacanciesTable({ jobId }) {
         render: (temp, all) => renderStatus(all?.status),
       },
       {
+        key: "age",
+        label: "Aging",
+        sortable: false,
+        render: (temp, all) => (all?.age),
+      },
+      {
         key: "Replacement Status",
         label: "Action",
         sortable: false,

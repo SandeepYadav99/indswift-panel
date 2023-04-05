@@ -20,6 +20,14 @@ const CandidateUploadCard = ({ data }) => {
                   Resume
                 </a>
               </div>
+              {data?.offer_id && (<div className={styles.key}>
+                <a
+                    className={styles.uploadTag}
+                    href={`${RouteName.CANDIDATES_OFFER_DETAILS}${data?.offer_id}`}
+                >
+                  OLR Sheet
+                </a>
+              </div>)}
               {
                 data?.is_eaf && <div className={styles.key}>
                 <a className={styles.uploadTag}  href={`${RouteName.CANDIDATES_INFO}${data?.enc_id}`}>
@@ -27,7 +35,7 @@ const CandidateUploadCard = ({ data }) => {
                 </a>
               </div>
               }
-              
+
             </div>
           </div>
         </div>
