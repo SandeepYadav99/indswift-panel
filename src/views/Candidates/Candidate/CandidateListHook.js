@@ -146,13 +146,12 @@ const useCandidateList = ({}) => {
     [setEditData, setSidePanel]
   );
 
-  const handleEdit = useCallback(
-    (data) => {
-      setEditData(data);
-      setSidePanel((e) => !e);
+  const handleEdit = useCallback((data) => {
+      historyUtils.push(`${RouteName.CANDIDATES_UPDATE}${data.id}`, {
+        isEdit: true,
+      });
     },
-    [setEditData, setSidePanel]
-  );
+    []);
 
   const handleSideToggle = useCallback(() => {
     historyUtils.push(RouteName.CANDIDATES_CREATE);

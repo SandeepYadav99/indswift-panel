@@ -220,7 +220,8 @@ const useCandidateDetail = ({ location }) => {
           if (selectedJobId) {
             historyUtils.goBack();
           } else {
-            historyUtils.push(RouteName.CANDIDATES);
+            historyUtils.goBack();
+            // historyUtils.push(RouteName.CANDIDATES);
           }
         } else {
           SnackbarUtils.error(res?.message);

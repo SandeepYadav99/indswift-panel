@@ -28,7 +28,7 @@ const CandidateList = ({location}) => {
 
     const removeUnderScore=(value)=>{
         return value ? value.replace(/_/g, " "): ""
-      }  
+      }
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status} />
     }, []);
@@ -131,8 +131,7 @@ const CandidateList = ({location}) => {
                 label: 'Action',
                 render: (temp, all) => (<div>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
-                    {/* <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton> */}
-                    {/*onClick={() => { handleEdit(all) }}*/}
+                     <IconButton className={'tableActionBtn'} color='secondary' onClick={() => { handleEdit(all) }} disabled={isCalling}><Edit fontSize={'small'} /></IconButton>
                 </div>),
             },
 
