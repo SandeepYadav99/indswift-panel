@@ -24,9 +24,9 @@ const useHRAnnouncementList = ({}) => {
     query_data: queryData,
   } = useSelector((state) => state.department);
 
-  useEffect(() => {
-    dispatch(actionFetchHRAnnouncement());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(actionFetchHRAnnouncement());
+  // }, []);
 
   useEffect(() => {
     dispatch(

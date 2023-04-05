@@ -70,10 +70,8 @@ const HRAnnouncement = ({}) => {
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
-        <div className={styles.firstCellFlex}>
-          <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span> <br />
-          </div>
+        <div>
+            <img className={styles.imageAnn} src={obj?.image}/>
         </div>
       );
     }
@@ -86,7 +84,7 @@ const HRAnnouncement = ({}) => {
         key: "image",
         label: "IMAGE",
         sortable: false,
-        render: (temp, all, index) => <div>{all?.image}</div>,
+        render: (temp, all, index) => <div>{renderFirstCell(all)}</div>,
       },
       {
         key: "title",
@@ -98,7 +96,13 @@ const HRAnnouncement = ({}) => {
         key: "date",
         label: "DATE",
         sortable: false,
-        render: (temp, all) => <div>{all?.date}</div>,
+        render: (temp, all) => <div>{all?.dateText}</div>,
+      },
+      {
+        key: "link",
+        label: "Link",
+        sortable: false,
+        render: (temp, all) => <div><a className={styles.linkClass} target='_blank' href={all?.link}>{all?.link}</a></div>,
       },
       {
         key: "status",

@@ -1,14 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  isAlpha,
-  isAlphaNum,
-  isAlphaNumChars,
-  isDate,
-  isNum,
-  isSpace,
-} from "../../../libs/RegexUtils";
-import useDebounce from "../../../hooks/DebounceHook";
-import LogUtils from "../../../libs/LogUtils";
+import { useCallback, useEffect, useState } from "react";
+import { isAlphaNumChars, isUrl } from "../../../libs/RegexUtils";
 import {
   serviceCheckHRAnnouncement,
   serviceCreateHRAnnouncement,
@@ -16,7 +7,6 @@ import {
   serviceUpdateHRAnnouncement,
 } from "../../../services/HRAnnouncement.service";
 import historyUtils from "../../../libs/history.utils";
-import EventEmitter from "../../../libs/Events.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
 import Constants from "../../../config/constants";
@@ -26,9 +16,8 @@ const initialForm = {
   title: "",
   date: "",
   link: "",
-  document: null,
   is_active: true,
-  image: "",
+  image: null,
 };
 
 const useHRAnnouncementCreateViewDetail = ({}) => {
@@ -37,6 +26,7 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
+  const [image, setImage] = useState(null);
   const { id } = useParams();
   const [listData, setListData] = useState({
     LOCATIONS: [],
@@ -53,6 +43,7 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
             is_active: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             date: new Date(data?.date),
           });
+          setImage(data?.image);
         } else {
           SnackbarUtils.error(res?.message);
           historyUtils.goBack();
@@ -67,6 +58,22 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
       }
     });
   }, []);
+  const handleImageChange = useCallback(
+    (file) => {
+      if (file && Object.keys(file.target.files).length > 0) {
+        setImage(file.target.files[0]);
+      }
+    },
+    [setImage, image]
+  );
+  useEffect(() => {
+    if (image) {
+      setForm({
+        ...form,
+        image: image,
+      });
+    }
+  }, [form?.image, image, setImage]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["title", "date", "link"];
@@ -85,7 +92,9 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
       },
       [errorData, id, form]
     );
-
+    if (form?.link && !isUrl(form?.link)) {
+      errors["link"] = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -122,12 +131,11 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id]);
+  }, [form, isSubmitting, setIsSubmitting, id, image]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log(">===", errors);
-    if (Object.keys(errors).length > 0) {
+    if (Object.keys(errors)?.length > 0) {
       setErrorData(errors);
       return true;
     }
@@ -192,6 +200,8 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
     handleReset,
     id,
     listData,
+    image,
+    handleImageChange,
   };
 };
 
