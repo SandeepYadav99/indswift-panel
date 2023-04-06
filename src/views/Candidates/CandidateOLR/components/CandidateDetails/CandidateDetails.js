@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from './Style.module.css'
+import React from "react";
+import styles from "./Style.module.css";
 function CandidateDetails({ data }) {
   const Quallength = data?.candidate?.qualifications?.length - 1;
   return (
@@ -9,57 +9,68 @@ function CandidateDetails({ data }) {
           Candidate Details - {data?.candidate?.name}
         </div>
 
-          <div className={styles.mainFlex2}>
-            <div className={styles.left}>
-              <div className={styles.key}>
-                <span className={styles.value}>Place of Posting:</span>
-                <span className={styles.valueWrap}>{data?.reporting_location?.name}</span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Designation:</span>
-                <span className={styles.valueWrap}>{data?.job_data?.designation?.name}</span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Department:</span>
-                <span className={styles.valueWrap}>{data?.job_data?.department?.name}</span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Grade:</span>
-                <span className={styles.valueWrap}>
-                  {data?.job_data?.grade?.code}
-                </span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Qualification:</span>
-                <span className={styles.valueWrap}>
-                  {/*{(data?.candidate?.qualifications?.map((val) => val.degree))?.join(', ')}*/}
-                </span>
-              </div>
+        <div className={styles.mainFlex2}>
+          <div className={styles.left}>
+            <div className={styles.key}>
+              <span className={styles.value}>Place of Posting:</span>
+              <span className={styles.valueWrap}>
+                {data?.reporting_location?.name}
+              </span>
             </div>
-            <div className={styles.vertical}></div>
-            <div className={styles.right}>
-              <div className={styles.key}>
-                <span className={styles.value}>Experience:</span>
-                {
-                  data?.candidate?.experience !== undefined && 
-                  <span className={styles.valueWrap}>
+            <div className={styles.key}>
+              <span className={styles.value}>Designation:</span>
+              <span className={styles.valueWrap}>
+                {data?.job_data?.designation?.name}
+              </span>
+            </div>
+            <div className={styles.key}>
+              <span className={styles.value}>Department:</span>
+              <span className={styles.valueWrap}>
+                {data?.job_data?.department?.name}
+              </span>
+            </div>
+            <div className={styles.key}>
+              <span className={styles.value}>Grade:</span>
+              <span className={styles.valueWrap}>
+                {data?.job_data?.grade?.code}
+              </span>
+            </div>
+            <div className={styles.key}>
+              <span className={styles.value}>Qualification:</span>
+              {data?.candidate?.qualifications?.length > 0 && (
+                <span className={styles.valueWrap}>
+                  {data?.candidate?.qualifications?.map((val, index) =>
+                    Quallength !== index ? ` ${val?.degree} , ` : val?.degree
+                  )}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className={styles.vertical}></div>
+          <div className={styles.right}>
+            <div className={styles.key}>
+              <span className={styles.value}>Experience:</span>
+              {data?.candidate?.experience !== undefined && (
+                <span className={styles.valueWrap}>
                   {data?.candidate?.experience > 1
                     ? `${data?.candidate?.experience} years`
                     : `${data?.candidate?.experience} year`}
                 </span>
-                } 
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Source of Hiring:</span>
-                <span className={styles.valueWrap}>{data?.candidate?.source}</span>
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Type of Vacancy:</span>
-                <span className={styles.valueWrap}>
-                  {data?.job_data?.vacancy_type}
-                </span>
-              </div>
-              {/* <div className={styles.key}>
+              )}
+            </div>
+            <div className={styles.key}>
+              <span className={styles.value}>Source of Hiring:</span>
+              <span className={styles.valueWrap}>
+                {data?.candidate?.source}
+              </span>
+            </div>
+            <div className={styles.key}>
+              <span className={styles.value}>Type of Vacancy:</span>
+              <span className={styles.valueWrap}>
+                {data?.job_data?.vacancy_type}
+              </span>
+            </div>
+            {/* <div className={styles.key}>
                 <span className={styles.value}>OLC Issued:</span>
                 <span className={styles.valueWrap}>
                   {data?.code}
