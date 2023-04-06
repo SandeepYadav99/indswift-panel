@@ -20,22 +20,37 @@ const CandidateUploadCard = ({ data }) => {
                   Resume
                 </a>
               </div>
-              {data?.offer_id && (<div className={styles.key}>
-                <a
+              {data?.offer_id && (
+                <div className={styles.key}>
+                  <a
                     className={styles.uploadTag}
                     href={`${RouteName.CANDIDATES_OFFER_DETAILS}${data?.offer_id}`}
-                >
-                  OLR Sheet
-                </a>
-              </div>)}
-              {
-                data?.is_eaf && <div className={styles.key}>
-                <a className={styles.uploadTag}  href={`${RouteName.CANDIDATES_INFO}${data?.enc_id}`}>
-                  EAF Form
-                </a>
-              </div>
-              }
-
+                  >
+                    OLR Sheet
+                  </a>
+                </div>
+              )}
+              {data?.is_eaf && (
+                <div className={styles.key}>
+                  <a
+                    className={styles.uploadTag}
+                    href={`${RouteName.CANDIDATES_INFO}${data?.enc_id}`}
+                  >
+                    EAF Form
+                  </a>
+                </div>
+              )}
+              {data?.offer_letter_path && (
+                <div className={styles.key}>
+                  <a
+                    className={styles.uploadTag}
+                    target="_blank"
+                    href={data?.offer_letter_path}
+                  >
+                    Offer Letter
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>

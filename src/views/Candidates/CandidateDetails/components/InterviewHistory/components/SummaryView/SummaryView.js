@@ -6,6 +6,7 @@ import star from "../../../../../../../assets/img/star.png";
 import historyUtils from "../../../../../../../libs/history.utils";
 import { useCallback } from "react";
 import RouteName from "../../../../../../../routes/Route.name";
+import { Telegram } from "@material-ui/icons";
 function SummaryView({
   title,
   statustitle,
@@ -14,6 +15,7 @@ function SummaryView({
   rating,
   cvList,
   date,
+  // handleSendReminder
 }) {
   const ChangeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "NA";
@@ -118,7 +120,17 @@ function SummaryView({
           )}
         </div>
         <div>
-          {status !== "PENDING" && <span className={styles.date}>{date}</span>}
+          {status !== "PENDING" ? (
+            <span className={styles.date}>{date}</span>
+          ) : (
+            <div
+              className={styles.iconWrapper}
+              //  onClick={handleSendReminder}
+            >
+              <Telegram style={{ color: "#2896E9" }} />
+              <span className={styles.sendReminder}>Send Reminder</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

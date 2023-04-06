@@ -96,6 +96,17 @@
   font-weight: 600;
   align-items: center;
 }
+.sendReminder{
+  font-size: .875rem;
+  font-weight: 600;
+  color: #2896E9;
+}
+.iconWrapper{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 @media (max-width: 1100px) {
   .mappedCard{
     width: 100%;
