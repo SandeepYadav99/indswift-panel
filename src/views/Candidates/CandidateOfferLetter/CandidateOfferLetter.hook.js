@@ -123,6 +123,7 @@ function CandidateOfferLetterHook({ location }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [listData, setListData] = useState({
     LOCATIONS: [],
+    DESIGNATIONS:[]
   });
 
 
@@ -145,7 +146,7 @@ function CandidateOfferLetterHook({ location }) {
           candidate_id: candidateId,
           job_id: jobId,
         }),
-        serviceGetList(["LOCATIONS"]),
+        serviceGetList(["LOCATIONS","DESIGNATIONS"]),
       ]).then((promises) => {
         const dataValues = promises[0]?.value?.data;
         setCandidateData(dataValues?.details);

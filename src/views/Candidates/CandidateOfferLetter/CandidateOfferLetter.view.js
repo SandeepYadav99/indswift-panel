@@ -123,6 +123,41 @@ const CandidateOfferLetter = ({ location }) => {
             </CustomSelectField>
           </div>
         </div>
+        <div className={"formFlex"} style={{ alignItems: "center" }}>
+          <div className="formGroup">
+            <CustomAutoComplete
+              autoCompleteProps={{
+                freeSolo: false,
+                getOptionLabel: (option) => option.name,
+              }}
+              dataset={listData.DESIGNATIONS}
+              datasetKey={"name"}
+              onTextChange={(text, value) => {
+                changeTextData(text, "designation");
+              }}
+              variant={"outlined"}
+              label={"Designation"}
+              name={"designation"}
+              isError={errorData?.designation}
+              value={form?.designation}
+            />
+          </div>
+          <div className="formGroup">
+            <div className={styles.emp}>
+              <div>
+                Grade:
+                <span className={styles.val}>
+                  {/* {form?.replacing_person?.grade_name} */}
+                </span>
+              </div>
+              <div>
+                Cader: <span className={styles.val}>
+                  {/* {form?.replacing_person?.cadre} */}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
@@ -806,7 +841,7 @@ const CandidateOfferLetter = ({ location }) => {
           </h4>
         </div>
         <div className={styles.radioWrapper}>
-          <div className={styles.amrfHeading} id='amrf_avail'>
+          <div className={styles.amrfHeading} id="amrf_avail">
             Is AMRF Available
           </div>
           <FormControl>
@@ -823,7 +858,12 @@ const CandidateOfferLetter = ({ location }) => {
                 label="Yes"
                 labelPlacement="Yes"
               />
-              <FormControlLabel value={false} control={<Radio />} label="No"  sx={{ ml: 2 }}/>
+              <FormControlLabel
+                value={false}
+                control={<Radio />}
+                label="No"
+                sx={{ ml: 2 }}
+              />
             </RadioGroup>
           </FormControl>
         </div>

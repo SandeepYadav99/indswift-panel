@@ -17,7 +17,7 @@
   color: #e92828;
   font-weight: bold;
 }
-.radioWrapper{
+.radioWrapper {
   display: flex;
   align-items: center;
   gap: 50px;
@@ -35,7 +35,20 @@
   justify-content: flex-end;
   margin: 20px 0px;
 }
-.amrfHeading{
+.amrfHeading {
   margin-left: 15px;
-  font-size: .875rem;
+  font-size: 0.875rem;
+}
+.emp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.val{
+  color: grey;
+  font-weight: 300;
+  margin-left: 10px;
 }
