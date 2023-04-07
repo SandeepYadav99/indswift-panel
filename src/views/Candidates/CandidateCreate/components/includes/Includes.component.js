@@ -71,7 +71,7 @@ const IncludeForm = ({data, currency, listWarehouse, errorData: errorForm, form,
                     err[key] = true;
                 }
             });}
-            if(val?.degree?.length > 0 && val?.degree?.includes(' ') ){
+            if(val?.degree?.trim()?.length === 0 ){
                 err['degree'] =true
             }
             if (Object.keys(err).length > 0) {
