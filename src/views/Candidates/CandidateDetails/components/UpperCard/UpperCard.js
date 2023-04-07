@@ -24,9 +24,9 @@ const UpperCard = ({
 
   const isRecruiter = useMemo(() => {
     const arr = [Constants.ROLES.RECRUITER, Constants.ROLES.CORPORATE_HR];
-    if (Constants.is_development) {
+    // if (Constants.is_development) {
       arr.push(Constants.ROLES.ADMIN);
-    }
+    // }
     return arr.indexOf(role) >= 0;
   }, [role]);
 

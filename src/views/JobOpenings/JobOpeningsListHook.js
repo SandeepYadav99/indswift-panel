@@ -10,7 +10,7 @@ import historyUtils from "../../libs/history.utils";
 import {serviceGetCustomList} from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
-import { serviceGetList } from "../../services/Common.service";
+import {serviceGetList} from "../../services/Common.service";
 import constants from "../../config/constants";
 
 const useJobOpeningsList = ({}) => {
@@ -23,19 +23,23 @@ const useJobOpeningsList = ({}) => {
         LOCATIONS: [],
         GRADES: [],
         DEPARTMENTS: [],
-      });
+    });
     const dispatch = useDispatch();
     const isMountRef = useRef(false);
-    const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.job_openings);
+    const {
+        sorting_data: sortingData,
+        is_fetching: isFetching,
+        query,
+        query_data: queryData
+    } = useSelector(state => state.job_openings);
 
-    const status=[{id:'ACTIVE',name:'ACTIVE'},{id:'INACTIVE',name:'INACTIVE'}]
     useEffect(() => {
         serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
-          if (!res.error) {
-            setListData(res.data);
-          }
+            if (!res.error) {
+                setListData(res.data);
+            }
         });
-      }, []);
+    }, []);
 
     useEffect(() => {
         dispatch(actionFetchJobOpenings(1, sortingData, {
@@ -61,7 +65,7 @@ const useJobOpeningsList = ({}) => {
         dispatch(actionSetPageJobOpeningsRequests(type));
     }, []);
 
-    const handleDataSave = useCallback((data, type) =>  {
+    const handleDataSave = useCallback((data, type) => {
         // this.props.actionChangeStatus({...data, type: type});
         if (type == 'CREATE') {
             dispatch(actionCreateJobOpenings(data));
@@ -92,7 +96,6 @@ const useJobOpeningsList = ({}) => {
         console.log('_handleSearchValueChange', value);
         queryFilter('SEARCH_TEXT', value);
     }, [queryFilter]);
-
 
 
     const handleSortOrderChange = useCallback((row, order) => {
@@ -128,11 +131,11 @@ const useJobOpeningsList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
-        historyUtils.push(RouteName.JOB_OPENINGS_DETAILS+data.id) //+data.id
+        historyUtils.push(RouteName.JOB_OPENINGS_DETAILS + data.id) //+data.id
     }, []);
 
     const handleViewEditDetails = useCallback((data) => {
-        historyUtils.push(RouteName.JOB_OPENINGS_UPDATE+data.id) //+data.id
+        historyUtils.push(RouteName.JOB_OPENINGS_UPDATE + data.id) //+data.id
     }, []);
     const configFilter = useMemo(() => {
         return [
@@ -140,29 +143,23 @@ const useJobOpeningsList = ({}) => {
                 label: "Location",
                 name: "location_id",
                 type: "selectObject",
-                custom: { extract: { id: "id", title: "name" } },
+                custom: {extract: {id: "id", title: "name"}},
                 fields: listData?.LOCATIONS,
-              },
-              {
-                label: "status",
-                name: "status",
-                type: "selectObject",
-                custom: { extract: { id: "id", title: "name" } },
-                fields: status,
-              },
-              {
+            },
+            {label: 'Status', name: 'status', type: 'select', fields: ['ACTIVE', 'INACTIVE', 'CLOSED']},
+            {
                 label: "Department",
                 name: "department_id",
                 type: "selectObject",
-                custom: { extract: { id: "id", title: "name" } },
+                custom: {extract: {id: "id", title: "name"}},
                 fields: listData?.DEPARTMENTS,
-              },
-              {
+            },
+            {
                 label: "Created Date",
-                options: { maxDate: new Date() },
+                options: {maxDate: new Date()},
                 name: "createdAt",
                 type: "date",
-              },
+            },
         ];
     }, [listData]);
 

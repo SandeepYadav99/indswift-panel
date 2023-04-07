@@ -147,12 +147,12 @@ const CandidateOfferLetter = ({ location }) => {
               <div>
                 Grade:
                 <span className={styles.val}>
-                  {/* {form?.replacing_person?.grade_name} */}
+                   {form?.grade}
                 </span>
               </div>
               <div>
                 Cader: <span className={styles.val}>
-                  {/* {form?.replacing_person?.cadre} */}
+                   {form?.cadre}
                 </span>
               </div>
             </div>
