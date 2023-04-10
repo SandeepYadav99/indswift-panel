@@ -96,7 +96,7 @@ const ReviewOLR = ({ location }) => {
                 {obj?.replacing_person?.name}
               </div> : <div>N/A</div>
             }
-          
+
           <br />
           {obj?.replacing_person?.code}
         </div>
@@ -134,6 +134,12 @@ const ReviewOLR = ({ location }) => {
         label: "REPLACING PERSON",
         sortable: false,
         render: (temp, all) => <div>{renderReplacingCell(all)}</div>,
+      },
+      {
+        key: "olr",
+        label: "OLR",
+        sortable: false,
+        render: (temp, all) => <div>{all?.olr}</div>,
       },
       {
         key: "status",

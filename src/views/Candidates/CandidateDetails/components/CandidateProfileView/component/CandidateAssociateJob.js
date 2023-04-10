@@ -36,7 +36,7 @@ const CandidateAssociateJob = ({ data }) => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Candidate Grade:</span>
-                {/* <span className={styles.valueWrap}>{data?.state}</span> */}
+                 <span className={styles.valueWrap}>{data?.job_opening?.grade?.code}</span>
               </div>
             </div>
             <div className={styles.right}>
