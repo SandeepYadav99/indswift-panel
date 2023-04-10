@@ -32,7 +32,7 @@ function CandidateDetails({ data }) {
             <div className={styles.key}>
               <span className={styles.value}>Grade:</span>
               <span className={styles.valueWrap}>
-                {data?.job_data?.grade?.code}
+                {data?.grade?.code}
               </span>
             </div>
             <div className={styles.key}>

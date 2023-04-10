@@ -55,7 +55,7 @@ export default {
   STATUS: {
     PENDING: "pending",
     WAITING: "waiting",
-    ACCEPTED: "success",
+    ACCEPTED: "warning",
     ACTIVE: "warning",
     INACTIVE: "error",
     SUSPENDED: "error",
@@ -78,7 +78,9 @@ export default {
     'Interview Rejected' :'error',
     'PENDING REVIEW':'pending',
     'Pending Review':'pending',
-    'CV SHORTLIST REJECTED':'error'
+    'CV SHORTLIST REJECTED':'error',
+    'DROPPED':'nosourcing',
+    'AUTO REJECTED':'error'
   },
   VACANCY_TYPE: {
     RAP: 'RAP',

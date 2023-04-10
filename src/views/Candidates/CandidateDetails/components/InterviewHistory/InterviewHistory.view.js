@@ -44,7 +44,13 @@ function InterviewHistory({ historyDetail, historyData }) {
               rating={item?.rating}
               date={item?.status_updated_on}
             />
-            
+            <SummaryView
+              status={item?.offer_letter_status}
+              title="Offer Letter"
+              statustitle="Offer Letter Final Status:"
+              offerList={item?.offer_letter_feedback}
+              date={item?.offer_letter_status_updated_on}
+            />
           </div>
         );
       })}

@@ -57,22 +57,8 @@
 }
 .statusColor {
   display: flex;
+  align-items: center;
   gap: 10px;
-}
-.coloredStatus {
-  color: #29cb97;
-  font-size: 0.875rem;
-  font-weight: bold;
-}
-.coloredStatusRed{
-  color: #E92828;
-  font-size: 0.875rem;
-  font-weight: bold;
-}
-.coloredStatusPending{
-  color: #919BB0;
-  font-size: 0.875rem;
-  font-weight: bold;
 }
 .starimg {
   width: 15px;

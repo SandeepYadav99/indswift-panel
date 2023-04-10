@@ -53,7 +53,7 @@ const EmployeeVersionList = ({}) => {
             },
             {
                 key: 'emp.emp_code',
-                label: 'Code',
+                label: 'Employee id',
                 sortable: false,
                 render: (temp, all) => <div>{all?.employee?.code}</div>,
             },
@@ -121,7 +121,7 @@ const EmployeeVersionList = ({}) => {
                 <PageBox>
                     <div className={styles.headerContainer}>
                         <div>
-                            <span className={styles.title}>EmployeeVersion List</span>
+                            <span className={styles.title}>Employee Profile Changes</span>
                             <div className={styles.newLine}/>
                         </div>
                     </div>

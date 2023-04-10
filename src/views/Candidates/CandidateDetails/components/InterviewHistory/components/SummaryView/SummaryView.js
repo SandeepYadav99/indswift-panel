@@ -15,6 +15,7 @@ function SummaryView({
   rating,
   cvList,
   date,
+  offerList,
   // handleSendReminder
 }) {
   const ChangeUnderScore = (value) => {
@@ -42,7 +43,7 @@ function SummaryView({
                 <div className={styles.nameContainer}>
                   <span>{item?.employee?.name}</span>
                   <div className={styles.date}>{item?.createdAtText}</div>
-                  { item?.interview_status &&
+                  {item?.interview_status &&
                     item?.interview_status !== "PENDING" && (
                       <span
                         className={styles.hyperlinkText}
@@ -96,22 +97,48 @@ function SummaryView({
         ) : (
           <></>
         )}
+        {offerList?.length ? (
+          offerList?.map((item, index) => (
+            <div className={styles.mappedCard} key={`OfferList_${index}`}>
+              <div className={styles.imageNameContainer}>
+                <div className={styles.imageContainer}>
+                  <img
+                    src={
+                      item?.employee?.image ? item?.employee?.image : DefaultImg
+                    }
+                  />
+                </div>
+
+                <div className={styles.nameContainer}>
+                  <span>{item?.employee?.name}</span>
+                  <div className={styles.date}>{item?.createdAtText}</div>
+                  {item?.interview_status &&
+                    item?.interview_status !== "PENDING" && (
+                      <span
+                        className={styles.hyperlinkText}
+                        onClick={() => feedbackDetailPage(item)}
+                      >
+                        View feedback
+                      </span>
+                    )}
+                </div>
+              </div>
+              <div className={styles.SummaryViewstar}>
+                <div className={styles.buttonWrapper}>
+                  <StatusPill status={ChangeUnderScore(item?.status)} />
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <></>
+        )}
       </div>
 
       <div className={styles.statusWrapper}>
         <div className={styles.statusColor}>
           <span className={styles.date}>{statustitle} </span>
-          <span
-            className={
-              status === "REJECTED"
-                ? styles.coloredStatusRed
-                : status === "PENDING"
-                ? styles.coloredStatusPending
-                : styles.coloredStatus
-            }
-          >
-            {ChangeUnderScore(status)}
-          </span>
+          <StatusPill style={{border:'none',minWidth:'0',padding:'0',fontSize:'0.875rem'}} status={ChangeUnderScore(status)} />
           {rating && (
             <div className={styles.starWrapper}>
               <img className={styles.starimg} src={star} />

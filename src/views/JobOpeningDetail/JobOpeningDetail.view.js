@@ -78,6 +78,11 @@ const JobOpeningDetail = () => {
                   <StatusPill status={data?.is_sourcing ? 'SOURCING': 'NOSOURCING'}/>
                 </span>
               </div>
+              <div className={styles.key21}>
+                <span className={styles.value}>Notes:</span>
+                <span>{data?.note ? data?.note  : "NA"}</span>
+                
+              </div>
             </div>
             <div className={styles.vertical}></div>
             <div className={styles.right}>
