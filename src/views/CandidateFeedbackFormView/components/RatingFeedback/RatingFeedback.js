@@ -72,7 +72,10 @@ function RatingFeedback({ title, question, feedback, ratingValue, isOverall }) {
         <div className={styles.emojWrapper}>
           <div className={styles.emojCard}>
             <img src={images?.[getratingValues(ratingValue)]?.active} />
-            <span>{images?.[getratingValues(ratingValue)]?.text}</span>
+            {
+              !isOverall && 
+              <span>{images?.[getratingValues(ratingValue)]?.text}</span>
+            }
           </div>
         </div>
       )}

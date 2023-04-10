@@ -6,6 +6,16 @@ import RatingFeedback from "./components/RatingFeedback/RatingFeedback";
 import styles from "./Style.module.css";
 function CandidateFeedbackFormDetail() {
   const { data ,handleSubmit} = useCandidateFeedbackFormView({});
+  const getOverallRating=(value)=>{
+    if(value){
+      if(value === 2){
+        return 5
+      }
+      else{
+        return value
+      }
+    }
+  }
   return (
     <div className={styles.evaluationFormWrapper}>
       <div className={styles.wrapper}>
@@ -97,9 +107,8 @@ function CandidateFeedbackFormDetail() {
               isOverall={data?.interview_status}
               title="Overall Impression and Recommendation"
               question="Summary of your perceptions of the candidate’s strengths/weaknesses. Final comments and recommendations for proceeding with the candidate."
-              // rating="Unsatisfactory (1)"
               feedback={data?.overall?.note}
-              ratingValue={data?.overall?.value}
+              ratingValue={getOverallRating(data?.overall?.value)}
             />
           </div>
           <div className={styles.btnContainer}>

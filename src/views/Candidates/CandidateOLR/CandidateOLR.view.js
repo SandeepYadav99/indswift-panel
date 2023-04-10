@@ -109,8 +109,7 @@ function CandidateOLR({ location }) {
           />
         </div>
       </div>)}
-      {/* <PdfViewer>
-      </PdfViewer> */}
+       
       {isReview && (
         <div className={styles.btnReviewWrapper}>
           <div className={styles.isReviewBtnContainer}>

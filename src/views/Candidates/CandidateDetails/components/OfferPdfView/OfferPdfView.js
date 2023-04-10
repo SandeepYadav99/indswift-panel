@@ -1,10 +1,14 @@
 import { ButtonBase } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-import React, { useState } from "react";
-import historyUtils from "../../../../../libs/history.utils";
-import RouteName from "../../../../../routes/Route.name";
+import React from "react";
 import styles from "./Style.module.css";
-function PdfViewer({ children, handleShare, handleToggle, isSubmitting }) {
+function PdfViewer({
+  children,
+  handleShare,
+  handleToggle,
+  isSubmitting,
+  candidateStatus,
+}) {
   return (
     <div className={styles.PdfViewWrapper}>
       <div className={styles.innerPdfCont}>
@@ -15,22 +19,29 @@ function PdfViewer({ children, handleShare, handleToggle, isSubmitting }) {
           />
         </div>
         {children}
-        <div className={styles.PdfBtnWrapper}>
-          <div className={styles.editBtn2}>
-            <ButtonBase className={styles.edit} onClick={() => handleToggle()}>
-              CANCEL
-            </ButtonBase>
-          </div>
-          <div>
-            <ButtonBase
+        {candidateStatus !== "SHARED_OFFER" ? (
+          <div className={styles.PdfBtnWrapper}>
+            <div className={styles.editBtn2}>
+              <ButtonBase
+                className={styles.edit}
+                onClick={() => handleToggle()}
+              >
+                CANCEL
+              </ButtonBase>
+            </div>
+            <div>
+              <ButtonBase
                 disabled={isSubmitting}
-              className={styles.createBtn}
-              onClick={handleShare}
-            >
-              share with candidate
-            </ButtonBase>
+                className={styles.createBtn}
+                onClick={handleShare}
+              >
+                share with candidate
+              </ButtonBase>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className={styles.pdfBtnShared}></div>
+        )}
       </div>
     </div>
   );

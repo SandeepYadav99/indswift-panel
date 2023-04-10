@@ -94,12 +94,7 @@ const CandidateStatusDialog = ({ isOpen, handleToggle, empId }) => {
               >
                 {[
                   "ACTIVE",
-                  "RESIGNED",
-                  "TERMINATED",
-                  "RETIRED",
-                  "EXPIRED",
-                  "ABSCONDED",
-                  "INACTIVE",
+                  "DROPPED"
                 ].map((val) => {
                   return (
                     <MenuItem value={val} key={val}>

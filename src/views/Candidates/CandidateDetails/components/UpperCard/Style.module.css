@@ -129,7 +129,8 @@
   
   }
   .btnUpper21{
-    visibility: hidden;
+    display: none;
+    /* visibility: hidden; */
   }
   .btnUpper >.MuiButton-root{
     min-width: 30px !important;

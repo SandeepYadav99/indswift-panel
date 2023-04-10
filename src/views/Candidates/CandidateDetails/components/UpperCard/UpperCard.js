@@ -83,7 +83,7 @@ const UpperCard = ({
                 <InfoOutlined fontSize={"small"} />
                 <span className={styles.actionBtnSpan}>Extend Offer</span>
               </ActionButton>)}
-              <div>
+              <div className={styles.statusWrapInner}>
                 <StatusPill
                   status={removeUnderScore(data?.status)}
                   // style={{ color: "#fff", borderColor: "#fff" }}
@@ -97,7 +97,7 @@ const UpperCard = ({
                   <span className={styles.actionBtnSpan}>Share Offer</span>
                 </ActionButton>)}
               </div>
-              <div className={styles.btnUpper21}>
+              <div className={styles.btnUpper}>
                 <ActionButton onClick={handleStatusToggle}>
                   <InfoOutlined fontSize={"small"} />
                   <span className={styles.actionBtnSpan}>Update Status</span>
@@ -114,6 +114,7 @@ const UpperCard = ({
         </div>
       </div>
       <ShareOfferDialog
+          candidateStatus={data?.status}
           handleShare={handleShare}
           pdf={data?.offer_letter_path}
           offerId={data?.offer_id}

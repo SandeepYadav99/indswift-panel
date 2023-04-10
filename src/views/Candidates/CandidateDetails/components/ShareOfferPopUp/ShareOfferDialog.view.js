@@ -31,7 +31,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ShareOfferDialog = ({ isOpen, handleToggle, offerId, pdf }) => {
+const ShareOfferDialog = ({ isOpen, handleToggle, offerId, pdf,candidateStatus }) => {
   const classes = useStyles();
   const {
     handleShare,
@@ -51,7 +51,7 @@ const ShareOfferDialog = ({ isOpen, handleToggle, offerId, pdf }) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <PdfViewer isSubmitting={isSubmitting} handleShare={handleShare} handleToggle={handleToggle}>
+        <PdfViewer isSubmitting={isSubmitting} handleShare={handleShare} handleToggle={handleToggle} candidateStatus={candidateStatus}>
           <ViewDocuments location={{state: { url: pdf }}} />
         </PdfViewer>
       </Dialog>

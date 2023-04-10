@@ -76,7 +76,7 @@ function CandidateDetails() {
   return (
     <div>
       <UpperCard
-          handleShare={handleShare}
+        handleShare={handleShare}
         data={candidateData}
         handleToggle={toggleResetDialog}
         handleStatusToggle={toggleStatusDialog}
@@ -110,11 +110,12 @@ function CandidateDetails() {
         {/* <UpdatePRCDialog
           isOpen={isResetDialog}
           handleToggle={toggleResetDialog}
-        />
+        /> */}
         <CandidateStatusDialog
           isOpen={isUpdateDialog}
           handleToggle={toggleStatusDialog}
-        /> */}
+        />
+        
         <div className={styles.paperBackground}>
           <TabPanel value={value} index={0} dir={"ltr"}>
             <CandidateProfileView data={candidateData} />
