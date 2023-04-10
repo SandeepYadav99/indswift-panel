@@ -32,8 +32,8 @@
 .rejectBtn {
     margin-right: 20px !important;
     border-color: red !important;
-    color: white !important;
-    background: red !important;
+    color: red !important;
+    /* background: red !important; */
 }
 
 .tableFlex {

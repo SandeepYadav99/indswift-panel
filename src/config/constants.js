@@ -55,7 +55,7 @@ export default {
   STATUS: {
     PENDING: "pending",
     WAITING: "waiting",
-    ACCEPTED: "success",
+    ACCEPTED: "warning",
     ACTIVE: "warning",
     INACTIVE: "error",
     SUSPENDED: "error",
