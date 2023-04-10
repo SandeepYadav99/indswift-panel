@@ -125,7 +125,7 @@ const ReviewOLR = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.job_details?.designation}/{all?.job_details?.department}
+            {all?.designation?.name}/{all?.job_details?.department}
           </div>
         ),
       },

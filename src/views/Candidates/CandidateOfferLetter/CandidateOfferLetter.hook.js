@@ -172,7 +172,16 @@ function CandidateOfferLetterHook({location}) {
                 const listData = promises[2]?.value?.data;
                 setListData(listData);
                 let designation = {};
-              if (dataValues?.details) {
+              if (offerLetter) {
+                if (offerLetter?.designation?.id) {
+                    const index = listData.DESIGNATIONS?.findIndex(
+                        (val) => val.id == offerLetter?.designation?.id
+                    );
+                    if (index >= 0) {
+                        designation = listData.DESIGNATIONS[index];
+                    }
+                }
+              } else if (dataValues?.details) {
                 if (dataValues?.details?.job_opening?.designation_id) {
                   designation = dataValues?.details?.job_opening?.designation
                 }
@@ -184,13 +193,7 @@ function CandidateOfferLetterHook({location}) {
                     if (index >= 0) {
                         offerLetter.reporting_location = listData?.LOCATIONS[index];
                     }
-                    LogUtils.log('test', {
-                        ...initialForm,
-                        ...offerLetter,
-                        ...offerLetter?.salary,
-                        designation: designation,
-                        letter_id: offerLetter?.id,
-                    });
+
                     setTimeout(() => {
                       setForm({
                         ...initialForm,
