@@ -14,6 +14,8 @@ import Constants from "../config/constants";
 import CandidateInfo from "../views/Candidates/CandidateInfo/CandidateInfo.view";
 import ClaimsList from "../views/ClaimsManagement/ClaimsList/ClaimsList.container";
 import ClaimsDetail from "../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view";
+import ClaimMarriageCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimMarriageCard/ClaimMarriageCard.view";
+import ClaimMobileCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimMobileCard/ClaimMobileCard.view";
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -926,6 +928,40 @@ const dashboardRoutes = [
         navbarName: "Claims List",
         icon: PeopleOutlined,
         component: ClaimsDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CLAIMS_MARRIGE}:id`,
+        sidebarName: "Claims Marrige",
+        navbarName: "Claims Marrige",
+        icon: PeopleOutlined,
+        component: ClaimMarriageCard,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    },{
+        path: `${RouteName.CLAIMS_MOBILE}:id`,
+        sidebarName: "Claims Mobile",
+        navbarName: "Claims Mobile",
+        icon: PeopleOutlined,
+        component: ClaimMobileCard,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    },{
+        path: `${RouteName.CLAIMS_CAR}:id`,
+        sidebarName: "Claims Car",
+        navbarName: "Claims Car",
+        icon: PeopleOutlined,
+        component: ClaimMobileCard,
         is_sidebar: false,
         is_protect: true,
         should_regex: true,

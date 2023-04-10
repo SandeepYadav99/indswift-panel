@@ -93,5 +93,10 @@ export default {
   CV_SHORTLIST_LIST: '/cv/shortlist/',
 
   CLAIMS_LIST:'/cm/claims' ,
-  CLAIMS_DETAILS:'/cm/details/'
+  CLAIMS_DETAILS:'/cm/details/',
+  CLAIMS_MARRIGE:'/cm/marrige/',
+  CLAIMS_MOBILE:'/cm/mobile/',
+  CLAIMS_CAR:'/cm/car/',
+
+
 };
