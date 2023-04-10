@@ -19,7 +19,6 @@ function PdfViewer({
           />
         </div>
         {children}
-        {candidateStatus !== "SHARED_OFFER" ? (
           <div className={styles.PdfBtnWrapper}>
             <div className={styles.editBtn2}>
               <ButtonBase
@@ -39,9 +38,7 @@ function PdfViewer({
               </ButtonBase>
             </div>
           </div>
-        ) : (
-          <div className={styles.pdfBtnShared}></div>
-        )}
+           {/* <div className={styles.pdfBtnShared}></div> */}
       </div>
     </div>
   );
