@@ -48,7 +48,7 @@ function SalaryDetails({ data }) {
                   getSumValue(
                     data?.salary?.earning_four,
                     data?.salary?.earning_five,
-                    -data?.salary?.earning_three_pli
+                    -(data?.salary?.stability_incentive)
                   )
                 )}
               </span>
