@@ -95,9 +95,9 @@ export default {
 
   CLAIMS_LIST:'/cm/claims' ,
   CLAIMS_DETAILS:'/cm/details/',
-  CLAIMS_MARRIGE:'/cm/marrige/',
-  CLAIMS_MOBILE:'/cm/mobile/',
-  CLAIMS_CAR:'/cm/car/',
+  CLAIMS_MARRIGE:'/cm/marrige',
+  CLAIMS_MOBILE:'/cm/mobile',
+  CLAIMS_CAR:'/cm/car',
 
 
 };

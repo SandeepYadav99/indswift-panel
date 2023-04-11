@@ -4,33 +4,27 @@ import history from "../../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ClaimUpperCard from "../ClaimUpperCard/ClaimUpperCard";
 import styles from "./Style.module.css";
-import ClaimBills from "../ClaimBills/ClaimBills";
 import ClaimInfo from "../ClaimInfo/ClaimInfo";
-import {
-  FormControl,
-  FormControlLabel,
-  RadioGroup,
-  Radio,
-} from "@material-ui/core";
+
 import { useState } from "react";
-import useClaimMarrigeCard from "./ClaimMarrigeCard.hook";
+import useClaimMarrigeCard from "./ClaimCarCard.hook";
 import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
 import File from "../../../../../components/FileComponent/FileComponent.component";
 import CustomDatePicker from "../../../../../components/FormFields/DatePicker/CustomDatePicker";
-function ClaimMarriageCard() {
+function ClaimCarCard() {
   const {
     form,
     changeTextData,
     onBlurHandler,
     handleSubmit,
+    declaration,
+    setDeclaration,
     isLoading,
     isSubmitting,
     errorData,
     jobDetails,
     selectedJobId,
     editData,
-    declaration,
-    setDeclaration
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -46,7 +40,7 @@ function ClaimMarriageCard() {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span className={"capitalize"}>
-              <b>Marriage Gift Card Claim</b>
+              <b>Car Maintenance Claim</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -55,38 +49,51 @@ function ClaimMarriageCard() {
       <ClaimUpperCard />
       <div className={styles.plainPaper}>
         <ClaimInfo />
-        <div className={styles.formDetailWrapper}>
-          <div className={styles.value}>Marriage of:</div>
-        </div>
+
         <div className={styles.formSelectWrapper}>
-          <FormControl component="fieldset">
-            <RadioGroup
-              value={form?.marrige_of}
-              onChange={(value) => {
-                changeTextData(value, "marrige_of");
-              }}
-              row
-            >
-              <FormControlLabel value="Self" control={<Radio />} label="Self" />
-              <FormControlLabel
-                value="Daughter"
-                control={<Radio />}
-                label="Daughter"
+          <div className={"formFlex"} style={{ alignItems: "center" }}>
+            <div className="formGroup1">
+              <CustomTextField
+                type="number"
+                isError={errorData?.vehicle_no}
+                errorText={errorData?.vehicle_no}
+                label={"Vehicle No."}
+                value={form?.vehicle_no}
+                onTextChange={(text) => {
+                  changeTextData(text, "vehicle_no");
+                }}
+                onBlur={() => {
+                  onBlurHandler("vehicle_no");
+                }}
               />
-              <FormControlLabel value="Son" control={<Radio />} label="Son" />
-            </RadioGroup>
-          </FormControl>
-          <div className={styles.formWrapper21}>
+            </div>
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Date of Marrige"}
-                maxDate={new Date()}
+                label={"Bill Date"}
+                // maxDate={new Date()}
                 onChange={(date) => {
-                  changeTextData(date, "dom");
+                  changeTextData(date, "bill_date");
                 }}
-                value={form?.dom}
-                isError={errorData?.dom}
+                value={form?.bill_date}
+                isError={errorData?.bill_date}
+              />
+            </div>
+          </div>
+          <div className={"formFlex"} style={{ alignItems: "center" }}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                type="number"
+                isError={errorData?.bill_amount}
+                errorText={errorData?.bill_amount}
+                label={"Bill Amount"}
+                value={form?.name}
+                onTextChange={(text) => {
+                  changeTextData(text, "bill_amount");
+                }}
+                onBlur={() => {
+                  onBlurHandler("bill_amount");
+                }}
               />
             </div>
             <div className={"formGroup"}>
@@ -95,7 +102,7 @@ function ClaimMarriageCard() {
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
                 fullWidth={true}
                 name="image"
-                label=""
+                label="Add Attachment"
                 accept={"application/pdf,application/msword,image/*"}
                 link={editData?.document ? editData?.document : null}
                 error={errorData?.document}
@@ -113,7 +120,7 @@ function ClaimMarriageCard() {
       </div>
       <div className={styles.cleckboxWrapper}>
         <div className={styles.checkBox}>
-        <input
+          <input
             checked={declaration}
             type="checkbox"
             id="confirmation"
@@ -122,16 +129,14 @@ function ClaimMarriageCard() {
               setDeclaration((s)=>!s);
             }}
           />
-          <label htmlFor="confirmation">
-            I declare the information shared is best of my knowledge.
-          </label>
+          <label htmlFor="confirmation"> I declare the information shared is best of my knowledge.</label>
           <br />
         </div>
       </div>
       <div className={styles.btnCont}>
         <ButtonBase
-          type={"button"}
           disabled={!declaration ? true :false}
+          type={"button"}
           className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >
@@ -142,4 +147,4 @@ function ClaimMarriageCard() {
   );
 }
 
-export default ClaimMarriageCard;
+export default ClaimCarCard;

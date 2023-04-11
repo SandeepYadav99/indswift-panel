@@ -23,6 +23,8 @@ function ClaimMobileCard() {
     jobDetails,
     selectedJobId,
     editData,
+    declaration,
+    setDeclaration
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -53,15 +55,15 @@ function ClaimMobileCard() {
             <div className="formGroup1">
               <CustomTextField
                 type="number"
-                isError={errorData?.phone_no}
-                errorText={errorData?.phone_no}
+                isError={errorData?.official_contact}
+                errorText={errorData?.official_contact}
                 label={"Official Phone No."}
-                value={form?.name}
+                value={form?.official_contact}
                 onTextChange={(text) => {
-                  changeTextData(text, "phone_no");
+                  changeTextData(text, "official_contact");
                 }}
                 onBlur={() => {
-                  onBlurHandler("phone_no");
+                  onBlurHandler("official_contact");
                 }}
               />
             </div>
@@ -69,7 +71,7 @@ function ClaimMobileCard() {
               <CustomDatePicker
                 clearable
                 label={"Bill Date"}
-                maxDate={new Date()}
+                // maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "bill_date");
                 }}
@@ -102,13 +104,13 @@ function ClaimMobileCard() {
                 name="image"
                 label="Add Attachment"
                 accept={"application/pdf,application/msword,image/*"}
-                link={editData?.attachment ? editData?.attachment : null}
-                error={errorData?.attachment}
-                value={form?.attachment}
+                link={editData?.document ? editData?.document : null}
+                error={errorData?.document}
+                value={form?.document}
                 placeholder={"Add Attachment"}
                 onChange={(file) => {
                   if (file) {
-                    changeTextData(file, "attachment");
+                    changeTextData(file, "document");
                   }
                 }}
               />
@@ -118,23 +120,24 @@ function ClaimMobileCard() {
       </div>
       <div className={styles.cleckboxWrapper}>
         <div className={styles.checkBox}>
-          <input
-            checked={form?.confirmation}
+        <input
+            checked={declaration}
             type="checkbox"
             id="confirmation"
             name="confirmation"
             onChange={() => {
-              changeTextData(!form?.confirmation, "confirmation");
+              setDeclaration((s)=>!s);
             }}
           />
-          <label htmlFor="confirmation"> Send Email Invite to Candidates</label>
+          <label htmlFor="confirmation"> I declare the information shared is best of my knowledge.</label>
           <br />
         </div>
       </div>
       <div className={styles.btnCont}>
         <ButtonBase
           type={"button"}
-          className={styles.createBtn}
+          disabled={!declaration ? true :false}
+          className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >
           Submit

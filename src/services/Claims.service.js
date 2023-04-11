@@ -1,4 +1,4 @@
-import {formDataRequest, postRequest} from '../libs/AxiosService.util';
+import {formDataRequest, getRequest, postRequest} from '../libs/AxiosService.util';
 
 export async function serviceCreateClaims(params) {
     return await formDataRequest('claims/create', params);
@@ -25,3 +25,6 @@ export async function serviceClaimsHistory (params) {
     return await postRequest('claims/events/history', params);
 }
 
+export async function serviceGetClaimDetail(params){
+    return await getRequest('employee/claims/type',params)
+}

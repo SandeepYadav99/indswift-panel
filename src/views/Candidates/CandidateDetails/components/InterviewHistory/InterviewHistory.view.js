@@ -37,7 +37,7 @@ function InterviewHistory({ historyDetail, historyData }) {
               date={item?.cv_shortlist_updated_on}
             />
             <SummaryView
-              status={item?.status}
+              status={item?.interview_status}
               title="Interview Feedback"
               statustitle="Interview Final Status:"
               InterviewList={item?.interview_feedback}

@@ -8,48 +8,50 @@ import {
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
+import { serviceUpdateMarrigeClaims } from "../../../../../services/ClaimsManagement.service";
 
 const initialForm = {
   marrige_of: "",
   dom: "",
-  resume: null,
+  document: null,
 };
 
 const useClaimMarrigeCard = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [declaration, setDeclaration] = useState(false)
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState(null);
   const { id } = useParams();
 
-  useEffect(() => {
-    if (id) {
-      serviceCandidateEditData({ id: id }).then((res) => {
-        if (!res.error) {
-          const data = res?.data?.details;
-          setEditData(data);
-          const form = {
-            ...initialForm,
-          };
-          Object.keys(initialForm).forEach((key) => {
-            if (key !== "resume" && data?.[key]) {
-              form[key] = data?.[key];
-            }
-          });
-          setForm({
-            ...initialForm,
-            ...form,
-          });
-        }
-      });
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (id) {
+  //     serviceCandidateEditData({ id: id }).then((res) => {
+  //       if (!res.error) {
+  //         const data = res?.data?.details;
+  //         setEditData(data);
+  //         const form = {
+  //           ...initialForm,
+  //         };
+  //         Object.keys(initialForm).forEach((key) => {
+  //           if (key !== "document" && data?.[key]) {
+  //             form[key] = data?.[key];
+  //           }
+  //         });
+  //         setForm({
+  //           ...initialForm,
+  //           ...form,
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, [id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["dom",'resume'];
+    let required = ["dom", "document"];
 
     required.forEach((val) => {
       if (
@@ -72,15 +74,14 @@ const useClaimMarrigeCard = ({}) => {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["resume"].indexOf(key) < 0 && form[key]) {
+        if (["document"].indexOf(key) < 0 && form[key]) {
           fd.append(key, form[key]);
         }
       });
-      if (form?.resume) {
-        fd.append("resume", form?.resume);
+      if (form?.document) {
+        fd.append("document", form?.document);
       }
-
-      let req = serviceCreateCandidate;
+      let req = serviceUpdateMarrigeClaims;
       req(fd).then((res) => {
         if (!res.error) {
           historyUtils.goBack();
@@ -94,13 +95,12 @@ const useClaimMarrigeCard = ({}) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log('>hfhfh',form,errors)
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
     }
-    console.log("servercall")
-    // submitToServer();
+    console.log("servercall");
+    submitToServer();
   }, [checkFormValidation, setErrorData, form]);
 
   const removeError = useCallback(
@@ -155,6 +155,8 @@ const useClaimMarrigeCard = ({}) => {
     handleDelete,
     handleReset,
     editData,
+    declaration,
+    setDeclaration
   };
 };
 

@@ -8,52 +8,52 @@ import {
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
-import { serviceUpdateMobileClaims } from "../../../../../services/ClaimsManagement.service";
+import { serviceUpdateCarClaims } from "../../../../../services/ClaimsManagement.service";
 import { isNum } from "../../../../../libs/RegexUtils";
 
 const initialForm = {
   bill_amount: "",
   bill_date: "",
-  official_contact: "",
+  vehicle_no: "",
   document: null,
 };
 
-const useClaimMobileCard = ({}) => {
+const useClaimCarCard = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [declaration,setDeclaration]=useState(false)
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState(null);
-  const [declaration,setDeclaration]=useState(false)
   const { id } = useParams();
 
-  useEffect(() => {
-    if (id) {
-      serviceCandidateEditData({ id: id }).then((res) => {
-        if (!res.error) {
-          const data = res?.data?.details;
-          setEditData(data);
-          const form = {
-            ...initialForm,
-          };
-          Object.keys(initialForm).forEach((key) => {
-            if (key !== "document" && data?.[key]) {
-              form[key] = data?.[key];
-            }
-          });
-          setForm({
-            ...initialForm,
-            ...form,
-          });
-        }
-      });
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (id) {
+  //     serviceCandidateEditData({ id: id }).then((res) => {
+  //       if (!res.error) {
+  //         const data = res?.data?.details;
+  //         setEditData(data);
+  //         const form = {
+  //           ...initialForm,
+  //         };
+  //         Object.keys(initialForm).forEach((key) => {
+  //           if (key !== "document" && data?.[key]) {
+  //             form[key] = data?.[key];
+  //           }
+  //         });
+  //         setForm({
+  //           ...initialForm,
+  //           ...form,
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, [id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["bill_amount", "bill_date", "official_contact", "document"];
+    let required = ["bill_amount", "bill_date", "vehicle_no", "document"];
 
     required.forEach((val) => {
       if (
@@ -83,7 +83,7 @@ const useClaimMobileCard = ({}) => {
       if (form?.document) {
         fd.append("document", form?.document);
       }
-      let req = serviceUpdateMobileClaims;
+      let req = serviceUpdateCarClaims;
       req(fd).then((res) => {
         if (!res.error) {
           historyUtils.goBack();
@@ -120,13 +120,11 @@ const useClaimMobileCard = ({}) => {
       const t = { ...form };
       if (fieldName === "marrige_of") {
         t[fieldName] = text.target.value;
-      } 
-      else if (fieldName === "official_contact") {
+      } else if (fieldName === "vehicle_no") {
         if (isNum(text) && text.toString().length <= 10) {
           t[fieldName] = text;
         }
-      }
-      else {
+      } else {
         t[fieldName] = text;
       }
       setForm(t);
@@ -148,7 +146,6 @@ const useClaimMobileCard = ({}) => {
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form]);
-
   return {
     form,
     changeTextData,
@@ -167,4 +164,4 @@ const useClaimMobileCard = ({}) => {
   };
 };
 
-export default useClaimMobileCard;
+export default useClaimCarCard;

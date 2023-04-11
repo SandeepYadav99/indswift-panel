@@ -17,6 +17,7 @@ import ClaimsDetail from "../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.vi
 import ClaimMarriageCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimMarriageCard/ClaimMarriageCard.view";
 import ClaimMobileCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimMobileCard/ClaimMobileCard.view";
 import CadreDetails from "../views/CadreDetails/CadreDetails.view";
+import ClaimCarCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimCarCard/ClaimCarCard.view";
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -913,10 +914,10 @@ const dashboardRoutes = [
         sidebarName: "Claim Management",
         navbarName: "Claim Management",
         icon: AssignmentOutlined,
-        is_sidebar: false,
+        is_sidebar: true,
         slug: 'cm',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+        // roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CLAIMS_LIST}`,
@@ -924,11 +925,11 @@ const dashboardRoutes = [
         navbarName: "Claims List",
         icon: PeopleOutlined,
         component: ClaimsList,
-        is_sidebar: false,
+        is_sidebar: true,
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+        // roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CLAIMS_DETAILS}:id`,
@@ -943,7 +944,7 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },
     {
-        path: `${RouteName.CLAIMS_MARRIGE}:id`,
+        path: `${RouteName.CLAIMS_MARRIGE}`,
         sidebarName: "Claims Marrige",
         navbarName: "Claims Marrige",
         icon: PeopleOutlined,
@@ -954,7 +955,7 @@ const dashboardRoutes = [
         parent: 'cm',
         roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },{
-        path: `${RouteName.CLAIMS_MOBILE}:id`,
+        path: `${RouteName.CLAIMS_MOBILE}`,
         sidebarName: "Claims Mobile",
         navbarName: "Claims Mobile",
         icon: PeopleOutlined,
@@ -965,11 +966,11 @@ const dashboardRoutes = [
         parent: 'cm',
         roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },{
-        path: `${RouteName.CLAIMS_CAR}:id`,
+        path: `${RouteName.CLAIMS_CAR}`,
         sidebarName: "Claims Car",
         navbarName: "Claims Car",
         icon: PeopleOutlined,
-        component: ClaimMobileCard,
+        component: ClaimCarCard,
         is_sidebar: false,
         is_protect: true,
         should_regex: true,

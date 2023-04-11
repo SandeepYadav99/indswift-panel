@@ -102,7 +102,7 @@ const JobOpeningsList = ({}) => {
             } , {
                 key: 'age',
                 label: 'Aging',
-                sortable: false,
+                sortable: true,
                 render: (temp, all) => <div>{all?.age}</div>,
             }, {
                 key: 'status',
