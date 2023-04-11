@@ -44,6 +44,23 @@ body{
 .formGroup221 .MuiSelect-selectMenu{
     white-space: normal !important;
 }
+.newMemberWrapper {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px 20px 80px #00000011 !important;
+    background: #ebf9ff;
+    padding: 1.2rem;
+    /* padding: 2rem 1.5rem; */
+    justify-content: space-around;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.newMemberWrapper .slick-prev {
+    left: -14px;
+}
+.newMemberWrapper .slick-next {
+    right: -14px;
+}
 .formGroup2 {
     flex: 1;
     padding: 7px 10px;

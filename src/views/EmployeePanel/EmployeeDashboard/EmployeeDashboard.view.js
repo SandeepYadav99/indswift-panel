@@ -49,6 +49,7 @@ function EmployeeDashboard() {
         <div className={styles.RecentUpdateLowerCard}>
           {/* <EmployeeCategories /> */}
           <EmployeeCategories />
+          <Members />
           {/* <CoverImageGallery/> */}
         </div>
       </div>

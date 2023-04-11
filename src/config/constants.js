@@ -217,7 +217,8 @@ export default {
     JOINING: 'Joining',
     DROPPED: 'Dropped',
     ON_HOLD: 'On Hold',
-    OFFER_LETTER: "Offer Letter"
+    OFFER_LETTER: "Offer Letter",
+    SHARED_OFFER:'Shared Offer'
   },
   SOCKET_EVENTS: {
     NEW_ORDER: "COMPANY_NEW_ORDER",

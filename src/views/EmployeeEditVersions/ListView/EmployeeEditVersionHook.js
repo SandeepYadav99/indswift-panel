@@ -68,7 +68,9 @@ const useEmployeeVersionList = ({}) => {
     },
     [setSidePanel, setEditData]
   );
-
+  const changeEmployeeRoute = useCallback((data) => {
+    historyUtils.push(`/employees/details/${data?.code}`);
+}, []);
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
@@ -196,6 +198,7 @@ const useEmployeeVersionList = ({}) => {
     isSidePanel,
     configFilter,
     handleCreate,
+    changeEmployeeRoute
   };
 };
 

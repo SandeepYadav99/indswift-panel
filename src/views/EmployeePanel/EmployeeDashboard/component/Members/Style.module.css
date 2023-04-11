@@ -11,16 +11,7 @@
 .memberWrapper {
   /* width: 25%; */
 }
-.newMemberWrapper {
-  display: flex;
-  flex-direction: row;
-  box-shadow: 0px 20px 80px #00000011 !important;
-  background: #ebf9ff;
-  padding: 2rem 1.5rem;
-  justify-content: space-around;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
+
 .imageNameContainer {
   display: flex;
   flex-direction: column;
@@ -60,9 +51,13 @@
   display: flex;
   /* flex: 1; */
 }
+.newMemberWrapper .slick-prev{
+  left: -14px;
+}
 .profilePosition{
   text-align: center;
 }
+
 @media (max-width: 1200px) {
   .customSliderWrapper{
     width: 60vw;

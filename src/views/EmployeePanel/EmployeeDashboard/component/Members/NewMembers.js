@@ -11,7 +11,14 @@ const IndividualList = ({ data, isSperatedPage }) => {
     <div className={styles.newMemberCard}>
       <div className={styles.imageNameContainer}>
         <div className={styles.imageWrapper}>
-          <img className={styles.indImage} src={data?.image ? data?.image : require("../../../../../assets/img/image_guy.png")} />
+          <img
+            className={styles.indImage}
+            src={
+              data?.image
+                ? data?.image
+                : require("../../../../../assets/img/image_guy.png")
+            }
+          />
         </div>
         <div className={styles.profileContainer}>
           <span className={styles.profileName}>{data?.name}</span>
@@ -56,7 +63,7 @@ function NewMembers({ data, isSperatedPage }) {
     ],
   };
   return (
-    <div className={styles.newMemberWrapper}>
+    <div className={"newMemberWrapper"}>
       <Slider
         {...settings}
         ref={sliderRef}

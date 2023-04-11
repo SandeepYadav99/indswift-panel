@@ -21,7 +21,7 @@ import VersionDetailView from "./component/VersionDetail.view";
 const EmployeeVersionList = ({}) => {
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel, handleCreate,
-        isCalling, configFilter, warehouses} = useEmployeeVersionList({});
+        isCalling, configFilter, warehouses,changeEmployeeRoute} = useEmployeeVersionList({});
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.employee_versions);
 
@@ -34,8 +34,8 @@ const EmployeeVersionList = ({}) => {
         if (obj) {
             return (
                 <div className={styles.firstCellFlex}>
-                    <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>{obj?.employee?.name}</span> <br/>
+                    <div className={classNames(styles.firstCellInfo, 'openSans')} onClick={()=>changeEmployeeRoute(obj?.employee)}>
+                        <span className={styles.productName}>{obj?.employee?.name}</span>
                     </div>
                 </div>
             );
