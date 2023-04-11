@@ -113,17 +113,29 @@ const CadreList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {/*<IconButton className={'t ableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >*/}
-            {isCorporateHR && (<IconButton
-              onClick={() => {
-                handleEdit(all);
-              }}
+            <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
             >
-              <Edit fontSize={"small"} />
-            </IconButton>)}
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
+             
+            {isCorporateHR && (
+              <IconButton
+                onClick={() => {
+                  handleEdit(all);
+                }}
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            )}
           </div>
         ),
       },
@@ -177,9 +189,11 @@ const CadreList = ({}) => {
             <div className={styles.newLine} style={{ marginLeft: "20px" }} />
           </div>
           <div>
-            {isCorporateHR && (<ButtonBase onClick={handleCreate} className={"createBtn"}>
-              CREATE <Add fontSize={"small"} className={"plusIcon"}></Add>
-            </ButtonBase>)}
+            {isCorporateHR && (
+              <ButtonBase onClick={handleCreate} className={"createBtn"}>
+                CREATE <Add fontSize={"small"} className={"plusIcon"}></Add>
+              </ButtonBase>
+            )}
           </div>
         </div>
 

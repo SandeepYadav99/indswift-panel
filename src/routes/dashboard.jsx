@@ -16,6 +16,7 @@ import ClaimsList from "../views/ClaimsManagement/ClaimsList/ClaimsList.containe
 import ClaimsDetail from "../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view";
 import ClaimMarriageCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimMarriageCard/ClaimMarriageCard.view";
 import ClaimMobileCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimMobileCard/ClaimMobileCard.view";
+import CadreDetails from "../views/CadreDetails/CadreDetails.view";
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -632,6 +633,13 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
         roles: [Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CADRES_DETAIL}:id`,
+        component: CadreDetails,
+        is_sidebar: false,
+        is_protect: true,
+        roles: [Roles.ADMIN,Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CADRES}:code`,

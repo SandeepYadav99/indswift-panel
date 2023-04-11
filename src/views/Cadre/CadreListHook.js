@@ -97,7 +97,7 @@ const useCadreList = ({}) => {
 
     const handleViewDetails = useCallback((data) => {
         LogUtils.log('data', data);
-        historyUtils.push('/grade/cadre/detail/') //+data.id
+        historyUtils.push(RouteName.CADRES_DETAIL + data?.id) //+data.id
     }, []);
 
 
