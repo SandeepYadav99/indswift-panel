@@ -10,7 +10,9 @@ import GalleryImages from "./components/GalleryImages";
 function EmployeeUtsav() {
   const { handleViewDetails, employeeUtsavData } = EmployeeUtsavHook({});
   const DeepakDescription = DeepakData;
-
+  const reverseArray=(arr)=>{
+    return arr.reverse()
+  }
   return (
     <div className={styles.employeeDrishtiWrapper}>
       <div className={styles.employeeInducationWrapper}>
@@ -144,9 +146,9 @@ function EmployeeUtsav() {
                 <span className={styles.title}>{item?.name}</span>
                 {/* <img style={{ cursor: "pointer" }} src={DownArrow} /> */}
               </div>
-              {item.items && (
+              {item?.items?.length > 0 && (
                 <div className={styles.Catalogue}>
-                  {item?.items.map((images, id) => {
+                  {reverseArray(item?.items)?.map((images, id) => {
                     return images?.cover_image ? (
                       <GalleryImages
                         key={`gallery_image${id}`}
