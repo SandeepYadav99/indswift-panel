@@ -41,3 +41,6 @@ export async function serviceGetCandidatePRCS(params) {
     return await postRequest('candidates/prcs', params);
 }
 
+export async function serviceUpdateCandidateStatus(params) {
+    return await postRequest('candidates/drop/status', params);
+}

@@ -39,7 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CandidateStatusDialog = ({ isOpen, handleToggle, empId }) => {
+const CandidateStatusDialog = ({ isOpen, handleToggle, candidateId }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -54,7 +54,7 @@ const CandidateStatusDialog = ({ isOpen, handleToggle, empId }) => {
     isVerified,
     showPasswordCurrent,
     setShowPasswordCurrent,
-  } = useCandidateStatusDialogHook({ isOpen, handleToggle, empId });
+  } = useCandidateStatusDialogHook({ isOpen, handleToggle, candidateId });
 
   return (
     <div>
@@ -84,12 +84,12 @@ const CandidateStatusDialog = ({ isOpen, handleToggle, empId }) => {
           <div className={styles.fieldWrapper}>
             <div>
               <CustomSelectField
-                isError={errorData?.emp_status}
-                errorText={errorData?.emp_status}
+                isError={errorData?.status}
+                errorText={errorData?.status}
                 label={"Status"}
-                value={form?.emp_status}
+                value={form?.status}
                 handleChange={(value) => {
-                  changeTextData(value, "emp_status");
+                  changeTextData(value, "status");
                 }}
               >
                 {[

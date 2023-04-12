@@ -2,12 +2,13 @@ import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { serviceChangeEmployeeStatus } from "../../../../../services/Employee.service";
+import { serviceUpdateCandidateStatus } from "../../../../../services/Candidate.service";
 
 const initialForm={
-  emp_status:"",
+  status:"",
   note:"",
 }
-const useCandidateStatusDialogHook = ({ isOpen, handleToggle }) => {
+const useCandidateStatusDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -52,7 +53,7 @@ const useCandidateStatusDialogHook = ({ isOpen, handleToggle }) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["emp_status"];
+    let required = ["status","note"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -74,8 +75,8 @@ const useCandidateStatusDialogHook = ({ isOpen, handleToggle }) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      serviceChangeEmployeeStatus({
-        employee_id: employeeData?.id,
+      serviceUpdateCandidateStatus({
+        candidate_id: candidateId,
         ...form,
       }).then((res) => {
         if (!res.error) {
@@ -96,7 +97,7 @@ const useCandidateStatusDialogHook = ({ isOpen, handleToggle }) => {
       setErrorData(errors);
       return true;
     }
-    // submitToServer();
+    submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(

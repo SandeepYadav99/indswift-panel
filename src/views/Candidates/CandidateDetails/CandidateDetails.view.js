@@ -114,6 +114,7 @@ function CandidateDetails() {
         <CandidateStatusDialog
           isOpen={isUpdateDialog}
           handleToggle={toggleStatusDialog}
+          candidateId={id}
         />
         
         <div className={styles.paperBackground}>
