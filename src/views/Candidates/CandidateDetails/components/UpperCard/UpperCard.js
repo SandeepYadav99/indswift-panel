@@ -92,7 +92,7 @@ const UpperCard = ({
             </div>
             <div className={styles.actionWrap}>
               <div className={styles.btnUpper}>
-                {(isRecruiter && data?.is_offer_letter_approved) && (<ActionButton onClick={toggleShareDialog}>
+                {(isRecruiter && data?.is_offer_letter_approved && data?.status !=="DROPPED") && (<ActionButton onClick={toggleShareDialog}>
                   <InfoOutlined fontSize={"small"} />
                   <span className={styles.actionBtnSpan}>Share Offer</span>
                 </ActionButton>)}
