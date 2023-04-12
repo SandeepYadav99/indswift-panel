@@ -24,7 +24,8 @@ function ClaimMobileCard() {
     selectedJobId,
     editData,
     declaration,
-    setDeclaration
+    setDeclaration,
+    employeeDetails
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -46,7 +47,7 @@ function ClaimMobileCard() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <ClaimUpperCard />
+      <ClaimUpperCard data={employeeDetails}/>
       <div className={styles.plainPaper}>
         <ClaimInfo />
 

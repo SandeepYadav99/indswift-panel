@@ -25,6 +25,7 @@ function ClaimCarCard() {
     jobDetails,
     selectedJobId,
     editData,
+    employeeDetails
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -46,7 +47,7 @@ function ClaimCarCard() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <ClaimUpperCard />
+      <ClaimUpperCard data={employeeDetails}/>
       <div className={styles.plainPaper}>
         <ClaimInfo />
 

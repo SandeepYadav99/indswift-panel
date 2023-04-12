@@ -8,8 +8,9 @@ import {
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
-import { serviceUpdateMobileClaims } from "../../../../../services/ClaimsManagement.service";
+import { serviceGetEmployeeDetails, serviceUpdateMobileClaims } from "../../../../../services/ClaimsManagement.service";
 import { isNum } from "../../../../../libs/RegexUtils";
+import { useSelector } from "react-redux";
 
 const initialForm = {
   bill_amount: "",
@@ -26,30 +27,45 @@ const useClaimMobileCard = ({}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState(null);
   const [declaration,setDeclaration]=useState(false)
+  const [employeeDetails,setEmployeeDetails] = useState({})
   const { id } = useParams();
+  const {
+    user: { emp_code },
+  } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (id) {
-      serviceCandidateEditData({ id: id }).then((res) => {
-        if (!res.error) {
-          const data = res?.data?.details;
-          setEditData(data);
-          const form = {
-            ...initialForm,
-          };
-          Object.keys(initialForm).forEach((key) => {
-            if (key !== "document" && data?.[key]) {
-              form[key] = data?.[key];
-            }
-          });
-          setForm({
-            ...initialForm,
-            ...form,
-          });
-        }
-      });
+    if (emp_code) {
+      let dataValues = serviceGetEmployeeDetails({ code: emp_code });
+      dataValues
+        .then((data) => {
+          console.log("detail>", data);
+          setEmployeeDetails(data?.data);
+        })
+        .catch((err) => console.log(err));
     }
-  }, [id]);
+  }, []);
+  // useEffect(() => {
+  //   if (id) {
+  //     serviceCandidateEditData({ id: id }).then((res) => {
+  //       if (!res.error) {
+  //         const data = res?.data?.details;
+  //         setEditData(data);
+  //         const form = {
+  //           ...initialForm,
+  //         };
+  //         Object.keys(initialForm).forEach((key) => {
+  //           if (key !== "document" && data?.[key]) {
+  //             form[key] = data?.[key];
+  //           }
+  //         });
+  //         setForm({
+  //           ...initialForm,
+  //           ...form,
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, [id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -163,7 +179,8 @@ const useClaimMobileCard = ({}) => {
     handleReset,
     editData,
     declaration,
-    setDeclaration
+    setDeclaration,
+    employeeDetails
   };
 };
 

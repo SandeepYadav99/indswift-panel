@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import image from "../../../../../assets/img/download.png";
 
-function ClaimUpperCard() {
-  const data = {};
+function ClaimUpperCard({data}) {
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -14,20 +13,20 @@ function ClaimUpperCard() {
         <div className={styles.mainFlex}>
           <div className={styles.left221}>
             <div>
-              <img className={styles.claimimg} src={image} />
+              <img className={styles.claimimg} src={data?.image ? data?.image : image} />
             </div>
             <div>
               <div className={styles.key}>
                 <span className={styles.value}>Name:</span>
-                {/* {data?.name} */}
+                {data?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Employee ID:</span>
-                {data?.code}
+                {data?.emp_code}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Location:</span>
-                {data?.address}
+                {data?.location?.name}
               </div>
             </div>
           </div>
@@ -35,15 +34,15 @@ function ClaimUpperCard() {
           <div className={styles.left}>
             <div className={styles.key}>
               <span className={styles.value}>Designation:</span>
-              {data?.city}
+              {data?.designation?.name}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Grade/Level:</span>
-              {data?.state}
+              {data?.grade?.code}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Department:</span>
-              {data?.pincode}
+              {data?.department?.name}
             </div>
           </div>
         </div>

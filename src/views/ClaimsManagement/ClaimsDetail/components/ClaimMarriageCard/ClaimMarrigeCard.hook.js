@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import LogUtils from "../../../../../libs/LogUtils";
-import {
-  serviceCandidateEditData,
-  serviceCreateCandidate,
-} from "../../../../../services/Candidate.service";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
-import { serviceUpdateMarrigeClaims } from "../../../../../services/ClaimsManagement.service";
+import {
+  serviceGetEmployeeDetails,
+  serviceUpdateMarrigeClaims,
+} from "../../../../../services/ClaimsManagement.service";
+import { useSelector } from "react-redux";
 
 const initialForm = {
   marrige_of: "",
@@ -20,12 +20,25 @@ const useClaimMarrigeCard = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [declaration, setDeclaration] = useState(false)
+  const [declaration, setDeclaration] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState(null);
-  const { id } = useParams();
+  const [employeeDetails,setEmployeeDetails] = useState({})
+  const {
+    user: { emp_code },
+  } = useSelector((state) => state.auth);
 
+  useEffect(() => {
+    if (emp_code) {
+      let dataValues = serviceGetEmployeeDetails({ code: emp_code });
+      dataValues
+        .then((data) => {
+          setEmployeeDetails(data?.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
   // useEffect(() => {
   //   if (id) {
   //     serviceCandidateEditData({ id: id }).then((res) => {
@@ -91,7 +104,7 @@ const useClaimMarrigeCard = ({}) => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id]);
+  }, [form, isSubmitting, setIsSubmitting]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -156,7 +169,8 @@ const useClaimMarrigeCard = ({}) => {
     handleReset,
     editData,
     declaration,
-    setDeclaration
+    setDeclaration,
+    employeeDetails
   };
 };
 
