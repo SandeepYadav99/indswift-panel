@@ -11,7 +11,7 @@ import CandidateInterviewTable
     from "../../../../components/CandidateInterviewDataTable/CandidateInterviewTable.component";
 
 
-const CandidatePaperComponent = ({jobId, isRecurring}) => {
+const CandidatePaperComponent = ({jobId, isRecurring,status}) => {
     const {  handleAddCandidate,
         candidateEl,
         handleCloseCandidateEl,
@@ -32,11 +32,12 @@ const CandidatePaperComponent = ({jobId, isRecurring}) => {
                     <div className={styles.heading}>Candidates List</div>
                 </div>
                 <div style={{ marginLeft: "20px" }}>
-                    <ButtonBase
+                        <ButtonBase
+                        disabled={status ==='CLOSED' ? true : false}
+                        className={status ==='CLOSED' ? styles.disabledBtn :styles.createBtn}
                         aria-owns={candidateEl ? "candidateEl" : undefined}
                         aria-haspopup="true"
                         onClick={handleAddCandidate}
-                        className={styles.createBtn}
                     >
                         Add Candidate
                     </ButtonBase>
@@ -66,6 +67,7 @@ const CandidatePaperComponent = ({jobId, isRecurring}) => {
             <CandidatesRecordTable
                 jobId={jobId}
                 filterWidth={true}
+                status={status}
                 handleCandidateMenu={handleCandidateMenu}
                 handleInterviewSidepanel={handleCandidateInterviewMenu}
                 handleShortlistSidepanel={handleCandidateShortlistMenu}

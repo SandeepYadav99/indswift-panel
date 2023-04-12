@@ -7,12 +7,19 @@ import DataTables from "../../../../Datatables/Datatable.table";
 import Constants from "../../../../config/constants";
 import styles from "./Style.module.css";
 import classNames from "classnames";
-import {Add, CachedOutlined, Edit, InfoOutlined} from "@material-ui/icons";
+import { Add, CachedOutlined, Edit, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
 import useCandidatesList from "./CandidatesHook";
 import FilterComponent from "../../../../components/Filter/Filter.component";
 
-const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInterviewSidepanel,handleShortlistSidepanel }) => {
+const CandidatesRecordTable = ({
+  jobId,
+  filterWidth,
+  handleCandidateMen,
+  handleInterviewSidepanel,
+  handleShortlistSidepanel,
+  status,
+}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -39,7 +46,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
-          <div >
+          <div>
             <span className={styles.productName}>{obj?.contact}</span> <br />
             <span>{obj?.email}</span>
           </div>
@@ -86,7 +93,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         label: "Applied On",
         sortable: false,
         render: (temp, all) => <div>{all?.candidate?.applied_date}</div>,
-      //  candidate?.applied_date
+        //  candidate?.applied_date
       },
       {
         key: "associated_on",
@@ -105,9 +112,11 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         label: "Interview Status",
         sortable: false,
         render: (temp, all) => (
-            <div>
-              <StatusPill status={Constants.INTERVIEW_STATUS_TEXT[all?.interview_status]} />
-            </div>
+          <div>
+            <StatusPill
+              status={Constants.INTERVIEW_STATUS_TEXT[all?.interview_status]}
+            />
+          </div>
         ),
       },
       {
@@ -116,7 +125,9 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         sortable: false,
         render: (temp, all) => (
           <div>
-            <StatusPill status={Constants.JOB_CANDIDATE_STATUS_TEXT[all?.status]} />
+            <StatusPill
+              status={Constants.JOB_CANDIDATE_STATUS_TEXT[all?.status]}
+            />
           </div>
         ),
       },
@@ -130,10 +141,30 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
         key: "action_key",
         label: "Action",
         sortable: false,
-        render: (temp, all) => <div>
-          <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={'small'} /></IconButton >
-          <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleEdit(all)}}><Edit fontSize={'small'} /></IconButton >
-        </div>,
+        render: (temp, all) => (
+          <div>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
+            >
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleEdit(all);
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+        ),
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
@@ -154,7 +185,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
       columns: tableStructure,
       data: currentData,
       count: data.length,
-      page: currentPage -1,
+      page: currentPage - 1,
       rowsPerPage: 10,
       allRowSelected: false,
       showSelection: false,
@@ -174,7 +205,7 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
   return (
     <div>
       <div>
-        <div >
+        <div>
           <div className={styles.FilterBtnWrapper}>
             <FilterComponent
               // is_progress={isFetching}
@@ -182,10 +213,30 @@ const CandidatesRecordTable = ({ jobId, filterWidth,handleCandidateMen,handleInt
               handleFilterDataChange={handleFilterDataChange}
               filterWidth={filterWidth}
             />
-            <div className={styles.editBtn1}>
-              <ButtonBase className={styles.edit}  onClick={() => {handleShortlistSidepanel('job_opening_detail')}} >SHORTLIST</ButtonBase>
-              <ButtonBase className={styles.edit} onClick={() => {handleInterviewSidepanel('job_opening_detail')}}>INTERVIEW</ButtonBase>
-            </div>
+              <div className={styles.editBtn1}>
+                <ButtonBase
+                  disabled={status === "CLOSED" ? true : false}
+                  className={
+                    status === "CLOSED" ? styles.editDisabled : styles.edit
+                  }
+                  onClick={() => {
+                    handleShortlistSidepanel("job_opening_detail");
+                  }}
+                >
+                  SHORTLIST
+                </ButtonBase>
+                <ButtonBase
+                  disabled={status === "CLOSED" ? true : false}
+                  className={
+                    status === "CLOSED" ? styles.editDisabled : styles.edit
+                  }
+                  onClick={() => {
+                    handleInterviewSidepanel("job_opening_detail");
+                  }}
+                >
+                  INTERVIEW
+                </ButtonBase>
+              </div>
           </div>
 
           <div>

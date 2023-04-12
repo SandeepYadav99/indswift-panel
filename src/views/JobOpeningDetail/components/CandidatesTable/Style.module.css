@@ -143,6 +143,13 @@
     border-radius: 30px !important;
     font-weight: 600 !important;
   }
+  .editDisabled{
+    color: #c1bfbf !important;
+    border: 2px solid #c1bfbf !important;
+    padding: 10px 40px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+  }
   .editBtn1{
     display: flex;
     justify-content: space-between;
@@ -155,6 +162,15 @@
     gap: 30px;
     align-items: center;
     /* justify-content: space-between; */
+  }
+  .disabledBtn{
+    background-color: #c1bfbf !important;
+    color: #ffffff !important;
+    padding: 12px 35px !important;
+    font-size: 0.8rem !important;
+    border-radius: 30px !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
   }
 
   @media(max-width:1500px) {

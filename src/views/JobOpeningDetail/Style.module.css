@@ -63,7 +63,15 @@
 .newContainer{
     font-size: 0.7rem;
 }
-
+.disabledBtn{
+    background-color: #c1bfbf !important;
+    color: #ffffff !important;
+    padding: 12px 35px !important;
+    font-size: 0.8rem !important;
+    border-radius: 30px !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+  }
 .left{
     /*margin-right: 30px;*/
     flex: 1.4;

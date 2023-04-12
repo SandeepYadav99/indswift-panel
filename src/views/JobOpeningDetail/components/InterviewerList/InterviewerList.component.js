@@ -7,7 +7,7 @@ import SidePanelComponent from "../../../../components/SidePanel/SidePanel.compo
 import useInterviewerList from "./InterviewerListHook";
 import InterviewerFormComponent from "./InterviewerForm/InterviewerForm.component";
 
-const InterviewerListComponent = ({jobId,isInterviewStatus,handleChangeInterviewStatus}) => {
+const InterviewerListComponent = ({jobId,isInterviewStatus,handleChangeInterviewStatus,status}) => {
     const {toggleSidePanel, isPanel, } = useInterviewerList({jobId});
     return (
         <div className={styles.plainPaper}>
@@ -15,8 +15,12 @@ const InterviewerListComponent = ({jobId,isInterviewStatus,handleChangeInterview
                 <div style={{ flex: "1" }}>
                     <div className={styles.heading}> Interview Panel</div>
                 </div>
-                <div style={{ marginLeft: "20px" }}>
-                    <ButtonBase onClick={toggleSidePanel} className={styles.createBtn}>
+                    <div style={{ marginLeft: "20px" }}>
+                    <ButtonBase onClick={toggleSidePanel}  
+                    disabled={status === "CLOSED" ? true : false}
+                    className={
+                      status === "CLOSED" ? styles.disabledBtn : styles.createBtn
+                    }>
                         MODIFY INTERVIEW PANEL
                     </ButtonBase>
                 </div>
