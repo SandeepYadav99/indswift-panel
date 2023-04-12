@@ -9,7 +9,8 @@ import CustomTextField from "../../components/FormFields/TextField/TextField.com
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
 
 function CadreDetails() {
-  const { form, errorData } = useCadreDetailsList({});
+  const { form, errorData, changeTextData, onBlurHandler } =
+    useCadreDetailsList({});
   return (
     <div className={styles.cadreDetailWrapper}>
       <div className={styles.outerFlex}>
@@ -36,9 +37,9 @@ function CadreDetails() {
                 <p className="tags">NO</p>
                 <CustomSwitch
                   value={form?.is_active}
-                  // handleChange={() => {
-                  //   changeTextData(!form?.is_active, "is_active");
-                  // }}
+                  handleChange={() => {
+                    changeTextData(!form?.is_active, "is_active");
+                  }}
                   label={`Yes`}
                 />
               </div>
@@ -50,34 +51,43 @@ function CadreDetails() {
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
-              isError={errorData?.approved_count}
-              errorText={errorData?.approved_count}
+              isError={errorData?.max_claim}
+              errorText={errorData?.max_claim}
               label={"Max No. of Claims"}
-              value={form?.approved_count}
-              // onTextChange={(text) => {
-              //   changeTextData(text, "approved_count");
-              // }}
-              // onBlur={() => {
-              //   onBlurHandler("approved_count");
-              // }}
+              value={form?.max_claim}
+              onTextChange={(text) => {
+                changeTextData(text, "max_claim");
+              }}
+              onBlur={() => {
+                onBlurHandler("max_claim");
+              }}
             />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
-              isError={errorData?.approved_count}
-              errorText={errorData?.approved_count}
+              isError={errorData?.max_value}
+              errorText={errorData?.max_value}
               label={"Max Value in Rs."}
-              value={form?.approved_count}
-              // onTextChange={(text) => {
-              //   changeTextData(text, "approved_count");
-              // }}
-              // onBlur={() => {
-              //   onBlurHandler("approved_count");
-              // }}
+              value={form?.max_value}
+              onTextChange={(text) => {
+                changeTextData(text, "max_value");
+              }}
+              onBlur={() => {
+                onBlurHandler("max_value");
+              }}
             />
           </div>
         </div>
+      </div>
+      <div className={styles.btnCont}>
+        <ButtonBase
+          type={"button"}
+          className={styles.createBtn}
+          // onClick={handleSubmit}
+        >
+          Save
+        </ButtonBase>
       </div>
     </div>
   );
