@@ -11,6 +11,7 @@ import historyUtils from "../../../../../libs/history.utils";
 import { serviceGetEmployeeDetails, serviceUpdateCarClaims } from "../../../../../services/ClaimsManagement.service";
 import { isNum } from "../../../../../libs/RegexUtils";
 import { useSelector } from "react-redux";
+import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
 
 const initialForm = {
   bill_amount: "",
@@ -28,10 +29,20 @@ const useClaimCarCard = ({}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState(null);
   const [employeeDetails,setEmployeeDetails] = useState({})
+  const [claimInfo, setClaimInfo] = useState({});
   const { id } = useParams();
   const {
     user: { emp_code },
   } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    let dataValues = serviceGetClaimDetail();
+    dataValues
+      .then((data) => {
+        setClaimInfo({ ...data?.data?.car_maintenance_claim });
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   useEffect(() => {
     if (emp_code) {
@@ -43,28 +54,6 @@ const useClaimCarCard = ({}) => {
         .catch((err) => console.log(err));
     }
   }, []);
-  // useEffect(() => {
-  //   if (id) {
-  //     serviceCandidateEditData({ id: id }).then((res) => {
-  //       if (!res.error) {
-  //         const data = res?.data?.details;
-  //         setEditData(data);
-  //         const form = {
-  //           ...initialForm,
-  //         };
-  //         Object.keys(initialForm).forEach((key) => {
-  //           if (key !== "document" && data?.[key]) {
-  //             form[key] = data?.[key];
-  //           }
-  //         });
-  //         setForm({
-  //           ...initialForm,
-  //           ...form,
-  //         });
-  //       }
-  //     });
-  //   }
-  // }, [id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -176,7 +165,8 @@ const useClaimCarCard = ({}) => {
     editData,
     declaration,
     setDeclaration,
-    employeeDetails
+    employeeDetails,
+    claimInfo
   };
 };
 

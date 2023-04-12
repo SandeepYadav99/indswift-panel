@@ -16,6 +16,7 @@ import RouteName from "../../routes/Route.name";
 function useCadreDetailsList() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
+  const [employeeDetail,setEmployeeDetail]=useState({})
   const [isSubmitting, setIsSubmitting] = useState(false);
   const refMarrige = useRef(null);
   const refCar = useRef(null);
@@ -33,15 +34,10 @@ function useCadreDetailsList() {
               mobile_reimbursement_claim,
               ...rest
             } = tempData;
-            console.log(
-              "===>",
-              marriage_gift_claim,
-              car_maintenance_claim,
-              mobile_reimbursement_claim
-            );
-            // refMarrige.current?.setData(marriage_gift_claim);
-            // refCar.current?.setData(car_maintenance_claim);
-            // refMobile.current?.setData(mobile_reimbursement_claim);
+            setEmployeeDetail({...rest})
+            refMarrige.current?.setData(marriage_gift_claim);
+            refCar.current?.setData(car_maintenance_claim);
+            refMobile.current?.setData(mobile_reimbursement_claim);
           }
         }
       });
@@ -51,7 +47,14 @@ function useCadreDetailsList() {
   const handleSubmit = useCallback(() => {
     if (!isSubmitting) {
       const isMarrigeClaimValid = refMarrige.current.isValid();
-      LogUtils.log('isMarrigeClaimValid', isMarrigeClaimValid);
+      const isCarClaimValid = refCar.current.isValid();
+      const isMobileClaimValid = refMobile.current.isValid();
+      LogUtils.log(
+        "isMarrigeClaimValid",
+        isMarrigeClaimValid,
+        isCarClaimValid,
+        isMobileClaimValid
+      );
       // const isCarClaimValid = refCar.current.isValid();
       // const isMobileValid = refMobile.current.isValid();
       // LogUtils.log(
@@ -60,25 +63,25 @@ function useCadreDetailsList() {
       //   isCarClaimValid,
       //   isMobileValid
       // );
-      // if (isMarrigeClaimValid && isCarClaimValid && isMobileValid) {
-      //   setIsSubmitting(true);
-      //   const marrigeData = refMarrige.current.getData();
-      //   const carData = refCar.current.getData();
-      //   const mobileData = refMobile.current.getData();
-      //   // serviceCandidateEAFUpdateEmployment({
-      //   //   id: id,
-      //   //   marriage_gift_claim: marrigeData,
-      //   //   car_maintenance_claim: carData,
-      //   //   mobile_reimbursement_claim: mobileData,
-      //   // }).then((res) => {
-      //   //   if (!res.error) {
-      //   //     historyUtils.push(RouteName.EAF_SUCCESS);
-      //   //   } else {
-      //   //     SnackbarUtils.error(res?.message);
-      //   //   }
-      //   //   setIsSubmitting(false);
-      //   // });
-      // }
+      if (isMarrigeClaimValid && isCarClaimValid && isMobileClaimValid) {
+        setIsSubmitting(true);
+        const marrigeData = refMarrige.current.getData();
+        const carData = refCar.current.getData();
+        const mobileData = refMobile.current.getData();
+        serviceGetCadreEntitlementDetails({
+          id: id,
+          marriage_gift_claim: marrigeData?.data,
+          car_maintenance_claim: carData?.data,
+          mobile_reimbursement_claim: mobileData?.data,
+        }).then((res) => {
+          if (!res.error) {
+            historyUtils.push(RouteName.GRADES);
+          } else {
+            SnackbarUtils.error(res?.message);
+          }
+          setIsSubmitting(false);
+        });
+      }
     }
   }, [isSubmitting, setIsSubmitting, id]);
 
@@ -87,7 +90,8 @@ function useCadreDetailsList() {
     refMarrige,
     refCar,
     refMobile,
-    handleSubmit
+    handleSubmit,
+    employeeDetail,
   };
 }
 

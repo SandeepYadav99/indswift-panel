@@ -31,7 +31,8 @@ function ClaimMarriageCard() {
     editData,
     declaration,
     setDeclaration,
-    employeeDetails
+    employeeDetails,
+    claimInfo
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -55,7 +56,7 @@ function ClaimMarriageCard() {
       </div>
       <ClaimUpperCard data={employeeDetails}/>
       <div className={styles.plainPaper}>
-        <ClaimInfo />
+        <ClaimInfo idCards={claimInfo}/>
         <div className={styles.formDetailWrapper}>
           <div className={styles.value}>Marriage of:</div>
         </div>

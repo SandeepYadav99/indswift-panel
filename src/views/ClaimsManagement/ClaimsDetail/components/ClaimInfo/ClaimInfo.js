@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./Style.module.css";
 
-function ClaimInfo() {
-  const idCards = {};
+function ClaimInfo({idCards}) {
   return (
     <div className={styles.newContainer}>
       <div className={styles.heading}>Claim Details</div>
@@ -11,7 +10,7 @@ function ClaimInfo() {
         <div className={styles.left}>
           <div className={styles.key}>
             <span className={styles.value}>Entitled Amount:</span>
-            {idCards?.aadhar_no}
+            {idCards?.entitled_amount}
           </div>
           <div className={styles.key}>
             <span className={styles.value}>Amount Claimed:</span>
@@ -21,11 +20,11 @@ function ClaimInfo() {
         <div className={styles.right}>
           <div className={styles.key}>
             <span className={styles.value}>Claim in Process:</span>
-            {idCards?.esi_no}
+            {idCards?.progress_claim}
           </div>
           <div className={styles.key}>
             <span className={styles.value}>Pending Claim:</span>
-            {idCards?.uan_no}
+            {idCards?.pending_claim}
           </div>
         </div>
       </div>

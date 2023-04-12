@@ -1,16 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
-import LogUtils from "../../../../../libs/LogUtils";
-import {
-  serviceCandidateEditData,
-  serviceCreateCandidate,
-} from "../../../../../services/Candidate.service";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
 import { serviceGetEmployeeDetails, serviceUpdateMobileClaims } from "../../../../../services/ClaimsManagement.service";
 import { isNum } from "../../../../../libs/RegexUtils";
 import { useSelector } from "react-redux";
+import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
 
 const initialForm = {
   bill_amount: "",
@@ -28,6 +23,8 @@ const useClaimMobileCard = ({}) => {
   const [editData, setEditData] = useState(null);
   const [declaration,setDeclaration]=useState(false)
   const [employeeDetails,setEmployeeDetails] = useState({})
+  const [claimInfo,setClaimInfo]=useState({})
+
   const { id } = useParams();
   const {
     user: { emp_code },
@@ -38,34 +35,20 @@ const useClaimMobileCard = ({}) => {
       let dataValues = serviceGetEmployeeDetails({ code: emp_code });
       dataValues
         .then((data) => {
-          console.log("detail>", data);
           setEmployeeDetails(data?.data);
         })
         .catch((err) => console.log(err));
     }
   }, []);
-  // useEffect(() => {
-  //   if (id) {
-  //     serviceCandidateEditData({ id: id }).then((res) => {
-  //       if (!res.error) {
-  //         const data = res?.data?.details;
-  //         setEditData(data);
-  //         const form = {
-  //           ...initialForm,
-  //         };
-  //         Object.keys(initialForm).forEach((key) => {
-  //           if (key !== "document" && data?.[key]) {
-  //             form[key] = data?.[key];
-  //           }
-  //         });
-  //         setForm({
-  //           ...initialForm,
-  //           ...form,
-  //         });
-  //       }
-  //     });
-  //   }
-  // }, [id]);
+  useEffect(() => {
+    let dataValues = serviceGetClaimDetail();
+    dataValues
+      .then((data) => {
+        setClaimInfo({...data?.data?.mobile_reimbursement_claim})
+      })
+      .catch((err) => console.log(err));
+  }, []);
+   
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -180,7 +163,8 @@ const useClaimMobileCard = ({}) => {
     editData,
     declaration,
     setDeclaration,
-    employeeDetails
+    employeeDetails,
+    claimInfo
   };
 };
 

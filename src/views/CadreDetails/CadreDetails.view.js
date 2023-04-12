@@ -10,7 +10,8 @@ import CustomSwitch from "../../components/FormFields/CustomSwitch";
 import ClaimForm from "./component/ClaimForm/ClaimForm.view";
 
 function CadreDetails() {
-  const { refMarrige, refCar, refMobile, handleSubmit } = useCadreDetailsList({});
+  const { refMarrige, refCar, refMobile, handleSubmit ,employeeDetail} = useCadreDetailsList({})
+
   return (
     <div className={styles.cadreDetailWrapper}>
       <div className={styles.outerFlex}>
@@ -24,17 +25,20 @@ function CadreDetails() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <ClaimUpper />
-      <ClaimForm type={'MARRIAGE'} title={'Marriage Claim'} ref={refMarrige} />
-        <div className={styles.btnCont}>
-            <ButtonBase
-                type={"button"}
-                className={styles.createBtn}
-                onClick={handleSubmit}
-            >
-                Save
-            </ButtonBase>
-        </div>
+      <ClaimUpper data={employeeDetail}/>
+      <ClaimForm type={"MARRIAGE"} title={"Marriage Claim"} ref={refMarrige} />
+      <ClaimForm type={"CAR"} title={"Car Claim"} ref={refCar} />
+      <ClaimForm type={"MOBILE"} title={"Mobile Claim"} ref={refMobile} />
+
+      <div className={styles.btnCont}>
+        <ButtonBase
+          type={"button"}
+          className={styles.createBtn}
+          onClick={handleSubmit}
+        >
+          Save
+        </ButtonBase>
+      </div>
     </div>
   );
 }

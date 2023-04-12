@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../Style.module.css";
 
-function ClaimUpper() {
+function ClaimUpper({ data }) {
   return (
     <div className={styles.claimUpperWrapper}>
       <div>
@@ -10,12 +10,16 @@ function ClaimUpper() {
       <div className={styles.UpperGrade}>
         <div className={styles.upperGradeInfo}>
           <div className={styles.uppertitle}>Grade</div>
-          <div className={styles.upperdes}>Grade</div>
+          {data?.grade && (
+            <div
+              className={styles.upperdes}
+            >{`  ${data?.grade?.code} (${data?.grade?.name})`}</div>
+          )}
         </div>
         <div className={styles.upperGradeInfo}>
-          <div className={styles.uppertitle}>Grade</div>
+          <div className={styles.uppertitle}>Cadre :</div>
           <div className={styles.upperdes}>Grade</div>
-        </div> 
+        </div>
       </div>
     </div>
   );

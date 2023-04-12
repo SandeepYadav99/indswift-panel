@@ -25,7 +25,8 @@ function ClaimMobileCard() {
     editData,
     declaration,
     setDeclaration,
-    employeeDetails
+    employeeDetails,
+    claimInfo
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -49,7 +50,7 @@ function ClaimMobileCard() {
       </div>
       <ClaimUpperCard data={employeeDetails}/>
       <div className={styles.plainPaper}>
-        <ClaimInfo />
+        <ClaimInfo idCards={claimInfo}/>
 
         <div className={styles.formSelectWrapper}>
           <div className={"formFlex"} style={{ alignItems: "center" }}>

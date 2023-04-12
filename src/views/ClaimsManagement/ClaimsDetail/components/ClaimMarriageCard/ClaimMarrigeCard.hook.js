@@ -9,6 +9,7 @@ import {
   serviceUpdateMarrigeClaims,
 } from "../../../../../services/ClaimsManagement.service";
 import { useSelector } from "react-redux";
+import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
 
 const initialForm = {
   marrige_of: "",
@@ -24,7 +25,8 @@ const useClaimMarrigeCard = ({}) => {
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState(null);
-  const [employeeDetails,setEmployeeDetails] = useState({})
+  const [employeeDetails, setEmployeeDetails] = useState({});
+  const [claimInfo, setClaimInfo] = useState({});
   const {
     user: { emp_code },
   } = useSelector((state) => state.auth);
@@ -39,29 +41,15 @@ const useClaimMarrigeCard = ({}) => {
         .catch((err) => console.log(err));
     }
   }, []);
-  // useEffect(() => {
-  //   if (id) {
-  //     serviceCandidateEditData({ id: id }).then((res) => {
-  //       if (!res.error) {
-  //         const data = res?.data?.details;
-  //         setEditData(data);
-  //         const form = {
-  //           ...initialForm,
-  //         };
-  //         Object.keys(initialForm).forEach((key) => {
-  //           if (key !== "document" && data?.[key]) {
-  //             form[key] = data?.[key];
-  //           }
-  //         });
-  //         setForm({
-  //           ...initialForm,
-  //           ...form,
-  //         });
-  //       }
-  //     });
-  //   }
-  // }, [id]);
-
+  useEffect(() => {
+    let dataValues = serviceGetClaimDetail();
+    dataValues
+      .then((data) => {
+        setClaimInfo({ ...data?.data?.marriage_gift_claim });
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  console.log("kdkd", form);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["dom", "document"];
@@ -86,6 +74,9 @@ const useClaimMarrigeCard = ({}) => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
+      if (claimInfo?.entitled_amount){
+        fd.append('bill_amount',(Number(claimInfo?.entitled_amount)/5))
+      }
       Object.keys(form).forEach((key) => {
         if (["document"].indexOf(key) < 0 && form[key]) {
           fd.append(key, form[key]);
@@ -170,7 +161,8 @@ const useClaimMarrigeCard = ({}) => {
     editData,
     declaration,
     setDeclaration,
-    employeeDetails
+    employeeDetails,
+    claimInfo,
   };
 };
 

@@ -25,7 +25,9 @@ function ClaimCarCard() {
     jobDetails,
     selectedJobId,
     editData,
-    employeeDetails
+    employeeDetails,
+    claimInfo
+
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -49,7 +51,7 @@ function ClaimCarCard() {
       </div>
       <ClaimUpperCard data={employeeDetails}/>
       <div className={styles.plainPaper}>
-        <ClaimInfo />
+        <ClaimInfo idCards={claimInfo}/>
 
         <div className={styles.formSelectWrapper}>
           <div className={"formFlex"} style={{ alignItems: "center" }}>

@@ -6,12 +6,12 @@ import LogUtils from "../../../../libs/LogUtils";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 const initialForm = {
-  is_show: true,
-  max_claim: 2,
-  max_value: 21,
+  is_show: false,
+  max_claim: null,
+  max_value: null,
 };
 
-function useClaimForm({ }) {
+function useClaimForm({}) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,15 +21,17 @@ function useClaimForm({ }) {
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["max_claim", "max_value"];
+    if (form?.is_show) {
+      required.forEach((val) => {
+        if (
+          !form?.[val] ||
+          (Array.isArray(form?.[val]) && form?.[val].length === 0)
+        ) {
+          errors[val] = true;
+        }
+      });
+    }
 
-    required.forEach((val) => {
-      if (
-        !form?.[val] ||
-        (Array.isArray(form?.[val]) && form?.[val].length === 0)
-      ) {
-        errors[val] = true;
-      }
-    });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -38,40 +40,14 @@ function useClaimForm({ }) {
     return errors;
   }, [form, errorData]);
 
-  const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-      setIsSubmitting(true);
-      const fd = new FormData();
-
-      // let req = serviceUpdateMarrigeClaims;
-      // req(fd).then((res) => {
-      //   if (!res.error) {
-      //     historyUtils.goBack();
-      //   } else {
-      //     SnackbarUtils.error(res?.message);
-      //   }
-      //   setIsSubmitting(false);
-      // });
-    }
-  }, [form, isSubmitting, setIsSubmitting]);
-
-  const handleSubmit = useCallback(async () => {
-    const errors = checkFormValidation();
-    if (Object.keys(errors).length > 0) {
-      setErrorData(errors);
-      return true;
-    }
-    console.log("servercall");
-    // submitToServer();
-  }, [checkFormValidation, setErrorData, form]);
-
   const isFormValid = useCallback(() => {
     const errors = checkFormValidation();
-    LogUtils.log('isFormValid', errors);
+    LogUtils.log("isFormValid", errors);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return false;
-    } return true;
+    }
+    return true;
   }, [checkFormValidation]);
 
   const removeError = useCallback(
@@ -87,8 +63,10 @@ function useClaimForm({ }) {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
+      if (text >= 0) {
+        t[fieldName] = text;
+      }
 
-      t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
@@ -113,11 +91,12 @@ function useClaimForm({ }) {
 
   return {
     form,
+    setForm,
     errorData,
     changeTextData,
     onBlurHandler,
     handleReset,
-    isFormValid
+    isFormValid,
   };
 }
 
