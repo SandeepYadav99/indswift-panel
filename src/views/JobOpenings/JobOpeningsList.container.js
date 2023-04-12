@@ -100,7 +100,7 @@ const JobOpeningsList = ({}) => {
                 sortable: false,
                 render: (temp, all) => <div>{all?.total_candidates ? all?.total_candidates : 0}</div>,
             } , {
-                key: 'age',
+                key: 'closedAt',
                 label: 'Aging',
                 sortable: true,
                 render: (temp, all) => <div>{all?.age}</div>,
