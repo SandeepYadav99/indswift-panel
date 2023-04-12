@@ -97,12 +97,12 @@ const UpperCard = ({
                   <span className={styles.actionBtnSpan}>Share Offer</span>
                 </ActionButton>)}
               </div>
-              {/*<div className={styles.btnUpper}>*/}
-              {/*  <ActionButton onClick={handleStatusToggle}>*/}
-              {/*    <InfoOutlined fontSize={"small"} />*/}
-              {/*    <span className={styles.actionBtnSpan}>Update Status</span>*/}
-              {/*  </ActionButton>*/}
-              {/*</div>*/}
+              <div className={styles.btnUpper}>
+               <ActionButton onClick={handleStatusToggle}>
+                 <InfoOutlined fontSize={"small"} />
+                 <span className={styles.actionBtnSpan}>Update Status</span>
+               </ActionButton>
+              </div>
               <div className={styles.btnUpper21}>
                 <ActionButton onClick={handleToggle}>
                   <RepeatRounded fontSize={"small"} />
