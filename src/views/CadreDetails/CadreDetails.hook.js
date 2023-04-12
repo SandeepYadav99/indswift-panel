@@ -39,9 +39,9 @@ function useCadreDetailsList() {
               car_maintenance_claim,
               mobile_reimbursement_claim
             );
-            refMarrige.current?.setData(marriage_gift_claim);
-            refCar.current?.setData(car_maintenance_claim);
-            refMobile.current?.setData(mobile_reimbursement_claim);
+            // refMarrige.current?.setData(marriage_gift_claim);
+            // refCar.current?.setData(car_maintenance_claim);
+            // refMobile.current?.setData(mobile_reimbursement_claim);
           }
         }
       });
@@ -51,40 +51,43 @@ function useCadreDetailsList() {
   const handleSubmit = useCallback(() => {
     if (!isSubmitting) {
       const isMarrigeClaimValid = refMarrige.current.isValid();
-      const isCarClaimValid = refCar.current.isValid();
-      const isMobileValid = refMobile.current.isValid();
-      LogUtils.log(
-        "isPerosnalValid",
-        isMarrigeClaimValid,
-        isCarClaimValid,
-        isMobileValid
-      );
-      if (isMarrigeClaimValid && isCarClaimValid && isMobileValid) {
-        setIsSubmitting(true);
-        const marrigeData = refMarrige.current.getData();
-        const carData = refCar.current.getData();
-        const mobileData = refMobile.current.getData();
-        // serviceCandidateEAFUpdateEmployment({
-        //   id: id,
-        //   marriage_gift_claim: marrigeData,
-        //   car_maintenance_claim: carData,
-        //   mobile_reimbursement_claim: mobileData,
-        // }).then((res) => {
-        //   if (!res.error) {
-        //     historyUtils.push(RouteName.EAF_SUCCESS);
-        //   } else {
-        //     SnackbarUtils.error(res?.message);
-        //   }
-        //   setIsSubmitting(false);
-        // });
-      }
+      LogUtils.log('isMarrigeClaimValid', isMarrigeClaimValid);
+      // const isCarClaimValid = refCar.current.isValid();
+      // const isMobileValid = refMobile.current.isValid();
+      // LogUtils.log(
+      //   "isPerosnalValid",
+      //   isMarrigeClaimValid,
+      //   isCarClaimValid,
+      //   isMobileValid
+      // );
+      // if (isMarrigeClaimValid && isCarClaimValid && isMobileValid) {
+      //   setIsSubmitting(true);
+      //   const marrigeData = refMarrige.current.getData();
+      //   const carData = refCar.current.getData();
+      //   const mobileData = refMobile.current.getData();
+      //   // serviceCandidateEAFUpdateEmployment({
+      //   //   id: id,
+      //   //   marriage_gift_claim: marrigeData,
+      //   //   car_maintenance_claim: carData,
+      //   //   mobile_reimbursement_claim: mobileData,
+      //   // }).then((res) => {
+      //   //   if (!res.error) {
+      //   //     historyUtils.push(RouteName.EAF_SUCCESS);
+      //   //   } else {
+      //   //     SnackbarUtils.error(res?.message);
+      //   //   }
+      //   //   setIsSubmitting(false);
+      //   // });
+      // }
     }
   }, [isSubmitting, setIsSubmitting, id]);
-  console.log("refMarrige", refMarrige);
+
+
   return {
     refMarrige,
     refCar,
     refMobile,
+    handleSubmit
   };
 }
 

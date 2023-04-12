@@ -7,10 +7,10 @@ import ClaimUpper from "./component/ClaimUpper/ClaimUpper";
 import useCadreDetailsList from "./CadreDetails.hook";
 import CustomTextField from "../../components/FormFields/TextField/TextField.component";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
-import MarrigeClaimForm from "./component/MarrigeClaimForm/MarrigeClaimForm.view";
+import ClaimForm from "./component/ClaimForm/ClaimForm.view";
 
 function CadreDetails() {
-  const { refMarrige, refCar, refMobile } = useCadreDetailsList({});
+  const { refMarrige, refCar, refMobile, handleSubmit } = useCadreDetailsList({});
   return (
     <div className={styles.cadreDetailWrapper}>
       <div className={styles.outerFlex}>
@@ -25,7 +25,16 @@ function CadreDetails() {
         </div>
       </div>
       <ClaimUpper />
-      <MarrigeClaimForm ref={refMarrige} />
+      <ClaimForm type={'MARRIAGE'} title={'Marriage Claim'} ref={refMarrige} />
+        <div className={styles.btnCont}>
+            <ButtonBase
+                type={"button"}
+                className={styles.createBtn}
+                onClick={handleSubmit}
+            >
+                Save
+            </ButtonBase>
+        </div>
     </div>
   );
 }

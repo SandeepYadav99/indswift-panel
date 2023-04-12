@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useImperativeHandle, forwardRef } from "react";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import CustomSwitch from "../../../../components/FormFields/CustomSwitch";
-import useMarrigeClaimForm from "./MarrigeClaimForm.hook";
+import useClaimForm from "./ClaimForm.hook";
 import styles from "./Style.module.css";
 import { ButtonBase } from "@material-ui/core";
 
-function MarrigeClaimForm({ ref }) {
-  const { form, errorData, changeTextData, onBlurHandler } =
-    useMarrigeClaimForm({}, ref);
+const ClaimForm = ({ type, title, resetForm }, ref) => {
+  const { form, errorData, changeTextData, onBlurHandler, handleReset, isFormValid } =
+      useClaimForm({}, ref);
+
+  useImperativeHandle(ref, () => ({
+    isValid() {
+      return isFormValid();
+    },
+    resetData() {
+      handleReset();
+    },
+    getData() {
+      return {
+        type: type,
+        data: form,
+      };
+    },
+  }));
+
   return (
     <div>
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Mariage Gift Card Claim</div>
+            <div className={"heading"}>{title}</div>
           </h4>
           <div className={"infoTitle"} style={{ justifyContent: "flex-end" }}>
             <div className="info_Status">
@@ -65,17 +81,8 @@ function MarrigeClaimForm({ ref }) {
           </div>
         </div>
       </div>
-      <div className={styles.btnCont}>
-        <ButtonBase
-          type={"button"}
-          className={styles.createBtn}
-          // onClick={handleSubmit}
-        >
-          Save
-        </ButtonBase>
-      </div>
     </div>
   );
 }
 
-export default MarrigeClaimForm;
+export default forwardRef(ClaimForm);

@@ -4,12 +4,14 @@ import { useEffect } from "react";
 import { useCallback } from "react";
 import LogUtils from "../../../../libs/LogUtils";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
+
 const initialForm = {
   is_show: true,
   max_claim: 2,
   max_value: 21,
 };
-function useMarrigeClaimForm({ ref }) {
+
+function useClaimForm({ }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,6 +65,15 @@ function useMarrigeClaimForm({ ref }) {
     // submitToServer();
   }, [checkFormValidation, setErrorData, form]);
 
+  const isFormValid = useCallback(() => {
+    const errors = checkFormValidation();
+    LogUtils.log('isFormValid', errors);
+    if (Object.keys(errors).length > 0) {
+      setErrorData(errors);
+      return false;
+    } return true;
+  }, [checkFormValidation]);
+
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
@@ -74,7 +85,6 @@ function useMarrigeClaimForm({ ref }) {
 
   const changeTextData = useCallback(
     (text, fieldName) => {
-      LogUtils.log(text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
 
@@ -84,6 +94,7 @@ function useMarrigeClaimForm({ ref }) {
     },
     [removeError, form, setForm]
   );
+
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {
@@ -98,12 +109,16 @@ function useMarrigeClaimForm({ ref }) {
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form]);
+
+
   return {
     form,
     errorData,
     changeTextData,
     onBlurHandler,
+    handleReset,
+    isFormValid
   };
 }
 
-export default useMarrigeClaimForm;
+export default useClaimForm;
