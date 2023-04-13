@@ -32,7 +32,8 @@ function ClaimMarriageCard() {
     declaration,
     setDeclaration,
     employeeDetails,
-    claimInfo
+    claimInfo,
+    billAmount
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -54,9 +55,9 @@ function ClaimMarriageCard() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <ClaimUpperCard data={employeeDetails}/>
+      <ClaimUpperCard data={employeeDetails} />
       <div className={styles.plainPaper}>
-        <ClaimInfo idCards={claimInfo}/>
+        <ClaimInfo idCards={claimInfo} />
         <div className={styles.formDetailWrapper}>
           <div className={styles.value}>Marriage of:</div>
         </div>
@@ -111,17 +112,29 @@ function ClaimMarriageCard() {
               />
             </div>
           </div>
+          <div className={styles.formWrapperSingle}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                InputLabelProps={{ shrink: true }}
+                disabled={true}
+                label={"Bill Amount"}
+                value={billAmount ? Math.round(billAmount /5): null}
+                 
+              />
+            </div>
+          </div>
         </div>
       </div>
+
       <div className={styles.cleckboxWrapper}>
         <div className={styles.checkBox}>
-        <input
+          <input
             checked={declaration}
             type="checkbox"
             id="confirmation"
             name="confirmation"
             onChange={() => {
-              setDeclaration((s)=>!s);
+              setDeclaration((s) => !s);
             }}
           />
           <label htmlFor="confirmation">
@@ -133,7 +146,7 @@ function ClaimMarriageCard() {
       <div className={styles.btnCont}>
         <ButtonBase
           type={"button"}
-          disabled={!declaration ? true :false}
+          disabled={!declaration ? true : false}
           className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >

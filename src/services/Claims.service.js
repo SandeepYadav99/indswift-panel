@@ -11,7 +11,7 @@ export async function serviceDeleteClaims(params) {
     return await postRequest('cr/delete', params);
 }
 export async function serviceGetClaimsDetails(params) {
-    return await postRequest('cr/details', params);
+    return await postRequest('employee/claims/details', params);
 }
 export async function serviceGetClaims(params) {
     return await postRequest('cr', params);

@@ -27,6 +27,7 @@ const useClaimMarrigeCard = ({}) => {
   const [editData, setEditData] = useState(null);
   const [employeeDetails, setEmployeeDetails] = useState({});
   const [claimInfo, setClaimInfo] = useState({});
+  const [billAmount, setBillAmount] = useState();
   const {
     user: { emp_code },
   } = useSelector((state) => state.auth);
@@ -46,6 +47,7 @@ const useClaimMarrigeCard = ({}) => {
     dataValues
       .then((data) => {
         setClaimInfo({ ...data?.data?.marriage_gift_claim });
+        setBillAmount(data?.data?.marriage_gift_claim?.entitled_amount);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -69,13 +71,13 @@ const useClaimMarrigeCard = ({}) => {
     });
     return errors;
   }, [form, errorData]);
-
+  console.log("billAmount", billAmount);
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
-      if (claimInfo?.entitled_amount){
-        fd.append('bill_amount',(Number(claimInfo?.entitled_amount)/5))
+      if (billAmount) {
+        fd.append("bill_amount", Math.round(billAmount / 5));
       }
       Object.keys(form).forEach((key) => {
         if (["document"].indexOf(key) < 0 && form[key]) {
@@ -160,6 +162,7 @@ const useClaimMarrigeCard = ({}) => {
     handleReset,
     editData,
     declaration,
+    billAmount,
     setDeclaration,
     employeeDetails,
     claimInfo,
