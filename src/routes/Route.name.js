@@ -98,6 +98,6 @@ export default {
   CLAIMS_MARRIGE:'/cm/marrige',
   CLAIMS_MOBILE:'/cm/mobile',
   CLAIMS_CAR:'/cm/car',
-
+  CLAIMS_INFO:'/cm/info'
 
 };

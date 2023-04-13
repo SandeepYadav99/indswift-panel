@@ -3,8 +3,6 @@ import styles from "./Style.module.css";
 import image from "../../../../../assets/img/download.png";
 
 function UpperClaimInfo({data}) {
-  console.log('data===',data)
-    // const data={}
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>

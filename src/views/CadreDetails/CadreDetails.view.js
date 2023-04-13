@@ -5,8 +5,6 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import styles from "./Style.module.css";
 import ClaimUpper from "./component/ClaimUpper/ClaimUpper";
 import useCadreDetailsList from "./CadreDetails.hook";
-import CustomTextField from "../../components/FormFields/TextField/TextField.component";
-import CustomSwitch from "../../components/FormFields/CustomSwitch";
 import ClaimForm from "./component/ClaimForm/ClaimForm.view";
 
 function CadreDetails() {

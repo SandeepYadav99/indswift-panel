@@ -936,6 +936,17 @@ const dashboardRoutes = [
         parent: 'cm',
     },
     {
+        path: `${RouteName.CLAIMS_INFO}`,
+        sidebarName: "Claims List Info",
+        navbarName: "Claims List",
+        icon: PeopleOutlined,
+        component: ClaimsDetail,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+    },
+    {
         path: `${RouteName.CLAIMS_DETAILS}:id`,
         sidebarName: "Claims List",
         navbarName: "Claims List",

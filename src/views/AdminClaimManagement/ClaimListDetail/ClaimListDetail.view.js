@@ -41,7 +41,13 @@ function ClaimListDetail() {
       </div>
       <UpperClaimInfo data={employeeDetail} />
       <ClaimDetailInfo idCards={employeeDetail} />
-
+      <div className={styles.plainPaper}>
+          <div className={styles.heading}>Comments/Notes</div>
+          <div className={styles.commentWrap}>
+            <div>{employeeDetail?.comments}</div>
+            <div></div>
+          </div>
+      </div>
       <div className={styles.PdfBtnWrapper}>
         <div className={styles.editBtn2}>
           <ButtonBase
