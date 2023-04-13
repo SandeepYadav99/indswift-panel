@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
 
 const initialForm = {
-  marrige_of: "",
+  marraige_of: "",
   dom: "",
   document: null,
 };
@@ -121,7 +121,7 @@ const useClaimMarrigeCard = ({}) => {
       LogUtils.log(text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "marrige_of") {
+      if (fieldName === "marraige_of") {
         t[fieldName] = text.target.value;
       } else {
         t[fieldName] = text;

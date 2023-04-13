@@ -33,7 +33,8 @@ const ClaimsList = ({location}) => {
             return (
                 <div className={styles.firstCellFlex}>
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>{obj?.name}</span> <br/>
+                        <span className={styles.productName}>{obj?.employee?.name}</span> <br/>
+                        <span className={styles.productName}>{obj?.employee?.emp_code}</span> <br/>
                     </div>
                 </div>
             );
@@ -60,37 +61,37 @@ const ClaimsList = ({location}) => {
                 key: 'grade',
                 label: 'GRADE/CADRE',
                 sortable: false,
-                render: (temp, all) => <div>{all?.contact}<br/>{all?.email}</div>,
+                render: (temp, all) => <div>{all?.contact}<br/>{`${all?.employee?.grade}/${all?.employee?.cadre}`}</div>,
             },
             {
                 key: 'location',
                 label: 'Location',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job_details?.location}</div>,
+                render: (temp, all) => <div>{all?.employee?.location}</div>,
             },
             {
                 key: 'desigination',
                 label: 'DESIGNATION',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job_details?.code}</div>,
+                render: (temp, all) => <div>{all?.employee?.designation}</div>,
             },
             {
                 key: 'department',
                 label: 'DEPT & SUB-DEPT',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job_details?.department} / {all?.job_details?.sub_department}</div>,
+                render: (temp, all) => <div>{all?.employee?.department} / {all?.employee?.sub_department}</div>,
             },
             {
                 key: 'contact',
                 label: 'CONTACT',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job_details?.job_role}</div>,
+                render: (temp, all) => <div>{all?.employee?.contact}</div>,
             },
             {
                 key: 'claim_type',
                 label: 'CLAIM TYPE',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job_details?.assigned_person}</div>,
+                render: (temp, all) => <div>{all?.claim?.claim_type}</div>,
             },
             {
                 key: 'status',

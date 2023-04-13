@@ -18,7 +18,7 @@ function ClaimUpper({ data }) {
         </div>
         <div className={styles.upperGradeInfo}>
           <div className={styles.uppertitle}>Cadre :</div>
-          <div className={styles.upperdes}>Grade</div>
+          <div className={styles.upperdes}>{data?.name}</div>
         </div>
       </div>
     </div>

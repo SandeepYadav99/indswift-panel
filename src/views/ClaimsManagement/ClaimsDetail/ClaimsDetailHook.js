@@ -1,16 +1,16 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetClaimDetail } from "../../../services/Claims.service";
 
 const useClaimsDetail = ({}) => {
+  const [data,setData]= useState({})
   useEffect(() => {
     let dataValues = serviceGetClaimDetail();
     dataValues
       .then((data) => {
         console.log(data)
-        // setemployeeHRData(data?.data);
-        // setAllData(data?.data);
+        setData(data?.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -26,6 +26,7 @@ const useClaimsDetail = ({}) => {
 
   return {
     handleClaimPage,
+    data
   };
 };
 

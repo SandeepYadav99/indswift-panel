@@ -25,7 +25,9 @@
     background-color: #fff;
     box-shadow: 0px 20px 80px #00000011;
 }
-
+.tableWrapper{
+    margin-top: 20px;
+}
 .heading{
     font-size: 0.8rem;
     margin-top: 5px;

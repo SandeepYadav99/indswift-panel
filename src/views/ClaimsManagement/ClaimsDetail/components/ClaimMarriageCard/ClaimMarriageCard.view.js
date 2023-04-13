@@ -63,9 +63,9 @@ function ClaimMarriageCard() {
         <div className={styles.formSelectWrapper}>
           <FormControl component="fieldset">
             <RadioGroup
-              value={form?.marrige_of}
+              value={form?.marraige_of}
               onChange={(value) => {
-                changeTextData(value, "marrige_of");
+                changeTextData(value, "marraige_of");
               }}
               row
             >
