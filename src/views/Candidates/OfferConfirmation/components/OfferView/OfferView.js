@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
 import styles from "./Style.module.css";
-function OfferViewer({ children, toggleDialog, handleReject, isSubmitting }) {
+function OfferViewer({ children, toggleDialog, handleReject, isSubmitting, isEnabled }) {
   return (
     <div className={styles.PdfViewWrapper}>
       <div className={styles.innerPdfCont}>
         {children}
-        <div className={styles.PdfBtnWrapper}>
+        {isEnabled && (<div className={styles.PdfBtnWrapper}>
           <div className={styles.editBtn2}>
             <ButtonBase disabled={isSubmitting} onClick={handleReject} className={styles.edit}>
               REJECT
@@ -24,7 +24,7 @@ function OfferViewer({ children, toggleDialog, handleReject, isSubmitting }) {
               ACCEPT
             </ButtonBase>
           </div>
-        </div>
+        </div>)}
       </div>
     </div>
   );

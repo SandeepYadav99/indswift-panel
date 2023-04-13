@@ -13,6 +13,7 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import SnackbarComponent from "../../../components/Snackbar.component";
+import Constants from "../../../config/constants";
 
 function OfferConfirmation() {
     const { candidateId } = useEAFSession();
@@ -72,7 +73,7 @@ function OfferConfirmation() {
 
   return (
     <div>
-      <OfferViewer isSubmitting={isSubmitting} handleReject={handleReject} toggleDialog={toggleDialog}>
+      <OfferViewer isEnabled={offerLetter?.status !== Constants.JOB_CANDIDATE_STATUS.DROPPED} isSubmitting={isSubmitting} handleReject={handleReject} toggleDialog={toggleDialog}>
           <ViewDocuments location={{state: { url: offerLetter?.offer_letter_path }}} />
       </OfferViewer>
       <AcceptanceDialog isSubmitting={isSubmitting} handleConfirm={handleAccept} handleDialog={toggleDialog} isOpen={isOpen} />

@@ -60,14 +60,14 @@ const CandidateAssociateJob = ({ data }) => {
                     : ""}
                 </span>
               </div>
-              <div className={styles.key}>
+              {data?.offer_letter?.designation?.name && (<div className={styles.key}>
                 <span className={styles.value}>Offered Designation:</span>
                 <span className={styles.valueWrap}>
                   {data?.offer_letter?.designation?.name
                       ? data?.offer_letter?.designation?.name
                       : ""}
                 </span>
-              </div>
+              </div>)}
             </div>
           </div>
         </div>

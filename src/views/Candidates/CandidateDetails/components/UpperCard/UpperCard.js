@@ -79,7 +79,7 @@ const UpperCard = ({
           </div>
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
-              {(isRecruiter && data?.is_selected && !data?.is_offer_letter_sent) && (<ActionButton onClick={() => handlePRCPopUp()}>
+              {(data.status !== Constants.JOB_CANDIDATE_STATUS.DROPPED && isRecruiter && data?.is_selected && !data?.is_offer_letter_sent) && (<ActionButton onClick={() => handlePRCPopUp()}>
                 <InfoOutlined fontSize={"small"} />
                 <span className={styles.actionBtnSpan}>Extend Offer</span>
               </ActionButton>)}

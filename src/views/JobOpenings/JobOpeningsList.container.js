@@ -119,8 +119,7 @@ const JobOpeningsList = ({}) => {
                 label: 'Action',
                 render: (temp, all) => (<div>
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}><InfoOutlined style={{ color: '#2896e9' }} fontSize={'small'} /></IconButton >
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={() => {handleViewEditDetails(all)}}><Edit fontSize={'small'} /></IconButton>
-                    {/*onClick={() => { handleEdit(all) }}*/}
+                    {all.status !== Constants.JOB_OPENING_STATUS.CLOSED && (<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={() => {handleViewEditDetails(all)}}><Edit fontSize={'small'} /></IconButton>)}
                 </div>),
             },
 

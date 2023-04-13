@@ -1,11 +1,11 @@
 /* eslint-disable indent,linebreak-style */
 const TABLE_LIMIT = 50;
-const tempLevel = true; //!(
-//   !process.env.NODE_ENV || process.env.NODE_ENV === "development"
-// );
+const tempLevel = !(
+  !process.env.NODE_ENV || process.env.NODE_ENV === "development"
+);
 
 const tempDate = new Date();
-const isProduction = false;
+const isProduction = true;
 
 let url = "http://91.205.173.97:8111/api/admin/";
 let socketUrl = "http://91.205.173.97:8111";
@@ -81,6 +81,10 @@ export default {
     'CV SHORTLIST REJECTED':'error',
     'DROPPED':'nosourcing',
     'AUTO REJECTED':'error'
+  },
+  JOB_OPENING_STATUS: {
+    ACTIVE: 'ACTIVE',
+    CLOSED: 'CLOSED'
   },
   VACANCY_TYPE: {
     RAP: 'RAP',
@@ -187,7 +191,8 @@ export default {
     SELECTED: "SELECTED",
     PENDING: "PENDING",
     CV_SHORTLISTED: "CV_SHORTLISTED",
-    PENDING_REVIEW:"PENDING_REVIEW"
+    PENDING_REVIEW:"PENDING_REVIEW",
+    DROPPED: 'DROPPED'
   },
   INTERVIEW_STATUS_TEXT: {
     PENDING: "Pending",
