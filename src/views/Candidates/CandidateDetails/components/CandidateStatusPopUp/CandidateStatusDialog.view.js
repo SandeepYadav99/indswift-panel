@@ -39,7 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CandidateStatusDialog = ({ isOpen, handleToggle, candidateId }) => {
+const CandidateStatusDialog = ({ isOpen, handleToggle, candidateId, handleStatusUpdate }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -54,7 +54,7 @@ const CandidateStatusDialog = ({ isOpen, handleToggle, candidateId }) => {
     isVerified,
     showPasswordCurrent,
     setShowPasswordCurrent,
-  } = useCandidateStatusDialogHook({ isOpen, handleToggle, candidateId });
+  } = useCandidateStatusDialogHook({ handleStatusUpdate, isOpen, handleToggle, candidateId });
 
   return (
     <div>

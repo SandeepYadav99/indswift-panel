@@ -73,6 +73,14 @@ function useCandidateDetails() {
 
   }, []);
 
+  const handleStatusUpdate = useCallback((data) => {
+    toggleStatusDialog();
+    setCandidateData({
+      ...candidateData,
+      ...data
+    });
+  }, [candidateData, setCandidateData, toggleStatusDialog]);
+
   return {
     value,
     candidateData,
@@ -89,7 +97,8 @@ function useCandidateDetails() {
     toggleReoccuringDialog,
     isReoccuring,
     id,
-    handleShare
+    handleShare,
+    handleStatusUpdate
   };
 }
 

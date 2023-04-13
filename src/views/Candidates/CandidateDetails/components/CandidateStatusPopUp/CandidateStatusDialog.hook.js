@@ -8,7 +8,7 @@ const initialForm={
   status:"",
   note:"",
 }
-const useCandidateStatusDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
+const useCandidateStatusDialogHook = ({ isOpen, handleStatusUpdate, handleToggle ,candidateId}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -81,14 +81,14 @@ const useCandidateStatusDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Placed Successfully");
-          handleToggle();
+          handleStatusUpdate(res.data);
         } else {
           SnackbarUtils.error(res?.message);
         }
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, handleToggle]);
+  }, [form, isSubmitting, setIsSubmitting, handleToggle, handleStatusUpdate]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();

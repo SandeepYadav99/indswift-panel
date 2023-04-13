@@ -71,6 +71,7 @@ function CandidateDetails() {
     isReoccuring,
     handleShare,
     id,
+    handleStatusUpdate
   } = useCandidateDetails({});
 
   return (
@@ -112,11 +113,12 @@ function CandidateDetails() {
           handleToggle={toggleResetDialog}
         /> */}
         <CandidateStatusDialog
+            handleStatusUpdate={handleStatusUpdate}
           isOpen={isUpdateDialog}
           handleToggle={toggleStatusDialog}
           candidateId={id}
         />
-        
+
         <div className={styles.paperBackground}>
           <TabPanel value={value} index={0} dir={"ltr"}>
             <CandidateProfileView data={candidateData} />
