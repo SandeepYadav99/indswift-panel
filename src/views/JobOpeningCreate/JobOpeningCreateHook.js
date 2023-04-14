@@ -72,7 +72,7 @@ const useJobOpeningsDetail = ({}) => {
   useEffect(() => {
     serviceGetList([
       "LOCATION_DEPARTMENTS",
-      "EMPLOYEES",
+      "EMPLOYEES_ALL",
       "DEPARTMENTS",
       "HR",
       "SUB_DEPARTMENTS",
@@ -80,7 +80,10 @@ const useJobOpeningsDetail = ({}) => {
       "DESIGNATIONS",
     ]).then((res) => {
       if (!res.error) {
-        setListData(res.data);
+        setListData({
+          ...res.data,
+          EMPLOYEES: res.data.EMPLOYEES_ALL,
+        });
       }
     });
   }, []);

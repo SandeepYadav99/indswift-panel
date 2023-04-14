@@ -922,8 +922,8 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
 
     },
-     
-    
+
+
     {
         path: `${RouteName.CLAIMS_LIST}`,
         sidebarName: "Claims List",
