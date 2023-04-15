@@ -39,7 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ChangeDialog = ({ isOpen, handleToggle, empId }) => {
+const ChangeDialog = ({ isOpen, handleToggle, candidateId , claimAmount}) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -49,7 +49,7 @@ const ChangeDialog = ({ isOpen, handleToggle, empId }) => {
     onBlurHandler,
     declaration,
     setDeclaration,
-  } = useChangeDialogHook({ isOpen, handleToggle, empId });
+  } = useChangeDialogHook({ isOpen, handleToggle, candidateId });
 
   return (
     <div>
@@ -85,16 +85,12 @@ const ChangeDialog = ({ isOpen, handleToggle, empId }) => {
           <div className={styles.fieldWrapper}>
             <div>
               <CustomTextField
-                isError={errorData?.claim_value}
-                errorText={errorData?.claim_value}
+                disabled={true}
+               
                 label={"Claimed Value"}
-                value={form?.name}
-                onTextChange={(text) => {
-                  changeTextData(text, "claim_value");
-                }}
-                onBlur={() => {
-                  onBlurHandler("claim_value");
-                }}
+                value={claimAmount}
+                 
+                InputLabelProps={{ shrink: true }}
               />
             </div>
           </div>
@@ -102,15 +98,16 @@ const ChangeDialog = ({ isOpen, handleToggle, empId }) => {
           <div className={styles.fieldWrapper}>
             <div>
               <CustomTextField
-                isError={errorData?.approved_value}
-                errorText={errorData?.approved_value}
+                type="number"
+                isError={errorData?.approved_amount}
+                errorText={errorData?.approved_amount}
                 label={"Approved Value"}
                 value={form?.name}
                 onTextChange={(text) => {
-                  changeTextData(text, "approved_value");
+                  changeTextData(text, "approved_amount");
                 }}
                 onBlur={() => {
-                  onBlurHandler("approved_value");
+                  onBlurHandler("approved_amount");
                 }}
               />
             </div>
@@ -118,15 +115,15 @@ const ChangeDialog = ({ isOpen, handleToggle, empId }) => {
           <div className={styles.fieldWrapper}>
             <div>
               <CustomTextField
-                isError={errorData?.note}
-                errorText={errorData?.note}
+                isError={errorData?.comment}
+                errorText={errorData?.comment}
                 label={"Add comments (Optional)"}
-                value={form?.note}
+                value={form?.comment}
                 onTextChange={(text) => {
-                  changeTextData(text, "note");
+                  changeTextData(text, "comment");
                 }}
                 onBlur={() => {
-                  onBlurHandler("note");
+                  onBlurHandler("comment");
                 }}
                 multiline
                 rows={3}

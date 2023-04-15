@@ -33,7 +33,7 @@ function ClaimMarriageCard() {
     setDeclaration,
     employeeDetails,
     claimInfo,
-    billAmount
+    billAmount,
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -41,7 +41,6 @@ function ClaimMarriageCard() {
     console.log(event.target.value);
     setSelectedOption(event.target.value);
   };
-  const idCards = {};
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -117,9 +116,8 @@ function ClaimMarriageCard() {
               <CustomTextField
                 InputLabelProps={{ shrink: true }}
                 disabled={true}
-                label={"Bill Amount"}
-                value={billAmount ? Math.round(billAmount /5): null}
-                 
+                label={"Gift Claim Value"}
+                value={billAmount ? Math.round(billAmount / 5) : null}
               />
             </div>
           </div>
@@ -146,8 +144,12 @@ function ClaimMarriageCard() {
       <div className={styles.btnCont}>
         <ButtonBase
           type={"button"}
-          disabled={!declaration ? true : false}
-          className={declaration ? styles.createBtn : styles.disabledCreatebtn}
+          disabled={!declaration || !form?.marraige_of ? true : false}
+          className={
+            !declaration || !form?.marraige_of
+              ? styles.disabledCreatebtn
+              : styles.createBtn
+          }
           onClick={handleSubmit}
         >
           Submit

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import image from "../../../../../assets/img/download.png";
 
-function UpperClaimInfo({data}) {
+function UpperClaimInfo({ data }) {
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -40,8 +40,8 @@ function UpperClaimInfo({data}) {
               {data?.employee?.designation?.name}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>Grade/Level:</span>
-              {data?.employee?.grade?.code}
+              <span className={styles.value}>Grade/Cadre:</span>
+              {`${data?.employee?.grade?.code} / ${data?.employee?.cadre?.code}`}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Department:</span>

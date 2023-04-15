@@ -37,8 +37,8 @@ function ClaimUpperCard({data}) {
               {data?.designation?.name}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>Grade/Level:</span>
-              {data?.grade?.code}
+              <span className={styles.value}>Grade/Cadre:</span>
+              {`${data?.grade?.code} / ${data?.cadre?.code}`}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Department:</span>

@@ -12,7 +12,7 @@ import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
-import useApproveDialogHook from "./ApproveDialog.hook";
+import useRejectDialogHook from "./RejectDialog.hook";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -37,7 +37,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ApproveDialog = ({ isOpen, handleToggle, candidateId }) => {
+const RejectDialog = ({ isOpen, handleToggle, candidateId }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -51,7 +51,7 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId }) => {
     isSubmitting,
     setDeclaration,
     declaration
-  } = useApproveDialogHook({ isOpen, handleToggle, candidateId });
+  } = useRejectDialogHook({ isOpen, handleToggle, candidateId });
 
   return (
     <div>
@@ -81,7 +81,7 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId }) => {
             <div className={styles.heading}>Confirm Action</div>
             <div className={styles.newLine}></div>
             <div className={styles.des}>
-              Do you approve the documents and the reimbursement amount.
+              Do you Reject the documents and the reimbursement amount.
             </div>
           </div>
 
@@ -135,4 +135,4 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId }) => {
   );
 };
 
-export default ApproveDialog;
+export default RejectDialog;

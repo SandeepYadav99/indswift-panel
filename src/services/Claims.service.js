@@ -16,15 +16,16 @@ export async function serviceGetClaimsDetails(params) {
 export async function serviceGetClaims(params) {
     return await postRequest('cr', params);
 }
-
-export async function serviceGetClaimsJobHistory (params) {
-    return await postRequest('cr/details/job/history', params);
+export async function serviceDetailsCLaim(params) {
+    return await postRequest('cr/details', params);
 }
-
-export async function serviceClaimsHistory (params) {
-    return await postRequest('cr/events/history', params);
-}
-
 export async function serviceGetClaimDetail(params){
     return await getRequest('employee/claims/type',params)
 }
+export async function serviceApproveCLaim(params) {
+    return await postRequest('cr/accept', params);
+}
+export async function serviceRejectCLaim(params) {
+    return await postRequest('cr/reject', params);
+}
+

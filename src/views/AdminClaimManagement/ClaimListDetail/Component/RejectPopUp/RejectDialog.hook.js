@@ -1,25 +1,23 @@
 import { useCallback, useEffect, useState } from "react";
-import { serviceChangeEmployeeStatus } from "../../../../../services/Employee.service";
-import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { useSelector } from "react-redux";
-import { serviceApproveCLaim } from "../../../../../services/Claims.service";
+import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import { serviceRejectCLaim } from "../../../../../services/Claims.service";
 
-const initialForm = {
-  approved_amount: "",
-  comment: "",
-};
-const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
+const initialForm={
+  comment:"",
+}
+const useRejectDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
   const { employeeData } = useSelector((state) => state.employee);
   const [errorData, setErrorData] = useState({});
+  const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [resData, setResData] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [declaration, setDeclaration] = useState(false);
-  const [approved, setApproved] = useState();
+  const [declaration,setDeclaration]=useState(false)
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
@@ -29,11 +27,7 @@ const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
       setErrorData({});
     }
   }, [isOpen]);
-  useEffect(() => {
-    if (form?.approved_amount) {
-      setApproved(parseFloat(form?.approved_amount));
-    }
-  }, [form?.approved_amount]);
+
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
@@ -57,7 +51,7 @@ const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["approved_amount"];
+    let required = [];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -68,7 +62,6 @@ const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
         delete errors[val];
       }
     });
-
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -80,10 +73,9 @@ const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      serviceApproveCLaim({
+      serviceRejectCLaim({
         review_id: candidateId,
-        comment: form?.comment,
-        approved_amount: approved,
+        ...form,
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Placed Successfully");
@@ -98,8 +90,7 @@ const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("===>", { form, errors });
-    // LogUtils.log("errors", errors);
+    console.log("===?",form,errors)
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
@@ -127,10 +118,11 @@ const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
     resData,
     isSubmitted,
     isVerified,
-
-    declaration,
+    showPasswordCurrent,
+    setShowPasswordCurrent,
     setDeclaration,
+    declaration
   };
 };
 
-export default useChangeDialogHook;
+export default useRejectDialogHook;

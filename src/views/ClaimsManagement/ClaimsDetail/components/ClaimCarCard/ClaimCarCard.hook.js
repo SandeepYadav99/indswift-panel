@@ -9,7 +9,7 @@ import { useParams } from "react-router";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
 import { serviceGetEmployeeDetails, serviceUpdateCarClaims } from "../../../../../services/ClaimsManagement.service";
-import { isNum } from "../../../../../libs/RegexUtils";
+import { isNum ,IsVehicleNo} from "../../../../../libs/RegexUtils";
 import { useSelector } from "react-redux";
 import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
 
@@ -67,6 +67,9 @@ const useClaimCarCard = ({}) => {
         errors[val] = true;
       }
     });
+    if (form?.vehicle_no && !IsVehicleNo(form?.vehicle_no)) {
+      errors["vehicle_no"] = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -124,11 +127,8 @@ const useClaimCarCard = ({}) => {
       const t = { ...form };
       if (fieldName === "marrige_of") {
         t[fieldName] = text.target.value;
-      } else if (fieldName === "vehicle_no") {
-        if (isNum(text) && text.toString().length <= 10) {
-          t[fieldName] = text;
-        }
-      } else {
+      } 
+       else {
         t[fieldName] = text;
       }
       setForm(t);

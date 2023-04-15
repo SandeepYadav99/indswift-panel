@@ -113,17 +113,18 @@ const CadreList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-             
+            {isCorporateHR && (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleViewDetails(all);
+                }}
+              >
+                <InfoOutlined fontSize={"small"} />
+              </IconButton>
+            )}
             {isCorporateHR && (
               <IconButton
                 onClick={() => {

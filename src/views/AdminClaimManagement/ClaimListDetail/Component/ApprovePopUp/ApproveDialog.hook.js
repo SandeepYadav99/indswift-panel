@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { serviceChangeEmployeeStatus } from "../../../../../services/Employee.service";
 import { serviceUpdateCandidateStatus } from "../../../../../services/Candidate.service";
+import { serviceApproveCLaim } from "../../../../../services/Claims.service";
 
 const initialForm={
-  note:"",
+  comment:"",
 }
 const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
   const [form, setForm] = useState(
@@ -74,8 +75,8 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      serviceUpdateCandidateStatus({
-        candidate_id: candidateId,
+      serviceApproveCLaim({
+        review_id: candidateId,
         ...form,
       }).then((res) => {
         if (!res.error) {
@@ -96,7 +97,7 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
       setErrorData(errors);
       return true;
     }
-    // submitToServer();
+    submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(

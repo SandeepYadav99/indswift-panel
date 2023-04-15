@@ -8,6 +8,7 @@ import ClaimDetailInfo from "./Component/ClaimDetailInfo/ClaimDetailInfo";
 import useClaimListDetail from "./ClaimListDetail.hook";
 import ApproveDialog from "./Component/ApprovePopUp/ApproveDialog.view";
 import ChangeDialog from "./Component/ChangePopUp/ChangeDialog.view";
+import RejectDialog from "./Component/RejectPopUp/RejectDialog.view";
 function ClaimListDetail() {
   const {
     id,
@@ -16,16 +17,25 @@ function ClaimListDetail() {
     approveDialog,
     toggleChangeDialog,
     ischangeDialog,
+    toggleRejectDialog,
+    rejectDialog,
   } = useClaimListDetail({});
-  console.log("employeeDetail", employeeDetail);
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
         <ApproveDialog
+          candidateId={id}
           isOpen={approveDialog}
           handleToggle={toggleStatusDialog}
         />
-        <ChangeDialog
+        <RejectDialog
+          candidateId={id}
+          isOpen={rejectDialog}
+          handleToggle={toggleRejectDialog}
+        />
+        <ChangeDialog 
+          claimAmount={employeeDetail?.claim_amount}
+          candidateId={id}
           isOpen={ischangeDialog}
           handleToggle={toggleChangeDialog}
         />
@@ -42,18 +52,17 @@ function ClaimListDetail() {
       <UpperClaimInfo data={employeeDetail} />
       <ClaimDetailInfo idCards={employeeDetail} />
       <div className={styles.plainPaper}>
-          <div className={styles.heading}>Comments/Notes</div>
-          <div className={styles.commentWrap}>
-            <div>{employeeDetail?.comments}</div>
-            <div></div>
-          </div>
+        <div className={styles.heading}>Comments/Notes</div>
+        {employeeDetail?.comments?.map((item) => {
+          <>
+            <div>{item?.comment}</div>
+          </>;
+        })}
+        {/* <div>{employeeDetail?.comments}</div> */}
       </div>
       <div className={styles.PdfBtnWrapper}>
         <div className={styles.editBtn2}>
-          <ButtonBase
-            className={styles.edit}
-            // onClick={() => handleToggle()}
-          >
+          <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
             REJECT
           </ButtonBase>
         </div>

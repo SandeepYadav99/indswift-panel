@@ -57,7 +57,6 @@ function ClaimCarCard() {
           <div className={"formFlex"} style={{ alignItems: "center" }}>
             <div className="formGroup1">
               <CustomTextField
-                type="number"
                 isError={errorData?.vehicle_no}
                 errorText={errorData?.vehicle_no}
                 label={"Vehicle No."}
