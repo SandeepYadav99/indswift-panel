@@ -3,6 +3,8 @@ import { serviceChangeEmployeeStatus } from "../../../../../services/Employee.se
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { useSelector } from "react-redux";
 import { serviceApproveCLaim } from "../../../../../services/Claims.service";
+import RouteName from "../../../../../routes/Route.name";
+import historyUtils from "../../../../../libs/history.utils";
 
 const initialForm = {
   approved_amount: "",
@@ -88,6 +90,7 @@ const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
         if (!res.error) {
           SnackbarUtils.success("Request Placed Successfully");
           handleToggle();
+          historyUtils.push(RouteName.CLAIMS_LIST);
         } else {
           SnackbarUtils.error(res?.message);
         }

@@ -29,8 +29,15 @@
   align-items: center;
   border-radius: 10px;
   padding: 1.2rem 0;
-  /* position: absolute; */
-  /* bottom: 0px; */
+}
+.approvedWrapper {
+  background: #ffffff;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 10px;
+  padding: 1.2rem 0;
 }
 .editBtn2 {
   margin-left: 15px;
@@ -91,8 +98,25 @@
   background-color: #fff;
   box-shadow: 0px 20px 80px #00000011;
 }
+.newContainer{
+  font-size: 0.7rem;
+}
 .commentWrap{
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+.commentContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: .7rem;
+}
+.commentDate{
+  font-weight: 600;
+}
+.commentwrap{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

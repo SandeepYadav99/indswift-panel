@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
-import { serviceChangeEmployeeStatus } from "../../../../../services/Employee.service";
-import { serviceUpdateCandidateStatus } from "../../../../../services/Candidate.service";
 import { serviceApproveCLaim } from "../../../../../services/Claims.service";
+import RouteName from "../../../../../routes/Route.name";
+import historyUtils from "../../../../../libs/history.utils";
 
 const initialForm={
   comment:"",
@@ -81,6 +81,7 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Placed Successfully");
+          historyUtils.push(RouteName.CLAIMS_LIST);
           handleToggle();
         } else {
           SnackbarUtils.error(res?.message);

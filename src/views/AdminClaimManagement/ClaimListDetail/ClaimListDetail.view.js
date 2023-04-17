@@ -52,37 +52,56 @@ function ClaimListDetail() {
       <UpperClaimInfo data={employeeDetail} />
       <ClaimDetailInfo idCards={employeeDetail} />
       <div className={styles.plainPaper}>
-        <div className={styles.heading}>Comments/Notes</div>
-        {employeeDetail?.comments?.map((item) => {
-          <>
-            <div>{item?.comment}</div>
-          </>;
-        })}
-        {/* <div>{employeeDetail?.comments}</div> */}
-      </div>
-      <div className={styles.PdfBtnWrapper}>
-        <div className={styles.editBtn2}>
-          <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
-            REJECT
-          </ButtonBase>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>Comments/Notes</div>
+          <div className={styles.commentContainer}>
+            {employeeDetail?.comments &&
+              employeeDetail?.comments?.map((item) => (
+                <div className={styles.commentwrap}>
+                  <div>{item.comment}</div>
+                  <div className={styles.commentDate}>
+                    {`${item?.employee?.name} | ${item?.updatedAtText}`}
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
-        <div className={styles.btnApproveWrapper}>
-          <div>
-            <ButtonBase
-              // disabled={isSubmitting}
-              className={styles.editSuccess}
-              onClick={toggleChangeDialog}
-            >
-              CHANGE & APPROVE
+      </div>
+      {/* {employeeDetail?.panelist_status === "PENDING" && ( */}
+      <div
+        className={
+          employeeDetail?.status === "APPROVED"
+            ? styles.approvedWrapper
+            : styles.PdfBtnWrapper
+        }
+      >
+        {employeeDetail?.status !== "APPROVED" && (
+          <div className={styles.editBtn2}>
+            <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
+              REJECT
             </ButtonBase>
           </div>
+        )}
+
+        <div className={styles.btnApproveWrapper}>
+          {employeeDetail?.status !== "APPROVED" && (
+            <div>
+              <ButtonBase
+                // disabled={isSubmitting}
+                className={styles.editSuccess}
+                onClick={toggleChangeDialog}
+              >
+                CHANGE & APPROVE
+              </ButtonBase>
+            </div>
+          )}
           <div>
             <ButtonBase
               // disabled={isSubmitting}
               className={styles.createBtn}
               onClick={toggleStatusDialog}
             >
-              APPROVE
+              {employeeDetail?.status !== "APPROVED" ? "APPROVE" : "PROCESS"}
             </ButtonBase>
           </div>
         </div>

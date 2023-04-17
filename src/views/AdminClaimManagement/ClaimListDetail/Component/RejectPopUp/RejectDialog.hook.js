@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { serviceRejectCLaim } from "../../../../../services/Claims.service";
+import historyUtils from "../../../../../libs/history.utils";
+import RouteName from "../../../../../routes/Route.name";
 
 const initialForm={
   comment:"",
@@ -80,6 +82,7 @@ const useRejectDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
         if (!res.error) {
           SnackbarUtils.success("Request Placed Successfully");
           handleToggle();
+          historyUtils.push(RouteName.CLAIMS_LIST);
         } else {
           SnackbarUtils.error(res?.message);
         }

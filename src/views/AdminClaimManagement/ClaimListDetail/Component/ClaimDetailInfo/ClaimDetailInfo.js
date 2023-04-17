@@ -1,56 +1,141 @@
 import React from "react";
 import styles from "./Style.module.css";
 
-function ClaimDetailInfo({ idCards  }) {
+function ClaimDetailInfo({ idCards }) {
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
         <div className={styles.heading}>Claim Details</div>
-
-        <div className={styles.mainFlex}>
-          <div className={styles.left}>
-            {
-              idCards?.dom ? <div className={styles.key}>
-              <span className={styles.value}>Date of Marriage:</span>
-              {idCards?.domText}
-            </div> : <div className={styles.key}>
-              <span className={styles.value}>Bill Date:</span>
-              {idCards?.billDateText}
-            </div>
-            }
-            <div className={styles.key}>
-              <span className={styles.value}>Bill Amount:</span>
-              {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
-            </div>
-            {
-              !idCards?.dom && 
+        {idCards?.claimTypeText && idCards?.claimTypeText === "Marraige" && (
+          <div className={styles.mainFlex}>
+            <div className={styles.left}>
               <div className={styles.key}>
-              <span className={styles.value}>Amount to be Reimbursed:</span>
-              {idCards?.claim_amount && `₹  ${idCards?.claim_amount}`}
+                <span className={styles.value}>Marriage of :</span>
+                {idCards?.marraige_of}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim in Process:</span>
+                {idCards?.claim_details?.progress_claim &&
+                  `₹ ${idCards?.claim_details?.progress_claim}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Pending Claim:</span>
+                {idCards?.claim_details?.pending_claim &&
+                  ` ₹ ${idCards?.claim_details?.pending_claim}`}
+              </div>
+
+              <div className={styles.key}>
+                <a href={idCards?.document} target="_blank">
+                  <div className={styles.hyperlinkText}>View Attachment</div>
+                </a>
+              </div>
             </div>
-            }
-            
-            <div className={styles.key}>
-              <a href={idCards?.document} target="_blank">
-                <div className={styles.hyperlinkText}>View Attachment</div>
-              </a>
+            <div className={styles.right}>
+              <div className={styles.key}>
+                <span className={styles.value}>Marraige Date :</span>
+                {idCards?.domText}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Entitled Amount:</span>
+                {idCards?.claim_details?.entitled_amount &&
+                  `₹ ${idCards?.claim_details?.entitled_amount}`}
+              </div>
+
+              <div className={styles.key}>
+                <span className={styles.value}>Amount to be Reimbursed:</span>
+                {idCards?.claim_amount && `₹  ${idCards?.claim_amount}`}
+              </div>
             </div>
           </div>
-          <div className={styles.right}>
-            <div className={styles.key}>
-              <span className={styles.value}>Entitled Amount:</span>
-              {idCards?.claim_details?.entitled_amount && `₹ ${idCards?.claim_details?.entitled_amount}`}
+        )}
+        {idCards?.claimTypeText && idCards?.claimTypeText === "Mobile" && (
+          <div className={styles.mainFlex}>
+            <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value}>Official Phone Number</span>
+                {idCards?.official_contact}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Bill Amount:</span>
+                {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim in Process:</span>
+                {idCards?.claim_details?.progress_claim &&
+                  `₹ ${idCards?.claim_details?.progress_claim}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Pending Claim:</span>
+                {idCards?.claim_details?.pending_claim &&
+                  ` ₹ ${idCards?.claim_details?.pending_claim}`}
+              </div>
             </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Claim in Process:</span>
-              {idCards?.claim_details?.progress_claim && `₹ ${idCards?.claim_details?.progress_claim}`}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Pending Claim:</span>
-              {idCards?.claim_details?.pending_claim && ` ₹ ${idCards?.claim_details?.pending_claim}`}
+            <div className={styles.right}>
+              <div className={styles.key}>
+                <span className={styles.value}>Bill Date:</span>
+                {idCards?.billDateText}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Entitled Amount:</span>
+                {idCards?.claim_details?.entitled_amount &&
+                  `₹ ${idCards?.claim_details?.entitled_amount}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Amount to be Reimbursed:</span>
+                {idCards?.claim_amount && `₹  ${idCards?.claim_amount}`}
+              </div>
+              <div className={styles.key}>
+                <a href={idCards?.document} target="_blank">
+                  <div className={styles.hyperlinkText}>View Attachment</div>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        )}
+        {idCards?.claimTypeText && idCards?.claimTypeText === "Car" && (
+          <div className={styles.mainFlex}>
+            <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value}>Vehicle Number:</span>
+                {idCards?.vehicle_no}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Bill Amount:</span>
+                {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim in Process:</span>
+                {idCards?.claim_details?.progress_claim &&
+                  `₹ ${idCards?.claim_details?.progress_claim}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Pending Claim:</span>
+                {idCards?.claim_details?.pending_claim &&
+                  ` ₹ ${idCards?.claim_details?.pending_claim}`}
+              </div>
+            </div>
+            <div className={styles.right}>
+              <div className={styles.key}>
+                <span className={styles.value}>Bill Date:</span>
+                {idCards?.billDateText}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Entitled Amount:</span>
+                {idCards?.claim_details?.entitled_amount &&
+                  `₹ ${idCards?.claim_details?.entitled_amount}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Amount to be Reimbursed:</span>
+                {idCards?.claim_amount && `₹  ${idCards?.claim_amount}`}
+              </div>
+              <div className={styles.key}>
+                <a href={idCards?.document} target="_blank">
+                  <div className={styles.hyperlinkText}>View Attachment</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
