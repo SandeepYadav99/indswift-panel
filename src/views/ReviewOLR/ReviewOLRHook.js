@@ -9,6 +9,7 @@ import {
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
 import historyUtils from "../../libs/history.utils";
+import Constants from "../../config/constants";
 
 
 const useReviewOLR = ({}) => {
@@ -67,7 +68,7 @@ const useReviewOLR = ({}) => {
 
 
     const handleSortOrderChange = useCallback((row, order) => {
-        dispatch(actionSetPageReviewOLR(1));
+        // dispatch(actionSetPageReviewOLR(1));
         dispatch(actionFetchReviewOLR(1, {row, order}, {
             query: query,
             query_data: queryData,
@@ -101,7 +102,7 @@ const useReviewOLR = ({}) => {
         return [
             {label: 'Created Date', options: { maxDate: new Date() },  name: 'createdAt', type: 'date'},
             {label: 'Status', name: 'status', type: 'select', fields: ['APPROVED', 'PENDING','REJECTED']},
-
+            {label: 'Candidate Status', name: 'candidateObj.status', type: 'select', fields: Object.keys(Constants.JOB_CANDIDATE_STATUS)},
         ];
     }, []);
 

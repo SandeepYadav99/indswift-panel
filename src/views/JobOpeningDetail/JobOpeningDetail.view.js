@@ -58,7 +58,7 @@ const JobOpeningDetail = () => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Designation:</span>
-                {data?.designation?.name}
+                {data?.designation?.name} {data?.designation_note && <>({data?.designation_note})</>}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Grade:</span>
@@ -81,7 +81,7 @@ const JobOpeningDetail = () => {
               <div className={styles.key21}>
                 <span className={styles.value}>Notes:</span>
                 <span>{data?.note ? data?.note  : "NA"}</span>
-                
+
               </div>
             </div>
             <div className={styles.vertical}></div>

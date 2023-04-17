@@ -94,11 +94,14 @@ const CandidateStatusDialog = ({ isOpen, handleToggle, candidateId, handleStatus
               >
                 {[
                   "ACTIVE",
-                  "DROPPED"
+                  "DROPPED",
+                    "JOINED",
+                    "NOT_JOINING",
+                    // "OFFER_DECLINED"
                 ].map((val) => {
                   return (
                     <MenuItem value={val} key={val}>
-                      {val}
+                      {val.replace("_", ' ')}
                     </MenuItem>
                   );
                 })}

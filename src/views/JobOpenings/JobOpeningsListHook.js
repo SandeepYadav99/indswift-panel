@@ -44,7 +44,7 @@ const useJobOpeningsList = ({}) => {
     useEffect(() => {
         dispatch(actionFetchJobOpenings(1, sortingData, {
             query: isMountRef.current ? query : null,
-            query_data: isMountRef.current ? queryData : null,
+            query_data: queryData, //isMountRef.current ? queryData : null,
             warehouse_id: warehouseId
         }));
         isMountRef.current = true;
@@ -100,7 +100,7 @@ const useJobOpeningsList = ({}) => {
 
     const handleSortOrderChange = useCallback((row, order) => {
         console.log(`handleSortOrderChange key:${row} order: ${order}`);
-        dispatch(actionSetPageJobOpeningsRequests(1));
+        // dispatch(actionSetPageJobOpeningsRequests(1));
         dispatch(actionFetchJobOpenings(1, {row, order}, {
             query: query,
             query_data: queryData,

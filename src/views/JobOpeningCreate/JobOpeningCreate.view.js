@@ -190,19 +190,19 @@ const JobOpeningCreateView = ({}) => {
                    <div className={'formFlex'} style={ {width:'50%'}}>
                        <div className="formGroup">
                        <CustomTextField
-                            isError={errorData?.desig_note}
-                            errorText={errorData?.desig_note}
+                            isError={errorData?.designation_note}
+                            errorText={errorData?.designation_note}
                             label={"Designation Notes"}
                             value={form?.name}
                             onTextChange={(text) => {
-                                changeTextData(text, "desig_note");
+                                changeTextData(text, "designation_note");
                             }}
                             onBlur={() => {
-                                onBlurHandler("desig_note");
+                                onBlurHandler("designation_note");
                             }}
                         />
                        </div>
-                        
+
                    </div>
 
                    <div className={'formFlex'}>

@@ -125,7 +125,7 @@ const ReviewOLR = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.designation?.name}/{all?.job_details?.department}
+            {all?.designation?.name ? all?.designation?.name : all?.job_details?.designation}/{all?.job_details?.department}
           </div>
         ),
       },
@@ -149,6 +149,26 @@ const ReviewOLR = ({ location }) => {
           <div>
             <StatusPill status={all?.status} />
           </div>
+        ),
+      },
+      {
+        key: "candidateObj.status",
+        label: "Candidate STATUS",
+        sortable: true,
+        render: (temp, all) => (
+            <div>
+              <StatusPill status={all?.candidate?.status} />
+            </div>
+        ),
+      },
+      {
+        key: "offerObj.joining_date",
+        label: "Joining Date",
+        sortable: true,
+        render: (temp, all) => (
+            <div>
+              {all?.offer?.joining_date}
+            </div>
         ),
       },
       {
