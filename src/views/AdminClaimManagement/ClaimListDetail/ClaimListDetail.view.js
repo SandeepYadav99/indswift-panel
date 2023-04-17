@@ -67,7 +67,7 @@ function ClaimListDetail() {
           </div>
         </div>
       </div>
-      {/* {employeeDetail?.panelist_status === "PENDING" && ( */}
+      {employeeDetail?.panelist_status === "PENDING" && (
       <div
         className={
           employeeDetail?.status === "APPROVED"
@@ -106,6 +106,7 @@ function ClaimListDetail() {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 }

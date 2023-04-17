@@ -41,7 +41,8 @@ function UpperClaimInfo({ data }) {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Grade/Cadre:</span>
-              {`${data?.employee?.grade?.code} / ${data?.employee?.cadre?.code}`}
+              {data?.employee?.grade?.code &&
+                `${data?.employee?.grade?.code} / ${data?.employee?.cadre?.code}`}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Department:</span>

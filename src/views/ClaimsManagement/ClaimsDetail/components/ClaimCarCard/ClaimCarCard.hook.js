@@ -18,6 +18,9 @@ const initialForm = {
   bill_date: "",
   vehicle_no: "",
   document: null,
+  payment_mode:'',
+  payment_proof:null,
+  invoice_no:""
 };
 
 const useClaimCarCard = ({}) => {
@@ -57,7 +60,7 @@ const useClaimCarCard = ({}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["bill_amount", "bill_date", "vehicle_no", "document"];
+    let required = ["bill_amount", "bill_date", "vehicle_no", "document","payment_mode",'payment_proof',"invoice_no"];
 
     required.forEach((val) => {
       if (
@@ -67,9 +70,9 @@ const useClaimCarCard = ({}) => {
         errors[val] = true;
       }
     });
-    if (form?.vehicle_no && !IsVehicleNo(form?.vehicle_no)) {
-      errors["vehicle_no"] = true;
-    }
+    // if (form?.vehicle_no && !IsVehicleNo(form?.vehicle_no)) {
+    //   errors["vehicle_no"] = true;
+    // }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -83,12 +86,15 @@ const useClaimCarCard = ({}) => {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["document"].indexOf(key) < 0 && form[key]) {
+        if (["document" , "payment_proof"].indexOf(key) < 0 && form[key]) {
           fd.append(key, form[key]);
         }
       });
       if (form?.document) {
         fd.append("document", form?.document);
+      }
+      if (form?.payment_proof) {
+        fd.append("payment_proof", form?.payment_proof);
       }
       let req = serviceUpdateCarClaims;
       req(fd).then((res) => {

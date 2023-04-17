@@ -156,20 +156,9 @@ const useClaimsList = ({}) => {
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
-      // {
-      //   label: "Coordinator",
-      //   name: "job.assignedPerson._id",
-      //   type: "selectObject",
-      //   custom: { extract: { id: "id", title: "name" } },
-      //   fields: listData?.HR,
-      // },
-      // {
-      //   label: "PRC",
-      //   name: "job._id",
-      //   type: "selectObject",
-      //   custom: { extract: { id: "id", title: "code" } },
-      //   fields: listData?.JOB_OPENINGS,
-      // },
+      {label: 'Status', name: 'status', type: 'select', fields: ['REJECTED', 'PENDING','APPROVED']},
+      {label: 'Claim Type', name: 'claim', type: 'select', fields: ['MARRAIGE', 'CAR','MOBILE']},
+
     ];
   }, [listData]);
 

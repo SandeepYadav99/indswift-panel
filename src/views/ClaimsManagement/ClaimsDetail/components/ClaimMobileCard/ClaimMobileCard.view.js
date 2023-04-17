@@ -1,4 +1,4 @@
-import { ButtonBase } from "@material-ui/core";
+import { ButtonBase, MenuItem } from "@material-ui/core";
 import React from "react";
 import history from "../../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -11,6 +11,7 @@ import useClaimMarrigeCard from "./ClaimMobileCard.hook";
 import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
 import File from "../../../../../components/FileComponent/FileComponent.component";
 import CustomDatePicker from "../../../../../components/FormFields/DatePicker/CustomDatePicker";
+import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 function ClaimMobileCard() {
   const {
     form,
@@ -113,6 +114,60 @@ function ClaimMobileCard() {
                 onChange={(file) => {
                   if (file) {
                     changeTextData(file, "document");
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <div className={"formFlex"} style={{ alignItems: "center" }}>
+            <div className="formGroup1">
+              <CustomTextField
+                isError={errorData?.invoice_no}
+                errorText={errorData?.invoice_no}
+                label={"Invoice Number"}
+                value={form?.invoice_no}
+                onTextChange={(text) => {
+                  changeTextData(text, "invoice_no");
+                }}
+                onBlur={() => {
+                  onBlurHandler("invoice_no");
+                }}
+              />
+            </div>
+          </div>
+          <div className={"formFlex"} style={{ alignItems: "center" }}>
+            <div className={"formGroup"}>
+              <CustomSelectField
+                isError={errorData?.payment_mode}
+                errorText={errorData?.payment_mode}
+                label={"Payment Mode"}
+                value={form?.payment_mode}
+                handleChange={(value) => {
+                  changeTextData(value, "payment_mode");
+                }}
+              >
+                <MenuItem value="Cash">Cash</MenuItem>
+                <MenuItem value="Cheque">Cheque</MenuItem>
+                <MenuItem value="Card">Card</MenuItem>
+                <MenuItem value="UPI">UPI</MenuItem>
+                <MenuItem value="Bank Transfer">Bank Transfer</MenuItem>
+              </CustomSelectField>
+            </div>
+            <div className={"formGroup"}>
+              <File
+                max_size={4 * 1024 * 1024}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                fullWidth={true}
+                name="proofimage"
+                label="Upload Payment Proof"
+                accept={"application/pdf,application/msword,image/*"}
+                link={editData?.payment_proof ? editData?.payment_proof : null}
+                error={errorData?.payment_proof}
+                value={form?.payment_proof}
+                placeholder={"Upload Payment Proof"}
+                onChange={(file) => {
+                  if (file) {
+                    changeTextData(file, "payment_proof");
                   }
                 }}
               />
