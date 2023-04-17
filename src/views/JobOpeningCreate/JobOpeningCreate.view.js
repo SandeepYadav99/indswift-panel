@@ -165,8 +165,6 @@ const JobOpeningCreateView = ({}) => {
                    <div className={'formFlex'} style={{alignItems:"center"}}>
                        <div className="formGroup">
                            <CustomAutoComplete
-                                // disabled={isDesignationDisabled}
-                                // disabledList={isDesignationDisabled}
                                autoCompleteProps={{ freeSolo: false, getOptionLabel: (option) => option.name}}
                                dataset={listData.DESIGNATIONS}
                                datasetKey={'name'}
@@ -188,6 +186,23 @@ const JobOpeningCreateView = ({}) => {
                                </div>
                            </div>)}
                        </div>
+                   </div>
+                   <div className={'formFlex'} style={ {width:'50%'}}>
+                       <div className="formGroup">
+                       <CustomTextField
+                            isError={errorData?.desig_note}
+                            errorText={errorData?.desig_note}
+                            label={"Designation Notes"}
+                            value={form?.name}
+                            onTextChange={(text) => {
+                                changeTextData(text, "desig_note");
+                            }}
+                            onBlur={() => {
+                                onBlurHandler("desig_note");
+                            }}
+                        />
+                       </div>
+                        
                    </div>
 
                    <div className={'formFlex'}>

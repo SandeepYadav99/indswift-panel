@@ -28,6 +28,7 @@ const initialForm = {
   designation: "",
   is_sourcing: false,
   is_hiring: true,
+  desig_note:"",
 };
 
 const useJobOpeningsDetail = ({}) => {
