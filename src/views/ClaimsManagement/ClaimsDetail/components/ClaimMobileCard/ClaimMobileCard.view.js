@@ -27,7 +27,7 @@ function ClaimMobileCard() {
     declaration,
     setDeclaration,
     employeeDetails,
-    claimInfo
+    claimInfo,
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -49,9 +49,9 @@ function ClaimMobileCard() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <ClaimUpperCard data={employeeDetails}/>
+      <ClaimUpperCard data={employeeDetails} />
       <div className={styles.plainPaper}>
-        <ClaimInfo idCards={claimInfo}/>
+        <ClaimInfo idCards={claimInfo} />
 
         <div className={styles.formSelectWrapper}>
           <div className={"formFlex"} style={{ alignItems: "center" }}>
@@ -177,23 +177,37 @@ function ClaimMobileCard() {
       </div>
       <div className={styles.cleckboxWrapper}>
         <div className={styles.checkBox}>
-        <input
+          <input
             checked={declaration}
             type="checkbox"
             id="confirmation"
             name="confirmation"
             onChange={() => {
-              setDeclaration((s)=>!s);
+              setDeclaration((s) => !s);
             }}
           />
-          <label htmlFor="confirmation"> I declare the information shared is best of my knowledge.</label>
+          <label htmlFor="confirmation">
+            {" "}
+            I declare the information shared is best of knowledge and I have
+            submitted genuine claim will authenticate bills as and where
+            attached. I understand that any disparity found in claims/bills with
+            respect to the organizational policies may cause auto rejection of
+            claim with or without an opportunity of re-applying. I also
+            understand that if any part/bill of claim is found to be forged with
+            respect to laws of land or organizational policies then I will be
+            individually accountable for all related legal or organizational
+            consequences. I understand the submitted claim/bill is not part of
+            my earning and it is a subject of approval/rejection from
+            organization which can also be altered by organization as per my
+            entitlements before approval or rejection.
+          </label>
           <br />
         </div>
       </div>
       <div className={styles.btnCont}>
         <ButtonBase
           type={"button"}
-          disabled={!declaration ? true :false}
+          disabled={!declaration ? true : false}
           className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >

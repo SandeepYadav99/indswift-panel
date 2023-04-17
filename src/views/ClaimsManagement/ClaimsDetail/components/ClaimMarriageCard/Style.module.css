@@ -116,6 +116,7 @@
 }
 
 .btnCont {
+  margin-top: 20px;
   display: flex;
   justify-content: flex-end;
 }
@@ -160,7 +161,7 @@
 }
 .checkBox {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 5px;
   color: #161616;
 }

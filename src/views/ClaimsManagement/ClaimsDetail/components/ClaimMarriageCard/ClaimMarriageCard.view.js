@@ -136,7 +136,18 @@ function ClaimMarriageCard() {
             }}
           />
           <label htmlFor="confirmation">
-            I declare the information shared is best of my knowledge.
+            I declare the information shared is best of knowledge and I have
+            submitted genuine claim will authenticate bills as and where
+            attached. I understand that any disparity found in claims/bills with
+            respect to the organizational policies may cause auto rejection of
+            claim with or without an opportunity of re-applying. I also
+            understand that if any part/bill of claim is found to be forged with
+            respect to laws of land or organizational policies then I will be
+            individually accountable for all related legal or organizational
+            consequences. I understand the submitted claim/bill is not part of
+            my earning and it is a subject of approval/rejection from
+            organization which can also be altered by organization as per my
+            entitlements before approval or rejection.
           </label>
           <br />
         </div>

@@ -63,7 +63,14 @@ export const EmployeeDrishtiData = {
   secondRow:
     "On this principle of equality, Drishti Branch of “Swift SkyNet” works for area of Employee Welfare covering all employees of organization equally and it includes 3 programs.",
 };
-
+export const myClaimData = {
+  firstRow:
+    "Organization provides various benefits and reimbursements (against expenses) to employees through relevant HR policies. ",
+  secondRow:
+    "In this section of SkyNet, you can digitally file your claims or applications with HR that will be processed as per your entitlements. You can also keep a track of your applications digitally. Claims and applications are auto programed to get aligned with your remaining entitlements of ongoing FY.  If you are unable to file a claim then it means you may have exhausted your limits of you are not eligible for said claim/application.",
+    thirdRow:
+    "If you experience any difficulty in filling any claim or application, please reach to respective site HR or Corporate HR for your assistance.",
+  };
 export const EmployeeIkigaiData = {
   firstRow:
     "Udeshya means “Finding Meaning and Purpose of Life”. Whatever we do in life, it is very important to see meaning in the same without which everything will simply be purposeless, same is true for work as well.",

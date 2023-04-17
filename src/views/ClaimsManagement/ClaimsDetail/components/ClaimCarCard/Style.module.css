@@ -109,6 +109,7 @@
 .btnCont {
     display: flex;
     justify-content: flex-end;
+    margin-top: 20px;
 }
 .createBtn{
     background-color: #29CB97 !important;
@@ -151,7 +152,7 @@
 }
 .checkBox{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 5px;
     color: #161616;
 }

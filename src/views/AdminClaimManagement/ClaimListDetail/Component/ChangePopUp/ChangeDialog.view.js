@@ -142,7 +142,8 @@ const ChangeDialog = ({ isOpen, handleToggle, candidateId , claimAmount}) => {
                 }}
               />
               <label htmlFor="confirmation">
-                I approve of the information and action.
+              I have verified and approve of the information and action on the
+              claim request.
               </label>
               <br />
             </div>

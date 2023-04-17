@@ -58,7 +58,11 @@
   /* margin-top: 10px; */
   padding-top: 10px;
 }
-
+.hyperlinkText{
+  color: #2896E9;
+  text-decoration-line: underline;
+  /* cursor: pointer; */
+}
 @media (max-width: 767px) {
   .employeeInducationWrapper{
     padding: 0.8rem;

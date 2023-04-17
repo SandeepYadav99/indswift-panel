@@ -50,7 +50,7 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId }) => {
     isSubmitted,
     isSubmitting,
     setDeclaration,
-    declaration
+    declaration,
   } = useApproveDialogHook({ isOpen, handleToggle, candidateId });
 
   return (
@@ -115,7 +115,8 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId }) => {
                 }}
               />
               <label htmlFor="confirmation">
-                I approve of the information and action.
+                I have verified and approve of the information and action on the
+                claim request.
               </label>
               <br />
             </div>
@@ -123,8 +124,10 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId }) => {
           <div className={styles.printFlex}>
             <ButtonBase
               onClick={handleSubmit}
-             disabled={!declaration ? true : false}
-             className={declaration ? styles.createBtn : styles.disabledCreatebtn}
+              disabled={!declaration ? true : false}
+              className={
+                declaration ? styles.createBtn : styles.disabledCreatebtn
+              }
             >
               CONFIRM
             </ButtonBase>
