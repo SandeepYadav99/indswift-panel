@@ -101,7 +101,7 @@ function ClaimMobileCard() {
             </div>
             <div className={"formGroup"}>
               <File
-                max_size={4 * 1024 * 1024}
+                max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
                 fullWidth={true}
                 name="image"
@@ -155,7 +155,7 @@ function ClaimMobileCard() {
             </div>
             <div className={"formGroup"}>
               <File
-                max_size={4 * 1024 * 1024}
+                max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
                 fullWidth={true}
                 name="proofimage"
