@@ -110,6 +110,12 @@ const EmployeeClaimList = ({}) => {
         render: (temp, all) => <div>{renderAttachCell(all)}</div>,
       },
       {
+        key: "claim_id",
+        label: "Claim ID",
+        sortable: false,
+        render: (temp, all) => <div>{all?.code}</div>,
+      },
+      {
         key: "year",
         label: "FY YEAR",
         sortable: false,

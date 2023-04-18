@@ -38,7 +38,10 @@ const JobOpeningDetail = () => {
           <div className={styles.editFlex}>
             <div className={styles.heading}>Job Information - <span>{data?.code}</span></div>
             <div className={styles.editBtn}>
-              <ButtonBase className={styles.edit} onClick={() => {handleViewEditDetails(data)}}>EDIT</ButtonBase>
+              <ButtonBase 
+              disabled={data?.status === "CLOSED" ? true : false}
+              className={data?.status === "CLOSED" ? styles.disabledBtn : styles.edit}
+              onClick={() => {handleViewEditDetails(data)}}>EDIT</ButtonBase>
             </div>
           </div>
 

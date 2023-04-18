@@ -103,7 +103,7 @@ const JobOpeningsList = ({}) => {
                 key: 'closedAt',
                 label: 'Aging',
                 sortable: true,
-                render: (temp, all) => <div>{all?.age}</div>,
+                render: (temp, all) => <div>{all?.is_recurring ? 'N/A' : all?.age}</div>,
             }, {
                 key: 'status',
                 label: 'Status',

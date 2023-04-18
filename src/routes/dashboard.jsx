@@ -20,6 +20,7 @@ import CadreDetails from "../views/CadreDetails/CadreDetails.view";
 import ClaimCarCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimCarCard/ClaimCarCard.view";
 import ClaimsList from "../views/AdminClaimManagement/ClaimsList/ClaimsList.container";
 import ClaimListDetail from "../views/AdminClaimManagement/ClaimListDetail/ClaimListDetail.view";
+import ClaimHealthCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimHealthCard/ClaimHealthCard.view";
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -987,6 +988,18 @@ const dashboardRoutes = [
         navbarName: "Claims Car",
         icon: PeopleOutlined,
         component: ClaimCarCard,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CLAIMS_HEALTH}`,
+        sidebarName: "Claims Car",
+        navbarName: "Claims Car",
+        icon: PeopleOutlined,
+        component: ClaimHealthCard,
         is_sidebar: false,
         is_protect: true,
         should_regex: true,

@@ -19,8 +19,11 @@ const useClaimsDetail = ({}) => {
       historyUtils.push(RouteName.CLAIMS_MARRIGE);
     } else if (value === 2) {
       historyUtils.push(RouteName.CLAIMS_MOBILE);
-    } else {
+    } else if (value === 3) {
       historyUtils.push(RouteName.CLAIMS_CAR);
+    }
+    else{
+      historyUtils.push(RouteName.CLAIMS_HEALTH)
     }
   }, []);
 

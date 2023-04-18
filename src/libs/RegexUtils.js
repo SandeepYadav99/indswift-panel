@@ -45,7 +45,7 @@ const IsIFSCCode=(value)=>{
 // Account Number: ^\d{9,18}$
 // IFSC: regex = "^[A-Z]{4}0[A-Z0-9]{6}$";
 const IsVehicleNo=(value)=>{
-    return /^[A-Z]{2}\s[0-9]{2}\s[A-Z]{2}\s[0-9]{4}$/.test(value)
+    return /^[A-Za-z]{2}.+\d{4}$/.test(value)
 }
 
 export {

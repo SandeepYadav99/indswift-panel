@@ -13,3 +13,6 @@ export async function serviceUpdateCarClaims(params) {
 export async function serviceGetEmployeeDetails (params) {
     return await postRequest('employees/details', params);
 }
+export async function serviceUpdateHealthClaims(params) {
+    return await formDataRequest('/employee/claims/create/phc', params);
+}

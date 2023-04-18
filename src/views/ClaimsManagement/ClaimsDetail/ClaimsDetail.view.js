@@ -43,6 +43,11 @@ const ClaimsDetail = () => {
             handleClick={() => handleClaimPage(3)}
           />
         )}
+        <ClaimCards
+            title="Preventive Health Check-up Claim"
+            subtitle="Claim the amount for your PHC"
+            handleClick={() => handleClaimPage(4)}
+          />
       </div>
       <div className={styles.tableWrapper}>
       <EmployeeClaimList/>

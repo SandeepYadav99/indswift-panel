@@ -80,7 +80,9 @@ export default {
     'Pending Review':'pending',
     'CV SHORTLIST REJECTED':'error',
     'DROPPED':'nosourcing',
-    'AUTO REJECTED':'error'
+    'AUTO REJECTED':'error',
+    'Offer Declined':'error',
+    'Not Joined':'error'
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',
@@ -224,7 +226,11 @@ export default {
     ON_HOLD: 'On Hold',
     OFFER_LETTER: "Offer Letter",
     SHARED_OFFER:'Shared Offer',
-    UNDER_OFFER:'Under Offer'
+    UNDER_OFFER:'Under Offer',
+    OFFER_DECLINED:'Offer Declined',
+    CV_REJECTED:'CV Rejected',
+    NOT_JOINING:'Not Joined'
+
   },
   SOCKET_EVENTS: {
     NEW_ORDER: "COMPANY_NEW_ORDER",
