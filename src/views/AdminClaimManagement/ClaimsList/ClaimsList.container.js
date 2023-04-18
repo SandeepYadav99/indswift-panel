@@ -97,7 +97,7 @@ const ClaimsList = ({location}) => {
                 key: 'status',
                 label: 'Status',
                 sortable: true,
-                render: (temp, all) => <div>{renderStatus(removeUnderScore(all?.status))}</div>,
+                render: (temp, all) => <div>{renderStatus(removeUnderScore(all?.status))}<br/> <br/>{renderStatus(removeUnderScore(all?.claim?.status))}</div>,
             },
             {
                 key: 'claim_date',
@@ -110,6 +110,12 @@ const ClaimsList = ({location}) => {
                 label: 'VALUE',
                 sortable: false,
                 render: (temp, all) => <div>{all?.claim?.claim_amount}</div>,
+            },
+            {
+                key: 'claim_id',
+                label: 'Claim ID',
+                sortable: false,
+                render: (temp, all) => <div>{all?.claim?.code}</div>,
             },
             {
                 key: 'user_id',

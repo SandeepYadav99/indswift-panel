@@ -99,7 +99,11 @@
 .lhs{
     flex: 0.5;
 }
-
+.statusContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 .newLine{
     height: 4px;
     width: 30px;

@@ -151,13 +151,13 @@ const useClaimsList = ({}) => {
     return [
       {
         label: "Location",
-        name: "job.location._id",
+        name: "employeesObj.location.code",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
       {label: 'Status', name: 'status', type: 'select', fields: ['REJECTED', 'PENDING','APPROVED']},
-      {label: 'Claim Type', name: 'claim', type: 'select', fields: ['MARRAIGE', 'CAR','MOBILE']},
+      {label: 'Claim Type', name: 'claimObj.claim_type', type: 'select', fields: ['MARRAIGE', 'CAR','MOBILE']},
 
     ];
   }, [listData]);
