@@ -113,7 +113,10 @@ const UpdateStatusDialog = ({ isOpen, handleToggle, empId }) => {
             </div>
           </div>
           <div className={styles.fieldWrapper}>
-            <div>
+            {
+              form?.emp_status !== 'ACTIVE'
+              && 
+              <div>
               <CustomDatePicker
                 clearable
                 label={"Last Working Day"}
@@ -125,6 +128,7 @@ const UpdateStatusDialog = ({ isOpen, handleToggle, empId }) => {
                 isError={errorData?.last_working_date}
               />
             </div>
+            }
           </div>
           <div className={styles.fieldWrapper}>
             <div>
