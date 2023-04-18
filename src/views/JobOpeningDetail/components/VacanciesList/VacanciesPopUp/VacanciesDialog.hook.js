@@ -32,9 +32,9 @@ const useVacanciesDialogHook = ({ isOpen, handleSubmitProp, jobId, handleVerify 
   }, [isOpen]);
 
   useEffect(() => {
-    serviceGetList(['EMPLOYEES']).then((res) => {
+    serviceGetList(['EMPLOYEES_ALL']).then((res) => {
         if (!res.error) {
-            setEmployees(res?.data?.EMPLOYEES);
+            setEmployees(res?.data?.EMPLOYEES_ALL);
         }
     });
 }, [])

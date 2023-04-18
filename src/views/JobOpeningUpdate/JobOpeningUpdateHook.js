@@ -72,7 +72,7 @@ const useJobOpeningsEditDetail = ({}) => {
     //     if (form?.replacing_person) {
     //         const designationId = form?.replacing_person?.designation_id;
     //         const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
-        
+
     //         if (index >= 0) {
     //             setForm({
     //                 ...form,
@@ -90,7 +90,7 @@ const useJobOpeningsEditDetail = ({}) => {
             const tempForm = {...form};
             if (assignedIndex >= 0) {
                tempForm.assigned_to =   listData.EMPLOYEES[assignedIndex];
-            } 
+            }
             if(replacingIndex >=0){
                 tempForm.replacing_person=filteredEmployees[replacingIndex]
             }
@@ -104,11 +104,14 @@ const useJobOpeningsEditDetail = ({}) => {
     }, [listData, isLoading,filteredEmployees]);
 
     useEffect(() => {
-        serviceGetList(['LOCATION_DEPARTMENTS', 'EMPLOYEES', 'DEPARTMENTS', 'HR', 'SUB_DEPARTMENTS', 'JOB_ROLES', 'DESIGNATIONS']).then(res => {
+        serviceGetList(['LOCATION_DEPARTMENTS',  "EMPLOYEES_ALL", 'DEPARTMENTS', 'HR', 'SUB_DEPARTMENTS', 'JOB_ROLES', 'DESIGNATIONS']).then(res => {
             if (!res.error) {
-                setListData(res.data);
+                setListData({
+                    ...res.data,
+                    EMPLOYEES: res.data.EMPLOYEES_ALL,
+                });
             }
-        
+
         });
     }, []);
 
@@ -205,7 +208,7 @@ const useJobOpeningsEditDetail = ({}) => {
             if (!text || (isNum(text) && text.toString().length <= 30)) {
                 t[fieldName] = text;
             }
-        } 
+        }
         if (fieldName === 'replacing_person') {
             t[fieldName] = text;
             const designationId = form?.replacing_person?.designation_id;
