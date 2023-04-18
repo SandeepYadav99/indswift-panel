@@ -13,17 +13,6 @@ const ClaimsDetail = () => {
   const { handleClaimPage, data } = useClaimsDetail({});
   return (
     <div className={styles.claimsDetailWrapper}>
-      <div className={styles.outerFlex}>
-        <div>
-          <ButtonBase onClick={() => history.goBack()}>
-            <ArrowBackIosIcon fontSize={"small"} />{" "}
-            <span className={"capitalize"}>
-              <b>Claim Details</b>
-            </span>
-          </ButtonBase>
-          <div className={styles.newLine} />
-        </div>
-      </div>
       <div className={styles.infoWrap}>
       <InformationCard
         heading="My Claims"
