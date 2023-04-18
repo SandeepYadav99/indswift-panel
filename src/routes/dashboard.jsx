@@ -286,7 +286,7 @@ const dashboardRoutes = [
         sidebarName: "Employee Claim",
         navbarName: "Employee Claim",
         icon: PeopleOutlined,
-        component: EmployeeClaim,
+        component: ClaimsDetail,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,

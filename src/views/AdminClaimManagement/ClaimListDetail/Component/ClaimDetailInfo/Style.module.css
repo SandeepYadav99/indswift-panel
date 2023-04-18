@@ -88,7 +88,10 @@
     font-size: 0.7rem;
     margin-left: 10px;
 }
-
+.statusContainer{
+    display: flex;
+    justify-content: space-between;
+}
 .editBtn{
     display: flex;
     justify-content: flex-end;

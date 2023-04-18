@@ -1,14 +1,27 @@
 import React from "react";
 import styles from "./Style.module.css";
+import StatusPill from "../../../../../components/Status/StatusPill.component";
 
 function ClaimDetailInfo({ idCards }) {
+  const removeUnderScore = (value) => {
+    return value ? value.replace(/_/g, " ") : "";
+  };
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
-        <div className={styles.heading}>Claim Details</div>
+        <div className={styles.statusContainer}>
+          <div className={styles.heading}>Claim Details</div>
+          <div>
+            <StatusPill status={removeUnderScore(idCards?.status)} />
+          </div>
+        </div>
         {idCards?.claimTypeText && idCards?.claimTypeText === "Marraige" && (
           <div className={styles.mainFlex}>
             <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value}>Payment type :</span>
+                {idCards?.claimTypeText}
+              </div>
               <div className={styles.key}>
                 <span className={styles.value}>Marriage of :</span>
                 {idCards?.marraige_of}
@@ -52,6 +65,10 @@ function ClaimDetailInfo({ idCards }) {
           <div className={styles.mainFlex}>
             <div className={styles.left}>
               <div className={styles.key}>
+                <span className={styles.value}>Payment type :</span>
+                {idCards?.claimTypeText}
+              </div>
+              <div className={styles.key}>
                 <span className={styles.value}>Official Phone Number</span>
                 {idCards?.official_contact}
               </div>
@@ -69,6 +86,10 @@ function ClaimDetailInfo({ idCards }) {
                 {idCards?.claim_details?.pending_claim &&
                   ` ₹ ${idCards?.claim_details?.pending_claim}`}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Invoice Number:</span>
+                {idCards?.invoice_no ? idCards?.invoice_no : '-' }
+              </div>
             </div>
             <div className={styles.right}>
               <div className={styles.key}>
@@ -85,6 +106,20 @@ function ClaimDetailInfo({ idCards }) {
                 {idCards?.claim_amount && `₹  ${idCards?.claim_amount}`}
               </div>
               <div className={styles.key}>
+                <span className={styles.value}>Payment Mode :</span>
+                {idCards?.payment_mode ? idCards?.payment_mode : '-'}
+              </div>
+              <div className={styles.key} style={{ display: "flex" }}>
+                <span className={styles.value}>Payment Proof :</span>
+                {idCards?.payment_proof ? (
+                  <a href={idCards?.payment_proof} target="_blank">
+                    <div className={styles.hyperlinkText}>
+                      Payment Attachment
+                    </div>
+                  </a>
+                ) : '-'}
+              </div>
+              <div className={styles.key}>
                 <a href={idCards?.document} target="_blank">
                   <div className={styles.hyperlinkText}>View Attachment</div>
                 </a>
@@ -95,6 +130,10 @@ function ClaimDetailInfo({ idCards }) {
         {idCards?.claimTypeText && idCards?.claimTypeText === "Car" && (
           <div className={styles.mainFlex}>
             <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value}>Payment type :</span>
+                {idCards?.claimTypeText}
+              </div>
               <div className={styles.key}>
                 <span className={styles.value}>Vehicle Number:</span>
                 {idCards?.vehicle_no}
@@ -113,6 +152,10 @@ function ClaimDetailInfo({ idCards }) {
                 {idCards?.claim_details?.pending_claim &&
                   ` ₹ ${idCards?.claim_details?.pending_claim}`}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Invoice Number:</span>
+                {idCards?.invoice_no ? idCards?.invoice_no : '-' }
+              </div>
             </div>
             <div className={styles.right}>
               <div className={styles.key}>
@@ -127,6 +170,20 @@ function ClaimDetailInfo({ idCards }) {
               <div className={styles.key}>
                 <span className={styles.value}>Amount to be Reimbursed:</span>
                 {idCards?.claim_amount && `₹  ${idCards?.claim_amount}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Payment Mode :</span>
+                {idCards?.payment_mode ? idCards?.payment_mode : '-'}
+              </div>
+              <div className={styles.key} style={{ display: "flex" }}>
+                <span className={styles.value}>Payment Proof :</span>
+                {idCards?.payment_proof ? (
+                  <a href={idCards?.payment_proof} target="_blank">
+                    <div className={styles.hyperlinkText}>
+                      Payment Attachment
+                    </div>
+                  </a>
+                ) : '-'}
               </div>
               <div className={styles.key}>
                 <a href={idCards?.document} target="_blank">
