@@ -5,7 +5,7 @@ const tempLevel = !(
 );
 
 const tempDate = new Date();
-const isProduction = true;
+const isProduction = false;
 
 let url = "http://91.205.173.97:8111/api/admin/";
 let socketUrl = "http://91.205.173.97:8111";
@@ -71,7 +71,7 @@ export default {
     EXPIRED:'success',
     REJECTED:'error',
     // PENDING:'pending',
-    SOURCING:'warning',
+    SOURCING:'error',
     NOSOURCING:'nosourcing',
     'CV Rejected':'error',
     'INTERVIEW REJECTED' : 'error',
@@ -82,7 +82,8 @@ export default {
     'DROPPED':'nosourcing',
     'AUTO REJECTED':'error',
     'Offer Declined':'error',
-    'Not Joined':'error'
+    'Not Joined':'error',
+    'Active':'error'
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',
