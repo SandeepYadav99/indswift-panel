@@ -80,7 +80,7 @@ const useCandidateStatusDialogHook = ({ isOpen, handleStatusUpdate, handleToggle
         ...form,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Placed Successfully");
+          SnackbarUtils.success("Candidate Status Updated.");
           handleStatusUpdate(res.data);
         } else {
           SnackbarUtils.error(res?.message);

@@ -58,21 +58,42 @@ const JobOpeningsList = ({}) => {
       return (
         <StatusPill
           status={status}
-          style={{color: "#ff4d4f",'backgroundColor': 'rgba(255,77,79,.06274509803921569)','border':'none' }}
+          style={{
+            color: "#ff4d4f",
+            backgroundColor: "rgba(255,77,79,.06274509803921569)",
+            border: "none",
+          }}
         />
       );
-    }else if (status === "INACTIVE") {
-        return (
-          <StatusPill
-            status={status}
-            style={{color: "#fa8b0c",'backgroundColor': 'rgba(255,235,230,1)','border':'#fa8b0c' }}
-          />
-        );
-      } else {
+    } else if (status === "INACTIVE") {
+      return (
+        <StatusPill
+          status={status}
+          style={{
+            color: "#fa8b0c",
+            backgroundColor: "rgba(255,235,230,1)",
+            border: "#fa8b0c",
+          }}
+        />
+      );
+    } else {
       return <StatusPill status={status} />;
     }
   }, []);
-
+  const renderAge = useCallback((age) => {
+    if (age) {
+      const type = age.split(" ");
+      if (type[1] === "Days") {
+        if (type[0] > 30) {
+          return <div className={styles.ageColor}>{age}</div>;
+        } else {
+          return <div>{age}</div>;
+        }
+      } else {
+        return <div>{age}</div>;
+      }
+    }
+  }, []);
   const renderFirstCell = useCallback((product) => {
     if (product) {
       return (
@@ -166,7 +187,7 @@ const JobOpeningsList = ({}) => {
         label: "Aging",
         sortable: true,
         render: (temp, all) => (
-          <div>{all?.is_recurring ? "N/A" : all?.age}</div>
+          <div>{all?.is_recurring ? "N/A" : renderAge(all?.age)}</div>
         ),
       },
       {

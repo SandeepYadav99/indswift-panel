@@ -83,7 +83,8 @@ export default {
     'AUTO REJECTED':'error',
     'Offer Declined':'error',
     'Not Joined':'error',
-    'Active':'error'
+    'Active':'error',
+    'OFFER DECLINED':'error'
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',

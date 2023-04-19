@@ -8,7 +8,7 @@ import useCadreDetailsList from "./CadreDetails.hook";
 import ClaimForm from "./component/ClaimForm/ClaimForm.view";
 
 function CadreDetails() {
-  const { refMarrige, refCar, refMobile, handleSubmit ,employeeDetail} = useCadreDetailsList({})
+  const { refMarrige, refCar, refMobile, handleSubmit ,refHealth,employeeDetail} = useCadreDetailsList({})
 
   return (
     <div className={styles.cadreDetailWrapper}>
@@ -27,6 +27,7 @@ function CadreDetails() {
       <ClaimForm type={"MARRIAGE"} title={"Marriage Claim"} ref={refMarrige} />
       <ClaimForm type={"CAR"} title={"Car Claim"} ref={refCar} />
       <ClaimForm type={"MOBILE"} title={"Mobile Claim"} ref={refMobile} />
+      <ClaimForm type={"HEALTH"} title={"Preventive Health Check-up Claim"} ref={refHealth} />
 
       <div className={styles.btnCont}>
         <ButtonBase

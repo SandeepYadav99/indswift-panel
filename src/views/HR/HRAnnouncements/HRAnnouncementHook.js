@@ -146,6 +146,7 @@ const useHRAnnouncementList = ({}) => {
         name: "createdAt",
         type: "date",
       },
+      {label: 'Status', name: 'status', type: 'select', fields: ['INACTIVE', 'ACTIVE']},
     ];
   }, []);
 

@@ -157,7 +157,7 @@ const ReviewOLR = ({ location }) => {
         sortable: true,
         render: (temp, all) => (
             <div>
-              <StatusPill status={all?.candidate?.status} />
+              <StatusPill status={removeUnderScore(all?.candidate?.status)} />
             </div>
         ),
       },

@@ -21,6 +21,7 @@ function useCadreDetailsList() {
   const refMarrige = useRef(null);
   const refCar = useRef(null);
   const refMobile = useRef(null);
+  const refHealth = useRef(null);
   const { id } = useParams();
   useEffect(() => {
     if (id) {
@@ -32,12 +33,14 @@ function useCadreDetailsList() {
               marriage_gift_claim,
               car_maintenance_claim,
               mobile_reimbursement_claim,
+              phc_claim,
               ...rest
             } = tempData;
             setEmployeeDetail({...rest})
             refMarrige.current?.setData(marriage_gift_claim);
             refCar.current?.setData(car_maintenance_claim);
             refMobile.current?.setData(mobile_reimbursement_claim);
+            refHealth.current?.setData(phc_claim);
           }
         }
       });
@@ -49,11 +52,13 @@ function useCadreDetailsList() {
       const isMarrigeClaimValid = refMarrige.current.isValid();
       const isCarClaimValid = refCar.current.isValid();
       const isMobileClaimValid = refMobile.current.isValid();
+      const isHealthClaimValid=refHealth.current.isValid()
       LogUtils.log(
         "isMarrigeClaimValid",
         isMarrigeClaimValid,
         isCarClaimValid,
-        isMobileClaimValid
+        isMobileClaimValid,
+        isHealthClaimValid
       );
       // const isCarClaimValid = refCar.current.isValid();
       // const isMobileValid = refMobile.current.isValid();
@@ -68,11 +73,13 @@ function useCadreDetailsList() {
         const marrigeData = refMarrige.current.getData();
         const carData = refCar.current.getData();
         const mobileData = refMobile.current.getData();
+        const healthData=refHealth.current.getData()
         serviceGetCadreEntitlementDetails({
           id: id,
           marriage_gift_claim: marrigeData?.data,
           car_maintenance_claim: carData?.data,
           mobile_reimbursement_claim: mobileData?.data,
+          phc_claim:healthData?.data
         }).then((res) => {
           if (!res.error) {
             historyUtils.push(RouteName.GRADES);
@@ -92,6 +99,7 @@ function useCadreDetailsList() {
     refMobile,
     handleSubmit,
     employeeDetail,
+    refHealth
   };
 }
 
