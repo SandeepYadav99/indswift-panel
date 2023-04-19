@@ -40,16 +40,19 @@ function AnnouncementInfo() {
         </div>
         {announcements?.length > 0 &&
           announcements?.map((item, index) => (
-            <a href={item?.link} target="_blank">
-              <div
-                className={styles.description}
-                key={`announcement_${index}`}
-                onMouseOver={() => handleMouseOver(index)}
-              >
-                <p>{item?.title}</p>
-                <KeyboardArrowRightIcon />
-              </div>
-            </a>
+            <>
+              <a href={item?.link} target="_blank">
+                <div
+                  className={styles.description}
+                  key={`announcement_${index}`}
+                  onMouseOver={() => handleMouseOver(index)}
+                >
+                  <p>{item?.title}</p>
+                  <KeyboardArrowRightIcon />
+                </div>
+              </a>
+              {index !== 2 && <div className={styles.verticalLine}></div>}
+            </>
           ))}
       </div>
     </div>

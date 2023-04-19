@@ -48,7 +48,7 @@ function NewMembers({ data, isSperatedPage }) {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    width: 500,
+    width: 700,
     prevArrow: <img src={pre} />,
     nextArrow: <img src={next} />,
     responsive: [

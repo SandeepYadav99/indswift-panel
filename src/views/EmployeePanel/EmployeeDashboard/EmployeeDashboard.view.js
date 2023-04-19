@@ -30,10 +30,8 @@ function EmployeeDashboard() {
       </div>
       <div className={styles.secondRow}>
         <div className={styles.announcementRowWrapper}>
-          {/* <AnnouncementInfo /> */}
-          {/* <Members /> */}
-          <EngagementEvents />
-          <CoverImageGallery />
+          <AnnouncementInfo />
+          <Members />
         </div>
         <div className={styles.EmployeecolumnWrapper}>
           <EmployeeEventList />
@@ -42,15 +40,11 @@ function EmployeeDashboard() {
       <div className={styles.RecentUpdateWrapper}>
         <div className={styles.RecentUpdateUpperCard}>
           <RecentUpdate />
-          <AnnouncementInfo />
-          {/* <Members /> */}
-          {/* <EngagementEvents /> */}
+          <EngagementEvents />
         </div>
         <div className={styles.RecentUpdateLowerCard}>
-          {/* <EmployeeCategories /> */}
           <EmployeeCategories />
-          <Members />
-          {/* <CoverImageGallery/> */}
+          <CoverImageGallery />
         </div>
       </div>
       <div className={styles.SocialMediaOuterWrapper}>

@@ -45,7 +45,11 @@
   align-items: center;
   flex: 1;
 }
-
+@media (max-width: 1200px) {
+  .RecentUpdateLowerCard {
+    flex-direction: column;
+}
+}
 @media (max-width: 767px) {
   .EmployeeDashboardFlex {
       flex-direction: column;

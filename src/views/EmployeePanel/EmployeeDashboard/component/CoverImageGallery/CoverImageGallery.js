@@ -28,13 +28,3 @@ function CoverImageGallery() {
 }
 
 export default CoverImageGallery;
-
-{
-  /* {tiles?.utsavEvents.map((item) => {
-          return (
-            <div className={styles.galleryImageWrapper}>
-              <img className={styles.img} src={item?.image} />
-            </div>
-          );
-        })} */
-}

@@ -106,6 +106,7 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+      setIsLoading(true)
       let req = serviceCreateHRAnnouncement;
       if (id) {
         req = serviceUpdateHRAnnouncement;
@@ -128,6 +129,7 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
         } else {
           SnackbarUtils.success(res.message);
         }
+        setIsLoading(false)
         setIsSubmitting(false);
       });
     }

@@ -2,16 +2,13 @@ import React, { useMemo } from "react";
 import { Button, ButtonBase, MenuItem } from "@material-ui/core";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
-import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import constants from "../../../config/constants";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
-import File from "../../../components/FileComponent/FileComponent.component";
-import LogUtils from "../../../libs/LogUtils";
 import useHRAnnouncementCreateViewDetail from "./HRAnnouncementCreateHook";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
+import { CircularProgress } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -49,8 +46,7 @@ const HRAnnouncementCreateView = ({}) => {
       } else {
         return image;
       }
-    }
-    else {
+    } else {
       return require("../../../assets/img/ic_announcement.png");
     }
   };
@@ -120,23 +116,26 @@ const HRAnnouncementCreateView = ({}) => {
           </div>
         </div>
         <div className={styles.imageUploaderWrapper}>
-        <div className={styles.titleWrapper}>
-          <span>Upload Image</span>
-          <img className={styles.applicationImage} src={getImgUrl(image)} />
-        </div>
-            <ButtonBase className={styles.edit}>
-              <label htmlFor="imageUploadAnnounce" className={styles.labelWrapper}>
-                UPLOAD NEW IMAGE
-              </label>
-            </ButtonBase>
-            <input
-              type="file"
-              id="imageUploadAnnounce"
-              accept=".jpg,.jpeg,.png"
-              onChange={handleImageChange}
-              style={{ display: "none" }}
-            />
+          <div className={styles.titleWrapper}>
+            <span>Upload Image</span>
+            <img className={styles.applicationImage} src={getImgUrl(image)} />
           </div>
+          <ButtonBase className={styles.edit}>
+            <label
+              htmlFor="imageUploadAnnounce"
+              className={styles.labelWrapper}
+            >
+              UPLOAD NEW IMAGE
+            </label>
+          </ButtonBase>
+          <input
+            type="file"
+            id="imageUploadAnnounce"
+            accept=".jpg,.jpeg,.png"
+            onChange={handleImageChange}
+            style={{ display: "none" }}
+          />
+        </div>
       </div>
 
       <div className={"plainPaper"}>
@@ -159,14 +158,25 @@ const HRAnnouncementCreateView = ({}) => {
         </div>
 
         <div className={styles.btnCont}>
-          <ButtonBase
-            disabled={isSubmitting}
-            type={"button"}
-            onClick={handleSubmit}
-            className={styles.createBtn}
-          >
-            {id ? "Update" : "Create"}
-          </ButtonBase>
+          {isLoading ? (
+            <ButtonBase
+              disabled={isSubmitting}
+              type={"button"}
+              onClick={handleSubmit}
+              className={styles.createBtn}
+            >
+              <CircularProgress color="success" size="20px"/> 
+            </ButtonBase>
+          ) : (
+            <ButtonBase
+              disabled={isSubmitting}
+              type={"button"}
+              onClick={handleSubmit}
+              className={styles.createBtn}
+            >
+              {id ? "Update" : "Create"}
+            </ButtonBase>
+          )}
         </div>
       </div>
     </div>

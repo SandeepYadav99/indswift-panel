@@ -4,6 +4,9 @@ import csx from 'classnames';
 import ChildrenListComponent from "./ChildrenList.component";
 
 const ChangeLogInfoTextComponent = ({data}) => {
+    const removeUnderScore = (value) => {
+        return value ? value.replace(/_/g, " ") : "";
+      };
     const oldValue = useMemo(() => {
         if (data.key === 'children') {
             if (data?.old_value) {
@@ -23,7 +26,7 @@ const ChangeLogInfoTextComponent = ({data}) => {
     }, [data]);
     return (
         <div className={csx('plainPaper', styles.infoContainer)}>
-            <div className={styles.titleText}>{data?.key}</div>
+            <div className={styles.titleText}>{removeUnderScore(data?.key)}</div>
             <label className={styles.infoLabel}>Old</label>
             {oldValue}
             <br/>
