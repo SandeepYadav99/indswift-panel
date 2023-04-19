@@ -197,7 +197,22 @@ const JobOpeningUpdateView = ({}) => {
                            </div>)}
                        </div>
                    </div>
-
+                   <div className={'formFlex'} style={ {width:'50%'}}>
+                       <div className="formGroup">
+                       <CustomTextField
+                            isError={errorData?.designation_note}
+                            errorText={errorData?.designation_note}
+                            label={"Designation Notes"}
+                            value={form?.designation_note}
+                            onTextChange={(text) => {
+                                changeTextData(text, "designation_note");
+                            }}
+                            onBlur={() => {
+                                onBlurHandler("designation_note");
+                            }}
+                        />
+                       </div>
+                   </div>
                    <div className={'formFlex'}>
                        <div className="formGroup">
                            <CustomTextField

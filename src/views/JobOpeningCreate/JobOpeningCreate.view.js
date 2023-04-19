@@ -193,7 +193,7 @@ const JobOpeningCreateView = ({}) => {
                             isError={errorData?.designation_note}
                             errorText={errorData?.designation_note}
                             label={"Designation Notes"}
-                            value={form?.name}
+                            value={form?.designation_note}
                             onTextChange={(text) => {
                                 changeTextData(text, "designation_note");
                             }}

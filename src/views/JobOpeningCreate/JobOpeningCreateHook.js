@@ -99,6 +99,7 @@ const useJobOpeningsDetail = ({}) => {
       "assigned_to",
       "job_role",
       "designation",
+      'designation_note'
     ];
     required.forEach((val) => {
       if (

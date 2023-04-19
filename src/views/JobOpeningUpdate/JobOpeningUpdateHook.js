@@ -24,7 +24,8 @@ const initialForm = {
     designation: '',
     is_sourcing: false,
     is_hiring: true,
-    vacancy_type:''
+    vacancy_type:'',
+    designation_note:'',
 };
 
 const useJobOpeningsEditDetail = ({}) => {
