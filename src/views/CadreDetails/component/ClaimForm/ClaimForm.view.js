@@ -14,7 +14,7 @@ const ClaimForm = ({ type, title, resetForm }, ref) => {
     onBlurHandler,
     handleReset,
     isFormValid,
-  } = useClaimForm({}, ref);
+  } = useClaimForm({ type }, ref);
 
   useImperativeHandle(ref, () => ({
     isValid() {
@@ -74,21 +74,30 @@ const ClaimForm = ({ type, title, resetForm }, ref) => {
                 }}
               />
             </div>
-            <div className={"formGroup"}>
-              <CustomTextField
-                type="number"
-                isError={errorData?.max_value}
-                errorText={errorData?.max_value}
-                label={"Max Value in Rs."}
-                value={form?.max_value}
-                onTextChange={(text) => {
-                  changeTextData(text, "max_value");
-                }}
-                onBlur={() => {
-                  onBlurHandler("max_value");
-                }}
-              />
-            </div>
+            {type === "CAR" ? (
+              <div className={"formGroup"}>
+                <div className={styles.salaryTxt}>
+                  <strong>Max Value in Rs. :</strong>
+                  <span>As per Salary Component</span>
+                </div>
+              </div>
+            ) : (
+              <div className={"formGroup"}>
+                <CustomTextField
+                  type="number"
+                  isError={errorData?.max_value}
+                  errorText={errorData?.max_value}
+                  label={"Max Value in Rs."}
+                  value={form?.max_value}
+                  onTextChange={(text) => {
+                    changeTextData(text, "max_value");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("max_value");
+                  }}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>

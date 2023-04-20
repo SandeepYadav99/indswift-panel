@@ -68,7 +68,7 @@ function useCadreDetailsList() {
       //   isCarClaimValid,
       //   isMobileValid
       // );
-      if (isMarrigeClaimValid && isCarClaimValid && isMobileClaimValid) {
+      if (isMarrigeClaimValid && isCarClaimValid && isMobileClaimValid && isHealthClaimValid) {
         setIsSubmitting(true);
         const marrigeData = refMarrige.current.getData();
         const carData = refCar.current.getData();

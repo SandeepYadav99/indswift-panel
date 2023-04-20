@@ -50,6 +50,9 @@ const EmployeeClaimList = ({}) => {
   if(value?.claim_type === "MARRAIGE"){
     return <div>{value?.domText}</div>
   }
+  else if(value?.claim_type === 'PHC'){
+    return <div>{value?.phcDateText}</div>
+  }
   else{
     return <div>{value?.billDateText}</div>
   } 

@@ -58,7 +58,7 @@ function ClaimHealthCard() {
               <CustomDatePicker
                 clearable
                 label={"PHC Conducted on"}
-                // maxDate={new Date()}
+                maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "phc_date");
                 }}

@@ -28,4 +28,7 @@ export async function serviceApproveCLaim(params) {
 export async function serviceRejectCLaim(params) {
     return await postRequest('cr/reject', params);
 }
+export async function serviceExportClaimList(params) {
+    return await postRequest('employee/claims/export', params);
+}
 

@@ -2,7 +2,7 @@ import React, {Component, useCallback, useEffect, useMemo} from 'react';
 import {Button, Paper, Checkbox, IconButton, MenuItem, ButtonBase} from '@material-ui/core';
 import classNames from 'classnames';
 import {connect, useSelector} from 'react-redux';
-import {Add, InfoOutlined, PrintOutlined} from '@material-ui/icons';
+import {Add, CloudDownload, InfoOutlined, PrintOutlined} from '@material-ui/icons';
 import PageBox from '../../../components/PageBox/PageBox.component';
 import SidePanelComponent from '../../../components/SidePanel/SidePanel.component';
 import styles from './Style.module.css';
@@ -17,7 +17,7 @@ const ClaimsList = ({location}) => {
 
     const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,
-        isCalling, configFilter, warehouses} = useClaimsList({});
+        isCalling, configFilter, warehouses,handleCsvDownload} = useClaimsList({});
 
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.claims);
 
@@ -158,9 +158,13 @@ const ClaimsList = ({location}) => {
                             <div className={styles.newLine}/>
                         </div>
                         <div>
-                            {/*<ButtonBase onClick={handleSideToggle} className={'createBtn'}>*/}
-                            {/*    CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>*/}
-                            {/*</ButtonBase>*/}
+                        <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
+                            Download
+                        <CloudDownload
+                         fontSize={"small"}
+                           className={"plusIcon"}
+                         ></CloudDownload>
+                         </ButtonBase>
                         </div>
                     </div>
 

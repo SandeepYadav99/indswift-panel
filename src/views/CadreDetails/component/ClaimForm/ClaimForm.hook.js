@@ -11,7 +11,7 @@ const initialForm = {
   max_value: null,
 };
 
-function useClaimForm({}) {
+function useClaimForm({ type }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,15 +19,21 @@ function useClaimForm({}) {
   const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
   const checkFormValidation = useCallback(() => {
+    if (type === "CAR") {
+      delete form?.max_value;
+    }
     const errors = { ...errorData };
-    let required = ["max_claim", "max_value"];
+    let required = ["max_claim"];
+    if (type !== "CAR") {
+      required.push("max_value");
+    }
     if (form?.is_show) {
       required.forEach((val) => {
-        if (
-          !form?.[val] ||
-          (Array.isArray(form?.[val]) && form?.[val].length === 0)
-        ) {
+        if (!form?.[val]) {
           errors[val] = true;
+        }
+        if (form?.[val] === 0) {
+          delete errors[val];
         }
       });
     }
@@ -63,7 +69,11 @@ function useClaimForm({}) {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (text >= 0) {
+      if (fieldName === "max_claim") {
+        if (text >= 0 && text <= 99 && !text.includes('.')) {
+          t[fieldName] = text;
+        }
+      } else if (text >= 0) {
         t[fieldName] = text;
       }
 
@@ -87,7 +97,6 @@ function useClaimForm({}) {
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form]);
-
 
   return {
     form,

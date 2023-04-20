@@ -11,7 +11,7 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-
+import { serviceExportClaimList } from "../../../services/Claims.service";
 const useClaimsList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
@@ -51,7 +51,14 @@ const useClaimsList = ({}) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPageClaims(type));
   }, []);
-
+  const handleCsvDownload = useCallback(() => {
+    serviceExportClaimList({}).then(res => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    })
+  }, []);
   const handleDataSave = useCallback(
     (data, type) => {
       // this.props.actionChangeStatus({...data, type: type});
@@ -180,6 +187,7 @@ const useClaimsList = ({}) => {
     editData,
     isSidePanel,
     configFilter,
+    handleCsvDownload
   };
 };
 

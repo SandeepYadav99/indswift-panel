@@ -42,6 +42,16 @@
     flex: 1;
     color: #818181;
 }
+.salaryTxt{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  height: 100%;
+  font-size: .8rem;
+}
+.salaryTxt > span{
+  color: #818181;
+}
 .toggleWrapper{
     display: flex;
     margin-left: 20px;
