@@ -31,22 +31,22 @@ const useCandidateList = ({}) => {
   } = useSelector((state) => state.candidate);
   const status = [
     { id: "ACTIVE", name: "ACTIVE" },
-    { id: "INACTIVE", name: "INACTIVE" },
-    { id: "SHORTLISTED", name: "SHORTLISTED" },
     { id: "INTERVIEW_ALIGNED", name: "INTERVIEW ALIGNED" },
-    { id: "CV_SHORTLIST_REJECTED", name: "CV SHORTLIST REJECTED" },
+    { id: "CV_REJECTED", name: "CV REJECTED" },
     { id: "PENDING_SHORTLIST", name: "PENDING SHORTLIST" },
     { id: "SELECTED", name: "SELECTED" },
     { id: "PENDING", name: "PENDING" },
     { id: "CV_SHORTLISTED", name: "CV SHORTLISTED" },
-    { id: "PENDING_REVIEW", name: "PENDING REVIEW" },
     { id: "INTERVIEW_REJECTED", name: "INTERVIEW REJECTED" },
     { id: "JOINING", name: "JOINING" },
+    { id: "JOINED", name: "JOINED" },
+    { id: "NOT_JOINING", name: "NOT JOINING" },
     { id: "DROPPED", name: "DROPPED" },
-    { id: "ON_HOLD", name: "ON_HOLD" },
+    { id: "UNDER_OFFER", name: "UNDER OFFER" },
     { id: "OFFER_LETTER", name: "OFFER LETTER" },
+    { id: "OFFER_DECLINED", name: "OFFER DECLINED"},
   ];
-
+  
   useEffect(() => {
     dispatch(
       actionFetchCandidate(1, sortingData, {

@@ -84,7 +84,9 @@ export default {
     'Offer Declined':'error',
     'Not Joined':'error',
     'Active':'error',
-    'OFFER DECLINED':'error'
+    'OFFER DECLINED':'error',
+    'CV REJECTED':'error',
+    'NOT JOINING':'error'
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',
