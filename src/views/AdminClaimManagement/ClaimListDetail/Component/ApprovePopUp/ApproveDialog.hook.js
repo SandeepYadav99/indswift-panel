@@ -80,7 +80,7 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
         ...form,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Placed Successfully");
+          SnackbarUtils.success("Request Approved");
           historyUtils.push(RouteName.CLAIMS_LIST);
           handleToggle();
         } else {

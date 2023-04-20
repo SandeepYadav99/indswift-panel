@@ -80,7 +80,7 @@ const useRejectDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
         ...form,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Placed Successfully");
+          SnackbarUtils.success("Request Rejected");
           handleToggle();
           historyUtils.push(RouteName.CLAIMS_LIST);
         } else {
