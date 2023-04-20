@@ -2,6 +2,9 @@ import React from "react";
 import styles from "./Style.module.css";
 function CandidateDetails({ data }) {
   const Quallength = data?.candidate?.qualifications?.length - 1;
+  const removeUnderScore = (value) => {
+    return value ? value.replace(/_/g, " ") : "";
+  };
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainerPersonal}>
@@ -67,7 +70,7 @@ function CandidateDetails({ data }) {
             <div className={styles.key}>
               <span className={styles.value}>Type of Vacancy:</span>
               <span className={styles.valueWrap}>
-                {data?.job_data?.vacancy_type}
+                {removeUnderScore(data?.job_data?.vacancy_type)}
               </span>
             </div>
             {/* <div className={styles.key}>

@@ -94,19 +94,19 @@ function ContactDetails({ isDisabled}, ref) {
 
       <div className={"formFlex1"}>
         <div className="formGroup1">
-          <CustomSelectField
+          <CustomTextField
             disabled={isDisabled ? true : false}
             isError={errorData?.emergency_relation}
             errorText={errorData?.emergency_relation}
             label={"Emergency Contact Relation"}
             value={form?.emergency_relation}
-            handleChange={(value) => {
-              changeTextData(value, "emergency_relation");
+            onTextChange={(text) => {
+              changeTextData(text, "emergency_relation");
             }}
-          >
-            <MenuItem value="FATHER">Father</MenuItem>
-            <MenuItem value="MOTHER">Mother</MenuItem>
-          </CustomSelectField>
+            onBlur={() => {
+              onBlurHandler("emergency_relation");
+            }}
+          />
         </div>
         <div className="formGroup1">
           <CustomTextField

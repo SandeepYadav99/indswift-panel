@@ -1,4 +1,4 @@
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import React from "react";
 import history from "../../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -211,7 +211,7 @@ function ClaimMobileCard() {
           className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >
-          Submit
+          {isLoading ? <CircularProgress color="success" size="20px"/>: 'Submit'}
         </ButtonBase>
       </div>
     </div>

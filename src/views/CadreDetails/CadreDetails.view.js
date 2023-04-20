@@ -24,9 +24,9 @@ function CadreDetails() {
         </div>
       </div>
       <ClaimUpper data={employeeDetail}/>
-      <ClaimForm type={"MARRIAGE"} title={"Marriage Claim"} ref={refMarrige} />
-      <ClaimForm type={"CAR"} title={"Car Claim"} ref={refCar} />
-      <ClaimForm type={"MOBILE"} title={"Mobile Claim"} ref={refMobile} />
+      <ClaimForm type={"MARRIAGE"} title={"Mariage Gift Card Claim"} ref={refMarrige} />
+      <ClaimForm type={"CAR"} title={"Car Maintenance Claim"} ref={refCar} />
+      <ClaimForm type={"MOBILE"} title={"Mobile Reimbursments"} ref={refMobile} />
       <ClaimForm type={"HEALTH"} title={"Preventive Health Check-up Claim"} ref={refHealth} />
 
       <div className={styles.btnCont}>

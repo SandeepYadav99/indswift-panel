@@ -42,9 +42,18 @@ const EmployeeClaimList = ({}) => {
   } = useSelector((state) => state.emp_claimList);
 
   const renderStatus = useCallback((status) => {
-    return <StatusPill status={status} />;
+    if(status){
+      return <StatusPill status={status.replace(/_/g," ")} />;
+    }
   }, []);
-
+  const renderDate=useCallback((value)=>{
+  if(value?.claim_type === "MARRAIGE"){
+    return <div>{value?.domText}</div>
+  }
+  else{
+    return <div>{value?.billDateText}</div>
+  } 
+  })
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -95,7 +104,7 @@ const EmployeeClaimList = ({}) => {
         key: "bill_date",
         label: "BILL DATE",
         sortable: false,
-        render: (temp, all) => <div>{all?.billDateText}</div>,
+        render: (temp, all) => <div>{renderDate(all)}</div>,
       },
       {
         key: "value",

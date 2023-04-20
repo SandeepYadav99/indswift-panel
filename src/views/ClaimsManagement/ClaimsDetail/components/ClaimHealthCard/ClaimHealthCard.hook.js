@@ -18,6 +18,7 @@ const initialForm = {
   phc_centre: "",
   phc_date: "",
   list: "",
+  medical_report:null
 };
 
 const useClaimHealthCard = ({}) => {
@@ -50,7 +51,7 @@ const useClaimHealthCard = ({}) => {
     let dataValues = serviceGetClaimDetail();
     dataValues
       .then((data) => {
-        setClaimInfo({ ...data?.data?.mobile_reimbursement_claim });
+        setClaimInfo({ ...data?.data?.phc_claim });
       })
       .catch((err) => console.log(err));
   }, []);
@@ -60,6 +61,7 @@ const useClaimHealthCard = ({}) => {
     let required = [
       "bill_amount",
       "document",
+      'medical_report',
       "payment_mode",
       "payment_proof",
       // "invoice_no",
@@ -76,6 +78,9 @@ const useClaimHealthCard = ({}) => {
         errors[val] = true;
       }
     });
+    if(form?.payment_mode ==='Cash' && !form?.payment_proof){
+      delete errors['payment_proof'];
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -89,12 +94,15 @@ const useClaimHealthCard = ({}) => {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["document", "payment_proof"].indexOf(key) < 0 && form[key]) {
+        if (["document", "payment_proof","medical_report"].indexOf(key) < 0 && form[key]) {
           fd.append(key, form[key]);
         }
       });
       if (form?.document) {
         fd.append("document", form?.document);
+      }
+      if (form?.medical_report) {
+        fd.append("medical_report", form?.medical_report);
       }
       if (form?.payment_proof) {
         fd.append("payment_proof", form?.payment_proof);

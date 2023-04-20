@@ -64,6 +64,9 @@ const useClaimCarCard = ({}) => {
         errors[val] = true;
       }
     });
+    if(form?.payment_mode ==='Cash' && !form?.payment_proof){
+      delete errors['payment_proof'];
+    }
     if (form?.vehicle_no && !IsVehicleNo(form?.vehicle_no)) {
       errors["vehicle_no"] = true;
     }

@@ -56,7 +56,7 @@ const useContactDetail = ({}, ref) => {
             'emergency_relation',
             'permanent_address',
             'current_address',
-            'residence_contact',
+            // 'residence_contact',
         ];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {

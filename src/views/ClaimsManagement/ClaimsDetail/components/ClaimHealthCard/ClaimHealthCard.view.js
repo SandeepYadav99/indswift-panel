@@ -102,6 +102,25 @@ function ClaimHealthCard() {
           </div>
           <div className={"formFlex"} style={{ alignItems: "center" }}>
             <div className={"formGroup"}>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                fullWidth={true}
+                name="prcreport"
+                label="Upload PHC Report"
+                accept={"application/pdf,application/msword,image/*"}
+                link={editData?.medical_report ? editData?.medical_report : null}
+                error={errorData?.medical_report}
+                value={form?.medical_report}
+                placeholder={"Upload PHC Report"}
+                onChange={(file) => {
+                  if (file) {
+                    changeTextData(file, "medical_report");
+                  }
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
               <CustomTextField
                 type="number"
                 isError={errorData?.bill_amount}
@@ -116,6 +135,9 @@ function ClaimHealthCard() {
                 }}
               />
             </div>
+          </div>
+
+          <div className={"formFlex"} style={{ alignItems: "center" }}>
             <div className={"formGroup"}>
               <File
                 max_size={10 * 1024 * 1024}
@@ -135,9 +157,6 @@ function ClaimHealthCard() {
                 }}
               />
             </div>
-          </div>
-         
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
             <div className={"formGroup"}>
               <CustomSelectField
                 isError={errorData?.payment_mode}
@@ -155,6 +174,11 @@ function ClaimHealthCard() {
                 <MenuItem value="Bank Transfer">Bank Transfer</MenuItem>
               </CustomSelectField>
             </div>
+          </div>
+          <div
+            className={"formFlex"}
+            style={{ alignItems: "center", width: "50%" }}
+          >
             <div className={"formGroup"}>
               <File
                 max_size={10 * 1024 * 1024}

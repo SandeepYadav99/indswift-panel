@@ -65,6 +65,9 @@ const useClaimMobileCard = ({}) => {
         errors[val] = true;
       }
     });
+    if(form?.payment_mode ==='Cash' && !form?.payment_proof){
+      delete errors['payment_proof'];
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -75,6 +78,7 @@ const useClaimMobileCard = ({}) => {
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
+      setIsLoading(true)
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
@@ -95,6 +99,7 @@ const useClaimMobileCard = ({}) => {
         } else {
           SnackbarUtils.error(res?.message);
         }
+        setIsLoading(false)
         setIsSubmitting(false);
       });
     }

@@ -19,7 +19,7 @@ function ClaimDetailInfo({ idCards }) {
           <div className={styles.mainFlex}>
             <div className={styles.left}>
               <div className={styles.key}>
-                <span className={styles.value}>Payment type :</span>
+                <span className={styles.value}>Claim type :</span>
                 {idCards?.claimTypeText}
               </div>
               <div className={styles.key}>
@@ -28,7 +28,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Claim Processed:</span>
-                {idCards?.claim_details?.progress_claim &&
+                {idCards?.claim_details?.total_claim &&
                   `₹ ${idCards?.claim_details?.total_claim}`}
               </div>
               <div className={styles.key}>
@@ -70,7 +70,7 @@ function ClaimDetailInfo({ idCards }) {
           <div className={styles.mainFlex}>
             <div className={styles.left}>
               <div className={styles.key}>
-                <span className={styles.value}>Payment type :</span>
+                <span className={styles.value}>Claim type :</span>
                 {idCards?.claimTypeText}
               </div>
               <div className={styles.key}>
@@ -83,7 +83,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Claim Processed:</span>
-                {idCards?.claim_details?.progress_claim &&
+                {idCards?.claim_details?.total_claim &&
                   `₹ ${idCards?.claim_details?.total_claim}`}
               </div>
               <div className={styles.key}>
@@ -141,7 +141,7 @@ function ClaimDetailInfo({ idCards }) {
           <div className={styles.mainFlex}>
             <div className={styles.left}>
               <div className={styles.key}>
-                <span className={styles.value}>Payment type :</span>
+                <span className={styles.value}>Claim type :</span>
                 {idCards?.claimTypeText}
               </div>
               <div className={styles.key}>
@@ -154,7 +154,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Claim Processed:</span>
-                {idCards?.claim_details?.progress_claim &&
+                {idCards?.claim_details?.total_claim &&
                   `₹ ${idCards?.claim_details?.total_claim}`}
               </div>
               <div className={styles.key}>
