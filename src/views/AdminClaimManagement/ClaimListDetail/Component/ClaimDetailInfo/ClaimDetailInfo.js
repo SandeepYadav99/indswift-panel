@@ -27,6 +27,11 @@ function ClaimDetailInfo({ idCards }) {
                 {idCards?.marraige_of}
               </div>
               <div className={styles.key}>
+                <span className={styles.value}>Claim Processed:</span>
+                {idCards?.claim_details?.progress_claim &&
+                  `₹ ${idCards?.claim_details?.total_claim}`}
+              </div>
+              <div className={styles.key}>
                 <span className={styles.value}>Claim in Process:</span>
                 {idCards?.claim_details?.progress_claim &&
                   `₹ ${idCards?.claim_details?.progress_claim}`}
@@ -75,6 +80,11 @@ function ClaimDetailInfo({ idCards }) {
               <div className={styles.key}>
                 <span className={styles.value}>Bill Amount:</span>
                 {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim Processed:</span>
+                {idCards?.claim_details?.progress_claim &&
+                  `₹ ${idCards?.claim_details?.total_claim}`}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Claim in Process:</span>
@@ -141,6 +151,11 @@ function ClaimDetailInfo({ idCards }) {
               <div className={styles.key}>
                 <span className={styles.value}>Bill Amount:</span>
                 {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim Processed:</span>
+                {idCards?.claim_details?.progress_claim &&
+                  `₹ ${idCards?.claim_details?.total_claim}`}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Claim in Process:</span>
