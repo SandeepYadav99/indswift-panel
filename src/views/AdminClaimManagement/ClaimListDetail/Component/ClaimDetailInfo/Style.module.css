@@ -39,7 +39,10 @@
     margin-bottom: 20px;
     font-weight: 600;
 }
-
+.heading221{
+    font-size: 0.8rem;
+    font-weight: 600;
+}
 .mainFlex{
     display: flex;
     /*align-items: center;*/
@@ -56,7 +59,15 @@
     font-weight: 500;
     margin-bottom: 7px;
 }
-
+.key221{
+    margin-top: 15px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    /* color: #818181; */
+    font-weight: 500;
+    margin-bottom: 7px;
+}
 .value{
     font-weight: 600;
     width: 180px;
@@ -139,4 +150,15 @@
 }
 .formDetailWrapper{
     margin-top: 20px;
+}
+.prcReportWrap{
+    margin-top: 10px;
+    display: flex;
+    border-top: 1px solid #B8C5D3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.list{
+    color: #818181;
 }

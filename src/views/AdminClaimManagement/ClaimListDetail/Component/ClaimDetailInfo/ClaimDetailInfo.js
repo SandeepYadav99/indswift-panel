@@ -98,7 +98,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Invoice Number:</span>
-                {idCards?.invoice_no ? idCards?.invoice_no : '-' }
+                {idCards?.invoice_no ? idCards?.invoice_no : "-"}
               </div>
             </div>
             <div className={styles.right}>
@@ -117,7 +117,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Payment Mode :</span>
-                {idCards?.payment_mode ? idCards?.payment_mode : '-'}
+                {idCards?.payment_mode ? idCards?.payment_mode : "-"}
               </div>
               <div className={styles.key} style={{ display: "flex" }}>
                 <span className={styles.value}>Payment Proof :</span>
@@ -127,7 +127,9 @@ function ClaimDetailInfo({ idCards }) {
                       Payment Attachment
                     </div>
                   </a>
-                ) : '-'}
+                ) : (
+                  "-"
+                )}
               </div>
               <div className={styles.key}>
                 <a href={idCards?.document} target="_blank">
@@ -169,7 +171,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Invoice Number:</span>
-                {idCards?.invoice_no ? idCards?.invoice_no : '-' }
+                {idCards?.invoice_no ? idCards?.invoice_no : "-"}
               </div>
             </div>
             <div className={styles.right}>
@@ -188,7 +190,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Payment Mode :</span>
-                {idCards?.payment_mode ? idCards?.payment_mode : '-'}
+                {idCards?.payment_mode ? idCards?.payment_mode : "-"}
               </div>
               <div className={styles.key} style={{ display: "flex" }}>
                 <span className={styles.value}>Payment Proof :</span>
@@ -198,7 +200,9 @@ function ClaimDetailInfo({ idCards }) {
                       Payment Attachment
                     </div>
                   </a>
-                ) : '-'}
+                ) : (
+                  "-"
+                )}
               </div>
               <div className={styles.key}>
                 <a href={idCards?.document} target="_blank">
@@ -206,6 +210,98 @@ function ClaimDetailInfo({ idCards }) {
                 </a>
               </div>
             </div>
+          </div>
+        )}
+        {idCards?.claimTypeText && idCards?.claimTypeText === "Phc" && (
+          <div className={styles.mainFlex}>
+            <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim type :</span>
+                {idCards?.claimTypeText}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>PHC Conducted on:</span>
+                {idCards?.phcDateText}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>PHC Conducted from:</span>
+                {idCards?.phc_centre}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Bill Amount:</span>
+                {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim Processed:</span>
+                {idCards?.claim_details?.total_claim &&
+                  `₹ ${idCards?.claim_details?.total_claim}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim in Process:</span>
+                {idCards?.claim_details?.progress_claim &&
+                  `₹ ${idCards?.claim_details?.progress_claim}`}
+              </div>
+              <div className={styles.key}>
+                <a href={idCards?.document} target="_blank">
+                  <div className={styles.hyperlinkText}>View Attachment</div>
+                </a>
+              </div>
+              {/* <div className={styles.key}>
+                <span className={styles.value}>Invoice Number:</span>
+                {idCards?.invoice_no ? idCards?.invoice_no : '-' }
+              </div> */}
+            </div>
+            <div className={styles.right}>
+              <div className={styles.key}>
+                <span className={styles.value}>Bill Date:</span>
+                {idCards?.billDateText}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Entitled Amount:</span>
+                {idCards?.claim_details?.entitled_amount &&
+                  `₹ ${idCards?.claim_details?.entitled_amount}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Amount to be Reimbursed:</span>
+                {idCards?.claim_amount && `₹  ${idCards?.claim_amount}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Payment Mode :</span>
+                {idCards?.payment_mode ? idCards?.payment_mode : "-"}
+              </div>
+              <div className={styles.key} style={{ display: "flex" }}>
+                <span className={styles.value}>Payment Proof :</span>
+                {idCards?.payment_proof ? (
+                  <a href={idCards?.payment_proof} target="_blank">
+                    <div className={styles.hyperlinkText}>
+                      Payment Attachment
+                    </div>
+                  </a>
+                ) : (
+                  "-"
+                )}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Pending Claim:</span>
+                {idCards?.claim_details?.pending_claim &&
+                  ` ₹ ${idCards?.claim_details?.pending_claim}`}
+              </div>
+            </div>
+          </div>
+        )}
+        {idCards?.claimTypeText && idCards?.claimTypeText === "Phc" && (
+          <div className={styles.prcReportWrap}>
+            <div className={styles.key221}>
+              <span className={styles.heading221}>
+                List of Investigations under PHC:
+              </span>
+              <span className={styles.list}>{idCards?.list}</span>
+            </div>
+            <div>
+                <a href={idCards?.medical_report} target="_blank">
+                  <div className={styles.hyperlinkText}>View PHC Report</div>
+                </a>
+              </div>
           </div>
         )}
       </div>

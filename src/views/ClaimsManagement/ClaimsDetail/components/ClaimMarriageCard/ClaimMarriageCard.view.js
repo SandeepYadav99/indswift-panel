@@ -117,7 +117,7 @@ function ClaimMarriageCard() {
                 InputLabelProps={{ shrink: true }}
                 disabled={true}
                 label={"Gift Claim Value"}
-                value={billAmount ? Math.round(billAmount / 5) : null}
+                value={billAmount ? Math.round(billAmount / claimInfo?.entitled_count) : null}
               />
             </div>
           </div>

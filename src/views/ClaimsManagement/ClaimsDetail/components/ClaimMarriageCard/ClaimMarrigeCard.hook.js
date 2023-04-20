@@ -71,13 +71,13 @@ const useClaimMarrigeCard = ({}) => {
     });
     return errors;
   }, [form, errorData]);
-  console.log("billAmount", billAmount);
+  console.log("billAmount", billAmount,claimInfo);
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
       if (billAmount) {
-        fd.append("bill_amount", Math.round(billAmount / 5));
+        fd.append("bill_amount", Math.round(billAmount / claimInfo?.entitled_count));
       }
       Object.keys(form).forEach((key) => {
         if (["document"].indexOf(key) < 0 && form[key]) {
