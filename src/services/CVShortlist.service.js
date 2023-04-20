@@ -7,3 +7,7 @@ export async function serviceGetCVShortlistCandidates(params) {
 export async function serviceUpdateCVShortlistRequest(params) {
     return await postRequest('cv/shortlists/update', params);
 }
+
+export async function serviceSendCVShortlistReminder(params) {
+    return await postRequest('cv/shortlists/send/reminder', params);
+}
