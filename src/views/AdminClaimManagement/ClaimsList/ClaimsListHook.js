@@ -164,7 +164,7 @@ const useClaimsList = ({}) => {
         fields: listData?.LOCATIONS,
       },
       {label: 'Status', name: 'status', type: 'select', fields: ['REJECTED', 'PENDING','APPROVED']},
-      {label: 'Claim Type', name: 'claimObj.claim_type', type: 'select', fields: ['MARRAIGE', 'CAR','MOBILE']},
+      {label: 'Claim Type', name: 'claimObj.claim_type', type: 'select', fields: ['MARRAIGE', 'CAR','MOBILE','PHC']},
 
     ];
   }, [listData]);

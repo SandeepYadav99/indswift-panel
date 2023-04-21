@@ -10,7 +10,7 @@ function EventDetailCard({ data }) {
         </div>
         <div className={styles.Row}>
           <span className={styles.rowtagsLower}>{data?.description}</span>
-          {data?.employee?.name && (
+          {data?.employee?.name !=='System' && (
             <span className={styles.rowtagsLower1}>
               Updated by: {data?.employee?.name}
             </span>

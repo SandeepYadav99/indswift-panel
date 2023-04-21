@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import StatusPill from "../../../../../../../components/Status/StatusPill.component";
 import styles from "./Style.module.css";
 import DefaultImg from "../../../../../../../assets/img/download.png";
@@ -7,7 +7,7 @@ import historyUtils from "../../../../../../../libs/history.utils";
 import { useCallback } from "react";
 import RouteName from "../../../../../../../routes/Route.name";
 import { Telegram } from "@material-ui/icons";
-import {ButtonBase} from "@material-ui/core";
+import { ButtonBase } from "@material-ui/core";
 function SummaryView({
   title,
   statustitle,
@@ -18,8 +18,9 @@ function SummaryView({
   date,
   offerList,
   handleSendReminder,
-                       isSubmitting
+  isSubmitting,
 }) {
+  const [rememberFlag,setRememberFlag]=useState(false)
   const ChangeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "NA";
   };
@@ -58,6 +59,7 @@ function SummaryView({
               </div>
               <div className={styles.SummaryViewstar}>
                 <div className={styles.buttonWrapper}>
+                  {/* {checkPending(item?.interview_status)} */}
                   <StatusPill status={item?.interview_status} />
                 </div>
                 <div className={styles.starWrapper}>
@@ -113,7 +115,7 @@ function SummaryView({
 
                 <div className={styles.nameContainer}>
                   <span>{item?.employee?.name}</span>
-                  <div className={styles.date}>{item?.createdAtText}</div>
+                  <div className={styles.date}>{item?.updatedAtText}</div>
                   {item?.interview_status &&
                     item?.interview_status !== "PENDING" && (
                       <span
@@ -140,7 +142,15 @@ function SummaryView({
       <div className={styles.statusWrapper}>
         <div className={styles.statusColor}>
           <span className={styles.date}>{statustitle} </span>
-          <StatusPill style={{border:'none',minWidth:'0',padding:'0',fontSize:'0.875rem'}} status={ChangeUnderScore(status)} />
+          <StatusPill
+            style={{
+              border: "none",
+              minWidth: "0",
+              padding: "0",
+              fontSize: "0.875rem",
+            }}
+            status={ChangeUnderScore(status)}
+          />
           {rating && (
             <div className={styles.starWrapper}>
               <img className={styles.starimg} src={star} />
@@ -148,19 +158,23 @@ function SummaryView({
             </div>
           )}
         </div>
-        <div>
+        <div className={styles.rememberWrap}>
           {status !== "PENDING" ? (
+          // {date !== "Invalid date" && (
             <span className={styles.date}>{date}</span>
-          ) : (
-            <ButtonBase
-                disabled={isSubmitting}
-              className={styles.iconWrapper}
-               onClick={() => { handleSendReminder && handleSendReminder() }}
-            >
-              <Telegram style={{ color: "#2896E9" }} />
-              <span className={styles.sendReminder}>Send Reminder</span>
-            </ButtonBase>
-          )}
+          // )}
+           ) : ( 
+          <ButtonBase
+            disabled={isSubmitting}
+            className={styles.iconWrapper}
+            onClick={() => {
+              handleSendReminder && handleSendReminder();
+            }}
+          >
+            <Telegram style={{ color: "#2896E9" }} />
+            <span className={styles.sendReminder}>Send Reminder</span>
+          </ButtonBase>
+          )} 
         </div>
       </div>
     </div>

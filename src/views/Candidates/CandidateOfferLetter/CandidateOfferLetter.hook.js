@@ -239,7 +239,8 @@ function CandidateOfferLetterHook({location}) {
             const expectedDate = new Date(form?.expected_response_date)
             expectedDate.setHours(0, 0, 0, 0);
             if (joinDate.getTime() < expectedDate.getTime()) {
-                errors['joining_date'] = true;
+                SnackbarUtils.error('Response date should not be greater than Joining date');
+                errors['expected_response_date'] = true;
             }
         }
         if (form?.expected_response_date) {

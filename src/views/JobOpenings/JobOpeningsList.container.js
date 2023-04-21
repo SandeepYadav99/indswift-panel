@@ -84,7 +84,7 @@ const JobOpeningsList = ({}) => {
     if (age) {
       const type = age.split(" ");
       if (type[1] === "Days") {
-        if (type[0] > 30) {
+        if (type[0] >= 30) {
           return <div className={styles.ageColor}>{age}</div>;
         } else {
           return <div>{age}</div>;

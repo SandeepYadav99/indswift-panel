@@ -183,7 +183,7 @@ const useEmployeeList = ({}) => {
         label: "Grade",
         name: "grade_id",
         type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
+        custom: { extract: { id: "id", title: "label"  } },
         fields: listData?.GRADES,
       },
       {

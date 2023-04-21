@@ -63,7 +63,7 @@ const InterviewHistory = ({historyDetail, historyData}) => {
                             statustitle="Interview Final Status:"
                             InterviewList={item?.interview_feedback}
                             rating={item?.rating}
-                            date={item?.status_updated_on}
+                            date={item?.interview_status_updated_on}
                         />
                         <SummaryView
                             status={item?.offer_letter_status}

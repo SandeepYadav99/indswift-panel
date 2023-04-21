@@ -106,7 +106,7 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      setIsLoading(true)
+      setIsLoading(true);
       let req = serviceCreateHRAnnouncement;
       if (id) {
         req = serviceUpdateHRAnnouncement;
@@ -129,7 +129,7 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
         } else {
           SnackbarUtils.success(res.message);
         }
-        setIsLoading(false)
+        setIsLoading(false);
         setIsSubmitting(false);
       });
     }
@@ -157,12 +157,9 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "name") {
-        if (
-          !text ||
-          isAlphaNumChars(text) // &&   text.toString().length <= 30
-        ) {
-          t[fieldName] = text;
+      if (fieldName === "title") {
+        if(text?.length <=180){
+          t[fieldName]=text
         }
       } else {
         t[fieldName] = text;

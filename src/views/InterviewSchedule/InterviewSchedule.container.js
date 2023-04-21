@@ -52,7 +52,20 @@ const InterviewSchedule = ({location}) => {
             );
         } return null;
     }, []);
-
+    const renderLink = useCallback((obj) => {
+        if (obj) {
+            if (obj?.link ==="Not Applicable"){
+                return <div>{obj?.link}</div>
+            }
+            else{
+            return (
+                <div className={styles.hyperlinkText} >
+                    <a href={obj?.link} target='_blank'>{obj?.link}</a>
+                </div>
+            );
+            }
+        } return null;
+    }, []);
 
     // const renderCreateForm = useMemo(() => {
     //     return (<CreateView
@@ -93,6 +106,12 @@ const InterviewSchedule = ({location}) => {
                 label: 'ROUND',
                 sortable: false,
                 render: (temp, all) => <div>{all?.step}</div>,
+            },
+            {
+                key: 'link',
+                label: 'LINK',
+                sortable: false,
+                render: (temp, all) => <div>{renderLink(all)}</div>,
             },
             {
                 key: 'venue',

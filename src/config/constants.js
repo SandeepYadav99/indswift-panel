@@ -233,7 +233,8 @@ export default {
     UNDER_OFFER:'Under Offer',
     OFFER_DECLINED:'Offer Declined',
     CV_REJECTED:'CV Rejected',
-    NOT_JOINING:'Not Joined'
+    NOT_JOINING:'Not Joined',
+    JOINED:'Joined'
 
   },
   SOCKET_EVENTS: {
