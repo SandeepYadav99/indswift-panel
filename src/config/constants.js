@@ -5,7 +5,7 @@ const tempLevel = !(
 );
 
 const tempDate = new Date();
-const isProduction = false;
+const isProduction = true;
 
 let url = "http://91.205.173.97:8111/api/admin/";
 let socketUrl = "http://91.205.173.97:8111";
@@ -381,7 +381,8 @@ export default {
     CORPORATE_HR: "CORPORATE_HR",
     RECRUITER: 'RECRUITER',
     GENERAL: 'GENERAL',
-    OLR: 'OLR'
+    OLR: 'OLR',
+    ACCOUNTANT: 'ACCOUNTANT'
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,

@@ -107,7 +107,7 @@ export function actionResetFilterInterviewSchedule() {
 }
 
 export function actionSetPageInterviewSchedule(page) {
-    const stateData = store.getState().candidateInterview;
+    const stateData = store.getState().interviewSchedule;
     const currentPage = stateData.currentPage;
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;

@@ -920,7 +920,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'cm',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT],
 
     },
 
@@ -935,7 +935,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.OLR],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT],
     },
     // {
     //     path: `${RouteName.CLAIMS_INFO}`,
@@ -958,7 +958,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CLAIMS_MARRIGE}`,
@@ -970,7 +970,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },{
         path: `${RouteName.CLAIMS_MOBILE}`,
         sidebarName: "Claims Mobile",
@@ -981,7 +981,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },{
         path: `${RouteName.CLAIMS_CAR}`,
         sidebarName: "Claims Car",
@@ -992,7 +992,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CLAIMS_HEALTH}`,
@@ -1004,7 +1004,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
         path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',

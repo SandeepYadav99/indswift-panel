@@ -96,9 +96,9 @@ const InterviewSchedule = ({location}) => {
                 render: (temp, all) => <div>{all?.job?.designation}/{all?.job?.department}</div>,
             },
             {
-                key: 'schedule',
+                key: 'date',
                 label: 'SCHEDULE',
-                sortable: false,
+                sortable: true,
                 render: (temp, all) => <div>{all?.interviewDateText}</div>,
             },
             {
