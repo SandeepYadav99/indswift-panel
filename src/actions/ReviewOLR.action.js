@@ -107,7 +107,7 @@ export function actionResetFilterReviewOLR() {
 }
 
 export function actionSetPageReviewOLR(page) {
-    const stateData = store.getState().candidateInterview;
+    const stateData = store.getState().review_olr;
     const currentPage = stateData.currentPage;
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;

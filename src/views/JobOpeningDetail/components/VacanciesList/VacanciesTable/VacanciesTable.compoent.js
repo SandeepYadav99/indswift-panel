@@ -63,7 +63,7 @@ function VacanciesTable({ jobId }) {
         key: "designation",
         label: "Designation",
         sortable: false,
-        render: (temp, all) => <div>{all?.designation}</div>,
+        render: (temp, all) => <div>{all?.type === 'RAP' ? all?.employee?.designation: all?.designation}</div>,
       },
       {
         key: "appliedDateText",
