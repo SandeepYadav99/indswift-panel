@@ -5,7 +5,7 @@ const tempLevel = !(
 );
 
 const tempDate = new Date();
-const isProduction = true;
+const isProduction = false;
 
 let url = "http://91.205.173.97:8111/api/admin/";
 let socketUrl = "http://91.205.173.97:8111";

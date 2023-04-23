@@ -63,6 +63,7 @@ const useJobOpeningsDetail = ({}) => {
       }
     }
   }, [form?.replacing_person]);
+
   useEffect(() => {
     if (form.replacing_person) {
       setIsDesignationDisabled(true);
@@ -229,7 +230,8 @@ const useJobOpeningsDetail = ({}) => {
     return listData.EMPLOYEES.filter((val) => {
       return (
         val.department_id === form?.department_id &&
-        val.location_id === form?.location_id
+        val.location_id === form?.location_id &&
+            !val.is_replacement_hired
       );
     });
   }, [form?.location_id, form?.department_id, listData]);

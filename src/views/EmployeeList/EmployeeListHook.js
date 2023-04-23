@@ -12,6 +12,7 @@ import historyUtils from "../../libs/history.utils";
 import { serviceGetList } from "../../services/Common.service";
 import RouteName from "../../routes/Route.name";
 import {serviceExportEmployees} from "../../services/Employee.service";
+import Constants from "../../config/constants";
 
 const useEmployeeList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -20,6 +21,7 @@ const useEmployeeList = ({}) => {
   const [isCsvDialog, setIsCsvDialog] = useState(false);
   const [isCPCDialog, setIsCPCDialog] = useState(false);
   const dispatch = useDispatch();
+  const {role} = useSelector(state => state.auth);
   const [listData, setListData] = useState({
     LOCATIONS: [],
     GRADES: [],
@@ -172,13 +174,13 @@ const useEmployeeList = ({}) => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
       // {label: 'City', name: 'city', type: 'text'},
-      {
+        ...(role === Constants.ROLES.CORPORATE_HR ? [{
         label: "Location",
         name: "location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
-      },
+      }] : []),
       {
         label: "Grade",
         name: "grade_id",
@@ -201,7 +203,7 @@ const useEmployeeList = ({}) => {
       },
       // {label: 'Status', name: 'status', type: 'select', fields: ['INACTIVE', 'ACTIVE']},
     ];
-  }, [listData]);
+  }, [listData, role]);
 
   const toggleCsvDialog = useCallback(() => {
     setIsCsvDialog((e) => !e);
@@ -221,13 +223,16 @@ const useEmployeeList = ({}) => {
   }, []);
 
   const handleCsvDownload = useCallback(() => {
-    serviceExportEmployees({}).then(res => {
+    serviceExportEmployees({
+      query: query,
+      query_data: queryData,
+    }).then(res => {
       if (!res.error) {
         const data = res.data?.response;
         window.open(data, "_blank");
       }
     })
-  }, []);
+  }, [query, queryData]);
 
   return {
     handlePageChange,

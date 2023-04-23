@@ -34,7 +34,7 @@ const useVacanciesDialogHook = ({ isOpen, handleSubmitProp, jobId, handleVerify 
   useEffect(() => {
     serviceGetList(['EMPLOYEES_ALL']).then((res) => {
         if (!res.error) {
-            setEmployees(res?.data?.EMPLOYEES_ALL);
+            setEmployees(res?.data?.EMPLOYEES_ALL.filter(val => !val.is_replacement_hired));
         }
     });
 }, [])
