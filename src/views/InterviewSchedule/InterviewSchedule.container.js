@@ -57,10 +57,13 @@ const InterviewSchedule = ({location}) => {
             if (obj?.link ==="Not Applicable"){
                 return <div>{obj?.link}</div>
             }
+            else if(obj?.link === ""){
+                return ""
+            }
             else{
             return (
                 <div className={styles.hyperlinkText} >
-                    <a href={obj?.link} target='_blank'>{obj?.link}</a>
+                    <a href={obj?.link} target='_blank'>Link</a>
                 </div>
             );
             }
