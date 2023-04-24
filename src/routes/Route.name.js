@@ -95,10 +95,10 @@ export default {
 
   CLAIMS_LIST:'/cm/claims' ,
   CLAIMS_DETAILS:'/cm/details/',
-  CLAIMS_MARRIGE:'/cm/marrige',
-  CLAIMS_MOBILE:'/cm/mobile',
-  CLAIMS_CAR:'/cm/car',
-  CLAIMS_INFO:'/cm/info',
-  CLAIMS_HEALTH:'/cm/health'
+  CLAIMS_MARRIGE:'/employee/claim/marriage',
+  CLAIMS_MOBILE:'/employee/claim/mobile',
+  CLAIMS_CAR:'/employee/claim/car',
+  CLAIMS_INFO:'/employee/claim/info',
+  CLAIMS_HEALTH:'/employee/claim/health'
 
 };
