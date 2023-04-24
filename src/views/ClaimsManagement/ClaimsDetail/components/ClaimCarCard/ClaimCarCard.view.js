@@ -205,7 +205,7 @@ function ClaimCarCard() {
       </div>
       <div className={styles.btnCont}>
         <ButtonBase
-          disabled={!declaration ? true : false}
+          disabled={!declaration || isLoading ? true : false}
           type={"button"}
           className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}

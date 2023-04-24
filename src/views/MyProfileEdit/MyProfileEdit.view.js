@@ -15,13 +15,10 @@ import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDateP
 import File from "../../components/FileComponent/FileComponent.component";
 import constants from "../../config/constants";
 import ChildrenIncludeForm from "./components/includes/ChildrenIncludes.component";
-import ValancyIncludesComponent from "./components/ValancyInclude/ValancyIncludes.component";
-// import ChildrenIncludeForm from "../../components/includes/ChildrenIncludes.component";
 import WaitingComponent from "../../components/Waiting.component";
-import Constants from "../../config/constants";
 import useMyProfileEdit from "./MyProfileEditHook";
 import DisclaimerDialog from "./components/DisclaimerPopUp/DisclaimerDialog.view";
-import { useCallback } from "react";
+import ValancyFieldView from "./components/ValancyField/ValancyField.view";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -486,7 +483,7 @@ const MyProfileEditView = ({}) => {
           </div>
         </div>
       </div>
-      {/* <div className={"plainPaper"}>
+      <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Employee Nominee Details</div>
@@ -494,15 +491,10 @@ const MyProfileEditView = ({}) => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <ValancyIncludesComponent title="ESI" data={form?.children} />
-            <ValancyIncludesComponent title="PF" data={form?.children} />
-            <ValancyIncludesComponent title="Group Term" data={form?.children} />
-            <ValancyIncludesComponent title="Group Medi-claim" data={form?.children} />
-            <ValancyIncludesComponent title="Group Gratuity" data={form?.children} />
-
+              <ValancyFieldView type={"ESI"} title={"ESI"} />
           </div>
         </div>
-      </div> */}
+      </div>
 
       <div className={"plainPaper"}>
         <div className={"headerFlex3 wrapper"}>

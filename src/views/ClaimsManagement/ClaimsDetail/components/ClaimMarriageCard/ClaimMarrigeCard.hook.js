@@ -75,6 +75,7 @@ const useClaimMarrigeCard = ({}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+      setIsLoading(true)
       const fd = new FormData();
       if (billAmount) {
         fd.append("bill_amount", Math.round(billAmount / claimInfo?.entitled_count));
@@ -95,6 +96,7 @@ const useClaimMarrigeCard = ({}) => {
           SnackbarUtils.error(res?.message);
         }
         setIsSubmitting(false);
+        setIsLoading(false)
       });
     }
   }, [form, isSubmitting, setIsSubmitting]);

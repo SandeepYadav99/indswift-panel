@@ -102,7 +102,7 @@ const ChangeDialog = ({ isOpen, handleToggle, candidateId , claimAmount,entitled
                 isError={errorData?.approved_amount}
                 errorText={errorData?.approved_amount}
                 label={"Approved Value"}
-                value={form?.name}
+                value={form?.approved_amount}
                 onTextChange={(text) => {
                   changeTextData(text, "approved_amount");
                 }}

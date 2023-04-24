@@ -54,7 +54,13 @@ const useChangeDialogHook = ({
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      t[fieldName] = text;
+      if (fieldName === "approved_amount") {
+        if (text >= 0) {
+          t[fieldName] = text;
+        }
+      } else {
+        t[fieldName] = text;
+      }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
       setIsVerified(false);
@@ -71,11 +77,12 @@ const useChangeDialogHook = ({
         (Array.isArray(form?.[val]) && form?.[val].length === 0)
       ) {
         errors[val] = true;
-      }else if(form?.approved_amount > entitledAmount ){
-        SnackbarUtils.error('Approved amount cannnot be greater than Entitled Amount');
-        errors['approved_amount'] = true;
-      }
-       else if ([].indexOf(val) < 0) {
+      } else if (form?.approved_amount > entitledAmount) {
+        SnackbarUtils.error(
+          "Approved amount cannnot be greater than Entitled Amount"
+        );
+        errors["approved_amount"] = true;
+      } else if ([].indexOf(val) < 0) {
         delete errors[val];
       }
     });
@@ -86,7 +93,7 @@ const useChangeDialogHook = ({
       }
     });
     return errors;
-  }, [form, errorData,entitledAmount]);
+  }, [form, errorData, entitledAmount]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {

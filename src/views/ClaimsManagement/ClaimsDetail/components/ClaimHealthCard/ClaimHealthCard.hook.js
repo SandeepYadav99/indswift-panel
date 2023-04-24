@@ -92,6 +92,7 @@ const useClaimHealthCard = ({}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+      setIsLoading(true)
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
         if (["document", "payment_proof","medical_report"].indexOf(key) < 0 && form[key]) {
@@ -115,6 +116,7 @@ const useClaimHealthCard = ({}) => {
         } else {
           SnackbarUtils.error(res?.message);
         }
+        setIsLoading(false)
         setIsSubmitting(false);
       });
     }

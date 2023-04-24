@@ -55,7 +55,7 @@ function useMyProfileEdit() {
   const ChildenRef = useRef(null);
   const codeDebouncer = useDebounce(form?.emp_code, 500);
   const [isOpen, setIsOpen] = useState(false);
-
+  const refEsi = useRef(null);
   useEffect(() => {
     if (id) {
       Promise.allSettled([serviceGetEmployeeEditInfo({ emp_id: id })]).then(

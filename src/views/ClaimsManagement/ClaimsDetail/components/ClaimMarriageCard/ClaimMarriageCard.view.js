@@ -155,7 +155,7 @@ function ClaimMarriageCard() {
       <div className={styles.btnCont}>
         <ButtonBase
           type={"button"}
-          disabled={!declaration || !form?.marraige_of ? true : false}
+          disabled={!declaration || !form?.marraige_of || isLoading ? true : false}
           className={
             !declaration || !form?.marraige_of
               ? styles.disabledCreatebtn
