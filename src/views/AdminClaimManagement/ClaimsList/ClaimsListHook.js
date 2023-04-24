@@ -14,6 +14,7 @@ import { serviceGetList } from "../../../services/Common.service";
 import { serviceExportClaimList } from "../../../services/Claims.service";
 const useClaimsList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
+  const [downloadCL, setdownloadCL] = useState(null);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
@@ -38,7 +39,27 @@ const useClaimsList = ({}) => {
     );
     isMountRef.current = true;
   }, []);
-
+  const handleAddCandidate = useCallback(
+    (event) => {
+      setdownloadCL(event.currentTarget);
+    },
+    [setdownloadCL]
+  );
+  const handleClosedownloadCL = useCallback(() => {
+    setdownloadCL(null);
+  }, [setdownloadCL]);
+  const handleCandidateMenu = useCallback(
+    (type) => {
+      if (type === "ALL") {
+        handleCsvDownload("");
+        handleClosedownloadCL();
+      } else {
+        handleCsvDownload(type);
+        handleClosedownloadCL();
+      }
+    },
+    [setdownloadCL]
+  );
   useEffect(() => {
     serviceGetList(["LOCATIONS", "HR", "JOB_OPENINGS"]).then((res) => {
       if (!res.error) {
@@ -51,13 +72,13 @@ const useClaimsList = ({}) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPageClaims(type));
   }, []);
-  const handleCsvDownload = useCallback(() => {
-    serviceExportClaimList({}).then(res => {
+  const handleCsvDownload = useCallback((payload) => {
+    serviceExportClaimList({ status: payload }).then((res) => {
       if (!res.error) {
         const data = res.data?.response;
         window.open(data, "_blank");
       }
-    })
+    });
   }, []);
   const handleDataSave = useCallback(
     (data, type) => {
@@ -83,7 +104,6 @@ const useClaimsList = ({}) => {
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
       );
-      // dispatch(actionFetchClaims(1, sortingData))
     },
     [sortingData, query, queryData]
   );
@@ -107,7 +127,7 @@ const useClaimsList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageClaims(1));
+      // dispatch(actionSetPageClaims(1));
       dispatch(
         actionFetchClaims(
           1,
@@ -163,9 +183,18 @@ const useClaimsList = ({}) => {
         custom: { extract: { id: "id", title: "code" } },
         fields: listData?.LOCATIONS,
       },
-      {label: 'Status', name: 'status', type: 'select', fields: ['REJECTED', 'PENDING','APPROVED']},
-      {label: 'Claim Type', name: 'claimObj.claim_type', type: 'select', fields: ['MARRAIGE', 'CAR','MOBILE','PHC']},
-
+      {
+        label: "Status",
+        name: "status",
+        type: "select",
+        fields: ["REJECTED", "PENDING", "APPROVED"],
+      },
+      {
+        label: "Claim Type",
+        name: "claimObj.claim_type",
+        type: "select",
+        fields: ["MARRAIGE", "CAR", "MOBILE", "PHC"],
+      },
     ];
   }, [listData]);
 
@@ -187,7 +216,11 @@ const useClaimsList = ({}) => {
     editData,
     isSidePanel,
     configFilter,
-    handleCsvDownload
+    handleCsvDownload,
+    handleAddCandidate,
+    downloadCL,
+    handleClosedownloadCL,
+    handleCandidateMenu,
   };
 };
 

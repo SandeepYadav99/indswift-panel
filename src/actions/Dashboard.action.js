@@ -23,7 +23,7 @@ export function actionGetDashboard(data) {
 
 export function actionGetAdminTiles() {
     const req = serviceGetAdminTiles();
-    serviceGetOLStats({});
+    // serviceGetOLStats({});
     return dispatch => {
         dispatch({ type: DASHBOARD_ADMIN_TILES_INIT, payload: null });
         req.then((res) => {

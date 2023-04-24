@@ -108,7 +108,7 @@ export function actionResetFilterClaims() {
 }
 
 export function actionSetPageClaims(page) {
-    const stateData = store.getState().candidate;
+    const stateData = store.getState().claims;
     const currentPage = stateData.currentPage;
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;
