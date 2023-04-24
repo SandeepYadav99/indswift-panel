@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StatusPill from "../../../../../../../components/Status/StatusPill.component";
 import styles from "./Style.module.css";
 import DefaultImg from "../../../../../../../assets/img/download.png";
@@ -20,12 +20,25 @@ function SummaryView({
   handleSendReminder,
   isSubmitting,
 }) {
-  const [rememberFlag,setRememberFlag]=useState(false)
+  const [rememberFlag, setRememberFlag] = useState(false);
   const ChangeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "NA";
   };
   const feedbackDetailPage = useCallback((data) => {
     historyUtils.push(RouteName.CANDIDATE_FEEDBACK_VIEW + data?.feedback_id);
+  }, []);
+  useEffect(() => {
+    if (InterviewList) {
+      setRememberFlag(
+        InterviewList?.some((item) => item.interview_status === "PENDING")
+      );
+    }
+    if (offerList) {
+      setRememberFlag(offerList?.some((item) => item.status === "PENDING"));
+    }
+    if (cvList) {
+      setRememberFlag(cvList?.some((item) => item.status === "PENDING"));
+    }
   }, []);
   return (
     <div className={styles.summaryWrapper}>
@@ -159,22 +172,22 @@ function SummaryView({
           )}
         </div>
         <div className={styles.rememberWrap}>
-          {status !== "PENDING" ? (
-          // {date !== "Invalid date" && (
+          {rememberFlag && (
+            <ButtonBase
+              disabled={isSubmitting}
+              className={styles.iconWrapper}
+              onClick={() => {
+                handleSendReminder && handleSendReminder();
+              }}
+            >
+              <Telegram style={{ color: "#2896E9" }} />
+              <span className={styles.sendReminder}>Send Reminder</span>
+            </ButtonBase>
+          )}
+          {status !== "PENDING" && (
+            // {date !== "Invalid date" && (
             <span className={styles.date}>{date}</span>
-          // )}
-           ) : ( 
-          <ButtonBase
-            disabled={isSubmitting}
-            className={styles.iconWrapper}
-            onClick={() => {
-              handleSendReminder && handleSendReminder();
-            }}
-          >
-            <Telegram style={{ color: "#2896E9" }} />
-            <span className={styles.sendReminder}>Send Reminder</span>
-          </ButtonBase>
-          )} 
+          )}
         </div>
       </div>
     </div>

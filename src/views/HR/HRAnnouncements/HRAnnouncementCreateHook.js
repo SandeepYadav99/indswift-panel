@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { isAlphaNumChars, isUrl } from "../../../libs/RegexUtils";
+import { isAlphaNumChars, isUrl, validateUrl } from "../../../libs/RegexUtils";
 import {
   serviceCheckHRAnnouncement,
   serviceCreateHRAnnouncement,
@@ -92,7 +92,7 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
       },
       [errorData, id, form]
     );
-    if (form?.link && !isUrl(form?.link)) {
+    if (form?.link && !validateUrl(form?.link)) {
       errors["link"] = true;
     }
     Object.keys(errors).forEach((key) => {

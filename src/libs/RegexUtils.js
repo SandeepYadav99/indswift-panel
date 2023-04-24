@@ -47,7 +47,9 @@ const IsIFSCCode=(value)=>{
 const IsVehicleNo=(value)=>{
     return /^[A-Za-z]{2}.+\d{4}$/.test(value)
 }
-
+function validateUrl(value) {
+    return /^https?:\/\/[^\s/$.?#].[^\s]*$/i.test(value);
+  }
 export {
     isUrl,
     isEmail,
@@ -59,5 +61,6 @@ export {
     isAadhar,
     IsIFSCCode,
     isAccountNum,
-    IsVehicleNo
+    IsVehicleNo,
+    validateUrl
 };

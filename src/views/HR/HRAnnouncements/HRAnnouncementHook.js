@@ -27,10 +27,10 @@ const useHRAnnouncementList = ({}) => {
   // useEffect(() => {
   //   dispatch(actionFetchHRAnnouncement());
   // }, []);
-
+const initialList= {row:null,order:null}
   useEffect(() => {
     dispatch(
-      actionFetchHRAnnouncement(1, sortingData, {
+      actionFetchHRAnnouncement(1, initialList, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })

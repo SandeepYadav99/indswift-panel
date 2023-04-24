@@ -118,7 +118,7 @@ const useJobOpeningsEditDetail = ({}) => {
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = [];
+        let required = ['designation_note'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;

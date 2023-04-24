@@ -35,6 +35,7 @@ function ClaimListDetail() {
         />
         <ChangeDialog 
           claimAmount={employeeDetail?.claim_amount}
+          entitledAmount={employeeDetail?.claim_details?.entitled_amount}
           candidateId={id}
           isOpen={ischangeDialog}
           handleToggle={toggleChangeDialog}

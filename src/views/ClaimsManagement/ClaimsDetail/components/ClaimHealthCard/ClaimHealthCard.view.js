@@ -97,6 +97,8 @@ function ClaimHealthCard() {
                 onBlur={() => {
                   onBlurHandler("list");
                 }}
+                multiline
+                rows={2}
               />
             </div>
           </div>

@@ -10,7 +10,12 @@ const initialForm = {
   approved_amount: "",
   comment: "",
 };
-const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
+const useChangeDialogHook = ({
+  isOpen,
+  handleToggle,
+  candidateId,
+  entitledAmount,
+}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -66,7 +71,11 @@ const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
         (Array.isArray(form?.[val]) && form?.[val].length === 0)
       ) {
         errors[val] = true;
-      } else if ([].indexOf(val) < 0) {
+      }else if(form?.approved_amount > entitledAmount ){
+        SnackbarUtils.error('Approved amount cannnot be greater than Entitled Amount');
+        errors['approved_amount'] = true;
+      }
+       else if ([].indexOf(val) < 0) {
         delete errors[val];
       }
     });
@@ -77,7 +86,7 @@ const useChangeDialogHook = ({ isOpen, handleToggle, candidateId }) => {
       }
     });
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData,entitledAmount]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {

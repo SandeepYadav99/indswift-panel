@@ -39,7 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ChangeDialog = ({ isOpen, handleToggle, candidateId , claimAmount}) => {
+const ChangeDialog = ({ isOpen, handleToggle, candidateId , claimAmount,entitledAmount}) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -49,7 +49,7 @@ const ChangeDialog = ({ isOpen, handleToggle, candidateId , claimAmount}) => {
     onBlurHandler,
     declaration,
     setDeclaration,
-  } = useChangeDialogHook({ isOpen, handleToggle, candidateId });
+  } = useChangeDialogHook({ isOpen, handleToggle, candidateId,entitledAmount });
 
   return (
     <div>
