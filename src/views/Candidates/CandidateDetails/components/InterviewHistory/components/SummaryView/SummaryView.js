@@ -30,14 +30,14 @@ function SummaryView({
   useEffect(() => {
     if (InterviewList) {
       setRememberFlag(
-        InterviewList?.some((item) => item.interview_status === "PENDING")
+        InterviewList?.some((item) => item?.interview_status === "PENDING")
       );
     }
     if (offerList) {
-      setRememberFlag(offerList?.some((item) => item.status === "PENDING"));
+      setRememberFlag(offerList?.some((item) => item?.status === "PENDING"));
     }
     if (cvList) {
-      setRememberFlag(cvList?.some((item) => item.status === "PENDING"));
+      setRememberFlag(cvList?.some((item) => item?.status === "PENDING"));
     }
   }, []);
   return (
