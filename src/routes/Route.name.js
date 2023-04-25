@@ -99,6 +99,8 @@ export default {
   CLAIMS_MOBILE:'/employee/claim/mobile',
   CLAIMS_CAR:'/employee/claim/car',
   CLAIMS_INFO:'/employee/claim/info',
-  CLAIMS_HEALTH:'/employee/claim/health'
+  CLAIMS_HEALTH:'/employee/claim/health',
+
+  PERFORMANCE_BATCH:'/pm/batch'
 
 };
