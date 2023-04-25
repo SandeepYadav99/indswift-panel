@@ -109,6 +109,7 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
+
     }
     submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
