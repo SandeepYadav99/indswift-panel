@@ -27,7 +27,10 @@ export async function serviceGetUpcomingJoinings (params) {
     return await getRequest('dashboard/upcoming/joinings', params);
 }
 
-export async function serviceGetPendingOL (params) {
+export async function serviceGetOLStats (params) {
     return await getRequest('dashboard/pending/ol', params);
+}
+export async function serviceGetUpcomingJoin (params) {
+    return await getRequest('/dashboard/upcoming/joinings', params);
 }
 
