@@ -29,24 +29,7 @@ const useCandidateList = ({}) => {
     query,
     query_data: queryData,
   } = useSelector((state) => state.candidate);
-  const status = [
-    { id: "ACTIVE", name: "ACTIVE" },
-    { id: "INTERVIEW_ALIGNED", name: "INTERVIEW ALIGNED" },
-    { id: "CV_REJECTED", name: "CV REJECTED" },
-    { id: "PENDING_SHORTLIST", name: "PENDING SHORTLIST" },
-    { id: "SELECTED", name: "SELECTED" },
-    { id: "PENDING", name: "PENDING" },
-    { id: "CV_SHORTLISTED", name: "CV SHORTLISTED" },
-    { id: "INTERVIEW_REJECTED", name: "INTERVIEW REJECTED" },
-    { id: "JOINING", name: "JOINING" },
-    { id: "JOINED", name: "JOINED" },
-    { id: "NOT_JOINING", name: "NOT JOINING" },
-    { id: "DROPPED", name: "DROPPED" },
-    { id: "UNDER_OFFER", name: "UNDER OFFER" },
-    { id: "OFFER_LETTER", name: "OFFER LETTER" },
-    { id: "OFFER_DECLINED", name: "OFFER DECLINED"},
-  ];
-  
+
   useEffect(() => {
     dispatch(
       actionFetchCandidate(1, sortingData, {
@@ -196,9 +179,8 @@ const useCandidateList = ({}) => {
       {
         label: "Status",
         name: "status",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: status,
+        type: "select",
+        fields: ["ACTIVE", "INTERVIEW_ALIGNED", "CV_REJECTED", "PENDING_SHORTLIST", "SELECTED", "PENDING", "CV_SHORTLISTED", "INTERVIEW_REJECTED", "JOINING", "JOINED", "NOT_JOINING", "DROPPED", "UNDER_OFFER", "OFFER_LETTER", "OFFER_DECLINED",],
       },
     ];
   }, [listData]);

@@ -2,7 +2,7 @@
  * Created by charnjeetelectrovese@gmail.com on 4/30/2020.
  */
 import {
-    serviceGetAdminTiles, serviceGetPendingOL, serviceGetUpcomingJoinings,
+    serviceGetAdminTiles
 } from "../services/Dashboard.service";
 
 
@@ -20,8 +20,6 @@ export function actionGetDashboard(data) {
 
 export function actionGetAdminTiles() {
     const req = serviceGetAdminTiles();
-    serviceGetPendingOL({});
-    serviceGetUpcomingJoinings({});
     return dispatch => {
         dispatch({ type: DASHBOARD_ADMIN_TILES_INIT, payload: null });
         req.then((res) => {
