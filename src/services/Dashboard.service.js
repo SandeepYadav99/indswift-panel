@@ -28,6 +28,9 @@ export async function serviceGetPRCStats (params) {
 }
 
 export async function serviceGetOLStats (params) {
-    return await getRequest('dashboard/ol/stats', params);
+    return await getRequest('dashboard/pending/ol', params);
+}
+export async function serviceGetUpcomingJoin (params) {
+    return await getRequest('/dashboard/upcoming/joinings', params);
 }
 
