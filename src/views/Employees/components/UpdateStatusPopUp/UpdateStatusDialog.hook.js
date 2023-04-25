@@ -98,6 +98,7 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
         } else {
           SnackbarUtils.error(res?.message);
         }
+
         setIsSubmitting(false);
       });
     }
