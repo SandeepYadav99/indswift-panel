@@ -84,9 +84,13 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+      const tempData = {...form};
+      if (tempData.emp_status === 'ACTIVE') {
+        delete tempData.last_working_date;
+      }
       serviceChangeEmployeeStatus({
         employee_id: employeeData?.id,
-        ...form,
+        ...tempData,
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Placed Successfully");
@@ -101,7 +105,6 @@ const useResetPasswordDialogHook = ({ isOpen, handleToggle }) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("===>", { form, errors });
     // LogUtils.log("errors", errors);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
