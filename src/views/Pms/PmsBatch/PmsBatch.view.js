@@ -40,8 +40,7 @@ const PmsBatch = ({ }) => {
     isCalling,
     configFilter,
     warehouses,
-    // handleCsvDownload,
-    
+    handleCsvDownload,
   } = usePmsBatch({});
 
   const {
@@ -49,7 +48,7 @@ const PmsBatch = ({ }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.claims);
+  } = useSelector((state) => state.pmsBatch);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -63,10 +62,10 @@ const PmsBatch = ({ }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
+            <span className={styles.productName}>{obj?.name}</span>{" "}
             <br />
             <span className={styles.productName}>
-              {obj?.employee?.emp_code}
+              {obj?.emp_code}
             </span>{" "}
             <br />
           </div>
@@ -91,9 +90,7 @@ const PmsBatch = ({ }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.contact}
-            <br />
-            {`${all?.employee?.grade}/${all?.employee?.cadre}`}
+            {all?.grade?.code}
           </div>
         ),
       },
@@ -101,13 +98,13 @@ const PmsBatch = ({ }) => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.location}</div>,
+        render: (temp, all) => <div>{all?.location.name}</div>,
       },
       {
         key: "desigination",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.designation}</div>,
+        render: (temp, all) => <div>{all?.designation?.name}</div>,
       },
       {
         key: "department",
@@ -115,7 +112,7 @@ const PmsBatch = ({ }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department} / {all?.employee?.sub_department}
+            {all?.department?.name} / {all?.department?.name}
           </div>
         ),
       },
@@ -123,26 +120,28 @@ const PmsBatch = ({ }) => {
         key: "reviewer",
         label: "REVIEWER",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.contact}</div>,
+        render: (temp, all) => <div>{all?.pms?.name} <br/>
+          {all?.pms?.code}</div>,
       },
       {
         key: "hod",
         label: "HOD",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim?.claim_type}</div>,
+        render: (temp, all) => <div>{all?.hod?.hod_name} <br/>
+          {all?.hod?.hod_code}</div>,
       },
-      
+
       {
         key: "batch",
         label: "BATCH",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim?.claimedAtText}</div>,
+        render: (temp, all) => <div>{all?.pms_batch}</div>,
       },
       {
         key: "type",
         label: "TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim?.claim_amount}</div>,
+        render: (temp, all) => <div>{all?.type}</div>,
       },
       {
         key: "status",
@@ -214,7 +213,7 @@ const PmsBatch = ({ }) => {
             <ButtonBase
               // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
-              // onClick={handleCsvDownload}
+              onClick={handleCsvDownload}
               className={"createBtn"}
             >
               Download
@@ -223,7 +222,7 @@ const PmsBatch = ({ }) => {
                 className={"plusIcon"}
               ></CloudDownload>
             </ButtonBase>
-             
+
           </div>
         </div>
 
@@ -245,7 +244,7 @@ const PmsBatch = ({ }) => {
           </div>
         </div>
       </PageBox>
-      
+
     </div>
   );
 };

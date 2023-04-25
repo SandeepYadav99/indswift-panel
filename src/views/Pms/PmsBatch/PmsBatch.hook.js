@@ -11,6 +11,7 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
+import {serviceExportPMSBatch} from "../../../services/PmsBatch.service";
 const usePmsBatch = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -25,6 +26,7 @@ const usePmsBatch = ({}) => {
     query,
     query_data: queryData,
   } = useSelector((state) => state?.pmsBatch);
+
   useEffect(() => {
     dispatch(
       actionFetchPmsBatch(1, sortingData, {
@@ -34,8 +36,8 @@ const usePmsBatch = ({}) => {
     );
     isMountRef.current = true;
   }, []);
-  
-   
+
+
   useEffect(() => {
     serviceGetList(["EMPLOYEES"]).then((res) => {
       if (!res.error) {
@@ -48,14 +50,21 @@ const usePmsBatch = ({}) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPagePmsBatch(type));
   }, []);
-  // const handleCsvDownload = useCallback((payload) => {
-  //   serviceExportClaimList({ status: payload }).then((res) => {
-  //     if (!res.error) {
-  //       const data = res.data?.response;
-  //       window.open(data, "_blank");
-  //     }
-  //   });
-  // }, []);
+
+  const handleCsvDownload = useCallback((payload) => {
+    serviceExportPMSBatch({
+      row: sortingData?.row,
+      order: sortingData?.order,
+      query: query,
+      query_data: queryData,
+    }).then((res) => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    });
+  }, [sortingData, query, queryData]);
+
   const handleDataSave = useCallback(
     (data, type) => {
       if (type == "CREATE") {
@@ -148,17 +157,13 @@ const usePmsBatch = ({}) => {
     return [
       {
         label: "PMS Batch",
-        name: "PMS_BATCHES",
+        name: "pms_batch",
         type: "select",
         fields: ["DTY", "APMS"],
-        PMS_BATCHES: {
-          APMS: 'APMS',
-          DTY: 'DTY'
-        },
       },
       {
         label: "PMS reviewer",
-        name: "Pms_reviewer",
+        name: "pms_reviewer_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.EMPLOYEES,
@@ -177,7 +182,7 @@ const usePmsBatch = ({}) => {
           "INACTIVE",
         ],
       },
-      
+
     ];
   }, [listData]);
 
@@ -198,7 +203,7 @@ const usePmsBatch = ({}) => {
     isCalling,
     editData,
     configFilter,
-    // handleCsvDownload,
+    handleCsvDownload,
   };
 };
 

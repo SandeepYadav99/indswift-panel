@@ -11,7 +11,11 @@ export async function serviceDeletePmsBatch(params) {
     return await postRequest('pm/delete', params);
 }
 export async function serviceGetPmsBatch(params) {
-    return await postRequest('pm', params);
+    return await postRequest('pms/batches', params);
 }
- 
+
+export async function serviceExportPMSBatch(params) {
+    return await postRequest('pms/batches/export', params);
+}
+
 
