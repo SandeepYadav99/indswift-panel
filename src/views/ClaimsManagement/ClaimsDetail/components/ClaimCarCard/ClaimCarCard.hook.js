@@ -81,6 +81,7 @@ const useClaimCarCard = ({}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+      setIsLoading(true)
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
         if (["document" , "payment_proof"].indexOf(key) < 0 && form[key]) {
@@ -100,6 +101,7 @@ const useClaimCarCard = ({}) => {
         } else {
           SnackbarUtils.error(res?.message);
         }
+        setIsLoading(false)
         setIsSubmitting(false);
       });
     }

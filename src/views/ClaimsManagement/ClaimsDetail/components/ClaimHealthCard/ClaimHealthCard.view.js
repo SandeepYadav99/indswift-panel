@@ -235,7 +235,7 @@ function ClaimHealthCard() {
       <div className={styles.btnCont}>
         <ButtonBase
           type={"button"}
-          disabled={!declaration ? true : false}
+          disabled={!declaration || isLoading ?  true : false}
           className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >
