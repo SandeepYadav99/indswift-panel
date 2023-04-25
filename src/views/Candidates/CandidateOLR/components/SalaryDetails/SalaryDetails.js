@@ -76,7 +76,7 @@ function SalaryDetails({ data }) {
                 Annualized Value Change from Replaced Cost:
               </span>
               <span className={styles.valueWrap21}>
-              {!data.replacing_person?.name ? 'N/A ':prefixRs(data?.salary_change?.annual_replaced_change)}
+              {!data?.replacing_person?.name ? 'N/A ':prefixRs(data?.salary_change?.annual_replaced_change)}
               </span>
             </div>
             <div className={styles.key21}>
@@ -86,7 +86,7 @@ function SalaryDetails({ data }) {
               {
                 <span className={styles.valueWrap21}>
                   {
-                    !data.replacing_person?.name ? 'N/A ' : 
+                    !data?.replacing_person?.name ? 'N/A ' : 
                     data?.salary_change?.annual_replaced_percentage !== undefined
                       ? `${data?.salary_change?.annual_replaced_percentage} %`
                       : ""
