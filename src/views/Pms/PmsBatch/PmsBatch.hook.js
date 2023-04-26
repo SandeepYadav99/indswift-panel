@@ -150,7 +150,7 @@ const usePmsBatch = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
@@ -159,7 +159,7 @@ const usePmsBatch = ({}) => {
         label: "PMS Batch",
         name: "pms_batch",
         type: "select",
-        fields: ["DTY", "APMS"],
+        fields: ["DTY", "APMS", 'N/A'],
       },
       {
         label: "PMS reviewer",

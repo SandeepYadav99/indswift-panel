@@ -96,7 +96,7 @@ const dashboardRoutes = [
         icon: DashboardOutlined,
         component: NewDashboard,
         is_sidebar: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
     {
         path: RouteName.MY_PROFILE,
@@ -189,7 +189,7 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
-        path: "/employees/details/:id",
+        path: `${RouteName.EMPLOYEE_DETAIL}:id`,
         sidebarName: "Employee Details",
         navbarName: "Employee Details",
         icon: Dashboard,
