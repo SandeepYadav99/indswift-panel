@@ -21,6 +21,7 @@ import ClaimCarCard from "../views/ClaimsManagement/ClaimsDetail/components/Clai
 import ClaimsList from "../views/AdminClaimManagement/ClaimsList/ClaimsList.container";
 import ClaimListDetail from "../views/AdminClaimManagement/ClaimListDetail/ClaimListDetail.view";
 import ClaimHealthCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimHealthCard/ClaimHealthCard.view";
+import PmsBatch from "../views/Pms/PmsBatch/PmsBatch.view";
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -95,7 +96,7 @@ const dashboardRoutes = [
         icon: DashboardOutlined,
         component: NewDashboard,
         is_sidebar: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
     {
         path: RouteName.MY_PROFILE,
@@ -188,7 +189,7 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
-        path: "/employees/details/:id",
+        path: `${RouteName.EMPLOYEE_DETAIL}:id`,
         sidebarName: "Employee Details",
         navbarName: "Employee Details",
         icon: Dashboard,
@@ -1005,6 +1006,29 @@ const dashboardRoutes = [
         should_regex: true,
         parent: 'cm',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
+        path: 'null',
+        sidebarName: "Performance Management",
+        navbarName: "Performance Management",
+        icon: AssignmentOutlined,
+        is_sidebar: true,
+        slug: 'pm',
+        is_parent: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT],
+
+    },
+    {
+        path: `${RouteName.PERFORMANCE_BATCH}`,
+        sidebarName: "Employee Wise Planner",
+        navbarName: "Employee Wise Planner",
+        icon: PeopleOutlined,
+        component: PmsBatch,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
         path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',

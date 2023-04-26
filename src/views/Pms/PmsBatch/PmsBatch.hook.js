@@ -1,25 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionCreateCandidate,
-  actionDeleteCandidate,
-  actionFetchCandidate,
-  actionSetPageCandidate,
-  actionUpdateCandidate,
-} from "../../../actions/Candidate.action";
+  actionCreatePmsBatch,
+  actionDeletePmsBatch,
+  actionFetchPmsBatch,
+  actionSetPagePmsBatch,
+  actionUpdatePmsBatch,
+} from "../../../actions/PmsBatch.action";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-
-const useCandidateList = ({}) => {
-  const [isSidePanel, setSidePanel] = useState(false);
+import {serviceExportPMSBatch} from "../../../services/PmsBatch.service";
+const usePmsBatch = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
-    LOCATIONS: [],
-    HR: [],
-    JOB_OPENINGS: [],
+    EMPLOYEES: [],
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -28,11 +25,11 @@ const useCandidateList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.candidate);
+  } = useSelector((state) => state?.pmsBatch);
 
   useEffect(() => {
     dispatch(
-      actionFetchCandidate(1, sortingData, {
+      actionFetchPmsBatch(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -40,8 +37,9 @@ const useCandidateList = ({}) => {
     isMountRef.current = true;
   }, []);
 
+
   useEffect(() => {
-    serviceGetList(["LOCATIONS", "HR", "JOB_OPENINGS"]).then((res) => {
+    serviceGetList(["EMPLOYEES"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -50,34 +48,44 @@ const useCandidateList = ({}) => {
   console.log("list", listData);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageCandidate(type));
+    dispatch(actionSetPagePmsBatch(type));
   }, []);
+
+  const handleCsvDownload = useCallback((payload) => {
+    serviceExportPMSBatch({
+      row: sortingData?.row,
+      order: sortingData?.order,
+      query: query,
+      query_data: queryData,
+    }).then((res) => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    });
+  }, [sortingData, query, queryData]);
 
   const handleDataSave = useCallback(
     (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
       if (type == "CREATE") {
-        dispatch(actionCreateCandidate(data));
+        dispatch(actionCreatePmsBatch(data));
       } else {
-        dispatch(actionUpdateCandidate(data));
+        dispatch(actionUpdatePmsBatch(data));
       }
-      setSidePanel((e) => !e);
       setEditData(null);
     },
-    [setSidePanel, setEditData]
+    [setEditData]
   );
 
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageCandidateRequests(1));
       dispatch(
-        actionFetchCandidate(1, sortingData, {
+        actionFetchPmsBatch(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
       );
-      // dispatch(actionFetchCandidate(1, sortingData))
     },
     [sortingData, query, queryData]
   );
@@ -101,9 +109,9 @@ const useCandidateList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageCandidate(1));
+      // dispatch(actionSetPagePmsBatch(1));
       dispatch(
-        actionFetchCandidate(
+        actionFetchPmsBatch(
           1,
           { row, order },
           {
@@ -122,66 +130,59 @@ const useCandidateList = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteCandidate(id));
-      setSidePanel(false);
+      dispatch(actionDeletePmsBatch(id));
       setEditData(null);
     },
-    [setEditData, setSidePanel]
+    [setEditData]
   );
 
-  const handleEdit = useCallback((data) => {
-      historyUtils.push(`${RouteName.CANDIDATES_UPDATE}${data.id}`, {
-        isEdit: true,
-      });
+  const handleEdit = useCallback(
+    (data) => {
+      setEditData(data);
     },
-    []);
+    [setEditData]
+  );
 
   const handleSideToggle = useCallback(() => {
     historyUtils.push(RouteName.CANDIDATES_CREATE);
-    // setSidePanel(e => !e);
     // setEditData(null);
-  }, [setEditData, setSidePanel]);
+  }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data.id}`); //+data.id
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
     return [
-    //   {
-    //     label: "Created Date",
-    //     options: { maxDate: new Date() },
-    //     name: "createdAt",
-    //     type: "date",
-    //   },
       {
-        label: "Location",
-        name: "job.location._id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.LOCATIONS,
+        label: "PMS Batch",
+        name: "pms_batch",
+        type: "select",
+        fields: ["DTY", "APMS", 'N/A'],
       },
       {
-        label: "Coordinator",
-        name: "job.assignedPerson._id",
+        label: "PMS reviewer",
+        name: "pms_reviewer_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.HR,
-      },
-      {
-        label: "PRC",
-        name: "job._id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "code" } },
-        fields: listData?.JOB_OPENINGS,
+        fields: listData?.EMPLOYEES,
       },
       {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["ACTIVE", "INTERVIEW_ALIGNED", "CV_REJECTED", "PENDING_SHORTLIST", "SELECTED", "PENDING", "CV_SHORTLISTED", "INTERVIEW_REJECTED", "JOINING", "JOINED", "NOT_JOINING", "DROPPED", "UNDER_OFFER", "OFFER_LETTER", "OFFER_DECLINED",],
+        fields: [
+          "ACTIVE",
+          "RESIGNED",
+          "TERMINATED",
+          "RETIRED",
+          "EXPIRED",
+          "ABSCONDED",
+          "INACTIVE",
+        ],
       },
+
     ];
   }, [listData]);
 
@@ -201,9 +202,9 @@ const useCandidateList = ({}) => {
     handleViewDetails,
     isCalling,
     editData,
-    isSidePanel,
     configFilter,
+    handleCsvDownload,
   };
 };
 
-export default useCandidateList;
+export default usePmsBatch;

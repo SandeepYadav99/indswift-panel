@@ -29,5 +29,5 @@ export async function serviceLoginCandidateEaf (params) {
     return await postRequest('candidate/eaf/authenticate', params);
 }
 export async function serviceGetCandidateEAFDetails (params) {
-    return await postRequest('candidates/eaf/details', params);
+    return await postRequest('candidate/eaf/details', params);
 }

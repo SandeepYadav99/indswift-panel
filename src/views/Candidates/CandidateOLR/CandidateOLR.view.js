@@ -29,8 +29,10 @@ function CandidateOLR({ location }) {
     tableDataValue,
     handleApproveReview,
     isSubmitting,
-    reviewId
+    reviewId,
+    isRecruiter
   } = CandidateOLRHook({ location });
+
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -109,8 +111,8 @@ function CandidateOLR({ location }) {
           />
         </div>
       </div>)}
-       
-      {isReview && (
+
+      {(isReview && !isRecruiter) && (
         <div className={styles.btnReviewWrapper}>
           <div className={styles.isReviewBtnContainer}>
             <ButtonBase

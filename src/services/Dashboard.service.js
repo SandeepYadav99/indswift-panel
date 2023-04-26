@@ -22,12 +22,13 @@ export async function serviceGetAdminTiles(params) {
 export async function serviceGetEmployeeTiles (params) {
     return await getRequest('dashboard/employee/tiles', params);
 }
-
-export async function serviceGetPRCStats (params) {
-    return await getRequest('dashboard/prc/stats', params);
-}
-
 export async function serviceGetOLStats (params) {
-    return await getRequest('dashboard/ol/stats', params);
+    return await getRequest('dashboard/pending/ol', params);
+}
+export async function serviceGetUpcomingJoin (params) {
+    return await getRequest('dashboard/upcoming/joinings', params);
+}
+export async function serviceGetInterviewStatus (params) {
+    return await getRequest('dashboard/interview/stats', params);
 }
 
