@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import { useCallback } from "react";
 import { useState } from "react";
 import {useParams} from "react-router";
@@ -6,6 +6,8 @@ import {serviceReviewOLRApprove} from "../../../services/ReviewOLR.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import {serviceGetOfferLetterDetails,serviceGetPanelistDetails} from "../../../services/OfferLetter.service";
+import {useSelector} from "react-redux";
+import Constants from "../../../config/constants";
 
 function CandidateOLRHook({location}) {
   const isReview = location?.state?.isReview;
@@ -17,7 +19,7 @@ function CandidateOLRHook({location}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState(null);
   const { id } = useParams();
-
+  const {role} = useSelector(state => state.auth);
 
   const [tableDataValue,setTableDataValue]=useState([{name:'shasank',designation:'manager',department:'Human Resourse'}])
   useEffect(() => {
@@ -29,6 +31,7 @@ function CandidateOLRHook({location}) {
       })
     }
   }, [id]);
+
   useEffect(() => {
     if (id) {
       serviceGetPanelistDetails({ offer_id: id }).then(res => {
@@ -38,6 +41,10 @@ function CandidateOLRHook({location}) {
       })
     }
   }, [id]);
+
+  const isRecruiter = useMemo(() => {
+    return role === Constants.ROLES.RECRUITER;
+  }, [role]);
 
   const toggleApprovalDialog = useCallback(() => {
     setIsApprovalPopUp((e) => !e);
@@ -73,7 +80,8 @@ function CandidateOLRHook({location}) {
     tableDataValue,
     handleApproveReview,
     isSubmitting,
-    reviewId
+    reviewId,
+    isRecruiter
   };
 }
 
