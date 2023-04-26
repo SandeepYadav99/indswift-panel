@@ -13,6 +13,7 @@ if (isProduction) {
   socketUrl = "https://api.indswiftlabs.com";
 }
 
+
 export default {
   is_development: (process.env.NODE_ENV === 'development' || !isProduction),
   TIME_ZONE: -(tempDate.getTimezoneOffset() / 60),
