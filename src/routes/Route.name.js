@@ -69,7 +69,7 @@ export default {
   EMPLOYEES: "/employees",
   EMPLOYEE_UPDATE: "/employees/update/",
   EMPLOYEE_CREATE: "/employees/create",
-
+  EMPLOYEE_DETAIL: "/employees/details/",
   EMPLOYEE_VERSIONS: "/employee/versions",
 
   EAF_LOGIN: '/eaf/login',
