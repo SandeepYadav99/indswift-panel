@@ -5,12 +5,23 @@ import PendingOfferTable from "./components/WarehouseTables/PendingOfferTable.co
 import InterviewsTable from "./components/WarehouseTables/InterviewsTable.component";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetDashboard } from "../../actions/Dashboard.action";
+import { serviceGetInterviewStatus } from "../../services/Dashboard.service";
+import { useState } from "react";
 
 const NewDashboard = () => {
+  const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const { tiles } = useSelector((state) => state.dashboard);
   useEffect(() => {
     dispatch(actionGetDashboard());
+  }, []);
+  useEffect(() => {
+    let dataValues = serviceGetInterviewStatus();
+    dataValues
+      .then((data) => {
+        setData(data?.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
   const _renderTopCards = () => {
     return (
@@ -55,7 +66,7 @@ const NewDashboard = () => {
               />
             </div>
             <div>
-              <div className={styles.number}>0</div>
+              <div className={styles.number}>{data?.total}</div>
               <div className={styles.subText}>Total Interviews</div>
             </div>
           </div>
@@ -63,15 +74,15 @@ const NewDashboard = () => {
           <div style={{ flex: 1 }}>
             <div className={styles.numberFlex}>
               <div>
-                <div className={styles.num}>00</div>
+                <div className={styles.num}>{data?.today}</div>
                 <div className={styles.subText}>Today</div>
               </div>
               <div>
-                <div className={styles.num}>00</div>
+                <div className={styles.num}>{data?.week}</div>
                 <div className={styles.subText}>This Week</div>
               </div>
               <div>
-                <div className={styles.num}>00</div>
+                <div className={styles.num}>{data?.month}</div>
                 <div className={styles.subText}>This Month</div>
               </div>
             </div>

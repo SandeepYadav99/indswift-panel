@@ -26,7 +26,6 @@ const PendingOfferTable = () => {
       .catch((err) => console.log(err));
   }, []);
   const classes = useStyles();
-  console.log("====>", data);
   const OlrPage = useCallback(() => {
     historyUtils.push(`${RouteName.REVIEW_OLR}`);
   }, []);
