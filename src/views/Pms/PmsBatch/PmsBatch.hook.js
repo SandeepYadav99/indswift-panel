@@ -39,7 +39,7 @@ const usePmsBatch = ({}) => {
 
 
   useEffect(() => {
-    serviceGetList(["EMPLOYEES"]).then((res) => {
+    serviceGetList(["PMS_EMPLOYEES"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -167,22 +167,22 @@ const usePmsBatch = ({}) => {
         name: "pms_reviewer_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.EMPLOYEES,
+        fields: listData?.PMS_EMPLOYEES,
       },
-      {
-        label: "Status",
-        name: "status",
-        type: "select",
-        fields: [
-          "ACTIVE",
-          "RESIGNED",
-          "TERMINATED",
-          "RETIRED",
-          "EXPIRED",
-          "ABSCONDED",
-          "INACTIVE",
-        ],
-      },
+      // {
+      //   label: "Status",
+      //   name: "status",
+      //   type: "select",
+      //   fields: [
+      //     "ACTIVE",
+      //     "RESIGNED",
+      //     "TERMINATED",
+      //     "RETIRED",
+      //     "EXPIRED",
+      //     "ABSCONDED",
+      //     "INACTIVE",
+      //   ],
+      // },
 
     ];
   }, [listData]);
