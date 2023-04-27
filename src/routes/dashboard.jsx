@@ -959,7 +959,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
     {
         path: `${RouteName.CLAIMS_MARRIGE}`,
@@ -1015,7 +1015,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'pm',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
 
     },
     {
@@ -1028,7 +1028,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pm',
-        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
         path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',
