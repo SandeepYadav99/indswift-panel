@@ -149,8 +149,7 @@ const usePmsBatch = ({}) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
-    LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.emp_code}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
