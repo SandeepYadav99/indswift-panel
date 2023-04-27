@@ -58,6 +58,7 @@ const OtherDetailsIncludeFields = ({
   const minDate = new Date();
   minDate.setDate(minDate.getDate() - 45);
   console.log("===>", data);
+
   return (
     <div>
       <div className={styles.flexContainer}>

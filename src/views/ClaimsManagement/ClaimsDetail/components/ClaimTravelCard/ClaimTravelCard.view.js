@@ -39,6 +39,7 @@ function ClaimTravelCard() {
     console.log(event.target.value);
     setSelectedOption(event.target.value);
   };
+
   return (
     <div>
       <div className={styles.outerFlex}>

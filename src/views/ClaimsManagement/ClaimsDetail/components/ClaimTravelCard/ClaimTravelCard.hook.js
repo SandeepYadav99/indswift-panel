@@ -47,6 +47,8 @@ const useClaimTravelCard = ({}) => {
         .catch((err) => console.log(err));
     }
   }, []);
+
+
   useEffect(() => {
     let dataValues = serviceGetClaimDetail();
     dataValues
