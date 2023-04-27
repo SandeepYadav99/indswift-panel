@@ -21,9 +21,11 @@ const useClaimsDetail = ({}) => {
       historyUtils.push(RouteName.CLAIMS_MOBILE);
     } else if (value === 3) {
       historyUtils.push(RouteName.CLAIMS_CAR);
+    }else if (value === 4) {
+      historyUtils.push(RouteName.CLAIMS_HEALTH);
     }
     else{
-      historyUtils.push(RouteName.CLAIMS_HEALTH)
+      historyUtils.push(RouteName.CLAIMS_TRAVEL)
     }
   }, []);
 

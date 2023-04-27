@@ -100,6 +100,7 @@ export default {
   CLAIMS_CAR:'/employee/claim/car',
   CLAIMS_INFO:'/employee/claim/info',
   CLAIMS_HEALTH:'/employee/claim/health',
+  CLAIMS_TRAVEL:'/employee/claim/travel',
 
   PERFORMANCE_BATCH:'/pm/batch'
 

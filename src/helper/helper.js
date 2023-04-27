@@ -144,3 +144,69 @@ export const DeepakData = [
     ],
   },
 ];
+
+export const travelList = [
+  { id: "publictransport", name: "Public Transport (Bus)" },
+  { id: "train", name: "Train (if available)" },
+  { id: "auto", name: "Auto/e-rikshaw" },
+  { id: "twoWheeler", name: "Own 2 Wheeler" },
+  { id: "uberBike", name: "Uber - Bike" },
+];
+export const othertravelList = [
+  { id: "publictransport", name: "Public Transport (Bus)" },
+  { id: "train", name: "Train (if available)" },
+  { id: "auto", name: "Auto/e-rikshaw" },
+  { id: "twoWheeler", name: "Own 2 Wheeler" },
+  { id: "uberBike", name: "Uber - Bike" },
+  { id: "fourWheeler", name: "Own Vehicle - 4 Wheeler" },
+  { id: "cabCar", name: "Cab (Uber or alike)" },
+]; 
+export  function calculateTravelDistance(location1, location2) {
+  let distance = 0;
+  switch (true) {
+    case location1 === location2:
+      distance = 0;
+      break;
+    case location1 === "Head Office" && location2 === "Bhagwanpura Plant":
+    case location1 === "Bhagwanpura Plant" && location2 === "Head Office":
+      distance = 30;
+      break;
+    case location1 === "Head Office" && location2 === "Essix Plant":
+    case location1 === "Essix Plant" && location2 === "Head Office":
+      distance = 20;
+      break;
+    case location1 === "Head Office" && location2 === "R&D Mohali":
+    case location1 === "R&D Mohali" && location2 === "Head Office":
+      distance = 22;
+      break;
+    case location1 === "Head Office" && location2 === "GBU":
+    case location1 === "GBU" && location2 === "Head Office":
+      distance = 25;
+      break;
+    case location1 === "R&D Mohali" && location2 === "Bhagwanpura Plant":
+    case location1 === "Bhagwanpura Plant" && location2 === "R&D Mohali":
+      distance = 35;
+      break;
+    case location1 === "R&D Mohali" && location2 === "Essix Plant":
+    case location1 === "Essix Plant" && location2 === "R&D Mohali":
+      distance = 30;
+      break;
+    case location1 === "R&D Mohali" && location2 === "GBU":
+    case location1 === "GBU" && location2 === "R&D Mohali":
+      distance = 35;
+      break;
+    case location1 === "Bhagwanpura Plant" && location2 === "GBU":
+    case location1 === "GBU" && location2 === "Bhagwanpura Plant":
+      distance = 10;
+      break;
+    case location1 === "Bhagwanpura Plant" && location2 === "Essix Plant":
+    case location1 === "Essix Plant" && location2 === "Bhagwanpura Plant":
+      distance = 8;
+      break;
+    default:
+      distance = 1;
+      break;
+  }
+
+  return distance;
+}
