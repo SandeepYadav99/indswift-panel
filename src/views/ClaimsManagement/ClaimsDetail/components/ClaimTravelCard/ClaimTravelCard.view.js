@@ -33,13 +33,6 @@ function ClaimTravelCard() {
     getotherAmount
   } = useClaimTravelCard({});
 
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const handleOptionChange = (event) => {
-    console.log(event.target.value);
-    setSelectedOption(event.target.value);
-  };
-
   return (
     <div>
       <div className={styles.outerFlex}>

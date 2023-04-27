@@ -85,14 +85,14 @@ const useClaimTravelCard = ({}) => {
     (val) => {
       setTravelAmount(val);
     },
-    [travelAmount,setTravelAmount]
+    [setTravelAmount]
   );
 
   const getotherAmount = useCallback(
     (val) => {
       setOtherAmount(val);
     },
-    [otherAmount,setOtherAmount]
+    [setOtherAmount]
   );
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -172,7 +172,7 @@ const useClaimTravelCard = ({}) => {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, travelRef, otherRef]);
+  }, [checkFormValidation, setErrorData,submitToServer]);
 
   const removeError = useCallback(
     (title) => {

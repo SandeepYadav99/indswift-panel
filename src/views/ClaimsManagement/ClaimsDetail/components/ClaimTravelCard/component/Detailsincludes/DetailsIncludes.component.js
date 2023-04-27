@@ -121,7 +121,6 @@ const DetailsIncludeForm = (
   );
 
   const changeData = (index, data) => {
-    console.log("fields", fields);
     // const tempData = JSON.parse(JSON.stringify(fields));
     const tempData = [...fields];
     tempData[index] = { ...tempData[index], ...data };

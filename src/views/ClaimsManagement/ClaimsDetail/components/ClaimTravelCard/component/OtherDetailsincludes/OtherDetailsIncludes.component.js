@@ -109,7 +109,6 @@ const OtherDetailsIncludeForm = (
   );
 
   const changeData = (index, data) => {
-    console.log("fields", fields);
     const tempData = [...fields];
     tempData[index] = { ...tempData[index], ...data };
     LogUtils.log("data", data);
