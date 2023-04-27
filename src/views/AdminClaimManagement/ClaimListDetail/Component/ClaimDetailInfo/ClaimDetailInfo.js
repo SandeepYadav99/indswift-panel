@@ -289,6 +289,54 @@ function ClaimDetailInfo({ idCards }) {
             </div>
           </div>
         )}
+
+        {idCards?.claimTypeText &&
+          idCards?.claimTypeText === "Local_travel" && (
+            <div className={styles.mainFlex}>
+              <div className={styles.left}>
+                <div className={styles.key}>
+                  <span className={styles.value}>Claim type :</span>
+                  {idCards?.claimTypeText}
+                </div>
+                <div className={styles.key}>
+                  <span className={styles.value}>Reimbursement Month:</span>
+                  {idCards?.rem_month}
+                </div>
+                <div className={styles.key}>
+                  <span className={styles.value}>Claim in Process:</span>
+                  {idCards?.claim_details?.progress_claim &&
+                    `₹ ${idCards?.claim_details?.progress_claim}`}
+                </div>
+                <div className={styles.key}>
+                  <a href={idCards?.od_ss} target="_blank">
+                    <div className={styles.hyperlinkText}>
+                      View OD Screenshot 1
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div className={styles.right}>
+                <div className={styles.key}>
+                  <span className={styles.value}>Total Bill Amount:</span>
+                  {idCards?.bill_amount}
+                </div>
+
+                <div className={styles.key}>
+                  <span className={styles.value}>Amount to be Reimbursed:</span>
+                  {idCards?.claim_amount && `₹  ${idCards?.claim_amount}`}
+                </div>
+                {idCards?.od_ss_2 && (
+                  <div className={styles.key}>
+                    <a href={idCards?.od_ss_2} target="_blank">
+                      <div className={styles.hyperlinkText}>
+                        View OD Screenshot 2
+                      </div>
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         {idCards?.claimTypeText && idCards?.claimTypeText === "Phc" && (
           <div className={styles.prcReportWrap}>
             <div className={styles.key221}>
@@ -298,10 +346,10 @@ function ClaimDetailInfo({ idCards }) {
               <span className={styles.list}>{idCards?.list}</span>
             </div>
             <div>
-                <a href={idCards?.medical_report} target="_blank">
-                  <div className={styles.hyperlinkText}>View PHC Report</div>
-                </a>
-              </div>
+              <a href={idCards?.medical_report} target="_blank">
+                <div className={styles.hyperlinkText}>View PHC Report</div>
+              </a>
+            </div>
           </div>
         )}
       </div>
