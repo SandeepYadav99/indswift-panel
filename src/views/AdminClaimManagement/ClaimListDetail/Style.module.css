@@ -78,13 +78,6 @@
   gap: 25px;
   margin-right: 15px;
 }
-.newLine {
-  height: 4px;
-  width: 30px;
-  border-radius: 10px;
-  margin-left: 20px;
-  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
-}
 .heading {
   font-size: 0.8rem;
   margin-top: 5px;
@@ -119,4 +112,140 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+.hyperlinkText{
+  color: #2896E9;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+.heading221{
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.mainFlex{
+  display: flex;
+  /*align-items: center;*/
+}
+
+.vertical {
+  border-left: 1px dashed #B8C5D3;
+  max-height: 100px;
+  flex: 0.3;
+}
+
+.key{
+  color: #818181;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+.key221{
+  margin-top: 15px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  /* color: #818181; */
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+.value{
+  font-weight: 600;
+  width: 180px;
+  color: black;
+  display: inline-block;
+}
+
+.newContainer{
+  font-size: 0.7rem;
+}
+
+.left{
+  flex: 1.4;
+}
+
+.right{
+  flex: 1;
+}
+
+.horizontal{
+  border-bottom: 1px dashed #B8C5D3;
+  margin-top: 15px;
+  margin-bottom: 22px;
+}
+
+.posted{
+  font-size: 0.7rem;
+  margin-left: 10px;
+}
+.statusContainer{
+  display: flex;
+  justify-content: space-between;
+}
+.editBtn{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editFlex{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statusFlex{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnCont {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.detailFlex{
+  display: flex;
+}
+
+.info{
+  margin-left: 10px;
+}
+.formDetailWrapper{
+  margin-top: 20px;
+}
+.prcReportWrap{
+  margin-top: 10px;
+  display: flex;
+  border-top: 1px solid #B8C5D3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list{
+  color: #818181;
+}
+.totalWrap {
+  width: 100%;
+  height: 50px;
+  background: #f5f7fb 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: 600;
+  font-size: .8rem;
+  margin-top: 5px;
+
+}
+.inner{
+margin-left: 20px;
+}
+.inner > span{
+  margin-left: 10px;
+  color: #2896E9;
+}
+.otherWrap{
+  margin: 10px 0;
+}
+.verti{
+  border: 1px solid #B8C5D3;
+  margin:10px 0;
 }
