@@ -921,7 +921,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'cm',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
 
     },
 
@@ -936,7 +936,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     },
     // {
     //     path: `${RouteName.CLAIMS_INFO}`,
