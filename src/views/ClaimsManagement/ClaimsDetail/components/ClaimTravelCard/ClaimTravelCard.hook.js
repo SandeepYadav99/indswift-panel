@@ -94,7 +94,6 @@ const useClaimTravelCard = ({}) => {
     },
     [otherAmount,setOtherAmount]
   );
-  LogUtils(travelAmount , otherAmount)
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsLoading(true);
