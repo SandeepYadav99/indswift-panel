@@ -32,6 +32,7 @@ function ClaimTravelCard() {
     travelRef,
     otherRef
   } = useClaimTravelCard({});
+
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleOptionChange = (event) => {
@@ -127,7 +128,7 @@ function ClaimTravelCard() {
         <div className={styles.newContainer}>
           <div className={styles.heading}>Other Expenses Details</div>
           <div>
-            <OtherDetailsIncludeForm ref={otherRef}grade={employeeDetails?.grade?.code} />
+            <OtherDetailsIncludeForm ref={otherRef} grade={employeeDetails?.grade?.code} />
           </div>
         </div>
       </div>

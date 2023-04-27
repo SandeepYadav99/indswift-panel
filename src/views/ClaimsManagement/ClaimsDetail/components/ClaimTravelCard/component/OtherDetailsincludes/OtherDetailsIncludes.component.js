@@ -18,7 +18,7 @@ const TEMP_OBJ = {
   travel_date: "",
   details: "",
   amount: "",
-  slip:null
+  slip: null
 };
 
 const OtherDetailsIncludeForm = (
@@ -37,7 +37,7 @@ const OtherDetailsIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      return JSON.parse(JSON.stringify(fields));
+      return (fields);
     },
     setData(data) {
       setFields([...data]);
@@ -98,7 +98,7 @@ const OtherDetailsIncludeForm = (
 
   const changeData = (index, data) => {
     console.log("fields", fields);
-    const tempData = JSON.parse(JSON.stringify(fields));
+    const tempData = [...fields];
     tempData[index] = { ...tempData[index], ...data };
     LogUtils.log("data", data);
     setFields(tempData);

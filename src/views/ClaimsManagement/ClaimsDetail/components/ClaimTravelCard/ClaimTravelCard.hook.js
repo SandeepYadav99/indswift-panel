@@ -97,7 +97,15 @@ const useClaimTravelCard = ({}) => {
         fd.append("od_ss", form?.od_ss);
       }
       fd.append("travel_details", JSON.stringify(travelRef.current.getData()));
-      fd.append('other_expenses',JSON.stringify(otherRef.current.getData()))
+      const otherExpensesData = otherRef.current.getData();
+      fd.append('other_expenses',JSON.stringify(otherExpensesData));
+      otherExpensesData.forEach((val) => {
+        if (val.slip) {
+          fd.append('otherExpImages', val)
+        } else {
+          fd.append('otherExpImages', null);
+        }
+      });
       let req = serviceUpdateTravelClaims;
       req(fd).then((res) => {
         if (!res.error) {

@@ -16,6 +16,7 @@ import {
 } from "../../../../../../../helper/helper";
 import { isNum } from "../../../../../../../libs/RegexUtils";
 import File from "../../../../../../../components/FileComponent/FileComponent.component";
+import LogUtils from "../../../../../../../libs/LogUtils";
 
 const OtherDetailsIncludeFields = ({
   index,
@@ -26,6 +27,7 @@ const OtherDetailsIncludeFields = ({
   grade,
 }) => {
   const handleChange = (e, fieldName) => {
+    LogUtils.log('handleChange', e, fieldName);
     if (fieldName) {
       if (fieldName === "type") {
         changeData(index, { [fieldName]: e.target.value });
@@ -45,6 +47,7 @@ const OtherDetailsIncludeFields = ({
       }
     }
   };
+
   useEffect(() => {
     if (data?.type === "Interlocation" && data?.from && data?.to) {
       const values = calculateTravelDistance(data?.from, data?.to);
@@ -135,7 +138,7 @@ const OtherDetailsIncludeFields = ({
               name="slip"
               label="Upload Slip"
               accept={"application/pdf,application/msword,image/*"}
-              link={data?.slip ? data?.slip : null}
+              // link={data?.slip ? data?.slip : null}
               error={errors?.slip}
               value={data?.slip}
               placeholder={"Upload Slip"}
