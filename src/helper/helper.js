@@ -210,3 +210,14 @@ export  function calculateTravelDistance(location1, location2) {
 
   return distance;
 }
+export function getTransportScore(transport) {
+  if (transport === "publictransport" || transport === "train" || transport === "cabCar" || transport === "auto" || transport === "uberBike") {
+    return 4;
+  } else if (transport === "twoWheeler") {
+    return 5;
+  } else if (transport === 'fourWheeler') {
+    return 9;
+  } else {
+    return 1; // return -1 if the input value doesn't match any of the specified cases
+  }
+}

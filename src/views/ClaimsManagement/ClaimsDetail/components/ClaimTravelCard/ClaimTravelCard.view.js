@@ -21,8 +21,6 @@ function ClaimTravelCard() {
     isLoading,
     isSubmitting,
     errorData,
-    jobDetails,
-    selectedJobId,
     editData,
     declaration,
     setDeclaration,
@@ -30,7 +28,9 @@ function ClaimTravelCard() {
     claimInfo,
     getMonthlyArray,
     travelRef,
-    otherRef
+    otherRef,
+    getTravelAmount,
+    getotherAmount
   } = useClaimTravelCard({});
 
   const [selectedOption, setSelectedOption] = useState("");
@@ -121,7 +121,7 @@ function ClaimTravelCard() {
         <div className={styles.newContainer}>
           <div className={styles.heading}>Travel Details</div>
           <div>
-            <DetailsIncludeForm ref={travelRef} grade={employeeDetails?.grade?.code}/>
+            <DetailsIncludeForm ref={travelRef} grade={employeeDetails?.grade?.code} getTravelAmount={getTravelAmount}/>
           </div>
         </div>
       </div>
@@ -129,7 +129,7 @@ function ClaimTravelCard() {
         <div className={styles.newContainer}>
           <div className={styles.heading}>Other Expenses Details</div>
           <div>
-            <OtherDetailsIncludeForm ref={otherRef} grade={employeeDetails?.grade?.code} />
+            <OtherDetailsIncludeForm ref={otherRef} grade={employeeDetails?.grade?.code} getotherAmount={getotherAmount} />
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import {
 import { isNum } from "../../../../../libs/RegexUtils";
 import { useSelector } from "react-redux";
 import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
+import LogUtils from "../../../../../libs/LogUtils";
 
 const initialForm = {
   bill_amount: "",
@@ -28,6 +29,8 @@ const useClaimTravelCard = ({}) => {
   const [declaration, setDeclaration] = useState(false);
   const [employeeDetails, setEmployeeDetails] = useState({});
   const [claimInfo, setClaimInfo] = useState({});
+  const [travelAmount, setTravelAmount] = useState(null);
+  const [otherAmount, setOtherAmount] = useState(null);
   const travelRef = useRef(null);
   const otherRef = useRef(null);
 
@@ -48,7 +51,6 @@ const useClaimTravelCard = ({}) => {
     }
   }, []);
 
-
   useEffect(() => {
     let dataValues = serviceGetClaimDetail();
     dataValues
@@ -60,10 +62,7 @@ const useClaimTravelCard = ({}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [
-      "rem_month",
-      "od_ss",
-    ];
+    let required = ["rem_month", "od_ss"];
 
     required.forEach((val) => {
       if (
@@ -82,6 +81,20 @@ const useClaimTravelCard = ({}) => {
     return errors;
   }, [form, errorData]);
 
+  const getTravelAmount = useCallback(
+    (val) => {
+      setTravelAmount(val);
+    },
+    [travelAmount,setTravelAmount]
+  );
+
+  const getotherAmount = useCallback(
+    (val) => {
+      setOtherAmount(val);
+    },
+    [otherAmount,setOtherAmount]
+  );
+  LogUtils(travelAmount , otherAmount)
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsLoading(true);
@@ -98,16 +111,32 @@ const useClaimTravelCard = ({}) => {
       if (form?.od_ss) {
         fd.append("od_ss", form?.od_ss);
       }
-      fd.append("travel_details", JSON.stringify(travelRef.current.getData()));
+
+      fd.append("travel_details_amount", travelAmount);
+      fd.append("other_expenses_amount", otherAmount);
+      fd.append("bill_amount", travelAmount + otherAmount);
+
+      const ExpensesData = travelRef.current.getData();
+      ExpensesData.forEach((val) => {
+        if (val.travel_payment_proof) {
+          fd.append("travel_payment_proof", val);
+        } else {
+          fd.append("travel_payment_proof", null);
+        }
+        delete val?.travel_payment_proof;
+      });
+      fd.append("travel_details", JSON.stringify(ExpensesData));
+
       const otherExpensesData = otherRef.current.getData();
-      fd.append('other_expenses',JSON.stringify(otherExpensesData));
       otherExpensesData.forEach((val) => {
         if (val.slip) {
-          fd.append('otherExpImages', val)
+          fd.append("slip", val);
         } else {
-          fd.append('otherExpImages', null);
+          fd.append("slip", null);
         }
+        delete val?.slip;
       });
+      fd.append("other_expenses", JSON.stringify(otherExpensesData));
       let req = serviceUpdateTravelClaims;
       req(fd).then((res) => {
         if (!res.error) {
@@ -119,7 +148,7 @@ const useClaimTravelCard = ({}) => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id]);
+  }, [form, isSubmitting, setIsSubmitting, id, travelAmount, otherAmount]);
 
   const getMonthlyArray = useCallback(() => {
     const months = [];
@@ -144,7 +173,7 @@ const useClaimTravelCard = ({}) => {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, travelRef,otherRef]);
+  }, [checkFormValidation, setErrorData, form, travelRef, otherRef]);
 
   const removeError = useCallback(
     (title) => {
@@ -200,7 +229,9 @@ const useClaimTravelCard = ({}) => {
     claimInfo,
     getMonthlyArray,
     travelRef,
-    otherRef
+    otherRef,
+    getTravelAmount,
+    getotherAmount,
   };
 };
 

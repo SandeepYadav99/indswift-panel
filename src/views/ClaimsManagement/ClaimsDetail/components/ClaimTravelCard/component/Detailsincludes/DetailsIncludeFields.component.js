@@ -1,4 +1,4 @@
-import React  from "react";
+import React, { useMemo } from "react";
 import {
   TextField,
   ButtonBase,
@@ -15,6 +15,7 @@ import {
   travelList,
   othertravelList,
   calculateTravelDistance,
+  getTransportScore,
 } from "../../../../../../../helper/helper";
 import { isNum } from "../../../../../../../libs/RegexUtils";
 import File from "../../../../../../../components/FileComponent/FileComponent.component";
@@ -53,10 +54,21 @@ const DetailsIncludeFields = ({
       changeData(index, { ["total_kms"]: values });
     }
   }, [data?.from, data?.to, data?.type]);
+  
+  useEffect(() => {
+    if (data?.travel_payment_proof === null && data?.total_kms) {
+      changeData(index, {
+        ["amount"]: data?.total_kms * getTransportScore(data?.mode),
+      });
+    }
+  }, [data?.travel_payment_proof, data?.total_kms, data?.mode]);
+  const minDate = useMemo(() => {
+    const today = new Date();
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() - 45);
+    return minDate;
+  }, []);
 
-  const minDate = new Date();
-  minDate.setDate(minDate.getDate() - 45);
-  console.log("===>", data);
   return (
     <div>
       <div className={styles.flexContainer}>
@@ -68,7 +80,6 @@ const DetailsIncludeFields = ({
             onChange={(e) => handleChange(e, "type")}
             row
           >
-            
             <FormControlLabel
               value="Interlocation"
               control={<Radio />}
@@ -130,7 +141,7 @@ const DetailsIncludeFields = ({
               <CustomSelectField
                 isError={errors?.to}
                 errorText={errors?.to}
-                label={"Travel From"}
+                label={"Travel To"}
                 value={data?.to}
                 handleChange={(value) => {
                   handleChange(value, "to");
@@ -151,22 +162,10 @@ const DetailsIncludeFields = ({
                 name={"to"}
                 margin={"dense"}
                 variant={"outlined"}
-                label={"Travel From"}
+                label={"Travel To"}
               />
             )}
-            {/* <TextField
-              error={errors?.marks}
-              onChange={handleChange}
-              value={data?.marks}
-              fullWidth={true}
-              type={"number"}
-              name={"marks"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Degree Marks"}
-            /> */}
           </div>
-         
         </div>
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
@@ -202,32 +201,31 @@ const DetailsIncludeFields = ({
               label={"Total Kilometer"}
             />
           </div>
-          {/* <div className={styles.flex1}>
-              <File
-                max_size={10 * 1024 * 1024}
-                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
-                fullWidth={true}
-                name="od2"
-                label="Upload OD Screenshot 2"
-                accept={"application/pdf,application/msword,image/*"}
-                link={editData?.od_ss_2 ? editData?.od_ss_2 : null}
-                error={errorData?.od_ss_2}
-                value={form?.od_ss_2}
-                placeholder={"Upload OD Screenshot 2"}
-                onChange={(file) => {
-                  if (file) {
-                    changeTextData(file, "od_ss_2");
-                  }
+          <div className={styles.flex1}>
+            <File
+              max_size={10 * 1024 * 1024}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+              fullWidth={true}
+              name="proof"
+              label="Upload Payment proof"
+              accept={"application/pdf,application/msword,image/*"}
+              // link={data?.slip ? data?.slip : null}
+              error={errors?.travel_payment_proof}
+              value={data?.travel_payment_proof}
+              placeholder={"Upload Payment proof"}
+              onChange={(file) => {
+                if (file) {
+                  handleChange(file, "travel_payment_proof");
                 }
-            }
-              />
-            </div> */}
+              }}
+            />
+          </div>
         </div>
         <div className={styles.firstRow221}>
           <div className={styles.flex122}>
             <TextField
               type="number"
-              disabled={data?.type === "Interlocation"}
+              disabled={data?.travel_payment_proof === null}
               error={errors?.amount}
               onChange={handleChange}
               value={data?.amount}

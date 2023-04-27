@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   TextField,
   ButtonBase,
@@ -9,11 +9,8 @@ import {
 } from "@material-ui/core";
 import styles from "./style.module.css";
 import CustomDatePicker from "../../../../../../../components/FormFields/DatePicker/CustomDatePicker";
-import CustomSelectField from "../../../../../../../components/FormFields/SelectField/SelectField.component";
 import { useEffect } from "react";
-import {
-  calculateTravelDistance,
-} from "../../../../../../../helper/helper";
+import { calculateTravelDistance } from "../../../../../../../helper/helper";
 import { isNum } from "../../../../../../../libs/RegexUtils";
 import File from "../../../../../../../components/FileComponent/FileComponent.component";
 import LogUtils from "../../../../../../../libs/LogUtils";
@@ -27,12 +24,11 @@ const OtherDetailsIncludeFields = ({
   grade,
 }) => {
   const handleChange = (e, fieldName) => {
-    LogUtils.log('handleChange', e, fieldName);
+    LogUtils.log("handleChange", e, fieldName);
     if (fieldName) {
       if (fieldName === "type") {
         changeData(index, { [fieldName]: e.target.value });
       } else {
-        console.log("slip",fieldName,e)
         changeData(index, { [fieldName]: e });
       }
     } else {
@@ -55,10 +51,12 @@ const OtherDetailsIncludeFields = ({
     }
   }, [data?.from, data?.to, data?.type]);
 
-  const minDate = new Date();
-  minDate.setDate(minDate.getDate() - 45);
-  console.log("===>", data);
-
+  const minDate = useMemo(() => {
+    const today = new Date();
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() - 45);
+    return minDate;
+  }, []);
   return (
     <div>
       <div className={styles.flexContainer}>
@@ -118,6 +116,7 @@ const OtherDetailsIncludeFields = ({
 
           <div className={styles.flex1}>
             <TextField
+              type="number"
               error={errors?.amount}
               onChange={handleChange}
               value={data?.amount}

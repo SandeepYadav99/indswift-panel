@@ -12,17 +12,25 @@ import LogUtils from "../../../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import OtherDetailsIncludeFields from "./OtherDetailsIncludeFields.component";
+import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
 
 const TEMP_OBJ = {
   type: "",
   travel_date: "",
   details: "",
   amount: "",
-  slip: null
+  slip: null,
 };
 
 const OtherDetailsIncludeForm = (
-  { data, currency, listWarehouse, errorData: errorForm, grade },
+  {
+    data,
+    currency,
+    listWarehouse,
+    errorData: errorForm,
+    grade,
+    getotherAmount,
+  },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -37,7 +45,7 @@ const OtherDetailsIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      return (fields);
+      return fields;
     },
     setData(data) {
       setFields([...data]);
@@ -61,6 +69,10 @@ const OtherDetailsIncludeForm = (
           }
         });
       }
+      if(val?.type?.length === 0 ){
+        err['type'] =true
+        SnackbarUtils.error('Please Enter the Type');
+    }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
@@ -169,6 +181,9 @@ const OtherDetailsIncludeForm = (
       return acc;
     }
   }, 0);
+  useEffect(() => {
+    getotherAmount(sum);
+  }, [sum]);
   return (
     <>
       {renderFields}
@@ -187,7 +202,7 @@ const OtherDetailsIncludeForm = (
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
           {" "}
-          Total Claim Amount: <span>₹4,000</span>
+          Total Claim Amount: <span>{sum}</span>
         </div>
       </div>
       {/*</div>*/}

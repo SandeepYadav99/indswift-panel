@@ -12,6 +12,7 @@ import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import LogUtils from "../../../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
+import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
 
 const TEMP_OBJ = {
   type: "",
@@ -20,7 +21,8 @@ const TEMP_OBJ = {
   to: "",
   total_kms: "",
   mode: "",
-  amount:''
+  amount: "",
+  travel_payment_proof: null,
 };
 
 const DetailsIncludeForm = (
@@ -30,6 +32,7 @@ const DetailsIncludeForm = (
     listWarehouse,
     errorData: errorForm,
     grade,
+    getTravelAmount,
   },
   ref
 ) => {
@@ -45,7 +48,7 @@ const DetailsIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      return JSON.parse(JSON.stringify(fields));
+      return fields;
     },
     setData(data) {
       setFields([...data]);
@@ -77,7 +80,11 @@ const DetailsIncludeForm = (
         });
       }
       if (val?.total_kms === 0) {
-        delete err["total_kms"] 
+        delete err["total_kms"];
+      }
+      if (val?.type?.length === 0) {
+        err["type"] = true;
+        SnackbarUtils.error("Please Enter the Detail Type");
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
@@ -115,7 +122,8 @@ const DetailsIncludeForm = (
 
   const changeData = (index, data) => {
     console.log("fields", fields);
-    const tempData = JSON.parse(JSON.stringify(fields));
+    // const tempData = JSON.parse(JSON.stringify(fields));
+    const tempData = [...fields];
     tempData[index] = { ...tempData[index], ...data };
     LogUtils.log("data", data);
     setFields(tempData);
@@ -178,7 +186,17 @@ const DetailsIncludeForm = (
     onBlur,
     fields,
   ]);
-
+  const sum = fields.reduce((acc, curr) => {
+    const value = curr["amount"];
+    if (value !== "") {
+      return acc + parseFloat(value);
+    } else {
+      return acc;
+    }
+  }, 0);
+  useEffect(() => {
+    getTravelAmount(sum);
+  }, [sum]);
   return (
     <>
       {renderFields}
@@ -196,8 +214,10 @@ const DetailsIncludeForm = (
       </div>
       {/*</div>*/}
       <div className={styles.totalWrap}>
-        <div className={styles.inner}> Total Claim Amount: <span>₹4,000</span>
-          </div> 
+        <div className={styles.inner}>
+          {" "}
+          Total Claim Amount: <span>{sum}</span>
+        </div>
       </div>
     </>
   );

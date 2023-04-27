@@ -54,14 +54,14 @@ const ClaimsDetail = () => {
             enableBtn={data?.phc_claim?.can_claim}
           />
           )}
-          {/* {data?.phc_claim?.is_show && ( */}
+          {data?.local_travel_claim?.is_show && (
           <ClaimCards
             title="Local Travel Claim Form"
             subtitle="Claim the amount for your Local Travel"
             handleClick={() => handleClaimPage(5)}
-            enableBtn={true}
+            enableBtn={data?.local_travel_claim?.can_claim}
           />
-          {/* )} */}
+           )}
       </div>
       <div className={styles.tableWrapper}>
         <EmployeeClaimList />
