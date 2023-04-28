@@ -82,9 +82,22 @@ const DetailsIncludeForm = (
       if (val?.total_kms === 0) {
         delete err["total_kms"];
       }
+      if (val?.amount == 0) {
+        err["amount"] = true;
+      }
+      if (val?.travel_date) {
+        const date = new Date(val?.travel_date);
+        const today = new Date();
+        var fortyFiveDaysAgo = new Date();
+        fortyFiveDaysAgo.setDate(today.getDate() - 46);
+        if (date > today || date < fortyFiveDaysAgo) {
+          err["travel_date"] = true;
+        }
+      }
+
       if (val?.type?.length === 0) {
         err["type"] = true;
-        SnackbarUtils.error("Please Enter the Detail Type");
+        SnackbarUtils.error("Please Select the Type");
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
@@ -199,23 +212,24 @@ const DetailsIncludeForm = (
   return (
     <>
       {renderFields}
+      {fields?.length < 20 && (
+        <div className={styles.btnWrapper}>
+          <ButtonBase
+            className={styles.addition}
+            label={"+"}
+            onClick={() => {
+              handlePress("ADDITION", 0);
+            }}
+          >
+            <Add fontSize={"small"} /> <span>Add Travel Detail</span>
+          </ButtonBase>
+        </div>
+      )}
 
-      <div className={styles.btnWrapper}>
-        <ButtonBase
-          className={styles.addition}
-          label={"+"}
-          onClick={() => {
-            handlePress("ADDITION", 0);
-          }}
-        >
-          <Add fontSize={"small"} /> <span>Add Travel Detail</span>
-        </ButtonBase>
-      </div>
       {/*</div>*/}
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
-          {" "}
-          Total Claim Amount: <span>{sum}</span>
+          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
         </div>
       </div>
     </>

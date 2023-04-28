@@ -24,7 +24,6 @@ const OtherDetailsIncludeFields = ({
   grade,
 }) => {
   const handleChange = (e, fieldName) => {
-    LogUtils.log("handleChange", e, fieldName);
     if (fieldName) {
       if (fieldName === "type") {
         changeData(index, { [fieldName]: e.target.value });
@@ -34,8 +33,8 @@ const OtherDetailsIncludeFields = ({
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
-      if (name === "price") {
-        if (!value || isNum(value)) {
+      if (name === "amount") {
+        if (value >=0){
           changeData(index, { [name]: value });
         }
       } else {
@@ -59,6 +58,7 @@ const OtherDetailsIncludeFields = ({
   }, []);
   return (
     <div>
+      <div className={styles.heading}>Nature of Expense</div>
       <div className={styles.flexContainer}>
         <div className={styles.radioWrapper}>
           <RadioGroup

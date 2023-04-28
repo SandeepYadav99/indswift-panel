@@ -203,6 +203,10 @@ export  function calculateTravelDistance(location1, location2) {
     case location1 === "Essix Plant" && location2 === "Bhagwanpura Plant":
       distance = 8;
       break;
+      case location1 === "GBU" && location2 === "Essix Plant":
+      case location1 === "Essix Plant" && location2 === "GBU":
+      distance = 8;
+      break;
     default:
       distance = 1;
       break;

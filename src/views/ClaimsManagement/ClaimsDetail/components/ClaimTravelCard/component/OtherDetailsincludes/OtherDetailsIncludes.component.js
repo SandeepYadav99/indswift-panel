@@ -69,10 +69,13 @@ const OtherDetailsIncludeForm = (
           }
         });
       }
-      if(val?.type?.length === 0 ){
-        err['type'] =true
-        SnackbarUtils.error('Please Enter the Type');
-    }
+      if (val?.type?.length === 0) {
+        err["type"] = true;
+        SnackbarUtils.error("Please Select the Type");
+      }
+      if (val?.amount == 0) {
+        err["amount"] = true;
+      }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
@@ -186,22 +189,24 @@ const OtherDetailsIncludeForm = (
   return (
     <>
       {renderFields}
+      {fields?.length < 20 && (
+        <div className={styles.btnWrapper}>
+          <ButtonBase
+            className={styles.addition}
+            label={"+"}
+            onClick={() => {
+              handlePress("ADDITION", 0);
+            }}
+          >
+            <Add fontSize={"small"} /> <span>Add Other Expense Detail</span>
+          </ButtonBase>
+        </div>
+      )}
 
-      <div className={styles.btnWrapper}>
-        <ButtonBase
-          className={styles.addition}
-          label={"+"}
-          onClick={() => {
-            handlePress("ADDITION", 0);
-          }}
-        >
-          <Add fontSize={"small"} /> <span>Add Travel Detail</span>
-        </ButtonBase>
-      </div>
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
           {" "}
-          Total Claim Amount: <span>{sum}</span>
+          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
         </div>
       </div>
       {/*</div>*/}
