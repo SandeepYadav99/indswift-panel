@@ -33,6 +33,7 @@ const DetailsIncludeForm = (
     errorData: errorForm,
     grade,
     getTravelAmount,
+    month
   },
   ref
 ) => {
@@ -183,6 +184,7 @@ const DetailsIncludeForm = (
             index={index}
             onBlur={onBlur}
             grade={grade}
+            month={month}
           />
         </div>
       );
