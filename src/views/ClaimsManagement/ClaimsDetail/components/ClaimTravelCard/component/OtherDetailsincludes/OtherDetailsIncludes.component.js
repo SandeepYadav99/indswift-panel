@@ -30,7 +30,10 @@ const OtherDetailsIncludeForm = (
     errorData: errorForm,
     grade,
     getotherAmount,
-    month
+    month,
+    startDate,
+      endDate
+
   },
   ref
 ) => {
@@ -86,6 +89,13 @@ const OtherDetailsIncludeForm = (
           err["travel_date"] = true;
         }
       }
+      // if(val?.travel_date){
+      //   const date=new Date(val?.travel_date)
+      //   console.log('====>',startDate , val?.travel_date ,date , endDate)
+      //   if(startDate <= date <= endDate){
+      //     err["travel_date"] = true;
+      //   }
+      // }
       if (val?.travel_date) {
         let newDate = new Date(val?.travel_date);
         if (isNaN(newDate.getTime())) {
@@ -180,6 +190,8 @@ const OtherDetailsIncludeForm = (
             onBlur={onBlur}
             grade={grade}
             month={month}
+            startDate={startDate}
+            endDate={endDate}
           />
         </div>
       );

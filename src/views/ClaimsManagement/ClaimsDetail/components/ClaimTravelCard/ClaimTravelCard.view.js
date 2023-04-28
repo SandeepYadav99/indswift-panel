@@ -124,7 +124,7 @@ function ClaimTravelCard() {
         <div className={styles.newContainer}>
           <div className={styles.heading}>Other Expenses Details</div>
           <div>
-            <OtherDetailsIncludeForm ref={otherRef} grade={employeeDetails?.grade?.code} getotherAmount={getotherAmount} month={form?.rem_month} />
+            <OtherDetailsIncludeForm startDate={startDate} endDate={endDate} ref={otherRef} grade={employeeDetails?.grade?.code} getotherAmount={getotherAmount} month={form?.rem_month} />
           </div>
         </div>
       </div>

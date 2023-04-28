@@ -60,6 +60,11 @@ const DetailsIncludeFields = ({
       changeData(index, { ["travel_date"]: "" });
     }
   }, [month]);
+  useEffect(()=>{
+    if(data?.total_kms === 0){
+      changeData(index, { ["amount"]: 0 });
+    }
+  },[data?.total_kms])
   useEffect(() => {
     if (data?.type === "Interlocation" && data?.from && data?.to) {
       const values = calculateTravelDistance(data?.from, data?.to);

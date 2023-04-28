@@ -21,7 +21,10 @@ const OtherDetailsIncludeFields = ({
   handlePress,
   data,
   errors,
-  month
+  month,
+  startDate,
+  endDate,
+
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
@@ -111,8 +114,10 @@ const OtherDetailsIncludeFields = ({
               disabled={!month ? true: false}
               clearable
               label={"Travel Date"}
-              minDate={minDate}
-              maxDate={new Date()}
+              minDate={startDate}
+              maxDate={endDate}
+              // minDate={minDate}
+              // maxDate={new Date()}
               onChange={(e) => handleChange(e, "travel_date")}
               value={data?.travel_date}
               isError={errors?.travel_date}
