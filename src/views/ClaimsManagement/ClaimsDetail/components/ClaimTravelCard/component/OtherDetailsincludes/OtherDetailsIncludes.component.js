@@ -146,9 +146,9 @@ const OtherDetailsIncludeForm = (
 
   const handlePress = async (type, index = 0) => {
     LogUtils.log("type", type, index);
-    const oldState = JSON.parse(JSON.stringify(fields));
+    const oldState = ([...fields]);
     if (type == "ADDITION") {
-      oldState.push(JSON.parse(JSON.stringify(TEMP_OBJ)));
+      oldState.push((TEMP_OBJ));
     } else {
       if (oldState.length === 1) {
         return true;

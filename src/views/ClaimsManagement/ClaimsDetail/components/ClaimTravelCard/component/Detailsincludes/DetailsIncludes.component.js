@@ -84,7 +84,7 @@ const DetailsIncludeForm = (
         delete err["total_kms"];
       }
       if (val?.amount == 0) {
-        delete err["amount"] 
+        delete err["amount"]
       }
       if (val?.travel_date) {
         const date = new Date(val?.travel_date);
@@ -157,7 +157,7 @@ const DetailsIncludeForm = (
 
   const handlePress = async (type, index = 0) => {
     LogUtils.log("type", type, index);
-    const oldState = JSON.parse(JSON.stringify(fields));
+    const oldState = [...fields];
     if (type == "ADDITION") {
       oldState.push(JSON.parse(JSON.stringify(TEMP_OBJ)));
     } else {
