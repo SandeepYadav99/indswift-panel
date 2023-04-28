@@ -145,7 +145,7 @@ const ClaimsList = ({ location }) => {
         key: "claim_type",
         label: "CLAIM TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim?.claim_type}</div>,
+        render: (temp, all) => <div>{removeUnderScore(all?.claim?.claim_type)}</div>,
       },
       {
         key: "status",
@@ -169,7 +169,7 @@ const ClaimsList = ({ location }) => {
         key: "value",
         label: "VALUE",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim?.claim_amount}</div>,
+        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>{all?.claim?.claim_amount || all?.claim?.claim_amount === 0 ? `₹ ${all?.claim?.claim_amount}` : ''}</div>,
       },
       {
         key: "claim_id",

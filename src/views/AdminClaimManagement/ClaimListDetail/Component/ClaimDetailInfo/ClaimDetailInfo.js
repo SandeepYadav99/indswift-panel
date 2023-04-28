@@ -296,7 +296,7 @@ function ClaimDetailInfo({ idCards }) {
               <div className={styles.left}>
                 <div className={styles.key}>
                   <span className={styles.value}>Claim type :</span>
-                  {idCards?.claimTypeText}
+                  {removeUnderScore(idCards?.claimTypeText)}
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Reimbursement Month:</span>
@@ -318,7 +318,7 @@ function ClaimDetailInfo({ idCards }) {
               <div className={styles.right}>
                 <div className={styles.key}>
                   <span className={styles.value}>Total Bill Amount:</span>
-                  {idCards?.bill_amount}
+                  {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
                 </div>
 
                 <div className={styles.key}>

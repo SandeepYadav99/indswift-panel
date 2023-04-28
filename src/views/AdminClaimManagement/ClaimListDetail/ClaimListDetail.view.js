@@ -92,7 +92,7 @@ function ClaimListDetail() {
                         </div>
                         <div className={styles.key}>
                           <span className={styles.value}>Total Km:</span>
-                          {item?.total_kms}
+                          {item?.total_kms && `${item?.total_kms} Km`}
                         </div>
                         {item?.payment_proof && (
                           <div className={styles.key}>
@@ -114,8 +114,8 @@ function ClaimListDetail() {
             <div className={styles.totalWrap}>
               <div className={styles.inner}>
                 {" "}
-                Total Claim Amount:{" "}
-                <span>{employeeDetail?.travel_details_amount}</span>
+                Total Claim Amount:
+                <span>{employeeDetail?.travel_details_amount ? `₹ ${employeeDetail?.travel_details_amount}` : ''}</span>
               </div>
             </div>
           </div>
@@ -139,7 +139,7 @@ function ClaimListDetail() {
                         </div>
                         <div className={styles.key}>
                           <span className={styles.value}>Amount :</span>
-                          {item?.amount}
+                          {item?.amount && `₹ ${item?.amount}`}
                         </div>
                         <div className={styles.key}>
                           <span className={styles.value}>Details:</span>
@@ -170,9 +170,8 @@ function ClaimListDetail() {
             </div>
             <div className={styles.totalWrap}>
               <div className={styles.inner}>
-                {" "}
-                Total Claim Amount:{" "}
-                <span>{employeeDetail?.other_expenses_amount}</span>
+                Total Claim Amount:
+                <span>{employeeDetail?.other_expenses_amount ? `₹ ${employeeDetail?.other_expenses_amount}` : ''}</span>
               </div>
             </div>
           </div>

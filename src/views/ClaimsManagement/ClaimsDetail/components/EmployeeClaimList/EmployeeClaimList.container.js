@@ -57,12 +57,15 @@ const EmployeeClaimList = ({}) => {
     return <div>{value?.billDateText}</div>
   } 
   })
+  const removeUnderScore = (value) => {
+    return value ? value.replace(/_/g, " ") : "";
+  };
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.claimTypeText}</span>{" "}
+            <span className={styles.productName}>{removeUnderScore(obj?.claimTypeText)}</span>{" "}
             <br />
           </div>
         </div>

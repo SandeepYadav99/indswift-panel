@@ -43,6 +43,11 @@ const DetailsIncludeFields = ({
         if (!value || isNum(value)) {
           changeData(index, { [name]: value });
         }
+      }
+      else if(name==="total_kms" || 'amount'){
+        if (value >= 0){
+          changeData(index, { [name]: value });
+        }
       } else {
         changeData(index, { [name]: value });
       }
@@ -71,6 +76,7 @@ const DetailsIncludeFields = ({
 
   return (
     <div>
+      <div className={styles.heading}>Travel Type</div>
       <div className={styles.flexContainer}>
         <div className={styles.radioWrapper}>
           <RadioGroup
