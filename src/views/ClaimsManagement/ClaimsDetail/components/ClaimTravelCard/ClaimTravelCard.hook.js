@@ -127,13 +127,15 @@ const useClaimTravelCard = ({}) => {
       fd.append("travel_details", JSON.stringify(ExpensesData));
 
       const otherExpensesData = otherRef.current.getData();
+      LogUtils.log('otherExpensesData', otherExpensesData);
       otherExpensesData.forEach((val) => {
+        LogUtils.log('other', val.slip);
         if (val.slip) {
-          fd.append("slip", val);
+          fd.append("slip", new Blob([val.slip], {type: val.type}));
         } else {
           fd.append("slip", null);
         }
-        delete val?.slip;
+        // delete val?.slip;
       });
       fd.append("other_expenses", JSON.stringify(otherExpensesData));
       let req = serviceUpdateTravelClaims;

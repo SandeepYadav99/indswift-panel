@@ -144,6 +144,7 @@ const OtherDetailsIncludeFields = ({
               placeholder={"Upload Slip"}
               onChange={(file) => {
                 if (file) {
+                  LogUtils.log('file', file);
                   handleChange(file, "slip");
                 }
               }}
