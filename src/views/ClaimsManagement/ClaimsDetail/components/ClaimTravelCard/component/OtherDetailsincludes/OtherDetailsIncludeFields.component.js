@@ -47,7 +47,7 @@ const OtherDetailsIncludeFields = ({
   };
   useEffect(() => {
     if (data?.travel_date) {
-      changeData(index, { ["travel_date"]: "" });
+      changeData(index, { ["travel_date"]: "" },'dataValue');
     }
   }, [month]);
   useEffect(() => {

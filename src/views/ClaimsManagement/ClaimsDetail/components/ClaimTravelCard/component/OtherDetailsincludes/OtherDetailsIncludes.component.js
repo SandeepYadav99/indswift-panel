@@ -32,8 +32,7 @@ const OtherDetailsIncludeForm = (
     getotherAmount,
     month,
     startDate,
-      endDate
-
+    endDate,
   },
   ref
 ) => {
@@ -62,56 +61,54 @@ const OtherDetailsIncludeForm = (
 
   const validateData = (index, type) => {
     const errors = {};
-    if(fields?.length !== 1 ){
-      fields.forEach((val, index) => {
-        const err =
-          index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-        const required = ["type", "travel_date", "details","amount"];
-        {
-          required.forEach((key) => {
-            if (!val[key]) {
-              err[key] = true;
-            }
-          });
-        }
-        if(val?.slip === null){
-          err['slip'] = true;
-        }
-        if (val?.type?.length === 0) {
-          err["type"] = true;
-          SnackbarUtils.error("Please Select the Type");
-        }
-        if (val?.travel_date) {
-          const date = new Date(val?.travel_date);
-          const today = new Date();
-          var fortyFiveDaysAgo = new Date();
-          fortyFiveDaysAgo.setDate(today.getDate() - 46);
-          if (date > today || date < fortyFiveDaysAgo) {
-            err["travel_date"] = true;
+    fields.forEach((val, index) => {
+      const err =
+        index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
+      const required = ["type", "travel_date", "details", "amount"];
+      if (fields?.length !== 1) {
+        required.forEach((key) => {
+          if (!val[key]) {
+            err[key] = true;
           }
+        });
+      }
+      if( val?.details && !val?.travel_date ){
+        err["travel_date"] = true;
+      }else{
+        delete err['travel_date']
+      }
+      if ( val?.details?.length !== 0 && val?.slip === null) {
+        err["slip"] = true;
+      }else{
+        delete err['slip']
+      }
+      if (val?.details.length && val?.type?.length === 0) {
+        err["type"] = true;
+        SnackbarUtils.error("Please Select the Type");
+      }
+      if (val?.travel_date) {
+        const date = new Date(val?.travel_date);
+        const today = new Date();
+        var fortyFiveDaysAgo = new Date();
+        fortyFiveDaysAgo.setDate(today.getDate() - 46);
+        if (date > today || date < fortyFiveDaysAgo) {
+          err["travel_date"] = true;
         }
-        // if(val?.travel_date){
-        //   const date=new Date(val?.travel_date)
-        //   console.log('====>',startDate , val?.travel_date ,date , endDate)
-        //   if(startDate <= date <= endDate){
-        //     err["travel_date"] = true;
-        //   }
-        // }
-        if (val?.travel_date) {
-          let newDate = new Date(val?.travel_date);
-          if (isNaN(newDate.getTime())) {
-            err["travel_date"] = true;
-          }
+      }
+      if (val?.travel_date) {
+        let newDate = new Date(val?.travel_date);
+        if (isNaN(newDate.getTime())) {
+          err["travel_date"] = true;
         }
-        if (val?.amount == 0) {
-          err["amount"] = true;
-        }
-        if (Object.keys(err)?.length > 0) {
-          errors[index] = err;
-        }
-      });
-    }
-    
+      }
+      if (val?.type && val?.amount == 0) {
+        err["amount"] = true;
+      }
+      if (Object.keys(err)?.length > 0) {
+        errors[index] = err;
+      }
+    });
+
     console.log("erroros", errors);
     setErrorData(errors);
     return !(Object.keys(errors).length > 0);
@@ -143,9 +140,14 @@ const OtherDetailsIncludeForm = (
     [setErrorData, errorData]
   );
 
-  const changeData = (index, data) => {
+  const changeData = (index, data,dateValue) => {
     const tempData = [...fields];
-    tempData[index] = { ...tempData[index], ...data };
+    if(dateValue){
+      tempData.forEach((item)=>item.travel_date = "")
+    }
+    else{
+      tempData[index] = { ...tempData[index], ...data };
+    }
     LogUtils.log("data", data);
     setFields(tempData);
     const errArr = [];
@@ -159,9 +161,9 @@ const OtherDetailsIncludeForm = (
 
   const handlePress = async (type, index = 0) => {
     LogUtils.log("type", type, index);
-    const oldState = ([...fields]);
+    const oldState = [...fields];
     if (type == "ADDITION") {
-      oldState.push((TEMP_OBJ));
+      oldState.push(TEMP_OBJ);
     } else {
       if (oldState.length === 1) {
         return true;

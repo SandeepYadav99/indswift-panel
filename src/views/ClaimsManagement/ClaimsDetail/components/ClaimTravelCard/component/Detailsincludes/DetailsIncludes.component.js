@@ -34,8 +34,8 @@ const DetailsIncludeForm = (
     grade,
     getTravelAmount,
     month,
-      startDate,
-      endDate
+    startDate,
+    endDate,
   },
   ref
 ) => {
@@ -86,7 +86,7 @@ const DetailsIncludeForm = (
         delete err["total_kms"];
       }
       if (val?.amount == 0) {
-        delete err["amount"]
+        delete err["amount"];
       }
       if (val?.travel_date) {
         const date = new Date(val?.travel_date);
@@ -107,6 +107,27 @@ const DetailsIncludeForm = (
       if (val?.type?.length === 0) {
         err["type"] = true;
         SnackbarUtils.error("Please Select the Type");
+      }
+      if (val?.type) {
+        const value = [
+          "Head Office",
+          "Bhagwanpura Plant",
+          "Essix Plant",
+          "R&D Mohali",
+          "GBU",
+        ];
+        if(val?.type === 'Interlocation'){
+          if (val?.from && !value.includes(val?.from)) {
+            err["from"] = true;
+          } 
+          if (val?.to && !value.includes(val.to)) {
+            err["to"] = true;
+          }
+        }
+        else{
+          delete err['to']
+          delete err['from']
+        }
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
@@ -142,10 +163,14 @@ const DetailsIncludeForm = (
     [setErrorData, errorData]
   );
 
-  const changeData = (index, data) => {
+  const changeData = (index, data, dateValue) => {
     // const tempData = JSON.parse(JSON.stringify(fields));
     const tempData = [...fields];
-    tempData[index] = { ...tempData[index], ...data };
+    if (dateValue) {
+      tempData.forEach((item) => (item.travel_date = ""));
+    } else {
+      tempData[index] = { ...tempData[index], ...data };
+    }
     LogUtils.log("data", data);
     setFields(tempData);
     const errArr = [];
