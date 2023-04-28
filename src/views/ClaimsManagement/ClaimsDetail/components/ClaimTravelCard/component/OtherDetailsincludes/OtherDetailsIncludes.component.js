@@ -61,13 +61,16 @@ const OtherDetailsIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["type", "travel_date", "details"];
+      const required = ["type", "travel_date", "details","amount"];
       {
         required.forEach((key) => {
           if (!val[key]) {
             err[key] = true;
           }
         });
+      }
+      if(val?.slip === null){
+        err['slip'] = true;
       }
       if (val?.type?.length === 0) {
         err["type"] = true;
