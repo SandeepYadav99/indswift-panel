@@ -21,7 +21,7 @@ const TEMP_OBJ = {
   to: "",
   total_kms: "",
   mode: "",
-  amount: "",
+  amount: 0,
   travel_payment_proof: null,
 };
 
@@ -33,7 +33,7 @@ const DetailsIncludeForm = (
     errorData: errorForm,
     grade,
     getTravelAmount,
-    month
+    month,
   },
   ref
 ) => {
@@ -84,7 +84,7 @@ const DetailsIncludeForm = (
         delete err["total_kms"];
       }
       if (val?.amount == 0) {
-        err["amount"] = true;
+        delete err["amount"] 
       }
       if (val?.travel_date) {
         const date = new Date(val?.travel_date);
@@ -92,6 +92,12 @@ const DetailsIncludeForm = (
         var fortyFiveDaysAgo = new Date();
         fortyFiveDaysAgo.setDate(today.getDate() - 46);
         if (date > today || date < fortyFiveDaysAgo) {
+          err["travel_date"] = true;
+        }
+      }
+      if (val?.travel_date) {
+        let newDate = new Date(val?.travel_date);
+        if (isNaN(newDate.getTime())) {
           err["travel_date"] = true;
         }
       }

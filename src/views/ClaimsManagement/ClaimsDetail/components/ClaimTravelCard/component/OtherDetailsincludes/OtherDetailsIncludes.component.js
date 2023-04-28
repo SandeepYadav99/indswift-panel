@@ -77,6 +77,21 @@ const OtherDetailsIncludeForm = (
         err["type"] = true;
         SnackbarUtils.error("Please Select the Type");
       }
+      if (val?.travel_date) {
+        const date = new Date(val?.travel_date);
+        const today = new Date();
+        var fortyFiveDaysAgo = new Date();
+        fortyFiveDaysAgo.setDate(today.getDate() - 46);
+        if (date > today || date < fortyFiveDaysAgo) {
+          err["travel_date"] = true;
+        }
+      }
+      if (val?.travel_date) {
+        let newDate = new Date(val?.travel_date);
+        if (isNaN(newDate.getTime())) {
+          err["travel_date"] = true;
+        }
+      }
       if (val?.amount == 0) {
         err["amount"] = true;
       }

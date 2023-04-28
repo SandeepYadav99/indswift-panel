@@ -116,7 +116,7 @@ const EmployeeClaimList = ({}) => {
         key: "value",
         label: "VALUE",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim_amount}</div>,
+        render: (temp, all) => <div>{all?.claim_amount &&  `₹ ${all?.claim_amount}`}</div>,
       },
       {
         key: "attachment",

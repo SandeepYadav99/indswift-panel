@@ -41,7 +41,9 @@ const DetailsIncludeFields = ({
       const name = e?.target?.name;
       const value = e?.target?.value;
       if (name === "from" || "to") {
-        changeData(index, { [name]: value });
+        if (value?.length <= 40) {
+          changeData(index, { [name]: value });
+        }
       } else if (name === "total_kms" || "amount") {
         if (value >= 0) {
           changeData(index, { [name]: value });
@@ -52,12 +54,17 @@ const DetailsIncludeFields = ({
     }
   };
   useEffect(() => {
+    if (data?.travel_date) {
+      changeData(index, { ["travel_date"]: "" });
+    }
+  }, [month]);
+  useEffect(() => {
     if (data?.type === "Interlocation" && data?.from && data?.to) {
       const values = calculateTravelDistance(data?.from, data?.to);
       changeData(index, { ["total_kms"]: values });
     }
   }, [data?.from, data?.to, data?.type]);
-  
+
   useEffect(() => {
     if (data?.travel_payment_proof === null && data?.total_kms) {
       changeData(index, {
@@ -230,7 +237,9 @@ const DetailsIncludeFields = ({
           <div className={styles.flex122}>
             <TextField
               type="number"
-              disabled={data?.travel_payment_proof === null}
+              disabled={
+                data?.travel_payment_proof === null && data?.type !== "Other"
+              }
               error={errors?.amount}
               onChange={handleChange}
               value={data?.amount}

@@ -42,7 +42,11 @@ const OtherDetailsIncludeFields = ({
       }
     }
   };
-
+  useEffect(() => {
+    if (data?.travel_date) {
+      changeData(index, { ["travel_date"]: "" });
+    }
+  }, [month]);
   useEffect(() => {
     if (data?.type === "Interlocation" && data?.from && data?.to) {
       const values = calculateTravelDistance(data?.from, data?.to);

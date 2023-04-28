@@ -117,12 +117,11 @@ const useClaimTravelCard = ({}) => {
 
       const ExpensesData = travelRef.current.getData();
       ExpensesData.forEach((val) => {
-        if (val.travel_payment_proof) {
-          fd.append("travel_payment_proof", val);
+        if (val?.travel_payment_proof) {
+          fd.append("travel_payment_proof", new Blob([val?.travel_payment_proof], {type: val?.type}));
         } else {
           fd.append("travel_payment_proof", null);
         }
-        delete val?.travel_payment_proof;
       });
       fd.append("travel_details", JSON.stringify(ExpensesData));
 
@@ -130,12 +129,11 @@ const useClaimTravelCard = ({}) => {
       LogUtils.log('otherExpensesData', otherExpensesData);
       otherExpensesData.forEach((val) => {
         LogUtils.log('other', val.slip);
-        if (val.slip) {
-          fd.append("slip", new Blob([val.slip], {type: val.type}));
+        if (val?.slip) {
+          fd.append("slip", new Blob([val?.slip], {type: val?.type}));
         } else {
           fd.append("slip", null);
         }
-        // delete val?.slip;
       });
       fd.append("other_expenses", JSON.stringify(otherExpensesData));
       let req = serviceUpdateTravelClaims;
@@ -156,7 +154,6 @@ const useClaimTravelCard = ({}) => {
     const currentDate = new Date();
     const startDate = new Date();
     startDate.setDate(currentDate.getDate() - 45);
-
     while (startDate <= currentDate) {
       const month = startDate.toLocaleString("default", { month: "long" });
       months.push(month);
@@ -164,7 +161,6 @@ const useClaimTravelCard = ({}) => {
     }
     return months;
   }, []);
-
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     const isIncludesValid = travelRef.current.isValid();
