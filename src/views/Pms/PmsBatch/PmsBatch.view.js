@@ -130,7 +130,12 @@ const PmsBatch = ({ }) => {
         render: (temp, all) => <div>{all?.hod?.hod_name} <br/>
           {all?.hod?.hod_code}</div>,
       },
-
+      {
+        key: "doj",
+        label: "DOJ",
+        sortable: false,
+        render: (temp, all) => <div>{all?.dojText}</div>,
+      },
       {
         key: "batch",
         label: "BATCH",
