@@ -27,6 +27,7 @@ const DetailsIncludeFields = ({
   data,
   errors,
   grade,
+  month,
 }) => {
   const gradeCodes = ["G5", "G4", "G3", "G2", "G1", "G0"];
   const handleChange = (e, fieldName) => {
@@ -39,13 +40,10 @@ const DetailsIncludeFields = ({
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
-      if (name === "price") {
-        if (!value || isNum(value)) {
-          changeData(index, { [name]: value });
-        }
-      }
-      else if(name==="total_kms" || 'amount'){
-        if (value >= 0){
+      if (name === "from" || "to") {
+        changeData(index, { [name]: value });
+      } else if (name === "total_kms" || "amount") {
+        if (value >= 0) {
           changeData(index, { [name]: value });
         }
       } else {
@@ -102,6 +100,7 @@ const DetailsIncludeFields = ({
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <CustomDatePicker
+              disabled={!month ? true : false}
               clearable
               label={"Travel Date"}
               minDate={minDate}

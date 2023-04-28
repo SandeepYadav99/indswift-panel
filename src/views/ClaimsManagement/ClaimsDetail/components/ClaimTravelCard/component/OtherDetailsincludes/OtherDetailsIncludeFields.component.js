@@ -21,7 +21,7 @@ const OtherDetailsIncludeFields = ({
   handlePress,
   data,
   errors,
-  grade,
+  month
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
@@ -104,6 +104,7 @@ const OtherDetailsIncludeFields = ({
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <CustomDatePicker
+              disabled={!month ? true: false}
               clearable
               label={"Travel Date"}
               minDate={minDate}
