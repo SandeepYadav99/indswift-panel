@@ -30,7 +30,9 @@ function ClaimTravelCard() {
     travelRef,
     otherRef,
     getTravelAmount,
-    getotherAmount
+    getotherAmount,
+      startDate,
+      endDate
   } = useClaimTravelCard({});
 
   return (
@@ -114,7 +116,7 @@ function ClaimTravelCard() {
         <div className={styles.newContainer}>
           <div className={styles.heading}>Travel Details</div>
           <div>
-            <DetailsIncludeForm ref={travelRef} grade={employeeDetails?.grade?.code} getTravelAmount={getTravelAmount} month={form?.rem_month}/>
+            <DetailsIncludeForm startDate={startDate} endDate={endDate} ref={travelRef} grade={employeeDetails?.grade?.code} getTravelAmount={getTravelAmount} month={form?.rem_month}/>
           </div>
         </div>
       </div>

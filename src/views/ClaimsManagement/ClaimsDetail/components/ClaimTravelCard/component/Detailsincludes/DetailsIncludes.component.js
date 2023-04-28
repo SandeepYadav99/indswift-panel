@@ -34,6 +34,8 @@ const DetailsIncludeForm = (
     grade,
     getTravelAmount,
     month,
+      startDate,
+      endDate
   },
   ref
 ) => {
@@ -191,6 +193,8 @@ const DetailsIncludeForm = (
             onBlur={onBlur}
             grade={grade}
             month={month}
+            startDate={startDate}
+            endDate={endDate}
           />
         </div>
       );

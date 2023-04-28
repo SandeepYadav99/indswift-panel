@@ -28,6 +28,8 @@ const DetailsIncludeFields = ({
   errors,
   grade,
   month,
+    startDate,
+    endDate,
 }) => {
   const gradeCodes = ["G5", "G4", "G3", "G2", "G1", "G0"];
   const handleChange = (e, fieldName) => {
@@ -110,8 +112,8 @@ const DetailsIncludeFields = ({
               disabled={!month ? true : false}
               clearable
               label={"Travel Date"}
-              minDate={minDate}
-              maxDate={new Date()}
+              minDate={startDate}
+              maxDate={endDate}
               onChange={(e) => handleChange(e, "travel_date")}
               value={data?.travel_date}
               isError={errors?.travel_date}

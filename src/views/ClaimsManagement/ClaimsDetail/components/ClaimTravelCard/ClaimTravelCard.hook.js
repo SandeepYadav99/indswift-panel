@@ -33,6 +33,8 @@ const useClaimTravelCard = ({}) => {
   const [otherAmount, setOtherAmount] = useState(null);
   const travelRef = useRef(null);
   const otherRef = useRef(null);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
 
   const { id } = useParams();
@@ -161,6 +163,7 @@ const useClaimTravelCard = ({}) => {
     }
     return months;
   }, []);
+
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     const isIncludesValid = travelRef.current.isValid();
@@ -181,6 +184,22 @@ const useClaimTravelCard = ({}) => {
     [setErrorData, errorData]
   );
 
+  const calculateMonthDates = useCallback((month) => {
+    const todayDate = new Date();
+    const monthDate = new Date(`${todayDate.getFullYear()}/${month}/01`);
+    const minDate = new Date();
+    minDate.setDate(minDate.getDate() - 45);
+    if (monthDate.getMonth() === todayDate.getMonth()) {
+      LogUtils.log('sameMonths');
+      setStartDate(monthDate);
+      setEndDate(todayDate);
+    } else {
+      setStartDate(minDate);
+      monthDate.setMonth(monthDate.getMonth() + 1, 0);
+      setEndDate(monthDate);
+    }
+  }, [setStartDate, setEndDate]);
+
   const changeTextData = useCallback(
     (text, fieldName) => {
       // LogUtils.log(text, fieldName);
@@ -189,8 +208,11 @@ const useClaimTravelCard = ({}) => {
       t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
+      if (fieldName === 'rem_month') {
+        calculateMonthDates(text);
+      }
     },
-    [removeError, form, setForm]
+    [removeError, form, setForm, calculateMonthDates]
   );
   const onBlurHandler = useCallback(
     (type) => {
@@ -229,6 +251,8 @@ const useClaimTravelCard = ({}) => {
     otherRef,
     getTravelAmount,
     getotherAmount,
+    startDate,
+    endDate
   };
 };
 
