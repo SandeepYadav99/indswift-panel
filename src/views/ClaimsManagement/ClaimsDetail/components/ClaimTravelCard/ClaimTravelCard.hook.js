@@ -157,16 +157,16 @@ const useClaimTravelCard = ({}) => {
     const startDate = new Date(fortyFiveDaysAgo.getFullYear(), fortyFiveDaysAgo.getMonth(), 1);
     const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     const monthsInRange = [];
-  
+
     while (startDate <= endDate) {
       const monthName = startDate.toLocaleString('default', { month: 'long' });
       monthsInRange.push(monthName);
       startDate.setMonth(startDate.getMonth() + 1);
     }
-  
+
     return monthsInRange;
   },[])
-  
+
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     const isIncludesValid = travelRef.current.isValid();
@@ -193,10 +193,12 @@ const useClaimTravelCard = ({}) => {
     const minDate = new Date();
     minDate.setDate(minDate.getDate() - 45);
     if (monthDate.getMonth() === todayDate.getMonth()) {
-      LogUtils.log('sameMonths');
       setStartDate(monthDate);
       setEndDate(todayDate);
     } else {
+      if (minDate.getMonth() !== monthDate.getMonth()) {
+         minDate.setMonth(monthDate.getMonth(), 1);
+      }
       setStartDate(minDate);
       monthDate.setMonth(monthDate.getMonth() + 1, 0);
       setEndDate(monthDate);
