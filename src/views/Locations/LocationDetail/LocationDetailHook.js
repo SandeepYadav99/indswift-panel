@@ -15,10 +15,10 @@ import RouteName from "../../../routes/Route.name";
 
 const initialForm = {
   data: [
-    {
-      panelist_role: "HOD",
-      employee_id: "",
-    },
+    // {
+    //   panelist_role: "HOD",
+    //   employee_id: "",
+    // },
     {
       panelist_role: "SITE_HR",
       employee_id: "",
