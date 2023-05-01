@@ -26,7 +26,7 @@ function ClaimTravelCard() {
     setDeclaration,
     employeeDetails,
     claimInfo,
-    getMonthlyArray,
+    getMonthsInRange,
     travelRef,
     otherRef,
     getTravelAmount,
@@ -64,7 +64,7 @@ function ClaimTravelCard() {
                   changeTextData(value, "rem_month");
                 }}
               >
-                {getMonthlyArray()?.map((item) => (
+                {getMonthsInRange()?.map((item) => (
                   <MenuItem value={item}>{item}</MenuItem>
                 ))}
               </CustomSelectField>

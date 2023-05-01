@@ -151,19 +151,22 @@ const useClaimTravelCard = ({}) => {
     }
   }, [form, isSubmitting, setIsSubmitting, id, travelAmount, otherAmount]);
 
-  const getMonthlyArray = useCallback(() => {
-    const months = [];
-    const currentDate = new Date();
-    const startDate = new Date();
-    startDate.setDate(currentDate.getDate() - 45);
-    while (startDate <= currentDate) {
-      const month = startDate.toLocaleString("default", { month: "long" });
-      months.push(month);
+  const getMonthsInRange=useCallback(()=> {
+    const today = new Date();
+    const fortyFiveDaysAgo = new Date(today.getTime() - 45 * 24 * 60 * 60 * 1000);
+    const startDate = new Date(fortyFiveDaysAgo.getFullYear(), fortyFiveDaysAgo.getMonth(), 1);
+    const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const monthsInRange = [];
+  
+    while (startDate <= endDate) {
+      const monthName = startDate.toLocaleString('default', { month: 'long' });
+      monthsInRange.push(monthName);
       startDate.setMonth(startDate.getMonth() + 1);
     }
-    return months;
-  }, []);
-
+  
+    return monthsInRange;
+  },[])
+  
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     const isIncludesValid = travelRef.current.isValid();
@@ -246,7 +249,7 @@ const useClaimTravelCard = ({}) => {
     setDeclaration,
     employeeDetails,
     claimInfo,
-    getMonthlyArray,
+    getMonthsInRange,
     travelRef,
     otherRef,
     getTravelAmount,
