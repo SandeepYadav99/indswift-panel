@@ -1,14 +1,13 @@
 import React from "react";
 import styles from "./Style.module.css";
 
-function ClaimInfo({ idCards, isLocal }) {
+function ClaimInfo({ idCards, isLocal, isMarriage }) {
   return (
     <div className={styles.newContainer}>
       <div className={styles.heading}>Claim Details</div>
-
       <div className={styles.mainFlex}>
         <div className={styles.left}>
-          {!isLocal && (
+          {!isLocal && !isMarriage && (
             <div className={styles.key}>
               <span className={styles.value}>Entitled Amount:</span>
               {idCards?.entitled_amount && `₹ ${idCards?.entitled_amount}`}
@@ -36,7 +35,7 @@ function ClaimInfo({ idCards, isLocal }) {
             <span className={styles.value}>Claim in Process:</span>
             {idCards?.progress_claim && `₹ ${idCards?.progress_claim}`}
           </div>
-          {!isLocal && (
+          {!isLocal && !isMarriage && (
             <div className={styles.key}>
               <span className={styles.value}>Pending Claim:</span>
               {idCards?.pending_claim && `₹ ${idCards?.pending_claim}`}

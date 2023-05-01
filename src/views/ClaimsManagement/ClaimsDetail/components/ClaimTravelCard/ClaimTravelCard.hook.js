@@ -10,6 +10,8 @@ import { isNum } from "../../../../../libs/RegexUtils";
 import { useSelector } from "react-redux";
 import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
 import LogUtils from "../../../../../libs/LogUtils";
+import nullImg from "../../../../../assets/img/null.png";
+import { dataURLtoFile } from "../../../../../helper/helper";
 
 const initialForm = {
   bill_amount: "",
@@ -96,6 +98,7 @@ const useClaimTravelCard = ({}) => {
     },
     [setOtherAmount]
   );
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsLoading(true);
@@ -120,19 +123,20 @@ const useClaimTravelCard = ({}) => {
       const ExpensesData = travelRef.current.getData();
       ExpensesData.forEach((val) => {
         if (val?.travel_payment_proof) {
-          fd.append("travel_payment_proof", new Blob([val?.travel_payment_proof], {type: val?.type}));
+          fd.append("travel_payment_proof", val?.travel_payment_proof);
+          // fd.append("travel_payment_proof", new Blob([val?.travel_payment_proof], {type: val?.type}));
         } else {
-          fd.append("travel_payment_proof", null);
+          const file = dataURLtoFile(nullImg, "null.png");
+          fd.append("travel_payment_proof", file);
         }
       });
       fd.append("travel_details", JSON.stringify(ExpensesData));
 
       const otherExpensesData = otherRef.current.getData();
-      LogUtils.log('otherExpensesData', otherExpensesData);
       otherExpensesData.forEach((val) => {
-        LogUtils.log('other', val.slip);
         if (val?.slip) {
-          fd.append("slip", new Blob([val?.slip], {type: val?.type}));
+          fd.append("slip", val?.slip);
+          // fd.append("slip", new Blob([val?.slip], {type: val?.type}));
         } else {
           fd.append("slip", null);
         }
@@ -151,21 +155,27 @@ const useClaimTravelCard = ({}) => {
     }
   }, [form, isSubmitting, setIsSubmitting, id, travelAmount, otherAmount]);
 
-  const getMonthsInRange=useCallback(()=> {
+  const getMonthsInRange = useCallback(() => {
     const today = new Date();
-    const fortyFiveDaysAgo = new Date(today.getTime() - 45 * 24 * 60 * 60 * 1000);
-    const startDate = new Date(fortyFiveDaysAgo.getFullYear(), fortyFiveDaysAgo.getMonth(), 1);
+    const fortyFiveDaysAgo = new Date(
+      today.getTime() - 45 * 24 * 60 * 60 * 1000
+    );
+    const startDate = new Date(
+      fortyFiveDaysAgo.getFullYear(),
+      fortyFiveDaysAgo.getMonth(),
+      1
+    );
     const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     const monthsInRange = [];
 
     while (startDate <= endDate) {
-      const monthName = startDate.toLocaleString('default', { month: 'long' });
+      const monthName = startDate.toLocaleString("default", { month: "long" });
       monthsInRange.push(monthName);
       startDate.setMonth(startDate.getMonth() + 1);
     }
 
     return monthsInRange;
-  },[])
+  }, []);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -176,7 +186,7 @@ const useClaimTravelCard = ({}) => {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData,submitToServer]);
+  }, [checkFormValidation, setErrorData, submitToServer]);
 
   const removeError = useCallback(
     (title) => {
@@ -187,23 +197,26 @@ const useClaimTravelCard = ({}) => {
     [setErrorData, errorData]
   );
 
-  const calculateMonthDates = useCallback((month) => {
-    const todayDate = new Date();
-    const monthDate = new Date(`${todayDate.getFullYear()}/${month}/01`);
-    const minDate = new Date();
-    minDate.setDate(minDate.getDate() - 45);
-    if (monthDate.getMonth() === todayDate.getMonth()) {
-      setStartDate(monthDate);
-      setEndDate(todayDate);
-    } else {
-      if (minDate.getMonth() !== monthDate.getMonth()) {
-         minDate.setMonth(monthDate.getMonth(), 1);
+  const calculateMonthDates = useCallback(
+    (month) => {
+      const todayDate = new Date();
+      const monthDate = new Date(`${todayDate.getFullYear()}/${month}/01`);
+      const minDate = new Date();
+      minDate.setDate(minDate.getDate() - 45);
+      if (monthDate.getMonth() === todayDate.getMonth()) {
+        setStartDate(monthDate);
+        setEndDate(todayDate);
+      } else {
+        if (minDate.getMonth() !== monthDate.getMonth()) {
+          minDate.setMonth(monthDate.getMonth(), 1);
+        }
+        setStartDate(minDate);
+        monthDate.setMonth(monthDate.getMonth() + 1, 0);
+        setEndDate(monthDate);
       }
-      setStartDate(minDate);
-      monthDate.setMonth(monthDate.getMonth() + 1, 0);
-      setEndDate(monthDate);
-    }
-  }, [setStartDate, setEndDate]);
+    },
+    [setStartDate, setEndDate]
+  );
 
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -213,7 +226,7 @@ const useClaimTravelCard = ({}) => {
       t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
-      if (fieldName === 'rem_month') {
+      if (fieldName === "rem_month") {
         calculateMonthDates(text);
       }
     },
@@ -257,7 +270,7 @@ const useClaimTravelCard = ({}) => {
     getTravelAmount,
     getotherAmount,
     startDate,
-    endDate
+    endDate,
   };
 };
 

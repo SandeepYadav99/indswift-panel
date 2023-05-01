@@ -195,7 +195,7 @@ const LocationDetail = () => {
                   label={"Employee Name(Employee ID)"}
                   name={"employee_id"}
                   isError={errorData[index]?.employee_id}
-                  value={item.employee_id}
+                  value={item?.employee_id}
                 />
               </div>
             </div>

@@ -56,7 +56,7 @@ function ClaimMarriageCard() {
       </div>
       <ClaimUpperCard data={employeeDetails} />
       <div className={styles.plainPaper}>
-        <ClaimInfo idCards={claimInfo} />
+        <ClaimInfo idCards={claimInfo} isMarriage={true}/>
         <div className={styles.formDetailWrapper}>
           <div className={styles.value}>Marriage of:</div>
         </div>
