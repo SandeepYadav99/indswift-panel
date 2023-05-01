@@ -15,6 +15,7 @@ const useChangeDialogHook = ({
   handleToggle,
   candidateId,
   entitledAmount,
+  claimAmount
 }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
@@ -55,7 +56,7 @@ const useChangeDialogHook = ({
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "approved_amount") {
-        if (text >= 0) {
+        if (text >= 0 && text <= claimAmount) {
           t[fieldName] = text;
         }
       } else {

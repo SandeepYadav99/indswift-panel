@@ -14,15 +14,13 @@ import { useRef } from "react";
 import RouteName from "../../routes/Route.name";
 
 function useCadreDetailsList() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorData, setErrorData] = useState({});
-  const [employeeDetail,setEmployeeDetail]=useState({})
+  const [employeeDetail, setEmployeeDetail] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const refMarrige = useRef(null);
   const refCar = useRef(null);
   const refMobile = useRef(null);
   const refHealth = useRef(null);
-  const reftravel=useRef(null)
+  const reftravel = useRef(null);
   const { id } = useParams();
   useEffect(() => {
     if (id) {
@@ -38,12 +36,12 @@ function useCadreDetailsList() {
               local_travel_claim,
               ...rest
             } = tempData;
-            setEmployeeDetail({...rest})
+            setEmployeeDetail({ ...rest });
             refMarrige.current?.setData(marriage_gift_claim);
             refCar.current?.setData(car_maintenance_claim);
             refMobile.current?.setData(mobile_reimbursement_claim);
             refHealth.current?.setData(phc_claim);
-            reftravel.current?.setData(local_travel_claim)
+            reftravel.current?.setData(local_travel_claim);
           }
         }
       });
@@ -55,8 +53,8 @@ function useCadreDetailsList() {
       const isMarrigeClaimValid = refMarrige.current.isValid();
       const isCarClaimValid = refCar.current.isValid();
       const isMobileClaimValid = refMobile.current.isValid();
-      const isHealthClaimValid=refHealth.current.isValid()
-      const isTravelClaimValid=reftravel.current.isValid()
+      const isHealthClaimValid = refHealth.current.isValid();
+      const isTravelClaimValid = reftravel.current.isValid();
       LogUtils.log(
         "isMarrigeClaimValid",
         isMarrigeClaimValid,
@@ -73,24 +71,31 @@ function useCadreDetailsList() {
       //   isCarClaimValid,
       //   isMobileValid
       // );
-      if (isMarrigeClaimValid && isCarClaimValid && isMobileClaimValid && isHealthClaimValid && isTravelClaimValid) {
+      if (
+        isMarrigeClaimValid &&
+        isCarClaimValid &&
+        isMobileClaimValid &&
+        isHealthClaimValid &&
+        isTravelClaimValid
+      ) {
         setIsSubmitting(true);
         const marrigeData = refMarrige.current.getData();
         const carData = refCar.current.getData();
         const mobileData = refMobile.current.getData();
-        const healthData=refHealth.current.getData()
-        const travelData=reftravel.current.getData()
+        const healthData = refHealth.current.getData();
+        const travelData = reftravel.current.getData();
         serviceGetCadreEntitlementDetails({
           id: id,
           marriage_gift_claim: marrigeData?.data,
           car_maintenance_claim: carData?.data,
           mobile_reimbursement_claim: mobileData?.data,
-          phc_claim:healthData?.data,
-          local_travel_claim:travelData?.data
-          
+          phc_claim: healthData?.data,
+          local_travel_claim: travelData?.data,
         }).then((res) => {
           if (!res.error) {
-            historyUtils.push(RouteName.GRADES);
+            historyUtils.push(
+              `${RouteName.CADRES}${employeeDetail?.grade?.code}`
+            );
           } else {
             SnackbarUtils.error(res?.message);
           }
@@ -98,8 +103,7 @@ function useCadreDetailsList() {
         });
       }
     }
-  }, [isSubmitting, setIsSubmitting, id]);
-
+  }, [isSubmitting, setIsSubmitting, id, employeeDetail]);
 
   return {
     refMarrige,
@@ -108,7 +112,7 @@ function useCadreDetailsList() {
     handleSubmit,
     employeeDetail,
     refHealth,
-    reftravel
+    reftravel,
   };
 }
 

@@ -81,6 +81,11 @@
   font-size: .875rem;
   font-weight: 600;
 }
+.anni{
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2896e9;
+}
 .workLogo{
   border-radius: 5px;
   background-color: #2896E9 ;

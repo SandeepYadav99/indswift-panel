@@ -49,7 +49,7 @@ const ChangeDialog = ({ isOpen, handleToggle, candidateId , claimAmount,entitled
     onBlurHandler,
     declaration,
     setDeclaration,
-  } = useChangeDialogHook({ isOpen, handleToggle, candidateId,entitledAmount });
+  } = useChangeDialogHook({ isOpen, handleToggle, candidateId,entitledAmount,claimAmount });
 
   return (
     <div>

@@ -3,8 +3,25 @@ import styles from "./Style.module.css";
 import noEvent from "./../../../../../assets/img/ic_no event today.png";
 
 function BirthdayEvent({ data, isWorkPage }) {
+  function addOrdinalSuffix(num) {
+    if (num === 0) {
+      return 0;
+    } else {
+      const lastTwoDigits = num % 100;
+      const lastDigit = lastTwoDigits % 10;
+      const suffix =
+        lastDigit === 1 && lastTwoDigits !== 11
+          ? "st"
+          : lastDigit === 2 && lastTwoDigits !== 12
+          ? "nd"
+          : lastDigit === 3 && lastTwoDigits !== 13
+          ? "rd"
+          : "th";
+      return `${num}${suffix} Anniversary!`;
+    }
+  }
   const list = useMemo(() => {
-    if (data.length === 0) {
+    if (data?.length === 0) {
       return (
         <div className={styles.noEventWrapper}>
           <div className={styles.noEvent}>
@@ -23,15 +40,26 @@ function BirthdayEvent({ data, isWorkPage }) {
                   <img src={emp.image} className={styles.userImage} />
                 </div>
                 <div className={styles.profileContainer}>
-                  <span className={styles.profileName}>
-                     {emp?.name}
-                  </span>
-                  <span className={styles.profilePosition}>
-                    {emp?.designation}
-                  </span>
-                  <span className={styles.profileAddress}>
-                    {`${emp?.department} - ${emp?.location}`}
-                  </span>
+                  <span className={styles.profileName}>{emp?.name}</span>
+                  {isWorkPage ? (
+                    <>
+                      <span className={styles.anni}>
+                        {emp?.experience?.current && addOrdinalSuffix(emp?.experience?.current)}
+                      </span>
+                      <span className={styles.profileAddress}>
+                        {`${emp?.designation} (${emp?.department} - ${emp?.location})`}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className={styles.profilePosition}>
+                        {emp?.designation}
+                      </span>
+                      <span className={styles.profileAddress}>
+                        {`${emp?.department} - ${emp?.location}`}
+                      </span>
+                    </>
+                  )}
                 </div>
               </div>
               <div>

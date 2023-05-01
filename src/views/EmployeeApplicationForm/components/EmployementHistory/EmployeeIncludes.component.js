@@ -85,7 +85,7 @@ const EmployeeIncludeForm = (
         "designation",
         "joining_date",
         "joining_ctc",
-        "resignation_date",
+        // "resignation_date",
         "leaving_ctc",
       ];
       required.forEach((key) => {

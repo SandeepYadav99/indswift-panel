@@ -268,7 +268,7 @@ const useCandidateDetail = ({ location }) => {
           t[fieldName] = text;
         }
       } else if (fieldName === "experience") {
-        if (text?.length < 3) {
+        if (text >= 0 &&  text <=99) {
           t[fieldName] = text;
         }
       } else if (["previous_ctc", "contact"].indexOf(fieldName) >= 0) {
