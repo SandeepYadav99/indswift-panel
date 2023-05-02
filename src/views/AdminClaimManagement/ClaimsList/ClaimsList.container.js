@@ -149,7 +149,7 @@ const ClaimsList = ({ location }) => {
       },
       {
         key: "status",
-        label: "Status",
+        label: "Current status/Overall status",
         sortable: true,
         render: (temp, all) => (
           <div>

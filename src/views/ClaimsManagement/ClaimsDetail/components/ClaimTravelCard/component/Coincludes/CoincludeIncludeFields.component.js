@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import styles from "./style.module.css";
 import CustomAutoComplete from "../../../../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import { useCallback } from "react";
@@ -10,7 +10,7 @@ const CoIncludeFields = ({
   handlePress,
   data,
   errors,
-  employees,
+  filteredList
 }) => {
   const handleChangeValue = useCallback(
     (value, key) => {
@@ -26,7 +26,7 @@ const CoIncludeFields = ({
               freeSolo: false,
               getOptionLabel: (option) => option.label,
             }}
-            dataset={employees}
+            dataset={filteredList}
             datasetKey={"label"}
             onTextChange={(text, value) => {
               handleChangeValue(text, "co_passengers");

@@ -45,7 +45,10 @@
     max-height: 100px;
     flex: 0.3;
 }
-
+.verticalLine{
+    border: 1px solid #B8C5D3;
+    margin: 20px 0 10px 0;
+}
 .key{
     color: #818181;
     font-weight: 500;
@@ -153,4 +156,14 @@
 }
 .list{
     color: #818181;
+}
+.coWrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.coName{
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 7px;
 }

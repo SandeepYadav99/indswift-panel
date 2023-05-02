@@ -133,7 +133,7 @@ function ClaimTravelCard() {
                 inputProps={{ "aria-label": "secondary checkbox" }}
               />
               <span className={styles.spanchk}>
-                Do you have a co-traveller?
+                Do you have a co-traveler?
               </span>
             </div>
             {isChecked && (
@@ -142,6 +142,7 @@ function ClaimTravelCard() {
                   ref={coRef}
                   employees={employees}
                   isChecked={isChecked}
+                  employeeId={employeeDetails?.id}
                 />
               </div>
             )}

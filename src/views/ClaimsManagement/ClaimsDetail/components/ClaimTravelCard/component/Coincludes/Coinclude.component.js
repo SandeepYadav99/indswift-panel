@@ -19,10 +19,11 @@ const TEMP_OBJ = {
 };
 
 const CoincludeForm = (
-  { data, errorData: errorForm, employees, isChecked },
+  { data, errorData: errorForm, employees, employeeId },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
+  const [filteredList, setFilteredList] = useState([]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
   const { id } = useParams();
@@ -40,16 +41,16 @@ const CoincludeForm = (
       setFields([...data]);
     },
   }));
-
+  useEffect(() => {
+    const filteredArr = employees.filter((item) => item?.id !== employeeId);
+    setFilteredList([...filteredArr]);
+  }, []);
   const validateData = (index, type) => {
     const errors = {};
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ['co_passengers'];
-      // if (isChecked) {
-      //   required.push("co_passengers");
-      // }
+      const required = ["co_passengers"];
       {
         required.forEach((key) => {
           if (!val[key]) {
@@ -92,6 +93,12 @@ const CoincludeForm = (
     tempData[index] = { ...tempData[index], ...data };
     LogUtils.log("data", data);
     setFields(tempData);
+    if (Object.keys(data?.co_passengers)?.length > 0) {
+      const filterId = filteredList?.filter(
+        (item) => item?.id !== data?.co_passengers?.id
+      );
+      setFilteredList([...filterId]);
+    }
     const errArr = [];
     Object.keys(data).forEach((key) => {
       errArr.push(key);
@@ -134,6 +141,8 @@ const CoincludeForm = (
             index={index}
             onBlur={onBlur}
             employees={employees}
+            employeeId={employeeId}
+            filteredList={filteredList}
           />
         </div>
       );
@@ -160,7 +169,7 @@ const CoincludeForm = (
               handlePress("ADDITION", 0);
             }}
           >
-            <Add fontSize={"small"} /> <span>Add Co-traveller</span>
+            <Add fontSize={"small"} /> <span>Add Co-traveler</span>
           </ButtonBase>
         </div>
       )}
