@@ -63,6 +63,10 @@ function ClaimDetailInfo({ idCards }) {
                 <span className={styles.value}>Amount to be Reimbursed:</span>
                 {idCards?.claim_amount && `₹  ${idCards?.claim_amount}`}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim Raised on:</span>
+                {idCards?.claimDate}
+              </div>
             </div>
           </div>
         )}
@@ -136,6 +140,10 @@ function ClaimDetailInfo({ idCards }) {
                   <div className={styles.hyperlinkText}>View Attachment</div>
                 </a>
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim Raised on:</span>
+                {idCards?.claimDate}
+              </div>
             </div>
           </div>
         )}
@@ -208,6 +216,10 @@ function ClaimDetailInfo({ idCards }) {
                 <a href={idCards?.document} target="_blank">
                   <div className={styles.hyperlinkText}>View Attachment</div>
                 </a>
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim Raised on:</span>
+                {idCards?.claimDate}
               </div>
             </div>
           </div>
@@ -286,6 +298,10 @@ function ClaimDetailInfo({ idCards }) {
                 {idCards?.claim_details?.pending_claim &&
                   ` ₹ ${idCards?.claim_details?.pending_claim}`}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim Raised on:</span>
+                {idCards?.claimDate}
+              </div>
             </div>
           </div>
         )}
@@ -337,6 +353,10 @@ function ClaimDetailInfo({ idCards }) {
                       </a>
                     </div>
                   )}
+                   <div className={styles.key}>
+                <span className={styles.value}>Claim Raised on:</span>
+                {idCards?.claimDate}
+              </div>
                 </div>
               </div>
               {idCards?.co_passengers?.length > 0 && (

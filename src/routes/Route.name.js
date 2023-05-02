@@ -102,6 +102,8 @@ export default {
   CLAIMS_HEALTH:'/employee/claim/health',
   CLAIMS_TRAVEL:'/employee/claim/travel',
 
-  PERFORMANCE_BATCH:'/pm/batch'
+  PERFORMANCE_BATCH:'/pm/batch',
+  PERFORMANCE_REVIEW:'/pm/review',
+
 
 };

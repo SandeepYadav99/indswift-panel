@@ -52,6 +52,7 @@ import ReviewOLRReducer from "./ReviewOLR.reducer";
 import ClaimsReducer from "./Claims.reducer";
 import EmployeeClaimListReducer from "./EmployeeClaimList.reducer";
 import PmsBatchReducer from "./PmsBatch.reducer";
+import PmsReviewReducer from "./PmsReview.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -101,7 +102,8 @@ const rootReducer = combineReducers({
   employeeDashboard: EmployeeDashboard,
   employee_versions: EmployeeVersions,
   review_olr:ReviewOLRReducer,
-  pmsBatch:PmsBatchReducer
+  pmsBatch:PmsBatchReducer,
+  pmsReview:PmsReviewReducer
   // form: formReducer,
 });
 

@@ -17,16 +17,14 @@ import {
   PrintOutlined,
 } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import CreateView from "./ClaimsList.view";
-import useClaimsList from "./ClaimsListHook";
+import usePmsReview from "./PmsReview.hook";
 
-const ClaimsList = ({ location }) => {
+const PmsReview = ({ }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -39,25 +37,19 @@ const ClaimsList = ({ location }) => {
     handleSideToggle,
     handleViewDetails,
     editData,
-    isSidePanel,
     isCalling,
     configFilter,
     warehouses,
     handleCsvDownload,
-    handleAddCandidate,
-    downloadCL,
-    handleClosedownloadCL,
-    handleCandidateMenu,
-  } = useClaimsList({});
+  } = usePmsReview({});
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.claims);
+  } = useSelector((state) => state.pmsBatch);
 
-  const {user}=useSelector((state)=>state.auth)
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
@@ -70,10 +62,10 @@ const ClaimsList = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
+            <span className={styles.productName}>{obj?.name}</span>{" "}
             <br />
             <span className={styles.productName}>
-              {obj?.employee?.emp_code}
+              {obj?.emp_code}
             </span>{" "}
             <br />
           </div>
@@ -83,19 +75,16 @@ const ClaimsList = ({ location }) => {
     return null;
   }, []);
 
-  const renderCreateForm = useMemo(() => {
-    return (
-      <CreateView
-        handleDataSave={handleDataSave}
-        data={editData}
-        warehouse={warehouses}
-        handleDelete={handleDelete}
-      />
-    );
-  }, [handleDataSave, editData, warehouses, handleDelete]);
 
   const tableStructure = useMemo(() => {
     return [
+      {
+        key: "reviewer",
+        label: "REVIEWER",
+        sortable: false,
+        render: (temp, all) => <div>{all?.pms?.name} <br/>
+          {all?.pms?.code}</div>,
+      },
       {
         key: "name",
         label: "EMPLOYEE",
@@ -104,13 +93,11 @@ const ClaimsList = ({ location }) => {
       },
       {
         key: "grade",
-        label: "GRADE/CADRE",
+        label: "GRADE",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.contact}
-            <br />
-            {`${all?.employee?.grade}/${all?.employee?.cadre}`}
+            {all?.grade?.code}
           </div>
         ),
       },
@@ -118,13 +105,13 @@ const ClaimsList = ({ location }) => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.location}</div>,
+        render: (temp, all) => <div>{all?.location.name}</div>,
       },
       {
         key: "desigination",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.designation}</div>,
+        render: (temp, all) => <div>{all?.designation?.name}</div>,
       },
       {
         key: "department",
@@ -132,51 +119,41 @@ const ClaimsList = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department} / {all?.employee?.sub_department}
+            {all?.department?.name} / {all?.department?.name}
           </div>
         ),
       },
+      
+      
       {
-        key: "contact",
-        label: "CONTACT",
+        key: "doj",
+        label: "DOJ",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.contact}</div>,
+        render: (temp, all) => <div>{all?.dojText}</div>,
       },
       {
-        key: "claim_type",
-        label: "CLAIM TYPE",
+        key: "hod",
+        label: "HOD",
         sortable: false,
-        render: (temp, all) => <div>{removeUnderScore(all?.claim?.claim_type)}</div>,
+        render: (temp, all) => <div>{all?.hod?.hod_name} <br/>
+          {all?.hod?.hod_code}</div>,
       },
+      {
+        key: "batch",
+        label: "BATCH",
+        sortable: false,
+        render: (temp, all) => <div>{all?.pms_batch}</div>,
+      },
+     
       {
         key: "status",
-        label: "Current status/Overall status",
+        label: "Status",
         sortable: true,
         render: (temp, all) => (
           <div>
-            {renderStatus(removeUnderScore(all?.status))}
-            <br /> <br />
-            {renderStatus(removeUnderScore(all?.claim?.status))}
+            {renderStatus(removeUnderScore("PENDING"))}
           </div>
         ),
-      },
-      {
-        key: "claim_date",
-        label: "CLAIM DATE",
-        sortable: false,
-        render: (temp, all) => <div>{all?.claim?.claimedAtText}</div>,
-      },
-      {
-        key: "value",
-        label: "VALUE",
-        sortable: false,
-        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>{all?.claim?.claim_amount || all?.claim?.claim_amount === 0 ? `₹ ${all?.claim?.claim_amount}` : ''}</div>,
-      },
-      {
-        key: "claim_id",
-        label: "Claim ID",
-        sortable: false,
-        render: (temp, all) => <div>{all?.claim?.code}</div>,
       },
       {
         key: "user_id",
@@ -231,15 +208,14 @@ const ClaimsList = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Claim Management</span>
+            <span className={styles.title}>PMS Planner</span>
             <div className={styles.newLine} />
           </div>
           <div>
             <ButtonBase
-              aria-owns={downloadCL ? "downloadCL" : undefined}
+              // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
-              onClick={handleAddCandidate}
-              // onClick={handleCsvDownload}
+              onClick={handleCsvDownload}
               className={"createBtn"}
             >
               Download
@@ -248,37 +224,7 @@ const ClaimsList = ({ location }) => {
                 className={"plusIcon"}
               ></CloudDownload>
             </ButtonBase>
-            <Menu
-              id="downloadCL"
-              anchorEl={downloadCL}
-              open={Boolean(downloadCL)}
-              onClose={handleClosedownloadCL}
-            >
-              {
-                user?.role === 'CORPORATE_HR' && 
-                <MenuItem
-                onClick={() => {
-                  handleCandidateMenu("ALL");
-                }}
-              >
-                ALL
-              </MenuItem>
-              }
-              <MenuItem
-                onClick={() => {
-                  handleCandidateMenu("APPROVED");
-                }}
-              >
-                APPROVED
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleCandidateMenu("PROCESSED");
-                }}
-              >
-                PROCESSED
-              </MenuItem>
-            </Menu>
+
           </div>
         </div>
 
@@ -300,16 +246,9 @@ const ClaimsList = ({ location }) => {
           </div>
         </div>
       </PageBox>
-      <SidePanelComponent
-        handleToggle={handleSideToggle}
-        title={"New Candidate"}
-        open={isSidePanel}
-        side={"right"}
-      >
-        {renderCreateForm}
-      </SidePanelComponent>
+
     </div>
   );
 };
 
-export default ClaimsList;
+export default PmsReview;
