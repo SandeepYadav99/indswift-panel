@@ -182,8 +182,20 @@
     margin-bottom: 20px;
     font-weight: 600;
 }
+.checkWrapper{
+    display: flex;
+    flex-direction: column;
+}
 .editFlex{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+.spanchk{
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.chkwrapp{
+    display: flex;
     align-items: center;
 }

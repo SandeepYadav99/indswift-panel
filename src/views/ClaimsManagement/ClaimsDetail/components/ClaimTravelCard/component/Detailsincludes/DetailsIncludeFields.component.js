@@ -198,8 +198,8 @@ const DetailsIncludeFields = ({
               }}
             >
               {grade && gradeCodes?.includes(grade)
-                ? othertravelList?.map((item) => (
-                    <MenuItem value={item?.id}> {item?.name}</MenuItem>
+                ? othertravelList?.map((item,index) => (
+                    <MenuItem value={item?.id} key={`menu_${index}`}> {item?.name}</MenuItem>
                   ))
                 : travelList?.map((item) => (
                     <MenuItem value={item?.id}> {item?.name}</MenuItem>

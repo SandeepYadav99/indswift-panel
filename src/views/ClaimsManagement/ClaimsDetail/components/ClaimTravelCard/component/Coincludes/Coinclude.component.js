@@ -11,29 +11,15 @@ import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import LogUtils from "../../../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
-import OtherDetailsIncludeFields from "./OtherDetailsIncludeFields.component";
 import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
+import CoIncludeFields from "./CoincludeIncludeFields.component";
 
 const TEMP_OBJ = {
-  type: "",
-  travel_date: "",
-  details: "",
-  amount: "",
-  slip: null,
+  co_passengers: "",
 };
 
-const OtherDetailsIncludeForm = (
-  {
-    data,
-    currency,
-    listWarehouse,
-    errorData: errorForm,
-    grade,
-    getotherAmount,
-    month,
-    startDate,
-    endDate,
-  },
+const CoincludeForm = (
+  { data, errorData: errorForm, employees, isChecked },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -55,56 +41,26 @@ const OtherDetailsIncludeForm = (
     },
   }));
 
-  const getState = () => {
-    return fields;
-  };
-
   const validateData = (index, type) => {
     const errors = {};
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["type", "travel_date", "details", "amount"];
-      if (fields?.length !== 1) {
+      const required = ['co_passengers'];
+      // if (isChecked) {
+      //   required.push("co_passengers");
+      // }
+      {
         required.forEach((key) => {
           if (!val[key]) {
             err[key] = true;
           }
         });
       }
-      if( val?.details && !val?.travel_date ){
-        err["travel_date"] = true;
-      }else{
-        delete err['travel_date']
-      }
-      if (val?.details.length && val?.type?.length === 0) {
-        err["type"] = true;
-        SnackbarUtils.error("Please Select the Type");
-      }
-      if (val?.travel_date) {
-        const date = new Date(val?.travel_date);
-        const today = new Date();
-        var fortyFiveDaysAgo = new Date();
-        fortyFiveDaysAgo.setDate(today.getDate() - 46);
-        if (date > today || date < fortyFiveDaysAgo) {
-          err["travel_date"] = true;
-        }
-      }
-      if (val?.travel_date) {
-        let newDate = new Date(val?.travel_date);
-        if (isNaN(newDate.getTime())) {
-          err["travel_date"] = true;
-        }
-      }
-      if (val?.type && val?.amount == 0) {
-        err["amount"] = true;
-      }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
     });
-
-    console.log("erroros", errors);
     setErrorData(errors);
     return !(Object.keys(errors).length > 0);
   };
@@ -113,10 +69,6 @@ const OtherDetailsIncludeForm = (
       setFields({ ...data });
     }
   }, [data]);
-
-  const isValid = () => {
-    return validateData();
-  };
 
   const removeErrors = useCallback(
     (index, key) => {
@@ -135,14 +87,9 @@ const OtherDetailsIncludeForm = (
     [setErrorData, errorData]
   );
 
-  const changeData = (index, data,dateValue) => {
+  const changeData = (index, data) => {
     const tempData = [...fields];
-    if(dateValue){
-      tempData.forEach((item)=>item.travel_date = "")
-    }
-    else{
-      tempData[index] = { ...tempData[index], ...data };
-    }
+    tempData[index] = { ...tempData[index], ...data };
     LogUtils.log("data", data);
     setFields(tempData);
     const errArr = [];
@@ -158,7 +105,7 @@ const OtherDetailsIncludeForm = (
     LogUtils.log("type", type, index);
     const oldState = [...fields];
     if (type == "ADDITION") {
-      oldState.push(TEMP_OBJ);
+      oldState.push(JSON.parse(JSON.stringify(TEMP_OBJ)));
     } else {
       if (oldState.length === 1) {
         return true;
@@ -177,10 +124,8 @@ const OtherDetailsIncludeForm = (
       });
       return (
         <div>
-          <OtherDetailsIncludeFields
+          <CoIncludeFields
             variants={tempFilters}
-            listWarehouse={listWarehouse}
-            currency={currency}
             validateData={validateData}
             errors={index in errorData ? errorData[index] : null}
             changeData={changeData}
@@ -188,10 +133,7 @@ const OtherDetailsIncludeForm = (
             data={val}
             index={index}
             onBlur={onBlur}
-            grade={grade}
-            month={month}
-            startDate={startDate}
-            endDate={endDate}
+            employees={employees}
           />
         </div>
       );
@@ -199,29 +141,17 @@ const OtherDetailsIncludeForm = (
   }, [
     variants,
     errorData,
-    listWarehouse,
-    currency,
     validateData,
     changeData,
     handlePress,
     onBlur,
     fields,
   ]);
-  const sum = fields.reduce((acc, curr) => {
-    const value = curr["amount"];
-    if (value !== "") {
-      return acc + parseFloat(value);
-    } else {
-      return acc;
-    }
-  }, 0);
-  useEffect(() => {
-    getotherAmount(sum);
-  }, [sum]);
+
   return (
     <>
       {renderFields}
-      {fields?.length < 20 && (
+      {fields?.length < 3 && (
         <div className={styles.btnWrapper}>
           <ButtonBase
             className={styles.addition}
@@ -230,20 +160,12 @@ const OtherDetailsIncludeForm = (
               handlePress("ADDITION", 0);
             }}
           >
-            <Add fontSize={"small"} /> <span>Add Other Expense Detail</span>
+            <Add fontSize={"small"} /> <span>Add Co-traveller</span>
           </ButtonBase>
         </div>
       )}
-
-      <div className={styles.totalWrap}>
-        <div className={styles.inner}>
-          {" "}
-          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
-        </div>
-      </div>
-      {/*</div>*/}
     </>
   );
 };
 
-export default forwardRef(OtherDetailsIncludeForm);
+export default forwardRef(CoincludeForm);

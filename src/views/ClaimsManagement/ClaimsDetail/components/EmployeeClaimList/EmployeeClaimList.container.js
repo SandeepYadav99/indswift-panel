@@ -42,21 +42,19 @@ const EmployeeClaimList = ({}) => {
   } = useSelector((state) => state.emp_claimList);
 
   const renderStatus = useCallback((status) => {
-    if(status){
-      return <StatusPill status={status.replace(/_/g," ")} />;
+    if (status) {
+      return <StatusPill status={status.replace(/_/g, " ")} />;
     }
   }, []);
-  const renderDate=useCallback((value)=>{
-  if(value?.claim_type === "MARRAIGE"){
-    return <div>{value?.domText}</div>
-  }
-  else if(value?.claim_type === 'PHC'){
-    return <div>{value?.phcDateText}</div>
-  }
-  else{
-    return <div>{value?.billDateText}</div>
-  } 
-  })
+  const renderDate = useCallback((value) => {
+    if (value?.claim_type === "MARRAIGE") {
+      return <div>{value?.domText}</div>;
+    } else if (value?.claim_type === "PHC") {
+      return <div>{value?.phcDateText}</div>;
+    } else {
+      return <div>{value?.billDateText}</div>;
+    }
+  });
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
@@ -65,7 +63,9 @@ const EmployeeClaimList = ({}) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{removeUnderScore(obj?.claimTypeText)}</span>{" "}
+            <span className={styles.productName}>
+              {removeUnderScore(obj?.claimTypeText)}
+            </span>{" "}
             <br />
           </div>
         </div>
@@ -75,13 +75,23 @@ const EmployeeClaimList = ({}) => {
   }, []);
   const renderAttachCell = useCallback((obj) => {
     if (obj) {
-      return (
-        <a href={obj?.document} target="_blank">
-          <div className={styles.hyperlinkText}>
-            <div>View Attachment</div>
-          </div>
-        </a>
-      );
+      if (obj?.claim_type === "LOCAL_TRAVEL") {
+        return (
+          <a href={obj?.od_ss} target="_blank">
+            <div className={styles.hyperlinkText}>
+              <div>View Attachment</div>
+            </div>
+          </a>
+        );
+      } else {
+        return (
+          <a href={obj?.document} target="_blank">
+            <div className={styles.hyperlinkText}>
+              <div>View Attachment</div>
+            </div>
+          </a>
+        );
+      }
     }
     return null;
   }, []);
@@ -116,7 +126,9 @@ const EmployeeClaimList = ({}) => {
         key: "value",
         label: "VALUE",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim_amount &&  `₹ ${all?.claim_amount}`}</div>,
+        render: (temp, all) => (
+          <div>{all?.claim_amount && `₹ ${all?.claim_amount}`}</div>
+        ),
       },
       {
         key: "attachment",

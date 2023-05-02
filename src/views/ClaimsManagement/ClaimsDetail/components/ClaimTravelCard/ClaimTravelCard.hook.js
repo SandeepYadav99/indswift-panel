@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React from "react";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
@@ -6,12 +7,11 @@ import {
   serviceGetEmployeeDetails,
   serviceUpdateTravelClaims,
 } from "../../../../../services/ClaimsManagement.service";
-import { isNum } from "../../../../../libs/RegexUtils";
 import { useSelector } from "react-redux";
 import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
-import LogUtils from "../../../../../libs/LogUtils";
 import nullImg from "../../../../../assets/img/null.png";
 import { dataURLtoFile } from "../../../../../helper/helper";
+import { serviceGetList } from "../../../../../services/Common.service";
 
 const initialForm = {
   bill_amount: "",
@@ -23,10 +23,10 @@ const initialForm = {
 
 const useClaimTravelCard = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [employees, setEmployees] = useState([]);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
-  const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState(null);
   const [declaration, setDeclaration] = useState(false);
   const [employeeDetails, setEmployeeDetails] = useState({});
@@ -35,35 +35,33 @@ const useClaimTravelCard = ({}) => {
   const [otherAmount, setOtherAmount] = useState(null);
   const travelRef = useRef(null);
   const otherRef = useRef(null);
+  const coRef = useRef(null);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [isChecked, setIsChecked] = React.useState(false);
 
-
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
   const { id } = useParams();
   const {
     user: { emp_code },
   } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (emp_code) {
-      let dataValues = serviceGetEmployeeDetails({ code: emp_code });
-      dataValues
-        .then((data) => {
-          setEmployeeDetails(data?.data);
-        })
-        .catch((err) => console.log(err));
-    }
+    Promise.allSettled([
+      serviceGetEmployeeDetails({ code: emp_code }),
+      serviceGetClaimDetail(),
+      serviceGetList(["EMPLOYEES"]),
+    ]).then((promises) => {
+      const empDetail = promises[0]?.value?.data;
+      const claimDetail = promises[1]?.value?.data;
+      const listData = promises[2]?.value?.data;
+      setEmployeeDetails(empDetail);
+      setClaimInfo({ ...claimDetail?.local_travel_claim });
+      setEmployees(listData?.EMPLOYEES);
+    });
   }, []);
-
-  useEffect(() => {
-    let dataValues = serviceGetClaimDetail();
-    dataValues
-      .then((data) => {
-        setClaimInfo({ ...data?.data?.local_travel_claim });
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["rem_month", "od_ss"];
@@ -120,11 +118,15 @@ const useClaimTravelCard = ({}) => {
       fd.append("other_expenses_amount", otherAmount);
       fd.append("bill_amount", travelAmount + otherAmount);
 
+      if (isChecked) {
+        const CoData = coRef.current.getData();
+        const passanger = CoData?.map((item) => item?.co_passengers?.id);
+        fd.append("co_passengers", JSON.stringify(passanger));
+      }
       const ExpensesData = travelRef.current.getData();
       ExpensesData.forEach((val) => {
         if (val?.travel_payment_proof) {
           fd.append("travel_payment_proof", val?.travel_payment_proof);
-          // fd.append("travel_payment_proof", new Blob([val?.travel_payment_proof], {type: val?.type}));
         } else {
           const file = dataURLtoFile(nullImg, "null.png");
           fd.append("travel_payment_proof", file);
@@ -136,9 +138,9 @@ const useClaimTravelCard = ({}) => {
       otherExpensesData.forEach((val) => {
         if (val?.slip) {
           fd.append("slip", val?.slip);
-          // fd.append("slip", new Blob([val?.slip], {type: val?.type}));
         } else {
-          fd.append("slip", null);
+          const file = dataURLtoFile(nullImg, "null.png");
+          fd.append("slip", file);
         }
       });
       fd.append("other_expenses", JSON.stringify(otherExpensesData));
@@ -153,7 +155,7 @@ const useClaimTravelCard = ({}) => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id, travelAmount, otherAmount]);
+  }, [form, isSubmitting, setIsSubmitting, id, travelAmount, otherAmount,setIsChecked,isChecked]);
 
   const getMonthsInRange = useCallback(() => {
     const today = new Date();
@@ -181,12 +183,18 @@ const useClaimTravelCard = ({}) => {
     const errors = checkFormValidation();
     const isIncludesValid = travelRef.current.isValid();
     const isOtherValid = otherRef.current.isValid();
-    if (!isIncludesValid || !isOtherValid || Object.keys(errors).length > 0) {
+    const isCoValid = isChecked ? coRef.current.isValid() : true;
+    if (
+      !isIncludesValid ||
+      !isOtherValid ||
+      !isCoValid ||
+      Object.keys(errors).length > 0
+    ) {
       setErrorData(errors);
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, submitToServer]);
+  }, [checkFormValidation, setErrorData, submitToServer, setIsChecked,isChecked]);
 
   const removeError = useCallback(
     (title) => {
@@ -256,7 +264,6 @@ const useClaimTravelCard = ({}) => {
     isLoading,
     isSubmitting,
     errorData,
-    isEdit,
     handleDelete,
     handleReset,
     editData,
@@ -267,10 +274,14 @@ const useClaimTravelCard = ({}) => {
     getMonthsInRange,
     travelRef,
     otherRef,
+    coRef,
     getTravelAmount,
     getotherAmount,
     startDate,
     endDate,
+    isChecked,
+    handleCheckboxChange,
+    employees,
   };
 };
 

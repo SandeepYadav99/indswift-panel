@@ -1,4 +1,9 @@
-import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
+import {
+  ButtonBase,
+  Checkbox,
+  CircularProgress,
+  MenuItem,
+} from "@material-ui/core";
 import React from "react";
 import history from "../../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -10,7 +15,9 @@ import File from "../../../../../components/FileComponent/FileComponent.componen
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import useClaimTravelCard from "./ClaimTravelCard.hook";
 import DetailsIncludeForm from "./component/Detailsincludes/DetailsIncludes.component";
+import CoIncludeForm from "./component/Coincludes/Coinclude.component";
 import OtherDetailsIncludeForm from "./component/OtherDetailsincludes/OtherDetailsIncludes.component";
+import { CheckBox } from "@material-ui/icons";
 
 function ClaimTravelCard() {
   const {
@@ -29,10 +36,14 @@ function ClaimTravelCard() {
     getMonthsInRange,
     travelRef,
     otherRef,
+    coRef,
     getTravelAmount,
     getotherAmount,
-      startDate,
-      endDate
+    startDate,
+    endDate,
+    employees,
+    isChecked,
+    handleCheckboxChange,
   } = useClaimTravelCard({});
 
   return (
@@ -110,13 +121,45 @@ function ClaimTravelCard() {
               />
             </div>
           </div>
+          <div className={styles.checkWrapper}>
+            <div className={styles.chkwrapp}>
+              <Checkbox
+                disabled={false}
+                onChange={handleCheckboxChange}
+                checked={isChecked}
+                value="secondary"
+                color="primary"
+                size="small"
+                inputProps={{ "aria-label": "secondary checkbox" }}
+              />
+              <span className={styles.spanchk}>
+                Do you have a co-traveller?
+              </span>
+            </div>
+            {isChecked && (
+              <div>
+                <CoIncludeForm
+                  ref={coRef}
+                  employees={employees}
+                  isChecked={isChecked}
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Travel Details</div>
           <div>
-            <DetailsIncludeForm startDate={startDate} endDate={endDate} ref={travelRef} grade={employeeDetails?.grade?.code} getTravelAmount={getTravelAmount} month={form?.rem_month}/>
+            <DetailsIncludeForm
+              startDate={startDate}
+              endDate={endDate}
+              ref={travelRef}
+              grade={employeeDetails?.grade?.code}
+              getTravelAmount={getTravelAmount}
+              month={form?.rem_month}
+            />
           </div>
         </div>
       </div>
@@ -124,7 +167,14 @@ function ClaimTravelCard() {
         <div className={styles.newContainer}>
           <div className={styles.heading}>Other Expenses Details</div>
           <div>
-            <OtherDetailsIncludeForm startDate={startDate} endDate={endDate} ref={otherRef} grade={employeeDetails?.grade?.code} getotherAmount={getotherAmount} month={form?.rem_month} />
+            <OtherDetailsIncludeForm
+              startDate={startDate}
+              endDate={endDate}
+              ref={otherRef}
+              grade={employeeDetails?.grade?.code}
+              getotherAmount={getotherAmount}
+              month={form?.rem_month}
+            />
           </div>
         </div>
       </div>
