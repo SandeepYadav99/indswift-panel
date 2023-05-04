@@ -24,7 +24,6 @@ import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
-import { serviceGetEmployeeDetails } from "../../services/ClaimsManagement.service";
 
 const SALARY_KEYS = [
   "basic_salary",
@@ -446,18 +445,15 @@ function EmployeeListCreateHook({ location }) {
       setErrorData(errors);
       return true;
     }
-    delete form?.children
-    delete form?.nominee
-    delete form?.createdAt
-    // if (isIncludesValid) {
+    ['children','nominee','createdAt','status','qualifications','_id'].forEach((item)=>{
+      delete form[item]
+    })
     submitToServer();
-    // }
   }, [
     checkFormValidation,
     setErrorData,
     form,
     submitToServer,
-    // includeRef.current
   ]);
 
   const handleReset = useCallback(() => {
