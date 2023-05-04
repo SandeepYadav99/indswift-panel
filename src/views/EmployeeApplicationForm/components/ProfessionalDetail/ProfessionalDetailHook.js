@@ -161,7 +161,6 @@ const useProfessionalDetail = ({}, ref) => {
 
   const handleSubmit = useCallback(() => {
     const errors = checkFormValidation();
-    console.log("====>", form, errors);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return false;

@@ -11,7 +11,7 @@ import {
 import historyUtils from "../../libs/history.utils";
 import { serviceGetList } from "../../services/Common.service";
 import RouteName from "../../routes/Route.name";
-import {serviceExportEmployees} from "../../services/Employee.service";
+import { serviceExportEmployees } from "../../services/Employee.service";
 import Constants from "../../config/constants";
 
 const useEmployeeList = ({}) => {
@@ -20,12 +20,17 @@ const useEmployeeList = ({}) => {
   const [editData, setEditData] = useState(null);
   const [isCsvDialog, setIsCsvDialog] = useState(false);
   const [isCPCDialog, setIsCPCDialog] = useState(false);
+  const [isExtendDialog, setIsExtendDialog] = useState(false);
+  const [isTraineeDialog, setIsTraineeDialog] = useState(false);
+  const [createDD, setCreateDD] = useState(null);
   const dispatch = useDispatch();
-  const {role} = useSelector(state => state.auth);
+  const { role } = useSelector((state) => state.auth);
   const [listData, setListData] = useState({
     LOCATIONS: [],
     GRADES: [],
     DEPARTMENTS: [],
+    JOINING_CANDIDATES:[],
+    TRAINEE_EMPLOYEES:[]
   });
   const isMountRef = useRef(false);
   const {
@@ -44,10 +49,22 @@ const useEmployeeList = ({}) => {
     );
   }, []);
 
+  const toggleExtendDialog = useCallback(() => {
+    setIsExtendDialog((e) => !e);
+    setCreateDD(false)
+
+  }, [isExtendDialog]);
+
+  const toggleTraineeDialog = useCallback(() => {
+    setIsTraineeDialog((e) => !e);
+    setCreateDD(false)
+
+  }, [isTraineeDialog]);
+
   useEffect(() => {
     initData();
     isMountRef.current = true;
-    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS","JOINING_CANDIDATES","TRAINEE_EMPLOYEES"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -161,9 +178,26 @@ const useEmployeeList = ({}) => {
     // setEditData(null);
   }, [setEditData, setSidePanel]);
 
+  const handleAddCandidate = useCallback(
+    (event) => {
+      setCreateDD(event.currentTarget);
+    },
+    [setCreateDD]
+  );
+  const handleClosedownloadCL = useCallback(() => {
+    setCreateDD(null);
+  }, [setCreateDD]);
+
+  const handleCandidateMenu = useCallback(
+    (type) => {
+      if (type === "NEW") {
+        historyUtils.push(RouteName.EMPLOYEE_CREATE);
+      }
+      handleClosedownloadCL();
+    },
+    [setCreateDD]
+  );
   const handleViewDetails = useCallback((data) => {
-    console.log("data====>", data.emp_code);
-    // dispatch(actionGetEmployeeDetails(data.emp_code));
     historyUtils.push(`/employees/details/${data.emp_code}`);
   }, []);
   const handleViewUpdate = useCallback((data) => {
@@ -174,18 +208,22 @@ const useEmployeeList = ({}) => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
       // {label: 'City', name: 'city', type: 'text'},
-        ...(role === Constants.ROLES.CORPORATE_HR ? [{
-        label: "Location",
-        name: "location_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.LOCATIONS,
-      }] : []),
+      ...(role === Constants.ROLES.CORPORATE_HR
+        ? [
+            {
+              label: "Location",
+              name: "location_id",
+              type: "selectObject",
+              custom: { extract: { id: "id", title: "name" } },
+              fields: listData?.LOCATIONS,
+            },
+          ]
+        : []),
       {
         label: "Grade",
         name: "grade_id",
         type: "selectObject",
-        custom: { extract: { id: "id", title: "label"  } },
+        custom: { extract: { id: "id", title: "label" } },
         fields: listData?.GRADES,
       },
       {
@@ -213,15 +251,11 @@ const useEmployeeList = ({}) => {
     setIsCPCDialog((e) => !e);
   }, [setIsCPCDialog]);
 
-
   const handleCsvUpload = useCallback(() => {
     initData();
   }, []);
 
-  const handleCPCUpload = useCallback(() => {
-
-  }, []);
-
+  const handleCPCUpload = useCallback(() => {}, []);
   const handleCsvDownload = useCallback(() => {
     serviceExportEmployees({
       query: query,
@@ -260,7 +294,16 @@ const useEmployeeList = ({}) => {
     isCPCDialog,
     toggleCPCDialog,
     handleCPCUpload,
-    handleCsvDownload
+    handleCsvDownload,
+    handleAddCandidate,
+    createDD,
+    handleClosedownloadCL,
+    handleCandidateMenu,
+    isExtendDialog,
+    toggleExtendDialog,
+    isTraineeDialog,
+    toggleTraineeDialog,
+    listData
   };
 };
 

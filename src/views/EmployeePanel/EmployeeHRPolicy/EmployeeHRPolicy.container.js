@@ -38,7 +38,6 @@ function EmployeeHRPolicy() {
     StaticPolicyData,
     employeeHRData,
   } = EmployeeHRPolicyHook({});
-  console.log("====>", employeeHRData);
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);

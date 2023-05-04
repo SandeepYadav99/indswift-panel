@@ -65,3 +65,9 @@ export async function serviceChangeEmployeeStatus(params) {
 export async function serviceExportEmployees(params) {
     return await postRequest('employees/export', params);
 }
+export async function serviceGetEmployeeConversionInfo(params) {
+    return await postRequest('candidates/conversion/details', params);
+}
+export async function serviceGetEmployeeTraineeInfo(params) {
+    return await postRequest('employees/details', params);
+}

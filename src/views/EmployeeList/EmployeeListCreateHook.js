@@ -13,17 +13,67 @@ import {
 } from "../../libs/RegexUtils";
 import { useParams } from "react-router";
 import { serviceGetList } from "../../services/Common.service";
-import { serviceCheckEmployeeExists } from "../../services/Employee.service";
+import {
+  serviceCheckEmployeeExists,
+  serviceGetEmployeeConversionInfo,
+  serviceGetEmployeeEditInfo,
+} from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
 import { useMemo } from "react";
 import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
+import { serviceGetEmployeeDetails } from "../../services/ClaimsManagement.service";
 
-const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allowance', 'special_allowance', 'earning_one', 'pug', 'helper', 'food_coupons', 'gift_coupons', 'lta', 'super_annuation', 'nps', 'vehicle_maintenance', 'vehicle_emi', 'fuel', 'vpf', 'earning_two', 'gross', 'earning_three_pli', 'er_pf', 'er_esi', 'er_lwf', 'earning_four', 'gratuity', 'insurance', 'driver_incentive', 'perf_bonus', 'annual_bonus', 'two_car_maintenance', 'two_fuel', 'earning_five', 'monthly_ctc', 'em_pf', 'em_esi', 'em_lwf', 'total_deduction', 'total_pf', 'retention_allowance', 'car_component', 'incremental_gross_salary', 'earning2_vpf', 'deduction_vpf','stability_incentive'];
+const SALARY_KEYS = [
+  "basic_salary",
+  "hra",
+  "education_allowance",
+  "medical_allowance",
+  "special_allowance",
+  "earning_one",
+  "pug",
+  "helper",
+  "food_coupons",
+  "gift_coupons",
+  "lta",
+  "super_annuation",
+  "nps",
+  "vehicle_maintenance",
+  "vehicle_emi",
+  "fuel",
+  "vpf",
+  "earning_two",
+  "gross",
+  "earning_three_pli",
+  "er_pf",
+  "er_esi",
+  "er_lwf",
+  "earning_four",
+  "gratuity",
+  "insurance",
+  "driver_incentive",
+  "perf_bonus",
+  "annual_bonus",
+  "two_car_maintenance",
+  "two_fuel",
+  "earning_five",
+  "monthly_ctc",
+  "em_pf",
+  "em_esi",
+  "em_lwf",
+  "total_deduction",
+  "total_pf",
+  "retention_allowance",
+  "car_component",
+  "incremental_gross_salary",
+  "earning2_vpf",
+  "deduction_vpf",
+  "stability_incentive",
+];
 
-function EmployeeListCreateHook() {
+function EmployeeListCreateHook({ location }) {
   const initialForm = {
     emp_code: "",
     image: "",
@@ -124,7 +174,9 @@ function EmployeeListCreateHook() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const codeDebouncer = useDebounce(form?.emp_code, 500);
   const ChildenRef = useRef(null);
-
+  const empId = location?.state?.empId;
+  const empFlag = location?.state?.isOnboard;
+  const traineeId = location?.state?.traineeId;
   const [listData, setListData] = useState({
     LOCATION_DEPARTMENTS: [],
     EMPLOYEES: [],
@@ -137,8 +189,6 @@ function EmployeeListCreateHook() {
     GRADES: [],
     CADRES: [],
   });
-  const [label, setLabel] = useState("");
-
   useEffect(() => {
     serviceGetList([
       "LOCATION_DEPARTMENTS",
@@ -157,57 +207,70 @@ function EmployeeListCreateHook() {
       }
     });
   }, []);
+  useEffect(() => {
+    if (listData?.EMPLOYEES?.length > 0 && (empId || traineeId)) {
+      let req;
+      if (empId) {
+        req = serviceGetEmployeeConversionInfo({ candidate_id: empId });
+      } else if (traineeId) {
+        req = serviceGetEmployeeEditInfo({ emp_id: traineeId });
+      }
+      req.then((res) => {
+        const empData = res?.data;
+        const hodIndex = listData?.EMPLOYEES.findIndex((val) => val.id === empData?.hod_id);
+      if (hodIndex >= 0) {
+        empData.hod_id = listData?.EMPLOYEES[hodIndex];
+      }
+      const pmsIndex = listData?.EMPLOYEES.findIndex((val) => val.id === empData?.pms_reviewer_id);
+      if (pmsIndex >= 0) {
+        empData.pms_reviewer_id = listData?.EMPLOYEES[pmsIndex];
+      }
+      const jobRoleIndex = listData?.JOB_ROLES.findIndex((val) => val.id === empData?.job_role_id);
+      if (jobRoleIndex >= 0) {
+        empData.job_role_id = listData?.JOB_ROLES[jobRoleIndex];
+      }
+
+       const designationIndex = listData?.DESIGNATIONS.findIndex((val) => val.id === empData?.designation_id);
+       if (designationIndex >= 0) {
+         empData.designation_id = listData?.DESIGNATIONS[designationIndex];
+       }
+        setForm({ ...initialForm, ...empData,  image: "" });
+      });
+    }
+  }, [empId, traineeId, listData]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
       "emp_code",
-      // "image",
       "name",
       "doj",
       "grade_id",
       "cadre_id",
-      // 'spouse_gender',
       "location_id",
       "department_id",
       "sub_department_id",
       "designation_id",
       "hod_id",
       "pms_reviewer_id",
-      // "next_review_date",
-      // "previous_review_date",
       "gender",
       "dob",
       "associate",
       "state",
       "blood_group",
-      // "official_contact",
       "personal_contact",
-      // "official_email",
-      // "personal_email",
-      // "higher_education",
       "martial_status",
-      // "dom",
       "father_name",
       "mother_name",
-      // "spouse_name",
-      // "spouse_dob",
-      // "children_name",
       "permanent_address",
       "current_address",
       "pan_no",
       "aadhar_no",
-      // "bank_account_name",
-      // "bank_account_no",
-      // "bank_name",
-      // "ifsc",
       "before_experience",
-      // "company_experience",
-      // "total_experience",
       "previous_organisation",
       "uan_no",
       // "esi_no",
-        ...SALARY_KEYS,
+      ...SALARY_KEYS,
       ,
     ];
     required.forEach((val) => {
@@ -215,7 +278,7 @@ function EmployeeListCreateHook() {
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
         (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
       ) {
-        LogUtils.log('called', val, form?.[val]);
+        LogUtils.log("called", val, form?.[val]);
         errors[val] = true;
       } else if (["emp_code"].indexOf(val) < 0) {
         delete errors[val];
@@ -226,7 +289,7 @@ function EmployeeListCreateHook() {
       if (form?.[val] && form?.[val] < 0) {
         errors[val] = true;
       }
-    })
+    });
     if (form?.official_email && !isEmail(form?.official_email)) {
       errors["official_email"] = true;
     }
@@ -259,10 +322,8 @@ function EmployeeListCreateHook() {
         delete errors[key];
       }
     });
-    console.log("===?", errors);
     return errors;
   }, [form, errorData]);
-
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
@@ -299,7 +360,7 @@ function EmployeeListCreateHook() {
         }
         t[fieldName] = text;
       } else if (SALARY_KEYS.indexOf(fieldName) >= 0) {
-        if (!text || (isNum(text))) {
+        if (!text || isNum(text)) {
           t[fieldName] = text;
         }
       } else {
@@ -344,7 +405,6 @@ function EmployeeListCreateHook() {
     [changeTextData, checkCodeValidation]
   );
   const submitToServer = useCallback(() => {
-    console.log("before ====?", form);
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
@@ -366,8 +426,7 @@ function EmployeeListCreateHook() {
         }
       });
       fd.append("children", JSON.stringify(ChildenRef.current.getData()));
-
-      console.log("Api hit", fd);
+      fd.append('nominee',JSON.stringify([]))
       serviceCreateEmployees(fd).then((res) => {
         if (!res.error) {
           historyUtils.push("/employees");
@@ -383,11 +442,13 @@ function EmployeeListCreateHook() {
     const errors = checkFormValidation();
     const isIncludesValid = ChildenRef.current.isValid();
 
-    if (Object.keys(errors)?.length > 0  || !isIncludesValid) {
+    if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
       setErrorData(errors);
       return true;
     }
-    console.log("4");
+    delete form?.children
+    delete form?.nominee
+    delete form?.createdAt
     // if (isIncludesValid) {
     submitToServer();
     // }
@@ -461,6 +522,7 @@ function EmployeeListCreateHook() {
     getLevelValues,
     filteredAssociateJobRole,
     ChildenRef,
+    empFlag,
   };
 }
 

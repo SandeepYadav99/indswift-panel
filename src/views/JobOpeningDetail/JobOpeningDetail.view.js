@@ -19,6 +19,11 @@ const JobOpeningDetail = () => {
   const valencyChange=(value)=>{
     return value ? value.replace(/_/, " "): "NA"
   }
+  const styleRed={
+    'color': "#ff4d4f",
+    'backgroundColor': "rgba(255,77,79,.06274509803921569)",
+    'border': "none",
+  }
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -75,7 +80,7 @@ const JobOpeningDetail = () => {
                 <span className={styles.value} style={{ width: "190px" }}>
                   Status:
                 </span>
-                <StatusPill status={data?.status}/>
+                <StatusPill status={data?.status} style={data?.status === "ACTIVE" && styleRed}/>
                 <span style={{marginLeft:'10px'}}>
                   {/* {data?.status} */}
                   <StatusPill status={data?.is_sourcing ? 'SOURCING': 'NOSOURCING'}/>

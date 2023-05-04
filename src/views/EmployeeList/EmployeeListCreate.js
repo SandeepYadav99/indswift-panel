@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EmployeeListCreate = ({}) => {
+const EmployeeListCreate = ({location}) => {
   const {
     form,
     errorData,
@@ -43,7 +43,8 @@ const EmployeeListCreate = ({}) => {
     filteredCadres,
     getLevelValues,
     ChildenRef,
-  } = EmployeeListCreateHook({});
+    empFlag
+  } = EmployeeListCreateHook({location});
   const getSumValue = (...numbers) => {
     return numbers
       ? numbers.reduce((sum, value) => {
@@ -891,6 +892,7 @@ const EmployeeListCreate = ({}) => {
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
+              disabled={empFlag ? true : false}
               inputProps={{ min: 0 }}
               isError={errorData?.incremental_gross_salary}
               errorText={errorData?.incremental_gross_salary}
@@ -906,6 +908,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.car_component}
               errorText={errorData?.car_component}
@@ -937,6 +940,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.basic_salary}
               errorText={errorData?.basic_salary}
@@ -952,6 +956,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.hra}
               errorText={errorData?.hra}
@@ -969,6 +974,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.education_allowance}
               errorText={errorData?.education_allowance}
@@ -984,6 +990,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.special_allowance}
               errorText={errorData?.special_allowance}
@@ -1017,6 +1024,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.pug}
               errorText={errorData?.pug}
@@ -1032,6 +1040,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.helper}
               errorText={errorData?.helper}
@@ -1049,6 +1058,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.food_coupons}
               errorText={errorData?.food_coupons}
@@ -1064,6 +1074,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.gift_coupons}
               errorText={errorData?.gift_coupons}
@@ -1081,6 +1092,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.lta}
               errorText={errorData?.lta}
@@ -1096,6 +1108,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.super_annuation}
               errorText={errorData?.super_annuation}
@@ -1113,6 +1126,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.nps}
               errorText={errorData?.nps}
@@ -1128,6 +1142,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.vehicle_maintenance}
               errorText={errorData?.vehicle_maintenance}
@@ -1145,6 +1160,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.vehicle_emi}
               errorText={errorData?.vehicle_emi}
@@ -1160,6 +1176,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.fuel}
               errorText={errorData?.fuel}
@@ -1177,6 +1194,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.earning2_vpf}
               errorText={errorData?.earning2_vpf}
@@ -1194,7 +1212,7 @@ const EmployeeListCreate = ({}) => {
         </div>
         <div className={"formFlex"}>
           <TotalSum
-            firstName="Incremental Gross Salary + Car Component: "
+            firstName="Total Earning: "
             firstAmount={getSumValue(
               form?.pug,
               form?.helper,
@@ -1240,6 +1258,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.earning_three_pli}
               errorText={errorData?.earning_three_pli}
@@ -1269,6 +1288,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.em_pf}
               errorText={errorData?.em_pf}
@@ -1284,6 +1304,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.em_esi}
               errorText={errorData?.em_esi}
@@ -1301,6 +1322,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.deduction_vpf}
               errorText={errorData?.deduction_vpf}
@@ -1316,6 +1338,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.em_lwf}
               errorText={errorData?.em_lwf}
@@ -1352,6 +1375,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.er_pf}
               errorText={errorData?.er_pf}
@@ -1367,6 +1391,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.er_esi}
               errorText={errorData?.er_esi}
@@ -1384,6 +1409,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.er_lwf}
               errorText={errorData?.er_lwf}
@@ -1415,6 +1441,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.gratuity}
               errorText={errorData?.gratuity}
@@ -1430,6 +1457,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.insurance}
               errorText={errorData?.insurance}
@@ -1447,6 +1475,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.stability_incentive}
               errorText={errorData?.stability_incentive}
@@ -1462,6 +1491,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.retention_allowance}
               errorText={errorData?.retention_allowance}
@@ -1479,6 +1509,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.perf_bonus}
               errorText={errorData?.perf_bonus}
@@ -1494,6 +1525,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.annual_bonus}
               errorText={errorData?.annual_bonus}
@@ -1511,6 +1543,7 @@ const EmployeeListCreate = ({}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.two_car_maintenance}
               errorText={errorData?.two_car_maintenance}
@@ -1526,6 +1559,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.two_fuel}
               errorText={errorData?.two_fuel}

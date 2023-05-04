@@ -265,7 +265,6 @@ function useMyProfileEdit() {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("=====>", form, errors);
     const isIncludesValid = ChildenRef.current.isValid();
     if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
       setErrorData(errors);
