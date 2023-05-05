@@ -70,6 +70,15 @@ const useClaimCarCard = ({}) => {
     if (form?.vehicle_no && !IsVehicleNo(form?.vehicle_no)) {
       errors["vehicle_no"] = true;
     }
+    if (form?.bill_date) {
+      const date = new Date(form?.bill_date);
+      const todayDate = new Date();
+      date.setHours(0, 0, 0, 0);
+      todayDate.setHours(0, 0, 0, 0);
+      if (date.getTime() > todayDate.getTime()) {
+          errors["bill_date"] = true;
+      }
+  }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

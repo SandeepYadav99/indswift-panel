@@ -65,6 +65,15 @@ const useClaimMobileCard = ({}) => {
         errors[val] = true;
       }
     });
+    if (form?.bill_date) {
+      const date = new Date(form?.bill_date);
+      const todayDate = new Date();
+      date.setHours(0, 0, 0, 0);
+      todayDate.setHours(0, 0, 0, 0);
+      if (date.getTime() > todayDate.getTime()) {
+          errors["bill_date"] = true;
+      }
+  }
     if(form?.payment_mode ==='Cash' && !form?.payment_proof){
       delete errors['payment_proof'];
     }

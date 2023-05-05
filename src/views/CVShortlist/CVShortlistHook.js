@@ -13,6 +13,7 @@ import LogUtils from "../../libs/LogUtils";
 const useCVShortlist = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isRejectPopUp,setIsRejectPopUp]=useState(false)
+  const [dataValue,setDataValue]=useState({})
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
@@ -36,9 +37,11 @@ const useCVShortlist = ({}) => {
     isMountRef.current = true;
   }, [id]);
 
-  const toggleRejectDialog = useCallback(() => {
+  const toggleRejectDialog = useCallback((obj) => {
     setIsRejectPopUp((e) => !e);
-  }, [isRejectPopUp]);
+    setDataValue({...obj})
+
+  }, [isRejectPopUp,setDataValue]);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPageCVShortlist(type));
@@ -139,7 +142,7 @@ const useCVShortlist = ({}) => {
     },[]);
   const handleUpdate =  useCallback((data, type) => {
       LogUtils.log('data', data, type);
-      dispatch(actionUpdateCVShortlist(data?.id, type));
+      // dispatch(actionUpdateCVShortlist(data?.id, type));
   }, []);
 
   return {
@@ -159,7 +162,8 @@ const useCVShortlist = ({}) => {
     isRejectPopUp,
     toggleRejectDialog,
       handleUpdate,
-      candidatePage
+      candidatePage,
+      dataValue
   };
 };
 

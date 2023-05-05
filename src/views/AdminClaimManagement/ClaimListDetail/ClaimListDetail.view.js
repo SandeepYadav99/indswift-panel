@@ -202,7 +202,7 @@ function ClaimListDetail() {
               : styles.PdfBtnWrapper
           }
         >
-          {employeeDetail?.status !== "APPROVED" && (
+          {(employeeDetail?.status !== "APPROVED" && employeeDetail?.status !=="ACCOUNTS_APPROVED")&& (
             <div className={styles.editBtn2}>
               <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
                 REJECT
@@ -211,7 +211,7 @@ function ClaimListDetail() {
           )}
 
           <div className={styles.btnApproveWrapper}>
-            {employeeDetail?.status !== "APPROVED" && (
+            {(employeeDetail?.status !== "APPROVED"  && employeeDetail?.status !=="ACCOUNTS_APPROVED") && (
               <div>
                 <ButtonBase
                   // disabled={isSubmitting}
@@ -228,7 +228,7 @@ function ClaimListDetail() {
                 className={styles.createBtn}
                 onClick={toggleStatusDialog}
               >
-                {employeeDetail?.status !== "APPROVED" ? "APPROVE" : "PROCESS"}
+                {(employeeDetail?.status !== "APPROVED" && employeeDetail?.status !=="ACCOUNTS_APPROVED") ? "APPROVE" : "PROCESS"}
               </ButtonBase>
             </div>
           </div>

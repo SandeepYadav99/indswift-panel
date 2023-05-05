@@ -73,3 +73,11 @@
   width: 40px;
   aspect-ratio: 1/1;
 }
+.spanchk{
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.chkwrapp{
+  display: flex;
+  align-items: center;
+}

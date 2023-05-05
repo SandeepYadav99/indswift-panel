@@ -18,6 +18,11 @@ function CandidateOLRHook({location}) {
   const [panelList,setPanelList]=useState([])
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState(null);
+  const [isChecked, setIsChecked] = React.useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
   const { id } = useParams();
   const {role} = useSelector(state => state.auth);
 
@@ -45,7 +50,6 @@ function CandidateOLRHook({location}) {
   const isRecruiter = useMemo(() => {
     return role === Constants.ROLES.RECRUITER;
   }, [role]);
-
   const toggleApprovalDialog = useCallback(() => {
     setIsApprovalPopUp((e) => !e);
   }, [isApprovalPopUp]);
@@ -57,7 +61,7 @@ function CandidateOLRHook({location}) {
   const handleApproveReview = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      serviceReviewOLRApprove({review_id: reviewId}).then((res) => {
+      serviceReviewOLRApprove({review_id: reviewId,'is_experience_hide':isChecked}).then((res) => {
         if (!res.error) {
           SnackbarUtils.success('Offer Letter Approved Successfully');
           historyUtils.goBack();
@@ -65,8 +69,7 @@ function CandidateOLRHook({location}) {
         setIsSubmitting(false);
       });
     }
-  }, [isSubmitting, setIsSubmitting, reviewId]);
-
+  }, [isSubmitting, setIsSubmitting, reviewId,isChecked]);
   return {
     isApprovalPopUp,
     toggleApprovalDialog,
@@ -81,7 +84,10 @@ function CandidateOLRHook({location}) {
     handleApproveReview,
     isSubmitting,
     reviewId,
-    isRecruiter
+    isRecruiter,
+    isChecked,
+    handleCheckboxChange,
+    role
   };
 }
 

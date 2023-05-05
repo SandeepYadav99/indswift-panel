@@ -164,7 +164,7 @@ const ClaimsList = ({ location }) => {
         key: "claim_date",
         label: "CLAIM DATE",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim?.claimedAtText}</div>,
+        render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
       {
         key: "value",

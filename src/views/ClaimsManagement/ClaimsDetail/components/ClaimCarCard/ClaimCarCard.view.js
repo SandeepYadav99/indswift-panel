@@ -73,7 +73,7 @@ function ClaimCarCard() {
               <CustomDatePicker
                 clearable
                 label={"Bill Date"}
-                // maxDate={new Date()}
+                maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "bill_date");
                 }}
