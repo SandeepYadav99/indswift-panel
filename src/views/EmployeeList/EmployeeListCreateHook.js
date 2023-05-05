@@ -173,7 +173,7 @@ function EmployeeListCreateHook({ location }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const codeDebouncer = useDebounce(form?.emp_code, 500);
   const ChildenRef = useRef(null);
-  const empId = location?.state?.empId;
+  const candidateId = location?.state?.empId;
   const empFlag = location?.state?.isOnboard;
   const traineeId = location?.state?.traineeId;
   const [listData, setListData] = useState({
@@ -207,10 +207,10 @@ function EmployeeListCreateHook({ location }) {
     });
   }, []);
   useEffect(() => {
-    if (listData?.EMPLOYEES?.length > 0 && (empId || traineeId)) {
+    if (listData?.EMPLOYEES?.length > 0 && (candidateId || traineeId)) {
       let req;
-      if (empId) {
-        req = serviceGetEmployeeConversionInfo({ candidate_id: empId });
+      if (candidateId) {
+        req = serviceGetEmployeeConversionInfo({ candidate_id: candidateId });
       } else if (traineeId) {
         req = serviceGetEmployeeEditInfo({ emp_id: traineeId });
       }
@@ -233,10 +233,16 @@ function EmployeeListCreateHook({ location }) {
        if (designationIndex >= 0) {
          empData.designation_id = listData?.DESIGNATIONS[designationIndex];
        }
-        setForm({ ...initialForm, ...empData,  image: "" });
+       const data = { image: "" };
+        Object.keys({ ...empData }).forEach((key) => {
+          if (key in initialForm && key !== 'image') {
+            data[key] = empData[key];
+          }
+        });
+        setForm({ ...initialForm, ...data  });
       });
     }
-  }, [empId, traineeId, listData]);
+  }, [candidateId, traineeId, listData]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -270,14 +276,12 @@ function EmployeeListCreateHook({ location }) {
       "uan_no",
       // "esi_no",
       ...SALARY_KEYS,
-      ,
     ];
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
         (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
       ) {
-        LogUtils.log("called", val, form?.[val]);
         errors[val] = true;
       } else if (["emp_code"].indexOf(val) < 0) {
         delete errors[val];
@@ -285,7 +289,7 @@ function EmployeeListCreateHook({ location }) {
     });
 
     SALARY_KEYS.forEach((val) => {
-      if (form?.[val] && form?.[val] < 0) {
+      if (form?.[val] && form?.[val] < 0 && !isNum(form?.[val]) ) {
         errors[val] = true;
       }
     });
@@ -425,7 +429,9 @@ function EmployeeListCreateHook({ location }) {
         }
       });
       fd.append("children", JSON.stringify(ChildenRef.current.getData()));
-      fd.append('nominee',JSON.stringify([]))
+      fd.append('nominee',JSON.stringify([]));
+      candidateId && fd.append('candidate_id', candidateId);
+      traineeId && fd.append('trainee_id', traineeId);
       serviceCreateEmployees(fd).then((res) => {
         if (!res.error) {
           historyUtils.push("/employees");
@@ -435,7 +441,7 @@ function EmployeeListCreateHook({ location }) {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting]);
+  }, [form, isSubmitting, setIsSubmitting, candidateId, traineeId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
