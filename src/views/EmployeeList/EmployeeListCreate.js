@@ -1212,7 +1212,7 @@ const EmployeeListCreate = ({location}) => {
         </div>
         <div className={"formFlex"}>
           <TotalSum
-            firstName="Total Earning: "
+            firstName="Total Earning2: "
             firstAmount={getSumValue(
               form?.pug,
               form?.helper,

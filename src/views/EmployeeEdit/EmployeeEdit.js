@@ -1184,7 +1184,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formFlex"}>
               <TotalSum
-                  firstName="Incremental Gross Salary + Car Component: "
+                  firstName="Total Earning2: "
                   firstAmount={getSumValue(
                       form?.pug,
                       form?.helper,
