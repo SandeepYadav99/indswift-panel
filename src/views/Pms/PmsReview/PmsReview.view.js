@@ -23,6 +23,8 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import usePmsReview from "./PmsReview.hook";
+import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
+import BottomActionView from "./components/BottomAction/BottomAction.view";
 
 const PmsReview = ({ }) => {
   const {
@@ -41,6 +43,8 @@ const PmsReview = ({ }) => {
     configFilter,
     warehouses,
     handleCsvDownload,
+      handleCheckbox,
+    selected
   } = usePmsReview({});
 
   const {
@@ -48,7 +52,7 @@ const PmsReview = ({ }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.pmsBatch);
+  } = useSelector((state) => state.pmsReview);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -59,13 +63,24 @@ const PmsReview = ({ }) => {
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
+      const selectedIndex = selected.findIndex((sel) => sel.id === obj.id);
       return (
         <div className={styles.firstCellFlex}>
+          <div className={styles.flex}>
+            <Checkbox
+                disabled={data?.status === Constants.GENERAL_STATUS.PENDING }
+                onChange={() => {handleCheckbox(obj)}}
+                checked={selectedIndex >= 0}
+                value="secondary"
+                color="primary"
+                inputProps={{"aria-label": "secondary checkbox"}}
+            />
+          </div>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span>{" "}
+            <span className={styles.productName}>{obj?.reviewer?.name}</span>{" "}
             <br />
             <span className={styles.productName}>
-              {obj?.emp_code}
+              {obj?.reviewer?.emp_code}
             </span>{" "}
             <br />
           </div>
@@ -73,7 +88,7 @@ const PmsReview = ({ }) => {
       );
     }
     return null;
-  }, []);
+  }, [selected, handleCheckbox]);
 
 
   const tableStructure = useMemo(() => {
@@ -82,14 +97,13 @@ const PmsReview = ({ }) => {
         key: "reviewer",
         label: "REVIEWER",
         sortable: false,
-        render: (temp, all) => <div>{all?.pms?.name} <br/>
-          {all?.pms?.code}</div>,
+        render: (temp, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
         key: "name",
         label: "EMPLOYEE",
         sortable: true,
-        render: (value, all) => <div>{renderFirstCell(all)}</div>,
+        render: (value, all) => <div><StatusPill status={all?.reviewer?.status} /></div>,
       },
       {
         key: "grade",
@@ -105,13 +119,13 @@ const PmsReview = ({ }) => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.location.name}</div>,
+        render: (temp, all) => <div>{all?.reviewer?.location?.name}</div>,
       },
       {
-        key: "desigination",
+        key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.designation?.name}</div>,
+        render: (temp, all) => <div>{all?.reviewer?.designation?.name}</div>,
       },
       {
         key: "department",
@@ -119,39 +133,39 @@ const PmsReview = ({ }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.department?.name} / {all?.department?.name}
+            {all?.reviewer?.department?.name} / {all?.reviewer?.department?.name}
           </div>
         ),
       },
-      
-      
+
+
       {
         key: "doj",
         label: "DOJ",
         sortable: false,
-        render: (temp, all) => <div>{all?.dojText}</div>,
+        render: (temp, all) => <div>{all?.total_employees}</div>,
       },
       {
         key: "hod",
         label: "HOD",
         sortable: false,
-        render: (temp, all) => <div>{all?.hod?.hod_name} <br/>
-          {all?.hod?.hod_code}</div>,
+        render: (temp, all) => <div>{all?.reviewer?.hod?.hod_name} <br/>
+          {all?.reviewer?.hod?.hod_code}</div>,
       },
       {
         key: "batch",
         label: "BATCH",
         sortable: false,
-        render: (temp, all) => <div>{all?.pms_batch}</div>,
+        render: (temp, all) => <div>{all?.batch}</div>,
       },
-     
+
       {
         key: "status",
         label: "Status",
         sortable: true,
         render: (temp, all) => (
           <div>
-            {renderStatus(removeUnderScore("PENDING"))}
+            {renderStatus(all?.status)}
           </div>
         ),
       },
@@ -246,7 +260,9 @@ const PmsReview = ({ }) => {
           </div>
         </div>
       </PageBox>
-
+      <BottomPanelComponent open={selected.length > 0}>
+        <BottomActionView />
+      </BottomPanelComponent>
     </div>
   );
 };

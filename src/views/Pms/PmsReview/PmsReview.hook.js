@@ -18,6 +18,7 @@ const usePmsReview = ({}) => {
   const [listData, setListData] = useState({
     EMPLOYEES: [],
   });
+  const [selected, setSelected] = useState([]);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -25,7 +26,7 @@ const usePmsReview = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.pmsBatch);
+  } = useSelector((state) => state?.pmsReview);
 
   useEffect(() => {
     dispatch(
@@ -186,6 +187,17 @@ const usePmsReview = ({}) => {
     ];
   }, [listData]);
 
+  const handleCheckbox = useCallback((data) => {
+    const tempSelected = JSON.parse(JSON.stringify(selected));
+    const tempIndex = tempSelected.findIndex(sel => sel.id === data.id);
+    if (tempIndex >= 0) {
+      tempSelected.splice(tempIndex, 1);
+    } else {
+      tempSelected.push(data);
+    }
+    setSelected(tempSelected)
+  }, [selected, setSelected]);
+
   return {
     handlePageChange,
     // handleCellClick,
@@ -204,6 +216,8 @@ const usePmsReview = ({}) => {
     editData,
     configFilter,
     handleCsvDownload,
+    selected,
+    handleCheckbox,
   };
 };
 
