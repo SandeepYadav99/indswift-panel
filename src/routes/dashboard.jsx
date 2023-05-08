@@ -24,6 +24,7 @@ import ClaimHealthCard from "../views/ClaimsManagement/ClaimsDetail/components/C
 import PmsBatch from "../views/Pms/PmsBatch/PmsBatch.view";
 import ClaimTravelCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimTravelCard/ClaimTravelCard.view";
 import PmsReview from "../views/Pms/PmsReview/PmsReview.view";
+import PmsPending from "../views/Pms/PmsPending/PmsPending.view";
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -1050,6 +1051,18 @@ const dashboardRoutes = [
         navbarName: "Reviewer Wise Planner",
         icon: PeopleOutlined,
         component: PmsReview,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.PERFORMANCE_PENDING}`,
+        sidebarName: "Pending Review",
+        navbarName: "Pending Review",
+        icon: PeopleOutlined,
+        component: PmsPending,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
