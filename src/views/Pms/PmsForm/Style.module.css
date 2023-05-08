@@ -12,8 +12,10 @@
   align-items: center;
 }
 .container {
-   height: 300px;
-  width: 800px;
+   /* height: 300px; */
+  /* width: 800px; */
+  height: 80vh;
+  position: absolute;
   overflow-y: auto;
 }
 .thead {
@@ -37,6 +39,8 @@
 }
 .tableWrapper{
   display: flex;
+  flex-direction: column;
+  margin-top: 30px;
 }
 .tipWrap{
   display: flex;
@@ -54,4 +58,11 @@
   padding: 1rem 0;
   text-indent: 10px;
   border: none;
+}
+.lowerBtnwr{
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  padding: 1.2rem;
+  position: relative;
+  bottom: 0;
+  width: 100vw;
 }

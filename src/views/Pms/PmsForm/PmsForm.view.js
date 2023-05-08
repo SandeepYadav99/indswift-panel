@@ -3,7 +3,7 @@ import styles from "./Style.module.css";
 import logo from "../../../assets/img/login logo@2x.png";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
-import { Delete } from "@material-ui/icons";
+import ButtonLowerView from "./component/ButtonLower/ButtonLower.view";
 const data = [
   {
     id: 1,
@@ -60,14 +60,16 @@ const data = [
     email: "mary@example.com",
     country: "UK",
     city: "London",
-  },{
+  },
+  {
     id: 8,
     name: "Mary",
     age: 39,
     email: "mary@example.com",
     country: "UK",
     city: "London",
-  },{
+  },
+  {
     id: 9,
     name: "Mary",
     age: 39,
@@ -90,7 +92,8 @@ const data = [
     email: "mary@example.com",
     country: "UK",
     city: "London",
-  },{
+  },
+  {
     id: 12,
     name: "Mary",
     age: 39,
@@ -106,9 +109,22 @@ const data = [
     country: "UK",
     city: "London",
   },
-
-
-
+  {
+    id: 14,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },
+  {
+    id: 15,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },
 ];
 
 const CustomDataGrid = () => {
@@ -116,6 +132,21 @@ const CustomDataGrid = () => {
     { key: "id", title: "ID", fixed: true },
     { key: "name", title: "Name", readOnly: true },
     { key: "age", title: "Age", text: "xyz" },
+    { key: "email", title: "Email", readOnly: true },
+    { key: "country", title: "Country" },
+    { key: "city", title: "City" },
+    { key: "email", title: "Email" },
+    { key: "country", title: "Country" },
+    { key: "city", title: "City" },
+    { key: "email", title: "Email" },
+    { key: "country", title: "Country" },
+    { key: "city", title: "City" },
+    { key: "email", title: "Email" },
+    { key: "country", title: "Country" },
+    { key: "city", title: "City" },
+    { key: "email", title: "Email" },
+    { key: "country", title: "Country" },
+    { key: "city", title: "City" },
     { key: "email", title: "Email" },
     { key: "country", title: "Country" },
     { key: "city", title: "City" },
@@ -161,7 +192,7 @@ const CustomDataGrid = () => {
               cellSpacing: "0",
               borderSpacing: "0",
               cellpadding: "0",
-              height: '100px'
+              height: "100px",
             }}
           >
             <thead>
@@ -173,7 +204,7 @@ const CustomDataGrid = () => {
                       position: "sticky",
                       left: fixed ? 0 : undefined,
                       top: 0,
-                      zIndex: fixed ? 10 : 9
+                      zIndex: fixed ? 10 : 9,
                     }}
                     className={styles.thead}
                   >
@@ -223,7 +254,10 @@ const CustomDataGrid = () => {
               ))}
             </tbody>
           </table>
+          <div className={styles.lowerBtnwr}>
+          <ButtonLowerView />
         </div>
+        </div>   
       </div>
     </div>
   );
