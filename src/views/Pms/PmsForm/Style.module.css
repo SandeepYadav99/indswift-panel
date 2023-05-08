@@ -1,0 +1,8 @@
+.container {
+    /* height: 300px; */
+    width: 500px;
+    overflow-y: auto;
+  }
+  .thead{
+    background: #ECF7FF 0% 0% no-repeat padding-box
+  }
