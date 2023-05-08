@@ -260,7 +260,7 @@ const PmsReview = ({ }) => {
           </div>
         </div>
       </PageBox>
-      <BottomPanelComponent open={selected.length > 0}>
+      <BottomPanelComponent open={true || selected.length > 0}>
         <BottomActionView />
       </BottomPanelComponent>
     </div>
