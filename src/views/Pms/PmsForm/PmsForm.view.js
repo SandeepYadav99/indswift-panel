@@ -37,6 +37,78 @@ const data = [
     country: "UK",
     city: "London",
   },
+  {
+    id: 5,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },
+  {
+    id: 6,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },
+  {
+    id: 7,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },{
+    id: 8,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },{
+    id: 9,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },
+  {
+    id: 10,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },
+  {
+    id: 11,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },{
+    id: 12,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },
+  {
+    id: 13,
+    name: "Mary",
+    age: 39,
+    email: "mary@example.com",
+    country: "UK",
+    city: "London",
+  },
+
+
+
 ];
 
 const CustomDataGrid = () => {
@@ -89,6 +161,7 @@ const CustomDataGrid = () => {
               cellSpacing: "0",
               borderSpacing: "0",
               cellpadding: "0",
+              height: '100px'
             }}
           >
             <thead>
@@ -97,8 +170,10 @@ const CustomDataGrid = () => {
                   <th
                     key={key}
                     style={{
-                      position: fixed ? "sticky" : "static",
+                      position: "sticky",
                       left: fixed ? 0 : undefined,
+                      top: 0,
+                      zIndex: fixed ? 10 : 9
                     }}
                     className={styles.thead}
                   >

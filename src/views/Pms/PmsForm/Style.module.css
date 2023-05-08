@@ -12,13 +12,14 @@
   align-items: center;
 }
 .container {
-  /* height: 300px; */
+   height: 300px;
   width: 800px;
   overflow-y: auto;
 }
 .thead {
   background: #ecf7ff 0% 0% no-repeat padding-box;
   padding: 10px 0;
+  z-index: 10;
 }
 .formUpper > img{
   width: 140px;
