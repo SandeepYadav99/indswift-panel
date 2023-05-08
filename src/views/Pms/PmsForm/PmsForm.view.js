@@ -4,6 +4,9 @@ import logo from "../../../assets/img/login logo@2x.png";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
 import ButtonLowerView from "./component/ButtonLower/ButtonLower.view";
+import FormInput from "./component/FormInput/FormInput";
+import FormDropdown from "./component/FormDropdown/FormDropdown";
+
 const data = [
   {
     id: 1,
@@ -236,20 +239,18 @@ const CustomDataGrid = () => {
                       }}
                     >
                       <div className={styles.inputWrap}>
-                        <input
-                          className={
-                            readOnly ? styles.readOnlyClass : styles.inputComp
-                          }
-                          type="text"
+                      <FormInput
                           value={row[key]}
                           onChange={(e) =>
                             handleInputChange(row.id, key, e.target.value)
                           }
                           readOnly={readOnly}
+                          // isError={true}
                         />
                       </div>
                     </td>
                   ))}
+                  {/* <FormDropdown /> */}
                 </tr>
               ))}
             </tbody>
