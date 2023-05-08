@@ -43,7 +43,7 @@ const RouteComponent = () => (
     <Route path={RouteName.OFFER_LETTER} component={OfferConfirmation} />
     <Route path={RouteName.CANDIDATES_SUCCESS} component={ShareSuccess} />
     <Route path={RouteName.OFFER_SUCCESS} component={SubmittedResponse} />
-    <Route path={'/grid/form'} component={CustomDataGrid} />
+    <Route path={`${RouteName.PMS_REVIEW_FORM}:id`} component={CustomDataGrid} />
 
 
 

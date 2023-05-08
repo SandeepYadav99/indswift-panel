@@ -104,6 +104,6 @@ export default {
 
   PERFORMANCE_BATCH:'/pm/batch',
   PERFORMANCE_REVIEW:'/pm/review',
-  PERFORMANCE_PENDING:'/pm/pending'
-
+  PERFORMANCE_PENDING:'/pm/pending',
+  PMS_REVIEW_FORM: '/pms/submission/'
 };

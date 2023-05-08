@@ -66,3 +66,8 @@
   bottom: 0;
   width: 100vw;
 }
+
+.label {
+  font-size: 0.8rem;
+  padding: 4px
+}

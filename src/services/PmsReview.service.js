@@ -22,3 +22,6 @@ export async function serviceAlignPmsBatch(batchIds) {
     return await postRequest('pms/align/batches', { batch_ids: batchIds })
 }
 
+export async function serviceGetPmsBatchDetail(batchId) {
+    return await postRequest('pms/batch/detail', { batch_id: batchId })
+}

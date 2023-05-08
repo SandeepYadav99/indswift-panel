@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Style.module.css";
-function FormInput({ onChange, readOnly, value, isError }) {
+function FormInput({ onChange, readOnly, value, isError, ...props }) {
   return (
     <input
       className={
@@ -13,6 +13,7 @@ function FormInput({ onChange, readOnly, value, isError }) {
       value={value}
       readOnly={readOnly}
       onChange={onChange}
+      {...props}
     />
   );
 }

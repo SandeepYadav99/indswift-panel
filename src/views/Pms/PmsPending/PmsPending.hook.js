@@ -134,7 +134,7 @@ const usePmsPending = ({}) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.emp_code}`); //+data.id
+    historyUtils.push(`${RouteName.PMS_REVIEW_FORM}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
