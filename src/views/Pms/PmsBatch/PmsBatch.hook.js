@@ -12,7 +12,9 @@ import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 import {serviceExportPMSBatch} from "../../../services/PmsBatch.service";
-const usePmsBatch = ({}) => {
+const usePmsBatch = ({ location }) => {
+  const reviewerId = location?.state?.reviewerId;
+  const batchType = location?.state?.type;
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
@@ -31,7 +33,10 @@ const usePmsBatch = ({}) => {
     dispatch(
       actionFetchPmsBatch(1, sortingData, {
         query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : null,
+        query_data: isMountRef.current ? queryData : (reviewerId ? [
+          { label: 'PMS Batch', name: 'pms_batch', type: 'select', value: batchType },
+          { label: 'PMS Batch', name: 'pms_reviewer_id', type: 'selectObject', value: reviewerId }
+        ] : []),
       })
     );
     isMountRef.current = true;

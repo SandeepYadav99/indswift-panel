@@ -24,7 +24,7 @@ import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import usePmsBatch from "./PmsBatch.hook";
 
-const PmsBatch = ({ }) => {
+const PmsBatch = ({ location }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -41,7 +41,7 @@ const PmsBatch = ({ }) => {
     configFilter,
     warehouses,
     handleCsvDownload,
-  } = usePmsBatch({});
+  } = usePmsBatch({location});
 
   const {
     data,

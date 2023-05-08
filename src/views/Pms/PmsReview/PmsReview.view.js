@@ -44,7 +44,10 @@ const PmsReview = ({ }) => {
     warehouses,
     handleCsvDownload,
       handleCheckbox,
-    selected
+    selected,
+    isSending,
+      handleSend,
+      selectedEmps
   } = usePmsReview({});
 
   const {
@@ -68,7 +71,7 @@ const PmsReview = ({ }) => {
         <div className={styles.firstCellFlex}>
           <div className={styles.flex}>
             <Checkbox
-                disabled={data?.status === Constants.GENERAL_STATUS.PENDING }
+                disabled={obj?.status !== Constants.PMS_BATCH_STATUS.PENDING }
                 onChange={() => {handleCheckbox(obj)}}
                 checked={selectedIndex >= 0}
                 value="secondary"
@@ -101,8 +104,8 @@ const PmsReview = ({ }) => {
       },
       {
         key: "name",
-        label: "EMPLOYEE",
-        sortable: true,
+        label: "Reviewer Status",
+        sortable: false,
         render: (value, all) => <div><StatusPill status={all?.reviewer?.status} /></div>,
       },
       {
@@ -111,7 +114,7 @@ const PmsReview = ({ }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.grade?.code}
+            {all?.reviewer?.grade?.code}
           </div>
         ),
       },
@@ -140,9 +143,9 @@ const PmsReview = ({ }) => {
 
 
       {
-        key: "doj",
-        label: "DOJ",
-        sortable: false,
+        key: "total_employees",
+        label: "No Of Reviews",
+        sortable: true,
         render: (temp, all) => <div>{all?.total_employees}</div>,
       },
       {
@@ -156,7 +159,7 @@ const PmsReview = ({ }) => {
         key: "batch",
         label: "BATCH",
         sortable: false,
-        render: (temp, all) => <div>{all?.batch}</div>,
+        render: (temp, all) => <div>{all?.batch} <br/>{all?.form_type}</div>,
       },
 
       {
@@ -260,8 +263,8 @@ const PmsReview = ({ }) => {
           </div>
         </div>
       </PageBox>
-      <BottomPanelComponent open={true || selected.length > 0}>
-        <BottomActionView />
+      <BottomPanelComponent open={selected.length > 0}>
+        <BottomActionView reviewers={selected.length} employees={selectedEmps} handleSend={handleSend} isSubmitting={isSending} />
       </BottomPanelComponent>
     </div>
   );

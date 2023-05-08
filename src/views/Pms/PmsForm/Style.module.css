@@ -12,10 +12,11 @@
   align-items: center;
 }
 .container {
+  margin: auto;
   width: 100%;
-  height: 80vh;
-  position: absolute;
-  overflow-y: auto;
+  max-height: 60vh;
+  /*position: absolute;*/
+  overflow: scroll;
 }
 .thead {
   background: #ecf7ff 0% 0% no-repeat padding-box;

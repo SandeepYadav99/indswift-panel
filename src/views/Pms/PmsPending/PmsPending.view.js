@@ -34,7 +34,7 @@ const PmsPending = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.pmsBatch);
+  } = useSelector((state) => state.pmsPending);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -48,8 +48,7 @@ const PmsPending = ({}) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span> <br />
-            <span className={styles.productName}>{obj?.emp_code}</span> <br />
+            <span className={styles.productName}>{obj?.form_type}</span> <br />
           </div>
         </div>
       );
@@ -69,7 +68,7 @@ const PmsPending = ({}) => {
         key: "batch",
         label: "Batch",
         sortable: false,
-        render: (temp, all) => <div>{all?.grade?.code}</div>,
+        render: (temp, all) => <div>{all?.batch}</div>,
       },
       {
         key: "reviewer",
@@ -77,8 +76,7 @@ const PmsPending = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.pms?.name} <br />
-            {all?.pms?.code}
+            {all?.total_employees}
           </div>
         ),
       },

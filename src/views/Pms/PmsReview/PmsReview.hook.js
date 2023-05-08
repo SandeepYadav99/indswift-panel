@@ -1,23 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  actionAlignPmsReview,
   actionCreatePmsReview,
   actionDeletePmsReview,
   actionFetchPmsReview,
   actionSetPagePmsReview,
-  actionUpdatePmsReview,
 } from "../../../actions/PmsReview.action";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-import {serviceExportPMSReview} from "../../../services/PmsReview.service";
+import {serviceAlignPmsBatch, serviceExportPMSReview} from "../../../services/PmsReview.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 const usePmsReview = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
   });
+  const [isSending, setIsSending] = useState(false);
   const [selected, setSelected] = useState([]);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -70,8 +72,6 @@ const usePmsReview = ({}) => {
     (data, type) => {
       if (type == "CREATE") {
         dispatch(actionCreatePmsReview(data));
-      } else {
-        dispatch(actionUpdatePmsReview(data));
       }
       setEditData(null);
     },
@@ -150,7 +150,10 @@ const usePmsReview = ({}) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.emp_code}`); //+data.id
+    historyUtils.push(`${RouteName.PERFORMANCE_BATCH}`, {
+      reviewerId: data.reviewer_id,
+      type: data.batch,
+    }); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
@@ -198,6 +201,31 @@ const usePmsReview = ({}) => {
     setSelected(tempSelected)
   }, [selected, setSelected]);
 
+  const selectedEmps = useMemo(() => {
+    let total = 0;
+    selected.forEach((val) => {
+      total+= val?.total_employees;
+    });
+    return total;
+  }, [selected]);
+
+  const handleSend = useCallback(() => {
+    if (!isSending) {
+      setIsSending(true);
+      const batchIds = selected.map(val => val.id);
+      serviceAlignPmsBatch(batchIds).then((res) => {
+        if(!res.error) {
+          SnackbarUtils.success('Reviews Aligned SuccessFully');
+          setSelected([]);
+          dispatch(actionAlignPmsReview(batchIds));
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSending(false);
+      });
+    }
+  }, [selected, isSending, setIsSending, setSelected]);
+
   return {
     handlePageChange,
     // handleCellClick,
@@ -218,6 +246,9 @@ const usePmsReview = ({}) => {
     handleCsvDownload,
     selected,
     handleCheckbox,
+    isSending,
+    handleSend,
+    selectedEmps
   };
 };
 

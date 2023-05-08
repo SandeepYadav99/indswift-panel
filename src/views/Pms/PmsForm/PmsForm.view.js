@@ -129,7 +129,7 @@ const data = [
 
 const CustomDataGrid = () => {
   const [columns, setColumns] = useState([
-    { key: "id", title: "ID", fixed: true },
+    { key: "id", title: "ID", fixed: true,  readOnly: true },
     { key: "name", title: "Name", readOnly: true },
     { key: "age", title: "Age", text: "xyz" },
     { key: "email", title: "Email", readOnly: true },
@@ -254,10 +254,10 @@ const CustomDataGrid = () => {
               ))}
             </tbody>
           </table>
-          <div className={styles.lowerBtnwr}>
+        </div>
+        <div className={styles.lowerBtnwr}>
           <ButtonLowerView />
         </div>
-        </div>   
       </div>
     </div>
   );

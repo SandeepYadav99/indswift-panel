@@ -11,5 +11,5 @@ export async function serviceDeletePmsPending(params) {
     return await postRequest('pm/delete', params);
 }
 export async function serviceGetPmsPending(params) {
-    return await postRequest('pms/batches', params);
+    return await postRequest('pms/my/batches', params);
 }

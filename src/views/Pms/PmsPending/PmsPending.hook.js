@@ -24,7 +24,7 @@ const usePmsPending = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.pmsBatch);
+  } = useSelector((state) => state?.pmsPending);
 
   useEffect(() => {
     dispatch(

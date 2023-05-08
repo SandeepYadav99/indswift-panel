@@ -15,6 +15,7 @@ import {
     DELETE_ITEM
 } from '../actions/PmsReview.action';
 import Constants from '../config/constants';
+import LogUtils from "../libs/LogUtils";
 
 function mapPresetPRequest(all, pageId) {
     return all.filter((val, index) => {
@@ -85,22 +86,14 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
         }
         case UPDATE_DATA: {
             if (action.payload) {
-                const prevState = state.all;
-                let tIndex = null;
-                prevState.some((val, index) => {
-                    if (val.id == action.payload.id) {
-                        tIndex = index;
-                        return true;
+                const prevState = [...state.all];
+                const batchIds = action?.payload;
+                prevState.forEach((val) => {{
+                    if (batchIds.indexOf(val.id) >= 0) {
+                        val.status = Constants.PMS_BATCH_STATUS.REVIEW_PENDING;
                     }
-                });
-                // const newState = state.all.map((val) => {
-                //     if (val.id == action.payload.id) {
-                //         return { ...val, status: action.payload.status == 'SUSPEND' ? 'SUSPEND' : 'ACTIVE' };
-                //     } return { ...val };
-                // });
-                if (tIndex != null) {
-                    prevState[tIndex] = action.payload;
-                }
+                }});
+                LogUtils.log('prevState', prevState);
                 const tableData = mapPresetPRequest(prevState, state.currentPage);
                 return {...state, all: prevState, data: tableData};
             }
