@@ -23,7 +23,7 @@ const TableCell = ({
     } else {
       return (
         <div>
-            <h2>{value}</h2>
+          <p>{value}</p>
         </div>
         // <FormInput
         //   value={value ? value : ""}
@@ -117,12 +117,7 @@ const TableHead = ({ columns }) => {
 };
 
 const PmsFormDetail = ({ route }) => {
-  const {
-    columns,
-    rows,
-    processedColumns,
-    form,
-  } = UsePmsFormDetail({});
+  const { columns, rows, processedColumns, form } = UsePmsFormDetail({});
   return (
     <div>
       <div className={styles.pmsformWrap}>
@@ -152,22 +147,55 @@ const PmsFormDetail = ({ route }) => {
             <TableHead columns={columns} />
             <tbody>
               {rows?.map((row, rowIndex) => (
-                <tr key={row?.id}>
-                  {processedColumns.map(
-                    ({ key, fixed, readOnly, render, ...props }, index) => (
-                      <TableCell
-                        value={form[`${rowIndex}_${key}`]}
-                        row={row}
-                        key={key}
-                        name={`${rowIndex}_${key}`}
-                        fixed={fixed}
-                        readOnly={readOnly}
-                        render={render}
-                        {...props}
-                      />
-                    )
-                  )}
-                </tr>
+                <>
+                  <tr key={row?.id}>
+                    {processedColumns.map(
+                      (
+                        { key, fixed, readOnly, render, rating, ...props },
+                        index
+                      ) => (
+                        <TableCell
+                          value={rating}
+                          row={row}
+                          key={key}
+                          name={`${rowIndex}_${key}`}
+                          fixed={fixed}
+                          readOnly={readOnly}
+                          render={render}
+                          {...props}
+                        />
+                      )
+                    )}
+                  </tr>
+                  <tr key={row?.id}>
+                    {processedColumns.map(
+                      (
+                        { key, fixed, readOnly, render, rating, ...props },
+                        index
+                      ) => (
+                        <TableCell
+                        //   value={rating}
+                          
+                          {...props}
+                        />
+                      )
+                    )}
+                  </tr>{" "}
+                  <tr key={row?.id}>
+                    {processedColumns.map(
+                      (
+                        { key, fixed, readOnly, render, rating, ...props },
+                        index
+                      ) => (
+                        <TableCell
+                          value={rating}
+                           
+                          {...props}
+                        />
+                      )
+                    )}
+                  </tr>
+                </>
               ))}
             </tbody>
           </table>
