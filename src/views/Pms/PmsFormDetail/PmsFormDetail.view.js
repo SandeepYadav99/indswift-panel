@@ -151,7 +151,7 @@ const PmsFormDetail = ({ route }) => {
                   <tr key={row?.id}>
                     {processedColumns.map(
                       (
-                        { key, fixed, readOnly, render, rating, ...props },
+                        { key, fixed, readOnly, render, rating,ratings, ...props },
                         index
                       ) => (
                         <TableCell
@@ -170,12 +170,11 @@ const PmsFormDetail = ({ route }) => {
                   <tr key={row?.id}>
                     {processedColumns.map(
                       (
-                        { key, fixed, readOnly, render, rating, ...props },
+                        { key, fixed, readOnly, render, rating,ratings, ...props },
                         index
                       ) => (
                         <TableCell
-                        //   value={rating}
-                          
+                          value={ratings?.rating}
                           {...props}
                         />
                       )
@@ -184,11 +183,25 @@ const PmsFormDetail = ({ route }) => {
                   <tr key={row?.id}>
                     {processedColumns.map(
                       (
-                        { key, fixed, readOnly, render, rating, ...props },
+                        { key, fixed, readOnly, render, rating,ratings, ...props },
                         index
                       ) => (
                         <TableCell
-                          value={rating}
+                          value={ratings?.weighted}
+                           
+                          {...props}
+                        />
+                      )
+                    )}
+                  </tr>
+                  <tr key={row?.id}>
+                    {processedColumns.map(
+                      (
+                        { key, fixed, readOnly, render, rating,ratings, ...props },
+                        index
+                      ) => (
+                        <TableCell
+                          value={ratings?.percentage}
                            
                           {...props}
                         />
