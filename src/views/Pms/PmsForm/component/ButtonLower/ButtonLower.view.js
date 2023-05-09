@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import { ButtonBase } from "@material-ui/core";
 
-const ButtonLowerView = () => {
+const ButtonLowerView = ({ handleSubmit }) => {
   return (
     <div className={styles.stickyBtnWrap}>
       <div className={styles.upperWrap}>
@@ -13,7 +13,7 @@ const ButtonLowerView = () => {
 
         <ButtonBase
           aria-haspopup="true"
-          //   onClick={}
+            onClick={handleSubmit}
           className={"createBtn"}
         >
           Submit
