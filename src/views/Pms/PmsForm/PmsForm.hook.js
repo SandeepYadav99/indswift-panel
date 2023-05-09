@@ -147,10 +147,15 @@ const usePmsForm = ({}) => {
 
     const handleInputChange = useCallback((name, value, type) => {
         const tForm = {...form};
-        if (!value || (isNumDec(value) && value <= 10)) {
+        if ((!value || (isNumDec(value) && value <= 10)) && type === 'NUMBER') {
             tForm[name] = value;
             processChanges(name, value);
         }
+        LogUtils.log('type', type, name, value);
+        if (type === 'DROPDOWN') {
+            tForm[name] = value;
+        }
+        LogUtils.log('tForm', tForm)
         setForm(tForm);
     }, [form, setForm, processChanges]);
 

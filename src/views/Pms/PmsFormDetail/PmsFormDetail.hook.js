@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router";
 import styles from "./Style.module.css";
+import {serviceGetPmsBatchDetail} from "../../../services/PmsReview.service";
 
 const data = [
   {
@@ -116,6 +117,7 @@ const UsePmsFormDetail = ({}) => {
       readOnly: true,
       render: (all) => <div className={styles.label}>{all.experience}</div>,
     },
+      ...data,
   ]);
   const [rows, setRows] = useState([...data]);
   const [form, setForm] = useState({});
@@ -143,20 +145,20 @@ const UsePmsFormDetail = ({}) => {
     return cols;
   }, [columns]);
 
- 
-  // useEffect(() => {
-  //     if (!isMount.current && id) {
-  //         serviceGetPmsBatchDetail(id).then((res) => {
-  //             if (!res.error) {
-  //                 LogUtils.log('res', res.data);
-  //                 setRows(res.data?.employees);
-  //                 setColumns([...columns, ...res?.data?.form]);
-  //             }
-  //         });
-  //         isMount.current = true;
-  //     }
-  // }, [id]);
-console.log('===rows>',rows)
+
+  useEffect(() => {
+      if (!isMount.current) {
+          serviceGetPmsBatchDetail('6459e1d065f95dd7b21a8d51').then((res) => {
+              if (!res.error) {
+                  // LogUtils.log('res', res.data);
+                  setRows(res.data?.employees);
+                  // setColumns([...columns, ...res?.data?.form]);
+              }
+          });
+          isMount.current = true;
+      }
+  }, [id]);
+
   useEffect(() => {
     const tForm = {};
     rows.forEach((row, rowIndex) => {

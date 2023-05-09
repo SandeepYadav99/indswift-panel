@@ -15,14 +15,15 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
         if (render) {
             return null;
         }
-        LogUtils.log('group', group);
         if (group === 'CPC') {
+            LogUtils.log('value', value);
             return (
                 <FormDropdown
-                    value={value}
+                    name={name}
+                    value={value ? value : ''}
                     isError={isError}
                     onChange={(e) => {
-                        handleInputChange(e.target.name, e.target.value, 'NUMBER')
+                        handleInputChange(e.target.name, e.target.value, 'DROPDOWN')
                     }}
                 />
             )
@@ -31,7 +32,7 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
                 <FormInput
                     value={value ? value : ''}
                     onChange={(e) => {
-                        handleInputChange(e.target.name, e.target.value, 'SELECT')
+                        handleInputChange(e.target.name, e.target.value, 'NUMBER')
                     }}
                     readOnly={readOnly}
                     name={name}
