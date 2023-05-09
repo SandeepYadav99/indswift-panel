@@ -1,37 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import styles from './Style.module.css';
+import csx from 'classnames';
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    '& .MuiSelect-root': {
-      border: 'none',
-      outline: 'none',
-    },
-  },
-}));
-
-function FormDropdown({ value, onChange }) {
-  const classes = useStyles();
-
+function FormDropdown({ value, name, onChange, isError }) {
   return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="dropdown-label">Select</InputLabel>
-      <Select
-        labelId="dropdown-label"
-        id="dropdown"
-        value={value}
-        onChange={onChange}
-      >
-        <MenuItem value={'Yes'}>Yes</MenuItem>
-        <MenuItem value={'No'}>No</MenuItem>
-      </Select>
-    </FormControl>
+      <select className={csx(styles.inputComp, (isError ? styles.ErrorField : ''))} name={name}  value={value} onChange={onChange}>
+          <option value=""></option>
+          <option value="YES">YES</option>
+          <option value="NO">NO</option>
+      </select>
   );
 }
 

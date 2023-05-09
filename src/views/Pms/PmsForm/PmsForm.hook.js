@@ -62,8 +62,9 @@ const usePmsForm = ({}) => {
                 col.parameters.forEach((param, paramIndex) => {
                     cols.push({
                         ...param,
-                        key: `${colIndex}_${paramIndex}`
-                    })
+                        key: `${colIndex}_${paramIndex}`,
+                        group: col.group,
+                    });
                 });
             } else {
                 cols.push(col);
@@ -100,14 +101,14 @@ const usePmsForm = ({}) => {
 
 
     const checkValidation = useCallback(() => {
-        const tErr = {};
+        const tErr = {...errors};
         Object.keys(form).forEach((key) => {
             if (!form[key]) {
                 tErr[key] = true;
             }
         });
         return tErr;
-    }, [form]);
+    }, [form, errors]);
 
     const calculateAdjacentCells = useCallback((key) => {
         const arr = key.split('_');
@@ -144,7 +145,7 @@ const usePmsForm = ({}) => {
         setErrors(tErr);
     }, [calculateAdjacentCells, form, errors, setErrors]);
 
-    const handleInputChange = useCallback((name, value) => {
+    const handleInputChange = useCallback((name, value, type) => {
         const tForm = {...form};
         if (!value || (isNumDec(value) && value <= 10)) {
             tForm[name] = value;

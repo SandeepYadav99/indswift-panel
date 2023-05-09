@@ -8,8 +8,39 @@ import FormInput from "./component/FormInput/FormInput";
 import usePmsForm from "./PmsForm.hook";
 import LogUtils from "../../../libs/LogUtils";
 import handleSubmit from "redux-form/lib/handleSubmit";
+import FormDropdown from "./component/FormDropdown/FormDropdown";
 
-const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, value, isError, ...props}) => {
+const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, value, isError, group, ...props}) => {
+    const inputField = useMemo(() => {
+        if (render) {
+            return null;
+        }
+        LogUtils.log('group', group);
+        if (group === 'CPC') {
+            return (
+                <FormDropdown
+                    value={value}
+                    isError={isError}
+                    onChange={(e) => {
+                        handleInputChange(e.target.name, e.target.value, 'NUMBER')
+                    }}
+                />
+            )
+        } else {
+            return (
+                <FormInput
+                    value={value ? value : ''}
+                    onChange={(e) => {
+                        handleInputChange(e.target.name, e.target.value, 'SELECT')
+                    }}
+                    readOnly={readOnly}
+                    name={name}
+                    isError={isError}
+                    type={'number'}
+                />
+            );
+        }
+    }, [render, group, value, handleInputChange, name, isError]);
     return (
         <td
             key={key}
@@ -21,16 +52,7 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
             }}
         >
             {render ? render(row) : (<div className={styles.inputWrap}>
-                <FormInput
-                    value={value ? value : ''}
-                    onChange={(e) => {
-                        handleInputChange(e.target.name, e.target.value)
-                    }}
-                    readOnly={readOnly}
-                    name={name}
-                    isError={isError}
-                    type={'number'}
-                />
+                {inputField}
             </div>)}
         </td>
     );
