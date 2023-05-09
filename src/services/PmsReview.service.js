@@ -25,3 +25,7 @@ export async function serviceAlignPmsBatch(batchIds) {
 export async function serviceGetPmsBatchDetail(batchId) {
     return await postRequest('pms/batch/detail', { batch_id: batchId })
 }
+
+export async function serviceAddPMSReview(params) {
+    return await postRequest('pms/add/review', {...params});
+}

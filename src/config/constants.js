@@ -1,6 +1,8 @@
 /* eslint-disable indent,linebreak-style */
 const TABLE_LIMIT = 50;
-const tempLevel = true
+const tempLevel = !(
+    !process.env.NODE_ENV || process.env.NODE_ENV === "development"
+);
 const tempDate = new Date();
 const isProduction = false;
 

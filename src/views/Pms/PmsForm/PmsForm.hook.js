@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useParams} from "react-router";
-import {serviceGetPmsBatchDetail} from "../../../services/PmsReview.service";
+import {serviceAddPMSReview, serviceGetPmsBatchDetail} from "../../../services/PmsReview.service";
 import LogUtils from "../../../libs/LogUtils";
 import styles from './Style.module.css';
 import {isNum, isNumDec} from "../../../libs/RegexUtils";
@@ -145,6 +145,16 @@ const usePmsForm = ({}) => {
         setErrors(tErr);
     }, [calculateAdjacentCells, form, errors, setErrors]);
 
+    const removeError = useCallback(
+        title => {
+            const temp = JSON.parse(JSON.stringify(errors));
+            delete temp[title];
+            setErrors(temp);
+        },
+        [setErrors, errors],
+    );
+
+
     const handleInputChange = useCallback((name, value, type) => {
         const tForm = {...form};
         if ((!value || (isNumDec(value) && value <= 10)) && type === 'NUMBER') {
@@ -154,17 +164,53 @@ const usePmsForm = ({}) => {
         LogUtils.log('type', type, name, value);
         if (type === 'DROPDOWN') {
             tForm[name] = value;
+            removeError(name);
         }
-        LogUtils.log('tForm', tForm)
         setForm(tForm);
-    }, [form, setForm, processChanges]);
+    }, [form, setForm, processChanges, removeError]);
+
+    const processData = useCallback(() => {
+        const tRows = {...rows};
+        const data = {};
+        Object.keys(form).forEach(key => {
+            const arr = key.split('_');
+            const row = arr[0];
+            const rowData = tRows[row];
+            const empId = rowData.id;
+
+            const cat = arr[1];
+            const param = arr[2];
+            const val = form[key];
+
+
+            if (!(empId in data)) {
+                data[empId] = {};
+            }
+            data[empId] = {...data[empId], ...{[`${cat-5}_${param}`]: val}};
+        });
+        return data;
+    }, [form, columns, rows]);
+
+    const submitToServer = useCallback(() => {
+        const data = processData();
+        serviceAddPMSReview({
+            batch_id: id,
+            reviews: data,
+        }).then((res) => {
+
+        });
+    }, [form, id, processData]);
 
     const handleSubmit = useCallback(() => {
         const validationErr = checkValidation();
+        LogUtils.log('validationb err', validationErr);
         if (Object.keys(validationErr).length > 0) {
             setErrors(validationErr);
+            return true;
         }
-    }, [checkValidation, setErrors]);
+        LogUtils.log('submit to server');
+        submitToServer()
+    }, [checkValidation, setErrors, submitToServer]);
 
     return {
         columns,

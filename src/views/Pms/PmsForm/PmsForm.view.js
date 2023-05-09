@@ -16,7 +16,6 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
             return null;
         }
         if (group === 'CPC') {
-            LogUtils.log('value', value);
             return (
                 <FormDropdown
                     name={name}
@@ -50,6 +49,7 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
                 left: fixed ? 0 : undefined,
                 border: "2px solid #EBEDF4",
                 padding: "0",
+                zIndex: fixed ? 10: 9
             }}
         >
             {render ? render(row) : (<div className={styles.inputWrap}>
@@ -71,7 +71,7 @@ const TableHead = ({columns}) => {
                             className={styles.thead}
                         >
                             <div className={styles.tipWrap}>
-                                {param?.title}
+                                {param?.title?.replace(/_/g, " ")}
                                 {param?.description && (
                                     <Tooltip title={param?.description}>
                                         <IconButton size="small">
@@ -106,7 +106,7 @@ const TableHead = ({columns}) => {
                         className={styles.thead}
                     >
                         <div className={styles.tipWrap}>
-                            {title}
+                            {title?.replace(/_/g, " ")}
                             {text && (
                                 <Tooltip title={text}>
                                     <IconButton size="small">
