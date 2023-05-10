@@ -15,7 +15,7 @@ const usePmsForm = ({}) => {
             title: "Employee",
             fixed: true,
             readOnly: true,
-            render: (all) => <div className={styles.label}>{all.name} <br/>{all.code}</div>
+            render: (all) => <div className={styles.label21}><span>{all.name}</span> <br/><p>{all.code}</p></div>
         },
         {
             is_static: true,

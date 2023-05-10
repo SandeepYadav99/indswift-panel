@@ -73,10 +73,22 @@
 .label {
   font-size: 0.8rem;
   padding: 4px;
-  background: rgb(246 247 255);
+  /* background: rgb(246 247 255); */
   z-index: 10;
 }
-
+.label21{
+  font-size: 0.8rem;
+  padding: 4px;
+  z-index: 10;
+}
+.label21 > span{
+  font-weight: 600;
+  white-space: nowrap;
+}
+.label21 > p{
+  margin: 0;
+  white-space: nowrap;
+}
 .inputWrap {
   position: relative;
   display: block;

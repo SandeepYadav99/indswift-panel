@@ -62,7 +62,7 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
                 border: "2px solid #EBEDF4",
                 padding: "0",
                 zIndex: fixed ? 10: 9,
-                background: fixed ? 'rgb(246 247 255)':''
+                background: readOnly ? '#EDF2F5 ':'#ffffff'
             }}
         >
             {render ? render(row) : (<div className={styles.inputWrap}>
@@ -115,7 +115,7 @@ const TableHead = ({columns}) => {
                             position: "sticky",
                             left: fixed ? 0 : undefined,
                             top: 0,
-                            zIndex: fixed ? 10 : 9,
+                            zIndex: fixed ? 100 : 9,
                         }}
                         className={styles.thead}
                     >
