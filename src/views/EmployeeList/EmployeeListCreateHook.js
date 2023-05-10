@@ -29,7 +29,7 @@ const SALARY_KEYS = [
   "basic_salary",
   "hra",
   "education_allowance",
-  "medical_allowance",
+  // "medical_allowance",
   "special_allowance",
   "earning_one",
   "pug",
@@ -52,7 +52,7 @@ const SALARY_KEYS = [
   "earning_four",
   "gratuity",
   "insurance",
-  "driver_incentive",
+  // "driver_incentive",
   "perf_bonus",
   "annual_bonus",
   "two_car_maintenance",
@@ -120,7 +120,7 @@ function EmployeeListCreateHook({ location }) {
     basic_salary: 0,
     hra: 0,
     education_allowance: 0,
-    medical_allowance: 0,
+    // medical_allowance: 0,
     special_allowance: 0,
     earning_one: 0,
     pug: 0,
@@ -143,7 +143,7 @@ function EmployeeListCreateHook({ location }) {
     earning_four: 0,
     gratuity: 0,
     insurance: 0,
-    driver_incentive: 0,
+    // driver_incentive: 0,
     perf_bonus: 0,
     annual_bonus: 0,
     two_car_maintenance: 0,
@@ -160,7 +160,7 @@ function EmployeeListCreateHook({ location }) {
     incremental_gross_salary: 0,
     earning2_vpf: 0,
     deduction_vpf: 0,
-    associate: 0,
+    // associate: 0,
     stability_incentive: 0,
     next_review_date: "",
     previous_review_date: "",
@@ -216,34 +216,80 @@ function EmployeeListCreateHook({ location }) {
       }
       req.then((res) => {
         const empData = res?.data;
-        const hodIndex = listData?.EMPLOYEES.findIndex((val) => val.id === empData?.hod_id);
-      if (hodIndex >= 0) {
-        empData.hod_id = listData?.EMPLOYEES[hodIndex];
-      }
-      const pmsIndex = listData?.EMPLOYEES.findIndex((val) => val.id === empData?.pms_reviewer_id);
-      if (pmsIndex >= 0) {
-        empData.pms_reviewer_id = listData?.EMPLOYEES[pmsIndex];
-      }
-      const jobRoleIndex = listData?.JOB_ROLES.findIndex((val) => val.id === empData?.job_role_id);
-      if (jobRoleIndex >= 0) {
-        empData.job_role_id = listData?.JOB_ROLES[jobRoleIndex];
-      }
-
-       const designationIndex = listData?.DESIGNATIONS.findIndex((val) => val.id === empData?.designation_id);
-       if (designationIndex >= 0) {
-         empData.designation_id = listData?.DESIGNATIONS[designationIndex];
-       }
-       const data = { image: "" };
-        Object.keys({ ...empData }).forEach((key) => {
-          if (key in initialForm && key !== 'image') {
-            data[key] = empData[key];
+        if (!candidateId) {
+          const hodIndex = listData?.EMPLOYEES.findIndex(
+            (val) => val.id === empData?.hod_id
+          );
+          if (hodIndex >= 0) {
+            empData.hod_id = listData?.EMPLOYEES[hodIndex];
           }
-        });
-        setForm({ ...initialForm, ...data  });
+          const pmsIndex = listData?.EMPLOYEES.findIndex(
+            (val) => val.id === empData?.pms_reviewer_id
+          );
+          if (pmsIndex >= 0) {
+            empData.pms_reviewer_id = listData?.EMPLOYEES[pmsIndex];
+          }
+          const jobRoleIndex = listData?.JOB_ROLES.findIndex(
+            (val) => val.id === empData?.job_role_id
+          );
+          if (jobRoleIndex >= 0) {
+            empData.job_role_id = listData?.JOB_ROLES[jobRoleIndex];
+          }
+
+          const designationIndex = listData?.DESIGNATIONS.findIndex(
+            (val) => val.id === empData?.designation_id
+          );
+          if (designationIndex >= 0) {
+            empData.designation_id = listData?.DESIGNATIONS[designationIndex];
+          }
+          const data = { image: "" };
+          Object.keys({ ...empData }).forEach((key) => {
+            if (key in initialForm && key !== "image") {
+              if (key === "state") {
+                data[key] = empData[key].toUpperCase();
+              } else {
+                data[key] = empData[key];
+              }
+            }
+          });
+          setForm({ ...initialForm, ...data });
+        } else {
+          const { salary } = empData;
+          Object.keys(salary).forEach(key => {
+            salary[key] /= 12;
+          });
+          const designationIndex = listData?.DESIGNATIONS.findIndex(
+            (val) => val.id === empData?.designation?.id
+          );
+          if (designationIndex >= 0) {
+            empData.designation_id = listData?.DESIGNATIONS[designationIndex];
+          }
+          const data = { image: "" };
+          Object.keys({ ...initialForm }).forEach((key) => {
+            if (key in initialForm && key !== "image") {
+              if (key === "location_id") {
+                data[key] = empData["location"]?.id;
+              } else if (key === "grade_id") {
+                data[key] = empData["grade"]?.id;
+              } else if (key === "department_id") {
+                data[key] = empData["department"]?.id;
+              } else if (key === "sub_department_id") {
+                data[key] = empData["sub_department"]?.id;
+              } else if (key === "cadre_id") {
+                data[key] = empData["cadre"]?.id;
+              } else if (key === "state") {
+                data[key] = empData[key]?.toUpperCase();
+              } else {
+                data[key] = empData[key];
+              }
+            }
+          });
+          setForm({ ...initialForm, ...data, ...salary });
+        }
       });
     }
   }, [candidateId, traineeId, listData]);
-
+  LogUtils.log("formLLL", form);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
@@ -260,7 +306,7 @@ function EmployeeListCreateHook({ location }) {
       "pms_reviewer_id",
       "gender",
       "dob",
-      "associate",
+      // "associate",
       "state",
       "blood_group",
       "personal_contact",
@@ -275,8 +321,11 @@ function EmployeeListCreateHook({ location }) {
       "previous_organisation",
       "uan_no",
       // "esi_no",
-      ...SALARY_KEYS,
+      // ...SALARY_KEYS,
     ];
+    if (!candidateId){
+      required.push(...SALARY_KEYS)
+    }
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
@@ -287,12 +336,13 @@ function EmployeeListCreateHook({ location }) {
         delete errors[val];
       }
     });
-
-    SALARY_KEYS.forEach((val) => {
-      if (form?.[val] && form?.[val] < 0 && !isNum(form?.[val]) ) {
-        errors[val] = true;
-      }
-    });
+    if (!candidateId) {
+      SALARY_KEYS.forEach((val) => {
+        if (form?.[val] && form?.[val] < 0 && !isNum(form?.[val])) {
+          errors[val] = true;
+        }
+      });
+    }
     if (form?.official_email && !isEmail(form?.official_email)) {
       errors["official_email"] = true;
     }
@@ -429,9 +479,9 @@ function EmployeeListCreateHook({ location }) {
         }
       });
       fd.append("children", JSON.stringify(ChildenRef.current.getData()));
-      fd.append('nominee',JSON.stringify([]));
-      candidateId && fd.append('candidate_id', candidateId);
-      traineeId && fd.append('trainee_id', traineeId);
+      fd.append("nominee", JSON.stringify([]));
+      candidateId && fd.append("candidate_id", candidateId);
+      traineeId && fd.append("trainee_id", traineeId);
       serviceCreateEmployees(fd).then((res) => {
         if (!res.error) {
           historyUtils.push("/employees");
@@ -446,21 +496,24 @@ function EmployeeListCreateHook({ location }) {
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     const isIncludesValid = ChildenRef.current.isValid();
-
+    LogUtils.log("errors==>", errors);
     if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
       setErrorData(errors);
       return true;
     }
-    ['children','nominee','createdAt','status','qualifications','_id'].forEach((item)=>{
-      delete form[item]
-    })
+    [
+      "children",
+      "nominee",
+      "createdAt",
+      "status",
+      "qualifications",
+      "_id",
+    ].forEach((item) => {
+      delete form[item];
+    });
+
     submitToServer();
-  }, [
-    checkFormValidation,
-    setErrorData,
-    form,
-    submitToServer,
-  ]);
+  }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
