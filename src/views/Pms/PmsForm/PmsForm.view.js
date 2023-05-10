@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from "react";
 import styles from "./Style.module.css";
 import logo from "../../../assets/img/login logo@2x.png";
-import {IconButton, Tooltip} from "@material-ui/core";
+import {IconButton, Tooltip,makeStyles } from "@material-ui/core";
 import {InfoOutlined} from "@material-ui/icons";
 import ButtonLowerView from "./component/ButtonLower/ButtonLower.view";
 import FormInput from "./component/FormInput/FormInput";
@@ -9,6 +9,18 @@ import usePmsForm from "./PmsForm.hook";
 import LogUtils from "../../../libs/LogUtils";
 import handleSubmit from "redux-form/lib/handleSubmit";
 import FormDropdown from "./component/FormDropdown/FormDropdown";
+
+const useStyles = makeStyles((theme) => ({
+    customTooltip: {
+      backgroundColor: 'white',
+      color: 'black',
+      fontSize:'.75rem',
+      fontWeight:'normal',
+      fontFamily:'Montserrat',
+      borderRadius:'10px'
+    },
+  }));
+  
 
 const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, value, isError, group, ...props}) => {
     const inputField = useMemo(() => {
@@ -49,7 +61,8 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
                 left: fixed ? 0 : undefined,
                 border: "2px solid #EBEDF4",
                 padding: "0",
-                zIndex: fixed ? 10: 9
+                zIndex: fixed ? 10: 9,
+                background: fixed ? 'rgb(246 247 255)':''
             }}
         >
             {render ? render(row) : (<div className={styles.inputWrap}>
@@ -60,6 +73,7 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
 };
 
 const TableHead = ({columns}) => {
+    const classes = useStyles();
     const parameterColumns = useMemo(() => {
         const thead = [];
         columns.forEach((col)=> {
@@ -73,7 +87,7 @@ const TableHead = ({columns}) => {
                             <div className={styles.tipWrap}>
                                 {param?.title?.replace(/_/g, " ")}
                                 {param?.description && (
-                                    <Tooltip title={param?.description}>
+                                    <Tooltip title={param?.description} classes={{ tooltip: classes.customTooltip }}>
                                         <IconButton size="small">
                                             <InfoOutlined color="secondary"/>
                                         </IconButton>
@@ -108,9 +122,9 @@ const TableHead = ({columns}) => {
                         <div className={styles.tipWrap}>
                             {title?.replace(/_/g, " ")}
                             {text && (
-                                <Tooltip title={text}>
+                                <Tooltip title={text} >
                                     <IconButton size="small">
-                                        <InfoOutlined color="secondary"/>
+                                        <InfoOutlined color="secondary" />
                                     </IconButton>
                                 </Tooltip>
                             )}
