@@ -86,25 +86,29 @@ const PmsPending = ({}) => {
         label: "Status",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore("PENDING"))}</div>
+          <div>{renderStatus(removeUnderScore(all.status))}</div>
         ),
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-          </div>
+           <>
+             {
+               all?.status === Constants.PMS_BATCH_STATUS.REVIEW_PENDING ? (<div>
+                 <IconButton
+                     className={"tableActionBtn"}
+                     color="secondary"
+                     disabled={isCalling}
+                     onClick={() => {
+                       handleViewDetails(all);
+                     }}
+                 >
+                   <InfoOutlined fontSize={"small"}/>
+                 </IconButton>
+               </div>) : (<></>)
+             }
+             </>
         ),
       },
     ];
@@ -146,7 +150,12 @@ const PmsPending = ({}) => {
             <div className={styles.newLine} />
           </div>
         </div>
-
+        <FilterComponent
+            is_progress={isFetching}
+            filters={configFilter}
+            handleSearchValueChange={handleSearchValueChange}
+            handleFilterDataChange={handleFilterDataChange}
+        />
         <div>
           <br />
           <div style={{ width: "100%" }}>

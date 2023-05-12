@@ -150,9 +150,15 @@ const usePmsReview = ({}) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
+    LogUtils.log({
+      reviewerId: data.reviewer_id,
+      pms_batch: data.batch,
+      pms_form_type: data.form_type
+    });
     historyUtils.push(`${RouteName.PERFORMANCE_BATCH}`, {
       reviewerId: data.reviewer_id,
-      type: data.batch,
+      pms_batch: data.batch,
+      pms_form_type: data.form_type
     }); //+data.id
   }, []);
 
@@ -160,17 +166,16 @@ const usePmsReview = ({}) => {
     return [
       {
         label: "PMS Review",
-        name: "pms_batch",
+        name: "batch",
         type: "select",
-        fields: ["DTY", "APMS", 'N/A'],
+        fields: ["DTY", "APMS"],
       },
 
       {
-        label: "PMS reviewer",
-        name: "pms_reviewer_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.PMS_EMPLOYEES,
+        label: "Form Type",
+        name: "form_type",
+        type: "select",
+        fields: ["TYPE_1", "TYPE_2", "TYPE_3", "TYPE_4"],
       },
       // {
       //   label: "Status",

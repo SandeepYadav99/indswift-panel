@@ -1030,7 +1030,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'pm',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
 
     },
     {
@@ -1067,7 +1067,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
     },
     {
         path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',

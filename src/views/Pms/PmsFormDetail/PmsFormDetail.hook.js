@@ -1,78 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router";
 import styles from "./Style.module.css";
-import { serviceGetPmsBatchDetail } from "../../../services/PmsReview.service";
+import {serviceGetPmsBatchDetail, serviceGetReviewDetail} from "../../../services/PmsReview.service";
 
-const data = [
-  {
-    title: "JOB_KNOWLEDGE",
-    weight: 1.25,
-    group: "FARS",
-    ratings: {
-      rating: 8,
-      weighted: 9,
-      percentage: 78.32,
-    },
-    parameters: [
-      {
-        title: "JOB_KNOWLEDGE",
-        description: "Consider",
-        rating: 7.2,
-      },
-    ],
-  },
-  {
-    title: "QUALITY_OF_WORK",
-    weight: 1.25,
-    group: "FARS",
-    ratings: {
-      rating: 5,
-      weighted: 6.25,
-      percentage: 78.32,
-    },
-    parameters: [
-      {
-        title: "QUALITY_OF_WORK",
-        description: "Consider",
-        rating: 3,
-      },
-    ],
-  },
-  {
-    title: "HYGIENE_&_CLEANLINESS",
-    weight: 1.25,
-    group: "BARS",
-    ratings: {
-      rating: 5,
-      weighted: 6.25,
-      percentage: 78.32,
-    },
-    parameters: [
-      {
-        title: "HYGIENE_&_CLEANLINESS",
-        description: "Consider",
-        rating: 5,
-      },
-      {
-        title: "HEALTH",
-        description: "Consider",
-        rating: 5,
-      },
-    ],
-  },
-  {
-    title: "RECOMMEND_FOR_PROMOTION",
-    weight: 0,
-    group: "CPC",
-    parameters: [
-      {
-        title: "RECOMMEND_FOR_PROMOTION",
-        description: "Consider",
-        rating: "YES",
-      },
-    ],
-  },
-];
 const UsePmsFormDetail = ({}) => {
   const { id } = useParams();
   const [columns, setColumns] = useState([
@@ -84,8 +14,8 @@ const UsePmsFormDetail = ({}) => {
       readOnly: true,
       render: (all) => (
         <div className={styles.label}>
-          {all.name} <br />
-          {all.code}
+          {all?.employee?.name} <br />
+          {all?.employee?.code}
         </div>
       ),
     },
@@ -94,32 +24,31 @@ const UsePmsFormDetail = ({}) => {
       key: "title",
       title: "Title",
       readOnly: true,
-      render: (all) => <div className={styles.label}>{all.designation}</div>,
+      render: (all) => <div className={styles.label}>{all?.employee?.designation}</div>,
     },
     {
       is_static: true,
       key: "location",
       title: "Location",
       readOnly: true,
-      render: (all) => <div className={styles.label}>{all.location}</div>,
+      render: (all) => <div className={styles.label}>{all?.employee?.location}</div>,
     },
     {
       is_static: true,
       key: "department",
       title: "DEPT./Sub Dept",
       readOnly: true,
-      render: (all) => <div className={styles.label}>{all.department}</div>,
+      render: (all) => <div className={styles.label}>{all?.employee?.department}</div>,
     },
     {
       is_static: true,
       key: "experience",
       title: "Experience",
       readOnly: true,
-      render: (all) => <div className={styles.label}>{all.experience}</div>,
-    },
-    ...data,
+      render: (all) => <div className={styles.label}>{all?.employee?.experience}</div>,
+    }
   ]);
-  const [rows, setRows] = useState([...data]);
+  const [rows, setRows] = useState([]);
   const [form, setForm] = useState({});
   const isMount = useRef(false);
 
@@ -144,11 +73,11 @@ const UsePmsFormDetail = ({}) => {
 
   useEffect(() => {
     if (!isMount.current) {
-      serviceGetPmsBatchDetail("6459e1d065f95dd7b21a8d51").then((res) => {
+      serviceGetReviewDetail("6458e3fb7893b118a41074ca").then((res) => {
         if (!res.error) {
           // LogUtils.log('res', res.data);
-          setRows(res.data?.employees);
-          // setColumns([...columns, ...res?.data?.form]);
+          setRows(res.data?.reviews);
+          setColumns([...columns, ...res?.data?.form_data]);
         }
       });
       isMount.current = true;

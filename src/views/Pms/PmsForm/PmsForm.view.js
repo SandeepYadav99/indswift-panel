@@ -9,6 +9,8 @@ import usePmsForm from "./PmsForm.hook";
 import LogUtils from "../../../libs/LogUtils";
 import handleSubmit from "redux-form/lib/handleSubmit";
 import FormDropdown from "./component/FormDropdown/FormDropdown";
+import SnackbarComponent from "../../../components/Snackbar.component";
+import {isSubmitting} from "redux-form";
 
 const useStyles = makeStyles((theme) => ({
     customTooltip: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius:'10px'
     },
   }));
-  
+
 
 const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, value, isError, group, ...props}) => {
     const inputField = useMemo(() => {
@@ -81,6 +83,12 @@ const TableHead = ({columns}) => {
                 col.parameters.forEach((param) => {
                     thead.push(
                         <th
+                            style={{
+                                position: "sticky",
+                                // left: fixed ? 0 : undefined,
+                                top: 35,
+                                zIndex: 100 ,
+                            }}
                             key={param.title}
                             className={styles.thead}
                         >
@@ -148,7 +156,9 @@ const PmsForm = ({route}) => {
         processedColumns,
         form,
         errors,
-        handleSubmit
+        handleSubmit,
+        isSubmitting,
+        handleDraft
     } = usePmsForm({});
     return (
         <div>
@@ -200,9 +210,14 @@ const PmsForm = ({route}) => {
                     </table>
                 </div>
                 <div className={styles.lowerBtnwr}>
-                    <ButtonLowerView handleSubmit={handleSubmit} />
+                    <ButtonLowerView
+                        handleSubmit={handleSubmit}
+                        isSubmitting={isSubmitting}
+                        handleDraft={handleDraft}
+                    />
                 </div>
             </div>
+            <SnackbarComponent />
         </div>
     );
 };

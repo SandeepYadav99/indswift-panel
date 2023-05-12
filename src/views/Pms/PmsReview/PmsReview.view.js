@@ -71,7 +71,7 @@ const PmsReview = ({ }) => {
         <div className={styles.firstCellFlex}>
           <div className={styles.flex}>
             <Checkbox
-                disabled={obj?.status !== Constants.PMS_BATCH_STATUS.PENDING }
+                disabled={obj?.status !== Constants.PMS_BATCH_STATUS.PENDING || obj?.reviewer.status !== Constants.GENERAL_STATUS.ACTIVE }
                 onChange={() => {handleCheckbox(obj)}}
                 checked={selectedIndex >= 0}
                 value="secondary"

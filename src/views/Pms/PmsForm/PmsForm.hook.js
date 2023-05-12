@@ -1,13 +1,22 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useParams} from "react-router";
-import {serviceAddPMSReview, serviceGetPmsBatchDetail} from "../../../services/PmsReview.service";
+import {
+    serviceAddPMSDraft,
+    serviceAddPMSReview,
+    serviceGetPmsBatchDetail,
+    serviceGetPMSDraft
+} from "../../../services/PmsReview.service";
 import LogUtils from "../../../libs/LogUtils";
 import styles from './Style.module.css';
 import {isNum, isNumDec} from "../../../libs/RegexUtils";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
+import historyUtils from "../../../libs/history.utils";
 
 
 const usePmsForm = ({}) => {
     const {id} = useParams();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const [columns, setColumns] = useState([
         {
             is_static: true,
@@ -78,8 +87,16 @@ const usePmsForm = ({}) => {
             serviceGetPmsBatchDetail(id).then((res) => {
                 if (!res.error) {
                     LogUtils.log('res', res.data);
-                    setRows(res.data?.employees);
+                    setRows([...res.data?.employees]);
                     setColumns([...columns, ...res?.data?.form]);
+
+                    serviceGetPMSDraft(id).then((res) => {
+                        if (!res.error) {
+                            LogUtils.log('res', res?.data);
+                            setForm({...form, ...res?.data?.data});
+                        }
+                    });
+
                 }
             });
             isMount.current = true;
@@ -97,6 +114,7 @@ const usePmsForm = ({}) => {
         });
         setForm(tForm);
     }, [rows, processedColumns]);
+
 
 
 
@@ -118,7 +136,12 @@ const usePmsForm = ({}) => {
         let next = '';
         let prev = '';
         if (param === 0) {
-            prev = `${row}_${cat - 1}_${param}`
+            if (cat > 5) {
+                const totalParam = columns[cat-1]?.parameters?.length;
+                prev = `${row}_${cat - 1}_${totalParam-1}`
+            } else {
+                prev = `${row}_${cat - 1}_${param}`
+            }
         } else {
             prev = `${row}_${cat}_${param - 1}`
         }
@@ -132,13 +155,13 @@ const usePmsForm = ({}) => {
             prev,
             next,
         };
-    }, [form]);
+    }, [form, columns]);
 
     const processChanges = useCallback((name, value) => {
         const {next, prev} = calculateAdjacentCells(name);
         const tErr = {...errors};
-        if (form[next] == value || form[prev] == value) {
-            tErr[name] = true;
+        if (parseFloat(form[next]) == parseFloat(value) || parseFloat(form[prev]) == parseFloat(value)) {
+            tErr[name] = 'same';
         } else {
             delete tErr[name];
         }
@@ -157,7 +180,7 @@ const usePmsForm = ({}) => {
 
     const handleInputChange = useCallback((name, value, type) => {
         const tForm = {...form};
-        if ((!value || (isNumDec(value) && value <= 10)) && type === 'NUMBER') {
+        if ((!value || (isNumDec(value) && value > 0 && value <= 10)) && type === 'NUMBER') {
             tForm[name] = value;
             processChanges(name, value);
         }
@@ -192,14 +215,23 @@ const usePmsForm = ({}) => {
     }, [form, columns, rows]);
 
     const submitToServer = useCallback(() => {
-        const data = processData();
-        serviceAddPMSReview({
-            batch_id: id,
-            reviews: data,
-        }).then((res) => {
-
-        });
-    }, [form, id, processData]);
+        if (!isSubmitting) {
+            setIsSubmitting(true);
+            const data = processData();
+            serviceAddPMSReview({
+                batch_id: id,
+                reviews: data,
+            }).then((res) => {
+                if (!res.error) {
+                    SnackbarUtils.success('Form Submitted Successfully');
+                    historyUtils.goBack();
+                } else {
+                    SnackbarUtils.error(res?.message);
+                }
+                setIsSubmitting(false);
+            });
+        }
+    }, [form, id, processData, setIsSubmitting, isSubmitting]);
 
     const handleSubmit = useCallback(() => {
         const validationErr = checkValidation();
@@ -212,6 +244,32 @@ const usePmsForm = ({}) => {
         submitToServer()
     }, [checkValidation, setErrors, submitToServer]);
 
+    const handleDraft = useCallback(() => {
+        const err = {...errors};
+        let isAdjacentErr = false;
+        Object.keys(err).forEach((key) => {
+            if (err[key] == 'same') {
+                isAdjacentErr = true;
+                return true;
+            }
+        });
+        if (!isAdjacentErr) {
+            serviceAddPMSDraft({
+                batch_id: id,
+                data: form
+            }).then((res) => {
+                if (!res.error) {
+                    SnackbarUtils.success('Draft Saved Successfully');
+                    historyUtils.goBack();
+                } else {
+                    SnackbarUtils.error(res?.message);
+                }
+            });
+        } else {
+            SnackbarUtils.error('Please resolve error for same value');
+        }
+    }, [setIsSubmitting, isSubmitting, id, form, errors]);
+
     return {
         columns,
         handleInputChange,
@@ -219,7 +277,9 @@ const usePmsForm = ({}) => {
         processedColumns,
         form,
         errors,
-        handleSubmit
+        handleSubmit,
+        isSubmitting,
+        handleDraft
     }
 };
 

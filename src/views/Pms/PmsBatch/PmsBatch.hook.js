@@ -14,7 +14,8 @@ import { serviceGetList } from "../../../services/Common.service";
 import {serviceExportPMSBatch} from "../../../services/PmsBatch.service";
 const usePmsBatch = ({ location }) => {
   const reviewerId = location?.state?.reviewerId;
-  const batchType = location?.state?.type;
+  const batchType = location?.state?.pms_batch;
+  const formType = location?.state?.pms_form_type;
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
@@ -35,6 +36,7 @@ const usePmsBatch = ({ location }) => {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : (reviewerId ? [
           { label: 'PMS Batch', name: 'pms_batch', type: 'select', value: batchType },
+          { label: 'PMS Batch', name: 'pms_form_type', type: 'select', value: formType },
           { label: 'PMS Batch', name: 'pms_reviewer_id', type: 'selectObject', value: reviewerId }
         ] : []),
       })
@@ -165,7 +167,12 @@ const usePmsBatch = ({ location }) => {
         type: "select",
         fields: ["DTY", "APMS", 'N/A'],
       },
-
+      {
+        label: "PMS Form",
+        name: "pms_form_type",
+        type: "select",
+        fields: ["TYPE_1", "TYPE_2", 'TYPE_3', 'TYPE_4'],
+      },
       {
         label: "PMS reviewer",
         name: "pms_reviewer_id",

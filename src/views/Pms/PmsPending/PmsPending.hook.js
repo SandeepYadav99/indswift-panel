@@ -11,6 +11,7 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
+import Constants from "../../../config/constants";
 const usePmsPending = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -141,32 +142,18 @@ const usePmsPending = ({}) => {
     return [
       {
         label: "PMS Batch",
-        name: "pms_batch",
+        name: "batch",
         type: "select",
         fields: ["DTY", "APMS", 'N/A'],
       },
 
       {
-        label: "PMS reviewer",
-        name: "pms_reviewer_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.PMS_EMPLOYEES,
+        label: "Status",
+        name: "status",
+        type: "select",
+        fields: Object.keys(Constants.PMS_BATCH_STATUS),
       },
-      // {
-      //   label: "Status",
-      //   name: "status",
-      //   type: "select",
-      //   fields: [
-      //     "ACTIVE",
-      //     "RESIGNED",
-      //     "TERMINATED",
-      //     "RETIRED",
-      //     "EXPIRED",
-      //     "ABSCONDED",
-      //     "INACTIVE",
-      //   ],
-      // },
+
 
     ];
   }, [listData]);

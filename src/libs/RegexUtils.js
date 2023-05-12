@@ -25,7 +25,7 @@ const isNum = (value) => {
 }
 
 const isNumDec = (value) => {
-    return /^\d+(\.\d{1,2})?$/.test(value);
+    return /^\d+(\.\d{1})?$/.test(value);
 }
 
 const isDate = (value) => {

@@ -143,10 +143,10 @@ const PmsBatch = ({ location }) => {
         render: (temp, all) => <div>{all?.pms_batch}</div>,
       },
       {
-        key: "type",
+        key: "pms_form_type",
         label: "TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div>{all?.pms_form_type}</div>,
       },
       {
         key: "status",
