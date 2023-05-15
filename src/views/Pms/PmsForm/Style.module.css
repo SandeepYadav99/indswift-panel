@@ -22,6 +22,7 @@
   background: #ecf7ff 0% 0% no-repeat padding-box;
   padding: 10px 0;
   z-index: 10;
+  border: 2px solid #EBEDF4;
 }
 .formUpper > img{
   width: 140px;
