@@ -160,10 +160,17 @@ const usePmsForm = ({location}) => {
         };
     }, [form, columns]);
 
+    const isAdjacentDiff = useCallback((value, refValue) => {
+        if (value && refValue) {
+            const diff = Math.abs(value - refValue);
+            return diff > 0.5;
+        } return true;
+    }, []);
+
     const processChanges = useCallback((name, value) => {
         const {next, prev} = calculateAdjacentCells(name);
         const tErr = {...errors};
-        if (parseFloat(form[next]) == parseFloat(value) || parseFloat(form[prev]) == parseFloat(value)) {
+        if (!isAdjacentDiff(parseFloat(form[next]), parseFloat(value))  || !isAdjacentDiff(parseFloat(form[prev]), parseFloat(value))) {
             tErr[name] = 'same';
         } else {
             delete tErr[name];

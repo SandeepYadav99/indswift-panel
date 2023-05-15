@@ -41,3 +41,8 @@ export async function serviceAddPMSDraft(params) {
 export async function serviceGetPMSDraft(batchId) {
     return await postRequest('pms/get/draft', { batch_id: batchId });
 }
+
+export async function serviceRunAssignBatches() {
+    return await getRequest('pms/assign/batches', {  });
+}
+

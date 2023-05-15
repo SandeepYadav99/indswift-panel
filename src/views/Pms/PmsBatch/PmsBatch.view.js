@@ -154,7 +154,7 @@ const PmsBatch = ({ location }) => {
         sortable: true,
         render: (temp, all) => (
           <div>
-            {renderStatus(removeUnderScore("PENDING"))}
+            {renderStatus(removeUnderScore(all?.pms_status))}
           </div>
         ),
       },

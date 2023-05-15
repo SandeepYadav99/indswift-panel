@@ -13,7 +13,7 @@ import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 import {
   serviceAlignPmsBatch,
-  serviceExportPMSReview,
+  serviceExportPMSReview, serviceRunAssignBatches,
 } from "../../../services/PmsReview.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 const usePmsReview = ({}) => {
@@ -57,15 +57,12 @@ const usePmsReview = ({}) => {
 
   const handleCsvDownload = useCallback(
     (payload) => {
-      serviceExportPMSReview({
-        row: sortingData?.row,
-        order: sortingData?.order,
-        query: query,
-        query_data: queryData,
-      }).then((res) => {
+      serviceRunAssignBatches({}).then((res) => {
         if (!res.error) {
-          const data = res.data?.response;
-          window.open(data, "_blank");
+          SnackbarUtils.success('Batching Process has been started. Please wait for 2 minutes data will be updated soon');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000 * 60 *2);
         }
       });
     },
@@ -168,7 +165,7 @@ const usePmsReview = ({}) => {
 
   const handleViewFormDetails = useCallback((data) => {
     LogUtils.log('datatata',data);
-    // historyUtils.push(`${RouteName.PMS_FORM_DETAIL}${data?.id}`); 
+    // historyUtils.push(`${RouteName.PMS_FORM_DETAIL}${data?.id}`);
   }, []);
 
   const configFilter = useMemo(() => {

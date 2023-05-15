@@ -189,7 +189,7 @@ const PmsReview = ({ }) => {
               <InfoOutlined fontSize={"small"} />
             </IconButton>
             {
-              all?.status === 'REVIEW_SUBMITTED' && 
+              all?.status === 'REVIEW_SUBMITTED' &&
               <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -201,7 +201,7 @@ const PmsReview = ({ }) => {
               <RemoveRedEyeOutlinedIcon fontSize={"small"} />
             </IconButton>
             }
-           
+
           </div>
         ),
       },
@@ -243,21 +243,17 @@ const PmsReview = ({ }) => {
             <span className={styles.title}>PMS Planner</span>
             <div className={styles.newLine} />
           </div>
-          {/* <div>
+          <div>
             <ButtonBase
               // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
               onClick={handleCsvDownload}
               className={"createBtn"}
             >
-              Download
-              <CloudDownload
-                fontSize={"small"}
-                className={"plusIcon"}
-              ></CloudDownload>
+              Update Batches
             </ButtonBase>
 
-          </div> */}
+          </div>
         </div>
 
         <div>
