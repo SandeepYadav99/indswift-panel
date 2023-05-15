@@ -146,7 +146,7 @@ const PmsBatch = ({ location }) => {
         key: "pms_form_type",
         label: "TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.pms_form_type}</div>,
+        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>{removeUnderScore(all?.pms_form_type)}</div>,
       },
       {
         key: "status",

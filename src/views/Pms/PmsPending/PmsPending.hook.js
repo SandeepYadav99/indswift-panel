@@ -135,7 +135,12 @@ const usePmsPending = ({}) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.PMS_REVIEW_FORM}${data?.id}`); //+data.id
+    historyUtils.push(
+      `${RouteName.PMS_REVIEW_FORM}${data?.id}`,
+      {
+        type:data?.form_type
+      }
+    );
   }, []);
 
   const configFilter = useMemo(() => {

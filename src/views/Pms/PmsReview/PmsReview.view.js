@@ -159,7 +159,7 @@ const PmsReview = ({ }) => {
         key: "batch",
         label: "BATCH",
         sortable: false,
-        render: (temp, all) => <div>{all?.batch} <br/>{all?.form_type}</div>,
+        render: (temp, all) => <div>{all?.batch} <br/><div style={{whiteSpace:'nowrap'}}>{removeUnderScore(all?.form_type)}</div></div>,
       },
 
       {
@@ -168,7 +168,7 @@ const PmsReview = ({ }) => {
         sortable: true,
         render: (temp, all) => (
           <div>
-            {renderStatus(all?.status)}
+            {renderStatus(removeUnderScore(all?.status))}
           </div>
         ),
       },
@@ -228,7 +228,7 @@ const PmsReview = ({ }) => {
             <span className={styles.title}>PMS Planner</span>
             <div className={styles.newLine} />
           </div>
-          <div>
+          {/* <div>
             <ButtonBase
               // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
@@ -242,7 +242,7 @@ const PmsReview = ({ }) => {
               ></CloudDownload>
             </ButtonBase>
 
-          </div>
+          </div> */}
         </div>
 
         <div>

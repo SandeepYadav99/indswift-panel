@@ -238,3 +238,7 @@ export function dataURLtoFile(dataurl, filename) {
   }
   return new File([u8arr], filename, { type: mime });
 }
+
+export const removeUnderScore = (value) => {
+  return value ? value.replace(/_/g, " ") : "";
+};

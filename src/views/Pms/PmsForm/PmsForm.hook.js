@@ -13,9 +13,10 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 
 
-const usePmsForm = ({}) => {
+const usePmsForm = ({location}) => {
     const {id} = useParams();
     const [isSubmitting, setIsSubmitting] = useState(false);
+  const [approveDialog, setApproveDialog] = useState(false);
 
     const [columns, setColumns] = useState([
         {
@@ -45,7 +46,7 @@ const usePmsForm = ({}) => {
             key: "department",
             title: "DEPT./Sub Dept",
             readOnly: true,
-            render: (all) => <div className={styles.label}>{all.department}</div>
+            render: (all) => <div className={styles.label}>{all.department}/{all?.sub_department}</div>
         },
         {
             is_static: true,
@@ -116,7 +117,9 @@ const usePmsForm = ({}) => {
     }, [rows, processedColumns]);
 
 
-
+    const toggleStatusDialog = useCallback(() => {
+        setApproveDialog((e) => !e);
+      }, [approveDialog]);
 
     const checkValidation = useCallback(() => {
         const tErr = {...errors};
@@ -241,7 +244,8 @@ const usePmsForm = ({}) => {
             return true;
         }
         LogUtils.log('submit to server');
-        submitToServer()
+        toggleStatusDialog()
+        // submitToServer()
     }, [checkValidation, setErrors, submitToServer]);
 
     const handleDraft = useCallback(() => {
@@ -279,7 +283,10 @@ const usePmsForm = ({}) => {
         errors,
         handleSubmit,
         isSubmitting,
-        handleDraft
+        handleDraft,
+        toggleStatusDialog,
+        approveDialog,
+        submitToServer
     }
 };
 

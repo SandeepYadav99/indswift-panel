@@ -25,7 +25,7 @@
 }
 .formUpper > img{
   width: 140px;
-  aspect-ratio: 1/1;
+  /* aspect-ratio: 1/1; */
 }
 .formUpper > p{
   font-size: 1.2rem;

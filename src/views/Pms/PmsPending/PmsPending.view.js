@@ -80,7 +80,16 @@ const PmsPending = ({}) => {
           </div>
         ),
       },
-
+      {
+        key: "date",
+        label: "Date Shared",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.createdAtText}
+          </div>
+        ),
+      },
       {
         key: "status",
         label: "Status",

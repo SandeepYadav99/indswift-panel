@@ -10,7 +10,8 @@ import LogUtils from "../../../libs/LogUtils";
 import handleSubmit from "redux-form/lib/handleSubmit";
 import FormDropdown from "./component/FormDropdown/FormDropdown";
 import SnackbarComponent from "../../../components/Snackbar.component";
-import {isSubmitting} from "redux-form";
+import { removeUnderScore } from "../../../helper/helper";
+import ConfirmDialog from "./component/ConfirmDialog/ConfirmDialog.view";
 
 const useStyles = makeStyles((theme) => ({
     customTooltip: {
@@ -87,7 +88,7 @@ const TableHead = ({columns}) => {
                                 position: "sticky",
                                 // left: fixed ? 0 : undefined,
                                 top: 35,
-                                zIndex: 100 ,
+                                zIndex: 10 ,
                             }}
                             key={param.title}
                             className={styles.thead}
@@ -148,7 +149,7 @@ const TableHead = ({columns}) => {
     )
 }
 
-const PmsForm = ({route}) => {
+const PmsForm = ({location}) => {
     const {
         columns,
         rows,
@@ -158,14 +159,20 @@ const PmsForm = ({route}) => {
         errors,
         handleSubmit,
         isSubmitting,
-        handleDraft
-    } = usePmsForm({});
+        handleDraft,
+        toggleStatusDialog,
+        approveDialog,
+        submitToServer
+    } = usePmsForm({location});
+
+    const type=location?.state?.type
+    
     return (
         <div>
             <div className={styles.pmsformWrap}>
                 <div className={styles.formUpper}>
                     <img src={logo} alt="IndSwift"/>
-                    <p>Type 1 Form</p>
+                    <p>{`${removeUnderScore(type)} FORM`}</p>
                     <span>
             This form is based upon right angle methodology, in which an
             assigned mentor provide concrete feedback about the subordinate with
@@ -209,6 +216,12 @@ const PmsForm = ({route}) => {
                         </tbody>
                     </table>
                 </div>
+                <ConfirmDialog 
+                type={type}
+                handleSubmit={submitToServer}
+                isOpen={approveDialog}
+                handleToggle={toggleStatusDialog} />
+                
                 <div className={styles.lowerBtnwr}>
                     <ButtonLowerView
                         handleSubmit={handleSubmit}

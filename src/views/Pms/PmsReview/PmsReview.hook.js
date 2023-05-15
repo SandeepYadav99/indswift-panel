@@ -48,7 +48,6 @@ const usePmsReview = ({}) => {
       }
     });
   }, []);
-  console.log("list", listData);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPagePmsReview(type));
@@ -165,7 +164,7 @@ const usePmsReview = ({}) => {
   const configFilter = useMemo(() => {
     return [
       {
-        label: "PMS Review",
+        label: "PMS Batch",
         name: "batch",
         type: "select",
         fields: ["DTY", "APMS"],
