@@ -25,7 +25,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import usePmsReview from "./PmsReview.hook";
 import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
 import BottomActionView from "./components/BottomAction/BottomAction.view";
-
+import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
 const PmsReview = ({ }) => {
   const {
     handleSortOrderChange,
@@ -47,6 +47,7 @@ const PmsReview = ({ }) => {
     selected,
     isSending,
       handleSend,
+      handleViewFormDetails,
       selectedEmps
   } = usePmsReview({});
 
@@ -176,7 +177,7 @@ const PmsReview = ({ }) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div>
+          <div className={styles.btnWrap}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -187,11 +188,25 @@ const PmsReview = ({ }) => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
+            {
+              all?.status === 'REVIEW_SUBMITTED' && 
+              <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewFormDetails(all);
+              }}
+            >
+              <RemoveRedEyeOutlinedIcon fontSize={"small"} />
+            </IconButton>
+            }
+           
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, handleViewFormDetails,isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

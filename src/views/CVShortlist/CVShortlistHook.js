@@ -141,8 +141,8 @@ const useCVShortlist = ({}) => {
       historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data?.id}`);
     },[]);
   const handleUpdate =  useCallback((data, type) => {
-      LogUtils.log('data', data, type);
-      // dispatch(actionUpdateCVShortlist(data?.id, type));
+      // LogUtils.log('data', data, type);
+      dispatch(actionUpdateCVShortlist(data?.id, type));
   }, []);
 
   return {

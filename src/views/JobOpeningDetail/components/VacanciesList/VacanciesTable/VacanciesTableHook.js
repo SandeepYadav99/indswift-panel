@@ -29,7 +29,7 @@ const useVacancyList = ({ jobId }) => {
   }, [data, currentPage]);
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data?.candidate_id}`); //+data.id
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.employee?.emp_code}`);
   }, []);
 
   const _processData = useCallback(() => {
@@ -50,14 +50,6 @@ const useVacancyList = ({ jobId }) => {
     },
     [_processData, setCurrentPage, data]
   );
-
-  const handlePreviousPageClick = () => {
-    console.log("handlePreviousPageClick", "PREV");
-  };
-
-  const handleNextPageClick = () => {
-    console.log("handleNextPageClick", "NEXT");
-  };
 
   const handleSortOrderChange = (row, order) => {
     console.log(`handleSortOrderChange key:${row} order: ${order}`);
@@ -100,24 +92,11 @@ const useVacancyList = ({ jobId }) => {
     [queryFilter, _processData, data, setData, vacancies]
   );
 
-  const _handleDateChange = (date) => {
-    // this.setState({
-    //     selectedDate: date,
-    // });
-  };
-
-  const _handleWarehouseChange = (e, data) => {
-    console.log("handleWarehouseChange", e.target.value);
-    const batchId = e.target.value;
-  };
-
   return {
     handlePageChange,
     // handleCellClick,
     handleFilterDataChange,
     handleSearchValueChange,
-    // handlePreviousPageClick,
-    // handleNextPageClick,
     handleRowSize,
     handleSortOrderChange,
     isVacanciesFetching,

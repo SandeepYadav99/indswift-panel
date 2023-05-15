@@ -1245,12 +1245,12 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={"formGroup"}></div>
           </div>
-          <div className={"formFlex"}>
+          {/* <div className={"formFlex"}>
               <TotalSum
                   firstName="Incremental Gross Salary + Car Component: "
                   firstAmount={form?.earning_three_pli}
               />
-          </div>
+          </div> */}
           <div className={"headerFlex"}>
             <h4 className={"infoTitle"}>
               <div className={"heading"}>Part D - Deduction 1</div>

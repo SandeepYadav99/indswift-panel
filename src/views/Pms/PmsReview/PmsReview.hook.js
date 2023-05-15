@@ -11,7 +11,10 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-import {serviceAlignPmsBatch, serviceExportPMSReview} from "../../../services/PmsReview.service";
+import {
+  serviceAlignPmsBatch,
+  serviceExportPMSReview,
+} from "../../../services/PmsReview.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 const usePmsReview = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -40,7 +43,6 @@ const usePmsReview = ({}) => {
     isMountRef.current = true;
   }, []);
 
-
   useEffect(() => {
     serviceGetList(["PMS_EMPLOYEES"]).then((res) => {
       if (!res.error) {
@@ -53,19 +55,22 @@ const usePmsReview = ({}) => {
     dispatch(actionSetPagePmsReview(type));
   }, []);
 
-  const handleCsvDownload = useCallback((payload) => {
-    serviceExportPMSReview({
-      row: sortingData?.row,
-      order: sortingData?.order,
-      query: query,
-      query_data: queryData,
-    }).then((res) => {
-      if (!res.error) {
-        const data = res.data?.response;
-        window.open(data, "_blank");
-      }
-    });
-  }, [sortingData, query, queryData]);
+  const handleCsvDownload = useCallback(
+    (payload) => {
+      serviceExportPMSReview({
+        row: sortingData?.row,
+        order: sortingData?.order,
+        query: query,
+        query_data: queryData,
+      }).then((res) => {
+        if (!res.error) {
+          const data = res.data?.response;
+          window.open(data, "_blank");
+        }
+      });
+    },
+    [sortingData, query, queryData]
+  );
 
   const handleDataSave = useCallback(
     (data, type) => {
@@ -152,13 +157,18 @@ const usePmsReview = ({}) => {
     LogUtils.log({
       reviewerId: data.reviewer_id,
       pms_batch: data.batch,
-      pms_form_type: data.form_type
+      pms_form_type: data.form_type,
     });
     historyUtils.push(`${RouteName.PERFORMANCE_BATCH}`, {
       reviewerId: data.reviewer_id,
       pms_batch: data.batch,
-      pms_form_type: data.form_type
+      pms_form_type: data.form_type,
     }); //+data.id
+  }, []);
+
+  const handleViewFormDetails = useCallback((data) => {
+    LogUtils.log('datatata',data);
+    // historyUtils.push(`${RouteName.PMS_FORM_DETAIL}${data?.id}`); 
   }, []);
 
   const configFilter = useMemo(() => {
@@ -190,25 +200,27 @@ const usePmsReview = ({}) => {
       //     "INACTIVE",
       //   ],
       // },
-
     ];
   }, [listData]);
 
-  const handleCheckbox = useCallback((data) => {
-    const tempSelected = JSON.parse(JSON.stringify(selected));
-    const tempIndex = tempSelected.findIndex(sel => sel.id === data.id);
-    if (tempIndex >= 0) {
-      tempSelected.splice(tempIndex, 1);
-    } else {
-      tempSelected.push(data);
-    }
-    setSelected(tempSelected)
-  }, [selected, setSelected]);
+  const handleCheckbox = useCallback(
+    (data) => {
+      const tempSelected = JSON.parse(JSON.stringify(selected));
+      const tempIndex = tempSelected.findIndex((sel) => sel.id === data.id);
+      if (tempIndex >= 0) {
+        tempSelected.splice(tempIndex, 1);
+      } else {
+        tempSelected.push(data);
+      }
+      setSelected(tempSelected);
+    },
+    [selected, setSelected]
+  );
 
   const selectedEmps = useMemo(() => {
     let total = 0;
     selected.forEach((val) => {
-      total+= val?.total_employees;
+      total += val?.total_employees;
     });
     return total;
   }, [selected]);
@@ -216,10 +228,10 @@ const usePmsReview = ({}) => {
   const handleSend = useCallback(() => {
     if (!isSending) {
       setIsSending(true);
-      const batchIds = selected.map(val => val.id);
+      const batchIds = selected.map((val) => val.id);
       serviceAlignPmsBatch(batchIds).then((res) => {
-        if(!res.error) {
-          SnackbarUtils.success('Reviews Aligned SuccessFully');
+        if (!res.error) {
+          SnackbarUtils.success("Reviews Aligned SuccessFully");
           setSelected([]);
           dispatch(actionAlignPmsReview(batchIds));
         } else {
@@ -252,7 +264,8 @@ const usePmsReview = ({}) => {
     handleCheckbox,
     isSending,
     handleSend,
-    selectedEmps
+    selectedEmps,
+    handleViewFormDetails,
   };
 };
 
