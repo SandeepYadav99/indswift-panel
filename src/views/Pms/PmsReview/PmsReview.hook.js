@@ -18,6 +18,7 @@ import {
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 const usePmsReview = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
+  const [approveDialog, setApproveDialog] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
@@ -55,6 +56,10 @@ const usePmsReview = ({}) => {
     dispatch(actionSetPagePmsReview(type));
   }, []);
 
+  const toggleStatusDialog = useCallback(() => {
+    setApproveDialog((e) => !e);
+  }, [approveDialog]);
+  
   const handleCsvDownload = useCallback(
     (payload) => {
       serviceRunAssignBatches({}).then((res) => {
@@ -263,6 +268,8 @@ const usePmsReview = ({}) => {
     handleSend,
     selectedEmps,
     handleViewFormDetails,
+    toggleStatusDialog,
+        approveDialog,
   };
 };
 

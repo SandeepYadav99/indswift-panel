@@ -25,8 +25,9 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import usePmsReview from "./PmsReview.hook";
 import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
 import BottomActionView from "./components/BottomAction/BottomAction.view";
-import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
-const PmsReview = ({ }) => {
+import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
+import UpdateDialog from "./components/UpdateDialog/UpdateDialog.view";
+const PmsReview = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -43,12 +44,14 @@ const PmsReview = ({ }) => {
     configFilter,
     warehouses,
     handleCsvDownload,
-      handleCheckbox,
+    handleCheckbox,
     selected,
     isSending,
-      handleSend,
-      handleViewFormDetails,
-      selectedEmps
+    handleSend,
+    handleViewFormDetails,
+    selectedEmps,
+    toggleStatusDialog,
+    approveDialog,
   } = usePmsReview({});
 
   const {
@@ -65,35 +68,42 @@ const PmsReview = ({ }) => {
     return <StatusPill status={status} />;
   }, []);
 
-  const renderFirstCell = useCallback((obj) => {
-    if (obj) {
-      const selectedIndex = selected.findIndex((sel) => sel.id === obj.id);
-      return (
-        <div className={styles.firstCellFlex}>
-          <div className={styles.flex}>
-            <Checkbox
-                disabled={obj?.status !== Constants.PMS_BATCH_STATUS.PENDING || obj?.reviewer.status !== Constants.GENERAL_STATUS.ACTIVE }
-                onChange={() => {handleCheckbox(obj)}}
+  const renderFirstCell = useCallback(
+    (obj) => {
+      if (obj) {
+        const selectedIndex = selected.findIndex((sel) => sel.id === obj.id);
+        return (
+          <div className={styles.firstCellFlex}>
+            <div className={styles.flex}>
+              <Checkbox
+                disabled={
+                  obj?.status !== Constants.PMS_BATCH_STATUS.PENDING ||
+                  obj?.reviewer.status !== Constants.GENERAL_STATUS.ACTIVE
+                }
+                onChange={() => {
+                  handleCheckbox(obj);
+                }}
                 checked={selectedIndex >= 0}
                 value="secondary"
                 color="primary"
-                inputProps={{"aria-label": "secondary checkbox"}}
-            />
+                inputProps={{ "aria-label": "secondary checkbox" }}
+              />
+            </div>
+            <div className={classNames(styles.firstCellInfo, "openSans")}>
+              <span className={styles.productName}>{obj?.reviewer?.name}</span>{" "}
+              <br />
+              <span className={styles.productName}>
+                {obj?.reviewer?.emp_code}
+              </span>{" "}
+              <br />
+            </div>
           </div>
-          <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.reviewer?.name}</span>{" "}
-            <br />
-            <span className={styles.productName}>
-              {obj?.reviewer?.emp_code}
-            </span>{" "}
-            <br />
-          </div>
-        </div>
-      );
-    }
-    return null;
-  }, [selected, handleCheckbox]);
-
+        );
+      }
+      return null;
+    },
+    [selected, handleCheckbox]
+  );
 
   const tableStructure = useMemo(() => {
     return [
@@ -107,17 +117,17 @@ const PmsReview = ({ }) => {
         key: "name",
         label: "Reviewer Status",
         sortable: false,
-        render: (value, all) => <div><StatusPill status={all?.reviewer?.status} /></div>,
+        render: (value, all) => (
+          <div>
+            <StatusPill status={all?.reviewer?.status} />
+          </div>
+        ),
       },
       {
         key: "grade",
         label: "GRADE",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.reviewer?.grade?.code}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.reviewer?.grade?.code}</div>,
       },
       {
         key: "location",
@@ -137,11 +147,11 @@ const PmsReview = ({ }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.reviewer?.department?.name} / {all?.reviewer?.department?.name}
+            {all?.reviewer?.department?.name} /{" "}
+            {all?.reviewer?.department?.name}
           </div>
         ),
       },
-
 
       {
         key: "total_employees",
@@ -153,14 +163,25 @@ const PmsReview = ({ }) => {
         key: "hod",
         label: "HOD",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer?.hod?.hod_name} <br/>
-          {all?.reviewer?.hod?.hod_code}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.reviewer?.hod?.hod_name} <br />
+            {all?.reviewer?.hod?.hod_code}
+          </div>
+        ),
       },
       {
         key: "batch",
         label: "BATCH",
         sortable: false,
-        render: (temp, all) => <div>{all?.batch} <br/><div style={{whiteSpace:'nowrap'}}>{removeUnderScore(all?.form_type)}</div></div>,
+        render: (temp, all) => (
+          <div>
+            {all?.batch} <br />
+            <div style={{ whiteSpace: "nowrap" }}>
+              {removeUnderScore(all?.form_type)}
+            </div>
+          </div>
+        ),
       },
 
       {
@@ -168,9 +189,7 @@ const PmsReview = ({ }) => {
         label: "Status",
         sortable: true,
         render: (temp, all) => (
-          <div>
-            {renderStatus(removeUnderScore(all?.status))}
-          </div>
+          <div>{renderStatus(removeUnderScore(all?.status))}</div>
         ),
       },
       {
@@ -188,25 +207,30 @@ const PmsReview = ({ }) => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-            {
-              all?.status === 'REVIEW_SUBMITTED' &&
+            {all?.status === "REVIEW_SUBMITTED" && (
               <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewFormDetails(all);
-              }}
-            >
-              <RemoveRedEyeOutlinedIcon fontSize={"small"} />
-            </IconButton>
-            }
-
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleViewFormDetails(all);
+                }}
+              >
+                <RemoveRedEyeOutlinedIcon fontSize={"small"} />
+              </IconButton>
+            )}
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, handleViewFormDetails,isCalling]);
+  }, [
+    renderStatus,
+    renderFirstCell,
+    handleViewDetails,
+    handleEdit,
+    handleViewFormDetails,
+    isCalling,
+  ]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -247,15 +271,18 @@ const PmsReview = ({ }) => {
             <ButtonBase
               // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
-              onClick={handleCsvDownload}
+              onClick={toggleStatusDialog}
               className={"createBtn"}
             >
               Update Batches
             </ButtonBase>
-
           </div>
         </div>
-
+        <UpdateDialog
+          handleSubmit={handleCsvDownload}
+          isOpen={approveDialog}
+          handleToggle={toggleStatusDialog}
+        />
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -275,7 +302,12 @@ const PmsReview = ({ }) => {
         </div>
       </PageBox>
       <BottomPanelComponent open={selected.length > 0}>
-        <BottomActionView reviewers={selected.length} employees={selectedEmps} handleSend={handleSend} isSubmitting={isSending} />
+        <BottomActionView
+          reviewers={selected.length}
+          employees={selectedEmps}
+          handleSend={handleSend}
+          isSubmitting={isSending}
+        />
       </BottomPanelComponent>
     </div>
   );
