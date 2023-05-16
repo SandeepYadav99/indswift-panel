@@ -59,9 +59,10 @@ const usePmsReview = ({}) => {
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
   }, [approveDialog]);
-  
+
   const handleCsvDownload = useCallback(
     (payload) => {
+      setApproveDialog(false);
       serviceRunAssignBatches({}).then((res) => {
         if (!res.error) {
           SnackbarUtils.success('Batching Process has been started. Please wait for 2 minutes data will be updated soon');
@@ -70,9 +71,7 @@ const usePmsReview = ({}) => {
           }, 1000 * 60 *2);
         }
       });
-    },
-    [sortingData, query, queryData]
-  );
+    }, [setApproveDialog]);
 
   const handleDataSave = useCallback(
     (data, type) => {
@@ -160,11 +159,13 @@ const usePmsReview = ({}) => {
       reviewerId: data.reviewer_id,
       pms_batch: data.batch,
       pms_form_type: data.form_type,
+      batch_id: data.id,
     });
     historyUtils.push(`${RouteName.PERFORMANCE_BATCH}`, {
       reviewerId: data.reviewer_id,
       pms_batch: data.batch,
       pms_form_type: data.form_type,
+      batch_id: data.id,
     }); //+data.id
   }, []);
 
