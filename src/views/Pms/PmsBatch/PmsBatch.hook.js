@@ -16,6 +16,7 @@ const usePmsBatch = ({ location }) => {
   const reviewerId = location?.state?.reviewerId;
   const batchType = location?.state?.pms_batch;
   const formType = location?.state?.pms_form_type;
+  const batchID = location?.state?.batch_id;
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
@@ -34,12 +35,12 @@ const usePmsBatch = ({ location }) => {
     dispatch(
       actionFetchPmsBatch(1, sortingData, {
         query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : (reviewerId ? [
+        query_data: isMountRef.current ? queryData : ((reviewerId && false) ? [
           { label: 'PMS Batch', name: 'pms_batch', type: 'select', value: batchType },
           { label: 'PMS Batch', name: 'pms_form_type', type: 'select', value: formType },
           { label: 'PMS Batch', name: 'pms_reviewer_id', type: 'selectObject', value: reviewerId }
         ] : []),
-      })
+      }, { batch_id: batchID })
     );
     isMountRef.current = true;
   }, []);
@@ -91,10 +92,10 @@ const usePmsBatch = ({ location }) => {
         actionFetchPmsBatch(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
-        })
+        }, {batch_id: batchID})
       );
     },
-    [sortingData, query, queryData]
+    [sortingData, query, queryData, batchID]
   );
 
   const handleFilterDataChange = useCallback(
