@@ -114,7 +114,7 @@ function CandidateOLR({ location }) {
           </div>
         </div>
       )}
-      {role === "CORPORATE_HR" && (
+      {/* {role === "CORPORATE_HR" && (
         <div className={styles.chkwrapp}>
           <Checkbox
             disabled={false}
@@ -129,7 +129,7 @@ function CandidateOLR({ location }) {
             Hide Replacing Experience Detail
           </span>
         </div>
-      )}
+      )} */}
 
       {isReview && !isRecruiter && (
         <div className={styles.btnReviewWrapper}>
