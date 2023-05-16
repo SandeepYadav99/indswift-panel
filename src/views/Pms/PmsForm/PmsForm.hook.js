@@ -87,14 +87,14 @@ const usePmsForm = ({location}) => {
         if (!isMount.current && id) {
             serviceGetPmsBatchDetail(id).then((res) => {
                 if (!res.error) {
-                    LogUtils.log('res', res.data);
                     setRows([...res.data?.employees]);
                     setColumns([...columns, ...res?.data?.form]);
 
                     serviceGetPMSDraft(id).then((res) => {
                         if (!res.error) {
-                            LogUtils.log('res', res?.data);
-                            setForm({...form, ...res?.data?.data});
+                            if (res?.data && Object.keys(res?.data).length > 0) {
+                                setForm({...form, ...res?.data?.data});
+                            }
                         }
                     });
 

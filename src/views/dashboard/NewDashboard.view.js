@@ -122,7 +122,7 @@ const NewDashboard = () => {
             <div className={styles.activeWrapper}>
               <div className={styles.imgBox2}>
                 <img
-                  src={require("../../assets/img/ic_increase.png")}
+                  src={require("../../assets/img/ic_decrease.png")}
                   height={50}
                 />
               </div>
