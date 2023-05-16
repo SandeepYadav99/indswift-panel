@@ -1,24 +1,308 @@
-.employeePerformaceWrapper {
+.employeeDrishtiWrapper {
   display: flex;
   flex-direction: column;
   gap: 25px;
-  align-items: center;
-  justify-content: center;
-  height: 85vh;
 }
-.employeePerformacecontainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.imageWrapper {
-  display: flexbox;
-}
-.imageWrapper > img {
-  max-width: 100%;
+.programBenefitWrapper {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  padding: 1.2rem;
 }
 .title {
   font-size: 0.8rem;
   font-weight: 600;
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.programDescription > p {
+  font-size: 0.8rem;
+}
+.mappedDataWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.mappedDataWrapper2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.descWrapper{
+  margin-top: 15px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.SubhekshWrapper{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.restrictPadding{
+  margin: 0;
+}
+.squareDiv {
+  min-width: 9px;
+  width: 9px;
+  height: 9px;
+  background: #2896e9;
+}
+.mappedData {
+  padding: 5px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.mappedData2{
+  font-size: 0.8rem;
+  line-height: 1.4;
+  padding: 0;
+}
+.DrishtiDescriptionWrapper {
+  padding: 1.2rem;
+  padding-left: 0%;
+}
+.imageGalleryWrapper {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  padding: 1.2rem;
+}
+.headingContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.employeeInducationWrapper {
+  background: #eaf8fe;
+  padding: 1.2rem;
+  border-radius: 10px;
+}
+.employeeInducationWrapper21{
+  background: #EAF0F4;
+  padding: 1.2rem;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* background: yellow; */
+  margin-top: 20px;
+  gap: 30px;
+}
+.content {
+  display: flex;
+  flex: 2;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  min-width: 500px;
+}
+.content21 {
+  display: flex;
+  flex: 2;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  justify-content: center;
+}
+.contentCont{
+  display: flex;
+  width: 90%;
+}
+.imageWrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.achorTag {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: #2896e9;
+}
+.contentFormat {
+  line-height: 1.5;
+}
+.mappedDataWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 20px;
+}
+.squareDiv {
+  min-width: 9px;
+  width: 9px;
+  height: 9px;
+  background: #2896e9;
+}
+.mappedData {
+  padding: 5px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.DrishtiDescriptionWrapper {
+  padding: 1.2rem;
+  padding-left: 0%;
+}
+.squareDivWrapper {
+  display: flex;
+  align-items: baseline;
+}
+.eventsFlex {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: self-start;
+  /* gap: 10px; */
+}
+.Catalogue {
+  display: flex;
+  /* gap: 5px; */
+  flex-wrap: wrap;
+}
+
+/* Utsav Detail page CSS */
+
+.employeeDetailWrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.newLineMargin{
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+  margin-left: 20px;
+}
+
+
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* background: yellow; */
+  margin-top: 20px;
+  gap: 30px;
+}
+.content {
+  display: flex;
+  flex: 2;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  min-width: 500px;
+}
+.imageWrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.achorTag {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: #2896e9;
+}
+.contentFormat {
+  line-height: 1.5;
+  height: fit-content;
+  /* margin-bottom: 0;
+  margin-top: 0; */
+}
+.date{
+  font-weight: bold;
+  font-size: .875rem;
+  /* margin-top: 10px; */
+  padding-top: 10px;
+}
+.utsavimage{
+  border-radius: 10px;
+  /* width: 90%;
+  aspect-ratio: 16/9; */
+}
+.galleryImageWrapper{
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  padding: 1.2rem;
+}
+.imageWrapper2{
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.imgdimesion{
+  border-radius: 10px;
+  max-width: 200px;
+  max-height: 400px;
+  cursor: pointer;
+}
+.headingWrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.spanGap{
+  margin-top: 10px;
+}
+.qWrap{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+@media (max-width: 767px) {
+  .employeeInducationWrapper{
+    padding: 0.8rem;
+  }
+  .content{
+    min-width: auto !important;
+    width: 100%;
+  }
+  .contentWrapper {
+    flex-direction: column;
+  }
+  .imageWrapper img{
+    width: 100%;
+    height: auto;
+  }
+  .imgdimesion{
+    width: 100%;
+    height: auto;
+  }
 }
