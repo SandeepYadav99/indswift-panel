@@ -147,7 +147,7 @@ class FilterComponent extends Component {
             const uiItems = [];
             val.fields.forEach((val) => {
                 uiItems.push(
-                    <MenuItem key={val} value={val}>{val}</MenuItem>
+                    <MenuItem key={val} value={val}>{val ? val.replace(/_/g," "):''}</MenuItem>
                 );
             });
             return (

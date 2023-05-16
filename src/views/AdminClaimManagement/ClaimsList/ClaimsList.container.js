@@ -62,7 +62,7 @@ const ClaimsList = ({ location }) => {
     return value ? value.replace(/_/g, " ") : "";
   };
   const renderStatus = useCallback((status) => {
-    return <StatusPill status={status} />;
+    return <StatusPill status={status} style={status === 'PROCESSED' && {background:'#ceece2'}}/>;
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
