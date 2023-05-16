@@ -131,7 +131,18 @@ class QuestionsFormView extends Component {
     _handleSubmit(tData) {
         const {category} = this.props;
         const status = this.state.is_active ? "ACTIVE" : "INACTIVE";
+        const formInitialValue={date:'',name:'',description:'',priority:'',facility_id:'',parent_id:'',images:'',cover_image:'',location_id:''}
+
         const {data} = this.props;
+        const newObj={}
+        if(data){
+        Object.keys({ ...tData }).forEach((key) => {
+            if (key in formInitialValue && key !== "image" && key !=='cover_image') {
+                newObj[key] = tData[key];
+            }
+          });
+          tData = {...newObj}
+        }
         const fd = new FormData();
         Object.keys(tData).forEach((key) => {
             if (['images'].indexOf(key) < 0) {
@@ -142,7 +153,7 @@ class QuestionsFormView extends Component {
                 }
             }
         });
-        tData.images.forEach((val) => {
+        Array.isArray(tData?.images) && tData?.images.forEach((val) => {
             fd.append('images', val);
         })
         fd.append('facility_id', category?.id);

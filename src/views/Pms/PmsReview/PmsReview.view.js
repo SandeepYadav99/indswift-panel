@@ -207,7 +207,7 @@ const PmsReview = ({}) => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-            {all?.status === "REVIEW_SUBMITTED" && (
+            {/* {all?.status === "REVIEW_SUBMITTED" && (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
@@ -218,7 +218,7 @@ const PmsReview = ({}) => {
               >
                 <RemoveRedEyeOutlinedIcon fontSize={"small"} />
               </IconButton>
-            )}
+            )} */}
           </div>
         ),
       },

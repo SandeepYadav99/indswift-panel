@@ -292,7 +292,7 @@ const EmployeeList = ({}) => {
               >
                 New Employee
               </MenuItem>
-              <MenuItem
+              {/* <MenuItem
                 onClick={() => {
                   toggleExtendDialog();
                 }}
@@ -305,7 +305,7 @@ const EmployeeList = ({}) => {
                 }}
               >
                 NAPS Trainee
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </div>
           </div>
