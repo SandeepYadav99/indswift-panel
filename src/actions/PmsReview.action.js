@@ -11,7 +11,7 @@ export const FETCHED_FILTER = 'FETCHED_FILTER_PMS_REVIEW';
 // export const NEXT_PREQUESTS = 'NEXT_PREQUESTS';
 // export const PREV_PREQUESTS = 'PREV_PREQUESTS';
 export const FETCH_NEXT = 'FETCH_NEXT_PMS_REVIEW';
-export const FILTER = 'FILTER_PMS_REVIEW'; 
+export const FILTER = 'FILTER_PMS_REVIEW';
 export const RESET_FILTER = 'RESET_FILTER_PMS_REVIEW';
 export const SET_SORTING = 'SET_SORTING_PMS_REVIEW';
 export const SET_FILTER = 'SET_FILTER_PMS_REVIEW';
@@ -56,14 +56,9 @@ export function actionCreatePmsReview(data) {
     }
 }
 
-export function actionUpdatePmsReview(data) {
-    const request = serviceUpdatePmsReview(data);
+export function actionAlignPmsReview(batchIds) {
     return (dispatch) => {
-        request.then((data) => {
-            if (!data.error) {
-                dispatch({type: UPDATE_DATA, payload: data.data})
-            }
-        })
+        dispatch({type: UPDATE_DATA, payload: batchIds})
     }
 }
 
@@ -113,7 +108,7 @@ export function actionSetPagePmsReview(page) {
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;
     const query = stateData.query;
-    const queryData = stateData.query_data; 
+    const queryData = stateData.query_data;
     const serverPage = stateData.serverPage;
 
     if (totalLength <= ((page + 1) * Constants.DEFAULT_PAGE_VALUE)) {

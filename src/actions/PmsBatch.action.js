@@ -11,7 +11,7 @@ export const FETCHED_FILTER = 'FETCHED_FILTER_PMS_BATCH';
 // export const NEXT_PREQUESTS = 'NEXT_PREQUESTS';
 // export const PREV_PREQUESTS = 'PREV_PREQUESTS';
 export const FETCH_NEXT = 'FETCH_NEXT_PMS_BATCH';
-export const FILTER = 'FILTER_PMS_BATCH'; 
+export const FILTER = 'FILTER_PMS_BATCH';
 export const RESET_FILTER = 'RESET_FILTER_PMS_BATCH';
 export const SET_SORTING = 'SET_SORTING_PMS_BATCH';
 export const SET_FILTER = 'SET_FILTER_PMS_BATCH';
@@ -24,8 +24,8 @@ export const UPDATE_DATA = 'UPDATE_PMS_BATCH';
 export const DELETE_ITEM = 'DELETE_PMS_BATCH';
 
 
-export function actionFetchPmsBatch(index = 1, sorting = {}, filter = {}) {
-    const request = serviceGetPmsBatch({ index, row: sorting.row, order: sorting.order, ...filter });
+export function actionFetchPmsBatch(index = 1, sorting = {}, filter = {}, otherData = {}) {
+    const request = serviceGetPmsBatch({ index, row: sorting.row, order: sorting.order, ...filter, ...otherData });
     return (dispatch) => {
         dispatch({type: FETCH_INIT, payload: null});
         request.then((data) => {
@@ -113,7 +113,7 @@ export function actionSetPagePmsBatch(page) {
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;
     const query = stateData.query;
-    const queryData = stateData.query_data; 
+    const queryData = stateData.query_data;
     const serverPage = stateData.serverPage;
 
     if (totalLength <= ((page + 1) * Constants.DEFAULT_PAGE_VALUE)) {

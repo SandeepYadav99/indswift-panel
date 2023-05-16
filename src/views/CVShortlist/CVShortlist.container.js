@@ -31,6 +31,7 @@ const CVShortlist = ({}) => {
     toggleRejectDialog,
     handleUpdate,
     candidatePage,
+    dataValue
   } = useCVShortlist({});
 
   const {
@@ -118,7 +119,8 @@ const CVShortlist = ({}) => {
                   color="error"
                   disabled={isCalling}
                   onClick={() => {
-                    handleUpdate(all, "REJECT");
+                    toggleRejectDialog(all)
+                    // handleUpdate(all, "REJECT");
                   }}
                 >
                   <span className={styles.subTextError}>Reject</span>
@@ -190,6 +192,7 @@ const CVShortlist = ({}) => {
         <RejectDialog
           isOpen={isRejectPopUp}
           handleToggle={toggleRejectDialog}
+          dataValue={dataValue}
         />
         <div>
           <FilterComponent

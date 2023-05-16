@@ -13,7 +13,11 @@ import {
 } from "../../libs/RegexUtils";
 import { useParams } from "react-router";
 import { serviceGetList } from "../../services/Common.service";
-import { serviceCheckEmployeeExists } from "../../services/Employee.service";
+import {
+  serviceCheckEmployeeExists,
+  serviceGetEmployeeConversionInfo,
+  serviceGetEmployeeEditInfo,
+} from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
 import { useMemo } from "react";
 import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
@@ -21,9 +25,54 @@ import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 
-const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allowance', 'special_allowance', 'earning_one', 'pug', 'helper', 'food_coupons', 'gift_coupons', 'lta', 'super_annuation', 'nps', 'vehicle_maintenance', 'vehicle_emi', 'fuel', 'vpf', 'earning_two', 'gross', 'earning_three_pli', 'er_pf', 'er_esi', 'er_lwf', 'earning_four', 'gratuity', 'insurance', 'driver_incentive', 'perf_bonus', 'annual_bonus', 'two_car_maintenance', 'two_fuel', 'earning_five', 'monthly_ctc', 'em_pf', 'em_esi', 'em_lwf', 'total_deduction', 'total_pf', 'retention_allowance', 'car_component', 'incremental_gross_salary', 'earning2_vpf', 'deduction_vpf','stability_incentive'];
+const SALARY_KEYS = [
+  "basic_salary",
+  "hra",
+  "education_allowance",
+  // "medical_allowance",
+  "special_allowance",
+  "earning_one",
+  "pug",
+  "helper",
+  "food_coupons",
+  "gift_coupons",
+  "lta",
+  "super_annuation",
+  "nps",
+  "vehicle_maintenance",
+  "vehicle_emi",
+  "fuel",
+  "vpf",
+  "earning_two",
+  "gross",
+  "earning_three_pli",
+  "er_pf",
+  "er_esi",
+  "er_lwf",
+  "earning_four",
+  "gratuity",
+  "insurance",
+  // "driver_incentive",
+  "perf_bonus",
+  "annual_bonus",
+  "two_car_maintenance",
+  "two_fuel",
+  "earning_five",
+  "monthly_ctc",
+  "em_pf",
+  "em_esi",
+  "em_lwf",
+  "total_deduction",
+  "total_pf",
+  "retention_allowance",
+  "car_component",
+  "incremental_gross_salary",
+  "earning2_vpf",
+  "deduction_vpf",
+  "stability_incentive",
+];
 
-function EmployeeListCreateHook() {
+function EmployeeListCreateHook({ location }) {
   const initialForm = {
     emp_code: "",
     image: "",
@@ -71,7 +120,7 @@ function EmployeeListCreateHook() {
     basic_salary: 0,
     hra: 0,
     education_allowance: 0,
-    medical_allowance: 0,
+    // medical_allowance: 0,
     special_allowance: 0,
     earning_one: 0,
     pug: 0,
@@ -94,7 +143,7 @@ function EmployeeListCreateHook() {
     earning_four: 0,
     gratuity: 0,
     insurance: 0,
-    driver_incentive: 0,
+    // driver_incentive: 0,
     perf_bonus: 0,
     annual_bonus: 0,
     two_car_maintenance: 0,
@@ -111,7 +160,7 @@ function EmployeeListCreateHook() {
     incremental_gross_salary: 0,
     earning2_vpf: 0,
     deduction_vpf: 0,
-    associate: 0,
+    // associate: 0,
     stability_incentive: 0,
     next_review_date: "",
     previous_review_date: "",
@@ -124,7 +173,9 @@ function EmployeeListCreateHook() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const codeDebouncer = useDebounce(form?.emp_code, 500);
   const ChildenRef = useRef(null);
-
+  const candidateId = location?.state?.empId;
+  const empFlag = location?.state?.isOnboard;
+  const traineeId = location?.state?.traineeId;
   const [listData, setListData] = useState({
     LOCATION_DEPARTMENTS: [],
     EMPLOYEES: [],
@@ -137,8 +188,6 @@ function EmployeeListCreateHook() {
     GRADES: [],
     CADRES: [],
   });
-  const [label, setLabel] = useState("");
-
   useEffect(() => {
     serviceGetList([
       "LOCATION_DEPARTMENTS",
@@ -157,76 +206,143 @@ function EmployeeListCreateHook() {
       }
     });
   }, []);
+  useEffect(() => {
+    if (listData?.EMPLOYEES?.length > 0 && (candidateId || traineeId)) {
+      let req;
+      if (candidateId) {
+        req = serviceGetEmployeeConversionInfo({ candidate_id: candidateId });
+      } else if (traineeId) {
+        req = serviceGetEmployeeEditInfo({ emp_id: traineeId });
+      }
+      req.then((res) => {
+        const empData = res?.data;
+        if (!candidateId) {
+          const hodIndex = listData?.EMPLOYEES.findIndex(
+            (val) => val.id === empData?.hod_id
+          );
+          if (hodIndex >= 0) {
+            empData.hod_id = listData?.EMPLOYEES[hodIndex];
+          }
+          const pmsIndex = listData?.EMPLOYEES.findIndex(
+            (val) => val.id === empData?.pms_reviewer_id
+          );
+          if (pmsIndex >= 0) {
+            empData.pms_reviewer_id = listData?.EMPLOYEES[pmsIndex];
+          }
+          const jobRoleIndex = listData?.JOB_ROLES.findIndex(
+            (val) => val.id === empData?.job_role_id
+          );
+          if (jobRoleIndex >= 0) {
+            empData.job_role_id = listData?.JOB_ROLES[jobRoleIndex];
+          }
 
+          const designationIndex = listData?.DESIGNATIONS.findIndex(
+            (val) => val.id === empData?.designation_id
+          );
+          if (designationIndex >= 0) {
+            empData.designation_id = listData?.DESIGNATIONS[designationIndex];
+          }
+          const data = { image: "" };
+          Object.keys({ ...empData }).forEach((key) => {
+            if (key in initialForm && key !== "image") {
+              if (key === "state") {
+                data[key] = empData[key].toUpperCase();
+              } else {
+                data[key] = empData[key];
+              }
+            }
+          });
+          setForm({ ...initialForm, ...data });
+        } else {
+          const { salary } = empData;
+          Object.keys(salary).forEach(key => {
+            salary[key] /= 12;
+          });
+          const designationIndex = listData?.DESIGNATIONS.findIndex(
+            (val) => val.id === empData?.designation?.id
+          );
+          if (designationIndex >= 0) {
+            empData.designation_id = listData?.DESIGNATIONS[designationIndex];
+          }
+          const data = { image: "" };
+          Object.keys({ ...initialForm }).forEach((key) => {
+            if (key in initialForm && key !== "image") {
+              if (key === "location_id") {
+                data[key] = empData["location"]?.id;
+              } else if (key === "grade_id") {
+                data[key] = empData["grade"]?.id;
+              } else if (key === "department_id") {
+                data[key] = empData["department"]?.id;
+              } else if (key === "sub_department_id") {
+                data[key] = empData["sub_department"]?.id;
+              } else if (key === "cadre_id") {
+                data[key] = empData["cadre"]?.id;
+              } else if (key === "state") {
+                data[key] = empData[key]?.toUpperCase();
+              } else {
+                data[key] = empData[key];
+              }
+            }
+          });
+          setForm({ ...initialForm, ...data, ...salary });
+        }
+      });
+    }
+  }, [candidateId, traineeId, listData]);
+  LogUtils.log("formLLL", form);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
       "emp_code",
-      // "image",
       "name",
       "doj",
       "grade_id",
       "cadre_id",
-      // 'spouse_gender',
       "location_id",
       "department_id",
       "sub_department_id",
       "designation_id",
       "hod_id",
       "pms_reviewer_id",
-      // "next_review_date",
-      // "previous_review_date",
       "gender",
       "dob",
-      "associate",
+      // "associate",
       "state",
       "blood_group",
-      // "official_contact",
       "personal_contact",
-      // "official_email",
-      // "personal_email",
-      // "higher_education",
       "martial_status",
-      // "dom",
       "father_name",
       "mother_name",
-      // "spouse_name",
-      // "spouse_dob",
-      // "children_name",
       "permanent_address",
       "current_address",
       "pan_no",
       "aadhar_no",
-      // "bank_account_name",
-      // "bank_account_no",
-      // "bank_name",
-      // "ifsc",
       "before_experience",
-      // "company_experience",
-      // "total_experience",
       "previous_organisation",
       "uan_no",
       // "esi_no",
-        ...SALARY_KEYS,
-      ,
+      // ...SALARY_KEYS,
     ];
+    if (!candidateId){
+      required.push(...SALARY_KEYS)
+    }
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
         (Array.isArray(form?.[val]) && form?.[val]?.length === 0)
       ) {
-        LogUtils.log('called', val, form?.[val]);
         errors[val] = true;
       } else if (["emp_code"].indexOf(val) < 0) {
         delete errors[val];
       }
     });
-
-    SALARY_KEYS.forEach((val) => {
-      if (form?.[val] && form?.[val] < 0) {
-        errors[val] = true;
-      }
-    })
+    if (!candidateId) {
+      SALARY_KEYS.forEach((val) => {
+        if (form?.[val] && form?.[val] < 0 && !isNum(form?.[val])) {
+          errors[val] = true;
+        }
+      });
+    }
     if (form?.official_email && !isEmail(form?.official_email)) {
       errors["official_email"] = true;
     }
@@ -259,10 +375,8 @@ function EmployeeListCreateHook() {
         delete errors[key];
       }
     });
-    console.log("===?", errors);
     return errors;
   }, [form, errorData]);
-
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
@@ -299,7 +413,7 @@ function EmployeeListCreateHook() {
         }
         t[fieldName] = text;
       } else if (SALARY_KEYS.indexOf(fieldName) >= 0) {
-        if (!text || (isNum(text))) {
+        if (!text || isNum(text)) {
           t[fieldName] = text;
         }
       } else {
@@ -344,7 +458,6 @@ function EmployeeListCreateHook() {
     [changeTextData, checkCodeValidation]
   );
   const submitToServer = useCallback(() => {
-    console.log("before ====?", form);
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
@@ -366,8 +479,9 @@ function EmployeeListCreateHook() {
         }
       });
       fd.append("children", JSON.stringify(ChildenRef.current.getData()));
-
-      console.log("Api hit", fd);
+      fd.append("nominee", JSON.stringify([]));
+      candidateId && fd.append("candidate_id", candidateId);
+      traineeId && fd.append("trainee_id", traineeId);
       serviceCreateEmployees(fd).then((res) => {
         if (!res.error) {
           historyUtils.push("/employees");
@@ -377,27 +491,29 @@ function EmployeeListCreateHook() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting]);
+  }, [form, isSubmitting, setIsSubmitting, candidateId, traineeId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     const isIncludesValid = ChildenRef.current.isValid();
-
-    if (Object.keys(errors)?.length > 0  || !isIncludesValid) {
+    LogUtils.log("errors==>", errors);
+    if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
       setErrorData(errors);
       return true;
     }
-    console.log("4");
-    // if (isIncludesValid) {
+    [
+      "children",
+      "nominee",
+      "createdAt",
+      "status",
+      "qualifications",
+      "_id",
+    ].forEach((item) => {
+      delete form[item];
+    });
+
     submitToServer();
-    // }
-  }, [
-    checkFormValidation,
-    setErrorData,
-    form,
-    submitToServer,
-    // includeRef.current
-  ]);
+  }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
@@ -461,6 +577,7 @@ function EmployeeListCreateHook() {
     getLevelValues,
     filteredAssociateJobRole,
     ChildenRef,
+    empFlag,
   };
 }
 

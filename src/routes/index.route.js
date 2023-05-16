@@ -24,6 +24,8 @@ import OfferConfirmation from "../views/Candidates/OfferConfirmation/OfferConfir
 import ShareSuccess from "../views/Candidates/CandidateDetails/components/ShareSuccess/ShareSuccess.js";
 import CandidateOfferLogin from "../views/Candidates/OfferConfirmation/components/OfferLogin/CandidateOfferLogin.js";
 import SubmittedResponse from "../views/Candidates/OfferConfirmation/components/SubmittedResponse/SubmittedResponse.js";
+import CustomDataGrid from "../views/Pms/PmsForm/PmsForm.view.js";
+import PmsFormDetail from "../views/Pms/PmsFormDetail/PmsFormDetail.view.js";
 
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
@@ -42,6 +44,8 @@ const RouteComponent = () => (
     <Route path={RouteName.OFFER_LETTER} component={OfferConfirmation} />
     <Route path={RouteName.CANDIDATES_SUCCESS} component={ShareSuccess} />
     <Route path={RouteName.OFFER_SUCCESS} component={SubmittedResponse} />
+    <Route path={`${RouteName.PMS_REVIEW_FORM}:id`} component={CustomDataGrid} />
+    <Route path={`${RouteName.PMS_FORM_DETAIL}:id`} component={PmsFormDetail} />
 
 
 

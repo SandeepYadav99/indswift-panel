@@ -171,7 +171,7 @@ function EmployeeListCreateHook() {
       setIsLoading(false);
     });
   }, [id]);
-
+  console.log('====>',form)
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     const required = [

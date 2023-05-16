@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import LogUtils from "../../../../libs/LogUtils";
-import {serviceChangeEmployeePassword, serviceChangeEmployeeStatus} from "../../../../services/Employee.service";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionUpdateCVShortlist } from "../../../../actions/CVShortlist.action";
 
-const initialForm={
-  is_less_experience:false,
-  is_under_qualified:false,
-  is_not_fit:false,
-  is_less_behaviour:false,
-  note:""
-}
-const useRejectDialogHook = ({ isOpen, handleToggle }) => {
+const initialForm = {
+  is_less_experience: false,
+  is_under_qualified: false,
+  is_not_fit: false,
+  is_less_behaviour: false,
+  note: "",
+};
+const useRejectDialogHook = ({ isOpen, handleToggle ,dataValue}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -22,7 +22,7 @@ const useRejectDialogHook = ({ isOpen, handleToggle }) => {
   const [resData, setResData] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
@@ -67,6 +67,22 @@ const useRejectDialogHook = ({ isOpen, handleToggle }) => {
         delete errors[val];
       }
     });
+    if (
+      !form?.is_less_experience &&
+      !form?.is_under_qualified &&
+      !form?.is_not_fit &&
+      !form?.is_less_behaviour
+    ) {
+      errors["select"] = true;
+      SnackbarUtils.error("Please Select the Reason");
+    } else if (
+      form?.is_less_experience ||
+      form?.is_under_qualified ||
+      form?.is_not_fit ||
+      form?.is_less_behaviour
+    ) {
+      delete errors["select"];
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -75,34 +91,41 @@ const useRejectDialogHook = ({ isOpen, handleToggle }) => {
     return errors;
   }, [form, errorData]);
 
+  function trueKeys(obj) {
+    let arr = [];
+  
+    for (let key in obj) {
+      if (obj[key] === true) {
+        arr.push(key);
+      }
+    }
+  
+    return arr;
+  }
+  
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      serviceChangeEmployeeStatus({
-        employee_id: employeeData?.id,
-        ...form,
-      }).then((res) => {
-        if (!res.error) {
-          SnackbarUtils.success("Request Placed Successfully");
-          handleToggle();
-        } else {
-          SnackbarUtils.error(res?.message);
-        }
-        setIsSubmitting(false);
-      });
+      const values= trueKeys(form)
+      const str= values.join(",")
+      handleUpdate(dataValue, "REJECT", str,form?.note)
+      handleToggle();
+      setIsSubmitting(false);
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle]);
-
+  const handleUpdate = useCallback((data, type,str,note) => {
+    LogUtils.log("data", data, type, form);
+    dispatch(actionUpdateCVShortlist(data?.id, type,str,note))
+  }, []);
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("===?",form,errors)
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
     }
-    // submitToServer();
+    
+    submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
-
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {

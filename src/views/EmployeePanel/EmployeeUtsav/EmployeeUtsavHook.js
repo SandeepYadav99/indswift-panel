@@ -18,7 +18,6 @@ function EmployeeUtsavHook() {
       .catch((err) => console.log(err));
   }, []);
   const handleViewDetails = useCallback((data) => {
-    console.log("=====>", data);
     historyUtils.push(`/employee/utsav/${data}`);
   }, []);
   console.log("employeeData", employeeUtsavData);

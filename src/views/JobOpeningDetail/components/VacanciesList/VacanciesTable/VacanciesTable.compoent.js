@@ -99,11 +99,11 @@ function VacanciesTable({ jobId }) {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              // onClick={() => {
-              //   handleViewDetails(all);
-              // }}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
             >
-              <Edit fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} />
             </IconButton>
           </div>
         ),

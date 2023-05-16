@@ -1,4 +1,4 @@
-import { ButtonBase } from "@material-ui/core";
+import { ButtonBase, Checkbox } from "@material-ui/core";
 import React, { useCallback, useMemo } from "react";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -30,7 +30,10 @@ function CandidateOLR({ location }) {
     handleApproveReview,
     isSubmitting,
     reviewId,
-    isRecruiter
+    isRecruiter,
+    isChecked,
+    role,
+    handleCheckboxChange,
   } = CandidateOLRHook({ location });
 
   const renderFirstCell = useCallback((obj) => {
@@ -103,16 +106,32 @@ function CandidateOLR({ location }) {
           <span style={{ textTransform: "capitalize" }}>{data?.comment}</span>
         </span>
       </div>
-      {isReview && (<div className={styles.plainPaper}>
-        <div className={styles.heading}>Approval Authority</div>
-        <div>
-          <DataTables
-            {...tableData.datatable}
-          />
+      {isReview && (
+        <div className={styles.plainPaper}>
+          <div className={styles.heading}>Approval Authority</div>
+          <div>
+            <DataTables {...tableData.datatable} />
+          </div>
         </div>
-      </div>)}
+      )}
+      {/* {role === "CORPORATE_HR" && (
+        <div className={styles.chkwrapp}>
+          <Checkbox
+            disabled={false}
+            onChange={handleCheckboxChange}
+            checked={isChecked}
+            value="secondary"
+            color="primary"
+            size="small"
+            inputProps={{ "aria-label": "secondary checkbox" }}
+          />
+          <span className={styles.spanchk}>
+            Hide Replacing Experience Detail
+          </span>
+        </div>
+      )} */}
 
-      {(isReview && !isRecruiter) && (
+      {isReview && !isRecruiter && (
         <div className={styles.btnReviewWrapper}>
           <div className={styles.isReviewBtnContainer}>
             <ButtonBase
@@ -147,14 +166,14 @@ function CandidateOLR({ location }) {
       )}
 
       <ApprovalDialog
-          offerId={id}
-          isOpen={isApprovalPopUp}
-          handleToggle={toggleApprovalDialog}
+        offerId={id}
+        isOpen={isApprovalPopUp}
+        handleToggle={toggleApprovalDialog}
       />
       <RejectOLRDialog
-          reviewId={reviewId}
-          isOpen={isRejectPopUp}
-          handleToggle={toggleRejectDialog}
+        reviewId={reviewId}
+        isOpen={isRejectPopUp}
+        handleToggle={toggleRejectDialog}
       />
     </div>
   );

@@ -1,3 +1,4 @@
+import LogUtils from "./LogUtils";
 
 const isUrl = (value) => {
     return /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(value);
@@ -21,6 +22,10 @@ const isAlpha = (value) => {
 
 const isNum = (value) => {
     return /^[0-9]*$/.test(value);
+}
+
+const isNumDec = (value) => {
+    return /^\d+(\.\d{1})?$/.test(value);
 }
 
 const isDate = (value) => {
@@ -62,5 +67,6 @@ export {
     IsIFSCCode,
     isAccountNum,
     IsVehicleNo,
-    validateUrl
+    validateUrl,
+    isNumDec
 };

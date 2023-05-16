@@ -1,8 +1,5 @@
-/**
- * Created by charnjeetelectrovese@gmail.com on 12/3/2019.
- */
 import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
+import { IconButton, MenuItem, ButtonBase, Menu } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
 import { Add, CloudUpload, InfoOutlined, CloudDownload, PrintOutlined } from "@material-ui/icons";
@@ -18,6 +15,8 @@ import StatusPill from "../../components/Status/StatusPill.component";
 import CreateView from "./Employee.view";
 import UploadCsvDialog from "./components/UploadCsv/UploadCsvDialog.view";
 import CPCDialogView from "./components/CPCDialog/CPCDialog.view";
+import OnBoardDialog from "./components/OnBoardPopUp/OnBoardDialog.view";
+import TraineeDialog from "./components/TraineePopUp copy/TraineeDialog.view";
 
 const EmployeeList = ({}) => {
   const {
@@ -43,7 +42,16 @@ const EmployeeList = ({}) => {
     isCPCDialog,
     toggleCPCDialog,
     handleCPCUpload,
-    handleCsvDownload
+    handleAddCandidate,
+    createDD,
+    handleClosedownloadCL,
+    handleCandidateMenu,
+    handleCsvDownload,
+    isExtendDialog,
+    toggleExtendDialog,
+    isTraineeDialog,
+    toggleTraineeDialog,
+    listData
   } = useEmployeeList({});
 
   const {
@@ -261,12 +269,57 @@ const EmployeeList = ({}) => {
                 className={"plusIcon"}
               ></CloudUpload>
             </ButtonBase>
-            <ButtonBase onClick={handleCreate} className={'createBtn'}>
-                                CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>
-                            </ButtonBase>
+           <div>
+            <ButtonBase
+              aria-owns={createDD ? "createDD" : undefined}
+              aria-haspopup="true"
+              onClick={handleAddCandidate}
+              className={"createBtn"}
+            >
+              Create
+              <Add fontSize={"small"} className={'plusIcon'}></Add>
+            </ButtonBase>
+            <Menu
+              id="createDD"
+              anchorEl={createDD}
+              open={Boolean(createDD)}
+              onClose={handleClosedownloadCL}
+            >
+                <MenuItem
+                onClick={() => {
+                  handleCandidateMenu("NEW");
+                }}
+              >
+                New Employee
+              </MenuItem>
+              {/* <MenuItem
+                onClick={() => {
+                  toggleExtendDialog();
+                }}
+              >
+                Onboard Candidate
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  toggleTraineeDialog();
+                }}
+              >
+                NAPS Trainee
+              </MenuItem> */}
+            </Menu>
+          </div>
           </div>
         </div>
-
+        <OnBoardDialog
+          listData={listData}
+          // candidateId={id}
+          isOpen={isExtendDialog}
+          handleToggle={toggleExtendDialog}
+        />
+        <TraineeDialog 
+        listData={listData}
+        isOpen={isTraineeDialog}
+        handleToggle={toggleTraineeDialog}/>
         <div>
           <FilterComponent
             is_progress={isFetching}

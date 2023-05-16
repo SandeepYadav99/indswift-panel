@@ -224,7 +224,7 @@ const JobOpeningsList = ({}) => {
             >
               <InfoOutlined style={{ color: "#2896e9" }} fontSize={"small"} />
             </IconButton>
-            {all.status !== Constants.JOB_OPENING_STATUS.CLOSED && (
+            {all.status === Constants?.JOB_OPENING_STATUS?.ACTIVE && (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"

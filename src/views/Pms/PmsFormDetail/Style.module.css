@@ -1,0 +1,81 @@
+.pmsformWrap {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 20px 80px #00000011;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  .formUpper{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .container {
+    margin: auto;
+    width: 100%;
+    max-height: 60vh;
+    /*position: absolute;*/
+    overflow: scroll;
+  }
+  .thead {
+    background: #ecf7ff 0% 0% no-repeat padding-box;
+    padding: 10px 0;
+    z-index: 10;
+  }
+  .formUpper > img{
+    width: 140px;
+    /* aspect-ratio: 1/1; */
+  }
+  .formUpper > p{
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  .formUpper > span{
+    margin: 10px 0;
+    text-align: center;
+    font-size: .875rem;
+  }
+  .tableWrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  .tipWrap{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+  }
+  .inputComp{
+    padding: 1rem 0;
+    text-indent: 10px;
+    border: none;
+  }
+  .readOnlyClass{
+    background-color: #edf2f5;
+    padding: 1rem 0;
+    text-indent: 10px;
+    border: none;
+  }
+  .lowerBtnwr{
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    padding: 1.2rem;
+    position: relative;
+    bottom: 0;
+    width: 100vw;
+  }
+  
+  .label {
+    font-size: 0.8rem;
+    padding: 4px
+  }
+  .detailView {
+    background: #FFFFFF;
+    font-size: 0.8rem;
+    padding: 1rem 0;
+    text-indent: 10px;
+    border: none;
+  }
+  

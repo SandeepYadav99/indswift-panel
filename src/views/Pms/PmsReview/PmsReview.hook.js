@@ -1,23 +1,30 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  actionAlignPmsReview,
   actionCreatePmsReview,
   actionDeletePmsReview,
   actionFetchPmsReview,
   actionSetPagePmsReview,
-  actionUpdatePmsReview,
 } from "../../../actions/PmsReview.action";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-import {serviceExportPMSReview} from "../../../services/PmsReview.service";
+import {
+  serviceAlignPmsBatch,
+  serviceExportPMSReview, serviceRunAssignBatches,
+} from "../../../services/PmsReview.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 const usePmsReview = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
+  const [approveDialog, setApproveDialog] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
   });
+  const [isSending, setIsSending] = useState(false);
+  const [selected, setSelected] = useState([]);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -25,7 +32,7 @@ const usePmsReview = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.pmsBatch);
+  } = useSelector((state) => state?.pmsReview);
 
   useEffect(() => {
     dispatch(
@@ -37,7 +44,6 @@ const usePmsReview = ({}) => {
     isMountRef.current = true;
   }, []);
 
-
   useEffect(() => {
     serviceGetList(["PMS_EMPLOYEES"]).then((res) => {
       if (!res.error) {
@@ -45,32 +51,32 @@ const usePmsReview = ({}) => {
       }
     });
   }, []);
-  console.log("list", listData);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPagePmsReview(type));
   }, []);
 
-  const handleCsvDownload = useCallback((payload) => {
-    serviceExportPMSReview({
-      row: sortingData?.row,
-      order: sortingData?.order,
-      query: query,
-      query_data: queryData,
-    }).then((res) => {
-      if (!res.error) {
-        const data = res.data?.response;
-        window.open(data, "_blank");
-      }
-    });
-  }, [sortingData, query, queryData]);
+  const toggleStatusDialog = useCallback(() => {
+    setApproveDialog((e) => !e);
+  }, [approveDialog]);
+
+  const handleCsvDownload = useCallback(
+    (payload) => {
+      setApproveDialog(false);
+      serviceRunAssignBatches({}).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success('Batching Process has been started. Please wait for 2 minutes data will be updated soon');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000 * 60 *2);
+        }
+      });
+    }, [setApproveDialog]);
 
   const handleDataSave = useCallback(
     (data, type) => {
       if (type == "CREATE") {
         dispatch(actionCreatePmsReview(data));
-      } else {
-        dispatch(actionUpdatePmsReview(data));
       }
       setEditData(null);
     },
@@ -149,24 +155,39 @@ const usePmsReview = ({}) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.emp_code}`); //+data.id
+    LogUtils.log({
+      reviewerId: data.reviewer_id,
+      pms_batch: data.batch,
+      pms_form_type: data.form_type,
+      batch_id: data.id,
+    });
+    historyUtils.push(`${RouteName.PERFORMANCE_BATCH}`, {
+      reviewerId: data.reviewer_id,
+      pms_batch: data.batch,
+      pms_form_type: data.form_type,
+      batch_id: data.id,
+    }); //+data.id
+  }, []);
+
+  const handleViewFormDetails = useCallback((data) => {
+    LogUtils.log('datatata',data);
+    // historyUtils.push(`${RouteName.PMS_FORM_DETAIL}${data?.id}`);
   }, []);
 
   const configFilter = useMemo(() => {
     return [
       {
-        label: "PMS Review",
-        name: "pms_batch",
+        label: "PMS Batch",
+        name: "batch",
         type: "select",
-        fields: ["DTY", "APMS", 'N/A'],
+        fields: ["DTY", "APMS"],
       },
 
       {
-        label: "PMS reviewer",
-        name: "pms_reviewer_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.PMS_EMPLOYEES,
+        label: "Form Type",
+        name: "form_type",
+        type: "select",
+        fields: ["TYPE_1", "TYPE_2", "TYPE_3", "TYPE_4"],
       },
       // {
       //   label: "Status",
@@ -182,9 +203,47 @@ const usePmsReview = ({}) => {
       //     "INACTIVE",
       //   ],
       // },
-
     ];
   }, [listData]);
+
+  const handleCheckbox = useCallback(
+    (data) => {
+      const tempSelected = JSON.parse(JSON.stringify(selected));
+      const tempIndex = tempSelected.findIndex((sel) => sel.id === data.id);
+      if (tempIndex >= 0) {
+        tempSelected.splice(tempIndex, 1);
+      } else {
+        tempSelected.push(data);
+      }
+      setSelected(tempSelected);
+    },
+    [selected, setSelected]
+  );
+
+  const selectedEmps = useMemo(() => {
+    let total = 0;
+    selected.forEach((val) => {
+      total += val?.total_employees;
+    });
+    return total;
+  }, [selected]);
+
+  const handleSend = useCallback(() => {
+    if (!isSending) {
+      setIsSending(true);
+      const batchIds = selected.map((val) => val.id);
+      serviceAlignPmsBatch(batchIds).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Reviews Aligned SuccessFully");
+          setSelected([]);
+          dispatch(actionAlignPmsReview(batchIds));
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSending(false);
+      });
+    }
+  }, [selected, isSending, setIsSending, setSelected]);
 
   return {
     handlePageChange,
@@ -204,6 +263,14 @@ const usePmsReview = ({}) => {
     editData,
     configFilter,
     handleCsvDownload,
+    selected,
+    handleCheckbox,
+    isSending,
+    handleSend,
+    selectedEmps,
+    handleViewFormDetails,
+    toggleStatusDialog,
+        approveDialog,
   };
 };
 

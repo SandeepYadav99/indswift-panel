@@ -108,7 +108,6 @@ const useClaimHealthCard = ({}) => {
       if (form?.payment_proof) {
         fd.append("payment_proof", form?.payment_proof);
       }
-      console.log('====>',form)
       let req = serviceUpdateHealthClaims;
       req(fd).then((res) => {
         if (!res.error) {
