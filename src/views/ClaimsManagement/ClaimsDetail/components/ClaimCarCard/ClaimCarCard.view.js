@@ -89,7 +89,7 @@ function ClaimCarCard() {
                 isError={errorData?.bill_amount}
                 errorText={errorData?.bill_amount}
                 label={"Bill Amount"}
-                value={form?.name}
+                value={form?.bill_amount}
                 onTextChange={(text) => {
                   changeTextData(text, "bill_amount");
                 }}

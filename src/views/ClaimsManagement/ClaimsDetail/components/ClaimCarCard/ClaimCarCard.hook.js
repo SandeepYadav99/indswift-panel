@@ -141,7 +141,11 @@ const useClaimCarCard = ({}) => {
       const t = { ...form };
       if (fieldName === "marrige_of") {
         t[fieldName] = text.target.value;
-      } 
+      }else if (fieldName === 'bill_amount'){
+        if(text >=0){
+          t[fieldName]=text;
+        }
+      }
        else {
         t[fieldName] = text;
       }

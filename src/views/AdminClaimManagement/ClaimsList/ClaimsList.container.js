@@ -44,6 +44,7 @@ const ClaimsList = ({ location }) => {
     configFilter,
     warehouses,
     handleCsvDownload,
+    handleBankSheetDownload,
     handleAddCandidate,
     downloadCL,
     handleClosedownloadCL,
@@ -234,7 +235,7 @@ const ClaimsList = ({ location }) => {
             <span className={styles.title}>Claim Management</span>
             <div className={styles.newLine} />
           </div>
-          <div>
+          <div className={styles.btnWrap}>
             <ButtonBase
               aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
@@ -279,6 +280,15 @@ const ClaimsList = ({ location }) => {
                 PROCESSED
               </MenuItem>
             </Menu>
+            <ButtonBase
+              aria-owns={downloadCL ? "downloadCL" : undefined}
+              aria-haspopup="true"
+              // onClick={handleAddCandidate}
+              onClick={handleBankSheetDownload}
+              className={"createBtn"}
+            >
+              Bank Transfer Sheet
+            </ButtonBase>
           </div>
         </div>
 

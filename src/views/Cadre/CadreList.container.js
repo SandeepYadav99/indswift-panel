@@ -30,6 +30,8 @@ import StatusPill from "../../components/Status/StatusPill.component";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../libs/history.utils";
 import useAuthenticate from "../../hooks/AuthenticateHook";
+import historyUtils from "../../libs/history.utils";
+import RouteName from "../../routes/Route.name";
 // import CreateView from './Cadre.view';
 
 const CadreList = ({}) => {
@@ -178,7 +180,7 @@ const CadreList = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <ButtonBase onClick={() => history.goBack()}>
+            <ButtonBase onClick={() => historyUtils.push(`${RouteName.GRADES}`)}>
               <ArrowBackIosIcon
                 fontSize={"small"}
                 className={styles.backArrow}

@@ -104,6 +104,10 @@ function ClaimDetailInfo({ idCards }) {
                 <span className={styles.value}>Invoice Number:</span>
                 {idCards?.invoice_no ? idCards?.invoice_no : "-"}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Last Claim Date:</span>
+                {idCards?.employee?.lastMobInvoiceDateText ? idCards?.employee?.lastMobInvoiceDateText : "-"}
+              </div>
             </div>
             <div className={styles.right}>
               <div className={styles.key}>

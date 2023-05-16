@@ -52,6 +52,11 @@ const useClaimMobileCard = ({}) => {
       .catch((err) => console.log(err));
   }, []);
    
+  useEffect(()=>{
+    if(employeeDetails){
+      setForm({...form,official_contact:employeeDetails?.contact?.official_contact})
+    }
+  },[employeeDetails])
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -143,6 +148,10 @@ const useClaimMobileCard = ({}) => {
       else if (fieldName === "official_contact") {
         if (isNum(text) && text.toString().length <= 10) {
           t[fieldName] = text;
+        }
+      }else if (fieldName === 'bill_amount'){
+        if(text >=0){
+          t[fieldName]=text;
         }
       }
       else {

@@ -11,7 +11,7 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-import { serviceExportClaimList } from "../../../services/Claims.service";
+import { serviceExportBankSheetList, serviceExportClaimList } from "../../../services/Claims.service";
 const useClaimsList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [downloadCL, setdownloadCL] = useState(null);
@@ -74,6 +74,14 @@ const useClaimsList = ({}) => {
   }, []);
   const handleCsvDownload = useCallback((payload) => {
     serviceExportClaimList({ status: payload }).then((res) => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    });
+  }, []);
+  const handleBankSheetDownload = useCallback(() => {
+    serviceExportBankSheetList({}).then((res) => {
       if (!res.error) {
         const data = res.data?.response;
         window.open(data, "_blank");
@@ -187,7 +195,7 @@ const useClaimsList = ({}) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["REJECTED", "PENDING", "APPROVED"],
+        fields: ["REJECTED", "PENDING", "APPROVED","PROCESSED","HOD_APPROVED","SITE_HR_APPROVED","CORPORATE_AUDIT_1_APPROVED","CORPORATE_AUDIT_2_APPROVED","ACCOUNTS_APPROVED"],
       },
       {
         label: "Claim Type",
@@ -217,6 +225,7 @@ const useClaimsList = ({}) => {
     isSidePanel,
     configFilter,
     handleCsvDownload,
+    handleBankSheetDownload,
     handleAddCandidate,
     downloadCL,
     handleClosedownloadCL,

@@ -57,6 +57,7 @@ function ClaimMobileCard() {
           <div className={"formFlex"} style={{ alignItems: "center" }}>
             <div className="formGroup1">
               <CustomTextField
+                disabled= {true}
                 type="number"
                 isError={errorData?.official_contact}
                 errorText={errorData?.official_contact}
@@ -90,7 +91,7 @@ function ClaimMobileCard() {
                 isError={errorData?.bill_amount}
                 errorText={errorData?.bill_amount}
                 label={"Bill Amount"}
-                value={form?.name}
+                value={form?.bill_amount}
                 onTextChange={(text) => {
                   changeTextData(text, "bill_amount");
                 }}
@@ -207,8 +208,8 @@ function ClaimMobileCard() {
       <div className={styles.btnCont}>
         <ButtonBase
           type={"button"}
-          disabled={!declaration || isLoading ? true : false}
-          className={declaration ? styles.createBtn : styles.disabledCreatebtn}
+          disabled={(!declaration || isLoading) || !form?.official_contact?.length ? true : false}
+          className={declaration && form?.official_contact?.length ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >
           {isLoading ? <CircularProgress color="success" size="20px"/>: 'Submit'}
