@@ -1,10 +1,21 @@
 import React, { useMemo, useState } from "react";
 import styles from "./Style.module.css";
 import logo from "../../../assets/img/login logo@2x.png";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { IconButton, Tooltip, makeStyles } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
-import LogUtils from "../../../libs/LogUtils";
+import { removeUnderScore } from "../../../helper/helper";
 import UsePmsFormDetail from "./PmsFormDetail.hook";
+
+const useStyles = makeStyles((theme) => ({
+  customTooltip: {
+    backgroundColor: "white",
+    color: "black",
+    fontSize: ".75rem",
+    fontWeight: "normal",
+    fontFamily: "Montserrat",
+    borderRadius: "10px",
+  },
+}));
 
 const TableCell = ({
   row,
@@ -17,23 +28,39 @@ const TableCell = ({
   group,
   ...props
 }) => {
+
   const inputField = useMemo(() => {
     if (render) {
       return null;
-    } else {
-      return (
-        <div>
-          <p>{value}</p>
-        </div>
-        // <FormInput
-        //   value={value ? value : ""}
-        //   readOnly={readOnly}
-        //   name={name}
-        //   isError={isError}
-        //   type={"number"}
-        // />
-      );
     }
+    else{
+      return <h2>{name}</h2>
+    }
+    // if (group === "CPC") {
+    //   return (
+    //     <FormDropdown
+    //       name={name}
+    //       value={value ? value : ""}
+    //       isError={isError}
+    //       onChange={(e) => {
+    //         handleInputChange(e.target.name, e.target.value, "DROPDOWN");
+    //       }}
+    //     />
+    //   );
+    // } else {
+    //   return (
+    //     <FormInput
+    //       value={value ? value : ""}
+    //       onChange={(e) => {
+    //         handleInputChange(e.target.name, e.target.value, "NUMBER");
+    //       }}
+    //       readOnly={readOnly}
+    //       name={name}
+    //       isError={isError}
+    //       type={"number"}
+    //     />
+    //   );
+    // }
   }, [render, group, value, name]);
   return (
     <td
@@ -43,8 +70,11 @@ const TableCell = ({
         left: fixed ? 0 : undefined,
         border: "2px solid #EBEDF4",
         padding: "0",
+        zIndex: fixed ? 10 : 9,
+        background: readOnly ? "#EDF2F5 " : "#ffffff",
       }}
     >
+      {/* {console.log('row',row?.ratings[0]?.parameters[0])} */}
       {render ? (
         render(row)
       ) : (
@@ -55,17 +85,32 @@ const TableCell = ({
 };
 
 const TableHead = ({ columns }) => {
+  const classes = useStyles();
   const parameterColumns = useMemo(() => {
     const thead = [];
     columns.forEach((col) => {
       if ("parameters" in col) {
         col.parameters.forEach((param) => {
           thead.push(
-            <th key={param.title} className={styles.thead}>
+            <th
+              style={{
+                position: "sticky",
+                // left: fixed ? 0 : undefined,
+                top: 35,
+                zIndex: 10,
+              }}
+              key={param.title}
+              className={styles.thead}
+            >
               <div className={styles.tipWrap}>
-                {param?.title}
+                {param?.title?.replace(/_/g, " ")}
                 {param?.description && (
-                  <Tooltip title={param?.description}>
+                  <Tooltip
+                    enterDelay={5}
+                    leaveDelay={2000}
+                    title={param?.description}
+                    classes={{ tooltip: classes.customTooltip }}
+                  >
                     <IconButton size="small">
                       <InfoOutlined color="secondary" />
                     </IconButton>
@@ -93,14 +138,15 @@ const TableHead = ({ columns }) => {
                 position: "sticky",
                 left: fixed ? 0 : undefined,
                 top: 0,
-                zIndex: fixed ? 10 : 9,
+                zIndex: fixed ? 100 : 9,
               }}
               className={styles.thead}
             >
               <div className={styles.tipWrap}>
-                {title}
+                {title?.replace(/_/g, " ")}
                 {text && (
-                  <Tooltip title={text}>
+                  <Tooltip title={text} enterDelay={5}
+                  leaveDelay={2000}>
                     <IconButton size="small">
                       <InfoOutlined color="secondary" />
                     </IconButton>
@@ -116,14 +162,23 @@ const TableHead = ({ columns }) => {
   );
 };
 
-const PmsFormDetail = ({ route }) => {
-  const { columns, rows, processedColumns, form } = UsePmsFormDetail({});
+const PmsFormDetail = ({ location }) => {
+  const {
+    columns,
+    rows,
+    processedColumns,
+    form,
+    errors,
+  } = UsePmsFormDetail({ location });
+
+  const type = location?.state?.type;
+
   return (
     <div>
       <div className={styles.pmsformWrap}>
         <div className={styles.formUpper}>
           <img src={logo} alt="IndSwift" />
-          <p>Type 1 Form</p>
+          <p>{`${removeUnderScore(type)} FORM`}</p>
           <span>
             This form is based upon right angle methodology, in which an
             assigned mentor provide concrete feedback about the subordinate with
@@ -144,70 +199,26 @@ const PmsFormDetail = ({ route }) => {
               height: "100px",
             }}
           >
+            {/* {console.log('processedColumns',processedColumns)} */}
             <TableHead columns={columns} />
             <tbody>
-              {rows?.map((row, rowIndex) => (
+              {rows.map((row, rowIndex) => (
                 <>
-                  <tr key={row?.id}>
-                    {processedColumns.map(
-                      (
-                        { key, fixed, readOnly, render, rating,ratings, ...props },
-                        index
-                      ) => (
-                        <TableCell
-                          value={rating}
-                          row={row}
-                          key={key}
-                          name={`${rowIndex}_${key}`}
-                          fixed={fixed}
-                          readOnly={readOnly}
-                          render={render}
-                          {...props}
-                        />
-                      )
-                    )}
-                  </tr>
-                  <tr key={row?.id}>
-                    {processedColumns.map(
-                      (
-                        { key, fixed, readOnly, render, rating,ratings, ...props },
-                        index
-                      ) => (
-                        <TableCell
-                          value={ratings?.rating}
-                          {...props}
-                        />
-                      )
-                    )}
-                  </tr>{" "}
-                  <tr key={row?.id}>
-                    {processedColumns.map(
-                      (
-                        { key, fixed, readOnly, render, rating,ratings, ...props },
-                        index
-                      ) => (
-                        <TableCell
-                          value={ratings?.weighted}
-                           
-                          {...props}
-                        />
-                      )
-                    )}
-                  </tr>
-                  <tr key={row?.id}>
-                    {processedColumns.map(
-                      (
-                        { key, fixed, readOnly, render, rating,ratings, ...props },
-                        index
-                      ) => (
-                        <TableCell
-                          value={ratings?.percentage}
-                           
-                          {...props}
-                        />
-                      )
-                    )}
-                  </tr>
+                 <tr key={row.id}>
+                  {processedColumns.map(
+                    ({ key, fixed, readOnly, render, ...props }, index) => (
+                      <TableCell
+                        row={row}
+                        key={key}
+                        name={`${rowIndex}_${key}`}
+                        fixed={fixed}
+                        readOnly={readOnly}
+                        render={render}
+                        {...props}
+                      />
+                    )
+                  )}
+                </tr>
                 </>
               ))}
             </tbody>

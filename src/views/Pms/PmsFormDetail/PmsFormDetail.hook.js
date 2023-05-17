@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router";
 import styles from "./Style.module.css";
-import {serviceGetPmsBatchDetail, serviceGetReviewDetail} from "../../../services/PmsReview.service";
+import { serviceGetReviewDetail} from "../../../services/PmsReview.service";
 
 const UsePmsFormDetail = ({}) => {
   const { id } = useParams();
@@ -73,7 +73,7 @@ const UsePmsFormDetail = ({}) => {
 
   useEffect(() => {
     if (!isMount.current) {
-      serviceGetReviewDetail("6458e3fb7893b118a41074ca").then((res) => {
+      serviceGetReviewDetail(id).then((res) => {
         if (!res.error) {
           // LogUtils.log('res', res.data);
           setRows(res.data?.reviews);
@@ -87,7 +87,7 @@ const UsePmsFormDetail = ({}) => {
   useEffect(() => {
     const tForm = {};
     rows.forEach((row, rowIndex) => {
-      processedColumns.forEach((col, colIndex) => {
+      processedColumns.forEach((col) => {
         if (!col.is_static) {
           tForm[`${rowIndex}_${col.key}`] = "";
         }

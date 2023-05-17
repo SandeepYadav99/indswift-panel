@@ -96,7 +96,8 @@ const TableHead = ({columns}) => {
                             <div className={styles.tipWrap}>
                                 {param?.title?.replace(/_/g, " ")}
                                 {param?.description && (
-                                    <Tooltip title={param?.description} classes={{ tooltip: classes.customTooltip }}>
+                                    <Tooltip title={param?.description} classes={{ tooltip: classes.customTooltip }} enterDelay={2}
+                                    leaveDelay={2000}>
                                         <IconButton size="small">
                                             <InfoOutlined color="secondary"/>
                                         </IconButton>
@@ -131,7 +132,7 @@ const TableHead = ({columns}) => {
                         <div className={styles.tipWrap}>
                             {title?.replace(/_/g, " ")}
                             {text && (
-                                <Tooltip title={text} >
+                                <Tooltip title={text} enterDelay={2} leaveDelay={2000}>
                                     <IconButton size="small">
                                         <InfoOutlined color="secondary" />
                                     </IconButton>
