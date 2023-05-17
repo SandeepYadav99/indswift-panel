@@ -66,6 +66,14 @@ const ChildrenIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
+      fields.forEach(obj => {
+        if (obj.hasOwnProperty("employee_id")) {
+          delete obj.employee_id;
+        }
+        if (obj.hasOwnProperty("_id")) {
+          delete obj._id;
+        }
+      });
       return JSON.parse(JSON.stringify(fields));
     },
   }));
