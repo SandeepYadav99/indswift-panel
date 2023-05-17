@@ -62,6 +62,7 @@ const UsePmsFormDetail = ({}) => {
             key: `${colIndex}_${paramIndex}`,
             group: col.group,
             ratings:{...col.ratings}
+            // ratings:{'rating':`${colIndex}_${paramIndex}`,'weighted':`${colIndex}_${paramIndex}`,'percentage':`${colIndex}_${paramIndex}`}
           });
         });
       } else {
