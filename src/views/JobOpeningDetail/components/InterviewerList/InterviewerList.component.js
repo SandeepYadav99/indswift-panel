@@ -17,9 +17,9 @@ const InterviewerListComponent = ({jobId,isInterviewStatus,handleChangeInterview
                 </div>
                     <div style={{ marginLeft: "20px" }}>
                     <ButtonBase onClick={toggleSidePanel}  
-                    disabled={status === "CLOSED" ? true : false}
+                    disabled={status !== "ACTIVE" ? true : false}
                     className={
-                      status === "CLOSED" ? styles.disabledBtn : styles.createBtn
+                      status !== "ACTIVE" ? styles.disabledBtn : styles.createBtn
                     }>
                         MODIFY INTERVIEW PANEL
                     </ButtonBase>

@@ -33,8 +33,8 @@ const CandidatePaperComponent = ({jobId, isRecurring,status}) => {
                 </div>
                 <div style={{ marginLeft: "20px" }}>
                         <ButtonBase
-                        disabled={status ==='CLOSED' ? true : false}
-                        className={status ==='CLOSED' ? styles.disabledBtn :styles.createBtn}
+                        disabled={status !=='ACTIVE' ? true : false}
+                        className={status !=='ACTIVE' ? styles.disabledBtn :styles.createBtn}
                         aria-owns={candidateEl ? "candidateEl" : undefined}
                         aria-haspopup="true"
                         onClick={handleAddCandidate}

@@ -101,11 +101,12 @@ export default {
     'CV REJECTED':'error',
     'NOT JOINING':'error',
     'Dropped': 'nosourcing',
-    'Feedback Pending':'pending'
+    'Feedback Pending':'pending',
+    'REVIEW PENDING':'error'
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',
-    CLOSED: 'CLOSED'
+    CLOSED: 'CLOSED',
   },
   VACANCY_TYPE: {
     RAP: 'RAP',

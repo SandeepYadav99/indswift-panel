@@ -215,9 +215,9 @@ const CandidatesRecordTable = ({
             />
               <div className={styles.editBtn1}>
                 <ButtonBase
-                  disabled={status === "CLOSED" ? true : false}
+                  disabled={status !== "ACTIVE" ? true : false}
                   className={
-                    status === "CLOSED" ? styles.editDisabled : styles.edit
+                    status !== "ACTIVE" ? styles.editDisabled : styles.edit
                   }
                   onClick={() => {
                     handleShortlistSidepanel("job_opening_detail");
@@ -226,9 +226,9 @@ const CandidatesRecordTable = ({
                   SHORTLIST
                 </ButtonBase>
                 <ButtonBase
-                  disabled={status === "CLOSED" ? true : false}
+                  disabled={status !== "ACTIVE" ? true : false}
                   className={
-                    status === "CLOSED" ? styles.editDisabled : styles.edit
+                    status !== "ACTIVE" ? styles.editDisabled : styles.edit
                   }
                   onClick={() => {
                     handleInterviewSidepanel("job_opening_detail");
