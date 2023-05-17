@@ -59,6 +59,9 @@ const ChildrenIncludeForm = (
     isValid() {
       return validateData();
     },
+    setData(data) {
+      setFields([...data]);
+    },
     resetData() {
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },

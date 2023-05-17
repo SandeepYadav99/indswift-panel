@@ -43,6 +43,7 @@ const EmployeeListCreate = ({location}) => {
     filteredCadres,
     getLevelValues,
     ChildenRef,
+    defaultImg,
     empFlag
   } = EmployeeListCreateHook({location});
   const getSumValue = (...numbers) => {
@@ -59,6 +60,7 @@ const EmployeeListCreate = ({location}) => {
   const image = useMemo(() => {
     return (
       <File
+        default_image={ defaultImg ? defaultImg : ''}     
         // imageClass={styles.inputFileUploader}
         max_size={5 * 1024 * 1024}
         type={["png", "jpeg", "jpg"]}

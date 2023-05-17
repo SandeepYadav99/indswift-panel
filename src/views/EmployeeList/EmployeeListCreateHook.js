@@ -170,7 +170,9 @@ function EmployeeListCreateHook({ location }) {
   const [errorData, setErrorData] = useState({});
   const { id } = useParams();
   const includeRef = useRef(null);
+  const [defaultImg,setDefaultImg]=useState('')
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [remotePath,setRemotePath]=useState('')
   const codeDebouncer = useDebounce(form?.emp_code, 500);
   const ChildenRef = useRef(null);
   const candidateId = location?.state?.empId;
@@ -216,7 +218,11 @@ function EmployeeListCreateHook({ location }) {
       }
       req.then((res) => {
         const empData = res?.data;
+        setDefaultImg(empData?.image)
+        setRemotePath(empData?.remote_image_path)
         if (!candidateId) {
+          const {children}=empData
+          ChildenRef?.current?.setData(children)
           const hodIndex = listData?.EMPLOYEES.findIndex(
             (val) => val.id === empData?.hod_id
           );
@@ -255,7 +261,7 @@ function EmployeeListCreateHook({ location }) {
           setForm({ ...initialForm, ...data });
         } else {
           const { salary } = empData;
-          Object.keys(salary).forEach(key => {
+          Object.keys(salary).forEach((key) => {
             salary[key] /= 12;
           });
           const designationIndex = listData?.DESIGNATIONS.findIndex(
@@ -279,7 +285,11 @@ function EmployeeListCreateHook({ location }) {
                 data[key] = empData["cadre"]?.id;
               } else if (key === "state") {
                 data[key] = empData[key]?.toUpperCase();
-              } else {
+              }else if (key==='current_address'){
+                data[key] = empData['correspondence_address']
+              }else if (key === 'previous_organisation'){
+                data[key] = empData?.employment_history?.length > 0 && empData['employment_history'][0]?.organisation_name
+              }else {
                 data[key] = empData[key];
               }
             }
@@ -289,7 +299,7 @@ function EmployeeListCreateHook({ location }) {
       });
     }
   }, [candidateId, traineeId, listData]);
-  LogUtils.log("formLLL", form);
+  LogUtils.log("formLLL", form,remotePath);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
@@ -323,8 +333,8 @@ function EmployeeListCreateHook({ location }) {
       // "esi_no",
       // ...SALARY_KEYS,
     ];
-    if (!candidateId){
-      required.push(...SALARY_KEYS)
+    if (!candidateId) {
+      required.push(...SALARY_KEYS);
     }
     required.forEach((val) => {
       if (
@@ -478,6 +488,9 @@ function EmployeeListCreateHook({ location }) {
           fd.append(key, form[key]);
         }
       });
+      if(remotePath?.length > 0){
+        fd.append('remote_image_path',remotePath)
+      }
       fd.append("children", JSON.stringify(ChildenRef.current.getData()));
       fd.append("nominee", JSON.stringify([]));
       candidateId && fd.append("candidate_id", candidateId);
@@ -578,6 +591,7 @@ function EmployeeListCreateHook({ location }) {
     filteredAssociateJobRole,
     ChildenRef,
     empFlag,
+    defaultImg
   };
 }
 
