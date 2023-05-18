@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router";
 import styles from "./Style.module.css";
 import { serviceGetReviewDetail} from "../../../services/PmsReview.service";
+import RouteName from "../../../routes/Route.name";
+import historyUtils from "../../../libs/history.utils";
 
 const UsePmsFormDetail = ({}) => {
   const { id } = useParams();
@@ -12,11 +14,7 @@ const UsePmsFormDetail = ({}) => {
       title: "Employee",
       fixed: true,
       readOnly: true,
-      render: (all) => (
-        <div className={styles.label}>
-          {all?.employee?.name} <br />
-          {all?.employee?.code}
-        </div>
+      render: (all) => ( <div className={styles.label21}><span>{all?.employee?.name}</span> <br/><p>{all?.employee?.code}</p></div>
       ),
     },
     {
@@ -62,7 +60,6 @@ const UsePmsFormDetail = ({}) => {
             key: `${colIndex}_${paramIndex}`,
             group: col.group,
             ratings:{...col.ratings}
-            // ratings:{'rating':`${colIndex}_${paramIndex}`,'weighted':`${colIndex}_${paramIndex}`,'percentage':`${colIndex}_${paramIndex}`}
           });
         });
       } else {
@@ -76,7 +73,6 @@ const UsePmsFormDetail = ({}) => {
     if (!isMount.current) {
       serviceGetReviewDetail(id).then((res) => {
         if (!res.error) {
-          // LogUtils.log('res', res.data);
           setRows(res.data?.reviews);
           setColumns([...columns, ...res?.data?.form_data]);
         }
@@ -96,12 +92,15 @@ const UsePmsFormDetail = ({}) => {
     });
     setForm(tForm);
   }, [rows, processedColumns]);
-
+  const handleReviewPage = useCallback(() => {
+    historyUtils.push(RouteName.PERFORMANCE_REVIEW);
+  }, []);
   return {
     columns,
     rows,
     processedColumns,
     form,
+    handleReviewPage,
   };
 };
 

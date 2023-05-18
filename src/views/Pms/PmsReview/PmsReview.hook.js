@@ -170,10 +170,13 @@ const usePmsReview = ({}) => {
   }, []);
 
   const handleViewFormDetails = useCallback((data) => {
-    LogUtils.log('datatata',data);
-    historyUtils.push(`${RouteName.PMS_FORM_DETAIL}${data?.id}`);
+    historyUtils.push(
+      `${RouteName.PMS_FORM_DETAIL}${data?.id}`,
+      {
+        type:data?.form_type
+      }
+    );
   }, []);
-
   const configFilter = useMemo(() => {
     return [
       {

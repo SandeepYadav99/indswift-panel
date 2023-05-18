@@ -70,12 +70,24 @@
   bottom: 0;
   /* width: 100vw; */
 }
-
+.detailCont{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: .875rem;
+}
+.detailCont > span {
+  padding: 10px 0;
+}
 .label {
   font-size: 0.8rem;
   padding: 4px;
   /* background: rgb(246 247 255); */
   z-index: 10;
+  white-space: nowrap;
+
 }
 .label21{
   font-size: 0.8rem;
@@ -89,6 +101,7 @@
 .label21 > p{
   margin: 0;
   white-space: nowrap;
+  margin-top: 5px;
 }
 .inputWrap {
   position: relative;
@@ -97,4 +110,19 @@
   margin: 5px 0px;
   display: flex;
   align-items: center;
+}
+.inputWrap2{
+  position: relative;
+  display: block;
+  height: 100%;
+  margin: 5px 0px;
+  display: flex;
+  align-items: center;
+}
+.btnWrap{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
 }
