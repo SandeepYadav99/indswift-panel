@@ -65,10 +65,22 @@
     margin-bottom: 7px;
     /*display: flex;*/
 }
-
+.key41{
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 7px;
+    display: flex;
+    /*display: flex;*/
+}
 .value{
     font-weight: 600;
     width: 100%;
+    color: black;
+    display: inline-block;
+}
+.value41{
+    font-weight: 600;
+    width: 40%;
     color: black;
     display: inline-block;
 }

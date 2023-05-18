@@ -77,6 +77,10 @@ const PersonalInfo = ({ data }) => {
                 <span className={styles.value}>Blood Group:</span>
                 <span className={styles.valueWrap}>{data?.blood_group}</span>
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Qualification:</span>
+                <span className={styles.valueWrap}>{data?.higher_education}</span>
+              </div>
             </div>
             <div className={styles.vertical}></div>
             <div className={styles.right}>

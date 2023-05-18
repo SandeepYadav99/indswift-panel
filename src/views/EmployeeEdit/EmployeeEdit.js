@@ -268,6 +268,22 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
+          <div className={"formFlex"} style={{width:'50%'}}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  isError={errorData?.higher_education}
+                  errorText={errorData?.higher_education}
+                  label={"Qualification"}
+                  value={form?.higher_education}
+                  onTextChange={(text) => {
+                    changeTextData(text, "higher_education");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("higher_education");
+                  }}
+              />
+            </div>
+          </div>
         </div>
         <div className={"plainPaper"}>
           <div className={"headerFlex"}>

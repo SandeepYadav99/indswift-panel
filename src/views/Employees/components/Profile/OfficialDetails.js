@@ -55,6 +55,10 @@ const OfficialDetails = ({ data }) => {
             </div>
             <div className={styles.vertical}></div>
             <div className={styles.right}>
+            <div className={styles.key}>
+                <span className={styles.value}>DOS:</span>
+                <span className={styles.valueWrap}>{data?.resign_data?.separated_date}</span>
+              </div>
               <div className={styles.key}>
                 <span className={styles.value}>Grade:</span>
                 <span className={styles.valueWrap}>{data?.grade?.code}</span>
@@ -66,6 +70,10 @@ const OfficialDetails = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>Level:</span>
                 <span className={styles.valueWrap}>{data?.grade?.name}</span>
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Transport Facility:</span>
+                <span className={styles.valueWrap}>{data?.is_transport_facility ? 'Availed' : 'Not Availed'}</span>
               </div>
             </div>
           </div>

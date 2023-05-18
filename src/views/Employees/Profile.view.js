@@ -7,10 +7,10 @@ import DepartmentInfo from "./components/Profile/DepartmentInfo";
 import GovtInfo from "./components/Profile/GovtInfo";
 import BankInfo from "./components/Profile/BankInfo";
 import AddressInfo from "./components/Profile/Address";
-import Timeline from "./components/Profile/Timeline";
 import PerformanceReview from "./components/Profile/PerfomanceReview";
 import ProfileDisclaimer from "./components/ProfileDisclaimer/ProfileDisclaimer";
 import NomineeDetails from "./components/Profile/NomineeDetails";
+import ResignInfo from "./components/Profile/ResignInfo";
 
 const ProfileView = ({ data }) => {
   return (
@@ -20,6 +20,10 @@ const ProfileView = ({ data }) => {
           <PersonalInfo data={data} />
           <ContactInfo contact={data?.contact} />
           <AddressInfo address={data?.address} />
+          {
+            data?.status !=='ACTIVE' && 
+          <ResignInfo bankD={data?.resign_data}/>
+          }
           {/*<Timeline />*/}
         </div>
         <div className={styles.rhs}>
