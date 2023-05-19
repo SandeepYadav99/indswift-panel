@@ -1,13 +1,12 @@
 import React, { useImperativeHandle, forwardRef } from "react";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
-import CustomSwitch from "../../../../components/FormFields/CustomSwitch";
 import useValancyField from "./ValancyField.hook";
 import styles from "./Style.module.css";
 import { ButtonBase, TextField } from "@material-ui/core";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 import { Add } from "@material-ui/icons";
 
-const ValancyField = ({ type, title, resetForm }, ref) => {
+const ValancyField = ({ type, title }, ref) => {
   const {
     form,
     setForm,
@@ -17,6 +16,7 @@ const ValancyField = ({ type, title, resetForm }, ref) => {
     handleReset,
     isFormValid,
     enableField,
+    isChanged,
     setEnableField,
   } = useValancyField({ type }, ref);
 
@@ -33,7 +33,8 @@ const ValancyField = ({ type, title, resetForm }, ref) => {
     getData() {
       return {
         type: type,
-        data: form,
+         ...form,
+         isChanged
       };
     },
   }));
@@ -88,15 +89,15 @@ const ValancyField = ({ type, title, resetForm }, ref) => {
 
             <div className={"formGroup"}>
               <CustomTextField
-                isError={errorData?.Relation}
-                errorText={errorData?.Relation}
+                isError={errorData?.relation}
+                errorText={errorData?.relation}
                 label={"Relation"}
-                value={form?.Relation}
+                value={form?.relation}
                 onTextChange={(text) => {
-                  changeTextData(text, "Relation");
+                  changeTextData(text, "relation");
                 }}
                 onBlur={() => {
-                  onBlurHandler("Relation");
+                  onBlurHandler("relation");
                 }}
               />
             </div>

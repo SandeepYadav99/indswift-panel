@@ -11,10 +11,9 @@ import {
 } from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
 import SnackbarUtils from "../../libs/SnackbarUtils";
-import historyUtils from "../../libs/history.utils";
-import LogUtils from "../../libs/LogUtils";
-import { serviceEditEmployeeVersion } from "../../services/EmployeeEdit.service";
 import { useSelector } from "react-redux";
+import { serviceEditEmployeeVersion } from "../../services/EmployeeEdit.service";
+import historyUtils from "../../libs/history.utils";
 
 const initialForm = {
   name: "",
@@ -56,6 +55,10 @@ function useMyProfileEdit() {
   const codeDebouncer = useDebounce(form?.emp_code, 500);
   const [isOpen, setIsOpen] = useState(false);
   const refEsi = useRef(null);
+  const refPf = useRef(null);
+  const refGt = useRef(null);
+  const refMc = useRef(null);
+  const refGg = useRef(null);
   useEffect(() => {
     if (id) {
       Promise.allSettled([serviceGetEmployeeEditInfo({ emp_id: id })]).then(
@@ -246,6 +249,31 @@ function useMyProfileEdit() {
           ),
         });
       }
+      const nomineedata = [
+        refEsi.current.getData(),
+        refPf.current.getData(),
+        refGt.current.getData(),
+        refMc.current.getData(),
+        refGg.current.getData(),
+      ];
+      const hasChanged = nomineedata.some((obj) => obj?.isChanged === true);
+
+      nomineedata.forEach((obj) => {
+        delete obj?.isChanged;
+      });
+
+      if (hasChanged) {
+        changedData.push({
+          key: "nominees",
+          is_json: true,
+          db_value: "",
+          new_value: JSON.stringify(nomineedata),
+          old_value: JSON.stringify(
+            editData?.nominees ? editData?.nominees : []
+          ),
+        });
+      }
+
       fd.append("emp_id", id);
       fd.append("data", JSON.stringify(changedData));
       if (form?.image) {
@@ -265,28 +293,50 @@ function useMyProfileEdit() {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    const isIncludesValid = ChildenRef.current.isValid();
-    if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
+    const isIncludesValid = ChildenRef?.current?.isValid();
+    const isEsiIncludeValid = refEsi?.current?.isValid();
+    const isPfValid = refPf?.current?.isValid();
+    const isGtValid = refGt?.current?.isValid();
+    const isMcValid = refMc?.current?.isValid();
+    const isGgValid = refGg?.current?.isValid();
+
+    if (
+      Object.keys(errors)?.length > 0 ||
+      !isIncludesValid ||
+      !isEsiIncludeValid ||
+      !isPfValid ||
+      !isGtValid ||
+      !isMcValid ||
+      !isGgValid
+    ) {
       setErrorData(errors);
       return true;
     }
     if (isIncludesValid) {
       const { isChanged } = ChildenRef.current.getData();
-      if (changedFields.current.length === 0 && !isChanged) {
-        setIsOpen(false)
+      const { isChanged: isEsiValue } = refEsi.current.getData();
+      const { isChanged: isPfValue } = refPf.current.getData();
+      const { isChanged: isGtValue } = refGt.current.getData();
+      const { isChanged: isMcValue } = refMc.current.getData();
+      const { isChanged: isGgValue } = refGg.current.getData();
+
+      if (
+        changedFields.current.length === 0 &&
+        !isChanged &&
+        !isEsiValue &&
+        !isPfValue &&
+        !isGtValue &&
+        !isMcValue &&
+        !isGgValue
+      ) {
+        setIsOpen(false);
         SnackbarUtils.error("No Data Changed");
         return true;
       }
-      setIsOpen(false)
+      setIsOpen(false);
       submitToServer();
     }
-  }, [
-    checkFormValidation,
-    setErrorData,
-    ChildenRef.current,
-    form,
-    // includeRef.current
-  ]);
+  }, [checkFormValidation, setErrorData, ChildenRef.current, form]);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
@@ -305,6 +355,11 @@ function useMyProfileEdit() {
     isOpen,
     setIsOpen,
     toggleDialog,
+    refEsi,
+    refPf,
+    refGt,
+    refMc,
+    refGg,
   };
 }
 

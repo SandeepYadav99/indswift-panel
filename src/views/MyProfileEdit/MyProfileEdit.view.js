@@ -39,6 +39,11 @@ const MyProfileEditView = ({}) => {
     editData,
     isLoading,
     isOpen,
+    refEsi,
+    refPf,
+    refGt,
+    refMc,
+    refGg,
     setIsOpen,
     toggleDialog,
   } = useMyProfileEdit({});
@@ -483,7 +488,7 @@ const MyProfileEditView = ({}) => {
           </div>
         </div>
       </div>
-      {/* <div className={"plainPaper"}>
+      <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Employee Nominee Details</div>
@@ -491,11 +496,15 @@ const MyProfileEditView = ({}) => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-              <ValancyFieldView type={"ESI"} title={"ESI"} />
+              <ValancyFieldView type={"ESI"} title={"ESI"} ref={refEsi}/>
+              <ValancyFieldView type={"PF"} title={"PF"} ref={refPf}/>
+              <ValancyFieldView type={"GROUP_TERM"} title={"Group Term"} ref={refGt}/>
+              <ValancyFieldView type={"MEDI_CLAIM"} title={"Group Medi-claim"} ref={refMc}/>
+              <ValancyFieldView type={"GROUP_GRATUITY"} title={"Group Gratuity"} ref={refGg}/>
+
           </div>
         </div>
-      </div> */}
-
+      </div>
       <div className={"plainPaper"}>
         <div className={"headerFlex3 wrapper"}>
           <ButtonBase

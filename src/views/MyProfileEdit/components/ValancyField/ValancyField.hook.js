@@ -1,60 +1,51 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import LogUtils from "../../../../libs/LogUtils";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 const initialForm = {
   name: "",
-  Relation: "",
+  relation: "",
   dob: "",
   aadhar_no: "",
 };
 
 function useValancyField({ type }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [enableField,setEnableField]=useState(false)
+  const [enableField,setEnableField]=useState(false);
+  const [isChanged, setIsChanged] = useState(false);
   const [errorData, setErrorData] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
-  const [isEdit, setIsEdit] = useState(false);
-  const { id } = useParams();
   const checkFormValidation = useCallback(() => {
-    if (type === "CAR") {
-      delete form?.max_value;
-    }
     const errors = { ...errorData };
-    let required = ["aadhar_no"];
-
-    if (form?.is_show) {
+    let required = ['name','relation','dob','aadhar_no'];
+    if (enableField) {
       required.forEach((val) => {
         if (!form?.[val]) {
           errors[val] = true;
         }
-        if (form?.[val] === 0) {
-          delete errors[val];
-        }
       });
     }
-
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
       }
     });
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData,enableField]);
+
+  useEffect(()=>{
+    const hasData = Object.values(form).some(value => !!value);
+    setEnableField(hasData);
+  },[])
 
   const isFormValid = useCallback(() => {
     const errors = checkFormValidation();
-    LogUtils.log("isFormValid", errors);
-    if (Object.keys(errors).length > 0) {
+    LogUtils.log("isFormValidInside", errors);
+    if (Object.keys(errors)?.length > 0) {
       setErrorData(errors);
       return false;
     }
     return true;
-  }, [checkFormValidation]);
+  }, [checkFormValidation,enableField]);
 
   const removeError = useCallback(
     (title) => {
@@ -72,6 +63,7 @@ function useValancyField({ type }) {
 
       t[fieldName] = text;
       setForm(t);
+      setIsChanged(true);
       shouldRemoveError && removeError(fieldName);
     },
     [removeError, form, setForm]
@@ -101,7 +93,8 @@ function useValancyField({ type }) {
     handleReset,
     isFormValid,
     enableField,
-    setEnableField
+    setEnableField,
+    isChanged
   };
 }
 
