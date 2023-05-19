@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import styles from './Style.module.css';
 import csx from 'classnames';
 import ChildrenListComponent from "./ChildrenList.component";
+import NomineeListComponent from "./NomineeList.component";
 
 const ChangeLogInfoTextComponent = ({data}) => {
     const removeUnderScore = (value) => {
@@ -12,6 +13,10 @@ const ChangeLogInfoTextComponent = ({data}) => {
             if (data?.old_value) {
                 return (<ChildrenListComponent data={(data?.old_value)} />)
             } return (<div>-</div>);
+        } else if (data.key === 'nominees') {
+            if (data?.old_value) {
+                return (<NomineeListComponent data={data?.old_value} />)
+            } return (<div>-</div>);
         } else {
             return (<div>{data?.old_value ? data?.old_value : 'N/A'}</div>);
         }
@@ -20,6 +25,8 @@ const ChangeLogInfoTextComponent = ({data}) => {
     const newValue = useMemo(() => {
         if (data?.key === 'children') {
             return (<ChildrenListComponent data={(data?.new_value)} />)
+        } else if (data?.key === 'nominees') {
+            return (<NomineeListComponent data={data?.new_value} />)
         } else {
             return (<div>{data?.new_value}</div>);
         }
