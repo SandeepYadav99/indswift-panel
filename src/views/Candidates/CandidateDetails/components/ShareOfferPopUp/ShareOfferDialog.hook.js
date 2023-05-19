@@ -12,6 +12,8 @@ const useShareOfferDialogHook = ({offerId, handleToggle}) => {
         if (!res.error) {
           SnackbarUtils.success('Offer letter shared with candidate');
           handleToggle();
+        } else {
+          SnackbarUtils.error(res?.message);
         }
         setIsSubmitting(false);
       });
