@@ -32,7 +32,7 @@ const ProfileView = ({ data }) => {
           <GovtInfo idCards={data?.identity_date} />
           <BankInfo bankD={data?.bank} />
           <PerformanceReview reviewer={data?.pms_reviewer} image={data?.image}/>
-          {/* <NomineeDetails/> */}
+          <NomineeDetails nominee={data?.nominees}/>
         </div>
       </div>
       <ProfileDisclaimer />

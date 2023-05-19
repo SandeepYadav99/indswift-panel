@@ -92,7 +92,7 @@ const CandidatesRecordTable = ({
         key: "appliedDateText",
         label: "Applied On",
         sortable: false,
-        render: (temp, all) => <div>{all?.candidate?.applied_date}</div>,
+        render: (temp, all) => <div>{all?.candidate?.applied_date === 'Invalid date' ? 'N/A' : all?.candidate?.applied_date}</div>,
         //  candidate?.applied_date
       },
       {
