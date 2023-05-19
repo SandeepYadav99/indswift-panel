@@ -28,7 +28,13 @@ const ValancyField = ({ type, title }, ref) => {
       handleReset();
     },
     setData(data) {
-      setForm({ ...data });
+      const values = {};
+      Object.keys(data).forEach(key => {
+        if (key === "name" || key === "relation" || key === "dob" || key === 'aadhar_no') {
+          values[key] = data[key];
+        }
+      });
+      setForm({ ...values });
     },
     getData() {
       return {
@@ -41,7 +47,6 @@ const ValancyField = ({ type, title }, ref) => {
 
   return (
     <div>
-      {/* <div className={"plainPaper"}> */}
       <div className={"headerFlex"}>
         <h4 className={"infoTitle"}>
           <div className={"heading"}>{title}</div>
@@ -134,8 +139,6 @@ const ValancyField = ({ type, title }, ref) => {
           </div>
         </>
       )}
-
-      {/* </div> */}
     </div>
   );
 };

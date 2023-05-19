@@ -118,6 +118,7 @@ function EmployeeListCreateHook({ location }) {
     previous_organisation: "",
     uan_no: "",
     esi_no: "",
+    is_transport_facility:'notavailed',
     basic_salary: 0,
     hra: 0,
     education_allowance: 0,
@@ -485,7 +486,10 @@ function EmployeeListCreateHook({ location }) {
           form[key]
         ) {
           fd.append(key, form[key]?.id);
-        } else if (form[key]) {
+        }else if ( key === 'is_transport_facility'){
+          fd.append('is_transport_facility', form[key] === 'availed')
+        }
+         else if (form[key]) {
           fd.append(key, form[key]);
         }
       });

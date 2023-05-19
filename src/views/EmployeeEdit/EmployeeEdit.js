@@ -22,6 +22,7 @@ import ChildrenIncludeForm from "./components/includes/ChildrenIncludes.componen
 import {getSumValue} from "../../libs/general.utils";
 import WaitingComponent from "../../components/Waiting.component";
 import Constants from "../../config/constants";
+import { useEffect } from "react";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -480,8 +481,24 @@ const EmployeeListCreate = ({}) => {
               value={form?.designation_id}
             />
           </div>
-            {/* <div className={"formGroup"}></div> */}
+          
           </div>
+          <div className={"formFlex"} style={{width:'50%'}}>
+               <div className={"formGroup"}>
+                 <CustomSelectField
+                   isError={errorData?.is_transport_facility}
+                   errorText={errorData?.is_transport_facility}
+                   label={"Transport Facility"}
+                   value={form?.is_transport_facility}
+                   handleChange={(value) => {
+                     changeTextData(value, "is_transport_facility");
+                   }}
+                 >
+                   <MenuItem value='availed'>Availed</MenuItem>
+                   <MenuItem value='notavailed'>Not Availed </MenuItem>
+                 </CustomSelectField>
+               </div>
+             </div>
         </div>
         <div className={"plainPaper"}>
           <div className={"headerFlex"}>

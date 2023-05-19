@@ -481,7 +481,24 @@ const EmployeeListCreate = ({location}) => {
             />
           </div>
         </div>
+        <div className={"formFlex"} style={{width:'50%'}}>
+               <div className={"formGroup"}>
+                 <CustomSelectField
+                   isError={errorData?.is_transport_facility}
+                   errorText={errorData?.is_transport_facility}
+                   label={"Transport Facility"}
+                   value={form?.is_transport_facility}
+                   handleChange={(value) => {
+                     changeTextData(value, "is_transport_facility");
+                   }}
+                 >
+                   <MenuItem value='availed'>Availed</MenuItem>
+                   <MenuItem value='notavailed'>Not Availed </MenuItem>
+                 </CustomSelectField>
+               </div>
+             </div>
       </div>
+      
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>

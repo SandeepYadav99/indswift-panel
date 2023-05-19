@@ -64,11 +64,20 @@ function useMyProfileEdit() {
       Promise.allSettled([serviceGetEmployeeEditInfo({ emp_id: id })]).then(
         (promises) => {
           const empData = promises[0]?.value?.data;
+          const { nominees, ...rest } = empData;
           setForm({
             ...initialForm,
-            ...empData,
+            ...rest,
             image: "",
           });
+          console.log(nominees)
+          setTimeout(() => {
+            refEsi?.current?.setData(nominees[0])
+            refPf?.current?.setData(nominees[1])
+            refGt?.current?.setData(nominees[2])
+            refMc?.current?.setData(nominees[3])
+            refGg?.current?.setData(nominees[4])  
+          }, 0);   
           setEditData(empData);
           setIsLoading(false);
         }

@@ -57,6 +57,7 @@ const initialForm = {
   bank_account_no: "",
   bank_name: "",
   ifsc: "",
+  is_transport_facility:'notavailed',
   before_experience: 0,
   company_experience: 0,
   total_experience: 0,
@@ -163,10 +164,12 @@ function EmployeeListCreateHook() {
        if (designationIndex >= 0) {
          empData.designation_id = listData?.DESIGNATIONS[designationIndex];
        }
+      const transportvalue = empData?.is_transport_facility ? 'availed':'notavailed';
       setForm({
         ...initialForm,
         ...empData,
-        image: ''
+        image: '',
+        is_transport_facility: transportvalue
       });
       setEditData(empData);
       setIsLoading(false);
@@ -365,6 +368,16 @@ function EmployeeListCreateHook() {
               db_value: newData?.id,
               new_value: newData?.id,
               old_value: oldData ? oldData?.id : null,
+            });
+          } else if (key === 'is_transport_facility'){
+            const trans= form?.['is_transport_facility'] === 'availed'
+            const oldtrans=editData?.['is_transport_facility'] === 'availed'
+            changedData.push({
+              is_json: false,
+              key: key,
+              db_value: trans,
+              new_value: trans,
+              old_value: oldtrans ? oldtrans : false,
             });
           } else {
             changedData.push({

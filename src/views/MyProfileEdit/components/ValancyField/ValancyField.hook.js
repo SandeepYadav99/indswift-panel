@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import LogUtils from "../../../../libs/LogUtils";
+import { isAadhar } from "../../../../libs/RegexUtils";
 
 const initialForm = {
   name: "",
@@ -24,6 +25,9 @@ function useValancyField({ type }) {
         }
       });
     }
+    if (form?.aadhar_no && !isAadhar(form?.aadhar_no)) {
+      errors["aadhar_no"] = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -35,7 +39,7 @@ function useValancyField({ type }) {
   useEffect(()=>{
     const hasData = Object.values(form).some(value => !!value);
     setEnableField(hasData);
-  },[])
+  },[form?.name])
 
   const isFormValid = useCallback(() => {
     const errors = checkFormValidation();
