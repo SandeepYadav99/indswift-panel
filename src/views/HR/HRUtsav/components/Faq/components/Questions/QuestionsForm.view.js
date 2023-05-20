@@ -142,7 +142,7 @@ class QuestionsFormView extends Component {
                 
             }
           });
-          tData = {...newObj,status:status}
+          tData = {...newObj,status:status,is_dashboard:tData?.is_dashboard ? tData?.is_dashboard: false}
         }
         const fd = new FormData();
         Object.keys(tData).forEach((key) => {
