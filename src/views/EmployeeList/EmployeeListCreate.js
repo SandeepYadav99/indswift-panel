@@ -60,7 +60,7 @@ const EmployeeListCreate = ({location}) => {
   const image = useMemo(() => {
     return (
       <File
-        default_image={ defaultImg ? defaultImg : ''}     
+        default_image={defaultImg ? defaultImg : ""}
         // imageClass={styles.inputFileUploader}
         max_size={5 * 1024 * 1024}
         type={["png", "jpeg", "jpg"]}
@@ -179,9 +179,12 @@ const EmployeeListCreate = ({location}) => {
             >
               {constants.STATES.map((state) => {
                 return (
-                    <MenuItem value={state.toUpperCase()} key={state.toUpperCase()}>
-                      {state}
-                    </MenuItem>
+                  <MenuItem
+                    value={state.toUpperCase()}
+                    key={state.toUpperCase()}
+                  >
+                    {state}
+                  </MenuItem>
                 );
               })}
             </CustomSelectField>
@@ -270,22 +273,22 @@ const EmployeeListCreate = ({location}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"} style={{width:'50%'}}>
-            <div className={"formGroup"}>
-              <CustomTextField
-                  isError={errorData?.higher_education}
-                  errorText={errorData?.higher_education}
-                  label={"Qualification (optional)"}
-                  value={form?.higher_education}
-                  onTextChange={(text) => {
-                    changeTextData(text, "higher_education");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("higher_education");
-                  }}
-              />
-            </div>
+        <div className={"formFlex"} style={{ width: "50%" }}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.higher_education}
+              errorText={errorData?.higher_education}
+              label={"Qualification (optional)"}
+              value={form?.higher_education}
+              onTextChange={(text) => {
+                changeTextData(text, "higher_education");
+              }}
+              onBlur={() => {
+                onBlurHandler("higher_education");
+              }}
+            />
           </div>
+        </div>
       </div>
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
@@ -428,7 +431,7 @@ const EmployeeListCreate = ({location}) => {
             <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
-                getOptionLabel: (option) => option?.label || ""
+                getOptionLabel: (option) => option?.label || "",
               }}
               dataset={listData?.EMPLOYEES}
               datasetKey={"label"}
@@ -466,7 +469,7 @@ const EmployeeListCreate = ({location}) => {
             <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
-                getOptionLabel: (option) => option?.label || ""
+                getOptionLabel: (option) => option?.label || "",
               }}
               dataset={listData?.DESIGNATIONS}
               datasetKey={"label"}
@@ -481,24 +484,24 @@ const EmployeeListCreate = ({location}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"} style={{width:'50%'}}>
-               <div className={"formGroup"}>
-                 <CustomSelectField
-                   isError={errorData?.is_transport_facility}
-                   errorText={errorData?.is_transport_facility}
-                   label={"Transport Facility"}
-                   value={form?.is_transport_facility}
-                   handleChange={(value) => {
-                     changeTextData(value, "is_transport_facility");
-                   }}
-                 >
-                   <MenuItem value='availed'>Availed</MenuItem>
-                   <MenuItem value='notavailed'>Not Availed </MenuItem>
-                 </CustomSelectField>
-               </div>
-             </div>
+        <div className={"formFlex"} style={{ width: "50%" }}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_transport_facility}
+              errorText={errorData?.is_transport_facility}
+              label={"Transport Facility"}
+              value={form?.is_transport_facility}
+              handleChange={(value) => {
+                changeTextData(value, "is_transport_facility");
+              }}
+            >
+              <MenuItem value="availed">Availed</MenuItem>
+              <MenuItem value="notavailed">Not Availed </MenuItem>
+            </CustomSelectField>
+          </div>
+        </div>
       </div>
-      
+
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
@@ -706,6 +709,51 @@ const EmployeeListCreate = ({location}) => {
             />
           </div>
           <div className={"formGroup"}>
+            <CustomDatePicker
+              clearable
+              label={"Father's DOB"}
+              maxDate={new Date()}
+              onChange={(date) => {
+                changeTextData(date, "father_dob");
+              }}
+              value={form?.father_dob}
+              isError={errorData?.father_dob}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.father_state}
+              errorText={errorData?.father_state}
+              label={"Father's State"}
+              value={form?.father_state}
+              handleChange={(value) => {
+                changeTextData(value, "father_state");
+              }}
+            >
+              <MenuItem value="EXPIRED">EXPIRED</MenuItem>
+              <MenuItem value="ALIVE">ALIVE</MenuItem>
+            </CustomSelectField>
+          </div>
+          {form?.father_state === "EXPIRED" ?(
+            <div className={"formGroup"}>
+              <CustomDatePicker
+                clearable
+                label={"Fathers Passing Away Date"}
+                maxDate={new Date()}
+                onChange={(date) => {
+                  changeTextData(date, "father_dod");
+                }}
+                value={form?.father_dod}
+                isError={errorData?.father_dod}
+              />
+            </div>
+          ) : <div className={"formGroup"}></div>}
+        </div>
+
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.mother_name}
               errorText={errorData?.mother_name}
@@ -719,6 +767,52 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
+          <div className={"formGroup"}>
+            <CustomDatePicker
+              clearable
+              label={"Mother's DOB"}
+              maxDate={new Date()}
+              onChange={(date) => {
+                changeTextData(date, "mother_dob");
+              }}
+              value={form?.mother_dob}
+              isError={errorData?.mother_dob}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.mother_state}
+              errorText={errorData?.mother_state}
+              label={"Mother's State"}
+              value={form?.mother_state}
+              handleChange={(value) => {
+                changeTextData(value, "mother_state");
+              }}
+            >
+              <MenuItem value="EXPIRED">EXPIRED</MenuItem>
+              <MenuItem value="ALIVE">ALIVE</MenuItem>
+            </CustomSelectField>
+          </div>
+          {
+              form?.mother_state === "EXPIRED" ? 
+              <div className={"formGroup"}>
+              <CustomDatePicker
+                clearable
+                label={"Mother Passing Away Date"}
+                maxDate={new Date()}
+                onChange={(date) => {
+                  changeTextData(date, "mother_dod");
+                }}
+                value={form?.mother_dod}
+                isError={errorData?.mother_dod}
+              />
+            </div> :
+              <div className={"formGroup"}>
+              </div>
+          }
+         
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -872,7 +966,7 @@ const EmployeeListCreate = ({location}) => {
             <CustomAutoComplete
               autoCompleteProps={{
                 freeSolo: false,
-                getOptionLabel: (option) => option?.label || ""
+                getOptionLabel: (option) => option?.label || "",
               }}
               dataset={listData?.EMPLOYEES}
               datasetKey={"label"}

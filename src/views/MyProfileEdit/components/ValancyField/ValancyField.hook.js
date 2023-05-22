@@ -37,7 +37,7 @@ function useValancyField({ type }) {
   }, [form, errorData,enableField]);
 
   useEffect(()=>{
-    const hasData = Object.values(form).some(value => !!value);
+    const hasData = Object.values(form)?.some(value => !!value);
     setEnableField(hasData);
   },[form?.name])
 

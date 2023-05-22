@@ -25,6 +25,7 @@ import PmsBatch from "../views/Pms/PmsBatch/PmsBatch.view";
 import ClaimTravelCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimTravelCard/ClaimTravelCard.view";
 import PmsReview from "../views/Pms/PmsReview/PmsReview.view";
 import PmsPending from "../views/Pms/PmsPending/PmsPending.view";
+import PmsPlanner from "../views/Pms/PmsPlanner/PmsPlanner.view"
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -1069,6 +1070,18 @@ const dashboardRoutes = [
         parent: 'pm',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
     },
+    // {
+    //     path: `${RouteName.PMS_PLANNER}`,
+    //     sidebarName: "PMS Form 4B Planner",
+    //     navbarName: "PMS Form 4B Planner",
+    //     icon: PeopleOutlined,
+    //     component: PmsPlanner,
+    //     is_sidebar: true,
+    //     is_protect: true,
+    //     should_regex: true,
+    //     parent: 'pm',
+    //     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    // },
     {
         path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',
         sidebarName: "Attendance Management",

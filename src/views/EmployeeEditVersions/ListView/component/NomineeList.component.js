@@ -6,7 +6,7 @@ import {removeUnderScore} from '../../../../helper/helper'
 const NomineeListComponent = ({data}) => {
 
     const table = useMemo(() => {
-        return data.map((val) => {
+        return data?.map((val) => {
             return (
                 <div className={csx(styles.flex, styles.tableFlex)}>
                     <div className={styles.tableText}><b>Type</b>: {removeUnderScore(val?.type)}</div>

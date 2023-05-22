@@ -39,6 +39,12 @@ const initialForm = {
   permanent_address: "",
   current_address: "",
   is_address_same: false,
+  father_state:"ALIVE",
+  father_dob:"",
+  father_dod:"",
+  mother_dob:"",
+  mother_state:"ALIVE",
+  mother_dod:"",
 };
 
 function useMyProfileEdit() {
@@ -46,6 +52,7 @@ function useMyProfileEdit() {
   const [form, setForm] = useState({ ...initialForm });
   const [editData, setEditData] = useState({});
   const [errorData, setErrorData] = useState({});
+  const [nomineeDataIn, setNomineeDataIn] = useState([]);
   const {
     user: { user_id: id },
   } = useSelector((state) => state.auth);
@@ -70,15 +77,41 @@ function useMyProfileEdit() {
             ...rest,
             image: "",
           });
-          console.log(nominees)
+
           setTimeout(() => {
-            refEsi?.current?.setData(nominees[0])
-            refPf?.current?.setData(nominees[1])
-            refGt?.current?.setData(nominees[2])
-            refMc?.current?.setData(nominees[3])
-            refGg?.current?.setData(nominees[4])  
-          }, 0);   
+            if (nominees?.length > 0) {
+              const esiData = nominees?.find((obj) => obj?.type === "ESI");
+              const pfData = nominees?.find((obj) => obj?.type === "PF");
+              const gtData = nominees?.find(
+                (obj) => obj?.type === "GROUP_TERM"
+              );
+              const mcData = nominees?.find(
+                (obj) => obj?.type === "MEDI_CLAIM"
+              );
+              const ggData = nominees?.find(
+                (obj) => obj?.type === "GROUP_GRATUITY"
+              );
+              esiData && refEsi?.current?.setData(esiData);
+              pfData && refPf?.current?.setData(pfData);
+              gtData && refGt?.current?.setData(gtData);
+              mcData && refMc?.current?.setData(mcData);
+              ggData && refGg?.current?.setData(ggData);
+            }
+          }, 0);
           setEditData(empData);
+          console.log("nominees", nominees);
+          if (nominees?.length > 0) {
+            let filteredArr = nominees?.map(
+              ({ type, name, relation, dob, aadhar_no }) => ({
+                type,
+                name,
+                relation,
+                dob,
+                aadhar_no,
+              })
+            );
+            setNomineeDataIn(filteredArr);
+          }
           setIsLoading(false);
         }
       );
@@ -105,6 +138,10 @@ function useMyProfileEdit() {
       "uan_no",
       "pan_no",
       "aadhar_no",
+      "father_state",
+      "father_dob",
+      "mother_dob",
+      "mother_state",
     ];
     required.forEach((val) => {
       if (
@@ -124,6 +161,22 @@ function useMyProfileEdit() {
     }
     if (form?.aadhar_no && !isAadhar(form?.aadhar_no)) {
       errors["aadhar_no"] = true;
+    }
+    if(form?.father_state){
+      if(form?.father_state === "EXPIRED" && !form?.father_dod){
+        errors['father_dod'] = true;
+      }
+      else if (form?.father_state === "ALIVE"){
+        delete errors['father_dod']
+      }
+    }
+    if(form?.mother_state){
+      if(form?.mother_state === "EXPIRED" && !form?.mother_dod){
+        errors['mother_dod'] = true;
+      }
+      else if (form?.mother_state === "ALIVE"){
+        delete errors['mother_dod']
+      }
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -205,6 +258,19 @@ function useMyProfileEdit() {
       });
     }
   }, [errorData, setErrorData, form.emp_code, id]);
+
+  const getSelectedValue = (arr1, arr2) => {
+    let matchingObjects = [];
+    for (let obj1 of arr1) {
+      for (let obj2 of arr2) {
+        if (obj1.type === obj2.type) {
+          matchingObjects.push(obj1);
+          break;
+        }
+      }
+    }
+    return matchingObjects;
+  };
   useEffect(() => {
     if (codeDebouncer) {
       checkCodeValidation();
@@ -266,28 +332,33 @@ function useMyProfileEdit() {
         refGg.current.getData(),
       ];
       const hasChanged = nomineedata.some((obj) => obj?.isChanged === true);
+      let isChangedValue = nomineedata.filter(
+        (obj) => obj?.name !== ""
+      );
 
       nomineedata.forEach((obj) => {
         delete obj?.isChanged;
       });
-
       if (hasChanged) {
+        const getFilteredArr =
+          nomineeDataIn?.length > 0
+            ? getSelectedValue(nomineeDataIn, isChangedValue)
+            : [];
+            //filtered value of the api data
         changedData.push({
           key: "nominees",
           is_json: true,
           db_value: "",
-          new_value: JSON.stringify(nomineedata),
-          old_value: JSON.stringify(
-            editData?.nominees ? editData?.nominees : []
-          ),
+          new_value: JSON.stringify(isChangedValue),
+          old_value: JSON.stringify(nomineeDataIn ? nomineeDataIn : []),
         });
       }
-
       fd.append("emp_id", id);
       fd.append("data", JSON.stringify(changedData));
       if (form?.image) {
         fd.append("image", form?.image);
       }
+      setIsSubmitting(false);
       serviceEditEmployeeVersion(fd).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Raised!");
@@ -298,7 +369,7 @@ function useMyProfileEdit() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, id, editData, setIsSubmitting]);
+  }, [form, isSubmitting, id, editData, setIsSubmitting, nomineeDataIn]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -330,7 +401,7 @@ function useMyProfileEdit() {
       const { isChanged: isGgValue } = refGg.current.getData();
 
       if (
-        changedFields.current.length === 0 &&
+        changedFields?.current?.length === 0 &&
         !isChanged &&
         !isEsiValue &&
         !isPfValue &&

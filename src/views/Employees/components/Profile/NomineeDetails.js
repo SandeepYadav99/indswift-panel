@@ -1,31 +1,34 @@
 import React from "react";
 import styles from "./Style.module.css";
+import { removeUnderScore } from "../../../../helper/helper";
 
-const NomineeTile = ({ title }) => {
-  const bankD = {};
-
+const NomineeTile = ({ data }) => {
   return (
     <div className={styles.nomineeWrapper}>
-      <div className={styles.Nomineeheading}>{title}</div>
+      <div className={styles.Nomineeheading}>
+        {data?.type === "MEDI_CLAIM"
+          ? " GROUP MEDI CLAIM"
+          : removeUnderScore(data?.type)}
+      </div>
       <div className={styles.mainFlex}>
         <div className={styles.left}>
           <div className={styles.key}>
             <span className={styles.value}>Name:</span>
-            {bankD?.name}
+            {data?.name}
           </div>
           <div className={styles.key}>
             <span className={styles.value}>DOB:</span>
-            {bankD?.account_no}
+            {data?.dobText}
           </div>
         </div>
         <div className={styles.right}>
           <div className={styles.key}>
             <span className={styles.value}>Relation:</span>
-            {bankD?.ifsc}
+            {data?.relation}
           </div>
           <div className={styles.key}>
             <span className={styles.value}>Aadhar Number:</span>
-            {bankD?.ifsc}
+            {data?.aadhar_no}
           </div>
         </div>
       </div>
@@ -33,21 +36,22 @@ const NomineeTile = ({ title }) => {
   );
 };
 
-function NomineeDetails() {
+function NomineeDetails({ nominee }) {
   return (
     <div>
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Nominee Details</div>
-          <NomineeTile title="ESI" />
-          <div className={styles.nomineeLine}></div>
-          <NomineeTile title="PF" />
-          <div className={styles.nomineeLine}></div>
-          <NomineeTile title="Group Term" />
-          <div className={styles.nomineeLine}></div>
-          <NomineeTile title="Group Medi-claim" />
-          <div className={styles.nomineeLine}></div>
-          <NomineeTile title="Group Gratuity" />
+          {nominee?.map((item, index) => {
+            return (
+              <div key={`nominee_${index}`}>
+                <NomineeTile data={item} />
+                {nominee?.length - 1 !== index && (
+                  <div className={styles.nomineeLine}></div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

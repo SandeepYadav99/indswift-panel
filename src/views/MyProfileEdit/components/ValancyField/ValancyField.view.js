@@ -19,7 +19,6 @@ const ValancyField = ({ type, title }, ref) => {
     isChanged,
     setEnableField,
   } = useValancyField({ type }, ref);
-
   useImperativeHandle(ref, () => ({
     isValid() {
       return isFormValid();
@@ -112,7 +111,7 @@ const ValancyField = ({ type, title }, ref) => {
               <CustomDatePicker
                 name="dob"
                 clearable
-                label={"Child DOB"}
+                label={"DOB"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "dob");

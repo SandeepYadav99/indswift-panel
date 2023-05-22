@@ -692,35 +692,126 @@ const EmployeeListCreate = ({}) => {
           </div>
 
           <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <CustomTextField
-                  isError={errorData?.father_name}
-                  errorText={errorData?.father_name}
-                  label={"Father's Name"}
-                  value={form?.father_name}
-                  onTextChange={(text) => {
-                    changeTextData(text, "father_name");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("father_name");
-                  }}
-              />
-            </div>
-            <div className={"formGroup"}>
-              <CustomTextField
-                  isError={errorData?.mother_name}
-                  errorText={errorData?.mother_name}
-                  label={"Mother's Name"}
-                  value={form?.mother_name}
-                  onTextChange={(text) => {
-                    changeTextData(text, "mother_name");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("mother_name");
-                  }}
-              />
-            </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.father_name}
+              errorText={errorData?.father_name}
+              label={"Father's Name"}
+              value={form?.father_name}
+              onTextChange={(text) => {
+                changeTextData(text, "father_name");
+              }}
+              onBlur={() => {
+                onBlurHandler("father_name");
+              }}
+            />
           </div>
+          <div className={"formGroup"}>
+            <CustomDatePicker
+              clearable
+              label={"Father's DOB"}
+              maxDate={new Date()}
+              onChange={(date) => {
+                changeTextData(date, "father_dob");
+              }}
+              value={form?.father_dob}
+              isError={errorData?.father_dob}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.father_state}
+              errorText={errorData?.father_state}
+              label={"Father's State"}
+              value={form?.father_state}
+              handleChange={(value) => {
+                changeTextData(value, "father_state");
+              }}
+            >
+              <MenuItem value="EXPIRED">EXPIRED</MenuItem>
+              <MenuItem value="ALIVE">ALIVE</MenuItem>
+            </CustomSelectField>
+          </div>
+          {form?.father_state === "EXPIRED" ?(
+            <div className={"formGroup"}>
+              <CustomDatePicker
+                clearable
+                label={"Fathers Passing Away Date"}
+                maxDate={new Date()}
+                onChange={(date) => {
+                  changeTextData(date, "father_dod");
+                }}
+                value={form?.father_dod}
+                isError={errorData?.father_dod}
+              />
+            </div>
+          ) : <div className={"formGroup"}></div>}
+        </div>
+
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.mother_name}
+              errorText={errorData?.mother_name}
+              label={"Mother's Name"}
+              value={form?.mother_name}
+              onTextChange={(text) => {
+                changeTextData(text, "mother_name");
+              }}
+              onBlur={() => {
+                onBlurHandler("mother_name");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomDatePicker
+              clearable
+              label={"Mother's DOB"}
+              maxDate={new Date()}
+              onChange={(date) => {
+                changeTextData(date, "mother_dob");
+              }}
+              value={form?.mother_dob}
+              isError={errorData?.mother_dob}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.mother_state}
+              errorText={errorData?.mother_state}
+              label={"Mother's State"}
+              value={form?.mother_state}
+              handleChange={(value) => {
+                changeTextData(value, "mother_state");
+              }}
+            >
+              <MenuItem value="EXPIRED">EXPIRED</MenuItem>
+              <MenuItem value="ALIVE">ALIVE</MenuItem>
+            </CustomSelectField>
+          </div>
+          {
+              form?.mother_state === "EXPIRED" ? 
+              <div className={"formGroup"}>
+              <CustomDatePicker
+                clearable
+                label={"Mother Passing Away Date"}
+                maxDate={new Date()}
+                onChange={(date) => {
+                  changeTextData(date, "mother_dod");
+                }}
+                value={form?.mother_dod}
+                isError={errorData?.mother_dod}
+              />
+            </div> :
+              <div className={"formGroup"}>
+              </div>
+          }
+         
+        </div>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomSelectField
