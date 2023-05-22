@@ -19,6 +19,7 @@ const usePmsPlanner = ({}) => {
   });
   const [isSending, setIsSending] = useState(false);
   const [selected, setSelected] = useState([]);
+  const [isPannel,setIsPannel]=useState(false)
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -37,7 +38,9 @@ const usePmsPlanner = ({}) => {
     );
     isMountRef.current = true;
   }, []);
-
+  const togglePanel = useCallback(() => {
+    setIsPannel((e) => !e);
+}, [setIsPannel]);
   useEffect(() => {
     serviceGetList(["PMS_EMPLOYEES"]).then((res) => {
       if (!res.error) {
@@ -251,6 +254,8 @@ const usePmsPlanner = ({}) => {
     handleSend,
     selectedEmps,
     handleViewFormDetails,
+    togglePanel,
+    isPannel
   };
 };
 

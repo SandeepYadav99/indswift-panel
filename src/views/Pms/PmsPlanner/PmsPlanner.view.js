@@ -1,15 +1,8 @@
-import React, {useCallback, useEffect, useMemo } from "react";
-import {
-  Checkbox,
-  IconButton,
-  ButtonBase,
-} from "@material-ui/core";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { Checkbox, IconButton, ButtonBase } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import {
-  Add,
-  InfoOutlined,
-} from "@material-ui/icons";
+import { Add, InfoOutlined } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
@@ -20,6 +13,7 @@ import usePmsPlanner from "./PmsPlanner.hook";
 import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
 import BottomActionView from "./component/BottomAction/BottomAction.view";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
+import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 const PmsPlanner = ({}) => {
   const {
     handleSortOrderChange,
@@ -39,6 +33,8 @@ const PmsPlanner = ({}) => {
     handleSend,
     handleViewFormDetails,
     selectedEmps,
+    isPannel,
+    togglePanel
   } = usePmsPlanner({});
 
   const {
@@ -177,18 +173,17 @@ const PmsPlanner = ({}) => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-            {all?.status === "REVIEW_SUBMITTED" && (
+             
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  handleViewFormDetails(all);
+                  togglePanel();
                 }}
               >
                 <RemoveRedEyeOutlinedIcon fontSize={"small"} />
               </IconButton>
-            )}
           </div>
         ),
       },
@@ -265,6 +260,14 @@ const PmsPlanner = ({}) => {
           </div>
         </div>
       </PageBox>
+      <SidePanelComponent
+        handleToggle={togglePanel}
+        title={"Review Planner"}
+        open={isPannel}
+        side={"right"}
+      >
+        
+      </SidePanelComponent>
       <BottomPanelComponent open={selected?.length > 0}>
         <BottomActionView
           reviewers={selected?.length}
