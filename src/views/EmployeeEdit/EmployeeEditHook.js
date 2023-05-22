@@ -58,6 +58,12 @@ const initialForm = {
   bank_name: "",
   ifsc: "",
   is_transport_facility:'notavailed',
+  father_state:"Alive",
+  father_dob:"",
+  father_dod:"",
+  mother_dob:"",
+  mother_state:"Alive",
+  mother_dod:"",
   before_experience: 0,
   company_experience: 0,
   total_experience: 0,
@@ -175,7 +181,6 @@ function EmployeeListCreateHook() {
       setIsLoading(false);
     });
   }, [id]);
-  console.log('====>',form)
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     const required = [
@@ -220,6 +225,10 @@ function EmployeeListCreateHook() {
       // "total_experience",
       "previous_organisation",
       "uan_no",
+      "father_state",
+      "father_dob",
+      "mother_dob",
+      "mother_state",
       // "esi_no",
       ...SALARY_KEYS,
        ];
@@ -253,6 +262,22 @@ function EmployeeListCreateHook() {
     }
     if (form?.ifsc && !IsIFSCCode(form?.ifsc)) {
       errors["ifsc"] = true;
+    }
+    if(form?.father_state){
+      if(form?.father_state === "Expired" && !form?.father_dod){
+        errors['father_dod'] = true;
+      }
+      else if (form?.father_state === "Alive"){
+        delete errors['father_dod']
+      }
+    }
+    if(form?.mother_state){
+      if(form?.mother_state === "Expired" && !form?.mother_dod){
+        errors['mother_dod'] = true;
+      }
+      else if (form?.mother_state === "Alive"){
+        delete errors['mother_dod']
+      }
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {

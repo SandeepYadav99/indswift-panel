@@ -118,6 +118,12 @@ function EmployeeListCreateHook({ location }) {
     previous_organisation: "",
     uan_no: "",
     esi_no: "",
+    father_state:"Alive",
+    father_dob:"",
+    father_dod:"",
+    mother_dob:"",
+    mother_state:"Alive",
+    mother_dod:"",
     is_transport_facility:'notavailed',
     basic_salary: 0,
     hra: 0,
@@ -332,6 +338,10 @@ function EmployeeListCreateHook({ location }) {
       "before_experience",
       "previous_organisation",
       "uan_no",
+      "father_state",
+      "father_dob",
+      "mother_dob",
+      "mother_state",
       // "esi_no",
       // ...SALARY_KEYS,
     ];
@@ -381,6 +391,22 @@ function EmployeeListCreateHook({ location }) {
     }
     if (form?.ifsc && !IsIFSCCode(form?.ifsc)) {
       errors["ifsc"] = true;
+    }
+    if(form?.father_state){
+      if(form?.father_state === "Expired" && !form?.father_dod){
+        errors['father_dod'] = true;
+      }
+      else if (form?.father_state === "Alive"){
+        delete errors['father_dod']
+      }
+    }
+    if(form?.mother_state){
+      if(form?.mother_state === "Expired" && !form?.mother_dod){
+        errors['mother_dod'] = true;
+      }
+      else if (form?.mother_state === "Alive"){
+        delete errors['mother_dod']
+      }
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {

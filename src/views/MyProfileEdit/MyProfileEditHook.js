@@ -39,6 +39,12 @@ const initialForm = {
   permanent_address: "",
   current_address: "",
   is_address_same: false,
+  father_state:"Alive",
+  father_dob:"",
+  father_dod:"",
+  mother_dob:"",
+  mother_state:"Alive",
+  mother_dod:"",
 };
 
 function useMyProfileEdit() {
@@ -132,6 +138,10 @@ function useMyProfileEdit() {
       "uan_no",
       "pan_no",
       "aadhar_no",
+      "father_state",
+      "father_dob",
+      "mother_dob",
+      "mother_state",
     ];
     required.forEach((val) => {
       if (
@@ -151,6 +161,22 @@ function useMyProfileEdit() {
     }
     if (form?.aadhar_no && !isAadhar(form?.aadhar_no)) {
       errors["aadhar_no"] = true;
+    }
+    if(form?.father_state){
+      if(form?.father_state === "Expired" && !form?.father_dod){
+        errors['father_dod'] = true;
+      }
+      else if (form?.father_state === "Alive"){
+        delete errors['father_dod']
+      }
+    }
+    if(form?.mother_state){
+      if(form?.mother_state === "Expired" && !form?.mother_dod){
+        errors['mother_dod'] = true;
+      }
+      else if (form?.mother_state === "Alive"){
+        delete errors['mother_dod']
+      }
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
