@@ -307,7 +307,7 @@ function useMyProfileEdit() {
       ];
       const hasChanged = nomineedata.some((obj) => obj?.isChanged === true);
       let isChangedValue = nomineedata.filter(
-        (obj) => obj?.isChanged && obj?.name !== ""
+        (obj) => obj?.name !== ""
       );
 
       nomineedata.forEach((obj) => {
