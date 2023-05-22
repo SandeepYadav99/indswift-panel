@@ -46,7 +46,7 @@ function useMyProfileEdit() {
   const [form, setForm] = useState({ ...initialForm });
   const [editData, setEditData] = useState({});
   const [errorData, setErrorData] = useState({});
-  const [nomineeDataIn, setNomineeDataIn] = useState({});
+  const [nomineeDataIn, setNomineeDataIn] = useState([]);
   const {
     user: { user_id: id },
   } = useSelector((state) => state.auth);

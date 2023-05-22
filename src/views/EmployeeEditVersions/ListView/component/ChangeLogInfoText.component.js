@@ -13,7 +13,7 @@ const ChangeLogInfoTextComponent = ({data}) => {
             if (data?.old_value) {
                 return (<ChildrenListComponent data={(data?.old_value)} />)
             } return (<div>-</div>);
-        } else if (data.key === 'nominees') {
+        } else if (data?.key === 'nominees') {
             if (data?.old_value) {
                 return (<NomineeListComponent data={data?.old_value} />)
             } return (<div>-</div>);
