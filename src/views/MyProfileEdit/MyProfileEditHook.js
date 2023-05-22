@@ -39,11 +39,11 @@ const initialForm = {
   permanent_address: "",
   current_address: "",
   is_address_same: false,
-  father_state:"Alive",
+  father_state:"ALIVE",
   father_dob:"",
   father_dod:"",
   mother_dob:"",
-  mother_state:"Alive",
+  mother_state:"ALIVE",
   mother_dod:"",
 };
 
@@ -163,18 +163,18 @@ function useMyProfileEdit() {
       errors["aadhar_no"] = true;
     }
     if(form?.father_state){
-      if(form?.father_state === "Expired" && !form?.father_dod){
+      if(form?.father_state === "EXPIRED" && !form?.father_dod){
         errors['father_dod'] = true;
       }
-      else if (form?.father_state === "Alive"){
+      else if (form?.father_state === "ALIVE"){
         delete errors['father_dod']
       }
     }
     if(form?.mother_state){
-      if(form?.mother_state === "Expired" && !form?.mother_dod){
+      if(form?.mother_state === "EXPIRED" && !form?.mother_dod){
         errors['mother_dod'] = true;
       }
-      else if (form?.mother_state === "Alive"){
+      else if (form?.mother_state === "ALIVE"){
         delete errors['mother_dod']
       }
     }

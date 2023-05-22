@@ -732,11 +732,11 @@ const EmployeeListCreate = ({location}) => {
                 changeTextData(value, "father_state");
               }}
             >
-              <MenuItem value="Expired">Expired</MenuItem>
-              <MenuItem value="Alive">Alive</MenuItem>
+              <MenuItem value="EXPIRED">EXPIRED</MenuItem>
+              <MenuItem value="ALIVE">ALIVE</MenuItem>
             </CustomSelectField>
           </div>
-          {form?.father_state === "Expired" ?(
+          {form?.father_state === "EXPIRED" ?(
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
@@ -791,12 +791,12 @@ const EmployeeListCreate = ({location}) => {
                 changeTextData(value, "mother_state");
               }}
             >
-              <MenuItem value="Expired">Expired</MenuItem>
-              <MenuItem value="Alive">Alive</MenuItem>
+              <MenuItem value="EXPIRED">EXPIRED</MenuItem>
+              <MenuItem value="ALIVE">ALIVE</MenuItem>
             </CustomSelectField>
           </div>
           {
-              form?.mother_state === "Expired" ? 
+              form?.mother_state === "EXPIRED" ? 
               <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
