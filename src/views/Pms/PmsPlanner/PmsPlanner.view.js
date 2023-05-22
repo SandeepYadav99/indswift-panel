@@ -1,20 +1,14 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
+import React, {useCallback, useEffect, useMemo } from "react";
 import {
-  Button,
-  Paper,
   Checkbox,
   IconButton,
-  MenuItem,
   ButtonBase,
-  Menu,
 } from "@material-ui/core";
 import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   Add,
-  CloudDownload,
   InfoOutlined,
-  PrintOutlined,
 } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
@@ -22,24 +16,19 @@ import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import usePmsReview from "./PmsReview.hook";
+import usePmsPlanner from "./PmsPlanner.hook";
 import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
-import BottomActionView from "./components/BottomAction/BottomAction.view";
+import BottomActionView from "./component/BottomAction/BottomAction.view";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
-import UpdateDialog from "./components/UpdateDialog/UpdateDialog.view";
-const PmsReview = ({}) => {
+const PmsPlanner = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
-    handleSideToggle,
     handleViewDetails,
-    editData,
     isCalling,
     configFilter,
     warehouses,
@@ -50,16 +39,14 @@ const PmsReview = ({}) => {
     handleSend,
     handleViewFormDetails,
     selectedEmps,
-    toggleStatusDialog,
-    approveDialog,
-  } = usePmsReview({});
+  } = usePmsPlanner({});
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.pmsReview);
+  } = useSelector((state) => state.pmsPlanner);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -76,10 +63,10 @@ const PmsReview = ({}) => {
           <div className={styles.firstCellFlex}>
             <div className={styles.flex}>
               <Checkbox
-                disabled={
-                  obj?.status !== Constants.PMS_BATCH_STATUS.PENDING ||
-                  obj?.reviewer.status !== Constants.GENERAL_STATUS.ACTIVE
-                }
+                // disabled={
+                //   obj?.status !== Constants?.PMS_BATCH_STATUS?.PENDING ||
+                //   obj?.reviewer.status !== Constants?.GENERAL_STATUS?.ACTIVE
+                // }
                 onChange={() => {
                   handleCheckbox(obj);
                 }}
@@ -90,10 +77,10 @@ const PmsReview = ({}) => {
               />
             </div>
             <div className={classNames(styles.firstCellInfo, "openSans")}>
-              <span className={styles.productName}>{obj?.reviewer?.name}</span>{" "}
+              <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
               <br />
               <span className={styles.productName}>
-                {obj?.reviewer?.emp_code}
+                {obj?.employee?.emp_code}
               </span>{" "}
               <br />
             </div>
@@ -108,38 +95,28 @@ const PmsReview = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "reviewer",
-        label: "REVIEWER",
+        key: "employee",
+        label: "EMPLOYEE",
         sortable: false,
         render: (temp, all) => <div>{renderFirstCell(all)}</div>,
-      },
-      {
-        key: "name",
-        label: "Reviewer Status",
-        sortable: false,
-        render: (value, all) => (
-          <div>
-            <StatusPill status={all?.reviewer?.status} />
-          </div>
-        ),
       },
       {
         key: "grade",
         label: "GRADE",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer?.grade?.code}</div>,
+        render: (temp, all) => <div>{all?.employee?.grade?.code}</div>,
       },
       {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer?.location?.name}</div>,
+        render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer?.designation?.name}</div>,
+        render: (temp, all) => <div>{all?.employee?.designation?.name}</div>,
       },
       {
         key: "department",
@@ -147,17 +124,10 @@ const PmsReview = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.reviewer?.department?.name} /{" "}
-            {all?.reviewer?.department?.name}
+            {all?.employee?.department?.name} /{" "}
+            {all?.employee?.department?.name}
           </div>
         ),
-      },
-
-      {
-        key: "total_employees",
-        label: "No Of Reviews",
-        sortable: true,
-        render: (temp, all) => <div>{all?.total_employees}</div>,
       },
       {
         key: "hod",
@@ -165,8 +135,8 @@ const PmsReview = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.reviewer?.hod?.hod_name} <br />
-            {all?.reviewer?.hod?.hod_code}
+            {all?.employee?.hod?.hod_name} <br />
+            {all?.employee?.hod?.hod_code}
           </div>
         ),
       },
@@ -264,25 +234,19 @@ const PmsReview = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>PMS Planner</span>
+            <span className={styles.title}>Type 4B Form PMS Planner</span>
             <div className={styles.newLine} />
           </div>
-          {/* <div>
+          <div>
             <ButtonBase
-              // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
-              onClick={toggleStatusDialog}
+              onClick={handleCsvDownload}
               className={"createBtn"}
             >
-              Update Batches
+              DownLoad
             </ButtonBase>
-          </div> */}
+          </div>
         </div>
-        <UpdateDialog
-          handleSubmit={handleCsvDownload}
-          isOpen={approveDialog}
-          handleToggle={toggleStatusDialog}
-        />
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -303,7 +267,7 @@ const PmsReview = ({}) => {
       </PageBox>
       <BottomPanelComponent open={selected?.length > 0}>
         <BottomActionView
-          reviewers={selected.length}
+          reviewers={selected?.length}
           employees={selectedEmps}
           handleSend={handleSend}
           isSubmitting={isSending}
@@ -313,4 +277,4 @@ const PmsReview = ({}) => {
   );
 };
 
-export default PmsReview;
+export default PmsPlanner;

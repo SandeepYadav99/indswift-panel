@@ -107,4 +107,5 @@ export default {
   PERFORMANCE_PENDING:'/pm/pending',
   PMS_REVIEW_FORM: '/pms/submission/',
   PMS_FORM_DETAIL: '/pms/detail/',
+  PMS_PLANNER:'/pms/planner'
 };

@@ -41,7 +41,6 @@ const PersonalInfo = ({ data }) => {
       }
     } else return "-";
   };
-  console.log("000data>", data.family);
   return (
     <div>
       <div className={styles.plainPaper}>
