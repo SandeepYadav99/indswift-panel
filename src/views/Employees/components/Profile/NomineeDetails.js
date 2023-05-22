@@ -18,7 +18,7 @@ const NomineeTile = ({ data }) => {
           </div>
           <div className={styles.key}>
             <span className={styles.value}>DOB:</span>
-            {data?.dob}
+            {data?.dobText}
           </div>
         </div>
         <div className={styles.right}>
