@@ -1,0 +1,96 @@
+.detailWrap {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mappedCard {
+  /* width: 100%; */
+  width: calc(100% - 2.4rem);
+  padding: 1.2rem;
+  /* background: #F7F7F7 0% 0% no-repeat padding-box; */
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+.imageNameContainer {
+  display: flex;
+  gap: 5px;
+}
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.nameContainer > span {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.imageContainer {
+  display: flex;
+}
+.imageContainer > img {
+  height: max-content;
+  width: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+.date {
+  font-size: 0.875rem;
+}
+.statusWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.statusColor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.selfWrap {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-weight: 600;
+  padding-left: 1.2rem;
+  font-size: 0.875rem;
+}
+.edit {
+  color: #29cb97 !important;
+  border: 2px solid #29cb97 !important;
+  padding: 6px 20px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+}
+.addWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.removeBtn {
+  color: #e92828;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+}
+.errorCont{
+    margin-left: 10px;
+}
+.errorText {
+  color: #e92828;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.btnWrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
