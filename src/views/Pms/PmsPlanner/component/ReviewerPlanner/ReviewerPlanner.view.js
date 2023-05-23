@@ -8,24 +8,29 @@ import EmployeeDialog from "../EmployeePopUp/EmployeeDialog.view";
 import Constants from "../../../../../config/constants";
 import PlannerItem from "./PlannerItem";
 
-function ReviewerDetail() {
+function ReviewerDetail({ selectedUser }) {
   const { toggleEmployeeDialog, isEmployeeDialog,
       listData,
       handleDialogSelect,
       planner,
       handleAddClick,
       selectedType,
-      handleDeleteClick
-  } = useReviewerPlanner({});
+      handleDeleteClick,
+      PLANNER_INDEX,
+      errors,
+      handleSubmit,
+      isSubmitting
+  } = useReviewerPlanner({selectedUser});
   return (
     <div className={styles.detailWrap}>
         {Object.keys(Constants.PLANNER_TYPES).map(key => {
-            return (<PlannerItem handleDelete={handleDeleteClick} handleAdd={handleAddClick} index={key} data={planner} type={key} />)
+            return (<PlannerItem errors={errors} indexes={PLANNER_INDEX} handleDelete={handleDeleteClick} handleAdd={handleAddClick} index={key} data={planner} type={key} />)
         })}
       <div className={styles.btnWrap}>
         <ButtonBase
+            disabled={isSubmitting}
           aria-haspopup="true"
-          //   onClick={handleCsvDownload}
+            onClick={handleSubmit}
           className={"createBtn"}
         >
           SAVE PANEL

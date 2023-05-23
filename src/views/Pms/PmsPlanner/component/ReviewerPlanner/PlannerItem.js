@@ -33,7 +33,7 @@ const ProfileView = ({ isSelf, isError, data, handleDelete, type, dtIndex }) => 
         </div>
     );
 };
-const PlannerItem = ({type, data, handleAdd, handleDelete}) => {
+const PlannerItem = ({type, data, handleAdd, handleDelete, errors, indexes}) => {
     const handleClick = useCallback(() => {
         handleAdd(type);
     }, [handleAdd, type]);
@@ -51,7 +51,9 @@ const PlannerItem = ({type, data, handleAdd, handleDelete}) => {
                 </ButtonBase>)}
             </div>
             {data[type].map((dt, index) => {
-                return (<ProfileView type={type} dtIndex={index} handleDelete={handleDelete} key={dt.id} data={dt} isSelf={type === Constants.PLANNER_TYPES.SELF} />);
+                const key = `${indexes[type]}_${index}`;
+                const isError = errors.indexOf(key) >= 0;
+                return (<ProfileView type={type} isError={isError} dtIndex={index} handleDelete={handleDelete} key={dt?.id} data={dt} isSelf={type === Constants.PLANNER_TYPES.SELF} />);
             })}
         </div>
     )

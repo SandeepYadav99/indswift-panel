@@ -35,7 +35,8 @@ const PmsPlanner = ({}) => {
     handleViewFormDetails,
     selectedEmps,
     isPannel,
-    togglePanel
+    togglePanel,
+    selectedUser
   } = usePmsPlanner({});
 
   const {
@@ -180,7 +181,7 @@ const PmsPlanner = ({}) => {
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  togglePanel();
+                  togglePanel(all);
                 }}
               >
                 <RemoveRedEyeOutlinedIcon fontSize={"small"} />
@@ -267,7 +268,7 @@ const PmsPlanner = ({}) => {
         open={isPannel}
         side={"right"}
       >
-        <ReviewerPlanner/>
+        <ReviewerPlanner selectedUser={selectedUser}/>
       </SidePanelComponent>
       <BottomPanelComponent open={selected?.length > 0}>
         <BottomActionView

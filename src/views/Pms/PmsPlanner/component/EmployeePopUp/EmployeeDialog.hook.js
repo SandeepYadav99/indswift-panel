@@ -67,9 +67,9 @@ const useEmployeeDialogHook = ({
       setErrorData(errors);
       return true;
     }
-    LogUtils.log('form', form);
+    setForm({...initialForm});
     handleSelect(form?.emp_id);
-  }, [checkFormValidation, setErrorData, form, handleSelect]);
+  }, [setForm, checkFormValidation, setErrorData, form, handleSelect]);
 
   const onBlurHandler = useCallback(
     (type) => {

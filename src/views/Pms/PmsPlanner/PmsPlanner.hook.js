@@ -17,6 +17,7 @@ const usePmsPlanner = ({}) => {
   const [listData, setListData] = useState({
     EMPLOYEES: [],
   });
+  const [selectedUser, setSelectedUser] = useState(null);
   const [isSending, setIsSending] = useState(false);
   const [selected, setSelected] = useState([]);
   const [isPannel,setIsPannel]=useState(false)
@@ -38,9 +39,7 @@ const usePmsPlanner = ({}) => {
     );
     isMountRef.current = true;
   }, []);
-  const togglePanel = useCallback(() => {
-    setIsPannel((e) => !e);
-}, [setIsPannel]);
+
   useEffect(() => {
     serviceGetList(["PMS_EMPLOYEES"]).then((res) => {
       if (!res.error) {
@@ -48,12 +47,29 @@ const usePmsPlanner = ({}) => {
       }
     });
   }, []);
+
+
+  const togglePanel = useCallback((data) => {
+    if (data) {
+      setSelectedUser({
+        name: data?.employee?.name,
+        id: data?.employee?.id,
+        code: data?.employee?.emp_code,
+        image: data?.employee?.image
+      });
+    } else {
+      setSelectedUser(null);
+    }
+    setIsPannel((e) => !e);
+}, [setIsPannel,setSelectedUser]);
+
+
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPagePmsPlanner(type));
   }, []);
 
-  
+
 
   const handleCsvDownload = useCallback(
     (payload) => {
@@ -255,7 +271,8 @@ const usePmsPlanner = ({}) => {
     selectedEmps,
     handleViewFormDetails,
     togglePanel,
-    isPannel
+    isPannel,
+    selectedUser,
   };
 };
 
