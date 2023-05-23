@@ -1,13 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import { serviceGetCandidatePRCS } from "../../../../services/Candidate.service";
-import { serviceGetList } from "../../../../services/Common.service";
-import historyUtils from "../../../../libs/history.utils";
-import RouteName from "../../../../routes/Route.name";
+import historyUtils from "../../../../../libs/history.utils";
+import RouteName from "../../../../../routes/Route.name";
 
-const initialForm={
-  emp_id:'',
+const initialForm = {
+  emp_id: "",
 };
-const useEmployeeDialogHook = ({ isOpen, handleToggle, candidateId ,listData }) => {
+const useEmployeeDialogHook = ({
+  isOpen,
+  handleToggle,
+  candidateId,
+  listData,
+}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -35,8 +38,8 @@ const useEmployeeDialogHook = ({ isOpen, handleToggle, candidateId ,listData }) 
   );
 
   const checkFormValidation = useCallback(() => {
-    const errors = { ...errorData};
-    let required = ['emp_id'];
+    const errors = { ...errorData };
+    let required = ["emp_id"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -47,7 +50,7 @@ const useEmployeeDialogHook = ({ isOpen, handleToggle, candidateId ,listData }) 
         delete errors[val];
       }
     });
-      
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -58,7 +61,6 @@ const useEmployeeDialogHook = ({ isOpen, handleToggle, candidateId ,listData }) 
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
-     
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId]);
   const handleSubmit = useCallback(async () => {
@@ -67,14 +69,6 @@ const useEmployeeDialogHook = ({ isOpen, handleToggle, candidateId ,listData }) 
       setErrorData(errors);
       return true;
     }
-    // historyUtils.push(RouteName.EMPLOYEE_CONVERSION + form?.emp_id?.id);
-    historyUtils.push(
-      `${RouteName.EMPLOYEE_CREATE}`,
-      {
-        isOnboard: true,
-        empId: form?.emp_id?.id,
-      }
-    );
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(

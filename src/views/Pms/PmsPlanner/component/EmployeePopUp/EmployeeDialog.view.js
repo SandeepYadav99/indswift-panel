@@ -9,7 +9,7 @@ import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
-import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
+import CustomAutoComplete from "../../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import useEmployeeDialogHook from "./EmployeeDialog.hook";
 
 const useStyles = makeStyles((theme) => ({
@@ -73,7 +73,7 @@ const EmployeeDialog = ({ isOpen, handleToggle, candidateId ,listData }) => {
           {/*</DialogTitle>*/}
           <div className={styles.fieldWrapper}>
             <div>
-            <CustomAutoComplete
+            {/* <CustomAutoComplete
                   autoCompleteProps={{
                     freeSolo: false,
                     getOptionLabel: (option) => option?.label,
@@ -88,7 +88,7 @@ const EmployeeDialog = ({ isOpen, handleToggle, candidateId ,listData }) => {
                   name={"emp_id"}
                   isError={errorData?.emp_id}
                   value={form?.emp_id}
-                />
+                /> */}
             </div>
           </div>
           <div className={styles.printFlex}>
@@ -97,7 +97,7 @@ const EmployeeDialog = ({ isOpen, handleToggle, candidateId ,listData }) => {
               disabled={isSubmitting}
               className={"createBtnreset"}
             >
-              Proceed
+              Add
             </ButtonBase>
           </div>
         </div>

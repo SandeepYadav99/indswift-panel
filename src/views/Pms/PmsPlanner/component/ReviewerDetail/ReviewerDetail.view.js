@@ -3,8 +3,11 @@ import styles from "./Style.module.css";
 import DefaultImg from "../../../../../assets/img/download.png";
 import { ButtonBase } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
+import useReviewDetail from "./ReviewDetail.hook";
+import EmployeeDialog from "../EmployeePopUp/EmployeeDialog.view";
 
 function ReviewerDetail() {
+  const { toggleEmployeeDialog, isEmployeeDialog } = useReviewDetail({});
   return (
     <div className={styles.detailWrap}>
       <div className={styles.selfWrap}>
@@ -16,7 +19,7 @@ function ReviewerDetail() {
           <div className={styles.title}>PEERS</div>
           <ButtonBase
             className={styles.edit}
-            //   onClick={() => { }}
+            onClick={toggleEmployeeDialog}
           >
             <Add fontSize={"small"}></Add>
             ADD
@@ -29,7 +32,7 @@ function ReviewerDetail() {
           <div className={styles.title}>SUBORDINATES</div>
           <ButtonBase
             className={styles.edit}
-            //   onClick={() => { }}
+            onClick={toggleEmployeeDialog}
           >
             <Add fontSize={"small"}></Add>
             ADD
@@ -38,14 +41,18 @@ function ReviewerDetail() {
         <ProfileView />
       </div>
       <div className={styles.btnWrap}>
-            <ButtonBase
-              aria-haspopup="true"
-            //   onClick={handleCsvDownload}
-              className={"createBtn"}
-            >
-              SAVE PANEL
-            </ButtonBase>
-          </div>
+        <ButtonBase
+          aria-haspopup="true"
+          //   onClick={handleCsvDownload}
+          className={"createBtn"}
+        >
+          SAVE PANEL
+        </ButtonBase>
+      </div>
+      <EmployeeDialog
+        isOpen={isEmployeeDialog}
+        handleToggle={toggleEmployeeDialog}
+      />
     </div>
   );
 }
