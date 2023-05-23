@@ -4,7 +4,7 @@ const tempLevel = !(
     !process.env.NODE_ENV || process.env.NODE_ENV === "development"
 );
 const tempDate = new Date();
-const isProduction = false;
+const isProduction = true;
 
 let url = "http://91.205.173.97:8111/api/admin/";
 let socketUrl = "http://91.205.173.97:8111";
@@ -414,4 +414,10 @@ export default {
     ADDITIONAL_REQUIREMENT: "Additional Requirement",
     RAB: "Requirement Against Budget",
   },
+  PLANNER_TYPES: {
+    SELF: 'SELF',
+    PEERS: 'PEERS',
+    SUBORDINATES: 'SUBORDINATES',
+    SUPERVISORS: 'SUPERVISORS'
+  }
 };

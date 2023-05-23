@@ -14,7 +14,7 @@ import BottomPanelComponent from "../../../components/BottomBar/BottomBar.compon
 import BottomActionView from "./component/BottomAction/BottomAction.view";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
-import ReviewerDetail from "./component/ReviewerDetail/ReviewerDetail.view";
+import ReviewerPlanner from "./component/ReviewerPlanner/ReviewerPlanner.view";
 const PmsPlanner = ({}) => {
   const {
     handleSortOrderChange,
@@ -156,7 +156,7 @@ const PmsPlanner = ({}) => {
         label: "Status",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+          <div>{renderStatus(removeUnderScore(all?.type_four_status))}</div>
         ),
       },
       {
@@ -174,7 +174,7 @@ const PmsPlanner = ({}) => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-             
+
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
@@ -267,7 +267,7 @@ const PmsPlanner = ({}) => {
         open={isPannel}
         side={"right"}
       >
-        <ReviewerDetail/>
+        <ReviewerPlanner/>
       </SidePanelComponent>
       <BottomPanelComponent open={selected?.length > 0}>
         <BottomActionView

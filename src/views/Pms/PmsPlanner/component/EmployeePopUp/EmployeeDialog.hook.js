@@ -1,21 +1,23 @@
 import { useCallback, useEffect, useState } from "react";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
+import {serviceGetList} from "../../../../../services/Common.service";
+import LogUtils from "../../../../../libs/LogUtils";
 
 const initialForm = {
   emp_id: "",
 };
 const useEmployeeDialogHook = ({
   isOpen,
-  handleToggle,
+                                 handleSelect,
   candidateId,
-  listData,
 }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
 
   const removeError = useCallback(
     (title) => {
@@ -59,17 +61,15 @@ const useEmployeeDialogHook = ({
     return errors;
   }, [form, errorData]);
 
-  const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-    }
-  }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId]);
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
     }
-  }, [checkFormValidation, setErrorData, form, submitToServer]);
+    LogUtils.log('form', form);
+    handleSelect(form?.emp_id);
+  }, [checkFormValidation, setErrorData, form, handleSelect]);
 
   const onBlurHandler = useCallback(
     (type) => {
@@ -87,7 +87,7 @@ const useEmployeeDialogHook = ({
     removeError,
     handleSubmit,
     errorData,
-    isSubmitting,
+    isSubmitting
   };
 };
 

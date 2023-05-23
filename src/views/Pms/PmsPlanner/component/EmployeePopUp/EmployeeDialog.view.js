@@ -35,7 +35,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const EmployeeDialog = ({ isOpen, handleToggle, candidateId ,listData }) => {
+const EmployeeDialog = ({ isOpen, handleToggle, candidateId, handleSelect, employees, type }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -43,7 +43,7 @@ const EmployeeDialog = ({ isOpen, handleToggle, candidateId ,listData }) => {
     form,
     handleSubmit,
     isSubmitting,
-  } = useEmployeeDialogHook({ isOpen, handleToggle, candidateId ,listData });
+  } = useEmployeeDialogHook({ isOpen, handleToggle, handleSelect, candidateId });
   return (
     <div>
       <Dialog
@@ -62,7 +62,7 @@ const EmployeeDialog = ({ isOpen, handleToggle, candidateId ,listData }) => {
         {/*<DialogTitle id="alert-dialog-title">*/}
         <div className={styles.resetPasswordWrapper}>
           <div className={styles.resetWrapper}>
-            <div className={styles.upperFlex}>Candidate Details</div>
+            <div className={styles.upperFlex}>Employees {type}</div>
             <ButtonBase
               classes={{ root: classes.closeBtn }}
               onClick={handleToggle}
@@ -73,12 +73,12 @@ const EmployeeDialog = ({ isOpen, handleToggle, candidateId ,listData }) => {
           {/*</DialogTitle>*/}
           <div className={styles.fieldWrapper}>
             <div>
-            {/* <CustomAutoComplete
+            <CustomAutoComplete
                   autoCompleteProps={{
                     freeSolo: false,
                     getOptionLabel: (option) => option?.label,
                   }}
-                  dataset={listData?.JOINING_CANDIDATES}
+                  dataset={employees}
                   datasetKey={"label"}
                   onTextChange={(text ) => {
                     changeTextData(text, "emp_id");
@@ -88,7 +88,7 @@ const EmployeeDialog = ({ isOpen, handleToggle, candidateId ,listData }) => {
                   name={"emp_id"}
                   isError={errorData?.emp_id}
                   value={form?.emp_id}
-                /> */}
+                />
             </div>
           </div>
           <div className={styles.printFlex}>
