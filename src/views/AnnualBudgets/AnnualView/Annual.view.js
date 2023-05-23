@@ -1,15 +1,9 @@
 import React, {Component, useEffect, useMemo} from 'react';
-import {Button, MenuItem, withStyles, FormControlLabel, Switch, IconButton, ButtonBase} from '@material-ui/core';
+import {Button, MenuItem,ButtonBase} from '@material-ui/core';
 import styles from '../Style.module.css';
-import Tooltip from "@material-ui/core/Tooltip";
-import InfoIcon from "@material-ui/icons/Info";
-import history from "../../../libs/history.utils"
 import {makeStyles} from "@material-ui/core/styles";
 import useAnnualView from "./AnnualViewHook";
-import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
-import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import LogUtils from "../../../libs/LogUtils";
 
 
 const useStyle = makeStyles((theme) => ({
@@ -22,40 +16,23 @@ const useStyle = makeStyles((theme) => ({
     }
 }));
 
-const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId}) => {
+const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id}) => {
     const classes = useStyle();
-    const { form, changeTextData, errorData, handleSubmit, onBlurHandler, removeError, warehouses, users } = useAnnualView({selectedAnnuals, closeSidePanel, originWarehouseId});
-
-
-    const renderWarehouses = useMemo(() => {
-        const menuItems = [];
-        warehouses.forEach((warehouse) => {
-            const isThere = selectedAnnuals.some(val => val.origin_warehouse_id === warehouse.id);
-            if (!isThere) {
-                menuItems.push(<MenuItem value={warehouse.id} key={warehouse.id}>{warehouse.title}</MenuItem>);
-            }
-        });
-        return menuItems;
-    }, [warehouses, selectedAnnuals]);
-
+    const { form, changeTextData, errorData, handleSubmit, onBlurHandler, removeError, warehouses,profileInfo } = useAnnualView({selectedAnnuals, closeSidePanel, originWarehouseId,id});
+    
+    
     return (
         <div>
-            <div className={styles.headerFlex}>
-                {/*<h4 className={styles.infoTitle}>*/}
-                {/*    <div className={styles.heading}>Annual</div>*/}
-                {/*    <Tooltip title="Info" aria-label="info" placement="right">*/}
-                {/*        <InfoIcon fontSize={'small'}/>*/}
-                {/*    </Tooltip>*/}
-                {/*</h4>*/}
-            </div>
+            
             <div className={styles.upperInfo}>
-                <div>FY 2022-23</div>
+                <div>{profileInfo?.fy_year}</div>
                 <div>On Roll Employee</div>
             </div>
 
             <div>
-                <div className={styles.loc}>Mohali Location</div>
-                <div className={styles.hr}>Human Resources Department</div>
+                <div className={styles.loc}>{profileInfo?.location?.name}</div>
+                <div className={styles.loc}>{profileInfo?.department?.name}</div>
+                <div className={styles.hr} style={{marginTop:'10px'}}>{profileInfo?.sub_department?.name}</div>
             </div>
 
             <form onSubmit={handleSubmit}>
@@ -63,15 +40,16 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId}) => {
                 <div className={'formFlex'}>
                     <div className={'formGroup'}>
                         <CustomTextField
-                            isError={errorData?.approved_count}
-                            errorText={errorData?.approved_count}
+                            type="number"
+                            isError={errorData?.budget}
+                            errorText={errorData?.budget}
                             label={'Approved Manpower Count'}
-                            value={form?.approved_count}
+                            value={form?.budget}
                             onTextChange={text => {
-                                changeTextData(text, 'approved_count');
+                                changeTextData(text, 'budget');
                             }}
                             onBlur={() => {
-                                onBlurHandler('approved_count');
+                                onBlurHandler('budget');
                             }}
                         />
                     </div>
@@ -80,15 +58,16 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId}) => {
                 <div className={'formFlex'}>
                     <div className={'formGroup'}>
                         <CustomTextField
-                            isError={errorData?.posted_manpower}
-                            errorText={errorData?.posted_manpower}
+                            type="number"
+                            isError={errorData?.posted}
+                            errorText={errorData?.posted}
                             label={'Posted Manpower'}
-                            value={form?.posted_manpower}
+                            value={form?.posted}
                             onTextChange={text => {
-                                changeTextData(text, 'posted_manpower');
+                                changeTextData(text, 'posted');
                             }}
                             onBlur={() => {
-                                onBlurHandler('posted_manpower');
+                                onBlurHandler('posted');
                             }}
                         />
                     </div>
@@ -97,15 +76,16 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId}) => {
                 <div className={'formFlex'}>
                     <div className={'formGroup'}>
                         <CustomTextField
-                            isError={errorData?.transferred_manpower}
-                            errorText={errorData?.transferred_manpower}
+                            type="number"
+                            isError={errorData?.transferred}
+                            errorText={errorData?.transferred}
                             label={'Transferred Manpower'}
-                            value={form?.transferred_manpower}
+                            value={form?.transferred}
                             onTextChange={text => {
-                                changeTextData(text, 'transferred_manpower');
+                                changeTextData(text, 'transferred');
                             }}
                             onBlur={() => {
-                                onBlurHandler('transferred_manpower');
+                                onBlurHandler('transferred');
                             }}
                         />
                     </div>
@@ -114,6 +94,8 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId}) => {
                 <div className={'formFlex'}>
                     <div className={'formGroup'}>
                         <CustomTextField
+                            disabled={true}
+                            type="number"
                             isError={errorData?.vacancies}
                             errorText={errorData?.vacancies}
                             label={'Vacancies'}
@@ -131,20 +113,20 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId}) => {
                 <div className={'formFlex'}>
                     <div className={'formGroup'}>
                         <CustomTextField
-                            isError={errorData?.approved_budget}
-                            errorText={errorData?.approved_budget}
+                            type="number"
+                            isError={errorData?.expense_budget}
+                            errorText={errorData?.expense_budget}
                             label={'Approved Budget'}
-                            value={form?.approved_budget}
+                            value={form?.expense_budget}
                             onTextChange={text => {
-                                changeTextData(text, 'approved_budget');
+                                changeTextData(text, 'expense_budget');
                             }}
                             onBlur={() => {
-                                onBlurHandler('approved_budget');
+                                onBlurHandler('expense_budget');
                             }}
                         />
                     </div>
                 </div>
-
 
                 <div className={styles.generate}>
                     <ButtonBase  type={'button'} onClick={handleSubmit} className={styles.createBtn}>

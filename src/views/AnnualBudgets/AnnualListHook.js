@@ -8,7 +8,9 @@ import {
   actionUpdateAnnual,
 } from "../../actions/Annual.action";
 import historyUtils from "../../libs/history.utils";
-import { serviceGetCustomList } from "../../services/Common.service";
+import {
+  serviceGetList,
+} from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
 
 const useAnnualList = ({}) => {
@@ -21,9 +23,20 @@ const useAnnualList = ({}) => {
   const [selected, setSelected] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
   const [warehouseId, setWareHouseId] = useState("");
-  const [type, setType] = useState("");
+  const [locationId, setLocationId] = useState("");
+  const [listData, setListData] = useState({
+    LOCATIONS: [],
+  });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
+
+  useEffect(() => {
+    serviceGetList(["LOCATIONS"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
 
   const {
     sorting_data: sortingData,
@@ -31,7 +44,6 @@ const useAnnualList = ({}) => {
     query,
     query_data: queryData,
   } = useSelector((state) => state.annual);
-  useEffect(() => {}, []);
 
   const resetData = useCallback(
     (sort = {}, updateQuery = {}) => {
@@ -42,22 +54,22 @@ const useAnnualList = ({}) => {
           {
             query: isMountRef.current ? query : null,
             query_data: isMountRef.current ? queryData : null,
-            warehouse_id: warehouseId,
-            type: type,
+            fy_year: warehouseId,
+            location_id: locationId,
             ...updateQuery,
           }
         )
       );
       isMountRef.current = true;
     },
-    [query, queryData, warehouseId, type, sortingData]
+    [query, queryData, warehouseId, sortingData, locationId]
   );
 
   useEffect(() => {
-    if (warehouseId) {
+    if (warehouseId && locationId) {
       resetData();
     }
-  }, [warehouseId, type]);
+  }, [warehouseId, locationId]);
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
@@ -66,7 +78,6 @@ const useAnnualList = ({}) => {
 
   const handleDataSave = useCallback(
     (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
       if (type == "CREATE") {
         dispatch(actionCreateAnnual(data));
       } else {
@@ -149,28 +160,14 @@ const useAnnualList = ({}) => {
     [setEditData, setSidePanel]
   );
 
-  const handleSideToggle = useCallback(() => {
+  const handleSideToggle = useCallback((data) => {
     setSidePanel((e) => !e);
-    setEditData(null);
+    setEditData(data?.id);
   }, [setEditData, setSidePanel]);
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
     historyUtils.push("/annual/detail/" + data.id);
-  }, []);
-
-  const configFilter = useMemo(() => {
-    return [
-      // {label: 'Country', name: 'country', type: 'text'},
-      // {label: 'City', name: 'city', type: 'text'},
-      // {label: 'Request Date', name: 'createdAt', type: 'date'},
-      {
-        label: "Status",
-        name: "status",
-        type: "select",
-        fields: ["SANCTIONED"],
-      },
-    ];
   }, []);
 
   const handleChangeWareHouse = useCallback(
@@ -185,12 +182,9 @@ const useAnnualList = ({}) => {
 
   return {
     handlePageChange,
-    // handleCellClick,
     handleDataSave,
     handleFilterDataChange,
     handleSearchValueChange,
-    // handlePreviousPageClick,
-    // handleNextPageClick,
     handleRowSize,
     handleSortOrderChange,
     handleDelete,
@@ -200,20 +194,20 @@ const useAnnualList = ({}) => {
     isCalling,
     editData,
     isSidePanel,
-    configFilter,
     warehouses,
     handleChangeWareHouse,
     warehouseId,
     selected,
     allSelected,
     setAllSelected,
-    type,
-    setType,
     isInfoPanel,
     handleSideInfo,
     selectedAnnualId,
     setSelectedAnnualId,
     handleQueryInfo,
+    listData,
+    locationId,
+    setLocationId,
   };
 };
 

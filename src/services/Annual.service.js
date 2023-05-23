@@ -1,7 +1,7 @@
 import {postRequest, formDataRequest} from '../libs/AxiosService.util';
 
 export async function serviceCreateAnnual(params) {
-    return await postRequest('annual/create', params);
+    return await formDataRequest('annual/budget/edit/versions/create', params);
 }
 
 export async function serviceUpdateAnnual(params) {
@@ -13,9 +13,9 @@ export async function serviceDeleteAnnual(params) {
 }
 
 export async function serviceGetAnnual (params) {
-    return await postRequest('annual', params);
+    return await postRequest('annual/budget', params);
 }
 
 export async function serviceAnnualDetail (params) {
-    return await postRequest('annual/detail', params);
+    return await postRequest('annual/budget/detail', params);
 }
