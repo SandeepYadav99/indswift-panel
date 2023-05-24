@@ -6,9 +6,7 @@ import {
   serviceGetDetailTrans,
 } from "../../../services/Annual.service";
 import WaitingComponent from "../../../components/Waiting.component";
-import Constants from "../../../config/constants";
 import styles from "../Style.module.css";
-import classnames from "classnames";
 import StatusPill from "../../../components/Status/StatusPill.component";
 
 const AnnualInfo = ({ annualId, closeSidePanel }) => {

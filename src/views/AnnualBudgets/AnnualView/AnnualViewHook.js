@@ -29,7 +29,6 @@ const useAnnualView = ({
   const [warehouses, setWarehouses] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [users, setUsers] = useState([]);
-  const changedFields = useRef([]);
   useEffect(() => {
     if (id) {
       serviceAnnualDetail({ id: id }).then((res) => {
@@ -74,26 +73,10 @@ const useAnnualView = ({
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      const changedData = [];
-      changedFields.current.push("vacancies");
-
-      changedFields.current.forEach((key) => {
-        if (key != "image") {
-          const newData = form?.[key];
-          const oldData = editData?.[key];
-          changedData.push({
-            is_json: false,
-            key: key,
-            db_value: newData,
-            new_value: newData,
-            old_value: oldData,
-          });
-        }
-      });
       const updateData = {};
 
       updateData.annual_budget_id = id;
-      updateData.data = changedData;
+      updateData.new_values = form;
 
       serviceCreateAnnual(updateData).then((res) => {
         if (!res.error) {
@@ -114,10 +97,6 @@ const useAnnualView = ({
       const errors = checkFormValidation();
       if (Object.keys(errors)?.length > 0) {
         setErrorData(errors);
-        return true;
-      }
-      if (changedFields?.current?.length === 0) {
-        SnackbarUtils.error("No Data Changed");
         return true;
       }
       submitToServer();
@@ -145,9 +124,6 @@ const useAnnualView = ({
         t["vacancies"] = vaccanciesdata;
       }
       setForm(t);
-      if (changedFields.current.indexOf(fieldName) < 0) {
-        changedFields.current = [...changedFields.current, fieldName];
-      }
       shouldRemoveError && removeError(fieldName);
     },
     [removeError, form, setForm]
