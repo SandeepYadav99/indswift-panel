@@ -55,7 +55,7 @@ const useAnnualView = ({
       if (!form?.[val]) {
         errors[val] = true;
       }
-      if (form?.[val] == 0) {
+      if (form?.[val] === 0) {
         delete errors[val];
       }
     });
