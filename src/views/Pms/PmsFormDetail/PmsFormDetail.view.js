@@ -36,10 +36,14 @@ const TableCell = ({
       const getIndex = name?.split("_");
       const parameterIndex = getIndex[1] - 5;
       const values =
-        row?.ratings[parameterIndex]?.parameters[getIndex[2]]?.rating;
+        row?.ratings[parameterIndex]?.parameters[getIndex[2]];
+      const {title,rating}=values
       return (
         <div className={styles.detailCont}>
-          <span>{values}</span>
+           {title &&
+            title !== "Fars" &&
+            title !== "Bars" &&
+            title !== "NET_SCORE" && <span>{rating}</span>}
         </div>
       );
     }
@@ -158,13 +162,21 @@ const OtherTableCell = ({
       const getIndex = name?.split("_");
       const parameterIndex = getIndex[1] - 5;
       const checkIndex = getIndex[2];
+      const getTitle=row?.ratings[parameterIndex]?.title
       const values = row?.ratings[parameterIndex]?.ratings;
       return (
         <div className={styles.detailCont}>
           <span>
-            {checkIndex == 0 &&
-              (type == "percentage" ? `${values?.[type]}%` : values?.[type])}
-          </span>
+          {checkIndex == 0 &&
+              (type == "percentage"
+                ? `${values?.[type]}%`
+                : type === "rating" &&
+                  (getTitle === "FARS" ||
+                    getTitle === "BARS" ||
+                    getTitle === "NET_SCORE")
+                ? " "
+                : values?.[type])}
+               </span>
         </div>
       );
     }
