@@ -53,7 +53,7 @@ const usePmsPlanner = ({}) => {
     dispatch(actionSetPagePmsPlanner(type));
   }, []);
 
-  
+
 
   const handleCsvDownload = useCallback(
     (payload) => {
@@ -176,6 +176,12 @@ const usePmsPlanner = ({}) => {
         name: "form_type",
         type: "select",
         fields: ["TYPE_1", "TYPE_2", "TYPE_3", "TYPE_4"],
+      },
+      {
+        label: "Status",
+        name: "status",
+        type: "select",
+        fields: ["PENDING", "REVIEW_PENDING", "REVIEW_SUBMITTED"],
       },
       // {
       //   label: "Status",
