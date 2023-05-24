@@ -192,20 +192,16 @@ const usePmsReview = ({}) => {
         type: "select",
         fields: ["TYPE_1", "TYPE_2", "TYPE_3", "TYPE_4"],
       },
-      // {
-      //   label: "Status",
-      //   name: "status",
-      //   type: "select",
-      //   fields: [
-      //     "ACTIVE",
-      //     "RESIGNED",
-      //     "TERMINATED",
-      //     "RETIRED",
-      //     "EXPIRED",
-      //     "ABSCONDED",
-      //     "INACTIVE",
-      //   ],
-      // },
+      {
+        label: "Status",
+        name: "status",
+        type: "select",
+        fields: [
+          "PENDING",
+            "REVIEW_PENDING",
+            "REVIEW_SUBMITTED"
+        ],
+      },
     ];
   }, [listData]);
 

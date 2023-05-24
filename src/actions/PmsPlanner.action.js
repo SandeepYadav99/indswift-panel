@@ -2,6 +2,7 @@ import store from '../store';
 import Constants from '../config/constants';
 import {serviceCreatePmsPlanner, serviceGetPmsPlanner, serviceUpdatePmsPlanner,serviceDeletePmsPlanner} from "../services/PmsPlanner.service";
 import EventEmitter from "../libs/Events.utils";
+import LogUtils from "../libs/LogUtils";
 
 
 export const FETCH_INIT = 'FETCH_INIT_PMS_PLANNER';
@@ -54,9 +55,10 @@ export function actionCreatePmsPlanner(data) {
     }
 }
 
-export function actionAlignPmsPlanner(batchIds) {
+export function actionUpdatePlannerStatus(reviewIds,status) {
+    LogUtils.log('actionUpdatePlannerStatus', reviewIds, status);
     return (dispatch) => {
-        dispatch({type: UPDATE_DATA, payload: batchIds})
+        dispatch({type: UPDATE_DATA, payload: {reviewIds, status}})
     }
 }
 

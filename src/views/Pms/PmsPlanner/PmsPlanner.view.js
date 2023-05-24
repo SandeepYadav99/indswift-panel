@@ -36,7 +36,8 @@ const PmsPlanner = ({}) => {
     selectedEmps,
     isPannel,
     togglePanel,
-    selectedUser
+    selectedUser,
+      isLoading,
   } = usePmsPlanner({});
 
   const {
@@ -61,10 +62,7 @@ const PmsPlanner = ({}) => {
           <div className={styles.firstCellFlex}>
             <div className={styles.flex}>
               <Checkbox
-                // disabled={
-                //   obj?.status !== Constants?.PMS_BATCH_STATUS?.PENDING ||
-                //   obj?.reviewer.status !== Constants?.GENERAL_STATUS?.ACTIVE
-                // }
+                disabled={obj?.type_four_status !== Constants?.PMS_4B_BATCH_STATUS?.PANEL_SET}
                 onChange={() => {
                   handleCheckbox(obj);
                 }}
@@ -268,7 +266,7 @@ const PmsPlanner = ({}) => {
         open={isPannel}
         side={"right"}
       >
-        <ReviewerPlanner selectedUser={selectedUser}/>
+        <ReviewerPlanner isOpen={isPannel} canEdit={selectedUser?.is_editable} togglePanel={togglePanel} reviewId={selectedUser?.review_id} selectedUser={selectedUser}/>
       </SidePanelComponent>
       <BottomPanelComponent open={selected?.length > 0}>
         <BottomActionView

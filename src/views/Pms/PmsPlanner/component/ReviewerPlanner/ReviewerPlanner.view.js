@@ -7,8 +7,9 @@ import useReviewerPlanner from "./ReviewerPlanner.hook";
 import EmployeeDialog from "../EmployeePopUp/EmployeeDialog.view";
 import Constants from "../../../../../config/constants";
 import PlannerItem from "./PlannerItem";
+import WaitingComponent from "../../../../../components/Waiting.component";
 
-function ReviewerDetail({ selectedUser }) {
+const ReviewerPlanner = ({ selectedUser, reviewId, togglePanel, canEdit, isOpen }) => {
   const { toggleEmployeeDialog, isEmployeeDialog,
       listData,
       handleDialogSelect,
@@ -19,22 +20,28 @@ function ReviewerDetail({ selectedUser }) {
       PLANNER_INDEX,
       errors,
       handleSubmit,
-      isSubmitting
-  } = useReviewerPlanner({selectedUser});
+      isSubmitting,
+      isLoading
+  } = useReviewerPlanner({selectedUser, reviewId, togglePanel, isOpen});
+
+  if (isLoading) {
+      return (<WaitingComponent />);
+  }
+
   return (
     <div className={styles.detailWrap}>
         {Object.keys(Constants.PLANNER_TYPES).map(key => {
-            return (<PlannerItem errors={errors} indexes={PLANNER_INDEX} handleDelete={handleDeleteClick} handleAdd={handleAddClick} index={key} data={planner} type={key} />)
+            return (<PlannerItem canEdit={canEdit} errors={errors} indexes={PLANNER_INDEX} handleDelete={handleDeleteClick} handleAdd={handleAddClick} index={key} data={planner} type={key} />)
         })}
       <div className={styles.btnWrap}>
-        <ButtonBase
+          {canEdit && (<ButtonBase
             disabled={isSubmitting}
           aria-haspopup="true"
             onClick={handleSubmit}
           className={"createBtn"}
         >
           SAVE PANEL
-        </ButtonBase>
+        </ButtonBase>)}
       </div>
       <EmployeeDialog
         isOpen={isEmployeeDialog}
@@ -47,4 +54,4 @@ function ReviewerDetail({ selectedUser }) {
   );
 }
 
-export default ReviewerDetail;
+export default ReviewerPlanner;

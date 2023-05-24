@@ -87,13 +87,12 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
         case UPDATE_DATA: {
             if (action.payload) {
                 const prevState = [...state.all];
-                const batchIds = action?.payload;
+                const {reviewIds, status} = action?.payload;
                 prevState.forEach((val) => {{
-                    if (batchIds.indexOf(val.id) >= 0) {
-                        val.status = Constants.PMS_BATCH_STATUS.REVIEW_PENDING;
+                    if (reviewIds.indexOf(val.id) >= 0) {
+                        val.type_four_status = status;
                     }
                 }});
-                LogUtils.log('prevState', prevState);
                 const tableData = mapPresetPRequest(prevState, state.currentPage);
                 return {...state, all: prevState, data: tableData};
             }

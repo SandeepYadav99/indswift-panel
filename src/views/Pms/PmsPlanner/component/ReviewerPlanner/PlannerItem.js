@@ -4,8 +4,9 @@ import React, {useCallback} from "react";
 import {ButtonBase} from "@material-ui/core";
 import {Add} from "@material-ui/icons";
 import Constants from "../../../../../config/constants";
+import StatusPill from "../../../../../components/Status/StatusPill.component";
 
-const ProfileView = ({ isSelf, isError, data, handleDelete, type, dtIndex }) => {
+const ProfileView = ({ isSelf, isError, data, handleDelete, type, dtIndex, canEdit }) => {
     return (
         <div>
             <div className={styles.mappedCard} key={`SummaryView}`}>
@@ -22,18 +23,23 @@ const ProfileView = ({ isSelf, isError, data, handleDelete, type, dtIndex }) => 
                         {isError && (<span className={styles.errorText}>Error! Already Added</span>)}
                     </div>
                 </div>
-                {!isSelf && (
+                {(!isSelf && canEdit) && (
                     <div className={styles.buttonWrapper}>
                         <ButtonBase onClick={() => {
                             handleDelete(type, dtIndex);
                         }} className={styles.removeBtn}>Remove</ButtonBase>
                     </div>
                 )}
+                {!canEdit && (
+                    <div className={styles.buttonWrapper}>
+                        <StatusPill status={data?.status} />
+                    </div>
+                )}
             </div>
         </div>
     );
 };
-const PlannerItem = ({type, data, handleAdd, handleDelete, errors, indexes}) => {
+const PlannerItem = ({type, data, handleAdd, handleDelete, errors, indexes, canEdit}) => {
     const handleClick = useCallback(() => {
         handleAdd(type);
     }, [handleAdd, type]);
@@ -42,7 +48,7 @@ const PlannerItem = ({type, data, handleAdd, handleDelete, errors, indexes}) => 
         <div className={styles.peerWrap}>
             <div className={styles.addWrap}>
                 <div className={styles.title}>{type}</div>
-                {type !== Constants.PLANNER_TYPES.SELF && (<ButtonBase
+                {(type !== Constants.PLANNER_TYPES.SELF && canEdit) && (<ButtonBase
                     className={styles.edit}
                     onClick={handleClick}
                 >
@@ -53,7 +59,7 @@ const PlannerItem = ({type, data, handleAdd, handleDelete, errors, indexes}) => 
             {data[type].map((dt, index) => {
                 const key = `${indexes[type]}_${index}`;
                 const isError = errors.indexOf(key) >= 0;
-                return (<ProfileView type={type} isError={isError} dtIndex={index} handleDelete={handleDelete} key={dt?.id} data={dt} isSelf={type === Constants.PLANNER_TYPES.SELF} />);
+                return (<ProfileView canEdit={canEdit} type={type} isError={isError} dtIndex={index} handleDelete={handleDelete} key={dt?.id} data={dt} isSelf={type === Constants.PLANNER_TYPES.SELF} />);
             })}
         </div>
     )

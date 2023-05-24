@@ -4,13 +4,15 @@ import {
   actionCreatePmsPlanner,
   actionDeletePmsPlanner,
   actionFetchPmsPlanner,
-  actionSetPagePmsPlanner,
+  actionSetPagePmsPlanner, actionUpdatePlannerStatus,
 } from "../../../actions/PmsPlanner.action";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
+import {serviceAssignReviewPlanner} from "../../../services/PmsPlanner.service";
+import Constants from "../../../config/constants";
 const usePmsPlanner = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -55,7 +57,9 @@ const usePmsPlanner = ({}) => {
         name: data?.employee?.name,
         id: data?.employee?.id,
         code: data?.employee?.emp_code,
-        image: data?.employee?.image
+        image: data?.employee?.image,
+        review_id: data?.id,
+        is_editable: [Constants.PMS_4B_BATCH_STATUS.PENDING, Constants.PMS_4B_BATCH_STATUS.PANEL_SET].indexOf(data?.type_four_status) >= 0,
       });
     } else {
       setSelectedUser(null);
@@ -236,17 +240,16 @@ const usePmsPlanner = ({}) => {
     if (!isSending) {
       setIsSending(true);
       const batchIds = selected.map((val) => val.id);
-      console.log('000batch>',batchIds)
-      // serviceAlignPmsBatch(batchIds).then((res) => {
-      //   if (!res.error) {
-      //     SnackbarUtils.success("Planners Aligned SuccessFully");
-      //     setSelected([]);
-      //     dispatch(actionAlignPmsPlanner(batchIds));
-      //   } else {
-      //     SnackbarUtils.error(res?.message);
-      //   }
-      //   setIsSending(false);
-      // });
+      serviceAssignReviewPlanner({review_ids: batchIds}).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Planners Aligned SuccessFully");
+          setSelected([]);
+          dispatch(actionUpdatePlannerStatus(batchIds, Constants.PMS_4B_BATCH_STATUS.REVIEW_PENDING));
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSending(false);
+      });
     }
   }, [selected, isSending, setIsSending, setSelected]);
 

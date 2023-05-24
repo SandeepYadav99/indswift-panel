@@ -3,8 +3,11 @@ import {useCallback} from "react";
 import {useState} from "react";
 import {serviceGetList} from "../../../../../services/Common.service";
 import LogUtils from "../../../../../libs/LogUtils";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import {serviceGetReviewPlanner, serviceUpdateReviewPlanner} from "../../../../../services/PmsPlanner.service";
+import {actionUpdatePlannerStatus} from "../../../../../actions/PmsPlanner.action";
+import Constants from "../../../../../config/constants";
 
 const PLANNER_INDEX = {
     SELF: 0,
@@ -13,21 +16,25 @@ const PLANNER_INDEX = {
     SUPERVISORS: 3
 };
 
-function useReviewerPlanner({selectedUser}) {
+function useReviewerPlanner({selectedUser, reviewId, togglePanel}) {
+    const defaultPlanner = {
+        SELF: [],
+        PEERS: [],
+        SUBORDINATES: [],
+        SUPERVISORS: [],
+    };
     const [isEmployeeDialog, setIsEmployeeDialog] = useState(false);
     const [selectedType, setSelectedType] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [listData, setListData] = useState({
         EMPLOYEES: [],
     });
     const {user, role} = useSelector(state => state.auth);
     const [errors, setErrors] = useState([]);
-    const [planner, setPlanner] = useState({
-        SELF: [],
-        PEERS: [],
-        SUBORDINATES: [],
-        SUPERVISORS: [],
-    });
+    const [planner, setPlanner] = useState({...defaultPlanner});
+    const dispatch = useDispatch();
+
     useEffect(() => {
         serviceGetList(['EMPLOYEES']).then(res => {
             if (!res.error) {
@@ -43,6 +50,31 @@ function useReviewerPlanner({selectedUser}) {
             setPlanner(p);
         }
     }, [selectedUser]);
+
+    useEffect(() => {
+        if (reviewId) {
+            setIsLoading(true);
+            serviceGetReviewPlanner({review_id: reviewId}).then((res) => {
+                if (!res?.error) {
+                    const data = res?.data;
+                    if (data.length > 0) {
+                        const temp = {...defaultPlanner};
+                        data.forEach((val) => {
+                            if (!(val.type in temp)) {
+                                temp[val.type] = [];
+                            }
+                            temp[val.type].push(val);
+                        });
+
+                        setPlanner(temp);
+                    } else {
+                        setPlanner({...defaultPlanner});
+                    }
+                }
+                setIsLoading(false);
+            });
+        }
+    }, [reviewId]);
 
     useEffect(() => {
         const arr = [];
@@ -91,14 +123,37 @@ function useReviewerPlanner({selectedUser}) {
     const validateForm = useCallback(() => {
         let isValid = true;
         Object.keys(planner).forEach((key) => {
-          const arr = planner[key];
-          if (arr.length === 0) {
-              isValid = false;
-              return true;
-          }
+            const arr = planner[key];
+            if (arr.length === 0) {
+                isValid = false;
+                return true;
+            }
         });
         return isValid;
     }, [planner]);
+
+    const submitToServer = useCallback(() => {
+        if (!isSubmitting) {
+            setIsSubmitting(true);
+            const pTemp = {...planner};
+            Object.keys(pTemp).forEach((key) => {
+                pTemp[key] = (pTemp[key]).map(val => val.id);
+            });
+            serviceUpdateReviewPlanner({
+                review_id: reviewId,
+                reviewers: pTemp,
+            }).then((res) => {
+                if (!res.error) {
+                    SnackbarUtils.success('Panel Set Updated Successfully');
+                    dispatch(actionUpdatePlannerStatus([reviewId], Constants.PMS_4B_BATCH_STATUS.PANEL_SET));
+                    togglePanel();
+                } else {
+                    SnackbarUtils.error(res?.message);
+                }
+                setIsSubmitting(false);
+            })
+        }
+    }, [planner, setIsSubmitting, isSubmitting, reviewId, togglePanel]);
 
     const handleSubmit = useCallback(() => {
         if (errors.length > 0) {
@@ -107,14 +162,11 @@ function useReviewerPlanner({selectedUser}) {
         }
         const isValid = validateForm();
         if (isValid) {
-            if (!isSubmitting) {
-                setIsSubmitting(true);
-                setIsSubmitting(false);
-            }
+            submitToServer();
         } else {
             SnackbarUtils.error('Planner is not valid');
         }
-    }, [errors, setIsSubmitting, isSubmitting, validateForm]);
+    }, [errors, validateForm, submitToServer]);
 
     return {
         toggleEmployeeDialog,
@@ -128,7 +180,8 @@ function useReviewerPlanner({selectedUser}) {
         PLANNER_INDEX,
         errors,
         isSubmitting,
-        handleSubmit
+        handleSubmit,
+        isLoading
     };
 }
 
