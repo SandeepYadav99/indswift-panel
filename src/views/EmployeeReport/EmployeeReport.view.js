@@ -11,10 +11,13 @@ import StatusPill from "../../components/Status/StatusPill.component";
 import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
 import useEmployeeReport from "./EmployeeReport.hook";
 import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
+import FilterComponent from "../../components/Filter/Filter.component";
 
 const EmployeeReport = ({}) => {
   const {
     handleSortOrderChange,
+    handleFilterDataChange,
+    handleSearchValueChange,
     handleRowSize,
     handlePageChange,
     handleChangeDate,
@@ -23,7 +26,9 @@ const EmployeeReport = ({}) => {
     type,
     setType,
     endDate,
+    configFilter,
     initialApiCall,
+    handleDownload,
   } = useEmployeeReport({});
 
   const {
@@ -65,25 +70,29 @@ const EmployeeReport = ({}) => {
         key: "name",
         label: "EMPLOYEE NAME",
         sortable: false,
-        render: (temp, all) => <div>{console.log('---all>',all)}</div>,
+        render: (temp, all) => <div>{all?.name}</div>,
       },
       {
         key: "grade",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => <div>{all?.budget}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.grade?.name} / {all?.cadre?.name}
+          </div>
+        ),
       },
       {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.posted}</div>,
+        render: (temp, all) => <div>{all?.location?.name}</div>,
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.vacancies}</div>,
+        render: (temp, all) => <div>{all?.designation?.name}</div>,
       },
       {
         key: "department",
@@ -101,34 +110,20 @@ const EmployeeReport = ({}) => {
         key: "date",
         label: "Date",
         sortable: false,
-        render: (temp, all) => <div>{all?.expense_budget}</div>,
+        render: (temp, all) => <div>{all?.dojText}</div>,
       },
       {
         key: "type",
         label: "Type",
         sortable: false,
-        render: (temp, all) => <div>{all?.estimated_spent}</div>,
+        render: (temp, all) => <div>{all?.type}</div>,
       },
 
       {
         key: "status",
         label: "Status",
         sortable: true,
-        render: (temp, all) => (
-          <div>
-            {renderStatus(all.status)}
-            <br />
-            <span
-              style={{
-                paddingTop: "5px",
-                display: "inline-block",
-                fontSize: "0.7rem",
-              }}
-            >
-              {all?.createdAtText}
-            </span>
-          </div>
-        ),
+        render: (temp, all) => <div>{renderStatus(all.status)}</div>,
       },
       {
         key: "user_id",
@@ -233,7 +228,7 @@ const EmployeeReport = ({}) => {
           <div className={styles.rightFlex}>
             <ButtonBase
               className={styles.download}
-              //   onClick={() => }
+                onClick={handleDownload}
             >
               DOWNLOAD
             </ButtonBase>
@@ -253,9 +248,17 @@ const EmployeeReport = ({}) => {
             </ButtonBase>
           </div>
         </div>
-
-        <div style={{ marginTop: "30px" }}>
+        <div>
+          <div className={styles.totalWrap}>Total Count : {data?.length}</div>
+        </div>
+        <div>
           <div>
+            <FilterComponent
+              is_progress={isFetching}
+              filters={configFilter}
+              handleSearchValueChange={handleSearchValueChange}
+              handleFilterDataChange={handleFilterDataChange}
+            />
             <br />
             <div style={{ width: "100%" }}>
               <DataTables

@@ -17,3 +17,6 @@ export async function serviceSendFeedbackReminder(params) {
 export async function serviceSendOlrReminder(params) {
     return await postRequest('olr/review/reminder', params);
 }
+export async function serviceSendIrfReminder(params) {
+    return await postRequest('candidate/irf/share', params);
+}

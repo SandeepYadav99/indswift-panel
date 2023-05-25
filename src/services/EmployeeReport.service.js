@@ -19,7 +19,6 @@ export async function serviceGetEmployeeReport (params) {
 export async function serviceEmployeeReportDetail (params) {
     return await postRequest('employee/report/budget/detail', params);
 }
-
-export async function serviceGetDetailTrans (params) {
-    return await postRequest('employee/report/budget/transections', params);
+export async function serviceEmployeeReportDownload (params) {
+    return await postRequest('employees/connection/reports/export', params);
 }

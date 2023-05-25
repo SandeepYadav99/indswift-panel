@@ -119,3 +119,15 @@
   text-decoration: underline;
   font-size: .75rem;
 }
+.iconWrapper{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.sendReminder{
+    font-size: .75rem;
+    font-weight: 600;
+    color: #2896E9;
+    font-family: 'Montserrat'
+}

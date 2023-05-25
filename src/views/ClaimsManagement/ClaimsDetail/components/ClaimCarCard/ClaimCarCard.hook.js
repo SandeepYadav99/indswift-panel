@@ -52,6 +52,11 @@ const useClaimCarCard = ({}) => {
     }
   }, []);
 
+  useEffect(()=>{
+    if(employeeDetails){
+      setForm({...form,vehicle_no:employeeDetails?.vehicle?.rc_number})
+    }
+  },[employeeDetails])
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["bill_amount", "bill_date", "vehicle_no", "document","payment_mode",'payment_proof',"invoice_no"];
@@ -67,9 +72,9 @@ const useClaimCarCard = ({}) => {
     if(form?.payment_mode ==='Cash' && !form?.payment_proof){
       delete errors['payment_proof'];
     }
-    if (form?.vehicle_no && !IsVehicleNo(form?.vehicle_no)) {
-      errors["vehicle_no"] = true;
-    }
+    // if (form?.vehicle_no && !IsVehicleNo(form?.vehicle_no)) {
+    //   errors["vehicle_no"] = true;
+    // }
     if (form?.bill_date) {
       const date = new Date(form?.bill_date);
       const todayDate = new Date();

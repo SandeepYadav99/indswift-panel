@@ -36,6 +36,10 @@ const initialForm = {
       employee_id: "",
     },
     {
+      panelist_role:"CORPORATE_ACCOUNTANT",
+      employee_id:""
+    },
+    {
       panelist_role: "ACCOUNTANT",
       employee_id: "",
     },
@@ -216,6 +220,7 @@ const useLocationDetail = ({}) => {
           const claim = promises[1]?.value;
           if (!department?.error && !claim?.error) {
             SnackbarUtils.success("Details updated successfully");
+            historyUtils.push(RouteName.LOCATIONS)
           } else {
             SnackbarUtils.error(
               department?.message ? department?.message : claim?.message

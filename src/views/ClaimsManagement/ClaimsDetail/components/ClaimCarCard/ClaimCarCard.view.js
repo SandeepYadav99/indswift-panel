@@ -35,7 +35,6 @@ function ClaimCarCard() {
     console.log(event.target.value);
     setSelectedOption(event.target.value);
   };
-  const idCards = {};
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -57,6 +56,7 @@ function ClaimCarCard() {
           <div className={"formFlex"} style={{ alignItems: "center" }}>
             <div className="formGroup1">
               <CustomTextField
+                disabled={true}
                 isError={errorData?.vehicle_no}
                 errorText={errorData?.vehicle_no}
                 label={"Vehicle No."}
@@ -205,9 +205,9 @@ function ClaimCarCard() {
       </div>
       <div className={styles.btnCont}>
         <ButtonBase
-          disabled={!declaration || isLoading ? true : false}
+          disabled={(!declaration || isLoading) || !form?.vehicle_no?.length ? true : false}
+          className={declaration && form?.vehicle_no?.length ? styles.createBtn : styles.disabledCreatebtn}
           type={"button"}
-          className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >
           Submit

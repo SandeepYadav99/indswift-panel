@@ -180,7 +180,12 @@
     width: 250px;
 }
 
-
+.totalWrap{
+    margin-top: 20px;
+    color: #2896E9;
+    font-size: .875rem;
+    font-weight: 600;
+}
 .createBtn{
     background-color: #29CB97 !important;
     color: #ffffff !important;

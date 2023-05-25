@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./Style.module.css";
 import RouteName from "../../../../../../routes/Route.name";
+import { ButtonBase } from "@material-ui/core";
+import { Telegram } from "@material-ui/icons";
 
-const CandidateUploadCard = ({ data }) => {
+const CandidateUploadCard = ({ data ,handleSubmit}) => {
   return (
     <div>
       <div className={styles.plainPaper}>
@@ -51,6 +53,17 @@ const CandidateUploadCard = ({ data }) => {
                   </a>
                 </div>
               )}
+            </div>
+            <div className={styles.right}>
+            <ButtonBase
+              className={styles.iconWrapper}
+              onClick={() => {
+                handleSubmit && handleSubmit();
+              }}
+            >
+              <Telegram style={{ color: "#2896E9" }} />
+              <span className={styles.sendReminder}>Send IRF Form</span>
+            </ButtonBase>
             </div>
           </div>
         </div>

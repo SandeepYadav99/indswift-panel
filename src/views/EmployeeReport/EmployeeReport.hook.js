@@ -3,9 +3,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   actionFetchEmployeeReport,
   actionSetPageEmployeeReportRequests,
-  actionUpdateEmployeeReport,
 } from "../../actions/EmployeeReport.action";
 import { serviceGetList } from "../../services/Common.service";
+import SnackbarUtils from "../../libs/SnackbarUtils";
+import { serviceEmployeeReportDownload } from "../../services/EmployeeReport.service";
 
 const useEmployeeReport = ({}) => {
   const [isInfoPanel, setInfoPanel] = useState(false);
@@ -36,6 +37,23 @@ const useEmployeeReport = ({}) => {
     query,
     query_data: queryData,
   } = useSelector((state) => state.employeeReport);
+
+  const handleDownload = useCallback(() => {
+    if (type && startDate && endDate) {
+      serviceEmployeeReportDownload({
+        start_date: startDate,
+        end_date: endDate,
+        type: type,
+      }).then((res) => {
+        if (!res.error) {
+          const data = res.data?.response;
+          window.open(data, "_blank");
+        }
+      });
+    }else{
+        SnackbarUtils.error('Please Enter StartDate EndDate and Type')
+    }
+  }, [query, queryData, startDate, endDate, type]);
 
   const resetData = useCallback(
     (sort = {}, updateQuery = {}) => {
@@ -125,6 +143,16 @@ const useEmployeeReport = ({}) => {
     setInfoPanel(true);
   }, []);
 
+  const configFilter = useMemo(() => {
+    return [
+      {
+        label: "Status",
+        name: "status",
+        type: "select",
+        fields: ["INACTIVE", "ACTIVE"],
+      },
+    ];
+  }, [listData]);
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -144,6 +172,8 @@ const useEmployeeReport = ({}) => {
     type,
     setType,
     initialApiCall,
+    configFilter,
+    handleDownload,
   };
 };
 
