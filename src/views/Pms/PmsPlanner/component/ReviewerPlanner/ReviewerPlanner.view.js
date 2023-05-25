@@ -31,7 +31,7 @@ const ReviewerPlanner = ({ selectedUser, reviewId, togglePanel, canEdit, isOpen 
   return (
     <div className={styles.detailWrap}>
         {Object.keys(Constants.PLANNER_TYPES).map(key => {
-            return (<PlannerItem canEdit={canEdit} errors={errors} indexes={PLANNER_INDEX} handleDelete={handleDeleteClick} handleAdd={handleAddClick} index={key} data={planner} type={key} />)
+            return (<PlannerItem reviewId={reviewId} canEdit={canEdit} errors={errors} indexes={PLANNER_INDEX} handleDelete={handleDeleteClick} handleAdd={handleAddClick} index={key} data={planner} type={key} />)
         })}
       <div className={styles.btnWrap}>
           {canEdit && (<ButtonBase

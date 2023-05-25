@@ -11,9 +11,15 @@ import styles from './Style.module.css';
 import {isNum, isNumDec} from "../../../libs/RegexUtils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
+import {
+    serviceAdd4BDraft,
+    serviceGet4BDraft,
+    serviceGetMyPlannerForm,
+    serviceGetPmsPendingReview, serviceSave4BReview
+} from "../../../services/PmsPendingReview.service";
 
 
-const usePmsForm = ({location}) => {
+const usePms4BForm = ({location}) => {
     const {id} = useParams();
     const [isSubmitting, setIsSubmitting] = useState(false);
   const [approveDialog, setApproveDialog] = useState(false);
@@ -62,8 +68,8 @@ const usePmsForm = ({location}) => {
     const [errors, setErrors] = useState({});
     const [rows, setRows] = useState([]);
     const [form, setForm] = useState({});
+    const [draft, setDraft] = useState({});
     const isMount = useRef(false);
-
 
     const processedColumns = useMemo(() => {
         const cols = [];
@@ -84,16 +90,29 @@ const usePmsForm = ({location}) => {
     }, [columns]);
 
     useEffect(() => {
-        if (!isMount.current && id) {
-            serviceGetPmsBatchDetail(id).then((res) => {
+        const tForm = {};
+        rows.forEach((row, rowIndex) => {
+            processedColumns.forEach((col, colIndex) => {
+                if (!col.is_static) {
+                    tForm[`${row.id}_${col.key}`] = '8';
+                }
+            });
+        });
+        setForm(tForm);
+    }, [rows, processedColumns]);
+
+
+    useEffect(() => {
+        if (!isMount.current) {
+            serviceGetMyPlannerForm({}).then((res) => {
                 if (!res.error) {
                     setRows([...res.data?.employees]);
                     setColumns([...columns, ...res?.data?.form]);
 
-                    serviceGetPMSDraft(id).then((res) => {
+                    serviceGet4BDraft({}).then((res) => {
                         if (!res.error) {
                             if (res?.data && Object.keys(res?.data).length > 0) {
-                                setForm({...form, ...res?.data?.data});
+                                setDraft({ ...res?.data?.data});
                             }
                         }
                     });
@@ -102,20 +121,21 @@ const usePmsForm = ({location}) => {
             });
             isMount.current = true;
         }
-    }, [id]);
+    }, []);
+
 
     useEffect(() => {
-        const tForm = {};
-        rows.forEach((row, rowIndex) => {
-            processedColumns.forEach((col, colIndex) => {
-                if (!col.is_static) {
-                    tForm[`${rowIndex}_${col.key}`] = '';
+        if (form && draft) {
+            const tForm = {...form};
+            const tDraft = {...draft};
+            Object.keys(tDraft).forEach((key) => {
+                if (key in tForm) {
+                    tForm[key] = tDraft[key];
                 }
             });
-        });
-        setForm(tForm);
-    }, [rows, processedColumns]);
-
+            setForm({...tForm });
+        }
+    }, [draft]);
 
     const toggleStatusDialog = useCallback(() => {
         setApproveDialog((e) => !e);
@@ -161,6 +181,7 @@ const usePmsForm = ({location}) => {
     }, [form, columns]);
 
     const isAdjacentDiff = useCallback((value, refValue) => {
+        return true;
         if (value && refValue) {
             const diff = Math.abs(value - refValue);
             return diff > 0.5;
@@ -200,7 +221,7 @@ const usePmsForm = ({location}) => {
             removeError(name);
         }
         setForm(tForm);
-    }, [form, setForm, processChanges, removeError]);
+    }, [form, setForm, removeError]);
 
     const processData = useCallback(() => {
         const tRows = {...rows};
@@ -208,8 +229,9 @@ const usePmsForm = ({location}) => {
         Object.keys(form).forEach(key => {
             const arr = key.split('_');
             const row = arr[0];
-            const rowData = tRows[row];
-            const empId = rowData.id;
+            // const rowIndex = tRows.findIndex(val => val.id === row);
+            // const rowData = tRows[rowIndex];
+            const empId = row;//rowData.id;
 
             const cat = arr[1];
             const param = arr[2];
@@ -228,8 +250,7 @@ const usePmsForm = ({location}) => {
         if (!isSubmitting) {
             setIsSubmitting(true);
             const data = processData();
-            serviceAddPMSReview({
-                batch_id: id,
+            serviceSave4BReview({
                 reviews: data,
             }).then((res) => {
                 if (!res.error) {
@@ -241,7 +262,7 @@ const usePmsForm = ({location}) => {
                 setIsSubmitting(false);
             });
         }
-    }, [form, id, processData, setIsSubmitting, isSubmitting]);
+    }, [form, processData, setIsSubmitting, isSubmitting]);
 
     const handleSubmit = useCallback(() => {
         const validationErr = checkValidation();
@@ -265,8 +286,7 @@ const usePmsForm = ({location}) => {
             }
         });
         if (!isAdjacentErr) {
-            serviceAddPMSDraft({
-                batch_id: id,
+            serviceAdd4BDraft({
                 data: form
             }).then((res) => {
                 if (!res.error) {
@@ -297,4 +317,4 @@ const usePmsForm = ({location}) => {
     }
 };
 
-export default usePmsForm;
+export default usePms4BForm;

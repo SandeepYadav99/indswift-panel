@@ -5,7 +5,7 @@ import {IconButton, Tooltip,makeStyles } from "@material-ui/core";
 import {InfoOutlined} from "@material-ui/icons";
 import ButtonLowerView from "./component/ButtonLower/ButtonLower.view";
 import FormInput from "./component/FormInput/FormInput";
-import usePmsForm from "./Pms4BForm.hook";
+import usePms4BForm from "./Pms4BForm.hook";
 import FormDropdown from "./component/FormDropdown/FormDropdown";
 import SnackbarComponent from "../../../components/Snackbar.component";
 import { removeUnderScore } from "../../../helper/helper";
@@ -28,31 +28,16 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
         if (render) {
             return null;
         }
-        if (group === 'CPC') {
-            return (
-                <FormDropdown
-                    name={name}
-                    value={value ? value : ''}
-                    isError={isError}
-                    onChange={(e) => {
-                        handleInputChange(e.target.name, e.target.value, 'DROPDOWN')
-                    }}
-                />
-            )
-        } else {
-            return (
-                <FormInput
-                    value={value ? value : ''}
-                    onChange={(e) => {
-                        handleInputChange(e.target.name, e.target.value, 'NUMBER')
-                    }}
-                    readOnly={readOnly}
-                    name={name}
-                    isError={isError}
-                    type={'number'}
-                />
-            );
-        }
+        return (
+            <FormDropdown
+                name={name}
+                value={value ? value : ''}
+                isError={isError}
+                onChange={(e) => {
+                    handleInputChange(e.target.name, e.target.value, 'DROPDOWN')
+                }}
+            />
+        );
     }, [render, group, value, handleInputChange, name, isError]);
     return (
         <td
@@ -162,7 +147,7 @@ const PmsForm = ({location}) => {
         toggleStatusDialog,
         approveDialog,
         submitToServer
-    } = usePmsForm({location});
+    } = usePms4BForm({location});
 
     const type=location?.state?.type
 
@@ -198,15 +183,15 @@ const PmsForm = ({location}) => {
                             <tr key={row.id}>
                                 {processedColumns.map(({key, fixed, readOnly, render, ...props}, index) => (
                                     <TableCell
-                                        value={form[`${rowIndex}_${key}`]}
+                                        value={form[`${row.id}_${key}`]}
                                         handleInputChange={handleInputChange}
                                         row={row}
                                         key={key}
-                                        name={`${rowIndex}_${key}`}
+                                        name={`${row.id}_${key}`}
                                         fixed={fixed}
                                         readOnly={readOnly}
                                         render={render}
-                                        isError={errors[`${rowIndex}_${key}`]}
+                                        isError={errors[`${row.id}_${key}`]}
                                         {...props}
                                     />
                                 ))}

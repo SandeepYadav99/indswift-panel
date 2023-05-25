@@ -112,4 +112,5 @@ export default {
 
   EMPLOYEE_REPORT:'/employee/report',
   PMS_4B_FORM: '/pms/4B/submission',
+  PMS_4B_REVIEW_DETAIL: '/pms/4B/detail/',
 };

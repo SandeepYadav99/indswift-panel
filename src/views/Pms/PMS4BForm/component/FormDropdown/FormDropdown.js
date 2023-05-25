@@ -8,8 +8,10 @@ function FormDropdown({ value, name, onChange, isError }) {
   return (
       <select className={csx(styles.inputComp, (isError ? styles.ErrorField : ''))} name={name}  value={value} onChange={onChange}>
           <option value="">Choose (Yes/No)</option>
-          <option value="YES">YES</option>
-          <option value="NO">NO</option>
+          <option value="10">Strongly Agree</option>
+          <option value="8">Agree</option>
+          <option value="6">Disagree</option>
+          <option value="4">Strongly Disagree</option>
       </select>
   );
 }
