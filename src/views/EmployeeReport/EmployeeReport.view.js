@@ -1,55 +1,37 @@
 import React, { useCallback, useMemo } from "react";
-import {
-  IconButton,
-  MenuItem,
-  ButtonBase,
-} from "@material-ui/core";
+import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
 import { Add, Edit, InfoOutlined, PrintOutlined } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
-import useAnnualList from "./AnnualListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
-import CreateView from "./AnnualView/Annual.view";
-import InfoView from "./AnnualView/AnnualInfo.view";
-import LogUtils from "../../libs/LogUtils";
 import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
+import useEmployeeReport from "./EmployeeReport.hook";
+import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
 
-const AnnualList = ({}) => {
+const EmployeeReport = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
-    handleEdit,
-    handleSideToggle,
-    handleViewDetails,
-    editData,
-    isSidePanel,
+    handleChangeDate,
     isCalling,
-    warehouses,
-    handleChangeWareHouse,
-    warehouseId,
-    listData,
-    selected,
-    isInfoPanel,
-    handleSideInfo,
-    selectedAnnualId,
-    locationId,
-    setLocationId,
-  } = useAnnualList({});
+    startDate,
+    type,
+    setType,
+    endDate,
+    initialApiCall,
+  } = useEmployeeReport({});
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.annual);
+  } = useSelector((state) => state.employeeReport);
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
@@ -76,34 +58,33 @@ const AnnualList = ({}) => {
     }
     return null;
   }, []);
-  const renderCreateForm = useMemo(() => {
-    return (
-      <CreateView
-        closeSidePanel={handleSideToggle}
-        handleDataSave={handleDataSave}
-        id={editData}
-        selectedAnnuals={selected}
-        originWarehouseId={warehouseId}
-        handleDelete={handleDelete}
-      />
-    );
-  }, [
-    handleDataSave,
-    editData,
-    warehouses,
-    handleDelete,
-    selected,
-    warehouseId,
-  ]);
-
-  const renderInfoForm = useMemo(() => {
-    return (
-      <InfoView closeSidePanel={handleSideInfo} annualId={selectedAnnualId} />
-    );
-  }, [selectedAnnualId]);
 
   const tableStructure = useMemo(() => {
     return [
+      {
+        key: "name",
+        label: "EMPLOYEE NAME",
+        sortable: false,
+        render: (temp, all) => <div>{console.log('---all>',all)}</div>,
+      },
+      {
+        key: "grade",
+        label: "GRADE/CADRE",
+        sortable: false,
+        render: (temp, all) => <div>{all?.budget}</div>,
+      },
+      {
+        key: "location",
+        label: "LOCATION",
+        sortable: false,
+        render: (temp, all) => <div>{all?.posted}</div>,
+      },
+      {
+        key: "designation",
+        label: "DESIGNATION",
+        sortable: false,
+        render: (temp, all) => <div>{all?.vacancies}</div>,
+      },
       {
         key: "department",
         label: "Department",
@@ -117,32 +98,14 @@ const AnnualList = ({}) => {
         render: (value, all) => <div>{all?.sub_department?.name}</div>,
       },
       {
-        key: "budget",
-        label: "Budget",
-        sortable: false,
-        render: (temp, all) => <div>{all?.budget}</div>,
-      },
-      {
-        key: "posted",
-        label: "Posted",
-        sortable: false,
-        render: (temp, all) => <div>{all?.posted}</div>,
-      },
-      {
-        key: "vacancies",
-        label: "Vacancies",
-        sortable: false,
-        render: (temp, all) => <div>{all?.vacancies}</div>,
-      },
-      {
-        key: "expense",
-        label: "Expense Budget",
+        key: "date",
+        label: "Date",
         sortable: false,
         render: (temp, all) => <div>{all?.expense_budget}</div>,
       },
       {
-        key: "spent",
-        label: "ESTIMATED SPENT",
+        key: "type",
+        label: "Type",
         sortable: false,
         render: (temp, all) => <div>{all?.estimated_spent}</div>,
       },
@@ -177,26 +140,16 @@ const AnnualList = ({}) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                handleSideInfo(all);
+                // handleSideInfo(all);
               }}
             >
               <InfoOutlined fontSize={"small"} />
-            </IconButton>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleSideToggle(all);
-              }}
-            >
-              <Edit fontSize={"small"} />
             </IconButton>
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -223,58 +176,82 @@ const AnnualList = ({}) => {
     data,
     currentPage,
   ]);
-  const renderLocation = useMemo(() => {
-    return (
-      <CustomSelectField
-        label={"Location"}
-        value={locationId}
-        handleChange={(value) => {
-          setLocationId(value);
-        }}
-      >
-        {listData?.LOCATIONS?.map((dT) => {
-          return (
-            <MenuItem value={dT?.id} key={dT?.id}>
-              {dT?.name}
-            </MenuItem>
-          );
-        })}
-      </CustomSelectField>
-    );
-  }, [listData?.LOCATIONS,locationId]);
 
   const renderDropDown = useMemo(() => {
     return (
       <CustomSelectField
-        label={"Financial Year"}
-        value={warehouseId}
+        label={"Type"}
+        value={type}
         handleChange={(value) => {
-          handleChangeWareHouse(value);
+          setType(value);
         }}
       >
-        <MenuItem value={"2023-2024"}>FY 2023-2024</MenuItem>
+        <MenuItem value={"JOINED"}>JOINED</MenuItem>
+        <MenuItem value={"SEPERATED"}>SEPERATED</MenuItem>
       </CustomSelectField>
     );
-  }, [warehouseId]);
+  }, [type, setType]);
+
+  const renderStartDate = useMemo(() => {
+    return (
+      <CustomDatePicker
+        clearable
+        label={"Start Date"}
+        maxDate={new Date()}
+        onChange={(value) => {
+          handleChangeDate(value, "start");
+        }}
+        value={startDate}
+      />
+    );
+  }, [startDate]);
+
+  const renderEndDate = useMemo(() => {
+    return (
+      <CustomDatePicker
+        clearable
+        label={"End Date"}
+        maxDate={new Date()}
+        onChange={(value) => {
+          handleChangeDate(value, "end");
+        }}
+        value={endDate}
+      />
+    );
+  }, [endDate]);
 
   return (
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Annual Budgets</span>
+            <span className={styles.title}>
+              Employee Creation & Exit Report
+            </span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
-            {/* <ButtonBase className={styles.download}>
-              DOWNLOAD TEMPLATE
-            </ButtonBase> */}
-            <div className={styles.drop}>{renderLocation}</div>
+            <ButtonBase
+              className={styles.download}
+              //   onClick={() => }
+            >
+              DOWNLOAD
+            </ButtonBase>
           </div>
         </div>
 
         <div className={styles.yearFlex}>
           <div className={styles.down}>{renderDropDown}</div>
+          <div className={styles.down}>{renderStartDate}</div>
+          <div className={styles.drop}>{renderEndDate}</div>
+          <div className={styles.rightFlex}>
+            <ButtonBase
+              className={styles.downloadrun}
+              onClick={() => initialApiCall()}
+            >
+              RUN REPORT
+            </ButtonBase>
+          </div>
         </div>
 
         <div style={{ marginTop: "30px" }}>
@@ -289,24 +266,8 @@ const AnnualList = ({}) => {
           </div>
         </div>
       </PageBox>
-      <SidePanelComponent
-        handleToggle={handleSideToggle}
-        title={"Update Annual Budgets"}
-        open={isSidePanel}
-        side={"right"}
-      >
-        {renderCreateForm}
-      </SidePanelComponent>
-      <SidePanelComponent
-        handleToggle={handleSideInfo}
-        title={"Annual Budgets Log"}
-        open={isInfoPanel}
-        side={"right"}
-      >
-        {renderInfoForm}
-      </SidePanelComponent>
     </div>
   );
 };
 
-export default AnnualList;
+export default EmployeeReport;

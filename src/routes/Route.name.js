@@ -108,5 +108,7 @@ export default {
   PMS_REVIEW_FORM: '/pms/submission/',
   PMS_FORM_DETAIL: '/pms/detail/',
   PMS_PLANNER:'/pms/planner',
-  PERFORMANCE_PENDING_REVIEW:'/pms/pending/review'
+  PERFORMANCE_PENDING_REVIEW:'/pms/pending/review',
+
+  EMPLOYEE_REPORT:'/employee/report'
 };
