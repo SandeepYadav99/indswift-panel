@@ -26,6 +26,7 @@ import ClaimTravelCard from "../views/ClaimsManagement/ClaimsDetail/components/C
 import PmsReview from "../views/Pms/PmsReview/PmsReview.view";
 import PmsPending from "../views/Pms/PmsPending/PmsPending.view";
 import PmsPlanner from "../views/Pms/PmsPlanner/PmsPlanner.view"
+import BudgetPending from "../views/BudgetPending/BudgetPending.container";
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -407,6 +408,18 @@ const dashboardRoutes = [
         navbarName: "Manpower Planning",
         icon: PeopleOutlined,
         component: ManpowerList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'budget',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: "/budget/pending",
+        sidebarName: "Pending Approvals",
+        navbarName: "Pending Approvals",
+        icon: PeopleOutlined,
+        component: BudgetPending,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,

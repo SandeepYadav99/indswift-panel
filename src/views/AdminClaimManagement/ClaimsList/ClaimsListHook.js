@@ -193,7 +193,7 @@ const useClaimsList = ({}) => {
       },
       {
         label: "Status",
-        name: "status",
+        name: "claimObj.status",
         type: "select",
         fields: ["REJECTED", "PENDING", "APPROVED","PROCESSED","HOD_APPROVED","SITE_HR_APPROVED","CORPORATE_AUDIT_1_APPROVED","CORPORATE_AUDIT_2_APPROVED","ACCOUNTS_APPROVED"],
       },
