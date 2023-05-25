@@ -15,7 +15,7 @@ const usePmsPendingReview = ({ location }) => {
   const batchID = location?.state?.batch_id;
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
-  
+
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -33,7 +33,7 @@ const usePmsPendingReview = ({ location }) => {
     );
     isMountRef.current = true;
   }, []);
-   
+
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPagePmsPendingReview(type));
@@ -123,10 +123,12 @@ const usePmsPendingReview = ({ location }) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.emp_code}`); //+data.id
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.emp_code}`);
   }, []);
 
-   
+   const handleRecordReview = useCallback(() => {
+       historyUtils.push(`${RouteName.PMS_4B_FORM}`);
+   }, []);
 
   return {
     handlePageChange,
@@ -141,6 +143,7 @@ const usePmsPendingReview = ({ location }) => {
     handleViewDetails,
     isCalling,
     editData,
+      handleRecordReview
   };
 };
 

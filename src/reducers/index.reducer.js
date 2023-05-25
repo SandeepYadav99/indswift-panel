@@ -113,7 +113,7 @@ const rootReducer = combineReducers({
   pmsPending:PmsPendingReducer,
   budget_pending:BudgetPendingReducer,
   pmsPendingReview:PmsPendingReviewReducer,
-  employeeReport:EmployeeReportReducer
+  employeeReport: EmployeeReportReducer
   // form: formReducer,
 });
 

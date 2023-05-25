@@ -27,8 +27,8 @@ import PmsReview from "../views/Pms/PmsReview/PmsReview.view";
 import PmsPending from "../views/Pms/PmsPending/PmsPending.view";
 import PmsPlanner from "../views/Pms/PmsPlanner/PmsPlanner.view"
 import BudgetPending from "../views/BudgetPending/BudgetPending.container";
-import PmsPendingReview from "../views/Pms/PmsPendingReview/PmsPendingReview.view";
 import EmployeeReport from "../views/EmployeeReport/EmployeeReport.view";
+
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -91,8 +91,8 @@ const CandidateOfferLetter=lazy(()=> import("../views/Candidates/CandidateOfferL
 const CVShortlistList = lazy( () => import('../views/CVShortlist/CVShortlist.container'));
 const JobOpeningUpdateView=lazy(()=> import("../views/JobOpeningUpdate/JobOpeningUpdate.view"))
 const CandidateOLR=lazy(()=> import('../views/Candidates/CandidateOLR/CandidateOLR.view'))
-const ReviewOLR=lazy(()=>import('../views/ReviewOLR/ReviewOLR.container'))
-
+const ReviewOLR= lazy(()=>import('../views/ReviewOLR/ReviewOLR.container'))
+const PmsPendingReview = lazy(()=>import("../views/Pms/PmsMyPendingReview/PmsMyPendingReview.view"));
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -1109,7 +1109,7 @@ const dashboardRoutes = [
         parent: 'pm',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
-    
+
     {
         path: `${RouteName.EMPLOYEE_REPORT}`,
         sidebarName: "Employee Reports",

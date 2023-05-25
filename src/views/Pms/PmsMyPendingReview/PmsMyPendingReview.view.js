@@ -22,7 +22,7 @@ import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import usePmsPendingReview from "./PmsPendingReview.hook";
+import usePmsPendingReview from "./PmsMyPendingReview.hook";
 
 const PmsPendingReview = ({ location }) => {
   const {
@@ -35,6 +35,7 @@ const PmsPendingReview = ({ location }) => {
     handleSideToggle,
     handleViewDetails,
     isCalling,
+    handleRecordReview
   } = usePmsPendingReview({ location });
 
   const {
@@ -56,8 +57,8 @@ const PmsPendingReview = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span> <br />
-            <span className={styles.productName}>{obj?.emp_code}</span> <br />
+            <span className={styles.productName}>{obj?.employee?.name}</span> <br />
+            <span className={styles.productName}>{obj?.employee?.code}</span> <br />
           </div>
         </div>
       );
@@ -77,7 +78,7 @@ const PmsPendingReview = ({ location }) => {
         key: "batch",
         label: "BATCH",
         sortable: false,
-        render: (temp, all) => <div>{all?.pms_batch}</div>,
+        render: (temp, all) => <div>{all?.batch}</div>,
       },
 
       {
@@ -86,7 +87,7 @@ const PmsPendingReview = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div style={{ whiteSpace: "nowrap" }}>
-            {removeUnderScore(all?.pms_form_type)}
+            {removeUnderScore(all?.type)}
           </div>
         ),
       },
@@ -94,14 +95,14 @@ const PmsPendingReview = ({ location }) => {
         key: "date",
         label: "Date Shared",
         sortable: false,
-        render: (temp, all) => <div>{all?.pms_batch}</div>,
+        render: (temp, all) => <div>{all?.assignedAtText}</div>,
       },
       {
         key: "status",
         label: "Status",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore(all?.pms_status))}</div>
+          <div>{renderStatus(removeUnderScore(all?.status))}</div>
         ),
       },
     ];
@@ -146,7 +147,7 @@ const PmsPendingReview = ({ location }) => {
             <ButtonBase
               // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
-              //   onClick={handleCsvDownload}
+                onClick={handleRecordReview}
               className={"createBtn"}
             >
               RECORD REVIEW

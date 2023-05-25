@@ -44,7 +44,7 @@ export function actionFetchEmployeeReport(
       dispatch({ type: SET_FILTER, payload: filter });
       dispatch({ type: SET_SORTING, payload: sorting });
       if (!data.error) {
-        dispatch({ type: FETCHED, payload: { data: data.data, page: index } });
+        dispatch({ type: FETCHED, payload: { data: data.data.data, page: index } });
         dispatch({ type: SET_SERVER_PAGE, payload: index });
         if (index == 1) {
           dispatch({ type: CHANGE_PAGE, payload: index - 1 });

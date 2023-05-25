@@ -47,7 +47,10 @@ function useReviewerPlanner({selectedUser, reviewId, togglePanel}) {
         if (selectedUser) {
             const p = {...planner};
             p.SELF = [selectedUser];
-            setPlanner(p);
+            setPlanner({
+                ...defaultPlanner,
+                SELF: [selectedUser]
+            });
         }
     }, [selectedUser]);
 
@@ -65,10 +68,9 @@ function useReviewerPlanner({selectedUser, reviewId, togglePanel}) {
                             }
                             temp[val.type].push(val);
                         });
-
-                        setPlanner(temp);
-                    } else {
-                        setPlanner({...defaultPlanner});
+                        setTimeout(() => {
+                            setPlanner(temp);
+                        }, 10);
                     }
                 }
                 setIsLoading(false);

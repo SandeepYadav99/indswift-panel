@@ -11,11 +11,6 @@ export async function serviceDeletePmsPendingReview(params) {
     return await postRequest('pms/pending/review/delete', params);
 }
 export async function serviceGetPmsPendingReview(params) {
-    return await postRequest('pms/pending/review', params);
+    return await postRequest('pms/my/planner', params);
 }
-
-export async function serviceExportPmsPendingReview(params) {
-    return await postRequest('pms/batches/export', params);
-}
-
 
