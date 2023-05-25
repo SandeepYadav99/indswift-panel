@@ -56,6 +56,7 @@ import PmsReviewReducer from "./PmsReview.reducer";
 import PmsPendingReducer from "./PmsPending.reducer";
 import PmsPlannerReducer from "./PmsPlanner.reducer";
 import BudgetPendingReducer from "./BudgetPending.reducer";
+import PmsPendingReviewReducer from "./PmsPendingReview.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -110,6 +111,7 @@ const rootReducer = combineReducers({
   pmsPlanner:PmsPlannerReducer,
   pmsPending:PmsPendingReducer,
   budget_pending:BudgetPendingReducer,
+  pmsPendingReview:PmsPendingReviewReducer
   // form: formReducer,
 });
 

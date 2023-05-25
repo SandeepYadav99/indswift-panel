@@ -27,6 +27,7 @@ import PmsReview from "../views/Pms/PmsReview/PmsReview.view";
 import PmsPending from "../views/Pms/PmsPending/PmsPending.view";
 import PmsPlanner from "../views/Pms/PmsPlanner/PmsPlanner.view"
 import BudgetPending from "../views/BudgetPending/BudgetPending.container";
+import PmsPendingReview from "../views/Pms/PmsPendingReview/PmsPendingReview.view";
 
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
@@ -1095,6 +1096,19 @@ const dashboardRoutes = [
         parent: 'pm',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
+    {
+        path: `${RouteName.PERFORMANCE_PENDING_REVIEW}`,
+        sidebarName: "Pending 360 Review",
+        navbarName: "Pending 360 Review",
+        icon: PeopleOutlined,
+        component: PmsPendingReview,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    
     {
         path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',
         sidebarName: "Attendance Management",
