@@ -29,6 +29,7 @@ const EmployeeReport = ({}) => {
     configFilter,
     initialApiCall,
     handleDownload,
+    handleViewDetails
   } = useEmployeeReport({});
 
   const {
@@ -70,7 +71,7 @@ const EmployeeReport = ({}) => {
         key: "name",
         label: "EMPLOYEE NAME",
         sortable: false,
-        render: (temp, all) => <div>{all?.name}</div>,
+        render: (temp, all) => <div><b>{all?.name}</b> <br/> {all?.emp_code}</div>,
       },
       {
         key: "grade",
@@ -78,7 +79,7 @@ const EmployeeReport = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.grade?.name} / {all?.cadre?.name}
+            {all?.grade?.code} / {all?.cadre?.name}
           </div>
         ),
       },
@@ -110,7 +111,7 @@ const EmployeeReport = ({}) => {
         key: "date",
         label: "Date",
         sortable: false,
-        render: (temp, all) => <div>{all?.dojText}</div>,
+        render: (temp, all) => <div>{all?.type === 'SEPERATED' ? all?.resign_data?.last_working_date : all?.dojText}</div>,
       },
       {
         key: "type",
@@ -135,7 +136,7 @@ const EmployeeReport = ({}) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                // handleSideInfo(all);
+                handleViewDetails(all);
               }}
             >
               <InfoOutlined fontSize={"small"} />
@@ -179,6 +180,7 @@ const EmployeeReport = ({}) => {
         value={type}
         handleChange={(value) => {
           setType(value);
+          sessionStorage.setItem('type', value);
         }}
       >
         <MenuItem value={"JOINED"}>JOINED</MenuItem>

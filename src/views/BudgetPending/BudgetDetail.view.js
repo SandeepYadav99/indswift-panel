@@ -6,7 +6,7 @@ import WaitingComponent from "../../components/Waiting.component";
 import { serviceGetBudgetPendingDetails } from "../../services/BudgetPending.service";
 import { ButtonBase } from "@material-ui/core";
 
-const BudgetDetail = ({ annualId, closeSidePanel,requestRaisedApi }) => {
+const BudgetDetail = ({ annualId, closeSidePanel, requestRaisedApi }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -86,22 +86,24 @@ const BudgetDetail = ({ annualId, closeSidePanel,requestRaisedApi }) => {
           </div>
         </div>
       </div>
-      <div className={styles.btnWrap}>
-        <ButtonBase
-          type={"button"}
-          onClick={()=>requestRaisedApi("Reject")}
-          className={styles.RejectBtn}
-        >
-          Reject
-        </ButtonBase>
-        <ButtonBase
-          type={"button"}
-          onClick={()=>requestRaisedApi("Approved")}
-          className={styles.createBtn}
-        >
-          Approve
-        </ButtonBase>
-      </div>
+      {data?.status === "PENDING" && (
+        <div className={styles.btnWrap}>
+          <ButtonBase
+            type={"button"}
+            onClick={() => requestRaisedApi("Rejected")}
+            className={styles.RejectBtn}
+          >
+            Reject
+          </ButtonBase>
+          <ButtonBase
+            type={"button"}
+            onClick={() => requestRaisedApi("Approved")}
+            className={styles.createBtn}
+          >
+            Approve
+          </ButtonBase>
+        </div>
+      )}
     </div>
   );
 };

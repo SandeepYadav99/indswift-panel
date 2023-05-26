@@ -7,6 +7,7 @@ import {
 import { serviceGetList } from "../../services/Common.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import { serviceEmployeeReportDownload } from "../../services/EmployeeReport.service";
+import historyUtils from "../../libs/history.utils";
 
 const useEmployeeReport = ({}) => {
   const [isInfoPanel, setInfoPanel] = useState(false);
@@ -31,6 +32,21 @@ const useEmployeeReport = ({}) => {
     });
   }, []);
 
+  useEffect(() => {
+    const type = sessionStorage.getItem("type");
+    const start = sessionStorage.getItem("start");
+    const end = sessionStorage.getItem("end");
+    if (type) {
+      setType(type);
+    }
+    if (start) {
+      setStartDate(start);
+    }
+    if (end) {
+      setEndDate(end);
+    }
+  }, []);
+
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -50,8 +66,8 @@ const useEmployeeReport = ({}) => {
           window.open(data, "_blank");
         }
       });
-    }else{
-        SnackbarUtils.error('Please Enter StartDate EndDate and Type')
+    } else {
+      SnackbarUtils.error("Please Enter StartDate EndDate and Type");
     }
   }, [query, queryData, startDate, endDate, type]);
 
@@ -79,8 +95,10 @@ const useEmployeeReport = ({}) => {
     (Date, name) => {
       if (name == "start") {
         setStartDate(Date);
+        sessionStorage.setItem("start", Date);
       } else if (name == "end") {
         setEndDate(Date);
+        sessionStorage.setItem("end", Date);
       }
     },
     [startDate, setStartDate, setEndDate, endDate]
@@ -142,14 +160,23 @@ const useEmployeeReport = ({}) => {
   const handleQueryInfo = useCallback((data) => {
     setInfoPanel(true);
   }, []);
-
+  const handleViewDetails = useCallback((data) => {
+    historyUtils.push(`/employees/details/${data?.emp_code}`);
+  }, []);
   const configFilter = useMemo(() => {
     return [
       {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["INACTIVE", "ACTIVE"],
+        fields: [
+          "INACTIVE",
+          "ACTIVE",
+          "TERMINATED",
+          "ABSCONDED",
+          "RETIRED",
+          "EXPIRED",
+        ],
       },
     ];
   }, [listData]);
@@ -174,6 +201,7 @@ const useEmployeeReport = ({}) => {
     initialApiCall,
     configFilter,
     handleDownload,
+    handleViewDetails,
   };
 };
 

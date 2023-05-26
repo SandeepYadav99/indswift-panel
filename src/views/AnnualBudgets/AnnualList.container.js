@@ -162,7 +162,7 @@ const AnnualList = ({}) => {
                 fontSize: "0.7rem",
               }}
             >
-              {all?.createdAtText}
+              {all?.updatedAtText}
             </span>
           </div>
         ),
@@ -230,6 +230,7 @@ const AnnualList = ({}) => {
         value={locationId}
         handleChange={(value) => {
           setLocationId(value);
+          sessionStorage.setItem('location', value);
         }}
       >
         {listData?.LOCATIONS?.map((dT) => {
@@ -250,6 +251,7 @@ const AnnualList = ({}) => {
         value={warehouseId}
         handleChange={(value) => {
           handleChangeWareHouse(value);
+          sessionStorage.setItem('warehouse', value);
         }}
       >
         <MenuItem value={"2023-2024"}>FY 2023-2024</MenuItem>
