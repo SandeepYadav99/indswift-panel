@@ -11,25 +11,23 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-import CandidateInfo from "../views/Candidates/CandidateInfo/CandidateInfo.view";
-// import ClaimsList from "../views/AdminClaimManagement/ClaimsList/ClaimsList.container";
-import ClaimsDetail from "../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view";
-import ClaimMarriageCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimMarriageCard/ClaimMarriageCard.view";
-import ClaimMobileCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimMobileCard/ClaimMobileCard.view";
-import CadreDetails from "../views/CadreDetails/CadreDetails.view";
-import ClaimCarCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimCarCard/ClaimCarCard.view";
-import ClaimsList from "../views/AdminClaimManagement/ClaimsList/ClaimsList.container";
-import ClaimListDetail from "../views/AdminClaimManagement/ClaimListDetail/ClaimListDetail.view";
-import ClaimHealthCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimHealthCard/ClaimHealthCard.view";
-import PmsBatch from "../views/Pms/PmsBatch/PmsBatch.view";
-import ClaimTravelCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimTravelCard/ClaimTravelCard.view";
-import PmsReview from "../views/Pms/PmsReview/PmsReview.view";
-import PmsPending from "../views/Pms/PmsPending/PmsPending.view";
-import PmsPlanner from "../views/Pms/PmsPlanner/PmsPlanner.view"
-import BudgetPending from "../views/BudgetPending/BudgetPending.container";
-import EmployeeReport from "../views/EmployeeReport/EmployeeReport.view";
 
-
+const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
+const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
+const ClaimMarriageCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimMarriageCard/ClaimMarriageCard.view"));
+const ClaimMobileCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimMobileCard/ClaimMobileCard.view"));
+const CadreDetails = lazy(() => import("../views/CadreDetails/CadreDetails.view"));
+const ClaimCarCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimCarCard/ClaimCarCard.view"));
+const ClaimsList = lazy(() => import("../views/AdminClaimManagement/ClaimsList/ClaimsList.container"));
+const ClaimListDetail = lazy(() => import("../views/AdminClaimManagement/ClaimListDetail/ClaimListDetail.view"));
+const ClaimHealthCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimHealthCard/ClaimHealthCard.view"));
+const PmsBatch = lazy(() => import("../views/Pms/PmsBatch/PmsBatch.view"));
+const ClaimTravelCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimTravelCard/ClaimTravelCard.view"));
+const PmsReview = lazy(() => import("../views/Pms/PmsReview/PmsReview.view"));
+const PmsPending = lazy(() => import("../views/Pms/PmsPending/PmsPending.view"));
+const PmsPlanner = lazy(() => import("../views/Pms/PmsPlanner/PmsPlanner.view"));
+const BudgetPending = lazy(() => import("../views/BudgetPending/BudgetPending.container"));
+const EmployeeReport = lazy(() => import("../views/EmployeeReport/EmployeeReport.view"));
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const HRCreateView = lazy(() => import( "../views/HR/HRPolicy/HRPolicyCreate.view"));
 const CircularCreateView = lazy(() => import( "../views/HR/Circular/CircularCreate.view"));
@@ -93,6 +91,7 @@ const JobOpeningUpdateView=lazy(()=> import("../views/JobOpeningUpdate/JobOpenin
 const CandidateOLR=lazy(()=> import('../views/Candidates/CandidateOLR/CandidateOLR.view'))
 const ReviewOLR= lazy(()=>import('../views/ReviewOLR/ReviewOLR.container'))
 const PmsPendingReview = lazy(()=>import("../views/Pms/PmsMyPendingReview/PmsMyPendingReview.view"));
+
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -1107,7 +1106,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
     },
 
     {

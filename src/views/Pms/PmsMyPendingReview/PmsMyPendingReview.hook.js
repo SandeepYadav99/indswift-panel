@@ -127,7 +127,7 @@ const usePmsPendingReview = ({ location }) => {
   }, []);
 
    const handleRecordReview = useCallback(() => {
-       // historyUtils.push(`${RouteName.PMS_4B_FORM}`);
+       historyUtils.push(`${RouteName.PMS_4B_FORM}`);
    }, []);
 
   return {

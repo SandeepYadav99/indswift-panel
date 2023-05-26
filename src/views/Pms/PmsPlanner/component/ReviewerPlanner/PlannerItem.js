@@ -19,9 +19,9 @@ const ProfileView = ({ isSelf, isError, data, handleDelete, type, dtIndex, canEd
                     <div className={styles.nameContainer}>
                         <span>{data?.name}</span>
                         <div className={styles.date}>{data?.code}</div>
-                        {/*{data?.status === Constants.PMS_4B_BATCH_STATUS.REVIEW_SUBMITTED && (<a href={`${RouteName.PMS_4B_REVIEW_DETAIL}${data.review_id}`} target={'_blank'}>*/}
-                        {/*    <label>View Form</label>*/}
-                        {/*</a>)}*/}
+                        {data?.status === Constants.PMS_4B_BATCH_STATUS.REVIEW_SUBMITTED && (<a href={`${RouteName.PMS_4B_REVIEW_DETAIL}${data.review_id}`} target={'_blank'}>
+                            <label>View Form</label>
+                        </a>)}
                     </div>
                     <div className={styles.errorCont}>
                         {isError && (<span className={styles.errorText}>Error! Already Added</span>)}
