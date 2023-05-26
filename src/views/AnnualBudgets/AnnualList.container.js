@@ -162,7 +162,7 @@ const AnnualList = ({}) => {
                 fontSize: "0.7rem",
               }}
             >
-              {all?.createdAtText}
+              {all?.updatedAt}
             </span>
           </div>
         ),

@@ -72,7 +72,7 @@
 }
 
 .removeBtn {
-  color: #e92828;
+  color: #e92828 !important;
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;

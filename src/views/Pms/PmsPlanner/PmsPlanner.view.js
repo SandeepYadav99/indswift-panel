@@ -37,6 +37,7 @@ const PmsPlanner = ({}) => {
     isPannel,
     togglePanel,
     selectedUser,
+    selectedStatus,
       isLoading,
   } = usePmsPlanner({});
 
@@ -223,7 +224,14 @@ const PmsPlanner = ({}) => {
     data,
     currentPage,
   ]);
-
+  const header=()=>{
+    return <div className={styles.headerWrap}>
+      <div>Review Planner</div>
+      { 
+        selectedStatus && <div><StatusPill status={removeUnderScore(selectedStatus)} /></div>
+      }
+    </div>
+  }
   return (
     <div>
       <PageBox>
@@ -232,7 +240,7 @@ const PmsPlanner = ({}) => {
             <span className={styles.title}>Type 4B Form PMS Planner</span>
             <div className={styles.newLine} />
           </div>
-          <div>
+          {/* <div>
             <ButtonBase
               aria-haspopup="true"
               onClick={handleCsvDownload}
@@ -240,7 +248,7 @@ const PmsPlanner = ({}) => {
             >
               DownLoad
             </ButtonBase>
-          </div>
+          </div> */}
         </div>
         <div>
           <FilterComponent
@@ -262,7 +270,7 @@ const PmsPlanner = ({}) => {
       </PageBox>
       <SidePanelComponent
         handleToggle={togglePanel}
-        title={"Review Planner"}
+        title={header()}
         open={isPannel}
         side={"right"}
       >

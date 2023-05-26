@@ -7,6 +7,7 @@ import {
 import { serviceGetList } from "../../services/Common.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import { serviceEmployeeReportDownload } from "../../services/EmployeeReport.service";
+import historyUtils from "../../libs/history.utils";
 
 const useEmployeeReport = ({}) => {
   const [isInfoPanel, setInfoPanel] = useState(false);
@@ -142,14 +143,16 @@ const useEmployeeReport = ({}) => {
   const handleQueryInfo = useCallback((data) => {
     setInfoPanel(true);
   }, []);
-
+  const handleViewDetails = useCallback((data) => {
+    historyUtils.push(`/employees/details/${data?.emp_code}`);
+  }, []);
   const configFilter = useMemo(() => {
     return [
       {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["INACTIVE", "ACTIVE"],
+        fields: ["INACTIVE", "ACTIVE","TERMINATED","ABSCONDED","RETIRED","EXPIRED"]
       },
     ];
   }, [listData]);
@@ -174,6 +177,7 @@ const useEmployeeReport = ({}) => {
     initialApiCall,
     configFilter,
     handleDownload,
+    handleViewDetails
   };
 };
 

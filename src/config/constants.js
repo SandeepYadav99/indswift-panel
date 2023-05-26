@@ -108,7 +108,9 @@ export default {
     'NOT JOINING':'error',
     'Dropped': 'nosourcing',
     'Feedback Pending':'pending',
-    'REVIEW PENDING':'error'
+    'REVIEW PENDING':'error',
+    'PANEL SET' : 'success',
+    'SUBMITTED':'success'
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',

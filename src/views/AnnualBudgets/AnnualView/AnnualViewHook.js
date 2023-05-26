@@ -81,8 +81,9 @@ const useAnnualView = ({
       serviceCreateAnnual(updateData).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Raised!");
-          historyUtils.push("/annual");
           closeSidePanel();
+          historyUtils.push("/annual");
+          // window.location.reload();
         } else {
           SnackbarUtils.error(res?.message);
         }

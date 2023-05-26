@@ -103,14 +103,16 @@ const useBudgetPending = ({}) => {
     let req;
     if (value === "Approved") {
       req = serviceBudgetPendingApprove({ id: selectedAnnualId });
-    } else if (value === "Reject") {
+    } else if (value === "Rejected") {
       req = serviceBudgetPendingReject({ id: selectedAnnualId });
     }
     if (req) {
       req.then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Raised!");
+          SnackbarUtils.success(`Request ${value} !`);
           setInfoPanel(false);
+          window.location.reload();
+          // historyUtils.push("/budget/pending");
         } else {
           SnackbarUtils.error(res?.message);
         }

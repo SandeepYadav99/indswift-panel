@@ -107,7 +107,7 @@ const BudgetPending = ({ location }) => {
         key: "approved",
         label: "Approved By",
         sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText}</div>,
+        render: (temp, all) => <div>{all?.verifiedBy?.name} <br/>{all?.verifiedAtText}</div>,
       },
       {
         key: "user_id",

@@ -6,6 +6,7 @@ import {Add} from "@material-ui/icons";
 import Constants from "../../../../../config/constants";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import RouteName from "../../../../../routes/Route.name";
+import { removeUnderScore } from "../../../../../helper/helper";
 
 const ProfileView = ({ isSelf, isError, data, handleDelete, type, dtIndex, canEdit }) => {
     return (
@@ -36,7 +37,9 @@ const ProfileView = ({ isSelf, isError, data, handleDelete, type, dtIndex, canEd
                 )}
                 {!canEdit && (
                     <div className={styles.buttonWrapper}>
-                        <StatusPill status={data?.status} />
+                        <div><StatusPill status={removeUnderScore(data?.status)} />
+                        </div>
+                        
                     </div>
                 )}
             </div>

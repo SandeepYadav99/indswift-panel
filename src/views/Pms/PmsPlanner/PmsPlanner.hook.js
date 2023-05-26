@@ -4,17 +4,19 @@ import {
   actionCreatePmsPlanner,
   actionDeletePmsPlanner,
   actionFetchPmsPlanner,
-  actionSetPagePmsPlanner, actionUpdatePlannerStatus,
+  actionSetPagePmsPlanner,
+  actionUpdatePlannerStatus,
 } from "../../../actions/PmsPlanner.action";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import {serviceAssignReviewPlanner} from "../../../services/PmsPlanner.service";
+import { serviceAssignReviewPlanner } from "../../../services/PmsPlanner.service";
 import Constants from "../../../config/constants";
 const usePmsPlanner = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
+  const [selectedStatus,setSelectedStatus]=useState('')
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
@@ -22,7 +24,7 @@ const usePmsPlanner = ({}) => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isSending, setIsSending] = useState(false);
   const [selected, setSelected] = useState([]);
-  const [isPannel,setIsPannel]=useState(false)
+  const [isPannel, setIsPannel] = useState(false);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -50,43 +52,47 @@ const usePmsPlanner = ({}) => {
     });
   }, []);
 
-
-  const togglePanel = useCallback((data) => {
-    if (data) {
-      setSelectedUser({
-        name: data?.employee?.name,
-        id: data?.employee?.id,
-        code: data?.employee?.emp_code,
-        image: data?.employee?.image,
-        review_id: data?.id,
-        is_editable: [Constants.PMS_4B_BATCH_STATUS.PENDING, Constants.PMS_4B_BATCH_STATUS.PANEL_SET].indexOf(data?.type_four_status) >= 0,
-      });
-    } else {
-      setSelectedUser(null);
-    }
-    setIsPannel((e) => !e);
-}, [setIsPannel,setSelectedUser]);
-
+  const togglePanel = useCallback(
+    (data) => {
+      if (data) {
+        setSelectedStatus(data?.type_four_status)
+        setSelectedUser({
+          name: data?.employee?.name,
+          id: data?.employee?.id,
+          code: data?.employee?.emp_code,
+          image: data?.employee?.image,
+          review_id: data?.id,
+          is_editable:
+            [
+              Constants.PMS_4B_BATCH_STATUS.PENDING,
+              Constants.PMS_4B_BATCH_STATUS.PANEL_SET,
+            ].indexOf(data?.type_four_status) >= 0,
+        });
+      } else {
+        setSelectedUser(null);
+        setSelectedStatus(null)
+      }
+      setIsPannel((e) => !e);
+    },
+    [setIsPannel, setSelectedUser,setSelectedStatus]
+  );
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPagePmsPlanner(type));
   }, []);
 
-
-
-  const handleCsvDownload = useCallback(
-    (payload) => {
-      // serviceRunAssignBatches({}).then((res) => {
-      //   if (!res.error) {
-      //     SnackbarUtils.success('Batching Process has been started. Please wait for 2 minutes data will be updated soon');
-      //     setTimeout(() => {
-      //       window.location.reload();
-      //     }, 1000 * 60 *2);
-      //   }
-      // }
-      // );
-    }, []);
+  const handleCsvDownload = useCallback((payload) => {
+    // serviceRunAssignBatches({}).then((res) => {
+    //   if (!res.error) {
+    //     SnackbarUtils.success('Batching Process has been started. Please wait for 2 minutes data will be updated soon');
+    //     setTimeout(() => {
+    //       window.location.reload();
+    //     }, 1000 * 60 *2);
+    //   }
+    // }
+    // );
+  }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
@@ -171,16 +177,15 @@ const usePmsPlanner = ({}) => {
       pms_form_type: data.form_type,
       batch_id: data.id,
     });
-    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.employee?.emp_code}`);
+    historyUtils.push(
+      `${RouteName.EMPLOYEE_DETAIL}${data?.employee?.emp_code}`
+    );
   }, []);
 
   const handleViewFormDetails = useCallback((data) => {
-    historyUtils.push(
-      `${RouteName.PMS_FORM_DETAIL}${data?.id}`,
-      {
-        type:data?.form_type
-      }
-    );
+    historyUtils.push(`${RouteName.PMS_FORM_DETAIL}${data?.id}`, {
+      type: data?.form_type,
+    });
   }, []);
   const configFilter = useMemo(() => {
     return [
@@ -190,27 +195,12 @@ const usePmsPlanner = ({}) => {
         type: "select",
         fields: ["DTY", "APMS"],
       },
-
       {
-        label: "Form Type",
-        name: "form_type",
+        label: "Status",
+        name: "type_four_status",
         type: "select",
-        fields: ["TYPE_1", "TYPE_2", "TYPE_3", "TYPE_4"],
+        fields: ["PENDING", "PANEL_SET", "REVIEW_PENDING", "REVIEW_SUBMITTED"],
       },
-      // {
-      //   label: "Status",
-      //   name: "status",
-      //   type: "select",
-      //   fields: [
-      //     "ACTIVE",
-      //     "RESIGNED",
-      //     "TERMINATED",
-      //     "RETIRED",
-      //     "EXPIRED",
-      //     "ABSCONDED",
-      //     "INACTIVE",
-      //   ],
-      // },
     ];
   }, [listData]);
 
@@ -240,11 +230,16 @@ const usePmsPlanner = ({}) => {
     if (!isSending) {
       setIsSending(true);
       const batchIds = selected.map((val) => val.id);
-      serviceAssignReviewPlanner({review_ids: batchIds}).then((res) => {
+      serviceAssignReviewPlanner({ review_ids: batchIds }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Planners Aligned SuccessFully");
           setSelected([]);
-          dispatch(actionUpdatePlannerStatus(batchIds, Constants.PMS_4B_BATCH_STATUS.REVIEW_PENDING));
+          dispatch(
+            actionUpdatePlannerStatus(
+              batchIds,
+              Constants.PMS_4B_BATCH_STATUS.REVIEW_PENDING
+            )
+          );
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -276,6 +271,7 @@ const usePmsPlanner = ({}) => {
     togglePanel,
     isPannel,
     selectedUser,
+    selectedStatus
   };
 };
 

@@ -115,3 +115,10 @@
     display: flex;
     gap: 5px;
 }
+.headerWrap{
+    /* padding: 0 1.2rem; */
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
