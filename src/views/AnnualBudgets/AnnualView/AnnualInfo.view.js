@@ -8,9 +8,11 @@ import {
 import WaitingComponent from "../../../components/Waiting.component";
 import styles from "../Style.module.css";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import { serviceGetBudgetPendingDetailsInfo } from "../../../services/BudgetPending.service";
 
 const AnnualInfo = ({ annualId, closeSidePanel }) => {
   const [data, setData] = useState([]);
+  const [info,setInfo]=useState({})
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (annualId) {
@@ -21,6 +23,15 @@ const AnnualInfo = ({ annualId, closeSidePanel }) => {
     }
   }, [annualId]);
 
+  useEffect(() => {
+    if (annualId) {
+      setIsLoading(true);
+      let req = serviceGetBudgetPendingDetailsInfo({id: annualId });
+      req.then((res) => setInfo(res?.data));
+      setIsLoading(false);
+    }
+  }, [annualId]);
+console.log('?...',info)
   if (isLoading) {
     return <WaitingComponent />;
   }
@@ -38,14 +49,14 @@ const AnnualInfo = ({ annualId, closeSidePanel }) => {
   return (
     <div>
       <div className={styles.upperInfo}>
-        <div>{data[0]?.fy_year}</div>
+        <div>{info?.fy_year}</div>
         {data?.length > 0 && <div>On Roll Employee</div>}
       </div>
 
       <div>
-        <div className={styles.loc}>{data[0]?.location?.name}</div>
-        <div className={styles.loc}>{data[0]?.department?.name}</div>
-        <div className={styles.hr}>{data[0]?.sub_department?.name}</div>
+        <div className={styles.loc}>{info?.location?.name}</div>
+        <div className={styles.loc}>{info?.department?.name}</div>
+        <div className={styles.hr}>{info?.sub_department?.name}</div>
       </div>
       <br />
       {data?.length > 0 &&

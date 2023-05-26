@@ -13,6 +13,9 @@ export async function serviceDeleteBudgetPending(params) {
 export async function serviceGetBudgetPendingDetails(params) {
     return await postRequest('annual/budget/edit/versions/detail', params);
 }
+export async function serviceGetBudgetPendingDetailsInfo(params) {
+    return await postRequest('/annual/budget/detail', params);
+}
 export async function serviceGetBudgetPending(params) {
     return await postRequest('annual/budget/edit/versions', params);
 }
