@@ -82,8 +82,8 @@ const useAnnualView = ({
         if (!res.error) {
           SnackbarUtils.success("Request Raised!");
           closeSidePanel();
-          historyUtils.push("/annual");
-          // window.location.reload();
+          // historyUtils.push("/annual");
+          window.location.reload();
         } else {
           SnackbarUtils.error(res?.message);
         }

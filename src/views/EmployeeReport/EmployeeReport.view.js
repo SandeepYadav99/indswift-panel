@@ -180,6 +180,7 @@ const EmployeeReport = ({}) => {
         value={type}
         handleChange={(value) => {
           setType(value);
+          sessionStorage.setItem('type', value);
         }}
       >
         <MenuItem value={"JOINED"}>JOINED</MenuItem>

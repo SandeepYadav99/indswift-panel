@@ -8,9 +8,7 @@ import {
   actionUpdateAnnual,
 } from "../../actions/Annual.action";
 import historyUtils from "../../libs/history.utils";
-import {
-  serviceGetList,
-} from "../../services/Common.service";
+import { serviceGetList } from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
 
 const useAnnualList = ({}) => {
@@ -38,6 +36,16 @@ const useAnnualList = ({}) => {
     });
   }, []);
 
+  useEffect(() => {
+    const storedLoc = sessionStorage.getItem("location");
+    const storedYr = sessionStorage.getItem("warehouse");
+    if (storedLoc) {
+      setLocationId(storedLoc);
+    }
+    if (storedYr) {
+      setWareHouseId(storedYr);
+    }
+  }, []);
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -160,10 +168,13 @@ const useAnnualList = ({}) => {
     [setEditData, setSidePanel]
   );
 
-  const handleSideToggle = useCallback((data) => {
-    setSidePanel((e) => !e);
-    setEditData(data?.id);
-  }, [setEditData, setSidePanel]);
+  const handleSideToggle = useCallback(
+    (data) => {
+      setSidePanel((e) => !e);
+      setEditData(data?.id);
+    },
+    [setEditData, setSidePanel]
+  );
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
