@@ -185,6 +185,7 @@ const EmployeeReport = ({}) => {
       >
         <MenuItem value={"JOINED"}>JOINED</MenuItem>
         <MenuItem value={"SEPERATED"}>SEPERATED</MenuItem>
+        <MenuItem value={"RESIGNED"}>RESIGNED</MenuItem>
       </CustomSelectField>
     );
   }, [type, setType]);

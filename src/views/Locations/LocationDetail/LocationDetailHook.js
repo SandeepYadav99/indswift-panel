@@ -36,8 +36,8 @@ const initialForm = {
       employee_id: "",
     },
     {
-      panelist_role:"CORPORATE_ACCOUNTANT",
-      employee_id:""
+      panelist_role: "CORPORATE_ACCOUNTANT",
+      employee_id: "",
     },
     {
       panelist_role: "ACCOUNTANT",
@@ -172,14 +172,23 @@ const useLocationDetail = ({}) => {
     serviceLocationClaimDepartments({ location_id: id }).then((res) => {
       if (!res.error) {
         const data = res?.data;
+        const newArray = [];
+        initialForm?.data.forEach((item) => {
+          const foundItem = data.find(
+            (element) => element?.panelist_role === item?.panelist_role
+          );
+          if (foundItem) {
+            newArray.push({
+              panelist_role: foundItem?.panelist_role,
+              employee_id: foundItem?.employee,
+            });
+          } else {
+            newArray.push(item);
+          }
+        });
         if (data?.length) {
           setForm({
-            data: data?.map((val) => {
-              return {
-                panelist_role: val?.panelist_role,
-                employee_id: val?.employee,
-              };
-            }),
+            data: newArray,
           });
         } else {
           form({ ...initialForm });
@@ -220,7 +229,7 @@ const useLocationDetail = ({}) => {
           const claim = promises[1]?.value;
           if (!department?.error && !claim?.error) {
             SnackbarUtils.success("Details updated successfully");
-            historyUtils.push(RouteName.LOCATIONS)
+            historyUtils.push(RouteName.LOCATIONS);
           } else {
             SnackbarUtils.error(
               department?.message ? department?.message : claim?.message
