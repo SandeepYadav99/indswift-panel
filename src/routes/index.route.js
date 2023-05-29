@@ -28,6 +28,8 @@ import CustomDataGrid from "../views/Pms/PmsForm/PmsForm.view.js";
 import PmsFormDetail from "../views/Pms/PmsFormDetail/PmsFormDetail.view.js";
 import Pms4BFormView from "../views/Pms/PMS4BForm/Pms4BForm.view";
 import Pms4BFormDetailView from "../views/Pms/Pms4BFormDetail/Pms4BFormDetail.view";
+import IrfForm from "../views/IRFForm/IrfForm.view.js";
+import CandidateIrfLogin from "../views/IRFLogin/CandidateIrfLogin.js";
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
 const RouteComponent = () => (
@@ -47,9 +49,10 @@ const RouteComponent = () => (
     <Route path={RouteName.OFFER_SUCCESS} component={SubmittedResponse} />
     <Route path={`${RouteName.PMS_REVIEW_FORM}:id`} component={CustomDataGrid} />
     <Route path={`${RouteName.PMS_FORM_DETAIL}:id`} component={PmsFormDetail} />
-      <Route path={`${RouteName.PMS_4B_FORM}`} component={Pms4BFormView} />
-      <Route path={`${RouteName.PMS_4B_REVIEW_DETAIL}:id`} component={Pms4BFormDetailView} />
-
+    <Route path={`${RouteName.PMS_4B_FORM}`} component={Pms4BFormView} />
+    <Route path={`${RouteName.PMS_4B_REVIEW_DETAIL}:id`} component={Pms4BFormDetailView} />
+    <Route path={RouteName.IRF_LOGIN} component={CandidateIrfLogin} />
+    <Route path={RouteName.IRF_FORM} component={IrfForm} />
 
 
     {/*<Route path={'/signup'} component={Signup} />*/}

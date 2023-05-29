@@ -11,6 +11,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+import InterviewClaimsList from "../views/InterviewClaimsList/InterviewClaimsList.container";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -980,6 +981,18 @@ const dashboardRoutes = [
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
     {
+        path: `${RouteName.CLAIMS_INTERVIEW}`,
+        sidebarName: "Interview Claims List",
+        navbarName: "Interview Claims List",
+        icon: PeopleOutlined,
+        component: InterviewClaimsList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    {
         path: `${RouteName.CLAIMS_MARRIGE}`,
         sidebarName: "Claims Marrige",
         navbarName: "Claims Marrige",
@@ -990,7 +1003,8 @@ const dashboardRoutes = [
         should_regex: true,
         parent: 'cm',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
-    },{
+    },
+    {
         path: `${RouteName.CLAIMS_MOBILE}`,
         sidebarName: "Claims Mobile",
         navbarName: "Claims Mobile",

@@ -101,6 +101,7 @@ export default {
   CLAIMS_INFO:'/employee/claim/info',
   CLAIMS_HEALTH:'/employee/claim/health',
   CLAIMS_TRAVEL:'/employee/claim/travel',
+  CLAIMS_INTERVIEW:'/cm/interview',
 
   PERFORMANCE_BATCH:'/pm/batch',
   PERFORMANCE_REVIEW:'/pm/review',
@@ -113,4 +114,7 @@ export default {
   EMPLOYEE_REPORT:'/employee/report',
   PMS_4B_FORM: '/pms/4B/submission',
   PMS_4B_REVIEW_DETAIL: '/pms/4B/detail/',
+
+  IRF_LOGIN:'/irf/login',
+  IRF_FORM:'/irf/form'
 };
