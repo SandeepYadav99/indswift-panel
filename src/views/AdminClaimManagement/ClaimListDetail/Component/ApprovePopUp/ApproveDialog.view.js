@@ -37,7 +37,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ApproveDialog = ({ isOpen, handleToggle, candidateId }) => {
+const ApproveDialog = ({ isOpen, handleToggle, candidateId ,isInterview}) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -51,7 +51,7 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId }) => {
     isSubmitting,
     setDeclaration,
     declaration,
-  } = useApproveDialogHook({ isOpen, handleToggle, candidateId });
+  } = useApproveDialogHook({ isOpen, handleToggle, candidateId ,isInterview});
 
   return (
     <div>

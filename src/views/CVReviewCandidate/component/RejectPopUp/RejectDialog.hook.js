@@ -1,17 +1,23 @@
 import { useCallback, useEffect, useState } from "react";
 import LogUtils from "../../../../libs/LogUtils";
-import {serviceChangeEmployeePassword, serviceChangeEmployeeStatus} from "../../../../services/Employee.service";
+import {
+  serviceChangeEmployeePassword,
+  serviceChangeEmployeeStatus,
+} from "../../../../services/Employee.service";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import { useSelector } from "react-redux";
+import { serviceRejectInterviewClaim } from "../../../../services/InterviewClaims.service";
+import historyUtils from "../../../../libs/history.utils";
+import RouteName from "../../../../routes/Route.name";
 
-const initialForm={
-  is_less_experience:false,
-  is_under_qualified:false,
-  is_not_fit:false,
-  is_less_behaviour:false,
-  note:""
-}
-const useRejectDialogHook = ({ isOpen, handleToggle }) => {
+const initialForm = {
+  is_less_experience: false,
+  is_under_qualified: false,
+  is_not_fit: false,
+  is_less_behaviour: false,
+  note: "",
+};
+const useRejectDialogHook = ({ isOpen, handleToggle, isInterview ,empId,candidateId}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -93,15 +99,38 @@ const useRejectDialogHook = ({ isOpen, handleToggle }) => {
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle]);
 
+  const submitToServerInterview = useCallback(() => {
+    if (!isSubmitting) {
+      setIsSubmitting(true);
+      serviceRejectInterviewClaim({
+        review_id: candidateId,
+        comment:form?.note,
+      }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Request Placed Successfully");
+          handleToggle();
+          historyUtils.push(RouteName.CLAIMS_INTERVIEW);
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
+    }
+  }, [form, isSubmitting, setIsSubmitting, handleToggle]);
+
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("===?",form,errors)
+    console.log("===?", form, errors);
     LogUtils.log("errors", errors);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
     }
-    // submitToServer();
+    if (!isInterview) {
+      submitToServer();
+    } else {
+      submitToServerInterview();
+    }
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(

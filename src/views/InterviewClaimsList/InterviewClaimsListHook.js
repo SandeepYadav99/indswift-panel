@@ -105,7 +105,7 @@ const useInterviewClaimsList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.CLAIMS_INTERVIEW_DETAILS}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {

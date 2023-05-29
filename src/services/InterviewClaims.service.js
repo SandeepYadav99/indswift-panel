@@ -16,8 +16,13 @@ export async function serviceGetInterviewClaimsDetails(params) {
 export async function serviceGetInterviewClaims(params) {
     return await postRequest('irfr', params);
 }
-export async function serviceDetailsInterviewClaim(params) {
+
+export async function serviceInterviewDetailsCLaim(params) {
     return await postRequest('irfr/details', params);
 }
-
-
+export async function serviceApproveInterviewCLaim(params) {
+    return await postRequest('irfr/accept', params);
+}
+export async function serviceRejectInterviewClaim(params) {
+    return await postRequest('irfr/reject', params);
+}

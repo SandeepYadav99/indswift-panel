@@ -4,11 +4,12 @@ import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { serviceApproveCLaim } from "../../../../../services/Claims.service";
 import RouteName from "../../../../../routes/Route.name";
 import historyUtils from "../../../../../libs/history.utils";
+import { serviceApproveInterviewCLaim } from "../../../../../services/InterviewClaims.service";
 
 const initialForm={
   comment:"",
 }
-const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
+const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId,isInterview}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -91,6 +92,25 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle]);
 
+  const submitToServerInterview = useCallback(() => {
+    if (!isSubmitting) {
+      setIsSubmitting(true);
+      serviceApproveInterviewCLaim({
+        review_id: candidateId,
+        ...form,
+      }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Request Approved");
+          historyUtils.push(RouteName.CLAIMS_INTERVIEW);
+          handleToggle();
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
+    }
+  }, [form, isSubmitting, setIsSubmitting, handleToggle]);
+
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     console.log("===?",form,errors)
@@ -98,7 +118,11 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
       setErrorData(errors);
       return true;
     }
-    submitToServer();
+    if(!isInterview){
+      submitToServer();
+    }else{
+      submitToServerInterview()
+    }
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(

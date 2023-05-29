@@ -12,6 +12,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import InterviewClaimsList from "../views/InterviewClaimsList/InterviewClaimsList.container";
+import InterviewClaimDetail from "../views/InterviewClaimDetail/InterviewClaimDetail.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -987,6 +988,18 @@ const dashboardRoutes = [
         icon: PeopleOutlined,
         component: InterviewClaimsList,
         is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: `${RouteName.CLAIMS_INTERVIEW_DETAILS}:id`,
+        sidebarName: "Interview Claims List",
+        navbarName: "Interview Claims List",
+        icon: PeopleOutlined,
+        component: InterviewClaimDetail,
+        is_sidebar: false,
         is_protect: true,
         should_regex: true,
         parent: 'cm',

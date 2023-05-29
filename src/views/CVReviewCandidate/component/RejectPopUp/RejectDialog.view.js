@@ -40,7 +40,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const RejectDialog = ({ isOpen, handleToggle, empId }) => {
+const RejectDialog = ({ isOpen, handleToggle, empId,isInterview,candidateId }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -55,7 +55,7 @@ const RejectDialog = ({ isOpen, handleToggle, empId }) => {
     isVerified,
     showPasswordCurrent,
     setShowPasswordCurrent,
-  } = useRejectDialogHook({ isOpen, handleToggle, empId });
+  } = useRejectDialogHook({ isOpen, handleToggle, empId ,isInterview,candidateId });
 
   return (
     <div>
@@ -75,9 +75,11 @@ const RejectDialog = ({ isOpen, handleToggle, empId }) => {
           <div className={styles.resetWrapper}>
             <div className={styles.upperFlex}>Reject Candidate</div>
             <div className={styles.newLine}></div>
-            <span className={styles.desCard}>
+            {
+              !isInterview && <span className={styles.desCard}>
               Please choose the reason behind your decission
             </span>
+            }  
             <ButtonBase
               classes={{ root: classes.closeBtn }}
               onClick={handleToggle}
@@ -86,66 +88,70 @@ const RejectDialog = ({ isOpen, handleToggle, empId }) => {
             </ButtonBase>
           </div>
           {/*</DialogTitle>*/}
-          <div className={styles.checkBoxWrapper}>
-            <div className={styles.checkBox}>
-              <input
-                type="checkbox"
-                name={"notifyTeam"}
-                value={"notifyTeam"}
-                onClick={() => {
-                  changeTextData(!form?.is_less_experience, "is_less_experience");
-                }}
-                id="experience"
-                checked={form?.is_less_experience}
-              />
-              <label htmlFor="experience">Doesn't have enough experience</label>
-              <br />
+          {
+            !isInterview && <>
+            <div className={styles.checkBoxWrapper}>
+              <div className={styles.checkBox}>
+                <input
+                  type="checkbox"
+                  name={"notifyTeam"}
+                  value={"notifyTeam"}
+                  onClick={() => {
+                    changeTextData(!form?.is_less_experience, "is_less_experience");
+                  }}
+                  id="experience"
+                  checked={form?.is_less_experience}
+                />
+                <label htmlFor="experience">Doesn't have enough experience</label>
+                <br />
+              </div>
+              <div className={styles.checkBox}>
+                <input
+                  type="checkbox"
+                  name={"notifyTeam"}
+                  value={"notifyTeam"}
+                  onClick={() => {
+                    changeTextData(!form?.is_less_behaviour, "is_less_behaviour");
+                  }}
+                  id="behaviour"
+                  checked={form?.is_less_behaviour}
+                />
+                <label htmlFor="behaviour">Behavioural Issues</label>
+                <br />
+              </div>
             </div>
-            <div className={styles.checkBox}>
-              <input
-                type="checkbox"
-                name={"notifyTeam"}
-                value={"notifyTeam"}
-                onClick={() => {
-                  changeTextData(!form?.is_less_behaviour, "is_less_behaviour");
-                }}
-                id="behaviour"
-                checked={form?.is_less_behaviour}
-              />
-              <label htmlFor="behaviour">Behavioural Issues</label>
-              <br />
+            <div className={styles.checkBoxWrapper}>
+              <div className={styles.checkBox}>
+                <input
+                  type="checkbox"
+                  name={"notifyTeam"}
+                  value={"notifyTeam"}
+                  onClick={() => {
+                    changeTextData(!form?.is_not_fit, "is_not_fit");
+                  }}
+                  id="notfit"
+                  checked={form?.is_not_fit}
+                />
+                <label htmlFor="notfit">Not fit for the role</label>
+                <br />
+              </div>
+              <div className={styles.checkBox}>
+                <input
+                  type="checkbox"
+                  name={"notifyTeam"}
+                  value={"notifyTeam"}
+                  onClick={() => {
+                    changeTextData(!form?.is_under_qualified, "is_under_qualified");
+                  }}
+                  id="underQualified"
+                  checked={form?.is_under_qualified}
+                />
+                <label htmlFor="underQualified">Underqualified</label>
+                <br />
+              </div>
             </div>
-          </div>
-          <div className={styles.checkBoxWrapper}>
-            <div className={styles.checkBox}>
-              <input
-                type="checkbox"
-                name={"notifyTeam"}
-                value={"notifyTeam"}
-                onClick={() => {
-                  changeTextData(!form?.is_not_fit, "is_not_fit");
-                }}
-                id="notfit"
-                checked={form?.is_not_fit}
-              />
-              <label htmlFor="notfit">Not fit for the role</label>
-              <br />
-            </div>
-            <div className={styles.checkBox}>
-              <input
-                type="checkbox"
-                name={"notifyTeam"}
-                value={"notifyTeam"}
-                onClick={() => {
-                  changeTextData(!form?.is_under_qualified, "is_under_qualified");
-                }}
-                id="underQualified"
-                checked={form?.is_under_qualified}
-              />
-              <label htmlFor="underQualified">Underqualified</label>
-              <br />
-            </div>
-          </div>
+            </>
+          }
           <div className={styles.fieldWrapper}>
             <div>
               <CustomTextField

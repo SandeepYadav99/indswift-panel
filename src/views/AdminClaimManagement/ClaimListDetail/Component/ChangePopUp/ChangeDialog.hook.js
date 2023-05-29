@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { serviceApproveCLaim } from "../../../../../services/Claims.service";
 import RouteName from "../../../../../routes/Route.name";
 import historyUtils from "../../../../../libs/history.utils";
+import { serviceApproveInterviewCLaim } from "../../../../../services/InterviewClaims.service";
 
 const initialForm = {
   approved_amount: "",
@@ -15,7 +16,8 @@ const useChangeDialogHook = ({
   handleToggle,
   candidateId,
   entitledAmount,
-  claimAmount
+  claimAmount,
+  isInterview
 }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
@@ -116,6 +118,26 @@ const useChangeDialogHook = ({
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle]);
 
+  const submitToServerInterview = useCallback(() => {
+    if (!isSubmitting) {
+      setIsSubmitting(true);
+      serviceApproveInterviewCLaim({
+        review_id: candidateId,
+        comment: form?.comment,
+        approved_amount: approved,
+      }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Request Placed Successfully");
+          handleToggle();
+          historyUtils.push(RouteName.CLAIMS_INTERVIEW);
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
+    }
+  }, [form, isSubmitting, setIsSubmitting, handleToggle]);
+
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     console.log("===>", { form, errors });
@@ -124,7 +146,11 @@ const useChangeDialogHook = ({
       setErrorData(errors);
       return true;
     }
-    submitToServer();
+    if(!isInterview){
+      submitToServer();
+    }else{
+      submitToServerInterview()
+    }
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(
