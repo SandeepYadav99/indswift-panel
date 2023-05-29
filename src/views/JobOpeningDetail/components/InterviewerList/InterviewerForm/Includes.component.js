@@ -27,9 +27,9 @@ const IncludeForm = ({data, errorData: errorForm, form, changeTextData}, ref) =>
     const [isFetching, setIsFetching] = useState(false);
     useEffect(() => {
         setIsFetching(true);
-        serviceGetList(['EMPLOYEES']).then((res) => {
+        serviceGetList(['PANEL_MEMBERS']).then((res) => {
             if (!res.error) {
-                const data = res?.data?.EMPLOYEES;
+                const data = res?.data?.PANEL_MEMBERS;
                 setEmployees(data);
                 const temp = [];
                 interviewers.forEach(interview => {
