@@ -94,7 +94,7 @@ const usePms4BForm = ({location}) => {
         rows.forEach((row, rowIndex) => {
             processedColumns.forEach((col, colIndex) => {
                 if (!col.is_static) {
-                    tForm[`${row.id}_${col.key}`] = '8';
+                    tForm[`${row.id}_${col.key}`] = '';
                 }
             });
         });
