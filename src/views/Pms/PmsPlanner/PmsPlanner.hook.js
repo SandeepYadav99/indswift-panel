@@ -195,12 +195,33 @@ const usePmsPlanner = ({}) => {
         type: "select",
         fields: ["DTY", "APMS"],
       },
+
+      {
+        label: "Form Type",
+        name: "form_type",
+        type: "select",
+        fields: ["TYPE_1", "TYPE_2", "TYPE_3", "TYPE_4"],
+      },
       {
         label: "Status",
-        name: "type_four_status",
+        name: "status",
         type: "select",
-        fields: ["PENDING", "PANEL_SET", "REVIEW_PENDING", "REVIEW_SUBMITTED"],
+        fields: ["PENDING",  "PANEL_SET", "REVIEW_PENDING", "REVIEW_SUBMITTED"],
       },
+      // {
+      //   label: "Status",
+      //   name: "status",
+      //   type: "select",
+      //   fields: [
+      //     "ACTIVE",
+      //     "RESIGNED",
+      //     "TERMINATED",
+      //     "RETIRED",
+      //     "EXPIRED",
+      //     "ABSCONDED",
+      //     "INACTIVE",
+      //   ],
+      // },
     ];
   }, [listData]);
 
