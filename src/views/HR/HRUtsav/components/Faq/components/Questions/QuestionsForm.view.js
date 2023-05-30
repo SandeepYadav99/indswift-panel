@@ -134,6 +134,7 @@ class QuestionsFormView extends Component {
         const formInitialValue={date:'',name:'',description:'',priority:'',facility_id:'',parent_id:'',images:'',cover_image:'',location_id:'',status:'',is_dashboard:''}
 
         const {data} = this.props;
+        const {remote_images}=this.state
         const newObj={}
         if(data){
         Object.keys({ ...tData }).forEach((key) => {
@@ -154,6 +155,21 @@ class QuestionsFormView extends Component {
                 }
             }
         });
+        if(remote_images?.length > 0) {
+            const DbImage = remote_images?.map((value) => {
+                const matchingObject = data?.images?.find((obj) => obj?.image === value);
+                if (matchingObject) {
+                    return {
+                        db_value: matchingObject.db_image,
+                        is_bookmarked: matchingObject.is_bookmarked
+                    };
+                }
+                return null
+            });
+            if(DbImage?.length > 0){
+                fd.append('remote_images',JSON.stringify(DbImage))
+            }
+        }
         
         Array.isArray(tData?.images) && tData?.images.forEach((val) => {
             fd.append('images', val);

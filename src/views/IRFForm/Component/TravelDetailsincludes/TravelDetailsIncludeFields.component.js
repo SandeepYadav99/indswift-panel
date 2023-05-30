@@ -95,7 +95,7 @@ const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
             >
               <MenuItem value={"NORMAL"}> NORMAL</MenuItem>
               <MenuItem value={"AC"}>AC</MenuItem>
-              <MenuItem value={"ANY_OTHER"}>ANY_OTHER</MenuItem>
+              <MenuItem value={"OTHER"}>OTHER</MenuItem>
             </CustomSelectField>
           </div>
           <div className={styles.flex1}>

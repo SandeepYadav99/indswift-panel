@@ -7,7 +7,7 @@ function FormDropdown({ value, name, onChange, isError }) {
     LogUtils.log('FormDropdown', value);
   return (
       <select className={csx(styles.inputComp, (isError ? styles.ErrorField : ''))} name={name}  value={value} onChange={onChange}>
-          <option value="">Choose (Yes/No)</option>
+          <option value="">Choose Value</option>
           <option value="10">Strongly Agree</option>
           <option value="8">Agree</option>
           <option value="6">Disagree</option>

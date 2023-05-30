@@ -146,7 +146,12 @@ const AnnualList = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{all?.estimated_spent}</div>,
       },
-
+      {
+        key: "difference",
+        label: "DIFFERENCE",
+        sortable: false,
+        render: (temp, all) => <div>{all?.estimatedDiff}</div>,
+      },
       {
         key: "status",
         label: "Status",

@@ -6,13 +6,14 @@ function InterviewDetailInfo({ idCards }) {
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
+  console.log('id',idCards)
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
         <div className={styles.statusContainer}>
           <div className={styles.heading}>Claim Details</div>
           <div>
-            <StatusPill status={removeUnderScore(idCards?.status)} />
+            <StatusPill status={removeUnderScore(idCards?.claim?.status)} />
           </div>
         </div>
         <div>
