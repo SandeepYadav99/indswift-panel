@@ -88,7 +88,7 @@ const BudgetPending = ({ location }) => {
           <div>
             {all?.editedBy?.name}
             <br />
-            {all?.updatedAtText}
+            {all?.createdAtText}
           </div>
         ),
       },

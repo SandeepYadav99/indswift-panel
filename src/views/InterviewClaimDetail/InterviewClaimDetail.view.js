@@ -38,7 +38,7 @@ function InterviewClaimDetail() {
         />
         <ChangeDialog
           isInterview={true}
-          claimAmount={employeeDetail?.claim_amount}
+          claimAmount={employeeDetail?.claim?.claim_amount}
           entitledAmount={employeeDetail?.claim_details?.entitled_amount}
           candidateId={id}
           isOpen={ischangeDialog}
@@ -59,9 +59,10 @@ function InterviewClaimDetail() {
       {/* {employeeDetail?.panelist_status === "PENDING" && ( */}
       <div
         className={
-          employeeDetail?.status === "APPROVED"
-            ? styles.approvedWrapper
-            : styles.PdfBtnWrapper
+        //   employeeDetail?.status === "APPROVED"
+        //     ? styles.approvedWrapper
+            // :
+             styles.PdfBtnWrapper
         }
       >
         {/* {employeeDetail?.status !== "APPROVED" &&

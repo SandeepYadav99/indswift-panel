@@ -80,8 +80,7 @@ const InterviewClaimsList = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.contact}
-            <br />
+            {all?.job?.code}
           </div>
         ),
       },
@@ -89,14 +88,14 @@ const InterviewClaimsList = ({ location }) => {
         key: "recruiter",
         label: "RECRUITER",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.location}</div>,
+        render: (temp, all) => <div>{all?.job?.assigned_person?.name}</div>,
       },
       {
         key: "status",
         label: "CANDIDATE STATUS",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+          <div>{renderStatus(removeUnderScore("Pending"))}</div>
         ),
       },
       {
@@ -147,9 +146,9 @@ const InterviewClaimsList = ({ location }) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
+              // onClick={() => {
+              //   handleViewDetails(all);
+              // }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>

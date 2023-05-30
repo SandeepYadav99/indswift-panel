@@ -25,7 +25,7 @@ function UpperIntroInfo({data}) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Position Applied For:</span>
-                {data?.candidate?.emp_code}
+                {data?.job?.designation?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Location:</span>
@@ -37,7 +37,7 @@ function UpperIntroInfo({data}) {
           <div className={styles.left}>
             <div className={styles.key}>
               <span className={styles.value}>PRC:</span>
-              {/* {data?.job?.designation?.name} */}
+              {data?.job?.code}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Grade:</span>
@@ -46,7 +46,7 @@ function UpperIntroInfo({data}) {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Recruiter:</span>
-              {data?.job?.department?.name}
+              {data?.job?.assigned_person?.name}
             </div>
           </div>
         </div>

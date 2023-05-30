@@ -34,11 +34,15 @@ function InterviewDetailInfo({ idCards }) {
                 <span className={styles.value}>Bill Amount:</span>
                 {idCards?.claim?.bill_amount}
               </div>
-              <div className={styles.key}>
-                <a href={idCards?.claim?.payment_proof} target="_blank">
-                  <div className={styles.hyperlinkText}>View Payment Proof</div>
-                </a>
-              </div>
+              {idCards?.claim?.payment_proof && (
+                <div className={styles.key}>
+                  <a href={idCards?.claim?.payment_proof} target="_blank">
+                    <div className={styles.hyperlinkText}>
+                      View Payment Proof
+                    </div>
+                  </a>
+                </div>
+              )}
             </div>
             <div className={styles.right}>
               <div className={styles.key}>
@@ -56,7 +60,7 @@ function InterviewDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Amount to be Reimbursed:</span>
-                {/* {idCards?.claim?.travel_details?.to} */}
+                {idCards?.claim?.claim_amount}
               </div>
             </div>
           </div>
