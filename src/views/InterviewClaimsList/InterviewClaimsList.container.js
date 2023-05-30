@@ -71,7 +71,7 @@ const InterviewClaimsList = ({ location }) => {
       {
         key: "name",
         label: "CANDIDATE NAME",
-        sortable: true,
+        sortable: false,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
@@ -95,7 +95,7 @@ const InterviewClaimsList = ({ location }) => {
         label: "CANDIDATE STATUS",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore("Pending"))}</div>
+          <div>{renderStatus(removeUnderScore(all?.candidate?.status))}</div>
         ),
       },
       {
@@ -124,18 +124,23 @@ const InterviewClaimsList = ({ location }) => {
           <div>{removeUnderScore(all?.job?.grade?.code)}</div>
         ),
       },
-
       {
-        key: "claim_date",
-        label: "CLAIM DATE",
-        sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText}</div>,
+        key: "status",
+        label: "Current status/Overall status",
+        sortable: true,
+        render: (temp, all) => (
+          <div>
+            {renderStatus(removeUnderScore(all?.status))}
+            <br /> <br />
+            {renderStatus(removeUnderScore(all?.claim?.status))}
+          </div>
+        ),
       },
       {
         key: "amount",
         label: "AMOUNT",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim?.bill_amount}</div>,
+        render: (temp, all) => <div>{all?.claim?.bill_amount && `₹ ${all?.claim?.bill_amount}`}</div>,
       },
       {
         key: "user_id",
@@ -146,9 +151,9 @@ const InterviewClaimsList = ({ location }) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              // onClick={() => {
-              //   handleViewDetails(all);
-              // }}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>

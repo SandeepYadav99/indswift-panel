@@ -65,15 +65,10 @@ function IrfForm() {
             <ButtonBase
               type={"button"}
               disabled={!declaration ? true : false}
-              // className={styles.createBtn}
               className={declaration ? styles.createBtn : styles.disabledCreatebtn}
               onClick={handleSubmit}
             >
-              {/* {isLoading ? (
-            <CircularProgress color="success" size="20px" />
-          ) : ( */}
-              "Submit"
-              {/* )} */}
+              Submit
             </ButtonBase>
           </div>
         </div>

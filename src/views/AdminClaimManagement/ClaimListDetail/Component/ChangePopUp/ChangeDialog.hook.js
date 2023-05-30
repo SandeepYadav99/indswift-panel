@@ -17,7 +17,7 @@ const useChangeDialogHook = ({
   candidateId,
   entitledAmount,
   claimAmount,
-  isInterview
+  isInterview,
 }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
@@ -80,13 +80,16 @@ const useChangeDialogHook = ({
         (Array.isArray(form?.[val]) && form?.[val].length === 0)
       ) {
         errors[val] = true;
-      } else if (form?.approved_amount > entitledAmount) {
-        SnackbarUtils.error(
-          "Approved amount cannnot be greater than Entitled Amount"
-        );
-        errors["approved_amount"] = true;
       } else if ([].indexOf(val) < 0) {
         delete errors[val];
+      }
+      if (!isInterview) {
+        if (form?.approved_amount > entitledAmount) {
+          SnackbarUtils.error(
+            "Approved amount cannnot be greater than Entitled Amount"
+          );
+          errors["approved_amount"] = true;
+        }
       }
     });
 
@@ -146,10 +149,10 @@ const useChangeDialogHook = ({
       setErrorData(errors);
       return true;
     }
-    if(!isInterview){
+    if (!isInterview) {
       submitToServer();
-    }else{
-      submitToServerInterview()
+    } else {
+      submitToServerInterview();
     }
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 

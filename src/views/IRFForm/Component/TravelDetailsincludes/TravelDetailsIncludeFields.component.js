@@ -108,7 +108,8 @@ const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
               name={"bill_amount"}
               margin={"dense"}
               variant={"outlined"}
-              label={"bill_amount"}
+              label={"Bill Amount"}
+              InputLabelProps={{ shrink: true }}
             />
           </div>
         </div>
@@ -118,7 +119,7 @@ const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
         >
           <div className={styles.flex1}>
             <File
-              max_size={10 * 1024 * 1024}
+              max_size={5 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="proof"

@@ -119,7 +119,9 @@ const useInterviewClaimsList = ({}) => {
           "PENDING",
           "APPROVED",
           "PROCESSED",
-          "ACCOUNTS_APPROVED",
+          "SITE_HR_APPROVED",
+          "CORPORATE_AUDIT_1_APPROVED",
+          "CORPORATE_AUDIT_2_APPROVED"
         ],
       },
     ];

@@ -18,7 +18,7 @@ function CandidateProfileView({ data }) {
         candidate_id: data?.id,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Reminder Sent");
+          SnackbarUtils.success("IRF form send successfully");
         }
       });
     }
