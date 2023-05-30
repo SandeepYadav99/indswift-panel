@@ -150,7 +150,14 @@ const PmsPlanner = ({}) => {
           </div>
         ),
       },
-
+      {
+        key: "efficacy",
+        label: "Efficacy",
+        sortable: true,
+        render: (temp, all) => (
+            <div>{all?.efficacy}</div>
+        ),
+      },
       {
         key: "status",
         label: "Status",
@@ -227,7 +234,7 @@ const PmsPlanner = ({}) => {
   const header=()=>{
     return <div className={styles.headerWrap}>
       <div>Review Planner</div>
-      { 
+      {
         selectedStatus && <div><StatusPill status={removeUnderScore(selectedStatus)} /></div>
       }
     </div>
