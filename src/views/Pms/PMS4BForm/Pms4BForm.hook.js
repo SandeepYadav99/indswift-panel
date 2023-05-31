@@ -17,6 +17,7 @@ import {
     serviceGetMyPlannerForm,
     serviceGetPmsPendingReview, serviceSave4BReview
 } from "../../../services/PmsPendingReview.service";
+import Constants from "../../../config/constants";
 
 
 const usePms4BForm = ({location}) => {
@@ -94,7 +95,7 @@ const usePms4BForm = ({location}) => {
         rows.forEach((row, rowIndex) => {
             processedColumns.forEach((col, colIndex) => {
                 if (!col.is_static) {
-                    tForm[`${row.id}_${col.key}`] = '';
+                    tForm[`${row.id}_${col.key}`] = Constants.is_development ? '8' : '';
                 }
             });
         });

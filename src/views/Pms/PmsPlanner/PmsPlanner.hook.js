@@ -62,6 +62,7 @@ const usePmsPlanner = ({}) => {
           code: data?.employee?.emp_code,
           image: data?.employee?.image,
           review_id: data?.id,
+          type_four_bars_rating: data?.type_four_bars_rating,
           is_editable:
             [
               Constants.PMS_4B_BATCH_STATUS.PENDING,

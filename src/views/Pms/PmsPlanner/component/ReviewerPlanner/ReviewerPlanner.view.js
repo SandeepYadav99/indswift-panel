@@ -42,6 +42,9 @@ const ReviewerPlanner = ({ selectedUser, reviewId, togglePanel, canEdit, isOpen 
         >
           SAVE PANEL
         </ButtonBase>)}
+          {!canEdit && (
+              <div>Avg Rating: {selectedUser?.type_four_bars_rating?.percentage}</div>
+          )}
       </div>
       <EmployeeDialog
         isOpen={isEmployeeDialog}
