@@ -89,7 +89,7 @@ const useRejectDialogHook = ({ isOpen, handleToggle, isInterview ,empId,candidat
         ...form,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Placed Successfully");
+          SnackbarUtils.success("Request Rejected");
           handleToggle();
         } else {
           SnackbarUtils.error(res?.message);
@@ -107,7 +107,7 @@ const useRejectDialogHook = ({ isOpen, handleToggle, isInterview ,empId,candidat
         comment:form?.note,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Placed Successfully");
+          SnackbarUtils.success("Request Rejected");
           handleToggle();
           historyUtils.push(RouteName.CLAIMS_INTERVIEW);
         } else {

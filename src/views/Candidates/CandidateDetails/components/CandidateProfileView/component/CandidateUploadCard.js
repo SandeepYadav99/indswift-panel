@@ -4,7 +4,23 @@ import RouteName from "../../../../../../routes/Route.name";
 import { ButtonBase } from "@material-ui/core";
 import { Telegram } from "@material-ui/icons";
 
-const CandidateUploadCard = ({ data ,handleSubmit}) => {
+const CandidateUploadCard = ({ data, handleSubmit }) => {
+  const checkStatus = () => {
+    const arr = [
+      "ACTIVE",
+      "INTERVIEW_ALIGNED",
+      "CV_REJECTED",
+      "PENDING_SHORTLIST",
+      "PENDING",
+      "CV_SHORTLISTED",
+      "NOT_JOINING",
+      "DROPPED",
+    ];
+    if (arr.includes(data?.status)) {
+      return false;
+    }
+    return true;
+  };
   return (
     <div>
       <div className={styles.plainPaper}>
@@ -54,17 +70,19 @@ const CandidateUploadCard = ({ data ,handleSubmit}) => {
                 </div>
               )}
             </div>
-            <div className={styles.right}>
-            <ButtonBase
-              className={styles.iconWrapper}
-              onClick={() => {
-                handleSubmit && handleSubmit();
-              }}
-            >
-              <Telegram style={{ color: "#2896E9" }} />
-              <span className={styles.sendReminder}>Send IRF Form</span>
-            </ButtonBase>
-            </div>
+            {checkStatus() && (
+              <div className={styles.right}>
+                <ButtonBase
+                  className={styles.iconWrapper}
+                  onClick={() => {
+                    handleSubmit && handleSubmit();
+                  }}
+                >
+                  <Telegram style={{ color: "#2896E9" }} />
+                  <span className={styles.sendReminder}>Send IRF Form</span>
+                </ButtonBase>
+              </div>
+            )}
           </div>
         </div>
       </div>

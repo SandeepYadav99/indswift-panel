@@ -6,7 +6,6 @@ function InterviewDetailInfo({ idCards }) {
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
-  console.log('id',idCards)
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -33,7 +32,7 @@ function InterviewDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Bill Amount:</span>
-                {idCards?.claim?.bill_amount}
+                {idCards?.claim?.bill_amount && `₹ ${idCards?.claim?.bill_amount}`}
               </div>
               {idCards?.claim?.payment_proof && (
                 <div className={styles.key}>
@@ -61,7 +60,7 @@ function InterviewDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Amount to be Reimbursed:</span>
-                {idCards?.claim?.claim_amount}
+                {idCards?.claim?.claim_amount && `₹ ${idCards?.claim?.claim_amount}`}
               </div>
             </div>
           </div>
