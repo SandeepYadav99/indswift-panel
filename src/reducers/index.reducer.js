@@ -59,6 +59,7 @@ import BudgetPendingReducer from "./BudgetPending.reducer";
 import PmsPendingReviewReducer from "./PmsPendingReview.reducer";
 import EmployeeReportReducer from "./EmployeeReport.reducer";
 import InterviewClaimsReducer from "./InterviewClaims.reducer";
+import PmsNormalizeReducer from "./PmsNormalize.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -115,7 +116,8 @@ const rootReducer = combineReducers({
   budget_pending:BudgetPendingReducer,
   pmsPendingReview:PmsPendingReviewReducer,
   employeeReport: EmployeeReportReducer,
-  interview_claims:InterviewClaimsReducer
+  interview_claims:InterviewClaimsReducer,
+  PmsNormalize:PmsNormalizeReducer
   // form: formReducer,
 });
 

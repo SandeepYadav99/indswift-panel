@@ -13,6 +13,7 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import InterviewClaimsList from "../views/InterviewClaimsList/InterviewClaimsList.container";
 import InterviewClaimDetail from "../views/InterviewClaimDetail/InterviewClaimDetail.view";
+import PmsNormailize from "../views/Pms/PmsNormailize/PmsNormailize.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1110,6 +1111,18 @@ const dashboardRoutes = [
         should_regex: true,
         parent: 'pm',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    },
+    {
+        path: `${RouteName.PERFORMANCE_NORMALIZE}`,
+        sidebarName: "Normalized Records",
+        navbarName: "Normalized Records",
+        icon: PeopleOutlined,
+        component: PmsNormailize,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_PLANNER}`,

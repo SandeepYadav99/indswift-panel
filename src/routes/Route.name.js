@@ -112,6 +112,8 @@ export default {
   PMS_FORM_DETAIL: '/pms/detail/',
   PMS_PLANNER:'/pms/planner',
   PERFORMANCE_PENDING_REVIEW:'/pms/pending/review',
+  PERFORMANCE_NORMALIZE:'/pm/noramlize',
+
 
   EMPLOYEE_REPORT:'/employee/report',
   PMS_4B_FORM: '/pms/4B/submission',

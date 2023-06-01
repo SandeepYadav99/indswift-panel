@@ -88,7 +88,7 @@ const InterviewClaimsList = ({ location }) => {
         key: "recruiter",
         label: "RECRUITER",
         sortable: false,
-        render: (temp, all) => <div>{all?.job?.assigned_person?.name}</div>,
+        render: (temp, all) => <div>{all?.job?.assigned_person?.name}<br/>{all?.job?.assigned_person?.emp_code}</div>,
       },
       {
         key: "status",
