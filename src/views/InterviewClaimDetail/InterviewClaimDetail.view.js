@@ -57,7 +57,7 @@ function InterviewClaimDetail() {
       </div>
       <UpperIntroInfo data={employeeDetail} />
       <InterviewDetailInfo idCards={employeeDetail} />
-      <InterviewBankInfo idCards={employeeDetail?.claim?.bank_details}/>
+      <InterviewBankInfo idCards={employeeDetail?.claim?.bank_details} />
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Comments/Notes</div>
@@ -74,50 +74,52 @@ function InterviewClaimDetail() {
           </div>
         </div>
       </div>
-      {employeeDetail?.claim?.status === "PENDING" && (
-      <div
-        className={
-        //   employeeDetail?.status === "APPROVED"
-        //     ? styles.approvedWrapper
-            // :
-             styles.PdfBtnWrapper
-        }
-      >
-        {/* {employeeDetail?.status !== "APPROVED" &&
-            employeeDetail?.status !== "ACCOUNTS_APPROVED" && ( */}
-        <div className={styles.editBtn2}>
-          <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
-            REJECT
-          </ButtonBase>
-        </div>
-        {/* )} */}
+      {employeeDetail?.status === "PENDING" && (
+        <div
+          className={
+            employeeDetail?.claim?.status === "APPROVED"
+              ? styles.approvedWrapper
+              : styles.PdfBtnWrapper
+          }
+        >
+          {employeeDetail?.claim?.status !== "APPROVED" &&
+            employeeDetail?.claim?.status !== "ACCOUNTS_APPROVED" && (
+              <div className={styles.editBtn2}>
+                <ButtonBase
+                  className={styles.edit}
+                  onClick={toggleRejectDialog}
+                >
+                  REJECT
+                </ButtonBase>
+              </div>
+            )}
 
-        <div className={styles.btnApproveWrapper}>
-          {/* {employeeDetail?.status !== "APPROVED" &&
-              employeeDetail?.status !== "ACCOUNTS_APPROVED" && ( */}
-          <div>
-            <ButtonBase
-              className={styles.editSuccess}
-              onClick={toggleChangeDialog}
-            >
-              CHANGE & APPROVE
-            </ButtonBase>
-          </div>
-          {/* )} */}
-          <div>
-            <ButtonBase
-              className={styles.createBtn}
-              onClick={toggleStatusDialog}
-            >
-              {employeeDetail?.status !== "APPROVED" &&
-              employeeDetail?.status !== "ACCOUNTS_APPROVED"
-                ? "APPROVE"
-                : "PROCESS"}
-            </ButtonBase>
+          <div className={styles.btnApproveWrapper}>
+            {employeeDetail?.claim?.status !== "APPROVED" &&
+              employeeDetail?.claim?.status !== "ACCOUNTS_APPROVED" && (
+                <div>
+                  <ButtonBase
+                    className={styles.editSuccess}
+                    onClick={toggleChangeDialog}
+                  >
+                    CHANGE & APPROVE
+                  </ButtonBase>
+                </div>
+              )}
+            <div>
+              <ButtonBase
+                className={styles.createBtn}
+                onClick={toggleStatusDialog}
+              >
+                {employeeDetail?.claim?.status !== "APPROVED" &&
+                employeeDetail?.claim?.status !== "ACCOUNTS_APPROVED"
+                  ? "APPROVE"
+                  : "PROCESS"}
+              </ButtonBase>
+            </div>
           </div>
         </div>
-      </div>
-       )} 
+      )}
     </div>
   );
 }
