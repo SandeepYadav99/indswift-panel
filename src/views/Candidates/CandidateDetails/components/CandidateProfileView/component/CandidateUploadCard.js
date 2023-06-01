@@ -17,9 +17,9 @@ const CandidateUploadCard = ({ data, handleSubmit }) => {
       "DROPPED",
     ];
     if (arr.includes(data?.status)) {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   };
   return (
     <div>
