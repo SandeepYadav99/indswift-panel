@@ -21,7 +21,7 @@ const usePmsNormailize = ({ location }) => {
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
-  const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.interviewSchedule);
+  const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.PmsNormalize);
   // change store to PmsNormalize
 
     useEffect(() => {

@@ -48,7 +48,7 @@ const PmsNormailize = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.pmsBatch);
+  } = useSelector((state) => state.PmsNormalize);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";

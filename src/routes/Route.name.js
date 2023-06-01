@@ -113,6 +113,7 @@ export default {
   PMS_PLANNER:'/pms/planner',
   PERFORMANCE_PENDING_REVIEW:'/pms/pending/review',
   PERFORMANCE_NORMALIZE:'/pm/noramlize',
+  PERFORMANCE_HOD:'/pm/hod',
 
 
   EMPLOYEE_REPORT:'/employee/report',

@@ -14,6 +14,7 @@ import Constants from "../config/constants";
 import InterviewClaimsList from "../views/InterviewClaimsList/InterviewClaimsList.container";
 import InterviewClaimDetail from "../views/InterviewClaimDetail/InterviewClaimDetail.view";
 import PmsNormailize from "../views/Pms/PmsNormailize/PmsNormailize.view";
+import PmsHod from "../views/Pms/PmsHod/PmsHod.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1094,6 +1095,18 @@ const dashboardRoutes = [
         navbarName: "Reviewer Wise Planner",
         icon: PeopleOutlined,
         component: PmsReview,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.PERFORMANCE_HOD}`,
+        sidebarName: "HOD Wise Planner",
+        navbarName: "HOD Wise Planner",
+        icon: PeopleOutlined,
+        component: PmsHod,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
