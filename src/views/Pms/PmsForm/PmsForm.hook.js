@@ -265,17 +265,21 @@ const usePmsForm = ({location}) => {
             }
         });
         if (!isAdjacentErr) {
-            serviceAddPMSDraft({
-                batch_id: id,
-                data: form
-            }).then((res) => {
-                if (!res.error) {
-                    SnackbarUtils.success('Draft Saved Successfully');
-                    historyUtils.goBack();
-                } else {
-                    SnackbarUtils.error(res?.message);
-                }
-            });
+            if (!isSubmitting) {
+                setIsSubmitting(true);
+                serviceAddPMSDraft({
+                    batch_id: id,
+                    data: form
+                }).then((res) => {
+                    if (!res.error) {
+                        SnackbarUtils.success('Draft Saved Successfully');
+                        historyUtils.goBack();
+                    } else {
+                        SnackbarUtils.error(res?.message);
+                    }
+                    setIsSubmitting(false);
+                });
+            }
         } else {
             SnackbarUtils.error('Please resolve error for same value');
         }
