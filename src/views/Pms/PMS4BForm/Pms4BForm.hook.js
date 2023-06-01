@@ -287,16 +287,20 @@ const usePms4BForm = ({location}) => {
             }
         });
         if (!isAdjacentErr) {
-            serviceAdd4BDraft({
-                data: form
-            }).then((res) => {
-                if (!res.error) {
-                    SnackbarUtils.success('Draft Saved Successfully');
-                    historyUtils.goBack();
-                } else {
-                    SnackbarUtils.error(res?.message);
-                }
-            });
+            if (!isSubmitting) {
+                setIsSubmitting(true);
+                serviceAdd4BDraft({
+                    data: form
+                }).then((res) => {
+                    if (!res.error) {
+                        SnackbarUtils.success('Draft Saved Successfully');
+                        historyUtils.goBack();
+                    } else {
+                        SnackbarUtils.error(res?.message);
+                    }
+                    setIsSubmitting(false);
+                });
+            }
         } else {
             SnackbarUtils.error('Please resolve error for same value');
         }
