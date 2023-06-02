@@ -43,6 +43,8 @@ const PmsPlanner = ({}) => {
     approveDialog,
     handleAccept,
       isLoading,
+    isSubmitting,
+    canFreeze
   } = usePmsPlanner({});
 
   const {
@@ -253,13 +255,14 @@ const PmsPlanner = ({}) => {
             <div className={styles.newLine} />
           </div>
           <div>
-            <ButtonBase
+            {canFreeze && (<ButtonBase
               aria-haspopup="true"
               onClick={toggleStatusDialog}
               className={"createBtn"}
+              disabled={isSubmitting}
             >
-              freeze 
-            </ButtonBase>
+              FREEZE
+            </ButtonBase>)}
           </div>
         </div>
         <div>

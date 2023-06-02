@@ -12,13 +12,14 @@ import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import { serviceAssignReviewPlanner } from "../../../services/PmsPlanner.service";
+import {serviceAssignReviewPlanner, serviceFreezeReviewPlanner} from "../../../services/PmsPlanner.service";
 import Constants from "../../../config/constants";
 const usePmsPlanner = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [approveDialog, setApproveDialog] = useState(false);
   const [selectedStatus,setSelectedStatus]=useState('')
   const [editData, setEditData] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
   });
@@ -34,9 +35,11 @@ const usePmsPlanner = ({}) => {
     query,
     query_data: queryData,
   } = useSelector((state) => state?.pmsPlanner);
+
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
-  }, [approveDialog]);
+  }, [setApproveDialog]);
+
   useEffect(() => {
     dispatch(
       actionFetchPmsPlanner(1, sortingData, {
@@ -242,9 +245,23 @@ const usePmsPlanner = ({}) => {
     },
     [selected, setSelected]
   );
-  const handleAccept =useCallback(()=>{
-    LogUtils.log('clicked')
-  },[])
+
+  const handleAccept =useCallback((batch)=>{
+    if (!isSubmitting) {
+      setIsSubmitting(true);
+      serviceFreezeReviewPlanner({ batch }).then((res) => {
+        if (!res?.error) {
+          SnackbarUtils.success('Data Freezed Successfully');
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        toggleStatusDialog();
+        setIsSubmitting(false);
+      })
+    }
+
+  },[toggleStatusDialog, isSubmitting, setIsSubmitting])
+
   const selectedEmps = useMemo(() => {
     let total = 0;
     selected.forEach((val) => {
@@ -275,6 +292,12 @@ const usePmsPlanner = ({}) => {
     }
   }, [selected, isSending, setIsSending, setSelected]);
 
+  const canFreeze = useMemo(() => {
+    const limit = new Date("2023-06-02 18:30:00");
+    const nowDate = new Date();
+    return limit.getTime() < nowDate.getTime();
+  }, []);
+
   return {
     handlePageChange,
     handleDataSave,
@@ -301,7 +324,9 @@ const usePmsPlanner = ({}) => {
     selectedStatus,
     toggleStatusDialog,
     approveDialog,
-    handleAccept
+    handleAccept,
+    isSubmitting,
+    canFreeze
   };
 };
 

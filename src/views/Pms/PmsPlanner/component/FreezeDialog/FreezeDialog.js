@@ -38,7 +38,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const FreezeDialog = ({ isOpen, handleToggle, candidateId }) => {
+const FreezeDialog = ({ isOpen, handleToggle, candidateId, handleConfirm }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -52,7 +52,7 @@ const FreezeDialog = ({ isOpen, handleToggle, candidateId }) => {
     isSubmitting,
     setDeclaration,
     declaration,
-  } = useFreezeDialogHook({ isOpen, handleToggle, candidateId });
+  } = useFreezeDialogHook({ isOpen, handleToggle, candidateId, handleConfirm });
 
   return (
     <div>
@@ -97,8 +97,8 @@ const FreezeDialog = ({ isOpen, handleToggle, candidateId }) => {
                   changeTextData(value, "batch");
                 }}
               >
-                <MenuItem value="1">1</MenuItem>
-                <MenuItem value="2">2</MenuItem>
+                <MenuItem value="APMS">APMS</MenuItem>
+                <MenuItem value="DTY">DTY</MenuItem>
               </CustomSelectField>
             </div>
           </div>

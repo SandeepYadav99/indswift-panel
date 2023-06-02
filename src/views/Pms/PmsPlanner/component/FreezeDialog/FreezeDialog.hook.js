@@ -8,7 +8,7 @@ import historyUtils from "../../../../../libs/history.utils";
 const initialForm={
   batch:"",
 }
-const useFreezeDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
+const useFreezeDialogHook = ({ isOpen, handleConfirm}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -73,23 +73,8 @@ const useFreezeDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
   }, [form, errorData]);
 
   const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-      setIsSubmitting(true);
-      // serviceApproveCLaim({
-      //   review_id: candidateId,
-      //   ...form,
-      // }).then((res) => {
-      //   if (!res.error) {
-      //     SnackbarUtils.success("Request Approved");
-      //     historyUtils.push(RouteName.CLAIMS_LIST);
-      //     handleToggle();
-      //   } else {
-      //     SnackbarUtils.error(res?.message);
-      //   }
-      //   setIsSubmitting(false);
-      // });
-    }
-  }, [form, isSubmitting, setIsSubmitting, handleToggle]);
+    handleConfirm && handleConfirm(form?.batch);
+  }, [form, isSubmitting, setIsSubmitting, handleConfirm]);
 
 
   const handleSubmit = useCallback(async () => {

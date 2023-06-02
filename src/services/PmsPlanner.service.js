@@ -25,3 +25,7 @@ export async function serviceGetReviewPlanner(params) {
 export async function serviceAssignReviewPlanner(params) {
     return await postRequest('pms/assign/review/planner', params);
 }
+
+export async function serviceFreezeReviewPlanner(params) {
+    return await postRequest('pms/freeze/review/planner', params);
+}
