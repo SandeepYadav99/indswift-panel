@@ -15,6 +15,7 @@ import InterviewClaimsList from "../views/InterviewClaimsList/InterviewClaimsLis
 import InterviewClaimDetail from "../views/InterviewClaimDetail/InterviewClaimDetail.view";
 import PmsNormailize from "../views/Pms/PmsNormailize/PmsNormailize.view";
 import PmsHod from "../views/Pms/PmsHod/PmsHod.view";
+import PmsHodReview from "../views/Pms/PmsHodReview/PmsHodReview.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1161,7 +1162,18 @@ const dashboardRoutes = [
         parent: 'pm',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
     },
-
+    {
+        path: `${RouteName.PERFORMANCE_HOD_REVIEW}`,
+        sidebarName: "HOD Pending Reviews",
+        navbarName: "HOD Pending Reviews",
+        icon: PeopleOutlined,
+        component: PmsHodReview,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    },
     {
         path: `${RouteName.EMPLOYEE_REPORT}`,
         sidebarName: "Employee Reports",

@@ -61,6 +61,7 @@ import EmployeeReportReducer from "./EmployeeReport.reducer";
 import InterviewClaimsReducer from "./InterviewClaims.reducer";
 import PmsNormalizeReducer from "./PmsNormalize.reducer";
 import PmsHodReducer from "./PmsHod.reducer";
+import PmsHodReviewReducer from "./PmsHodReview.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -119,7 +120,8 @@ const rootReducer = combineReducers({
   employeeReport: EmployeeReportReducer,
   interview_claims:InterviewClaimsReducer,
   PmsNormalize:PmsNormalizeReducer,
-  PmsHod:PmsHodReducer
+  PmsHod:PmsHodReducer,
+  PmsHodReview:PmsHodReviewReducer
   // form: formReducer,
 });
 

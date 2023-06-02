@@ -114,6 +114,7 @@ export default {
   PERFORMANCE_PENDING_REVIEW:'/pms/pending/review',
   PERFORMANCE_NORMALIZE:'/pm/noramlize',
   PERFORMANCE_HOD:'/pm/hod',
+  PERFORMANCE_HOD_REVIEW:'/pm/hod/review',
 
 
   EMPLOYEE_REPORT:'/employee/report',

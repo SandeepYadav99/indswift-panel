@@ -15,6 +15,7 @@ const CandidateUploadCard = ({ data, handleSubmit }) => {
       "CV_SHORTLISTED",
       "NOT_JOINING",
       "DROPPED",
+      "PENDING_REVIEW"
     ];
     if (arr.includes(data?.status)) {
       return false;
