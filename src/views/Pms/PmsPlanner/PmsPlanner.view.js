@@ -245,7 +245,7 @@ const PmsPlanner = ({}) => {
   }
   return (
     <div>
-      <FreezeDialog isOpen={approveDialog} handleDialog={toggleStatusDialog} handleConfirm={handleAccept}/>
+      <FreezeDialog isOpen={approveDialog} handleToggle={toggleStatusDialog} handleConfirm={handleAccept}/>
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
