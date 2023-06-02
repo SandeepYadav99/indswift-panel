@@ -19,6 +19,7 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 const usePmsReview = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [approveDialog, setApproveDialog] = useState(false);
+  const [normalizeDialog, setNormalizeDialog] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
@@ -60,6 +61,9 @@ const usePmsReview = ({}) => {
     setApproveDialog((e) => !e);
   }, [approveDialog]);
 
+  const toggleNormalizwDialog = useCallback(() => {
+    setNormalizeDialog((e) => !e);
+  }, [normalizeDialog]);
   const handleCsvDownload = useCallback(
     (payload) => {
       setApproveDialog(false);
@@ -270,6 +274,8 @@ const usePmsReview = ({}) => {
     handleViewFormDetails,
     toggleStatusDialog,
         approveDialog,
+        toggleNormalizwDialog,
+        normalizeDialog
   };
 };
 

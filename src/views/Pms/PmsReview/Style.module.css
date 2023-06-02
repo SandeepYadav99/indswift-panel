@@ -115,3 +115,8 @@
     display: flex;
     gap: 5px;
 }
+.btnWrapper{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}

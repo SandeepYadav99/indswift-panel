@@ -27,6 +27,7 @@ import BottomPanelComponent from "../../../components/BottomBar/BottomBar.compon
 import BottomActionView from "./components/BottomAction/BottomAction.view";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import UpdateDialog from "./components/UpdateDialog/UpdateDialog.view";
+import NoramlizeDialog from "./components/NoramlizePopUp/NoramlizeDialog.view";
 const PmsReview = ({}) => {
   const {
     handleSortOrderChange,
@@ -52,6 +53,8 @@ const PmsReview = ({}) => {
     selectedEmps,
     toggleStatusDialog,
     approveDialog,
+    toggleNormalizwDialog,
+        normalizeDialog
   } = usePmsReview({});
 
   const {
@@ -267,17 +270,29 @@ const PmsReview = ({}) => {
             <span className={styles.title}>PMS Planner</span>
             <div className={styles.newLine} />
           </div>
-          {/* <div>
-            <ButtonBase
+          <div className={styles.btnWrapper}>
+            {/* <ButtonBase
               // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
               onClick={toggleStatusDialog}
               className={"createBtn"}
             >
               Update Batches
+            </ButtonBase> */}
+            <ButtonBase
+              // aria-owns={downloadCL ? "downloadCL" : undefined}
+              aria-haspopup="true"
+              onClick={toggleNormalizwDialog}
+              className={"createBtn"}
+            >
+              RUN NORMALIZATION
             </ButtonBase>
-          </div> */}
+          </div>
         </div>
+        <NoramlizeDialog
+          isOpen={normalizeDialog}
+          handleToggle={toggleNormalizwDialog}
+        />
         <UpdateDialog
           handleSubmit={handleCsvDownload}
           isOpen={approveDialog}

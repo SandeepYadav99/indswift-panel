@@ -15,6 +15,7 @@ import BottomActionView from "./component/BottomAction/BottomAction.view";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import ReviewerPlanner from "./component/ReviewerPlanner/ReviewerPlanner.view";
+import FreezeDialog from "./component/FreezeDialog/FreezeDialog";
 const PmsPlanner = ({}) => {
   const {
     handleSortOrderChange,
@@ -38,6 +39,9 @@ const PmsPlanner = ({}) => {
     togglePanel,
     selectedUser,
     selectedStatus,
+    toggleStatusDialog,
+    approveDialog,
+    handleAccept,
       isLoading,
   } = usePmsPlanner({});
 
@@ -241,21 +245,22 @@ const PmsPlanner = ({}) => {
   }
   return (
     <div>
+      <FreezeDialog isOpen={approveDialog} handleDialog={toggleStatusDialog} handleConfirm={handleAccept}/>
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
             <span className={styles.title}>Type 4B Form PMS Planner</span>
             <div className={styles.newLine} />
           </div>
-          {/* <div>
+          <div>
             <ButtonBase
               aria-haspopup="true"
-              onClick={handleCsvDownload}
+              onClick={toggleStatusDialog}
               className={"createBtn"}
             >
-              DownLoad
+              freeze 
             </ButtonBase>
-          </div> */}
+          </div>
         </div>
         <div>
           <FilterComponent

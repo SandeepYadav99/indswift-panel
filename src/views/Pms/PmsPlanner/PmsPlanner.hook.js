@@ -16,6 +16,7 @@ import { serviceAssignReviewPlanner } from "../../../services/PmsPlanner.service
 import Constants from "../../../config/constants";
 const usePmsPlanner = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
+  const [approveDialog, setApproveDialog] = useState(false);
   const [selectedStatus,setSelectedStatus]=useState('')
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
@@ -33,7 +34,9 @@ const usePmsPlanner = ({}) => {
     query,
     query_data: queryData,
   } = useSelector((state) => state?.pmsPlanner);
-
+  const toggleStatusDialog = useCallback(() => {
+    setApproveDialog((e) => !e);
+  }, [approveDialog]);
   useEffect(() => {
     dispatch(
       actionFetchPmsPlanner(1, sortingData, {
@@ -239,7 +242,9 @@ const usePmsPlanner = ({}) => {
     },
     [selected, setSelected]
   );
-
+  const handleAccept =useCallback(()=>{
+    LogUtils.log('clicked')
+  },[])
   const selectedEmps = useMemo(() => {
     let total = 0;
     selected.forEach((val) => {
@@ -293,7 +298,10 @@ const usePmsPlanner = ({}) => {
     togglePanel,
     isPannel,
     selectedUser,
-    selectedStatus
+    selectedStatus,
+    toggleStatusDialog,
+    approveDialog,
+    handleAccept
   };
 };
 
