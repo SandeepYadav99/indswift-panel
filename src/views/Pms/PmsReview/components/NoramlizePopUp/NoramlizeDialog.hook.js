@@ -4,6 +4,7 @@ import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { serviceApproveCLaim } from "../../../../../services/Claims.service";
 import RouteName from "../../../../../routes/Route.name";
 import historyUtils from "../../../../../libs/history.utils";
+import {serviceRunNormalization} from "../../../../../services/PmsReview.service";
 
 const initialForm={
   batch:"",
@@ -75,19 +76,15 @@ const useNoramlizeDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      // serviceApproveCLaim({
-      //   review_id: candidateId,
-      //   ...form,
-      // }).then((res) => {
-      //   if (!res.error) {
-      //     SnackbarUtils.success("Request Approved");
-      //     historyUtils.push(RouteName.CLAIMS_LIST);
-      //     handleToggle();
-      //   } else {
-      //     SnackbarUtils.error(res?.message);
-      //   }
-      //   setIsSubmitting(false);
-      // });
+      serviceRunNormalization(form?.batch).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Data Normalized");
+          handleToggle();
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle]);
 
