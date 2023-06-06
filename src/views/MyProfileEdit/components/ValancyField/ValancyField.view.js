@@ -55,6 +55,7 @@ const ValancyField = ({ type, title }, ref) => {
             <ButtonBase
               className={styles.removeBtn}
               onClick={() => {
+                handleReset()
                 setEnableField(false);
               }}
             >
