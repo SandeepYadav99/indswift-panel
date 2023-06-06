@@ -16,6 +16,7 @@ import InterviewClaimDetail from "../views/InterviewClaimDetail/InterviewClaimDe
 import PmsNormailize from "../views/Pms/PmsNormailize/PmsNormailize.view";
 import PmsHod from "../views/Pms/PmsHod/PmsHod.view";
 import PmsHodReview from "../views/Pms/PmsHodReview/PmsHodReview.view";
+import TravelList from "../views/TravelPlanner/TravelList/TravelList.container";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1065,6 +1066,41 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
+        path: 'null',
+        sidebarName: "Travel Planner",
+        navbarName: "Travel Planner",
+        icon: AssignmentOutlined,
+        is_sidebar: true,
+        slug: 'tp',
+        is_parent: true,
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+
+    },
+    {
+        path: `${RouteName.TRAVEL_PLANNER}`,
+        sidebarName: "My Travel Planner",
+        navbarName: "My Travel Planner",
+        icon: PeopleOutlined,
+        component: TravelList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'tp',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.TRAVEL_PLANNER_CREATE}`,
+        sidebarName: "My Travel Planner",
+        navbarName: "My Travel Planner",
+        icon: PeopleOutlined,
+        component: TravelList,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'tp',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {

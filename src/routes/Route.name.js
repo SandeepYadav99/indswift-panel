@@ -104,6 +104,9 @@ export default {
   CLAIMS_INTERVIEW:'/cm/interview',
   CLAIMS_INTERVIEW_DETAILS:'/cm/interview/details/',
 
+  TRAVEL_PLANNER:'/travel/plan',
+  TRAVEL_PLANNER_CREATE:'/travel/plan/create',
+
 
   PERFORMANCE_BATCH:'/pm/batch',
   PERFORMANCE_REVIEW:'/pm/review',

@@ -1,0 +1,232 @@
+import React, { Component, useCallback, useEffect, useMemo } from "react";
+import {
+  Button,
+  Paper,
+  Checkbox,
+  IconButton,
+  MenuItem,
+  ButtonBase,
+  Menu,
+} from "@material-ui/core";
+import classNames from "classnames";
+import { connect, useSelector } from "react-redux";
+import {
+  Add,
+  CloudDownload,
+  InfoOutlined,
+  PrintOutlined,
+} from "@material-ui/icons";
+import PageBox from "../../../components/PageBox/PageBox.component";
+import styles from "./Style.module.css";
+import DataTables from "../../../Datatables/Datatable.table";
+import Constants from "../../../config/constants";
+import FilterComponent from "../../../components/Filter/Filter.component";
+import StatusPill from "../../../components/Status/StatusPill.component";
+import useTravelList from "./TravelListHook";
+
+const TravelList = ({ location }) => {
+  const {
+    handleSortOrderChange,
+    handleRowSize,
+    handlePageChange,
+    handleEdit,
+    handleFilterDataChange,
+    handleSearchValueChange,
+    handleViewDetails,
+    isCalling,
+    configFilter,
+  } = useTravelList({});
+
+  const {
+    data,
+    all: allData,
+    currentPage,
+    is_fetching: isFetching,
+  } = useSelector((state) => state.claims);
+
+  const { user } = useSelector((state) => state.auth);
+  const removeUnderScore = (value) => {
+    return value ? value.replace(/_/g, " ") : "";
+  };
+  const renderStatus = useCallback((status) => {
+    return (
+      <StatusPill
+        status={status}
+        style={status === "PROCESSED" && { background: "#ceece2" }}
+      />
+    );
+  }, []);
+
+  const renderFirstCell = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          <div className={classNames(styles.firstCellInfo, "openSans")}>
+            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
+            <br />
+            <span className={styles.productName}>
+              {obj?.employee?.emp_code}
+            </span>{" "}
+            <br />
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
+
+  const tableStructure = useMemo(() => {
+    return [
+      {
+        key: "name",
+        label: "TAP NO.",
+        sortable: true,
+        render: (value, all) => <div>{renderFirstCell(all)}</div>,
+      },
+      {
+        key: "date",
+        label: "TOUR DATES",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.contact}
+            <br />
+            {`${all?.employee?.grade}/${all?.employee?.cadre}`}
+          </div>
+        ),
+      },
+      {
+        key: "type",
+        label: "TOUR TYPE",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.location}</div>,
+      },
+      {
+        key: "nature",
+        label: "NATURE",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.designation}</div>,
+      },
+      {
+        key: "status",
+        label: " status",
+        sortable: true,
+        render: (temp, all) => (
+          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+        ),
+      },
+      {
+        key: "Updatedate",
+        label: "DATE",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.employee?.department} / {all?.employee?.sub_department}
+          </div>
+        ),
+      },
+      {
+        key: "imprest",
+        label: "IMPREST",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.contact}</div>,
+      },
+      {
+        key: "exception",
+        label: "EXCEPTION",
+        sortable: false,
+        render: (temp, all) => (
+          <div>{removeUnderScore(all?.claim?.claim_type)}</div>
+        ),
+      },
+      {
+        key: "user_id",
+        label: "Action",
+        render: (temp, all) => (
+          <div>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
+            >
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
+          </div>
+        ),
+      },
+    ];
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+
+  const tableData = useMemo(() => {
+    const datatableFunctions = {
+      onSortOrderChange: handleSortOrderChange,
+      onPageChange: handlePageChange,
+      // onRowSelection: this.handleRowSelection,
+      onRowSizeChange: handleRowSize,
+    };
+
+    const datatable = {
+      ...Constants.DATATABLE_PROPERTIES,
+      columns: tableStructure,
+      data: data,
+      count: allData.length,
+      page: currentPage,
+    };
+
+    return { datatableFunctions, datatable };
+  }, [
+    allData,
+    tableStructure,
+    handleSortOrderChange,
+    handlePageChange,
+    handleRowSize,
+    data,
+    currentPage,
+  ]);
+
+  return (
+    <div>
+      <PageBox>
+        <div className={styles.headerContainer}>
+          <div>
+            <span className={styles.title}>Travel Authorization & Planner</span>
+            <div className={styles.newLine} />
+          </div>
+          <div className={styles.btnWrap}>
+            <ButtonBase
+              aria-haspopup="true"
+              // onClick={handleAddCandidate}
+              className={"createBtn"}
+            >
+              Create
+              <Add fontSize={"small"} className={"plusIcon"}></Add>
+            </ButtonBase>
+          </div>
+        </div>
+
+        <div>
+          <FilterComponent
+            is_progress={isFetching}
+            filters={configFilter}
+            handleSearchValueChange={handleSearchValueChange}
+            handleFilterDataChange={handleFilterDataChange}
+          />
+          <div>
+            <br />
+            <div style={{ width: "100%" }}>
+              <DataTables
+                {...tableData.datatable}
+                {...tableData.datatableFunctions}
+              />
+            </div>
+          </div>
+        </div>
+      </PageBox>
+    </div>
+  );
+};
+
+export default TravelList;
