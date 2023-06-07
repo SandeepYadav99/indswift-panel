@@ -24,7 +24,11 @@
     display: flex;
     align-items: center;
 }
-
+.firstCellFlex221{
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
 .firstCellFlex .driverImgCont {
     width: 40px;
     height: 40px;
@@ -47,6 +51,10 @@
 }
 .productName {
     text-transform: capitalize;
+}
+.productName21{
+    text-transform: capitalize;
+    padding-left: 11.85px;
 }
 .productCat {
     text-transform: capitalize;

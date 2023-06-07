@@ -242,3 +242,22 @@ export function dataURLtoFile(dataurl, filename) {
 export const removeUnderScore = (value) => {
   return value ? value.replace(/_/g, " ") : "";
 };
+export const travelModeAir = [
+  { id: "AIR", name: "Air" },
+  { id: "TRAIN", name: "Train" },
+  { id: "BUS", name: "Bus" },
+  { id: "OWN_CAR", name: "Own Car" },
+  { id: "COMPANY_CAR", name: "Company Car" },
+];
+export const otherTravelMode = [
+  { id: "TRAIN", name: "Train" },
+  { id: "BUS", name: "Bus" },
+  { id: "OWN_CAR", name: "Own Car" },
+  { id: "COMPANY_CAR", name: "Company Car" },
+]; 
+export const accomodationType = [
+  { id: "HOTEL", name: "Hotel" },
+  { id: "GUEST_HOUSE", name: "Guest House" },
+  { id: "SELF_ARRANGEMENT", name: "Self Arrangement" },
+  { id: "NA", name: "NA" },
+]; 

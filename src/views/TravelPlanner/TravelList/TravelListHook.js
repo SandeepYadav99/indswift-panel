@@ -109,15 +109,13 @@ const useTravelList = ({}) => {
     [setEditData, setSidePanel]
   );
 
-  const handleSideToggle = useCallback(() => {
-    historyUtils.push(RouteName.CANDIDATES_CREATE);
-    // setSidePanel(e => !e);
-    // setEditData(null);
-  }, [setEditData, setSidePanel]);
+  const handleViewCreate = useCallback(() => {
+    historyUtils.push(RouteName.TRAVEL_PLANNER_CREATE);
+  }, []);
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.TRAVEL_PLANNER_CREATE}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
@@ -140,15 +138,7 @@ const useTravelList = ({}) => {
       },
     ];
   }, [listData]);
-  // handleSortOrderChange,
-  // handleRowSize,
-  // handlePageChange,
-  // handleEdit,
-  // handleFilterDataChange,
-  // handleSearchValueChange,
-  // handleViewDetails,
-  // isCalling,
-  // configFilter,
+
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -156,6 +146,7 @@ const useTravelList = ({}) => {
     handleRowSize,
     handleSortOrderChange,
     handleViewDetails,
+    handleViewCreate,
     isCalling,
     configFilter,
     handleEdit,

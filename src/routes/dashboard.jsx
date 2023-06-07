@@ -17,6 +17,7 @@ import PmsNormailize from "../views/Pms/PmsNormailize/PmsNormailize.view";
 import PmsHod from "../views/Pms/PmsHod/PmsHod.view";
 import PmsHodReview from "../views/Pms/PmsHodReview/PmsHodReview.view";
 import TravelList from "../views/TravelPlanner/TravelList/TravelList.container";
+import TravelCreate from "../views/TravelPlanner/TravelCreate/TravelCreate.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1096,7 +1097,7 @@ const dashboardRoutes = [
         sidebarName: "My Travel Planner",
         navbarName: "My Travel Planner",
         icon: PeopleOutlined,
-        component: TravelList,
+        component: TravelCreate,
         is_sidebar: false,
         is_protect: true,
         should_regex: true,

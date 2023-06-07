@@ -7,6 +7,9 @@ export async function serviceUpdateTravel(params) {
     return await postRequest('travel/update', params);
 }
 
+export async function serviceCreateTravelPlanner(params) {
+    return await formDataRequest('travel/planner/create', params);
+}
 export async function serviceDeleteTravel(params) {
     return await postRequest('travel/delete', params);
 }

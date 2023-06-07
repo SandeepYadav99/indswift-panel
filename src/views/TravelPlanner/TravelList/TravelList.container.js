@@ -33,6 +33,7 @@ const TravelList = ({ location }) => {
     handleFilterDataChange,
     handleSearchValueChange,
     handleViewDetails,
+    handleViewCreate,
     isCalling,
     configFilter,
   } = useTravelList({});
@@ -42,7 +43,7 @@ const TravelList = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.claims);
+  } = useSelector((state) => state.travel);
 
   const { user } = useSelector((state) => state.auth);
   const removeUnderScore = (value) => {
@@ -60,14 +61,31 @@ const TravelList = ({ location }) => {
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
+        <div className={styles.firstCellFlex221}>
+          <div className={classNames(styles.firstCellInfo, "openSans")}>
+            <span className={styles.productName}>{obj?.code}</span>{" "}
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
+
+  const renderexception = useCallback((obj) => {
+    if (obj) {
+      return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
-            <br />
             <span className={styles.productName}>
-              {obj?.employee?.emp_code}
-            </span>{" "}
+              <StatusPill
+                status={obj?.status}
+                style={{ background: "transparent", border: "none" }}
+              />
+            </span>
             <br />
+            <span className={styles.productName21}>{obj?.details}</span>
+            <br />
+            <span className={styles.productName21}>{obj?.expense_value}</span>
           </div>
         </div>
       );
@@ -89,9 +107,9 @@ const TravelList = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.contact}
+            {all?.startDateText}
             <br />
-            {`${all?.employee?.grade}/${all?.employee?.cadre}`}
+            {all?.endDateText}
           </div>
         ),
       },
@@ -99,13 +117,13 @@ const TravelList = ({ location }) => {
         key: "type",
         label: "TOUR TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.location}</div>,
+        render: (temp, all) => <div>{all?.tour_type}</div>,
       },
       {
         key: "nature",
         label: "NATURE",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.designation}</div>,
+        render: (temp, all) => <div>{all?.tour_nature}</div>,
       },
       {
         key: "status",
@@ -121,23 +139,21 @@ const TravelList = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department} / {all?.employee?.sub_department}
+            {all?.createdAtText}
           </div>
         ),
       },
-      {
-        key: "imprest",
-        label: "IMPREST",
-        sortable: false,
-        render: (temp, all) => <div>{all?.employee?.contact}</div>,
-      },
+      // {
+      //   key: "imprest",
+      //   label: "IMPREST",
+      //   sortable: false,
+      //   render: (temp, all) => <div>{all?.employee?.contact}</div>,
+      // },
       {
         key: "exception",
         label: "EXCEPTION",
         sortable: false,
-        render: (temp, all) => (
-          <div>{removeUnderScore(all?.claim?.claim_type)}</div>
-        ),
+        render: (temp, all) => <div>{renderexception(all?.exception)}</div>,
       },
       {
         key: "user_id",
@@ -198,7 +214,7 @@ const TravelList = ({ location }) => {
           <div className={styles.btnWrap}>
             <ButtonBase
               aria-haspopup="true"
-              // onClick={handleAddCandidate}
+              onClick={handleViewCreate}
               className={"createBtn"}
             >
               Create
