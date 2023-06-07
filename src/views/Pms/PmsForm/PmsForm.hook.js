@@ -228,6 +228,10 @@ const usePmsForm = ({location}) => {
         if (!isSubmitting) {
             setIsSubmitting(true);
             const data = processData();
+            serviceAddPMSDraft({
+                batch_id: id,
+                data: form
+            });
             serviceAddPMSReview({
                 batch_id: id,
                 reviews: data,

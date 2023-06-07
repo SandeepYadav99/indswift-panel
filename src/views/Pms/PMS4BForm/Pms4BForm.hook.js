@@ -251,6 +251,9 @@ const usePms4BForm = ({location}) => {
         if (!isSubmitting) {
             setIsSubmitting(true);
             const data = processData();
+            serviceAdd4BDraft({
+                data: form
+            })
             serviceSave4BReview({
                 reviews: data,
             }).then((res) => {
