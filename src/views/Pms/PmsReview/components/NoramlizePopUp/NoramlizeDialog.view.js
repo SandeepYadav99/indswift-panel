@@ -97,8 +97,8 @@ const NoramlizeDialog = ({ isOpen, handleToggle, candidateId }) => {
                   changeTextData(value, "batch");
                 }}
               >
-                <MenuItem value="1">1</MenuItem>
-                <MenuItem value="2">2</MenuItem>
+                <MenuItem value="APMS">APMS</MenuItem>
+                <MenuItem value="DTY">DTY</MenuItem>
               </CustomSelectField>
             </div>
           </div>
@@ -111,7 +111,7 @@ const NoramlizeDialog = ({ isOpen, handleToggle, candidateId }) => {
             </div>
           </div>
           <div className={styles.printFlex}>
-            <ButtonBase onClick={handleSubmit} className={styles.createBtn}>
+            <ButtonBase disabled={isSubmitting} onClick={handleSubmit} className={styles.createBtn}>
               CONFIRM
             </ButtonBase>
           </div>

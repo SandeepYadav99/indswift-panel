@@ -11,7 +11,7 @@ export async function serviceDeletePmsNormalize(params) {
     return await postRequest('pm/normalize/delete', params);
 }
 export async function serviceGetPmsNormalize(params) {
-    return await postRequest('pms/normalize/batches', params);
+    return await postRequest('pms/normalized/list', params);
 }
 
 

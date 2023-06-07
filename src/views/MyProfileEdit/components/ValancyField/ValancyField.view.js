@@ -38,108 +38,108 @@ const ValancyField = ({ type, title }, ref) => {
     getData() {
       return {
         type: type,
-         ...form,
-         isChanged
+        ...form,
+        isChanged
       };
     },
   }));
 
   return (
-    <div>
-      <div className={"headerFlex"}>
-        <h4 className={"infoTitle"}>
-          <div className={"heading"}>{title}</div>
-        </h4>
-        <div className={"infoTitle"} style={{ justifyContent: "flex-end" }}>
-          {enableField ? (
-            <ButtonBase
-              className={styles.removeBtn}
-              onClick={() => {
-                handleReset()
-                setEnableField(false);
-              }}
-            >
-              Remove
-            </ButtonBase>
-          ) : (
-            <ButtonBase
-              className={styles.addition}
-              label={"+"}
-              onClick={() => {
-                setEnableField(true);
-              }}
-            >
-              <Add fontSize={"small"} /> <span>Add Nominee</span>
-            </ButtonBase>
-          )}
+      <div>
+        <div className={"headerFlex"}>
+          <h4 className={"infoTitle"}>
+            <div className={"heading"}>{title}</div>
+          </h4>
+          <div className={"infoTitle"} style={{ justifyContent: "flex-end" }}>
+            {enableField ? (
+                <ButtonBase
+                    className={styles.removeBtn}
+                    onClick={() => {
+                      handleReset()
+                      setEnableField(false);
+                    }}
+                >
+                  Remove
+                </ButtonBase>
+            ) : (
+                <ButtonBase
+                    className={styles.addition}
+                    label={"+"}
+                    onClick={() => {
+                      setEnableField(true);
+                    }}
+                >
+                  <Add fontSize={"small"} /> <span>Add Nominee</span>
+                </ButtonBase>
+            )}
+          </div>
         </div>
-      </div>
-      {enableField && (
-        <>
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <CustomTextField
-                isError={errorData?.name}
-                errorText={errorData?.name}
-                label={"Name"}
-                value={form?.name}
-                onTextChange={(text) => {
-                  changeTextData(text, "name");
-                }}
-                onBlur={() => {
-                  onBlurHandler("name");
-                }}
-              />
-            </div>
+        {enableField && (
+            <>
+              <div className={"formFlex"}>
+                <div className={"formGroup"}>
+                  <CustomTextField
+                      isError={errorData?.name}
+                      errorText={errorData?.name}
+                      label={"Name"}
+                      value={form?.name}
+                      onTextChange={(text) => {
+                        changeTextData(text, "name");
+                      }}
+                      onBlur={() => {
+                        onBlurHandler("name");
+                      }}
+                  />
+                </div>
 
-            <div className={"formGroup"}>
-              <CustomTextField
-                isError={errorData?.relation}
-                errorText={errorData?.relation}
-                label={"Relation"}
-                value={form?.relation}
-                onTextChange={(text) => {
-                  changeTextData(text, "relation");
-                }}
-                onBlur={() => {
-                  onBlurHandler("relation");
-                }}
-              />
-            </div>
-          </div>
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <CustomDatePicker
-                name="dob"
-                clearable
-                label={"DOB"}
-                maxDate={new Date()}
-                onChange={(date) => {
-                  changeTextData(date, "dob");
-                }}
-                value={form?.dob}
-                isError={errorData?.dob}
-              />
-            </div>
-            <div className={"formGroup"}>
-              <CustomTextField
-                type="number"
-                isError={errorData?.aadhar_no}
-                errorText={errorData?.aadhar_no}
-                label={"Aadhar Number"}
-                value={form?.aadhar_no}
-                onTextChange={(text) => {
-                  changeTextData(text, "aadhar_no");
-                }}
-                onBlur={() => {
-                  onBlurHandler("aadhar_no");
-                }}
-              />
-            </div>
-          </div>
-        </>
-      )}
-    </div>
+                <div className={"formGroup"}>
+                  <CustomTextField
+                      isError={errorData?.relation}
+                      errorText={errorData?.relation}
+                      label={"Relation"}
+                      value={form?.relation}
+                      onTextChange={(text) => {
+                        changeTextData(text, "relation");
+                      }}
+                      onBlur={() => {
+                        onBlurHandler("relation");
+                      }}
+                  />
+                </div>
+              </div>
+              <div className={"formFlex"}>
+                <div className={"formGroup"}>
+                  <CustomDatePicker
+                      name="dob"
+                      clearable
+                      label={"DOB"}
+                      maxDate={new Date()}
+                      onChange={(date) => {
+                        changeTextData(date, "dob");
+                      }}
+                      value={form?.dob}
+                      isError={errorData?.dob}
+                  />
+                </div>
+                <div className={"formGroup"}>
+                  <CustomTextField
+                      type="number"
+                      isError={errorData?.aadhar_no}
+                      errorText={errorData?.aadhar_no}
+                      label={"Aadhar Number"}
+                      value={form?.aadhar_no}
+                      onTextChange={(text) => {
+                        changeTextData(text, "aadhar_no");
+                      }}
+                      onBlur={() => {
+                        onBlurHandler("aadhar_no");
+                      }}
+                  />
+                </div>
+              </div>
+            </>
+        )}
+      </div>
   );
 };
 

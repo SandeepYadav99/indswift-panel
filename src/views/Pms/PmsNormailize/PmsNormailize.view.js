@@ -62,10 +62,10 @@ const PmsNormailize = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span>{" "}
+            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
             <br />
             <span className={styles.productName}>
-              {obj?.emp_code}
+              {obj?.employee?.emp_code}
             </span>{" "}
             <br />
           </div>
@@ -90,7 +90,7 @@ const PmsNormailize = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.grade?.code}
+            {all?.employee?.grade?.code}
           </div>
         ),
       },
@@ -98,13 +98,13 @@ const PmsNormailize = ({ location }) => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.location.name}</div>,
+        render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
       },
       {
         key: "desigination",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.designation?.name}</div>,
+        render: (temp, all) => <div>{all?.employee?.designation?.name}</div>,
       },
       {
         key: "department",
@@ -112,7 +112,7 @@ const PmsNormailize = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.department?.name} / {all?.department?.name}
+            {all?.employee?.department?.name} / {all?.employee?.sub_department?.name}
           </div>
         ),
       },
@@ -120,38 +120,38 @@ const PmsNormailize = ({ location }) => {
         key: "hod",
         label: "HOD",
         sortable: false,
-        render: (temp, all) => <div>{all?.hod?.hod_name} <br/>
+        render: (temp, all) => <div>{all?.employee?.hod?.hod_name} <br/>
           {all?.hod?.hod_code}</div>,
       },
       {
         key: "status",
         label: "Status",
         sortable: false,
-        render: (temp, all) => <div>{all?.dojText}</div>,
+        render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
       },
       {
         key: "batch",
         label: "BATCH",
         sortable: false,
-        render: (temp, all) => <div>{all?.pms_batch}</div>,
+        render: (temp, all) => <div>{all?.batch}</div>,
       },
       {
         key: "review",
         label: "REVIEWER RATING",
         sortable: false,
-        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>{removeUnderScore(all?.pms_form_type)}</div>,
+        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>{all?.reviewer_rating}</div>,
       },
       {
         key: "normalize",
         label: "NORMALIZED RATING",
         sortable: false,
-        render: (temp, all) => <div>{all?.dojText}</div>,
+        render: (temp, all) => <div>{all?.normalized_rating}</div>,
       },
       {
         key: "rating",
         label: "HOD RATING",
         sortable: false,
-        render: (temp, all) => <div>{all?.dojText}</div>,
+        render: (temp, all) => <div>{all?.hod_rating}</div>,
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);

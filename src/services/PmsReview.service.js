@@ -46,3 +46,7 @@ export async function serviceRunAssignBatches() {
     return await getRequest('pms/assign/batches', {  });
 }
 
+
+export async function serviceRunNormalization(batch) {
+    return await postRequest('pms/run/normalization', { batch });
+}
