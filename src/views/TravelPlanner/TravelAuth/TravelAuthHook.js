@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionFetchTravel,
-  actionSetPageTravel,
-} from "../../../actions/Travel.action";
+  actionFetchTravelAuth,
+  actionSetPageTravelAuth,
+} from "../../../actions/TravelAuth.action";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 
-const useTravelList = ({}) => {
+const useTravelAuth = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -25,10 +25,10 @@ const useTravelList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.travel);
+  } = useSelector((state) => state.travelAuth);
   useEffect(() => {
     dispatch(
-      actionFetchTravel(1, sortingData, {
+      actionFetchTravelAuth(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -46,15 +46,15 @@ const useTravelList = ({}) => {
   console.log("list", listData);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageTravel(type));
+    dispatch(actionSetPageTravelAuth(type));
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageTravelRequests(1));
+      // dispatch(actionSetPageTravelAuthRequests(1));
       dispatch(
-        actionFetchTravel(1, sortingData, {
+        actionFetchTravelAuth(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -82,9 +82,9 @@ const useTravelList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      // dispatch(actionSetPageTravel(1));
+      // dispatch(actionSetPageTravelAuth(1));
       dispatch(
-        actionFetchTravel(
+        actionFetchTravelAuth(
           1,
           { row, order },
           {
@@ -115,14 +115,14 @@ const useTravelList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.TRAVEL_PLANNER_DETAILS}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.TRAVEL_AUTHEN_DETAILS}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
     return [
       {
         label: "Status",
-        name: "status",
+        name: "plannerObj.status",
         type: "select",
         fields: [
           "PENDING",
@@ -152,4 +152,4 @@ const useTravelList = ({}) => {
   };
 };
 
-export default useTravelList;
+export default useTravelAuth;

@@ -63,6 +63,7 @@ import PmsNormalizeReducer from "./PmsNormalize.reducer";
 import PmsHodReducer from "./PmsHod.reducer";
 import PmsHodReviewReducer from "./PmsHodReview.reducer";
 import TravelReducer from "./Travel.reducer";
+import TravelAuthReducer from "./TravelAuth.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -123,7 +124,8 @@ const rootReducer = combineReducers({
   PmsNormalize:PmsNormalizeReducer,
   PmsHod:PmsHodReducer,
   PmsHodReview:PmsHodReviewReducer,
-  travel:TravelReducer
+  travel:TravelReducer,
+  travelAuth:TravelAuthReducer
   // form: formReducer,
 });
 

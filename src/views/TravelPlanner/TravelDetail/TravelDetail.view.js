@@ -89,7 +89,7 @@ function TravelDetail() {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-          <div className={styles.heading}>Accomodation Details</div>
+          <div className={styles.heading}>Accommodation Details</div>
           <div className={styles.commentContainer}>
             {employeeDetail?.accomodationDetails &&
               employeeDetail?.accomodationDetails.map((item, index) => (

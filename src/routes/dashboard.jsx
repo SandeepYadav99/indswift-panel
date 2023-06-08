@@ -19,6 +19,8 @@ import PmsHodReview from "../views/Pms/PmsHodReview/PmsHodReview.view";
 import TravelList from "../views/TravelPlanner/TravelList/TravelList.container";
 import TravelCreate from "../views/TravelPlanner/TravelCreate/TravelCreate.view";
 import TravelDetail from "../views/TravelPlanner/TravelDetail/TravelDetail.view";
+import TravelAuth from "../views/TravelPlanner/TravelAuth/TravelAuth.container";
+import TravelAuthDetail from "../views/TravelPlanner/TravelAuthDetail/TravelAuthDetail.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1114,7 +1116,32 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
         should_regex: true,
-        parent: 'cm',
+        parent: 'tp',
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    
+    {
+        path: `${RouteName.TRAVEL_AUTHEN}`,
+        sidebarName: "Travel Authorization",
+        navbarName: "Travel Authorization",
+        icon: PeopleOutlined,
+        component: TravelAuth,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'tp',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.TRAVEL_AUTHEN_DETAILS}:id`,
+        sidebarName: "Interview Claims List",
+        navbarName: "Interview Claims List",
+        icon: PeopleOutlined,
+        component: TravelAuthDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     },
     {

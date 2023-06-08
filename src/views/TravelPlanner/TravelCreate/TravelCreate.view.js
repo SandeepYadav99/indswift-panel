@@ -177,7 +177,7 @@ function TravelCreate() {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-          <div className={styles.heading}>Accomodation Details</div>
+          <div className={styles.heading}>Accommodation Details</div>
           <div>
             <OtherDetailsIncludeForm
               ref={otherRef}
