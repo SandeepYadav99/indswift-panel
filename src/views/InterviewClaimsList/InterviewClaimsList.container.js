@@ -137,6 +137,12 @@ const InterviewClaimsList = ({ location }) => {
         ),
       },
       {
+        key: "claim_id",
+        label: "Claim Id",
+        sortable: false,
+        render: (temp, all) => <div>{all?.claim?.code}</div>,
+      },
+      {
         key: "amount",
         label: "AMOUNT",
         sortable: false,
