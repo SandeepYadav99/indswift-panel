@@ -31,7 +31,7 @@ function Upper({ idCards }) {
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>No of Days:</span>
-                {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
+                {idCards?.noOfDays}
               </div>
 
               <div className={styles.key}>
