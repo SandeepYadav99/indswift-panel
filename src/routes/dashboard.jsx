@@ -18,6 +18,7 @@ import PmsHod from "../views/Pms/PmsHod/PmsHod.view";
 import PmsHodReview from "../views/Pms/PmsHodReview/PmsHodReview.view";
 import TravelList from "../views/TravelPlanner/TravelList/TravelList.container";
 import TravelCreate from "../views/TravelPlanner/TravelCreate/TravelCreate.view";
+import TravelDetail from "../views/TravelPlanner/TravelDetail/TravelDetail.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1103,6 +1104,18 @@ const dashboardRoutes = [
         should_regex: true,
         parent: 'tp',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.TRAVEL_PLANNER_DETAILS}:id`,
+        sidebarName: "Interview Claims List",
+        navbarName: "Interview Claims List",
+        icon: PeopleOutlined,
+        component: TravelDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     },
     {
         path: 'null',

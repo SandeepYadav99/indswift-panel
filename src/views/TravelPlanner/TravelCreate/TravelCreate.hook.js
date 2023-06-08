@@ -15,9 +15,9 @@ const initialForm = {
   end_date: "",
   tour_type: "",
   tour_nature: "",
-  purpose: "dadsa",
+  purpose: "",
   exception_required: false,
-  exception_details: "dadsad",
+  exception_details: "",
 };
 
 const useTravelCreate = ({}) => {

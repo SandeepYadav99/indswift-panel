@@ -20,7 +20,7 @@ export async function serviceGetTravel(params) {
     return await postRequest('travel/planner', params);
 }
 export async function serviceDetailsTravel(params) {
-    return await postRequest('travel/details', params);
+    return await postRequest('travel/planner/details', params);
 }
 export async function serviceGetTravelDetail(params){
     return await getRequest('employee/travel/type',params)

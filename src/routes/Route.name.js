@@ -106,6 +106,8 @@ export default {
 
   TRAVEL_PLANNER:'/travel/plan',
   TRAVEL_PLANNER_CREATE:'/travel/plan/create',
+  TRAVEL_PLANNER_DETAILS:'/travel/plan/details/',
+
 
 
   PERFORMANCE_BATCH:'/pm/batch',

@@ -115,7 +115,7 @@ const useTravelList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.TRAVEL_PLANNER_CREATE}`); //+data.id
+    historyUtils.push(`${RouteName.TRAVEL_PLANNER_DETAILS}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
