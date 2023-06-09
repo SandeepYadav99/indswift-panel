@@ -9,6 +9,7 @@ import nullImg from "../../../assets/img/null.png";
 import { dataURLtoFile } from "../../../helper/helper";
 import { serviceGetList } from "../../../services/Common.service";
 import { serviceCreateTravelPlanner } from "../../../services/Travel.service";
+import { isDate } from "../../../libs/RegexUtils";
 
 const initialForm = {
   start_date: "",
@@ -67,7 +68,13 @@ const useTravelCreate = ({}) => {
   }, [form?.tour_type, employeeDetails]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["start_date", "end_date", "tour_type", "purpose"];
+    let required = [
+      "start_date",
+      "end_date",
+      "tour_type",
+      "purpose",
+      "tour_nature",
+    ];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -76,6 +83,16 @@ const useTravelCreate = ({}) => {
         errors[val] = true;
       }
     });
+    if (!isDate(form?.start_date)) {
+      errors["start_date"] = true;
+    }
+    if (!isDate(form?.end_date)) {
+      errors["end_date"] = true;
+    }
+    if (!form?.tour_nature) {
+      errors["tour_nature"] = true;
+      SnackbarUtils.error("Please Select the Nature of Tour");
+    }
     if (!form?.tour_type) {
       errors["tour_type"] = true;
       SnackbarUtils.error("Please Select tour type");
@@ -83,6 +100,18 @@ const useTravelCreate = ({}) => {
     if (form?.exception_required) {
       if (!form?.exception_details) {
         errors["exception_details"] = true;
+      }
+    }
+    if (form?.start_date && form?.end_date) {
+      const joinDate = new Date(form?.start_date);
+      const expectedDate = new Date(form?.end_date);
+      joinDate.setHours(0, 0, 0, 0);
+      expectedDate.setHours(0, 0, 0, 0);
+      if (joinDate.getTime() > expectedDate.getTime()) {
+        SnackbarUtils.error(
+          "Tour End date should not be Less than Tour Start date"
+        );
+        errors["end_date"] = true;
       }
     }
     Object.keys(errors).forEach((key) => {
@@ -93,44 +122,49 @@ const useTravelCreate = ({}) => {
     return errors;
   }, [form, errorData]);
 
-  const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-      setIsLoading(true);
-      setIsSubmitting(true);
-      const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        fd.append(key, form[key]);
-      });
-      fd.append('foreign_travel_bond_agreed',isBond)
-      const ExpensesData = travelRef.current.getData();
-      ExpensesData.forEach((val) => {
-        if (val?.travel_documents) {
-          fd.append("travel_documents", val?.travel_documents);
-        }
-      });
-      fd.append("travel_details", JSON.stringify(ExpensesData));
-      const otherExpensesData = otherRef.current.getData();
-      otherExpensesData.forEach((val) => {
-        if (val?.accomodation_documents) {
-          fd.append("accomodation_documents", val?.accomodation_documents);
-        } else {
-          const file = dataURLtoFile(nullImg, "null.png");
-          fd.append("accomodation_documents", file);
-        }
-      });
-      fd.append("accomodation_details", JSON.stringify(otherExpensesData));
-      let req = serviceCreateTravelPlanner;
-      req(fd).then((res) => {
-        if (!res.error) {
-          historyUtils.goBack();
-        } else {
-          SnackbarUtils.error(res?.message);
-        }
-        setIsLoading(false);
-        setIsSubmitting(false);
-      });
-    }
-  }, [form, isSubmitting, setIsSubmitting, id, setIsChecked, isChecked],isBond,setIsBond);
+  const submitToServer = useCallback(
+    () => {
+      if (!isSubmitting) {
+        setIsLoading(true);
+        setIsSubmitting(true);
+        const fd = new FormData();
+        Object.keys(form).forEach((key) => {
+          fd.append(key, form[key]);
+        });
+        fd.append("foreign_travel_bond_agreed", isBond);
+        const ExpensesData = travelRef.current.getData();
+        ExpensesData.forEach((val) => {
+          if (val?.travel_documents) {
+            fd.append("travel_documents", val?.travel_documents);
+          }
+        });
+        fd.append("travel_details", JSON.stringify(ExpensesData));
+        const otherExpensesData = otherRef.current.getData();
+        otherExpensesData.forEach((val) => {
+          if (val?.accomodation_documents) {
+            fd.append("accomodation_documents", val?.accomodation_documents);
+          } else {
+            const file = dataURLtoFile(nullImg, "null.png");
+            fd.append("accomodation_documents", file);
+          }
+        });
+        fd.append("accomodation_details", JSON.stringify(otherExpensesData));
+        let req = serviceCreateTravelPlanner;
+        req(fd).then((res) => {
+          if (!res.error) {
+            historyUtils.goBack();
+          } else {
+            SnackbarUtils.error(res?.message);
+          }
+          setIsLoading(false);
+          setIsSubmitting(false);
+        });
+      }
+    },
+    [form, isSubmitting, setIsSubmitting, id, setIsChecked, isChecked],
+    isBond,
+    setIsBond
+  );
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -149,7 +183,7 @@ const useTravelCreate = ({}) => {
     setIsChecked,
     isChecked,
     isBond,
-    setIsBond
+    setIsBond,
   ]);
 
   const removeError = useCallback(

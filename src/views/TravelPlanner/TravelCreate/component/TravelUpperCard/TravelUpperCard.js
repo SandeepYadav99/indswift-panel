@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import image from "../../../../../assets/img/download.png";
 
-function TravelUpperCard({data}) {
+function TravelUpperCard({ data }) {
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -13,7 +13,10 @@ function TravelUpperCard({data}) {
         <div className={styles.mainFlex}>
           <div className={styles.left221}>
             <div>
-              <img className={styles.claimimg} src={data?.image ? data?.image : image} />
+              <img
+                className={styles.claimimg}
+                src={data?.image ? data?.image : image}
+              />
             </div>
             <div>
               <div className={styles.key}>
@@ -28,10 +31,16 @@ function TravelUpperCard({data}) {
                 <span className={styles.value}>Location:</span>
                 {data?.location?.name}
               </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Experience with Organization:</span>
-                {data?.experience?.current}
-              </div>
+              {data?.experience?.current && (
+                <div className={styles.key}>
+                  <span className={styles.value}>
+                    Experience with Organization:
+                  </span>
+                  {data?.experience?.current > 1
+                    ? `${data?.experience?.current} yrs`
+                    : `${data.experience.current} yr`}
+                </div>
+              )}
             </div>
           </div>
           <div className={styles.vertical}></div>
@@ -48,10 +57,14 @@ function TravelUpperCard({data}) {
               <span className={styles.value}>Department:</span>
               {data?.department?.name}
             </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Total Experience:</span>
-              {data?.experience?.total}
-            </div>
+            {data?.experience?.total && (
+              <div className={styles.key}>
+                <span className={styles.value}>Total Experience:</span>
+                {data?.experience?.total > 1
+                  ? `${data?.experience?.total} yrs`
+                  : `${data.experience.total} yr`}
+              </div>
+            )}
           </div>
         </div>
       </div>

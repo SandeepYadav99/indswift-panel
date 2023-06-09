@@ -144,7 +144,7 @@ function TravelDetail() {
                 <div className={styles.left}>
                   <div className={styles.key}>
                     <span className={styles.value}>Exception Required:</span>
-                    {employeeDetail?.exception_required ? "TRUE" : "FALSE"}
+                    {employeeDetail?.exception_required ? "Yes" : "No"}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Details for exception:</span>

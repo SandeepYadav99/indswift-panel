@@ -56,14 +56,14 @@ function TravelCreate() {
       <div className={styles.plainPaper}>
         <div className={styles.formSelectWrapper}>
           <span className={styles.heading}>
-            <b>New Travel Request Form</b>
+            <b>Travel Planner</b>
           </span>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
                 label={"Tour Start Date"}
-                maxDate={new Date()}
+                // maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "start_date");
                 }}
@@ -75,7 +75,7 @@ function TravelCreate() {
               <CustomDatePicker
                 clearable
                 label={"Tour End Date"}
-                maxDate={new Date()}
+                // maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "end_date");
                 }}

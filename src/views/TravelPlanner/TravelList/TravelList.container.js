@@ -83,9 +83,9 @@ const TravelList = ({ location }) => {
               />
             </span>
             <br />
-            <span className={styles.productName21}>{obj?.details}</span>
+            <span className={styles.productName21}>{obj?.exception_required ? 'Yes' : 'No'}</span>
             <br />
-            <span className={styles.productName21}>{obj?.expense_value}</span>
+            <span className={styles.productName21}>{obj?.exception?.expense_value}</span>
           </div>
         </div>
       );
@@ -153,7 +153,7 @@ const TravelList = ({ location }) => {
         key: "exception",
         label: "EXCEPTION",
         sortable: false,
-        render: (temp, all) => <div>{renderexception(all?.exception)}</div>,
+        render: (temp, all) => <div>{renderexception(all)}</div>,
       },
       {
         key: "user_id",
@@ -217,7 +217,7 @@ const TravelList = ({ location }) => {
               onClick={handleViewCreate}
               className={"createBtn"}
             >
-              Create
+              New Request
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
           </div>

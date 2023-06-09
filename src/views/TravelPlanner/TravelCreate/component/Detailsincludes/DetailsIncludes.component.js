@@ -82,7 +82,15 @@ const DetailsIncludeForm = (
       setFields({ ...data });
     }
   }, [data]);
-
+  useEffect(() => {
+    if (travelType) {
+      let filteredmode = [...fields];
+      for (let i = 0; i < filteredmode?.length; i++) {
+        filteredmode[i].mode = "";
+      }
+      setFields(filteredmode);
+    }
+  }, [travelType]);
   const isValid = () => {
     return validateData();
   };
@@ -120,7 +128,6 @@ const DetailsIncludeForm = (
     });
     removeErrors(index, errArr);
   };
-
   const onBlur = useCallback(() => {}, []);
 
   const handlePress = async (type, index = 0) => {
