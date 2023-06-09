@@ -12,12 +12,6 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 
-import InterviewClaimsList from "../views/InterviewClaimsList/InterviewClaimsList.container";
-import InterviewClaimDetail from "../views/InterviewClaimDetail/InterviewClaimDetail.view";
-import PmsNormailize from "../views/Pms/PmsNormailize/PmsNormailize.view";
-import PmsHod from "../views/Pms/PmsHod/PmsHod.view";
-import PmsHodReview from "../views/Pms/PmsHodReview/PmsHodReview.view";
-import TravelList from "../views/TravelPlanner/TravelList/TravelList.container";
 import TravelCreate from "../views/TravelPlanner/TravelCreate/TravelCreate.view";
 import TravelDetail from "../views/TravelPlanner/TravelDetail/TravelDetail.view";
 import TravelAuth from "../views/TravelPlanner/TravelAuth/TravelAuth.container";
