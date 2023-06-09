@@ -103,7 +103,7 @@ export function actionResetFilterPmsHod() {
 }
 
 export function actionSetPagePmsHod(page) {
-    const stateData = store.getState().pmsHod;
+    const stateData = store.getState().pmsHodBatches;
     const currentPage = stateData.currentPage;
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;

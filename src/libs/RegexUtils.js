@@ -28,6 +28,10 @@ const isNumDec = (value) => {
     return /^\d+(\.\d{1})?$/.test(value);
 }
 
+const isNumDecTwoPlaces = (value) => {
+    return /^\d+(\.\d{1,2})?$/.test(value);
+}
+
 const isDate = (value) => {
         return value instanceof Date && !isNaN(value);
 }
@@ -68,5 +72,6 @@ export {
     isAccountNum,
     IsVehicleNo,
     validateUrl,
-    isNumDec
+    isNumDec,
+    isNumDecTwoPlaces
 };

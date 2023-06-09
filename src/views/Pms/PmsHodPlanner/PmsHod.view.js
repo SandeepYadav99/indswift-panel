@@ -58,7 +58,7 @@ const PmsHod = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.pmsReview);
+  } = useSelector((state) => state.pmsHodBatches);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -76,7 +76,7 @@ const PmsHod = ({}) => {
             <div className={styles.flex}>
               <Checkbox
                 disabled={
-                  obj?.status !== Constants.PMS_BATCH_STATUS.PENDING ||
+                  obj?.status !== Constants.PMS_HOD_BATCH_STATUS.NORMALIZED ||
                   obj?.reviewer.status !== Constants.GENERAL_STATUS.ACTIVE
                 }
                 onChange={() => {
@@ -189,9 +189,9 @@ const PmsHod = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              // onClick={() => {
-              //   handleViewDetails(all);
-              // }}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>

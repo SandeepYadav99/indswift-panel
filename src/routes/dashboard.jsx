@@ -11,12 +11,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-import InterviewClaimsList from "../views/InterviewClaimsList/InterviewClaimsList.container";
-import InterviewClaimDetail from "../views/InterviewClaimDetail/InterviewClaimDetail.view";
-import PmsNormailize from "../views/Pms/PmsNormailize/PmsNormailize.view";
-import PmsHod from "../views/Pms/PmsHod/PmsHod.view";
-import PmsHodReview from "../views/Pms/PmsHodReview/PmsHodReview.view";
-import TravelList from "../views/TravelPlanner/TravelList/TravelList.container";
+
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -27,11 +22,7 @@ const ClaimCarCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/c
 const ClaimsList = lazy(() => import("../views/AdminClaimManagement/ClaimsList/ClaimsList.container"));
 const ClaimListDetail = lazy(() => import("../views/AdminClaimManagement/ClaimListDetail/ClaimListDetail.view"));
 const ClaimHealthCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimHealthCard/ClaimHealthCard.view"));
-const PmsBatch = lazy(() => import("../views/Pms/PmsBatch/PmsBatch.view"));
-const ClaimTravelCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimTravelCard/ClaimTravelCard.view"));
-const PmsReview = lazy(() => import("../views/Pms/PmsReview/PmsReview.view"));
-const PmsPending = lazy(() => import("../views/Pms/PmsPending/PmsPending.view"));
-const PmsPlanner = lazy(() => import("../views/Pms/PmsPlanner/PmsPlanner.view"));
+
 const BudgetPending = lazy(() => import("../views/BudgetPending/BudgetPending.container"));
 const EmployeeReport = lazy(() => import("../views/EmployeeReport/EmployeeReport.view"));
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
@@ -95,8 +86,19 @@ const CandidateOfferLetter=lazy(()=> import("../views/Candidates/CandidateOfferL
 const CVShortlistList = lazy( () => import('../views/CVShortlist/CVShortlist.container'));
 const JobOpeningUpdateView=lazy(()=> import("../views/JobOpeningUpdate/JobOpeningUpdate.view"))
 const CandidateOLR=lazy(()=> import('../views/Candidates/CandidateOLR/CandidateOLR.view'))
-const ReviewOLR= lazy(()=>import('../views/ReviewOLR/ReviewOLR.container'))
-const PmsPendingReview = lazy(()=>import("../views/Pms/PmsMyPendingReview/PmsMyPendingReview.view"));
+const ReviewOLR= lazy(()=>import('../views/ReviewOLR/ReviewOLR.container'));
+const PmsBatch = lazy(() => import("../views/Pms/PmsEmployeeWiseBatch/PmsBatch.view"));
+const ClaimTravelCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimTravelCard/ClaimTravelCard.view"));
+const PmsReview = lazy(() => import("../views/Pms/PmsReview/PmsReview.view"));
+const PmsPending = lazy(() => import("../views/Pms/PmsReviewerPending/PmsPending.view"));
+const PmsPlanner = lazy(() => import("../views/Pms/Pms4BPlanner/PmsPlanner.view"));
+const PmsPendingReview = lazy(()=>import("../views/Pms/Pms4BMyPendingReview/PmsMyPendingReview.view"));
+const InterviewClaimsList = lazy(() => import("../views/InterviewClaimsList/InterviewClaimsList.container"));
+const InterviewClaimDetail = lazy(() => import("../views/InterviewClaimDetail/InterviewClaimDetail.view"));
+const PmsNormailize = lazy(() => import("../views/Pms/PmsNormailize/PmsNormailize.view"));
+const PmsHod = lazy(() => import("../views/Pms/PmsHodPlanner/PmsHod.view"));
+const PmsHodReview = lazy(() => import("../views/Pms/PmsHodReview/PmsHodReview.view"));
+const TravelList = lazy(() => import("../views/TravelPlanner/TravelList/TravelList.container"));
 
 const Roles = Constants.ROLES;
 

@@ -1,0 +1,21 @@
+.inputComp{
+    padding: 1rem 0;
+    text-indent: 10px;
+    border: none;
+  width: 100%;
+  height: auto;
+  }
+  .readOnlyClass{
+    background-color: #edf2f5;
+    padding: 1rem 0;
+    text-indent: 10px;
+    border: none;
+  }
+  .ErrorField{
+    background: #E92828 0% 0% no-repeat padding-box;
+    color: #ffffff;
+    padding: 1rem 0;
+    text-indent: 10px;
+    border: none;
+    width: 100%;
+  }

@@ -28,7 +28,7 @@ const PmsHodReview = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.pmsPendingReview);
+  } = useSelector((state) => state.pmsHodMyReviews);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -54,12 +54,6 @@ const PmsHodReview = ({ location }) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "type",
-        label: "TYPE",
-        sortable: true,
-        render: (value, all) => <div>{renderFirstCell(all)}</div>,
-      },
-      {
         key: "batch",
         label: "BATCH",
         sortable: false,
@@ -72,7 +66,7 @@ const PmsHodReview = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div style={{ whiteSpace: "nowrap" }}>
-            {removeUnderScore(all?.type)}
+            {(all?.total_employees)}
           </div>
         ),
       },
@@ -80,7 +74,7 @@ const PmsHodReview = ({ location }) => {
         key: "date",
         label: "Date Shared",
         sortable: false,
-        render: (temp, all) => <div>{all?.assignedAtText}</div>,
+        render: (temp, all) => <div>{all?.alignedAtText}</div>,
       },
       {
         key: "status",
@@ -99,9 +93,9 @@ const PmsHodReview = ({ location }) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              // onClick={() => {
-              //   handleViewDetails(all);
-              // }}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>

@@ -151,7 +151,13 @@ const PmsNormailize = ({ location }) => {
         key: "rating",
         label: "HOD RATING",
         sortable: false,
-        render: (temp, all) => <div>{all?.hod_rating}</div>,
+        render: (temp, all) => <div>{all?.final_rating}</div>,
+      },
+      {
+        key: "is_recommended",
+        label: "HOD Recommended",
+        sortable: false,
+        render: (temp, all) => <div>{all?.is_recommended}</div>,
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);

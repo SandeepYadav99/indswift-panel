@@ -116,9 +116,10 @@ export default {
   PMS_PLANNER:'/pms/planner',
   PERFORMANCE_PENDING_REVIEW:'/pms/pending/review',
   PERFORMANCE_NORMALIZE:'/pm/noramlize',
-  PERFORMANCE_HOD:'/pm/hod',
+  PERFORMANCE_HOD:'/pm/hod/batches',
   PERFORMANCE_HOD_REVIEW:'/pm/hod/review',
-
+  PMS_HOD_FORM: '/pms/hod/submission/',
+  PMS_HOD_REVIEW_DETAIL: '/pms/hod/detail/',
 
   EMPLOYEE_REPORT:'/employee/report',
   PMS_4B_FORM: '/pms/4B/submission',

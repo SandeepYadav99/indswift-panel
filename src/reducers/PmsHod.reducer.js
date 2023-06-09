@@ -90,7 +90,7 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
                 const batchIds = action?.payload;
                 prevState.forEach((val) => {{
                     if (batchIds.indexOf(val.id) >= 0) {
-                        val.status = Constants.PMS_BATCH_STATUS.REVIEW_PENDING;
+                        val.status = Constants.PMS_HOD_BATCH_STATUS.HOD_PENDING;
                     }
                 }});
                 LogUtils.log('prevState', prevState);

@@ -121,8 +121,8 @@ const rootReducer = combineReducers({
   employeeReport: EmployeeReportReducer,
   interview_claims:InterviewClaimsReducer,
   PmsNormalize:PmsNormalizeReducer,
-  PmsHod:PmsHodReducer,
-  PmsHodReview:PmsHodReviewReducer,
+  pmsHodBatches:PmsHodReducer,
+  pmsHodMyReviews:PmsHodReviewReducer,
   travel:TravelReducer
   // form: formReducer,
 });

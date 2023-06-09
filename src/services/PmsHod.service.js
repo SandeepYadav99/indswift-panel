@@ -33,3 +33,7 @@ export async function serviceGetPMSDraft(batchId) {
     return await postRequest('pms/get/draft', { batch_id: batchId });
 }
 
+
+export async function serviceAlignPmsHodBatch(batchIds) {
+    return await postRequest('pms/hod/align/batches', { batch_ids: batchIds })
+}

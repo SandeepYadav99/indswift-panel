@@ -21,7 +21,7 @@ const usePmsHodReview = ({ location }) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.PmsHodReview);
+  } = useSelector((state) => state?.pmsHodMyReviews);
 
   useEffect(() => {
     dispatch(
@@ -121,7 +121,7 @@ const usePmsHodReview = ({ location }) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.emp_code}`);
+    historyUtils.push(`${RouteName.PMS_HOD_FORM}${data?.id}`);
   }, []);
 
 

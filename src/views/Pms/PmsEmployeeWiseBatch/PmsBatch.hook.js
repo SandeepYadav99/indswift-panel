@@ -17,6 +17,7 @@ const usePmsBatch = ({ location }) => {
   const batchType = location?.state?.pms_batch;
   const formType = location?.state?.pms_form_type;
   const batchID = location?.state?.batch_id;
+  const hodBatchId = location?.state?.hoc_batch_id;
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
@@ -40,7 +41,7 @@ const usePmsBatch = ({ location }) => {
           { label: 'PMS Batch', name: 'pms_form_type', type: 'select', value: formType },
           { label: 'PMS Batch', name: 'pms_reviewer_id', type: 'selectObject', value: reviewerId }
         ] : []),
-      }, { batch_id: batchID })
+      }, { batch_id: batchID, hod_batch_id: hodBatchId })
     );
     isMountRef.current = true;
   }, []);

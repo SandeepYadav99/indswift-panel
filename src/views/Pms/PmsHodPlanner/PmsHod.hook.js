@@ -12,6 +12,7 @@ import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
+import {serviceAlignPmsHodBatch} from "../../../services/PmsHod.service";
 const usePmsHod = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [approveDialog, setApproveDialog] = useState(false);
@@ -28,7 +29,7 @@ const usePmsHod = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.PmsHod);
+  } = useSelector((state) => state?.pmsHodBatches);
 
   useEffect(() => {
     dispatch(
@@ -151,17 +152,8 @@ const usePmsHod = ({}) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
-    LogUtils.log({
-      reviewerId: data.reviewer_id,
-      pms_batch: data.batch,
-      pms_form_type: data.form_type,
-      batch_id: data.id,
-    });
     historyUtils.push(`${RouteName.PERFORMANCE_BATCH}`, {
-      reviewerId: data.reviewer_id,
-      pms_batch: data.batch,
-      pms_form_type: data.form_type,
-      batch_id: data.id,
+      hoc_batch_id: data.id,
     }); //+data.id
   }, []);
 
@@ -227,16 +219,16 @@ const usePmsHod = ({}) => {
     if (!isSending) {
       setIsSending(true);
       const batchIds = selected.map((val) => val.id);
-      // serviceAlignPmsBatch(batchIds).then((res) => {
-      //   if (!res.error) {
-      //     SnackbarUtils.success("Reviews Aligned SuccessFully");
-      //     setSelected([]);
-      //     dispatch(actionAlignPmsHod(batchIds));
-      //   } else {
-      //     SnackbarUtils.error(res?.message);
-      //   }
-      //   setIsSending(false);
-      // });
+      serviceAlignPmsHodBatch(batchIds).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Batches Aligned SuccessFully");
+          setSelected([]);
+          dispatch(actionAlignPmsHod(batchIds));
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSending(false);
+      });
     }
   }, [selected, isSending, setIsSending, setSelected]);
 

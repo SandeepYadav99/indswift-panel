@@ -4,7 +4,7 @@ const tempLevel = !(
     !process.env.NODE_ENV || process.env.NODE_ENV === "development"
 );
 const tempDate = new Date();
-const isProduction = false;
+const isProduction = true;
 
 let url = "http://91.205.173.97:8111/api/admin/";
 let socketUrl = "http://91.205.173.97:8111";
@@ -70,6 +70,11 @@ export default {
     AWARD_SHEET_PENDING: 'AWARD_SHEET_PENDING',
     AWARD_SHEET_APPROVED: 'AWARD_SHEET_APPROVED',
     PMS_FINAL: 'PMS_FINAL',
+  },
+  PMS_HOD_BATCH_STATUS: {
+    NORMALIZED: 'NORMALIZED',
+    HOD_PENDING: 'HOD_PENDING',
+    HOD_SUBMITTED: 'HOD_SUBMITTED',
   },
   STATUS: {
     PENDING: "pending",

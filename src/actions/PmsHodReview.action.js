@@ -106,7 +106,7 @@ export function actionResetFilterPmsHodReview() {
 }
 
 export function actionSetPagePmsHodReview(page) {
-    const stateData = store.getState().PmsHodReview;
+    const stateData = store.getState().pmsHodMyReviews;
     const currentPage = stateData.currentPage;
     const totalLength = stateData.all.length;
     const sortingData = stateData.sorting_data;
