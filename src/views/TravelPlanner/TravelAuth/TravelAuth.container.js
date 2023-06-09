@@ -22,9 +22,9 @@ import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import useTravelList from "./TravelListHook";
+import useTravelAuth from "./TravelAuthHook";
 
-const TravelList = ({ location }) => {
+const TravelAuth = ({ location }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -36,16 +36,15 @@ const TravelList = ({ location }) => {
     handleViewCreate,
     isCalling,
     configFilter,
-  } = useTravelList({});
+  } = useTravelAuth({});
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.travel);
+  } = useSelector((state) => state.travelAuth);
 
-  const { user } = useSelector((state) => state.auth);
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
@@ -63,7 +62,7 @@ const TravelList = ({ location }) => {
       return (
         <div className={styles.firstCellFlex221}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.code}</span>{" "}
+            <span className={styles.productName}>{obj?.travelPlanner?.code}</span>{" "}
           </div>
         </div>
       );
@@ -78,12 +77,12 @@ const TravelList = ({ location }) => {
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>
               <StatusPill
-                status={obj?.status}
+                status={removeUnderScore(obj?.exception?.status)}
                 style={{ background: "transparent", border: "none" }}
               />
             </span>
             <br />
-            <span className={styles.productName21}>{obj?.exception_required ? 'Yes' : 'No'}</span>
+            <span className={styles.productName21}>{obj?.exception_required ? 'Yes' : "No"}</span>
             <br />
             <span className={styles.productName21}>{obj?.exception?.expense_value}</span>
           </div>
@@ -102,14 +101,48 @@ const TravelList = ({ location }) => {
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
+        key: "employee",
+        label: "Employee",
+        sortable: false,
+        render: (temp, all) => <div><b>{all?.employee?.name}</b><br/>{all?.employee?.designation?.name}<br/>{all?.employee?.emp_code}</div>,
+      },
+      {
+        key: "grade",
+        label: "GRADE/CADRE",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.contact}
+            <br />
+            {`${all?.employee?.grade?.code}/${all?.employee?.cadre?.code}`}
+          </div>
+        ),
+      },
+      {
+        key: "location",
+        label: "Location",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
+      },
+      {
+        key: "department",
+        label: "DEPT & SUB-DEPT",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.employee?.department?.name} / {all?.employee?.sub_department?.name}
+          </div>
+        ),
+      },
+      {
         key: "date",
         label: "TOUR DATES",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.startDateText}
+            {all?.travelPlanner?.startDateText}
             <br />
-            {all?.endDateText}
+            {all?.travelPlanner?.endDateText}
           </div>
         ),
       },
@@ -117,20 +150,23 @@ const TravelList = ({ location }) => {
         key: "type",
         label: "TOUR TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.tour_type}</div>,
+        render: (temp, all) => <div>{all?.travelPlanner?.tour_type}</div>,
       },
       {
         key: "nature",
         label: "NATURE",
         sortable: false,
-        render: (temp, all) => <div>{all?.tour_nature}</div>,
+        render: (temp, all) => <div>{all?.travelPlanner?.tour_nature}</div>,
       },
       {
         key: "status",
         label: " status",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+          <div>
+          <div>{renderStatus(removeUnderScore(all?.status))} </div><br/><div>{renderStatus(removeUnderScore(all?.travelPlanner?.status))}</div>
+
+          </div>
         ),
       },
       {
@@ -147,13 +183,13 @@ const TravelList = ({ location }) => {
       //   key: "imprest",
       //   label: "IMPREST",
       //   sortable: false,
-      //   render: (temp, all) => <div>{all?.employee?.contact}</div>,
+      //   render: (temp, all) => <div>{all?.contact}</div>,
       // },
       {
         key: "exception",
         label: "EXCEPTION",
         sortable: false,
-        render: (temp, all) => <div>{renderexception(all)}</div>,
+        render: (temp, all) => <div>{renderexception(all?.travelPlanner)}</div>,
       },
       {
         key: "user_id",
@@ -212,14 +248,14 @@ const TravelList = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrap}>
-            <ButtonBase
+            {/* <ButtonBase
               aria-haspopup="true"
               onClick={handleViewCreate}
               className={"createBtn"}
             >
-              New Request
+              Create
               <Add fontSize={"small"} className={"plusIcon"}></Add>
-            </ButtonBase>
+            </ButtonBase> */}
           </div>
         </div>
 
@@ -245,4 +281,4 @@ const TravelList = ({ location }) => {
   );
 };
 
-export default TravelList;
+export default TravelAuth;

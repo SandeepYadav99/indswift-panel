@@ -20,7 +20,6 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id}) => 
     const classes = useStyle();
     const { form, changeTextData, errorData, handleSubmit, onBlurHandler, removeError, warehouses,profileInfo } = useAnnualView({selectedAnnuals, closeSidePanel, originWarehouseId,id});
     
-    
     return (
         <div>
             
@@ -58,6 +57,7 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id}) => 
                 <div className={'formFlex'}>
                     <div className={'formGroup'}>
                         <CustomTextField
+                            disabled={true}
                             type="number"
                             isError={errorData?.posted}
                             errorText={errorData?.posted}
@@ -73,7 +73,7 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id}) => 
                     </div>
                 </div>
 
-                <div className={'formFlex'}>
+                {/* <div className={'formFlex'}>
                     <div className={'formGroup'}>
                         <CustomTextField
                             type="number"
@@ -89,7 +89,7 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id}) => 
                             }}
                         />
                     </div>
-                </div>
+                </div> */}
 
                 <div className={'formFlex'}>
                     <div className={'formGroup'}>

@@ -21,6 +21,7 @@ const useAnnualList = ({}) => {
   const [selected, setSelected] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
   const [warehouseId, setWareHouseId] = useState("");
+  const [type,setType]=useState("")
   const [locationId, setLocationId] = useState("");
   const [listData, setListData] = useState({
     LOCATIONS: [],
@@ -39,11 +40,15 @@ const useAnnualList = ({}) => {
   useEffect(() => {
     const storedLoc = sessionStorage.getItem("location");
     const storedYr = sessionStorage.getItem("warehouse");
+    const storedType= sessionStorage.getItem("type");
     if (storedLoc) {
       setLocationId(storedLoc);
     }
     if (storedYr) {
       setWareHouseId(storedYr);
+    }
+    if(storedType){
+      setType(storedType)
     }
   }, []);
   const {
@@ -64,20 +69,21 @@ const useAnnualList = ({}) => {
             query_data: isMountRef.current ? queryData : null,
             fy_year: warehouseId,
             location_id: locationId,
+            employee_type:type,
             ...updateQuery,
           }
         )
       );
       isMountRef.current = true;
     },
-    [query, queryData, warehouseId, sortingData, locationId]
+    [query, queryData, warehouseId, sortingData, type,locationId]
   );
 
   useEffect(() => {
-    if (warehouseId && locationId) {
+    if (warehouseId && locationId && type) {
       resetData();
     }
-  }, [warehouseId, locationId]);
+  }, [warehouseId, locationId,type]);
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
@@ -208,6 +214,8 @@ const useAnnualList = ({}) => {
     warehouses,
     handleChangeWareHouse,
     warehouseId,
+    type,
+    setType,
     selected,
     allSelected,
     setAllSelected,

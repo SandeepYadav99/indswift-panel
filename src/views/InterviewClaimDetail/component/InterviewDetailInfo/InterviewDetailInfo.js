@@ -34,6 +34,10 @@ function InterviewDetailInfo({ idCards }) {
                 <span className={styles.value}>Bill Amount:</span>
                 {idCards?.claim?.bill_amount && `₹ ${idCards?.claim?.bill_amount}`}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Claim Raise at:</span>
+                {idCards?.job?.createdAtText}
+              </div>
               {idCards?.claim?.payment_proof && (
                 <div className={styles.key}>
                   <a href={idCards?.claim?.payment_proof} target="_blank">

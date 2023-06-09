@@ -7,6 +7,9 @@ export async function serviceUpdateTravel(params) {
     return await postRequest('travel/update', params);
 }
 
+export async function serviceCreateTravelPlanner(params) {
+    return await formDataRequest('travel/planner/create', params);
+}
 export async function serviceDeleteTravel(params) {
     return await postRequest('travel/delete', params);
 }
@@ -17,7 +20,7 @@ export async function serviceGetTravel(params) {
     return await postRequest('travel/planner', params);
 }
 export async function serviceDetailsTravel(params) {
-    return await postRequest('travel/details', params);
+    return await postRequest('travel/planner/details', params);
 }
 export async function serviceGetTravelDetail(params){
     return await getRequest('employee/travel/type',params)
