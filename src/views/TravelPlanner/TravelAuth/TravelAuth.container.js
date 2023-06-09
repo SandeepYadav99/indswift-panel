@@ -77,14 +77,14 @@ const TravelAuth = ({ location }) => {
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>
               <StatusPill
-                status={obj?.status}
+                status={removeUnderScore(obj?.exception?.status)}
                 style={{ background: "transparent", border: "none" }}
               />
             </span>
             <br />
-            <span className={styles.productName21}>{obj?.details}</span>
+            <span className={styles.productName21}>{obj?.exception_required ? 'Yes' : "No"}</span>
             <br />
-            <span className={styles.productName21}>{obj?.expense_value}</span>
+            <span className={styles.productName21}>{obj?.exception?.expense_value}</span>
           </div>
         </div>
       );
@@ -130,7 +130,7 @@ const TravelAuth = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department?.code} / {all?.employee?.sub_department?.code}
+            {all?.employee?.department?.name} / {all?.employee?.sub_department?.name}
           </div>
         ),
       },
@@ -163,7 +163,10 @@ const TravelAuth = ({ location }) => {
         label: " status",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+          <div>
+          <div>{renderStatus(removeUnderScore(all?.status))} </div><br/><div>{renderStatus(removeUnderScore(all?.travelPlanner?.status))}</div>
+
+          </div>
         ),
       },
       {
@@ -186,7 +189,7 @@ const TravelAuth = ({ location }) => {
         key: "exception",
         label: "EXCEPTION",
         sortable: false,
-        render: (temp, all) => <div>{renderexception(all?.travelPlanner?.exception)}</div>,
+        render: (temp, all) => <div>{renderexception(all?.travelPlanner)}</div>,
       },
       {
         key: "user_id",
