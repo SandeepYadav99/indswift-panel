@@ -31,7 +31,6 @@ const AnnualInfo = ({ annualId, closeSidePanel }) => {
       setIsLoading(false);
     }
   }, [annualId]);
-console.log('?...',info)
   if (isLoading) {
     return <WaitingComponent />;
   }
@@ -78,10 +77,10 @@ console.log('?...',info)
                 <span className={styles.key}>Posted:</span>
                 {item?.posted}
               </div>
-              <div>
+              {/* <div>
                 <span className={styles.key}>Transferred:</span>
                 {item?.transferred}
-              </div>
+              </div> */}
               <div>
                 <span className={styles.key}>Vacancy:</span>
                 {item?.vacancies}

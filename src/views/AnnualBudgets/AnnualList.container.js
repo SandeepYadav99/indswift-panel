@@ -36,6 +36,8 @@ const AnnualList = ({}) => {
     handleChangeWareHouse,
     warehouseId,
     listData,
+    type,
+    setType,
     selected,
     isInfoPanel,
     handleSideInfo,
@@ -249,6 +251,7 @@ const AnnualList = ({}) => {
     );
   }, [listData?.LOCATIONS,locationId]);
 
+
   const renderDropDown = useMemo(() => {
     return (
       <CustomSelectField
@@ -263,6 +266,22 @@ const AnnualList = ({}) => {
       </CustomSelectField>
     );
   }, [warehouseId]);
+
+  const renderDropDownType = useMemo(() => {
+    return (
+      <CustomSelectField
+        label={"Employee Type"}
+        value={type}
+        handleChange={(value) => {
+          setType(value);
+          sessionStorage.setItem('type', value);
+        }}
+      >
+        <MenuItem value={"ON_ROLL"}>ON ROLL EMPLOYEE</MenuItem>
+        <MenuItem value={"OFF_ROLL"}>OFF ROLL EMPLOYEE</MenuItem>
+      </CustomSelectField>
+    );
+  }, [type]);
 
   return (
     <div>
@@ -282,6 +301,7 @@ const AnnualList = ({}) => {
 
         <div className={styles.yearFlex}>
           <div className={styles.down}>{renderDropDown}</div>
+          <div className={styles.down}>{renderDropDownType}</div>
         </div>
 
         <div style={{ marginTop: "30px" }}>

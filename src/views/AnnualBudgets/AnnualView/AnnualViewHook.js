@@ -11,7 +11,7 @@ import RouteName from "../../../routes/Route.name";
 const initialForm = {
   budget: "",
   posted: "",
-  transferred: "",
+  transferred: 0,
   vacancies: "",
   expense_budget: "",
 };
@@ -42,14 +42,14 @@ const useAnnualView = ({
             }
           });
           setEditData({ ...data });
-          setForm({ ...initialForm, ...data });
+          setForm({ ...initialForm, ...data ,transferred:0});
         }
       });
     }
   }, [id]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["budget", "posted", "transferred", "expense_budget"];
+    let required = ["budget", "posted", "expense_budget"];
     required.forEach((val) => {
       if (!form?.[val]) {
         errors[val] = true;
@@ -77,6 +77,7 @@ const useAnnualView = ({
 
       updateData.annual_budget_id = id;
       updateData.new_values = form;
+      updateData.transferred = 0;
 
       serviceCreateAnnual(updateData).then((res) => {
         if (!res.error) {
@@ -121,7 +122,7 @@ const useAnnualView = ({
         t[fieldName] = text;
       }
       if (fieldName === "budget" || "posted" || "transferred") {
-        const vaccanciesdata = t?.budget - t?.posted - t?.transferred;
+        const vaccanciesdata = t?.budget - t?.posted;
         t["vacancies"] = vaccanciesdata;
       }
       setForm(t);
