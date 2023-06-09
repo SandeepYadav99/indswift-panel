@@ -237,7 +237,7 @@ function TravelAuthDetail() {
           </div>
         </div>
       )}
-      {/* {employeeDetail?.panelist_status === "PENDING" && ( */}
+      {employeeDetail?.status === "PENDING" && (
       <div
         className={
           employeeDetail?.status === "APPROVED"
@@ -269,7 +269,7 @@ function TravelAuthDetail() {
           </div>
         </div>
       </div>
-      {/* )} */}
+      )} 
     </div>
   );
 }
