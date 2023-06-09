@@ -26,6 +26,7 @@ function TravelAuthDetail() {
     handleSubmit,
     errorData,
     travelRef,
+    fieldStatusEnabled,
   } = useTravelAuthDetail({});
   const item = {};
   return (
@@ -203,18 +204,21 @@ function TravelAuthDetail() {
           </div>
         </div>
       </div>
-      {/* <div className={styles.plainPaper}>
-        <div className={styles.newContainer}>
-          <div className={styles.heading}>Travel Details</div>
-          <div>
-            <AuthDetailsIncludeForm
-              ref={travelRef}
-              // grade={employeeDetails?.grade?.code}
-              // travelType={form?.tour_type}
-            />
+      {fieldStatusEnabled && (
+        <div className={styles.plainPaper}>
+          <div className={styles.newContainer}>
+            <div className={styles.heading}>Travel Details</div>
+            <div>
+              <AuthDetailsIncludeForm
+                ref={travelRef}
+                // grade={employeeDetails?.grade?.code}
+                // travelType={form?.tour_type}
+              />
+            </div>
           </div>
         </div>
-      </div> */}
+      )}
+
       {employeeDetail?.comments && (
         <div className={styles.plainPaper}>
           <div className={styles.newContainer}>

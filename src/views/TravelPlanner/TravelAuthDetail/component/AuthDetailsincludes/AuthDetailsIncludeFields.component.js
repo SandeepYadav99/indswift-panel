@@ -1,11 +1,8 @@
 import React, { useMemo } from "react";
 import { TextField, ButtonBase, MenuItem } from "@material-ui/core";
 import styles from "./style.module.css";
-import CustomDatePicker from "../../../../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import { useEffect } from "react";
-import { travelModeAir, otherTravelMode } from "../../../../../helper/helper";
-import { isNum } from "../../../../../libs/RegexUtils";
 import File from "../../../../../components/FileComponent/FileComponent.component";
 
 const AuthDetailsIncludeFields = ({
@@ -14,23 +11,14 @@ const AuthDetailsIncludeFields = ({
   handlePress,
   data,
   errors,
-  grade,
-  travelType,
 }) => {
-  const gradeCodes = ["G8", "G7", "G6", "G5"];
   const handleChange = (e, fieldName) => {
     if (fieldName) {
       changeData(index, { [fieldName]: e });
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
-      if (name === "from" || "to") {
-        if (value?.length <= 40) {
-          changeData(index, { [name]: value });
-        }
-      } else {
-        changeData(index, { [name]: value });
-      }
+      changeData(index, { [name]: value });
     }
   };
 
@@ -53,33 +41,23 @@ const AuthDetailsIncludeFields = ({
 
           <div className={styles.flex1}>
             <CustomSelectField
-              isError={errors?.mode}
-              errorText={errors?.mode}
+              isError={errors?.type}
+              errorText={errors?.type}
               label={"Preferred Mode of Travel"}
-              value={data?.mode}
+              value={data?.type}
               handleChange={(value) => {
-                handleChange(value, "mode");
+                handleChange(value, "type");
               }}
             >
-              {grade && travelType === "DOMESTIC" && gradeCodes?.includes(grade)
-                ? otherTravelMode?.map((item, index) => (
-                    <MenuItem value={item?.id} key={`menu_${index}`}>
-                      {" "}
-                      {item?.name}
-                    </MenuItem>
-                  ))
-                : travelModeAir?.map((item) => (
-                    <MenuItem value={item?.id} key={`air_${index}`}>
-                      {" "}
-                      {item?.name}
-                    </MenuItem>
-                  ))}
+              <MenuItem value="TRAVEL">TRAVEL</MenuItem>
+              <MenuItem value="ACCOMMODATION">ACCOMMODATION</MenuItem>
             </CustomSelectField>
           </div>
         </div>
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <TextField
+              type="number"
               error={errors?.amount}
               onChange={handleChange}
               value={data?.amount}

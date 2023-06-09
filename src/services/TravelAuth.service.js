@@ -26,7 +26,7 @@ export async function serviceGetTravelAuthDetail(params){
     return await getRequest('employee/travel/auth/type',params)
 }
 export async function serviceApproveTravelAuth(params) {
-    return await postRequest('tpr/accept', params);
+    return await formDataRequest('tpr/accept', params);
 }
 export async function serviceRejectTravelAuth(params) {
     return await postRequest('tpr/reject', params);

@@ -26,6 +26,10 @@ function useTravelAuthDetail() {
   const travelRef = useRef(null);
 
   const { id } = useParams();
+  const fieldStatusEnabled = [
+    "CORPORATE_HR_APPROVED",
+    "ADMIN_AUTHORIZED",
+  ].includes(employeeDetail?.travelPlanner?.status);
   useEffect(() => {
     let req = serviceGetTravelAuthDetails({ id: id });
     req.then((data) => {
@@ -55,26 +59,29 @@ function useTravelAuthDetail() {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      // const fd = new FormData();
-      // Object.keys(form).forEach((key) => {
-      //   fd.append(key, form[key]);
-      // });
-      // const ExpensesData = travelRef.current.getData();
-      // ExpensesData.forEach((val) => {
-      //   if (val?.travel_documents) {
-      //     fd.append("travel_documents", val?.travel_documents);
-      //   }
-      // });
-      // fd.append("travel_details", JSON.stringify(ExpensesData));
-
       const objData = {
         ...form,
         exception_approved: form.exception_approved === "APPROVED",
-        review_id:id
+        review_id: id,
       };
+      const objKeys = Object.keys(objData);
+      const fd = new FormData();
+      objKeys.forEach((key) => {
+        fd.append(key, objData[key]);
+      });
+
+      if (fieldStatusEnabled) {
+        const ExpensesData = travelRef.current.getData();
+        ExpensesData.forEach((val) => {
+          if (val?.voucher_documents) {
+            fd.append("voucher_documents", val?.voucher_documents);
+          }
+        });
+        fd.append("voucher_details", JSON.stringify(ExpensesData));
+      }
 
       let req = serviceApproveTravelAuth;
-      req(objData).then((res) => {
+      req(fd).then((res) => {
         if (!res.error) {
           historyUtils.goBack();
         } else {
@@ -87,9 +94,10 @@ function useTravelAuthDetail() {
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     console.log("---->", errors);
-    // const isIncludesValid = travelRef.current.isValid();
-    // !isIncludesValid ||
-    if ( Object.keys(errors).length > 0) {
+    const isIncludesValid = fieldStatusEnabled
+      ? travelRef.current.isValid()
+      : true;
+    if (!isIncludesValid || Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
     }
@@ -122,7 +130,6 @@ function useTravelAuthDetail() {
     },
     [removeError, form, setForm]
   );
-  console.log("form", form);
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {
@@ -154,7 +161,8 @@ function useTravelAuthDetail() {
     approveDialog,
     toggleRejectDialog,
     rejectDialog,
-    travelRef
+    travelRef,
+    fieldStatusEnabled,
   };
 }
 
