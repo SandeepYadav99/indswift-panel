@@ -54,15 +54,47 @@ const OtherDetailsIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [];
-      required.forEach((key) => {
-        if (!val[key]) {
-          err[key] = true;
+      const required = [
+        "property_name",
+        "type",
+        "check_in",
+        "check_out",
+        "accomodation_documents",
+      ];
+      const hasValues = Object.values(val).some(value => value !== "" && value !== null);
+      {
+        hasValues &&
+          required.forEach((key) => {
+            if (!val[key]) {
+              err[key] = true;
+            }
+          });
+      }
+      if (val?.check_in && val?.check_out) {
+        const joinDate = new Date(val?.check_in);
+        const expectedDate = new Date(val?.check_out);
+        joinDate.setHours(0, 0, 0, 0);
+        expectedDate.setHours(0, 0, 0, 0);
+        if (joinDate.getTime() > expectedDate.getTime()) {
+          err["check_out"] = true;
+          SnackbarUtils.error(
+            "CheckOut Date should not be Less than CheckIn Date"
+          );
         }
-      });
+      }
+      if(!hasValues){
+        for (const key in err) {
+          if (err.hasOwnProperty(key)) {
+            delete err[key];
+          }
+        }
+      }
+      if (Object.keys(err)?.length > 0) {
+        errors[index] = err;
+      }
     });
 
-    console.log("erroros", errors);
+    console.log("othererroros", errors);
     setErrorData(errors);
     return !(Object.keys(errors).length > 0);
   };

@@ -79,9 +79,9 @@ const ApproveAuthDialog = ({
           <div className={styles.headingWrapper}>
             <div className={styles.heading}>Confirm Action</div>
             <div className={styles.newLine}></div>
-            <div className={styles.des}>
+            {/* <div className={styles.des}>
               Do you approve the documents and the reimbursement amount.
-            </div>
+            </div> */}
           </div>
           <div className={styles.fieldWrapper}>
             <div>

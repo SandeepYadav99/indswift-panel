@@ -84,7 +84,7 @@ const TravelAuth = ({ location }) => {
             <br />
             <span className={styles.productName21}>{obj?.exception_required ? 'Yes' : "No"}</span>
             <br />
-            <span className={styles.productName21}>{obj?.exception?.expense_value}</span>
+            <span className={styles.productName21}>{obj?.exception?.expense_value && `₹ ${obj?.exception?.expense_value}`}</span>
           </div>
         </div>
       );

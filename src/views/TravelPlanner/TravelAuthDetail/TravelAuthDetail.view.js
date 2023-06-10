@@ -207,7 +207,7 @@ function TravelAuthDetail() {
       {fieldStatusEnabled && (
         <div className={styles.plainPaper}>
           <div className={styles.newContainer}>
-            <div className={styles.heading}>Travel Details</div>
+            <div className={styles.heading}>Travel and Accommodation Vouchers</div>
             <div>
               <AuthDetailsIncludeForm
                 ref={travelRef}

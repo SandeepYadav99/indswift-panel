@@ -256,7 +256,8 @@ function TravelCreate() {
             </div>
           </div> */}
           <div className={"formFlex"}>
-            <div className={"formGroup"}>
+            {
+              form?.tour_type === "FOREIGN" &&  <div className={"formGroup"}>
               <div className={styles.checkBoxWrap}>
                 <input
                   style={{ cursor: "pointer" }}
@@ -274,6 +275,7 @@ function TravelCreate() {
                 <br />
               </div>
             </div>
+            }
           </div>
           <div className={styles.lower}>
             Note: Giving Prefrence of Travel and Stay will not mean that these
