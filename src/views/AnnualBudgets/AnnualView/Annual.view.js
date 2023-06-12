@@ -4,6 +4,7 @@ import styles from '../Style.module.css';
 import {makeStyles} from "@material-ui/core/styles";
 import useAnnualView from "./AnnualViewHook";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
+import { removeUnderScore } from '../../../helper/helper';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -16,7 +17,7 @@ const useStyle = makeStyles((theme) => ({
     }
 }));
 
-const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id}) => {
+const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id,type}) => {
     const classes = useStyle();
     const { form, changeTextData, errorData, handleSubmit, onBlurHandler, removeError, warehouses,profileInfo } = useAnnualView({selectedAnnuals, closeSidePanel, originWarehouseId,id});
     
@@ -25,7 +26,7 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id}) => 
             
             <div className={styles.upperInfo}>
                 <div>{profileInfo?.fy_year}</div>
-                <div>On Roll Employee</div>
+                <div>{type && `${removeUnderScore(type)} EMPLOYEE`}</div>
             </div>
 
             <div>

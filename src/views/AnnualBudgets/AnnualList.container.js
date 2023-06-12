@@ -81,6 +81,7 @@ const AnnualList = ({}) => {
   const renderCreateForm = useMemo(() => {
     return (
       <CreateView
+        type={type}
         closeSidePanel={handleSideToggle}
         handleDataSave={handleDataSave}
         id={editData}
@@ -96,6 +97,7 @@ const AnnualList = ({}) => {
     handleDelete,
     selected,
     warehouseId,
+    type
   ]);
 
   const renderInfoForm = useMemo(() => {
@@ -103,6 +105,96 @@ const AnnualList = ({}) => {
       <InfoView closeSidePanel={handleSideInfo} annualId={selectedAnnualId} />
     );
   }, [selectedAnnualId]);
+
+  const tableStructureOfRole = useMemo(() => {
+    return [
+      {
+        key: "department",
+        label: "Department",
+        sortable: true,
+        render: (value, all) => <div>{all?.department?.name}</div>,
+      },
+      {
+        key: "sub_department",
+        label: "SUB DEPARTMENT",
+        sortable: true,
+        render: (value, all) => <div>{all?.sub_department?.name}</div>,
+      },
+      {
+        key: "budget",
+        label: "Budget",
+        sortable: false,
+        render: (temp, all) => <div>{all?.budget}</div>,
+      },
+      {
+        key: "posted",
+        label: "Posted",
+        sortable: false,
+        render: (temp, all) => <div>{all?.posted}</div>,
+      },
+      {
+        key: "vacancies",
+        label: "Vacancies",
+        sortable: false,
+        render: (temp, all) => <div>{all?.vacancies}</div>,
+      },
+      {
+        key: "expense",
+        label: "Expense Budget",
+        sortable: false,
+        render: (temp, all) => <div>{all?.expense_budget}</div>,
+      },
+      {
+        key: "status",
+        label: "Status",
+        sortable: true,
+        render: (temp, all) => (
+          <div>
+            {renderStatus(all.status)}
+            <br />
+            <span
+              style={{
+                paddingTop: "5px",
+                display: "inline-block",
+                fontSize: "0.7rem",
+              }}
+            >
+              {all?.updatedAtText}
+            </span>
+          </div>
+        ),
+      },
+      {
+        key: "user_id",
+        label: "Action",
+        render: (temp, all) => (
+          <div>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleSideInfo(all);
+              }}
+            >
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleSideToggle(all);
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+        ),
+      },
+    ];
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling,type]);
+
 
   const tableStructure = useMemo(() => {
     return [
@@ -203,7 +295,7 @@ const AnnualList = ({}) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling,type]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -214,7 +306,7 @@ const AnnualList = ({}) => {
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
-      columns: tableStructure,
+      columns: type == 'ON_ROLL' ? tableStructure : tableStructureOfRole,
       data: data,
       count: allData.length,
       page: currentPage,
@@ -224,11 +316,13 @@ const AnnualList = ({}) => {
   }, [
     allData,
     tableStructure,
+    tableStructureOfRole,
     handleSortOrderChange,
     handlePageChange,
     handleRowSize,
     data,
     currentPage,
+    type
   ]);
   const renderLocation = useMemo(() => {
     return (
