@@ -9,6 +9,7 @@ import QuickHeadDialog from "./components/Head/HeadDialog.view";
 import useLocationDetail from "./LocationDetailHook";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
+import LocIncludeFields from "./components/locationRole/LocIncludes.component";
 
 const LocationDetail = () => {
   const {
@@ -25,7 +26,9 @@ const LocationDetail = () => {
     handleHeadUpdate,
     departments,
     handleDepartmentUpdate,
+    locations,
     includeRef,
+    includerefLoc,
     handleUpdateClick,
     handleEditBtn,
     form,
@@ -201,6 +204,15 @@ const LocationDetail = () => {
             </div>
           );
         })}
+      </div>
+      <div className={styles.plainPaper}>
+        <LocIncludeFields
+          locationId={id}
+          employees={employees}
+          departments={locations}
+          ref={includerefLoc}
+          handleUpdate={handleDepartmentUpdate}
+        />
       </div>
       <div className={styles.btnCont}>
         <ButtonBase

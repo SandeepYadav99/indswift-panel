@@ -40,3 +40,9 @@ export async function serviceLocationClaimDepartments(params) {
 export async function serviceLocationClaimUpdate(params) {
     return await postRequest('locations/update/claim/panelists', params);
 }
+export async function serviceLocationRoleUpdate(params) {
+    return await postRequest('locations/update/roles', params);
+}
+export async function serviceLocationRoleDepartments(params) {
+    return await postRequest('locations/roles', params);
+}
