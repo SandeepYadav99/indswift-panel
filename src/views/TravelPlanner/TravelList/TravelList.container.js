@@ -78,7 +78,7 @@ const TravelList = ({ location }) => {
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>
               <StatusPill
-                status={obj?.status}
+                status={obj?.exception?.status}
                 style={{ background: "transparent", border: "none" }}
               />
             </span>
