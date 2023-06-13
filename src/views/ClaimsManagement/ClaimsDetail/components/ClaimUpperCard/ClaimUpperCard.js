@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import image from "../../../../../assets/img/download.png";
 
-function ClaimUpperCard({data}) {
+function ClaimUpperCard({data,isLoc}) {
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -28,6 +28,10 @@ function ClaimUpperCard({data}) {
                 <span className={styles.value}>Location:</span>
                 {data?.location?.name}
               </div>
+              { isLoc && <div className={styles.key}>
+                <span className={styles.value}>Date of Joining:</span>
+                {data?.dojText}
+              </div>}
             </div>
           </div>
           <div className={styles.vertical}></div>

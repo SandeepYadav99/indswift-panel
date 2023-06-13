@@ -16,6 +16,7 @@ import TravelCreate from "../views/TravelPlanner/TravelCreate/TravelCreate.view"
 import TravelDetail from "../views/TravelPlanner/TravelDetail/TravelDetail.view";
 import TravelAuth from "../views/TravelPlanner/TravelAuth/TravelAuth.container";
 import TravelAuthDetail from "../views/TravelPlanner/TravelAuthDetail/TravelAuthDetail.view";
+import ClaimLocCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimLocCard/ClaimLocCard.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1056,6 +1057,18 @@ const dashboardRoutes = [
         navbarName: "Claims Car",
         icon: PeopleOutlined,
         component: ClaimTravelCard,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CLAIMS_LOC}`,
+        sidebarName: "Claims Loc",
+        navbarName: "Claims Loc",
+        icon: PeopleOutlined,
+        component: ClaimLocCard,
         is_sidebar: false,
         is_protect: true,
         should_regex: true,

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import image from "../../../../../assets/img/download.png";
 
-function UpperClaimInfo({ data }) {
+function UpperClaimInfo({ data,isLoc }) {
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -31,6 +31,10 @@ function UpperClaimInfo({ data }) {
                 <span className={styles.value}>Location:</span>
                 {data?.employee?.location?.name}
               </div>
+             { isLoc && <div className={styles.key}>
+                <span className={styles.value}>Date of Joining:</span>
+                {data?.employee?.doj}
+              </div>}
             </div>
           </div>
           <div className={styles.vertical}></div>

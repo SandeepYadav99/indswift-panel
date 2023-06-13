@@ -50,8 +50,8 @@ function ClaimListDetail() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <UpperClaimInfo data={employeeDetail} />
-      <ClaimDetailInfo idCards={employeeDetail} />
+      <UpperClaimInfo data={employeeDetail} isLoc={true}/>
+      <ClaimDetailInfo idCards={employeeDetail} isLoc={true}/>
 
       {employeeDetail?.claimTypeText === "Local_travel" && (
         <div className={styles.plainPaper}>

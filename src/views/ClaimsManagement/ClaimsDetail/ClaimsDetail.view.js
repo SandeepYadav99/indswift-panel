@@ -62,6 +62,14 @@ const ClaimsDetail = () => {
             enableBtn={data?.local_travel_claim?.can_claim}
           />
            )}
+           {data?.relocation_claim?.is_show && (
+          <ClaimCards
+            title="Relocation Expense Claim"
+            subtitle="Claim your expense in case of new joinee approved for relocation expense or a transfer case of employee."
+            handleClick={() => handleClaimPage(6)}
+            enableBtn={data?.relocation_claim?.can_claim}
+          />
+           )}
       </div>
       <div className={styles.tableWrapper}>
         <EmployeeClaimList />
