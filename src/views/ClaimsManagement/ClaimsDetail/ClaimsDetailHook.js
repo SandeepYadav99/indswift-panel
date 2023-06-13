@@ -4,12 +4,12 @@ import RouteName from "../../../routes/Route.name";
 import { serviceGetClaimDetail } from "../../../services/Claims.service";
 
 const useClaimsDetail = ({}) => {
-  const [data,setData]= useState({})
+  const [data, setData] = useState({});
   useEffect(() => {
     let dataValues = serviceGetClaimDetail();
     dataValues
       .then((data) => {
-        console.log(data)
+        console.log(data);
         setData(data?.data);
       })
       .catch((err) => console.log(err));
@@ -21,17 +21,18 @@ const useClaimsDetail = ({}) => {
       historyUtils.push(RouteName.CLAIMS_MOBILE);
     } else if (value === 3) {
       historyUtils.push(RouteName.CLAIMS_CAR);
-    }else if (value === 4) {
+    } else if (value === 4) {
       historyUtils.push(RouteName.CLAIMS_HEALTH);
-    }
-    else{
-      historyUtils.push(RouteName.CLAIMS_TRAVEL)
+    } else if (value === 5) {
+      historyUtils.push(RouteName.CLAIMS_TRAVEL);
+    } else {
+      historyUtils.push(RouteName.CLAIMS_LOC);
     }
   }, []);
 
   return {
     handleClaimPage,
-    data
+    data,
   };
 };
 

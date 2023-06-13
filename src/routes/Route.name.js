@@ -103,6 +103,8 @@ export default {
   CLAIMS_TRAVEL:'/employee/claim/travel',
   CLAIMS_INTERVIEW:'/cm/interview',
   CLAIMS_INTERVIEW_DETAILS:'/cm/interview/details/',
+  CLAIMS_LOC:'/employee/claim/loc',
+
 
   TRAVEL_PLANNER:'/travel/plan',
   TRAVEL_PLANNER_CREATE:'/travel/plan/create',

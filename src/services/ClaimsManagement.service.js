@@ -19,3 +19,6 @@ export async function serviceUpdateHealthClaims(params) {
 export async function serviceUpdateTravelClaims(params) {
     return await formDataRequest('employee/claims/create/lt', params);
 }
+export async function serviceUpdateLocClaims(params) {
+    return await formDataRequest('employee/claims/create/relocation', params);
+}

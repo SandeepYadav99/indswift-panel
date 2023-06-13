@@ -106,7 +106,9 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Last Claim Date:</span>
-                {idCards?.employee?.lastMobInvoiceDateText ? idCards?.employee?.lastMobInvoiceDateText : "-"}
+                {idCards?.employee?.lastMobInvoiceDateText
+                  ? idCards?.employee?.lastMobInvoiceDateText
+                  : "-"}
               </div>
             </div>
             <div className={styles.right}>
@@ -357,10 +359,10 @@ function ClaimDetailInfo({ idCards }) {
                       </a>
                     </div>
                   )}
-                   <div className={styles.key}>
-                <span className={styles.value}>Claim Raised on:</span>
-                {idCards?.claimDate}
-              </div>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Claim Raised on:</span>
+                    {idCards?.claimDate}
+                  </div>
                 </div>
               </div>
               {idCards?.co_passengers?.length > 0 && (
@@ -393,6 +395,40 @@ function ClaimDetailInfo({ idCards }) {
               <a href={idCards?.medical_report} target="_blank">
                 <div className={styles.hyperlinkText}>View PHC Report</div>
               </a>
+            </div>
+          </div>
+        )}
+        {idCards?.claimTypeText && idCards?.claimTypeText === "Relocation" && (
+          <div>
+            <div className={styles.mainFlex}>
+              <div className={styles.left}>
+                <div className={styles.key}>
+                  <span className={styles.value}>Amount Claimed:</span>
+                  {idCards?.rem_month}
+                </div>
+                <div className={styles.key}>
+                  <span className={styles.value}>Claim type :</span>
+                  {removeUnderScore(idCards?.claimTypeText)}
+                </div>
+              </div>
+              <div className={styles.right}>
+                <div className={styles.key}>
+                  <span className={styles.value}>Claim in Process:</span>
+                  {idCards?.claim_details?.progress_claim &&
+                    `₹ ${idCards?.claim_details?.progress_claim}`}
+                </div>
+                <div className={styles.key}>
+                  <span className={styles.value}>
+                    Date of Joining/Transfer:
+                  </span>
+                  {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
+                </div>
+
+                <div className={styles.key}>
+                  <span className={styles.value}>Claim Raised on:</span>
+                  {idCards?.claimDate}
+                </div>
+              </div>
             </div>
           </div>
         )}

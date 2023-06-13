@@ -4,6 +4,7 @@ import {
   serviceLocationClaimDepartments,
   serviceLocationClaimUpdate,
   serviceLocationDepartmentUpdate,
+  serviceLocationRoleUpdate,
 } from "../../../services/Location.service";
 import { useParams } from "react-router";
 import Constants from "../../../config/constants";
@@ -60,6 +61,14 @@ const initialForm = {
   ],
 };
 
+const roles=[{
+  name:'SITE HR',
+  id:'SITE_HR',
+},
+{
+  name:'Recruiter',
+  id:'RECRUITER',
+}]
 const useLocationDetail = ({}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
@@ -70,8 +79,9 @@ const useLocationDetail = ({}) => {
   const [isActive, setIsActive] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [departments, setDepartments] = useState([]);
+  const [locations,setLocations]=useState(roles)
   const [isUpdating, setIsUpdating] = useState(false);
-
+  const includerefLoc=useRef(null)
   const includeRef = useRef(null);
   const { id } = useParams();
 
@@ -209,16 +219,24 @@ const useLocationDetail = ({}) => {
   const handleUpdateClick = useCallback(() => {
     if (includeRef.current) {
       const isValid = includeRef.current.isValid();
+      let validRole = includerefLoc.current ? includerefLoc.current.isValid() : true;
       const errors = validateData();
-      if (isValid && !isUpdating && errors) {
+      if (isValid && !isUpdating && errors && validRole) {
         setIsUpdating(true);
         const data = includeRef.current.getData();
+        const dataRole=includerefLoc.current.getData();
         const reqData = data.map((val) => {
           return {
             department_id: val?.department_id,
             employee_id: val?.employee?.id,
           };
         });
+        const reqRoleData=dataRole?.map((val)=>{
+          return {
+            role:val?.department_id,
+            employee_id:val?.employee?.id
+          }
+        })
         const masterData = form?.data?.map((val) => {
           return {
             panelist_role: val?.panelist_role,
@@ -234,6 +252,11 @@ const useLocationDetail = ({}) => {
             location_id: id,
             data: masterData,
           }),
+          serviceLocationRoleUpdate({
+            location_id: id,
+            data: reqRoleData,
+          }),
+          // 
         ]).then((promises) => {
           const department = promises[0]?.value;
           const claim = promises[1]?.value;
@@ -269,6 +292,8 @@ const useLocationDetail = ({}) => {
     handleHeadUpdate,
     departments,
     includeRef,
+    includerefLoc,
+    locations,
     handleDepartmentUpdate,
     handleUpdateClick,
     handleEditBtn,

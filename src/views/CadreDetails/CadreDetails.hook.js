@@ -21,6 +21,8 @@ function useCadreDetailsList() {
   const refMobile = useRef(null);
   const refHealth = useRef(null);
   const reftravel = useRef(null);
+  const refLoc = useRef(null);
+
   const { id } = useParams();
   useEffect(() => {
     if (id) {
@@ -34,6 +36,7 @@ function useCadreDetailsList() {
               mobile_reimbursement_claim,
               phc_claim,
               local_travel_claim,
+              relocation_claim,
               ...rest
             } = tempData;
             setEmployeeDetail({ ...rest });
@@ -42,6 +45,7 @@ function useCadreDetailsList() {
             refMobile.current?.setData(mobile_reimbursement_claim);
             refHealth.current?.setData(phc_claim);
             reftravel.current?.setData(local_travel_claim);
+            refLoc.current?.setData(relocation_claim)
           }
         }
       });
@@ -55,6 +59,7 @@ function useCadreDetailsList() {
       const isMobileClaimValid = refMobile.current.isValid();
       const isHealthClaimValid = refHealth.current.isValid();
       const isTravelClaimValid = reftravel.current.isValid();
+      const isLocValid=refLoc?.current?.isValid()
       LogUtils.log(
         "isMarrigeClaimValid",
         isMarrigeClaimValid,
@@ -76,7 +81,8 @@ function useCadreDetailsList() {
         isCarClaimValid &&
         isMobileClaimValid &&
         isHealthClaimValid &&
-        isTravelClaimValid
+        isTravelClaimValid && 
+        isLocValid
       ) {
         setIsSubmitting(true);
         const marrigeData = refMarrige.current.getData();
@@ -84,6 +90,7 @@ function useCadreDetailsList() {
         const mobileData = refMobile.current.getData();
         const healthData = refHealth.current.getData();
         const travelData = reftravel.current.getData();
+        const locData=refLoc.current.getData()
         serviceGetCadreEntitlementDetails({
           id: id,
           marriage_gift_claim: marrigeData?.data,
@@ -91,6 +98,7 @@ function useCadreDetailsList() {
           mobile_reimbursement_claim: mobileData?.data,
           phc_claim: healthData?.data,
           local_travel_claim: travelData?.data,
+          relocation_claim:locData?.data
         }).then((res) => {
           if (!res.error) {
             historyUtils.push(
@@ -113,6 +121,7 @@ function useCadreDetailsList() {
     employeeDetail,
     refHealth,
     reftravel,
+    refLoc
   };
 }
 

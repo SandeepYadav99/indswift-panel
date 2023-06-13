@@ -8,22 +8,22 @@ import React, {
 } from "react";
 import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
-import LogUtils from "../../../../../libs/LogUtils";
+import LogUtils from "../../../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
-import OtherDetailsIncludeFields from "./OtherDetailsIncludeFields.component";
-import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
+import LocOtherDetailsIncludeFields from "./LocOtherDetailsIncludeFields.component";
 
 const TEMP_OBJ = {
-  type: "",
-  check_in: "",
-  check_out: "",
-  property_name: "",
-  accomodation_documents: null,
+  bill_date: "",
+  bill_no: "",
+  amount: "",
+  details: "",
+  relocation_documents: null,
 };
 
-const OtherDetailsIncludeForm = (
-  { data, errorData: errorForm, grade },
+const LocOtherDetailsIncludeForm = (
+  { data, errorData: errorForm, grade, getAmount },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -55,40 +55,31 @@ const OtherDetailsIncludeForm = (
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = [
-        "property_name",
-        "type",
-        "check_in",
-        "check_out",
-        "accomodation_documents",
+        "bill_date",
+        "bill_no",
+        "amount",
+        "details",
+        "relocation_documents",
       ];
-      const hasValues = Object.values(val).some(value => value !== "" && value !== null);
-      {
-        hasValues &&
-          required.forEach((key) => {
-            if (!val[key]) {
-              err[key] = true;
-            }
-          });
-      }
-      if (val?.check_in && val?.check_out) {
-        const joinDate = new Date(val?.check_in);
-        const expectedDate = new Date(val?.check_out);
-        joinDate.setHours(0, 0, 0, 0);
-        expectedDate.setHours(0, 0, 0, 0);
-        if (joinDate.getTime() > expectedDate.getTime()) {
-          err["check_out"] = true;
-          SnackbarUtils.error(
-            "CheckOut Date should not be Less than CheckIn Date"
-          );
+
+      required.forEach((key) => {
+        if (!val[key]) {
+          err[key] = true;
         }
-      }
-      if(!hasValues){
-        for (const key in err) {
-          if (err.hasOwnProperty(key)) {
-            delete err[key];
-          }
-        }
-      }
+      });
+
+      // if (val?.check_in && val?.check_out) {
+      //   const joinDate = new Date(val?.check_in);
+      //   const expectedDate = new Date(val?.check_out);
+      //   joinDate.setHours(0, 0, 0, 0);
+      //   expectedDate.setHours(0, 0, 0, 0);
+      //   if (joinDate.getTime() > expectedDate.getTime()) {
+      //     err["check_out"] = true;
+      //     SnackbarUtils.error(
+      //       "CheckOut Date should not be Less than CheckIn Date"
+      //     );
+      //   }
+      // }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
@@ -140,7 +131,7 @@ const OtherDetailsIncludeForm = (
     });
     removeErrors(index, errArr);
   };
-
+  
   const onBlur = useCallback(() => {}, []);
   const handlePress = async (type, index = 0) => {
     LogUtils.log("type", type, index);
@@ -165,7 +156,7 @@ const OtherDetailsIncludeForm = (
       });
       return (
         <div>
-          <OtherDetailsIncludeFields
+          <LocOtherDetailsIncludeFields
             variants={tempFilters}
             validateData={validateData}
             errors={index in errorData ? errorData[index] : null}
@@ -188,7 +179,17 @@ const OtherDetailsIncludeForm = (
     onBlur,
     fields,
   ]);
-
+  const sum = fields.reduce((acc, curr) => {
+    const value = curr["amount"];
+    if (value !== "") {
+      return acc + parseFloat(value);
+    } else {
+      return acc;
+    }
+  }, 0);
+  useEffect(() => {
+    getAmount(sum);
+  }, [sum]);
   return (
     <>
       {renderFields}
@@ -203,8 +204,13 @@ const OtherDetailsIncludeForm = (
           <Add fontSize={"small"} /> <span>Add More</span>
         </ButtonBase>
       </div>
+      <div className={styles.totalWrap}>
+        <div className={styles.inner}>
+          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
+        </div>
+      </div>
     </>
   );
 };
 
-export default forwardRef(OtherDetailsIncludeForm);
+export default forwardRef(LocOtherDetailsIncludeForm);
