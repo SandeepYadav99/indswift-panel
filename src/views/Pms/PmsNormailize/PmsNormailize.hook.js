@@ -162,13 +162,9 @@ const usePmsNormailize = ({ location }) => {
         name: "status",
         type: "select",
         fields: [
-          "ACTIVE",
-          "RESIGNED",
-          "TERMINATED",
-          "RETIRED",
-          "EXPIRED",
-          "ABSCONDED",
-          "INACTIVE",
+          "NORMALIZATION_DONE", 
+          "HOD_REVIEWED", 
+          "HOD_REVIEWED_PENDING"
         ],
       },
     ];

@@ -185,9 +185,9 @@ const usePmsHod = ({}) => {
         name: "status",
         type: "select",
         fields: [
-          "PENDING",
-            "REVIEW_PENDING",
-            "REVIEW_SUBMITTED"
+          "NORMALIZED", 
+          "HOD_SUBMITTED",
+          "HOD_PENDING" 
         ],
       },
     ];

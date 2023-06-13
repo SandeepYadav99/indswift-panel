@@ -425,7 +425,7 @@ function ClaimDetailInfo({ idCards }) {
                   <span className={styles.value}>
                     Date of Joining/Transfer:
                   </span>
-                  {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
+                  {idCards?.relocation_date}
                 </div>
 
                 <div className={styles.key}>

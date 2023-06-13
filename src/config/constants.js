@@ -94,6 +94,7 @@ export default {
     RESIGNED:'error',
     EXPIRED:'success',
     REJECTED:'error',
+    HOD_PENDING:'error',
     // PENDING:'pending',
     SOURCING:'error',
     NOSOURCING:'nosourcing',
@@ -115,7 +116,13 @@ export default {
     'Feedback Pending':'pending',
     'REVIEW PENDING':'error',
     'PANEL SET' : 'success',
-    'SUBMITTED':'success'
+    'SUBMITTED':'success',
+    "NORMALIZED":'success', 
+    "HOD_SUBMITTED":'success',
+    "HOD PENDING":'error',
+    "NORMALIZATION DONE":'success',
+    "HOD REVIEW PENDING":'error'
+    
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',
