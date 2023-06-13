@@ -50,8 +50,8 @@ function ClaimListDetail() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <UpperClaimInfo data={employeeDetail} isLoc={true}/>
-      <ClaimDetailInfo idCards={employeeDetail} isLoc={true}/>
+      <UpperClaimInfo data={employeeDetail} isLoc={true} />
+      <ClaimDetailInfo idCards={employeeDetail} isLoc={true} />
 
       {employeeDetail?.claimTypeText === "Local_travel" && (
         <div className={styles.plainPaper}>
@@ -115,7 +115,73 @@ function ClaimListDetail() {
               <div className={styles.inner}>
                 {" "}
                 Total Claim Amount:
-                <span>{employeeDetail?.travel_details_amount ? `₹ ${employeeDetail?.travel_details_amount}` : ''}</span>
+                <span>
+                  {employeeDetail?.travel_details_amount
+                    ? `₹ ${employeeDetail?.travel_details_amount}`
+                    : ""}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {employeeDetail?.claimTypeText === "Relocation" && (
+        <div className={styles.plainPaper}>
+          <div className={styles.newContainer}>
+            <div className={styles.heading}>Expense Details</div>
+            <div className={styles.commentContainer}>
+              {employeeDetail?.relocation_expense_details &&
+                employeeDetail?.relocation_expense_details?.map(
+                  (item, index) => (
+                    <div className={styles.otherWrap}>
+                      <div className={styles.mainFlex}>
+                        <div className={styles.left}>
+                          <div className={styles.key}>
+                            <span className={styles.value}>Bill Date:</span>
+                            {item?.billDateText}
+                          </div>
+                          <div className={styles.key}>
+                            <span className={styles.value}>Amount:</span>
+                            {item?.amount && `₹ ${item?.amount}`}
+                          </div>
+                          {item?.document && (
+                            <div className={styles.key}>
+                              <a href={item?.document} target="_blank">
+                                <div className={styles.hyperlinkText}>
+                                  View Attachment
+                                </div>
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                        <div className={styles.right}>
+                          <div className={styles.key}>
+                            <span className={styles.value}>Bill No.:</span>
+                            {item?.bill_no}
+                          </div>
+
+                          <div className={styles.key}>
+                            <span className={styles.value}>Description:</span>
+                            {item?.details}
+                          </div>
+                        </div>
+                      </div>
+                      {employeeDetail?.relocation_expense_details?.length !== index + 1 && (
+                        <div className={styles.verti}></div>
+                      )}
+                    </div>
+                  )
+                )}
+            </div>
+            <div className={styles.totalWrap}>
+              <div className={styles.inner}>
+                {" "}
+                Total Claim Amount:
+                <span>
+                  {employeeDetail?.bill_amount
+                    ? `₹ ${employeeDetail?.bill_amount}`
+                    : ""}
+                </span>
               </div>
             </div>
           </div>
@@ -171,7 +237,11 @@ function ClaimListDetail() {
             <div className={styles.totalWrap}>
               <div className={styles.inner}>
                 Total Claim Amount:
-                <span>{employeeDetail?.other_expenses_amount ? `₹ ${employeeDetail?.other_expenses_amount}` : ''}</span>
+                <span>
+                  {employeeDetail?.other_expenses_amount
+                    ? `₹ ${employeeDetail?.other_expenses_amount}`
+                    : ""}
+                </span>
               </div>
             </div>
           </div>
@@ -202,33 +272,41 @@ function ClaimListDetail() {
               : styles.PdfBtnWrapper
           }
         >
-          {(employeeDetail?.status !== "APPROVED" && employeeDetail?.status !=="ACCOUNTS_APPROVED")&& (
-            <div className={styles.editBtn2}>
-              <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
-                REJECT
-              </ButtonBase>
-            </div>
-          )}
-
-          <div className={styles.btnApproveWrapper}>
-            {(employeeDetail?.status !== "APPROVED"  && employeeDetail?.status !=="ACCOUNTS_APPROVED") && (
-              <div>
+          {employeeDetail?.status !== "APPROVED" &&
+            employeeDetail?.status !== "ACCOUNTS_APPROVED" && (
+              <div className={styles.editBtn2}>
                 <ButtonBase
-                  // disabled={isSubmitting}
-                  className={styles.editSuccess}
-                  onClick={toggleChangeDialog}
+                  className={styles.edit}
+                  onClick={toggleRejectDialog}
                 >
-                  CHANGE & APPROVE
+                  REJECT
                 </ButtonBase>
               </div>
             )}
+
+          <div className={styles.btnApproveWrapper}>
+            {employeeDetail?.status !== "APPROVED" &&
+              employeeDetail?.status !== "ACCOUNTS_APPROVED" && (
+                <div>
+                  <ButtonBase
+                    // disabled={isSubmitting}
+                    className={styles.editSuccess}
+                    onClick={toggleChangeDialog}
+                  >
+                    CHANGE & APPROVE
+                  </ButtonBase>
+                </div>
+              )}
             <div>
               <ButtonBase
                 // disabled={isSubmitting}
                 className={styles.createBtn}
                 onClick={toggleStatusDialog}
               >
-                {(employeeDetail?.status !== "APPROVED" && employeeDetail?.status !=="ACCOUNTS_APPROVED") ? "APPROVE" : "PROCESS"}
+                {employeeDetail?.status !== "APPROVED" &&
+                employeeDetail?.status !== "ACCOUNTS_APPROVED"
+                  ? "APPROVE"
+                  : "PROCESS"}
               </ButtonBase>
             </div>
           </div>
