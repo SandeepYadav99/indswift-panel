@@ -191,7 +191,7 @@ function TravelAuthDetail() {
                   </div>
                  
                   {
-                   (!CheckexceptionRejected && employeeDetail?.status === "PENDING" && enableType) ?
+                   (!CheckexceptionRejected && employeeDetail?.status === "PENDING" && enableType && !TypeEnabledStatus) ?
                      <div className={styles.formWrap}>
                     <div className={styles.formWrapInner}>
                       <CustomTextField
@@ -210,7 +210,7 @@ function TravelAuthDetail() {
                     </div>
                   </div> :  <div className={styles.key}>
                     <span className={styles.value}>Value of Expense:</span>
-                    {employeeDetail?.travelPlanner?.exception?.expense_value}
+                    {employeeDetail?.travelPlanner?.exception?.expense_value && `₹ ${employeeDetail?.travelPlanner?.exception?.expense_value}`}
                   </div>
                   }
                 </div>
