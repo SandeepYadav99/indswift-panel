@@ -6,11 +6,11 @@ import {
   serviceApproveTravelAuth,
   serviceGetTravelAuthDetails,
 } from "../../../services/TravelAuth.service";
-import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
+import historyUtils from "../../../libs/history.utils";
 
 const initialForm = {
-  exception_approved: false,
+  exception_approved: "",
   exception_value: "",
   comment: "",
 };
@@ -23,19 +23,34 @@ function useTravelAuthDetail() {
   const [employeeDetail, setEmployeeDetail] = useState({});
   const [approveDialog, setApproveDialog] = useState(false);
   const [rejectDialog, setRejectDialog] = useState(false);
+  const [enableType,setEnableType]=useState(true)
+  const [CheckexceptionRejected,setCheckexceptionRejected]=useState(null)
   const travelRef = useRef(null);
 
   const { id } = useParams();
-  const fieldStatusEnabled = [
-    "CORPORATE_HR_APPROVED",
-    "ADMIN_AUTHORIZED",
-  ].includes(employeeDetail?.travelPlanner?.status);
+  
+
   useEffect(() => {
     let req = serviceGetTravelAuthDetails({ id: id });
     req.then((data) => {
       setEmployeeDetail(data?.data?.details);
+      setEnableType(data?.data?.details?.travelPlanner?.exception_required)
+      setCheckexceptionRejected(data?.data?.details?.travelPlanner?.exception?.status === 'REJECTED')
     });
   }, [id]);
+
+  const fieldStatusEnabled = [
+    "CORPORATE_HR_APPROVED",
+    "ADMIN_AUTHORIZED",
+  ].includes(employeeDetail?.travelPlanner?.status);
+
+  const TypeEnabledStatus = [
+    "CORPORATE_HR_APPROVED",
+    "EXCEPTION_APPROVED" ,
+    "ADMIN_AUTHORIZED"
+  ].includes(employeeDetail?.travelPlanner?.status);
+
+  console.log('valid',enableType , !TypeEnabledStatus , !CheckexceptionRejected,TypeEnabledStatus)
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -48,13 +63,20 @@ function useTravelAuthDetail() {
         errors[val] = true;
       }
     });
+    if(enableType && !TypeEnabledStatus && !CheckexceptionRejected){
+      if (form.exception_approved?.length === 0) {
+        errors["exception_approved"] = true;
+        SnackbarUtils.error("Please Approve or Reject the Exception");
+    }
+    }
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
       }
     });
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData,employeeDetail,enableType,CheckexceptionRejected]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -163,6 +185,9 @@ function useTravelAuthDetail() {
     rejectDialog,
     travelRef,
     fieldStatusEnabled,
+    enableType,
+    TypeEnabledStatus,
+    CheckexceptionRejected
   };
 }
 

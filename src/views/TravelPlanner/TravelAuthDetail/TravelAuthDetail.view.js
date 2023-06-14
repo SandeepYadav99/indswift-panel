@@ -26,13 +26,19 @@ function TravelAuthDetail() {
     handleSubmit,
     errorData,
     travelRef,
+    isSubmitting,
     fieldStatusEnabled,
+    enableType,
+    TypeEnabledStatus,
+    CheckexceptionRejected
   } = useTravelAuthDetail({});
-  const item = {};
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
         <ApproveAuthDialog
+          enableType={enableType}
+          TypeEnabledStatus={TypeEnabledStatus}
+          exceptionRejected={CheckexceptionRejected}
           candidateId={id}
           isOpen={approveDialog}
           handleToggle={toggleStatusDialog}
@@ -41,6 +47,8 @@ function TravelAuthDetail() {
           onBlurHandler={onBlurHandler}
           handleSubmit={handleSubmit}
           errorData={errorData}
+          isSubmitting={isSubmitting}
+          
         />
         <RejectAuthDialog
           candidateId={id}
@@ -179,9 +187,12 @@ function TravelAuthDetail() {
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Details for exception:</span>
-                    {employeeDetail?.travelDetails?.exception?.details}
+                    {employeeDetail?.travelPlanner?.exception?.details}
                   </div>
-                  <div className={styles.formWrap}>
+                 
+                  {
+                   (!CheckexceptionRejected && employeeDetail?.status === "PENDING" && enableType) ?
+                     <div className={styles.formWrap}>
                     <div className={styles.formWrapInner}>
                       <CustomTextField
                         type="number"
@@ -197,14 +208,18 @@ function TravelAuthDetail() {
                         }}
                       />
                     </div>
+                  </div> :  <div className={styles.key}>
+                    <span className={styles.value}>Value of Expense:</span>
+                    {employeeDetail?.travelPlanner?.exception?.expense_value}
                   </div>
+                  }
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {fieldStatusEnabled && (
+      {(fieldStatusEnabled && employeeDetail?.status === 'PENDING') && (
         <div className={styles.plainPaper}>
           <div className={styles.newContainer}>
             <div className={styles.heading}>Travel and Accommodation Vouchers</div>

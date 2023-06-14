@@ -2,10 +2,8 @@ import React, { useCallback, useMemo, useState } from "react";
 import {
   Button,
   ButtonBase,
+  CircularProgress,
   FormControlLabel,
-  IconButton,
-  InputAdornment,
-  MenuItem,
   Radio,
   RadioGroup,
 } from "@material-ui/core";
@@ -40,6 +38,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const ApproveAuthDialog = ({
+  enableType,
+  TypeEnabledStatus,
+  exceptionRejected,
   isOpen,
   handleToggle,
   candidateId,
@@ -48,6 +49,7 @@ const ApproveAuthDialog = ({
   onBlurHandler,
   handleSubmit,
   errorData,
+  isSubmitting,
 }) => {
   const [declaration, setDeclaration] = useState(false);
   const classes = useStyles();
@@ -85,12 +87,17 @@ const ApproveAuthDialog = ({
           </div>
           <div className={styles.fieldWrapper}>
             <div>
-              <div className={styles.radioWrap21}>Action on exception requested by the employee</div>
-              <RadioGroup
+              <div className={styles.radioWrap21}>
+                Action on exception requested by the employee
+              </div>
+              {
+                enableType && !TypeEnabledStatus && !exceptionRejected &&  <RadioGroup
                 aria-label="option"
                 name="exception_approved"
                 value={form?.exception_approved}
-                onChange={(e) => changeTextData(e.target.value, "exception_approved")}
+                onChange={(e) =>
+                  changeTextData(e.target.value, "exception_approved")
+                }
                 row
               >
                 <FormControlLabel
@@ -105,6 +112,7 @@ const ApproveAuthDialog = ({
                   label="Rejected"
                 />
               </RadioGroup>
+              }
             </div>
           </div>
           <div className={styles.fieldWrapper}>
@@ -146,12 +154,18 @@ const ApproveAuthDialog = ({
           <div className={styles.printFlex}>
             <ButtonBase
               onClick={handleSubmit}
-              disabled={!declaration ? true : false}
+              disabled={!declaration || isSubmitting ? true : false}
               className={
-                declaration ? styles.createBtn : styles.disabledCreatebtn
+                declaration && !isSubmitting
+                  ? styles.createBtn
+                  : styles.disabledCreatebtn
               }
             >
-              CONFIRM
+              {isSubmitting ? (
+                <CircularProgress color="success" size="20px" />
+              ) : (
+                "CONFIRM"
+              )}
             </ButtonBase>
           </div>
         </div>
