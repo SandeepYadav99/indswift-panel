@@ -137,7 +137,7 @@ function TravelDetail() {
 
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-          <div className={styles.heading}>Advance/Imprest Request</div>
+          <div className={styles.heading}>Exception Details</div>
           <div className={styles.commentContainer}>
             <div className={styles.otherWrap}>
               <div className={styles.mainFlex}>

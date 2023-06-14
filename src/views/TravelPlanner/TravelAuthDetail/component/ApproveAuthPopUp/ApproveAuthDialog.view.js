@@ -87,9 +87,9 @@ const ApproveAuthDialog = ({
           </div>
           <div className={styles.fieldWrapper}>
             <div>
-              {/* <div className={styles.radioWrap21}>
+              { enableType && !TypeEnabledStatus && !exceptionRejected && <div className={styles.radioWrap21}>
                 Action on exception requested by the employee
-              </div> */}
+              </div>}
               {
                 enableType && !TypeEnabledStatus && !exceptionRejected &&  <RadioGroup
                 aria-label="option"

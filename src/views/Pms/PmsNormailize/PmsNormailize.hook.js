@@ -164,7 +164,7 @@ const usePmsNormailize = ({ location }) => {
         fields: [
           "NORMALIZATION_DONE", 
           "HOD_REVIEWED", 
-          "HOD_REVIEWED_PENDING"
+          "HOD_REVIEW_PENDING"
         ],
       },
     ];

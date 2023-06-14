@@ -78,14 +78,14 @@ const TravelList = ({ location }) => {
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>
               <StatusPill
-                status={obj?.exception?.status}
+                status={removeUnderScore(obj?.exception?.status)}
                 style={{ background: "transparent", border: "none" }}
               />
             </span>
             <br />
             <span className={styles.productName21}>{obj?.exception_required ? 'Yes' : 'No'}</span>
             <br />
-            <span className={styles.productName21}>{obj?.exception?.expense_value}</span>
+            <span className={styles.productName21}>{obj?.exception?.expense_value && `₹ ${obj?.exception?.expense_value}`}</span>
           </div>
         </div>
       );
