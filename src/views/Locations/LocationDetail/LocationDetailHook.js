@@ -25,6 +25,10 @@ const initialForm = {
       employee_id: "",
     },
     {
+      panelist_role: "IMPREST_SITE_HR",
+      employee_id: "",
+    },
+    {
       panelist_role: "CORPORATE_AUDIT_1",
       employee_id: "",
     },
@@ -42,6 +46,10 @@ const initialForm = {
     },
     {
       panelist_role: "ACCOUNTANT",
+      employee_id: "",
+    },
+    {
+      panelist_role: "CORPORATE_FINANCE",
       employee_id: "",
     },
     {
