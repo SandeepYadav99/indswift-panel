@@ -153,7 +153,7 @@ const EmployeeTab = () => {
                 className={"iconTabs"}
                 label="Career Progression Chart (CPC)"
               />
-              {/* <Tab className={"iconTabs"} label="Employee Records" /> */}
+               <Tab className={"iconTabs"} label="Employee Records" />
             </Tabs>
           </AppBar>
 
@@ -168,7 +168,7 @@ const EmployeeTab = () => {
               <CareerProgression />
             </TabPanel>
             <TabPanel value={value} index={3} dir={"ltr"}>
-              {/* <EmployeeRecord /> */}
+               <EmployeeRecord empId={id} />
             </TabPanel>
           </div>
         </div>

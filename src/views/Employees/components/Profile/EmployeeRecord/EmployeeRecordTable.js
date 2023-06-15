@@ -9,8 +9,9 @@ import CreateView from "./component/Employee.view";
 import EmployeeList from "./EmployeeList.js";
 import noCPCimage from "./../../../../../assets/img/ic_no cpc info.png";
 
-function EmployeeRecordTable() {
-  const { isSidePanel, handleSideToggle } = useEmployeeList({});
+function EmployeeRecordTable({empId}) {
+  const { isSidePanel, handleSideToggle, data } = useEmployeeList({empId});
+
 
   const renderCreateForm = useMemo(
     () => {
@@ -35,6 +36,14 @@ function EmployeeRecordTable() {
     ]
   );
 
+  const listArr = useMemo(() => {
+    return data.map((item) => {
+      return (<EmployeeList
+          data={item}
+      />)
+    })
+  }, [data]);
+
   return (
     <>
     <div>
@@ -45,23 +54,17 @@ function EmployeeRecordTable() {
             <div className={styles.newLine} />
           </div>
           <div>
-            <ButtonBase onClick={handleSideToggle} className={"createBtn"}>
-              CREATE <Add fontSize={"small"} className={"plusIcon"}></Add>
-            </ButtonBase>
+            {/*<ButtonBase onClick={handleSideToggle} className={"createBtn"}>*/}
+            {/*  CREATE <Add fontSize={"small"} className={"plusIcon"}></Add>*/}
+            {/*</ButtonBase>*/}
           </div>
         </div>
         <br />
         <br />
         <div className={styles.EmployeeListWrapper}>
-        <div className={styles.colorCode}></div>
-        <div className={styles.grossWrapper21}>
-          <EmployeeList
-          title="Increment Letter for 2022 - Appraisal Letter"
-          component="Letter Head Number: AL/CC/1042022"
-           monthly={20} />
+          {listArr}
         </div>
-        </div>
-        
+
       </PageBox>
       <SidePanelComponent
         handleToggle={handleSideToggle}
