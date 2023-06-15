@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import image from "../../../../../assets/img/download.png";
 
-function TravelUpperCard({ data }) {
+function TravelUpperCard({ data ,isImprest}) {
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -31,7 +31,7 @@ function TravelUpperCard({ data }) {
                 <span className={styles.value}>Location:</span>
                 {data?.location?.name}
               </div>
-              {data?.experience?.current && (
+              {!isImprest && data?.experience?.current && (
                 <div className={styles.key}>
                   <span className={styles.value}>
                     Experience with Organization:
@@ -57,7 +57,7 @@ function TravelUpperCard({ data }) {
               <span className={styles.value}>Department:</span>
               {data?.department?.name}
             </div>
-            {data?.experience?.total && (
+            { !isImprest && data?.experience?.total && (
               <div className={styles.key}>
                 <span className={styles.value}>Total Experience:</span>
                 {data?.experience?.total > 1
