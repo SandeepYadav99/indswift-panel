@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { isAlphaNumChars, isUrl, validateUrl } from "../../../libs/RegexUtils";
+import { isAlphaNumChars, isDate, isUrl, validateUrl } from "../../../libs/RegexUtils";
 import {
   serviceCheckHRAnnouncement,
   serviceCreateHRAnnouncement,
@@ -92,8 +92,20 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
       },
       [errorData, id, form]
     );
+    if (!isDate(form?.date)) {
+      errors["date"] = true;
+    }
     if (form?.link && !validateUrl(form?.link)) {
+      SnackbarUtils.error('Please Enter the Valid Url')
       errors["link"] = true;
+    }
+    if(!id){
+      if (!form?.image){
+        SnackbarUtils.error('Please Upload the Image')
+        errors['image'] = true
+      }else{
+        delete errors.image
+      }
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
