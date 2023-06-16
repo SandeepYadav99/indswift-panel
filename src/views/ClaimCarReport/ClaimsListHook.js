@@ -17,8 +17,6 @@ const useClaimCarReport = ({}) => {
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     LOCATIONS: [],
-    HR: [],
-    JOB_OPENINGS: [],
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -41,7 +39,7 @@ const useClaimCarReport = ({}) => {
   }, []);
 
   useEffect(() => {
-    serviceGetList(["LOCATIONS", "HR", "JOB_OPENINGS"]).then((res) => {
+    serviceGetList(["LOCATIONS"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -143,24 +141,13 @@ const useClaimCarReport = ({}) => {
   }, []);
 
   const configFilter = useMemo(() => {
-    return [
-      {
-        label: "Status",
-        name: "claimObj.status",
-        type: "select",
-        fields: [
-          "REJECTED",
-          "PENDING",
-          "APPROVED",
-          "PROCESSED",
-          "HOD_APPROVED",
-          "SITE_HR_APPROVED",
-          "CORPORATE_AUDIT_1_APPROVED",
-          "CORPORATE_AUDIT_2_APPROVED",
-          "ACCOUNTS_APPROVED",
-        ],
-      },
-    ];
+    return [{
+      label: "Location",
+      name: "location_id",
+      type: "selectObject",
+      custom: { extract: { id: "id", title: "name" } },
+      fields: listData?.LOCATIONS,
+    },];
   }, [listData]);
 
   return {

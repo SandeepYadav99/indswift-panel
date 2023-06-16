@@ -143,12 +143,11 @@ const useTravelCreate = ({}) => {
         otherExpensesData.forEach((val) => {
           if (val?.accomodation_documents) {
             fd.append("accomodation_documents", val?.accomodation_documents);
-          } else {
-            const file = dataURLtoFile(nullImg, "null.png");
-            fd.append("accomodation_documents", file);
           }
         });
-        fd.append("accomodation_details", JSON.stringify(otherExpensesData));
+        if(otherExpensesData[0].type?.length > 0){
+          fd.append("accomodation_details", JSON.stringify(otherExpensesData));
+        }
         let req = serviceCreateTravelPlanner;
         req(fd).then((res) => {
           if (!res.error) {
