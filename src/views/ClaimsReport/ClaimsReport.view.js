@@ -73,25 +73,25 @@ const ClaimsReport = ({}) => {
       {
         key: "employee",
         label: "EMPLOYEE",
-        sortable: true,
+        sortable: false,
         render: (value, all) => <div>{all?.employee?.name} <br/>{all?.employee?.emp_code}</div>,
       },
       {
         key: "grade",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => <div>{console.log('>,,,',all)}</div>,
+        render: (temp, all) => <div>{all?.grade?.code} / {all?.cadre?.code}</div>,
       },
       {
         key: "LOCATION",
         label: "LOCATION",
-        sortable: true,
+        sortable: false,
         render: (value, all) => <div>{all?.location?.name}</div>,
       },
       {
         key: "sub_department",
         label: "SUB DEPARTMENT",
-        sortable: true,
+        sortable: false,
         render: (value, all) => <div>{all?.sub_department?.name}</div>,
       },
       {
