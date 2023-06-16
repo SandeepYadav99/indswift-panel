@@ -1,22 +1,23 @@
-import { useCallback } from "react";
+import {useCallback, useEffect} from "react";
 import { useState } from "react";
+import {serviceGetEmployeeRecord} from "../../../../../services/EmployeeRecords.services";
+import {useSelector} from "react-redux";
 
-function EmployeeRecordList() {
+function EmployeeRecordList({}) {
   const [isSidePanel, setSidePanel] = useState(false);
   const [editData, setEditData] = useState(null);
+  const { employeeData } = useSelector((state) => state.employee);
+    const [data, setData] = useState([]);
 
-  //   const [EmployeeSalaryInfo, setEmployeeKnowledgeSalaryInfo] = useState([]);
-  //   const { employeeData } = useSelector((state) => state.employee);
-  //   useEffect(() => {
-  //     let dataValues = serviceGetEmployeeSalaryInfo({
-  //       emp_id: employeeData.id,
-  //     });
-  //     dataValues
-  //       .then((data) => {
-  //         setEmployeeKnowledgeSalaryInfo(data.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }, []);
+    useEffect(() => {
+      serviceGetEmployeeRecord({
+        employee_id: employeeData.id
+      }).then((res) => {
+        if(!res?.error) {
+          setData(res?.data);
+        }
+      });
+    }, [employeeData]);
 
   const handleSideToggle = useCallback(() => {
     setSidePanel((e) => !e);
@@ -26,6 +27,7 @@ function EmployeeRecordList() {
     isSidePanel,
     editData,
     handleSideToggle,
+    data
   };
 }
 

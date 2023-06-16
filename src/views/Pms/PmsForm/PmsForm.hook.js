@@ -63,7 +63,7 @@ const usePmsForm = ({location}) => {
     const [rows, setRows] = useState([]);
     const [form, setForm] = useState({});
     const isMount = useRef(false);
-
+    const [draft, setDraft] = useState({});
 
     const processedColumns = useMemo(() => {
         const cols = [];
@@ -93,7 +93,8 @@ const usePmsForm = ({location}) => {
                     serviceGetPMSDraft(id).then((res) => {
                         if (!res.error) {
                             if (res?.data && Object.keys(res?.data).length > 0) {
-                                setForm({...form, ...res?.data?.data});
+                                // setForm({...form, ...res?.data?.data});
+                                setDraft({ ...res?.data?.data});
                             }
                         }
                     });
@@ -103,6 +104,19 @@ const usePmsForm = ({location}) => {
             isMount.current = true;
         }
     }, [id]);
+
+    useEffect(() => {
+        if (form && draft) {
+            const tForm = {...form};
+            const tDraft = {...draft};
+            Object.keys(tDraft).forEach((key) => {
+                if (key in tForm) {
+                    tForm[key] = tDraft[key];
+                }
+            });
+            setForm({...tForm });
+        }
+    }, [draft]);
 
     useEffect(() => {
         const tForm = {};

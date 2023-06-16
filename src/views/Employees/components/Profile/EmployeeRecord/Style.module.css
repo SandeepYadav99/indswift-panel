@@ -158,12 +158,15 @@
   flex: 1;
 }
 
+.dateField {
+  text-align: right;
+}
 .tableMonthlyField {
   /* background: green; */
   flex: 1;
 }
 .EmployeeListWrapper{
-  display: flex;
+  /*display: flex;*/
   width: 100%;
 }
 .grossWrapper {
@@ -273,4 +276,17 @@
   display: flex;
   font-size: 0.875rem;
   padding: 5px 0;
+}
+
+.recordItem {
+  width: 100%;
+  display: flex;
+  margin: 15px 0px;
+}
+
+.letterLink {
+  color: #02cfff;
+  text-decoration: underline;
+  font-size: 0.7rem;
+  cursor: pointer;
 }
