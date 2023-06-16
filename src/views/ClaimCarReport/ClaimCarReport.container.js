@@ -59,7 +59,6 @@ const ClaimCarReport = ({ location }) => {
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
-    console.log('0bj>',obj)
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>

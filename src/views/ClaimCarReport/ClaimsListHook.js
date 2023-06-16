@@ -74,6 +74,8 @@ const useClaimCarReport = ({}) => {
         actionFetchClaimCarReport(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+          fy_year: "2023-2024",
+          claim_type: "CAR"
         })
       );
     },
@@ -107,6 +109,8 @@ const useClaimCarReport = ({}) => {
           {
             query: query,
             query_data: queryData,
+            fy_year: "2023-2024",
+            claim_type: "CAR"
           }
         )
       );
