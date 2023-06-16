@@ -112,12 +112,12 @@ const ClaimsReport = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{all?.claim_type}</div>,
       },
-      {
-        key: "category",
-        label: "CATEGORY",
-        sortable: false,
-        render: (temp, all) => <div>{all?.category}</div>,
-      },
+      // {
+      //   key: "category",
+      //   label: "CATEGORY",
+      //   sortable: false,
+      //   render: (temp, all) => <div>{all?.category}</div>,
+      // },
       {
         key: "year",
         label: "FINANCIAL YEAR",
@@ -210,9 +210,9 @@ const ClaimsReport = ({}) => {
             <span className={styles.title}>Claims Report</span>
             <div className={styles.newLine} />
           </div>
-          <div className={styles.rightFlex}>
+          {/* <div className={styles.rightFlex}>
             <ButtonBase className={styles.download}>DOWNLOAD</ButtonBase>
-          </div>
+          </div> */}
         </div>
 
         <div className={styles.yearFlex}>

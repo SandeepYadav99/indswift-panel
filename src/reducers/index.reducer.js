@@ -66,6 +66,7 @@ import TravelReducer from "./Travel.reducer";
 import TravelAuthReducer from "./TravelAuth.reducer";
 import ImprestReducer from "./Imprest.reducer";
 import ClaimsReportReducer from "./ClaimsReport.reducer";
+import ClaimCarReportReducer from "./ClaimCarReport.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -129,7 +130,8 @@ const rootReducer = combineReducers({
   pmsHodBatches:PmsHodReducer,
   pmsHodMyReviews:PmsHodReviewReducer,
   imprest:ImprestReducer,
-  claimsReport:ClaimsReportReducer
+  claimsReport:ClaimsReportReducer,
+  claimCarReport:ClaimCarReportReducer
   // form: formReducer,
 });
 

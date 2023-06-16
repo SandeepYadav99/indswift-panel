@@ -107,6 +107,7 @@ export default {
   CLAIMS_IMPREST:'/employee/claim/imprest',
   CLAIMS_IMPREST_CREATE:'/employee/claim/imprest/create',
   CLAIMS_REPORT:'/cm/report',
+  CLAIMS_CAR_REPORT:'/cm/car/report',
 
 
 
