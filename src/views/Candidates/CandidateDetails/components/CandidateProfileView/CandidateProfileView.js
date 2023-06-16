@@ -9,10 +9,10 @@ import styles from "./Style.module.css";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { useCallback } from "react";
 import { serviceSendIrfReminder } from "../../../../../services/CVShortlist.service";
+import {serviceResendEaf} from "../../../../../services/Candidate.service";
 
 function CandidateProfileView({ data }) {
   const handleCVShortlistReminder = useCallback(() => {
-    console.log("isv");
     if (data) {
       serviceSendIrfReminder({
         candidate_id: data?.id,
@@ -23,6 +23,17 @@ function CandidateProfileView({ data }) {
       });
     }
   }, [data]);
+
+  const handleResendEafClick = useCallback(() => {
+    if (data) {
+      serviceResendEaf(data?.id).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("EAF form send successfully");
+        }
+      });
+    }
+  }, [data]);
+
   return (
     <div>
       <div className={styles.profileContainer}>
@@ -37,6 +48,7 @@ function CandidateProfileView({ data }) {
           <CandidateUploadCard
             data={data}
             handleSubmit={handleCVShortlistReminder}
+            handleResendEafClick={handleResendEafClick}
           />
           <CandidateEmployment history={data?.employment_history} />
         </div>

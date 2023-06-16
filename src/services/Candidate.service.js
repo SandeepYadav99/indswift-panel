@@ -44,3 +44,7 @@ export async function serviceGetCandidatePRCS(params) {
 export async function serviceUpdateCandidateStatus(params) {
     return await postRequest('candidates/drop/status', params);
 }
+
+export async function serviceResendEaf(candidateId) {
+    return await postRequest('candidates/resend/eaf', { candidate_id: candidateId })
+}
