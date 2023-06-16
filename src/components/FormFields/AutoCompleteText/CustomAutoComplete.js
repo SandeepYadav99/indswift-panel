@@ -83,7 +83,7 @@ const CustomAutoComplete = ({isError, errorText, icon, label, onChange, onTextCh
             </div>
             {(groupedOptions?.length > 0 && !disabledList ) ? (
                 <ul className={classes.listbox} {...getListboxProps()}>
-                    {groupedOptions.map((option, index) => (
+                    {groupedOptions?.map((option, index) => (
                         <li {...getOptionProps({ option, index })}>{datasetKey ? option[datasetKey] : option }</li>
                     ))}
                 </ul>

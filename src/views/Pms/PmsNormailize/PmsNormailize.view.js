@@ -127,7 +127,7 @@ const PmsNormailize = ({ location }) => {
         key: "status",
         label: "Status",
         sortable: false,
-        render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
+        render: (temp, all) => <div>{renderStatus(removeUnderScore(all?.status))}</div>,
       },
       {
         key: "batch",

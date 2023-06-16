@@ -402,13 +402,17 @@ function ClaimDetailInfo({ idCards }) {
           <div>
             <div className={styles.mainFlex}>
               <div className={styles.left}>
+              <div className={styles.key}>
+                  <span className={styles.value}>Claim type:</span>
+                  {idCards?.claimTypeText}
+                </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Amount Claimed:</span>
-                  {idCards?.rem_month}
+                  {idCards?.claim_details?.total_claim}
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Claim type :</span>
-                  {removeUnderScore(idCards?.claimTypeText)}
+                  {removeUnderScore(idCards?.relocation_type)}
                 </div>
               </div>
               <div className={styles.right}>
@@ -421,7 +425,7 @@ function ClaimDetailInfo({ idCards }) {
                   <span className={styles.value}>
                     Date of Joining/Transfer:
                   </span>
-                  {idCards?.bill_amount && `₹ ${idCards?.bill_amount}`}
+                  {idCards?.relocation_date}
                 </div>
 
                 <div className={styles.key}>

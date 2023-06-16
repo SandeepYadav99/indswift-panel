@@ -206,6 +206,7 @@
 }
 .linkClass{
   color: #2896E9;
+  word-wrap: break-word;
 }
 .applicationImage{
   border-radius: 10px;

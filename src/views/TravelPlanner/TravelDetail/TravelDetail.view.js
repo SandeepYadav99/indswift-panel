@@ -137,7 +137,7 @@ function TravelDetail() {
 
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-          <div className={styles.heading}>Advance/Imprest Request</div>
+          <div className={styles.heading}>Exception Details</div>
           <div className={styles.commentContainer}>
             <div className={styles.otherWrap}>
               <div className={styles.mainFlex}>
@@ -160,6 +160,53 @@ function TravelDetail() {
           </div>
         </div>
       </div>
+      {
+        employeeDetail?.voucherDetails?.length > 0 && <div className={styles.plainPaper}>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>Travel and Accommodation Vouchers</div>
+          <div className={styles.commentContainer}>
+            {employeeDetail?.voucherDetails &&
+              employeeDetail?.voucherDetails.map((item, index) => (
+                <div className={styles.otherWrap}>
+                  <div className={styles.mainFlex}>
+                    <div className={styles.left}>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Name:</span>
+                        {item?.name}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>
+                          Amount :
+                        </span>
+                        { item?.amount}
+                      </div>
+                     
+                    </div>
+                    <div className={styles.right}>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Type:</span>
+                        {item?.type}
+                      </div>
+                      {item?.document && (
+                        <div className={styles.key}>
+                          <a href={item?.document} target="_blank">
+                            <div className={styles.hyperlinkText}>
+                              View Attachement
+                            </div>
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {employeeDetail?.voucherDetails?.length !==
+                    index + 1 && <div className={styles.verti}></div>}
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+      }
+      
       {employeeDetail?.comments && (
         <div className={styles.plainPaper}>
           <div className={styles.newContainer}>

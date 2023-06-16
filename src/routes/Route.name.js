@@ -104,6 +104,11 @@ export default {
   CLAIMS_INTERVIEW:'/cm/interview',
   CLAIMS_INTERVIEW_DETAILS:'/cm/interview/details/',
   CLAIMS_LOC:'/employee/claim/loc',
+  CLAIMS_IMPREST:'/employee/claim/imprest',
+  CLAIMS_IMPREST_CREATE:'/employee/claim/imprest/create',
+  CLAIMS_REPORT:'/cm/report',
+
+
 
 
   TRAVEL_PLANNER:'/travel/plan',

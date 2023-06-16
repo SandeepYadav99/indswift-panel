@@ -24,6 +24,7 @@ export default {
   SOCKET_URL: tempLevel ? socketUrl : "http://91.205.173.97:8111/",
   // DEFAULT_APP_URL: 'http://35.154.147.169:5055/api/',
   DEFAULT_PAGE_VALUE: TABLE_LIMIT,
+  PAGE_VALUE:10,
   GOOGLE_LOGIN_KEY: "1027293586426-qg6lv2vsp57m05tn32m9stku2ljsd1uh.apps.googleusercontent.com",
   GOOGLE_MAP_KEY: "AIzaSyDUTIV7DaCvMUMg3qElE-sxdj4zR-dxhFM",
   FACEBOOK_LOGIN_KEY: "213504989180156",
@@ -94,6 +95,7 @@ export default {
     RESIGNED:'error',
     EXPIRED:'success',
     REJECTED:'error',
+    HOD_PENDING:'error',
     // PENDING:'pending',
     SOURCING:'error',
     NOSOURCING:'nosourcing',
@@ -115,7 +117,13 @@ export default {
     'Feedback Pending':'pending',
     'REVIEW PENDING':'error',
     'PANEL SET' : 'success',
-    'SUBMITTED':'success'
+    'SUBMITTED':'success',
+    "NORMALIZED":'success', 
+    "HOD_SUBMITTED":'success',
+    "HOD PENDING":'error',
+    "NORMALIZATION DONE":'success',
+    "HOD REVIEW PENDING":'error'
+    
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',
