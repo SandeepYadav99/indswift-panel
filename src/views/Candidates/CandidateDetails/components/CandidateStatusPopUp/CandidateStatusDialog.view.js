@@ -95,9 +95,10 @@ const CandidateStatusDialog = ({ isOpen, handleToggle, candidateId, handleStatus
                 {[
                   "ACTIVE",
                   "DROPPED",
-                    "JOINED",
-                    "NOT_JOINING",
-                    // "OFFER_DECLINED"
+                  "JOINED",
+                  "NOT_JOINING",
+                  "SELECTED"
+                  // "OFFER_DECLINED"
                 ].map((val) => {
                   return (
                     <MenuItem value={val} key={val}>

@@ -79,7 +79,7 @@ const UpperCard = ({
           </div>
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
-              {(data?.status !== Constants.JOB_CANDIDATE_STATUS.DROPPED && isRecruiter && data?.is_selected && !data?.is_offer_letter_sent) && (<ActionButton onClick={() => handlePRCPopUp()}>
+              {(data?.status !== Constants.JOB_CANDIDATE_STATUS.DROPPED && isRecruiter && data?.is_selected && !data?.is_offer_letter_sent &&  data?.status !== "SHORTLISTED") && (<ActionButton onClick={() => handlePRCPopUp()}>
                 <InfoOutlined fontSize={"small"} />
                 <span className={styles.actionBtnSpan}>Extend Offer</span>
               </ActionButton>)}
@@ -92,7 +92,7 @@ const UpperCard = ({
             </div>
             <div className={styles.actionWrap}>
               <div className={styles.btnUpper}>
-                {(isRecruiter && data?.is_offer_letter_approved && data?.status !=="DROPPED") && (<ActionButton onClick={toggleShareDialog}>
+                {(isRecruiter && data?.is_offer_letter_approved && data?.status !=="DROPPED" && data?.status !== "SHORTLISTED") && (<ActionButton onClick={toggleShareDialog}>
                   <InfoOutlined fontSize={"small"} />
                   <span className={styles.actionBtnSpan}>Share Offer</span>
                 </ActionButton>)}

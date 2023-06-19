@@ -39,18 +39,18 @@ const PersonalInfo = ({ data }) => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Passport No:</span>
-                <span className={styles.valueWrap}>{data?.passport ? data?.passport : '-'}</span>
+                <span className={styles.valueWrap}>{data?.passport_no ? data?.passport_no : '-'}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Expiry Date of Passport:</span>
                 <span className={styles.valueWrap}>
-                  {data?.spouse_name ? data?.spouse_name : '-'}
+                  {data?.passport_expiry_date ? data?.passport_expiry_date : '-'}
                 </span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>PF UAN No:</span>
                 <span className={styles.valueWrap}>
-                  {data?.spouse_dob ? data?.spouse_dob : '-'}
+                  {data?.uan_no ? data?.uan_no : '-'}
                 </span>
               </div>
             </div>
