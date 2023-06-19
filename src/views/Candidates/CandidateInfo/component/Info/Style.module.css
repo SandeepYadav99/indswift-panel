@@ -1,0 +1,141 @@
+.plainPaper{
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 20px 80px #00000011;
+}
+
+.heading{
+    font-size: 0.8rem;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.Nomineeheading{
+    font-size: 0.7rem;
+    margin-top: 5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.mainFlex{
+    display: flex;
+    /*align-items: center;*/
+}
+.mainFlex2{
+    display: flex;
+    padding-bottom: 20px;
+}
+.mainFlex1{
+    display: flex;
+    gap: 20px;
+}
+.valueWrap{
+    /* max-width: 180px; */
+    overflow-wrap: anywhere;
+    text-transform: uppercase;
+    color: black;
+    flex: 1;
+    font-weight: 600;
+}
+.valueWrapemail{
+    max-width: 180px;
+    overflow-wrap: anywhere;
+}
+.horizontalLine{
+    margin: 10px 0;
+    border: 1px solid #e3e3ec;
+}
+.valueWrap1{
+    max-width: 140px;
+    overflow-wrap: anywhere;
+    font-size: .7rem;
+}
+.valueWrap12{
+    text-transform: uppercase;
+    max-width: 140px;
+    overflow-wrap: anywhere;
+    font-size: .7rem;
+}
+.vertical {
+    /*border-left: 1px dashed #B8C5D3;*/
+    max-height: 120px;
+    /*flex: 0.3;*/
+}
+.childrenWrapper{
+    margin-top: 20px;
+}
+.key{
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 7px;
+    display: flex;
+    /* min-width: 200px;
+    max-width: 400px */
+}
+.key41{
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 7px;
+    display: flex;
+    /*display: flex;*/
+}
+.value{
+    flex: 1;
+    font-weight: 600;
+    width: 100%;
+    /* color: black; */
+    display: inline-block;
+}
+.value41{
+    font-weight: 600;
+    width: 40%;
+    color: black;
+    display: inline-block;
+}
+.value1{
+    font-size: .7rem;
+    font-weight: 600;
+    width: 100%;
+    color: black;
+    display: inline-block;
+    /*max-width: 130px;*/
+}
+.newContainer{
+    font-size: 0.7rem;
+    /* border: 2px solid #EBEDF4; */
+
+}
+.newContainerPersonal{
+    font-size: 0.7rem;
+    /* border-bottom: 2px solid #EBEDF4; */
+
+}
+.left{
+    /*margin-right: 30px;*/
+    flex: 1;
+}
+
+.right{
+    /*margin-left: 60px;*/
+    flex: 1;
+}
+
+.horizontal{
+    border-bottom: 1px dashed #B8C5D3;
+    margin-top: 15px;
+    margin-bottom: 22px;
+}
+
+.posted{
+    font-size: 0.7rem;
+    margin-left: 10px;
+}
+.nomineeLine{
+    width: 100%;
+    border-top: 0.5px solid #B8C5D3;
+}
+.nomineeWrapper{
+    margin:15px 0;
+}

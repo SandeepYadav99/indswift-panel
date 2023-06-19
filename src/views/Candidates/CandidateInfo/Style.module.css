@@ -1,4 +1,3 @@
-
 .createBtn {
   background-color: #29cb97 !important;
   color: #ffffff !important;
@@ -8,16 +7,82 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
-.btnWrapper{
+.btnWrapper {
   margin-top: 15px;
   width: 80vw;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
 }
-.btnCont{
-  width: 90%;
+.btnCont {
+  width: 100%;
   padding: 20px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+.employeeLoginWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.applicationImage {
+  border-radius: 10px;
+  width: 150px;
+  aspect-ratio: 1/1;
+}
+.flexContainer {
+  display: flex;
+  align-items: center;
+}
+.logoImg {
+  text-align: center;
+  width: 100%;
+}
+
+.sky {
+  /*height: 90px;*/
+  width: 100px;
+}
+.newLine {
+  height: 5px;
+  width: 30px;
+  border-radius: 10px;
+  text-align: center;
+  margin: auto;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.headingText {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: black;
+  font-size: 2rem;
+  margin-bottom: 2px;
+  /*font-family: CircularStd-Bold;*/
+}
+.infoWrap {
+  display: flex;
+  margin-top: 15px;
+}
+.inneron{
+  display: flex;
+}
+.rhs {
+  flex: 1;
+  margin-left: 10px;
+}
+.lhs {
+  flex: 1;
+  margin-right: 10px;
+}
+.employeeLoginContainer {
+  width: 80vw;
+  /* background-color: yellow; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loginSignupText {
+  text-align: left;
 }

@@ -53,7 +53,7 @@ const CandidateUploadCard = ({ data, handleSubmit, handleResendEafClick }) => {
                 <div className={styles.key}>
                   <a
                     className={styles.uploadTag}
-                    href={`${RouteName.CANDIDATES_INFO}${data?.enc_id}`}
+                    href={`${RouteName.CANDIDATES_INFO}${data?.id}`}
                   >
                     EAF Form
                   </a>
