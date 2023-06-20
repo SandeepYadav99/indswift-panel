@@ -118,7 +118,7 @@ export default {
     'REVIEW PENDING':'error',
     'PANEL SET' : 'success',
     'SUBMITTED':'success',
-    "NORMALIZED":'success', 
+    "NORMALIZED":'success',
     "HOD_SUBMITTED":'success',
     "HOD PENDING":'error',
     "NORMALIZATION DONE":'success',

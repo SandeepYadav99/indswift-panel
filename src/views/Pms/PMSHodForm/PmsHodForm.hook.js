@@ -44,9 +44,16 @@ const usePmsHodForm = ({location}) => {
         {
             is_static: true,
             key: "department",
-            title: "DEPT./Sub Dept",
+            title: "DEPT.",
             readOnly: true,
-            render: (all) => <div className={styles.label}>{all.department}/{all?.sub_department}</div>
+            render: (all) => <div className={styles.label}>{all.department}</div>
+        },
+        {
+            is_static: true,
+            key: "department",
+            title: "Sub Dept.",
+            readOnly: true,
+            render: (all) => <div className={styles.label}>{all?.sub_department}</div>
         },
         {
             is_static: true,
@@ -155,7 +162,7 @@ const usePmsHodForm = ({location}) => {
         Object.keys(form).forEach((key) => {
             if (!form[key]) {
                 tErr[key] = true;
-            } else if ( (key in rating) && ((parseFloat(rating[key]) - 5) > form[key] || (parseFloat(rating[key]) + 5) < form[key])) {
+            } else if ( (key in rating) && ((parseFloat(rating[key]) - 6) > form[key] || (parseFloat(rating[key]) + 6) < form[key])) {
                 tErr[key] = true;
             }
         });
@@ -170,7 +177,7 @@ const usePmsHodForm = ({location}) => {
         let next = '';
         let prev = '';
         if (param === 0) {
-            if (cat > 5) {
+            if (cat > 6) {
                 const totalParam = columns[cat-1]?.parameters?.length;
                 prev = `${row}_${cat - 1}_${totalParam-1}`
             } else {
@@ -208,7 +215,7 @@ const usePmsHodForm = ({location}) => {
             delete tErr[name];
         }
         setErrors(tErr);
-    }, [calculateAdjacentCells, form, errors, setErrors]);
+    }, [form, errors, setErrors]);
 
     const removeError = useCallback(
         title => {
@@ -252,7 +259,7 @@ const usePmsHodForm = ({location}) => {
             if (!(empId in data)) {
                 data[empId] = {};
             }
-            data[empId] = {...data[empId], ...{[`${cat-6}_${param}`]: val}};
+            data[empId] = {...data[empId], ...{[`${cat-7}_${param}`]: val}};
         });
         return data;
     }, [form, columns, rows]);
@@ -264,7 +271,7 @@ const usePmsHodForm = ({location}) => {
             serviceAddHodFormDraft({
                 batch_id: id,
                 data: form
-            })
+            });
             serviceSaveHodReview({
                 batch_id: id,
                 reviews: data,
