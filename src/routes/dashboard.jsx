@@ -21,6 +21,7 @@ import ImprestList from "../views/ClaimImprest/ImprestList/ImprestList.view";
 import ImprestCreate from "../views/ClaimImprest/ImprestCreate/ImprestCreate.view";
 import ClaimsReport from "../views/ClaimsReport/ClaimsReport.view";
 import ClaimCarReport from "../views/ClaimCarReport/ClaimCarReport.container";
+import PmsSiteReview from "../views/Pms/PmsSiteReview/PmsSiteReview.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1300,6 +1301,18 @@ const dashboardRoutes = [
         navbarName: "Pending 360 Review",
         icon: PeopleOutlined,
         component: PmsPendingReview,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    },
+    {
+        path: `${RouteName.PMS_SITE_PLANNER}`,
+        sidebarName: "Site Wise Planner",
+        navbarName: "Site Wise Planner",
+        icon: PeopleOutlined,
+        component: PmsSiteReview,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
