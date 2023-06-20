@@ -23,6 +23,7 @@ const NewDashboard = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
   const _renderTopCards = () => {
     return (
       <div className={styles.dashboardFlex}>
@@ -122,7 +123,7 @@ const NewDashboard = () => {
             <div className={styles.activeWrapper}>
               <div className={styles.imgBox2}>
                 <img
-                  src={require("../../assets/img/ic_decrease.png")}
+                  src={tiles?.prc_stats?.last_avg_tat >= tiles?.prc_stats?.avg_tat ? require("../../assets/img/ic_decrease.png") : require("../../assets/img/ic_increase.png")}
                   height={50}
                 />
               </div>
