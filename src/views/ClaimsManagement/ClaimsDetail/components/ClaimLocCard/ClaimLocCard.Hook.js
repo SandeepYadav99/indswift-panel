@@ -94,6 +94,12 @@ const useClaimLocCard = ({}) => {
         if (val?.relocation_documents) {
           fd.append("relocation_documents", val?.relocation_documents);
         }
+        if(val.relocation_payment_proof){
+          fd.append("relocation_payment_proof",val?.relocation_payment_proof)
+        }else {
+          const file = dataURLtoFile(nullImg, "null.png");
+          fd.append("travel_payment_proof", file);
+        }
       });
       fd.append("bill_amount", amount);
       fd.append("relocation_expense_details", JSON.stringify(ExpensesData));

@@ -111,6 +111,44 @@ const LocOtherDetailsIncludeFields = ({
             />
           </div>
         </div>
+        <div className={styles.firstRow}>
+          <div className={styles.flex12}>
+            <CustomSelectField
+              isError={errors?.payment_mode}
+              errorText={errors?.payment_mode}
+              label={"Payment Mode"}
+              value={data?.payment_mode}
+              handleChange={(value) => {
+                handleChange(value, "payment_mode");
+              }}
+            >
+              <MenuItem value="Cash">Cash</MenuItem>
+              <MenuItem value="Cheque">Cheque</MenuItem>
+              <MenuItem value="Card">Card</MenuItem>
+              <MenuItem value="UPI">UPI</MenuItem>
+              <MenuItem value="Bank Transfer">Bank Transfer</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={styles.flex13}>
+            <File
+              max_size={10 * 1024 * 1024}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+              fullWidth={true}
+              name="relocation_payment_proof"
+              label="Add Attachment"
+              accept={"application/pdf,application/msword,image/*"}
+              error={errors?.relocation_payment_proof}
+              value={data?.relocation_payment_proof}
+              placeholder={"Add Attachment"}
+              onChange={(file) => {
+                if (file) {
+                  LogUtils.log("file", file);
+                  handleChange(file, "relocation_payment_proof");
+                }
+              }}
+            />
+          </div>
+        </div>
 
         <div className={styles.firstRow221}>
           <div className={"textCenter"}>

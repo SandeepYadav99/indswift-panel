@@ -22,3 +22,6 @@ export async function serviceUpdateTravelClaims(params) {
 export async function serviceUpdateLocClaims(params) {
     return await formDataRequest('employee/claims/create/relocation', params);
 }
+export async function serviceCheckCoPassenger (params) {
+    return await postRequest('travel/planner/check', params);
+}

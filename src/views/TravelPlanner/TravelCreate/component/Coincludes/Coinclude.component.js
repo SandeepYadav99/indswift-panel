@@ -8,28 +8,25 @@ import React, {
 } from "react";
 import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
-import LogUtils from "../../../../../../../libs/LogUtils";
+import LogUtils from "../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
-import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
-import LocOtherDetailsIncludeFields from "./LocOtherDetailsIncludeFields.component";
+import CoIncludeFields from "./CoincludeIncludeFields.component";
+import { serviceCheckCoPassenger } from "../../../../../services/ClaimsManagement.service";
+import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 
 const TEMP_OBJ = {
-  bill_date: "",
-  bill_no: "",
-  amount: "",
-  details: "",
-  relocation_documents: null,
-  payment_mode:"",
-  relocation_payment_proof:null,
+  co_passengers: "",
 };
 
-const LocOtherDetailsIncludeForm = (
-  { data, errorData: errorForm, grade, getAmount },
+const CoincludeForm = (
+  { data, errorData: errorForm, employees, employeeId, start, end },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
+  const [filteredList, setFilteredList] = useState([]);
   const [errorData, setErrorData] = useState({});
+  const [validPass, setValidPass] = useState(false);
   const [variants, setVariants] = useState([]);
   const { id } = useParams();
   useImperativeHandle(ref, () => ({
@@ -46,64 +43,64 @@ const LocOtherDetailsIncludeForm = (
       setFields([...data]);
     },
   }));
-
-  const getState = () => {
-    return fields;
-  };
-
+  useEffect(() => {
+    const filteredArr = employees.filter((item) => item?.id !== employeeId);
+    setFilteredList([...filteredArr]);
+  }, []);
   const validateData = (index, type) => {
     const errors = {};
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [
-        "bill_date",
-        "bill_no",
-        "amount",
-        "details",
-        "relocation_documents",
-        "payment_mode",
-        "relocation_payment_proof"
-      ];
-      required.forEach((key) => {
-        if (!val[key]) {
-          err[key] = true;
-        }
-      });
-      if(val?.payment_mode ==='Cash' && !val?.relocation_payment_proof){
-        delete err['relocation_payment_proof'];
+      const required = ["co_passengers"];
+      {
+        required.forEach((key) => {
+          if (!val[key]) {
+            err[key] = true;
+          }
+        });
       }
-      // if (val?.check_in && val?.check_out) {
-      //   const joinDate = new Date(val?.check_in);
-      //   const expectedDate = new Date(val?.check_out);
-      //   joinDate.setHours(0, 0, 0, 0);
-      //   expectedDate.setHours(0, 0, 0, 0);
-      //   if (joinDate.getTime() > expectedDate.getTime()) {
-      //     err["check_out"] = true;
-      //     SnackbarUtils.error(
-      //       "CheckOut Date should not be Less than CheckIn Date"
-      //     );
-      //   }
-      // }
+      if (!validPass) {
+        SnackbarUtils.error("Co-Passenger Occupied");
+        err["co_passengers"] = true;
+      } else if (val.co_passengers) {
+        delete err["co_passengers"];
+      }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
     });
-
-    console.log("othererroros", errors);
     setErrorData(errors);
     return !(Object.keys(errors).length > 0);
   };
+  console.log("filed", fields);
   useEffect(() => {
     if (data) {
       setFields({ ...data });
     }
   }, [data]);
-
-  const isValid = () => {
-    return validateData();
-  };
-
+  const checkCodeValidation = useCallback(() => {
+    const passanger = fields.map((item) =>
+      item.co_passengers?.id ? item.co_passengers?.id : ""
+    );
+    const filterpass = passanger.filter((item) => item !== "");
+    serviceCheckCoPassenger({
+      start_date: start,
+      end_date: end,
+      co_passengers: filterpass ? filterpass : [],
+    }).then((res) => {
+      if (!res.error) {
+        setValidPass(res.data);
+        console.log("debounceerr", res.data);
+      }
+    });
+  }, [id, start, end, fields]);
+  console.log("valid", validPass);
+  useEffect(() => {
+    if (start && end) {
+      checkCodeValidation();
+    }
+  }, [start, end, fields]);
   const removeErrors = useCallback(
     (index, key) => {
       const errors = JSON.parse(JSON.stringify(errorData));
@@ -121,28 +118,31 @@ const LocOtherDetailsIncludeForm = (
     [setErrorData, errorData]
   );
 
-  const changeData = (index, data, dateValue) => {
+  const changeData = (index, data) => {
     const tempData = [...fields];
-    if (dateValue) {
-      tempData.forEach((item) => (item.travel_date = ""));
-    } else {
-      tempData[index] = { ...tempData[index], ...data };
-    }
+    tempData[index] = { ...tempData[index], ...data };
     LogUtils.log("data", data);
     setFields(tempData);
+    if (Object.keys(data?.co_passengers)?.length > 0) {
+      const filterId = filteredList?.filter(
+        (item) => item?.id !== data?.co_passengers?.id
+      );
+      setFilteredList([...filterId]);
+    }
     const errArr = [];
     Object.keys(data).forEach((key) => {
       errArr.push(key);
     });
     removeErrors(index, errArr);
   };
-  
+
   const onBlur = useCallback(() => {}, []);
+
   const handlePress = async (type, index = 0) => {
     LogUtils.log("type", type, index);
     const oldState = [...fields];
     if (type == "ADDITION") {
-      oldState.push(TEMP_OBJ);
+      oldState.push(JSON.parse(JSON.stringify(TEMP_OBJ)));
     } else {
       if (oldState.length === 1) {
         return true;
@@ -161,7 +161,7 @@ const LocOtherDetailsIncludeForm = (
       });
       return (
         <div>
-          <LocOtherDetailsIncludeFields
+          <CoIncludeFields
             variants={tempFilters}
             validateData={validateData}
             errors={index in errorData ? errorData[index] : null}
@@ -170,7 +170,9 @@ const LocOtherDetailsIncludeForm = (
             data={val}
             index={index}
             onBlur={onBlur}
-            grade={grade}
+            employees={employees}
+            employeeId={employeeId}
+            filteredList={filteredList}
           />
         </div>
       );
@@ -184,38 +186,25 @@ const LocOtherDetailsIncludeForm = (
     onBlur,
     fields,
   ]);
-  const sum = fields.reduce((acc, curr) => {
-    const value = curr["amount"];
-    if (value !== "") {
-      return acc + parseFloat(value);
-    } else {
-      return acc;
-    }
-  }, 0);
-  useEffect(() => {
-    getAmount(sum);
-  }, [sum]);
+
   return (
     <>
       {renderFields}
-      <div className={styles.btnWrapper}>
-        <ButtonBase
-          className={styles.addition}
-          label={"+"}
-          onClick={() => {
-            handlePress("ADDITION", 0);
-          }}
-        >
-          <Add fontSize={"small"} /> <span>Add More</span>
-        </ButtonBase>
-      </div>
-      <div className={styles.totalWrap}>
-        <div className={styles.inner}>
-          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
+      {fields?.length < 4 && (
+        <div className={styles.btnWrapper}>
+          <ButtonBase
+            className={styles.addition}
+            label={"+"}
+            onClick={() => {
+              handlePress("ADDITION", 0);
+            }}
+          >
+            <Add fontSize={"small"} /> <span>Add Co-traveler</span>
+          </ButtonBase>
         </div>
-      </div>
+      )}
     </>
   );
 };
 
-export default forwardRef(LocOtherDetailsIncludeForm);
+export default forwardRef(CoincludeForm);

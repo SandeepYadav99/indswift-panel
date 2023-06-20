@@ -19,7 +19,7 @@ import OtherDetailsIncludeForm from "./component/OtherDetailsincludes/OtherDetai
 import TravelUpperCard from "./component/TravelUpperCard/TravelUpperCard";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-
+import CoIncludeForm from "./component/Coincludes/Coinclude.component"
 function TravelCreate() {
   const {
     form,
@@ -36,6 +36,9 @@ function TravelCreate() {
     travelRef,
     otherRef,
     isBond,
+    isChecked,
+    coRef,
+    employees,
     handleCheckboxChange,
   } = useTravelCreate({});
 
@@ -162,7 +165,41 @@ function TravelCreate() {
             </div>
           </div>
         </div>
+        <div className={styles.checkWrapper}>
+            <div className={styles.chkwrapp}>
+              <div>
+              <Checkbox
+                disabled={false}
+                onChange={handleCheckboxChange}
+                checked={isChecked}
+                value="secondary"
+                color="primary"
+                size="small"
+                inputProps={{ "aria-label": "secondary checkbox" }}
+              />
+              <span className={styles.spanchk}>
+                Do you have a co-traveler?
+              </span>
+              </div>
+              <div className={styles.kk}>
+              Note: 4 Co travellers can be added
+              </div>
+            </div>
+            {isChecked && (
+              <div>
+                <CoIncludeForm
+                  start={form.start_date}
+                  end={form.end_date}
+                  ref={coRef}
+                  employees={employees}
+                  isChecked={isChecked}
+                  employeeId={employeeDetails?.id}
+                />
+              </div>
+            )}
+          </div>
       </div>
+      
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Travel Details</div>

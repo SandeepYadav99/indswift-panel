@@ -31,7 +31,19 @@
   margin-bottom: 20px;
   font-weight: 600;
 }
-
+.spanchk{
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.chkwrapp{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.kk{
+  font-weight: 600;
+  font-size: 0.8rem;
+}
 .mainFlex {
   display: flex;
   /*align-items: center;*/

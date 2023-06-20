@@ -3,7 +3,9 @@ import React from "react";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
-import { serviceGetEmployeeDetails } from "../../../services/ClaimsManagement.service";
+import {
+  serviceGetEmployeeDetails,
+} from "../../../services/ClaimsManagement.service";
 import { useSelector } from "react-redux";
 import nullImg from "../../../assets/img/null.png";
 import { dataURLtoFile } from "../../../helper/helper";
@@ -34,6 +36,7 @@ const useTravelCreate = ({}) => {
   const [claimInfo, setClaimInfo] = useState({});
   const travelRef = useRef(null);
   const otherRef = useRef(null);
+  const coRef = useRef(null);
   const [isChecked, setIsChecked] = React.useState(false);
 
   const handleCheckboxChange = (event) => {
@@ -145,8 +148,13 @@ const useTravelCreate = ({}) => {
             fd.append("accomodation_documents", val?.accomodation_documents);
           }
         });
-        if(otherExpensesData[0].type?.length > 0){
+        if (otherExpensesData[0].type?.length > 0) {
           fd.append("accomodation_details", JSON.stringify(otherExpensesData));
+        }
+        if (isChecked) {
+          const CoData = coRef.current.getData();
+          const passanger = CoData?.map((item) => item?.co_passengers?.id);
+          fd.append("co_passengers", JSON.stringify(passanger));
         }
         let req = serviceCreateTravelPlanner;
         req(fd).then((res) => {
@@ -170,7 +178,14 @@ const useTravelCreate = ({}) => {
     console.log("---->", errors);
     const isIncludesValid = travelRef.current.isValid();
     const isOtherValid = otherRef.current.isValid();
-    if (!isIncludesValid || !isOtherValid || Object.keys(errors).length > 0) {
+    const isCoValid = isChecked ? coRef.current.isValid() : true;
+    console.log("validation", isIncludesValid, isOtherValid, isCoValid);
+    if (
+      !isIncludesValid ||
+      !isOtherValid ||
+      !isCoValid ||
+      Object.keys(errors).length > 0
+    ) {
       setErrorData(errors);
       return true;
     }
@@ -242,6 +257,7 @@ const useTravelCreate = ({}) => {
     handleCheckboxChange,
     employees,
     isBond,
+    coRef,
   };
 };
 
