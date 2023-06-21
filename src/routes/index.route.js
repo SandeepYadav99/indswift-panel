@@ -31,6 +31,7 @@ import Pms4BFormDetailView from "../views/Pms/Pms4BFormDetail/Pms4BFormDetail.vi
 import IrfForm from "../views/IRFForm/IrfForm.view.js";
 import CandidateIrfLogin from "../views/IRFLogin/CandidateIrfLogin.js";
 import PmsHodForm from "../views/Pms/PMSHodForm/PmsHodForm.view";
+import PMSSiteForm from "../views/Pms/PMSSiteForm/PMSSiteForm.view.js";
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
 const RouteComponent = () => (
@@ -52,6 +53,7 @@ const RouteComponent = () => (
     <Route path={`${RouteName.PMS_FORM_DETAIL}:id`} component={PmsFormDetail} />
     <Route path={`${RouteName.PMS_4B_FORM}`} component={Pms4BFormView} />
       <Route path={`${RouteName.PMS_HOD_FORM}:id`} component={PmsHodForm} />
+      <Route path={`${RouteName.PMS_SITE_PLANNER_FORM}`} component={PMSSiteForm} />
     <Route path={`${RouteName.PMS_4B_REVIEW_DETAIL}:id`} component={Pms4BFormDetailView} />
     <Route path={RouteName.IRF_LOGIN} component={CandidateIrfLogin} />
     <Route path={RouteName.IRF_FORM} component={IrfForm} />
