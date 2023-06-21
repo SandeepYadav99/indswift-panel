@@ -133,6 +133,8 @@ export default {
   PMS_HOD_REVIEW_DETAIL: '/pms/hod/detail/',
   PMS_SITE_PLANNER: '/pms/site',
   PMS_SITE_PLANNER_FORM:'/pms/site/create',
+  PMS_SITE_PENDING: '/pm/site/pending',
+
 
   EMPLOYEE_REPORT:'/employee/report',
   PMS_4B_FORM: '/pms/4B/submission',

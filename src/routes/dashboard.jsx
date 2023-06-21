@@ -22,6 +22,7 @@ import ImprestCreate from "../views/ClaimImprest/ImprestCreate/ImprestCreate.vie
 import ClaimsReport from "../views/ClaimsReport/ClaimsReport.view";
 import ClaimCarReport from "../views/ClaimCarReport/ClaimCarReport.container";
 import PmsSiteReview from "../views/Pms/PmsSiteBatches/PmsSiteBatch.view";
+import PMSSitePendingReview from "../views/Pms/PMSSitePendingReview/PMSSitePendingReview.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1313,6 +1314,18 @@ const dashboardRoutes = [
         navbarName: "Site Wise Planner",
         icon: PeopleOutlined,
         component: PmsSiteReview,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    },
+    {
+        path: `${RouteName.PMS_SITE_PENDING}`,
+        sidebarName: "PMS Site Pending Review",
+        navbarName: "PMS Site Pending Review",
+        icon: PeopleOutlined,
+        component: PMSSitePendingReview,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
