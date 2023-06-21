@@ -35,6 +35,15 @@
   font-size: 0.8rem;
   font-weight: 500;
 }
+.formWrap{
+  display: flex;
+  align-items: center;
+  width: 25%;
+  padding-left: 10px;
+}
+.formWrapInner{
+  width: 30%;
+}
 .chkwrapp{
   display: flex;
   align-items: center;

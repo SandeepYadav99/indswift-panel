@@ -19,7 +19,7 @@ import OtherDetailsIncludeForm from "./component/OtherDetailsincludes/OtherDetai
 import TravelUpperCard from "./component/TravelUpperCard/TravelUpperCard";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import CoIncludeForm from "./component/Coincludes/Coinclude.component"
+import CoIncludeForm from "./component/Coincludes/Coinclude.component";
 function TravelCreate() {
   const {
     form,
@@ -166,8 +166,8 @@ function TravelCreate() {
           </div>
         </div>
         <div className={styles.checkWrapper}>
-            <div className={styles.chkwrapp}>
-              <div>
+          <div className={styles.chkwrapp}>
+            <div>
               <Checkbox
                 disabled={false}
                 onChange={handleCheckboxChange}
@@ -177,29 +177,25 @@ function TravelCreate() {
                 size="small"
                 inputProps={{ "aria-label": "secondary checkbox" }}
               />
-              <span className={styles.spanchk}>
-                Do you have a co-traveler?
-              </span>
-              </div>
-              <div className={styles.kk}>
-              Note: 4 Co travellers can be added
-              </div>
+              <span className={styles.spanchk}>Do you have a co-traveler?</span>
             </div>
-            {isChecked && (
-              <div>
-                <CoIncludeForm
-                  start={form.start_date}
-                  end={form.end_date}
-                  ref={coRef}
-                  employees={employees}
-                  isChecked={isChecked}
-                  employeeId={employeeDetails?.id}
-                />
-              </div>
-            )}
+            <div className={styles.kk}>Note: 4 Co travellers can be added</div>
           </div>
+          {isChecked && (
+            <div>
+              <CoIncludeForm
+                start={form.start_date}
+                end={form.end_date}
+                ref={coRef}
+                employees={employees}
+                isChecked={isChecked}
+                employeeId={employeeDetails?.id}
+              />
+            </div>
+          )}
+        </div>
       </div>
-      
+
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Travel Details</div>
@@ -268,51 +264,85 @@ function TravelCreate() {
               />
             </div>
           )}
-          {/* <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <div className={styles.checkBoxWrap}>
-                <input
-                  style={{cursor:'pointer'}}
-                  type="checkbox"
-                  name={"isSame"}
-                  value={"isSame"}
-                  onClick={() => {
-                    changeTextData(
-                      !form?.exception_required,
-                      "exception_required"
-                    );
-                  }}
-                  id="exceptions"
-                  checked={form?.exception_required}
-                />
-                <label htmlFor="exceptions">
-                I require imprest for my travel
-                </label>
-                <br />
-              </div>
-            </div>
-          </div> */}
           <div className={"formFlex"}>
-            {
-              form?.tour_type === "FOREIGN" &&  <div className={"formGroup"}>
+            <div className={"formGroup"}>
               <div className={styles.checkBoxWrap}>
                 <input
                   style={{ cursor: "pointer" }}
                   type="checkbox"
-                  name={"bond"}
-                  value={isBond}
-                  id="bond"
-                  checked={isBond}
+                  name={"imprest"}
+                  value={"imprest"}
+                  onClick={() => {
+                    changeTextData(!form?.imprest_required, "imprest_required");
+                  }}
+                  id="exceptions"
+                  checked={form?.imprest_required}
                 />
-                <label htmlFor="bond">
-                  In case of Foreign travel. Total experience less than 5 years
-                  or org experience of 2 years or less. Need to sign a bond. If
-                  I leave within 2 years.
-                </label>
+                <label htmlFor="imprest">I require imprest for my travel</label>
                 <br />
               </div>
             </div>
-            }
+          </div>
+          {form?.imprest_required && (
+            <div className={styles.formWrap}>
+              <div className={styles.formWrapInner}>
+                <CustomSelectField
+                  isError={errorData?.imprest_currency}
+                  errorText={errorData?.imprest_currency}
+                  label={"Currency"}
+                  value={form?.imprest_currency}
+                  handleChange={(value) => {
+                    changeTextData(value, "imprest_currency");
+                  }}
+                >
+                  <MenuItem value="INR">₹</MenuItem>
+                  {form?.tour_type === "FOREIGN" && (
+                      <MenuItem value="USD">$</MenuItem>
+                  )}
+                  {form?.tour_type === "FOREIGN" && (
+                      <MenuItem value="EUR">€</MenuItem>
+                  )}
+                </CustomSelectField>
+              </div>
+              <div className={"formGroup1"}>
+                <CustomTextField
+                  type="number"
+                  isError={errorData?.imprest_amount}
+                  errorText={errorData?.imprest_amount}
+                  label={"Required Amount"}
+                  value={form?.imprest_amount}
+                  onTextChange={(text) => {
+                    changeTextData(text, "imprest_amount");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("imprest_amount");
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          <div className={"formFlex"}>
+            {form?.tour_type === "FOREIGN" && (
+              <div className={"formGroup"}>
+                <div className={styles.checkBoxWrap}>
+                  <input
+                    style={{ cursor: "pointer" }}
+                    type="checkbox"
+                    name={"bond"}
+                    value={isBond}
+                    id="bond"
+                    checked={isBond}
+                  />
+                  <label htmlFor="bond">
+                    In case of Foreign travel. Total experience less than 5
+                    years or org experience of 2 years or less. Need to sign a
+                    bond. If I leave within 2 years.
+                  </label>
+                  <br />
+                </div>
+              </div>
+            )}
           </div>
           <div className={styles.lower}>
             Note: Giving Prefrence of Travel and Stay will not mean that these

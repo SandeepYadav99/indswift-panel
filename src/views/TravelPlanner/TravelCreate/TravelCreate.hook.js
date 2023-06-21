@@ -3,9 +3,7 @@ import React from "react";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
-import {
-  serviceGetEmployeeDetails,
-} from "../../../services/ClaimsManagement.service";
+import { serviceGetEmployeeDetails } from "../../../services/ClaimsManagement.service";
 import { useSelector } from "react-redux";
 import nullImg from "../../../assets/img/null.png";
 import { dataURLtoFile } from "../../../helper/helper";
@@ -21,6 +19,9 @@ const initialForm = {
   purpose: "",
   exception_required: false,
   exception_details: "",
+  imprest_required: false,
+  imprest_currency: "",
+  imprest_amount: "",
 };
 
 const useTravelCreate = ({}) => {
@@ -105,6 +106,17 @@ const useTravelCreate = ({}) => {
         errors["exception_details"] = true;
       }
     }
+    if (form?.imprest_required) {
+      if (!form?.imprest_amount) {
+        errors["imprest_amount"] = true;
+      }
+      if (!form?.imprest_currency) {
+        errors["imprest_currency"] = true;
+      }
+    } else if (!form?.imprest_required) {
+      delete errors["imprest_currency"];
+      delete errors["imprest_amount"];
+    }
     if (form?.start_date && form?.end_date) {
       const joinDate = new Date(form?.start_date);
       const expectedDate = new Date(form?.end_date);
@@ -125,6 +137,12 @@ const useTravelCreate = ({}) => {
     return errors;
   }, [form, errorData]);
 
+  useEffect(()=>{
+    if(form.tour_type){
+      setForm({...form,imprest_currency:''})
+    }
+  },[form.tour_type])
+  
   const submitToServer = useCallback(
     () => {
       if (!isSubmitting) {
@@ -132,8 +150,14 @@ const useTravelCreate = ({}) => {
         setIsSubmitting(true);
         const fd = new FormData();
         Object.keys(form).forEach((key) => {
-          fd.append(key, form[key]);
+          if(key !== 'imprest_amount' && key !== 'imprest_currency'){
+            fd.append(key, form[key]);
+          }
         });
+        if(form.imprest_required){
+          fd.append("imprest_currency",form.imprest_currency)
+          fd.append("imprest_amount",form.imprest_amount)
+        }
         fd.append("foreign_travel_bond_agreed", isBond);
         const ExpensesData = travelRef.current.getData();
         ExpensesData.forEach((val) => {
@@ -214,7 +238,13 @@ const useTravelCreate = ({}) => {
       // LogUtils.log(text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
-      t[fieldName] = text;
+      if (fieldName === "imprest_amount") {
+        if (text >= 0) {
+          t[fieldName] = text;
+        }
+      } else {
+        t[fieldName] = text;
+      }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },

@@ -60,12 +60,12 @@ const CoincludeForm = (
           }
         });
       }
-      if (!validPass) {
-        SnackbarUtils.error("Co-Passenger Occupied");
-        err["co_passengers"] = true;
-      } else if (val.co_passengers) {
-        delete err["co_passengers"];
-      }
+      // if (!validPass) {
+      //   SnackbarUtils.error("Co-Passenger Occupied");
+      //   err["co_passengers"] = true;
+      // } else if (val.co_passengers) {
+      //   delete err["co_passengers"];
+      // }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
@@ -96,11 +96,12 @@ const CoincludeForm = (
     });
   }, [id, start, end, fields]);
   console.log("valid", validPass);
-  useEffect(() => {
-    if (start && end) {
-      checkCodeValidation();
-    }
-  }, [start, end, fields]);
+  
+  // useEffect(() => {
+  //   if (start && end) {
+  //     checkCodeValidation();
+  //   }
+  // }, [start, end, fields]);
   const removeErrors = useCallback(
     (index, key) => {
       const errors = JSON.parse(JSON.stringify(errorData));

@@ -14,7 +14,7 @@ const SalaryInfo = ({ data }) => {
                   <div className={styles.left}>
                     <div className={styles.key}>
                       <span className={styles.value}>CTC (per month):</span>
-                      <span className={styles.valueWrap}>{item?.ctc ? item?.ctc : '-'}</span>
+                      <span className={styles.valueWrap}>{item?.ctc ? `₹ ${item?.ctc}` : '-'}</span>
                     </div>
 
                     <div className={styles.key}>
@@ -32,13 +32,13 @@ const SalaryInfo = ({ data }) => {
                       <span className={styles.value}>
                         In hand Salary (per month):
                       </span>
-                      <span className={styles.valueWrap}>{item?.in_hand ? item?.in_hand : '-'}</span>
+                      <span className={styles.valueWrap}>{item?.in_hand ? `₹ ${item?.in_hand}` : '-'}</span>
                     </div>
                     <div className={styles.key}>
                       <span className={styles.value}>
                         Monthly Payment Amount:
                       </span>
-                      <span className={styles.valueWrap}>{item?.amount ? item?.amount : '-'}</span>
+                      <span className={styles.valueWrap}>{item?.amount ? `₹ ${item?.amount}` : '-'}</span>
                     </div>
                   </div>
                 </div>
@@ -68,7 +68,7 @@ const SalaryInfo = ({ data }) => {
                       <span className={styles.value}>
                         Quaterly Payment Amount:
                       </span>
-                      <span className={styles.valueWrap}>{item?.amount ? item?.amount : '-'}</span>
+                      <span className={styles.valueWrap}>{item?.amount ? `₹ ${item?.amount}` : '-'}</span>
                     </div>
                   </div>
                 </div>
@@ -96,7 +96,7 @@ const SalaryInfo = ({ data }) => {
                       <span className={styles.value}>
                         Annual Payment Amount:
                       </span>
-                      <span className={styles.valueWrap}>{item?.amount ? item?.amount : '-'}</span>
+                      <span className={styles.valueWrap}>{item?.amount ? `₹ ${item?.amount}` : '-'}</span>
                     </div>
                   </div>
                 </div>
@@ -126,7 +126,7 @@ const SalaryInfo = ({ data }) => {
                       <span className={styles.value}>
                         Long Term Benefits Amount:
                       </span>
-                      <span className={styles.valueWrap}>{item?.amount ? item?.amount : '-'}</span>
+                      <span className={styles.valueWrap}>{item?.amount ? `₹ ${item?.amount}` : '-'}</span>
                     </div>
                   </div>
                 </div>

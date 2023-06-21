@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import styles from "./Style.module.css";
+import { removeUnderScore } from "../../../../../helper/helper";
 
-const QualificationDetails = ({ data }) => {
+const QualificationDetails = ({ data ,other}) => {
   const dataLength = data?.length - 1;
   return (
     <div>
@@ -52,7 +53,7 @@ const QualificationDetails = ({ data }) => {
                     <div className={styles.key}>
                       <span className={styles.value}>Degree Type:</span>
                       <span className={styles.valueWrap}>
-                        {item?.degree_type}
+                        {removeUnderScore(item?.degree_type)}
                       </span>
                     </div>
                   </div>
@@ -62,6 +63,11 @@ const QualificationDetails = ({ data }) => {
                 )}
               </>
             ))}
+          <div className={styles.horizontalLine}></div>
+          <div className={styles.key}>
+            <span className={styles.value}>Other Professional Certifications (if any):</span>
+            <span className={styles.valueWrap}>{other}</span>
+          </div>
         </div>
       </div>
     </div>

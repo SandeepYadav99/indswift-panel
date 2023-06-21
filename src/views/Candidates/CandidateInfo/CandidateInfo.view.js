@@ -39,7 +39,7 @@ function CandidateInfo() {
         </div>
         <div className={styles.rhs}>
           <ContactInfo contact={personalData?.eaf?.contact} />
-          <QualificationDetails data={personalData?.eaf?.qualification} />
+          <QualificationDetails data={personalData?.eaf?.qualification} other={personalData?.eaf?.other_professional_certifications}/>
           <HistoryInfo data={personalData?.eaf?.employment_history} />
           <SalaryInfo data={personalData?.eaf} />
         </div>

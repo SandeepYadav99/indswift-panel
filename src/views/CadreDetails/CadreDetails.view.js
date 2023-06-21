@@ -6,9 +6,10 @@ import styles from "./Style.module.css";
 import ClaimUpper from "./component/ClaimUpper/ClaimUpper";
 import useCadreDetailsList from "./CadreDetails.hook";
 import ClaimForm from "./component/ClaimForm/ClaimForm.view";
+import ImprestClaimFormView from "./component/ImprestClaimForm/ImprestClaimForm.view";
 
 function CadreDetails() {
-  const { refMarrige, refCar, refMobile, handleSubmit ,refHealth,employeeDetail,reftravel,refLoc} = useCadreDetailsList({})
+  const { refMarrige, refCar, refMobile, handleSubmit ,refHealth,employeeDetail,reftravel,refLoc,refImp} = useCadreDetailsList({})
 
   return (
     <div className={styles.cadreDetailWrapper}>
@@ -30,6 +31,7 @@ function CadreDetails() {
       <ClaimForm type={"HEALTH"} title={"Preventive Health Check-up Claim"} ref={refHealth} />
       <ClaimForm type={"TRAVEL"} title={"Travel Claim"} ref={reftravel} />
       <ClaimForm type={"RELOCATION"} title={"Relocation Entitlement"} ref={refLoc} />
+      <ImprestClaimFormView type={"IMPREST"} title={"Imprest"} ref={refImp}/>
 
       <div className={styles.btnCont}>
         <ButtonBase

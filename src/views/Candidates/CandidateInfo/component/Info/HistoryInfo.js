@@ -48,7 +48,7 @@ const HistoryInfo = ({ data }) => {
                         CTC at time of joining:
                       </span>
                       <span className={styles.valueWrap}>
-                        {item?.joining_ctc ? item?.joining_ctc : '-'}
+                        {item?.joining_ctc ? `₹ ${item?.joining_ctc}` : '-'}
                       </span>
                     </div>
                     <div className={styles.key}>
@@ -56,7 +56,7 @@ const HistoryInfo = ({ data }) => {
                         CTC at time of leaving:
                       </span>
                       <span className={styles.valueWrap}>
-                        {item?.leaving_ctc ? item?.leaving_ctc : '-'}
+                        {item?.leaving_ctc ? `₹ ${item?.leaving_ctc}` : '-'}
                       </span>
                     </div>
                   </div>

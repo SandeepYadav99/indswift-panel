@@ -6,7 +6,7 @@ const ProfessionalInfo = ({ data }) => {
     <div>
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-          <div className={styles.heading}>Contact Information</div>
+          <div className={styles.heading}>Professional Details</div>
 
           <div className={styles.mainFlex}>
             <div className={styles.left}>
@@ -148,7 +148,7 @@ const ProfessionalInfo = ({ data }) => {
               <div className={styles.key}>
                 <span className={styles.value}>Relation (If applicable):</span>
                 <span className={styles.valueWrap}>
-                  {data?.relative_location ? data?.relative_location : "-"}
+                  {data?.relative_relation ? data?.relative_relation : "-"}
                 </span>
               </div>
             </div>

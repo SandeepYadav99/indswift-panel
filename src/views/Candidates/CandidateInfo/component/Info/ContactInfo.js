@@ -17,6 +17,12 @@ const ContactInfo = ({ contact }) => {
                 </span>
               </div>
               <div className={styles.key}>
+                <span className={styles.value}>Permanent address:</span>
+                <span className={styles.valueWrap}>
+                  {contact?.permanent_address ? contact?.permanent_address : "N/A"}
+                </span>
+              </div>
+              <div className={styles.key}>
                 <span className={styles.value}>
                   Residence Number (with STD code):
                 </span>
