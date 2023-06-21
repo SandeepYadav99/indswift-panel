@@ -33,7 +33,7 @@ const usePmsSiteReview = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.pmsReview);
+  } = useSelector((state) => state?.pmsSiteReview);
 
   useEffect(() => {
     dispatch(

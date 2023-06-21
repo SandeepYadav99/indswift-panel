@@ -21,7 +21,7 @@ import ImprestList from "../views/ClaimImprest/ImprestList/ImprestList.view";
 import ImprestCreate from "../views/ClaimImprest/ImprestCreate/ImprestCreate.view";
 import ClaimsReport from "../views/ClaimsReport/ClaimsReport.view";
 import ClaimCarReport from "../views/ClaimCarReport/ClaimCarReport.container";
-import PmsSiteReview from "../views/Pms/PmsSiteReview/PmsSiteReview.view";
+import PmsSiteReview from "../views/Pms/PmsSiteBatches/PmsSiteBatch.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));

@@ -11,7 +11,7 @@ export async function serviceDeletePmsSiteReview(params) {
     return await postRequest('pm/site/eview/delete', params);
 }
 export async function serviceGetPmsSiteReview(params) {
-    return await postRequest('pms/site/reviewer/batches', params);
+    return await postRequest('pms/site/batches', params);
 }
 
 export async function serviceExportPmsSiteReview(params) {
@@ -34,5 +34,4 @@ export async function serviceGetReviewDetail(batchId) {
     return await postRequest('pms/site/review/detail', {batch_id: batchId})
 }
 
- 
- 
+

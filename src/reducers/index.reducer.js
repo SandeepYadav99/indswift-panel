@@ -133,7 +133,7 @@ const rootReducer = combineReducers({
   imprest:ImprestReducer,
   claimsReport:ClaimsReportReducer,
   claimCarReport:ClaimCarReportReducer,
-  pmsSiteReview:PmsSiteReviewReducer
+  pmsSiteReview: PmsSiteReviewReducer,
   // form: formReducer,
 });
 

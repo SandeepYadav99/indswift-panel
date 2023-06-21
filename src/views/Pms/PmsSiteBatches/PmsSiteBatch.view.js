@@ -22,7 +22,7 @@ import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import usePmsSiteReview from "./PmsSiteReview.hook";
+import usePmsSiteBatch from "./PmsSiteBatch.hook";
 import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
 import BottomActionView from "./components/BottomAction/BottomAction.view";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
@@ -55,14 +55,14 @@ const PmsSiteReview = ({}) => {
     approveDialog,
     toggleNormalizwDialog,
         normalizeDialog
-  } = usePmsSiteReview({});
+  } = usePmsSiteBatch({});
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.pmsReview);
+  } = useSelector((state) => state.pmsSiteReview);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
