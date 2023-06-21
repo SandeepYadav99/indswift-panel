@@ -6,33 +6,9 @@ import CandidatePersonalInfo from "./component/CandidatePersonalInfo";
 import CandidateQualificationInfo from "./component/CandidateQualificationInfo";
 import CandidateUploadCard from "./component/CandidateUploadCard";
 import styles from "./Style.module.css";
-import SnackbarUtils from "../../../../../libs/SnackbarUtils";
-import { useCallback } from "react";
-import { serviceSendIrfReminder } from "../../../../../services/CVShortlist.service";
-import {serviceResendEaf} from "../../../../../services/Candidate.service";
 
-function CandidateProfileView({ data }) {
-  const handleCVShortlistReminder = useCallback(() => {
-    if (data) {
-      serviceSendIrfReminder({
-        candidate_id: data?.id,
-      }).then((res) => {
-        if (!res.error) {
-          SnackbarUtils.success("IRF form send successfully");
-        }
-      });
-    }
-  }, [data]);
-
-  const handleResendEafClick = useCallback(() => {
-    if (data) {
-      serviceResendEaf(data?.id).then((res) => {
-        if (!res.error) {
-          SnackbarUtils.success("EAF form send successfully");
-        }
-      });
-    }
-  }, [data]);
+function CandidateProfileView({ data , handleConfirm,handleEaf}) {
+  
 
   return (
     <div>
@@ -47,8 +23,8 @@ function CandidateProfileView({ data }) {
           <CandidateAssociateJob data={data} />
           <CandidateUploadCard
             data={data}
-            handleSubmit={handleCVShortlistReminder}
-            handleResendEafClick={handleResendEafClick}
+            handleSubmit={handleConfirm}
+            handleResendEafClick={handleEaf}
           />
           <CandidateEmployment history={data?.employment_history} />
         </div>

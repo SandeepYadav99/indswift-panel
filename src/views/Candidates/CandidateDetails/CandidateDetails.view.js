@@ -12,6 +12,7 @@ import CandidateStatusDialog from "./components/CandidateStatusPopUp/CandidateSt
 import ExtendOfferDialog from "./components/ExtendOfferPopUp/ExtendOfferDialog.view";
 import ReoccuringDialog from "./components/ReoccuringPopUp/ReoccuringDialog.view";
 import ShareOfferDialog from "./components/ShareOfferPopUp/ShareOfferDialog.view";
+import ConfirmDialog from "./components/CandidateProfileView/component/ConfirmDialog/ConfirmDialog";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -71,7 +72,13 @@ function CandidateDetails() {
     isReoccuring,
     handleShare,
     id,
-    handleStatusUpdate
+    handleStatusUpdate,
+    isConfirmDialog,
+    isEafDialog,
+    toggleConfirmDialog,
+    toggleEafDialog,
+    handleCVShortlistReminder,
+    handleResendEafClick
   } = useCandidateDetails({});
 
   return (
@@ -104,6 +111,21 @@ function CandidateDetails() {
           isOpen={isExtendDialog}
           handleToggle={toggleExtendDialog}
         />
+        <ConfirmDialog
+          isOpen={isConfirmDialog}
+          handleToggle={toggleConfirmDialog}
+          handleSubmit={handleCVShortlistReminder}
+          heading="IRF Form Confirmation"
+          des="Are you sure you want to send Interview Reimbursement Form?"
+        />
+        <ConfirmDialog
+          isOpen={isEafDialog}
+          handleToggle={toggleEafDialog}
+          handleSubmit={handleResendEafClick}
+          heading="EAF Form Confirmation"
+          des="Are you sure you want to send Employment Application Form?"
+        />
+
         {/*<ReoccuringDialog*/}
         {/*  isOpen={isReoccuring}*/}
         {/*  handleToggle={toggleReoccuringDialog}*/}
@@ -113,7 +135,7 @@ function CandidateDetails() {
           handleToggle={toggleResetDialog}
         /> */}
         <CandidateStatusDialog
-            handleStatusUpdate={handleStatusUpdate}
+          handleStatusUpdate={handleStatusUpdate}
           isOpen={isUpdateDialog}
           handleToggle={toggleStatusDialog}
           candidateId={id}
@@ -121,7 +143,11 @@ function CandidateDetails() {
 
         <div className={styles.paperBackground}>
           <TabPanel value={value} index={0} dir={"ltr"}>
-            <CandidateProfileView data={candidateData} />
+            <CandidateProfileView
+              data={candidateData}
+              handleConfirm={toggleConfirmDialog}
+              handleEaf={toggleEafDialog}
+            />
           </TabPanel>
           <TabPanel value={value} index={1} dir={"ltr"}>
             <InterviewHistory

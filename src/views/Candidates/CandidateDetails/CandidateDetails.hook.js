@@ -3,11 +3,14 @@ import {
   serviceCandidateHistory,
   serviceGetCandidateDetails,
   serviceGetCandidateJobHistory,
+  serviceResendEaf,
 } from "../../../services/Candidate.service";
 import RouteName from "../../../routes/Route.name";
 import historyUtils from "../../../libs/history.utils";
 import { useParams } from "react-router";
 import { useCallback } from "react";
+import { serviceSendIrfReminder } from "../../../services/CVShortlist.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 function useCandidateDetails() {
   const [value, setValue] = useState(0);
@@ -16,10 +19,21 @@ function useCandidateDetails() {
   const [isUpdateDialog, setIsUpdateDialog] = useState(false);
   const [isExtendDialog, setIsExtendDialog] = useState(false);
 
+  const [isConfirmDialog, setIsConfirmDialog] = useState(false);
+  const [isEafDialog, setIsEafDialog] = useState(false);
   const [isReoccuring, setIsReoccuring] = useState(false);
   const [historyData, setHistoryData] = useState([]);
   const [historyDetail, setHistoryDetail] = useState([]);
   const { id } = useParams();
+
+  const toggleConfirmDialog = useCallback(() => {
+    setIsConfirmDialog((e) => !e);
+  }, [isConfirmDialog]);
+
+  const toggleEafDialog = useCallback(() => {
+    setIsEafDialog((e) => !e);
+  }, [isEafDialog]);
+
   useEffect(() => {
     Promise.allSettled([serviceGetCandidateDetails({ id })]).then(
       (promises) => {
@@ -72,6 +86,29 @@ function useCandidateDetails() {
   const handleShare = useCallback(() => {
 
   }, []);
+  const handleCVShortlistReminder = useCallback(() => {
+    if (candidateData) {
+      serviceSendIrfReminder({
+        candidate_id: candidateData?.id,
+      }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("IRF form send successfully");
+          toggleConfirmDialog()
+        }
+      });
+    }
+  }, [candidateData]);
+
+  const handleResendEafClick = useCallback(() => {
+    if (candidateData) {
+      serviceResendEaf(candidateData?.id).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("EAF form send successfully");
+          toggleEafDialog()
+        }
+      });
+    }
+  }, [candidateData]);
 
   const handleStatusUpdate = useCallback((data) => {
     toggleStatusDialog();
@@ -98,7 +135,13 @@ function useCandidateDetails() {
     isReoccuring,
     id,
     handleShare,
-    handleStatusUpdate
+    handleStatusUpdate,
+    isConfirmDialog,
+    isEafDialog,
+    toggleConfirmDialog,
+    toggleEafDialog,
+    handleCVShortlistReminder,
+    handleResendEafClick
   };
 }
 
