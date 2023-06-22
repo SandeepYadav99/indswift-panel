@@ -220,8 +220,8 @@ const ProfessionalDetail = ({isDisabled}, ref) => {
               changeTextData(value, "ailment_type");
             }}
           >
-            <MenuItem value="1">Physical Disability</MenuItem>
-            <MenuItem value="2">other</MenuItem>
+            <MenuItem value="Physical Disability">Physical Disability</MenuItem>
+            <MenuItem value="Other">Other</MenuItem>
           </CustomSelectField>
         </div>
       </div>

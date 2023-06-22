@@ -28,7 +28,7 @@ const PMSSitePendingReview = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.pmsHodMyReviews);
+  } = useSelector((state) => state.pmsSiteMyReviews);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
