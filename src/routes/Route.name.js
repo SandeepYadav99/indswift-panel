@@ -134,7 +134,7 @@ export default {
   PMS_SITE_PLANNER: '/pms/site',
   PMS_SITE_PLANNER_FORM:'/pms/site/submission',
   PMS_SITE_PENDING: '/pm/site/pending',
-
+  PMS_SITE_SUBMISSION_DETAIL: '/pms/site/form/detail/',
 
   EMPLOYEE_REPORT:'/employee/report',
   PMS_4B_FORM: '/pms/4B/submission',

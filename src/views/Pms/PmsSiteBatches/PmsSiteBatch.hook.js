@@ -159,27 +159,14 @@ const usePmsSiteReview = ({}) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
-    LogUtils.log({
-      reviewerId: data.reviewer_id,
-      pms_batch: data.batch,
-      pms_form_type: data.form_type,
-      batch_id: data.id,
-    });
     historyUtils.push(`${RouteName.PERFORMANCE_BATCH}`, {
-      reviewerId: data.reviewer_id,
-      pms_batch: data.batch,
-      pms_form_type: data.form_type,
-      batch_id: data.id,
+      pms_site_id: data.id,
     }); //+data.id
   }, []);
 
   const handleViewFormDetails = useCallback((data) => {
     historyUtils.push(
-      `${RouteName.PMS_FORM_DETAIL}${data?.id}`,
-      {
-        type:data?.form_type
-      }
-    );
+      `${RouteName.PMS_SITE_SUBMISSION_DETAIL}${data?.id}`);
   }, []);
   const configFilter = useMemo(() => {
     return [

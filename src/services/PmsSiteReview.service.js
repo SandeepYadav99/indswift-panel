@@ -31,7 +31,7 @@ export async function serviceAddPmsSiteReview(params) {
 }
 
 export async function serviceGetReviewDetail(batchId) {
-    return await postRequest('pms/site/review/detail', {batch_id: batchId})
+    return await postRequest('pms/site/form/detail', {batch_id: batchId})
 }
 
 
