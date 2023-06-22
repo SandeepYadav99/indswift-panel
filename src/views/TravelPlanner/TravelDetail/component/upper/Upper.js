@@ -41,6 +41,19 @@ function Upper({ idCards }) {
             </div>
           </div>
         </div>
+        {idCards?.co_passengers?.length > 0 && (
+          <>
+            <div className={styles.verti}></div>
+            <div className={styles.heading}>Co- traveller Details</div>
+            {idCards?.co_passengers?.map((item) => (
+              <div className={styles.nameWrap}>
+                <div className={styles.key} style={{marginBottom:'3px'}}>
+                  {`${item?.name} ( ${item?.emp_code})`}{" "}
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

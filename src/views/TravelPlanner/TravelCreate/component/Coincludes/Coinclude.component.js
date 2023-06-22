@@ -24,9 +24,9 @@ const CoincludeForm = (
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
+  const [empValid, setEmpValid] = useState({});
   const [filteredList, setFilteredList] = useState([]);
   const [errorData, setErrorData] = useState({});
-  const [validPass, setValidPass] = useState(false);
   const [variants, setVariants] = useState([]);
   const { id } = useParams();
   useImperativeHandle(ref, () => ({
@@ -47,12 +47,16 @@ const CoincludeForm = (
     const filteredArr = employees.filter((item) => item?.id !== employeeId);
     setFilteredList([...filteredArr]);
   }, []);
+
   const validateData = (index, type) => {
     const errors = {};
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = ["co_passengers"];
+      // if (start && end && val?.co_passengers?.id) {
+      //   checkCodeValidation(val.co_passengers.id, index);
+      // }
       {
         required.forEach((key) => {
           if (!val[key]) {
@@ -60,12 +64,6 @@ const CoincludeForm = (
           }
         });
       }
-      // if (!validPass) {
-      //   SnackbarUtils.error("Co-Passenger Occupied");
-      //   err["co_passengers"] = true;
-      // } else if (val.co_passengers) {
-      //   delete err["co_passengers"];
-      // }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
@@ -73,35 +71,25 @@ const CoincludeForm = (
     setErrorData(errors);
     return !(Object.keys(errors).length > 0);
   };
-  console.log("filed", fields);
   useEffect(() => {
     if (data) {
       setFields({ ...data });
     }
   }, [data]);
-  const checkCodeValidation = useCallback(() => {
-    const passanger = fields.map((item) =>
-      item.co_passengers?.id ? item.co_passengers?.id : ""
-    );
-    const filterpass = passanger.filter((item) => item !== "");
+
+  const checkCodeValidation = async (empId, index) => {
     serviceCheckCoPassenger({
       start_date: start,
       end_date: end,
-      co_passengers: filterpass ? filterpass : [],
+      employee_id: empId,
     }).then((res) => {
-      if (!res.error) {
-        setValidPass(res.data);
-        console.log("debounceerr", res.data);
-      }
+      const resData = res.data;
+      setEmpValid({ ...empValid, [index]: resData });
     });
-  }, [id, start, end, fields]);
-  console.log("valid", validPass);
-  
-  // useEffect(() => {
-  //   if (start && end) {
-  //     checkCodeValidation();
-  //   }
-  // }, [start, end, fields]);
+  };
+
+  console.log("error?", errorData);
+
   const removeErrors = useCallback(
     (index, key) => {
       const errors = JSON.parse(JSON.stringify(errorData));

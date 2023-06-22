@@ -25,6 +25,10 @@
   text-decoration-line: underline;
   cursor: pointer;
 }
+.verti{
+  border: 1px solid #B8C5D3;
+  margin:10px 0;
+}
 .heading {
   font-size: 0.8rem;
   margin-top: 5px;
@@ -38,6 +42,11 @@
 .mainFlex {
   display: flex;
   /*align-items: center;*/
+}
+.nameWrap{
+  display: flex;
+  flex-direction: column;
+  font-size: .75rem;
 }
 
 .vertical {

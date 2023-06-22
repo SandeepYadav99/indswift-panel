@@ -1262,8 +1262,8 @@ const dashboardRoutes = [
     },
     {
         path: `${RouteName.PERFORMANCE_PENDING}`,
-        sidebarName: "Pending Review",
-        navbarName: "Pending Review",
+        sidebarName: "Pending 90 Degree Review",
+        navbarName: "Pending 90 Degree Review",
         icon: PeopleOutlined,
         component: PmsPending,
         is_sidebar: true,
@@ -1286,8 +1286,8 @@ const dashboardRoutes = [
     },
     {
         path: `${RouteName.PMS_PLANNER}`,
-        sidebarName: "PMS Form 4B Planner",
-        navbarName: "PMS Form 4B Planner",
+        sidebarName: "360 Degree Grid Planner",
+        navbarName: "360 Degree Grid Planner",
         icon: PeopleOutlined,
         component: PmsPlanner,
         is_sidebar: true,

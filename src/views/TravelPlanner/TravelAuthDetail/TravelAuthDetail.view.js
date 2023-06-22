@@ -191,7 +191,7 @@ function TravelAuthDetail() {
                   </div>
                  
                   {
-                   (!CheckexceptionRejected && employeeDetail?.status === "PENDING" && enableType && !TypeEnabledStatus) ?
+                   (!CheckexceptionRejected && employeeDetail?.status === "PENDING" && enableType && employeeDetail?.travelPlanner?.status === 'HOD_APPROVED') ?
                      <div className={styles.formWrap}>
                     <div className={styles.formWrapInner}>
                       <CustomTextField

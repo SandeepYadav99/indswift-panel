@@ -3,7 +3,10 @@ import React from "react";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
-import { serviceGetEmployeeDetails } from "../../../services/ClaimsManagement.service";
+import {
+  serviceCheckCoPassenger,
+  serviceGetEmployeeDetails,
+} from "../../../services/ClaimsManagement.service";
 import { useSelector } from "react-redux";
 import nullImg from "../../../assets/img/null.png";
 import { dataURLtoFile } from "../../../helper/helper";
@@ -69,7 +72,34 @@ const useTravelCreate = ({}) => {
     } else {
       setIsBond(false);
     }
-  }, [form?.tour_type, employeeDetails]);
+  });
+
+  const checkCodeValidation = () => {
+    serviceCheckCoPassenger({
+      start_date: form.start_date,
+      end_date: form.end_date,
+      employee_id: employeeDetails?.id,
+    }).then((res) => {
+      if (!res.error) {
+        const errors = JSON.parse(JSON.stringify(errorData));
+        if (res.data) {
+          errors["start_date"] = true;
+          SnackbarUtils.error("Claim already raised on these date");
+          setErrorData(errors);
+        } else {
+          delete errors.start_date;
+          setErrorData(errors);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (form.start_date && form.end_date && employeeDetails?.id) {
+      checkCodeValidation();
+    }
+  }, [form.start_date, form.end_date, employeeDetails?.id]);
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
@@ -137,12 +167,12 @@ const useTravelCreate = ({}) => {
     return errors;
   }, [form, errorData]);
 
-  useEffect(()=>{
-    if(form.tour_type){
-      setForm({...form,imprest_currency:''})
+  useEffect(() => {
+    if (form.tour_type) {
+      setForm({ ...form, imprest_currency: "" });
     }
-  },[form.tour_type])
-  
+  }, [form.tour_type]);
+
   const submitToServer = useCallback(
     () => {
       if (!isSubmitting) {
@@ -150,13 +180,13 @@ const useTravelCreate = ({}) => {
         setIsSubmitting(true);
         const fd = new FormData();
         Object.keys(form).forEach((key) => {
-          if(key !== 'imprest_amount' && key !== 'imprest_currency'){
+          if (key !== "imprest_amount" && key !== "imprest_currency") {
             fd.append(key, form[key]);
           }
         });
-        if(form.imprest_required){
-          fd.append("imprest_currency",form.imprest_currency)
-          fd.append("imprest_amount",form.imprest_amount)
+        if (form.imprest_required) {
+          fd.append("imprest_currency", form.imprest_currency);
+          fd.append("imprest_amount", form.imprest_amount);
         }
         fd.append("foreign_travel_bond_agreed", isBond);
         const ExpensesData = travelRef.current.getData();
