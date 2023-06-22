@@ -23,38 +23,25 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, value, isError, group, title, totalAvg, rating, ...props}) => {
+const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, value, isError, group, title, rating, ...props}) => {
     const inputField = useMemo(() => {
         if (render) {
             return null;
-        }
-        if (title === 'RECOMMEND_FOR_PROMOTION') {
-            return (
-                <FormDropdown
-                    name={name}
-                    value={value ? value : ''}
-                    isError={isError}
-                    isEnabled={totalAvg<=rating}
-                    onChange={(e) => {
-                        handleInputChange(e.target.name, e.target.value, 'DROPDOWN')
-                    }}
-                />
-            );
         } else {
             return (
                 <FormInput
                     value={value ? value : ''}
                     onChange={(e) => {
-                        handleInputChange(e.target.name, e.target.value, 'NUMBER', rating)
+                        handleInputChange(e.target.name, e.target.value, title === 'OVERALL_RATING' ? 'NUMBER' : 'TEXT')
                     }}
                     readOnly={readOnly}
                     name={name}
                     isError={isError}
-                    type={'number'}
+                    type={title === 'OVERALL_RATING' ? 'number': 'text'}
                 />
             );
         }
-    }, [render, group, value, handleInputChange, name, isError, rating, totalAvg, title]);
+    }, [render, group, value, handleInputChange, name, isError, rating, title]);
     return (
         <td
             key={key}
@@ -163,7 +150,6 @@ const PMSSiteForm = ({location}) => {
         toggleStatusDialog,
         approveDialog,
         submitToServer,
-        totalAvg,
     } = usePMSSiteForm({location});
 
 
@@ -209,7 +195,6 @@ const PMSSiteForm = ({location}) => {
                                         render={render}
                                         isError={errors[`${row.id}_${key}`]}
                                         title={title}
-                                        totalAvg={totalAvg}
                                         rating={row?.rating}
                                         {...props}
                                     />

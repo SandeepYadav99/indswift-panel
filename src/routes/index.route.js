@@ -53,7 +53,7 @@ const RouteComponent = () => (
     <Route path={`${RouteName.PMS_FORM_DETAIL}:id`} component={PmsFormDetail} />
     <Route path={`${RouteName.PMS_4B_FORM}`} component={Pms4BFormView} />
       <Route path={`${RouteName.PMS_HOD_FORM}:id`} component={PmsHodForm} />
-      <Route path={`${RouteName.PMS_SITE_PLANNER_FORM}`} component={PMSSiteForm} />
+      <Route path={`${RouteName.PMS_SITE_PLANNER_FORM}:id`} component={PMSSiteForm} />
     <Route path={`${RouteName.PMS_4B_REVIEW_DETAIL}:id`} component={Pms4BFormDetailView} />
     <Route path={RouteName.IRF_LOGIN} component={CandidateIrfLogin} />
     <Route path={RouteName.IRF_FORM} component={IrfForm} />

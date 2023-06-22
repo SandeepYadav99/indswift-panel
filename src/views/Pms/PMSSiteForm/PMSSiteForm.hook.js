@@ -6,10 +6,10 @@ import {isNum, isNumDec, isNumDecTwoPlaces} from "../../../libs/RegexUtils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import {
-    serviceAddHodFormDraft,
-    serviceGetHodFormDetail,
-    serviceGetHodFormDraft, serviceSaveHodReview
-} from "../../../services/PmsHodReview.service";
+    serviceAddSiteFormDraft,
+    serviceGetSiteFormDetail,
+    serviceGetSiteFormDraft, serviceSaveSiteReview
+} from "../../../services/PMSSitePendingReview.service";
 
 
 const usePMSSiteForm = ({location}) => {
@@ -62,22 +62,11 @@ const usePMSSiteForm = ({location}) => {
             readOnly: true,
             render: (all) => <div className={styles.label}>{all.experience}</div>
         },
-        {
-            is_static: true,
-            key: "rating",
-            title: "Rating",
-            readOnly: true,
-            render: (all) => <div className={styles.label}>{all?.rating} %</div>
-        },
-        // {is_static: false, key: "city", title: "City" },
-        // {is_static: false, key: "email", title: "Email" },
-        // {is_static: false, key: "country", title: "Country" },
     ]);
     const [errors, setErrors] = useState({});
     const [rows, setRows] = useState([]);
     const [form, setForm] = useState({});
     const [draft, setDraft] = useState({});
-    const [totalAvg, setTotalAvg] = useState(0);
     const isMount = useRef(false);
 
     const processedColumns = useMemo(() => {
@@ -104,12 +93,7 @@ const usePMSSiteForm = ({location}) => {
         rows.forEach((row, rowIndex) => {
             processedColumns.forEach((col, colIndex) => {
                 if (!col.is_static) {
-                    if (col.title !== 'HOD_RATING') {
-                        tForm[`${row.id}_${col.key}`] = '';
-                    } else {
-                        tForm[`${row.id}_${col.key}`] = row?.rating;
-                        rating[`${row.id}_${col.key}`] = row?.rating;
-                    }
+                    tForm[`${row.id}_${col.key}`] = '';
                 }
             });
         });
@@ -120,12 +104,11 @@ const usePMSSiteForm = ({location}) => {
 
     useEffect(() => {
         if (id && !isMount.current) {
-            serviceGetHodFormDetail({batch_id: id}).then((res) => {
+            serviceGetSiteFormDetail({batch_id: id}).then((res) => {
                 if (!res.error) {
                     setRows([...res.data?.employees]);
                     setColumns([...columns, ...res?.data?.form]);
-                    setTotalAvg(res?.data?.total_avg);
-                    serviceGetHodFormDraft({batch_id: id}).then((res) => {
+                    serviceGetSiteFormDraft({batch_id: id}).then((res) => {
                         if (!res.error) {
                             if (res?.data && Object.keys(res?.data).length > 0) {
                                 setDraft({ ...res?.data?.data});
@@ -161,8 +144,6 @@ const usePMSSiteForm = ({location}) => {
         const tErr = {...errors};
         Object.keys(form).forEach((key) => {
             if (!form[key]) {
-                tErr[key] = true;
-            } else if ( (key in rating) && ((parseFloat(rating[key]) - 6) > form[key] || (parseFloat(rating[key]) + 6) < form[key])) {
                 tErr[key] = true;
             }
         });
@@ -229,12 +210,11 @@ const usePMSSiteForm = ({location}) => {
 
     const handleInputChange = useCallback((name, value, type, rating) => {
         const tForm = {...form};
-        LogUtils.log('name',name, value, type, rating);
-        if ((!value || ((isNumDecTwoPlaces(value) && value > 0 && value <= 100) && type === 'NUMBER') )) { //((parseFloat(rating) - 5) <= value && (parseFloat(rating) + 5) >= value)
+        if ((!value || ((isNumDecTwoPlaces(value) && value > 0 && value <= 10) && type === 'NUMBER') )) { //((parseFloat(rating) - 5) <= value && (parseFloat(rating) + 5) >= value)
             tForm[name] = value;
             processChanges(name, value);
         }
-        if (type === 'DROPDOWN') {
+        if (type === 'TEXT') {
             tForm[name] = value;
             removeError(name);
         }
@@ -259,7 +239,7 @@ const usePMSSiteForm = ({location}) => {
             if (!(empId in data)) {
                 data[empId] = {};
             }
-            data[empId] = {...data[empId], ...{[`${cat-7}_${param}`]: val}};
+            data[empId] = {...data[empId], ...{[`${cat-6}_${param}`]: val}};
         });
         return data;
     }, [form, columns, rows]);
@@ -268,11 +248,11 @@ const usePMSSiteForm = ({location}) => {
         if (!isSubmitting) {
             setIsSubmitting(true);
             const data = processData();
-            serviceAddHodFormDraft({
+            serviceAddSiteFormDraft({
                 batch_id: id,
                 data: form
             });
-            serviceSaveHodReview({
+            serviceSaveSiteReview({
                 batch_id: id,
                 reviews: data,
             }).then((res) => {
@@ -311,7 +291,7 @@ const usePMSSiteForm = ({location}) => {
         if (!isAdjacentErr) {
             if (!isSubmitting) {
                 setIsSubmitting(true);
-                serviceAddHodFormDraft({
+                serviceAddSiteFormDraft({
                     batch_id: id,
                     data: form
                 }).then((res) => {
@@ -341,8 +321,7 @@ const usePMSSiteForm = ({location}) => {
         handleDraft,
         toggleStatusDialog,
         approveDialog,
-        submitToServer,
-        totalAvg
+        submitToServer
     }
 };
 

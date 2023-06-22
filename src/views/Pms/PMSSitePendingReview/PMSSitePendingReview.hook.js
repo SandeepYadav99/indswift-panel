@@ -21,7 +21,7 @@ const usePMSSitePendingReview = ({ location }) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.pmsHodMyReviews);
+  } = useSelector((state) => state?.pmsSiteMyReviews);
 
   useEffect(() => {
     dispatch(
@@ -121,7 +121,7 @@ const usePMSSitePendingReview = ({ location }) => {
   }, [setEditData]);
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.PMS_HOD_FORM}${data?.id}`);
+    historyUtils.push(`${RouteName.PMS_SITE_PLANNER_FORM}${data?.id}`);
   }, []);
 
 
