@@ -35,19 +35,14 @@ function ReplacementDetails({data}) {
                  {textValue(data?.replacing_person?.grade)}
                 </span>
               </div>
-              {/* {
-                data?.is_experience_hide ? <></> 
-                : */}
-                <div className={styles.key}>
+              {!data?.is_experience_hide && (<div className={styles.key}>
                 <span className={styles.value}>Replacing Experience:</span>
                 <span className={styles.valueWrap}>
                   {textValue(data?.replacing_person?.experience) !== '-' ? (data?.replacing_person?.experience > 1
                       ? `${data?.replacing_person?.experience} years`
                       : `${data?.replacing_person?.experience} year`) : '-'}
                 </span>
-
-            </div>
-              {/* } */}
+            </div>)}
             <div className={styles.key}>
               <span className={styles.value}>Replacing CTC (LPA):</span>
               {data?.replacing_person?.ctc && (
