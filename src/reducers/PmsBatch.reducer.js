@@ -12,7 +12,8 @@ import {
     SET_SERVER_PAGE,
     CREATE_DATA,
     UPDATE_DATA,
-    DELETE_ITEM
+    DELETE_ITEM,
+    SET_OTHER_DATA
 } from '../actions/PmsBatch.action';
 import Constants from '../config/constants';
 
@@ -32,7 +33,8 @@ const initialState = {
     query: null, // search text data
     query_data: null, // popover filter data change
     sorting_data: {row: null, order: null},
-    is_fetching: false
+    is_fetching: false,
+    other_data: {},
 };
 
 export default function (state = JSON.parse(JSON.stringify(initialState)), action) {
@@ -54,6 +56,9 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
         }
         case SET_SORTING: {
             return {...state, sorting_data: action.payload};
+        }
+        case SET_OTHER_DATA: {
+            return {...state, other_data: action.payload};
         }
         case CHANGE_STATUS: {
             if (action.payload) {

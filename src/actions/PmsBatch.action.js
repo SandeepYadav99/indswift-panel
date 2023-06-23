@@ -22,7 +22,7 @@ export const SET_SERVER_PAGE = 'SET_SERVER_PAGE_PMS_BATCH';
 export const CREATE_DATA = 'CREATE_PMS_BATCH';
 export const UPDATE_DATA = 'UPDATE_PMS_BATCH';
 export const DELETE_ITEM = 'DELETE_PMS_BATCH';
-
+export const SET_OTHER_DATA = 'SET_OTHER_DATA_PMS_BATCH';
 
 export function actionFetchPmsBatch(index = 1, sorting = {}, filter = {}, otherData = {}) {
     const request = serviceGetPmsBatch({ index, row: sorting.row, order: sorting.order, ...filter, ...otherData });
@@ -31,6 +31,11 @@ export function actionFetchPmsBatch(index = 1, sorting = {}, filter = {}, otherD
         request.then((data) => {
             dispatch({type: SET_FILTER, payload: filter});
             dispatch({type: SET_SORTING, payload: sorting});
+            if ((Object.keys(otherData)).length > 0) {
+                dispatch({type: SET_OTHER_DATA, payload: otherData});
+            } else {
+                dispatch({type: SET_OTHER_DATA, payload: {}});
+            }
             if (!data.error) {
                 dispatch({type: FETCHED, payload: { data: data.data, page: index }});
                 dispatch({ type: SET_SERVER_PAGE, payload: index });
@@ -115,9 +120,9 @@ export function actionSetPagePmsBatch(page) {
     const query = stateData.query;
     const queryData = stateData.query_data;
     const serverPage = stateData.serverPage;
-
+    const otherData = stateData.other_data;
     if (totalLength <= ((page + 1) * Constants.DEFAULT_PAGE_VALUE)) {
-        store.dispatch(actionFetchPmsBatch(serverPage + 1, sortingData, {query, query_data: queryData}));
+        store.dispatch(actionFetchPmsBatch(serverPage + 1, sortingData, {query, query_data: queryData}, otherData));
     }
 
     console.log(currentPage, totalLength);
