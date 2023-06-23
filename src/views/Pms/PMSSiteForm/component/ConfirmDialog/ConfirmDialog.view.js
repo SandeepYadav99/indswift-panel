@@ -69,7 +69,7 @@ const returnForm=type?.split('_')[1]
             <div className={styles.heading}>Confirm Action</div>
             <div className={styles.newLine}></div>
             <div className={styles.des}>
-              Are you sure you want to submit the HOD  Review Form?
+              Are you  sure  you want to submit the site review form?
             </div>
           </div>
 

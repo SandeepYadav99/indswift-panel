@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, value, isError, group, title, rating, ...props}) => {
+const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, value, isError, group, title, rating, onBlurHandler, ...props}) => {
     const inputField = useMemo(() => {
         if (render) {
             return null;
@@ -38,6 +38,9 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
                     name={name}
                     isError={isError}
                     type={title === 'OVERALL_RATING' ? 'number': 'text'}
+                    onBlur={(e) => {
+                        onBlurHandler(e.target.name, 'TEXT');
+                    }}
                 />
             );
         }
@@ -150,6 +153,7 @@ const PMSSiteForm = ({location}) => {
         toggleStatusDialog,
         approveDialog,
         submitToServer,
+        onBlurHandler
     } = usePMSSiteForm({location});
 
 
@@ -196,6 +200,7 @@ const PMSSiteForm = ({location}) => {
                                         isError={errors[`${row.id}_${key}`]}
                                         title={title}
                                         rating={row?.rating}
+                                        onBlurHandler={onBlurHandler}
                                         {...props}
                                     />
                                 ))}

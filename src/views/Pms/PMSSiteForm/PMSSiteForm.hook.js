@@ -208,7 +208,7 @@ const usePMSSiteForm = ({location}) => {
     );
 
 
-    const handleInputChange = useCallback((name, value, type, rating) => {
+    const handleInputChange = useCallback((name, value, type) => {
         const tForm = {...form};
         if ((!value || ((isNumDecTwoPlaces(value) && value > 0 && value <= 10) && type === 'NUMBER') )) { //((parseFloat(rating) - 5) <= value && (parseFloat(rating) + 5) >= value)
             tForm[name] = value;
@@ -220,6 +220,13 @@ const usePMSSiteForm = ({location}) => {
         }
         setForm(tForm);
     }, [form, setForm, removeError]);
+
+    const onBlurHandler = useCallback(
+        type => {
+            if (form?.[type]) {
+                handleInputChange(type, form?.[type].trim(), 'TEXT');
+            }
+        }, [form, setForm, handleInputChange]);
 
     const processData = useCallback(() => {
         const tRows = {...rows};
@@ -321,7 +328,8 @@ const usePMSSiteForm = ({location}) => {
         handleDraft,
         toggleStatusDialog,
         approveDialog,
-        submitToServer
+        submitToServer,
+        onBlurHandler
     }
 };
 

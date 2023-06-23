@@ -176,13 +176,6 @@ const usePmsSiteReview = ({}) => {
         type: "select",
         fields: ["DTY", "APMS"],
       },
-
-      {
-        label: "Form Type",
-        name: "form_type",
-        type: "select",
-        fields: ["TYPE_1", "TYPE_2", "TYPE_3", "TYPE_4"],
-      },
       {
         label: "Status",
         name: "status",
