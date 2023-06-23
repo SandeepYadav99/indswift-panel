@@ -12,17 +12,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 
-import TravelCreate from "../views/TravelPlanner/TravelCreate/TravelCreate.view";
-import TravelDetail from "../views/TravelPlanner/TravelDetail/TravelDetail.view";
-import TravelAuth from "../views/TravelPlanner/TravelAuth/TravelAuth.container";
-import TravelAuthDetail from "../views/TravelPlanner/TravelAuthDetail/TravelAuthDetail.view";
-import ClaimLocCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimLocCard/ClaimLocCard.view";
-import ImprestList from "../views/ClaimImprest/ImprestList/ImprestList.view";
-import ImprestCreate from "../views/ClaimImprest/ImprestCreate/ImprestCreate.view";
-import ClaimsReport from "../views/ClaimsReport/ClaimsReport.view";
-import ClaimCarReport from "../views/ClaimCarReport/ClaimCarReport.container";
-import PmsSiteReview from "../views/Pms/PmsSiteBatches/PmsSiteBatch.view";
-import PMSSitePendingReview from "../views/Pms/PMSSitePendingReview/PMSSitePendingReview.view";
+
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -110,7 +100,17 @@ const PmsNormailize = lazy(() => import("../views/Pms/PmsNormailize/PmsNormailiz
 const PmsHod = lazy(() => import("../views/Pms/PmsHodPlanner/PmsHod.view"));
 const PmsHodReview = lazy(() => import("../views/Pms/PmsHodReview/PmsHodReview.view"));
 const TravelList = lazy(() => import("../views/TravelPlanner/TravelList/TravelList.container"));
-
+const TravelCreate  = lazy(() => import("../views/TravelPlanner/TravelCreate/TravelCreate.view"));
+const TravelDetail  = lazy(() => import("../views/TravelPlanner/TravelDetail/TravelDetail.view"));
+const TravelAuth  = lazy(() => import("../views/TravelPlanner/TravelAuth/TravelAuth.container"));
+const TravelAuthDetail  = lazy(() => import("../views/TravelPlanner/TravelAuthDetail/TravelAuthDetail.view"));
+const ClaimLocCard  = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimLocCard/ClaimLocCard.view"));
+const ImprestList  = lazy(() => import("../views/ClaimImprest/ImprestList/ImprestList.view"));
+const ImprestCreate  = lazy(() => import("../views/ClaimImprest/ImprestCreate/ImprestCreate.view"));
+const ClaimsReport  = lazy(() => import("../views/ClaimsReport/ClaimsReport.view"));
+const ClaimCarReport  = lazy(() => import("../views/ClaimCarReport/ClaimCarReport.container"));
+const PmsSiteReview  = lazy(() => import("../views/Pms/PmsSiteBatches/PmsSiteBatch.view"));
+const PMSSitePendingReview  = lazy(() => import("../views/Pms/PMSSitePendingReview/PMSSitePendingReview.view"));
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -1309,6 +1309,18 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
     },
     {
+        path: `${RouteName.PERFORMANCE_HOD_REVIEW}`,
+        sidebarName: "HOD Pending Reviews",
+        navbarName: "HOD Pending Reviews",
+        icon: PeopleOutlined,
+        component: PmsHodReview,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    },
+    {
         path: `${RouteName.PMS_SITE_PLANNER}`,
         sidebarName: "Site Wise Planner",
         navbarName: "Site Wise Planner",
@@ -1318,7 +1330,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_SITE_PENDING}`,
@@ -1326,18 +1338,6 @@ const dashboardRoutes = [
         navbarName: "PMS Site Pending Review",
         icon: PeopleOutlined,
         component: PMSSitePendingReview,
-        is_sidebar: true,
-        is_protect: true,
-        should_regex: true,
-        parent: 'pm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
-    },
-    {
-        path: `${RouteName.PERFORMANCE_HOD_REVIEW}`,
-        sidebarName: "HOD Pending Reviews",
-        navbarName: "HOD Pending Reviews",
-        icon: PeopleOutlined,
-        component: PmsHodReview,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
