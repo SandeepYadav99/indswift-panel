@@ -49,6 +49,10 @@
   border: 1px solid #b8c5d3;
   margin: 20px 0 10px 0;
 }
+.verti{
+  border: 1px solid #B8C5D3;
+  margin:10px 0;
+}
 .key {
   color: #818181;
   font-weight: 500;
