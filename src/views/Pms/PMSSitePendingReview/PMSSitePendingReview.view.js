@@ -137,7 +137,7 @@ const PMSSitePendingReview = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Site Head Pending reviews list</span>
+            <span className={styles.title}>Type 5 Form Pending Reviews List</span>
             <div className={styles.newLine} />
           </div>
         </div>
