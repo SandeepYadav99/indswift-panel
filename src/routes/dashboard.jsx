@@ -1141,17 +1141,17 @@ const dashboardRoutes = [
         parent: 'cm',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
-    {
-        path: 'null',
-        sidebarName: "Travel Planner",
-        navbarName: "Travel Planner",
-        icon: AssignmentOutlined,
-        is_sidebar: true,
-        slug: 'tp',
-        is_parent: true,
-        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
-
-    },
+    // {
+    //     path: 'null',
+    //     sidebarName: "Travel Planner",
+    //     navbarName: "Travel Planner",
+    //     icon: AssignmentOutlined,
+    //     is_sidebar: true,
+    //     slug: 'tp',
+    //     is_parent: true,
+    //     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    //
+    // },
     // {
     //     path: `${RouteName.TRAVEL_PLANNER}`,
     //     sidebarName: "My Travel Planner",
@@ -1322,8 +1322,8 @@ const dashboardRoutes = [
     // },
     {
         path: `${RouteName.PMS_SITE_PLANNER}`,
-        sidebarName: "Site Wise Planner",
-        navbarName: "Site Wise Planner",
+        sidebarName: "Type 5 Form Planner",
+        navbarName: "Type 5 Form Planner",
         icon: PeopleOutlined,
         component: PmsSiteReview,
         is_sidebar: true,
@@ -1334,8 +1334,8 @@ const dashboardRoutes = [
     },
     {
         path: `${RouteName.PMS_SITE_PENDING}`,
-        sidebarName: "PMS Site Pending Review",
-        navbarName: "PMS Site Pending Review",
+        sidebarName: "Type 5 Form Pending Review",
+        navbarName: "Type 5 Form Pending Review",
         icon: PeopleOutlined,
         component: PMSSitePendingReview,
         is_sidebar: true,

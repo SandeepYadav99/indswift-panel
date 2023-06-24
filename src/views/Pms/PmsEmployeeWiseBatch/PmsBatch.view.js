@@ -41,6 +41,8 @@ const PmsBatch = ({ location }) => {
     configFilter,
     warehouses,
     handleCsvDownload,
+      pmsSiteId,
+      hodBatchId
   } = usePmsBatch({location});
 
   const {
@@ -146,7 +148,9 @@ const PmsBatch = ({ location }) => {
         key: "pms_form_type",
         label: "TYPE",
         sortable: false,
-        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>{removeUnderScore(all?.pms_form_type)}</div>,
+        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>
+          {pmsSiteId ? 'Type 5' : (hodBatchId ? 'HOD' : removeUnderScore(all?.pms_form_type)) }
+        </div>,
       },
       {
         key: "status",
