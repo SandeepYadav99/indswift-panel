@@ -78,17 +78,24 @@ const CoincludeForm = (
   }, [data]);
 
   const checkCodeValidation = async (empId, index) => {
-    serviceCheckCoPassenger({
-      start_date: start,
-      end_date: end,
-      employee_id: empId,
-    }).then((res) => {
-      const resData = res.data;
-      setEmpValid({ ...empValid, [index]: resData });
-    });
+    const errors = JSON.parse(JSON.stringify(errorData));
+    if (start && end) {
+      serviceCheckCoPassenger({
+        start_date: start,
+        end_date: end,
+        employee_id: empId,
+      }).then((res) => {
+        const resData = res.data;
+        if (resData) {
+          errors[index] = { co_passengers: true };
+          setErrorData(errors);
+        } else {
+          delete errors[index];
+          setErrorData(errors);
+        }
+      });
+    }
   };
-
-  console.log("error?", errorData);
 
   const removeErrors = useCallback(
     (index, key) => {
@@ -110,7 +117,10 @@ const CoincludeForm = (
   const changeData = (index, data) => {
     const tempData = [...fields];
     tempData[index] = { ...tempData[index], ...data };
-    LogUtils.log("data", data);
+    if (data?.co_passengers?.id) {
+      checkCodeValidation(data?.co_passengers?.id, index);
+    }
+    LogUtils.log("data", data.co_passengers, index);
     setFields(tempData);
     if (Object.keys(data?.co_passengers)?.length > 0) {
       const filterId = filteredList?.filter(

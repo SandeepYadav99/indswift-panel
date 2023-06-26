@@ -24,7 +24,21 @@
     display: flex;
     align-items: center;
 }
+.download{
+    border: 2px solid #29cb97!important;
+    border-radius: 30px!important;
+    color: #29cb97!important;
+    font-size: .8rem!important;
+    font-weight: 600!important;
+    padding: 7px 50px!important;
+    text-transform: uppercase!important;
+    height: 40px !important;
+}
 
+.rightFlex{
+    display: flex;
+    align-items: center;
+}
 .firstCellFlex .driverImgCont {
     width: 40px;
     height: 40px;
