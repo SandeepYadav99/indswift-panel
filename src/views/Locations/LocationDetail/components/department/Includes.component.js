@@ -27,10 +27,10 @@ const IncludeForm = ({data, employees, locationId, departments,subdepartments, e
                         return {
                             department_id: val.department_id,
                             employee: val.employee,
-                            sub_department_ids: val.sub_department_ids?.map((id) => {
-                                const subDepartment = val?.subDepartments?.find((sub) => sub._id === id);
-                                return { ...subDepartment, id };
-                              })
+                            sub_department_ids: val.subDepartments.map(subDept => ({
+                                ...subDept,
+                                id: subDept._id
+                              }))
                         };
                     }));
                 }
