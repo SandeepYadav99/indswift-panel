@@ -221,6 +221,13 @@ input[type=radio] + label:hover {
     padding: 4.5px 11.85px;
     border-radius: 15px;
 }
+.AutoCompleteWrap{
+    margin: 10px 0;
+    padding-left: 7.5px;
+}
+.AutoCompleteWrap .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input{
+    padding: 4px;
+}
 
 .createBtn{
     background-color: #29CB97 !important;

@@ -10,9 +10,10 @@ import WaitingComponent from "../../../../../components/Waiting.component";
 const TEMP_OBJ = {
     department_id: '',
     employee: null,
+    sub_department_ids:[],
 };
 
-const IncludeForm = ({data, employees, locationId, departments, errorData: errorForm, form, changeTextData, handleUpdate}, ref) => {
+const IncludeForm = ({data, employees, locationId, departments,subdepartments, errorData: errorForm, form, changeTextData, handleUpdate}, ref) => {
     const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     const [errorData, setErrorData] = useState({});
     const [isFetching, setIsFetching] = useState(true);
@@ -26,6 +27,10 @@ const IncludeForm = ({data, employees, locationId, departments, errorData: error
                         return {
                             department_id: val.department_id,
                             employee: val.employee,
+                            sub_department_ids: val.sub_department_ids?.map((id) => {
+                                const subDepartment = val?.subDepartments?.find((sub) => sub._id === id);
+                                return { ...subDepartment, id };
+                              })
                         };
                     }));
                 }
@@ -53,12 +58,15 @@ const IncludeForm = ({data, employees, locationId, departments, errorData: error
         const errors = {};
         fields.forEach((val, index) => {
             const err = index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-            const required = ['employee', 'department_id'];
+            const required = ['employee', 'department_id',"sub_department_ids"];
             required.forEach((key) => {
                 if (!val[key]) {
                     err[key] = true;
                 }
             });
+            if(val.sub_department_ids?.length === 0){
+                err['sub_department_ids'] = true
+            }
             if (Object.keys(err).length > 0) {
                 errors[index] = err;
             }
@@ -142,6 +150,7 @@ const IncludeForm = ({data, employees, locationId, departments, errorData: error
                     <IncludeFields
                         employees={employees}
                         departments={departments}
+                        subdepartments={subdepartments}
                         validateData={validateData}
                         errors={index in errorData ? errorData[index] : null}
                         changeData={changeData}
@@ -153,7 +162,7 @@ const IncludeForm = ({data, employees, locationId, departments, errorData: error
                 </div>
             )
         });
-    }, [employees, errorData, departments, validateData, changeData, handlePress, onBlur, fields, isFetching]);
+    }, [employees, errorData, departments, validateData, changeData, handlePress, onBlur, fields, isFetching,subdepartments]);
 
     if (isFetching) {
         return (<WaitingComponent />);
