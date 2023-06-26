@@ -219,6 +219,8 @@ const usePmsBatch = ({ location }) => {
     editData,
     configFilter,
     handleCsvDownload,
+    pmsSiteId,
+    hodBatchId
   };
 };
 

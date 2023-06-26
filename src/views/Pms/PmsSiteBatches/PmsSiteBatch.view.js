@@ -267,7 +267,7 @@ const PmsSiteReview = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Site Head PMS Planner</span>
+            <span className={styles.title}>Type 5 Form Planner</span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrapper}>
