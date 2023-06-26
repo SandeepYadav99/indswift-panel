@@ -10,6 +10,7 @@ import {
 import historyUtils from "../../libs/history.utils";
 import { serviceGetList } from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
+import { serviceExportClaimReport } from "../../services/ClaimsReport.service";
 
 const useClaimsReport = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -20,7 +21,7 @@ const useClaimsReport = ({}) => {
   const [selected, setSelected] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
   const [warehouseId, setWareHouseId] = useState("");
-  const [type,setType]=useState("")
+  const [type, setType] = useState("");
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
@@ -37,12 +38,12 @@ const useClaimsReport = ({}) => {
 
   useEffect(() => {
     const storedYr = sessionStorage.getItem("year");
-    const storedType= sessionStorage.getItem("typeClaim");
+    const storedType = sessionStorage.getItem("typeClaim");
     if (storedYr) {
       setWareHouseId(storedYr);
     }
-    if(storedType){
-      setType(storedType)
+    if (storedType) {
+      setType(storedType);
     }
   }, []);
   const {
@@ -62,7 +63,7 @@ const useClaimsReport = ({}) => {
             query: isMountRef.current ? query : null,
             query_data: isMountRef.current ? queryData : null,
             fy_year: warehouseId,
-            claim_type:type,
+            claim_type: type,
             ...updateQuery,
           }
         )
@@ -76,7 +77,7 @@ const useClaimsReport = ({}) => {
     if (warehouseId && type) {
       resetData();
     }
-  }, [warehouseId,type]);
+  }, [warehouseId, type]);
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
@@ -180,6 +181,17 @@ const useClaimsReport = ({}) => {
     historyUtils.push("/annual/detail/" + data.id);
   }, []);
 
+  const handleCsvDownload = useCallback(() => {
+    serviceExportClaimReport({
+      fy_year: warehouseId,
+      claim_type: type,
+    }).then((res) => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    });
+  }, [warehouseId, type]);
   const handleChangeWareHouse = useCallback(
     (wareHouseId) => {
       LogUtils.log("wareHouseId", wareHouseId);
@@ -189,7 +201,17 @@ const useClaimsReport = ({}) => {
     },
     [setWareHouseId, setSelected, setAllSelected]
   );
-
+  const configFilter = useMemo(() => {
+    return [
+      {
+        label: "Location",
+        name: "location_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.LOCATIONS,
+      },
+    ];
+  }, [listData]);
   return {
     handlePageChange,
     handleDataSave,
@@ -207,6 +229,7 @@ const useClaimsReport = ({}) => {
     handleChangeWareHouse,
     warehouseId,
     type,
+    configFilter,
     setType,
     selected,
     allSelected,
@@ -217,6 +240,7 @@ const useClaimsReport = ({}) => {
     setSelectedAnnualId,
     handleQueryInfo,
     listData,
+    handleCsvDownload,
   };
 };
 

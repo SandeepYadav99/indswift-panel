@@ -99,7 +99,7 @@ function ClaimLocCard() {
             </div>
             <div className={"formGroup"}>
               <CustomDatePicker
-                // disabled={form?.relocation_type !== 'TRANSFER_CASE'}
+                disabled={form?.relocation_type !== 'TRANSFER_CASE'}
                 clearable
                 label={"Date of Joining/Transfer"}
                 maxDate={new Date()}

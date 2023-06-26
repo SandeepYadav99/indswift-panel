@@ -58,11 +58,11 @@ const useAnnualView = ({
         delete errors[val];
       }
     });
-    if (form?.vacancies < 0) {
-      errors["vacancies"] = true;
-    } else {
-      delete errors["vacancies"];
-    }
+    // if (form?.vacancies < 0) {
+    //   errors["vacancies"] = true;
+    // } else {
+    //   delete errors["vacancies"];
+    // }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

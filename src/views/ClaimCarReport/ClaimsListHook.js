@@ -11,6 +11,7 @@ import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
+import { serviceExportCarClaimReport } from "../../services/ClaimCarReport.service";
 
 const useClaimCarReport = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -32,7 +33,7 @@ const useClaimCarReport = ({}) => {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
         fy_year: "2023-2024",
-        claim_type: "CAR"
+        claim_type: "CAR",
       })
     );
     isMountRef.current = true;
@@ -73,7 +74,7 @@ const useClaimCarReport = ({}) => {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
           fy_year: "2023-2024",
-          claim_type: "CAR"
+          claim_type: "CAR",
         })
       );
     },
@@ -108,7 +109,7 @@ const useClaimCarReport = ({}) => {
             query: query,
             query_data: queryData,
             fy_year: "2023-2024",
-            claim_type: "CAR"
+            claim_type: "CAR",
           }
         )
       );
@@ -135,19 +136,46 @@ const useClaimCarReport = ({}) => {
     [setEditData]
   );
 
+  const handleCsvDownload = useCallback(() => {
+    serviceExportCarClaimReport({
+      fy_year: '2022-2023',
+      claim_type: 'CAR',
+    }).then(res => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    })
+  }, []);
+  
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
     historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
-    return [{
-      label: "Location",
-      name: "location_id",
-      type: "selectObject",
-      custom: { extract: { id: "id", title: "name" } },
-      fields: listData?.LOCATIONS,
-    },];
+    return [
+      {
+        label: "Location",
+        name: "location_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.LOCATIONS,
+      },
+      {
+        label: "Claim Category",
+        name: "category",
+        type: "select",
+        fields: ["PART B","PART E"],
+      },
+      {
+        label: "Financial year",
+        name: "fy_year",
+        type: "select",
+        fields: ["2023-2024"],
+      },
+      
+    ];
   }, [listData]);
 
   return {
@@ -163,6 +191,7 @@ const useClaimCarReport = ({}) => {
     isCalling,
     editData,
     configFilter,
+    handleCsvDownload
   };
 };
 
