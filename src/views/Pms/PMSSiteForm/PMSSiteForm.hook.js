@@ -157,7 +157,7 @@ const usePMSSiteForm = ({location}) => {
         Object.keys(form).forEach((key) => {
             const {row, cat, param} = getKeyIndexes(key);
             if (!form[key] && cat !== 9) {
-                tErr[key] = true;
+                // tErr[key] = true;
             }
         });
         return tErr;
@@ -289,12 +289,10 @@ const usePMSSiteForm = ({location}) => {
 
     const handleSubmit = useCallback(() => {
         const validationErr = checkValidation();
-        LogUtils.log('validationb err', validationErr);
         if (Object.keys(validationErr).length > 0) {
             setErrors(validationErr);
             return true;
         }
-        LogUtils.log('submit to server');
         toggleStatusDialog()
         // submitToServer()
     }, [checkValidation, setErrors, submitToServer]);
