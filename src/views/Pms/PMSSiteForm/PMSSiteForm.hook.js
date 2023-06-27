@@ -140,15 +140,28 @@ const usePMSSiteForm = ({location}) => {
         setApproveDialog((e) => !e);
       }, [approveDialog]);
 
+    const getKeyIndexes = useCallback((key) => {
+        const arr = key.split('_');
+        const row = parseInt(arr[0]);
+        const cat = parseInt(arr[1]);
+        const param = parseInt(arr[2]);
+        return {
+            row,
+            cat,
+            param,
+        };
+    }, []);
+
     const checkValidation = useCallback(() => {
         const tErr = {...errors};
         Object.keys(form).forEach((key) => {
-            if (!form[key]) {
+            const {row, cat, param} = getKeyIndexes(key);
+            if (!form[key] && cat !== 9) {
                 tErr[key] = true;
             }
         });
         return tErr;
-    }, [form, rating, errors]);
+    }, [form, rating, errors, getKeyIndexes]);
 
     const calculateAdjacentCells = useCallback((key) => {
         const arr = key.split('_');
