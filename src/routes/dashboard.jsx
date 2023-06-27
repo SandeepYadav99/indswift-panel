@@ -11,6 +11,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+import ImprestApprovalDetail from "../views/ClaimImprest/ImprestApprovalDetail/ImprestApprovalDetail.view";
 
 
 
@@ -111,6 +112,9 @@ const ClaimsReport  = lazy(() => import("../views/ClaimsReport/ClaimsReport.view
 const ClaimCarReport  = lazy(() => import("../views/ClaimCarReport/ClaimCarReport.container"));
 const PmsSiteReview  = lazy(() => import("../views/Pms/PmsSiteBatches/PmsSiteBatch.view"));
 const PMSSitePendingReview  = lazy(() => import("../views/Pms/PMSSitePendingReview/PMSSitePendingReview.view"));
+const EmployeeImprest = lazy (()=> import("../views/ClaimImprest/EmployeeImprest/EmployeeImprest.view"));
+const ImprestApproval =lazy(()=> import ("../views/ClaimImprest/ImprestApproval/ImprestApproval.container"));
+
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -1034,6 +1038,42 @@ const dashboardRoutes = [
     //     parent: 'cm',
     //     // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     // },
+    {
+        path: `${RouteName.IMPREST_APPROVAL}`,
+        sidebarName: "Imprest Approval",
+        navbarName: "Imprest Approval",
+        icon: PeopleOutlined,
+        component: ImprestApproval,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: `${RouteName.IMPREST_APPROVAL_DETAILS}:id`,
+        sidebarName: "Claims List",
+        navbarName: "Claims List",
+        icon: PeopleOutlined,
+        component: ImprestApprovalDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: `${RouteName.EMPLOYEES_IMPREST}`,
+        sidebarName: "Employee Imprest",
+        navbarName: "Employee Imprest",
+        icon: PeopleOutlined,
+        component: EmployeeImprest,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    },
     {
         path: `${RouteName.CLAIMS_IMPREST_CREATE}`,
         sidebarName: "My Imprest Ledger",
