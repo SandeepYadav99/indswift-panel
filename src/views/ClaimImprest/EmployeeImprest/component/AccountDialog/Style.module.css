@@ -1,0 +1,70 @@
+.upperFlex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    margin-top: 15px;
+    /* margin-left: 20px; */
+}
+
+.printFlex{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+
+.btmBtn{
+    background-color: #29CB97 !important;
+    padding: 15px 50px !important;
+    color: white !important;
+    border-radius: 5px !important;
+}
+.tableCont {
+    padding: 10px 10px;
+    max-height: 200px;
+    overflow: scroll;
+}
+.formWrap{
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .formWrapInner{
+    width: 30%;
+  }
+.resetWrapper{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+.resetPasswordWrapper{
+    padding: 1.2rem;
+}
+.headingBe{
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: .875rem;
+}
+.newLine {
+    height: 5px;
+    width: 30px;
+    border-radius: 10px;
+    text-align: center;
+    margin: auto;
+    background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+  }
+.fieldWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+.checkBox > label{
+    font-size:.75rem
+}
+.checkBox{
+    display: flex;
+    align-items: center;
+}

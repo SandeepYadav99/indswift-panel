@@ -57,7 +57,16 @@
     font-weight: bold;
     margin-left: 10px;
 }
-
+.experseWrap{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 10px;
+    color: #2896E9;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: .8rem;
+}
 .infoTitle{
     margin-bottom: 15px;
     padding-bottom: 5px;

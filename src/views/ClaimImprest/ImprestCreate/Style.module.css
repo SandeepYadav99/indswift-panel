@@ -181,12 +181,36 @@
     align-items: center;
     width: 25%;
   }
+  .formWrap2{
+    display: flex;
+    align-items: center;
+    /* width: 25%; */
+  }
   .formWrapInner{
     width: 30%;
   }
   .tapWrap{
     display: flex;
     width: 25%;
+  }
+  .formCurr{
+    width: 25%;
+    display: flex;
+    align-items: center
+  }
+  .entitledVa{
+    display: flex;
+    margin-left: 30px;
+    font-weight: 600;
+    flex-direction: column;
+  }
+  .valuesV > span{
+    color: #818181;
+    margin-left: 75px;
+  }
+  .valuesV2 > span{
+    color: #818181;
+    margin-left: 30px;
   }
   .radioheading {
     font-size: 0.875rem;

@@ -158,18 +158,18 @@ const useImprestApproval = ({}) => {
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
-      {
-        label: "Claim Category",
-        name: "category",
-        type: "select",
-        fields: ["PART B", "PART E"],
-      },
-      {
-        label: "Financial year",
-        name: "fy_year",
-        type: "select",
-        fields: ["2023-2024"],
-      },
+      // {
+      //   label: "Claim Category",
+      //   name: "category",
+      //   type: "select",
+      //   fields: ["PART B", "PART E"],
+      // },
+      // {
+      //   label: "Financial year",
+      //   name: "fy_year",
+      //   type: "select",
+      //   fields: ["2023-2024"],
+      // },
     ];
   }, [listData]);
 

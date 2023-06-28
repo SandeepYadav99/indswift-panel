@@ -12,24 +12,29 @@ import { serviceGetList } from "../../../services/Common.service";
 import LogUtils from "../../../libs/LogUtils";
 // import { serviceExportClaimReport } from "../../../services/EmployeeImprest.service";
 import historyUtils from "../../../libs/history.utils";
+import RouteName from "../../../routes/Route.name";
 
 const useEmployeeImprest = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
+  const [createDD, setCreateDD] = useState(null);
   const [isInfoPanel, setInfoPanel] = useState(false);
   const [selectedAnnualId, setSelectedAnnualId] = useState(null);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [selected, setSelected] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
+  const [isExtendDialog, setIsExtendDialog] = useState(false);
+  const [isTraineeDialog, setIsTraineeDialog] = useState(false);
   const [type, setType] = useState("");
   const [listData, setListData] = useState({
     LOCATIONS: [],
+    EMPLOYEES:[]
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
 
   useEffect(() => {
-    serviceGetList(["LOCATIONS"]).then((res) => {
+    serviceGetList(["LOCATIONS","EMPLOYEES"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -48,6 +53,30 @@ const useEmployeeImprest = ({}) => {
     query,
     query_data: queryData,
   } = useSelector((state) => state.employeeImprest);
+
+  const toggleExtendDialog = useCallback(() => {
+    setIsExtendDialog((e) => !e);
+    setCreateDD(false)
+
+  }, [isExtendDialog]);
+
+  const toggleTraineeDialog = useCallback(() => {
+    setIsTraineeDialog((e) => !e);
+    setCreateDD(false)
+
+  }, [isTraineeDialog]);
+
+  const handleAddCandidate = useCallback(
+    (event) => {
+      setCreateDD(event.currentTarget);
+    },
+    [setCreateDD]
+  );
+  const handleClosedownloadCL = useCallback(() => {
+    setCreateDD(null);
+  }, [setCreateDD]);
+
+   
 
   const resetData = useCallback(
     (sort = {}, updateQuery = {}) => {
@@ -224,6 +253,13 @@ const useEmployeeImprest = ({}) => {
     handleQueryInfo,
     listData,
     handleCsvDownload,
+    createDD,
+    handleAddCandidate,
+    handleClosedownloadCL,
+    toggleExtendDialog,
+    toggleTraineeDialog,
+    isTraineeDialog,
+    listData
   };
 };
 

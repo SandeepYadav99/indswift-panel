@@ -144,6 +144,10 @@ function ClaimListDetail() {
                             <span className={styles.value}>Amount:</span>
                             {item?.amount && `₹ ${item?.amount}`}
                           </div>
+                          <div className={styles.key}>
+                            <span className={styles.value}>Payment Mode:</span>
+                            {item?.payment_mode ? item?.payment_mode : '-'}
+                          </div>
                           {item?.document && (
                             <div className={styles.key}>
                               <a href={item?.document} target="_blank">
@@ -164,6 +168,15 @@ function ClaimListDetail() {
                             <span className={styles.value}>Description:</span>
                             {item?.details}
                           </div>
+                          {item?.payment_proof && (
+                          <div className={styles.key}>
+                            <a href={item?.payment_proof} target="_blank">
+                              <div className={styles.hyperlinkText}>
+                                View Payment Proof
+                              </div>
+                            </a>
+                          </div>
+                        )}
                         </div>
                       </div>
                       {employeeDetail?.relocation_expense_details?.length !== index + 1 && (
