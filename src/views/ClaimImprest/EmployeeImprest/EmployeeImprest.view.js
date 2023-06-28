@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
+import { IconButton, MenuItem, ButtonBase, Menu } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
 import { Add, Edit, InfoOutlined, PrintOutlined } from "@material-ui/icons";
@@ -13,6 +13,7 @@ import LogUtils from "../../../libs/LogUtils";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import useEmployeeImprest from "./EmployeeImprest.hook";
 import FilterComponent from "../../../components/Filter/Filter.component";
+import AccountDialog from "./component/AccountDialog/AccountDialog.view";
 
 const EmployeeImprest = ({}) => {
   const {
@@ -31,7 +32,14 @@ const EmployeeImprest = ({}) => {
     handleFilterDataChange,
     handleSearchValueChange,
     setType,
+    createDD,
+    handleAddCandidate,
+    handleClosedownloadCL,
+    toggleExtendDialog,
+    toggleTraineeDialog,
     handleCsvDownload,
+    isTraineeDialog,
+    listData
   } = useEmployeeImprest({});
 
   const {
@@ -206,13 +214,44 @@ const EmployeeImprest = ({}) => {
             <span className={styles.title}>Employee Imprest List</span>
             <div className={styles.newLine} />
           </div>
-          {/* <div className={styles.rightFlex}>
-            <ButtonBase className={styles.download} onClick={handleCsvDownload}>
-              DOWNLOAD
+          <div>
+            <ButtonBase
+              aria-owns={createDD ? "createDD" : undefined}
+              aria-haspopup="true"
+              onClick={handleAddCandidate}
+              className={"createBtn"}
+            >
+              Create
+              <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
-          </div> */}
+            <Menu
+              id="createDD"
+              anchorEl={createDD}
+              open={Boolean(createDD)}
+              onClose={handleClosedownloadCL}
+            >
+              <MenuItem
+                onClick={() => {
+                  toggleExtendDialog();
+                }}
+              >
+                Employee Return
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  toggleTraineeDialog();
+                }}
+              >
+                Account Reconciliation
+              </MenuItem>
+            </Menu>
+          </div>
         </div>
-
+        <AccountDialog
+          listData={listData}
+          isOpen={isTraineeDialog}
+          handleToggle={toggleTraineeDialog}
+        />
         <div className={styles.yearFlex}>
           <div className={styles.down}>{renderDropDownType}</div>
           {/* <div className={styles.rightFlex}>

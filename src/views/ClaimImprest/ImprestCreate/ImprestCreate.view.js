@@ -32,6 +32,7 @@ function ImprestCreate() {
     declaration,
     setDeclaration,
     employeeDetails,
+    amountDetail,
   } = useImprestCreate({});
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -115,7 +116,8 @@ function ImprestCreate() {
                 <div className={styles.key}>
                   <span className={styles.wrap}>Status:</span>
                   <StatusPill
-                    status={removeUnderScore(form?.tour_type?.status)} style={{ background: "transparent", border: "none" }}
+                    status={removeUnderScore(form?.tour_type?.status)}
+                    style={{ background: "transparent", border: "none" }}
                   />
                 </div>
                 <div className={styles.key}>
@@ -143,9 +145,56 @@ function ImprestCreate() {
             />
           </div>
         </div>
+        <div className={styles.formWrap2}>
+          <div className={styles.formCurr}>
+            <div className={styles.formWrapInner}>
+              <CustomSelectField
+                isError={errorData?.currency}
+                errorText={errorData?.currency}
+                label={"Currency"}
+                value={form?.currency}
+                handleChange={(value) => {
+                  changeTextData(value, "currency");
+                }}
+              >
+                <MenuItem value="INR">₹</MenuItem>
+                <MenuItem value="USD">$</MenuItem>
+                <MenuItem value="EUR">€</MenuItem>
+              </CustomSelectField>
+            </div>
+            <div className={"formGroup1"}>
+              <CustomTextField
+                isError={errorData?.amount}
+                errorText={errorData?.amount}
+                label={"Required Amount"}
+                value={form?.amount}
+                onTextChange={(text) => {
+                  changeTextData(text, "amount");
+                }}
+                onBlur={() => {
+                  onBlurHandler("amount");
+                }}
+              />
+            </div>
+          </div>
+
+          <div>
+            {form?.currency && (
+              <div className={styles.entitledVa}>
+                <div className={styles.valuesV}>
+                  Max Entitled: <span>{amountDetail[form?.currency]?.entitled}</span>
+                </div>
+                <div className={styles.valuesV2}>
+                  Balance Outstanding:<span>{amountDetail[form?.currency]?.balance}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
         <div className={styles.formWrap}>
           <div className={styles.formWrapInner}>
             <CustomSelectField
+              disabled={true}
               isError={errorData?.currency}
               errorText={errorData?.currency}
               label={"Currency"}
@@ -161,15 +210,16 @@ function ImprestCreate() {
           </div>
           <div className={"formGroup1"}>
             <CustomTextField
-              isError={errorData?.amount}
-              errorText={errorData?.amount}
-              label={"Required Amount"}
-              value={form?.amount}
+              disabled={true}
+              isError={errorData?.sanctionable_amount}
+              errorText={errorData?.sanctionable_amount}
+              label={"Sanctionable Amount"}
+              value={form?.sanctionable_amount}
               onTextChange={(text) => {
-                changeTextData(text, "amount");
+                changeTextData(text, "sanctionable_amount");
               }}
               onBlur={() => {
-                onBlurHandler("amount");
+                onBlurHandler("sanctionable_amount");
               }}
             />
           </div>
