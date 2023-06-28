@@ -52,6 +52,7 @@
   },
   "scripts": {
     "start": "env-cmd -e local react-scripts start",
+    "start_development": "env-cmd -e development react-scripts start",
     "build_cmd": "react-scripts build",
     "build_production": "env-cmd -e production npm run build_cmd",
     "build_development": "env-cmd -e development  react-scripts build",
