@@ -1,18 +1,12 @@
 /* eslint-disable indent,linebreak-style */
 const TABLE_LIMIT = 50;
-const tempLevel = !(
-  !process.env.NODE_ENV || process.env.NODE_ENV === "development"
-);
+
 const tempDate = new Date();
-const isProduction = false;
+const isProduction = process.env.REACT_APP_ENV === 'production';
 
-let url = "http://91.205.173.97:8111/api/admin/";
-let socketUrl = "http://91.205.173.97:8111";
+const apiUrl = process.env.REACT_APP_API_URL;
+const socketUrl = process.env.REACT_APP_SOCKET_URL;
 
-if (isProduction) {
-  url = "https://api.indswiftlabs.com/api/admin/";
-  socketUrl = "https://api.indswiftlabs.com";
-}
 
 
 export default {
@@ -20,8 +14,8 @@ export default {
   TIME_ZONE: -(tempDate.getTimezoneOffset() / 60),
   DEFAULT_TIME_FORMAT: "DD-MM-YYYY, HH:mm",
   APP_NAME: "IndSwift Panel",
-  DEFAULT_APP_URL: tempLevel ? url : "http://localhost:8111/api/admin/",
-  SOCKET_URL: tempLevel ? socketUrl : "http://91.205.173.97:8111/",
+  DEFAULT_APP_URL: apiUrl,
+  SOCKET_URL: socketUrl,
   // DEFAULT_APP_URL: 'http://35.154.147.169:5055/api/',
   DEFAULT_PAGE_VALUE: TABLE_LIMIT,
   PAGE_VALUE:10,
