@@ -242,6 +242,19 @@ export function dataURLtoFile(dataurl, filename) {
 export const removeUnderScore = (value) => {
   return value ? value.replace(/_/g, " ") : "";
 };
+
+export function getCurrency(currency) {
+  switch (currency) {
+    case "INR":
+      return "₹ ";
+    case "USD":
+      return "$ ";
+    case "EUR":
+      return "€ ";
+    default:
+      return "";
+  }
+}
 export const travelModeAir = [
   { id: "AIR", name: "Air" },
   { id: "TRAIN", name: "Train" },

@@ -149,6 +149,7 @@ function ImprestCreate() {
           <div className={styles.formCurr}>
             <div className={styles.formWrapInner}>
               <CustomSelectField
+                disabled={form?.imprest_type === 'OTHER' || form?.tour_type?.tour_type === 'DOMESTIC'}
                 isError={errorData?.currency}
                 errorText={errorData?.currency}
                 label={"Currency"}
@@ -164,6 +165,7 @@ function ImprestCreate() {
             </div>
             <div className={"formGroup1"}>
               <CustomTextField
+                type="number"
                 isError={errorData?.amount}
                 errorText={errorData?.amount}
                 label={"Required Amount"}

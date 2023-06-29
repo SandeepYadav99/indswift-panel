@@ -25,7 +25,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Tour Dates:</span>
-                {idCards?.imprest?.rem_month}
+                {idCards?.imprest?.issueDateText}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Tour Type:</span>
@@ -33,13 +33,13 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Balance Outstanding:</span>
-                {idCards?.imprest?.claim_details?.progress_claim &&
-                  `₹ ${idCards?.imprest?.claim_details?.progress_claim}`}
+                {idCards?.balance?.balance &&
+                  `₹ ${idCards?.balance?.balance}`}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Sanctionable Amount:</span>
-                {idCards?.imprest?.claim_details?.progress_claim &&
-                  `₹ ${idCards?.imprest?.claim_details?.progress_claim}`}
+                {idCards?.imprest?.sanctionable_amount &&
+                  `₹ ${idCards?.imprest?.sanctionable_amount}`}
               </div>
             </div>
             <div className={styles.right}>
@@ -49,18 +49,21 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Status:</span>
-                {<StatusPill status={idCards?.imprest?.status}/>}
+                {<StatusPill status={removeUnderScore(idCards?.imprest?.status)}/>}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Max Entitled:</span>
-                {idCards?.imprest?.bill_amount && `₹ ${idCards?.imprest?.bill_amount}`}
+                {idCards?.balance?.entitled && `₹ ${idCards?.balance?.entitled}`}
               </div>
 
               <div className={styles.key}>
                 <span className={styles.value}>Required Amount:</span>
                 {idCards?.imprest?.amount && `₹  ${idCards?.imprest?.amount}`}
               </div>
-
+              <div className={styles.key}>
+                <span className={styles.value}>Purpose:</span>
+                {idCards?.imprest?.purpose}
+              </div>
             </div>
           </div>
         </div>

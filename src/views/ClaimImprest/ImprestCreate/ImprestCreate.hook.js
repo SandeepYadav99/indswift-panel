@@ -78,6 +78,18 @@ const useImprestCreate = ({}) => {
       });
     }
   }, [user_id]);
+  useEffect(()=>{
+    if(form?.tour_type?.tour_type){
+      if(form?.tour_type?.tour_type === 'DOMESTIC'){
+        setForm({ ...form, currency: "INR" });
+      }
+    }
+  },[form?.tour_type?.tour_type])
+  useEffect(() => {
+    if (form?.imprest_type === "OTHER") {
+      setForm({ ...form, currency: "INR" });
+    }
+  }, [form?.imprest_type]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["imprest_type", "purpose", "currency", "amount"];
@@ -95,6 +107,14 @@ const useImprestCreate = ({}) => {
     if (!form?.imprest_type) {
       errors["imprest_type"] = true;
       SnackbarUtils.error("Please Select the Imprest Type");
+    }
+    if (form?.imprest_type === "OTHER") {
+      if (form?.amount > 10000) {
+        errors["amount"] = true;
+        SnackbarUtils.error("Amount cannot be greater than 10000");
+      } else if (form?.amount < 10000) {
+        delete errors["amount"];
+      }
     }
     if (form?.sanctionable_amount) {
       if (form?.sanctionable_amount < 0) {
@@ -165,7 +185,13 @@ const useImprestCreate = ({}) => {
       // LogUtils.log(text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
-      t[fieldName] = text;
+      if(fieldName === 'amount'){
+        if(text >= 0 ){
+          t[fieldName] = text;
+        }
+      }else{
+        t[fieldName] = text;
+      }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },

@@ -20,6 +20,7 @@ import CreateView from "./ImprestApproval.view";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import useImprestApproval from "./ImprestApprovalHook";
 import { Edit, InfoOutlined } from "@material-ui/icons";
+import { getCurrency } from "../../../helper/helper";
 
 const ImprestApproval = ({ location }) => {
   const {
@@ -151,7 +152,7 @@ const ImprestApproval = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div style={{ whiteSpace: "nowrap" }}>
-             {all?.imprest?.amount}
+              { getCurrency(all?.imprest?.currency)}{all?.imprest?.amount}
           </div>
         ),
       },
@@ -160,7 +161,7 @@ const ImprestApproval = ({ location }) => {
         label: "IMPREST STATUS",
         sortable: false,
         render: (temp, all) => (
-          <div>{<StatusPill status={all?.imprest?.status} />}</div>
+          <div>{<StatusPill status={removeUnderScore(all?.imprest?.status)} />}</div>
         ),
       },
 

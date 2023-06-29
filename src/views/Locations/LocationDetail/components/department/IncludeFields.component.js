@@ -2,7 +2,7 @@
  * Created by charnjeetelectrovese@gmail.com on 5/13/2020.
  */
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   TextField,
   ButtonBase,
@@ -51,7 +51,7 @@ const IncludeFields = ({
   data,
   errors,
   onBlur,
-  listData
+  listData,
 }) => {
   const handleChange = (e) => {
     const name = e.target.name;
@@ -65,6 +65,12 @@ const IncludeFields = ({
     },
     [changeData, index]
   );
+
+  const filteredSubDepartments = useMemo(() => {
+    return subdepartments?.filter(
+      (val) => val.department_id === data?.department_id
+    );
+  }, [subdepartments, data?.department_id]);
   return (
     <div>
       <div className={styles.flexContainer}>
@@ -127,14 +133,19 @@ const IncludeFields = ({
             multiple
             id="tags-outlined"
             onChange={(e, value) => {
-                handleChangeValue(value, "sub_department_ids");
+              handleChangeValue(value, "sub_department_ids");
             }}
             // id="tags-standard"
-            options={subdepartments}
+            options={filteredSubDepartments ? filteredSubDepartments : subdepartments}
             getOptionLabel={(option) => option.name}
             defaultValue={data?.sub_department_ids}
             renderInput={(params) => (
-              <TextField {...params} variant="outlined" label="Choose Sub-Departments" error={errors?.sub_department_ids}/>
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Choose Sub-Departments"
+                error={errors?.sub_department_ids}
+              />
             )}
           />
         </div>

@@ -409,11 +409,11 @@ const AnnualList = ({}) => {
 
         <div style={{ marginTop: "30px" }}>
           <div className={styles.experseWrap}>
-            {sanction?.sanctioned && `SANCTIONED : ${sanction?.sanctioned} |`}
-            {sanction?.posted && ` POSTED : ${sanction?.posted} |`}
-            {sanction?.vacancies && ` VACANCY : ${sanction?.vacancies} |`}
+            SANCTIONED : {sanction?.sanctioned && `${sanction?.sanctioned}`}|
+            POSTED : {sanction?.posted && `${sanction?.posted} `} | VACANCY :
+            {sanction?.vacancies && ` ${sanction?.vacancies} `} | EXPENSES :
             {sanction?.expense_budget !== undefined &&
-              ` EXPENSES : ${sanction?.expense_budget}`}
+              `  ${sanction?.expense_budget}`}
           </div>
           <div>
             <br />
