@@ -7,9 +7,24 @@ import ClaimUpper from "./component/ClaimUpper/ClaimUpper";
 import useCadreDetailsList from "./CadreDetails.hook";
 import ClaimForm from "./component/ClaimForm/ClaimForm.view";
 import ImprestClaimFormView from "./component/ImprestClaimForm/ImprestClaimForm.view";
+import CustomTextField from "../../components/FormFields/TextField/TextField.component";
 
 function CadreDetails() {
-  const { refMarrige, refCar, refMobile, handleSubmit ,refHealth,employeeDetail,reftravel,refLoc,refImp} = useCadreDetailsList({})
+  const {
+    refMarrige,
+    refCar,
+    refMobile,
+    handleSubmit,
+    refHealth,
+    employeeDetail,
+    reftravel,
+    refLoc,
+    refImp,
+    form,
+    errorData,
+    changeTextData,
+    onBlurHandler,
+  } = useCadreDetailsList({});
 
   return (
     <div className={styles.cadreDetailWrapper}>
@@ -20,18 +35,95 @@ function CadreDetails() {
             <span>
               <b> Entitlements Information</b>
             </span>
-          </ButtonBase> 
+          </ButtonBase>
           <div className={styles.newLine} />
         </div>
       </div>
-      <ClaimUpper data={employeeDetail}/>
-      <ClaimForm type={"MARRIAGE"} title={"Mariage Gift Card Claim"} ref={refMarrige} />
+
+      <ClaimUpper data={employeeDetail} />
+      <div className={"plainPaper"}>
+        <div className={"headerFlex"}>
+          <h4 className={"infoTitle"}>
+            <div className={"heading"}>Cadre Salary</div>
+          </h4>
+        </div>
+
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              type="number"
+              isError={errorData?.max_salary}
+              errorText={errorData?.max_salary}
+              label={"Maximum Salary"}
+              value={form?.max_salary}
+              onTextChange={(text) => {
+                changeTextData(text, "max_salary");
+              }}
+              onBlur={() => {
+                onBlurHandler("max_salary");
+              }}
+            />
+          </div>
+          <div className="formGroup">
+            <CustomTextField
+              type="number"
+              isError={errorData?.min_salary}
+              errorText={errorData?.min_salary}
+              label={"Minimum salary"}
+              value={form?.min_salary}
+              onTextChange={(text) => {
+                changeTextData(text, "min_salary");
+              }}
+              onBlur={() => {
+                onBlurHandler("min_salary");
+              }}
+            />
+          </div>
+        </div>
+
+        <div className={"formFlex"} style={{ alignItems: "center" }}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              type={"number"}
+              isError={errorData?.mdn_salary}
+              errorText={errorData?.mdn_salary}
+              label={"Median salary"}
+              value={form?.mdn_salary}
+              onTextChange={(text) => {
+                changeTextData(text, "mdn_salary");
+              }}
+              onBlur={() => {
+                onBlurHandler("mdn_salary");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}></div>
+        </div>
+      </div>
+
+      <ClaimForm
+        type={"MARRIAGE"}
+        title={"Mariage Gift Card Claim"}
+        ref={refMarrige}
+      />
       <ClaimForm type={"CAR"} title={"Car Maintenance Claim"} ref={refCar} />
-      <ClaimForm type={"MOBILE"} title={"Mobile Reimbursments"} ref={refMobile} />
-      <ClaimForm type={"HEALTH"} title={"Preventive Health Check-up Claim"} ref={refHealth} />
+      <ClaimForm
+        type={"MOBILE"}
+        title={"Mobile Reimbursments"}
+        ref={refMobile}
+      />
+      <ClaimForm
+        type={"HEALTH"}
+        title={"Preventive Health Check-up Claim"}
+        ref={refHealth}
+      />
       <ClaimForm type={"TRAVEL"} title={"Travel Claim"} ref={reftravel} />
-      <ClaimForm type={"RELOCATION"} title={"Relocation Entitlement"} ref={refLoc} />
-      <ImprestClaimFormView type={"IMPREST"} title={"Imprest"} ref={refImp}/>
+      <ClaimForm
+        type={"RELOCATION"}
+        title={"Relocation Entitlement"}
+        ref={refLoc}
+      />
+      <ImprestClaimFormView type={"IMPREST"} title={"Imprest"} ref={refImp} />
 
       <div className={styles.btnCont}>
         <ButtonBase

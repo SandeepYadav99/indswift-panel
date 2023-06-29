@@ -1,0 +1,29 @@
+.upperFlex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-left: 40px;
+}
+
+.printFlex{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    margin-right: 30px;
+}
+
+.btmBtn{
+    background: #29CB97 !important;
+    padding: 12px 30px !important;
+    color: white !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+}
+
+.auto{
+    padding: 15px 40px;
+}

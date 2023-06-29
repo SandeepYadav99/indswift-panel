@@ -13,6 +13,7 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import ImprestApprovalDetail from "../views/ClaimImprest/ImprestApprovalDetail/ImprestApprovalDetail.view";
 import EmployeeImprestDetail from "../views/ClaimImprest/EmployeeImprestDetail/EmployeeImprestDetail.view";
+import DepartmentDetail from "../views/Department/DepartmentDetail/DepartmentDetail.view";
 
 
 
@@ -575,6 +576,16 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'masters',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.DEPARTMENT_DETAIL}:id`,
+        sidebarName: "Department Detail",
+        navbarName: "Department Detail",
+        icon: LocalOffer,
+        component: DepartmentDetail,
+        is_sidebar: false,
+        is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {

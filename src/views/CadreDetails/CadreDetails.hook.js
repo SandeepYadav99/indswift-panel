@@ -13,8 +13,16 @@ import LogUtils from "../../libs/LogUtils";
 import { useRef } from "react";
 import RouteName from "../../routes/Route.name";
 
+const initialForm = {
+  max_salary: 0,
+  min_salary: 0,
+  mdn_salary: 0,
+};
+
 function useCadreDetailsList() {
   const [employeeDetail, setEmployeeDetail] = useState({});
+  const [form, setForm] = useState({ ...initialForm });
+  const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const refMarrige = useRef(null);
   const refCar = useRef(null);
@@ -39,6 +47,7 @@ function useCadreDetailsList() {
               local_travel_claim,
               relocation_claim,
               imprest,
+              salary_component,
               ...rest
             } = tempData;
             setEmployeeDetail({ ...rest });
@@ -47,30 +56,88 @@ function useCadreDetailsList() {
             refMobile.current?.setData(mobile_reimbursement_claim);
             refHealth.current?.setData(phc_claim);
             reftravel.current?.setData(local_travel_claim);
-            refLoc.current?.setData(relocation_claim)
-            refImp.current?.setData(imprest)
+            refLoc.current?.setData(relocation_claim);
+            refImp.current?.setData(imprest);
+            setForm(salary_component)
           }
         }
       });
     }
   }, [id]);
+  const checkFormValidation = useCallback(() => {
+    const errors = { ...errorData };
+    let required = ["max_salary", "min_salary", "mdn_salary"];
 
+    required.forEach((val) => {
+      if (
+        !form?.[val] ||
+        (Array.isArray(form?.[val]) && form?.[val].length === 0)
+      ) {
+        errors[val] = true;
+      }
+    });
+    Object.keys(errors).forEach((key) => {
+      if (!errors[key]) {
+        delete errors[key];
+      }
+    });
+    return errors;
+  }, [form, errorData]);
+
+  const removeError = useCallback(
+    (title) => {
+      const temp = JSON.parse(JSON.stringify(errorData));
+      temp[title] = false;
+      setErrorData(temp);
+    },
+    [setErrorData, errorData]
+  );
+
+  const onBlurHandler = useCallback(
+    (type) => {
+      if (form?.[type]) {
+        changeTextData(form?.[type].trim(), type);
+      }
+    },
+    [changeTextData]
+  );
+
+  const changeTextData = useCallback(
+    (text, fieldName) => {
+      // LogUtils.log(text, fieldName);
+      let shouldRemoveError = true;
+      const t = { ...form };
+      if(text >=0){
+        t[fieldName] = text;
+      }
+      setForm(t);
+      shouldRemoveError && removeError(fieldName);
+    },
+    [removeError, form, setForm]
+  );
+  
   const handleSubmit = useCallback(() => {
     if (!isSubmitting) {
+      const errors = checkFormValidation();
+      if (Object.keys(errors).length > 0) {
+        setErrorData(errors);
+        return true;
+      }
       const isMarrigeClaimValid = refMarrige.current.isValid();
       const isCarClaimValid = refCar.current.isValid();
       const isMobileClaimValid = refMobile.current.isValid();
       const isHealthClaimValid = refHealth.current.isValid();
       const isTravelClaimValid = reftravel.current.isValid();
-      const isLocValid=refLoc?.current?.isValid()
-      const isImpValid=refImp?.current?.isValid()
+      const isLocValid = refLoc?.current?.isValid();
+      const isImpValid = refImp?.current?.isValid();
       LogUtils.log(
         "isMarrigeClaimValid",
         isMarrigeClaimValid,
         isCarClaimValid,
         isMobileClaimValid,
         isHealthClaimValid,
-        isImpValid
+        isImpValid,
+        errors
         // isTravelClaimValid
       );
       // const isCarClaimValid = refCar.current.isValid();
@@ -86,9 +153,10 @@ function useCadreDetailsList() {
         isCarClaimValid &&
         isMobileClaimValid &&
         isHealthClaimValid &&
-        isTravelClaimValid && 
-        isLocValid && 
-        isImpValid
+        isTravelClaimValid &&
+        isLocValid &&
+        isImpValid &&
+        !Object.keys(errors).length
       ) {
         setIsSubmitting(true);
         const marrigeData = refMarrige.current.getData();
@@ -96,8 +164,8 @@ function useCadreDetailsList() {
         const mobileData = refMobile.current.getData();
         const healthData = refHealth.current.getData();
         const travelData = reftravel.current.getData();
-        const locData=refLoc.current.getData()
-        const ImpData=refImp.current.getData()
+        const locData = refLoc.current.getData();
+        const ImpData = refImp.current.getData();
         serviceGetCadreEntitlementDetails({
           id: id,
           marriage_gift_claim: marrigeData?.data,
@@ -105,8 +173,9 @@ function useCadreDetailsList() {
           mobile_reimbursement_claim: mobileData?.data,
           phc_claim: healthData?.data,
           local_travel_claim: travelData?.data,
-          relocation_claim:locData?.data,
-          imprest:ImpData?.data,
+          relocation_claim: locData?.data,
+          imprest: ImpData?.data,
+          salary_component:form
         }).then((res) => {
           if (!res.error) {
             historyUtils.push(
@@ -119,9 +188,13 @@ function useCadreDetailsList() {
         });
       }
     }
-  }, [isSubmitting, setIsSubmitting, id, employeeDetail]);
+  }, [form,isSubmitting, setIsSubmitting, id, employeeDetail,setErrorData]);
 
   return {
+    form,
+    changeTextData,
+    onBlurHandler,
+    errorData,
     refMarrige,
     refCar,
     refMobile,
@@ -130,7 +203,7 @@ function useCadreDetailsList() {
     refHealth,
     reftravel,
     refLoc,
-    refImp
+    refImp,
   };
 }
 

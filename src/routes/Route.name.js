@@ -15,6 +15,7 @@ export default {
   CADRES_UPDATE: "/grades/cadres/update/",
   CADRES_DETAIL:"/grade/cadre/detail/",
   DEPARTMENTS: "/departments",
+  DEPARTMENT_DETAIL:'/department/detail/',
   DEPARTMENT_CREATE: "/departments/create",
   DEPARTMENT_UPDATE: "/departments/update/",
   SUB_DEPARTMENTS: "/departments/subs/",
