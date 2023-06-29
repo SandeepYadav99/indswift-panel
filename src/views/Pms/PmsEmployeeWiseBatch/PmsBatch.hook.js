@@ -94,11 +94,10 @@ const usePmsBatch = ({ location }) => {
         actionFetchPmsBatch(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
-        }, {batch_id: batchID})
+        }, { batch_id: batchID, hod_batch_id: hodBatchId, pms_site_id: pmsSiteId })
       );
     },
-    [sortingData, query, queryData, batchID]
-  );
+    [sortingData, query, queryData, batchID, hodBatchId, pmsSiteId]);
 
   const handleFilterDataChange = useCallback(
     (value) => {
