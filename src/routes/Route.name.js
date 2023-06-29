@@ -15,6 +15,7 @@ export default {
   CADRES_UPDATE: "/grades/cadres/update/",
   CADRES_DETAIL:"/grade/cadre/detail/",
   DEPARTMENTS: "/departments",
+  DEPARTMENT_DETAIL:'/department/detail/',
   DEPARTMENT_CREATE: "/departments/create",
   DEPARTMENT_UPDATE: "/departments/update/",
   SUB_DEPARTMENTS: "/departments/subs/",
@@ -111,6 +112,7 @@ export default {
   IMPREST_APPROVAL:'/imprest/list',
   IMPREST_APPROVAL_DETAILS:'/imprest/details/',
   EMPLOYEES_IMPREST:'/employee/imprest',
+  EMPLOYEES_IMPREST_DETAILS:'/employee/imprest/details/',
 
 
 

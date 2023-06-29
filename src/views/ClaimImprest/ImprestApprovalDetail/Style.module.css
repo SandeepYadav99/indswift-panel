@@ -264,3 +264,13 @@ margin-left: 20px;
   border: 1px solid #B8C5D3;
   margin:10px 0;
 }
+.experseWrap{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 10px;
+  color: #2896E9;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: .8rem;
+}

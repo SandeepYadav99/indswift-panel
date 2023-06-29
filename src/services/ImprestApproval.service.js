@@ -18,6 +18,9 @@ export async function serviceGetImprestApproval(params) {
 export async function serviceDetailsImprestApproval(params) {
     return await postRequest('ir/details', params);
 }
+export async function serviceGetImprestType(params) {
+    return await postRequest('ib/employee/type', params);
+}
 export async function serviceGetImprestApprovalTable(params) {
     return await postRequest('ilt', params);
 }

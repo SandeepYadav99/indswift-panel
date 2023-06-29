@@ -25,6 +25,14 @@
   flex-direction: column;
   gap: 15px;
 }
+.plainPaper{
+  border-radius: 5px;
+  padding: 0.4rem 1.2rem;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+  margin-left: 15px;
+}
 .UpperGrade{
     display: flex;
     align-items: center;

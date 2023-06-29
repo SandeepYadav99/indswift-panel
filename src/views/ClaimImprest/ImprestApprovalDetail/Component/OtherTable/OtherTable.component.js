@@ -5,13 +5,14 @@ import React, { Component, useCallback, useEffect, useMemo } from "react";
 import DataTables from "../../../../../Datatables/Datatable.table";
 import styles from "./Style.module.css";
 import classNames from "classnames";
-import useInterviewerList from "./TravelTableHook";
+import useInterviewerList from "./OtherTableHook";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import constants from "../../../../../config/constants";
 import { IconButton } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
+import { removeUnderScore } from "../../../../../helper/helper";
 
-const TravelTable = ({ jobId, Claimtype }) => {
+const OtherTable = ({ jobId, Claimtype }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -25,7 +26,6 @@ const TravelTable = ({ jobId, Claimtype }) => {
     currentPage,
     data,
   } = useInterviewerList({ jobId, Claimtype });
-
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
@@ -53,7 +53,7 @@ const TravelTable = ({ jobId, Claimtype }) => {
         key: "type",
         label: "type",
         sortable: false,
-        render: (temp, all) => <div>{all?.ledger_type}</div>,
+        render: (temp, all) => <div>{removeUnderScore(all?.ledger_type)}</div>,
       },
       {
         key: "desc",
@@ -84,9 +84,7 @@ const TravelTable = ({ jobId, Claimtype }) => {
         key: "voucher",
         label: "VOUCHER NO.",
         sortable: false,
-        render: (temp, all) => (
-          <div>{all?.code}</div>
-        ),
+        render: (temp, all) => <div>{all?.code}</div>,
       },
       {
         key: "action_key",
@@ -158,4 +156,4 @@ const TravelTable = ({ jobId, Claimtype }) => {
   );
 };
 
-export default TravelTable;
+export default OtherTable;

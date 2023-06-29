@@ -5,11 +5,11 @@ import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
-import useAccountDialogHook from "./AccountDialog.hook";
 import CustomAutoComplete from "../../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
 import CustomDatePicker from "../../../../../components/FormFields/DatePicker/CustomDatePicker";
+import useReturnEmpDialogHook from "./ReturnEmpDialog.hook";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -34,7 +34,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) => {
+const ReturnEmpDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -44,7 +44,13 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
     isSubmitting,
     setDeclaration,
     declaration,
-  } = useAccountDialogHook({ isOpen, handleToggle, candidateId, listData ,emp_id});
+  } = useReturnEmpDialogHook({
+    isOpen,
+    handleToggle,
+    candidateId,
+    listData,
+    emp_id
+  });
   return (
     <div>
       <Dialog
@@ -64,7 +70,7 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
         <div className={styles.resetPasswordWrapper}>
           <div className={styles.resetWrapper}>
             <div className={styles.upperFlex}>
-              Account Reconciliation Record
+              Employee Return of Imprest Record
             </div>
             <div className={styles.newLine}></div>
             <ButtonBase
@@ -78,12 +84,12 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
           <div className={styles.fieldWrapper}>
             <div>
               <CustomAutoComplete
-                disabled={emp_id ? true :false}
-                disabledList={emp_id ? true :false}
                 autoCompleteProps={{
                   freeSolo: false,
                   getOptionLabel: (option) => option?.label,
                 }}
+                disabled={emp_id ? true :false}
+                disabledList={emp_id ? true :false}
                 dataset={listData?.EMPLOYEES}
                 datasetKey={"label"}
                 onTextChange={(text) => {
@@ -97,36 +103,7 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
               />
             </div>
           </div>
-          <div className={styles.headingBe}>Credit to Employee Balance</div>
-          <div className={styles.formWrap}>
-            <div className={styles.formWrapInner}>
-              <CustomSelectField
-                isError={errorData?.currency}
-                errorText={errorData?.currency}
-                label={"Currency"}
-                value={form?.currency}
-                handleChange={(value) => {
-                  changeTextData(value, "currency");
-                }}
-              >
-                <MenuItem value="INR">₹</MenuItem>
-                <MenuItem value="USD">$</MenuItem>
-                <MenuItem value="EUR">€</MenuItem>
-              </CustomSelectField>
-            </div>
-            <div className={"formGroup1"}>
-              <CustomTextField
-                type="number"
-                isError={errorData?.credit_amount}
-                errorText={errorData?.credit_amount}
-                label={"Amount"}
-                value={form?.credit_amount}
-                onTextChange={(text) => {
-                  changeTextData(text, "credit_amount");
-                }}
-              />
-            </div>
-          </div>
+
           <div className={styles.headingBe}>Debit from Employee Balance</div>
           <div className={styles.formWrap}>
             <div className={styles.formWrapInner}>
@@ -193,22 +170,22 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
               }}
             />
           </div>
-            <div className={styles.cleckboxWrapper}>
-              <div className={styles.checkBox}>
-                <input
-                  checked={declaration}
-                  type="checkbox"
-                  id="declaration"
-                  name="declaration"
-                  onChange={() => {
-                    setDeclaration((s) => !s);
-                  }}
-                />
-                <label htmlFor="declaration">
-                  I approve of the information and action.
-                </label>
-                <br />
-              </div>
+          <div className={styles.cleckboxWrapper}>
+            <div className={styles.checkBox}>
+              <input
+                checked={declaration}
+                type="checkbox"
+                id="declaration"
+                name="declaration"
+                onChange={() => {
+                  setDeclaration((s) => !s);
+                }}
+              />
+              <label htmlFor="declaration">
+                I approve of the information and action.
+              </label>
+              <br />
+            </div>
           </div>
           <div className={styles.printFlex}>
             <ButtonBase
@@ -227,4 +204,4 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
   );
 };
 
-export default AccountDialog;
+export default ReturnEmpDialog;

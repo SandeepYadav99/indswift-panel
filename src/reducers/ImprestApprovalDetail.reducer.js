@@ -1,15 +1,15 @@
 import {
   DONE_JOB_INTERVIEWERS,
   INIT_JOB_INTERVIEWERS,
-  // INIT_JOB_VACANCIES,
-  // DONE_JOB_VACANCIES
+  INIT_JOB_VACANCIES,
+  DONE_JOB_VACANCIES
 } from "../actions/ImprestApprovalDetail.action copy";
 
 const initialState = {
   interviewers: [],
   isInterviewersFetching: false,
-  // isVacanciesFetching: false,
-  // vacancies: [],
+  isVacanciesFetching: false,
+  vacancies: [],
 };
 
 export default function (
@@ -30,19 +30,19 @@ export default function (
         isInterviewersFetching: false,
       };
     }
-    // case INIT_JOB_VACANCIES: {
-    //   return {
-    //     ...state,
-    //     isVacanciesFetching: true,
-    //   };
-    // }
-    // case DONE_JOB_VACANCIES: {
-    //   return {
-    //     ...state,
-    //     vacancies: action.payload,
-    //     isVacanciesFetching: false,
-    //   };
-    // }
+    case INIT_JOB_VACANCIES: {
+      return {
+        ...state,
+        isVacanciesFetching: true,
+      };
+    }
+    case DONE_JOB_VACANCIES: {
+      return {
+        ...state,
+        vacancies: action.payload,
+        isVacanciesFetching: false,
+      };
+    }
     default: {
       return state;
     }

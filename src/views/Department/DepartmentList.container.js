@@ -91,6 +91,7 @@ const DepartmentList = ({}) => {
                 key: 'user_id',
                 label: 'Action',
                 render: (temp, all) => (<div>
+                    {isCorporateHR && ( <IconButton  className={"tableActionBtn"} color="secondary" disabled={isCalling} onClick={() => {handleViewDetails(all)}}><InfoOutlined fontSize={"small"} /></IconButton>  )}
                     {isCorporateHR && (<IconButton onClick={() => { handleEdit(all) }} className={'tableActionBtn'} color='secondary' disabled={isCalling}><Edit fontSize={'small'} /></IconButton>)}
                     <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleSubDepartment(all)}}>
                         <OpenInNew fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>Sub-Department</span>

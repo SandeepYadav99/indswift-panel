@@ -1,32 +1,30 @@
 import { useCallback, useEffect, useState } from "react";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
-import { serviceEmployeeCreateReconciliation } from "../../../../../services/EmployeeImprest.service";
+import { serviceEmployeeCreateReturnEmp } from "../../../../../services/EmployeeImprest.service";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 
 const initialForm = {
   employee_id: "",
-  currency:"",
-  credit_amount: 0,
+  currency: "",
   debit_amount: 0,
   voucher_no: "",
   date: "",
   description: "",
-
 };
-const useAccountDialogHook = ({
+const useReturnEmpDialogHook = ({
   isOpen,
   handleToggle,
   candidateId,
   listData,
-  emp_id
+  emp_id,
 }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [declaration,setDeclaration]=useState(false)
+  const [declaration, setDeclaration] = useState(false);
 
   const removeError = useCallback(
     (title) => {
@@ -36,18 +34,6 @@ const useAccountDialogHook = ({
     },
     [setErrorData, errorData]
   );
-
-  const changeTextData = useCallback(
-    (text, fieldName) => {
-      let shouldRemoveError = true;
-      const t = { ...form };
-      t[fieldName] = text;
-      setForm(t);
-      shouldRemoveError && removeError(fieldName);
-    },
-    [removeError, form, setForm]
-  );
-
   useEffect(() => {
     if (emp_id) {
       const empIndex = listData?.EMPLOYEES.findIndex(
@@ -59,14 +45,22 @@ const useAccountDialogHook = ({
       }
     }
   }, [emp_id, listData]);
+  const changeTextData = useCallback(
+    (text, fieldName) => {
+      let shouldRemoveError = true;
+      const t = { ...form };
+      t[fieldName] = text;
+      setForm(t);
+      shouldRemoveError && removeError(fieldName);
+    },
+    [removeError, form, setForm]
+  );
 
-  
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
       "employee_id",
       "currency",
-      "credit_amount",
       "debit_amount",
       "voucher_no",
       "date",
@@ -93,19 +87,19 @@ const useAccountDialogHook = ({
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      serviceEmployeeCreateReconciliation({
-          ...form,
-          employee_id:form?.employee_id?.id
-      }).then(res => {
-          if (!res.error) {
-              SnackbarUtils.success('Submitted SuccessFully')
-              handleToggle();
-          } else {
-              SnackbarUtils.error(res?.message);
-          }
-          setIsSubmitting(false);
-      })
-  }
+      serviceEmployeeCreateReturnEmp({
+        ...form,
+        employee_id: form?.employee_id?.id,
+      }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Submitted SuccessFully");
+          handleToggle();
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
+    }
   }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId]);
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -113,7 +107,7 @@ const useAccountDialogHook = ({
       setErrorData(errors);
       return true;
     }
-    submitToServer()
+    submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(
@@ -134,8 +128,8 @@ const useAccountDialogHook = ({
     errorData,
     isSubmitting,
     setDeclaration,
-    declaration
+    declaration,
   };
 };
 
-export default useAccountDialogHook;
+export default useReturnEmpDialogHook;

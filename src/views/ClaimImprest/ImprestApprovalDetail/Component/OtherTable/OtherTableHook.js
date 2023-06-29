@@ -1,29 +1,29 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LogUtils from "../../../../../libs/LogUtils";
-import { actionGetImprestInterviewers } from "../../../../../actions/ImprestApprovalDetail.action copy";
+import {  actionGetJobOpeningVacancies } from "../../../../../actions/ImprestApprovalDetail.action copy";
 
 const totalShow = 20;
 
-const useTravelTable = ({ jobId ,Claimtype}) => {
+const useOtherTable = ({ jobId ,Claimtype}) => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(0);
   const [currentData, setCurrentData] = useState([]);
-  const { isInterviewerFetching, interviewers } = useSelector(
+  const { isVacanciesFetching, vacancies } = useSelector(
     (state) => state.imprest_detail
   );
   useEffect(() => {
     if (jobId) {
-      dispatch(actionGetImprestInterviewers(jobId, Claimtype));
+      dispatch(actionGetJobOpeningVacancies(jobId, Claimtype));
     }
-  }, [jobId,Claimtype]);
+  }, [jobId]);
 
   useEffect(() => {
     _processData();
-  }, [interviewers]);
+  }, [vacancies]);
 
   const _processData = useCallback(() => {
-    const data = interviewers;
+    const data = vacancies;
     const from = (currentPage + 1) * totalShow - totalShow;
     let to = (currentPage + 1) * totalShow;
     LogUtils.log("from", from, to);
@@ -31,17 +31,17 @@ const useTravelTable = ({ jobId ,Claimtype}) => {
       to = to <= data.length ? to : data.length;
       setCurrentData(data.slice(from, to));
     }
-  }, [setCurrentData, currentPage, interviewers]);
+  }, [setCurrentData, currentPage, vacancies]);
 
   const handlePageChange = useCallback(
     (type) => {
-      const data = interviewers;
+      const data = vacancies;
       if (Math.ceil(data.length / totalShow) >= type + 1) {
         setCurrentPage(type + 1);
         _processData();
       }
     },
-    [_processData, setCurrentPage, interviewers]
+    [_processData, setCurrentPage, vacancies]
   );
 
   const handleSortOrderChange = (row, order) => {
@@ -78,11 +78,11 @@ const useTravelTable = ({ jobId ,Claimtype}) => {
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
-    isInterviewerFetching,
+    isVacanciesFetching,
     currentData,
-    data: interviewers,
+    data: vacancies,
     currentPage,
   };
 };
 
-export default useTravelTable;
+export default useOtherTable;

@@ -202,7 +202,7 @@ const useEmployeeImprest = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push("/annual/detail/" + data.id);
+    historyUtils.push(RouteName.EMPLOYEES_IMPREST_DETAILS + data.id);
   }, []);
 
   const handleCsvDownload = useCallback(() => {
@@ -259,6 +259,7 @@ const useEmployeeImprest = ({}) => {
     toggleExtendDialog,
     toggleTraineeDialog,
     isTraineeDialog,
+    isExtendDialog,
     listData
   };
 };
