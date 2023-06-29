@@ -12,6 +12,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import ImprestApprovalDetail from "../views/ClaimImprest/ImprestApprovalDetail/ImprestApprovalDetail.view";
+import EmployeeImprestDetail from "../views/ClaimImprest/EmployeeImprestDetail/EmployeeImprestDetail.view";
 
 
 
@@ -1069,6 +1070,18 @@ const dashboardRoutes = [
         icon: PeopleOutlined,
         component: EmployeeImprest,
         is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: `${RouteName.EMPLOYEES_IMPREST_DETAILS}:id`,
+        sidebarName: "Employee Imprest",
+        navbarName: "Employee Imprest",
+        icon: PeopleOutlined,
+        component: EmployeeImprestDetail,
+        is_sidebar: false,
         is_protect: true,
         should_regex: true,
         parent: 'cm',

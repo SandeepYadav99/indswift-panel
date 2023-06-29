@@ -14,6 +14,7 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import useEmployeeImprest from "./EmployeeImprest.hook";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import AccountDialog from "./component/AccountDialog/AccountDialog.view";
+import ReturnEmpDialog from "./component/ReturnEmpDialog/ReturnEmpDialog.view";
 
 const EmployeeImprest = ({}) => {
   const {
@@ -37,9 +38,10 @@ const EmployeeImprest = ({}) => {
     handleClosedownloadCL,
     toggleExtendDialog,
     toggleTraineeDialog,
+    isExtendDialog,
     handleCsvDownload,
     isTraineeDialog,
-    listData
+    listData,
   } = useEmployeeImprest({});
 
   const {
@@ -47,32 +49,9 @@ const EmployeeImprest = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.claimsReport);
+  } = useSelector((state) => state.employeeImprest);
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
-  }, []);
-
-  const renderFirstCell = useCallback((product) => {
-    if (product) {
-      return (
-        <div className={styles.firstCellFlex}>
-          <div
-            className={styles.driverImgCont}
-            // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}
-          >
-            <img src={product.image_url} alt="" />
-          </div>
-          <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>
-              <strong>{`${product.name}`}</strong>
-            </span>{" "}
-            <br />
-            <span>{product.code}</span>
-          </div>
-        </div>
-      );
-    }
-    return null;
   }, []);
 
   const tableStructure = useMemo(() => {
@@ -88,21 +67,22 @@ const EmployeeImprest = ({}) => {
           </div>
         ),
       },
+
+      {
+        key: "LOCATION",
+        label: "LOCATION",
+        sortable: false,
+        render: (value, all) => <div>{all?.employee?.location?.name}</div>,
+      },
       {
         key: "grade",
         label: "GRADE/CADRE",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.grade?.code} / {all?.cadre?.code}
+            {all?.employee?.grade?.code} / {all?.employee?.cadre?.code}
           </div>
         ),
-      },
-      {
-        key: "LOCATION",
-        label: "LOCATION",
-        sortable: false,
-        render: (value, all) => <div>{all?.location?.name}</div>,
       },
       {
         key: "sub_department",
@@ -110,52 +90,45 @@ const EmployeeImprest = ({}) => {
         sortable: false,
         render: (value, all) => (
           <div>
-            {all?.department?.name}/{all?.sub_department?.name}
+            {all?.employee?.department?.name}/
+            {all?.employee?.sub_department?.name}
           </div>
         ),
       },
       {
-        key: "no",
-        label: "NO OF CLAIMS",
+        key: "update",
+        label: "LAST UPDATE",
         sortable: false,
-        render: (temp, all) => <div>{all?.totalClaim}</div>,
+        render: (temp, all) => <div>{all?.updatedAtText}</div>,
       },
       {
-        key: "processed",
-        label: "PROCESSED CLAIMS",
+        key: "balance",
+        label: "BALANCE",
         sortable: false,
-        render: (temp, all) => <div>{all?.processedClaim}</div>,
+        render: (temp, all) => <div>{all?.balance}</div>,
       },
+
       {
-        key: "TYPE",
-        label: "TYPE",
-        sortable: false,
-        render: (temp, all) => <div>{all?.claim_type}</div>,
-      },
-      // {
-      //   key: "category",
-      //   label: "CATEGORY",
-      //   sortable: false,
-      //   render: (temp, all) => <div>{all?.category}</div>,
-      // },
-      {
-        key: "year",
-        label: "FINANCIAL YEAR",
-        sortable: false,
-        render: (temp, all) => <div>{all?.fy_year}</div>,
-      },
-      {
-        key: "TOTAL VALUE",
-        label: "TOTAL VALUE",
-        sortable: false,
+        key: "user_id",
+        label: "Action",
         render: (temp, all) => (
-          <div>{all?.totalValue && `₹ ${all?.totalValue}`}</div>
+          <div>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
+            >
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
+          </div>
         ),
       },
     ];
   }, [
     renderStatus,
-    renderFirstCell,
     handleViewDetails,
     handleEdit,
     isCalling,
@@ -247,6 +220,11 @@ const EmployeeImprest = ({}) => {
             </Menu>
           </div>
         </div>
+        <ReturnEmpDialog
+          listData={listData}
+          isOpen={isExtendDialog}
+          handleToggle={toggleExtendDialog}
+        />
         <AccountDialog
           listData={listData}
           isOpen={isTraineeDialog}

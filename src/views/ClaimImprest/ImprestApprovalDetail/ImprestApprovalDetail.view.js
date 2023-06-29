@@ -10,6 +10,7 @@ import ApproveDialog from "./Component/ApprovePopUp/ApproveDialog.view";
 import ChangeDialog from "./Component/ChangePopUp/ChangeDialog.view";
 import RejectDialog from "./Component/RejectPopUp/RejectDialog.view";
 import TravelTable from "./Component/TravelTable/TravelTable.component";
+import OtherTable from "./Component/OtherTable/OtherTable.component";
 
 function ImprestApprovalDetail() {
   const {
@@ -21,8 +22,8 @@ function ImprestApprovalDetail() {
     ischangeDialog,
     toggleRejectDialog,
     rejectDialog,
+    typeData,
   } = useImprestApprovalDetail({});
-  console.log("employeeDetail", employeeDetail);
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -55,21 +56,33 @@ function ImprestApprovalDetail() {
       </div>
       <UpperClaimInfo data={employeeDetail} />
       <div className={styles.plainPaper}>
-        <div className={styles.headingWrap}>
+        <div className={styles.newLineWrap}>
           <span>
             <b>Non Travel Imprest Ledger</b>
           </span>
           <div className={styles.newLine2} />
         </div>
-        <TravelTable jobId={employeeDetail?.employee?.id} Claimtype="OTHER" />
+        <div className={styles.experseWrap}>
+          BALANCE :{` ₹ ${typeData?.other?.INR?.balance} `}
+        </div>
+        <OtherTable jobId={employeeDetail?.employee?.id} Claimtype="OTHER" />
       </div>
       <div className={styles.plainPaper}>
-        <div className={styles.headingWrap}>
+        <div className={styles.newLineWrap}>
           <span>
             <b>Travel Imprest Ledger</b>
           </span>
           <div className={styles.newLine2} />
         </div>
+        <div className={styles.experseWrap}>
+          BALANCE :{` ₹ ${typeData?.travel?.INR?.balance} |`}
+          {` $ ${typeData?.travel?.USD?.balance} |`}
+          {` € ${typeData?.travel?.EUR?.balance} `}
+          {typeData?.expense_budget !== undefined &&
+            ` EXPENSES : ${typeData?.expense_budget}`}
+        </div>
+        <TravelTable jobId={employeeDetail?.employee?.id} Claimtype="TRAVEL" />
+
       </div>
       <ClaimDetailInfo idCards={employeeDetail} isLoc={true} />
       {employeeDetail?.comments?.length > 0 && (

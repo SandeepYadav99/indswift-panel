@@ -111,6 +111,7 @@ export default {
   IMPREST_APPROVAL:'/imprest/list',
   IMPREST_APPROVAL_DETAILS:'/imprest/details/',
   EMPLOYEES_IMPREST:'/employee/imprest',
+  EMPLOYEES_IMPREST_DETAILS:'/employee/imprest/details/',
 
 
 
