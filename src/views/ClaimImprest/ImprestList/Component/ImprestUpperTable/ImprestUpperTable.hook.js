@@ -28,12 +28,10 @@ const useImprestUpperTable = ({ jobId }) => {
     );
     isMountRef.current = true;
   }, []);
- 
-  const changeRoute = useCallback(() => {
-    historyUtils.push(RouteName.CLAIMS_IMPREST_CREATE); 
-  }, []);
- 
 
+  const changeRoute = useCallback(() => {
+    historyUtils.push(RouteName.CLAIMS_IMPREST_CREATE);
+  }, []);
   const queryFilter = useCallback(
     (key, value) => {
       dispatch(
@@ -85,7 +83,21 @@ const useImprestUpperTable = ({ jobId }) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["APPROVED", "PENDING", "REJECTED"],
+        fields: [
+          "APPROVED",
+          "PENDING",
+          "REJECTED",
+          "HOD_APPROVED",
+          "SITE_HR_APPROVED",
+          "ACCOUNTS_APPROVAL",
+          "ACCOUNTS_APPROVED",
+          "CORPORATE_AUDIT_1_APPROVED",
+          "CORPORATE_AUDIT_2_APPROVED",
+          "CORPORATE_HR_APPROVED",
+          "ACCOUNTS_APPROVED",
+          "ACCOUNTS_APPROVAL",
+          "FINANCE_APPROVED",
+        ],
       },
     ];
   }, []);

@@ -173,7 +173,7 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
               <CustomDatePicker
                 clearable
                 label={"Date"}
-                // maxDate={new Date()}
+                maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "date");
                 }}

@@ -59,7 +59,7 @@ function EmployeeImprestDetail() {
                 onClick={handleAddCandidate}
                 className={"createBtn"}
               >
-                Create
+                Add Record
                 <Add fontSize={"small"} className={"plusIcon"}></Add>
               </ButtonBase>
               <Menu

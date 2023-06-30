@@ -10,7 +10,7 @@ import StatusPill from "../../../../../components/Status/StatusPill.component";
 import constants from "../../../../../config/constants";
 import { IconButton } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
-import { removeUnderScore } from "../../../../../helper/helper";
+import { getCurrency, removeUnderScore } from "../../../../../helper/helper";
 
 const OtherTable = ({ jobId, Claimtype }) => {
   const {
@@ -65,20 +65,20 @@ const OtherTable = ({ jobId, Claimtype }) => {
         key: "credit",
         label: "AMOUNT CREDIT",
         sortable: false,
-        render: (temp, all) => <div>{all?.credit_amount}</div>,
+        render: (temp, all) => <div>{getCurrency(all?.currency)}{all?.credit_amount}</div>,
       },
 
       {
         key: "debt",
         label: "AMOUNT DEBIT",
         sortable: false,
-        render: (temp, all) => <div>{all?.debit_amount}</div>,
+        render: (temp, all) => <div>{getCurrency(all?.currency)}{all?.debit_amount}</div>,
       },
       {
         key: "balance",
         label: "BALANCE",
         sortable: false,
-        render: (temp, all) => <div>{all?.updated_balance}</div>,
+        render: (temp, all) => <div>{getCurrency(all?.currency)}{all?.updated_balance}</div>,
       },
       {
         key: "voucher",

@@ -104,6 +104,9 @@ const useImprestCreate = ({}) => {
         errors[val] = true;
       }
     });
+    if(!listData?.length && form?.imprest_type == "TRAVEL"){
+      SnackbarUtils.error("No travel plan found to raise imprest request")
+    }
     if (!form?.imprest_type) {
       errors["imprest_type"] = true;
       SnackbarUtils.error("Please Select the Imprest Type");

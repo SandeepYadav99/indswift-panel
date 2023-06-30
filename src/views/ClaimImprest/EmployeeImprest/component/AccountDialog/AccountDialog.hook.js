@@ -41,7 +41,13 @@ const useAccountDialogHook = ({
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      t[fieldName] = text;
+      if(fieldName === 'debit_amount' || fieldName === "credit_amount"){
+        if(text >= 0){
+          t[fieldName] = text;
+        }
+      }else{
+        t[fieldName] = text;
+      }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
@@ -82,7 +88,12 @@ const useAccountDialogHook = ({
         delete errors[val];
       }
     });
-
+    if (form?.debit_amount == 0) {
+      errors["debit_amount"] = true;
+    }
+    if (form?.credit_amount == 0) {
+      errors["credit_amount"] = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

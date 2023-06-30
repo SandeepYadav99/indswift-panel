@@ -15,6 +15,7 @@ import useEmployeeImprest from "./EmployeeImprest.hook";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import AccountDialog from "./component/AccountDialog/AccountDialog.view";
 import ReturnEmpDialog from "./component/ReturnEmpDialog/ReturnEmpDialog.view";
+import { getCurrency } from "../../../helper/helper";
 
 const EmployeeImprest = ({}) => {
   const {
@@ -105,7 +106,7 @@ const EmployeeImprest = ({}) => {
         key: "balance",
         label: "BALANCE",
         sortable: false,
-        render: (temp, all) => <div>{all?.balance}</div>,
+        render: (temp, all) => <div>{getCurrency(all?.currency)}{all?.balance}</div>,
       },
 
       {
@@ -194,7 +195,7 @@ const EmployeeImprest = ({}) => {
               onClick={handleAddCandidate}
               className={"createBtn"}
             >
-              Create
+              Add Record
               <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
             <Menu

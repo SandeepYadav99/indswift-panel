@@ -103,7 +103,7 @@ function ImprestApprovalDetail() {
         </div>
       )}
 
-      {/* {employeeDetail?.panelist_status === "PENDING" && ( */}
+      {employeeDetail?.status === "PENDING" && (
       <div
         className={
           employeeDetail?.status === "APPROVED"
@@ -147,7 +147,7 @@ function ImprestApprovalDetail() {
           </div>
         </div>
       </div>
-      {/* )} */}
+)}
     </div>
   );
 }

@@ -219,7 +219,7 @@ const useEmployeeImprest = ({}) => {
     return [
       {
         label: "Location",
-        name: "location_id",
+        name: "employeesObj.location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,

@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./Style.module.css";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
+import { getCurrency } from "../../../../../helper/helper";
 
 function ClaimDetailInfo({ idCards }) {
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
-  console.log("idCards", idCards);
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -34,12 +34,12 @@ function ClaimDetailInfo({ idCards }) {
               <div className={styles.key}>
                 <span className={styles.value}>Balance Outstanding:</span>
                 {idCards?.balance?.balance &&
-                  `₹ ${idCards?.balance?.balance}`}
+                  `${getCurrency(idCards?.imprest?.currency)} ${idCards?.balance?.balance}`}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Sanctionable Amount:</span>
                 {idCards?.imprest?.sanctionable_amount &&
-                  `₹ ${idCards?.imprest?.sanctionable_amount}`}
+                  `${getCurrency(idCards?.imprest?.currency)} ${idCards?.imprest?.sanctionable_amount}`}
               </div>
             </div>
             <div className={styles.right}>
@@ -53,12 +53,12 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Max Entitled:</span>
-                {idCards?.balance?.entitled && `₹ ${idCards?.balance?.entitled}`}
+                {idCards?.balance?.entitled && `${getCurrency(idCards?.imprest?.currency)} ${idCards?.balance?.entitled}`}
               </div>
 
               <div className={styles.key}>
                 <span className={styles.value}>Required Amount:</span>
-                {idCards?.imprest?.amount && `₹  ${idCards?.imprest?.amount}`}
+                {idCards?.imprest?.amount && `${getCurrency(idCards?.imprest?.currency)} ${idCards?.imprest?.amount}`}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Purpose:</span>

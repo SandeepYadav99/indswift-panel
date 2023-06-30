@@ -62,7 +62,7 @@ const ImprestUpperTable = ({ location }) => {
     return [
       {
         key: "name",
-        label: "TAP NO.",
+        label: "IMP ID",
         sortable: false,
         render: (temp, all) => <div>{all?.code}</div>,
       },
