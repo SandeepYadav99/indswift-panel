@@ -10,6 +10,7 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import usePmsPending from "./PmsPending.hook";
+import DateUtilsLib from "../../../libs/DateUtils.lib";
 
 const PmsPending = ({}) => {
   const {
@@ -41,6 +42,10 @@ const PmsPending = ({}) => {
   };
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
+  }, []);
+
+  const canSubmit = useMemo(() => {
+    return DateUtilsLib.canSubmitReview();
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
@@ -104,7 +109,7 @@ const PmsPending = ({}) => {
         render: (temp, all) => (
            <>
              {
-               all?.status === Constants.PMS_BATCH_STATUS.REVIEW_PENDING ? (<div>
+               (all?.status === Constants.PMS_BATCH_STATUS.REVIEW_PENDING && canSubmit) ? (<div>
                  <IconButton
                      className={"tableActionBtn"}
                      color="secondary"
@@ -121,7 +126,7 @@ const PmsPending = ({}) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, canSubmit]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
