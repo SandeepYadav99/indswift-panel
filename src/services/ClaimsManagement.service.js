@@ -25,3 +25,6 @@ export async function serviceUpdateLocClaims(params) {
 export async function serviceCheckCoPassenger (params) {
     return await postRequest('travel/planner/check', params);
 }
+export async function serviceGetmyImprestDetailsCLaim(params) {
+    return await postRequest('imprest/details', params);
+}

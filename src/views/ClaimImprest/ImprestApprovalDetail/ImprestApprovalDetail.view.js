@@ -106,13 +106,13 @@ function ImprestApprovalDetail() {
       {employeeDetail?.status === "PENDING" && (
       <div
         className={
-          employeeDetail?.status === "APPROVED"
+          employeeDetail?.imprest?.status === "APPROVED"
             ? styles.approvedWrapper
             : styles.PdfBtnWrapper
         }
       >
-        {employeeDetail?.status !== "APPROVED" &&
-          employeeDetail?.status !== "ACCOUNTS_APPROVED" && (
+        {employeeDetail?.imprest?.status !== "APPROVED" &&
+          employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && (
             <div className={styles.editBtn2}>
               <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
                 REJECT
@@ -121,8 +121,8 @@ function ImprestApprovalDetail() {
           )}
 
         <div className={styles.btnApproveWrapper}>
-          {employeeDetail?.status !== "APPROVED" &&
-            employeeDetail?.status !== "ACCOUNTS_APPROVED" && (
+          {employeeDetail?.imprest?.status !== "APPROVED" &&
+            employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && (
               <div>
                 <ButtonBase
                   // disabled={isSubmitting}
@@ -139,8 +139,8 @@ function ImprestApprovalDetail() {
               className={styles.createBtn}
               onClick={toggleStatusDialog}
             >
-              {employeeDetail?.status !== "APPROVED" &&
-              employeeDetail?.status !== "ACCOUNTS_APPROVED"
+              {employeeDetail?.imprest?.status !== "APPROVED" &&
+              employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED"
                 ? "APPROVE"
                 : "PROCESS"}
             </ButtonBase>

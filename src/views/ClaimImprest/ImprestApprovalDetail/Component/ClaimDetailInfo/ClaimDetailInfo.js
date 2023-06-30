@@ -12,9 +12,9 @@ function ClaimDetailInfo({ idCards }) {
       <div className={styles.newContainer}>
         <div className={styles.statusContainer}>
           <div className={styles.heading}>Claim Details</div>
-          <div>
+          {/* <div>
             <StatusPill status={removeUnderScore(idCards?.status)} />
-          </div>
+          </div> */}
         </div>
         <div>
           <div className={styles.mainFlex}>
@@ -49,7 +49,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Status:</span>
-                {<StatusPill status={removeUnderScore(idCards?.imprest?.status)}/>}
+                {<StatusPill status={removeUnderScore(idCards?.imprest?.travelPlanner?.status)}/>}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Max Entitled:</span>

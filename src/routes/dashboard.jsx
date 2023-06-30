@@ -14,6 +14,7 @@ import Constants from "../config/constants";
 import ImprestApprovalDetail from "../views/ClaimImprest/ImprestApprovalDetail/ImprestApprovalDetail.view";
 import EmployeeImprestDetail from "../views/ClaimImprest/EmployeeImprestDetail/EmployeeImprestDetail.view";
 import DepartmentDetail from "../views/Department/DepartmentDetail/DepartmentDetail.view";
+import ImprestDetail from "../views/ClaimImprest/ImprestDetail/ImprestDetail.view";
 
 
 
@@ -1045,6 +1046,18 @@ const dashboardRoutes = [
         icon: PeopleOutlined,
         component: ImprestList,
         is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: `${RouteName.CLAIMS_IMPREST_DETAILS}:id`,
+        sidebarName: "My Imprest Ledger",
+        navbarName: "My Imprest Ledger",
+        icon: PeopleOutlined,
+        component: ImprestDetail,
+        is_sidebar: false,
         is_protect: true,
         should_regex: true,
         parent: 'cm',

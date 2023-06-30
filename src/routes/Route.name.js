@@ -106,6 +106,7 @@ export default {
   CLAIMS_INTERVIEW_DETAILS:'/cm/interview/details/',
   CLAIMS_LOC:'/employee/claim/loc',
   CLAIMS_IMPREST:'/employees/claim/imprest',
+  CLAIMS_IMPREST_DETAILS:'/employees/claim/imprest/details',
   CLAIMS_IMPREST_CREATE:'/employees/claim/imprest/create',
   CLAIMS_REPORT:'/cm/report',
   CLAIMS_CAR_REPORT:'/cm/car/report',

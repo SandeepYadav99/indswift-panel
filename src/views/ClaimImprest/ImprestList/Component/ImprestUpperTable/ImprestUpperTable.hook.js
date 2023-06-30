@@ -102,6 +102,10 @@ const useImprestUpperTable = ({ jobId }) => {
     ];
   }, []);
 
+  const handleViewDetails = useCallback((data) => {
+    console.log(data)
+    historyUtils.push(RouteName.CLAIMS_IMPREST_DETAILS + data?.id) 
+}, []);
   return {
     handleFilterDataChange,
     handleSearchValueChange,
@@ -112,6 +116,7 @@ const useImprestUpperTable = ({ jobId }) => {
     configFilter,
     changeRoute,
     isInfoPanel,
+    handleViewDetails
   };
 };
 

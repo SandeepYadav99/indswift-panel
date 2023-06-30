@@ -65,7 +65,9 @@ const ImprestApproval = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}><strong>{obj?.employee?.name}</strong></span>{" "}
+            <span className={styles.productName}>
+              <strong>{obj?.employee?.name}</strong>
+            </span>{" "}
             <br />
             <span className={styles.productName}>
               {obj?.employee?.emp_code}
@@ -77,7 +79,7 @@ const ImprestApproval = ({ location }) => {
     }
     return null;
   }, []);
-
+  
   const tableStructure = useMemo(() => {
     return [
       {
@@ -122,7 +124,8 @@ const ImprestApproval = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department?.name} / {all?.employee?.sub_department?.name}
+            {all?.employee?.department?.name} /{" "}
+            {all?.employee?.sub_department?.name}
           </div>
         ),
       },
@@ -136,15 +139,18 @@ const ImprestApproval = ({ location }) => {
         key: "tap",
         label: "ASSOCIATED TAP",
         sortable: false,
-        render: (temp, all) => <div>{all?.imprest?.travelPlanner?.code} <br/>{all?.imprest?.travelPlanner?.status}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.imprest?.travelPlanner?.code} <br />
+            {all?.imprest?.travelPlanner?.status}
+          </div>
+        ),
       },
       {
         key: "date",
         label: "DATE",
         sortable: false,
-        render: (temp, all) => (
-          <div>{all?.imprest?.createdAtText}</div>
-        ),
+        render: (temp, all) => <div>{all?.imprest?.createdAtText}</div>,
       },
       {
         key: "imprest",
@@ -152,16 +158,21 @@ const ImprestApproval = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div style={{ whiteSpace: "nowrap" }}>
-              { getCurrency(all?.imprest?.currency)}{all?.imprest?.amount}
+            {getCurrency(all?.imprest?.currency)}
+            {all?.imprest?.amount}
           </div>
         ),
       },
       {
         key: "balance",
-        label: "IMPREST STATUS",
+        label: "Current status /IMPREST STATUS",
         sortable: false,
         render: (temp, all) => (
-          <div>{<StatusPill status={removeUnderScore(all?.imprest?.status)} />}</div>
+          <div>
+            {renderStatus(removeUnderScore(all?.status))}
+            <br /> <br />
+            {renderStatus(removeUnderScore(all?.imprest?.status))}
+          </div>
         ),
       },
 

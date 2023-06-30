@@ -19,6 +19,7 @@ import CustomTextField from "../../../components/FormFields/TextField/TextField.
 import TravelUpperCard from "../../TravelPlanner/TravelCreate/component/TravelUpperCard/TravelUpperCard";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import { getCurrency } from "../../../helper/helper";
 
 function ImprestCreate() {
   const {
@@ -184,10 +185,10 @@ function ImprestCreate() {
             {form?.currency && (
               <div className={styles.entitledVa}>
                 <div className={styles.valuesV}>
-                  <div className={styles.flex1}>Max Entitled:</div> <div className={styles.flex12}>{amountDetail[form?.currency]?.entitled}</div>
+                  <div className={styles.flex1}>Max Entitled:</div> <div className={styles.flex12}>{getCurrency(form?.currency)}{amountDetail[form?.currency]?.entitled}</div>
                 </div>
                 <div className={styles.valuesV}>
-                 <div className={styles.flex1}>Balance Outstanding:</div> <div className={styles.flex12}>{amountDetail[form?.currency]?.balance}</div>
+                 <div className={styles.flex1}>Balance Outstanding:</div> <div className={styles.flex12}>{getCurrency(form?.currency)}{amountDetail[form?.currency]?.balance}</div>
                 </div>
               </div>
             )}
