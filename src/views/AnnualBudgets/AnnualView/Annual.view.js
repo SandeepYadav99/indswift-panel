@@ -19,8 +19,7 @@ const useStyle = makeStyles((theme) => ({
 
 const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id,type}) => {
     const classes = useStyle();
-    const { form, changeTextData, errorData, handleSubmit, onBlurHandler, removeError, warehouses,profileInfo } = useAnnualView({selectedAnnuals, closeSidePanel, originWarehouseId,id});
-    
+    const { form, changeTextData, errorData, handleSubmit, onBlurHandler, removeError, warehouses,profileInfo } = useAnnualView({selectedAnnuals, closeSidePanel, originWarehouseId,id,type});
     return (
         <div>
             
@@ -58,7 +57,7 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id,type}
                 <div className={'formFlex'}>
                     <div className={'formGroup'}>
                         <CustomTextField
-                            disabled={true}
+                            disabled={type === "ON_ROLL"}
                             type="number"
                             isError={errorData?.posted}
                             errorText={errorData?.posted}
@@ -95,7 +94,7 @@ const AnnualView = ({selectedAnnuals, closeSidePanel, originWarehouseId,id,type}
                 <div className={'formFlex'}>
                     <div className={'formGroup'}>
                         <CustomTextField
-                            disabled={true}
+                            disabled={type === "ON_ROLL"}
                             type="number"
                             isError={errorData?.vacancies}
                             errorText={errorData?.vacancies}

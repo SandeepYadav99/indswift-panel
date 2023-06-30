@@ -163,7 +163,7 @@ function ImprestCreate() {
                 <MenuItem value="EUR">€</MenuItem>
               </CustomSelectField>
             </div>
-            <div className={"formGroup1"}>
+            <div className={styles.amountWrap}>
               <CustomTextField
                 type="number"
                 isError={errorData?.amount}
@@ -180,14 +180,14 @@ function ImprestCreate() {
             </div>
           </div>
 
-          <div>
+          <div className={styles.maxWrap}>
             {form?.currency && (
               <div className={styles.entitledVa}>
                 <div className={styles.valuesV}>
-                  Max Entitled: <span>{amountDetail[form?.currency]?.entitled}</span>
+                  <div className={styles.flex1}>Max Entitled:</div> <div className={styles.flex12}>{amountDetail[form?.currency]?.entitled}</div>
                 </div>
-                <div className={styles.valuesV2}>
-                  Balance Outstanding:<span>{amountDetail[form?.currency]?.balance}</span>
+                <div className={styles.valuesV}>
+                 <div className={styles.flex1}>Balance Outstanding:</div> <div className={styles.flex12}>{amountDetail[form?.currency]?.balance}</div>
                 </div>
               </div>
             )}
@@ -210,7 +210,7 @@ function ImprestCreate() {
               <MenuItem value="EUR">€</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={"formGroup1"}>
+          <div className={styles.amountWrap}>
             <CustomTextField
               disabled={true}
               isError={errorData?.sanctionable_amount}
