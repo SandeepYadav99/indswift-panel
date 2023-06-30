@@ -3,6 +3,7 @@
  */
 import moment from 'moment';
 import Constants from '../config/constants';
+import {useMemo} from "react";
 
 class DateUtils {
     changeTimezoneFromUtc = function(date, timeZone =  Constants.TIME_ZONE, format = Constants.DEFAULT_TIME_FORMAT) {
@@ -19,6 +20,12 @@ class DateUtils {
             return moment(new Date(date)).format(format);
         } return '';
     }
+
+     canSubmitReview = (() => {
+        const limit = new Date("2023-06-30 18:00:00");
+        const nowDate = new Date();
+        return limit.getTime() > nowDate.getTime();
+    });
 }
 
 export default new DateUtils();
