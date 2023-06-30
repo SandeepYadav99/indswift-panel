@@ -174,27 +174,38 @@
   .AutoWrap{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 80px;
   }
   .formWrap{
     display: flex;
     align-items: center;
-    width: 25%;
+    flex-wrap: wrap;
   }
   .formWrap2{
     display: flex;
     align-items: center;
-    /* width: 25%; */
+    flex-wrap: wrap;
   }
   .formWrapInner{
-    width: 30%;
+    width: 120px;
+  }
+  .maxWrap{
+    flex: 1;
+  }
+  .amountWrap{
+    padding: 7px 10px;
+    /* min-width: 150px; */
+    width:200px;
   }
   .tapWrap{
     display: flex;
     width: 25%;
+    min-width: 350px;
   }
   .formCurr{
-    width: 25%;
+    /* width: 25%; */
+    flex: 1;
     display: flex;
     align-items: center
   }
@@ -204,13 +215,19 @@
     font-weight: 600;
     flex-direction: column;
   }
-  .valuesV > span{
+  .valuesV {
     color: #818181;
-    margin-left: 75px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+
   }
-  .valuesV2 > span{
-    color: #818181;
-    margin-left: 30px;
+  .flex1{
+    flex: 1;
+  }
+  .flex12{
+    flex: 1;
+    color: #161616;
   }
   .radioheading {
     font-size: 0.875rem;
@@ -250,3 +267,11 @@
     font-weight: 600;
     padding-left: 38px;
   }
+  @media (max-width: 1000px) {
+    .formWrap2{
+      width: 100%;
+    }
+    .AutoWrap{
+      gap: 10px;
+    }
+}
