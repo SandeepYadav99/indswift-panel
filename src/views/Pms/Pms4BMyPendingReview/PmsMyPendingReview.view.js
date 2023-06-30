@@ -23,6 +23,7 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import usePmsPendingReview from "./PmsMyPendingReview.hook";
+import DateUtilsLib from "../../../libs/DateUtils.lib";
 
 const PmsPendingReview = ({ location }) => {
   const {
@@ -45,9 +46,13 @@ const PmsPendingReview = ({ location }) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.pmsPendingReview);
 
+  const canSubmit = useMemo(() => {
+    return DateUtilsLib.canSubmitReview();
+  }, []);
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
+
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
@@ -144,14 +149,14 @@ const PmsPendingReview = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div>
-            <ButtonBase
+            {canSubmit && (<ButtonBase
               // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
                 onClick={handleRecordReview}
               className={"createBtn"}
             >
               RECORD REVIEW
-            </ButtonBase>
+            </ButtonBase>)}
           </div>
         </div>
 

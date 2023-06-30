@@ -9,6 +9,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import usePMSSitePendingReview from "./PMSSitePendingReview.hook";
 import { IconButton } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
+import DateUtilsLib from "../../../libs/DateUtils.lib";
 
 const PMSSitePendingReview = ({ location }) => {
   const {
@@ -35,6 +36,10 @@ const PMSSitePendingReview = ({ location }) => {
   };
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
+  }, []);
+
+  const canSubmit = useMemo(() => {
+    return DateUtilsLib.canSubmitReview();
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
@@ -89,7 +94,7 @@ const PMSSitePendingReview = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
+            {canSubmit && (<IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -98,12 +103,12 @@ const PMSSitePendingReview = ({ location }) => {
               }}
             >
               <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            </IconButton>)}
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, canSubmit]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
