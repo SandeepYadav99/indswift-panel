@@ -22,6 +22,7 @@ class DateUtils {
     }
 
      canSubmitReview = (() => {
+         return false;
         const limit = new Date("2023-06-30 18:00:00");
         const nowDate = new Date();
         return limit.getTime() > nowDate.getTime();
