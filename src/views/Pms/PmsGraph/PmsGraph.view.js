@@ -52,7 +52,7 @@ function PmsGraph() {
           //   sessionStorage.setItem("fyYear", value);
         }}
       >
-        <MenuItem value={"2022-2023"}>2023</MenuItem>
+        <MenuItem value={"2023"}>2023</MenuItem>
       </CustomSelectField>
     );
   }, [fyYear]);

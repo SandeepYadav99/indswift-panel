@@ -23,7 +23,7 @@ function usePmsGraphHook() {
       }),
       serviceGetPmsNormalizeTableData({
         batch: batch,
-        year: '2023',
+        year: fyYear,
       })
     ]).then((promises)=>{
       const graphData = promises[0]?.value?.data;
