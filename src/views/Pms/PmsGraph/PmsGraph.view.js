@@ -7,6 +7,7 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import usePmsGraphHook from "./PmsGraph.hook";
 import RatingTile from "./component/RatingTile/RatingTile.view";
 import GraphTable from "./component/GraphTable/GraphTable.view";
+import LineChartGraph from "./component/LineChartGraph/LineChartGraph.view";
 
 function PmsGraph() {
   const {
@@ -109,14 +110,59 @@ function PmsGraph() {
         <div className={styles.plainPaper}>
           <div className={styles.heading}>Organizational Overview</div>
           <div className={styles.RatingUpperWrap}>
-            <RatingTile title="Employees" value={graphData?.stats?.employees} />
-            <RatingTile title="Employees Average Rating" value={10} />
-            <RatingTile title="Reviewers Average Rating" value={10} />
-            <RatingTile title="Normalized Rating" value={10} />
+            <RatingTile
+              title="Employees"
+              value={
+                !graphData?.stats?.employees ? graphData?.stats?.employees : "-"
+              }
+            />
+            <RatingTile
+              title="Employees Average Rating"
+              value={
+                graphData?.stats?.employee_avg_rating
+                  ? graphData?.stats?.employee_avg_rating
+                  : "-"
+              }
+            />
+            <RatingTile
+              title="Reviewers Average Rating"
+              value={
+                graphData?.stats?.reviewer_avg_rating
+                  ? graphData?.stats?.reviewer_avg_rating
+                  : "-"
+              }
+            />
+            <RatingTile
+              title="Normalized Rating"
+              value={
+                graphData?.stats?.normalized_rating
+                  ? graphData?.stats?.normalized_rating
+                  : "-"
+              }
+            />
           </div>
-          <div className={styles.graphTableWrap}></div>
-          <GraphTable data={graphData?.overall} title="2022-2023"/>
+          {graphData?.overall?.length > 0 && (
+            <div className={styles.graphTableWrap}>
+              <GraphTable data={graphData?.overall} title="2022-2023" />
+              <LineChartGraph dataValues={graphData?.overall} />
+            </div>
+          )}
         </div>
+        {graphData?.grades?.length > 0 && (
+          <div className={styles.plainPaper}>
+            <div className={styles.heading}>Grade-Wise Overview</div>
+
+            <div className={styles.gradeTable}>
+              {graphData?.grades?.map((item, index) => (
+                <GraphTable
+                  key={`grade_ind_${index}`}
+                  data={item?.ratings}
+                  title={item?.name}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

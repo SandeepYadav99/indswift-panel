@@ -1,40 +1,41 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { serviceGetList } from "../../../services/Common.service";
 import { serviceGetPMS4BReviewDetail } from "../../../services/PmsPendingReview.service";
-import { serviceGetPmsNormalizeGraphData } from "../../../services/PmsNormalize.service";
+import { serviceGetPmsNormalizeGraphData, serviceGetPmsNormalizeTableData } from "../../../services/PmsNormalize.service";
 
 function usePmsGraphHook() {
   const [graphLoc, setGraphLoc] = useState("");
   const [fyYear, setFyYear] = useState("");
   const [batch, setBatch] = useState("");
   const [graphData, setGraphData] = useState({});
+  const [tableData,setTableData]=useState({})
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
   const isMount = useRef(false);
 
-  const resetData = useCallback(
-    (sort = {}, updateQuery = {}) => {
-      console.log("api,call", fyYear, graphLoc, batch);
-      if (!isMount.current) {
-        serviceGetPmsNormalizeGraphData({ batch: batch, year: fyYear }).then(
-          (res) => {
-            if (!res.error) {
-              setGraphData(res.data);
-              console.log("dtata", res.data);
-              // setRows(res.data);
-              // setColumns([...columns, ...res?.data[0]?.ratings]);
-            }
-          }
-        );
-        isMount.current = true;
-      }
-    },
-    [fyYear, graphLoc, batch]
-  );
+  const resetData = useCallback(() => {
+    Promise.allSettled([
+      serviceGetPmsNormalizeGraphData({
+        batch: batch,
+        year: fyYear,
+        location_id: graphLoc,
+      }),
+      serviceGetPmsNormalizeTableData({
+        batch: batch,
+        year: '2023',
+      })
+    ]).then((promises)=>{
+      const graphData = promises[0]?.value?.data;
+      const graphtableData=promises[1]?.value?.data;
+      setGraphData(graphData);
+      setTableData(graphtableData)
+    })
+  }, [fyYear, graphLoc, batch]);
 
+  console.log('>>>>>',graphData,tableData)
   const initialApiCall = useCallback(() => {
-    if (fyYear && batch && graphLoc) {
+    if (fyYear && batch) {
       resetData();
     }
   }, [graphLoc, setFyYear, batch, batch, setBatch]);

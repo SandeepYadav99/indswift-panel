@@ -66,4 +66,14 @@
 }
 .graphTableWrap{
   margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  /* gap: 25px; */
+}
+.gradeTable{
+  margin-top: 20px;
+  display: flex;
+  overflow: scroll;
+  gap: 70px;
+  overflow-y: hidden;
 }
