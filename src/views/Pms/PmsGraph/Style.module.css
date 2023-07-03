@@ -1,0 +1,69 @@
+.graphWrap {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  /* flex-direction: column;
+  gap: 20px; */
+}
+.graphCont {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+.backIcon {
+  color: #919bb0 !important;
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.plainPaper {
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0px 20px 80px #00000011;
+  padding-top: 2rem;
+}
+.heading {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.upperWrap {
+  display: flex;
+  align-items: center;
+}
+.historyWrap {
+  margin-left: 15px;
+  white-space: nowrap;
+  margin-right: 75px;
+
+}
+.rightFlex{
+  display: flex;
+  align-items: center;
+}
+.yearFlex{
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  padding-top: 20px;
+  margin-left: 50px;
+}
+.down{
+  flex: 0.3;
+}
+.RatingUpperWrap{
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 15px;
+}
+.graphTableWrap{
+  margin-top: 20px;
+}

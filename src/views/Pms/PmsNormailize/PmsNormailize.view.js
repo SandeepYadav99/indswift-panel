@@ -40,8 +40,8 @@ const PmsNormailize = ({ location }) => {
     isCalling,
     configFilter,
     warehouses,
-    handleCsvDownload,
-  } = usePmsNormailize({location});
+    handleViewGraph,
+  } = usePmsNormailize({ location });
 
   const {
     data,
@@ -75,7 +75,6 @@ const PmsNormailize = ({ location }) => {
     return null;
   }, []);
 
-
   const tableStructure = useMemo(() => {
     return [
       {
@@ -88,11 +87,7 @@ const PmsNormailize = ({ location }) => {
         key: "grade",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.employee?.grade?.code}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.grade?.code}</div>,
       },
       {
         key: "location",
@@ -112,7 +107,8 @@ const PmsNormailize = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department?.name} / {all?.employee?.sub_department?.name}
+            {all?.employee?.department?.name} /{" "}
+            {all?.employee?.sub_department?.name}
           </div>
         ),
       },
@@ -120,14 +116,20 @@ const PmsNormailize = ({ location }) => {
         key: "hod",
         label: "HOD",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.hod?.hod_name} <br/>
-          {all?.hod?.hod_code}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.employee?.hod?.hod_name} <br />
+            {all?.hod?.hod_code}
+          </div>
+        ),
       },
       {
         key: "status",
         label: "Status",
         sortable: false,
-        render: (temp, all) => <div>{renderStatus(removeUnderScore(all?.status))}</div>,
+        render: (temp, all) => (
+          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+        ),
       },
       {
         key: "batch",
@@ -139,7 +141,9 @@ const PmsNormailize = ({ location }) => {
         key: "review",
         label: "REVIEWER RATING",
         sortable: false,
-        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>{all?.reviewer_rating}</div>,
+        render: (temp, all) => (
+          <div style={{ whiteSpace: "nowrap" }}>{all?.reviewer_rating}</div>
+        ),
       },
       {
         key: "normalize",
@@ -197,21 +201,14 @@ const PmsNormailize = ({ location }) => {
             <span className={styles.title}>Normalized Employee Records</span>
             <div className={styles.newLine} />
           </div>
-          {/* <div>
-            <ButtonBase
-              // aria-owns={downloadCL ? "downloadCL" : undefined}
-              aria-haspopup="true"
-              onClick={handleCsvDownload}
-              className={"createBtn"}
-            >
-              Download
-              <CloudDownload
-                fontSize={"small"}
-                className={"plusIcon"}
-              ></CloudDownload>
-            </ButtonBase>
-
-          </div> */}
+          <ButtonBase
+            className={styles.edit}
+            onClick={() => {
+              handleViewGraph();
+            }}
+          >
+            VIEW GRAPH
+          </ButtonBase>
         </div>
 
         <div>
@@ -232,7 +229,6 @@ const PmsNormailize = ({ location }) => {
           </div>
         </div>
       </PageBox>
-
     </div>
   );
 };
