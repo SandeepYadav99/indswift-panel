@@ -61,7 +61,7 @@ function GraphTable({ data, title, shouldHideAvg }) {
       title: "Score",
       render: (all) => (
         <div className={styles.label}>
-          {all?.key === "avg" || all?.key === "count" ? "" : all?.key}
+          {shouldHideAvg && (all?.key === "avg" || all?.key === "count") ? "" : all?.key}
         </div>
       ),
     },

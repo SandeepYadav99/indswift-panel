@@ -127,6 +127,8 @@
   border-image: initial;
   padding: 0px;
   min-height: 40px; 
+  text-transform: capitalize;
+  font-weight: 500;
 }
 .oddRow {
   background-color: #f7f7f7;

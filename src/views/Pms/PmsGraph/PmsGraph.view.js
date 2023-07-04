@@ -147,7 +147,11 @@ function PmsGraph() {
           </div>
           {graphData?.overall?.length > 0 && (
             <div className={styles.graphTableWrap}>
-              <GraphTable shouldHideAvg={true} data={graphData?.overall} title="2022-2023" />
+              <GraphTable
+                shouldHideAvg={true}
+                data={graphData?.overall}
+                title={fyYear ? `${fyYear - 1}-${fyYear}` : ""}
+              />
               <LineChartGraph dataValues={graphData?.overall} />
             </div>
           )}

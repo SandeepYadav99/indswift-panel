@@ -1,13 +1,13 @@
 .even {
   background-color: #ffffff;
   border: 1px solid #ebedf4;
-  padding: 10px 70px;
+  padding: 10px 40px;
   font-weight: 500;
 }
 .odd {
   background-color: #f7f7f7;
   border: 1px solid #ebedf4;
-  padding: 10px 70px;
+  padding: 10px 40px;
   font-weight: 500;
 }
 .headingTitle {
@@ -18,7 +18,7 @@
 .ratingValue {
   background-color: #2896e9;
   border: 1px solid #ebedf4;
-  padding: 10px 70px;
+  padding: 10px 40px;
   color: white;
   font-weight: 500;
 }
