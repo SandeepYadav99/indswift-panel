@@ -35,7 +35,7 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
                     name={name}
                     value={value ? value : ''}
                     isError={isError}
-                    isEnabled={totalAvg<=rating}
+                    isEnabled={row.is_eligible}
                     onChange={(e) => {
                         handleInputChange(e.target.name, e.target.value, 'DROPDOWN')
                     }}
@@ -52,6 +52,7 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
                     name={name}
                     isError={isError}
                     type={'number'}
+                    // disabled={!row.is_eligible}
                 />
             );
         }

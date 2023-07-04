@@ -3,6 +3,7 @@ import {useParams} from "react-router";
 import LogUtils from "../../../libs/LogUtils";
 import styles from './Style.module.css';
 import {isNum, isNumDec, isNumDecTwoPlaces} from "../../../libs/RegexUtils";
+import csx from 'classnames';
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import {
@@ -25,7 +26,15 @@ const usePmsHodForm = ({location}) => {
             title: "Employee",
             fixed: true,
             readOnly: true,
-            render: (all) => <div className={styles.label21}><span>{all.name}</span> <br/><p>{all.code}</p></div>
+            render: (all) => <div className={csx(styles.label21, (all.is_eligible ? styles.greenBg : ''))}><span>{all.name}</span></div>
+        },
+        {
+            is_static: true,
+            key: "code",
+            title: "Code",
+            fixed: true,
+            readOnly: true,
+            render: (all) => <div className={csx(styles.label21, (all.is_salary_maximized ? styles.redBg : ''))}><p>{all.code}</p></div>
         },
         {
             is_static: true,
@@ -162,12 +171,13 @@ const usePmsHodForm = ({location}) => {
         Object.keys(form).forEach((key) => {
             if (!form[key]) {
                 tErr[key] = true;
-            } else if ( (key in rating) && ((parseFloat(rating[key]) - 6) > form[key] || (parseFloat(rating[key]) + 6) < form[key])) {
+            } else if ( (key in rating) && ((parseFloat(rating[key]) - 7) > form[key] || (parseFloat(rating[key]) + 7) < form[key])) {
                 tErr[key] = true;
             }
         });
         return tErr;
     }, [form, rating, errors]);
+
 
     const calculateAdjacentCells = useCallback((key) => {
         const arr = key.split('_');
@@ -177,7 +187,7 @@ const usePmsHodForm = ({location}) => {
         let next = '';
         let prev = '';
         if (param === 0) {
-            if (cat > 6) {
+            if (cat > 7) {
                 const totalParam = columns[cat-1]?.parameters?.length;
                 prev = `${row}_${cat - 1}_${totalParam-1}`
             } else {
@@ -229,7 +239,6 @@ const usePmsHodForm = ({location}) => {
 
     const handleInputChange = useCallback((name, value, type, rating) => {
         const tForm = {...form};
-        LogUtils.log('name',name, value, type, rating);
         if ((!value || ((isNumDecTwoPlaces(value) && value > 0 && value <= 100) && type === 'NUMBER') )) { //((parseFloat(rating) - 5) <= value && (parseFloat(rating) + 5) >= value)
             tForm[name] = value;
             processChanges(name, value);
@@ -259,12 +268,13 @@ const usePmsHodForm = ({location}) => {
             if (!(empId in data)) {
                 data[empId] = {};
             }
-            data[empId] = {...data[empId], ...{[`${cat-7}_${param}`]: val}};
+            data[empId] = {...data[empId], ...{[`${cat-8}_${param}`]: val}};
         });
         return data;
     }, [form, columns, rows]);
 
     const submitToServer = useCallback(() => {
+        const data = processData();
         if (!isSubmitting) {
             setIsSubmitting(true);
             const data = processData();
