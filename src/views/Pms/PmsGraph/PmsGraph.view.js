@@ -8,6 +8,8 @@ import usePmsGraphHook from "./PmsGraph.hook";
 import RatingTile from "./component/RatingTile/RatingTile.view";
 import GraphTable from "./component/GraphTable/GraphTable.view";
 import LineChartGraph from "./component/LineChartGraph/LineChartGraph.view";
+import PmsInfoTable from "./component/PmsInfoTable/PmsInfoTable.view";
+import AvgTable from "./component/AvgTable/AvgTable.view";
 
 function PmsGraph() {
   const {
@@ -20,6 +22,8 @@ function PmsGraph() {
     initialApiCall,
     listData,
     graphData,
+    tableData,
+    avgData,
   } = usePmsGraphHook({});
   const renderDropDown = useMemo(() => {
     return (
@@ -113,7 +117,7 @@ function PmsGraph() {
             <RatingTile
               title="Employees"
               value={
-                !graphData?.stats?.employees ? graphData?.stats?.employees : "-"
+                graphData?.stats?.employees ? graphData?.stats?.employees : "-"
               }
             />
             <RatingTile
@@ -151,18 +155,24 @@ function PmsGraph() {
         {graphData?.grades?.length > 0 && (
           <div className={styles.plainPaper}>
             <div className={styles.heading}>Grade-Wise Overview</div>
-
+            <div className={styles.AvgWrap}>
+              <AvgTable data={avgData} />
+            </div>
             <div className={styles.gradeTable}>
               {graphData?.grades?.map((item, index) => (
                 <GraphTable
                   key={`grade_ind_${index}`}
                   data={item?.ratings}
-                  title={item?.name}
+                  title={item?.code}
                 />
               ))}
             </div>
           </div>
         )}
+        <div className={styles.plainPaper}>
+          <div className={styles.heading}>Reviewer-Wise Overview</div>
+          <PmsInfoTable PmstableData={tableData} />
+        </div>
       </div>
     </div>
   );

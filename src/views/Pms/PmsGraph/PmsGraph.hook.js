@@ -1,18 +1,20 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { serviceGetList } from "../../../services/Common.service";
-import { serviceGetPMS4BReviewDetail } from "../../../services/PmsPendingReview.service";
-import { serviceGetPmsNormalizeGraphData, serviceGetPmsNormalizeTableData } from "../../../services/PmsNormalize.service";
+import {
+  serviceGetPmsNormalizeGraphData,
+  serviceGetPmsNormalizeTableData,
+} from "../../../services/PmsNormalize.service";
 
 function usePmsGraphHook() {
   const [graphLoc, setGraphLoc] = useState("");
   const [fyYear, setFyYear] = useState("");
   const [batch, setBatch] = useState("");
   const [graphData, setGraphData] = useState({});
-  const [tableData,setTableData]=useState({})
+  const [tableData, setTableData] = useState([]);
+  const [avgData, setAvgData] = useState([]);
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
-  const isMount = useRef(false);
 
   const resetData = useCallback(() => {
     Promise.allSettled([
@@ -24,16 +26,22 @@ function usePmsGraphHook() {
       serviceGetPmsNormalizeTableData({
         batch: batch,
         year: fyYear,
-      })
-    ]).then((promises)=>{
+      }),
+    ]).then((promises) => {
       const graphData = promises[0]?.value?.data;
-      const graphtableData=promises[1]?.value?.data;
+      const graphtableData = promises[1]?.value?.data;
       setGraphData(graphData);
-      setTableData(graphtableData)
-    })
+      setTableData(graphtableData);
+      if (graphData?.grades?.length > 0) {
+        const gradeObjects = graphData?.grades?.map((item) => {
+          const rating = item?.ratings?.find((r) => r.key === "avg");
+          return { grade: item.code, ...rating };
+        });
+        setAvgData(gradeObjects);
+      }
+    });
   }, [fyYear, graphLoc, batch]);
 
-  console.log('>>>>>',graphData,tableData)
   const initialApiCall = useCallback(() => {
     if (fyYear && batch) {
       resetData();
@@ -58,6 +66,8 @@ function usePmsGraphHook() {
     setFyYear,
     initialApiCall,
     graphData,
+    tableData,
+    avgData
   };
 }
 

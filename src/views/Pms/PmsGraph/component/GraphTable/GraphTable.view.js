@@ -27,7 +27,6 @@ const CustomTable = ({ columns, data, title }) => {
       </thead>
       <tbody>
         {data?.map((item, index) => (
-          // item?.key === 'avg' || item?.key === 'count' ? <tr/>:
           <tr
             key={index}
             className={
