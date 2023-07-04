@@ -22,7 +22,7 @@ function LineChartGraph({dataValues}) {
         bottom: 5,
       }}
     >
-      <CartesianGrid strokeDasharray="2 2" />
+      <CartesianGrid  />
       <XAxis dataKey="key"/>
       <YAxis />
       <Tooltip />
@@ -33,8 +33,9 @@ function LineChartGraph({dataValues}) {
         stroke="#2005A2"
         activeDot={{ r: 8 }}
         name="Normalizes"
+        strokeWidth={2}
       />
-      <Line type="linear" dataKey="received" stroke="#F4881B" name="As Recieved"/>
+      <Line type="linear" strokeWidth={2} dataKey="received" stroke="#F4881B" name="As Recieved"/>
     </LineChart>
   );
 }
