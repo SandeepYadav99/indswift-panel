@@ -14,7 +14,7 @@ function LineChartGraph({dataValues}) {
     <LineChart
       width={800}
       height={600}
-      data={dataValues}
+      data={[...dataValues].slice(0,13)}
       margin={{
         top: 5,
         right: 30,

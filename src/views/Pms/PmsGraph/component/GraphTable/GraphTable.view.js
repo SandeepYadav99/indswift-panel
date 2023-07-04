@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useMemo, useState} from "react";
 import styles from "./Style.module.css";
 
 const CustomTable = ({ columns, data, title }) => {
@@ -49,7 +49,12 @@ const CustomTable = ({ columns, data, title }) => {
   );
 };
 
-function GraphTable({ data, title }) {
+function GraphTable({ data, title, shouldHideAvg }) {
+
+  const graphData = useMemo(() => {
+    return shouldHideAvg ?  [...data].slice(0, 14) : data;
+  }, [data, shouldHideAvg]);
+
   const [columns, setColumns] = useState([
     {
       key: "score",
@@ -72,7 +77,7 @@ function GraphTable({ data, title }) {
     },
   ]);
   return (
-    <div>{<CustomTable title={title} columns={columns} data={data} />}</div>
+    <div>{<CustomTable title={title} columns={columns} data={graphData} />}</div>
   );
 }
 
