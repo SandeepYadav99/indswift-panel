@@ -85,7 +85,12 @@ const useReturnEmpDialogHook = ({
     if (form?.debit_amount == 0) {
       errors["debit_amount"] = true;
     }
-
+    if(!form?.voucher_no?.trim()){
+      errors["voucher_no"] = true;
+    }
+    if(!form?.description?.trim()){
+      errors["description"] = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

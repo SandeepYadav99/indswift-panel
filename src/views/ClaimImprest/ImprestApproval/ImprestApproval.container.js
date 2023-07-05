@@ -142,7 +142,14 @@ const ImprestApproval = ({ location }) => {
         render: (temp, all) => (
           <div>
             {all?.imprest?.travelPlanner?.code} <br />
-            {all?.imprest?.travelPlanner?.status}
+            <StatusPill status={removeUnderScore(all?.imprest?.travelPlanner?.status)}
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    padding: "0",
+                    whiteSpace:'nowrap'
+                  }}
+                />
           </div>
         ),
       },

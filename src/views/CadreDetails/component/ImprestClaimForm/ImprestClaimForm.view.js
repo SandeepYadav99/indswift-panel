@@ -42,7 +42,7 @@ const ImprestClaimForm = ({ type, title, resetForm }, ref) => {
             <div className={"heading"}>{title}</div>
           </h4>
           <div className={"infoTitle"} style={{ justifyContent: "flex-end" }}>
-            <div className="info_Status">
+            {/* <div className="info_Status">
               <div className={"heading"}>Show to Employees:</div>
               <div className={styles.toggleWrapper}>
                 <p className="tags">NO</p>
@@ -54,7 +54,7 @@ const ImprestClaimForm = ({ type, title, resetForm }, ref) => {
                   label={`Yes`}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         {form?.is_show && (
@@ -73,6 +73,7 @@ const ImprestClaimForm = ({ type, title, resetForm }, ref) => {
                   onBlur={() => {
                     onBlurHandler("max_value_inr");
                   }}
+                  InputLabelProps={{ shrink: true }}
                 />
               </div>
 
@@ -89,6 +90,7 @@ const ImprestClaimForm = ({ type, title, resetForm }, ref) => {
                   onBlur={() => {
                     onBlurHandler("max_value_eur");
                   }}
+                  InputLabelProps={{ shrink: true }}
                 />
               </div>
             </div>
@@ -106,6 +108,7 @@ const ImprestClaimForm = ({ type, title, resetForm }, ref) => {
                   onBlur={() => {
                     onBlurHandler("max_value_usd");
                   }}
+                  InputLabelProps={{ shrink: true }}
                 />
               </div>
             </div>

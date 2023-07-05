@@ -44,9 +44,17 @@ const CoincludeForm = (
     },
   }));
   useEffect(() => {
-    const filteredArr = employees.filter((item) => item?.id !== employeeId);
-    setFilteredList([...filteredArr]);
-  }, []);
+    if (employees) {
+      const emp = [employeeId];
+      for (let i = 0; i < fields.length; i++) {
+        if (fields[i].co_passengers && fields[i].co_passengers?.id) {
+          emp.push(fields[i].co_passengers.id);
+        }
+      }
+      let filteredArr = employees.filter((obj) => !emp.includes(obj?.id));
+      setFilteredList([...filteredArr]);
+    }
+  }, [fields]);
 
   const validateData = (index, type) => {
     const errors = {};

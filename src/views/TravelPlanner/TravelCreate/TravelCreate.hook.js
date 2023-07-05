@@ -13,6 +13,7 @@ import { dataURLtoFile } from "../../../helper/helper";
 import { serviceGetList } from "../../../services/Common.service";
 import { serviceCreateTravelPlanner } from "../../../services/Travel.service";
 import { isDate } from "../../../libs/RegexUtils";
+import { serviceGetAmpountImprest } from "../../../services/Imprest.service";
 
 const initialForm = {
   start_date: "",
@@ -25,6 +26,7 @@ const initialForm = {
   imprest_required: false,
   imprest_currency: "",
   imprest_amount: "",
+  imprest_sanctionable_amount:"",
 };
 
 const useTravelCreate = ({}) => {
@@ -37,6 +39,7 @@ const useTravelCreate = ({}) => {
   const [editData, setEditData] = useState(null);
   const [declaration, setDeclaration] = useState(false);
   const [employeeDetails, setEmployeeDetails] = useState({});
+  const [amountDetail, setAmountDetail] = useState({});
   const [claimInfo, setClaimInfo] = useState({});
   const travelRef = useRef(null);
   const otherRef = useRef(null);
@@ -48,7 +51,7 @@ const useTravelCreate = ({}) => {
   };
   const { id } = useParams();
   const {
-    user: { emp_code },
+    user: { emp_code ,user_id},
   } = useSelector((state) => state.auth);
   useEffect(() => {
     Promise.allSettled([
@@ -61,6 +64,28 @@ const useTravelCreate = ({}) => {
       setEmployees(listData?.EMPLOYEES);
     });
   }, []);
+
+  useEffect(() => {
+    if (user_id) {
+      serviceGetAmpountImprest({ employee_id: user_id }).then((res) => {
+        if (!res.error) {
+          setAmountDetail(res.data);
+        }
+      });
+    }
+  }, [user_id]);
+
+  useEffect(() => {
+    if (form?.imprest_amount && amountDetail && form?.imprest_currency) {
+      const value =
+        form?.imprest_amount -
+        (amountDetail[form?.imprest_currency]?.balance
+          ? amountDetail[form?.imprest_currency]?.balance
+          : 0);
+      setForm({ ...form, imprest_sanctionable_amount: value });
+    }
+  }, [form?.imprest_amount, amountDetail, form?.imprest_currency]);
+
   useEffect(() => {
     if (form?.tour_type === "FOREIGN") {
       if (
@@ -117,6 +142,9 @@ const useTravelCreate = ({}) => {
         errors[val] = true;
       }
     });
+    if(!form?.purpose?.trim()){
+      errors["purpose"] = true
+    }
     if (!isDate(form?.start_date)) {
       errors["start_date"] = true;
     }
@@ -318,6 +346,7 @@ const useTravelCreate = ({}) => {
     employees,
     isBond,
     coRef,
+    amountDetail
   };
 };
 
