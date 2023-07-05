@@ -3,7 +3,7 @@ import styles from "./Style.module.css";
 
 function AvgTable({ data }) {
   const avgValue = data;
-  const sumNormalized = data?.reduce((sum, obj) => sum + parseInt(obj?.normalized), 0);
+  // const sumNormalized = data?.reduce((sum, obj) => sum + parseInt(obj?.normalized), 0);
   return (
     <div>
       <table className={styles.TableClass}>
@@ -18,7 +18,7 @@ function AvgTable({ data }) {
                 {item?.grade}
               </th>
             ))}
-            <th className={styles.ratingValue}>Grand Total</th>
+            {/* <th className={styles.ratingValue}>Grand Total</th> */}
           </tr>
         </thead>
         <tbody>
@@ -32,9 +32,9 @@ function AvgTable({ data }) {
                 {item.normalized}
               </td>
             ))}
-            <td className={styles.ratingValue}>
+            {/* <td className={styles.ratingValue}>
               {avgValue?.length > 0 && (sumNormalized / avgValue?.length).toFixed(2)}
-            </td>
+            </td> */}
           </tr>
         </tbody>
       </table>
