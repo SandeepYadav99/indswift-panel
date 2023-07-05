@@ -57,15 +57,20 @@ const DetailsIncludeForm = (
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = [
         "travel_date",
-        "from",
-        "to",
-        "medium_details",
         "mode",
         "travel_documents",
       ];
       {
         required.forEach((key) => {
           if (!val[key]) {
+            err[key] = true;
+          }
+        });
+      }
+      const spaceHandling = ["from", "to", "medium_details"];
+      {
+        spaceHandling?.forEach((key) => {
+          if (!val[key]?.trim()) {
             err[key] = true;
           }
         });

@@ -82,6 +82,9 @@ const OtherDetailsIncludeForm = (
           );
         }
       }
+      if (val?.property_name && !val?.property_name?.trim()){
+        err["property_name"] = true
+      }
       if(!hasValues){
         for (const key in err) {
           if (err.hasOwnProperty(key)) {

@@ -20,6 +20,7 @@ import TravelUpperCard from "./component/TravelUpperCard/TravelUpperCard";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CoIncludeForm from "./component/Coincludes/Coinclude.component";
+import { getCurrency } from "../../../helper/helper";
 function TravelCreate() {
   const {
     form,
@@ -39,6 +40,7 @@ function TravelCreate() {
     isChecked,
     coRef,
     employees,
+    amountDetail,
     handleCheckboxChange,
   } = useTravelCreate({});
 
@@ -284,40 +286,99 @@ function TravelCreate() {
             </div>
           </div>
           {form?.imprest_required && (
-            <div className={styles.formWrap}>
-              <div className={styles.formWrapInner}>
-                <CustomSelectField
-                  isError={errorData?.imprest_currency}
-                  errorText={errorData?.imprest_currency}
-                  label={"Currency"}
-                  value={form?.imprest_currency}
-                  handleChange={(value) => {
-                    changeTextData(value, "imprest_currency");
-                  }}
-                >
-                  <MenuItem value="INR">₹</MenuItem>
+            <div>
+              <div className={styles.formWrap2}>
+                <div className={styles.formCurr}>
+                  <div className={styles.formWrapInner}>
+                   
+                    <CustomSelectField
+                      isError={errorData?.imprest_currency}
+                      errorText={errorData?.imprest_currency}
+                      label={"Currency"}
+                      value={form?.imprest_currency}
+                      handleChange={(value) => {
+                        changeTextData(value, "imprest_currency");
+                      }}
+                    >
+                      <MenuItem value="INR">₹</MenuItem>
                   {form?.tour_type === "FOREIGN" && (
                       <MenuItem value="USD">$</MenuItem>
                   )}
                   {form?.tour_type === "FOREIGN" && (
                       <MenuItem value="EUR">€</MenuItem>
                   )}
-                </CustomSelectField>
+                    </CustomSelectField>
+                  </div>
+                  <div className={styles.amountWrap}>
+                    <CustomTextField
+                      type="number"
+                      isError={errorData?.imprest_amount}
+                      errorText={errorData?.imprest_amount}
+                      label={"Required Amount"}
+                      value={form?.imprest_amount}
+                      onTextChange={(text) => {
+                        changeTextData(text, "imprest_amount");
+                      }}
+                      onBlur={() => {
+                        onBlurHandler("imprest_amount");
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className={styles.maxWrap}>
+                  {form?.imprest_currency && (
+                    <div className={styles.entitledVa}>
+                      <div className={styles.valuesV}>
+                        <div className={styles.flex1}>Max Entitled:</div>{" "}
+                        <div className={styles.flex12}>
+                          {getCurrency(form?.imprest_currency)}
+                          {amountDetail[form?.imprest_currency]?.entitled}
+                        </div>
+                      </div>
+                      <div className={styles.valuesV}>
+                        <div className={styles.flex1}>Balance Outstanding:</div>{" "}
+                        <div className={styles.flex12}>
+                          {getCurrency(form?.imprest_currency)}
+                          {amountDetail[form?.imprest_currency]?.balance}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-              <div className={"formGroup1"}>
-                <CustomTextField
-                  type="number"
-                  isError={errorData?.imprest_amount}
-                  errorText={errorData?.imprest_amount}
-                  label={"Required Amount"}
-                  value={form?.imprest_amount}
-                  onTextChange={(text) => {
-                    changeTextData(text, "imprest_amount");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("imprest_amount");
-                  }}
-                />
+              <div className={styles.formWrap}>
+                <div className={styles.formWrapInner}>
+                  <CustomSelectField
+                    disabled={true}
+                    isError={errorData?.imprest_currency}
+                    errorText={errorData?.imprest_currency}
+                    label={"Currency"}
+                    value={form?.imprest_currency}
+                    handleChange={(value) => {
+                      changeTextData(value, "imprest_currency");
+                    }}
+                  >
+                    <MenuItem value="INR">₹</MenuItem>
+                    <MenuItem value="USD">$</MenuItem>
+                    <MenuItem value="EUR">€</MenuItem>
+                  </CustomSelectField>
+                </div>
+                <div className={styles.amountWrap}>
+                  <CustomTextField
+                    disabled={true}
+                    isError={errorData?.imprest_sanctionable_amount}
+                    errorText={errorData?.imprest_sanctionable_amount}
+                    label={"Sanctionable Amount"}
+                    value={form?.imprest_sanctionable_amount}
+                    onTextChange={(text) => {
+                      changeTextData(text, "imprest_sanctionable_amount");
+                    }}
+                    onBlur={() => {
+                      onBlurHandler("imprest_sanctionable_amount");
+                    }}
+                  />
+                </div>
               </div>
             </div>
           )}

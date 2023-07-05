@@ -6,7 +6,7 @@ import LogUtils from "../../../../libs/LogUtils";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 const initialForm = {
-  is_show: false,
+  is_show: true,
   max_value_inr: null,
   max_value_usd: null,
   max_value_eur:null,

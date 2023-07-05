@@ -57,7 +57,16 @@
     font-weight: bold;
     margin-left: 10px;
 }
-
+.experseWrap{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 10px;
+    color: #2896E9;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: .8rem;
+}
 .infoTitle{
     margin-bottom: 15px;
     padding-bottom: 5px;
@@ -136,6 +145,7 @@
 .yearFlex{
     display: flex;
     padding-top: 20px;
+    gap: 25px;
 }
 
 .down{
@@ -171,6 +181,80 @@
     margin-left: 30px;
 }
 
-.budget{
-    color: #20c997;
+
+.createBtn{
+    background-color: #29CB97 !important;
+    color: #ffffff !important;
+    padding: 12px 35px !important;
+    font-size: 0.8rem !important;
+    border-radius: 30px !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+}
+
+.upperInfo{
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.loc{
+    margin-left: 15px;
+    margin-right: 15px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.hr{
+    font-size: 0.875rem;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.plainPaper{
+    border-radius: 5px;
+    padding: 0.4rem 1.2rem;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    margin-left: 15px;
+}
+
+.approved{
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.topFlex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.newInfo{
+    font-size: 0.7rem;
+}
+
+.key{
+    width: 140px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.btmFlex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.6rem;
+    margin-top: 15px;
+}
+
+.user{
+    display: flex;
+    align-items: center;
 }

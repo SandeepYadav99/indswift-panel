@@ -57,7 +57,7 @@ function useCadreDetailsList() {
             refHealth.current?.setData(phc_claim);
             reftravel.current?.setData(local_travel_claim);
             refLoc.current?.setData(relocation_claim);
-            refImp.current?.setData(imprest);
+            refImp.current?.setData({...imprest,is_show:true});
             setForm(salary_component)
           }
         }
