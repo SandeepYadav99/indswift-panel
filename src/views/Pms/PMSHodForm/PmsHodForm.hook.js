@@ -115,6 +115,9 @@ const usePmsHodForm = ({location}) => {
                 if (!col.is_static) {
                     if (col.title !== 'HOD_RATING') {
                         tForm[`${row.id}_${col.key}`] = '';
+                        if (row?.is_eligible === false) {
+                            tForm[`${row.id}_${col.key}`] = 'NO';
+                        }
                     } else {
                         tForm[`${row.id}_${col.key}`] = row?.rating;
                         rating[`${row.id}_${col.key}`] = row?.rating;
