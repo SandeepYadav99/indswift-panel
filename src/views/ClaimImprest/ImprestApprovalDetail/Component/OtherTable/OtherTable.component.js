@@ -1,6 +1,3 @@
-/**
- * Created by charnjeetelectrovese@gmail.com on 6/26/2020.
- */
 import React, { Component, useCallback, useEffect, useMemo } from "react";
 import DataTables from "../../../../../Datatables/Datatable.table";
 import styles from "./Style.module.css";
@@ -120,7 +117,7 @@ const OtherTable = ({ jobId, Claimtype }) => {
       columns: tableStructure,
       data: currentData,
       count: data.length,
-      page: currentPage,
+      page: currentPage -1,
       rowsPerPage: 10,
       allRowSelected: false,
       showSelection: false,
