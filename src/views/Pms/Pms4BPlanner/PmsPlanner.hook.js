@@ -293,6 +293,7 @@ const usePmsPlanner = ({}) => {
   }, [selected, isSending, setIsSending, setSelected]);
 
   const canFreeze = useMemo(() => {
+    return false;
     const limit = new Date("2023-06-02 18:30:00");
     const nowDate = new Date();
     return limit.getTime() < nowDate.getTime();
