@@ -279,14 +279,14 @@ const PmsReview = ({}) => {
             >
               Update Batches
             </ButtonBase> */}
-            {/*<ButtonBase*/}
-            {/*  // aria-owns={downloadCL ? "downloadCL" : undefined}*/}
-            {/*  aria-haspopup="true"*/}
-            {/*  onClick={toggleNormalizwDialog}*/}
-            {/*  className={"createBtn"}*/}
-            {/*>*/}
-            {/*  RUN NORMALIZATION*/}
-            {/*</ButtonBase>*/}
+            <ButtonBase
+              // aria-owns={downloadCL ? "downloadCL" : undefined}
+              aria-haspopup="true"
+              onClick={toggleNormalizwDialog}
+              className={"createBtn"}
+            >
+              RUN NORMALIZATION
+            </ButtonBase>
           </div>
         </div>
         <NoramlizeDialog

@@ -25,6 +25,7 @@ const LocationDetail = () => {
     id,
     handleHeadUpdate,
     departments,
+    subdepartments,
     handleDepartmentUpdate,
     locations,
     includeRef,
@@ -166,6 +167,7 @@ const LocationDetail = () => {
           locationId={id}
           employees={employees}
           departments={departments}
+          subdepartments={subdepartments}
           ref={includeRef}
           handleUpdate={handleDepartmentUpdate}
         />

@@ -41,6 +41,7 @@ const ClaimCarReport = ({ location }) => {
     isCalling,
     configFilter,
     warehouses,
+    handleCsvDownload
   } = useClaimCarReport({});
 
   const {
@@ -188,7 +189,9 @@ const ClaimCarReport = ({ location }) => {
             <span className={styles.title}>Car Claims Report</span>
             <div className={styles.newLine} />
           </div>
-          
+          <div className={styles.rightFlex}>
+            <ButtonBase className={styles.download} onClick={handleCsvDownload}>DOWNLOAD</ButtonBase>
+          </div>
         </div>
 
         <div>

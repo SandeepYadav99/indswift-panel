@@ -22,6 +22,7 @@ const LocationList = ({}) => {
         handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel, handleCreate,
         isCalling, configFilter, warehouses} = useLocationList({});
 
+
     const { isCorporateHR } = useAuthenticate();
     const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.location);
 
@@ -44,8 +45,7 @@ const LocationList = ({}) => {
 
 
     const tableStructure = useMemo(() => {
-        return [
-            {
+        return [{
                 key: 'name',
                 label: 'Name',
                 sortable: true,
@@ -89,8 +89,6 @@ const LocationList = ({}) => {
                     {isCorporateHR && (<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={()=> handleSideToggle(all)}><Edit fontSize={'small'} /></IconButton>)}
                 </div>),
             },
-
-
         ];
     }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
 

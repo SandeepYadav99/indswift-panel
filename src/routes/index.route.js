@@ -33,6 +33,8 @@ import CandidateIrfLogin from "../views/IRFLogin/CandidateIrfLogin.js";
 import PmsHodForm from "../views/Pms/PMSHodForm/PmsHodForm.view";
 import PMSSiteForm from "../views/Pms/PMSSiteForm/PMSSiteForm.view.js";
 import PmsSiteFormDetailView from "../views/Pms/PmsSiteFormDetail/PmsSiteFormDetail.view";
+import PmsGraph from "../views/Pms/PmsGraph/PmsGraph.view.js";
+
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
 const RouteComponent = () => (
@@ -59,6 +61,7 @@ const RouteComponent = () => (
     <Route path={`${RouteName.PMS_4B_REVIEW_DETAIL}:id`} component={Pms4BFormDetailView} />
     <Route path={RouteName.IRF_LOGIN} component={CandidateIrfLogin} />
     <Route path={RouteName.IRF_FORM} component={IrfForm} />
+    <Route path={RouteName.PERFORMANCE_GRAPH} component={PmsGraph} />
 
 
     {/*<Route path={'/signup'} component={Signup} />*/}

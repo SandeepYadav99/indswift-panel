@@ -14,7 +14,9 @@ export async function serviceGetDepartment(params) {
 export async function serviceGetDepartmentDetails(params) {
     return await postRequest('departments/detail', params);
 }
-
+export async function serviceDepartmentUpdateHead(params) {
+    return await postRequest('departments/update/hod', params);
+}
 export async function serviceDeleteDepartment(params) {
     return await formDataRequest('departments/delete', params);
 }

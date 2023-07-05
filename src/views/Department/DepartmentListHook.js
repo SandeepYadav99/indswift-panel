@@ -103,7 +103,7 @@ const useDepartmentList = ({}) => {
     }, [setEditData, setSidePanel]);
 
     const handleViewDetails = useCallback((data) => {
-        historyUtils.push('/departments/detail/') //+data.id
+        historyUtils.push(RouteName.DEPARTMENT_DETAIL + data?.id) //+data.id
     }, []);
 
     const handleSubDepartment = useCallback((data) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./Style.module.css"
 
-const Location = () => {
+const Candidate = () => {
     return (
         <div>
 
@@ -9,4 +9,4 @@ const Location = () => {
     )
 }
 
-export default Location
+export default Candidate

@@ -33,6 +33,7 @@ const ClaimsReport = ({}) => {
     handleFilterDataChange,
     handleSearchValueChange,
     setType,
+    handleCsvDownload
   } = useClaimsReport({});
 
   const {
@@ -90,9 +91,9 @@ const ClaimsReport = ({}) => {
       },
       {
         key: "sub_department",
-        label: "SUB DEPARTMENT",
+        label: "DEPT &SUB-DEPT",
         sortable: false,
-        render: (value, all) => <div>{all?.sub_department?.name}</div>,
+        render: (value, all) => <div>{all?.department?.name}/{all?.sub_department?.name}</div>,
       },
       {
         key: "no",
@@ -128,7 +129,7 @@ const ClaimsReport = ({}) => {
         key: "TOTAL VALUE",
         label: "TOTAL VALUE",
         sortable: false,
-        render: (temp, all) => <div>{all?.totalValue}</div>,
+        render: (temp, all) => <div>{all?.totalValue && `₹ ${all?.totalValue}`}</div>,
       },
     ];
   }, [
@@ -196,7 +197,6 @@ const ClaimsReport = ({}) => {
         <MenuItem value={"MOBILE"}>MOBILE</MenuItem>
         <MenuItem value={"PHC"}>PHC</MenuItem>
         <MenuItem value={"LOCAL_TRAVEL"}>LOCAL TRAVEL</MenuItem>
-        <MenuItem value={"INTERVIEW"}>INTERVIEW</MenuItem>
         <MenuItem value={"RELOCATION"}>RELOCATION</MenuItem>
       </CustomSelectField>
     );
@@ -210,9 +210,9 @@ const ClaimsReport = ({}) => {
             <span className={styles.title}>Claims Report</span>
             <div className={styles.newLine} />
           </div>
-          {/* <div className={styles.rightFlex}>
-            <ButtonBase className={styles.download}>DOWNLOAD</ButtonBase>
-          </div> */}
+          <div className={styles.rightFlex}>
+            <ButtonBase className={styles.download} onClick={handleCsvDownload}>DOWNLOAD</ButtonBase>
+          </div>
         </div>
 
         <div className={styles.yearFlex}>

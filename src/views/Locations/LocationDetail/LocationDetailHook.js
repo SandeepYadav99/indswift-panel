@@ -87,6 +87,7 @@ const useLocationDetail = ({}) => {
   const [isActive, setIsActive] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [departments, setDepartments] = useState([]);
+  const [subdepartments, setSubDepartments] = useState([]);
   const [locations,setLocations]=useState(roles)
   const [isUpdating, setIsUpdating] = useState(false);
   const includerefLoc=useRef(null)
@@ -94,10 +95,11 @@ const useLocationDetail = ({}) => {
   const { id } = useParams();
 
   useEffect(() => {
-    serviceGetList(["EMPLOYEES", "DEPARTMENTS"]).then((res) => {
+    serviceGetList(["EMPLOYEES", "DEPARTMENTS","SUB_DEPARTMENTS"]).then((res) => {
       if (!res.error) {
         setEmployees(res?.data?.EMPLOYEES);
         setDepartments(res?.data?.DEPARTMENTS);
+        setSubDepartments(res?.data?.SUB_DEPARTMENTS)
       }
     });
   }, []);
@@ -233,10 +235,12 @@ const useLocationDetail = ({}) => {
         setIsUpdating(true);
         const data = includeRef.current.getData();
         const dataRole=includerefLoc.current.getData();
-        const reqData = data.map((val) => {
+        const reqData = data?.map((val) => {
+          const subDepartmentIds = val?.sub_department_ids?.map(subDepartment => subDepartment?.id);
           return {
             department_id: val?.department_id,
             employee_id: val?.employee?.id,
+            sub_department_ids:subDepartmentIds
           };
         });
         const reqRoleData=dataRole?.map((val)=>{
@@ -299,6 +303,7 @@ const useLocationDetail = ({}) => {
     id,
     handleHeadUpdate,
     departments,
+    subdepartments,
     includeRef,
     includerefLoc,
     locations,

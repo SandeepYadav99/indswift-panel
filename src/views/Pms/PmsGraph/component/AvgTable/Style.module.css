@@ -1,0 +1,27 @@
+.even {
+  background-color: #ffffff;
+  border: 1px solid #ebedf4;
+  padding: 10px 40px;
+  font-weight: 500;
+}
+.odd {
+  background-color: #f7f7f7;
+  border: 1px solid #ebedf4;
+  padding: 10px 40px;
+  font-weight: 500;
+}
+.headingTitle {
+  background: #ecf7ff 0% 0% no-repeat padding-box;
+  padding: 10px 20px;
+  border: 1px solid #ebedf4;
+}
+.ratingValue {
+  background-color: #2896e9;
+  border: 1px solid #ebedf4;
+  padding: 10px 40px;
+  color: white;
+  font-weight: 500;
+}
+.TableClass{
+    border-spacing: 0;
+}

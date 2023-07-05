@@ -1,9 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import {
-  IconButton,
-  MenuItem,
-  ButtonBase,
-} from "@material-ui/core";
+import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
 import { Add, Edit, InfoOutlined, PrintOutlined } from "@material-ui/icons";
@@ -44,6 +40,7 @@ const AnnualList = ({}) => {
     selectedAnnualId,
     locationId,
     setLocationId,
+    sanction,
   } = useAnnualList({});
 
   const {
@@ -97,7 +94,7 @@ const AnnualList = ({}) => {
     handleDelete,
     selected,
     warehouseId,
-    type
+    type,
   ]);
 
   const renderInfoForm = useMemo(() => {
@@ -193,8 +190,14 @@ const AnnualList = ({}) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling,type]);
-
+  }, [
+    renderStatus,
+    renderFirstCell,
+    handleViewDetails,
+    handleEdit,
+    isCalling,
+    type,
+  ]);
 
   const tableStructure = useMemo(() => {
     return [
@@ -295,7 +298,14 @@ const AnnualList = ({}) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling,type]);
+  }, [
+    renderStatus,
+    renderFirstCell,
+    handleViewDetails,
+    handleEdit,
+    isCalling,
+    type,
+  ]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -306,7 +316,7 @@ const AnnualList = ({}) => {
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
-      columns: type == 'ON_ROLL' ? tableStructure : tableStructureOfRole,
+      columns: type == "ON_ROLL" ? tableStructure : tableStructureOfRole,
       data: data,
       count: allData.length,
       page: currentPage,
@@ -322,7 +332,7 @@ const AnnualList = ({}) => {
     handleRowSize,
     data,
     currentPage,
-    type
+    type,
   ]);
   const renderLocation = useMemo(() => {
     return (
@@ -331,7 +341,7 @@ const AnnualList = ({}) => {
         value={locationId}
         handleChange={(value) => {
           setLocationId(value);
-          sessionStorage.setItem('location', value);
+          sessionStorage.setItem("location", value);
         }}
       >
         {listData?.LOCATIONS?.map((dT) => {
@@ -343,8 +353,7 @@ const AnnualList = ({}) => {
         })}
       </CustomSelectField>
     );
-  }, [listData?.LOCATIONS,locationId]);
-
+  }, [listData?.LOCATIONS, locationId]);
 
   const renderDropDown = useMemo(() => {
     return (
@@ -353,7 +362,7 @@ const AnnualList = ({}) => {
         value={warehouseId}
         handleChange={(value) => {
           handleChangeWareHouse(value);
-          sessionStorage.setItem('warehouse', value);
+          sessionStorage.setItem("warehouse", value);
         }}
       >
         <MenuItem value={"2023-2024"}>FY 2023-2024</MenuItem>
@@ -368,11 +377,11 @@ const AnnualList = ({}) => {
         value={type}
         handleChange={(value) => {
           setType(value);
-          sessionStorage.setItem('type', value);
+          sessionStorage.setItem("type", value);
         }}
       >
-        <MenuItem value={"ON_ROLL"}>ON ROLL EMPLOYEE</MenuItem>
-        <MenuItem value={"OFF_ROLL"}>OFF ROLL EMPLOYEE</MenuItem>
+        <MenuItem value={"ON_ROLL"}>ON ROLE EMPLOYEE</MenuItem>
+        <MenuItem value={"OFF_ROLL"}>OFF ROLE EMPLOYEE</MenuItem>
       </CustomSelectField>
     );
   }, [type]);
@@ -399,6 +408,13 @@ const AnnualList = ({}) => {
         </div>
 
         <div style={{ marginTop: "30px" }}>
+          <div className={styles.experseWrap}>
+            SANCTIONED : {sanction?.sanctioned && `${sanction?.sanctioned}`}|
+            POSTED : {sanction?.posted && `${sanction?.posted} `} | VACANCY :
+            {sanction?.vacancies && ` ${sanction?.vacancies} `} | EXPENSES :
+            {sanction?.expense_budget !== undefined &&
+              `  ${sanction?.expense_budget}`}
+          </div>
           <div>
             <br />
             <div style={{ width: "100%" }}>

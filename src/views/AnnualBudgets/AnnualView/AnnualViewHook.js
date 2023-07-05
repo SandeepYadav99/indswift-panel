@@ -20,12 +20,13 @@ const useAnnualView = ({
   selectedAnnuals,
   closeSidePanel,
   originWarehouseId,
+  type,
   id,
 }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
   const [editData, setEditData] = useState({});
-  const [profileInfo,setProfileInfo]=useState({})
+  const [profileInfo, setProfileInfo] = useState({});
   const [warehouses, setWarehouses] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [users, setUsers] = useState([]);
@@ -34,7 +35,7 @@ const useAnnualView = ({
       serviceAnnualDetail({ id: id }).then((res) => {
         if (!res?.error) {
           const empData = res?.data;
-          setProfileInfo({...empData})
+          setProfileInfo({ ...empData });
           const data = {};
           Object.keys({ ...empData }).forEach((key) => {
             if (key in initialForm) {
@@ -42,7 +43,7 @@ const useAnnualView = ({
             }
           });
           setEditData({ ...data });
-          setForm({ ...initialForm, ...data ,transferred:0});
+          setForm({ ...initialForm, ...data, transferred: 0 });
         }
       });
     }
@@ -58,11 +59,11 @@ const useAnnualView = ({
         delete errors[val];
       }
     });
-    if (form?.vacancies < 0) {
-      errors["vacancies"] = true;
-    } else {
-      delete errors["vacancies"];
-    }
+    // if (form?.vacancies < 0) {
+    //   errors["vacancies"] = true;
+    // } else {
+    //   delete errors["vacancies"];
+    // }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -121,10 +122,13 @@ const useAnnualView = ({
       if (text >= 0) {
         t[fieldName] = text;
       }
-      if (fieldName === "budget" || "posted" || "transferred") {
-        const vaccanciesdata = t?.budget - t?.posted;
-        t["vacancies"] = vaccanciesdata;
+      if (type === "ON_ROLL") {
+        if (fieldName === "budget" || "posted" || "transferred") {
+          const vaccanciesdata = t?.budget - t?.posted;
+          t["vacancies"] = vaccanciesdata;
+        }
       }
+
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
@@ -134,7 +138,7 @@ const useAnnualView = ({
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {
-        changeTextData(form?.[type].trim(), type);
+        changeTextData(form?.[type]?.trim(), type);
       }
     },
     [changeTextData]
@@ -150,7 +154,7 @@ const useAnnualView = ({
     warehouses,
     setForm,
     users,
-    profileInfo
+    profileInfo,
   };
 };
 

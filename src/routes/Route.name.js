@@ -15,6 +15,7 @@ export default {
   CADRES_UPDATE: "/grades/cadres/update/",
   CADRES_DETAIL:"/grade/cadre/detail/",
   DEPARTMENTS: "/departments",
+  DEPARTMENT_DETAIL:'/department/detail/',
   DEPARTMENT_CREATE: "/departments/create",
   DEPARTMENT_UPDATE: "/departments/update/",
   SUB_DEPARTMENTS: "/departments/subs/",
@@ -104,10 +105,16 @@ export default {
   CLAIMS_INTERVIEW:'/cm/interview',
   CLAIMS_INTERVIEW_DETAILS:'/cm/interview/details/',
   CLAIMS_LOC:'/employee/claim/loc',
-  CLAIMS_IMPREST:'/employee/claim/imprest',
-  CLAIMS_IMPREST_CREATE:'/employee/claim/imprest/create',
+  CLAIMS_IMPREST:'/employees/claim/imprest',
+  CLAIMS_IMPREST_DETAILS:'/employees/claim/imprest/details',
+  CLAIMS_IMPREST_CREATE:'/employees/claim/imprest/create',
   CLAIMS_REPORT:'/cm/report',
   CLAIMS_CAR_REPORT:'/cm/car/report',
+  IMPREST_APPROVAL:'/imprest/list',
+  IMPREST_APPROVAL_DETAILS:'/imprest/details/',
+  EMPLOYEES_IMPREST:'/employee/imprest',
+  EMPLOYEES_IMPREST_DETAILS:'/employee/imprest/details/',
+
 
 
 
@@ -127,6 +134,7 @@ export default {
   PMS_PLANNER:'/pms/planner',
   PERFORMANCE_PENDING_REVIEW:'/pms/pending/review',
   PERFORMANCE_NORMALIZE:'/pm/noramlize',
+  PERFORMANCE_GRAPH:'/pms/graph',
   PERFORMANCE_HOD:'/pm/hod/batches',
   PERFORMANCE_HOD_REVIEW:'/pm/hod/review',
   PMS_HOD_FORM: '/pms/hod/submission/',

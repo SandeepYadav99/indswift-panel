@@ -18,5 +18,6 @@ export async function serviceGetClaimCarReport(params) {
 export async function serviceDetailsClaimCarReport(params) {
     return await postRequest('cr/employee/details', params);
 }
-
-
+export async function serviceExportCarClaimReport(params) {
+    return await postRequest('employee/claims/reports/car/export', params);
+}

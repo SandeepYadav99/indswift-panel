@@ -408,7 +408,7 @@ function ClaimDetailInfo({ idCards }) {
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Amount Claimed:</span>
-                  {idCards?.claim_details?.total_claim}
+                  {idCards?.claim_details?.total_claim && `₹ ${idCards?.claim_details?.total_claim}`}
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Claim type :</span>

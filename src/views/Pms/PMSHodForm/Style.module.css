@@ -82,6 +82,12 @@
   padding: 4px;
   z-index: 10;
 }
+.redBg {
+  background: red;
+}
+.greenBg {
+  background: green;
+}
 .label21 > span{
   font-weight: 600;
   white-space: nowrap;

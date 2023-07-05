@@ -19,3 +19,6 @@ export async function serviceGetClaimsReport (params) {
 export async function serviceClaimsReportDetail (params) {
     return await postRequest('cr/budget/detail', params);
 }
+export async function serviceExportClaimReport(params) {
+    return await postRequest('employee/claims/reports/export', params);
+}

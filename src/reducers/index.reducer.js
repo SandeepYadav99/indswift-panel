@@ -69,6 +69,9 @@ import ClaimsReportReducer from "./ClaimsReport.reducer";
 import ClaimCarReportReducer from "./ClaimCarReport.reducer";
 import PmsSiteReviewReducer from "./PmsSiteReview.reducer";
 import PMSSitePendingReviewReducer from "./PMSSitePendingReview.reducer";
+import EmployeeImprestReducer from "./EmployeeImprest.reducer";
+import ImprestApprovalReducer from "./ImprestApproval.reducer";
+import ImprestApprovalDetailReducer from "./ImprestApprovalDetail.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -135,7 +138,10 @@ const rootReducer = combineReducers({
   claimsReport:ClaimsReportReducer,
   claimCarReport:ClaimCarReportReducer,
   pmsSiteReview: PmsSiteReviewReducer,
-  pmsSiteMyReviews:PMSSitePendingReviewReducer
+  pmsSiteMyReviews:PMSSitePendingReviewReducer,
+  employeeImprest:EmployeeImprestReducer,
+  imprestApproval:ImprestApprovalReducer,
+  imprest_detail:ImprestApprovalDetailReducer
   // form: formReducer,
 });
 

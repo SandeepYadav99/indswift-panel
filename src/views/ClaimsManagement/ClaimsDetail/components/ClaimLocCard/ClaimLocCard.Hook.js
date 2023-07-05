@@ -81,6 +81,12 @@ const useClaimLocCard = ({}) => {
     return errors;
   }, [form, errorData]);
 
+  useEffect(()=>{
+    if(employeeDetails.doj && form?.relocation_type === 'NEW_JOINEE'){
+      setForm({...form,relocation_date : employeeDetails.doj})
+    }
+  },[form.relocation_type])
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsLoading(true);

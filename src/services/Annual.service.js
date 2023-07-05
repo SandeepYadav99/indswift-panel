@@ -23,3 +23,6 @@ export async function serviceAnnualDetail (params) {
 export async function serviceGetDetailTrans (params) {
     return await postRequest('annual/budget/transections', params);
 }
+export async function serviceGetSanctionDetail (params) {
+    return await postRequest('annual/budget/aggregates', params);
+}

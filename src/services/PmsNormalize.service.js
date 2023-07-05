@@ -13,6 +13,12 @@ export async function serviceDeletePmsNormalize(params) {
 export async function serviceGetPmsNormalize(params) {
     return await postRequest('pms/normalized/list', params);
 }
+export async function serviceGetPmsNormalizeGraphData(params) {
+    return await postRequest('pms/normalization/analytics', params);
+}
+export async function serviceGetPmsNormalizeTableData(params) {
+    return await postRequest('pms/reviewer/avg/list', params);
+}
 
 
 

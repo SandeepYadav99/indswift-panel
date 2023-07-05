@@ -19,6 +19,7 @@ import CustomTextField from "../../../components/FormFields/TextField/TextField.
 import TravelUpperCard from "../../TravelPlanner/TravelCreate/component/TravelUpperCard/TravelUpperCard";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import { getCurrency } from "../../../helper/helper";
 
 function ImprestCreate() {
   const {
@@ -32,6 +33,7 @@ function ImprestCreate() {
     declaration,
     setDeclaration,
     employeeDetails,
+    amountDetail,
   } = useImprestCreate({});
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -115,7 +117,8 @@ function ImprestCreate() {
                 <div className={styles.key}>
                   <span className={styles.wrap}>Status:</span>
                   <StatusPill
-                    status={removeUnderScore(form?.tour_type?.status)} style={{ background: "transparent", border: "none" }}
+                    status={removeUnderScore(form?.tour_type?.status)}
+                    style={{ background: "transparent", border: "none" }}
                   />
                 </div>
                 <div className={styles.key}>
@@ -143,9 +146,58 @@ function ImprestCreate() {
             />
           </div>
         </div>
+        <div className={styles.formWrap2}>
+          <div className={styles.formCurr}>
+            <div className={styles.formWrapInner}>
+              <CustomSelectField
+                disabled={form?.imprest_type === 'OTHER' || form?.tour_type?.tour_type === 'DOMESTIC'}
+                isError={errorData?.currency}
+                errorText={errorData?.currency}
+                label={"Currency"}
+                value={form?.currency}
+                handleChange={(value) => {
+                  changeTextData(value, "currency");
+                }}
+              >
+                <MenuItem value="INR">₹</MenuItem>
+                <MenuItem value="USD">$</MenuItem>
+                <MenuItem value="EUR">€</MenuItem>
+              </CustomSelectField>
+            </div>
+            <div className={styles.amountWrap}>
+              <CustomTextField
+                type="number"
+                isError={errorData?.amount}
+                errorText={errorData?.amount}
+                label={"Required Amount"}
+                value={form?.amount}
+                onTextChange={(text) => {
+                  changeTextData(text, "amount");
+                }}
+                onBlur={() => {
+                  onBlurHandler("amount");
+                }}
+              />
+            </div>
+          </div>
+
+          <div className={styles.maxWrap}>
+            {form?.currency && (
+              <div className={styles.entitledVa}>
+                <div className={styles.valuesV}>
+                  <div className={styles.flex1}>Max Entitled:</div> <div className={styles.flex12}>{getCurrency(form?.currency)}{amountDetail[form?.currency]?.entitled}</div>
+                </div>
+                <div className={styles.valuesV}>
+                 <div className={styles.flex1}>Balance Outstanding:</div> <div className={styles.flex12}>{getCurrency(form?.currency)}{amountDetail[form?.currency]?.balance}</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
         <div className={styles.formWrap}>
           <div className={styles.formWrapInner}>
             <CustomSelectField
+              disabled={true}
               isError={errorData?.currency}
               errorText={errorData?.currency}
               label={"Currency"}
@@ -159,17 +211,18 @@ function ImprestCreate() {
               <MenuItem value="EUR">€</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={"formGroup1"}>
+          <div className={styles.amountWrap}>
             <CustomTextField
-              isError={errorData?.amount}
-              errorText={errorData?.amount}
-              label={"Required Amount"}
-              value={form?.amount}
+              disabled={true}
+              isError={errorData?.sanctionable_amount}
+              errorText={errorData?.sanctionable_amount}
+              label={"Sanctionable Amount"}
+              value={form?.sanctionable_amount}
               onTextChange={(text) => {
-                changeTextData(text, "amount");
+                changeTextData(text, "sanctionable_amount");
               }}
               onBlur={() => {
-                onBlurHandler("amount");
+                onBlurHandler("sanctionable_amount");
               }}
             />
           </div>

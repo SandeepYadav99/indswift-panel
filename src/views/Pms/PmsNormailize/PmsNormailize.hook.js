@@ -21,17 +21,23 @@ const usePmsNormailize = ({ location }) => {
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
-  const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.PmsNormalize);
+  const {
+    sorting_data: sortingData,
+    is_fetching: isFetching,
+    query,
+    query_data: queryData,
+  } = useSelector((state) => state.PmsNormalize);
   // change store to PmsNormalize
-
-    useEffect(() => {
-        dispatch(actionFetchPmsNormalize(1, sortingData, {
-            query: isMountRef.current ? query : null,
-            query_data: isMountRef.current ? queryData : null,
-
-        }));
-        isMountRef.current = true;
-    }, []);
+  const {role} = useSelector(state => state.auth);
+  useEffect(() => {
+    dispatch(
+      actionFetchPmsNormalize(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+    isMountRef.current = true;
+  }, []);
 
   useEffect(() => {
     serviceGetList(["PMS_EMPLOYEES"]).then((res) => {
@@ -46,22 +52,9 @@ const usePmsNormailize = ({ location }) => {
     dispatch(actionSetPagePmsNormalize(type));
   }, []);
 
-  const handleCsvDownload = useCallback(
-    (payload) => {
-      // serviceExportPmsNormalize({
-      //   row: sortingData?.row,
-      //   order: sortingData?.order,
-      //   query: query,
-      //   query_data: queryData,
-      // }).then((res) => {
-      //   if (!res.error) {
-      //     const data = res.data?.response;
-      //     window.open(data, "_blank");
-      //   }
-      // });
-    },
-    [sortingData, query, queryData]
-  );
+  const handleViewGraph = useCallback(() => {
+    historyUtils.push(RouteName.PERFORMANCE_GRAPH);
+  }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
@@ -161,11 +154,7 @@ const usePmsNormailize = ({ location }) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: [
-          "NORMALIZATION_DONE", 
-          "HOD_REVIEWED", 
-          "HOD_REVIEW_PENDING"
-        ],
+        fields: ["NORMALIZATION_DONE", "HOD_REVIEWED", "HOD_REVIEW_PENDING"],
       },
     ];
   }, [listData]);
@@ -187,7 +176,8 @@ const usePmsNormailize = ({ location }) => {
     isCalling,
     editData,
     configFilter,
-    handleCsvDownload,
+    handleViewGraph,
+    role
   };
 };
 

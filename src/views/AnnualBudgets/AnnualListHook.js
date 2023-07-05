@@ -10,6 +10,7 @@ import {
 import historyUtils from "../../libs/history.utils";
 import { serviceGetList } from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
+import { serviceGetSanctionDetail } from "../../services/Annual.service";
 
 const useAnnualList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -23,6 +24,7 @@ const useAnnualList = ({}) => {
   const [warehouseId, setWareHouseId] = useState("");
   const [type,setType]=useState("")
   const [locationId, setLocationId] = useState("");
+  const [sanction,SetSanction]=useState({})
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
@@ -51,6 +53,15 @@ const useAnnualList = ({}) => {
       setType(storedType)
     }
   }, []);
+  useEffect(()=>{
+    if (warehouseId && locationId && type) {
+    serviceGetSanctionDetail({location_id:locationId,fy_year:warehouseId,employee_type:type}).then((res) => {
+      if (!res.error) {
+        SetSanction(res.data);
+      }
+    });
+  }
+  },[warehouseId, locationId,type])
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -227,6 +238,7 @@ const useAnnualList = ({}) => {
     listData,
     locationId,
     setLocationId,
+    sanction
   };
 };
 

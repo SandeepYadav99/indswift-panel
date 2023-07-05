@@ -17,7 +17,7 @@ import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
 import constants from "../../../../../config/constants";
 import useImprestUpperTable from "./ImprestUpperTable.hook";
-import { removeUnderScore } from "../../../../../helper/helper";
+import { getCurrency, removeUnderScore } from "../../../../../helper/helper";
 
 const ImprestUpperTable = ({ location }) => {
   const {
@@ -62,7 +62,7 @@ const ImprestUpperTable = ({ location }) => {
     return [
       {
         key: "name",
-        label: "TAP NO.",
+        label: "IMP ID",
         sortable: false,
         render: (temp, all) => <div>{all?.code}</div>,
       },
@@ -107,7 +107,7 @@ const ImprestUpperTable = ({ location }) => {
         key: "amount",
         label: "IMPREST AMOUNT",
         sortable: false,
-        render: (temp, all) => <div>{all?.amount && `₹ ${all?.amount}`}</div>,
+        render: (temp, all) => <div>{all?.amount && ` ${getCurrency(all?.currency)} ${all?.amount}`}</div>,
       },
       {
         key: "status",
