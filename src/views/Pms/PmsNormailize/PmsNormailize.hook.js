@@ -28,7 +28,7 @@ const usePmsNormailize = ({ location }) => {
     query_data: queryData,
   } = useSelector((state) => state.PmsNormalize);
   // change store to PmsNormalize
-
+  const {role} = useSelector(state => state.auth);
   useEffect(() => {
     dispatch(
       actionFetchPmsNormalize(1, sortingData, {
@@ -177,6 +177,7 @@ const usePmsNormailize = ({ location }) => {
     editData,
     configFilter,
     handleViewGraph,
+    role
   };
 };
 

@@ -41,6 +41,7 @@ const PmsNormailize = ({ location }) => {
     configFilter,
     warehouses,
     handleViewGraph,
+    role
   } = usePmsNormailize({ location });
 
   const {
@@ -201,14 +202,14 @@ const PmsNormailize = ({ location }) => {
             <span className={styles.title}>Normalized Employee Records</span>
             <div className={styles.newLine} />
           </div>
-          <ButtonBase
+         { role === 'CORPORATE_HR' &&  <ButtonBase
             className={styles.edit}
             onClick={() => {
               handleViewGraph();
             }}
           >
             VIEW GRAPH
-          </ButtonBase>
+          </ButtonBase>}
         </div>
 
         <div>

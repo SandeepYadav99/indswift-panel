@@ -67,12 +67,12 @@ function GraphTable({ data, title, shouldHideAvg }) {
     },
     {
       key: "recieved",
-      title: "As Recieved",
+      title: "Normalized",
       render: (all) => <div className={styles.label}>{all?.normalized}</div>,
     },
     {
       key: "normalizes",
-      title: "Normalized",
+      title: "As Recieved",
       render: (all) => <div className={styles.label}>{all?.received}</div>,
     },
   ]);
