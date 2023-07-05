@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import LogUtils from "../../../../../libs/LogUtils";
 import { actionGetImprestInterviewers } from "../../../../../actions/ImprestApprovalDetail.action copy";
 
-const totalShow = 20;
+const totalShow = 10;
 
 const useTravelTable = ({ jobId ,Claimtype}) => {
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
   const { isInterviewerFetching, interviewers } = useSelector(
     (state) => state.imprest_detail
@@ -19,29 +20,30 @@ const useTravelTable = ({ jobId ,Claimtype}) => {
   }, [jobId,Claimtype]);
 
   useEffect(() => {
+    setData(interviewers);
+  }, [interviewers,jobId]);
+
+  useEffect(() => {
     _processData();
-  }, [interviewers]);
+  }, [data,currentPage,jobId]);
 
   const _processData = useCallback(() => {
-    const data = interviewers;
-    const from = (currentPage + 1) * totalShow - totalShow;
-    let to = (currentPage + 1) * totalShow;
-    LogUtils.log("from", from, to);
+    const from = currentPage * totalShow - totalShow;
+    let to = currentPage * totalShow;
     if (from <= data.length) {
       to = to <= data.length ? to : data.length;
       setCurrentData(data.slice(from, to));
     }
-  }, [setCurrentData, currentPage, interviewers]);
+  }, [setCurrentData, currentPage, data, totalShow,jobId]);
 
   const handlePageChange = useCallback(
     (type) => {
-      const data = interviewers;
-      if (Math.ceil(data.length / totalShow) >= type + 1) {
+      if (Math.ceil(data?.length / totalShow) >= type + 1) {
         setCurrentPage(type + 1);
-        _processData();
+        _processData()
       }
     },
-    [_processData, setCurrentPage, interviewers]
+    [_processData, setCurrentPage, data,jobId]
   );
 
   const handleSortOrderChange = (row, order) => {
@@ -82,6 +84,7 @@ const useTravelTable = ({ jobId ,Claimtype}) => {
     currentData,
     data: interviewers,
     currentPage,
+    currentData
   };
 };
 

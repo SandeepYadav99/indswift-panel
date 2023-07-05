@@ -28,12 +28,13 @@ function usePmsGraphHook() {
         year: fyYear,
       }),
     ]).then((promises) => {
-      const graphData = promises[0]?.value?.data;
+      const graphDatas = promises[0]?.value?.data;
       const graphtableData = promises[1]?.value?.data;
-      setGraphData(graphData);
+      graphDatas?.grades?.sort((a, b) => (a?.code < b?.code) ? 1 : -1)
+      setGraphData(graphDatas);
       setTableData(graphtableData);
-      if (graphData?.grades?.length > 0) {
-        const gradeObjects = graphData?.grades?.map((item) => {
+      if (graphDatas?.grades?.length > 0) {
+        const gradeObjects = graphDatas?.grades?.map((item) => {
           const rating = item?.ratings?.find((r) => r.key === "avg");
           return { grade: item.code, ...rating };
         });

@@ -425,7 +425,7 @@ function ClaimDetailInfo({ idCards }) {
                   <span className={styles.value}>
                     Date of Joining/Transfer:
                   </span>
-                  {idCards?.relocation_date}
+                  {idCards?.relocationDateText}
                 </div>
 
                 <div className={styles.key}>

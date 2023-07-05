@@ -40,9 +40,7 @@ const ImprestUpperTable = ({ location }) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.imprest);
 
-  const renderStatus = useCallback((status) => {
-    return <StatusPill status={status} />;
-  }, []);
+   
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
@@ -145,7 +143,7 @@ const ImprestUpperTable = ({ location }) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [ renderFirstCell, handleViewDetails, handleEdit, isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

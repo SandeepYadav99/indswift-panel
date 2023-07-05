@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import LogUtils from "../../../../../libs/LogUtils";
 import {  actionGetJobOpeningVacancies } from "../../../../../actions/ImprestApprovalDetail.action copy";
 
-const totalShow = 20;
+const totalShow = 10;
 
 const useOtherTable = ({ jobId ,Claimtype}) => {
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
   const { isVacanciesFetching, vacancies } = useSelector(
     (state) => state.imprest_detail
@@ -19,29 +20,30 @@ const useOtherTable = ({ jobId ,Claimtype}) => {
   }, [jobId]);
 
   useEffect(() => {
-    _processData();
-  }, [vacancies]);
+    setData(vacancies);
+  }, [vacancies,jobId]);
 
+  useEffect(() => {
+    _processData();
+  }, [data,currentPage,jobId]);
+  
   const _processData = useCallback(() => {
-    const data = vacancies;
-    const from = (currentPage + 1) * totalShow - totalShow;
-    let to = (currentPage + 1) * totalShow;
-    LogUtils.log("from", from, to);
+    const from = currentPage * totalShow - totalShow;
+    let to = currentPage * totalShow;
     if (from <= data.length) {
       to = to <= data.length ? to : data.length;
       setCurrentData(data.slice(from, to));
     }
-  }, [setCurrentData, currentPage, vacancies]);
+  }, [setCurrentData, currentPage, data, totalShow,jobId]);
 
   const handlePageChange = useCallback(
     (type) => {
-      const data = vacancies;
-      if (Math.ceil(data.length / totalShow) >= type + 1) {
+      if (Math.ceil(data?.length / totalShow) >= type + 1) {
         setCurrentPage(type + 1);
-        _processData();
+        _processData()
       }
     },
-    [_processData, setCurrentPage, vacancies]
+    [_processData, setCurrentPage, data,jobId]
   );
 
   const handleSortOrderChange = (row, order) => {
@@ -68,8 +70,21 @@ const useOtherTable = ({ jobId ,Claimtype}) => {
     (value) => {
       console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
+      if (value) {
+        const tempData = vacancies.filter((val) => {
+          if (
+            val?.employee?.name?.match(new RegExp(value, "ig")) ||
+            val?.designation?.match(new RegExp(value, "ig"))
+          ) {
+            return val;
+          }
+        });
+        setData(tempData);
+      } else {
+        setData(vacancies);
+      }
     },
-    [queryFilter]
+    [queryFilter, _processData, data, setData, vacancies]
   );
 
   return {
@@ -79,8 +94,8 @@ const useOtherTable = ({ jobId ,Claimtype}) => {
     handleRowSize,
     handleSortOrderChange,
     isVacanciesFetching,
-    currentData,
     data: vacancies,
+    currentData,
     currentPage,
   };
 };
