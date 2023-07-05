@@ -70,6 +70,12 @@ const ClaimsDetail = () => {
             enableBtn={data?.relocation_claim?.can_claim}
           />
            )}
+           <ClaimCards
+           title="Loan Application"
+           subtitle="Request Personal loan from Company as per company Employee Loan Policy"
+           handleClick={() => handleClaimPage(7)}
+           enableBtn
+           />
       </div>
       <div className={styles.tableWrapper}>
         <EmployeeClaimList />
