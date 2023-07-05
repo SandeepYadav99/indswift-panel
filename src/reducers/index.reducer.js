@@ -72,6 +72,8 @@ import PMSSitePendingReviewReducer from "./PMSSitePendingReview.reducer";
 import EmployeeImprestReducer from "./EmployeeImprest.reducer";
 import ImprestApprovalReducer from "./ImprestApproval.reducer";
 import ImprestApprovalDetailReducer from "./ImprestApprovalDetail.reducer";
+import PmsOverallHodReducer from "./PmsOverallHod.reducer";
+import PmsOverallHodReviewReducer from "./PmsOverallHodReview.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -141,7 +143,9 @@ const rootReducer = combineReducers({
   pmsSiteMyReviews:PMSSitePendingReviewReducer,
   employeeImprest:EmployeeImprestReducer,
   imprestApproval:ImprestApprovalReducer,
-  imprest_detail:ImprestApprovalDetailReducer
+  imprest_detail:ImprestApprovalDetailReducer,
+  pmsOverallHodBatches: PmsOverallHodReducer,
+  pmsOverallHodMyReviews: PmsOverallHodReviewReducer,
   // form: formReducer,
 });
 
