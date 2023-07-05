@@ -26,17 +26,16 @@
 }
 
 .fileLabel {
-    display: block;
+    display: flex;
     padding: 10px 5px;
     color: #fff;
-    /* background-image: linear-gradient(265deg , #7467F0,#2896E9); */
-    /*background: #4B80EA;*/
-    transition: background 0.3s;
-    /*max-width: 90px;*/
-    font: normal normal normal 12px/13px Montserrat;
-    letter-spacing: 0px;
-    color: #161616;
-
+    background-image: linear-gradient(265deg , #7467F0,#2896E9);
+    /* background: #4B80EA; */
+    /* transition: background 0.3s; */
+    max-width: 90px;
+    height: 18px;
+    justify-content: center;
+    align-items: center;
 }
 
 .imgFileLabel {
@@ -238,12 +237,12 @@
 }
 
 .fileLoanUpload {
-    width: 84px;
+    /* width: 84px; */
     height: 30px;
-    background: #EBEDF4 0% 0% no-repeat padding-box;
+    /* background: #EBEDF4 0% 0% no-repeat padding-box;
     border: 1px solid #B8C5D3;
     border-radius: 6px;
     margin-left: -92px;
-    margin-top: 3px;
+    margin-top: 3px; */
 
 }

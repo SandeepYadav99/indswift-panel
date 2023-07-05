@@ -226,9 +226,9 @@ function ClaimLoanCard() {
               <CustomAutoComplete
                 autoCompleteProps={{
                   freeSolo: false,
-                  getOptionLabel: (option) => option.label,
+                  getOptionLabel: (option) => option?.label,
                 }}
-                dataset={""}
+                dataset={[]}
                 datasetKey={"label"}
                 onTextChange={(text, value) => {
                   // handleChangeValue(text, "co_passengers");
@@ -317,9 +317,9 @@ function ClaimLoanCard() {
               <CustomAutoComplete
                 autoCompleteProps={{
                   freeSolo: false,
-                  getOptionLabel: (option) => option.label,
+                  getOptionLabel: (option) => option?.label,
                 }}
-                dataset={""}
+                dataset={[]}
                 datasetKey={"label"}
                 onTextChange={(text, value) => {
                   // handleChangeValue(text, "co_passengers");
