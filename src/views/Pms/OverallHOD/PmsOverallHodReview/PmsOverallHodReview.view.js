@@ -28,7 +28,7 @@ const PmsOverallHodReview = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.pmsHodMyReviews);
+  } = useSelector((state) => state.pmsOverallHodMyReviews);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";

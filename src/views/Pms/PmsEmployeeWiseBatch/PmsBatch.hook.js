@@ -18,6 +18,7 @@ const usePmsBatch = ({ location }) => {
   const formType = location?.state?.pms_form_type;
   const batchID = location?.state?.batch_id;
   const hodBatchId = location?.state?.hoc_batch_id;
+  const overallHodBatchId = location?.state?.overall_hod_batch_id;
   const pmsSiteId = location?.state?.pms_site_id;
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -42,7 +43,7 @@ const usePmsBatch = ({ location }) => {
           { label: 'PMS Batch', name: 'pms_form_type', type: 'select', value: formType },
           { label: 'PMS Batch', name: 'pms_reviewer_id', type: 'selectObject', value: reviewerId }
         ] : []),
-      }, { batch_id: batchID, hod_batch_id: hodBatchId, pms_site_id: pmsSiteId })
+      }, { batch_id: batchID, hod_batch_id: hodBatchId, overall_hod_batch_id: overallHodBatchId, pms_site_id: pmsSiteId })
     );
     isMountRef.current = true;
   }, []);
@@ -94,10 +95,10 @@ const usePmsBatch = ({ location }) => {
         actionFetchPmsBatch(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
-        }, { batch_id: batchID, hod_batch_id: hodBatchId, pms_site_id: pmsSiteId })
+        }, { batch_id: batchID, hod_batch_id: hodBatchId, overall_hod_batch_id: overallHodBatchId, pms_site_id: pmsSiteId })
       );
     },
-    [sortingData, query, queryData, batchID, hodBatchId, pmsSiteId]);
+    [sortingData, query, queryData, batchID, hodBatchId, overallHodBatchId, pmsSiteId]);
 
   const handleFilterDataChange = useCallback(
     (value) => {
@@ -219,7 +220,8 @@ const usePmsBatch = ({ location }) => {
     configFilter,
     handleCsvDownload,
     pmsSiteId,
-    hodBatchId
+    hodBatchId,
+    overallHodBatchId
   };
 };
 

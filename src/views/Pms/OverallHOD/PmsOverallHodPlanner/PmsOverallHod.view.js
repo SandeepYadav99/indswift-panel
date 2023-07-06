@@ -76,7 +76,7 @@ const PMSOverallHOD = ({}) => {
             <div className={styles.flex}>
               <Checkbox
                 disabled={
-                  obj?.status !== Constants.PMS_HOD_BATCH_STATUS.NORMALIZED ||
+                  obj?.status !== Constants.PMS_OVERALL_HOD_BATCH_STATUS.OVERALL_HOD_PENDING ||
                   obj?.reviewer.status !== Constants.GENERAL_STATUS.ACTIVE
                 }
                 onChange={() => {

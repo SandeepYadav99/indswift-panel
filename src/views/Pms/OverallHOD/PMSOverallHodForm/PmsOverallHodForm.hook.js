@@ -26,15 +26,7 @@ const usePmsOverallHodForm = ({location}) => {
             title: "Employee",
             fixed: true,
             readOnly: true,
-            render: (all) => <div className={csx(styles.label21, (all.is_eligible ? styles.greenBg : ''))}><span>{all.name}</span></div>
-        },
-        {
-            is_static: true,
-            key: "code",
-            title: "Code",
-            fixed: true,
-            readOnly: true,
-            render: (all) => <div className={csx(styles.label21, (all.is_salary_maximized ? styles.redBg : ''))}><p>{all.code}</p></div>
+            render: (all) => <div className={csx(styles.label21)}><span>{all.name} <br/> {all.code}</span></div>
         },
         {
             is_static: true,
@@ -74,9 +66,16 @@ const usePmsOverallHodForm = ({location}) => {
         {
             is_static: true,
             key: "rating",
-            title: "Rating",
+            title: "Hod Rating",
             readOnly: true,
             render: (all) => <div className={styles.label}>{all?.rating} %</div>
+        },
+        {
+            is_static: true,
+            key: "rating",
+            title: "Hod Recommendation",
+            readOnly: true,
+            render: (all) => <div className={styles.label}>{all?.is_recommended ? 'Yes' : 'No'}</div>
         },
         // {is_static: false, key: "city", title: "City" },
         // {is_static: false, key: "email", title: "Email" },

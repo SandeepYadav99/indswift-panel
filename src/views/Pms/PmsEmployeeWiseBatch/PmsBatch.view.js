@@ -42,7 +42,8 @@ const PmsBatch = ({ location }) => {
     warehouses,
     handleCsvDownload,
       pmsSiteId,
-      hodBatchId
+      hodBatchId,
+      overallHodBatchId
   } = usePmsBatch({location});
 
   const {
@@ -77,6 +78,17 @@ const PmsBatch = ({ location }) => {
     return null;
   }, []);
 
+  const formType = useCallback((data) => {
+    if (pmsSiteId) {
+      return 'Type 5';
+    } else if (hodBatchId) {
+      return 'HOD';
+    } else if (overallHodBatchId) {
+      return 'Overall HOD';
+    } else {
+     return removeUnderScore(data?.pms_form_type);
+    }
+  }, [pmsSiteId, hodBatchId, overallHodBatchId]);
 
   const tableStructure = useMemo(() => {
     return [
@@ -149,7 +161,7 @@ const PmsBatch = ({ location }) => {
         label: "TYPE",
         sortable: false,
         render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>
-          {pmsSiteId ? 'Type 5' : (hodBatchId ? 'HOD' : removeUnderScore(all?.pms_form_type)) }
+          {formType(all)}
         </div>,
       },
       {

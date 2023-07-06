@@ -1,9 +1,9 @@
 import React, {useMemo, useState} from "react";
 import styles from "./Style.module.css";
-import logo from "../../../assets/img/login logo@2x.png";
+import logo from "../../../../assets/img/login logo@2x.png";
 import {IconButton, Tooltip,makeStyles } from "@material-ui/core";
 import {InfoOutlined} from "@material-ui/icons";
-import ButtonLowerView from "./component/ButtonLower/ButtonLower.view";
+import ButtonLowerView from "../../PMSHodForm/component/ButtonLower/ButtonLower.view";
 import usePmsOverallHodForm from "./PmsOverallHodForm.hook";
 import FormDropdown from "./component/FormDropdown/FormDropdown";
 import SnackbarComponent from "../../../../components/Snackbar.component";
@@ -33,7 +33,7 @@ const TableCell = ({row, key, fixed, readOnly, render, handleInputChange, name, 
                     name={name}
                     value={value ? value : ''}
                     isError={isError}
-                    isEnabled={row.is_eligible}
+                    isEnabled
                     onChange={(e) => {
                         handleInputChange(e.target.name, e.target.value, 'DROPDOWN')
                     }}

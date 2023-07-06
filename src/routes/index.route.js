@@ -34,6 +34,7 @@ import PmsHodForm from "../views/Pms/PMSHodForm/PmsHodForm.view";
 import PMSSiteForm from "../views/Pms/PMSSiteForm/PMSSiteForm.view.js";
 import PmsSiteFormDetailView from "../views/Pms/PmsSiteFormDetail/PmsSiteFormDetail.view";
 import PmsGraph from "../views/Pms/PmsGraph/PmsGraph.view.js";
+import PmsOverallHodForm from "../views/Pms/OverallHOD/PMSOverallHodForm/PmsOverallHodForm.view";
 
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
@@ -56,6 +57,7 @@ const RouteComponent = () => (
     <Route path={`${RouteName.PMS_FORM_DETAIL}:id`} component={PmsFormDetail} />
     <Route path={`${RouteName.PMS_4B_FORM}`} component={Pms4BFormView} />
       <Route path={`${RouteName.PMS_HOD_FORM}:id`} component={PmsHodForm} />
+      <Route path={`${RouteName.PMS_OVERALL_HOD_FORM}:id`} component={PmsOverallHodForm} />
       <Route path={`${RouteName.PMS_SITE_PLANNER_FORM}:id`} component={PMSSiteForm} />
       <Route path={`${RouteName.PMS_SITE_SUBMISSION_DETAIL}:id`} component={PmsSiteFormDetailView} />
     <Route path={`${RouteName.PMS_4B_REVIEW_DETAIL}:id`} component={Pms4BFormDetailView} />
