@@ -81,7 +81,7 @@ const PmsSiteReview = ({}) => {
               <Checkbox
                 disabled={
                   obj?.status !== Constants.PMS_BATCH_STATUS.PENDING ||
-                  obj?.reviewer.status !== Constants.GENERAL_STATUS.ACTIVE
+                  obj?.reviewer?.status !== Constants.GENERAL_STATUS.ACTIVE
                 }
                 onChange={() => {
                   handleCheckbox(obj);
