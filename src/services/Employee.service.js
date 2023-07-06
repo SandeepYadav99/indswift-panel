@@ -71,3 +71,6 @@ export async function serviceGetEmployeeConversionInfo(params) {
 export async function serviceGetEmployeeTraineeInfo(params) {
     return await postRequest('employees/details', params);
 }
+export async function serviceGetSalaryInfoInfo(params) {
+    return await postRequest('employees/salary/totals', params);
+}
