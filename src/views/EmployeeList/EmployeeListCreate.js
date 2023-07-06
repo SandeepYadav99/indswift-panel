@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import {
   Button,
   ButtonBase,
+  IconButton,
   InputAdornment,
   MenuItem,
 } from "@material-ui/core";
@@ -19,6 +20,7 @@ import EmployeeListCreateHook from "./EmployeeListCreateHook";
 import TotalSum from "./components/TotalSum/TotalSum";
 import constants from "../../config/constants";
 import ChildrenIncludeForm from "./components/includes/ChildrenIncludes.component";
+import { Edit } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EmployeeListCreate = ({location}) => {
+const EmployeeListCreate = ({ location }) => {
   const {
     form,
     errorData,
@@ -44,8 +46,8 @@ const EmployeeListCreate = ({location}) => {
     getLevelValues,
     ChildenRef,
     defaultImg,
-    empFlag
-  } = EmployeeListCreateHook({location});
+    empFlag,
+  } = EmployeeListCreateHook({ location });
   const getSumValue = (...numbers) => {
     return numbers
       ? numbers.reduce((sum, value) => {
@@ -736,7 +738,7 @@ const EmployeeListCreate = ({location}) => {
               <MenuItem value="ALIVE">ALIVE</MenuItem>
             </CustomSelectField>
           </div>
-          {form?.father_state === "EXPIRED" ?(
+          {form?.father_state === "EXPIRED" ? (
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
@@ -749,7 +751,9 @@ const EmployeeListCreate = ({location}) => {
                 isError={errorData?.father_dod}
               />
             </div>
-          ) : <div className={"formGroup"}></div>}
+          ) : (
+            <div className={"formGroup"}></div>
+          )}
         </div>
 
         <div className={"formFlex"}>
@@ -795,9 +799,8 @@ const EmployeeListCreate = ({location}) => {
               <MenuItem value="ALIVE">ALIVE</MenuItem>
             </CustomSelectField>
           </div>
-          {
-              form?.mother_state === "EXPIRED" ? 
-              <div className={"formGroup"}>
+          {form?.mother_state === "EXPIRED" ? (
+            <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
                 label={"Mother Passing Away Date"}
@@ -808,11 +811,10 @@ const EmployeeListCreate = ({location}) => {
                 value={form?.mother_dod}
                 isError={errorData?.mother_dod}
               />
-            </div> :
-              <div className={"formGroup"}>
-              </div>
-          }
-         
+            </div>
+          ) : (
+            <div className={"formGroup"}></div>
+          )}
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -1069,7 +1071,7 @@ const EmployeeListCreate = ({location}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.basic_salary}
               errorText={errorData?.basic_salary}
@@ -1085,7 +1087,7 @@ const EmployeeListCreate = ({location}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.hra}
               errorText={errorData?.hra}
@@ -1119,7 +1121,7 @@ const EmployeeListCreate = ({location}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.special_allowance}
               errorText={errorData?.special_allowance}
@@ -1152,8 +1154,22 @@ const EmployeeListCreate = ({location}) => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_pug}
+              errorText={errorData?.is_pug}
+              label={"Professional Upgradation Applicable"}
+              value={form?.is_pug}
+              handleChange={(value) => {
+                changeTextData(value, "is_pug");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={empFlag || form?.is_pug_manual === "NO"? true : false}
               type={"number"}
               isError={errorData?.pug}
               errorText={errorData?.pug}
@@ -1167,9 +1183,38 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
+          {form?.is_pug_manual == "NO" && (
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("YES", "is_pug_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+          )}
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_helper}
+              errorText={errorData?.is_helper}
+              label={"Helper Allowance Applicable"}
+              value={form?.is_helper}
+              handleChange={(value) => {
+                changeTextData(value, "is_helper");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={empFlag || form?.is_helper_manual === "NO"? true : false}
               type={"number"}
               isError={errorData?.helper}
               errorText={errorData?.helper}
@@ -1183,11 +1228,38 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
+          {form?.is_helper_manual == "NO" && (
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("YES", "is_helper_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+          )}
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_food_coupons}
+              errorText={errorData?.is_food_coupons}
+              label={"Food Coupons Applicable"}
+              value={form?.is_food_coupons}
+              handleChange={(value) => {
+                changeTextData(value, "is_food_coupons");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={empFlag || form?.is_food_coupons_manual === "NO" ? true : false}
               type={"number"}
               isError={errorData?.food_coupons}
               errorText={errorData?.food_coupons}
@@ -1201,9 +1273,38 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
+          {form?.is_food_coupons_manual == "NO" && (
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("YES", "is_food_coupons_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+          )}
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_gift_coupons}
+              errorText={errorData?.is_gift_coupons}
+              label={"Gift Coupons Applicable"}
+              value={form?.is_gift_coupons}
+              handleChange={(value) => {
+                changeTextData(value, "is_gift_coupons");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.gift_coupons}
               errorText={errorData?.gift_coupons}
@@ -1220,8 +1321,22 @@ const EmployeeListCreate = ({location}) => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_lta}
+              errorText={errorData?.is_lta}
+              label={"LTA Applicable"}
+              value={form?.is_lta}
+              handleChange={(value) => {
+                changeTextData(value, "is_lta");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.lta}
               errorText={errorData?.lta}
@@ -1235,9 +1350,26 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_super_annuation}
+              errorText={errorData?.is_super_annuation}
+              label={"Superannuation Applicable"}
+              value={form?.is_super_annuation}
+              handleChange={(value) => {
+                changeTextData(value, "is_super_annuation");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.super_annuation}
               errorText={errorData?.super_annuation}
@@ -1251,11 +1383,25 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
-        </div>{" "}
+        </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_nps}
+              errorText={errorData?.is_nps}
+              label={"NPS Applicable"}
+              value={form?.is_nps}
+              handleChange={(value) => {
+                changeTextData(value, "is_nps");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.nps}
               errorText={errorData?.nps}
@@ -1269,6 +1415,40 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_em_pf}
+              errorText={errorData?.is_em_pf}
+              label={"Em PF- Deduction Part Applicable"}
+              value={form?.is_em_pf}
+              handleChange={(value) => {
+                changeTextData(value, "is_em_pf");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              disabled={true}
+              type={"number"}
+              isError={errorData?.earning2_vpf}
+              errorText={errorData?.earning2_vpf}
+              label={"VPF"}
+              value={form?.earning2_vpf}
+              onTextChange={(text) => {
+                changeTextData(text, "earning2_vpf");
+              }}
+              onBlur={() => {
+                onBlurHandler("earning2_vpf");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag ? true : false}
@@ -1285,8 +1465,6 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
-        </div>{" "}
-        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag ? true : false}
@@ -1303,6 +1481,8 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
+        </div>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag ? true : false}
@@ -1316,24 +1496,6 @@ const EmployeeListCreate = ({location}) => {
               }}
               onBlur={() => {
                 onBlurHandler("fuel");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              disabled={empFlag ? true : false}
-              type={"number"}
-              isError={errorData?.earning2_vpf}
-              errorText={errorData?.earning2_vpf}
-              label={"VPF"}
-              value={form?.earning2_vpf}
-              onTextChange={(text) => {
-                changeTextData(text, "earning2_vpf");
-              }}
-              onBlur={() => {
-                onBlurHandler("earning2_vpf");
               }}
             />
           </div>
@@ -1416,42 +1578,38 @@ const EmployeeListCreate = ({location}) => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_deduction_vpf}
+              errorText={errorData?.is_deduction_vpf}
+              label={"VPF Applicable"}
+              value={form?.is_deduction_vpf}
+              handleChange={(value) => {
+                changeTextData(value, "is_deduction_vpf");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={(empFlag || form?.is_deduction_vpf == "NO" )? true : false}
               type={"number"}
-              isError={errorData?.em_pf}
-              errorText={errorData?.em_pf}
-              label={"Em PF- Deduction Part"}
-              value={form?.em_pf}
+              isError={errorData?.deduction_vpf_pct}
+              errorText={errorData?.deduction_vpf_pct}
+              label={"VPF Percentage"}
+              value={form?.deduction_vpf_pct}
               onTextChange={(text) => {
-                changeTextData(text, "em_pf");
+                changeTextData(text, "deduction_vpf_pct");
               }}
               onBlur={() => {
-                onBlurHandler("em_pf");
+                onBlurHandler("deduction_vpf_pct");
               }}
             />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
-              type={"number"}
-              isError={errorData?.em_esi}
-              errorText={errorData?.em_esi}
-              label={"Em ESI- Deduction Part"}
-              value={form?.em_esi}
-              onTextChange={(text) => {
-                changeTextData(text, "em_esi");
-              }}
-              onBlur={() => {
-                onBlurHandler("em_esi");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.deduction_vpf}
               errorText={errorData?.deduction_vpf}
@@ -1465,9 +1623,28 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
+        </div>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
+              type={"number"}
+              isError={errorData?.em_esi}
+              errorText={errorData?.em_esi}
+              label={"Em ESI- Deduction Part"}
+              value={form?.em_esi}
+              onTextChange={(text) => {
+                changeTextData(text, "em_esi");
+              }}
+              onBlur={() => {
+                onBlurHandler("em_esi");
+              }}
+            />
+          </div>
+
+          <div className={"formGroup"}>
+            <CustomTextField
+              disabled={true}
               type={"number"}
               isError={errorData?.em_lwf}
               errorText={errorData?.em_lwf}
@@ -1481,6 +1658,25 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              disabled={true}
+              type={"number"}
+              isError={errorData?.em_pf}
+              errorText={errorData?.em_pf}
+              label={"Em PF- Deduction Part"}
+              value={form?.em_pf}
+              onTextChange={(text) => {
+                changeTextData(text, "em_pf");
+              }}
+              onBlur={() => {
+                onBlurHandler("em_pf");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}></div>
         </div>
         <div className={"formFlex"}>
           <TotalSum
@@ -1504,7 +1700,7 @@ const EmployeeListCreate = ({location}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.er_pf}
               errorText={errorData?.er_pf}
@@ -1520,7 +1716,7 @@ const EmployeeListCreate = ({location}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.er_esi}
               errorText={errorData?.er_esi}
@@ -1570,7 +1766,7 @@ const EmployeeListCreate = ({location}) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.gratuity}
               errorText={errorData?.gratuity}
@@ -1586,7 +1782,7 @@ const EmployeeListCreate = ({location}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.insurance}
               errorText={errorData?.insurance}
