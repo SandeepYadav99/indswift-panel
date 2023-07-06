@@ -202,7 +202,7 @@ const PmsNormailize = ({ location }) => {
             <span className={styles.title}>Normalized Employee Records</span>
             <div className={styles.newLine} />
           </div>
-         { role === 'CORPORATE_HR' &&  <ButtonBase
+         { role === Constants.ROLES.CORPORATE_HR &&  <ButtonBase
             className={styles.edit}
             onClick={() => {
               handleViewGraph();

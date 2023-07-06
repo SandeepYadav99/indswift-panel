@@ -103,6 +103,8 @@ const InterviewClaimDetail = lazy(() => import("../views/InterviewClaimDetail/In
 const PmsNormailize = lazy(() => import("../views/Pms/PmsNormailize/PmsNormailize.view"));
 const PmsHod = lazy(() => import("../views/Pms/PmsHodPlanner/PmsHod.view"));
 const PmsHodReview = lazy(() => import("../views/Pms/PmsHodReview/PmsHodReview.view"));
+const PmsOverallHod = lazy(() => import("../views/Pms/OverallHOD/PmsOverallHodPlanner/PmsOverallHod.view"));
+const PmsOverallHodReview = lazy(() => import("../views/Pms/OverallHOD/PmsOverallHodReview/PmsOverallHodReview.view"));
 const TravelList = lazy(() => import("../views/TravelPlanner/TravelList/TravelList.container"));
 const TravelCreate  = lazy(() => import("../views/TravelPlanner/TravelCreate/TravelCreate.view"));
 const TravelDetail  = lazy(() => import("../views/TravelPlanner/TravelDetail/TravelDetail.view"));
@@ -1338,6 +1340,18 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
+        path: `${RouteName.PERFORMANCE_OVERALL_HOD}`,
+        sidebarName: "Overall HOD Wise Planner",
+        navbarName: "Overall HOD Wise Planner",
+        icon: PeopleOutlined,
+        component: PmsOverallHod,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
         path: `${RouteName.PERFORMANCE_PENDING}`,
         sidebarName: "Pending 90 Degree Review",
         navbarName: "Pending 90 Degree Review",
@@ -1391,6 +1405,18 @@ const dashboardRoutes = [
         navbarName: "HOD Pending Reviews",
         icon: PeopleOutlined,
         component: PmsHodReview,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pm',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    },
+    {
+        path: `${RouteName.PERFORMANCE_OVERALL_HOD_REVIEW}`,
+        sidebarName: "Overall HOD Pending Reviews",
+        navbarName: "Overall HOD Pending Reviews",
+        icon: PeopleOutlined,
+        component: PmsOverallHodReview,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,

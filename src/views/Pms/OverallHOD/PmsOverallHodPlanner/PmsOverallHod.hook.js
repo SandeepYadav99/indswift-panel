@@ -152,7 +152,7 @@ const usePmsOverallHod = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     historyUtils.push(`${RouteName.PERFORMANCE_BATCH}`, {
-      hoc_batch_id: data.id,
+      overall_hod_batch_id: data.id,
     }); //+data.id
   }, []);
 
@@ -160,7 +160,7 @@ const usePmsOverallHod = ({}) => {
     historyUtils.push(
       `${RouteName.PMS_FORM_DETAIL}${data?.id}`,
       {
-        type:data?.form_type
+        type: data?.form_type
       }
     );
   }, []);

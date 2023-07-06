@@ -13,7 +13,7 @@ import {
     CREATE_DATA,
     UPDATE_DATA,
     DELETE_ITEM
-} from '../actions/PmsHod.action';
+} from '../actions/PmsOverallHod.action';
 import Constants from '../config/constants';
 import LogUtils from "../libs/LogUtils";
 
@@ -90,10 +90,9 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
                 const batchIds = action?.payload;
                 prevState.forEach((val) => {{
                     if (batchIds.indexOf(val.id) >= 0) {
-                        val.status = Constants.PMS_HOD_BATCH_STATUS.HOD_PENDING;
+                        val.status = Constants.PMS_OVERALL_HOD_BATCH_STATUS.OVERALL_HOD_REVIEW_PENDING;
                     }
                 }});
-                LogUtils.log('prevState', prevState);
                 const tableData = mapPresetPRequest(prevState, state.currentPage);
                 return {...state, all: prevState, data: tableData};
             }

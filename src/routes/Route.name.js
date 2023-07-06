@@ -139,6 +139,12 @@ export default {
   PERFORMANCE_HOD_REVIEW:'/pm/hod/review',
   PMS_HOD_FORM: '/pms/hod/submission/',
   PMS_HOD_REVIEW_DETAIL: '/pms/hod/detail/',
+
+  PERFORMANCE_OVERALL_HOD:'/pm/overall/hod/batches',
+  PERFORMANCE_OVERALL_HOD_REVIEW:'/pm/overall/hod/review',
+  PMS_OVERALL_HOD_FORM: '/pms/overall/hod/submission/',
+  PMS_OVERALL_HOD_REVIEW_DETAIL: '/pms/overall/hod/detail/',
+
   PMS_SITE_PLANNER: '/pms/site',
   PMS_SITE_PLANNER_FORM:'/pms/site/submission',
   PMS_SITE_PENDING: '/pm/site/pending',

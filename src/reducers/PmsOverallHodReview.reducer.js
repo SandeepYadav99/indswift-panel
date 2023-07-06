@@ -13,7 +13,7 @@ import {
     CREATE_DATA,
     UPDATE_DATA,
     DELETE_ITEM
-} from '../actions/PmsHodReview.action';
+} from '../actions/PmsOverallHodReview.action';
 import Constants from '../config/constants';
 
 function mapPresetPRequest(all, pageId) {
