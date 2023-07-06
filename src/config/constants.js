@@ -11,6 +11,7 @@ const socketUrl = process.env.REACT_APP_SOCKET_URL;
 
 export default {
   is_development: (process.env.NODE_ENV === 'development' || !isProduction),
+  testing_env: process.env.REACT_APP_ENV,
   TIME_ZONE: -(tempDate.getTimezoneOffset() / 60),
   DEFAULT_TIME_FORMAT: "DD-MM-YYYY, HH:mm",
   APP_NAME: "IndSwift Panel",

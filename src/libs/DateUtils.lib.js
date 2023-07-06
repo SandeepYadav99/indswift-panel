@@ -22,6 +22,9 @@ class DateUtils {
     }
 
      canSubmitReview = (() => {
+         if (Constants.testing_env === 'development') {
+             return true;
+         }
          return false;
         const limit = new Date("2023-06-30 18:00:00");
         const nowDate = new Date();
