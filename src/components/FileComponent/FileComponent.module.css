@@ -1,33 +1,43 @@
 .positionR {
     position: relative;
 }
+
 .fileUpload {
     position: relative;
     width: 100%;
     text-align: center;
     display: flex;
+    height: 38px;
+    margin-top: 4px;
 }
 
 .fileName {
     padding-left: 10px;
-    border: 1px solid #a9adaf;
+    /* border: 1px solid #a9adaf; */
     display: flex;
     align-items: center;
     /* padding-left: 10px; */
     font-size: 16px;
     /*padding: 5px;*/
-    flex:1;
+    flex: 1;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #B8C5D3;
+    border-radius: 3px;
 }
 
 .fileLabel {
-    display: block;
+    display: flex;
     padding: 10px 5px;
     color: #fff;
     background-image: linear-gradient(265deg , #7467F0,#2896E9);
-    /*background: #4B80EA;*/
-    transition: background 0.3s;
-    /*max-width: 90px;*/
+    /* background: #4B80EA; */
+    /* transition: background 0.3s; */
+    max-width: 90px;
+    height: 18px;
+    justify-content: center;
+    align-items: center;
 }
+
 .imgFileLabel {
     display: block;
     padding: 5px 5px;
@@ -36,6 +46,7 @@
     transition: background 0.3s;
     text-align: center;
 }
+
 .imgLowerContainer {
     text-align: center;
 }
@@ -59,12 +70,13 @@
     border-radius: 50%;
     background-color: lightgrey;
 }
+
 .imageBtnContainer {
     width: 100px;
     position: relative;
 }
 
-.imageBtnContainerNew{
+.imageBtnContainerNew {
     width: 100%;
     position: relative;
 }
@@ -100,7 +112,7 @@
     bottom: 0px;
 }
 
-.cameraIcon{
+.cameraIcon {
     background-color: rgb(95, 99, 242);
     border-radius: 30px;
     padding: 7px;
@@ -116,6 +128,7 @@
     transition: background 0.3s;
     position: relative;
 }
+
 .file_upload__label:hover {
     cursor: pointer;
     background: #000;
@@ -137,6 +150,7 @@
     height: 100%;
     opacity: 0;
 }
+
 .file_upload__input:hover {
     cursor: pointer;
 }
@@ -144,6 +158,7 @@
 .profileImage {
     text-align: center;
 }
+
 .profileImage img {
     width: 100px;
     height: 100px;
@@ -169,7 +184,7 @@
     opacity: 0;
 }
 
-.imagePlus{
+.imagePlus {
     width: 100px;
     height: 100px;
     display: inline-block;
@@ -177,7 +192,7 @@
     background-color: #f6f7ff;
 }
 
-.imagePlusNew{
+.imagePlusNew {
     width: 100%;
     height: 100px;
     display: flex;
@@ -187,7 +202,7 @@
     background-color: #f6f7ff;
 }
 
-.imgFileLabelPlus{
+.imgFileLabelPlus {
     position: absolute;
     top: 30px;
     left: 25px;
@@ -196,27 +211,38 @@
     align-items: center;
 }
 
-.plus{
+.plus {
     color: #9699b0;
     font-size: 24px;
 }
 
-.textUpload{
+.textUpload {
     font-weight: 600;
     font-size: 0.8rem;
     padding: 3px;
 }
 
-.tooltipFlex{
+.tooltipFlex {
     display: flex;
     align-items: center;
     width: 100px;
 }
 
-.tipText{
+.tipText {
     font-size: 0.8rem;
     margin-left: 7px;
     font-weight: 600;
     display: block;
     text-align: center;
+}
+
+.fileLoanUpload {
+    /* width: 84px; */
+    height: 30px;
+    /* background: #EBEDF4 0% 0% no-repeat padding-box;
+    border: 1px solid #B8C5D3;
+    border-radius: 6px;
+    margin-left: -92px;
+    margin-top: 3px; */
+
 }

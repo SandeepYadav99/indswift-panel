@@ -208,7 +208,7 @@ class File extends Component {
 
                     </div>
 
-                    <div >
+                    <div className={styles.fileLoanUpload}>
                         <label className={styles.fileLabel}>Upload</label>
                         <input multiple={multiple} id="upload" data-value={'JPG'} accept={accept ? accept : 'image/*'}
                                onChange={this._handleFileChange}

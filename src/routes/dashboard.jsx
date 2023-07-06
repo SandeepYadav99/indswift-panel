@@ -94,6 +94,8 @@ const CandidateOLR=lazy(()=> import('../views/Candidates/CandidateOLR/CandidateO
 const ReviewOLR= lazy(()=>import('../views/ReviewOLR/ReviewOLR.container'));
 const PmsBatch = lazy(() => import("../views/Pms/PmsEmployeeWiseBatch/PmsBatch.view"));
 const ClaimTravelCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimTravelCard/ClaimTravelCard.view"));
+const ClaimLoanCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimLoanCard/ClaimLoanCard.view"));
+
 const PmsReview = lazy(() => import("../views/Pms/PmsReview/PmsReview.view"));
 const PmsPending = lazy(() => import("../views/Pms/PmsReviewerPending/PmsPending.view"));
 const PmsPlanner = lazy(() => import("../views/Pms/Pms4BPlanner/PmsPlanner.view"));
@@ -1214,6 +1216,18 @@ const dashboardRoutes = [
         navbarName: "Claims Car",
         icon: PeopleOutlined,
         component: ClaimHealthCard,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CLAIMS_LOAN}`,
+        sidebarName: "Claims Loan",
+        navbarName: "Claims Loan",
+        icon: PeopleOutlined,
+        component: ClaimLoanCard,
         is_sidebar: false,
         is_protect: true,
         should_regex: true,

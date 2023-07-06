@@ -110,6 +110,7 @@ export default {
   CLAIMS_IMPREST_CREATE:'/employees/claim/imprest/create',
   CLAIMS_REPORT:'/cm/report',
   CLAIMS_CAR_REPORT:'/cm/car/report',
+  CLAIMS_LOAN:'/cm/loan',
   IMPREST_APPROVAL:'/imprest/list',
   IMPREST_APPROVAL_DETAILS:'/imprest/details/',
   EMPLOYEES_IMPREST:'/employee/imprest',

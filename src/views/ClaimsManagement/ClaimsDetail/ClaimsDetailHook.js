@@ -25,8 +25,10 @@ const useClaimsDetail = ({}) => {
       historyUtils.push(RouteName.CLAIMS_HEALTH);
     } else if (value === 5) {
       historyUtils.push(RouteName.CLAIMS_TRAVEL);
-    } else {
+    } else if (value ===6) {
       historyUtils.push(RouteName.CLAIMS_LOC);
+    } else{
+      historyUtils.push(RouteName.CLAIMS_LOAN);
     }
   }, []);
 
