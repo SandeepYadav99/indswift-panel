@@ -601,7 +601,10 @@ function EmployeeListCreateHook({ location }) {
           fd.append(key, form[key]?.id);
         } else if (key === "is_transport_facility") {
           fd.append("is_transport_facility", form[key] === "availed");
-        } else if (form[key]) {
+        } else if (BOOLEAN_KEYS.includes(key)){
+          fd.append(key,form[key] === 'YES')
+        }
+         else if (form[key]) {
           fd.append(key, form[key]);
         }
       });

@@ -172,14 +172,14 @@ const PmsOverallHodForm = ({location}) => {
             <div className={styles.pmsformWrap}>
                 <div className={styles.formUpper}>
                     <img src={logo} alt="IndSwift"/>
-                    <p>{`HOD Review FORM`}</p>
-                    <span>
+                    <p>{`OVERALL HOD REVIEW FORM`}</p>
+                    {/* <span>
             This form is based upon right angle methodology, in which an
             assigned mentor provide concrete feedback about the subordinate with
             an objective to apprise the performance and also to quickly align
             the performance of individual with his/her organizational career
             plan.
-          </span>
+          </span> */}
                 </div>
             </div>
             <div className={styles.tableWrapper}>
