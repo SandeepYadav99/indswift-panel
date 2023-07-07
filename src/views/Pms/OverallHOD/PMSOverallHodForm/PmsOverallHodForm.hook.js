@@ -26,7 +26,15 @@ const usePmsOverallHodForm = ({location}) => {
             title: "Employee",
             fixed: true,
             readOnly: true,
-            render: (all) => <div className={csx(styles.label21)}><span>{all.name} <br/> {all.code}</span></div>
+            render: (all) => <div className={csx(styles.label21, (all?.is_eligible ? styles.greenBg : ''))}><span>{all.name}</span></div>
+        },
+        {
+            is_static: true,
+            key: "code",
+            title: "Code",
+            fixed: true,
+            readOnly: true,
+            render: (all) => <div className={csx(styles.label21, (all?.is_salary_maximized ? styles.redBg : ''))}><p>{all.code}</p></div>
         },
         {
             is_static: true,
@@ -173,7 +181,7 @@ const usePmsOverallHodForm = ({location}) => {
         Object.keys(form).forEach((key) => {
             if (!form[key]) {
                 tErr[key] = true;
-            } else if ( (key in rating) && ((parseFloat(rating[key]) - 7) > form[key] || (parseFloat(rating[key]) + 7) < form[key])) {
+            } else if ( (key in rating) && ((parseFloat(rating[key]) - 8) > form[key] || (parseFloat(rating[key]) + 8) < form[key])) {
                 tErr[key] = true;
             }
         });
@@ -270,7 +278,7 @@ const usePmsOverallHodForm = ({location}) => {
             if (!(empId in data)) {
                 data[empId] = {};
             }
-            data[empId] = {...data[empId], ...{[`${cat-8}_${param}`]: val}};
+            data[empId] = {...data[empId], ...{[`${cat-9}_${param}`]: val}};
         });
         return data;
     }, [form, columns, rows]);
