@@ -11,14 +11,30 @@ import {
 } from "../../libs/RegexUtils";
 import {useParams} from "react-router";
 import {serviceGetList} from "../../services/Common.service";
-import {serviceCheckEmployeeExists, serviceGetEmployeeEditInfo} from "../../services/Employee.service";
+import {serviceCheckEmployeeExists, serviceGetEmployeeEditInfo, serviceGetSalaryInfoInfo} from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import {serviceEditEmployeeVersion} from "../../services/EmployeeEdit.service";
+import debounce from 'lodash.debounce';
 
-const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allowance', 'special_allowance', 'earning_one', 'pug', 'helper', 'food_coupons', 'gift_coupons', 'lta', 'super_annuation', 'nps', 'vehicle_maintenance', 'vehicle_emi', 'fuel', 'vpf', 'earning_two', 'gross', 'earning_three_pli', 'er_pf', 'er_esi', 'er_lwf', 'earning_four', 'gratuity', 'insurance', 'driver_incentive', 'perf_bonus', 'annual_bonus', 'two_car_maintenance', 'two_fuel', 'earning_five', 'monthly_ctc', 'em_pf', 'em_esi', 'em_lwf', 'total_deduction', 'total_pf', 'retention_allowance', 'car_component', 'incremental_gross_salary', 'earning2_vpf', 'deduction_vpf','stability_incentive'];
+const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allowance', 'special_allowance', 'earning_one', 'pug', 'helper', 'food_coupons', 'gift_coupons', 'lta', 'super_annuation', 'nps', 'vehicle_maintenance', 'vehicle_emi', 'fuel', 'vpf', 'earning_two', 'gross', 'earning_three_pli', 'er_pf', 'er_esi', 'er_lwf', 'earning_four', 'gratuity', 'insurance', 'driver_incentive', 'perf_bonus', 'annual_bonus', 'two_car_maintenance', 'two_fuel', 'earning_five', 'monthly_ctc', 'em_pf', 'em_esi', 'em_lwf', 'total_deduction', 'total_pf', 'retention_allowance', 'car_component', 'incremental_gross_salary', 'earning2_vpf', 'deduction_vpf','stability_incentive','deduction_vpf_pct','gross_component','nps_part_e','deputation_allowance'];
+
+const BOOLEAN_KEYS = [
+  "is_pug",
+  "is_pug_manual",
+  "is_helper",
+  "is_helper_manual",
+  "is_food_coupons",
+  "is_food_coupons_manual",
+  "is_gift_coupons",
+  "is_lta",
+  "is_super_annuation",
+  "is_nps",
+  "is_em_pf",
+  "is_deduction_vpf",
+];
 
 const initialForm = {
   emp_code: "",
@@ -48,6 +64,7 @@ const initialForm = {
   mother_name: "",
   spouse_name: "",
   spouse_dob: "",
+  higher_education:"",
   permanent_address: "",
   current_address: "",
   pan_no: "",
@@ -117,6 +134,22 @@ const initialForm = {
   next_review_date: "",
   previous_review_date: "",
   is_address_same: false,
+  is_pug: "NO",
+  is_pug_manual: "NO",
+  is_helper: "NO",
+  is_helper_manual: "NO",
+  is_food_coupons: "NO",
+  is_food_coupons_manual: "NO",
+  is_gift_coupons: "NO",
+  is_lta: "NO",
+  is_super_annuation: "NO",
+  is_nps: "NO",
+  is_em_pf: "NO",
+  is_deduction_vpf: "NO",
+  deduction_vpf_pct: 0,
+  gross_component:0,
+  deputation_allowance:0,
+  nps_part_e:0
 };
 
 function EmployeeListCreateHook() {
@@ -129,6 +162,10 @@ function EmployeeListCreateHook() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const codeDebouncer = useDebounce(form?.emp_code, 500);
   const ChildenRef = useRef(null);
+  const [salaryInfo, setSalaryInfo] = useState([
+    ...SALARY_KEYS,
+    ...BOOLEAN_KEYS,
+  ]);
 
   const [listData, setListData] = useState({
     LOCATION_DEPARTMENTS: [],
@@ -170,11 +207,18 @@ function EmployeeListCreateHook() {
          empData.designation_id = listData?.DESIGNATIONS[designationIndex];
        }
       const transportvalue = empData?.is_transport_facility ? 'availed':'notavailed';
+      const updatedForm = {};
+      for (const key in empData) {
+        if (BOOLEAN_KEYS.includes(key)) {
+          updatedForm[key] = empData[key] ? "YES" : "NO";
+        }
+      }
       setForm({
         ...initialForm,
         ...empData,
         image: '',
-        is_transport_facility: transportvalue
+        is_transport_facility: transportvalue,
+        ...updatedForm
       });
       setEditData(empData);
       setIsLoading(false);
@@ -241,11 +285,11 @@ function EmployeeListCreateHook() {
         delete errors[val];
       }
     });
-    SALARY_KEYS.forEach((val) => {
-      if (form?.[val] && form?.[val] < 0) {
-        errors[val] = true;
-      }
-    })
+    // SALARY_KEYS.forEach((val) => {
+    //   if (form?.[val] && form?.[val] < 0) {
+    //     errors[val] = true;
+    //   }
+    // })
     if (form?.official_email && !isEmail(form?.official_email)) {
       errors["official_email"] = true;
     }
@@ -294,6 +338,47 @@ function EmployeeListCreateHook() {
       },
       [setErrorData, errorData]
   );
+
+  
+  const checkForSalaryInfo = (data) => {
+    if (data?.grade_id) {
+      let filteredForm = {};
+      for (let key in data) {
+        if (salaryInfo.includes(key)) {
+          if (BOOLEAN_KEYS.includes(key)) {
+            if (data[key] === "YES") {
+              filteredForm[key] = true;
+            } else if (data[key] === "NO") {
+              filteredForm[key] = false;
+            }
+          } else {
+            filteredForm[key] = parseInt(data[key]);
+          }
+        }
+      }
+      let req = serviceGetSalaryInfoInfo({
+        grade_id: data?.grade_id,
+        ...filteredForm,
+      });
+      req.then((res) => {
+        const salaryData = res.data;
+        const booleanData = {};
+        for (const key in salaryData) {
+          if (salaryData.hasOwnProperty(key)) {
+            let value = salaryData[key];
+            if (BOOLEAN_KEYS.includes(key)) {
+              value = value ? "YES" : "NO";
+            }
+            booleanData[key] = value;
+          }
+        }
+        setForm({ ...data, ...booleanData });
+      });
+    } else {
+      SnackbarUtils.error("Please Select the Grade");
+    }
+  };
+
   const changeTextData = useCallback(
       (text, fieldName) => {
         LogUtils.log('changeTextData', text, fieldName);
@@ -336,12 +421,15 @@ function EmployeeListCreateHook() {
           t[fieldName] = text;
         }
         setForm(t);
+        if ([...salaryInfo]?.includes(fieldName)) {
+          checkSalaryInfoDebouncer(t);
+        }
         if (changedFields.current.indexOf(fieldName) < 0) {
           changedFields.current = [...changedFields.current, fieldName];
         }
         shouldRemoveError && removeError(fieldName);
       },
-      [removeError, form, setForm]
+      [removeError, form, setForm,checkSalaryInfoDebouncer]
   );
   const checkCodeValidation = useCallback(() => {
     if (form?.emp_code) {
@@ -363,6 +451,10 @@ function EmployeeListCreateHook() {
     }
   }, [errorData, setErrorData, form.emp_code, id]);
 
+  const checkSalaryInfoDebouncer = useMemo(() => {
+    return debounce((e) => {checkForSalaryInfo(e)}, 1000);
+      }, []);
+
   useEffect(() => {
     if (codeDebouncer) {
       checkCodeValidation();
@@ -371,7 +463,7 @@ function EmployeeListCreateHook() {
   const onBlurHandler = useCallback(
       (type) => {
         if (form?.[type]) {
-          changeTextData(form?.[type].trim(), type);
+          changeTextData(form?.[type], type);
         }
       },
       [changeTextData, checkCodeValidation]

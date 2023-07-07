@@ -1702,7 +1702,41 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
-        </div>{" "}
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              disabled={empFlag ? true : false}
+              type={"number"}
+              isError={errorData?.deputation_allowance}
+              errorText={errorData?.deputation_allowance}
+              label={"Deputation Allowance"}
+              value={form?.deputation_allowance}
+              onTextChange={(text) => {
+                changeTextData(text, "deputation_allowance");
+              }}
+              onBlur={() => {
+                onBlurHandler("deputation_allowance");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              disabled={empFlag ? true : false}
+              type={"number"}
+              isError={errorData?.nps_part_e}
+              errorText={errorData?.nps_part_e}
+              label={"NPS"}
+              value={form?.nps_part_e}
+              onTextChange={(text) => {
+                changeTextData(text, "nps_part_e");
+              }}
+              onBlur={() => {
+                onBlurHandler("nps_part_e");
+              }}
+            />
+          </div>
+        </div> 
         <div className={"formFlex"}>
           <TotalSum
             firstName="Total Earnings 5 :  "
