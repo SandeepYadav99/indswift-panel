@@ -71,7 +71,9 @@ const SALARY_KEYS = [
   "deduction_vpf",
   "stability_incentive",
   "deduction_vpf_pct",
-  "gross_component"
+  "gross_component",
+  'deputation_allowance',
+  'nps_part_e'
 ];
 
 const BOOLEAN_KEYS = [
@@ -202,7 +204,9 @@ function EmployeeListCreateHook({ location }) {
     is_em_pf: "NO",
     is_deduction_vpf: "NO",
     deduction_vpf_pct: 0,
-    gross_component:0
+    gross_component:0,
+    deputation_allowance:0,
+    nps_part_e:0
   };
 
   const [form, setForm] = useState({ ...initialForm });

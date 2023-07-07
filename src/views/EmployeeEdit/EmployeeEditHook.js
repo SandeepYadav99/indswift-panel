@@ -19,7 +19,7 @@ import LogUtils from "../../libs/LogUtils";
 import {serviceEditEmployeeVersion} from "../../services/EmployeeEdit.service";
 import debounce from 'lodash.debounce';
 
-const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allowance', 'special_allowance', 'earning_one', 'pug', 'helper', 'food_coupons', 'gift_coupons', 'lta', 'super_annuation', 'nps', 'vehicle_maintenance', 'vehicle_emi', 'fuel', 'vpf', 'earning_two', 'gross', 'earning_three_pli', 'er_pf', 'er_esi', 'er_lwf', 'earning_four', 'gratuity', 'insurance', 'driver_incentive', 'perf_bonus', 'annual_bonus', 'two_car_maintenance', 'two_fuel', 'earning_five', 'monthly_ctc', 'em_pf', 'em_esi', 'em_lwf', 'total_deduction', 'total_pf', 'retention_allowance', 'car_component', 'incremental_gross_salary', 'earning2_vpf', 'deduction_vpf','stability_incentive','deduction_vpf_pct','gross_component'];
+const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allowance', 'special_allowance', 'earning_one', 'pug', 'helper', 'food_coupons', 'gift_coupons', 'lta', 'super_annuation', 'nps', 'vehicle_maintenance', 'vehicle_emi', 'fuel', 'vpf', 'earning_two', 'gross', 'earning_three_pli', 'er_pf', 'er_esi', 'er_lwf', 'earning_four', 'gratuity', 'insurance', 'driver_incentive', 'perf_bonus', 'annual_bonus', 'two_car_maintenance', 'two_fuel', 'earning_five', 'monthly_ctc', 'em_pf', 'em_esi', 'em_lwf', 'total_deduction', 'total_pf', 'retention_allowance', 'car_component', 'incremental_gross_salary', 'earning2_vpf', 'deduction_vpf','stability_incentive','deduction_vpf_pct','gross_component','nps_part_e','deputation_allowance'];
 
 const BOOLEAN_KEYS = [
   "is_pug",
@@ -147,7 +147,9 @@ const initialForm = {
   is_em_pf: "NO",
   is_deduction_vpf: "NO",
   deduction_vpf_pct: 0,
-  gross_component:0
+  gross_component:0,
+  deputation_allowance:0,
+  nps_part_e:0
 };
 
 function EmployeeListCreateHook() {
