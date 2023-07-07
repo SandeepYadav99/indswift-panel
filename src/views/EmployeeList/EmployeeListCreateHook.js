@@ -71,6 +71,7 @@ const SALARY_KEYS = [
   "deduction_vpf",
   "stability_incentive",
   "deduction_vpf_pct",
+  "gross_component"
 ];
 
 const BOOLEAN_KEYS = [
@@ -201,6 +202,7 @@ function EmployeeListCreateHook({ location }) {
     is_em_pf: "NO",
     is_deduction_vpf: "NO",
     deduction_vpf_pct: 0,
+    gross_component:0
   };
 
   const [form, setForm] = useState({ ...initialForm });
@@ -347,7 +349,6 @@ function EmployeeListCreateHook({ location }) {
   const checkSalaryInfoDebouncer = useMemo(() => {
     return debounce((e) => {checkForSalaryInfo(e)}, 1000);
       }, []);
-
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -538,7 +539,7 @@ function EmployeeListCreateHook({ location }) {
       setForm(t);
       shouldRemoveError && removeError(fieldName);
 
-      if ([...salaryInfo, 'grade_id']?.includes(fieldName)) {
+      if ([...salaryInfo]?.includes(fieldName)) {
         checkSalaryInfoDebouncer(t);
       }
     }, [removeError, form, setForm, checkSalaryInfoDebouncer]);

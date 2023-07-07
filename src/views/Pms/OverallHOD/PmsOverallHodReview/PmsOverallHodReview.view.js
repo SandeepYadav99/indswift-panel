@@ -137,7 +137,7 @@ const PmsOverallHodReview = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>HOD Pending Reviews List</span>
+            <span className={styles.title}>OVERALL HOD PENDING REVIEWS LIST</span>
             <div className={styles.newLine} />
           </div>
         </div>

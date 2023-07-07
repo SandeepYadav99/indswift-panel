@@ -240,7 +240,7 @@ const PMSOverallHOD = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>HOD PMS PLANNER</span>
+            <span className={styles.title}>OVERALL HOD PMS PLANNER</span>
             <div className={styles.newLine} />
           </div>
         </div>

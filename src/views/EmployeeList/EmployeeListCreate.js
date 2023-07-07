@@ -20,7 +20,7 @@ import EmployeeListCreateHook from "./EmployeeListCreateHook";
 import TotalSum from "./components/TotalSum/TotalSum";
 import constants from "../../config/constants";
 import ChildrenIncludeForm from "./components/includes/ChildrenIncludes.component";
-import { Edit } from "@material-ui/icons";
+import { Delete, Edit } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -1058,8 +1058,7 @@ const EmployeeListCreate = ({ location }) => {
           <TotalSum
             firstName="Incremental Gross Salary + Car Component: "
             firstAmount={getSumValue(
-              form?.incremental_gross_salary,
-              form?.car_component
+              form?.gross
             )}
           />
         </div>
@@ -1140,10 +1139,7 @@ const EmployeeListCreate = ({ location }) => {
           <TotalSum
             firstName="Total Earnings 1: "
             firstAmount={getSumValue(
-              form?.education_allowance,
-              form?.special_allowance,
-              form?.basic_salary,
-              form?.hra
+              form?.earning_one
             )}
           />
         </div>
@@ -1183,7 +1179,7 @@ const EmployeeListCreate = ({ location }) => {
               }}
             />
           </div>
-          {form?.is_pug_manual == "NO" && (
+          {/* {form?.is_pug_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
                 className={"tableActionBtn"}
@@ -1195,7 +1191,18 @@ const EmployeeListCreate = ({ location }) => {
                 <Edit fontSize={"small"} />
               </IconButton>
             </div>
-          )}
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("NO", "is_pug_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
+            </div>
+          {/* )} */}
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -1228,7 +1235,7 @@ const EmployeeListCreate = ({ location }) => {
               }}
             />
           </div>
-          {form?.is_helper_manual == "NO" && (
+          {/* {form?.is_helper_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
                 className={"tableActionBtn"}
@@ -1240,7 +1247,18 @@ const EmployeeListCreate = ({ location }) => {
                 <Edit fontSize={"small"} />
               </IconButton>
             </div>
-          )}
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("NO", "is_helper_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
+            </div>
+          {/* )} */}
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -1273,7 +1291,7 @@ const EmployeeListCreate = ({ location }) => {
               }}
             />
           </div>
-          {form?.is_food_coupons_manual == "NO" && (
+          {/* {form?.is_food_coupons_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
                 className={"tableActionBtn"}
@@ -1285,7 +1303,18 @@ const EmployeeListCreate = ({ location }) => {
                 <Edit fontSize={"small"} />
               </IconButton>
             </div>
-          )}
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("NO", "is_food_coupons_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
+            </div>
+          {/* )} */}
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -1505,40 +1534,10 @@ const EmployeeListCreate = ({ location }) => {
           <TotalSum
             firstName="Total Earning2: "
             firstAmount={getSumValue(
-              form?.pug,
-              form?.helper,
-              form?.food_coupons,
-              form?.gift_coupons,
-              form?.lta,
-              form?.super_annuation,
-              form?.nps,
-              form?.vehicle_maintenance,
-              form?.vehicle_emi,
-              form?.earning2_vpf,
-              form?.fuel
+              form?.earning_two
             )}
             secondName="Gross Salary (Part A + Part B) :"
-            secondAmount={getSumValue(
-              getSumValue(
-                form?.pug,
-                form?.helper,
-                form?.food_coupons,
-                form?.gift_coupons,
-                form?.lta,
-                form?.super_annuation,
-                form?.nps,
-                form?.vehicle_maintenance,
-                form?.vehicle_emi,
-                form?.earning2_vpf,
-                form?.fuel
-              ),
-              getSumValue(
-                form?.basic_salary,
-                form?.special_allowance,
-                form?.education_allowance,
-                form?.hra
-              )
-            )}
+            secondAmount={getSumValue(form?.gross_component)}
           />
         </div>
         <div className={"headerFlex"}>
@@ -1683,10 +1682,7 @@ const EmployeeListCreate = ({ location }) => {
             customClass={styles.redField}
             firstName="Total Deduction 1:  "
             firstAmount={getSumValue(
-              form?.em_pf,
-              form?.em_esi,
-              form?.deduction_vpf,
-              form?.em_lwf
+              form?.total_deduction
             )}
           />
         </div>
@@ -1753,7 +1749,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <TotalSum
             firstName="Total Earnings 4 :"
-            firstAmount={getSumValue(form?.er_pf, form?.er_esi, form?.er_lwf)}
+            firstAmount={getSumValue(form?.earning_four)}
           />
         </div>
         <div className={"headerFlex"}>
@@ -1782,7 +1778,7 @@ const EmployeeListCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={true}
+              // disabled={true}
               type={"number"}
               isError={errorData?.insurance}
               errorText={errorData?.insurance}
@@ -1850,7 +1846,7 @@ const EmployeeListCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
               type={"number"}
               isError={errorData?.annual_bonus}
               errorText={errorData?.annual_bonus}
@@ -1903,14 +1899,7 @@ const EmployeeListCreate = ({ location }) => {
           <TotalSum
             firstName="Total Earnings 5 :  "
             firstAmount={getSumValue(
-              form?.gratuity,
-              form?.insurance,
-              form?.stability_incentive,
-              form?.retention_allowance,
-              form?.perf_bonus,
-              form?.annual_bonus,
-              form?.two_car_maintenance,
-              form?.two_fuel
+              form?.earning_five
             )}
           />
         </div>
