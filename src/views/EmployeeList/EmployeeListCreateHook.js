@@ -127,7 +127,6 @@ function EmployeeListCreateHook({ location }) {
     bank_account_no: "",
     bank_name: "",
     ifsc: "",
-    higher_education: "",
     before_experience: 0,
     company_experience: 0,
     total_experience: 0,
@@ -344,7 +343,12 @@ function EmployeeListCreateHook({ location }) {
       });
     }
   }, [candidateId, traineeId, listData]);
-  LogUtils.log("formLLL", form, remotePath);
+
+  const checkSalaryInfoDebouncer = useMemo(() => {
+    return debounce((e) => {checkForSalaryInfo(e)}, 1000);
+      }, []);
+
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
@@ -460,7 +464,7 @@ function EmployeeListCreateHook({ location }) {
   );
 
   const checkForSalaryInfo = (data) => {
-    if (form?.grade_id) {
+    if (data?.grade_id) {
       let filteredForm = {};
       for (let key in data) {
         if (salaryInfo.includes(key)) {
@@ -476,7 +480,7 @@ function EmployeeListCreateHook({ location }) {
         }
       }
       let req = serviceGetSalaryInfoInfo({
-        grade_id: form?.grade_id,
+        grade_id: data?.grade_id,
         ...filteredForm,
       });
       req.then((res) => {
@@ -491,13 +495,13 @@ function EmployeeListCreateHook({ location }) {
             booleanData[key] = value;
           }
         }
-        setForm({ ...form, ...booleanData });
+        setForm({ ...data, ...booleanData });
       });
     } else {
       SnackbarUtils.error("Please Select the Grade");
     }
   };
-  // console.log(checkForSalaryInfo());
+
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
@@ -533,14 +537,12 @@ function EmployeeListCreateHook({ location }) {
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
-      setTimeout(() => {
-        if (salaryInfo?.includes(fieldName)) {
-          checkForSalaryInfo(t);
-        }
-      }, 1000);
-    },
-    [removeError, form, setForm]
-  );
+
+      if ([...salaryInfo, 'grade_id']?.includes(fieldName)) {
+        checkSalaryInfoDebouncer(t);
+      }
+    }, [removeError, form, setForm, checkSalaryInfoDebouncer]);
+
   const checkCodeValidation = useCallback(() => {
     if (form?.emp_code) {
       serviceCheckEmployeeExists({
@@ -566,6 +568,7 @@ function EmployeeListCreateHook({ location }) {
       checkCodeValidation();
     }
   }, [codeDebouncer]);
+
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {
@@ -640,6 +643,7 @@ function EmployeeListCreateHook({ location }) {
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form]);
+
   const filteredDepartments = useMemo(() => {
     const locations = listData?.LOCATION_DEPARTMENTS;
     const index = locations?.findIndex((l) => l.id === form?.location_id);
