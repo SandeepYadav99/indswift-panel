@@ -9,6 +9,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import usePmsHodReview from "./PmsHodReview.hook";
 import { IconButton } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
+import DateUtilsLib from "../../../libs/DateUtils.lib";
 
 const PmsHodReview = ({ location }) => {
   const {
@@ -89,7 +90,7 @@ const PmsHodReview = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
+            {!DateUtilsLib.hodFreezed() && (<IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -98,7 +99,7 @@ const PmsHodReview = ({ location }) => {
               }}
             >
               <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            </IconButton>)}
           </div>
         ),
       },

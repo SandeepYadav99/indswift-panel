@@ -30,6 +30,12 @@ class DateUtils {
         const nowDate = new Date();
         return limit.getTime() > nowDate.getTime();
     });
+
+    hodFreezed = (() => {
+        const limit = new Date("2023-07-07 21:00:00");
+        const nowDate = new Date();
+        return limit.getTime() < nowDate.getTime();
+    });
 }
 
 export default new DateUtils();
