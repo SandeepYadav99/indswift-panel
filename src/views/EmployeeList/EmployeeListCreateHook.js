@@ -17,7 +17,6 @@ import {
   serviceCheckEmployeeExists,
   serviceGetEmployeeConversionInfo,
   serviceGetEmployeeEditInfo,
-  serviceGetSalaryInfoInfo,
 } from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
 import { useMemo } from "react";
@@ -25,12 +24,12 @@ import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
-import debounce from 'lodash.debounce';
 
 const SALARY_KEYS = [
   "basic_salary",
   "hra",
   "education_allowance",
+  // "medical_allowance",
   "special_allowance",
   "earning_one",
   "pug",
@@ -53,6 +52,7 @@ const SALARY_KEYS = [
   "earning_four",
   "gratuity",
   "insurance",
+  // "driver_incentive",
   "perf_bonus",
   "annual_bonus",
   "two_car_maintenance",
@@ -70,25 +70,6 @@ const SALARY_KEYS = [
   "earning2_vpf",
   "deduction_vpf",
   "stability_incentive",
-  "deduction_vpf_pct",
-  "gross_component",
-  'deputation_allowance',
-  'nps_part_e'
-];
-
-const BOOLEAN_KEYS = [
-  "is_pug",
-  "is_pug_manual",
-  "is_helper",
-  "is_helper_manual",
-  "is_food_coupons",
-  "is_food_coupons_manual",
-  "is_gift_coupons",
-  "is_lta",
-  "is_super_annuation",
-  "is_nps",
-  "is_em_pf",
-  "is_deduction_vpf",
 ];
 
 function EmployeeListCreateHook({ location }) {
@@ -130,19 +111,20 @@ function EmployeeListCreateHook({ location }) {
     bank_account_no: "",
     bank_name: "",
     ifsc: "",
+    higher_education:"",
     before_experience: 0,
     company_experience: 0,
     total_experience: 0,
     previous_organisation: "",
     uan_no: "",
     esi_no: "",
-    father_state: "ALIVE",
-    father_dob: "",
-    father_dod: "",
-    mother_dob: "",
-    mother_state: "ALIVE",
-    mother_dod: "",
-    is_transport_facility: "notavailed",
+    father_state:"ALIVE",
+    father_dob:"",
+    father_dod:"",
+    mother_dob:"",
+    mother_state:"ALIVE",
+    mother_dod:"",
+    is_transport_facility:'notavailed',
     basic_salary: 0,
     hra: 0,
     education_allowance: 0,
@@ -191,35 +173,14 @@ function EmployeeListCreateHook({ location }) {
     next_review_date: "",
     previous_review_date: "",
     is_address_same: false,
-    is_pug: "NO",
-    is_pug_manual: "NO",
-    is_helper: "NO",
-    is_helper_manual: "NO",
-    is_food_coupons: "NO",
-    is_food_coupons_manual: "NO",
-    is_gift_coupons: "NO",
-    is_lta: "NO",
-    is_super_annuation: "NO",
-    is_nps: "NO",
-    is_em_pf: "NO",
-    is_deduction_vpf: "NO",
-    deduction_vpf_pct: 0,
-    gross_component:0,
-    deputation_allowance:0,
-    nps_part_e:0
   };
-
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
-  const [salaryInfo, setSalaryInfo] = useState([
-    ...SALARY_KEYS,
-    ...BOOLEAN_KEYS,
-  ]);
   const { id } = useParams();
   const includeRef = useRef(null);
-  const [defaultImg, setDefaultImg] = useState("");
+  const [defaultImg,setDefaultImg]=useState('')
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [remotePath, setRemotePath] = useState("");
+  const [remotePath,setRemotePath]=useState('')
   const codeDebouncer = useDebounce(form?.emp_code, 500);
   const ChildenRef = useRef(null);
   const candidateId = location?.state?.empId;
@@ -237,7 +198,6 @@ function EmployeeListCreateHook({ location }) {
     GRADES: [],
     CADRES: [],
   });
-  console.log("form", form);
   useEffect(() => {
     serviceGetList([
       "LOCATION_DEPARTMENTS",
@@ -266,11 +226,11 @@ function EmployeeListCreateHook({ location }) {
       }
       req.then((res) => {
         const empData = res?.data;
-        setDefaultImg(empData?.image);
-        setRemotePath(empData?.remote_image_path);
+        setDefaultImg(empData?.image)
+        setRemotePath(empData?.remote_image_path)
         if (!candidateId) {
-          const { children } = empData;
-          ChildenRef?.current?.setData(children);
+          const {children}=empData
+          ChildenRef?.current?.setData(children)
           const hodIndex = listData?.EMPLOYEES.findIndex(
             (val) => val.id === empData?.hod_id
           );
@@ -333,13 +293,11 @@ function EmployeeListCreateHook({ location }) {
                 data[key] = empData["cadre"]?.id;
               } else if (key === "state") {
                 data[key] = empData[key]?.toUpperCase();
-              } else if (key === "current_address") {
-                data[key] = empData["correspondence_address"];
-              } else if (key === "previous_organisation") {
-                data[key] =
-                  empData?.employment_history?.length > 0 &&
-                  empData["employment_history"][0]?.organisation_name;
-              } else {
+              }else if (key==='current_address'){
+                data[key] = empData['correspondence_address']
+              }else if (key === 'previous_organisation'){
+                data[key] = empData?.employment_history?.length > 0 && empData['employment_history'][0]?.organisation_name
+              }else {
                 data[key] = empData[key];
               }
             }
@@ -349,11 +307,7 @@ function EmployeeListCreateHook({ location }) {
       });
     }
   }, [candidateId, traineeId, listData]);
-
-  const checkSalaryInfoDebouncer = useMemo(() => {
-    return debounce((e) => {checkForSalaryInfo(e)}, 1000);
-      }, []);
-
+  LogUtils.log("formLLL", form,remotePath);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
@@ -404,13 +358,13 @@ function EmployeeListCreateHook({ location }) {
         delete errors[val];
       }
     });
-    // if (!candidateId) {
-    //   SALARY_KEYS.forEach((val) => {
-    //     if (form?.[val] && form?.[val] < 0 && !isNum(form?.[val])) {
-    //       errors[val] = true;
-    //     }
-    //   });
-    // }
+    if (!candidateId) {
+      SALARY_KEYS.forEach((val) => {
+        if (form?.[val] && form?.[val] < 0 && !isNum(form?.[val])) {
+          errors[val] = true;
+        }
+      });
+    }
     if (form?.official_email && !isEmail(form?.official_email)) {
       errors["official_email"] = true;
     }
@@ -438,18 +392,20 @@ function EmployeeListCreateHook({ location }) {
     if (form?.ifsc && !IsIFSCCode(form?.ifsc)) {
       errors["ifsc"] = true;
     }
-    if (form?.father_state) {
-      if (form?.father_state === "EXPIRED" && !form?.father_dod) {
-        errors["father_dod"] = true;
-      } else if (form?.father_state === "ALIVE") {
-        delete errors["father_dod"];
+    if(form?.father_state){
+      if(form?.father_state === "EXPIRED" && !form?.father_dod){
+        errors['father_dod'] = true;
+      }
+      else if (form?.father_state === "ALIVE"){
+        delete errors['father_dod']
       }
     }
-    if (form?.mother_state) {
-      if (form?.mother_state === "EXPIRED" && !form?.mother_dod) {
-        errors["mother_dod"] = true;
-      } else if (form?.mother_state === "ALIVE") {
-        delete errors["mother_dod"];
+    if(form?.mother_state){
+      if(form?.mother_state === "EXPIRED" && !form?.mother_dod){
+        errors['mother_dod'] = true;
+      }
+      else if (form?.mother_state === "ALIVE"){
+        delete errors['mother_dod']
       }
     }
     Object.keys(errors).forEach((key) => {
@@ -467,45 +423,6 @@ function EmployeeListCreateHook({ location }) {
     },
     [setErrorData, errorData]
   );
-
-  const checkForSalaryInfo = (data) => {
-    if (data?.grade_id) {
-      let filteredForm = {};
-      for (let key in data) {
-        if (salaryInfo.includes(key)) {
-          if (BOOLEAN_KEYS.includes(key)) {
-            if (data[key] === "YES") {
-              filteredForm[key] = true;
-            } else if (data[key] === "NO") {
-              filteredForm[key] = false;
-            }
-          } else {
-            filteredForm[key] = parseInt(data[key]);
-          }
-        }
-      }
-      let req = serviceGetSalaryInfoInfo({
-        grade_id: data?.grade_id,
-        ...filteredForm,
-      });
-      req.then((res) => {
-        const salaryData = res.data;
-        const booleanData = {};
-        for (const key in salaryData) {
-          if (salaryData.hasOwnProperty(key)) {
-            let value = salaryData[key];
-            if (BOOLEAN_KEYS.includes(key)) {
-              value = value ? "YES" : "NO";
-            }
-            booleanData[key] = value;
-          }
-        }
-        setForm({ ...data, ...booleanData });
-      });
-    } else {
-      SnackbarUtils.error("Please Select the Grade");
-    }
-  };
 
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -542,12 +459,9 @@ function EmployeeListCreateHook({ location }) {
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
-
-      if ([...salaryInfo]?.includes(fieldName)) {
-        checkSalaryInfoDebouncer(t);
-      }
-    }, [removeError, form, setForm, checkSalaryInfoDebouncer]);
-
+    },
+    [removeError, form, setForm]
+  );
   const checkCodeValidation = useCallback(() => {
     if (form?.emp_code) {
       serviceCheckEmployeeExists({
@@ -573,11 +487,10 @@ function EmployeeListCreateHook({ location }) {
       checkCodeValidation();
     }
   }, [codeDebouncer]);
-
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {
-        changeTextData(form?.[type], type);
+        changeTextData(form?.[type].trim(), type);
       }
     },
     [changeTextData, checkCodeValidation]
@@ -599,17 +512,15 @@ function EmployeeListCreateHook({ location }) {
           form[key]
         ) {
           fd.append(key, form[key]?.id);
-        } else if (key === "is_transport_facility") {
-          fd.append("is_transport_facility", form[key] === "availed");
-        } else if (BOOLEAN_KEYS.includes(key)){
-          fd.append(key,form[key] === 'YES')
+        }else if ( key === 'is_transport_facility'){
+          fd.append('is_transport_facility', form[key] === 'availed')
         }
          else if (form[key]) {
           fd.append(key, form[key]);
         }
       });
-      if (remotePath?.length > 0) {
-        fd.append("remote_image_path", remotePath);
+      if(remotePath?.length > 0){
+        fd.append('remote_image_path',remotePath)
       }
       fd.append("children", JSON.stringify(ChildenRef.current.getData()));
       fd.append("nominee", JSON.stringify([]));
@@ -651,7 +562,6 @@ function EmployeeListCreateHook({ location }) {
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form]);
-
   const filteredDepartments = useMemo(() => {
     const locations = listData?.LOCATION_DEPARTMENTS;
     const index = locations?.findIndex((l) => l.id === form?.location_id);
@@ -712,7 +622,7 @@ function EmployeeListCreateHook({ location }) {
     filteredAssociateJobRole,
     ChildenRef,
     empFlag,
-    defaultImg,
+    defaultImg
   };
 }
 
