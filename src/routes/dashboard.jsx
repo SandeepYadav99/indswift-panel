@@ -1006,7 +1006,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CLAIMS_REPORT}`,
@@ -1018,7 +1018,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CLAIMS_INFO}`,
