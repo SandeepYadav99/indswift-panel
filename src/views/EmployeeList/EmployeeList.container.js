@@ -19,7 +19,6 @@ import OnBoardDialog from "./components/OnBoardPopUp/OnBoardDialog.view";
 import TraineeDialog from "./components/TraineePopUp copy/TraineeDialog.view";
 
 const EmployeeList = ({}) => {
-
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -317,7 +316,7 @@ const EmployeeList = ({}) => {
           isOpen={isExtendDialog}
           handleToggle={toggleExtendDialog}
         />
-        <TraineeDialog
+        <TraineeDialog 
         listData={listData}
         isOpen={isTraineeDialog}
         handleToggle={toggleTraineeDialog}/>

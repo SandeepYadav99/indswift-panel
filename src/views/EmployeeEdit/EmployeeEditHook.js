@@ -74,7 +74,6 @@ const initialForm = {
   bank_name: "",
   ifsc: "",
   is_transport_facility:'notavailed',
-
   father_state:"ALIVE",
   father_dob:"",
   father_dod:"",
@@ -340,7 +339,7 @@ function EmployeeListCreateHook() {
       [setErrorData, errorData]
   );
 
-
+  
   const checkForSalaryInfo = (data) => {
     if (data?.grade_id) {
       let filteredForm = {};
