@@ -149,7 +149,9 @@ const initialForm = {
   deduction_vpf_pct: 0,
   gross_component:0,
   deputation_allowance:0,
-  nps_part_e:0
+  nps_part_e:0,
+  effective_date:"",
+  salary_notes:""
 };
 
 function EmployeeListCreateHook() {
@@ -157,6 +159,8 @@ function EmployeeListCreateHook() {
   const [form, setForm] = useState({ ...initialForm });
   const [editData, setEditData] = useState({});
   const [errorData, setErrorData] = useState({});
+  const [isUpdateDialog, setIsUpdateDialog] = useState(false);
+  const [SalaryField,setSalaryField]=useState(false)
   const { id } = useParams();
   const changedFields = useRef([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -220,7 +224,11 @@ function EmployeeListCreateHook() {
         is_transport_facility: transportvalue,
         ...updatedForm
       });
-      setEditData(empData);
+      setEditData({ ...initialForm,
+        ...empData,
+        image: '',
+        is_transport_facility: transportvalue,
+        ...updatedForm});
       setIsLoading(false);
     });
   }, [id]);
@@ -306,6 +314,14 @@ function EmployeeListCreateHook() {
     if (form?.ifsc && !IsIFSCCode(form?.ifsc)) {
       errors["ifsc"] = true;
     }
+    if (SalaryField){
+      if(!form?.effective_date){
+        errors["effective_date"] = true
+      }
+      if (!form?.salary_notes){
+        errors["salary_notes"] = true
+      }
+    }
     if(form?.father_state){
       if(form?.father_state === "EXPIRED" && !form?.father_dod){
         errors['father_dod'] = true;
@@ -328,7 +344,7 @@ function EmployeeListCreateHook() {
       }
     });
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData,SalaryField]);
 
   const removeError = useCallback(
       (title) => {
@@ -339,7 +355,10 @@ function EmployeeListCreateHook() {
       [setErrorData, errorData]
   );
 
-  
+  const toggleStatusDialog = useCallback(() => {
+    setIsUpdateDialog((e) => !e);
+  }, [isUpdateDialog]);
+
   const checkForSalaryInfo = (data) => {
     if (data?.grade_id) {
       let filteredForm = {};
@@ -427,9 +446,12 @@ function EmployeeListCreateHook() {
         if (changedFields.current.indexOf(fieldName) < 0) {
           changedFields.current = [...changedFields.current, fieldName];
         }
+        if(salaryInfo?.includes(fieldName)){
+          setSalaryField(true)
+        }
         shouldRemoveError && removeError(fieldName);
       },
-      [removeError, form, setForm,checkSalaryInfoDebouncer]
+      [removeError, form, setForm,checkSalaryInfoDebouncer,SalaryField,setSalaryField]
   );
   const checkCodeValidation = useCallback(() => {
     if (form?.emp_code) {
@@ -473,6 +495,34 @@ function EmployeeListCreateHook() {
       setIsSubmitting(true);
       const fd = new FormData();
       const changedData = [];
+      let foundMatch = false;
+      for (let i = 0; i < changedFields?.current?.length; i++) {
+        if (salaryInfo.includes(changedFields?.current[i])) {
+          foundMatch = true;
+          break;
+        }
+      }
+      if (foundMatch){
+        salaryInfo.forEach((key)=>{
+          if (BOOLEAN_KEYS.includes(key)){
+            changedData.push({
+              is_json: false,
+              key: key,
+              db_value: form?.[key] === 'YES',
+              new_value: form?.[key] === 'YES',
+              old_value: editData?.[key] === 'YES',
+            });
+          }else{
+            changedData.push({
+              is_json: false,
+              key: key,
+              db_value: form?.[key] ,
+              new_value: form?.[key] ,
+              old_value: editData?.[key] ,
+            });
+          }
+        })
+      }
       changedFields.current.forEach((key) => {
         if (key != 'image') {
           const newData = form?.[key];
@@ -495,6 +545,8 @@ function EmployeeListCreateHook() {
               new_value: trans,
               old_value: oldtrans ? oldtrans : false,
             });
+          }else if (salaryInfo?.includes(key)){
+            
           } else {
             changedData.push({
               is_json: false,
@@ -531,7 +583,8 @@ function EmployeeListCreateHook() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, id, editData, setIsSubmitting]);
+  }, [form, isSubmitting, id, editData, setIsSubmitting,SalaryField]);
+
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -553,12 +606,14 @@ function EmployeeListCreateHook() {
     setErrorData,
     ChildenRef.current,
     form,
+    SalaryField
     // includeRef.current
   ]);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form]);
+  
   const filteredDepartments = useMemo(() => {
     const locations = listData?.LOCATION_DEPARTMENTS;
     const index = locations?.findIndex((l) => l.id === form?.location_id);
@@ -620,7 +675,10 @@ function EmployeeListCreateHook() {
     filteredAssociateJobRole,
     ChildenRef,
     editData,
-    isLoading
+    isLoading,
+    toggleStatusDialog,
+    isUpdateDialog,
+    SalaryField
   };
 }
 

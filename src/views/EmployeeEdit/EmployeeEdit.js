@@ -25,6 +25,9 @@ import WaitingComponent from "../../components/Waiting.component";
 import Constants from "../../config/constants";
 import { useEffect } from "react";
 import { Delete, Edit } from "@material-ui/icons";
+import ConfirmationDialog from "./components/ConfirmationDialog/ConfirmationDialogDialog.view";
+
+
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -50,7 +53,10 @@ const EmployeeListCreate = ({}) => {
     getLevelValues,
     ChildenRef,
       editData,
-      isLoading
+      isLoading,
+      toggleStatusDialog,
+      isUpdateDialog,
+      SalaryField
   } = useEmployeeEditHook({});
 
   const image = useMemo(() => {
@@ -103,6 +109,15 @@ const EmployeeListCreate = ({}) => {
               {/*</Tooltip>*/}
             </h4>
           </div>
+          <ConfirmationDialog
+          isOpen={isUpdateDialog}
+          handleToggle={toggleStatusDialog}
+          form={form}
+          errorData={errorData}
+          changeTextData={changeTextData}
+          onBlurHandler={onBlurHandler}
+          handleSubmit={handleSubmit}
+        />
           <div className={styles.imageContainer}>
             {image}
             <div className={styles.nameWrapper}>
@@ -1927,7 +1942,8 @@ const EmployeeListCreate = ({}) => {
             <ButtonBase
                 type={"button"}
                 className={styles.createBtn}
-                onClick={handleSubmit}
+                onClick={SalaryField ? toggleStatusDialog : handleSubmit}
+                // onClick={handleSubmit}
             >
               UPDATE
             </ButtonBase>

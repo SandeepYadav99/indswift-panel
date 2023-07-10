@@ -14,7 +14,6 @@ import { makeStyles } from "@material-ui/styles";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
-import useConfirmationDialogHook from "./ConfirmationDialog.hook";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -39,18 +38,19 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ConfirmationDialog = ({ isOpen, handleToggle, empId }) => {
+const ConfirmationDialog = ({
+  isOpen,
+  handleToggle,
+  empId,
+  form,
+  errorData,
+  changeTextData,
+  onBlurHandler,
+  handleSubmit
+
+}) => {
   const classes = useStyles();
-  const {
-    changeTextData,
-    errorData,
-    form,
-    handleSubmit,
-    onBlurHandler,
-    removeError,
-    isSubmitting,
-    setShowPasswordCurrent,
-  } = useConfirmationDialogHook({ isOpen, handleToggle, empId });
+ 
 
   return (
     <div>
@@ -76,9 +76,11 @@ const ConfirmationDialog = ({ isOpen, handleToggle, empId }) => {
             </ButtonBase>
           </div>
           <div className={styles.headerWrap}>
-          <div className={styles.upperFlex21}>Salary Update Confirmation</div>
-          <div className={styles.newLine}></div>
-          <div className={styles.upperFlex2}>Please fill the below details to confirm updates in Salary</div>
+            <div className={styles.upperFlex21}>Salary Update Confirmation</div>
+            <div className={styles.newLine}></div>
+            <div className={styles.upperFlex2}>
+              Please fill the below details to confirm updates in Salary
+            </div>
           </div>
           <div className={styles.fieldWrapper}>
             <div>
@@ -98,15 +100,15 @@ const ConfirmationDialog = ({ isOpen, handleToggle, empId }) => {
           <div className={styles.fieldWrapper}>
             <div>
               <CustomTextField
-                isError={errorData?.note}
-                errorText={errorData?.note}
+                isError={errorData?.salary_notes}
+                errorText={errorData?.salary_notes}
                 label={"Notes (if any)"}
-                value={form?.note}
+                value={form?.salary_notes}
                 onTextChange={(text) => {
-                  changeTextData(text, "note");
+                  changeTextData(text, "salary_notes");
                 }}
                 onBlur={() => {
-                  onBlurHandler("note");
+                  onBlurHandler("salary_notes");
                 }}
                 multiline
                 rows={3}
@@ -116,7 +118,7 @@ const ConfirmationDialog = ({ isOpen, handleToggle, empId }) => {
           <div className={styles.printFlex}>
             <ButtonBase
               onClick={handleSubmit}
-              disabled={isSubmitting}
+              // disabled={isSubmitting}
               className={"createBtnreset"}
             >
               Submit
