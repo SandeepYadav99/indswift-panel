@@ -796,7 +796,7 @@ const EmployeeListCreate = ({location}) => {
             </CustomSelectField>
           </div>
           {
-              form?.mother_state === "EXPIRED" ? 
+              form?.mother_state === "EXPIRED" ?
               <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
@@ -812,7 +812,7 @@ const EmployeeListCreate = ({location}) => {
               <div className={"formGroup"}>
               </div>
           }
-         
+
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -1712,6 +1712,7 @@ const EmployeeListCreate = ({location}) => {
               errorText={errorData?.deputation_allowance}
               label={"Deputation Allowance"}
               value={form?.deputation_allowance}
+
               onTextChange={(text) => {
                 changeTextData(text, "deputation_allowance");
               }}
@@ -1736,7 +1737,7 @@ const EmployeeListCreate = ({location}) => {
               }}
             />
           </div>
-        </div> 
+        </div>
         <div className={"formFlex"}>
           <TotalSum
             firstName="Total Earnings 5 :  "
