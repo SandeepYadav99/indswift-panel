@@ -121,7 +121,7 @@ const PmsSiteReview  = lazy(() => import("../views/Pms/PmsSiteBatches/PmsSiteBat
 const PMSSitePendingReview  = lazy(() => import("../views/Pms/PMSSitePendingReview/PMSSitePendingReview.view"));
 const EmployeeImprest = lazy (()=> import("../views/ClaimImprest/EmployeeImprest/EmployeeImprest.view"));
 const ImprestApproval =lazy(()=> import ("../views/ClaimImprest/ImprestApproval/ImprestApproval.container"));
-
+const IncrementMaster =lazy(()=>import("../views/IncrementMaster/IncrementMaster.view"))
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -1480,7 +1480,29 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: false,
     },
+    {
+        path: 'null',
+        sidebarName: "PMS Increments",
+        navbarName: "PMS Increments",
+        icon: AssignmentOutlined,
+        is_sidebar: true,
+        slug: 'increment',
+        is_parent: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
 
+    },
+    {
+        path: `${RouteName.INCREMENT_MASTER}`,
+        sidebarName: "Increments Master",
+        navbarName: "Increments Master",
+        icon: PeopleOutlined,
+        component: IncrementMaster,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'increment',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    },
     // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 

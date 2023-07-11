@@ -156,5 +156,6 @@ export default {
   PMS_4B_REVIEW_DETAIL: '/pms/4B/detail/',
 
   IRF_LOGIN:'/irf/login',
-  IRF_FORM:'/irf/form'
+  IRF_FORM:'/irf/form',
+  INCREMENT_MASTER:'/increment-master'
 };
