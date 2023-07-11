@@ -174,7 +174,7 @@ const usePmsHodForm = ({location}) => {
         Object.keys(form).forEach((key) => {
             if (!form[key]) {
                 tErr[key] = true;
-            } else if ( (key in rating) && ((parseFloat(rating[key]) - 7) > form[key] || (parseFloat(rating[key]) + 7) < form[key])) {
+            } else if ( (key in rating) && ((parseFloat(rating[key]) - 5) > form[key] || (parseFloat(rating[key]) + 5) < form[key])) {
                 tErr[key] = true;
             }
         });
