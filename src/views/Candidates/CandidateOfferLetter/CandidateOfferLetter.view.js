@@ -6,6 +6,8 @@ import {
   MenuItem,
   Radio,
   RadioGroup,
+  IconButton,
+  InputAdornment,
 } from "@material-ui/core";
 import React from "react";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
@@ -20,6 +22,7 @@ import CustomDateTimePicker from "../../../components/FormFields/DatePicker/Cust
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomRadioLabel from "../../../components/CustomRadioLabel/CustomRadioLabel.component";
+import { Delete, Edit } from "@material-ui/icons";
 
 const CandidateOfferLetter = ({ location }) => {
   const {
@@ -160,141 +163,154 @@ const CandidateOfferLetter = ({ location }) => {
         </div>
       </div>
       <div className={"plainPaper"}>
-        <div className={"headerFlex"}>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>Employee Annual Salary Details</div>
-          </h4>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              inputProps={{ min: 0 }}
-              isError={errorData?.incremental_gross_salary}
-              errorText={errorData?.incremental_gross_salary}
-              label={"Incremental Gross Salary"}
-              value={form?.incremental_gross_salary}
-              onTextChange={(text) => {
-                changeTextData(text, "incremental_gross_salary");
-              }}
-              onBlur={() => {
-                onBlurHandler("incremental_gross_salary");
-              }}
+          <div className={"headerFlex"}>
+            <h4 className={"infoTitle"}>
+              <div className={"heading"}>Employee Annual Salary Details</div>
+            </h4>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.incremental_gross_salary}
+                  errorText={errorData?.incremental_gross_salary}
+                  label={"Incremental Gross Salary"}
+                  value={form?.incremental_gross_salary}
+                  onTextChange={(text) => {
+                    changeTextData(text, "incremental_gross_salary");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("incremental_gross_salary");
+                  }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.car_component}
+                  errorText={errorData?.car_component}
+                  label={"Car Component"}
+                  value={form?.car_component}
+                  onTextChange={(text) => {
+                    changeTextData(text, "car_component");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("car_component");
+                  }}
+              />
+            </div>
+          </div>
+          <div className={"formFlex"}>
+            <TotalSum
+                firstName="Incremental Gross Salary + Car Component: "
+                firstAmount={getSumValue(
+                  form?.gross
+                )}
             />
+          </div>
+          <div className={"headerFlex"}>
+            <h4 className={"infoTitle"}>
+              <div className={"heading"}>Part A - Earnings 1</div>
+            </h4>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+                <CustomTextField
+                  disabled={true}
+                  type={"number"}
+                  isError={errorData?.basic_salary}
+                  errorText={errorData?.basic_salary}
+                  label={"Basic"}
+                  value={form?.basic_salary}
+                  onTextChange={(text) => {
+                    changeTextData(text, "basic_salary");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("basic_salary");
+                  }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  disabled={true}
+                  type={"number"}
+                  isError={errorData?.hra}
+                  errorText={errorData?.hra}
+                  label={"HRA"}
+                  value={form?.hra}
+                  onTextChange={(text) => {
+                    changeTextData(text, "hra");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("hra");
+                  }}
+              />
+            </div>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.education_allowance}
+                  errorText={errorData?.education_allowance}
+                  label={"Education Allowance"}
+                  value={form?.education_allowance}
+                  onTextChange={(text) => {
+                    changeTextData(text, "education_allowance");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("education_allowance");
+                  }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  disabled={true}
+                  type={"number"}
+                  isError={errorData?.special_allowance}
+                  errorText={errorData?.special_allowance}
+                  label={"Special Allowance"}
+                  value={form?.special_allowance}
+                  onTextChange={(text) => {
+                    changeTextData(text, "special_allowance");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("special_allowance");
+                  }}
+              />
+            </div>
+          </div>
+          <div className={"formFlex"}>
+            <TotalSum
+                firstName="Total Earnings 1: "
+                firstAmount={getSumValue(
+                  form?.earning_one
+                )}
+            />
+          </div>
+          <div className={"headerFlex"}>
+            <h4 className={"infoTitle"}>
+              <div className={"heading"}>Part B - Earnings 2</div>
+            </h4>
+          </div>
+          <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_pug}
+              errorText={errorData?.is_pug}
+              label={"Professional Upgradation Applicable"}
+              value={form?.is_pug}
+              handleChange={(value) => {
+                changeTextData(value, "is_pug");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
-              isError={errorData?.car_component}
-              errorText={errorData?.car_component}
-              label={"Car Component"}
-              value={form?.car_component}
-              onTextChange={(text) => {
-                changeTextData(text, "car_component");
-              }}
-              onBlur={() => {
-                onBlurHandler("car_component");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <TotalSum
-            firstName="Incremental Gross Salary + Car Component: "
-            firstAmount={getSumValue(
-              form?.incremental_gross_salary,
-              form?.car_component
-            )}
-          />
-        </div>
-        <div className={"headerFlex"}>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>Part A - Earnings 1</div>
-          </h4>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.basic_salary}
-              errorText={errorData?.basic_salary}
-              label={"Basic"}
-              value={form?.basic_salary}
-              onTextChange={(text) => {
-                changeTextData(text, "basic_salary");
-              }}
-              onBlur={() => {
-                onBlurHandler("basic_salary");
-              }}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.hra}
-              errorText={errorData?.hra}
-              label={"HRA"}
-              value={form?.hra}
-              onTextChange={(text) => {
-                changeTextData(text, "hra");
-              }}
-              onBlur={() => {
-                onBlurHandler("hra");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.education_allowance}
-              errorText={errorData?.education_allowance}
-              label={"Education Allowance"}
-              value={form?.education_allowance}
-              onTextChange={(text) => {
-                changeTextData(text, "education_allowance");
-              }}
-              onBlur={() => {
-                onBlurHandler("education_allowance");
-              }}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.special_allowance}
-              errorText={errorData?.special_allowance}
-              label={"Special Allowance"}
-              value={form?.special_allowance}
-              onTextChange={(text) => {
-                changeTextData(text, "special_allowance");
-              }}
-              onBlur={() => {
-                onBlurHandler("special_allowance");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <TotalSum
-            firstName="Total Earnings 1: "
-            firstAmount={getSumValue(
-              form?.education_allowance,
-              form?.special_allowance,
-              form?.basic_salary,
-              form?.hra
-            )}
-          />
-        </div>
-        <div className={"headerFlex"}>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>Part B - Earnings 2</div>
-          </h4>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
+              disabled={form?.is_pug_manual === "NO"? true : false}
               type={"number"}
               isError={errorData?.pug}
               errorText={errorData?.pug}
@@ -308,8 +324,49 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
+          {/* {form?.is_pug_manual == "NO" && ( */}
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("YES", "is_pug_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("NO", "is_pug_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
+            </div>
+          {/* )} */}
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_helper}
+              errorText={errorData?.is_helper}
+              label={"Helper Allowance Applicable"}
+              value={form?.is_helper}
+              handleChange={(value) => {
+                changeTextData(value, "is_helper");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={form?.is_helper_manual === "NO"? true : false}
               type={"number"}
               isError={errorData?.helper}
               errorText={errorData?.helper}
@@ -323,10 +380,49 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
+          {/* {form?.is_helper_manual == "NO" && ( */}
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("YES", "is_helper_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("NO", "is_helper_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
+            </div>
+          {/* )} */}
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_food_coupons}
+              errorText={errorData?.is_food_coupons}
+              label={"Food Coupons Applicable"}
+              value={form?.is_food_coupons}
+              handleChange={(value) => {
+                changeTextData(value, "is_food_coupons");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
             <CustomTextField
+              disabled={form?.is_food_coupons_manual === "NO" ? true : false}
               type={"number"}
               isError={errorData?.food_coupons}
               errorText={errorData?.food_coupons}
@@ -340,8 +436,49 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
+          {/* {form?.is_food_coupons_manual == "NO" && ( */}
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("YES", "is_food_coupons_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("NO", "is_food_coupons_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
+            </div>
+          {/* )} */}
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_gift_coupons}
+              errorText={errorData?.is_gift_coupons}
+              label={"Gift Coupons Applicable"}
+              value={form?.is_gift_coupons}
+              handleChange={(value) => {
+                changeTextData(value, "is_gift_coupons");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
               type={"number"}
               isError={errorData?.gift_coupons}
               errorText={errorData?.gift_coupons}
@@ -358,7 +495,22 @@ const CandidateOfferLetter = ({ location }) => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_lta}
+              errorText={errorData?.is_lta}
+              label={"LTA Applicable"}
+              value={form?.is_lta}
+              handleChange={(value) => {
+                changeTextData(value, "is_lta");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
               type={"number"}
               isError={errorData?.lta}
               errorText={errorData?.lta}
@@ -372,8 +524,26 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_super_annuation}
+              errorText={errorData?.is_super_annuation}
+              label={"Superannuation Applicable"}
+              value={form?.is_super_annuation}
+              handleChange={(value) => {
+                changeTextData(value, "is_super_annuation");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
               type={"number"}
               isError={errorData?.super_annuation}
               errorText={errorData?.super_annuation}
@@ -387,10 +557,25 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
-        </div>{" "}
+        </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_nps}
+              errorText={errorData?.is_nps}
+              label={"NPS Applicable"}
+              value={form?.is_nps}
+              handleChange={(value) => {
+                changeTextData(value, "is_nps");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
               type={"number"}
               isError={errorData?.nps}
               errorText={errorData?.nps}
@@ -404,6 +589,40 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_em_pf}
+              errorText={errorData?.is_em_pf}
+              label={"Em PF- Deduction Part Applicable"}
+              value={form?.is_em_pf}
+              handleChange={(value) => {
+                changeTextData(value, "is_em_pf");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              disabled={true}
+              type={"number"}
+              isError={errorData?.earning2_vpf}
+              errorText={errorData?.earning2_vpf}
+              label={"VPF"}
+              value={form?.earning2_vpf}
+              onTextChange={(text) => {
+                changeTextData(text, "earning2_vpf");
+              }}
+              onBlur={() => {
+                onBlurHandler("earning2_vpf");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -419,8 +638,6 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
-        </div>{" "}
-        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -436,6 +653,8 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
+        </div>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -451,134 +670,86 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.earning2_vpf}
-              errorText={errorData?.earning2_vpf}
-              label={"VPF"}
-              value={form?.earning2_vpf}
-              onTextChange={(text) => {
-                changeTextData(text, "earning2_vpf");
-              }}
-              onBlur={() => {
-                onBlurHandler("earning2_vpf");
-              }}
-            />
-          </div>
           <div className={"formGroup"}></div>
         </div>
-        <div className={"formFlex"}>
-          <TotalSum
-            firstName="Total Earnings 2: "
-            firstAmount={getSumValue(
-              form?.pug,
-              form?.helper,
-              form?.food_coupons,
-              form?.gift_coupons,
-              form?.lta,
-              form?.super_annuation,
-              form?.nps,
-              form?.vehicle_maintenance,
-              form?.vehicle_emi,
-              form?.earning2_vpf,
-              form?.fuel
-            )}
-            secondName="Gross Salary (Part A + Part B) :"
-            secondAmount={getSumValue(
-              getSumValue(
-                form?.pug,
-                form?.helper,
-                form?.food_coupons,
-                form?.gift_coupons,
-                form?.lta,
-                form?.super_annuation,
-                form?.nps,
-                form?.vehicle_maintenance,
-                form?.vehicle_emi,
-                form?.earning2_vpf,
-                form?.fuel
-              ),
-              getSumValue(
-                form?.basic_salary,
-                form?.special_allowance,
-                form?.education_allowance,
-                form?.hra
-              )
-            )}
-          />
-        </div>
-        <div className={"headerFlex"}>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>Part C - Earning 3</div>
-          </h4>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.earning_three_pli}
-              errorText={errorData?.earning_three_pli}
-              label={"PLI - Qtrly"}
-              value={form?.earning_three_pli}
-              onTextChange={(text) => {
-                changeTextData(text, "earning_three_pli");
-              }}
-              onBlur={() => {
-                onBlurHandler("earning_three_pli");
-              }}
-            />
+          <div className={"formFlex"}>
+              <TotalSum
+                  firstName="Total Earning2: "
+                  firstAmount={getSumValue(
+                    form?.earning_two
+                  )}
+                  secondName="Gross Salary (Part A + Part B) :"
+                  secondAmount={getSumValue(form?.gross_component)}
+              />
           </div>
-          <div className={"formGroup"}></div>
-        </div>
-        {/* <div className={"formFlex"}>
-          <TotalSum
-            firstName="Incremental Gross Salary + Car Component: "
-            firstAmount={form?.earning_three_pli}
-          />
-        </div> */}
-        <div className={"headerFlex"}>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>Part D - Deduction 1</div>
-          </h4>
-        </div>
-        <div className={"formFlex"}>
+          <div className={"headerFlex"}>
+            <h4 className={"infoTitle"}>
+              <div className={"heading"}>Part C - Earning 3</div>
+            </h4>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.earning_three_pli}
+                  errorText={errorData?.earning_three_pli}
+                  label={"PLI - Qtrly"}
+                  value={form?.earning_three_pli}
+                  onTextChange={(text) => {
+                    changeTextData(text, "earning_three_pli");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("earning_three_pli");
+                  }}
+              />
+            </div>
+            <div className={"formGroup"}></div>
+          </div>
+          {/* <div className={"formFlex"}>
+              <TotalSum
+                  firstName="Incremental Gross Salary + Car Component: "
+                  firstAmount={form?.earning_three_pli}
+              />
+          </div> */}
+          <div className={"headerFlex"}>
+            <h4 className={"infoTitle"}>
+              <div className={"heading"}>Part D - Deduction 1</div>
+            </h4>
+          </div>
+          <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.is_deduction_vpf}
+              errorText={errorData?.is_deduction_vpf}
+              label={"VPF Applicable"}
+              value={form?.is_deduction_vpf}
+              handleChange={(value) => {
+                changeTextData(value, "is_deduction_vpf");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={(form?.is_deduction_vpf == "NO" )? true : false}
               type={"number"}
-              isError={errorData?.em_pf}
-              errorText={errorData?.em_pf}
-              label={"Em PF- Deduction Part"}
-              value={form?.em_pf}
+              isError={errorData?.deduction_vpf_pct}
+              errorText={errorData?.deduction_vpf_pct}
+              label={"VPF Percentage"}
+              value={form?.deduction_vpf_pct}
               onTextChange={(text) => {
-                changeTextData(text, "em_pf");
+                changeTextData(text, "deduction_vpf_pct");
               }}
               onBlur={() => {
-                onBlurHandler("em_pf");
+                onBlurHandler("deduction_vpf_pct");
               }}
             />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
-              isError={errorData?.em_esi}
-              errorText={errorData?.em_esi}
-              label={"Em ESI- Deduction Part"}
-              value={form?.em_esi}
-              onTextChange={(text) => {
-                changeTextData(text, "em_esi");
-              }}
-              onBlur={() => {
-                onBlurHandler("em_esi");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
+              disabled={true}
               type={"number"}
               isError={errorData?.deduction_vpf}
               errorText={errorData?.deduction_vpf}
@@ -592,8 +763,28 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
+        </div>
+        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
+              type={"number"}
+              isError={errorData?.em_esi}
+              errorText={errorData?.em_esi}
+              label={"Em ESI- Deduction Part"}
+              value={form?.em_esi}
+              onTextChange={(text) => {
+                changeTextData(text, "em_esi");
+              }}
+              onBlur={() => {
+                onBlurHandler("em_esi");
+              }}
+            />
+          </div>
+
+          <div className={"formGroup"}>
+            <CustomTextField
+              disabled={true}
               type={"number"}
               isError={errorData?.em_lwf}
               errorText={errorData?.em_lwf}
@@ -609,231 +800,276 @@ const CandidateOfferLetter = ({ location }) => {
           </div>
         </div>
         <div className={"formFlex"}>
-          <TotalSum
-            customClass={styles.redField}
-            firstName="Total Deduction 1:  "
-            firstAmount={getSumValue(
-              form?.em_pf,
-              form?.em_esi,
-              form?.deduction_vpf,
-              form?.em_lwf
-            )}
-          />
-        </div>
-        <div className={"headerFlex"}>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>
-              Part E (Statutory Components of CTC Paid by Employer) - Earning 4
-            </div>
-          </h4>
-        </div>
-        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
               type={"number"}
-              isError={errorData?.er_pf}
-              errorText={errorData?.er_pf}
-              label={"PF - Er Contribution Part"}
-              value={form?.er_pf}
+              isError={errorData?.em_pf}
+              errorText={errorData?.em_pf}
+              label={"Em PF- Deduction Part"}
+              value={form?.em_pf}
               onTextChange={(text) => {
-                changeTextData(text, "er_pf");
+                changeTextData(text, "em_pf");
               }}
               onBlur={() => {
-                onBlurHandler("er_pf");
-              }}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.er_esi}
-              errorText={errorData?.er_esi}
-              label={"ESI - Er Contribution Part"}
-              value={form?.er_esi}
-              onTextChange={(text) => {
-                changeTextData(text, "er_esi");
-              }}
-              onBlur={() => {
-                onBlurHandler("er_esi");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.er_lwf}
-              errorText={errorData?.er_lwf}
-              label={"Er LWF"}
-              value={form?.er_lwf}
-              onTextChange={(text) => {
-                changeTextData(text, "er_lwf");
-              }}
-              onBlur={() => {
-                onBlurHandler("er_lwf");
+                onBlurHandler("em_pf");
               }}
             />
           </div>
           <div className={"formGroup"}></div>
         </div>
-        <div className={"formFlex"}>
-          <TotalSum
-            firstName="Total Earnings 4 :"
-            firstAmount={getSumValue(form?.er_pf, form?.er_esi, form?.er_lwf)}
-          />
-        </div>
-        <div className={"headerFlex"}>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>
-              Part E (Organizational Components of CTC) - Earning 5
+          <div className={"formFlex"}>
+              <TotalSum
+                  customClass={styles.redField}
+                  firstName="Total Deduction 1:  "
+                  firstAmount={getSumValue(
+                    form?.total_deduction
+                  )}
+              />
+          </div>
+          <div className={"headerFlex"}>
+            <h4 className={"infoTitle"}>
+              <div className={"heading"}>
+                Part E (Statutory Components of CTC Paid by Employer) - Earning 4
+              </div>
+            </h4>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  disabled={true}
+                  type={"number"}
+                  isError={errorData?.er_pf}
+                  errorText={errorData?.er_pf}
+                  label={"PF - Er Contribution Part"}
+                  value={form?.er_pf}
+                  onTextChange={(text) => {
+                    changeTextData(text, "er_pf");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("er_pf");
+                  }}
+              />
             </div>
-          </h4>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  disabled={true}
+                  type={"number"}
+                  isError={errorData?.er_esi}
+                  errorText={errorData?.er_esi}
+                  label={"ESI - Er Contribution Part"}
+                  value={form?.er_esi}
+                  onTextChange={(text) => {
+                    changeTextData(text, "er_esi");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("er_esi");
+                  }}
+              />
+            </div>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.er_lwf}
+                  errorText={errorData?.er_lwf}
+                  label={"Er LWF"}
+                  value={form?.er_lwf}
+                  onTextChange={(text) => {
+                    changeTextData(text, "er_lwf");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("er_lwf");
+                  }}
+              />
+            </div>
+            <div className={"formGroup"}></div>
+          </div>
+          <div className={"formFlex"}>
+              <TotalSum
+                  firstName="Total Earnings 4 :"
+                  firstAmount={getSumValue(form?.earning_four)}
+              />
+          </div>
+          <div className={"headerFlex"}>
+            <h4 className={"infoTitle"}>
+              <div className={"heading"}>
+                Part E (Organizational Components of CTC) - Earning 5
+              </div>
+            </h4>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  disabled={true}
+                  type={"number"}
+                  isError={errorData?.gratuity}
+                  errorText={errorData?.gratuity}
+                  label={"Gratuity"}
+                  value={form?.gratuity}
+                  onTextChange={(text) => {
+                    changeTextData(text, "gratuity");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("gratuity");
+                  }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.insurance}
+                  errorText={errorData?.insurance}
+                  label={"Medical Insurance Premium"}
+                  value={form?.insurance}
+                  onTextChange={(text) => {
+                    changeTextData(text, "insurance");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("insurance");
+                  }}
+              />
+            </div>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.stability_incentive}
+                  errorText={errorData?.stability_incentive}
+                  label={"Stability Allowance"}
+                  value={form?.stability_incentive}
+                  onTextChange={(text) => {
+                    changeTextData(text, "stability_incentive");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("stability_incentive");
+                  }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.retention_allowance}
+                  errorText={errorData?.retention_allowance}
+                  label={"Retention Allowance"}
+                  value={form?.retention_allowance}
+                  onTextChange={(text) => {
+                    changeTextData(text, "retention_allowance");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("retention_allowance");
+                  }}
+              />
+            </div>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.perf_bonus}
+                  errorText={errorData?.perf_bonus}
+                  label={"Performance Allowance"}
+                  value={form?.perf_bonus}
+                  onTextChange={(text) => {
+                    changeTextData(text, "perf_bonus");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("perf_bonus");
+                  }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  disabled={true}
+                  type={"number"}
+                  isError={errorData?.annual_bonus}
+                  errorText={errorData?.annual_bonus}
+                  label={"Bonus"}
+                  value={form?.annual_bonus}
+                  onTextChange={(text) => {
+                    changeTextData(text, "annual_bonus");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("annual_bonus");
+                  }}
+              />
+            </div>
+          </div>{" "}
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.two_car_maintenance}
+                  errorText={errorData?.two_car_maintenance}
+                  label={"Type II Car Maint"}
+                  value={form?.two_car_maintenance}
+                  onTextChange={(text) => {
+                    changeTextData(text, "two_car_maintenance");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("two_car_maintenance");
+                  }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  isError={errorData?.two_fuel}
+                  errorText={errorData?.two_fuel}
+                  label={"Type II Fuel"}
+                  value={form?.two_fuel}
+                  onTextChange={(text) => {
+                    changeTextData(text, "two_fuel");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("two_fuel");
+                  }}
+              />
+            </div>
+          </div>
+          <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              type={"number"}
+              isError={errorData?.deputation_allowance}
+              errorText={errorData?.deputation_allowance}
+              label={"Deputation Allowance"}
+              value={form?.deputation_allowance}
+              onTextChange={(text) => {
+                changeTextData(text, "deputation_allowance");
+              }}
+              onBlur={() => {
+                onBlurHandler("deputation_allowance");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              type={"number"}
+              isError={errorData?.nps_part_e}
+              errorText={errorData?.nps_part_e}
+              label={"NPS"}
+              value={form?.nps_part_e}
+              onTextChange={(text) => {
+                changeTextData(text, "nps_part_e");
+              }}
+              onBlur={() => {
+                onBlurHandler("nps_part_e");
+              }}
+            />
+          </div>
+        </div> 
+          <div className={"formFlex"}>
+              <TotalSum
+                  firstName="Total Earnings 5 :  "
+                  firstAmount={getSumValue(
+                    form?.earning_five
+                  )}
+              />
+          </div>
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.gratuity}
-              errorText={errorData?.gratuity}
-              label={"Gratuity"}
-              value={form?.gratuity}
-              onTextChange={(text) => {
-                changeTextData(text, "gratuity");
-              }}
-              onBlur={() => {
-                onBlurHandler("gratuity");
-              }}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.insurance}
-              errorText={errorData?.insurance}
-              label={"Medical Insurance Premium"}
-              value={form?.insurance}
-              onTextChange={(text) => {
-                changeTextData(text, "insurance");
-              }}
-              onBlur={() => {
-                onBlurHandler("insurance");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.stability_incentive}
-              errorText={errorData?.stability_incentive}
-              label={"Stability Allowance"}
-              value={form?.stability_incentive}
-              onTextChange={(text) => {
-                changeTextData(text, "stability_incentive");
-              }}
-              onBlur={() => {
-                onBlurHandler("stability_incentive");
-              }}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.retention_allowance}
-              errorText={errorData?.retention_allowance}
-              label={"Retention Allowance"}
-              value={form?.retention_allowance}
-              onTextChange={(text) => {
-                changeTextData(text, "retention_allowance");
-              }}
-              onBlur={() => {
-                onBlurHandler("retention_allowance");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.perf_bonus}
-              errorText={errorData?.perf_bonus}
-              label={"Performance Allowance"}
-              value={form?.perf_bonus}
-              onTextChange={(text) => {
-                changeTextData(text, "perf_bonus");
-              }}
-              onBlur={() => {
-                onBlurHandler("perf_bonus");
-              }}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.annual_bonus}
-              errorText={errorData?.annual_bonus}
-              label={"Bonus"}
-              value={form?.annual_bonus}
-              onTextChange={(text) => {
-                changeTextData(text, "annual_bonus");
-              }}
-              onBlur={() => {
-                onBlurHandler("annual_bonus");
-              }}
-            />
-          </div>
-        </div>{" "}
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.two_car_maintenance}
-              errorText={errorData?.two_car_maintenance}
-              label={"Type II Car Maint"}
-              value={form?.two_car_maintenance}
-              onTextChange={(text) => {
-                changeTextData(text, "two_car_maintenance");
-              }}
-              onBlur={() => {
-                onBlurHandler("two_car_maintenance");
-              }}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              isError={errorData?.two_fuel}
-              errorText={errorData?.two_fuel}
-              label={"Type II Fuel"}
-              value={form?.two_fuel}
-              onTextChange={(text) => {
-                changeTextData(text, "two_fuel");
-              }}
-              onBlur={() => {
-                onBlurHandler("two_fuel");
-              }}
-            />
-          </div>
-        </div>{" "}
-        <div className={"formFlex"}>
-          <TotalSum
-            firstName="Total Earnings 5 :  "
-            firstAmount={getSumValue(
-              form?.gratuity,
-              form?.insurance,
-              form?.stability_incentive,
-              form?.retention_allowance,
-              form?.perf_bonus,
-              form?.annual_bonus,
-              form?.two_car_maintenance,
-              form?.two_fuel
-            )}
-          />
-        </div>
-      </div>
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>

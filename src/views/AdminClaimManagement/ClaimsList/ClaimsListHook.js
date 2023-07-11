@@ -201,7 +201,7 @@ const useClaimsList = ({}) => {
         label: "Claim Type",
         name: "claimObj.claim_type",
         type: "select",
-        fields: ["MARRAIGE", "CAR", "MOBILE", "PHC",'LOCAL_TRAVEL'],
+        fields: ["MARRAIGE", "CAR", "MOBILE", "PHC",'LOCAL_TRAVEL','RELOCATION'],
       },
     ];
   }, [listData]);

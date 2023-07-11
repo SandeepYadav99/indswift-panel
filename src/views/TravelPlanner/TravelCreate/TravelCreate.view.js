@@ -201,6 +201,7 @@ function TravelCreate() {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Travel Details</div>
+          <div className={styles.heading}>Entitlement: Air/Train/Bus/Own Car/ Company Car</div>
           <div>
             <DetailsIncludeForm
               ref={travelRef}
@@ -213,6 +214,7 @@ function TravelCreate() {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Accommodation Details</div>
+          <div className={styles.heading}>Entitlement: Hotel/Guest House/ Self-Arrangement/NA</div>
           <div>
             <OtherDetailsIncludeForm
               ref={otherRef}

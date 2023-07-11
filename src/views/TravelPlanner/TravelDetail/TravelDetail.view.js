@@ -18,7 +18,7 @@ function TravelDetail() {
     toggleRejectDialog,
     rejectDialog,
   } = useTravelDetail({});
-  const item = {};
+
   return (
     <div className={styles.claimListWrapper}>
       <div style={{marginBottom:'20px'}}>
@@ -152,7 +152,7 @@ function TravelDetail() {
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Value of Expense:</span>
-                    {employeeDetail?.exception?.expense_value}
+                    {employeeDetail?.exception?.expense_value && `₹ ${employeeDetail?.exception?.expense_value}`}
                   </div>
                 </div>
               </div>
@@ -178,7 +178,7 @@ function TravelDetail() {
                         <span className={styles.value}>
                           Amount :
                         </span>
-                        { item?.amount}
+                        { item?.amount && `₹ ${item?.amount}`}
                       </div>
                      
                     </div>

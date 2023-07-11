@@ -7,6 +7,7 @@ function ClaimDetailInfo({ idCards }) {
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
+
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -25,7 +26,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Tour Dates:</span>
-                {idCards?.imprest?.issueDateText}
+                {idCards?.imprest?.travelPlanner?.startDateText } - {idCards?.imprest?.travelPlanner?.endDateText}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Tour Type:</span>
