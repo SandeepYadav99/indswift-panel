@@ -32,7 +32,7 @@ const usePmsOverallHodForm = ({location}) => {
             is_static: true,
             key: "code",
             title: "Code",
-            fixed: true,
+            fixed: false,
             readOnly: true,
             render: (all) => <div className={csx(styles.label21, (all?.is_salary_maximized ? styles.redBg : ''))}><p>{all.code}</p></div>
         },
@@ -70,6 +70,13 @@ const usePmsOverallHodForm = ({location}) => {
             title: "Experience",
             readOnly: true,
             render: (all) => <div className={styles.label}>{all.experience}</div>
+        },
+        {
+            is_static: true,
+            key: "normalized_rating",
+            title: "Normalized Rating",
+            readOnly: true,
+            render: (all) => <div className={styles.label}>{all?.normalized_rating} %</div>
         },
         {
             is_static: true,
@@ -127,7 +134,7 @@ const usePmsOverallHodForm = ({location}) => {
                         }
                     } else {
                         tForm[`${row.id}_${col.key}`] = row?.rating;
-                        rating[`${row.id}_${col.key}`] = row?.rating;
+                        rating[`${row.id}_${col.key}`] = row?.normalized_rating;
                     }
                 }
             });
@@ -181,7 +188,7 @@ const usePmsOverallHodForm = ({location}) => {
         Object.keys(form).forEach((key) => {
             if (!form[key]) {
                 tErr[key] = true;
-            } else if ( (key in rating) && ((parseFloat(rating[key]) - 8) > form[key] || (parseFloat(rating[key]) + 8) < form[key])) {
+            } else if ( (key in rating) && ((parseFloat(rating[key]) - 5) > form[key] || (parseFloat(rating[key]) + 5) < form[key])) {
                 tErr[key] = true;
             }
         });
@@ -278,7 +285,7 @@ const usePmsOverallHodForm = ({location}) => {
             if (!(empId in data)) {
                 data[empId] = {};
             }
-            data[empId] = {...data[empId], ...{[`${cat-9}_${param}`]: val}};
+            data[empId] = {...data[empId], ...{[`${cat-10}_${param}`]: val}};
         });
         return data;
     }, [form, columns, rows]);

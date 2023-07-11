@@ -153,9 +153,9 @@ const PmsNormailize = ({ location }) => {
         render: (temp, all) => <div>{all?.normalized_rating}</div>,
       },
       {
-        key: "rating",
+        key: "final_rating",
         label: "HOD RATING",
-        sortable: false,
+        sortable: true,
         render: (temp, all) => <div>{all?.final_rating}</div>,
       },
       {
@@ -163,6 +163,18 @@ const PmsNormailize = ({ location }) => {
         label: "HOD Recommended",
         sortable: false,
         render: (temp, all) => <div>{all?.is_recommended}</div>,
+      },
+      {
+        key: "overall_hod_rating",
+        label: "Overall HOD RATING",
+        sortable: true,
+        render: (temp, all) => <div>{all?.overall_hod_rating}</div>,
+      },
+      {
+        key: "overall_hod_is_recommended",
+        label: "Overall HOD Recommended",
+        sortable: false,
+        render: (temp, all) => <div>{all?.overall_hod_is_recommended}</div>,
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
