@@ -69,13 +69,13 @@ function SalaryInfoTable() {
           </div>
           <div className={styles.wrpa}>
             <div className={styles.titleHead}>Structure Dates:</div>
-            <div className={styles.titleCont}>component</div>
+            <div className={styles.titleCont}>{data?.effectiveDateText} - {data?.lastEffectiveDateText}</div>
           </div>
         </div>
         <div className={styles.verticalLine}></div>
         <div className={styles.lowerWrap}>
           <div className={styles.titleHead}>Reason of Change:</div>
-          <div className={styles.titleCont}>component</div>
+          <div className={styles.titleCont}>{data?.salary_notes}</div>
         </div>
       </div>
       <div className={styles.salaryTableContainer}>

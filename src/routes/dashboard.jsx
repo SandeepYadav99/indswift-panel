@@ -15,8 +15,7 @@ import ImprestApprovalDetail from "../views/ClaimImprest/ImprestApprovalDetail/I
 import EmployeeImprestDetail from "../views/ClaimImprest/EmployeeImprestDetail/EmployeeImprestDetail.view";
 import DepartmentDetail from "../views/Department/DepartmentDetail/DepartmentDetail.view";
 import ImprestDetail from "../views/ClaimImprest/ImprestDetail/ImprestDetail.view";
-
-
+import IncrementPlanner from "../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view";
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1305,6 +1304,29 @@ const dashboardRoutes = [
         should_regex: true,
         parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: 'null',
+        sidebarName: "Pms Increments",
+        navbarName: "Pms Increments",
+        icon: AssignmentOutlined,
+        is_sidebar: true,
+        slug: 'pi',
+        is_parent: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+
+    },
+    {
+        path: `${RouteName.PMS_INCREMENT_PLANNER}`,
+        sidebarName: "Increments Planner",
+        navbarName: "Increments Planner",
+        icon: PeopleOutlined,
+        component: IncrementPlanner,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pi',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
         path: 'null',
