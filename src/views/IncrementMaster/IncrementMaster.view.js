@@ -8,6 +8,8 @@ import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
 import { Autocomplete } from "@material-ui/lab";
+import ChildrenIncludeForm from "./includes/ChildrenIncludes.component";
+
 import classNames from "classnames";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 const IncrementMasterCreateView = ({ }) => {
-    const { form, errorData, isSubmitting, isLoading, handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete, handleReset, id, listData } = useIncrementMasterHook({});
+    const { form, errorData, isSubmitting, isLoading,
+         handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete, handleReset, id, listData,slabOneRef,slabTwoRef } = useIncrementMasterHook({});
     const classes = useStyles();
     console.log('ijdwodeod', listData?.GRADES)
     return (
@@ -129,7 +132,9 @@ const IncrementMasterCreateView = ({ }) => {
                 </div>
                 <div className={'formFlex'}>
                     <div className={"formGroup"}>
-                        <div className={'formFlex'}>
+                    <ChildrenIncludeForm ref={slabOneRef} />
+
+                        {/* <div className={'formFlex'}>
                             <span className={styles.levelHeading}>L1</span>
                             <div className={'formGroup'} style={{ marginLeft: 94 }}>
                                 <CustomTextField
@@ -502,10 +507,12 @@ const IncrementMasterCreateView = ({ }) => {
                                 />
                             </div>
 
-                        </div>
+                        </div> */}
                     </div>
                     <div className={"formGroup"}>
-                        <div className={'formFlex'}>
+                    <ChildrenIncludeForm ref={slabTwoRef} />
+
+                        {/* <div className={'formFlex'}>
                             <span className={styles.levelHeading}>L1</span>
                             <div className={'formGroup'} style={{ marginLeft: 94 }}>
                                 <CustomTextField
@@ -878,7 +885,7 @@ const IncrementMasterCreateView = ({ }) => {
                                 />
                             </div>
 
-                        </div>
+                        </div> */}
                     </div>
 
                 </div>

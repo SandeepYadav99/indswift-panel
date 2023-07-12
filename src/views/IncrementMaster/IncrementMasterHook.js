@@ -29,6 +29,8 @@ const useDepartmentDetail = ({}) => {
     // const codeDebouncer = useDebounce(form?.code, 500);
     const { id } = useParams();
     const [listData,setListData]=useState();
+    const slabOneRef = useRef(null);
+    const slabTwoRef = useRef(null);
 
     useEffect(() => {
         serviceGetList(["GRADES"]).then((res) => {
@@ -40,7 +42,7 @@ const useDepartmentDetail = ({}) => {
         });
 
     }, []);
-    console.log('list',listData)
+    // console.log('list',listData)
 
     // const checkCodeValidation = useCallback(() => {
     //     serviceCheckDepartment({code: form?.code, id: id ? id : null}).then((res) => {
@@ -65,23 +67,23 @@ const useDepartmentDetail = ({}) => {
 
 
 
-    // const checkFormValidation = useCallback(() => {
-    //     const errors = {...errorData};
-    //     let required = ['name','code'];
-    //     required.forEach(val => {
-    //         if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
-    //             errors[val] = true;
-    //         } else if (['code'].indexOf(val) < 0) {
-    //             delete errors[val]
-    //         }
-    //     });
-    //     Object.keys(errors).forEach(key => {
-    //         if (!errors[key]) {
-    //             delete errors[key];
-    //         }
-    //     })
-    //     return errors;
-    // }, [form, errorData]);
+    const checkFormValidation = useCallback(() => {
+        const errors = {...errorData};
+        let required = ['name','code'];
+        required.forEach(val => {
+            if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
+                errors[val] = true;
+            } else if (['code'].indexOf(val) < 0) {
+                delete errors[val]
+            }
+        });
+        Object.keys(errors).forEach(key => {
+            if (!errors[key]) {
+                delete errors[key];
+            }
+        })
+        return errors;
+    }, [form, errorData]);
 
     // const submitToServer = useCallback(() => {
     //     if (!isSubmitting) {
@@ -102,19 +104,25 @@ const useDepartmentDetail = ({}) => {
     //     }
     // }, [form, isSubmitting, setIsSubmitting, id]);
 
-    // const handleSubmit = useCallback(async () => {
-    //     const errors = checkFormValidation();
-    //     if (Object.keys(errors).length > 0) {
-    //         setErrorData(errors);
-    //         return true;
-    //     }
-    //     submitToServer();
+    const handleSubmit = useCallback(async () => {
+        // const errors = checkFormValidation();
+        // const isIncludesValidOne = slabOneRef.current.isValid();
+        // const isIncludesValidTwo = slabTwoRef.current.isValid();
 
-    // }, [
-    //     // checkFormValidation,
-    //     setErrorData,
-    //     form
-    // ]);
+        // if (Object.keys(errors).length > 0 || !isIncludesValidOne || !isIncludesValidTwo) {
+        //     setErrorData(errors);
+        //     return true;
+        // }
+        console.log('fro',form)
+        console.log('iowowj',slabOneRef.current.getData());
+
+        // submitToServer();
+
+    }, [
+        checkFormValidation,
+        setErrorData,
+        form
+    ]);
 
     const removeError = useCallback(
         title => {
@@ -165,7 +173,7 @@ const useDepartmentDetail = ({}) => {
         changeTextData,
         // // onBlurHandler,
         removeError,
-        // handleSubmit,
+        handleSubmit,
         isLoading,
         isSubmitting,
         errorData,
@@ -173,7 +181,9 @@ const useDepartmentDetail = ({}) => {
         handleDelete,
         // handleReset,
         id,
-        listData
+        listData,
+        slabOneRef,
+        slabTwoRef
     };
 };
 
