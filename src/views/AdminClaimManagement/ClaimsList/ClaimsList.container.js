@@ -49,6 +49,7 @@ const ClaimsList = ({ location }) => {
     downloadCL,
     handleClosedownloadCL,
     handleCandidateMenu,
+    isShowDownloadBtn
   } = useClaimsList({});
 
   const {
@@ -235,7 +236,7 @@ const ClaimsList = ({ location }) => {
             <span className={styles.title}>Claim Management</span>
             <div className={styles.newLine} />
           </div>
-          <div className={styles.btnWrap}>
+          {isShowDownloadBtn && (<div className={styles.btnWrap}>
             <ButtonBase
               aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
@@ -256,7 +257,7 @@ const ClaimsList = ({ location }) => {
               onClose={handleClosedownloadCL}
             >
               {
-                user?.role === 'CORPORATE_HR' && 
+                user?.role === 'CORPORATE_HR' &&
                 <MenuItem
                 onClick={() => {
                   handleCandidateMenu("ALL");
@@ -280,7 +281,7 @@ const ClaimsList = ({ location }) => {
                 PROCESSED
               </MenuItem>
             </Menu>
-            <ButtonBase
+             <ButtonBase
               aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
               // onClick={handleAddCandidate}
@@ -289,7 +290,7 @@ const ClaimsList = ({ location }) => {
             >
               Bank Transfer Sheet
             </ButtonBase>
-          </div>
+          </div>)}
         </div>
 
         <div>

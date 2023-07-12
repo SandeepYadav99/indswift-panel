@@ -12,11 +12,13 @@ import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 import { serviceExportBankSheetList, serviceExportClaimList } from "../../../services/Claims.service";
+import Constants from "../../../config/constants";
 const useClaimsList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [downloadCL, setdownloadCL] = useState(null);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const {role} = useSelector(state => state.auth);
   const [listData, setListData] = useState({
     LOCATIONS: [],
     HR: [],
@@ -206,6 +208,14 @@ const useClaimsList = ({}) => {
     ];
   }, [listData]);
 
+  const isShowDownloadBtn = useMemo(() => {
+    const Roles = Constants.ROLES;
+    if (([Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER]).indexOf(role) >=0) {
+      return true;
+    } return false;
+
+  }, [role]);
+
   return {
     handlePageChange,
     // handleCellClick,
@@ -230,6 +240,7 @@ const useClaimsList = ({}) => {
     downloadCL,
     handleClosedownloadCL,
     handleCandidateMenu,
+    isShowDownloadBtn
   };
 };
 
