@@ -200,7 +200,7 @@ function SalaryInfoTable() {
             component="Em ESI- Deduction Part"
             monthly={data?.em_esi}
           />
-          <SaleryInfoField component="VPF - 0%" monthly={data?.deduction_vpf} />
+          <SaleryInfoField component={`VPF - ${data?.deduction_vpf_pct} %`} monthly={data?.deduction_vpf} />
           <SaleryInfoField component="Em LWF" monthly={data?.em_lwf} />
           <SaleryInfoField
             className={styles.grossSalaryRedWrapper}

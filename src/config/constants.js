@@ -125,7 +125,9 @@ export default {
     "HOD REVIEW PENDING":'error',
     "SHORTLISTED":'success',
     "OVERALL HOD PENDING":'success',
-    "OVERALL HOD REVIEW PENDING":'error'
+    "OVERALL HOD REVIEW PENDING":'error',
+    'POSITIVE':'positiveBg',
+    'NEGATIVE':'errorBg'
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',

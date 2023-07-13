@@ -2,21 +2,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { serviceGetList } from "../../../services/Common.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import { serviceIncrementPlannerDownload } from "../../../services/IncrementPlanner.service";
+import {
+  serviceGetIncrementPlanner,
+  serviceIncrementPlannerDownload,
+} from "../../../services/IncrementPlanner.service";
 import historyUtils from "../../../libs/history.utils";
 
+const totalShow = 10;
 const useIncrementPlanner = ({}) => {
   const [isInfoPanel, setInfoPanel] = useState(false);
+  const [isDialog, setIsDialog] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
+  const [currentData, setCurrentData] = useState([]);
   const [isCalling, setIsCalling] = useState(false);
-  const [warehouses, setWarehouses] = useState([]);
-  const [selected, setSelected] = useState([]);
+  const [apiData, setApiData] = useState([]);
   const [type, setType] = useState("");
   const [year, setYear] = useState("");
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
-  const dispatch = useDispatch();
-  const isMountRef = useRef(false);
 
   useEffect(() => {
     serviceGetList(["LOCATIONS"]).then((res) => {
@@ -25,6 +30,25 @@ const useIncrementPlanner = ({}) => {
       }
     });
   }, []);
+
+  const toggleConfirmDialog = useCallback((type) => {
+    setIsDialog(e => !e);
+}, [setIsDialog]);
+  const resetData = useCallback(() => {
+    serviceGetIncrementPlanner({
+      start_date: year,
+      type: type,
+    }).then((res) => {
+      if (!res.error) {
+        const data = res.data?.response;
+        setApiData(data);
+      }
+    });
+  }, [year, type]);
+
+  useEffect(() => {
+    setData(apiData);
+  }, [apiData]);
 
   const handleDownload = useCallback(() => {
     if (type && year) {
@@ -40,30 +64,34 @@ const useIncrementPlanner = ({}) => {
     } else {
       SnackbarUtils.error("Please Enter year and Type");
     }
-  }, [ year, type]);
+  }, [year, type]);
 
-  const resetData = useCallback(() => {
-    console.log("api hit");
-  }, []);
-  const initialApiCall = useCallback(() => {
-    if (year && type) {
-      resetData();
+  useEffect(() => {
+    _processData();
+  }, [data, currentPage]);
+
+  const _processData = useCallback(() => {
+    const from = currentPage * totalShow - totalShow;
+    let to = currentPage * totalShow;
+    if (from <= data.length) {
+      to = to <= data.length ? to : data.length;
+      setCurrentData(data.slice(from, to));
     }
-  }, [type, setYear]);
+  }, [setCurrentData, currentPage, data, totalShow]);
 
-  const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
-    // dispatch(actionSetPageIncrementPlannerRequests(type));
-  }, []);
-
-  const queryFilter = useCallback(
-    (key, value) => {
-      resetData(
-        {},
-      );
+  const handlePageChange = useCallback(
+    (type) => {
+      if (Math.ceil(data.length / totalShow) >= type + 1) {
+        setCurrentPage(type + 1);
+        _processData();
+      }
     },
-    [resetData]
+    [_processData, setCurrentPage, data]
   );
+
+  const queryFilter = useCallback((key, value) => {
+    console.log("_queryFilter", key, value);
+  }, []);
 
   const handleFilterDataChange = useCallback(
     (value) => {
@@ -77,9 +105,28 @@ const useIncrementPlanner = ({}) => {
     (value) => {
       console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
+      if (value) {
+        const tempData = apiData?.filter((val) => {
+          if (
+            val?.candidate?.name?.match(new RegExp(value, "ig")) ||
+            val?.candidate?.email?.match(new RegExp(value, "ig"))
+          ) {
+            return val;
+          }
+        });
+        setData(tempData);
+      } else {
+        setData(apiData);
+      }
     },
-    [queryFilter]
+    [queryFilter, _processData, data, setData, apiData]
   );
+
+  const initialApiCall = useCallback(() => {
+    if (year && type) {
+      resetData();
+    }
+  }, [type, setYear]);
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
@@ -124,9 +171,10 @@ const useIncrementPlanner = ({}) => {
     handleRowSize,
     handleSortOrderChange,
     isCalling,
-    warehouses,
+    currentData,
+    data: apiData,
+    currentPage,
     year,
-    selected,
     isInfoPanel,
     handleQueryInfo,
     listData,
@@ -137,6 +185,8 @@ const useIncrementPlanner = ({}) => {
     handleDownload,
     handleViewDetails,
     setYear,
+    toggleConfirmDialog,
+    isDialog
   };
 };
 

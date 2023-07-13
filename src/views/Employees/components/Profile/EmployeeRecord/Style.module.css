@@ -189,6 +189,12 @@
   border-top-left-radius: 10px;
   background: #28DA65 0% 0% no-repeat padding-box;
 }
+.decreaseColor{
+  width: 13px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  background: #E92828 0% 0% no-repeat padding-box;
+}
 .grossSalaryWrapper {
   display: flex;
   font-size: 0.875rem;

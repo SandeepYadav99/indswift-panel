@@ -1,33 +1,50 @@
-import {useCallback, useEffect} from "react";
+import { useCallback, useEffect } from "react";
 import { useState } from "react";
-import {serviceGetEmployeeRecord} from "../../../../../services/EmployeeRecords.services";
-import {useSelector} from "react-redux";
+import { serviceGetEmployeeRecord } from "../../../../../services/EmployeeRecords.services";
+import { useSelector } from "react-redux";
 
 function EmployeeRecordList({}) {
   const [isSidePanel, setSidePanel] = useState(false);
-  const [editData, setEditData] = useState(null);
+  const [createDD, setCreateDD] = useState(null);
   const { employeeData } = useSelector((state) => state.employee);
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [type,setType]=useState("")
 
-    useEffect(() => {
-      serviceGetEmployeeRecord({
-        employee_id: employeeData.id
-      }).then((res) => {
-        if(!res?.error) {
-          setData(res?.data);
-        }
-      });
-    }, [employeeData]);
+  useEffect(() => {
+    serviceGetEmployeeRecord({
+      employee_id: employeeData.id,
+    }).then((res) => {
+      if (!res?.error) {
+        setData(res?.data);
+      }
+    });
+  }, [employeeData]);
 
-  const handleSideToggle = useCallback(() => {
+  const handleSideToggle = useCallback((type) => {
     setSidePanel((e) => !e);
-    setEditData(null);
-  }, [setEditData, setSidePanel]);
+    setType(type)
+    setCreateDD(null);
+  }, [setSidePanel, setCreateDD,setType]);
+
+  const handleAddCandidate = useCallback(
+    (event) => {
+      setCreateDD(event.currentTarget);
+    },
+    [setCreateDD]
+  );
+
+  const handleClosedownloadCL = useCallback(() => {
+    setCreateDD(null);
+  }, [setCreateDD]);
+
   return {
     isSidePanel,
-    editData,
     handleSideToggle,
-    data
+    data,
+    createDD,
+    handleAddCandidate,
+    handleClosedownloadCL,
+    type
   };
 }
 

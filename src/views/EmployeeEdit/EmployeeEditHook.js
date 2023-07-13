@@ -440,7 +440,7 @@ function EmployeeListCreateHook() {
           t[fieldName] = text;
         }
         setForm(t);
-        if ([...salaryInfo]?.includes(fieldName)) {
+        if ([...salaryInfo,'grade_id']?.includes(fieldName)) {
           checkSalaryInfoDebouncer(t);
         }
         if (changedFields.current.indexOf(fieldName) < 0) {

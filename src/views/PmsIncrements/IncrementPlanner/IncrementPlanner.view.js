@@ -11,32 +11,36 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import useIncrementPlanner from "./IncrementPlanner.hook";
-
+import BottomIncActionView from "./component/BottomIncAction/BottomIncAction.view";
+import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
+import DialogIncComponent from "./component/confirmDialogInc";
 
 const IncrementPlanner = ({}) => {
   const {
-    handleSortOrderChange,
+    handlePageChange,
     handleFilterDataChange,
     handleSearchValueChange,
     handleRowSize,
-    handlePageChange,
+    handleSortOrderChange,
     isCalling,
+    currentData,
+    data,
+    currentPage,
     year,
+    isInfoPanel,
+    handleQueryInfo,
+    listData,
     type,
     setType,
-    configFilter,
     initialApiCall,
+    configFilter,
     handleDownload,
     handleViewDetails,
     setYear,
+    toggleConfirmDialog,
+    isDialog,
   } = useIncrementPlanner({});
 
-  const {
-    data,
-    all: allData,
-    currentPage,
-    is_fetching: isFetching,
-  } = useSelector((state) => state.employeeReport);
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
@@ -45,10 +49,7 @@ const IncrementPlanner = ({}) => {
     if (product) {
       return (
         <div className={styles.firstCellFlex}>
-          <div
-            className={styles.driverImgCont}
-            // style={{borderColor: (user.deal_of_day ? '#f44336' : (user.is_featured ? '#16b716' : 'white'))}}
-          >
+          <div className={styles.driverImgCont}>
             <img src={product.image_url} alt="" />
           </div>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
@@ -82,8 +83,7 @@ const IncrementPlanner = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{all?.location?.name}</div>,
       },
-       
-      
+
       {
         key: "designation",
         label: "DESIGNATION",
@@ -113,60 +113,84 @@ const IncrementPlanner = ({}) => {
         label: "QUALIFICATION",
         sortable: false,
         render: (temp, all) => <div>{all?.type}</div>,
-      },{
+      },
+      {
         key: "due",
         label: "INCR DUE OF MONTHS",
         sortable: false,
         render: (temp, all) => <div>{all?.type}</div>,
-      },{
+      },
+      {
         key: "rating",
         label: "NORMALIZED RATING",
         sortable: false,
         render: (temp, all) => <div>{all?.type}</div>,
-      },{
+      },
+      {
         key: "final",
         label: "FINAL RATING BY HOD",
         sortable: false,
         render: (temp, all) => <div>{all?.type}</div>,
-      },{
+      },
+      {
         key: "promotion",
         label: "PROMOTION",
         sortable: false,
         render: (temp, all) => <div>{all?.type}</div>,
-      },{
+      },
+      {
         key: "cat",
         label: "Performance cat.",
         sortable: false,
         render: (temp, all) => <div>{all?.type}</div>,
-      },{
+      },
+      {
         key: "salary",
         label: "G. Salary",
         sortable: false,
         render: (temp, all) => <div>{all?.type}</div>,
       },
       {
-        key: "status",
-        label: "Status",
-        sortable: true,
-        render: (temp, all) => <div>{renderStatus(all.status)}</div>,
+        key: "pli",
+        label: "PLI",
+        sortable: false,
+        render: (temp, all) => <div>{all?.type}</div>,
       },
       {
-        key: "user_id",
-        label: "Action",
-        render: (temp, all) => (
-          <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-          </div>
-        ),
+        key: "incremental",
+        label: "Current incremental salary",
+        sortable: false,
+        render: (temp, all) => <div>{all?.type}</div>,
+      },
+      {
+        key: "effective",
+        label: "effective increment",
+        sortable: false,
+        render: (temp, all) => <div>{all?.type}</div>,
+      },
+      {
+        key: "new_salary",
+        label: "new salary",
+        sortable: false,
+        render: (temp, all) => <div>{all?.type}</div>,
+      },
+      {
+        key: "reviewer",
+        label: "Reviewer",
+        sortable: false,
+        render: (temp, all) => <div>{all?.type}</div>,
+      },
+      {
+        key: "HOD",
+        label: "Hod",
+        sortable: false,
+        render: (temp, all) => <div>{all?.type}</div>,
+      },
+      {
+        key: "overall",
+        label: "Overal  HOD",
+        sortable: false,
+        render: (temp, all) => <div>{all?.type}</div>,
       },
     ];
   }, [renderStatus, renderFirstCell, isCalling]);
@@ -181,14 +205,16 @@ const IncrementPlanner = ({}) => {
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: data,
-      count: allData.length,
-      page: currentPage,
+      data: currentData,
+      count: data?.length,
+      page: currentPage - 1,
+      rowsPerPage: 10,
+      allRowSelected: false,
+      showSelection: false,
     };
 
     return { datatableFunctions, datatable };
   }, [
-    allData,
     tableStructure,
     handleSortOrderChange,
     handlePageChange,
@@ -256,7 +282,7 @@ const IncrementPlanner = ({}) => {
         <div>
           <div>
             <FilterComponent
-              is_progress={isFetching}
+              is_progress={isCalling}
               filters={configFilter}
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}
@@ -271,6 +297,18 @@ const IncrementPlanner = ({}) => {
           </div>
         </div>
       </PageBox>
+      <DialogIncComponent
+        isOpen={isDialog}
+        handleClose={toggleConfirmDialog}
+        // handleConfirm={handleDialogConfirm}
+      />
+      <DialogIncComponent />
+      <BottomPanelComponent open={true}>
+        <BottomIncActionView
+          handleSend={toggleConfirmDialog}
+          // isSubmitting={isSending}
+        />
+      </BottomPanelComponent>
     </div>
   );
 };

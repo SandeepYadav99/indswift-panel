@@ -543,7 +543,7 @@ function EmployeeListCreateHook({ location }) {
       setForm(t);
       shouldRemoveError && removeError(fieldName);
 
-      if ([...salaryInfo]?.includes(fieldName)) {
+      if ([...salaryInfo,'grade_id']?.includes(fieldName)) {
         checkSalaryInfoDebouncer(t);
       }
     }, [removeError, form, setForm, checkSalaryInfoDebouncer]);

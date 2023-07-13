@@ -13,7 +13,7 @@ import {
 import LogUtils from "../../../libs/LogUtils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import RouteName from "../../../routes/Route.name";
-import { serviceGetSalaryInfoInfo } from "../../../services/Employee.service";
+import { serviceGetSalaryInfoInfoMonthly } from "../../../services/Employee.service";
 import debounce from 'lodash.debounce';
 
 const SALARY_KEYS = [
@@ -335,7 +335,7 @@ function CandidateOfferLetterHook({location}) {
               }
             }
           }
-          let req = serviceGetSalaryInfoInfo({
+          let req = serviceGetSalaryInfoInfoMonthly({
             grade_id: candidateData?.job_opening?.grade?.id,
             ...filteredForm,
           });

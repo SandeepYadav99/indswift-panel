@@ -5,7 +5,7 @@ import styles from "./Style.module.css";
 function EmployeeList({className, data}) {
     return (
         <div className={styles.recordItem}>
-            <div className={styles.colorCode}></div>
+            <div className={data?.type === 'POSITIVE' ? styles.colorCode : styles.decreaseColor}></div>
             <div className={styles.grossWrapper21}>
                 <div className={className ? className : styles.grossSalaryWrapper}>
                     <div className={styles.tableComponentField}>
