@@ -62,6 +62,7 @@ const CustomAutoComplete = ({isError, errorText, icon, label, onChange, onTextCh
             onTextChange && onTextChange(value);
         },
         ...(autoCompleteProps ? autoCompleteProps : {}),
+        ...rest
     });
 
 

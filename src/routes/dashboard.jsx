@@ -121,7 +121,7 @@ const PmsSiteReview  = lazy(() => import("../views/Pms/PmsSiteBatches/PmsSiteBat
 const PMSSitePendingReview  = lazy(() => import("../views/Pms/PMSSitePendingReview/PMSSitePendingReview.view"));
 const EmployeeImprest = lazy (()=> import("../views/ClaimImprest/EmployeeImprest/EmployeeImprest.view"));
 const ImprestApproval =lazy(()=> import ("../views/ClaimImprest/ImprestApproval/ImprestApproval.container"));
-const IncrementMaster =lazy(()=>import("../views/IncrementMaster/IncrementMaster.view"))
+const IncrementMaster =lazy(()=>import("../views/Pms/IncrementMaster/IncrementMaster.view"))
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [

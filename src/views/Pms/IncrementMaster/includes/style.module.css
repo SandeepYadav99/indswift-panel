@@ -111,3 +111,8 @@
     font-size: 0.8rem !important;
     padding-top: 10px !important;
 }
+
+.levelCont {
+    width: 50px;
+    text-align: center;
+}

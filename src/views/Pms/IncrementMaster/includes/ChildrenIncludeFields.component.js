@@ -11,7 +11,7 @@ import {
   IconButton,
 } from "@material-ui/core";
 import styles from "./style.module.css";
-import { isAlpha, isNum } from "../../../libs/RegexUtils";
+import { isAlpha, isNum } from "../../../../libs/RegexUtils";
 
 const useStyles = {
   toggleDiv: {
@@ -46,7 +46,6 @@ const ChildrenIncludeFields = ({
   const handleChange = (e) => {
     const name = e?.target?.name;
     const value = e?.target?.value;
-    console.log('name',value)
     // if (name === "dob") {
     //   changeData(index,{['dob'] : value})
     // } else {
@@ -61,7 +60,9 @@ const changeTextData=(value,key)=>{
     <div>
       <div className={styles.flexContainer}>
         <div className={styles.firstRow}>
-          
+          <div className={styles.levelCont}>
+            L{index+1}
+          </div>
           <div className={styles.flex1}>
             <TextField
               error={errors?.min}
@@ -72,6 +73,7 @@ const changeTextData=(value,key)=>{
               margin={"dense"}
               variant={"outlined"}
               label={"Min"}
+              type={'number'}
             />
           </div>
           <div className={styles.flex1}>
@@ -84,6 +86,7 @@ const changeTextData=(value,key)=>{
               margin={"dense"}
               variant={"outlined"}
               label={"Max"}
+              type={'number'}
             />
           </div>
           <div className={styles.flex1}>
@@ -95,7 +98,8 @@ const changeTextData=(value,key)=>{
               name={"percentage"}
               margin={"dense"}
               variant={"outlined"}
-              label={"Percenatge"}
+              label={"Percentage"}
+              type={'number'}
             />
           </div>
           {/* <div className={"textCenter"}>

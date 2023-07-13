@@ -22,3 +22,7 @@ export async function serviceUploadEmployeeInduction(params) {
 export async function serviceChangeEmployeeCAGR(params) {
     return await postRequest('app/settings/update/cagr', params);
 }
+
+export async function servicePmsUpdateIncrements(params){
+    return await postRequest('pms/update/increments', params);
+}

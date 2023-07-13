@@ -12,7 +12,7 @@ import React, {
 import IncludeFields from "./ChildrenIncludeFields.component";
 import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
-import LogUtils from "../../../libs/LogUtils";
+import LogUtils from "../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
@@ -222,19 +222,6 @@ const ChildrenIncludeForm = (
   return (
     <>
       {renderFields}
-
-      {/* <div>
-        <ButtonBase
-          className={styles.addition}
-          label={"+"}
-          onClick={() => {
-            handlePress("ADDITION", 0);
-          }}
-        >
-          <Add fontSize={"small"}  /> <span>Add Children</span>
-        </ButtonBase>
-      </div> */}
-      {/*</div>*/}
     </>
   );
 };

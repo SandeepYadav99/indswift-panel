@@ -1,20 +1,20 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {isAlpha, isAlphaNum, isAlphaNumChars, isNum, isSpace} from "../../libs/RegexUtils";
-import useDebounce from "../../hooks/DebounceHook";
-import LogUtils from "../../libs/LogUtils";
+import {isAlpha, isAlphaNum, isAlphaNumChars, isNum, isSpace} from "../../../libs/RegexUtils";
+import useDebounce from "../../../hooks/DebounceHook";
+import LogUtils from "../../../libs/LogUtils";
 import {
     serviceCheckDepartment,
     serviceCreateDepartment,
     serviceGetDepartmentDetails, serviceUpdateDepartment
-} from "../../services/Department.service";
-import historyUtils from "../../libs/history.utils";
-import SnackbarUtils from "../../libs/SnackbarUtils";
+} from "../../../services/Department.service";
+import historyUtils from "../../../libs/history.utils";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 import {useParams} from "react-router";
-import Constants from "../../config/constants";
-import { serviceGetList } from "../../services/Common.service";
+import Constants from "../../../config/constants";
+import { serviceGetList } from "../../../services/Common.service";
+import {servicePmsUpdateIncrements} from "../../../services/AppSettings.service";
 
 const initialForm = {
-    slab: '',
     grade_ids_one: [],
     grade_ids_two: [],
     is_active: true
@@ -42,34 +42,10 @@ const useDepartmentDetail = ({}) => {
         });
 
     }, []);
-    // console.log('list',listData)
-
-    // const checkCodeValidation = useCallback(() => {
-    //     serviceCheckDepartment({code: form?.code, id: id ? id : null}).then((res) => {
-    //         if (!res.error) {
-    //             const errors = JSON.parse(JSON.stringify(errorData));
-    //             if (res.data.is_exists) {
-    //                 errors['code'] = 'Department Code Exists'
-    //                 setErrorData(errors)
-    //             } else {
-    //                 delete errors.code;
-    //                 setErrorData(errors);
-    //             }
-    //         }
-    //     });
-    // }, [errorData, setErrorData, form?.code, id]);
-
-    // useEffect(() => {
-    //     if (codeDebouncer) {
-    //         checkCodeValidation();
-    //     }
-    // }, [codeDebouncer])
-
-
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = ['name','code'];
+        let required = ['grade_ids_one','grade_ids_two'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
@@ -85,38 +61,46 @@ const useDepartmentDetail = ({}) => {
         return errors;
     }, [form, errorData]);
 
-    // const submitToServer = useCallback(() => {
-    //     if (!isSubmitting) {
-    //         setIsSubmitting(true);
-    //         let req = serviceCreateDepartment;
-    //         if (id) {
-    //             req = serviceUpdateDepartment;
-    //         }
-    //         req({...form}).then((res) => {
-    //             LogUtils.log('response', res);
-    //             if (!res.error) {
-    //                 historyUtils.push('/departments');
-    //             } else {
-    //                 SnackbarUtils.success(res.message);
-    //             }
-    //             setIsSubmitting(false);
-    //         });
-    //     }
-    // }, [form, isSubmitting, setIsSubmitting, id]);
+    const submitToServer = useCallback(() => {
+        if (!isSubmitting) {
+            setIsSubmitting(true);
+            const data = [
+                {
+                    slab: "SLAB_ONE",
+                    grade_ids: form?.grade_ids_one?.map(val => val.id),
+                    data: slabOneRef.current.getData(),
+                },
+                {
+                    slab: "SLAB_TWO",
+                    grade_ids: form?.grade_ids_one?.map(val => val.id),
+                    data: slabTwoRef.current.getData(),
+                },
+            ];
+            servicePmsUpdateIncrements({
+                data: data
+            }).then((res) => {
+                if (!res.error) {
+                    historyUtils.goBack();
+                    SnackbarUtils.success('Data Saved Successfully');
+                } else {
+                    SnackbarUtils.error(res?.message);
+                }
+                setIsSubmitting(false);
+            });
+        }
+    }, [form, isSubmitting, setIsSubmitting, id]);
 
     const handleSubmit = useCallback(async () => {
-        // const errors = checkFormValidation();
-        // const isIncludesValidOne = slabOneRef.current.isValid();
-        // const isIncludesValidTwo = slabTwoRef.current.isValid();
+        const errors = checkFormValidation();
+        const isIncludesValidOne = slabOneRef.current.isValid();
+        const isIncludesValidTwo = slabTwoRef.current.isValid();
+        if (Object.keys(errors).length > 0 || !isIncludesValidOne || !isIncludesValidTwo) {
+            setErrorData(errors);
+            return true;
+        }
 
-        // if (Object.keys(errors).length > 0 || !isIncludesValidOne || !isIncludesValidTwo) {
-        //     setErrorData(errors);
-        //     return true;
-        // }
-        console.log('fro',form)
-        console.log('iowowj',slabOneRef.current.getData());
 
-        // submitToServer();
+        submitToServer();
 
     }, [
         checkFormValidation,
