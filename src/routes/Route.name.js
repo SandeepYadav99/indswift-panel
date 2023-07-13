@@ -158,5 +158,6 @@ export default {
   PMS_INCREMENT_PLANNER : '/increment/planner',
 
   IRF_LOGIN:'/irf/login',
-  IRF_FORM:'/irf/form'
+  IRF_FORM:'/irf/form',
+  INCREMENT_MASTER:'/increment-master'
 };
