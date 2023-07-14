@@ -7,6 +7,9 @@ import TravelUpperCard from "../TravelCreate/component/TravelUpperCard/TravelUpp
 import Upper from "./component/upper/Upper";
 import history from "../../../libs/history.utils";
 import { removeUnderScore } from "../../../helper/helper";
+import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
+import ClosureDialog from "./component/ClosureDialog/ClosureDialog.view";
+
 function TravelDetail() {
   const {
     id,
@@ -17,11 +20,13 @@ function TravelDetail() {
     ischangeDialog,
     toggleRejectDialog,
     rejectDialog,
+    toggleClosureDialog,
+    closureDialog,
   } = useTravelDetail({});
 
   return (
     <div className={styles.claimListWrapper}>
-      <div style={{marginBottom:'20px'}}>
+      <div style={{ marginBottom: "20px" }}>
         <ButtonBase onClick={() => history.goBack()}>
           <ArrowBackIosIcon fontSize={"small"} />{" "}
           <span className={"capitalize"}>
@@ -152,7 +157,8 @@ function TravelDetail() {
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Value of Expense:</span>
-                    {employeeDetail?.exception?.expense_value && `₹ ${employeeDetail?.exception?.expense_value}`}
+                    {employeeDetail?.exception?.expense_value &&
+                      `₹ ${employeeDetail?.exception?.expense_value}`}
                   </div>
                 </div>
               </div>
@@ -160,53 +166,53 @@ function TravelDetail() {
           </div>
         </div>
       </div>
-      {
-        employeeDetail?.voucherDetails?.length > 0 && <div className={styles.plainPaper}>
-        <div className={styles.newContainer}>
-          <div className={styles.heading}>Travel and Accommodation Vouchers</div>
-          <div className={styles.commentContainer}>
-            {employeeDetail?.voucherDetails &&
-              employeeDetail?.voucherDetails.map((item, index) => (
-                <div className={styles.otherWrap}>
-                  <div className={styles.mainFlex}>
-                    <div className={styles.left}>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Name:</span>
-                        {item?.name}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>
-                          Amount :
-                        </span>
-                        { item?.amount && `₹ ${item?.amount}`}
-                      </div>
-                     
-                    </div>
-                    <div className={styles.right}>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Type:</span>
-                        {item?.type}
-                      </div>
-                      {item?.document && (
+      {employeeDetail?.voucherDetails?.length > 0 && (
+        <div className={styles.plainPaper}>
+          <div className={styles.newContainer}>
+            <div className={styles.heading}>
+              Travel and Accommodation Vouchers
+            </div>
+            <div className={styles.commentContainer}>
+              {employeeDetail?.voucherDetails &&
+                employeeDetail?.voucherDetails.map((item, index) => (
+                  <div className={styles.otherWrap}>
+                    <div className={styles.mainFlex}>
+                      <div className={styles.left}>
                         <div className={styles.key}>
-                          <a href={item?.document} target="_blank">
-                            <div className={styles.hyperlinkText}>
-                              View Attachement
-                            </div>
-                          </a>
+                          <span className={styles.value}>Name:</span>
+                          {item?.name}
                         </div>
-                      )}
+                        <div className={styles.key}>
+                          <span className={styles.value}>Amount :</span>
+                          {item?.amount && `₹ ${item?.amount}`}
+                        </div>
+                      </div>
+                      <div className={styles.right}>
+                        <div className={styles.key}>
+                          <span className={styles.value}>Type:</span>
+                          {item?.type}
+                        </div>
+                        {item?.document && (
+                          <div className={styles.key}>
+                            <a href={item?.document} target="_blank">
+                              <div className={styles.hyperlinkText}>
+                                View Attachement
+                              </div>
+                            </a>
+                          </div>
+                        )}
+                      </div>
                     </div>
+                    {employeeDetail?.voucherDetails?.length !== index + 1 && (
+                      <div className={styles.verti}></div>
+                    )}
                   </div>
-                  {employeeDetail?.voucherDetails?.length !==
-                    index + 1 && <div className={styles.verti}></div>}
-                </div>
-              ))}
+                ))}
+            </div>
           </div>
         </div>
-      </div>
-      }
-      
+      )}
+
       {employeeDetail?.comments && (
         <div className={styles.plainPaper}>
           <div className={styles.newContainer}>
@@ -272,6 +278,24 @@ function TravelDetail() {
             </div>
           </div>
         </div>
+      )}
+      <ClosureDialog
+        isOpen={closureDialog}
+        handleToggle={toggleClosureDialog}
+        data={employeeDetail}
+      />
+      {employeeDetail?.status &&  employeeDetail?.status !== "CLOSED" && (
+        <BottomPanelComponent open={true}>
+          <div className={styles.btnWrap}>
+            <ButtonBase
+              aria-haspopup="true"
+              onClick={toggleClosureDialog}
+              className={"createBtn"}
+            >
+              TRAVEL CLOSURE
+            </ButtonBase>
+          </div>
+        </BottomPanelComponent>
       )}
     </div>
   );

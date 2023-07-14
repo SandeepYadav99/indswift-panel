@@ -31,3 +31,6 @@ export async function serviceApproveTravel(params) {
 export async function serviceRejectTravel(params) {
     return await postRequest('travel/reject', params);
 }
+export async function serviceClosuretravel(params) {
+    return await postRequest('travel/planner/mark/closed', params);
+}

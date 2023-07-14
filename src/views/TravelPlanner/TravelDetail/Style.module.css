@@ -94,6 +94,12 @@
   .newContainer{
     font-size: 0.7rem;
   }
+  .btnWrap{
+    margin: 15px 10px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 40px;
+  }
   .commentWrap{
     display: flex;
     flex-direction: column;
