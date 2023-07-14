@@ -12,7 +12,7 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 import {useParams} from "react-router";
 import Constants from "../../../config/constants";
 import { serviceGetList } from "../../../services/Common.service";
-import {servicePmsUpdateIncrements} from "../../../services/AppSettings.service";
+import {serviceGetPmsIncrements, servicePmsUpdateIncrements} from "../../../services/AppSettings.service";
 
 const initialForm = {
     grade_ids_one: [],
@@ -21,7 +21,7 @@ const initialForm = {
 };
 
 const useDepartmentDetail = ({}) => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [errorData, setErrorData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({...initialForm});
@@ -31,16 +31,49 @@ const useDepartmentDetail = ({}) => {
     const [listData,setListData]=useState();
     const slabOneRef = useRef(null);
     const slabTwoRef = useRef(null);
+    const [editData , setEditData] = useState([]);
+
+    const getListFromGradeIds = useCallback((ids, grades) => {
+        return grades.filter(grade => ids.indexOf(grade?.id) >=0 );
+    }, []);
+
+    useEffect(() => {
+        if (!isLoading) {
+            setTimeout(() => {
+                editData.forEach((val, ind) => {
+                    ind === 0 && slabOneRef?.current.setData(val.data);
+                    ind === 1 && slabTwoRef?.current.setData(val.data);
+                })
+            }, 0);
+        }
+    }, [isLoading]);
 
     useEffect(() => {
         serviceGetList(["GRADES"]).then((res) => {
-            console.log('EJFNE',res)
             if (!res.error) {
+                const listData = res.data?.GRADES;
               setListData(res.data);
-            //   console.log('list',listData)
+              const tForm = {...form};
+                serviceGetPmsIncrements({}).then((res) => {
+                    if (!res.error) {
+                        setEditData(res.data);
+                        res.data.forEach((incr) => {
+                            const grades = getListFromGradeIds(incr.grade_ids, listData);
+                            if (incr.slab === 'SLAB_ONE') {
+                                tForm['grade_ids_one'] = grades;
+                            } else {
+                                tForm['grade_ids_two'] = grades;
+                            }
+                            setForm(tForm);
+                            setTimeout(() => {
+                                setIsLoading(false);
+                            }, 0);
+
+                        });
+                    }
+                });
             }
         });
-
     }, []);
 
     const checkFormValidation = useCallback(() => {
@@ -72,7 +105,7 @@ const useDepartmentDetail = ({}) => {
                 },
                 {
                     slab: "SLAB_TWO",
-                    grade_ids: form?.grade_ids_one?.map(val => val.id),
+                    grade_ids: form?.grade_ids_two?.map(val => val.id),
                     data: slabTwoRef.current.getData(),
                 },
             ];

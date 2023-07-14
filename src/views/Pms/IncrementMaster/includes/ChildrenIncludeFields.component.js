@@ -12,6 +12,8 @@ import {
 } from "@material-ui/core";
 import styles from "./style.module.css";
 import { isAlpha, isNum } from "../../../../libs/RegexUtils";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 const useStyles = {
   toggleDiv: {
@@ -35,7 +37,6 @@ const useStyles = {
 const ChildrenIncludeFields = ({
   index,
   changeData,
-  variants,
   handlePress,
   data,
   errors,
@@ -67,7 +68,7 @@ const changeTextData=(value,key)=>{
             <TextField
               error={errors?.min}
               onChange={handleChange}
-              // value={data?.min}
+              value={data?.min}
               fullWidth={true}
               name={"min"}
               margin={"dense"}
@@ -80,7 +81,7 @@ const changeTextData=(value,key)=>{
           <TextField
               error={errors?.max}
               onChange={handleChange}
-              // value={data?.max}
+              value={data?.max}
               fullWidth={true}
               name={"max"}
               margin={"dense"}
@@ -93,7 +94,7 @@ const changeTextData=(value,key)=>{
           <TextField
               error={errors?.percentage}
               onChange={handleChange}
-              // value={data?.percentage}
+              value={data?.percentage}
               fullWidth={true}
               name={"percentage"}
               margin={"dense"}
@@ -101,6 +102,24 @@ const changeTextData=(value,key)=>{
               label={"Percentage"}
               type={'number'}
             />
+          </div>
+          <div className={styles.flex1}>
+            <FormControl variant={'outlined'} margin={'dense'} fullWidth>
+              <Select
+                  disableUnderline
+                  // value={''}
+                  // IconComponent={ExpandMore}
+                  error={errors?.criteria}
+                  onChange={handleChange}
+                  value={data?.criteria}
+                  fullWidth={true}
+                  name={'criteria'}
+              >
+                <MenuItem value={'NONE'}>NONE</MenuItem>
+                <MenuItem value={'PIP'}>PIP</MenuItem>
+                <MenuItem value={'REPLACE'}>REPLACE</MenuItem>
+              </Select>
+            </FormControl>
           </div>
           {/* <div className={"textCenter"}>
             <ButtonBase
