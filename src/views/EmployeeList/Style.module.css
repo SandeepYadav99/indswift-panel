@@ -102,12 +102,7 @@
 .lhs {
   flex: 0.5;
 }
-.editBtnWrap{
-  display: flex;
-  padding: 10px 0;
-  align-items: center;
-  justify-content: center;
-}
+
 .newLine {
   height: 4px;
   width: 30px;

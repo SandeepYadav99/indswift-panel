@@ -13,8 +13,6 @@ import {
 import LogUtils from "../../../libs/LogUtils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import RouteName from "../../../routes/Route.name";
-import { serviceGetSalaryInfoInfoMonthly } from "../../../services/Employee.service";
-import debounce from 'lodash.debounce';
 
 const SALARY_KEYS = [
     "basic_salary",
@@ -61,27 +59,7 @@ const SALARY_KEYS = [
     "earning2_vpf",
     "deduction_vpf",
     "stability_incentive",
-    "deduction_vpf_pct",
-    "gross_component",
-    'deputation_allowance',
-    'nps_part_e'
 ];
-
-const BOOLEAN_KEYS = [
-  "is_pug",
-  "is_pug_manual",
-  "is_helper",
-  "is_helper_manual",
-  "is_food_coupons",
-  "is_food_coupons_manual",
-  "is_gift_coupons",
-  "is_lta",
-  "is_super_annuation",
-  "is_nps",
-  "is_em_pf",
-  "is_deduction_vpf",
-];
-
 
 function CandidateOfferLetterHook({location}) {
     const initialForm = {
@@ -141,23 +119,6 @@ function CandidateOfferLetterHook({location}) {
         designation: null,
         cadre: '',
         grade: '',
-        grade_id:'',
-        is_pug: "NO",
-        is_pug_manual: "NO",
-        is_helper: "NO",
-        is_helper_manual: "NO",
-        is_food_coupons: "NO",
-        is_food_coupons_manual: "NO",
-        is_gift_coupons: "NO",
-        is_lta: "NO",
-        is_super_annuation: "NO",
-        is_nps: "NO",
-        is_em_pf: "NO",
-        is_deduction_vpf: "NO",
-        deduction_vpf_pct: 0,
-        gross_component:0,
-        deputation_allowance:0,
-        nps_part_e:0
     };
 
     const [form, setForm] = useState({...initialForm});
@@ -168,10 +129,7 @@ function CandidateOfferLetterHook({location}) {
         LOCATIONS: [],
         DESIGNATIONS: []
     });
-    const [salaryInfo, setSalaryInfo] = useState([
-     ...SALARY_KEYS,
-     ...BOOLEAN_KEYS,
-    ]);
+
 
     const {candidateId, jobId, replacingId, vacancyId} = useMemo(() => {
         return {
@@ -191,7 +149,6 @@ function CandidateOfferLetterHook({location}) {
                     ...form,
                     grade: data?.grade?.code,
                     cadre: data?.cadre?.code,
-                    grade_id:data?.grade?.id
                 });
             }
         }
@@ -236,12 +193,7 @@ function CandidateOfferLetterHook({location}) {
                     if (index >= 0) {
                         offerLetter.reporting_location = listData?.LOCATIONS[index];
                     }
-                    const updatedForm = {};
-                    for (const key in offerLetter?.salary) {
-                      if (BOOLEAN_KEYS.includes(key)) {
-                        updatedForm[key] = offerLetter?.salary[key] ? "YES" : "NO";
-                      }
-                    }
+
                     setTimeout(() => {
                       setForm({
                         ...initialForm,
@@ -249,7 +201,6 @@ function CandidateOfferLetterHook({location}) {
                         ...offerLetter?.salary,
                         designation: designation,
                         letter_id: offerLetter?.id,
-                        ...updatedForm
                       });
                     }, 0);
                 }
@@ -257,9 +208,6 @@ function CandidateOfferLetterHook({location}) {
         }
     }, [candidateId, jobId, setForm]);
 
-    const checkSalaryInfoDebouncer = useMemo(() => {
-        return debounce((e) => {checkForSalaryInfo(e)}, 1000);
-          }, [candidateData]);
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
@@ -281,11 +229,11 @@ function CandidateOfferLetterHook({location}) {
             }
         });
 
-        // SALARY_KEYS.forEach((val) => {
-        //     if (form?.[val] && form?.[val] < 0) {
-        //         errors[val] = true;
-        //     }
-        // });
+        SALARY_KEYS.forEach((val) => {
+            if (form?.[val] && form?.[val] < 0) {
+                errors[val] = true;
+            }
+        });
         if (form?.joining_date && form?.expected_response_date) {
             const joinDate = new Date(form?.joining_date);
             const expectedDate = new Date(form?.expected_response_date)
@@ -320,45 +268,6 @@ function CandidateOfferLetterHook({location}) {
         },
         [setErrorData, errorData]
     );
-    const checkForSalaryInfo = (data) => {
-        if (data?.grade_id) {
-          let filteredForm = {};
-          for (let key in data) {
-            if (salaryInfo.includes(key)) {
-              if (BOOLEAN_KEYS.includes(key)) {
-                if (data[key] === "YES") {
-                  filteredForm[key] = true;
-                } else if (data[key] === "NO") {
-                  filteredForm[key] = false;
-                }
-              } else {
-                filteredForm[key] = parseInt(data[key]);
-              }
-            }
-          }
-          let req = serviceGetSalaryInfoInfoMonthly({
-            grade_id: data?.grade_id,
-            ...filteredForm,
-          });
-          req.then((res) => {
-            const salaryData = res.data;
-            const booleanData = {};
-            for (const key in salaryData) {
-              if (salaryData.hasOwnProperty(key)) {
-                let value = salaryData[key];
-                if (BOOLEAN_KEYS.includes(key)) {
-                  value = value ? "YES" : "NO";
-                }
-                booleanData[key] = value;
-              }
-            }
-            setForm({ ...data, ...booleanData });
-          });
-        } else {
-          SnackbarUtils.error("Please Select the Grade");
-        }
-      };
-
     const changeTextData = useCallback(
         (text, fieldName) => {
             let shouldRemoveError = true;
@@ -370,21 +279,15 @@ function CandidateOfferLetterHook({location}) {
             } else {
                 t[fieldName] = text;
             }
-            if(fieldName === 'designation'){
-                t['grade_id'] = text?.grade?.id
-            }
             setForm(t);
             shouldRemoveError && removeError(fieldName);
-            if ([...salaryInfo,'designation']?.includes(fieldName)) {
-                checkSalaryInfoDebouncer(t);
-              }
         },
-        [removeError, form, setForm,checkSalaryInfoDebouncer]
+        [removeError, form, setForm]
     );
     const onBlurHandler = useCallback(
         (type) => {
             if (form?.[type]) {
-                changeTextData(form?.[type], type);
+                changeTextData(form?.[type].trim(), type);
             }
         },
         [changeTextData]
@@ -393,18 +296,10 @@ function CandidateOfferLetterHook({location}) {
     const submitToServer = useCallback(() => {
         if (!isSubmitting) {
             setIsSubmitting(true);
-            const updatedForm = {};
-        for (const key in initialForm) {
-        if (BOOLEAN_KEYS.includes(key)) {
-            updatedForm[key] = (form[key] === 'YES');
-        } else {
-             updatedForm[key] = form[key];
-        }
-        }
             serviceCreateCandidateOfferLetter({
                 candidate_id: candidateId,
                 job_id: jobId,
-                ...updatedForm,
+                ...form,
                 location_id: form?.reporting_location?.id,
                 vacancy_id: vacancyId,
                 replacing_id: replacingId,
@@ -421,8 +316,6 @@ function CandidateOfferLetterHook({location}) {
                 }
                 setIsSubmitting(false);
             });
-                setIsSubmitting(false);
-
         }
     }, [candidateId, jobId, form, isSubmitting, setIsSubmitting, replacingId, vacancyId]);
 
