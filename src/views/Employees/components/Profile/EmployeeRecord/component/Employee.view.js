@@ -60,7 +60,7 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
                 changeTextData(value, "star_type");
               }}
             >
-              <MenuItem value="RED">LETTER STAR</MenuItem>
+              <MenuItem value="RED">RED STAR</MenuItem>
               <MenuItem value="ORANGE">ORANGE STAR</MenuItem>
               <MenuItem value="YELLOW">YELLOW STAR</MenuItem>
               <MenuItem value="PINK">PINK STAR</MenuItem>

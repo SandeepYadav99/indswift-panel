@@ -141,6 +141,7 @@ function CandidateOfferLetterHook({location}) {
         designation: null,
         cadre: '',
         grade: '',
+        grade_id:'',
         is_pug: "NO",
         is_pug_manual: "NO",
         is_helper: "NO",
@@ -190,6 +191,7 @@ function CandidateOfferLetterHook({location}) {
                     ...form,
                     grade: data?.grade?.code,
                     cadre: data?.cadre?.code,
+                    grade_id:data?.grade?.id
                 });
             }
         }
@@ -318,9 +320,8 @@ function CandidateOfferLetterHook({location}) {
         },
         [setErrorData, errorData]
     );
-    
     const checkForSalaryInfo = (data) => {
-        if (candidateData?.job_opening?.grade?.id) {
+        if (data?.grade_id) {
           let filteredForm = {};
           for (let key in data) {
             if (salaryInfo.includes(key)) {
@@ -336,7 +337,7 @@ function CandidateOfferLetterHook({location}) {
             }
           }
           let req = serviceGetSalaryInfoInfoMonthly({
-            grade_id: candidateData?.job_opening?.grade?.id,
+            grade_id: data?.grade_id,
             ...filteredForm,
           });
           req.then((res) => {
@@ -369,9 +370,12 @@ function CandidateOfferLetterHook({location}) {
             } else {
                 t[fieldName] = text;
             }
+            if(fieldName === 'designation'){
+                t['grade_id'] = text?.grade?.id
+            }
             setForm(t);
             shouldRemoveError && removeError(fieldName);
-            if ([...salaryInfo]?.includes(fieldName)) {
+            if ([...salaryInfo,'designation']?.includes(fieldName)) {
                 checkSalaryInfoDebouncer(t);
               }
         },

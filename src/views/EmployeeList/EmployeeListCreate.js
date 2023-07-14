@@ -1151,6 +1151,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
+              disabled={empFlag ? true : false}
               isError={errorData?.is_pug}
               errorText={errorData?.is_pug}
               label={"Professional Upgradation Applicable"}
@@ -1184,6 +1185,7 @@ const EmployeeListCreate = ({ location }) => {
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
+                disabled={empFlag ? true : false}
                 onClick={() => {
                   changeTextData("YES", "is_pug_manual");
                 }}
@@ -1195,6 +1197,7 @@ const EmployeeListCreate = ({ location }) => {
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
+                disabled={empFlag ? true : false}
                 onClick={() => {
                   changeTextData("NO", "is_pug_manual");
                 }}
@@ -1207,6 +1210,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
+              disabled={empFlag ? true : false}
               isError={errorData?.is_helper}
               errorText={errorData?.is_helper}
               label={"Helper Allowance Applicable"}
@@ -1238,6 +1242,7 @@ const EmployeeListCreate = ({ location }) => {
           {/* {form?.is_helper_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
+                disabled={empFlag ? true : false}
                 className={"tableActionBtn"}
                 color="secondary"
                 onClick={() => {
@@ -1249,6 +1254,7 @@ const EmployeeListCreate = ({ location }) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
+                disabled={empFlag ? true : false}
                 className={"tableActionBtn"}
                 color="secondary"
                 onClick={() => {
@@ -1263,6 +1269,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
+              disabled={empFlag ? true : false}
               isError={errorData?.is_food_coupons}
               errorText={errorData?.is_food_coupons}
               label={"Food Coupons Applicable"}
@@ -1294,6 +1301,7 @@ const EmployeeListCreate = ({ location }) => {
           {/* {form?.is_food_coupons_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
+                disabled={empFlag ? true : false}
                 className={"tableActionBtn"}
                 color="secondary"
                 onClick={() => {
@@ -1305,6 +1313,7 @@ const EmployeeListCreate = ({ location }) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
+                disabled={empFlag ? true : false}
                 className={"tableActionBtn"}
                 color="secondary"
                 onClick={() => {
@@ -1319,6 +1328,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
+              disabled={empFlag ? true : false}
               isError={errorData?.is_gift_coupons}
               errorText={errorData?.is_gift_coupons}
               label={"Gift Coupons Applicable"}
@@ -1351,6 +1361,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
+              disabled={empFlag ? true : false}
               isError={errorData?.is_lta}
               errorText={errorData?.is_lta}
               label={"LTA Applicable"}
@@ -1383,6 +1394,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
+              disabled={empFlag ? true : false}
               isError={errorData?.is_super_annuation}
               errorText={errorData?.is_super_annuation}
               label={"Superannuation Applicable"}
@@ -1416,6 +1428,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
+              disabled={empFlag ? true : false}
               isError={errorData?.is_nps}
               errorText={errorData?.is_nps}
               label={"NPS Applicable"}
@@ -1448,6 +1461,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
+              disabled={empFlag ? true : false}
               isError={errorData?.is_em_pf}
               errorText={errorData?.is_em_pf}
               label={"Em PF- Deduction Part Applicable"}
@@ -1578,6 +1592,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
+              disabled={empFlag ? true : false}
               isError={errorData?.is_deduction_vpf}
               errorText={errorData?.is_deduction_vpf}
               label={"VPF Applicable"}
@@ -1780,6 +1795,7 @@ const EmployeeListCreate = ({ location }) => {
             <CustomTextField
               // disabled={true}
               type={"number"}
+              disabled={empFlag ? true : false}
               isError={errorData?.insurance}
               errorText={errorData?.insurance}
               label={"Medical Insurance Premium"}
