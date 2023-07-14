@@ -111,7 +111,6 @@ function EmployeeListCreateHook({ location }) {
     bank_account_no: "",
     bank_name: "",
     ifsc: "",
-    higher_education:"",
     before_experience: 0,
     company_experience: 0,
     total_experience: 0,
