@@ -72,8 +72,27 @@ const IncrementPlanner = ({}) => {
         label: "EMPLOYEE NAME",
         sortable: false,
         render: (temp, all) => (
-          <div>
-            <b>{all?.name}</b> <br /> {all?.emp_code}
+          <div className={styles.noWrap}>
+            <b>{all?.name}</b> <br /> {all?.code}
+          </div>
+        ),
+      },
+
+      {
+        key: "designation",
+        label: "DESIGNATION",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>{all?.designation}</div>
+        ),
+      },
+      {
+        key: "cadre",
+        label: "Grade/Cadre",
+        sortable: true,
+        render: (value, all) => (
+          <div className={styles.noWrap}>
+            {all?.grade}/{all?.cadre}
           </div>
         ),
       },
@@ -81,116 +100,130 @@ const IncrementPlanner = ({}) => {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.location?.name}</div>,
-      },
-
-      {
-        key: "designation",
-        label: "DESIGNATION",
-        sortable: false,
-        render: (temp, all) => <div>{all?.designation?.name}</div>,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>{all?.location}</div>
+        ),
       },
       {
         key: "department",
         label: "Dept/Sub dept",
         sortable: true,
-        render: (value, all) => <div>{all?.department?.name}</div>,
+        render: (value, all) => (
+          <div className={styles.noWrap}>
+            {all?.department}/{all?.sub_department}
+          </div>
+        ),
       },
+
       {
         key: "doj",
         label: "D.O.J",
         sortable: true,
-        render: (value, all) => <div>{all?.sub_department?.name}</div>,
+        render: (value, all) => <div className={styles.noWrap}>{all?.doj}</div>,
       },
       {
         key: "length",
         label: "Length of Service",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "quali",
         label: "QUALIFICATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "due",
         label: "INCR DUE OF MONTHS",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "rating",
         label: "NORMALIZED RATING",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>{all?.normalized_rating}</div>
+        ),
       },
       {
         key: "final",
         label: "FINAL RATING BY HOD",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "promotion",
         label: "PROMOTION",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "cat",
         label: "Performance cat.",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "salary",
         label: "G. Salary",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "pli",
         label: "PLI",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "incremental",
         label: "Current incremental salary",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "effective",
         label: "effective increment",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "new_salary",
         label: "new salary",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
         key: "reviewer",
         label: "Reviewer",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>
+            <b>{all?.reviewer?.name}</b> <br /> {all?.reviewer?.code}
+          </div>
+        ),
       },
       {
         key: "HOD",
         label: "Hod",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>
+            <b>{all?.hod?.name}</b> <br /> {all?.hod?.code}
+          </div>
+        ),
       },
       {
         key: "overall",
         label: "Overal  HOD",
         sortable: false,
-        render: (temp, all) => <div>{all?.type}</div>,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>
+            <b>{all?.overall_hod?.name}</b> <br /> {all?.overall_hod?.code}
+          </div>
+        ),
       },
     ];
   }, [renderStatus, renderFirstCell, isCalling]);
@@ -208,7 +241,7 @@ const IncrementPlanner = ({}) => {
       data: currentData,
       count: data?.length,
       page: currentPage - 1,
-      rowsPerPage: 10,
+      rowsPerPage: 50,
       allRowSelected: false,
       showSelection: false,
     };
@@ -297,7 +330,7 @@ const IncrementPlanner = ({}) => {
           </div>
         </div>
       </PageBox>
-      <DialogIncComponent
+      {/* <DialogIncComponent
         isOpen={isDialog}
         handleClose={toggleConfirmDialog}
         // handleConfirm={handleDialogConfirm}
@@ -308,7 +341,7 @@ const IncrementPlanner = ({}) => {
           handleSend={toggleConfirmDialog}
           // isSubmitting={isSending}
         />
-      </BottomPanelComponent>
+      </BottomPanelComponent> */}
     </div>
   );
 };

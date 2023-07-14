@@ -119,34 +119,34 @@ const ManpowerList = ({}) => {
         render: (temp, all) => <div>{all?.active_hiring}</div>,
       },
      
-      {
-        key: "user_id",
-        label: "Action",
-        render: (temp, all) => (
-          <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-            //   onClick={() => {
-            //     handleSideInfo(all);
-            //   }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-            {/* <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleSideToggle(all);
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton> */}
-          </div>
-        ),
-      },
+      // {
+      //   key: "user_id",
+      //   label: "Action",
+      //   render: (temp, all) => (
+      //     <div>
+      //       <IconButton
+      //         className={"tableActionBtn"}
+      //         color="secondary"
+      //         disabled={isCalling}
+      //       //   onClick={() => {
+      //       //     handleSideInfo(all);
+      //       //   }}
+      //       >
+      //         <InfoOutlined fontSize={"small"} />
+      //       </IconButton>
+      //       {/* <IconButton
+      //         className={"tableActionBtn"}
+      //         color="secondary"
+      //         disabled={isCalling}
+      //         onClick={() => {
+      //           handleSideToggle(all);
+      //         }}
+      //       >
+      //         <Edit fontSize={"small"} />
+      //       </IconButton> */}
+      //     </div>
+      //   ),
+      // },
     ];
   }, [
     renderStatus,
@@ -230,7 +230,7 @@ const ManpowerList = ({}) => {
         }}
       >
         <MenuItem value={"ON_ROLL"}>ON ROLE EMPLOYEE</MenuItem>
-        <MenuItem value={"OFF_ROLL"}>OFF ROLE EMPLOYEE</MenuItem>
+        {/* <MenuItem value={"OFF_ROLL"}>OFF ROLE EMPLOYEE</MenuItem> */}
       </CustomSelectField>
     );
   }, [type]);

@@ -304,3 +304,6 @@
   flex-direction: column;
   height: 90%;
 }
+.noWrap{
+  white-space: nowrap;
+}

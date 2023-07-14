@@ -13,7 +13,7 @@ export async function serviceDeleteIncrementPlanner(params) {
 }
 
 export async function serviceGetIncrementPlanner (params) {
-    return await postRequest('increment/planner/reports', params);
+    return await postRequest('pms/increment/planner', params);
 }
 
 export async function serviceIncrementPlannerDetail (params) {

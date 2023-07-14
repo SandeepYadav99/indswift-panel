@@ -8,7 +8,7 @@ import {
 } from "../../../services/IncrementPlanner.service";
 import historyUtils from "../../../libs/history.utils";
 
-const totalShow = 10;
+const totalShow = 50;
 const useIncrementPlanner = ({}) => {
   const [isInfoPanel, setInfoPanel] = useState(false);
   const [isDialog, setIsDialog] = useState(false);
@@ -31,16 +31,19 @@ const useIncrementPlanner = ({}) => {
     });
   }, []);
 
-  const toggleConfirmDialog = useCallback((type) => {
-    setIsDialog(e => !e);
-}, [setIsDialog]);
+  const toggleConfirmDialog = useCallback(
+    (type) => {
+      setIsDialog((e) => !e);
+    },
+    [setIsDialog]
+  );
   const resetData = useCallback(() => {
     serviceGetIncrementPlanner({
-      start_date: year,
-      type: type,
+      year: year,
+      batch: type,
     }).then((res) => {
       if (!res.error) {
-        const data = res.data?.response;
+        const data = res.data;
         setApiData(data);
       }
     });
@@ -73,15 +76,15 @@ const useIncrementPlanner = ({}) => {
   const _processData = useCallback(() => {
     const from = currentPage * totalShow - totalShow;
     let to = currentPage * totalShow;
-    if (from <= data.length) {
-      to = to <= data.length ? to : data.length;
+    if (from <= data?.length) {
+      to = to <= data?.length ? to : data?.length;
       setCurrentData(data.slice(from, to));
     }
   }, [setCurrentData, currentPage, data, totalShow]);
 
   const handlePageChange = useCallback(
     (type) => {
-      if (Math.ceil(data.length / totalShow) >= type + 1) {
+      if (Math.ceil(data?.length / totalShow) >= type + 1) {
         setCurrentPage(type + 1);
         _processData();
       }
@@ -107,10 +110,7 @@ const useIncrementPlanner = ({}) => {
       queryFilter("SEARCH_TEXT", value);
       if (value) {
         const tempData = apiData?.filter((val) => {
-          if (
-            val?.candidate?.name?.match(new RegExp(value, "ig")) ||
-            val?.candidate?.email?.match(new RegExp(value, "ig"))
-          ) {
+          if (val?.name?.match(new RegExp(value, "ig"))) {
             return val;
           }
         });
@@ -131,8 +131,6 @@ const useIncrementPlanner = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      // dispatch(actionSetPageIncrementPlannerRequests(1));
-      // resetData({ row, order }, {});
     },
     [resetData]
   );
@@ -186,7 +184,7 @@ const useIncrementPlanner = ({}) => {
     handleViewDetails,
     setYear,
     toggleConfirmDialog,
-    isDialog
+    isDialog,
   };
 };
 
