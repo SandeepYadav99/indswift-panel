@@ -21,6 +21,7 @@ const TEMP_OBJ = {
   min: "",
   max: "",
   percenatge: "",
+  criteria: "NONE",
 };
 
 const ChildrenIncludeForm = (
@@ -100,7 +101,7 @@ const ChildrenIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["min","max","percentage"];
+      const required = ["min","max","percentage", 'criteria'];
       required?.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -183,17 +184,10 @@ const ChildrenIncludeForm = (
   };
 
   const renderFields = useMemo(() => {
-    // console.log("fields",fields)
     return fields.map((val, index) => {
-      const tempFilters = variants.filter((variant) => {
-        // console.log("===>",variants)
-        const index = fields.findIndex((val) => val?.sku?.sku === variant?.sku);
-        return index < 0;
-      });
       return (
         <div>
           <ChildrenIncludeFields
-            variants={tempFilters}
             listWarehouse={listWarehouse}
             currency={currency}
             validateData={validateData}

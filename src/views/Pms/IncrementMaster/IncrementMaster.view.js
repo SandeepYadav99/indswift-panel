@@ -12,6 +12,7 @@ import ChildrenIncludeForm from "./includes/ChildrenIncludes.component";
 
 import classNames from "classnames";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
+import WaitingComponent from "../../../components/Waiting.component";
 
 const useStyles = makeStyles((theme) => ({
     iconBtnError: {
@@ -28,6 +29,11 @@ const IncrementMasterCreateView = ({ }) => {
     const { form, errorData, isSubmitting, isLoading,
          handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete, handleReset, id, listData,slabOneRef,slabTwoRef } = useIncrementMasterHook({});
     const classes = useStyles();
+
+    if (isLoading) {
+        return <WaitingComponent />
+    }
+
     return (
         <div>
             <div className={styles.outerFlex}>
@@ -71,8 +77,7 @@ const IncrementMasterCreateView = ({ }) => {
                             options={listData?.GRADES || []}
                             getOptionLabel={(option) => option?.label}
                             getOptionDisabled={(option) => !!form?.grade_ids_two.find(element => element?.id === option?.id)}
-
-                            // defaultValue={form?.submitted_by}
+                            value={form?.grade_ids_one}
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
@@ -95,7 +100,7 @@ const IncrementMasterCreateView = ({ }) => {
                             options={listData?.GRADES || []}
                             getOptionLabel={(option) => option?.label}
                             getOptionDisabled={(option) => !!form?.grade_ids_one.find(element => element?.id === option?.id)}
-                            // defaultValue={form?.submitted_by}
+                            value={form?.grade_ids_two}
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
