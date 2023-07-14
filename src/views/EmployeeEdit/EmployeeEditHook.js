@@ -4,6 +4,7 @@ import {
   isAccountNum,
   isAlpha,
   isAlphaNumChars,
+  isDate,
   isEmail,
   IsIFSCCode,
   isNum,
@@ -232,6 +233,13 @@ function EmployeeListCreateHook() {
       setIsLoading(false);
     });
   }, [id]);
+
+  useEffect(()=>{
+   if (!isUpdateDialog){
+      setForm({...form,effective_date:"",salary_notes:""})
+    }
+  },[isUpdateDialog])
+  
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     const required = [
@@ -318,10 +326,22 @@ function EmployeeListCreateHook() {
       if(!form?.effective_date){
         errors["effective_date"] = true
       }
+      if (!isDate(form?.effective_date)) {
+        errors["effective_date"] = true;
+      }
       if (!form?.salary_notes){
         errors["salary_notes"] = true
       }
     }
+    if (form?.effective_date) {
+      const date = new Date(form?.effective_date);
+      const todayDate = new Date();
+      date.setHours(0, 0, 0, 0);
+      todayDate.setHours(0, 0, 0, 0);
+      if (date.getTime() > todayDate.getTime()) {
+          errors["effective_date"] = true;
+      }
+  }
     if(form?.father_state){
       if(form?.father_state === "EXPIRED" && !form?.father_dod){
         errors['father_dod'] = true;
@@ -446,7 +466,7 @@ function EmployeeListCreateHook() {
         if (changedFields.current.indexOf(fieldName) < 0) {
           changedFields.current = [...changedFields.current, fieldName];
         }
-        if(salaryInfo?.includes(fieldName)){
+        if([...salaryInfo,'grade_id']?.includes(fieldName)){
           setSalaryField(true)
         }
         shouldRemoveError && removeError(fieldName);
@@ -497,7 +517,7 @@ function EmployeeListCreateHook() {
       const changedData = [];
       let foundMatch = false;
       for (let i = 0; i < changedFields?.current?.length; i++) {
-        if (salaryInfo.includes(changedFields?.current[i])) {
+        if ([...salaryInfo,'grade_id']?.includes(changedFields?.current[i])) {
           foundMatch = true;
           break;
         }
@@ -545,7 +565,7 @@ function EmployeeListCreateHook() {
               new_value: trans,
               old_value: oldtrans ? oldtrans : false,
             });
-          }else if (salaryInfo?.includes(key)){
+          }else if ([...salaryInfo,'grade_id'].includes(key)){
             
           } else {
             changedData.push({

@@ -24,7 +24,7 @@ function EmployeeRecordTable({ empId }) {
   }, [type]);
 
   const listArr = useMemo(() => {
-    return data.map((item) => {
+    return data?.map((item) => {
       return <EmployeeList data={item} />;
     });
   }, [data]);

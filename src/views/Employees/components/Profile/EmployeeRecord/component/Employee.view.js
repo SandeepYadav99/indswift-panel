@@ -133,6 +133,46 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
           Upload
         </ButtonBase>
       </div>
+      {Formtype !== "RECORD" && (
+        <div className={styles.noteWrap}>
+          <div className={styles.heading}>Note : </div>
+          <div className={styles.heading}>
+            It was later decided that instead of linking these failures with
+            PLI, they will rather be linked with annual PMS of employees and for
+            the purpose below mentioned logic will be used-
+          </div>
+          <div>
+            <b>Yellow Star- </b>Each Star Equivalent to Minor Incidents- Each
+            Star will amount to reduction of 1 % Increment in PMS
+          </div>
+          <div>
+            <b>Orange Star-</b> Each Star Equivalent to Major Incidents- Each
+            Star Will amount to reduction of 2 % Increment in PMS
+          </div>
+          <div>
+            <b>Red Star- </b>Each Star Equivalent to Critical Incidents- Each
+            Star Will amount to 0 % Increment or reduction of 3 % Increment in
+            PMS as per the case.
+          </div>
+          <div className={styles.heading}>
+            Similarly, if someone has done exceptionally good work that had over
+            passed a Functional Failure then following appreciation logic will
+            apply-
+          </div>
+          <div>
+            <b>Pink Star- </b> Each Star Equivalent to a Minor Improvement- Each
+            Star Will amount to increase of 1 % Increment in PMS
+          </div>
+          <div>
+            <b>Blue Star-</b> Each Star Equivalent to a Major Improvement- Each
+            Star Will amount to increase of 2 % Increment in PMS
+          </div>
+          <div>
+            <b>Green Star- </b>Each Star Equivalent to a Critical Improvement-
+            Each Star Will amount to increase of 3 % Increment in PMS
+          </div>
+        </div>
+      )}
     </div>
   );
 };

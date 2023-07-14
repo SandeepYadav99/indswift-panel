@@ -87,7 +87,7 @@ const ConfirmationDialog = ({
               <CustomDatePicker
                 clearable
                 label={"Effective From"}
-                // maxDate={new Date()}
+                maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "effective_date");
                 }}
