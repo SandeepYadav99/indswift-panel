@@ -165,7 +165,7 @@
   /* background: green; */
   flex: 1;
 }
-.EmployeeListWrapper {
+.EmployeeListWrapper{
   /*display: flex;*/
   width: 100%;
 }
@@ -187,19 +187,7 @@
   width: 13px;
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
-  background: #28da65 0% 0% no-repeat padding-box;
-}
-.neutralColor{
-  width: 13px;
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
-  background: #F4881B 0% 0% no-repeat padding-box;
-}
-.decreaseColor {
-  width: 13px;
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
-  background: #e92828 0% 0% no-repeat padding-box;
+  background: #28DA65 0% 0% no-repeat padding-box;
 }
 .grossSalaryWrapper {
   display: flex;
@@ -270,8 +258,8 @@
   /* background: red; */
   flex: 4;
 }
-.historyDes {
-  font-size: 0.785rem;
+.historyDes{
+  font-size: .785rem;
 }
 
 .tableAnnualField {
@@ -301,19 +289,4 @@
   text-decoration: underline;
   font-size: 0.7rem;
   cursor: pointer;
-}
-.noteWrap {
-  background: #eaf0f4 0% 0% no-repeat padding-box;
-  box-shadow: 0px 20px 80px #00000011;
-  border-radius: 10px;
-  padding: 1.2rem;
-  font-size: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 50px;
-  margin-left: 10px;
-}
-.heading {
-  font-weight: 600;
 }

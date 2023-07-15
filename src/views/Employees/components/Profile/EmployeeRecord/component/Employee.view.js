@@ -7,19 +7,47 @@ import CustomDatePicker from "../../../../../../components/FormFields/DatePicker
 import CustomTextField from "../../../../../../components/FormFields/TextField/TextField.component";
 import File from "../../../../../../components/FileComponent/FileComponent.component";
 
-const EmployeeView = ({ closeSidePanel, Formtype }) => {
-  const { form, changeTextData, errorData, handleSubmit, onBlurHandler } =
-    useEmployeeView({ closeSidePanel, Formtype });
+const EmployeeView = ({
+  selectedAnnuals,
+  closeSidePanel,
+  originWarehouseId,
+}) => {
+  const {
+    form,
+    changeTextData,
+    errorData,
+    handleSubmit,
+    onBlurHandler,
+    listData,
+  } = useEmployeeView({ selectedAnnuals, closeSidePanel, originWarehouseId });
 
   return (
     <div>
+      <div className={styles.headerFlex}>
+        {/*<h4 className={styles.infoTitle}>*/}
+        {/*    <div className={styles.heading}>Annual</div>*/}
+        {/*    <Tooltip title="Info" aria-label="info" placement="right">*/}
+        {/*        <InfoIcon fontSize={'small'}/>*/}
+        {/*    </Tooltip>*/}
+        {/*</h4>*/}
+      </div>
+      <div className={styles.upperInfo}>
+        {/* <div>FY 2022-23</div>
+        <div>On Roll Employee</div> */}
+      </div>
+
+      <div>
+        {/* <div className={styles.loc}>Mohali Location</div>
+        <div className={styles.hr}>Human Resources Department</div> */}
+      </div>
+
       <div className={"formFlex"}>
         <div className={"formGroup1"}>
           <CustomTextField
             isError={errorData?.title}
             errorText={errorData?.title}
             name="title"
-            label={Formtype === "RECORD" ? "Letter Title" : "Title"}
+            label={"Letter Title"}
             value={form?.title}
             onTextChange={(text) => {
               changeTextData(text, "title");
@@ -33,48 +61,31 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
 
       <div className={"formFlex"}>
         <div className={"formGroup2"}>
-          {Formtype === "RECORD" ? (
-            <CustomSelectField
-              isError={errorData?.letter_type}
-              errorText={errorData?.letter_type}
-              name="letter_type"
-              label={"Type Of Letter"}
-              value={form?.letter_type}
-              handleChange={(value) => {
-                changeTextData(value, "letter_type");
-              }}
-            >
-              <MenuItem value="APPRAISAL"> APPRAISAL LETTER</MenuItem>
-              <MenuItem value="WARNING">WARNING LETTER</MenuItem>
-              <MenuItem value="SHOW_CAUSE">SHOW CAUSE</MenuItem>
-              <MenuItem value="DISCIPLINARY">DISCIPLINARY LETTER</MenuItem>
-            </CustomSelectField>
-          ) : (
-            <CustomSelectField
-              isError={errorData?.star_type}
-              errorText={errorData?.star_type}
-              name="star_type"
-              label={"Star Type"}
-              value={form?.star_type}
-              handleChange={(value) => {
-                changeTextData(value, "star_type");
-              }}
-            >
-              <MenuItem value="RED">RED STAR</MenuItem>
-              <MenuItem value="ORANGE">ORANGE STAR</MenuItem>
-              <MenuItem value="YELLOW">YELLOW STAR</MenuItem>
-              <MenuItem value="PINK">PINK STAR</MenuItem>
-              <MenuItem value="BLUE">BLUE STAR</MenuItem>
-              <MenuItem value="GREEN">GREEN STAR</MenuItem>
-            </CustomSelectField>
-          )}
+          <CustomSelectField
+            isError={errorData?.type}
+            errorText={errorData?.type}
+            name="type"
+            label={"Type Of Letter"}
+            value={form?.type}
+            handleChange={(value) => {
+              changeTextData(value, "type");
+            }}
+          >
+            {listData?.TYPE_OF_LETTER?.map((dT) => {
+              return (
+                <MenuItem value={dT?.name} key={dT?.id}>
+                  {dT?.name}
+                </MenuItem>
+              );
+            })}
+          </CustomSelectField>
         </div>
         <div className={"formGroup2"}>
           <CustomDatePicker
             clearable
             name="date_of_issue"
             label={"Date Of issue"}
-            maxDate={new Date()}
+            // minDate={new Date()}
             onChange={(date) => {
               changeTextData(date, "date_of_issue");
             }}
@@ -94,12 +105,12 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
             accept={"application/pdf"}
             label=""
             default_image={form?.document ? form?.document : null}
+            // user_image={form?.image}
             error={errorData?.document}
             // title={'image'}
             value={form?.document}
-            placeholder={
-              Formtype === "RECORD" ? "PDF Upload" : "Add Attachment"
-            }
+            // handleChange={this._handleFileChange}
+            placeholder={"PDF Upload"}
             onChange={(file) => {
               if (file) {
                 changeTextData(file, "document");
@@ -111,7 +122,7 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
           <CustomTextField
             isError={errorData?.letter_head_no}
             errorText={errorData?.letter_head_no}
-            label={Formtype === "RECORD" ? "Letter Head" : "LH No. (optional)"}
+            label={"Letter Head"}
             name="letter_head_no"
             value={form?.letter_head_no}
             onTextChange={(text) => {
@@ -133,46 +144,6 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
           Upload
         </ButtonBase>
       </div>
-      {Formtype !== "RECORD" && (
-        <div className={styles.noteWrap}>
-          <div className={styles.heading}>Note : </div>
-          <div className={styles.heading}>
-            It was later decided that instead of linking these failures with
-            PLI, they will rather be linked with annual PMS of employees and for
-            the purpose below mentioned logic will be used-
-          </div>
-          <div>
-            <b>Yellow Star- </b>Each Star Equivalent to Minor Incidents- Each
-            Star will amount to reduction of 1 % Increment in PMS
-          </div>
-          <div>
-            <b>Orange Star-</b> Each Star Equivalent to Major Incidents- Each
-            Star Will amount to reduction of 2 % Increment in PMS
-          </div>
-          <div>
-            <b>Red Star- </b>Each Star Equivalent to Critical Incidents- Each
-            Star Will amount to 0 % Increment or reduction of 3 % Increment in
-            PMS as per the case.
-          </div>
-          <div className={styles.heading}>
-            Similarly, if someone has done exceptionally good work that had over
-            passed a Functional Failure then following appreciation logic will
-            apply-
-          </div>
-          <div>
-            <b>Pink Star- </b> Each Star Equivalent to a Minor Improvement- Each
-            Star Will amount to increase of 1 % Increment in PMS
-          </div>
-          <div>
-            <b>Blue Star-</b> Each Star Equivalent to a Major Improvement- Each
-            Star Will amount to increase of 2 % Increment in PMS
-          </div>
-          <div>
-            <b>Green Star- </b>Each Star Equivalent to a Critical Improvement-
-            Each Star Will amount to increase of 3 % Increment in PMS
-          </div>
-        </div>
-      )}
     </div>
   );
 };

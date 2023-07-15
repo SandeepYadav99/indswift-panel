@@ -2,29 +2,13 @@ import React from "react";
 import SaleryInfoField from "./components/SaleryInfoField";
 import SalaryInfoHook from "./SalaryInfoHook";
 import styles from "./Style.module.css";
-import { getSumValue } from "../../../../../libs/general.utils";
-import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-
+import {getSumValue} from "../../../../../libs/general.utils";
 function SalaryInfoTable() {
-  const {
-    EmployeeSalaryInfo: data,
-    totalPages,
-    currentPage,
-    handlePageChange,
-  } = SalaryInfoHook({});
+  const { EmployeeSalaryInfo: data } = SalaryInfoHook({});
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      handlePageChange(currentPage - 1);
-    }
-  };
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      handlePageChange(currentPage + 1);
-    }
-  };
+  // const getSumValue = (...numbers) => {
+  //   return numbers ? numbers.reduce((sum, value) => sum + value, 0) : "-";
+  // };
 
   const netPay = () => {
     {
@@ -37,54 +21,20 @@ function SalaryInfoTable() {
   };
   return (
     <div className={styles.salaryInfoWrapper}>
-      <div className={styles.pageWrap}>
-        <div>
-          <span className={styles.title}>
-            Universal Salary Structuring & Calculator
-          </span>
-          <div className={styles.newLine} />
-        </div>
-        <div className={styles.pageWrapM}>
-          <IconButton onClick={handlePreviousPage} disabled={currentPage === 1}>
-            <ChevronLeftIcon />
-          </IconButton>
-          <p>{currentPage}</p>
-          <IconButton
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-          >
-            <ChevronRightIcon />
-          </IconButton>
-        </div>
-      </div>
-      <div className={styles.headerWrap}>
-        <div className={styles.upperWrap}>
-          <div className={styles.wrpa}>
-            <div className={styles.titleHead}>Designation:</div>
-            <div className={styles.titleCont}>{data?.designation?.name}</div>
-          </div>
-          <div className={styles.wrpa}>
-            <div className={styles.titleHead}>Grade:</div>
-            <div className={styles.titleCont}>{data?.grade?.code}</div>
-          </div>
-          <div className={styles.wrpa}>
-            <div className={styles.titleHead}>Structure Dates:</div>
-            <div className={styles.titleCont}>{data?.effectiveDateText} - {data?.lastEffectiveDateText}</div>
-          </div>
-        </div>
-        <div className={styles.verticalLine}></div>
-        <div className={styles.lowerWrap}>
-          <div className={styles.titleHead}>Reason of Change:</div>
-          <div className={styles.titleCont}>{data?.salary_notes}</div>
-        </div>
+      <div>
+        <span className={styles.title}>
+          Universal Salary Structuring & Calculator
+        </span>
+        <div className={styles.newLine} />
       </div>
       <div className={styles.salaryTableContainer}>
         <div className={styles.tableWrapper}>
           <div className={styles.tableComponentField}>component</div>
           <div className={styles.salaryWrapper2}>
-            <div className={styles.tableAnnualField}>Annual</div>
-            <div className={styles.tableMonthlyField}>Monthly</div>
+          <div className={styles.tableAnnualField}>Annual</div>
+          <div className={styles.tableMonthlyField}>Monthly</div>
           </div>
+          
         </div>
         <div className={styles.grossWrapper}>
           <SaleryInfoField
@@ -200,7 +150,7 @@ function SalaryInfoTable() {
             component="Em ESI- Deduction Part"
             monthly={data?.em_esi}
           />
-          <SaleryInfoField component={`VPF - ${data?.deduction_vpf_pct} %`} monthly={data?.deduction_vpf} />
+          <SaleryInfoField component="VPF - 0%" monthly={data?.deduction_vpf} />
           <SaleryInfoField component="Em LWF" monthly={data?.em_lwf} />
           <SaleryInfoField
             className={styles.grossSalaryRedWrapper}
