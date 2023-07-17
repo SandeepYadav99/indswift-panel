@@ -79,7 +79,7 @@ const ImprestApproval = ({ location }) => {
     }
     return null;
   }, []);
-  
+
   const tableStructure = useMemo(() => {
     return [
       {
@@ -140,17 +140,24 @@ const ImprestApproval = ({ location }) => {
         label: "ASSOCIATED TAP",
         sortable: false,
         render: (temp, all) => (
-          <div>
-            {all?.imprest?.travelPlanner?.code} <br />
-            <StatusPill status={removeUnderScore(all?.imprest?.travelPlanner?.status)}
+          <>
+            {all?.imprest?.travelPlanner?.code ? (
+              <div className={styles.naClass}>
+                {all?.imprest?.travelPlanner?.code} <br />
+                <StatusPill
+                  status={removeUnderScore(all?.imprest?.travelPlanner?.status)}
                   style={{
                     background: "transparent",
                     border: "none",
                     padding: "0",
-                    whiteSpace:'nowrap'
+                    whiteSpace: "nowrap",
                   }}
                 />
-          </div>
+              </div>
+            ) : (
+              <div className={styles.naClass}>N/A</div>
+            )}
+          </>
         ),
       },
       {

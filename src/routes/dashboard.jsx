@@ -11,11 +11,13 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-import ImprestApprovalDetail from "../views/ClaimImprest/ImprestApprovalDetail/ImprestApprovalDetail.view";
-import EmployeeImprestDetail from "../views/ClaimImprest/EmployeeImprestDetail/EmployeeImprestDetail.view";
-import DepartmentDetail from "../views/Department/DepartmentDetail/DepartmentDetail.view";
-import ImprestDetail from "../views/ClaimImprest/ImprestDetail/ImprestDetail.view";
-import IncrementPlanner from "../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view";
+
+const IncrementDetail = lazy(()=> import ("../views/PmsIncrements/IncrementDetail/IncrementDetail.view"))
+const ImprestApprovalDetail = lazy(()=> import  ("../views/ClaimImprest/ImprestApprovalDetail/ImprestApprovalDetail.view"));
+const EmployeeImprestDetail = lazy(()=> import  ("../views/ClaimImprest/EmployeeImprestDetail/EmployeeImprestDetail.view"));
+const DepartmentDetail = lazy(()=> import  ("../views/Department/DepartmentDetail/DepartmentDetail.view"));
+const ImprestDetail = lazy(()=> import  ("../views/ClaimImprest/ImprestDetail/ImprestDetail.view"));
+const IncrementPlanner = lazy(()=> import  ("../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view"));
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -1307,29 +1309,6 @@ const dashboardRoutes = [
     },
     {
         path: 'null',
-        sidebarName: "Pms Increments",
-        navbarName: "Pms Increments",
-        icon: AssignmentOutlined,
-        is_sidebar: true,
-        slug: 'pi',
-        is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
-
-    },
-    {
-        path: `${RouteName.PMS_INCREMENT_PLANNER}`,
-        sidebarName: "Increments Planner",
-        navbarName: "Increments Planner",
-        icon: PeopleOutlined,
-        component: IncrementPlanner,
-        is_sidebar: true,
-        is_protect: true,
-        should_regex: true,
-        parent: 'pi',
-        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
-    },
-    {
-        path: 'null',
         sidebarName: "Performance Management",
         navbarName: "Performance Management",
         icon: AssignmentOutlined,
@@ -1520,6 +1499,30 @@ const dashboardRoutes = [
         icon: PeopleOutlined,
         component: IncrementMaster,
         is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'increment',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    },
+    {
+        path: `${RouteName.PMS_INCREMENT_PLANNER}`,
+        sidebarName: "Increments Planner",
+        navbarName: "Increments Planner",
+        icon: PeopleOutlined,
+        component: IncrementPlanner,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'increment',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    },
+    {
+        path: `${RouteName.PMS_INCREMENT_PLANNER_DETAIL}`,
+        sidebarName: "Increments Planner",
+        navbarName: "Increments Planner",
+        icon: PeopleOutlined,
+        component: IncrementDetail,
+        is_sidebar: false,
         is_protect: true,
         should_regex: true,
         parent: 'increment',

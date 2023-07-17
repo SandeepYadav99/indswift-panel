@@ -376,7 +376,7 @@ const IncrementPlanner = ({}) => {
               handleFilterDataChange={handleFilterDataChange}
             />
             <br />
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "100%" ,marginBottom:'50px'}}>
               <DataTables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
@@ -385,7 +385,7 @@ const IncrementPlanner = ({}) => {
           </div>
         </div>
       </PageBox>
-      {/* <DialogIncComponent
+      <DialogIncComponent
         isOpen={isDialog}
         handleClose={toggleConfirmDialog}
         // handleConfirm={handleDialogConfirm}
@@ -396,7 +396,7 @@ const IncrementPlanner = ({}) => {
           handleSend={toggleConfirmDialog}
           // isSubmitting={isSending}
         />
-      </BottomPanelComponent> */}
+      </BottomPanelComponent>
     </div>
   );
 };

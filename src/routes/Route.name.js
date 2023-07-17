@@ -156,6 +156,8 @@ export default {
   PMS_4B_REVIEW_DETAIL: '/pms/4B/detail/',
 
   PMS_INCREMENT_PLANNER : '/increment/planner',
+  PMS_INCREMENT_PLANNER_DETAIL : '/increment/planner/detail/',
+
 
   IRF_LOGIN:'/irf/login',
   IRF_FORM:'/irf/form',

@@ -34,7 +34,9 @@
     text-transform: uppercase!important;
     height: 40px !important;
 }
-
+.naClass{
+    text-align: center;
+}
 .rightFlex{
     display: flex;
     align-items: center;
