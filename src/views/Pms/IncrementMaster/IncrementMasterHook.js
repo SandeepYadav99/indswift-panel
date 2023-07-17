@@ -113,7 +113,7 @@ const useDepartmentDetail = ({}) => {
                 data: data
             }).then((res) => {
                 if (!res.error) {
-                    historyUtils.goBack();
+                    // historyUtils.goBack();
                     SnackbarUtils.success('Data Saved Successfully');
                 } else {
                     SnackbarUtils.error(res?.message);
