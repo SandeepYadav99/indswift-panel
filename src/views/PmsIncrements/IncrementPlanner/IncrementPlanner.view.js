@@ -201,6 +201,17 @@ const IncrementPlanner = ({}) => {
         render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
       },
       {
+        key: "percent",
+        label: "% increment",
+        sortable: false,
+        render: (temp, all) => <div className={styles.noWrap}>{<input className={styles.InputWrap} value={all?.name}/>}</div>,
+      },{
+        key: "increment",
+        label: "increment",
+        sortable: false,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+      },
+      {
         key: "effective",
         label: "effective increment",
         sortable: false,
