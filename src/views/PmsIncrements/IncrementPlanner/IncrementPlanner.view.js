@@ -14,6 +14,8 @@ import useIncrementPlanner from "./IncrementPlanner.hook";
 import BottomIncActionView from "./component/BottomIncAction/BottomIncAction.view";
 import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
 import DialogIncComponent from "./component/confirmDialogInc";
+import FormDropdown from "../../Pms/OverallHOD/PMSOverallHodForm/component/FormDropdown/FormDropdown";
+import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 
 const IncrementPlanner = ({}) => {
   const {
@@ -83,7 +85,9 @@ const IncrementPlanner = ({}) => {
         label: "DESIGNATION",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>{all?.designation}</div>
+          <div className={styles.noWrap}>
+            {all?.designation}
+          </div>
         ),
       },
       {
@@ -157,7 +161,20 @@ const IncrementPlanner = ({}) => {
         key: "promotion",
         label: "PROMOTION",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => (
+          <div className={styles.dropDownClass}>
+            {
+              <FormDropdown
+                name="promotion"
+                value={all?.promotion ? all?.promotion : ""}
+                isEnabled={true}
+                // onChange={(e) => {
+                //   handleInputChange(e.target.name, e.target.value, "DROPDOWN");
+                // }}
+              />
+            }
+          </div>
+        ),
       },
       {
         key: "cat",
@@ -217,11 +234,38 @@ const IncrementPlanner = ({}) => {
       },
       {
         key: "overall",
-        label: "Overal  HOD",
+        label: "Overall  HOD",
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}>
             <b>{all?.overall_hod?.name}</b> <br /> {all?.overall_hod?.code}
+          </div>
+        ),
+      },
+      {
+        key: "remarks",
+        label: "system remarks",
+        sortable: false,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+      },
+      {
+        key: "change",
+        label: "Grade change",
+        sortable: false,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+      },
+      {
+        key: "comments",
+        label: "comments",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.commentWrap}>
+            <CustomTextField
+              label={""}
+              value={all?.comments}
+              multiline
+              rows={2}
+            />
           </div>
         ),
       },

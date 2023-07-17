@@ -307,3 +307,11 @@
 .noWrap{
   white-space: nowrap;
 }
+.dropDownClass{
+  min-width: 130px;
+  white-space: nowrap;
+}
+.commentWrap{
+  white-space: nowrap;
+  min-width: 170px;
+}
