@@ -89,16 +89,16 @@ const PmsOverallHodReview = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            {/*<IconButton*/}
+            {/*  className={"tableActionBtn"}*/}
+            {/*  color="secondary"*/}
+            {/*  disabled={isCalling}*/}
+            {/*  onClick={() => {*/}
+            {/*    handleViewDetails(all);*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  <InfoOutlined fontSize={"small"} />*/}
+            {/*</IconButton>*/}
           </div>
         ),
       },
