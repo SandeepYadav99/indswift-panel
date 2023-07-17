@@ -54,7 +54,7 @@ const TableCell = ({
             style={{
                 position: fixed ? "sticky" : "static",
                 left: fixed ? 0 : undefined,
-                border: "2px solid #EBEDF4",
+                // border:  "2px solid #EBEDF4",
                 padding: "0",
                 zIndex: fixed ? 10 : 9,
                 background: readOnly ? '#EDF2F5 ' : '#ffffff'
@@ -162,8 +162,9 @@ const IncrementPlanner = ({}) => {
                 key: "name",
                 label: "EMPLOYEE NAME",
                 sortable: false,
+                fixed:true,
                 render: (temp, all) => (
-                    <div className={styles.noWrap}>
+                    <div className={styles.noWrapName}>
                         <b>{all?.name}</b> <br/> {all?.code}
                     </div>
                 ),
@@ -320,7 +321,7 @@ const IncrementPlanner = ({}) => {
                 label: "Reviewer",
                 sortable: false,
                 render: (temp, all) => (
-                    <div className={styles.noWrap}>
+                    <div className={styles.noWrapName}>
                         <b>{all?.reviewer?.name}</b> <br/> {all?.reviewer?.code}
                     </div>
                 ),
@@ -330,7 +331,7 @@ const IncrementPlanner = ({}) => {
                 label: "Hod",
                 sortable: false,
                 render: (temp, all) => (
-                    <div className={styles.noWrap}>
+                    <div className={styles.noWrapName}>
                         <b>{all?.hod?.name}</b> <br/> {all?.hod?.code}
                     </div>
                 ),
@@ -340,7 +341,7 @@ const IncrementPlanner = ({}) => {
                 label: "Overall  HOD",
                 sortable: false,
                 render: (temp, all) => (
-                    <div className={styles.noWrap}>
+                    <div className={styles.noWrapName}>
                         <b>{all?.overall_hod?.name}</b> <br/> {all?.overall_hod?.code}
                     </div>
                 ),
