@@ -314,6 +314,7 @@ function TravelCreate() {
                   <div className={styles.amountWrap}>
                     <CustomTextField
                       type="number"
+                      disabled={!form?.imprest_currency}
                       isError={errorData?.imprest_amount}
                       errorText={errorData?.imprest_amount}
                       label={"Required Amount"}
@@ -321,9 +322,9 @@ function TravelCreate() {
                       onTextChange={(text) => {
                         changeTextData(text, "imprest_amount");
                       }}
-                      onBlur={() => {
-                        onBlurHandler("imprest_amount");
-                      }}
+                      // onBlur={() => {
+                      //   onBlurHandler("imprest_amount");
+                      // }}
                     />
                   </div>
                 </div>

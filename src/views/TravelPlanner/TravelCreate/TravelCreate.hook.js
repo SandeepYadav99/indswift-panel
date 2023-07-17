@@ -13,7 +13,11 @@ import { dataURLtoFile } from "../../../helper/helper";
 import { serviceGetList } from "../../../services/Common.service";
 import { serviceCreateTravelPlanner } from "../../../services/Travel.service";
 import { isDate } from "../../../libs/RegexUtils";
-import { serviceGetAmpountImprest } from "../../../services/Imprest.service";
+import {
+  serviceCheckAmpountImprest,
+  serviceGetAmpountImprest,
+} from "../../../services/Imprest.service";
+import useDebounce from "../../../hooks/DebounceHook";
 
 const initialForm = {
   start_date: "",
@@ -26,7 +30,7 @@ const initialForm = {
   imprest_required: false,
   imprest_currency: "",
   imprest_amount: "",
-  imprest_sanctionable_amount:"",
+  imprest_sanctionable_amount: "",
 };
 
 const useTravelCreate = ({}) => {
@@ -45,13 +49,14 @@ const useTravelCreate = ({}) => {
   const otherRef = useRef(null);
   const coRef = useRef(null);
   const [isChecked, setIsChecked] = React.useState(false);
+  const codeDebouncer = useDebounce(form?.imprest_amount, 500);
 
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
   const { id } = useParams();
   const {
-    user: { emp_code ,user_id},
+    user: { emp_code, user_id },
   } = useSelector((state) => state.auth);
   useEffect(() => {
     Promise.allSettled([
@@ -64,6 +69,37 @@ const useTravelCreate = ({}) => {
       setEmployees(listData?.EMPLOYEES);
     });
   }, []);
+
+  useEffect(() => {
+    if (codeDebouncer) {
+      checkImprestAmount();
+    }
+  }, [codeDebouncer]);
+
+  const checkImprestAmount = useCallback(() => {
+    if (form?.imprest_currency && form?.imprest_amount) {
+      const errors = JSON.parse(JSON.stringify(errorData));
+      serviceCheckAmpountImprest({
+        currency: form?.imprest_currency,
+        amount: form?.imprest_amount,
+      }).then((res) => {
+        if (res.error) {
+          errors["imprest_amount"] = true;
+          setErrorData(errors);
+          SnackbarUtils.error(res.message)
+        } else {
+          delete errors.imprest_amount;
+          setErrorData(errors);
+        }
+      });
+    }
+  }, [
+    errorData,
+    setErrorData,
+    form?.code,
+    form?.imprest_currency,
+    form?.imprest_amount,
+  ]);
 
   useEffect(() => {
     if (user_id) {
@@ -142,8 +178,8 @@ const useTravelCreate = ({}) => {
         errors[val] = true;
       }
     });
-    if(!form?.purpose?.trim()){
-      errors["purpose"] = true
+    if (!form?.purpose?.trim()) {
+      errors["purpose"] = true;
     }
     if (!isDate(form?.start_date)) {
       errors["start_date"] = true;
@@ -346,7 +382,7 @@ const useTravelCreate = ({}) => {
     employees,
     isBond,
     coRef,
-    amountDetail
+    amountDetail,
   };
 };
 
