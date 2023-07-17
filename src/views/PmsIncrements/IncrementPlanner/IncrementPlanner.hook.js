@@ -7,6 +7,7 @@ import {
   serviceIncrementPlannerDownload,
 } from "../../../services/IncrementPlanner.service";
 import historyUtils from "../../../libs/history.utils";
+import LogUtils from "../../../libs/LogUtils";
 
 const totalShow = 50;
 const useIncrementPlanner = ({}) => {
@@ -19,6 +20,7 @@ const useIncrementPlanner = ({}) => {
   const [apiData, setApiData] = useState([]);
   const [type, setType] = useState("");
   const [year, setYear] = useState("");
+  const formData = useRef({});
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
@@ -45,8 +47,25 @@ const useIncrementPlanner = ({}) => {
       if (!res.error) {
         const data = res.data;
         setApiData(data);
+        const obj = {};
+        data.forEach(dt => {
+          obj[dt.id] = {
+            final_percentage: dt?.final_percentage,
+            comments: dt?.comments,
+            overall_hod_is_recommended: dt?.overall_hod_is_recommended,
+          };
+        });
+        formData.current = (obj);
+        // setFormData(obj);
       }
     });
+  }, [year, type]);
+
+
+  useEffect(() => {
+    if (year && type) {
+      initialApiCall();
+    }
   }, [year, type]);
 
   useEffect(() => {
@@ -162,6 +181,21 @@ const useIncrementPlanner = ({}) => {
       },
     ];
   }, [listData]);
+
+  const handleValueChange = useCallback((id, name, value) => {
+    const tData = {...formData};
+    if (id in tData) {
+      const dT = tData[id];
+      dT[name] = value;
+
+      tData[id] = dT;
+    }
+
+    formData.current = tData;
+    // setFormData(tData);
+  }, []);
+
+
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -185,6 +219,8 @@ const useIncrementPlanner = ({}) => {
     setYear,
     toggleConfirmDialog,
     isDialog,
+    handleValueChange,
+    formData
   };
 };
 

@@ -12,12 +12,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 
-const IncrementDetail = lazy(()=> import ("../views/PmsIncrements/IncrementDetail/IncrementDetail.view"))
-const ImprestApprovalDetail = lazy(()=> import  ("../views/ClaimImprest/ImprestApprovalDetail/ImprestApprovalDetail.view"));
-const EmployeeImprestDetail = lazy(()=> import  ("../views/ClaimImprest/EmployeeImprestDetail/EmployeeImprestDetail.view"));
-const DepartmentDetail = lazy(()=> import  ("../views/Department/DepartmentDetail/DepartmentDetail.view"));
-const ImprestDetail = lazy(()=> import  ("../views/ClaimImprest/ImprestDetail/ImprestDetail.view"));
-const IncrementPlanner = lazy(()=> import  ("../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view"));
+const IncrementDetail = lazy(()=> import ("../views/PmsIncrements/IncrementDetail/IncrementDetail.view"));
 
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
@@ -122,7 +117,13 @@ const PmsSiteReview  = lazy(() => import("../views/Pms/PmsSiteBatches/PmsSiteBat
 const PMSSitePendingReview  = lazy(() => import("../views/Pms/PMSSitePendingReview/PMSSitePendingReview.view"));
 const EmployeeImprest = lazy (()=> import("../views/ClaimImprest/EmployeeImprest/EmployeeImprest.view"));
 const ImprestApproval =lazy(()=> import ("../views/ClaimImprest/ImprestApproval/ImprestApproval.container"));
-const IncrementMaster =lazy(()=>import("../views/Pms/IncrementMaster/IncrementMaster.view"))
+const IncrementMaster =lazy(()=>import("../views/Pms/IncrementMaster/IncrementMaster.view"));
+const ImprestApprovalDetail = lazy(() => import("../views/ClaimImprest/ImprestApprovalDetail/ImprestApprovalDetail.view"));
+const EmployeeImprestDetail = lazy(() => import("../views/ClaimImprest/EmployeeImprestDetail/EmployeeImprestDetail.view"));
+const DepartmentDetail = lazy(() => import("../views/Department/DepartmentDetail/DepartmentDetail.view"));
+const ImprestDetail = lazy(() => import("../views/ClaimImprest/ImprestDetail/ImprestDetail.view"));
+const IncrementPlanner = lazy(() => import("../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view"));
+
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -1472,22 +1473,12 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
-        path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',
-        sidebarName: "Attendance Management",
-        navbarName: "",
-        icon: FingerprintOutlined,
-        is_external: true,
-        component: (<div></div>),
-        is_sidebar: true,
-        is_protect: false,
-    },
-    {
         path: 'null',
         sidebarName: "PMS Increments",
         navbarName: "PMS Increments",
         icon: AssignmentOutlined,
         is_sidebar: true,
-        slug: 'increment',
+        slug: 'pms_increments',
         is_parent: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
 
@@ -1501,7 +1492,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
-        parent: 'increment',
+        parent: 'pms_increments',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
     },
     {
@@ -1513,7 +1504,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
-        parent: 'increment',
+        parent: 'pms_increments',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
     },
     {
@@ -1525,9 +1516,32 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
         should_regex: true,
-        parent: 'increment',
+        parent: 'pms_increments',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
     },
+    {
+        path: `${RouteName.PMS_INCREMENT_PLANNER}`,
+        sidebarName: "Increments Planner",
+        navbarName: "Increments Planner",
+        icon: PeopleOutlined,
+        component: IncrementPlanner,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pms_increments',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
+        path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',
+        sidebarName: "Attendance Management",
+        navbarName: "",
+        icon: FingerprintOutlined,
+        is_external: true,
+        component: (<div></div>),
+        is_sidebar: true,
+        is_protect: false,
+    },
+
     // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 

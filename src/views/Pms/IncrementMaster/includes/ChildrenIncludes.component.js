@@ -18,6 +18,7 @@ import { useParams } from "react-router";
 import ChildrenIncludeFields from "./ChildrenIncludeFields.component";
 
 const TEMP_OBJ = {
+  level: "",
   min: "",
   max: "",
   percenatge: "",
@@ -73,7 +74,8 @@ const ChildrenIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      fields.forEach(obj => {
+      fields.forEach((obj, index) => {
+        obj.level = `L${index+1}`;
         if (obj.hasOwnProperty("employee_id")) {
           delete obj.employee_id;
         }

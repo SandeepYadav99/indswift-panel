@@ -1,8 +1,6 @@
 import React, { useCallback, useMemo } from "react";
-import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
+import {IconButton, MenuItem, ButtonBase, Tooltip, makeStyles} from "@material-ui/core";
 import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
-import { Add, Edit, InfoOutlined, PrintOutlined } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
@@ -11,11 +9,67 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import useIncrementPlanner from "./IncrementPlanner.hook";
-import BottomIncActionView from "./component/BottomIncAction/BottomIncAction.view";
-import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
-import DialogIncComponent from "./component/confirmDialogInc";
 import FormDropdown from "../../Pms/OverallHOD/PMSOverallHodForm/component/FormDropdown/FormDropdown";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
+import DialogIncComponent from "./component/confirmDialogInc";
+import BottomIncActionView from "./component/BottomIncAction/BottomIncAction.view";
+import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
+import PercentageField from "./component/PercentageField";
+import CommentField from "./component/CommentField";
+import {InfoOutlined} from "@material-ui/icons";
+
+
+const useStyles = makeStyles((theme) => ({
+  customTooltip: {
+    backgroundColor: 'white',
+    color: 'black',
+    fontSize:'.75rem',
+    fontWeight:'normal',
+    fontFamily:'Montserrat',
+    borderRadius:'10px'
+  },
+}));
+
+
+
+const TableHead = ({columns}) => {
+  const classes = useStyles();
+
+
+  return (
+      <thead>
+      <tr>
+        {columns?.map(({key, parameters, label, fixed, text, is_static}) => (
+            <>
+              <th
+                  rowSpan={is_static ? 2 : 1}
+                  colSpan={ parameters ? parameters.length : 1}
+                  key={key}
+                  style={{
+                    position: "sticky",
+                    left: fixed ? 0 : undefined,
+                    top: 0,
+                    zIndex: fixed ? 100 : 9,
+                  }}
+                  className={styles.thead}
+              >
+                <div className={styles.tipWrap}>
+                  {label?.replace(/_/g, " ")}
+                  {text && (
+                      <Tooltip title={text} enterDelay={2} leaveDelay={2000}>
+                        <IconButton size="small">
+                          <InfoOutlined color="secondary" />
+                        </IconButton>
+                      </Tooltip>
+                  )}
+                </div>
+              </th>
+            </>
+        ))}
+      </tr>
+      </thead>
+  )
+}
 
 const IncrementPlanner = ({}) => {
   const {
@@ -41,6 +95,7 @@ const IncrementPlanner = ({}) => {
     setYear,
     toggleConfirmDialog,
     isDialog,
+    handleValueChange
   } = useIncrementPlanner({});
 
   const renderStatus = useCallback((status) => {
@@ -129,19 +184,19 @@ const IncrementPlanner = ({}) => {
         key: "length",
         label: "Length of Service",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.experience}</div>,
       },
       {
         key: "quali",
         label: "QUALIFICATION",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.higher_education}</div>,
       },
       {
         key: "due",
         label: "INCR DUE OF MONTHS",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.incr_due_month}</div>,
       },
       {
         key: "rating",
@@ -155,7 +210,7 @@ const IncrementPlanner = ({}) => {
         key: "final",
         label: "FINAL RATING BY HOD",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.overall_hod_rating}</div>,
       },
       {
         key: "promotion",
@@ -180,48 +235,50 @@ const IncrementPlanner = ({}) => {
         key: "cat",
         label: "Performance cat.",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.increment_level}</div>,
       },
       {
         key: "salary",
         label: "G. Salary",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.incremental_gross_salary}</div>,
       },
       {
         key: "pli",
         label: "PLI",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.pli}</div>,
       },
       {
         key: "incremental",
         label: "Current incremental salary",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.current_incremental_salary}</div>,
       },
       {
         key: "percent",
         label: "% increment",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{<input className={styles.InputWrap} value={all?.name}/>}</div>,
+        render: (temp, all, index) => <div className={styles.noWrap}>{
+          <PercentageField id={all?.id} percentage={all?.increment_percentage} handleInputChange={handleValueChange} />
+        }</div>,
       },{
         key: "increment",
         label: "increment",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.increment_amount}</div>,
       },
       {
         key: "effective",
         label: "effective increment",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.effective_amount}</div>,
       },
       {
         key: "new_salary",
         label: "new salary",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.new_salary}</div>,
       },
       {
         key: "reviewer",
@@ -255,15 +312,15 @@ const IncrementPlanner = ({}) => {
       },
       {
         key: "remarks",
-        label: "system remarks",
+        label: "System Remarks",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.remarks}</div>,
       },
       {
         key: "change",
         label: "Grade change",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => <div className={styles.noWrap}>{all?.is_grade_change ? 'YES' : 'NO'}</div>,
       },
       {
         key: "comments",
@@ -271,17 +328,12 @@ const IncrementPlanner = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.commentWrap}>
-            <CustomTextField
-              label={""}
-              value={all?.comments}
-              multiline
-              rows={2}
-            />
+           <CommentField id={all?.id} handleInputChange={handleValueChange} value={all?.comments} />
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, isCalling]);
+  }, [renderStatus, renderFirstCell, isCalling, handleValueChange]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -361,7 +413,6 @@ const IncrementPlanner = ({}) => {
           <div className={styles.rightFlex}>
             <ButtonBase
               className={styles.downloadrun}
-              onClick={() => initialApiCall()}
             >
               VIEW GRAPH
             </ButtonBase>
@@ -378,9 +429,44 @@ const IncrementPlanner = ({}) => {
             <br />
             <div style={{ width: "100%" ,marginBottom:'50px'}}>
               <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
+                  {...tableData.datatable}
+                  {...tableData.datatableFunctions}
               />
+              <div className={styles.tableWrapper}>
+                <div className={styles.container}>
+              {/*<table*/}
+              {/*    style={{*/}
+              {/*      borderCollapse: "collapse",*/}
+              {/*      cellSpacing: "0",*/}
+              {/*      borderSpacing: "0",*/}
+              {/*      cellpadding: "0",*/}
+              {/*      height: "100px",*/}
+              {/*    }}*/}
+              {/*>*/}
+              {/*  <TableHead columns={tableStructure} />*/}
+              {/*  <tbody>*/}
+              {/*  {currentData.map((row, rowIndex) => (*/}
+              {/*      <tr key={row.id}>*/}
+              {/*        {processedColumns.map(({key, fixed, readOnly, render, ...props}, index) => (*/}
+              {/*            <TableCell*/}
+              {/*                value={form[`${rowIndex}_${key}`]}*/}
+              {/*                handleInputChange={handleInputChange}*/}
+              {/*                row={row}*/}
+              {/*                key={key}*/}
+              {/*                name={`${rowIndex}_${key}`}*/}
+              {/*                fixed={fixed}*/}
+              {/*                readOnly={readOnly}*/}
+              {/*                render={render}*/}
+              {/*                isError={errors[`${rowIndex}_${key}`]}*/}
+              {/*                {...props}*/}
+              {/*            />*/}
+              {/*        ))}*/}
+              {/*      </tr>*/}
+              {/*  ))}*/}
+              {/*  </tbody>*/}
+              {/*</table>*/}
+                </div>
+              </div>
             </div>
           </div>
         </div>
