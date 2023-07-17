@@ -390,7 +390,6 @@ const IncrementPlanner = ({}) => {
         handleClose={toggleConfirmDialog}
         // handleConfirm={handleDialogConfirm}
       />
-      <DialogIncComponent />
       <BottomPanelComponent open={true}>
         <BottomIncActionView
           handleSend={toggleConfirmDialog}
