@@ -3,6 +3,7 @@ import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
 import { serviceEmployeeCreateReturnEmp } from "../../../../../services/EmployeeImprest.service";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import { isDate } from "../../../../../libs/RegexUtils";
 
 const initialForm = {
   employee_id: "",
@@ -45,6 +46,23 @@ const useReturnEmpDialogHook = ({
       }
     }
   }, [emp_id, listData]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      if (emp_id) {
+        const empIndex = listData?.EMPLOYEES.findIndex(
+          (val) => val.id === emp_id
+        );
+        if (empIndex >= 0) {
+          const employeeValue = listData?.EMPLOYEES[empIndex];
+          setForm({ ...initialForm, employee_id: employeeValue });
+        }
+      } else {
+        setForm({ ...initialForm });
+      }
+    }
+  }, [isOpen, emp_id, listData]);
+
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
@@ -85,11 +103,23 @@ const useReturnEmpDialogHook = ({
     if (form?.debit_amount == 0) {
       errors["debit_amount"] = true;
     }
-    if(!form?.voucher_no?.trim()){
+    if (!form?.voucher_no?.trim()) {
       errors["voucher_no"] = true;
     }
-    if(!form?.description?.trim()){
+    if (!form?.description?.trim()) {
       errors["description"] = true;
+    }
+    if (!isDate(form?.date)) {
+      errors["date"] = true;
+    }
+    if (form?.date) {
+      const date = new Date(form?.date);
+      const todayDate = new Date();
+      date.setHours(0, 0, 0, 0);
+      todayDate.setHours(0, 0, 0, 0);
+      if (date.getTime() > todayDate.getTime()) {
+        errors["date"] = true;
+      }
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {

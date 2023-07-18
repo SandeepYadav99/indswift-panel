@@ -46,11 +46,11 @@ function ClaimDetailInfo({ idCards }) {
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>Assoicated TAP:</span>
-                {idCards?.imprest?.travelPlanner?.code}
+                {idCards?.imprest?.travelPlanner?.code ? idCards?.imprest?.travelPlanner?.code : 'N/A'}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Status:</span>
-                {<StatusPill status={removeUnderScore(idCards?.imprest?.travelPlanner?.status)}/>}
+                {idCards?.imprest?.travelPlanner?.status ? <StatusPill status={removeUnderScore(idCards?.imprest?.travelPlanner?.status)}/> : 'N/A'}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Max Entitled:</span>
