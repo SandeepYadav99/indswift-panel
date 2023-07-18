@@ -75,7 +75,7 @@ const IncrementMasterCreateView = ({ }) => {
                             }}
                             // id="tags-standard"
                             options={listData?.GRADES || []}
-                            getOptionLabel={(option) => option?.label}
+                            getOptionLabel={(option) => option?.code}
                             getOptionDisabled={(option) => !!form?.grade_ids_two.find(element => element?.id === option?.id)}
                             value={form?.grade_ids_one}
                             renderInput={(params) => (
@@ -98,7 +98,7 @@ const IncrementMasterCreateView = ({ }) => {
                             }}
                             // id="tags-standard"
                             options={listData?.GRADES || []}
-                            getOptionLabel={(option) => option?.label}
+                            getOptionLabel={(option) => option?.code}
                             getOptionDisabled={(option) => !!form?.grade_ids_one.find(element => element?.id === option?.id)}
                             value={form?.grade_ids_two}
                             renderInput={(params) => (
@@ -155,7 +155,7 @@ const IncrementMasterCreateView = ({ }) => {
                 <div className={styles.btnCont}>
                     <ButtonBase disabled={isSubmitting} type={'button'} onClick={handleSubmit}
                         className={styles.createBtn}>
-                        Create
+                        Save
                     </ButtonBase>
                 </div>
             </div>

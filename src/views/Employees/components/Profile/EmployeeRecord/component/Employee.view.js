@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem, ButtonBase } from "@material-ui/core";
+import { MenuItem, ButtonBase, CircularProgress } from "@material-ui/core";
 import styles from "../Style.module.css";
 import useEmployeeView from "./EmployeeViewHook.js";
 import CustomSelectField from "../../../../../../components/FormFields/SelectField/SelectField.component";
@@ -8,8 +8,14 @@ import CustomTextField from "../../../../../../components/FormFields/TextField/T
 import File from "../../../../../../components/FileComponent/FileComponent.component";
 
 const EmployeeView = ({ closeSidePanel, Formtype }) => {
-  const { form, changeTextData, errorData, handleSubmit, onBlurHandler } =
-    useEmployeeView({ closeSidePanel, Formtype });
+  const {
+    form,
+    changeTextData,
+    errorData,
+    handleSubmit,
+    onBlurHandler,
+    isSubmitting,
+  } = useEmployeeView({ closeSidePanel, Formtype });
 
   return (
     <div>
@@ -87,8 +93,8 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
       <div className={"formFlex"}>
         <div className={"formGroup2"}>
           <File
-            max_size={2 * 1024 * 1024}
-            type={["pdf"]}
+            max_size={5 * 1024 * 1024}
+            type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
             fullWidth={true}
             name="document"
             accept={"application/pdf"}
@@ -111,7 +117,9 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
           <CustomTextField
             isError={errorData?.letter_head_no}
             errorText={errorData?.letter_head_no}
-            label={Formtype === "RECORD" ? "Letter Head" : "LH No. (optional)"}
+            label={
+              Formtype === "RECORD" ? "Letter Head No" : "LH No. (optional)"
+            }
             name="letter_head_no"
             value={form?.letter_head_no}
             onTextChange={(text) => {
@@ -130,7 +138,14 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
           onClick={handleSubmit}
           className={styles.createBtn}
         >
-          Upload
+          {isSubmitting ? (
+            <CircularProgress color="success" size="20px" />
+          ) : Formtype === "RECORD" ? (
+            "Upload"
+          ) : (
+            "ADD"
+          )}
+
         </ButtonBase>
       </div>
       {Formtype !== "RECORD" && (

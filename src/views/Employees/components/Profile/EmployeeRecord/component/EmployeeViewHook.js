@@ -68,6 +68,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype }) => {
       req(fd).then((res) => {
         if (!res.error) {
           closeSidePanel();
+          window.location.reload();
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -125,6 +126,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype }) => {
     removeError,
     handleSubmit,
     errorData,
+    isSubmitting
   };
 };
 

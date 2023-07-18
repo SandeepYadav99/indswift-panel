@@ -30,6 +30,8 @@ const useIncrementPlanner = ({location}) => {
 
     const [listData, setListData] = useState({
         LOCATIONS: [],
+        GRADES: [],
+        DEPARTMENTS: []
     });
 
     const plannerType = useMemo(() => {
@@ -46,7 +48,7 @@ const useIncrementPlanner = ({location}) => {
     }, [location]);
 
     useEffect(() => {
-        serviceGetList(["LOCATIONS"]).then((res) => {
+        serviceGetList(["LOCATIONS","DEPARTMENTS","GRADES"]).then((res) => {
             if (!res.error) {
                 setListData(res.data);
             }
@@ -149,10 +151,23 @@ const useIncrementPlanner = ({location}) => {
 
     const handleFilterDataChange = useCallback(
         (value) => {
-            console.log("_handleFilterDataChange", value);
-            queryFilter("FILTER_DATA", value);
+            console.log("_handleFilterDataChange", value,{apiData});
+            if(value){
+                const filteredData = apiData.filter(obj => {
+                    for (const filterObj of value) {
+                      const { name, value } = filterObj;
+                      if (obj.hasOwnProperty(name) && obj[name] === value) {
+                        return true;
+                      }
+                    }
+                    return false;
+                  });
+                  console.log('>>>',filteredData)
+            }  
+            
+            // queryFilter("FILTER_DATA", value);
         },
-        [queryFilter]
+        [queryFilter,apiData]
     );
 
     const handleSearchValueChange = useCallback(
@@ -196,23 +211,41 @@ const useIncrementPlanner = ({location}) => {
     const handleViewDetails = useCallback((data) => {
         historyUtils.push(`/employees/details/${data?.emp_code}`);
     }, []);
+   
     const configFilter = useMemo(() => {
         return [
-            {
-                label: "Status",
-                name: "status",
-                type: "select",
-                fields: [
-                    "INACTIVE",
-                    "ACTIVE",
-                    "TERMINATED",
-                    "ABSCONDED",
-                    "RETIRED",
-                    "EXPIRED",
-                ],
-            },
+          ... [
+                {
+                  label: "Location",
+                  name: "location_id",
+                  type: "selectObject",
+                  custom: { extract: { id: "id", title: "name" } },
+                  fields: listData?.LOCATIONS,
+                },
+              ]
+            ,
+          {
+            label: "Grade",
+            name: "grade_id",
+            type: "selectObject",
+            custom: { extract: { id: "id", title: "label" } },
+            fields: listData?.GRADES,
+          },
+          {
+            label: "Department",
+            name: "department_id",
+            type: "selectObject",
+            custom: { extract: { id: "id", title: "name" } },
+            fields: listData?.DEPARTMENTS,
+          },
+          {
+            label: "Increment Slab",
+            name: "increment_level",
+            type: "select",
+            fields: ["L1","L2","L3","L4","L5","L6","L7","L8","L9","L10","L11"],
+          },
         ];
-    }, [listData]);
+      }, [listData]);
 
     const handleValueChange = useCallback((id, name, value) => {
         // const tData = {...formData};

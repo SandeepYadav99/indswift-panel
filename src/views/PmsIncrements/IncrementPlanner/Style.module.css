@@ -136,14 +136,20 @@
 
 .yearFlex {
   display: flex;
-  gap: 20px;
   padding-top: 20px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .down {
-  flex: 0.2;
+  flex: 0.4;
 }
-
+.UpperWrap{
+  flex: .5;
+  display: flex;
+  gap: 20px !important;
+  /* justify-content: space-around;   */
+}
 .newLine {
   height: 4px;
   width: 30px;

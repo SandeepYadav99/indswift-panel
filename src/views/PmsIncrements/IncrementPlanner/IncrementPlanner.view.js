@@ -445,8 +445,10 @@ const IncrementPlanner = ({location}) => {
                 </div>
 
                 <div className={styles.yearFlex}>
+                    <div className={styles.UpperWrap}>
                     <div className={styles.down}>{renderYear}</div>
                     <div className={styles.down}>{renderDropDown}</div>
+                    </div>              
                     <div className={styles.rightFlex}>
                         <ButtonBase
                             onClick={handleViewGraph}
