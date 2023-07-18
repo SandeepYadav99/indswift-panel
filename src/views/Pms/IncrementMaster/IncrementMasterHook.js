@@ -40,9 +40,9 @@ const useDepartmentDetail = ({}) => {
     useEffect(() => {
         if (!isLoading) {
             setTimeout(() => {
-                editData.forEach((val, ind) => {
-                    ind === 0 && slabOneRef?.current.setData(val.data);
-                    ind === 1 && slabTwoRef?.current.setData(val.data);
+                editData.forEach((val) => {
+                    val.slab === 'SLAB_ONE' && slabOneRef?.current.setData(val.data);
+                    val.slab === 'SLAB_TWO' && slabTwoRef?.current.setData(val.data);
                 })
             }, 0);
         }

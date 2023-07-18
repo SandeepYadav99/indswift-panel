@@ -11,6 +11,8 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
+import {serviceExportPMSBatch} from "../../../services/PmsBatch.service";
+import {serviceExportPmsNormalization} from "../../../services/PmsNormalize.service";
 
 const usePmsNormailize = ({ location }) => {
   const batchID = location?.state?.batch_id;
@@ -159,6 +161,20 @@ const usePmsNormailize = ({ location }) => {
     ];
   }, [listData]);
 
+  const handleCsvDownload = useCallback((payload) => {
+    serviceExportPmsNormalization({
+      row: sortingData?.row,
+      order: sortingData?.order,
+      query: query,
+      query_data: queryData,
+    }).then((res) => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    });
+  }, [sortingData, query, queryData]);
+
   return {
     handlePageChange,
     // handleCellClick,
@@ -177,7 +193,8 @@ const usePmsNormailize = ({ location }) => {
     editData,
     configFilter,
     handleViewGraph,
-    role
+    role,
+    handleCsvDownload
   };
 };
 

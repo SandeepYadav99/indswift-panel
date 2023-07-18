@@ -7,6 +7,7 @@ const CommentField = ({id, value, handleInputChange}) => {
 
     const handleValueChange = useCallback((e) => {
         setComment(e?.target?.value);
+        handleInputChange && handleInputChange(id, 'comments', e?.target?.value);
     }, [handleInputChange, setComment]);
 
     return (

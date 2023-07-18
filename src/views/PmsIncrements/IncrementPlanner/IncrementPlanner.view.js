@@ -18,6 +18,8 @@ import PercentageField from "./component/PercentageField";
 import CommentField from "./component/CommentField";
 import {InfoOutlined} from "@material-ui/icons";
 import TablePagination from "@material-ui/core/TablePagination";
+import PromotionSelector from "./component/PromotionSelector";
+import IncurMonthField from "./component/IncurMonthField";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -105,7 +107,7 @@ const TableHead = ({columns}) => {
     )
 }
 
-const IncrementPlanner = ({}) => {
+const IncrementPlanner = ({location}) => {
     const {
         handlePageChange,
         handleFilterDataChange,
@@ -129,8 +131,13 @@ const IncrementPlanner = ({}) => {
         setYear,
         toggleConfirmDialog,
         isDialog,
-        handleValueChange
-    } = useIncrementPlanner({});
+        handleValueChange,
+        formData,
+        handleDialogConfirm,
+        isSubmitting,
+        handleViewGraph,
+        isFreezed
+    } = useIncrementPlanner({location});
 
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status}/>;
@@ -231,7 +238,9 @@ const IncrementPlanner = ({}) => {
                 key: "due",
                 label: "INCR DUE OF MONTHS",
                 sortable: false,
-                render: (temp, all) => <div className={styles.noWrap}>{all?.incr_due_month}</div>,
+                render: (temp, all) => <div className={styles.noWrap}>
+                    <IncurMonthField id={all?.id} handleInputChange={handleValueChange} incrValue={all?.incr_due_month} />
+                </div>,
             },
             {
                 key: "rating",
@@ -253,16 +262,8 @@ const IncrementPlanner = ({}) => {
                 sortable: false,
                 render: (temp, all) => (
                     <div className={styles.dropDownClass}>
-                        {
-                            <FormDropdown
-                                name="promotion"
-                                value={all?.promotion ? all?.promotion : ""}
-                                isEnabled={true}
-                                // onChange={(e) => {
-                                //   handleInputChange(e.target.name, e.target.value, "DROPDOWN");
-                                // }}
-                            />
-                        }
+                        <PromotionSelector id={all?.id}
+                                           handleInputChange={handleValueChange} isPromoted={all?.is_promoted} />
                     </div>
                 ),
             },
@@ -295,7 +296,7 @@ const IncrementPlanner = ({}) => {
                 label: "% increment",
                 sortable: false,
                 render: (temp, all, index) => <div className={styles.noWrap}>{
-                    <PercentageField id={all?.id} percentage={all?.increment_percentage}
+                    <PercentageField id={all?.id} finalPercentage={all?.final_percentage} percentage={all?.increment_percentage}
                                      handleInputChange={handleValueChange}/>
                 }</div>,
             }, {
@@ -369,7 +370,7 @@ const IncrementPlanner = ({}) => {
                 ),
             },
         ];
-    }, [renderStatus, renderFirstCell, isCalling, handleValueChange]);
+    }, [renderStatus, renderFirstCell, isCalling, handleValueChange, formData]);
 
     const tableData = useMemo(() => {
         const datatableFunctions = {
@@ -448,6 +449,7 @@ const IncrementPlanner = ({}) => {
                     <div className={styles.down}>{renderDropDown}</div>
                     <div className={styles.rightFlex}>
                         <ButtonBase
+                            onClick={handleViewGraph}
                             className={styles.downloadrun}
                         >
                             VIEW GRAPH
@@ -522,14 +524,14 @@ const IncrementPlanner = ({}) => {
             <DialogIncComponent
                 isOpen={isDialog}
                 handleClose={toggleConfirmDialog}
-                // handleConfirm={handleDialogConfirm}
+                handleConfirm={() => { !isSubmitting && handleDialogConfirm() }}
             />
-            <BottomPanelComponent open={true}>
+            {!isFreezed && (<BottomPanelComponent open={true}>
                 <BottomIncActionView
                     handleSend={toggleConfirmDialog}
-                    // isSubmitting={isSending}
+                    isSubmitting={isSubmitting}
                 />
-            </BottomPanelComponent>
+            </BottomPanelComponent>)}
         </div>
     );
 };
