@@ -26,7 +26,7 @@ const useIncrementPlanner = ({location}) => {
     const [year, setYear] = useState("");
     const [formData, setFormData] = useState({});
     const [changedIds, setChangedIds] = useState([]);
-    const [isFreezed, setIsFreezed] = useState(true);
+    const [isFreezed, setIsFreezed] = useState(false);
 
     const [listData, setListData] = useState({
         LOCATIONS: [],
@@ -84,14 +84,14 @@ const useIncrementPlanner = ({location}) => {
             }
         });
 
-        serviceIncrementPlannerStatus({
-            year, batch: type, type: plannerType
-        }).then((res) => {
-            if(!res.error) {
-                const status = res?.data;
-                setIsFreezed(status !== 'PENDING');
-            }
-        })
+        // serviceIncrementPlannerStatus({
+        //     year, batch: type, type: plannerType
+        // }).then((res) => {
+        //     if(!res.error) {
+        //         const status = res?.data;
+        //         setIsFreezed(status !== 'PENDING');
+        //     }
+        // })
     }, [year, type, plannerType]);
 
 
@@ -163,8 +163,8 @@ const useIncrementPlanner = ({location}) => {
                     return false;
                   });
                   console.log('>>>',filteredData)
-            }  
-            
+            }
+
             // queryFilter("FILTER_DATA", value);
         },
         [queryFilter,apiData]
@@ -211,7 +211,7 @@ const useIncrementPlanner = ({location}) => {
     const handleViewDetails = useCallback((data) => {
         historyUtils.push(`/employees/details/${data?.emp_code}`);
     }, []);
-   
+
     const configFilter = useMemo(() => {
         return [
           ... [
@@ -260,14 +260,14 @@ const useIncrementPlanner = ({location}) => {
             const obj = tList[index];
             obj[name] = value;
             if (name === 'final_percentage') {
-                obj.increment_amount = parseFloat((obj.current_incremental_salary * (value / 100)).toFixed(2));
-                obj.effective_amount = parseFloat((((obj.increment_amount / 12) * obj.incr_due_month)).toFixed(2));
-                obj.new_salary = parseFloat((obj.current_incremental_salary + obj.effective_amount).toFixed(2));
+                obj.increment_amount = Math.ceil((obj.current_incremental_salary * (value / 100)).toFixed(2));
+                obj.effective_amount = Math.ceil((((obj.increment_amount / 12) * obj.incr_due_month)).toFixed(2));
+                obj.new_salary = Math.ceil((obj.current_incremental_salary + obj.effective_amount).toFixed(2));
             }
             if (name === 'incr_due_month') {
-                obj.increment_amount = parseFloat((obj.current_incremental_salary * (obj.final_percentage / 100)).toFixed(2));
-                obj.effective_amount = parseFloat((((obj.increment_amount / 12) * value)).toFixed(2));
-                obj.new_salary = parseFloat((obj.current_incremental_salary + obj.effective_amount).toFixed(2));
+                obj.increment_amount = Math.ceil((obj.current_incremental_salary * (obj.final_percentage / 100)).toFixed(2));
+                obj.effective_amount = Math.ceil((((obj.increment_amount / 12) * value)).toFixed(2));
+                obj.new_salary = Math.ceil((obj.current_incremental_salary + obj.effective_amount).toFixed(2));
             }
             setData(tList);
 
@@ -285,7 +285,7 @@ const useIncrementPlanner = ({location}) => {
             // if (changedIds.indexOf(dT.id) >= 0) {
                 tData.push({
                     final_percentage: dT.final_percentage,
-                    is_promoted: dT.overall_hod_is_recommended,
+                    is_promoted: dT.is_promoted,
                     comments: dT?.comments ? dT?.comments : '',
                     increment_amount: dT?.increment_amount,
                     effective_amount: dT?.effective_amount,

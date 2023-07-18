@@ -23,7 +23,7 @@ const BottomIncActionView = ({
             onClick={handleSend}
             className={"createBtn"}
           >
-            Freeze Increment
+            Save Increment
           </ButtonBase>
         </div>
       </div>

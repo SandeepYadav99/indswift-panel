@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import styles from "../Style.module.css";
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {isNumDecTwoPlaces} from "../../../../libs/RegexUtils";
+import {isNum, isNumDecTwoPlaces} from "../../../../libs/RegexUtils";
 import LogUtils from "../../../../libs/LogUtils";
 import useDebounce from "../../../../hooks/DebounceHook";
 
@@ -20,7 +20,7 @@ const IncrMonthField = ({incrValue, id, handleInputChange}) => {
 
     const handleValueChange = useCallback((e) => {
         const val = e?.target?.value;
-        if (!val || isNumDecTwoPlaces(val) && val <= 12) {
+        if (!val || isNum(val) && val <= 12) {
             setValue(parseFloat(e?.target?.value));
         }
     }, [setValue, handleInputChange]);
