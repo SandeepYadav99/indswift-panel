@@ -34,15 +34,15 @@ function IncrementDetail({ location }) {
     return [
       {
         key: "department",
-        label: "DEPARTMENT",
+        label: type === "DEPARTMENT" ? "LOCATION" : "DEPARTMENT",
         sortable: false,
         render: (temp, all) => (
           <>
-            {type === "DEPARTMENT" && listType?.id ? (
+            {type === "DEPARTMENT" ? (
               <div className={styles.noWrap}>
-                {listType?.name}
+                {all?.location?.name}
                 <br />
-                {listType?.code}
+                {all?.location?.code}
               </div>
             ) : (
               <div className={styles.noWrap}>
@@ -85,7 +85,7 @@ function IncrementDetail({ location }) {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}>
-            {all?.current_salary - all?.new_salary}
+            {all?.new_salary - all?.current_salary}
           </div>
         ),
       },
