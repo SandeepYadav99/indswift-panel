@@ -21,6 +21,7 @@
 .table{
   border: 1px solid black;
   border-collapse: collapse;
+  width: 100%;
 }
 .thead {
   background: #ecf7ff 0% 0% no-repeat padding-box;
@@ -91,6 +92,7 @@
 .label {
   font-size: 0.8rem;
   padding: 10px 15px;
+  text-align: center;
 }
 .label21 {
   font-size: 0.8rem;

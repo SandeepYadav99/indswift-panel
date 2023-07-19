@@ -9,7 +9,7 @@ function EmployeeList({className, data}) {
             <div className={styles.grossWrapper21}>
                 <div className={className ? className : styles.grossSalaryWrapper}>
                     <div className={styles.tableComponentField}>
-                        <div className={styles.title}>{data?.title}</div>
+                        <div className={styles.title}>{data?.title} <span className={styles.typeCont}>{data?.letter_type &&  ` - ${data?.letter_type} LETTER` } {data?.star_type && ` - ${data?.star_type} STAR`}</span></div>
                         <div className={styles.historyDes}>Letter Head Number: {data?.letter_head_no}</div>
                     </div>
                     <div className={styles.tableAnnualField}>

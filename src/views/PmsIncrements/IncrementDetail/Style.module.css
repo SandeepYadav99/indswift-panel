@@ -52,4 +52,18 @@
 }
 .TableWrap{
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.tableData{
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
+.left{
+  flex: .3;
+}
+.right{
+  flex: .6;
 }

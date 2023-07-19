@@ -226,7 +226,7 @@ const IncrementPlanner = ({location}) => {
                 key: "length",
                 label: "Length of Service",
                 sortable: false,
-                render: (temp, all) => <div className={styles.noWrap}>{all?.experience}</div>,
+                render: (temp, all) => <div className={styles.noWrap}>{(all?.experience && all?.experience > 1) ? `${all?.experience} years`:`${all?.experience} year`}</div>,
             },
             {
                 key: "quali",
@@ -428,7 +428,6 @@ const IncrementPlanner = ({location}) => {
             </CustomSelectField>
         );
     }, [year]);
-
     return (
         <div>
             <PageBox>
@@ -443,14 +442,14 @@ const IncrementPlanner = ({location}) => {
                     <div className={styles.UpperWrap}>
                     <div className={styles.down}>{renderYear}</div>
                     <div className={styles.down}>{renderDropDown}</div>
-                    </div>
-                    { (type && year) && (<div className={styles.rightFlex}>
-                        <ButtonBase
+                    { (type && year) &&<ButtonBase
                             onClick={handleViewGraph}
                             className={styles.downloadrun}
                         >
                             VIEW GRAPH
-                        </ButtonBase>
+                        </ButtonBase> }
+                    </div>
+                    { (type && year) && (<div className={styles.rightFlex}>
                         <ButtonBase className={styles.download} onClick={handleDownload}>
                             DOWNLOAD
                         </ButtonBase>

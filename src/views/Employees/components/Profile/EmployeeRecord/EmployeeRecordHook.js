@@ -2,6 +2,7 @@ import { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { serviceGetEmployeeRecord } from "../../../../../services/EmployeeRecords.services";
 import { useSelector } from "react-redux";
+import { useLocation } from 'react-router';
 
 function EmployeeRecordList({}) {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -9,7 +10,7 @@ function EmployeeRecordList({}) {
   const { employeeData } = useSelector((state) => state.employee);
   const [data, setData] = useState([]);
   const [type,setType]=useState("")
-
+  const location = useLocation();
   useEffect(() => {
     serviceGetEmployeeRecord({
       employee_id: employeeData.id,
@@ -44,7 +45,8 @@ function EmployeeRecordList({}) {
     createDD,
     handleAddCandidate,
     handleClosedownloadCL,
-    type
+    type,
+    location
   };
 }
 

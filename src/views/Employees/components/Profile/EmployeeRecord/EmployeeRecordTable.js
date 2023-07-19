@@ -17,6 +17,7 @@ function EmployeeRecordTable({ empId }) {
     handleAddCandidate,
     handleClosedownloadCL,
     type,
+    location,
   } = useEmployeeList({ empId });
 
   const renderCreateForm = useMemo(() => {
@@ -38,53 +39,53 @@ function EmployeeRecordTable({ empId }) {
               <span className={styles.title}>Letters List</span>
               <div className={styles.newLine} />
             </div>
-            <div>
-              <ButtonBase
-                aria-owns={createDD ? "createDD" : undefined}
-                aria-haspopup="true"
-                onClick={handleAddCandidate}
-                className={"createBtn"}
-              >
-                Create
-                <Add fontSize={"small"} className={"plusIcon"}></Add>
-              </ButtonBase>
-              <Menu
-                id="createDD"
-                anchorEl={createDD}
-                open={Boolean(createDD)}
-                onClose={handleClosedownloadCL}
-              >
-                <MenuItem
-                  onClick={() => {
-                    handleSideToggle("RECORD");
-                  }}
+            {location?.pathname !== "/my/profile" && (
+              <div>
+                <ButtonBase
+                  aria-owns={createDD ? "createDD" : undefined}
+                  aria-haspopup="true"
+                  onClick={handleAddCandidate}
+                  className={"createBtn"}
                 >
-                  Record
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleSideToggle("STAR");
-                  }}
+                  Create
+                  <Add fontSize={"small"} className={"plusIcon"}></Add>
+                </ButtonBase>
+                <Menu
+                  id="createDD"
+                  anchorEl={createDD}
+                  open={Boolean(createDD)}
+                  onClose={handleClosedownloadCL}
                 >
-                  PMS Star
-                </MenuItem>
-              </Menu>
-            </div>
+                  <MenuItem
+                    onClick={() => {
+                      handleSideToggle("RECORD");
+                    }}
+                  >
+                    Record
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleSideToggle("STAR");
+                    }}
+                  >
+                    PMS Star
+                  </MenuItem>
+                </Menu>
+              </div>
+            )}
           </div>
           <br />
           <br />
           <div className={styles.EmployeeListWrapper}>{listArr}</div>
         </PageBox>
-        
+
         <SidePanelComponent
           handleToggle={handleSideToggle}
-          title={type === 'STAR' ? 'Add PMS Star' : 'Upload Employee Records'}
+          title={type === "STAR" ? "Add PMS Star" : "Upload Employee Records"}
           open={isSidePanel}
           side={"right"}
         >
-          {
-            isSidePanel && renderCreateForm
-          }
+          {isSidePanel && renderCreateForm}
         </SidePanelComponent>
       </div>
     </>

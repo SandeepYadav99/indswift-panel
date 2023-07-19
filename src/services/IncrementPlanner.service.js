@@ -23,3 +23,6 @@ export async function serviceIncrementPlannerStatus (params) {
 export async function serviceIncrementPlannerDownload (params) {
     return await postRequest('pms/increment/planner/export', params);
 }
+export async function serviceGetIncrementDetailInfo (params) {
+    return await postRequest('pms/increment/planner/analytics', params);
+}

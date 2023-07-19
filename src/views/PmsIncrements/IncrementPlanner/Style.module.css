@@ -148,6 +148,7 @@
   flex: .5;
   display: flex;
   gap: 20px !important;
+  align-items: center;
   /* justify-content: space-around;   */
 }
 .newLine {

@@ -62,19 +62,19 @@ function SlabTable({ data, title, shouldHideAvg }) {
         <div className={styles.label}>
           {shouldHideAvg && (all?.key === "avg" || all?.key === "count")
             ? ""
-            : all?.key}
+            : all?.level}
         </div>
       ),
     },
     {
       key: "result",
       title: "Result",
-      render: (all) => <div className={styles.label}>{all?.normalized}</div>,
+      render: (all) => <div className={styles.label}>{all?.percentage}</div>,
     },
     {
       key: "count",
       title: "Count",
-      render: (all) => <div className={styles.label}>{all?.received}</div>,
+      render: (all) => <div className={styles.label}>{all?.count}</div>,
     },
   ]);
   return (

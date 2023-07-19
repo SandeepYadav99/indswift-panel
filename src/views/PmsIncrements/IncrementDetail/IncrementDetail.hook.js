@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { serviceGetList } from "../../../services/Common.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import {
-  serviceGetIncrementPlanner,
+  serviceGetIncrementDetailInfo,
   serviceIncrementPlannerDownload,
 } from "../../../services/IncrementPlanner.service";
 import historyUtils from "../../../libs/history.utils";
@@ -14,6 +14,7 @@ const useIncrementDetail = ({location}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
+  const [slabData,setSlabData]=useState([])
   const [isCalling, setIsCalling] = useState(false);
   const [apiData, setApiData] = useState([]);
   const [type, setType] = useState("");
@@ -31,15 +32,31 @@ const useIncrementDetail = ({location}) => {
     });
   }, []);
 
-  console.log(">>>", type, listType);
+  useEffect(() => {
+    if (type) {
+      setListType("");
+    }
+  }, [type]);
+
+  useEffect(()=>{
+    if(type && listType?.id){
+      resetData();
+    }
+  },[type,listType])
+
   const resetData = useCallback(() => {
-    serviceGetIncrementPlanner({
-      listType: listType,
-      batch: type,
+    serviceGetIncrementDetailInfo({
+        batch: batch,
+        year: year,
+        type: planner_type,
+        filter_type: type,
+        filter_id: listType?.id
     }).then((res) => {
       if (!res.error) {
         const data = res.data;
-        setApiData(data);
+        const {analytics , ...rest} = data
+        setApiData([...analytics]);
+        setSlabData(rest)
       }
     });
   }, [listType, type]);
@@ -88,10 +105,10 @@ const useIncrementDetail = ({location}) => {
   );
 
   const initialApiCall = useCallback(() => {
-    if (listType && type) {
+    if (listType?.id && type) {
       resetData();
     }
-  }, [type, setListType]);
+  }, [type, listType,setListType]);
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
@@ -124,6 +141,7 @@ const useIncrementDetail = ({location}) => {
     handleDownload,
     handleViewDetails,
     setListType,
+    slabData
   };
 };
 

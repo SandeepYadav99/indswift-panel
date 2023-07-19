@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import SlabGraph from "./component/SlabGraph.view";
 
-function IncrementDetail({location}) {
+function IncrementDetail({ location }) {
   const {
     handlePageChange,
     handleRowSize,
@@ -26,9 +26,9 @@ function IncrementDetail({location}) {
     type,
     setType,
     initialApiCall,
-
+    slabData,
     setListType,
-  } = useIncrementDetail({location});
+  } = useIncrementDetail({ location });
 
   const tableStructure = useMemo(() => {
     return [
@@ -37,37 +37,45 @@ function IncrementDetail({location}) {
         label: "DEPARTMENT",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>{all?.department}</div>
+          <>
+            {type === "DEPARTMENT" && listType?.id ? (
+              <div className={styles.noWrap}>
+                {listType?.name}
+                <br />
+                {listType?.code}
+              </div>
+            ) : (
+              <div className={styles.noWrap}>
+                {all?.department?.name}
+                <br />
+                {all?.department?.code}
+              </div>
+            )}
+          </>
         ),
       },
       {
         key: "count",
         label: "EMPLOYEE Count",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.name}</div>,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>{all?.total_count}</div>
+        ),
       },
-
-      {
-        key: "final",
-        label: "FINAL RATING BY HOD",
-        sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
-      },
-
       {
         key: "current",
         label: "CURRENT SALARY (TOTAL SALARY)",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>{all?.current_salary}</div>
+        ),
       },
       {
         key: "increment",
         label: "INCREMENT SALARY",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>
-            {<input className={styles.InputWrap} value={all?.name} />}
-          </div>
+          <div className={styles.noWrap}>{all?.new_salary}</div>
         ),
       },
 
@@ -76,17 +84,21 @@ function IncrementDetail({location}) {
         label: "SALARY DIFFERENCE",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>{all?.reviewer?.name}</div>
+          <div className={styles.noWrap}>
+            {all?.current_salary - all?.new_salary}
+          </div>
         ),
       },
       {
         key: "% AVG INCREMENT",
         label: "avg",
         sortable: false,
-        render: (temp, all) => <div className={styles.noWrap}>{all?.type}</div>,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>{all?.avg_increment}</div>
+        ),
       },
     ];
-  }, [isCalling]);
+  }, [isCalling,listType,type]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -115,11 +127,6 @@ function IncrementDetail({location}) {
     data,
     currentPage,
   ]);
-  useEffect(() => {
-    if (type) {
-      setListType("");
-    }
-  }, [type]);
 
   const renderDropDown = useMemo(() => {
     return (
@@ -228,9 +235,27 @@ function IncrementDetail({location}) {
             <div className={styles.newLine} />
           </span>
         </div>
-        <div  className={styles.TableWrap}>
-          <SlabTable title={"Slab"} />
-          {/* <SlabGraph/> */}
+        <div className={styles.TableWrap}>
+          {slabData?.slab_one && (
+            <div className={styles.tableData}>
+              <div className={styles.left}>
+                <SlabTable title={"Slab 1"} data={slabData?.slab_one} />
+              </div>
+              <div className={styles.right}>
+                <SlabGraph dataValues={slabData?.slab_one} />
+              </div>
+            </div>
+          )}
+          {slabData?.slab_two && (
+            <div className={styles.tableData}>
+              <div className={styles.left}>
+                <SlabTable title={"Slab 2"} data={slabData?.slab_two} />
+              </div>
+              <div className={styles.right}>
+                <SlabGraph dataValues={slabData?.slab_two} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

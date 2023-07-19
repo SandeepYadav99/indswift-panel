@@ -23,16 +23,16 @@ function SlabGraph({ dataValues }) {
       }}
     >
       <CartesianGrid />
-      <XAxis dataKey="key" />
+      <XAxis dataKey="level" />
       <YAxis />
       <Tooltip />
       <Legend />
       <Line
         type="linear"
-        dataKey="normalized"
-        stroke="#2005A2"
+        dataKey="percentage"
+        stroke="#F4881B"
         activeDot={{ r: 8 }}
-        name="Normalizes"
+        name=""
         strokeWidth={2}
       />
     </LineChart>
