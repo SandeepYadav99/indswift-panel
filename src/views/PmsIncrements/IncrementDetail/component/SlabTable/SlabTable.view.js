@@ -30,7 +30,7 @@ const CustomTable = ({ columns, data, title }) => {
           <tr
             key={index}
             className={
-              item?.key === "avg" || item?.key === "count"
+              item?.level === ""
                 ? styles.blueField
                 : index % 2 === 0
                 ? styles.evenRow
@@ -50,10 +50,21 @@ const CustomTable = ({ columns, data, title }) => {
 };
 
 function SlabTable({ data, title, shouldHideAvg }) {
-  const graphData = useMemo(() => {
-    return shouldHideAvg ? [...data].slice(0, 14) : data;
-  }, [data, shouldHideAvg]);
 
+  const totalCount = useMemo(() => {
+    return data.reduce((accumulator, item) => {
+      return accumulator + item.count;
+    }, 0);
+  }, [data]);
+
+  const newData = useMemo(() => {
+    return [...data, {
+      "level": "",
+      "count": totalCount,
+      "percentage": ""
+    }];
+  }, [data, totalCount]);
+  
   const [columns, setColumns] = useState([
     {
       key: "level",
@@ -79,7 +90,7 @@ function SlabTable({ data, title, shouldHideAvg }) {
   ]);
   return (
     <div>
-      {<CustomTable title={title} columns={columns} data={graphData} />}
+      {<CustomTable title={title} columns={columns} data={newData} />}
     </div>
   );
 }
