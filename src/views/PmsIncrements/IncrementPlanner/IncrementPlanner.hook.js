@@ -315,8 +315,12 @@ const useIncrementPlanner = ({location}) => {
     }, [submitToServer])
 
     const handleViewGraph = useCallback(() => {
-        historyUtils.push(RouteName.PMS_INCREMENT_PLANNER_GRAPH);
-    }, []);
+        historyUtils.push(RouteName.PMS_INCREMENT_PLANNER_GRAPH, {
+            batch: type,
+            planner_type: plannerType,
+            year
+        });
+    }, [type, plannerType, year]);
 
 
 

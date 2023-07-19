@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import SlabGraph from "./component/SlabGraph.view";
 
-function IncrementDetail() {
+function IncrementDetail({location}) {
   const {
     handlePageChange,
     handleRowSize,
@@ -28,7 +28,7 @@ function IncrementDetail() {
     initialApiCall,
 
     setListType,
-  } = useIncrementDetail({});
+  } = useIncrementDetail({location});
 
   const tableStructure = useMemo(() => {
     return [

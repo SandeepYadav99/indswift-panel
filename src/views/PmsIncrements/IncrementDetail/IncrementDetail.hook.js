@@ -9,7 +9,8 @@ import {
 import historyUtils from "../../../libs/history.utils";
 
 const totalShow = 10;
-const useIncrementDetail = ({}) => {
+const useIncrementDetail = ({location}) => {
+  const {batch, year, planner_type} = location?.state;
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);

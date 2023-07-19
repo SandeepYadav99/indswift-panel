@@ -437,26 +437,24 @@ const IncrementPlanner = ({location}) => {
                         <span className={styles.title}>Increment Planner</span>
                         <div className={styles.newLine}/>
                     </div>
-                    <div className={styles.rightFlex}>
-                        <ButtonBase className={styles.download} onClick={handleDownload}>
-                            DOWNLOAD
-                        </ButtonBase>
-                    </div>
                 </div>
 
                 <div className={styles.yearFlex}>
                     <div className={styles.UpperWrap}>
                     <div className={styles.down}>{renderYear}</div>
                     <div className={styles.down}>{renderDropDown}</div>
-                    </div>              
-                    <div className={styles.rightFlex}>
+                    </div>
+                    { (type && year) && (<div className={styles.rightFlex}>
                         <ButtonBase
                             onClick={handleViewGraph}
                             className={styles.downloadrun}
                         >
                             VIEW GRAPH
                         </ButtonBase>
-                    </div>
+                        <ButtonBase className={styles.download} onClick={handleDownload}>
+                            DOWNLOAD
+                        </ButtonBase>
+                    </div>)}
                 </div>
                 <div>
                     <div>
