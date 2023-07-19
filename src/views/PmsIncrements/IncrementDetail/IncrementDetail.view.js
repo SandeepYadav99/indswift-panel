@@ -45,6 +45,7 @@ function IncrementDetail({ location }) {
                 {all?.location?.code}
               </div>
             ) : (
+
               <div className={styles.noWrap}>
                 {all?.department?.name}
                 <br />

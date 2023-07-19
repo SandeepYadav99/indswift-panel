@@ -36,6 +36,7 @@ function LineChartGraph({dataValues}) {
         strokeWidth={2}
       />
       <Line type="linear" strokeWidth={2} dataKey="received" stroke="#F4881B" name="As Recieved"/>
+        <Line type="linear" strokeWidth={2} dataKey="overall_hod_rating" stroke="#29CB97" name="Overall HOD Rating"/>
     </LineChart>
   );
 }

@@ -27,7 +27,11 @@ const useIncrementDetail = ({location}) => {
   useEffect(() => {
     serviceGetList(["LOCATIONS", "DEPARTMENTS"]).then((res) => {
       if (!res.error) {
-        setListData(res.data);
+        const locations = res.data?.LOCATIONS;
+        const departments = res?.data?.DEPARTMENTS;
+        locations.unshift({name: "ALL", label: "ALL", code: "ALL", id: "ALL"});
+        departments.unshift({name: "ALL", label: "ALL", code: "ALL", id: "ALL"});
+        setListData({DEPARTMENTS: departments, LOCATIONS: locations});
       }
     });
   }, []);

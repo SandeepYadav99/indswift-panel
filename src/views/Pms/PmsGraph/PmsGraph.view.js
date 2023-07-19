@@ -153,6 +153,7 @@ function PmsGraph() {
               <GraphTable
                 shouldHideAvg={true}
                 data={graphData?.overall}
+                shouldAddOverallHod={true}
                 title={fyYear ? `${fyYear - 1}-${fyYear}` : ""}
               />
               <LineChartGraph dataValues={graphData?.overall} />

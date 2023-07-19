@@ -13,7 +13,7 @@ const CustomTable = ({ columns, data, title }) => {
     <table className={styles.table}>
       <thead>
         <tr>
-          <th colspan="3" className={styles.theadTitle}>
+          <th colspan="4" className={styles.theadTitle}>
             {title}
           </th>
         </tr>
@@ -49,7 +49,7 @@ const CustomTable = ({ columns, data, title }) => {
   );
 };
 
-function GraphTable({ data, title, shouldHideAvg }) {
+function GraphTable({ data, title, shouldHideAvg, shouldAddOverallHod }) {
 
   const graphData = useMemo(() => {
     return shouldHideAvg ?  [...data].slice(0, 14) : data;
@@ -75,6 +75,11 @@ function GraphTable({ data, title, shouldHideAvg }) {
       title: "As Recieved",
       render: (all) => <div className={styles.label}>{all?.received}</div>,
     },
+      ...(shouldAddOverallHod ? [{
+    key: "overall_hod_rating",
+    title: "Overall Hod",
+    render: (all) => <div className={styles.label}>{all?.overall_hod_rating}</div>,
+  }] : []),
   ]);
   return (
     <div>{<CustomTable title={title} columns={columns} data={graphData} />}</div>

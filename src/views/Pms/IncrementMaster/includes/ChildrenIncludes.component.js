@@ -46,7 +46,7 @@ const ChildrenIncludeForm = (
 
   useEffect(() => {
     const val=[];
-    for (let i=0;i<11;i++) {
+    for (let i=0;i <= 11;i++) {
       val.push({...TEMP_OBJ})
     }
     setFields(val)
@@ -75,7 +75,7 @@ const ChildrenIncludeForm = (
     },
     getData() {
       fields.forEach((obj, index) => {
-        obj.level = `L${index+1}`;
+        obj.level = `L${index}`;
         if (obj.hasOwnProperty("employee_id")) {
           delete obj.employee_id;
         }

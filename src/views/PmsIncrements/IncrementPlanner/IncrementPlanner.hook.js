@@ -38,9 +38,9 @@ const useIncrementPlanner = ({location}) => {
         const path = location?.pathname;
         const arr = path.split('/');
         const length = arr.length;
-        if (length ===  3) {
+        if (length === 3) {
             return 'DEFAULT'
-        } else if (arr[length-1] === 'red') {
+        } else if (arr[length - 1] === 'red') {
             return 'RED'
         } else {
             return 'NO';
@@ -48,7 +48,7 @@ const useIncrementPlanner = ({location}) => {
     }, [location]);
 
     useEffect(() => {
-        serviceGetList(["LOCATIONS","DEPARTMENTS","GRADES"]).then((res) => {
+        serviceGetList(["LOCATIONS", "DEPARTMENTS", "GRADES"]).then((res) => {
             if (!res.error) {
                 setListData(res.data);
             }
@@ -149,26 +149,31 @@ const useIncrementPlanner = ({location}) => {
         console.log("_queryFilter", key, value);
     }, []);
 
-    const handleFilterDataChange = useCallback(
-        (value) => {
-            console.log("_handleFilterDataChange", value,{apiData});
-            if(value){
-                const filteredData = apiData.filter(obj => {
-                    for (const filterObj of value) {
-                      const { name, value } = filterObj;
-                      if (obj.hasOwnProperty(name) && obj[name] === value) {
-                        return true;
-                      }
-                    }
-                    return false;
-                  });
-                  console.log('>>>',filteredData)
+    const handleFilterDataChange = useCallback((value) => {
+        if (value && Array.isArray(value) && value.length > 0) {
+            let tData = [...apiData];
+            let filteredData = [];
+            for (const filterObj of value) {
+                const {name, value} = filterObj;
+                if (name !== 'is_modified') {
+                    tData = tData.filter(obj => {
+                        return obj[name] === value;
+                    });
+                } else {
+                    tData = tData.filter(obj => {
+                        if (value === 'YES') {
+                            return obj.increment_percentage != obj.final_percentage;
+                        } else {
+                            return obj.increment_percentage == obj.final_percentage;
+                        }
+                    });
+                }
             }
-
-            // queryFilter("FILTER_DATA", value);
-        },
-        [queryFilter,apiData]
-    );
+            setData(tData);
+        } else {
+            setData(apiData);
+        }
+    }, [queryFilter, apiData, data, setData]);
 
     const handleSearchValueChange = useCallback(
         (value) => {
@@ -214,38 +219,44 @@ const useIncrementPlanner = ({location}) => {
 
     const configFilter = useMemo(() => {
         return [
-          ... [
+            ...[
                 {
-                  label: "Location",
-                  name: "location_id",
-                  type: "selectObject",
-                  custom: { extract: { id: "id", title: "name" } },
-                  fields: listData?.LOCATIONS,
+                    label: "Location",
+                    name: "loc_id",
+                    type: "selectObject",
+                    custom: {extract: {id: "id", title: "name"}},
+                    fields: listData?.LOCATIONS,
                 },
-              ]
+            ]
             ,
-          {
-            label: "Grade",
-            name: "grade_id",
-            type: "selectObject",
-            custom: { extract: { id: "id", title: "label" } },
-            fields: listData?.GRADES,
-          },
-          {
-            label: "Department",
-            name: "department_id",
-            type: "selectObject",
-            custom: { extract: { id: "id", title: "name" } },
-            fields: listData?.DEPARTMENTS,
-          },
-          {
-            label: "Increment Slab",
-            name: "increment_level",
-            type: "select",
-            fields: ["L1","L2","L3","L4","L5","L6","L7","L8","L9","L10","L11"],
-          },
+            {
+                label: "Grade",
+                name: "grade_id",
+                type: "selectObject",
+                custom: {extract: {id: "id", title: "label"}},
+                fields: listData?.GRADES,
+            },
+            {
+                label: "Department",
+                name: "department_id",
+                type: "selectObject",
+                custom: {extract: {id: "id", title: "name"}},
+                fields: listData?.DEPARTMENTS,
+            },
+            {
+                label: "Increment Slab",
+                name: "increment_level",
+                type: "select",
+                fields: ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "L10", "L11"],
+            },
+            {
+                label: "Is Modified",
+                name: "is_modified",
+                type: "select",
+                fields: ["YES", "NO"],
+            },
         ];
-      }, [listData]);
+    }, [listData]);
 
     const handleValueChange = useCallback((id, name, value) => {
         // const tData = {...formData};
@@ -283,16 +294,16 @@ const useIncrementPlanner = ({location}) => {
         const tData = [];
         data.forEach((dT) => {
             // if (changedIds.indexOf(dT.id) >= 0) {
-                tData.push({
-                    final_percentage: dT.final_percentage,
-                    is_promoted: dT.is_promoted,
-                    comments: dT?.comments ? dT?.comments : '',
-                    increment_amount: dT?.increment_amount,
-                    effective_amount: dT?.effective_amount,
-                    new_salary: dT?.new_salary,
-                    employee_id: dT?.employee_id,
-                    incr_due_month: dT?.incr_due_month,
-                });
+            tData.push({
+                final_percentage: dT.final_percentage,
+                is_promoted: dT.is_promoted,
+                comments: dT?.comments ? dT?.comments : '',
+                increment_amount: dT?.increment_amount,
+                effective_amount: dT?.effective_amount,
+                new_salary: dT?.new_salary,
+                employee_id: dT?.employee_id,
+                incr_due_month: dT?.incr_due_month,
+            });
             // }
         });
         if (!isSubmitting) {
@@ -312,7 +323,7 @@ const useIncrementPlanner = ({location}) => {
 
     const handleDialogConfirm = useCallback(() => {
         submitToServer();
-    }, [submitToServer])
+    }, [submitToServer]);
 
     const handleViewGraph = useCallback(() => {
         historyUtils.push(RouteName.PMS_INCREMENT_PLANNER_GRAPH, {
@@ -321,7 +332,6 @@ const useIncrementPlanner = ({location}) => {
             year
         });
     }, [type, plannerType, year]);
-
 
 
     return {
