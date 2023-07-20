@@ -133,7 +133,11 @@ const IncrementPlanner = ({location}) => {
         handleDialogConfirm,
         isSubmitting,
         handleViewGraph,
-        isFreezed
+        isFreezed,
+        freezeIncrementPlanner,
+        isFreezeDialog,
+        toggleFreezeDialog,
+        isFreezing,
     } = useIncrementPlanner({location});
 
     const renderStatus = useCallback((status) => {
@@ -451,6 +455,11 @@ const IncrementPlanner = ({location}) => {
                             DOWNLOAD
                         </ButtonBase>
                     </div>)}
+                    { (type && year) && (<div className={styles.rightFlex}>
+                        <ButtonBase className={styles.download} onClick={toggleFreezeDialog}>
+                            Freeze Planner
+                        </ButtonBase>
+                    </div>)}
                 </div>
                 <div>
                     <div>
@@ -521,6 +530,11 @@ const IncrementPlanner = ({location}) => {
                 isOpen={isDialog}
                 handleClose={toggleConfirmDialog}
                 handleConfirm={() => { !isSubmitting && handleDialogConfirm() }}
+            />
+            <DialogIncComponent
+                isOpen={isFreezeDialog}
+                handleClose={toggleFreezeDialog}
+                handleConfirm={() => { !isFreezing && freezeIncrementPlanner() }}
             />
             {!isFreezed && (<BottomPanelComponent open={true}>
                 <BottomIncActionView

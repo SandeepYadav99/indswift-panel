@@ -3,6 +3,7 @@ import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {serviceGetList} from "../../../services/Common.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import {
+    serviceFreezeIncrementPlanner,
     serviceGetIncrementPlanner,
     serviceIncrementPlannerDownload, serviceIncrementPlannerStatus, serviceUpdateIncrementPlanner,
 } from "../../../services/IncrementPlanner.service";
@@ -27,6 +28,8 @@ const useIncrementPlanner = ({location}) => {
     const [formData, setFormData] = useState({});
     const [changedIds, setChangedIds] = useState([]);
     const [isFreezed, setIsFreezed] = useState(false);
+    const [isFreezeDialog, setIsFreezeDialog] = useState(false);
+    const [isFreezing, setIsFreezing] = useState(false);
 
     const [listData, setListData] = useState({
         LOCATIONS: [],
@@ -80,7 +83,7 @@ const useIncrementPlanner = ({location}) => {
                     };
                 });
                 // formData.current = (obj);
-                setFormData(obj);
+                // setFormData(obj);
             }
         });
 
@@ -333,6 +336,17 @@ const useIncrementPlanner = ({location}) => {
         });
     }, [type, plannerType, year]);
 
+    const toggleFreezeDialog = useCallback(() => {
+        setIsFreezeDialog(e => !e);
+    }, [setIsFreezeDialog]);
+
+    const freezeIncrementPlanner = useCallback(() => {
+        serviceFreezeIncrementPlanner({ batch: type, year }).then((res) => {
+           if (!res.error) {
+               window.location.reload();
+           }
+        });
+    }, [type, year]);
 
     return {
         handlePageChange,
@@ -362,7 +376,11 @@ const useIncrementPlanner = ({location}) => {
         handleDialogConfirm,
         isSubmitting,
         handleViewGraph,
-        isFreezed
+        isFreezed,
+        freezeIncrementPlanner,
+        isFreezeDialog,
+        toggleFreezeDialog,
+        isFreezing,
     };
 };
 
