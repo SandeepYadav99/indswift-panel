@@ -187,6 +187,7 @@ const CandidateOfferLetter = ({ location }) => {
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
+                  disabled={form?.is_car_component_manual === "NO"? true : false}
                   isError={errorData?.car_component}
                   errorText={errorData?.car_component}
                   label={"Car Component"}
@@ -198,6 +199,28 @@ const CandidateOfferLetter = ({ location }) => {
                     onBlurHandler("car_component");
                   }}
               />
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("YES", "is_car_component_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("NO", "is_car_component_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
             </div>
           </div>
           <div className={"formFlex"}>
@@ -765,6 +788,20 @@ const CandidateOfferLetter = ({ location }) => {
           </div>
         </div>
         <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomSelectField
+              isError={errorData?.is_em_esi}
+              errorText={errorData?.is_em_esi}
+              label={"Em ESI- Deduction Part Applicable"}
+              value={form?.is_em_esi}
+              handleChange={(value) => {
+                changeTextData(value, "is_em_esi");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={true}
@@ -782,7 +819,10 @@ const CandidateOfferLetter = ({ location }) => {
             />
           </div>
 
-          <div className={"formGroup"}>
+          
+        </div>
+        <div className={"formFlex"}>
+        <div className={"formGroup"}>
             <CustomTextField
               disabled={true}
               type={"number"}
@@ -798,8 +838,6 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
-        </div>
-        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={true}
@@ -816,7 +854,6 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
-          <div className={"formGroup"}></div>
         </div>
           <div className={"formFlex"}>
               <TotalSum

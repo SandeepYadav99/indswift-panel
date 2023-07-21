@@ -1039,7 +1039,7 @@ const EmployeeListCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={empFlag || form?.is_car_component_manual === "NO" ? true : false}
               type={"number"}
               isError={errorData?.car_component}
               errorText={errorData?.car_component}
@@ -1053,6 +1053,30 @@ const EmployeeListCreate = ({ location }) => {
               }}
             />
           </div>
+          <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={empFlag ? true : false}
+                onClick={() => {
+                  changeTextData("YES", "is_car_component_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={empFlag ? true : false}
+                onClick={() => {
+                  changeTextData("NO", "is_car_component_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
+            </div>
         </div>
         <div className={"formFlex"}>
           <TotalSum
@@ -1640,6 +1664,22 @@ const EmployeeListCreate = ({ location }) => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
+          <CustomSelectField
+              disabled={empFlag ? true : false}
+              isError={errorData?.is_em_esi}
+              errorText={errorData?.is_em_esi}
+              label={"Em ESI- Deduction Part Applicable"}
+              value={form?.is_em_esi}
+              handleChange={(value) => {
+                changeTextData(value, "is_em_esi");
+              }}
+            >
+              <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem>
+            </CustomSelectField>
+          </div>
+
+          <div className={"formGroup"}>
             <CustomTextField
               disabled={true}
               type={"number"}
@@ -1655,8 +1695,9 @@ const EmployeeListCreate = ({ location }) => {
               }}
             />
           </div>
-
-          <div className={"formGroup"}>
+        </div>
+        <div className={"formFlex"}>
+        <div className={"formGroup"}>
             <CustomTextField
               disabled={true}
               type={"number"}
@@ -1672,8 +1713,6 @@ const EmployeeListCreate = ({ location }) => {
               }}
             />
           </div>
-        </div>
-        <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={true}
@@ -1690,7 +1729,6 @@ const EmployeeListCreate = ({ location }) => {
               }}
             />
           </div>
-          <div className={"formGroup"}></div>
         </div>
         <div className={"formFlex"}>
           <TotalSum

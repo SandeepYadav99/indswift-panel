@@ -65,6 +65,11 @@ function GraphTable({ data, title, shouldHideAvg, shouldAddOverallHod }) {
         </div>
       ),
     },
+    ...(shouldAddOverallHod ? [{
+      key: "overall_hod_rating",
+      title: "Overall Hod",
+      render: (all) => <div className={styles.label}>{all?.overall_hod_rating}</div>,
+    }] : []),
     {
       key: "recieved",
       title: "Normalized",
@@ -75,11 +80,7 @@ function GraphTable({ data, title, shouldHideAvg, shouldAddOverallHod }) {
       title: "As Recieved",
       render: (all) => <div className={styles.label}>{all?.received}</div>,
     },
-      ...(shouldAddOverallHod ? [{
-    key: "overall_hod_rating",
-    title: "Overall Hod",
-    render: (all) => <div className={styles.label}>{all?.overall_hod_rating}</div>,
-  }] : []),
+      
   ]);
   return (
     <div>{<CustomTable title={title} columns={columns} data={graphData} />}</div>

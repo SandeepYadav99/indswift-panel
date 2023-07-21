@@ -89,6 +89,8 @@ const BOOLEAN_KEYS = [
   "is_nps",
   "is_em_pf",
   "is_deduction_vpf",
+  "is_car_component_manual",
+  "is_em_esi"
 ];
 
 function EmployeeListCreateHook({ location }) {
@@ -203,6 +205,8 @@ function EmployeeListCreateHook({ location }) {
     is_nps: "NO",
     is_em_pf: "NO",
     is_deduction_vpf: "NO",
+    is_car_component_manual:"NO",
+    is_em_esi:"NO",
     deduction_vpf_pct: 0,
     gross_component:0,
     deputation_allowance:0,

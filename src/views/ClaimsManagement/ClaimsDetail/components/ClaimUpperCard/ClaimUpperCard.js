@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import image from "../../../../../assets/img/download.png";
 
-function ClaimUpperCard({data,isLoc}) {
+function ClaimUpperCard({data,isLoc,isLoan}) {
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -28,7 +28,7 @@ function ClaimUpperCard({data,isLoc}) {
                 <span className={styles.value}>Location:</span>
                 {data?.location?.name}
               </div>
-              { isLoc && <div className={styles.key}>
+              { (isLoc || isLoan) && <div className={styles.key}>
                 <span className={styles.value}>Date of Joining:</span>
                 {data?.dojText}
               </div>}
@@ -48,6 +48,12 @@ function ClaimUpperCard({data,isLoc}) {
               <span className={styles.value}>Department:</span>
               {data?.department?.name}
             </div>
+            {isLoan && (
+              <div className={styles.key}>
+                <span className={styles.value}>Experience with Organization:</span>
+                {data?.experience?.current}
+              </div>
+            )}
           </div>
         </div>
       </div>

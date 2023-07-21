@@ -65,7 +65,7 @@ function IncrementDetail({ location }) {
       },
       {
         key: "current",
-        label: "CURRENT SALARY (TOTAL SALARY)",
+        label: "Current Incremental Salary",
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}>{all?.current_salary}</div>
@@ -73,7 +73,7 @@ function IncrementDetail({ location }) {
       },
       {
         key: "increment",
-        label: "INCREMENT SALARY",
+        label: "New Salary",
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}>{all?.new_salary}</div>
@@ -82,7 +82,7 @@ function IncrementDetail({ location }) {
 
       {
         key: "difference",
-        label: "SALARY DIFFERENCE",
+        label: "Increment",
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}>
