@@ -28,3 +28,6 @@ export async function serviceCheckCoPassenger (params) {
 export async function serviceGetmyImprestDetailsCLaim(params) {
     return await postRequest('imprest/details', params);
 }
+export async function serviceUpdateEmployeeLoan(params) {
+    return await formDataRequest('employee/loans/create', params);
+}

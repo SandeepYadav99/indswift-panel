@@ -5,20 +5,18 @@ import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
 import {
   serviceGetEmployeeDetails,
-  serviceUpdateTravelClaims,
+  serviceUpdateEmployeeLoan,
 } from "../../../../../services/ClaimsManagement.service";
 import { useSelector } from "react-redux";
-import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
-import nullImg from "../../../../../assets/img/null.png";
-import { dataURLtoFile } from "../../../../../helper/helper";
 import { serviceGetList } from "../../../../../services/Common.service";
 
 const initialForm = {
-  bill_amount: "",
-  bill_date: "",
-  od_ss_2: null,
-  rem_month: "",
-  od_ss: null,
+  loan_type: "",
+  amount: "",
+  description: "",
+  g1: "",
+  g2: "",
+  g3: "",
 };
 
 const useClaimLoanCard = ({}) => {
@@ -30,19 +28,10 @@ const useClaimLoanCard = ({}) => {
   const [editData, setEditData] = useState(null);
   const [declaration, setDeclaration] = useState(false);
   const [employeeDetails, setEmployeeDetails] = useState({});
-  const [claimInfo, setClaimInfo] = useState({});
-  const [travelAmount, setTravelAmount] = useState(null);
-  const [otherAmount, setOtherAmount] = useState(null);
+  const [currentExp, setCurrentExp] = useState([]);
   const travelRef = useRef(null);
-  const otherRef = useRef(null);
-  const coRef = useRef(null);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const [isChecked, setIsChecked] = React.useState(false);
 
-  const handleCheckboxChange = (event) => {
-    setIsChecked(event.target.checked);
-  };
   const { id } = useParams();
   const {
     user: { emp_code },
@@ -51,21 +40,19 @@ const useClaimLoanCard = ({}) => {
   useEffect(() => {
     Promise.allSettled([
       serviceGetEmployeeDetails({ code: emp_code }),
-      serviceGetClaimDetail(),
-      serviceGetList(["EMPLOYEES"]),
+      serviceGetList(["LOAN_GUARANTEES"]),
     ]).then((promises) => {
       const empDetail = promises[0]?.value?.data;
-      const claimDetail = promises[1]?.value?.data;
-      const listData = promises[2]?.value?.data;
+      const listData = promises[1]?.value?.data;
       setEmployeeDetails(empDetail);
-      setClaimInfo({ ...claimDetail?.local_travel_claim });
-      setEmployees(listData?.EMPLOYEES);
+      setEmployees(listData?.LOAN_GUARANTEES);
+      setCurrentExp(empDetail?.experience?.current);
     });
   }, []);
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["rem_month", "od_ss"];
-
+    let required = ["loan_type", "amount", "description", "g1", "g2", "g3"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -83,68 +70,35 @@ const useClaimLoanCard = ({}) => {
     return errors;
   }, [form, errorData]);
 
-  const getTravelAmount = useCallback(
-    (val) => {
-      setTravelAmount(val);
-    },
-    [setTravelAmount]
-  );
-
-  const getotherAmount = useCallback(
-    (val) => {
-      setOtherAmount(val);
-    },
-    [setOtherAmount]
-  );
-
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsLoading(true);
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["od_ss_2", "od_ss"].indexOf(key) < 0 && form[key]) {
+        if (["loan_type", "amount", "description"].includes(key)) {
           fd.append(key, form[key]);
         }
       });
-      if (form?.od_ss_2) {
-        fd.append("od_ss_2", form?.od_ss_2);
+      const idsArray = [];
+      for (const key in form) {
+        if (key?.startsWith("g")) {
+          idsArray.push(form[key].id);
+        }
       }
-      if (form?.od_ss) {
-        fd.append("od_ss", form?.od_ss);
-      }
-
-      fd.append("travel_details_amount", travelAmount);
-      fd.append("other_expenses_amount", otherAmount);
-      fd.append("bill_amount", travelAmount + otherAmount);
-
-      if (isChecked) {
-        const CoData = coRef.current.getData();
-        const passanger = CoData?.map((item) => item?.co_passengers?.id);
-        fd.append("co_passengers", JSON.stringify(passanger));
-      }
+      fd.append("guarantees", JSON.stringify(idsArray));
       const ExpensesData = travelRef.current.getData();
+      let label = [];
       ExpensesData.forEach((val) => {
-        if (val?.travel_payment_proof) {
-          fd.append("travel_payment_proof", val?.travel_payment_proof);
-        } else {
-          const file = dataURLtoFile(nullImg, "null.png");
-          fd.append("travel_payment_proof", file);
+        if (val?.documents) {
+          fd.append("documents", val?.documents);
+        }
+        if (val?.documents_label) {
+          label.push(val.documents_label);
         }
       });
-      fd.append("travel_details", JSON.stringify(ExpensesData));
-
-      const otherExpensesData = otherRef.current.getData();
-      otherExpensesData.forEach((val) => {
-        if (val?.slip) {
-          fd.append("slip", val?.slip);
-        } else {
-          const file = dataURLtoFile(nullImg, "null.png");
-          fd.append("slip", file);
-        }
-      });
-      fd.append("other_expenses", JSON.stringify(otherExpensesData));
-      let req = serviceUpdateTravelClaims;
+      fd.append("documents_label", JSON.stringify(label));
+      let req = serviceUpdateEmployeeLoan;
       req(fd).then((res) => {
         if (!res.error) {
           historyUtils.goBack();
@@ -155,46 +109,17 @@ const useClaimLoanCard = ({}) => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id, travelAmount, otherAmount,setIsChecked,isChecked]);
-
-  const getMonthsInRange = useCallback(() => {
-    const today = new Date();
-    const fortyFiveDaysAgo = new Date(
-      today.getTime() - 45 * 24 * 60 * 60 * 1000
-    );
-    const startDate = new Date(
-      fortyFiveDaysAgo.getFullYear(),
-      fortyFiveDaysAgo.getMonth(),
-      1
-    );
-    const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    const monthsInRange = [];
-
-    while (startDate <= endDate) {
-      const monthName = startDate.toLocaleString("default", { month: "long" });
-      monthsInRange.push(monthName);
-      startDate.setMonth(startDate.getMonth() + 1);
-    }
-
-    return monthsInRange;
-  }, []);
+  }, [form, isSubmitting, setIsSubmitting, id]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     const isIncludesValid = travelRef.current.isValid();
-    const isOtherValid = otherRef.current.isValid();
-    const isCoValid = isChecked ? coRef.current.isValid() : true;
-    if (
-      !isIncludesValid ||
-      !isOtherValid ||
-      !isCoValid ||
-      Object.keys(errors).length > 0
-    ) {
+    if (!isIncludesValid || Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, submitToServer, setIsChecked,isChecked]);
+  }, [checkFormValidation, setErrorData, submitToServer]);
 
   const removeError = useCallback(
     (title) => {
@@ -205,40 +130,21 @@ const useClaimLoanCard = ({}) => {
     [setErrorData, errorData]
   );
 
-  const calculateMonthDates = useCallback(
-    (month) => {
-      const todayDate = new Date();
-      const monthDate = new Date(`${todayDate.getFullYear()}/${month}/01`);
-      const minDate = new Date();
-      minDate.setDate(minDate.getDate() - 45);
-      if (monthDate.getMonth() === todayDate.getMonth()) {
-        setStartDate(monthDate);
-        setEndDate(todayDate);
-      } else {
-        if (minDate.getMonth() !== monthDate.getMonth()) {
-          minDate.setMonth(monthDate.getMonth(), 1);
-        }
-        setStartDate(minDate);
-        monthDate.setMonth(monthDate.getMonth() + 1, 0);
-        setEndDate(monthDate);
-      }
-    },
-    [setStartDate, setEndDate]
-  );
-
   const changeTextData = useCallback(
     (text, fieldName) => {
-      // LogUtils.log(text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
-      t[fieldName] = text;
+      if (fieldName === "amount") {
+        if (text >= 0) {
+          t[fieldName] = text;
+        }
+      } else {
+        t[fieldName] = text;
+      }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
-      if (fieldName === "rem_month") {
-        calculateMonthDates(text);
-      }
     },
-    [removeError, form, setForm, calculateMonthDates]
+    [removeError, form, setForm]
   );
   const onBlurHandler = useCallback(
     (type) => {
@@ -255,6 +161,15 @@ const useClaimLoanCard = ({}) => {
     setForm({ ...initialForm });
   }, [form]);
 
+  // const filteredEmployees = useMemo(() => {
+  //   return employees?.filter((val) => {
+  //     return (
+  //       val.department_id === form?.department_id &&
+  //       val.location_id === form?.location_id
+  //     );
+  //   });
+  // }, [form?.g1, form?.g2,form?.g3, employees]);
+
   return {
     form,
     changeTextData,
@@ -270,18 +185,11 @@ const useClaimLoanCard = ({}) => {
     declaration,
     setDeclaration,
     employeeDetails,
-    claimInfo,
-    getMonthsInRange,
     travelRef,
-    otherRef,
-    coRef,
-    getTravelAmount,
-    getotherAmount,
-    startDate,
-    endDate,
     isChecked,
-    handleCheckboxChange,
+    setIsChecked,
     employees,
+    currentExp,
   };
 };
 

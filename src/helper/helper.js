@@ -274,3 +274,11 @@ export const accomodationType = [
   { id: "SELF_ARRANGEMENT", name: "Self Arrangement" },
   { id: "NA", name: "NA" },
 ]; 
+
+export const dropDownValuesLoan = [
+  { type: "MEDICAL_EXPENSE", experienceRequired: 1 },
+  { type: "MARRAIGE", experienceRequired: 2 },
+  { type: "EDUCATION", experienceRequired: 3 },
+  { type: "VEHICLE", experienceRequired: 5 },
+  { type: "HOME", experienceRequired: 5 },
+];

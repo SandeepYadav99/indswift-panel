@@ -34,3 +34,6 @@ export async function serviceRejectImprest(params) {
 export async function serviceGetAmpountImprest(params) {
     return await postRequest('ib/employee', params);
 }
+export async function serviceCheckAmpountImprest(params) {
+    return await postRequest('imprest/validate', params);
+}

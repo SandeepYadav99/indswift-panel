@@ -6,7 +6,7 @@ import {
 } from "../../../services/PmsNormalize.service";
 
 function usePmsGraphHook() {
-  const [graphLoc, setGraphLoc] = useState("");
+  const [graphLoc, setGraphLoc] = useState('ALL');
   const [fyYear, setFyYear] = useState("");
   const [batch, setBatch] = useState("");
   const [graphData, setGraphData] = useState({});
@@ -21,7 +21,7 @@ function usePmsGraphHook() {
       serviceGetPmsNormalizeGraphData({
         batch: batch,
         year: fyYear,
-        location_id: graphLoc,
+        location_id: graphLoc === 'ALL' ? '' : graphLoc,
       }),
       serviceGetPmsNormalizeTableData({
         batch: batch,
@@ -68,7 +68,7 @@ function usePmsGraphHook() {
     initialApiCall,
     graphData,
     tableData,
-    avgData
+    avgData,
   };
 }
 

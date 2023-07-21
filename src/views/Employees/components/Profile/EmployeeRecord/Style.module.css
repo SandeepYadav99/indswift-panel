@@ -68,6 +68,10 @@
   flex-direction: column;
   gap: 12px;
 }
+.typeCont{
+  margin-left: 10px;
+  font-weight: 600;
+}
 .titleWrpapper {
   display: flex;
   flex-direction: column;

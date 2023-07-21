@@ -28,13 +28,16 @@ function PmsGraph() {
   const renderDropDown = useMemo(() => {
     return (
       <CustomSelectField
-        label={"Type"}
+        label={"Location"}
         value={graphLoc}
         handleChange={(value) => {
           setGraphLoc(value);
           //   sessionStorage.setItem("graphLoc", value);
         }}
       >
+        <MenuItem value={'ALL'} key={'ALL'}>
+          ALL
+        </MenuItem>
         {listData?.LOCATIONS?.map((dT) => {
           return (
             <MenuItem value={dT?.id} key={dT?.id}>
@@ -136,20 +139,21 @@ function PmsGraph() {
                   : "-"
               }
             />
-            <RatingTile
+            {graphLoc === 'ALL' && (<RatingTile
               title="Normalized Rating"
               value={
                 graphData?.stats?.normalized_rating
                   ? graphData?.stats?.normalized_rating
                   : "-"
               }
-            />
+            />)}
           </div>
           {graphData?.overall?.length > 0 && (
             <div className={styles.graphTableWrap}>
               <GraphTable
                 shouldHideAvg={true}
                 data={graphData?.overall}
+                shouldAddOverallHod={true}
                 title={fyYear ? `${fyYear - 1}-${fyYear}` : ""}
               />
               <LineChartGraph dataValues={graphData?.overall} />

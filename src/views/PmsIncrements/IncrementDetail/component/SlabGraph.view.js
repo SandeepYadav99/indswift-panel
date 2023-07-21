@@ -9,12 +9,12 @@ import {
   Legend,
 } from "recharts";
 
-function LineChartGraph({dataValues}) {
+function SlabGraph({ dataValues }) {
   return (
     <LineChart
       width={800}
       height={600}
-      data={[...dataValues].slice(0,13)}
+      data={[...dataValues].slice(0, 13)}
       margin={{
         top: 5,
         right: 30,
@@ -22,23 +22,21 @@ function LineChartGraph({dataValues}) {
         bottom: 5,
       }}
     >
-      <CartesianGrid  />
-      <XAxis dataKey="key"/>
+      <CartesianGrid />
+      <XAxis dataKey="level" />
       <YAxis />
       <Tooltip />
       <Legend />
       <Line
         type="linear"
-        dataKey="normalized"
-        stroke="#2005A2"
+        dataKey="percentage"
+        stroke="#F4881B"
         activeDot={{ r: 8 }}
-        name="Normalizes"
+        name=""
         strokeWidth={2}
       />
-      <Line type="linear" strokeWidth={2} dataKey="received" stroke="#F4881B" name="As Recieved"/>
-        <Line type="linear" strokeWidth={2} dataKey="overall_hod_rating" stroke="#29CB97" name="Overall HOD Rating"/>
     </LineChart>
   );
 }
 
-export default LineChartGraph;
+export default SlabGraph;

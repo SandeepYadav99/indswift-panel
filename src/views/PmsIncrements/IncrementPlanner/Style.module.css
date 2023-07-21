@@ -136,14 +136,21 @@
 
 .yearFlex {
   display: flex;
-  gap: 20px;
   padding-top: 20px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .down {
-  flex: 0.2;
+  flex: 0.4;
 }
-
+.UpperWrap{
+  flex: .5;
+  display: flex;
+  gap: 20px !important;
+  align-items: center;
+  /* justify-content: space-around;   */
+}
 .newLine {
   height: 4px;
   width: 30px;
@@ -306,4 +313,142 @@
 }
 .noWrap{
   white-space: nowrap;
+  font-size: .8rem;
+  text-align: center;
+  margin: 4px 10px;
+  font-weight: 500;
 }
+.noWrapName{
+  white-space: nowrap;
+  font-size: .8rem;
+  /* text-align: center; */
+  margin: 4px 10px;
+}
+.dropDownClass{
+  min-width: 130px;
+  white-space: nowrap;
+}
+.commentWrap{
+  white-space: nowrap;
+  min-width: 170px;
+}
+.InputWrap{
+  white-space: nowrap;
+  min-width: 80px;
+  border-radius: 10px;
+  padding: 10px 5px;
+  border: 1px solid grey;
+  text-indent: 20px;
+}
+
+.InputWrapChanged{
+  background: #F4881B 0% 0% no-repeat padding-box;
+  color: #ffffff;
+}
+
+
+.tableWrapper{
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+.tipWrap{
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  justify-content: center;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  margin: 0 15px;
+  text-transform: uppercase;
+  padding: 7px 0;
+}
+
+
+.container {
+  margin: auto;
+  width: 100%;
+  max-height: 60vh;
+  /*position: absolute;*/
+  overflow: scroll;
+}
+.thead {
+  background: #ecf7ff 0% 0% no-repeat padding-box;
+  padding: 10px 0;
+  z-index: 10;
+  /* border: 2px solid #EBEDF4; */
+
+}
+.formUpper > img{
+  width: 140px;
+  /* aspect-ratio: 1/1; */
+}
+.formUpper > p{
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+.formUpper > span{
+  margin: 10px 0;
+  text-align: center;
+  font-size: .875rem;
+}
+.tableWrapper{
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+.tipWrap{
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  justify-content: center;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  margin: 0 15px;
+}
+.inputComp{
+  padding: 1rem 0;
+  text-indent: 10px;
+  border: none;
+}
+.readOnlyClass{
+  background-color: #edf2f5;
+  padding: 1rem 0;
+  text-indent: 10px;
+  border: none;
+}
+.lowerBtnwr{
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  padding: 1.2rem;
+  position: relative;
+  bottom: 0;
+  /* width: 100vw; */
+}
+
+.label {
+  font-size: 0.8rem;
+  padding: 4px;
+  /* background: rgb(246 247 255); */
+  z-index: 10;
+}
+.label21{
+  font-size: 0.8rem;
+  padding: 4px;
+  z-index: 10;
+}
+.redBg {
+  background: red;
+}
+.greenBg {
+  background: green;
+}
+.label21 > span{
+  font-weight: 600;
+  white-space: nowrap;
+}
+.label21 > p{
+  margin: 0;
+  white-space: nowrap;
+}
+

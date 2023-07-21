@@ -62,7 +62,7 @@ const changeTextData=(value,key)=>{
       <div className={styles.flexContainer}>
         <div className={styles.firstRow}>
           <div className={styles.levelCont}>
-            L{index+1}
+            L{index}
           </div>
           <div className={styles.flex1}>
             <TextField

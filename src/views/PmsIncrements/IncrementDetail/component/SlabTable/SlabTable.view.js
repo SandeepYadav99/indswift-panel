@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./Style.module.css";
 
 const CustomTable = ({ columns, data, title }) => {
@@ -13,7 +13,7 @@ const CustomTable = ({ columns, data, title }) => {
     <table className={styles.table}>
       <thead>
         <tr>
-          <th colspan="4" className={styles.theadTitle}>
+          <th colspan="3" className={styles.theadTitle}>
             {title}
           </th>
         </tr>
@@ -30,7 +30,7 @@ const CustomTable = ({ columns, data, title }) => {
           <tr
             key={index}
             className={
-              item?.key === "avg" || item?.key === "count"
+              item?.level === ""
                 ? styles.blueField
                 : index % 2 === 0
                 ? styles.evenRow
@@ -49,42 +49,50 @@ const CustomTable = ({ columns, data, title }) => {
   );
 };
 
-function GraphTable({ data, title, shouldHideAvg, shouldAddOverallHod }) {
+function SlabTable({ data, title, shouldHideAvg }) {
 
-  const graphData = useMemo(() => {
-    return shouldHideAvg ?  [...data].slice(0, 14) : data;
-  }, [data, shouldHideAvg]);
+  const totalCount = useMemo(() => {
+    return data.reduce((accumulator, item) => {
+      return accumulator + item.count;
+    }, 0);
+  }, [data]);
 
+  const newData = useMemo(() => {
+    return [...data, {
+      "level": "",
+      "count": totalCount,
+      "percentage": ""
+    }];
+  }, [data, totalCount]);
+  
   const [columns, setColumns] = useState([
     {
-      key: "score",
-      title: "Score",
+      key: "level",
+      title: "Level",
       render: (all) => (
         <div className={styles.label}>
-          {shouldHideAvg && (all?.key === "avg" || all?.key === "count") ? "" : all?.key}
+          {shouldHideAvg && (all?.key === "avg" || all?.key === "count")
+            ? ""
+            : all?.level}
         </div>
       ),
     },
-    ...(shouldAddOverallHod ? [{
-      key: "overall_hod_rating",
-      title: "Overall Hod",
-      render: (all) => <div className={styles.label}>{all?.overall_hod_rating}</div>,
-    }] : []),
     {
-      key: "recieved",
-      title: "Normalized",
-      render: (all) => <div className={styles.label}>{all?.normalized}</div>,
+      key: "result",
+      title: "Result",
+      render: (all) => <div className={styles.label}>{all?.percentage}</div>,
     },
     {
-      key: "normalizes",
-      title: "As Recieved",
-      render: (all) => <div className={styles.label}>{all?.received}</div>,
+      key: "count",
+      title: "Count",
+      render: (all) => <div className={styles.label}>{all?.count}</div>,
     },
-      
   ]);
   return (
-    <div>{<CustomTable title={title} columns={columns} data={graphData} />}</div>
+    <div>
+      {<CustomTable title={title} columns={columns} data={newData} />}
+    </div>
   );
 }
 
-export default GraphTable;
+export default SlabTable;
