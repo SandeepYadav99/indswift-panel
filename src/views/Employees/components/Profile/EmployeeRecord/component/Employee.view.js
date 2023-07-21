@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem, ButtonBase } from "@material-ui/core";
+import { MenuItem, ButtonBase, CircularProgress } from "@material-ui/core";
 import styles from "../Style.module.css";
 import useEmployeeView from "./EmployeeViewHook.js";
 import CustomSelectField from "../../../../../../components/FormFields/SelectField/SelectField.component";
@@ -7,47 +7,25 @@ import CustomDatePicker from "../../../../../../components/FormFields/DatePicker
 import CustomTextField from "../../../../../../components/FormFields/TextField/TextField.component";
 import File from "../../../../../../components/FileComponent/FileComponent.component";
 
-const EmployeeView = ({
-  selectedAnnuals,
-  closeSidePanel,
-  originWarehouseId,
-}) => {
+const EmployeeView = ({ closeSidePanel, Formtype }) => {
   const {
     form,
     changeTextData,
     errorData,
     handleSubmit,
     onBlurHandler,
-    listData,
-  } = useEmployeeView({ selectedAnnuals, closeSidePanel, originWarehouseId });
+    isSubmitting,
+  } = useEmployeeView({ closeSidePanel, Formtype });
 
   return (
     <div>
-      <div className={styles.headerFlex}>
-        {/*<h4 className={styles.infoTitle}>*/}
-        {/*    <div className={styles.heading}>Annual</div>*/}
-        {/*    <Tooltip title="Info" aria-label="info" placement="right">*/}
-        {/*        <InfoIcon fontSize={'small'}/>*/}
-        {/*    </Tooltip>*/}
-        {/*</h4>*/}
-      </div>
-      <div className={styles.upperInfo}>
-        {/* <div>FY 2022-23</div>
-        <div>On Roll Employee</div> */}
-      </div>
-
-      <div>
-        {/* <div className={styles.loc}>Mohali Location</div>
-        <div className={styles.hr}>Human Resources Department</div> */}
-      </div>
-
       <div className={"formFlex"}>
         <div className={"formGroup1"}>
           <CustomTextField
             isError={errorData?.title}
             errorText={errorData?.title}
             name="title"
-            label={"Letter Title"}
+            label={Formtype === "RECORD" ? "Letter Title" : "Title"}
             value={form?.title}
             onTextChange={(text) => {
               changeTextData(text, "title");
@@ -61,31 +39,48 @@ const EmployeeView = ({
 
       <div className={"formFlex"}>
         <div className={"formGroup2"}>
-          <CustomSelectField
-            isError={errorData?.type}
-            errorText={errorData?.type}
-            name="type"
-            label={"Type Of Letter"}
-            value={form?.type}
-            handleChange={(value) => {
-              changeTextData(value, "type");
-            }}
-          >
-            {listData?.TYPE_OF_LETTER?.map((dT) => {
-              return (
-                <MenuItem value={dT?.name} key={dT?.id}>
-                  {dT?.name}
-                </MenuItem>
-              );
-            })}
-          </CustomSelectField>
+          {Formtype === "RECORD" ? (
+            <CustomSelectField
+              isError={errorData?.letter_type}
+              errorText={errorData?.letter_type}
+              name="letter_type"
+              label={"Type Of Letter"}
+              value={form?.letter_type}
+              handleChange={(value) => {
+                changeTextData(value, "letter_type");
+              }}
+            >
+              <MenuItem value="APPRAISAL"> APPRAISAL LETTER</MenuItem>
+              <MenuItem value="WARNING">WARNING LETTER</MenuItem>
+              <MenuItem value="SHOW_CAUSE">SHOW CAUSE</MenuItem>
+              <MenuItem value="DISCIPLINARY">DISCIPLINARY LETTER</MenuItem>
+            </CustomSelectField>
+          ) : (
+            <CustomSelectField
+              isError={errorData?.star_type}
+              errorText={errorData?.star_type}
+              name="star_type"
+              label={"Star Type"}
+              value={form?.star_type}
+              handleChange={(value) => {
+                changeTextData(value, "star_type");
+              }}
+            >
+              <MenuItem value="RED">RED STAR</MenuItem>
+              <MenuItem value="ORANGE">ORANGE STAR</MenuItem>
+              <MenuItem value="YELLOW">YELLOW STAR</MenuItem>
+              <MenuItem value="PINK">PINK STAR</MenuItem>
+              <MenuItem value="BLUE">BLUE STAR</MenuItem>
+              <MenuItem value="GREEN">GREEN STAR</MenuItem>
+            </CustomSelectField>
+          )}
         </div>
         <div className={"formGroup2"}>
           <CustomDatePicker
             clearable
             name="date_of_issue"
             label={"Date Of issue"}
-            // minDate={new Date()}
+            maxDate={new Date()}
             onChange={(date) => {
               changeTextData(date, "date_of_issue");
             }}
@@ -95,22 +90,22 @@ const EmployeeView = ({
         </div>
       </div>
 
-      <div className={"formFlex"}>
+      <div className={"formFlex"} style={{alignItems:'center'}}>
         <div className={"formGroup2"}>
           <File
-            max_size={2 * 1024 * 1024}
-            type={["pdf"]}
+            max_size={5 * 1024 * 1024}
+            type={["pdf", "jpeg", "jpg", "png"]}
             fullWidth={true}
             name="document"
             accept={"application/pdf"}
             label=""
             default_image={form?.document ? form?.document : null}
-            // user_image={form?.image}
             error={errorData?.document}
             // title={'image'}
             value={form?.document}
-            // handleChange={this._handleFileChange}
-            placeholder={"PDF Upload"}
+            placeholder={
+              Formtype === "RECORD" ? "PDF Upload" : "Add Attachment"
+            }
             onChange={(file) => {
               if (file) {
                 changeTextData(file, "document");
@@ -122,7 +117,9 @@ const EmployeeView = ({
           <CustomTextField
             isError={errorData?.letter_head_no}
             errorText={errorData?.letter_head_no}
-            label={"Letter Head"}
+            label={
+              Formtype === "RECORD" ? "Letter Head No" : "LH No. (optional)"
+            }
             name="letter_head_no"
             value={form?.letter_head_no}
             onTextChange={(text) => {
@@ -134,6 +131,29 @@ const EmployeeView = ({
           />
         </div>
       </div>
+      {
+        Formtype === "STAR" && <div className={"formFlex"}>
+        <div className={"formGroup2"}>
+          <CustomTextField
+            isError={errorData?.description}
+            errorText={errorData?.description}
+            label={'Description'}
+            name="description"
+            value={form?.description}
+            onTextChange={(text) => {
+              changeTextData(text, "description");
+            }}
+            onBlur={() => {
+              onBlurHandler("description");
+            }}
+            multiline
+            rows={2}
+          />
+        </div>
+        {/* <div className={"formGroup2"}></div> */}
+      </div>
+      }
+      
 
       <div className={styles.generate}>
         <ButtonBase
@@ -141,9 +161,56 @@ const EmployeeView = ({
           onClick={handleSubmit}
           className={styles.createBtn}
         >
-          Upload
+          {isSubmitting ? (
+            <CircularProgress color="success" size="20px" />
+          ) : Formtype === "RECORD" ? (
+            "Upload"
+          ) : (
+            "ADD"
+          )}
+
         </ButtonBase>
       </div>
+      {Formtype !== "RECORD" && (
+        <div className={styles.noteWrap}>
+          <div className={styles.heading}>Note : </div>
+          <div className={styles.heading}>
+            It was later decided that instead of linking these failures with
+            PLI, they will rather be linked with annual PMS of employees and for
+            the purpose below mentioned logic will be used-
+          </div>
+          <div>
+            <b>Yellow Star- </b>Each Star Equivalent to Minor Incidents- Each
+            Star will amount to reduction of 1 % Increment in PMS
+          </div>
+          <div>
+            <b>Orange Star-</b> Each Star Equivalent to Major Incidents- Each
+            Star Will amount to reduction of 2 % Increment in PMS
+          </div>
+          <div>
+            <b>Red Star- </b>Each Star Equivalent to Critical Incidents- Each
+            Star Will amount to 0 % Increment or reduction of 3 % Increment in
+            PMS as per the case.
+          </div>
+          <div className={styles.heading}>
+            Similarly, if someone has done exceptionally good work that had over
+            passed a Functional Failure then following appreciation logic will
+            apply-
+          </div>
+          <div>
+            <b>Pink Star- </b> Each Star Equivalent to a Minor Improvement- Each
+            Star Will amount to increase of 1 % Increment in PMS
+          </div>
+          <div>
+            <b>Blue Star-</b> Each Star Equivalent to a Major Improvement- Each
+            Star Will amount to increase of 2 % Increment in PMS
+          </div>
+          <div>
+            <b>Green Star- </b>Each Star Equivalent to a Critical Improvement-
+            Each Star Will amount to increase of 3 % Increment in PMS
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -266,7 +266,7 @@ const dashboardRoutes = [
         parent: 'employee_pm',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
     },
-
+    
     {
         path: `${RouteName.PMS_SITE_PENDING}`,
         sidebarName: "Type 5 Form Pending Review",
@@ -568,9 +568,9 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
-
+    
     {
         path: 'null',
         sidebarName: "Increments",
@@ -579,7 +579,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'pms_increments',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+        roles: [Roles.CORPORATE_HR],
 
     },
     {
@@ -592,7 +592,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pms_increments',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_INCREMENT_PLANNER}`,
@@ -604,7 +604,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: false,
         parent: 'pms_increments',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_INCREMENT_PLANNER_RED}`,
@@ -616,7 +616,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: false,
         parent: 'pms_increments',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_INCREMENT_PLANNER_NO}`,
@@ -628,7 +628,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: false,
         parent: 'pms_increments',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_INCREMENT_PLANNER_GRAPH}`,
@@ -640,7 +640,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pms_increments',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',
@@ -912,7 +912,7 @@ const dashboardRoutes = [
         navbarName: "My Claims",
         icon: PeopleOutlined,
         component: ClaimsDetail,
-        is_sidebar: true,
+        is_sidebar: false,
         is_protect: true,
         should_regex: true,
         parent: 'cm',
@@ -1220,7 +1220,7 @@ const dashboardRoutes = [
     //     slug: 'employeedashboard',
     //     is_parent: true,
     // },
-
+  
     {
         path: `${RouteName.CANDIDATES_DETAILS}:id`,
         sidebarName: "Candidate Details",
@@ -1277,7 +1277,7 @@ const dashboardRoutes = [
         is_protect: true,
         roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
     },
-
+   
     {
         path: RouteName.LOCATIONS_CREATE,
         component: LocationCreateView,
@@ -1302,7 +1302,7 @@ const dashboardRoutes = [
         is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
-
+   
     {
         path: `${RouteName.DEPARTMENT_DETAIL}:id`,
         sidebarName: "Department Detail",
@@ -1351,7 +1351,7 @@ const dashboardRoutes = [
         should_regex: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
-
+   
     {
         path: RouteName.DESIGNATION_CREATE,
         component: DesignationCreateView,
@@ -1408,7 +1408,7 @@ const dashboardRoutes = [
         should_regex: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
-
+   
     {
         path: RouteName.JOB_OPENINGS_CREATE,
         sidebarName: "Job Openings Create",
@@ -1474,7 +1474,7 @@ const dashboardRoutes = [
         is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
-
+    
     {
         path: `${RouteName.HR_POLICIES_UPDATE}:id`,
         component: HRCreateView,
@@ -1497,9 +1497,9 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
 
+    
 
-
-
+  
     // {
     //     path: 'null',
     //     sidebarName: "Travel Planner",
@@ -1572,9 +1572,9 @@ const dashboardRoutes = [
     //     parent: 'tp',
     //     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     // },
-
-
-
+  
+   
+   
 
     // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
