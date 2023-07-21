@@ -227,7 +227,9 @@ function EmployeeListCreateHook() {
         ...empData,
         image: '',
         is_transport_facility: transportvalue,
-        ...updatedForm
+        ...updatedForm,
+        effective_date:"",
+        salary_notes:""
       });
       setEditData({ ...initialForm,
         ...empData,
@@ -569,7 +571,7 @@ function EmployeeListCreateHook() {
               new_value: trans,
               old_value: oldtrans ? oldtrans : false,
             });
-          }else if ([...salaryInfo,'grade_id'].includes(key)){
+          }else if ([...salaryInfo].includes(key)){
             
           } else {
             changedData.push({

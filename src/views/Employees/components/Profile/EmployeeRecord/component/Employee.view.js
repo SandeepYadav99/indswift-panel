@@ -90,11 +90,11 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
         </div>
       </div>
 
-      <div className={"formFlex"}>
+      <div className={"formFlex"} style={{alignItems:'center'}}>
         <div className={"formGroup2"}>
           <File
             max_size={5 * 1024 * 1024}
-            type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+            type={["pdf", "jpeg", "jpg", "png"]}
             fullWidth={true}
             name="document"
             accept={"application/pdf"}
@@ -131,6 +131,27 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
           />
         </div>
       </div>
+      {
+        Formtype === "STAR" && <div className={"formFlex"}>
+        <div className={"formGroup2"}>
+          <CustomTextField
+            isError={errorData?.description}
+            errorText={errorData?.description}
+            label={'Description'}
+            name="description"
+            value={form?.description}
+            onTextChange={(text) => {
+              changeTextData(text, "description");
+            }}
+            onBlur={() => {
+              onBlurHandler("description");
+            }}
+          />
+        </div>
+        <div className={"formGroup2"}></div>
+      </div>
+      }
+      
 
       <div className={styles.generate}>
         <ButtonBase

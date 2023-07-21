@@ -15,6 +15,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype }) => {
     record_type: Formtype,
     employee_id: employeeData?.id,
     letter_type: "",
+    description:"",
   };
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
@@ -56,7 +57,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype }) => {
       let req = serviceCreateEmployeeRecord;
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (key !== "star_type" && key !== "letter_type") {
+        if (key !== "star_type" && key !== "letter_type" && key !=='description') {
           fd.append(key, form[key]);
         }
       });
@@ -64,6 +65,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype }) => {
         fd.append("letter_type", form?.letter_type);
       } else {
         fd.append("star_type", form?.star_type);
+        fd.append("description",form?.description)
       }
       req(fd).then((res) => {
         if (!res.error) {
