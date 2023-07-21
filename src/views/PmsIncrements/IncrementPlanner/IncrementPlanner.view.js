@@ -138,6 +138,7 @@ const IncrementPlanner = ({location}) => {
         isFreezeDialog,
         toggleFreezeDialog,
         isFreezing,
+        getUrl
     } = useIncrementPlanner({location});
 
     const renderStatus = useCallback((status) => {
@@ -434,7 +435,11 @@ const IncrementPlanner = ({location}) => {
             <PageBox>
                 <div className={styles.headerContainer}>
                     <div>
-                        <span className={styles.title}>Increment Planner</span>
+                        <span className={styles.title}> {getUrl.pathname.includes("red")
+                        ? "Red"
+                        : getUrl.pathname.includes("no")
+                        ? "Blank"
+                        : "General"} Award Sheet</span>
                         <div className={styles.newLine}/>
                     </div>
                 </div>
