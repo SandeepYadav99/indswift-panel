@@ -1,59 +1,48 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useParams } from "react-router";
-import { serviceGetCustomList } from "../../../../../../services/Common.service";
-import { isNum } from "../../../../../../libs/RegexUtils";
 import historyUtils from "../../../../../../libs/history.utils";
 import { useSelector } from "react-redux";
 import { serviceCreateEmployeeRecord } from "../../../../../../services/EmployeeRecords.services";
+import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
 
-const temp = new Date();
-
-const useEmployeeView = ({
-  selectedAnnuals,
-  closeSidePanel,
-  originWarehouseId,
-}) => {
+const useEmployeeView = ({ closeSidePanel, Formtype }) => {
   const { employeeData } = useSelector((state) => state.employee);
   const initialForm = {
     title: "",
-    type: "",
     date_of_issue: "",
     document: "",
     letter_head_no: "",
-    employee_id: employeeData.id,
+    star_type: "",
+    record_type: Formtype,
+    employee_id: employeeData?.id,
+    letter_type: "",
+    description:"",
   };
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
-  const [warehouses, setWarehouses] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [users, setUsers] = useState([]);
-  const [listData, setListData] = useState({
-    TYPE_OF_LETTER: [
-      { id: 1, name: "Performance review" },
-      { id: 1, name: "Appreciation" },
-      { id: 1, name: "Warning" },
-      { id: 1, name: "Show Cause" },
-      { id: 1, name: "Disciplinary" },
-    ],
-  });
 
-  useEffect(() => {}, []);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [
-      "title",
-      "type",
-      "date_of_issue",
-      "document",
-      "letter_head_no",
-      "employee_id",
-    ];
+    let required = ["title", "date_of_issue", "document"];
     required.forEach((val) => {
       if (!form?.[val]) {
         errors[val] = true;
       }
     });
+    if (Formtype === "RECORD") {
+      if (!form?.letter_type) {
+        errors["letter_type"] = true;
+      }
+      if (!form?.letter_head_no) {
+        errors["letter_head_no"] = true;
+      }
+    }
+    if (Formtype === "STAR") {
+      if (!form?.star_type) {
+        errors["star_type"] = true;
+      }
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -68,26 +57,24 @@ const useEmployeeView = ({
       let req = serviceCreateEmployeeRecord;
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["is_active"].indexOf(key) >= 0) {
-          fd.append(key, JSON.stringify(form[key]));
-        } else {
-          if (key === "date_of_issue") {
-            fd.append(key, new Date(form[key]));
-          } else {
-            fd.append(key, form[key]);
-          }
+        if (key !== "star_type" && key !== "letter_type" && key !=='description') {
+          fd.append(key, form[key]);
         }
       });
+      if (Formtype === "RECORD") {
+        fd.append("letter_type", form?.letter_type);
+      } else {
+        fd.append("star_type", form?.star_type);
+        fd.append("description",form?.description)
+      }
       req(fd).then((res) => {
-        console.log(res, "===one");
         if (!res.error) {
-          console.log(res, "===one");
-          // historyUtils.push(RouteName.HR_ANNOUNCEMENT);
+          closeSidePanel();
+          window.location.reload();
         } else {
-          console.log(res, "===two");
-          // SnackbarUtils.success(res.message);
+          SnackbarUtils.error(res?.message);
         }
-        // setIsSubmitting(false);
+        setIsSubmitting(false);
       });
     }
   }, [form, isSubmitting, setIsSubmitting]);
@@ -96,6 +83,7 @@ const useEmployeeView = ({
     async (e) => {
       e.preventDefault();
       const errors = checkFormValidation();
+      console.log("errors", errors);
       if (Object.keys(errors).length > 0) {
         setErrorData(errors);
         return true;
@@ -116,20 +104,9 @@ const useEmployeeView = ({
 
   const changeTextData = useCallback(
     (text, fieldName) => {
-      console.log(text, fieldName);
       let shouldRemoveError = true;
       const t = { ...form };
-      if (
-        fieldName === "names" ||
-        fieldName === "truck_no" ||
-        fieldName == "idendity_proof"
-      ) {
-        if (!text || (isNum(text) && text.toString().length <= 30)) {
-          t[fieldName] = text;
-        }
-      } else {
-        t[fieldName] = text;
-      }
+      t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
@@ -151,9 +128,7 @@ const useEmployeeView = ({
     removeError,
     handleSubmit,
     errorData,
-    warehouses,
-    users,
-    listData,
+    isSubmitting
   };
 };
 
