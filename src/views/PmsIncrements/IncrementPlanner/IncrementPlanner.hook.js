@@ -12,6 +12,7 @@ import LogUtils from "../../../libs/LogUtils";
 import {serviceUpdateCandidateStatus} from "../../../services/Candidate.service";
 import Constants from "../../../config/constants";
 import RouteName from "../../../routes/Route.name";
+import { useLocation } from "react-router";
 
 const totalShow = 50;
 const useIncrementPlanner = ({location}) => {
@@ -30,6 +31,7 @@ const useIncrementPlanner = ({location}) => {
     const [isFreezed, setIsFreezed] = useState(false);
     const [isFreezeDialog, setIsFreezeDialog] = useState(false);
     const [isFreezing, setIsFreezing] = useState(false);
+    const getUrl =useLocation();
 
     const [listData, setListData] = useState({
         LOCATIONS: [],
@@ -391,6 +393,7 @@ const useIncrementPlanner = ({location}) => {
         isFreezeDialog,
         toggleFreezeDialog,
         isFreezing,
+        getUrl
     };
 };
 
