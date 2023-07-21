@@ -453,11 +453,9 @@ const IncrementPlanner = ({location}) => {
                     { (type && year) && (<div className={styles.rightFlex}>
                         <ButtonBase className={styles.download} onClick={handleDownload}>
                             DOWNLOAD
-                        </ButtonBase>
-                    </div>)}
-                    { (type && year) && (<div className={styles.rightFlex}>
+                        </ButtonBase> &nbsp; &nbsp;
                         <ButtonBase className={styles.download} onClick={toggleFreezeDialog}>
-                            Freeze Planner
+                            Rerun-Freeze
                         </ButtonBase>
                     </div>)}
                 </div>
