@@ -56,6 +56,7 @@
     "build_cmd": "react-scripts build",
     "build_production": "env-cmd -e production npm run build_cmd",
     "build_development": "env-cmd -e development  react-scripts build",
+    "build_demo": "env-cmd -e demo  react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
