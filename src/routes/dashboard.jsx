@@ -568,7 +568,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     
     {
@@ -579,7 +579,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'pms_increments',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+        roles: [Roles.CORPORATE_HR],
 
     },
     {
@@ -592,7 +592,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pms_increments',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_INCREMENT_PLANNER}`,
@@ -604,7 +604,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: false,
         parent: 'pms_increments',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_INCREMENT_PLANNER_RED}`,
@@ -616,7 +616,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: false,
         parent: 'pms_increments',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_INCREMENT_PLANNER_NO}`,
@@ -628,7 +628,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: false,
         parent: 'pms_increments',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_INCREMENT_PLANNER_GRAPH}`,
@@ -640,7 +640,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pms_increments',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: 'http://122.186.44.85/TOS7x1/frmLogin.aspx',
@@ -912,7 +912,7 @@ const dashboardRoutes = [
         navbarName: "My Claims",
         icon: PeopleOutlined,
         component: ClaimsDetail,
-        is_sidebar: true,
+        is_sidebar: false,
         is_protect: true,
         should_regex: true,
         parent: 'cm',

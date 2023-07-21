@@ -146,9 +146,11 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
             onBlur={() => {
               onBlurHandler("description");
             }}
+            multiline
+            rows={2}
           />
         </div>
-        <div className={"formGroup2"}></div>
+        {/* <div className={"formGroup2"}></div> */}
       </div>
       }
       
