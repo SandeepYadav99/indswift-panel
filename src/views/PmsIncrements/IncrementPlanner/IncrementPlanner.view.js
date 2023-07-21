@@ -455,7 +455,7 @@ const IncrementPlanner = ({location}) => {
                             DOWNLOAD
                         </ButtonBase> &nbsp; &nbsp;
                         <ButtonBase className={styles.download} onClick={toggleFreezeDialog}>
-                            Rerun-Freeze
+                            Refresh
                         </ButtonBase>
                     </div>)}
                 </div>
