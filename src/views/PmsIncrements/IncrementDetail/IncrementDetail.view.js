@@ -28,6 +28,8 @@ function IncrementDetail({ location }) {
     initialApiCall,
     slabData,
     setListType,
+    AdminMiddleware,
+      handleDownload
   } = useIncrementDetail({ location });
 
   const tableStructure = useMemo(() => {
@@ -37,7 +39,7 @@ function IncrementDetail({ location }) {
         label: type === "DEPARTMENT" ? "LOCATION" : "DEPARTMENT",
         sortable: false,
         render: (temp, all) => (
-          <>
+          <b>
             {type === "DEPARTMENT" ? (
               <div className={styles.noWrap}>
                 {all?.location?.name}
@@ -52,7 +54,7 @@ function IncrementDetail({ location }) {
                 {all?.department?.code}
               </div>
             )}
-          </>
+          </b>
         ),
       },
       {
@@ -198,7 +200,7 @@ function IncrementDetail({ location }) {
           <div className={styles.rightFlex}>
             <ButtonBase
               className={styles.download}
-              //  onClick={handleDownload}
+               onClick={handleDownload}
             >
               DOWNLOAD
             </ButtonBase>

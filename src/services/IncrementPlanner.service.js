@@ -30,3 +30,7 @@ export async function serviceGetIncrementDetailInfo (params) {
 export async function serviceFreezeIncrementPlanner (params) {
     return await postRequest('pms/freeze/increment/planner', params);
 }
+
+export async function serviceIncrementPlannerAnalyticsDownload(params) {
+    return await postRequest('pms/increment/planner/analytics/export', params);
+}
