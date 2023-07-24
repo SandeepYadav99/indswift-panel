@@ -37,7 +37,7 @@ function SalaryInfoTable() {
   };
   return (
     <div className={styles.salaryInfoWrapper}>
-      {/* <div className={styles.pageWrap}>
+      <div className={styles.pageWrap}>
         <div>
           <span className={styles.title}>
             Universal Salary Structuring & Calculator
@@ -56,8 +56,8 @@ function SalaryInfoTable() {
             <ChevronRightIcon />
           </IconButton>
         </div>
-      </div> */}
-      {/* <div className={styles.headerWrap}>
+      </div>
+      <div className={styles.headerWrap}>
         <div className={styles.upperWrap}>
           <div className={styles.wrpa}>
             <div className={styles.titleHead}>Designation:</div>
@@ -77,7 +77,7 @@ function SalaryInfoTable() {
           <div className={styles.titleHead}>Reason of Change:</div>
           <div className={styles.titleCont}>{data?.salary_notes}</div>
         </div>
-      </div> */}
+      </div>
       <div className={styles.salaryTableContainer}>
         <div className={styles.tableWrapper}>
           <div className={styles.tableComponentField}>component</div>
