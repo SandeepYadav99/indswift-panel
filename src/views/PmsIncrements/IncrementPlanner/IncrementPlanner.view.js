@@ -362,6 +362,12 @@ const IncrementPlanner = ({location}) => {
                 render: (temp, all) => <div className={styles.noWrap}>{all?.is_grade_change ? 'YES' : 'NO'}</div>,
             },
             {
+                key: "effective_date",
+                label: "Effective Date",
+                sortable: false,
+                render: (temp, all) => <div className={styles.noWrap}>{all?.effectiveDateText}</div>,
+            },
+            {
                 key: "comments",
                 label: "comments",
                 sortable: false,
