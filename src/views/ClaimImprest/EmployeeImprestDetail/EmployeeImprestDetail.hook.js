@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { serviceDetailsGetInfo } from "../../../services/EmployeeImprest.service";
 import { serviceGetList } from "../../../services/Common.service";
-import { serviceGetImprestType } from "../../../services/ImprestApproval.service";
+import { serviceExportEmployeeImprestReport, serviceGetImprestType } from "../../../services/ImprestApproval.service";
 
 function useEmployeeImprestDetail() {
   const [employeeDetail, setEmployeeDetail] = useState({});
@@ -39,6 +39,19 @@ function useEmployeeImprestDetail() {
       });
     }
   }, [employeeDetail?.employee_id]);
+
+  const handleCsvDownload = useCallback((type) => {
+    serviceExportEmployeeImprestReport({
+      employee_id: employeeDetail?.employee?.id,
+      imprest_type: type,
+    }).then(res => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    })
+  }, [employeeDetail]);
+
   const toggleExtendDialog = useCallback(() => {
     setIsExtendDialog((e) => !e);
     setCreateDD(false);
@@ -69,7 +82,8 @@ function useEmployeeImprestDetail() {
     isExtendDialog,
     isTraineeDialog,
     listData,
-    typeData
+    typeData,
+    handleCsvDownload
   };
 }
 

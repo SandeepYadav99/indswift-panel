@@ -107,8 +107,14 @@ const IncludeForm = ({data, employees, locationId, departments,subdepartments, e
 
     const changeData = (index, data) => {
         const tempData = JSON.parse(JSON.stringify(fields));
-        tempData[index] = {...tempData[index], ...data};
-        setFields(tempData);
+        const resetSub={sub_department_ids:[]}
+        if (data?.department_id){
+        tempData[index] = {...tempData[index], ...data,...resetSub};
+            setFields(tempData);
+        }else{
+        tempData[index] = {...tempData[index], ...data}
+            setFields(tempData);
+        }
         const errArr = [];
         Object.keys(data).forEach((key) => {
             errArr.push(key);

@@ -89,8 +89,6 @@ const useImprestUpperTable = ({ jobId }) => {
           "REJECTED",
           "HOD_APPROVED",
           "SITE_HR_APPROVED",
-          "ACCOUNTS_APPROVAL",
-          "ACCOUNTS_APPROVED",
           "CORPORATE_AUDIT_1_APPROVED",
           "CORPORATE_AUDIT_2_APPROVED",
           "CORPORATE_HR_APPROVED",

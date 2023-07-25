@@ -190,7 +190,7 @@ const useClaimsList = ({}) => {
         label: "Location",
         name: "employeesObj.location_id",
         type: "selectObject",
-        custom: { extract: { id: "id", title: "code" } },
+        custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
       {

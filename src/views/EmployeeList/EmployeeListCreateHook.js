@@ -340,9 +340,9 @@ function EmployeeListCreateHook({ location }) {
               } else if (key === "current_address") {
                 data[key] = empData["correspondence_address"];
               } else if (key === "previous_organisation") {
-                data[key] =
-                  empData?.employment_history?.length > 0 &&
-                  empData["employment_history"][0]?.organisation_name;
+                if(empData?.employment_history?.length > 0){
+                  data[key] = empData["employment_history"][0]?.organisation_name;
+                } 
               } else {
                 data[key] = empData[key];
               }

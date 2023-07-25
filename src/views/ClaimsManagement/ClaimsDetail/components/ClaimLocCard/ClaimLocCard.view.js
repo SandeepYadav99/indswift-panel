@@ -41,7 +41,7 @@ function ClaimLocCard() {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span className={"capitalize"}>
-              <b>Local Travel Claim Form</b>
+              <b>Relocation Expense Claim Form</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
