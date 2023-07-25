@@ -115,8 +115,8 @@ export default {
   IMPREST_APPROVAL_DETAILS:'/imprest/details/',
   EMPLOYEES_IMPREST:'/employee/imprest',
   EMPLOYEES_IMPREST_DETAILS:'/employee/imprest/details/',
-
-
+  EMPLOYEE_LOAN_DETAILS:'/employee/loan/details/',
+  ADMIN_LOAN_LIST:'/loan/list',
 
 
 

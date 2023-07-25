@@ -109,6 +109,8 @@ function ClaimLoanCard() {
                 onBlur={() => {
                   onBlurHandler("description");
                 }}
+                multiline
+                rows={2}
               />
             </div>
           </div>

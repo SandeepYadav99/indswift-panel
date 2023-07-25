@@ -8,6 +8,7 @@ import ClaimCards from "./components/ClaimCards/ClaimCards";
 import EmployeeClaimList from "./components/EmployeeClaimList/EmployeeClaimList.container";
 import InformationCard from "../../../components/InformationCard/InformationCard.component";
 import { myClaimData } from "../../../helper/helper";
+import EmployeeLoanList from "./components/EmployeeLoanList/EmployeeLoanList.view";
 
 const ClaimsDetail = () => {
   const { handleClaimPage, data } = useClaimsDetail({});
@@ -70,15 +71,16 @@ const ClaimsDetail = () => {
             enableBtn={data?.relocation_claim?.can_claim}
           />
            )}
-           {/* <ClaimCards
+           <ClaimCards
            title="Loan Application"
            subtitle="Request Personal loan from Company as per company Employee Loan Policy"
            handleClick={() => handleClaimPage(7)}
            enableBtn
-           /> */}
+           />
       </div>
       <div className={styles.tableWrapper}>
         <EmployeeClaimList />
+        <EmployeeLoanList/>
       </div>
     </div>
   );

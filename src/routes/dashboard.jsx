@@ -11,6 +11,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+import EmployeeLoanDetail from "../views/ClaimsManagement/EmployeeLoanDetail/EmployeeLoanDetail.view";
 
 const IncrementDetail = lazy(()=> import ("../views/PmsIncrements/IncrementDetail/IncrementDetail.view"));
 
@@ -1108,18 +1109,30 @@ const dashboardRoutes = [
         parent: 'cm',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
-    // {
-    //     path: `${RouteName.CLAIMS_LOAN}`,
-    //     sidebarName: "Claims Loan",
-    //     navbarName: "Claims Loan",
-    //     icon: PeopleOutlined,
-    //     component: ClaimLoanCard,
-    //     is_sidebar: false,
-    //     is_protect: true,
-    //     should_regex: true,
-    //     parent: 'cm',
-    //     // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
-    // },
+    {
+        path: `${RouteName.CLAIMS_LOAN}`,
+        sidebarName: "Claims Loan",
+        navbarName: "Claims Loan",
+        icon: PeopleOutlined,
+        component: ClaimLoanCard,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.EMPLOYEE_LOAN_DETAILS}:id`,
+        sidebarName: "Employee Loan ",
+        navbarName: "Employee Loan ",
+        icon: PeopleOutlined,
+        component: EmployeeLoanDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    },
     {
         path: `${RouteName.EMPLOYEE_REPORT}`,
         sidebarName: "Employee Reports",
@@ -1571,6 +1584,15 @@ const dashboardRoutes = [
         should_regex: true,
         parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: RouteName.ADMIN_LOAN_LIST,
+        sidebarName: "Loan Management",
+        navbarName: "Loan Management",
+        icon: AssignmentOutlined,
+        component: EmployeeTab,
+        is_sidebar: true,
+        is_protect: true,
     },
 
 
