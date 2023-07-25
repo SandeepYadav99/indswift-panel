@@ -116,7 +116,7 @@ function IncrementDetail({ location }) {
       data: currentData,
       count: data?.length,
       page: currentPage - 1,
-      rowsPerPage: 10,
+      rowsPerPage: 50,
       allRowSelected: false,
       showSelection: false,
     };
