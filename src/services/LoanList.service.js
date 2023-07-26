@@ -9,16 +9,18 @@ export async function serviceGetLoanListDetails(params) {
 export async function serviceGetLoanList(params) {
     return await postRequest('employee/loans/review', params);
 }
-export async function serviceDetailsLoanList(params) {
-    return await postRequest('employee/loans/review', params);
+export async function serviceGetDetailsLoanInfo(params) {
+    return await postRequest('employee/loans/guarantee', params);
 }
 export async function serviceGetClaimDetail(params){
     return await getRequest('employee/loans/review',params)
 }
 export async function serviceApproveLoanList(params) {
-    return await postRequest('employee/loans/review/accept', params);
+    return await postRequest('employee/loans/guarantee/accept', params);
 }
 export async function serviceRejectLoanList(params) {
-    return await postRequest('employee/loans/review/reject', params);
+    return await postRequest('employee/loans/guarantee/reject', params);
 }
-
+export async function serviceAuthenticateGuarantor(params) {
+    return await postRequest('employee/loans/guarantee/authenticate', params);
+}

@@ -35,6 +35,9 @@ import PMSSiteForm from "../views/Pms/PMSSiteForm/PMSSiteForm.view.js";
 import PmsSiteFormDetailView from "../views/Pms/PmsSiteFormDetail/PmsSiteFormDetail.view";
 import PmsGraph from "../views/Pms/PmsGraph/PmsGraph.view.js";
 import PmsOverallHodForm from "../views/Pms/OverallHOD/PMSOverallHodForm/PmsOverallHodForm.view";
+import GuarantorLogin from "../views/LoanManagement/GuarantorLogin/GuarantorLogin.js";
+import LoanConfirmation from "../views/LoanManagement/LoanConfirmation/LoanConfirmation.view.js";
+import LoanSubmittedResponse from "../views/LoanManagement/LoanConfirmation/component/LoanSubmittedResponse/LoanSubmittedResponse.js";
 
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
@@ -53,6 +56,9 @@ const RouteComponent = () => (
     <Route path={RouteName.OFFER_LETTER} component={OfferConfirmation} />
     <Route path={RouteName.CANDIDATES_SUCCESS} component={ShareSuccess} />
     <Route path={RouteName.OFFER_SUCCESS} component={SubmittedResponse} />
+    <Route path={RouteName.GUARANTOR_LOGIN} component={GuarantorLogin} />
+    <Route path={RouteName.GUARANTOR_LETTER} component={LoanConfirmation} />
+    <Route path={RouteName.GUARANTOR_SUCCESS} component={LoanSubmittedResponse} />
     <Route path={`${RouteName.PMS_REVIEW_FORM}:id`} component={CustomDataGrid} />
     <Route path={`${RouteName.PMS_FORM_DETAIL}:id`} component={PmsFormDetail} />
     <Route path={`${RouteName.PMS_4B_FORM}`} component={Pms4BFormView} />

@@ -83,9 +83,9 @@ export default {
   OFFER_LETTER:'/candidate/offer/letter',
   OFFER_SUCCESS:'/candidate/offer/success',
 
-  GUARANTOR_LOGIN:'/guarantor/offer/login',
-  GUARANTOR_LETTER:'/guarantor/offer/letter',
-  GUARANTOR_SUCCESS:'/guarantor/offer/success',
+  GUARANTOR_LOGIN:'/guarantor/login',
+  GUARANTOR_LETTER:'/guarantor/letter',
+  GUARANTOR_SUCCESS:'/guarantor/success',
 
   MY_PROFILE: '/my/profile',
   MY_PROFILE_UPDATE: '/my/profile/edit',
