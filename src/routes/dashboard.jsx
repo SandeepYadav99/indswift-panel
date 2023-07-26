@@ -12,6 +12,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import EmployeeLoanDetail from "../views/ClaimsManagement/EmployeeLoanDetail/EmployeeLoanDetail.view";
+import LoanList from "../views/LoanManagement/LoanList/LoanList.view";
 
 const IncrementDetail = lazy(()=> import ("../views/PmsIncrements/IncrementDetail/IncrementDetail.view"));
 
@@ -1590,7 +1591,7 @@ const dashboardRoutes = [
         sidebarName: "Loan Management",
         navbarName: "Loan Management",
         icon: AssignmentOutlined,
-        component: EmployeeTab,
+        component: LoanList,
         is_sidebar: true,
         is_protect: true,
     },

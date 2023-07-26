@@ -1,23 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionCreateImprestApproval,
-  actionDeleteImprestApproval,
-  actionFetchImprestApproval,
-  actionSetPageImprestApproval,
-  actionUpdateImprestApproval,
-} from "../../../actions/ImprestApproval.action";
+  actionFetchLoanList,
+  actionSetPageLoanList,
+} from "../../../actions/LoanList.action";
 import historyUtils from "../../../libs/history.utils";
+import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-// import { serviceExportCarClaimReport } from "../../../services/ImprestApproval.service";
-import LogUtils from "../../../libs/LogUtils";
 
-const useImprestApproval = ({}) => {
+const useLoanList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
-  const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     LOCATIONS: [],
+    HR: [],
+    JOB_OPENINGS: [],
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -26,49 +23,37 @@ const useImprestApproval = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.imprestApproval);
+  } = useSelector((state) => state.loanList);
   useEffect(() => {
     dispatch(
-      actionFetchImprestApproval(1, sortingData, {
+      actionFetchLoanList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
     );
     isMountRef.current = true;
   }, []);
-
+ 
   useEffect(() => {
-    serviceGetList(["LOCATIONS"]).then((res) => {
+    serviceGetList(["LOCATIONS", "HR", "JOB_OPENINGS"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
     });
   }, []);
   console.log("list", listData);
+
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageImprestApproval(type));
+    dispatch(actionSetPageLoanList(type));
   }, []);
-
-  const handleDataSave = useCallback(
-    (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
-      if (type == "CREATE") {
-        dispatch(actionCreateImprestApproval(data));
-      } else {
-        dispatch(actionUpdateImprestApproval(data));
-      }
-      setEditData(null);
-    },
-    [setEditData]
-  );
 
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageImprestApprovalRequests(1));
+      // dispatch(actionSetPageLoanListRequests(1));
       dispatch(
-        actionFetchImprestApproval(1, sortingData, {
+        actionFetchLoanList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -96,16 +81,13 @@ const useImprestApproval = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      // dispatch(actionSetPageImprestApproval(1));
       dispatch(
-        actionFetchImprestApproval(
+        actionFetchLoanList(
           1,
           { row, order },
           {
             query: query,
             query_data: queryData,
-            fy_year: "2023-2024",
-            claim_type: "CAR",
           }
         )
       );
@@ -117,36 +99,9 @@ const useImprestApproval = ({}) => {
     console.log(page);
   };
 
-  const handleDelete = useCallback(
-    (id) => {
-      dispatch(actionDeleteImprestApproval(id));
-      setEditData(null);
-    },
-    [setEditData]
-  );
-
-  const handleEdit = useCallback(
-    (data) => {
-      setEditData(data);
-    },
-    [setEditData]
-  );
-
-  const handleCsvDownload = useCallback(() => {
-    // serviceExportCarClaimReport({
-    //   fy_year: '2022-2023',
-    //   claim_type: 'CAR',
-    // }).then(res => {
-    //   if (!res.error) {
-    //     const data = res.data?.response;
-    //     window.open(data, "_blank");
-    //   }
-    // })
-  }, []);
-
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.IMPREST_APPROVAL_DETAILS}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
@@ -158,36 +113,36 @@ const useImprestApproval = ({}) => {
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
-      // {
-      //   label: "Claim Category",
-      //   name: "category",
-      //   type: "select",
-      //   fields: ["PART B", "PART E"],
-      // },
-      // {
-      //   label: "Financial year",
-      //   name: "fy_year",
-      //   type: "select",
-      //   fields: ["2023-2024"],
-      // },
+      {
+        label: "Status",
+        name: "claimObj.status",
+        type: "select",
+        fields: [
+          "REJECTED",
+          "PENDING",
+          "APPROVED",
+          "PROCESSED",
+          "HOD_APPROVED",
+          "SITE_HR_APPROVED",
+          "CORPORATE_AUDIT_1_APPROVED",
+          "CORPORATE_AUDIT_2_APPROVED",
+          "ACCOUNTS_APPROVED",
+        ],
+      }
     ];
   }, [listData]);
 
+ 
   return {
     handlePageChange,
-    handleDataSave,
     handleFilterDataChange,
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
-    handleDelete,
-    handleEdit,
     handleViewDetails,
     isCalling,
-    editData,
     configFilter,
-    handleCsvDownload,
   };
 };
 
-export default useImprestApproval;
+export default useLoanList;

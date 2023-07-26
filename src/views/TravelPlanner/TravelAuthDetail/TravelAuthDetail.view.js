@@ -230,7 +230,8 @@ function TravelAuthDetail() {
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Previous Outstanding:</span>
-                    {employeeDetail?.travelPlanner?.imprest?.exception?.details}
+                    {getCurrency(employeeDetail?.travelPlanner?.imprest?.currency)}
+                    {employeeDetail?.balance?.balance}
                   </div>
                 </div>
                 <div className={styles.right}>
@@ -241,7 +242,8 @@ function TravelAuthDetail() {
 
                   <div className={styles.key}>
                     <span className={styles.value}>Entitled:</span>
-                    {employeeDetail?.to}
+                    {getCurrency(employeeDetail?.travelPlanner?.imprest?.currency)}
+                    {employeeDetail?.balance?.entitled}
                   </div>
 
                   <div className={styles.key}>

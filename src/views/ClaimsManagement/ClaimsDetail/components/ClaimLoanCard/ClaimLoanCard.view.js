@@ -90,9 +90,6 @@ function ClaimLoanCard() {
                 onTextChange={(text) => {
                   changeTextData(text, "amount");
                 }}
-                onBlur={() => {
-                  onBlurHandler("amount");
-                }}
               />
             </div>
           </div>

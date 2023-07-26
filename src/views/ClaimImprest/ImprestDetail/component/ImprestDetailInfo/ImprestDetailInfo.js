@@ -110,7 +110,7 @@ function ImprestDetailInfo({ idCards }) {
               </div>
               <div className={styles.right}>
                 <div className={styles.key}>
-                  <span className={styles.value}>TAP No:</span>
+                  <span className={styles.value}>IMP ID:</span>
                   {idCards?.code}
                 </div>
                 <div className={styles.key}>
