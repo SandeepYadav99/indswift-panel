@@ -35,6 +35,7 @@ import PMSSiteForm from "../views/Pms/PMSSiteForm/PMSSiteForm.view.js";
 import PmsSiteFormDetailView from "../views/Pms/PmsSiteFormDetail/PmsSiteFormDetail.view";
 import PmsGraph from "../views/Pms/PmsGraph/PmsGraph.view.js";
 import PmsOverallHodForm from "../views/Pms/OverallHOD/PMSOverallHodForm/PmsOverallHodForm.view";
+import AwardSheetView from "../views/PmsIncrements/AwardSheet/AwardSheet.view";
 
 const indexRoutes = [{ path: "/", component: Dashboard }];
 
@@ -71,6 +72,7 @@ const RouteComponent = () => (
     <Route path={"/forget/help"} component={ForgetPasswordHelp} />
       <Route path={RouteName.RESET_PASSWORD_FIRST} component={ResetPasswordFirst} />
     <Route path={"/reset/password"} component={ResetPassword} />
+      <Route path={"/award/sheet"} component={AwardSheetView} />
     <Route path={"/"} component={Dashboard} />
   </Switch>
 );
