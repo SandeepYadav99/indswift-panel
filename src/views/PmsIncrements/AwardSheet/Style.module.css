@@ -1,5 +1,6 @@
 .mainContainer {
-    width: 25vw;
+    /* width: 25vw; */
+    width: 793px;
     /* height: 100vh; */
     position: relative;
     display: flex;
@@ -14,8 +15,9 @@
     align-items: center;
 }
 .imgWrap > img{
-    width: 50px;
-    aspect-ratio: 1/1;
+    width: 120px;
+    height: 70px;
+    /* aspect-ratio: 1/1; */
 }
 .upper{
     display: flex;
@@ -25,6 +27,7 @@
     flex-direction: column;
     font-size: .875rem;
     justify-content: space-evenly;
+    font-weight: 500;
 }
 .verti{
     border: 1px solid #B8C5D3;

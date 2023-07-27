@@ -12,17 +12,25 @@ const CustomTable = ({ columns, data, title }) => {
   return (
     <table className={styles.table}>
       <thead>
-        <tr>
-          <th colspan="3" className={styles.theadTitle}>
-            {title}
-          </th>
-        </tr>
-        <tr>
-          {columns?.map((column) => (
-            <th key={column.key} className={styles.thead}>
-              {column.title}
+        {title && (
+          <tr>
+            <th></th>
+            <th colspan="2" className={styles.theadTitle}>
+              {title}
             </th>
-          ))}
+          </tr>
+        )}
+
+        <tr>
+          {columns?.map((column) =>
+            column.key === "test" ? (
+              <th key={column.key}>{column.title}</th>
+            ) : (
+              <th key={column.key} className={styles.thead}>
+                {column.title}
+              </th>
+            )
+          )}
         </tr>
       </thead>
       <tbody>
@@ -50,14 +58,21 @@ const CustomTable = ({ columns, data, title }) => {
 function AwardTable({ data, title }) {
   const [columns, setColumns] = useState([
     {
-      key: "score",
-      title: "Score",
-      render: (all) => <div className={styles.label}>alkey</div>,
+      key: "test",
+      title: "",
+      render: (all) => (
+        <div className={styles.label}>Job Knowledge & Cost Conscs</div>
+      ),
     },
     {
       key: "2023",
       title: "2023",
-      render: (all) => <div className={styles.label}>dnsdsn</div>,
+      render: (all) => <div className={styles.label}>{all?.normalized}</div>,
+    },
+    {
+      key: "2023",
+      title: "2023",
+      render: (all) => <div className={styles.label}>{all?.normalized}</div>,
     },
   ]);
   return (

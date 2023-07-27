@@ -70,6 +70,7 @@ const d2 = [
     normalized: 2,
     overall_hod_rating: 0,
   },
+  { key: "count", received: 59, normalized: 59, overall_hod_rating: 59 },
 ];
 const AwardSheetView = ({}) => {
   return (
@@ -103,7 +104,8 @@ const AwardSheetView = ({}) => {
           </div>
         </div>
         <div className={styles.verti}></div>
-        <AwardTable title="functional Performance" data={d2} />
+        <AwardTable title="functional Performance Index (FARS)" data={d2} />
+
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
             <PolarGrid />
