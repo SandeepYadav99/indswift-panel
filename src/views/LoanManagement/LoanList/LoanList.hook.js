@@ -101,7 +101,7 @@ const useLoanList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.ADMIN_LOAN_LIST_DETAIL}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {

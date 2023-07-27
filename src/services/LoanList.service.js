@@ -4,7 +4,7 @@ export async function serviceDeleteLoanList(params) {
     return await postRequest('employee/loans/review/delete', params);
 }
 export async function serviceGetLoanListDetails(params) {
-    return await postRequest('employee/claims/details', params);
+    return await postRequest('employee/loans/review/details', params);
 }
 export async function serviceGetLoanList(params) {
     return await postRequest('employee/loans/review', params);
@@ -23,4 +23,10 @@ export async function serviceRejectLoanList(params) {
 }
 export async function serviceAuthenticateGuarantor(params) {
     return await postRequest('employee/loans/guarantee/authenticate', params);
+}
+export async function serviceApproveEmployeeLoan(params) {
+    return await postRequest('employee/loans/review/accept', params);
+}
+export async function serviceRejectEmployeeList(params) {
+    return await postRequest('employee/loans/review/reject', params);
 }

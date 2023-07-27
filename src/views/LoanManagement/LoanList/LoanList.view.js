@@ -48,11 +48,13 @@ const LoanList = () => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
+            <span className={styles.productName}>
+              <b>{obj?.loan?.employee?.name}</b>
+            </span>
             <br />
             <span className={styles.productName}>
-              {obj?.employee?.emp_code}
-            </span>{" "}
+              {obj?.loan?.employee?.emp_code}
+            </span>
             <br />
           </div>
         </div>
@@ -63,6 +65,12 @@ const LoanList = () => {
 
   const tableStructure = useMemo(() => {
     return [
+      {
+        key: "id",
+        label: "Loan id",
+        sortable: false,
+        render: (temp, all) => <div>{all?.loan?.code}</div>,
+      },
       {
         key: "name",
         label: "EMPLOYEE",
@@ -77,7 +85,7 @@ const LoanList = () => {
           <div>
             {all?.contact}
             <br />
-            {`${all?.employee?.grade}/${all?.employee?.cadre}`}
+            {`${all?.loan?.employee?.grade?.code}/${all?.loan?.employee?.cadre?.code}`}
           </div>
         ),
       },
@@ -85,13 +93,15 @@ const LoanList = () => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.location}</div>,
+        render: (temp, all) => <div>{all?.loan?.employee?.location?.name}</div>,
       },
       {
         key: "desigination",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.designation}</div>,
+        render: (temp, all) => (
+          <div>{all?.loan?.employee?.designation?.name}</div>
+        ),
       },
       {
         key: "department",
@@ -99,7 +109,8 @@ const LoanList = () => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department} / {all?.employee?.sub_department}
+            {all?.loan?.employee?.department?.name} /{" "}
+            {all?.loan?.employee?.sub_department?.name}
           </div>
         ),
       },
@@ -107,15 +118,43 @@ const LoanList = () => {
         key: "contact",
         label: "CONTACT",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.contact}</div>,
+        render: (temp, all) => (
+          <div>{all?.loan?.employee?.contact?.official_contact}</div>
+        ),
       },
       {
-        key: "claim_type",
-        label: "CLAIM TYPE",
+        key: "loan_type",
+        label: "Loan TYPE",
         sortable: false,
         render: (temp, all) => (
-          <div>{removeUnderScore(all?.claim?.claim_type)}</div>
+          <div style={{ whiteSpace: "nowrap" }}>
+            {removeUnderScore(all?.loan?.loan_type)}
+          </div>
         ),
+      },
+      {
+        key: "date",
+        label: "APPLICATION DATE",
+        sortable: false,
+        render: (temp, all) => <div>{all?.loan?.requestDateText}</div>,
+      },
+      {
+        key: "amount",
+        label: "PRINCIPLE AMOUNT",
+        sortable: false,
+        render: (temp, all) => (
+          <div style={{ whiteSpace: "nowrap" }}>
+            {all?.loan?.amount || all?.loan?.amount === 0
+              ? `₹ ${all?.loan?.amount}`
+              : ""}
+          </div>
+        ),
+      },
+      {
+        key: "issue",
+        label: "ISSUE DATE",
+        sortable: false,
+        render: (temp, all) => <div>{all?.loan?.createdAtText}</div>,
       },
       {
         key: "status",
@@ -125,34 +164,11 @@ const LoanList = () => {
           <div>
             {renderStatus(removeUnderScore(all?.status))}
             <br /> <br />
-            {renderStatus(removeUnderScore(all?.claim?.status))}
+            {renderStatus(removeUnderScore(all?.loan?.status))}
           </div>
         ),
       },
-      {
-        key: "claim_date",
-        label: "CLAIM DATE",
-        sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText}</div>,
-      },
-      {
-        key: "value",
-        label: "VALUE",
-        sortable: false,
-        render: (temp, all) => (
-          <div style={{ whiteSpace: "nowrap" }}>
-            {all?.claim?.claim_amount || all?.claim?.claim_amount === 0
-              ? `₹ ${all?.claim?.claim_amount}`
-              : ""}
-          </div>
-        ),
-      },
-      {
-        key: "claim_id",
-        label: "Claim ID",
-        sortable: false,
-        render: (temp, all) => <div>{all?.claim?.code}</div>,
-      },
+
       {
         key: "user_id",
         label: "Action",
@@ -209,7 +225,6 @@ const LoanList = () => {
             <div className={styles.newLine} />
           </div>
         </div>
-
         <div>
           <FilterComponent
             is_progress={isFetching}

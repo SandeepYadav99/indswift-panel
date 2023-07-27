@@ -34,8 +34,8 @@ const useClaimLoanCard = ({}) => {
   const travelRef = useRef(null);
   const [isChecked, setIsChecked] = React.useState(false);
   const codeDebouncer = useDebounce(form?.amount, 500);
-  const typeDebounce=useDebounce(form?.loan_type,500)
-  
+  const typeDebounce = useDebounce(form?.loan_type, 500);
+
   const { id } = useParams();
   const {
     user: { emp_code },
@@ -76,19 +76,14 @@ const useClaimLoanCard = ({}) => {
         if (res.error) {
           errors["amount"] = true;
           setErrorData(errors);
-          SnackbarUtils.error(res.message)
+          SnackbarUtils.error(res.message);
         } else {
           delete errors.amount;
           setErrorData(errors);
         }
       });
     }
-  }, [
-    errorData,
-    setErrorData,
-    form?.loan_type,
-    form?.amount
-  ]);
+  }, [errorData, setErrorData, form?.loan_type, form?.amount]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["loan_type", "amount", "description", "g1", "g2", "g3"];
@@ -200,15 +195,12 @@ const useClaimLoanCard = ({}) => {
     setForm({ ...initialForm });
   }, [form]);
 
-  // const filteredEmployees = useMemo(() => {
-  //   return employees?.filter((val) => {
-  //     return (
-  //       val.department_id === form?.department_id &&
-  //       val.location_id === form?.location_id
-  //     );
-  //   });
-  // }, [form?.g1, form?.g2,form?.g3, employees]);
-
+  const filteredEmployees = useMemo(() => {
+    const idArray = Object.values(form)
+      .map((item) => item?.id)
+      .filter((id) => id !== undefined && id !== null);
+    return employees?.filter((val) => !idArray.includes(val?.id));
+  }, [form?.g1, form?.g2, form?.g3, employees]);
   return {
     form,
     changeTextData,
@@ -229,6 +221,7 @@ const useClaimLoanCard = ({}) => {
     setIsChecked,
     employees,
     currentExp,
+    filteredEmployees,
   };
 };
 

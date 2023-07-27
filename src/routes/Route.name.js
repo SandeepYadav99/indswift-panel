@@ -121,6 +121,7 @@ export default {
   EMPLOYEES_IMPREST_DETAILS:'/employee/imprest/details/',
   EMPLOYEE_LOAN_DETAILS:'/employee/loan/details/',
   ADMIN_LOAN_LIST:'/loan/list',
+  ADMIN_LOAN_LIST_DETAIL:'/loan/list/details/',
 
 
 

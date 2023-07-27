@@ -9,13 +9,14 @@ import {
     PersonRounded,
     FingerprintOutlined
 } from "@material-ui/icons";
-import RouteName from "./Route.name";
-import Constants from "../config/constants";
-import EmployeeLoanDetail from "../views/ClaimsManagement/EmployeeLoanDetail/EmployeeLoanDetail.view";
-import LoanList from "../views/LoanManagement/LoanList/LoanList.view";
+ import RouteName from "./Route.name";
+ import Constants from "../config/constants";
+
+ const EmployeeLoanDetail = lazy(()=> import ("../views/ClaimsManagement/EmployeeLoanDetail/EmployeeLoanDetail.view"));
+ const LoanList = lazy(()=> import ("../views/LoanManagement/LoanList/LoanList.view"));
+ const LoanListDetail = lazy(()=> import ("../views/LoanManagement/LoanListDetail/LoanListDetail.view"));
 
 const IncrementDetail = lazy(()=> import ("../views/PmsIncrements/IncrementDetail/IncrementDetail.view"));
-
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
 const ClaimMarriageCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimMarriageCard/ClaimMarriageCard.view"));
@@ -1595,8 +1596,20 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
     },
+    {
+        path: `${RouteName.ADMIN_LOAN_LIST_DETAIL}:id`,
+        sidebarName: "Loan Management",
+        navbarName: "Loan Management",
+        icon: PeopleOutlined,
+        component: LoanListDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'tp',
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
 
-
+    
 
 
     // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
