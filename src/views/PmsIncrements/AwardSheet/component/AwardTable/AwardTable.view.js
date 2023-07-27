@@ -69,11 +69,6 @@ function AwardTable({ data, title }) {
       title: "2023",
       render: (all) => <div className={styles.label}>{all?.normalized}</div>,
     },
-    {
-      key: "2023",
-      title: "2023",
-      render: (all) => <div className={styles.label}>{all?.normalized}</div>,
-    },
   ]);
   return (
     <div>{<CustomTable title={title} columns={columns} data={data} />}</div>
