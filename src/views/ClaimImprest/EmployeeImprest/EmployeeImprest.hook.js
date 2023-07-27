@@ -7,12 +7,12 @@ import {
   actionSetPageEmployeeImprestRequests,
   actionUpdateEmployeeImprest,
 } from "../../../actions/EmployeeImprest.action";
-// import historyUtils from "../../libs/history.utils";
 import { serviceGetList } from "../../../services/Common.service";
 import LogUtils from "../../../libs/LogUtils";
-// import { serviceExportClaimReport } from "../../../services/EmployeeImprest.service";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import { serviceExportEmployeeImprestCurrency } from "../../../services/EmployeeImprest.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const useEmployeeImprest = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -206,14 +206,19 @@ const useEmployeeImprest = ({}) => {
   }, []);
 
   const handleCsvDownload = useCallback(() => {
-    // serviceExportClaimReport({
-    //   claim_type: type,
-    // }).then((res) => {
-    //   if (!res.error) {
-    //     const data = res.data?.response;
-    //     window.open(data, "_blank");
-    //   }
-    // });
+    if(type){
+      serviceExportEmployeeImprestCurrency({
+        currency: type,
+      }).then(res => {
+        if (!res.error) {
+          const data = res.data;
+          window.open(data, "_blank");
+        }
+      })
+    }
+    else {
+      SnackbarUtils.error("Please Select the Currency");
+    }
   }, [ type]);
   const configFilter = useMemo(() => {
     return [

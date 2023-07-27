@@ -31,3 +31,6 @@ export async function serviceEmployeeCreateReturnEmp (params) {
 export async function serviceDetailsGetInfo(params) {
     return await postRequest('ib/details', params);
 }
+export async function serviceExportEmployeeImprestCurrency(params) {
+    return await postRequest('ib/export', params);
+}

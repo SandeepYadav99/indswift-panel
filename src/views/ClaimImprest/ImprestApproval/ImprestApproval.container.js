@@ -252,11 +252,11 @@ const ImprestApproval = ({ location }) => {
             <span className={styles.title}>Imprest Approval Requests</span>
             <div className={styles.newLine} />
           </div>
-          {/* <div className={styles.rightFlex}>
+          <div className={styles.rightFlex}>
             <ButtonBase className={styles.download} onClick={handleCsvDownload}>
               DOWNLOAD
             </ButtonBase>
-          </div> */}
+          </div>
         </div>
 
         <div>

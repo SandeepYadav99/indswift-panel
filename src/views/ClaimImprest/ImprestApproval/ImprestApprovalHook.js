@@ -12,6 +12,7 @@ import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 // import { serviceExportCarClaimReport } from "../../../services/ImprestApproval.service";
 import LogUtils from "../../../libs/LogUtils";
+import { serviceExportImprestApprovalReport } from "../../../services/ImprestApproval.service";
 
 const useImprestApproval = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -133,15 +134,12 @@ const useImprestApproval = ({}) => {
   );
 
   const handleCsvDownload = useCallback(() => {
-    // serviceExportCarClaimReport({
-    //   fy_year: '2022-2023',
-    //   claim_type: 'CAR',
-    // }).then(res => {
-    //   if (!res.error) {
-    //     const data = res.data?.response;
-    //     window.open(data, "_blank");
-    //   }
-    // })
+    serviceExportImprestApprovalReport().then(res => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    })
   }, []);
 
   const handleViewDetails = useCallback((data) => {

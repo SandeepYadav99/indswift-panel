@@ -46,7 +46,7 @@ function useEmployeeImprestDetail() {
       imprest_type: type,
     }).then(res => {
       if (!res.error) {
-        const data = res.data?.response;
+        const data = res.data;
         window.open(data, "_blank");
       }
     })

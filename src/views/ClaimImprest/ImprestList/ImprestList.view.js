@@ -8,9 +8,10 @@ import TravelTable from "../ImprestApprovalDetail/Component/TravelTable/TravelTa
 import OtherTable from "../ImprestApprovalDetail/Component/OtherTable/OtherTable.component";
 
 const ImprestList = ({ jobId }) => {
-  const { handleAddCandidate, candidateEl, handleCreate,typeData,user_id } = useImprestList({
-    jobId,
-  });
+  const { handleAddCandidate, candidateEl, handleCreate, typeData, user_id ,handleCsvDownload} =
+    useImprestList({
+      jobId,
+    });
   return (
     <div>
       <div className={styles.plainPaper}>
@@ -44,6 +45,14 @@ const ImprestList = ({ jobId }) => {
 
           <div className={styles.experseWrap}>
             BALANCE :{` ₹ ${typeData?.other?.INR?.balance} `}
+            <div className={styles.rightFlex}>
+              <ButtonBase
+                className={styles.download}
+                onClick={()=>handleCsvDownload('OTHER')}
+              >
+                DOWNLOAD
+              </ButtonBase>
+            </div>
           </div>
         </div>
         <OtherTable jobId={user_id} Claimtype="OTHER" />
@@ -62,6 +71,14 @@ const ImprestList = ({ jobId }) => {
             {` € ${typeData?.travel?.EUR?.balance} `}
             {typeData?.expense_budget !== undefined &&
               ` EXPENSES : ${typeData?.expense_budget}`}
+            <div className={styles.rightFlex}>
+              <ButtonBase
+                className={styles.download}
+                onClick={()=>handleCsvDownload('TRAVEL')}
+              >
+                DOWNLOAD
+              </ButtonBase>
+            </div>
           </div>
         </div>
         <TravelTable jobId={user_id} Claimtype="TRAVEL" />

@@ -36,6 +36,7 @@ const TravelAuth = ({ location }) => {
     handleViewCreate,
     isCalling,
     configFilter,
+    handleCsvDownload
   } = useTravelAuth({});
 
   const {
@@ -248,6 +249,14 @@ const TravelAuth = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrap}>
+          <div className={styles.rightFlex}>
+              <ButtonBase
+                className={styles.download}
+                onClick={handleCsvDownload}
+              >
+                DOWNLOAD
+              </ButtonBase>
+            </div>
             {/* <ButtonBase
               aria-haspopup="true"
               onClick={handleViewCreate}
