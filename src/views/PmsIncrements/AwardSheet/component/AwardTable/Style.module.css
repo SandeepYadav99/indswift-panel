@@ -90,6 +90,13 @@
   text-align: center;
   white-space: nowrap;
 }
+.labelhead{
+  font-size: 0.8rem;
+  padding: 10px 15px;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 500;
+}
 .label21 {
   font-size: 0.8rem;
   padding: 4px;

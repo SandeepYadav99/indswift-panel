@@ -52,7 +52,7 @@ const useIncrementLetter = ({ location }) => {
     serviceGetIncrementLetter({
       year: year,
       batch: type,
-      planner_type: "DEFAULT",
+      // planner_type: "DEFAULT",
     }).then((res) => {
       if (!res.error) {
         const data = res.data;

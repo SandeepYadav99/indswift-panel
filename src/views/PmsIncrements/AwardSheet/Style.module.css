@@ -17,18 +17,30 @@
 }
 .imgWrap > img{
     width: 120px;
-    height: 70px;
+    /* height: 70px; */
     /* aspect-ratio: 1/1; */
 }
 .upper{
     display: flex;
+    align-items: center;
+}
+.heading{
+    font-size: .9rem;
+    font-weight: 600;
 }
 .textWrap{
     display: flex;
     flex-direction: column;
-    font-size: .875rem;
-    justify-content: space-evenly;
+    font-size: .9rem;
+    align-items: center;
+    /* gap: 20px; */
+    /* justify-content: space-evenly; */
     font-weight: 500;
+}
+.wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .verti{
     border: 1px solid #B8C5D3;
@@ -36,11 +48,14 @@
     width: calc(100% - 40px);
   }
   .infoCont{
-    font-size: .875rem;
+    font-size: .85rem;
     display: flex;
     flex-direction: column;
     gap: 4px;
     font-weight: 500;
+  }
+  .dateWrap{
+    height: 70px;
   }
 .graphCont {
       width: calc(100% - 40px);
@@ -49,6 +64,7 @@
 .txtJustify {
     text-align: justify;
     width: calc(100% - 40px);
+    font-size: .8rem;
 }
 .staticGraph {
     width: 600px;

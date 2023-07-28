@@ -21,6 +21,11 @@ import BottomPanelComponent from "../../../components/BottomBar/BottomBar.compon
 import { InfoOutlined } from "@material-ui/icons";
 import TablePagination from "@material-ui/core/TablePagination";
 import DialogIncComponent from "./component/confirmDialogInc";
+import { removeUnderScore } from "../../../helper/helper";
+import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
+import BarChartSharpIcon from '@material-ui/icons/BarChartSharp';
+import historyUtils from "../../../libs/history.utils";
+import RouteName from "../../../routes/Route.name";
 
 const useStyles = makeStyles((theme) => ({
   customTooltip: {
@@ -132,7 +137,7 @@ const IncrementLetter = ({ location }) => {
     isFreezed,
     selected,
     selectedEmps,
-    handleCheckbox
+    handleCheckbox,
   } = useIncrementPlanner({ location });
 
   const renderStatus = useCallback((status) => {
@@ -157,12 +162,8 @@ const IncrementLetter = ({ location }) => {
               />
             </div>
             <div className={classNames(styles.firstCellInfo, "openSans")}>
-              <span className={styles.productName}>{obj?.name}</span>{" "}
-              <br />
-              <span className={styles.productName}>
-                {obj?.code}
-              </span>{" "}
-              <br />
+              <span className={styles.productName}>{obj?.name}</span> <br />
+              <span className={styles.productName}>{obj?.code}</span> <br />
             </div>
           </div>
         );
@@ -378,6 +379,76 @@ const IncrementLetter = ({ location }) => {
           <div className={styles.noWrap}>{all?.effectiveDateText}</div>
         ),
       },
+      {
+        key: "status",
+        label: "Status",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>
+            <StatusPill status={removeUnderScore(all?.status)} />
+          </div>
+        ),
+      },
+      {
+        key: "user_id",
+        label: "Action",
+        render: (temp, all) => (
+          <div className={styles.actionWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
+            >
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
+            <a
+              style={{ "text-decoration": "none" }}
+              target="_blank"
+              href={all?.increment_letter_document}
+              // onClick={() => {
+              //   historyUtils.push(RouteName.VIEW_DOCUMENTS, {
+              //     url: all?.increment_letter_document,
+              //   });
+              // }}
+            >
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                // onClick={() => {
+                //   handleViewFormDetails(all);
+                // }}
+              >
+                <RemoveRedEyeOutlinedIcon fontSize={"small"} />
+              </IconButton>
+            </a>
+            <a
+              style={{ "text-decoration": "none" }}
+              target="_blank"
+              href={all?.performance_letter_path}
+              // onClick={() => {
+              //   historyUtils.push(RouteName.VIEW_DOCUMENTS, {
+              //     url: all?.performance_letter_path,
+              //   });
+              // }}
+            >
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                // onClick={() => {
+                //   handleViewFormDetails(all);
+                // }}
+              >
+                <BarChartSharpIcon fontSize={"small"} />
+              </IconButton>
+            </a>
+          </div>
+        ),
+      },
     ];
   }, [renderStatus, renderFirstCell, isCalling, handleValueChange, formData]);
 
@@ -520,14 +591,13 @@ const IncrementLetter = ({ location }) => {
           !isSubmitting && handleDialogConfirm();
         }}
       />
-        <BottomPanelComponent open={selected?.length > 0}>
-          <BottomIncActionView
-            employees={selected.length}
-            handleSend={toggleConfirmDialog}
-            isSubmitting={isSubmitting}
-          />
-        </BottomPanelComponent>
-      
+      <BottomPanelComponent open={selected?.length > 0}>
+        <BottomIncActionView
+          employees={selected.length}
+          handleSend={toggleConfirmDialog}
+          isSubmitting={isSubmitting}
+        />
+      </BottomPanelComponent>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import styles from "./Style.module.css";
+import { removeUnderScore } from "../../../../../helper/helper";
 
 const CustomTable = ({ columns, data, title }) => {
   const renderCell = (item, column) => {
@@ -61,7 +62,7 @@ function AwardTable({ data, title }) {
       key: "test",
       title: "",
       render: (all) => (
-        <div className={styles.label}>{all?.title}</div>
+        <div className={styles.labelhead}>{removeUnderScore(all?.title)}</div>
       ),
     },
     {
