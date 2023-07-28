@@ -11,71 +11,13 @@ import {
 import logo from "../../../assets/img/login logo@2x.png";
 import styles from "./Style.module.css";
 import AwardTable from "./component/AwardTable/AwardTable.view";
+import useAwardSheet from "./AwardSheet.hook";
+import GroupCTable from "./component/GroupCTable/GroupCTable.view";
+import WaitingComponent from "../../../components/Waiting.component";
 
-const data = [
-  {
-    subject: "Math",
-    A: 120,
-    B: 110,
-    fullMark: 150,
-  },
-  {
-    subject: "Chinese",
-    A: 98,
-    B: 130,
-    fullMark: 150,
-  },
-  {
-    subject: "English",
-    A: 86,
-    B: 130,
-    fullMark: 150,
-  },
-  {
-    subject: "Geography",
-    A: 99,
-    B: 100,
-    fullMark: 150,
-  },
-  {
-    subject: "Physics",
-    A: 85,
-    B: 90,
-    fullMark: 150,
-  },
-  {
-    subject: "History",
-    A: 65,
-    B: 85,
-    fullMark: 150,
-  },
-];
-
-const d2 = [
-  {
-    key: "0-0.4",
-    received: 37,
-    normalized: 41,
-    overall_hod_rating: 59,
-  },
-  {
-    key: "0.4-0.45",
-    received: 4,
-    normalized: 9,
-    overall_hod_rating: 0,
-  },
-  {
-    key: "0.45-0.5",
-    received: 10,
-    normalized: 2,
-    overall_hod_rating: 0,
-  },
-  { key: "count", received: 59, normalized: 59, overall_hod_rating: 59 },
-];
-const AwardSheetView = ({}) => {
+const Header = ({empData}) => {
   return (
-    <div className={styles.awardWrrap}>
-      <div className={styles.mainContainer}>
+      <>
         <div className={styles.upper}>
           <div className={styles.imgWrap}>
             <img src={logo} alt="IndSwift" />
@@ -88,46 +30,132 @@ const AwardSheetView = ({}) => {
         <div className={styles.verti}></div>
         <div className={styles.infoCont}>
           <div>
-            Employee Name: <strong>Abhay Kashyap</strong>
+            Employee Name: <strong>{empData.name}</strong> {empData.form_type}
           </div>
           <div>
-            Employee Number: <strong>Abhay Kashyap</strong>
+            Employee Number: <strong>{empData.code}</strong>
           </div>
           <div>
-            Designation: <strong>Abhay Kashyap</strong>
+            Designation: <strong>{empData.designation}</strong>
           </div>
           <div>
-            Location: <strong>Abhay Kashyap</strong>
+            Location: <strong>{empData.location}</strong>
           </div>
           <div>
-            Department: <strong>Abhay Kashyap</strong>
+            Department: <strong>{empData.department}</strong>
           </div>
         </div>
         <div className={styles.verti}></div>
-        <AwardTable title="functional Performance Index (FARS)" data={d2} />
+      </>
+  )
+}
+const AwardSheetView = ({}) => {
+  const { group4Data, ratingData, isFetching, empData,isLoad } = useAwardSheet({});
 
-        <ResponsiveContainer width="100%" height="100%">
-          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
-            <PolarGrid />
-            <PolarAngleAxis dataKey="subject" />
-            <PolarRadiusAxis angle={30} domain={[0, 150]} />
-            <Radar
-              name="Mike"
-              dataKey="A"
-              stroke="#8884d8"
-              fill="#8884d8"
-              fillOpacity={0.6}
-            />
-            <Radar
-              name="Lily"
-              dataKey="B"
-              stroke="#82ca9d"
-              fill="#82ca9d"
-              fillOpacity={0.6}
-            />
-            <Legend />
-          </RadarChart>
-        </ResponsiveContainer>
+  if (isFetching) {
+    return (<WaitingComponent />);
+  }
+
+  return (
+    <div className={styles.awardWrrap}>
+      <div className={styles.mainContainer}>
+        <Header empData={empData} />
+        <h2>
+          <u>
+            Goal Sheet-A
+          </u>
+        </h2>
+        <p className={styles.txtJustify}>
+          Goal Sheet-A Reflects employee’s score on his/her “Role Based Competencies” that are required to be possessed by employee for successfully doing his/her duties. These scores are based on how well the employee exhibited these competencies to their direct supervisors, HODs and/or colleagues while conducting their routine duties.
+        </p>
+
+        <AwardTable title="functional Performance Index (FARS)" data={ratingData?.fars} />
+        <br/>
+        <br/>
+        <AwardTable title="Behavioural Performance Index (BARS)" data={ratingData?.bars} />
+        <br/>
+        <br/>
+        <p className={styles.txtJustify}>
+          Any competency that scores less than 85 % is an improvement area for you in next performance cycles.<br/>
+          If your competencies scored above 85 %, then it means you performance on Goal Sheet-A is better than average, but it has scope of improvement until it attains and remains at 100 % mark.
+        </p>
+
+        <h2>
+          <u>
+            Goal Sheet-B
+          </u>
+        </h2>
+        <p className={styles.txtJustify}>
+          Goal Sheet-B reflects employee’s performance on specific KRAs (Key Result Areas), allocated to him/her as part of his/her direct contributions towards achievement of departmental and organizational objectives. A certain set KRAs are always specific to a certain set of performance cycles, however you may ask for your specific detailed KRA sheet from your HOD for improving yourself in next performance cycle.
+        </p>
+
+
+        <h2>
+          <u>
+            Goal Sheet-c
+          </u>
+        </h2>
+        <p className={styles.txtJustify}>
+          Goal Sheet-C reflects overall achievement of incumbent’s department on its set departmental objectives.
+          <br/>
+            An employee’s performance is always a sub-function of department’s overall results. For example- if a certain crew member sailing on a ship is doing well, but the ship has not been able to reach at its destination in set time, then that crew member is also a part of that miss. Therefore, Categorization of employee in certain performance category is also a dependent on how well the department has achieved its overall targets.
+        </p>
+
+        <p className={styles.txtJustify}>
+          {/*<strong>Your final performance category is {empData?.increment_level}.</strong><br/>*/}
+          <br/>
+          <br/>
+          To refer the chart of performance categories and other PMS related policy guidelines please refer to the back side of this sheet. If you are eligible for 360 Degree feedback of your behavior, you will find another sheet attached.<br/>
+          Your final performance category may make your eligible for a revision or CDP or PIP or some other action. If you have a revised compensation, then you may receive another letter about the same from HR.<br/>
+          Please review your areas of improvement critically, and we wish you all the best for your performance in next cycle.<br/>
+        </p>
+
+
+
+        {empData?.form_type === 'TYPE_4' && (<div>
+          <Header empData={empData} />
+          <br/>
+          <p className={styles.txtJustify}>
+            Incumbent’s self-rating and the team’s average on Behavioral competence has a difference of <strong>{empData?.bars_diff}</strong>.
+            <br/>
+            Higher the variance poor is the relation between incumbent and his/her team.
+            <br/>
+            Lower score reflects that incumbent may not be able to positively influence his her/her team in deriving better performances from them and vice versa.
+            <br/>
+            A low score may also remove or dilute your right to rate your team on set performance standards.
+            <br/>
+            To a certain extent, score on 360-degree feedback also affects compensation revision of employee, if the employee was eligible for that.
+            <br/>
+            Therefore, if the score is low or if the variance is high, then you may receive a separate action plan for HR to improve on this aspect.
+          </p>
+            <GroupCTable title="" data={group4Data} />
+          <div className={styles.graphCont}>
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart   cx="50%" cy="50%" outerRadius="80%" data={group4Data}>
+              <PolarGrid />
+              <PolarAngleAxis  dataKey="label" />
+              <PolarRadiusAxis  angle={30} domain={[0, 100]} />
+              <Radar
+                  isAnimationActive={false}
+                  name="Self"
+                  dataKey="self"
+                  stroke="#8884d8"
+                  fill="#8884d8"
+                  fillOpacity={0.6}
+              />
+              <Radar
+                  isAnimationActive={false}
+                  name="Others"
+                  dataKey="others"
+                  stroke="#82ca9d"
+                  fill="#82ca9d"
+                  fillOpacity={0.6}
+              />
+              <Legend  />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
+        </div>)}
       </div>
     </div>
   );

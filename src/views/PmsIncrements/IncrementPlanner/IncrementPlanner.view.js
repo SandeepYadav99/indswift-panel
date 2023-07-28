@@ -138,7 +138,9 @@ const IncrementPlanner = ({location}) => {
         isFreezeDialog,
         toggleFreezeDialog,
         isFreezing,
-        getUrl
+        getUrl,
+        handleFreezeBtn,
+        handleSaveBtn,
     } = useIncrementPlanner({location});
 
     const renderStatus = useCallback((status) => {
@@ -545,12 +547,13 @@ const IncrementPlanner = ({location}) => {
                 handleClose={toggleFreezeDialog}
                 handleConfirm={() => { !isFreezing && freezeIncrementPlanner() }}
             />
-            {!isFreezed && (<BottomPanelComponent open={true}>
+            {!isFreezed && <BottomPanelComponent open={true}>
                 <BottomIncActionView
-                    handleSend={toggleConfirmDialog}
+                    handleFreeze={handleFreezeBtn}
+                    handleSend={handleSaveBtn}
                     isSubmitting={isSubmitting}
                 />
-            </BottomPanelComponent>)}
+            </BottomPanelComponent>}
         </div>
     );
 };

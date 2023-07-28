@@ -21,7 +21,7 @@
 .table {
   /* border: 1px solid black; */
   border-collapse: collapse;
-  width: calc(95vw - 60px);
+  width: 100%;
 }
 .thead {
   background: #ecf7ff 0% 0% no-repeat padding-box;

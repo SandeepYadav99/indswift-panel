@@ -14,7 +14,6 @@ const CustomTable = ({ columns, data, title }) => {
       <thead>
         {title && (
           <tr>
-            <th></th>
             <th colspan="2" className={styles.theadTitle}>
               {title}
             </th>
@@ -55,19 +54,29 @@ const CustomTable = ({ columns, data, title }) => {
   );
 };
 
-function AwardTable({ data, title }) {
+function GroupCTable({ data, title }) {
   const [columns, setColumns] = useState([
     {
-      key: "test",
-      title: "",
+      key: "title",
+      title: "Title",
       render: (all) => (
-        <div className={styles.label}>{all?.title}</div>
+        <div className={styles.label}>{all?.label}</div>
       ),
     },
     {
-      key: "2023",
-      title: "2023",
-      render: (all) => <div className={styles.label}>{all?.ratings?.percentage}%</div>,
+      key: "self",
+      title: "Self",
+      render: (all) => <div className={styles.label}>{all?.self}</div>,
+    },
+    {
+      key: "others",
+      title: "Others",
+      render: (all) => <div className={styles.label}>{all?.others}</div>,
+    },
+    {
+      key: "variance",
+      title: "Variance",
+      render: (all) => <div className={styles.label}>{(all?.self - all?.others).toFixed(2)}</div>,
     },
   ]);
   return (
@@ -75,4 +84,4 @@ function AwardTable({ data, title }) {
   );
 }
 
-export default AwardTable;
+export default GroupCTable;

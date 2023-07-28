@@ -72,7 +72,7 @@ const RouteComponent = () => (
     <Route path={"/forget/help"} component={ForgetPasswordHelp} />
       <Route path={RouteName.RESET_PASSWORD_FIRST} component={ResetPasswordFirst} />
     <Route path={"/reset/password"} component={ResetPassword} />
-      <Route path={"/award/sheet"} component={AwardSheetView} />
+      <Route path={"/award/sheet/:id"} component={AwardSheetView} />
     <Route path={"/"} component={Dashboard} />
   </Switch>
 );
