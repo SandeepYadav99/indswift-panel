@@ -11,6 +11,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 
 const IncrementDetail = lazy(()=> import ("../views/PmsIncrements/IncrementDetail/IncrementDetail.view"));
 
@@ -624,6 +625,18 @@ const dashboardRoutes = [
         navbarName: "Blank Award Sheet",
         icon: PeopleOutlined,
         component: IncrementPlanner,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: false,
+        parent: 'pms_increments',
+        roles: [Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.PMS_INCREMENT_LETTER}`,
+        sidebarName: "Increment Letter",
+        navbarName: "Increment Letter",
+        icon: PeopleOutlined,
+        component: IncrementLetter,
         is_sidebar: true,
         is_protect: true,
         should_regex: false,

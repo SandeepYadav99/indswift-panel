@@ -159,6 +159,7 @@ export default {
   PMS_INCREMENT_PLANNER_RED: '/increment/planner/red',
   PMS_INCREMENT_PLANNER_NO: '/increment/planner/no',
   PMS_INCREMENT_PLANNER_GRAPH : '/graph/increment/planner',
+  PMS_INCREMENT_LETTER : '/increment/letter',
 
 
   IRF_LOGIN:'/irf/login',
