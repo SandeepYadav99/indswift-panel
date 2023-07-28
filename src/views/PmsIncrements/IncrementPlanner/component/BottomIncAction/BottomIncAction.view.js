@@ -5,6 +5,7 @@ import { ButtonBase } from "@material-ui/core";
 const BottomIncActionView = ({
   isSubmitting,
   handleSend,
+    handleFreeze
 }) => {
   return (
     <div className={styles.stickyBtnWrap}>
@@ -24,6 +25,15 @@ const BottomIncActionView = ({
             className={"createBtn"}
           >
             Save Increment
+          </ButtonBase>
+          &nbsp;&nbsp;
+          <ButtonBase
+              disabled={isSubmitting}
+              aria-haspopup="true"
+              onClick={handleFreeze}
+              className={"createBtn"}
+          >
+            Freeze
           </ButtonBase>
         </div>
       </div>
