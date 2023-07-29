@@ -55,7 +55,15 @@
     font-weight: 500;
   }
   .dateWrap{
-    height: 70px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    /* height: 70px; */
+  }
+  .upperWrapper{
+    display: flex;
+    justify-content: space-between;
   }
 .graphCont {
       width: calc(100% - 40px);

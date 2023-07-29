@@ -18,19 +18,19 @@ import WaitingComponent from "../../../components/Waiting.component";
 const Header = ({ empData }) => {
   return (
     <>
-      <div className={styles.upper}>
-        <div className={styles.imgWrap}>
-          <img src={logo} alt="IndSwift" />
-        </div>
-        <div className={styles.textWrap}>
-          <div className={styles.wrap}>
-            <strong>Performance Feedback Sheet</strong>
-            <span>For Performance cycle: Apr-22 to Mar-23</span>
+      <div className={styles.upperWrapper}>
+        <div className={styles.upper}>
+          <div className={styles.imgWrap}>
+            <img src={logo} alt="IndSwift" />
+          </div>
+          <div className={styles.textWrap}>
+            <div className={styles.wrap}>
+              <strong>Performance Feedback Sheet</strong>
+              <span>For Performance cycle: Apr-22 to Mar-23</span>
+            </div>
           </div>
         </div>
-        {/* <div className={styles.dateWrap}>
-          28/07/2023
-        </div> */}
+        <div className={styles.dateWrap}>28/07/2023</div>
       </div>
       <div className={styles.verti}></div>
       <div className={styles.infoCont}>
