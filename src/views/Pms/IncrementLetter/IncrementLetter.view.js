@@ -376,7 +376,7 @@ const IncrementLetter = ({ location }) => {
         label: "Effective Date",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>{all?.effectiveDateText}</div>
+          <div className={styles.noWrap}>{all?.effectiveFromText}</div>
         ),
       },
       {
