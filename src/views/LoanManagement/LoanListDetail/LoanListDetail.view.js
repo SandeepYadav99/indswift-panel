@@ -70,7 +70,7 @@ function LoanListDetail() {
                 <div className={styles.right}>
                   <div className={styles.key}>
                     <span className={styles.value}>Amount Requested:</span>
-                    {employeeDetail?.loan?.amount}
+                    {employeeDetail?.loan?.amount && `₹ ${employeeDetail?.loan?.amount}`}
                   </div>
                 </div>
               </div>
@@ -88,7 +88,7 @@ function LoanListDetail() {
                   <div className={styles.mainFlex}>
                     <div className={styles.left}>
                       {item?.document && (
-                        <div className={styles.key}>
+                        <div className={styles.key7}>
                           <a href={item?.document} target="_blank">
                             <div className={styles.hyperlinkText}>
                               {item?.label}

@@ -756,7 +756,16 @@ font-size: medium;
 .advanceField .MuiFormHelperText-root.Mui-error{
     font-size: 9px;
 }
+.imageGalleryWrapper {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 20px 80px #00000011;
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
 
+.imageGalleryWrapper .MuiAccordion-root:before{
+    background-color: transparent !important;
+}
 .line-container {
     display: flex;
     width: 100%;

@@ -48,6 +48,12 @@
   font-weight: 500;
   margin-bottom: 7px;
 }
+.key7{
+  color: #818181;
+  font-weight: 500;
+  margin-bottom: 7px;
+  width: fit-content;
+}
 
 .value {
   font-weight: 600;

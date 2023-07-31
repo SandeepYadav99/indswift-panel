@@ -80,7 +80,7 @@ function LoanConfirmation() {
     <div>
       <LoanOfferViewer
         isEnabled={
-          offerLetter?.status !== Constants.JOB_CANDIDATE_STATUS.DROPPED
+          offerLetter?.status === 'PENDING'
         }
         isSubmitting={isSubmitting}
         handleReject={handleReject}

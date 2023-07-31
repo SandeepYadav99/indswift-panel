@@ -76,6 +76,7 @@ const ClaimsDetail = () => {
            subtitle="Request Personal loan from Company as per company Employee Loan Policy"
            handleClick={() => handleClaimPage(7)}
            enableBtn
+           isLoan={true}
            />
       </div>
       <div className={styles.tableWrapper}>

@@ -33,12 +33,12 @@ const useClaimLoanCard = ({}) => {
   const [currentExp, setCurrentExp] = useState([]);
   const travelRef = useRef(null);
   const [isChecked, setIsChecked] = React.useState(false);
-  const codeDebouncer = useDebounce(form?.amount, 500);
+  const codeDebouncer = useDebounce(form?.amount, 300);
   const typeDebounce = useDebounce(form?.loan_type, 500);
 
   const { id } = useParams();
   const {
-    user: { emp_code },
+    user: { emp_code ,user_id},
   } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -114,6 +114,7 @@ const useClaimLoanCard = ({}) => {
           fd.append(key, form[key]);
         }
       });
+      fd.append('employee_id',user_id)
       const idsArray = [];
       for (const key in form) {
         if (key?.startsWith("g")) {

@@ -74,6 +74,7 @@ function LoanBudgetHook() {
       }).then((res) => {
         if (!res.error) {
           const data = res?.data;
+          window.location.reload();
           // sessionStorage.setItem("CANDIDATE_ID", data?.id);/
         } else {
           SnackbarUtils.error(res?.message);

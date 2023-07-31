@@ -2,7 +2,7 @@ import { ButtonBase } from "@material-ui/core";
 import React from "react";
 import styles from "./Style.module.css";
 
-function ClaimCards({ title, subtitle, handleClick, enableBtn }) {
+function ClaimCards({ title, subtitle, handleClick, enableBtn ,isLoan}) {
   return (
     <div className={styles.claimCardWrapper}>
       <div className={styles.titleWrapper}>
@@ -16,7 +16,7 @@ function ClaimCards({ title, subtitle, handleClick, enableBtn }) {
             className={styles.createBtn}
             onClick={handleClick}
           >
-            RAISE CLAIM
+            {isLoan ? "RAISE REQUEST" : "RAISE CLAIM"}
           </ButtonBase>
         )}
       </div>
