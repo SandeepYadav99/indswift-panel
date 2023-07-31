@@ -187,7 +187,7 @@ function LoanListDetail() {
           </div>
         </div>
       </div>
-      {employeeDetail?.loan?.status === "PENDING" && (
+      {employeeDetail?.status === "PENDING" && (
         <div className={styles.approvedWrapper}>
           <div className={styles.editBtn2}>
             <ButtonBase className={styles.edit321} onClick={toggleRejectDialog}>
