@@ -19,12 +19,15 @@ import {
 function LoanConfirmation() {
   const { candidateId } = useEAFSession();
   const [isOpen, setIsOpen] = useState(false);
+  const [type,setType]= useState('')
   const [offerLetter, setOfferLetter] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const toggleDialog = useCallback(() => {
+  const toggleDialog = useCallback((x) => {
+    if(typeof x === 'string'){
+      setType(x)
+    }
     setIsOpen((e) => !e);
-  }, [isOpen, setIsOpen]);
-
+  }, [isOpen, setIsOpen,type,setType]);
   const handleReject = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
@@ -83,7 +86,6 @@ function LoanConfirmation() {
           offerLetter?.status === 'PENDING'
         }
         isSubmitting={isSubmitting}
-        handleReject={handleReject}
         toggleDialog={toggleDialog}
       >
         <ViewDocuments
@@ -92,9 +94,10 @@ function LoanConfirmation() {
       </LoanOfferViewer>
       <AcceptanceLoanDialog
         isSubmitting={isSubmitting}
-        handleConfirm={handleAccept}
+        handleConfirm={type === 'Accept' ? handleAccept : handleReject}
         handleDialog={toggleDialog}
         isOpen={isOpen}
+        type={type}
       />
       <SnackbarComponent />
     </div>

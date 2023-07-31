@@ -12,6 +12,7 @@ const AcceptanceLoanDialog = ({
   handleDialog,
   isSubmitting,
   handleConfirm,
+  type
 }) => {
   return (
     <Dialog
@@ -34,7 +35,7 @@ const AcceptanceLoanDialog = ({
         </div>
         <div>
           <p style={{ fontSize: ".87rem" }}>
-            Are you sure you want to accept the loan declaration?
+            Are you sure you want to {`${type}`} the loan declaration ?
           </p>
         </div>
         <div className={styles.confirmedWrapper}>
