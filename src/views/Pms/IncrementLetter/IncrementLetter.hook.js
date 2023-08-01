@@ -366,7 +366,7 @@ const useIncrementLetter = ({ location }) => {
     handleSortOrderChange,
     isCalling,
     currentData,
-    data: apiData,
+    data: data,
     currentPage,
     year,
     isInfoPanel,
