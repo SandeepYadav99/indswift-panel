@@ -7,7 +7,8 @@ import {
   serviceIncrementPlannerDownload,
 } from "../../../services/IncrementPlanner.service";
 import historyUtils from "../../../libs/history.utils";
-import { serviceGetIncrementLetter } from "../../../services/incrementLetter.service";
+import {serviceFreezeIncrementLetters, serviceGetIncrementLetter} from "../../../services/incrementLetter.service";
+import LogUtils from "../../../libs/LogUtils";
 
 const totalShow = 50;
 const useIncrementLetter = ({ location }) => {
@@ -302,8 +303,8 @@ const useIncrementLetter = ({ location }) => {
       }
       setSelected(tempSelected);
     },
-    [selected, setSelected]
-  );
+    [selected, setSelected]);
+
   const selectedEmps = useMemo(() => {
     let total = 0;
     selected.forEach((val) => {
@@ -312,21 +313,33 @@ const useIncrementLetter = ({ location }) => {
     return total;
   }, [selected]);
 
+  const updateAwardStatus = useCallback((selectedIds) => {
+    const tData = [...apiData];
+    selectedIds.forEach(id => {
+      const index = tData.findIndex(tD => tD.employee_id === id);
+      if (index >= 0) {
+        (tData[index]).is_awarded = true;
+      }
+    });
+    setApiData(apiData);
+  }, [setApiData, apiData]);
+
   const submitToServer = useCallback(() => {
     const tData = [];
     if (!isSubmitting) {
       setIsSubmitting(true);
-      // const batchIds = selected.map((val) => val.id);
-      // serviceAlignPmsBatch(batchIds).then((res) => {
-      //   if (!res.error) {
-      //     SnackbarUtils.success("Reviews Aligned SuccessFully");
-      //     setSelected([]);
-      //     dispatch(actionAlignPmsReview(batchIds));
-      //   } else {
-      //     SnackbarUtils.error(res?.message);
-      //   }
-      //   setIsSending(false);
-      // });
+      const batchIds = selected.map((val) => val.employee_id);
+      serviceFreezeIncrementLetters({ batch: type, year, employee_ids: batchIds }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Award sheets sent successfully");
+          updateAwardStatus(batchIds);
+          setSelected([]);
+          toggleConfirmDialog();
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
     }
   }, [
     data,
@@ -338,6 +351,8 @@ const useIncrementLetter = ({ location }) => {
     year,
     setIsFreezed,
     resetData,
+    selected,
+    updateAwardStatus
   ]);
 
   const handleDialogConfirm = useCallback(() => {

@@ -9,3 +9,7 @@ export async function serviceDeleteIncrementLetter(params) {
 export async function serviceGetIncrementLetter (params) {
     return await postRequest('pms/increment/letter/list', params);
 }
+
+export async function serviceFreezeIncrementLetters (params) {
+    return await postRequest('pms/increment/letter/freeze', params);
+}

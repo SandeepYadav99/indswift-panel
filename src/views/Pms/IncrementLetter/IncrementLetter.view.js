@@ -152,6 +152,7 @@ const IncrementLetter = ({ location }) => {
           <div className={styles.firstCellFlex}>
             <div className={styles.flex}>
               <Checkbox
+                  disabled={obj.is_awarded}
                 onChange={() => {
                   handleCheckbox(obj);
                 }}
