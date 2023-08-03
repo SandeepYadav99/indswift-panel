@@ -21,7 +21,7 @@ const ClaimsDetail = () => {
           isClaimPage={true}
         />
       </div>
-      
+
       <div className={styles.claimContainer}>
         {data?.marriage_gift_claim?.is_show && (
           <ClaimCards
@@ -54,34 +54,41 @@ const ClaimsDetail = () => {
             handleClick={() => handleClaimPage(4)}
             enableBtn={data?.phc_claim?.can_claim}
           />
-          )}
-          {data?.local_travel_claim?.is_show && (
+        )}
+        {data?.local_travel_claim?.is_show && (
           <ClaimCards
             title="Local Travel Claim Form"
             subtitle="Claim the amount for your Local Travel"
             handleClick={() => handleClaimPage(5)}
             enableBtn={data?.local_travel_claim?.can_claim}
           />
-           )}
-           {data?.relocation_claim?.is_show && (
+        )}
+        {data?.relocation_claim?.is_show && (
           <ClaimCards
             title="Relocation Expense Claim"
             subtitle="Claim your expense in case of new joinee approved for relocation expense or a transfer case of employee."
             handleClick={() => handleClaimPage(6)}
             enableBtn={data?.relocation_claim?.can_claim}
           />
-           )}
-           <ClaimCards
-           title="Loan Application"
-           subtitle="Request Personal loan from Company as per company Employee Loan Policy"
-           handleClick={() => handleClaimPage(7)}
-           enableBtn
-           isLoan={true}
-           />
+        )}
+        <ClaimCards
+          title="Loan Application"
+          subtitle="Request Personal loan from Company as per company Employee Loan Policy"
+          handleClick={() => handleClaimPage(7)}
+          enableBtn
+          isLoan={true}
+        />
+        <ClaimCards
+          title="Domestic/International Travel Claim Form"
+          subtitle="Claim the amount for your Domestic/International Travel"
+          handleClick={() => handleClaimPage(8)}
+          enableBtn
+          // isLoan={true}
+        />
       </div>
       <div className={styles.tableWrapper}>
         <EmployeeClaimList />
-        <EmployeeLoanList/>
+        <EmployeeLoanList />
       </div>
     </div>
   );

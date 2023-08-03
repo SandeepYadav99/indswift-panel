@@ -44,7 +44,7 @@ const useClaimLoanCard = ({}) => {
   useEffect(() => {
     Promise.allSettled([
       serviceGetEmployeeDetails({ code: emp_code }),
-      serviceGetList(["LOAN_GUARANTEES"]),
+      serviceGetList(["LOAN_GUARANTEES"],{'employee_id':user_id}),
     ]).then((promises) => {
       const empDetail = promises[0]?.value?.data;
       const listData = promises[1]?.value?.data;

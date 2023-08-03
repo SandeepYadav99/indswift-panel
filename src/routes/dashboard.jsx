@@ -11,6 +11,7 @@ import {
 } from "@material-ui/icons";
  import RouteName from "./Route.name";
  import Constants from "../config/constants";
+import ClaimIntCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view";
 
  const EmployeeLoanDetail = lazy(()=> import ("../views/ClaimsManagement/EmployeeLoanDetail/EmployeeLoanDetail.view"));
  const LoanList = lazy(()=> import ("../views/LoanManagement/LoanList/LoanList.view"));
@@ -1081,6 +1082,18 @@ const dashboardRoutes = [
         navbarName: "Claims Car",
         icon: PeopleOutlined,
         component: ClaimTravelCard,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CLAIMS_INT}`,
+        sidebarName: "Claims Int",
+        navbarName: "Claims Int",
+        icon: PeopleOutlined,
+        component: ClaimIntCard,
         is_sidebar: false,
         is_protect: true,
         should_regex: true,

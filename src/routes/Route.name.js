@@ -106,6 +106,7 @@ export default {
   CLAIMS_INFO:'/employee/claim/info',
   CLAIMS_HEALTH:'/employee/claim/health',
   CLAIMS_TRAVEL:'/employee/claim/travel',
+  CLAIMS_INT:'/employee/claim/int',
   CLAIMS_INTERVIEW:'/cm/interview',
   CLAIMS_INTERVIEW_DETAILS:'/cm/interview/details/',
   CLAIMS_LOC:'/employee/claim/loc',

@@ -68,9 +68,9 @@ export const myClaimData = {
     "Organization provides various benefits and reimbursements (against expenses) to employees through relevant HR policies. ",
   secondRow:
     "In this section of SkyNet, you can digitally file your claims or applications with HR that will be processed as per your entitlements. You can also keep a track of your applications digitally. Claims and applications are auto programed to get aligned with your remaining entitlements of ongoing FY.  If you are unable to file a claim then it means you may have exhausted your limits of you are not eligible for said claim/application.",
-    thirdRow:
+  thirdRow:
     "If you experience any difficulty in filling any claim or application, please reach to respective site HR or Corporate HR for your assistance.",
-  };
+};
 export const EmployeeIkigaiData = {
   firstRow:
     "Udeshya means “Finding Meaning and Purpose of Life”. Whatever we do in life, it is very important to see meaning in the same without which everything will simply be purposeless, same is true for work as well.",
@@ -88,7 +88,6 @@ export const DrishtiRowFirst = {
   content: [
     "Standing for Swift Employee Advantage. This Program focuses on formulating corporate tie ups with various service providers in external environment like Hospitals, Schools, Institutes, Hotels, restaurants etc to provide a discounted pricing exclusively and equally for all employees of Ind-Swift.",
     "Organization runs 15+ Corporate Tie Ups under SEA that provides substantial discounts to all employees of Ind-Swift for availing services from these terminals.",
-    
   ],
 };
 
@@ -160,8 +159,8 @@ export const othertravelList = [
   { id: "uberBike", name: "Uber - Bike" },
   { id: "fourWheeler", name: "Own Vehicle - 4 Wheeler" },
   { id: "cabCar", name: "Cab (Uber or alike)" },
-]; 
-export  function calculateTravelDistance(location1, location2) {
+];
+export function calculateTravelDistance(location1, location2) {
   let distance = 0;
   switch (true) {
     case location1 === location2:
@@ -203,8 +202,8 @@ export  function calculateTravelDistance(location1, location2) {
     case location1 === "Essix Plant" && location2 === "Bhagwanpura Plant":
       distance = 8;
       break;
-      case location1 === "GBU" && location2 === "Essix Plant":
-      case location1 === "Essix Plant" && location2 === "GBU":
+    case location1 === "GBU" && location2 === "Essix Plant":
+    case location1 === "Essix Plant" && location2 === "GBU":
       distance = 8;
       break;
     default:
@@ -215,11 +214,17 @@ export  function calculateTravelDistance(location1, location2) {
   return distance;
 }
 export function getTransportScore(transport) {
-  if (transport === "publictransport" || transport === "train" || transport === "cabCar" || transport === "auto" || transport === "uberBike") {
+  if (
+    transport === "publictransport" ||
+    transport === "train" ||
+    transport === "cabCar" ||
+    transport === "auto" ||
+    transport === "uberBike"
+  ) {
     return 4;
   } else if (transport === "twoWheeler") {
     return 5;
-  } else if (transport === 'fourWheeler') {
+  } else if (transport === "fourWheeler") {
     return 9;
   } else {
     return 1; // return -1 if the input value doesn't match any of the specified cases
@@ -267,13 +272,13 @@ export const otherTravelMode = [
   { id: "BUS", name: "Bus" },
   { id: "OWN_CAR", name: "Own Car" },
   { id: "COMPANY_CAR", name: "Company Car" },
-]; 
+];
 export const accomodationType = [
   { id: "HOTEL", name: "Hotel" },
   { id: "GUEST_HOUSE", name: "Guest House" },
   { id: "SELF_ARRANGEMENT", name: "Self Arrangement" },
   { id: "NA", name: "NA" },
-]; 
+];
 
 export const dropDownValuesLoan = [
   { type: "MEDICAL_EXPENSE", experienceRequired: 1 },
@@ -282,3 +287,225 @@ export const dropDownValuesLoan = [
   { type: "VEHICLE", experienceRequired: 5 },
   { type: "HOME", experienceRequired: 5 },
 ];
+
+export const entitlementAmout = (grade, book, cluster) => {
+  if (grade === "G0") {
+    return 2200;
+  } else {
+    if (book === "SELF") {
+      switch (grade) {
+        case "G1":
+          return 600;
+        case "G2":
+          return 500;
+        case "G3":
+          return 500;
+        case "G4":
+          return 300;
+        case "G5":
+          return 300;
+        case "G6":
+          return 200;
+        case "G7":
+          return 200;
+        case "G8":
+          return 100;
+        default:
+          return 0;
+      }
+    } else if (book === "OFFICE") {
+      if (cluster === "A") {
+        switch (grade) {
+          case "G1":
+            return 6500;
+          case "G2":
+            return 5000;
+          case "G3":
+            return 4000;
+          case "G4":
+            return 3700;
+          case "G5":
+            return 3500;
+          case "G6":
+            return 3300;
+          case "G7":
+            return 2300;
+          case "G8":
+            return 1700;
+          default:
+            return 0;
+        }
+      } else if (cluster === "B") {
+        switch (grade) {
+          case "G1":
+            return 5500;
+          case "G2":
+            return 4000;
+          case "G3":
+            return 3000;
+          case "G4":
+            return 2700;
+          case "G5":
+            return 2500;
+          case "G6":
+            return 2300;
+          case "G7":
+            return 1700;
+          case "G8":
+            return 1200;
+          default:
+            return 0;
+        }
+      } else if (cluster === "C") {
+        switch (grade) {
+          case "G1":
+            return 5000;
+          case "G2":
+            return 3500;
+          case "G3":
+            return 2700;
+          case "G4":
+            return 2500;
+          case "G5":
+            return 2300;
+          case "G6":
+            return 2100;
+          case "G7":
+            return 1500;
+          case "G8":
+            return 1000;
+          default:
+            return 0;
+        }
+      }
+    }
+  }
+};
+
+export const entitlementForeign = (grade, book) => {
+  if (book === "SELF") {
+    switch (grade) {
+      case "G0":
+        return 32;
+      case "G1":
+        return 32;
+      case "G2":
+        return 32;
+      case "G3":
+        return 28;
+      case "G4":
+        return 28;
+      case "G5":
+        return 28;
+      case "G6":
+        return 28;
+      case "G7":
+        return 28;
+      case "G8":
+        return 28;
+      default:
+        return 0;
+    }
+  } else {
+    switch (grade) {
+      case "G0":
+        return 160;
+      case "G1":
+        return 160;
+      case "G2":
+        return 160;
+      case "G3":
+        return 140;
+      case "G4":
+        return 140;
+      case "G5":
+        return 140;
+      case "G6":
+        return 140;
+      case "G7":
+        return 140;
+      case "G8":
+        return 140;
+      default:
+        return 0;
+    }
+  }
+};
+
+export const travelListExpense = [
+  { id: "flight", name: "Flight" },
+  { id: "publictransport", name: "Public Transport (Bus)" },
+  { id: "train", name: "Train (if available)" },
+  { id: "auto", name: "Auto/e-rikshaw" },
+  { id: "twoWheeler", name: "Own 2 Wheeler" },
+  { id: "uberBike", name: "Uber - Bike" },
+];
+export const DAAllotAmout = (grade, book) => {
+  if (book === "SELF_ARRANGEMENT") {
+    switch (grade) {
+      case "G1":
+        return 400;
+      case "G2":
+        return 300;
+      case "G3":
+        return 300;
+      case "G4":
+        return 300;
+      case "G5":
+        return 300;
+      case "G6":
+        return 200;
+      case "G7":
+        return 200;
+      case "G8":
+        return 100;
+      default:
+        return 0;
+    }
+  } else {
+    switch (grade) {
+      case "G1":
+        return 6500;
+      case "G2":
+        return 900;
+      case "G3":
+        return 800;
+      case "G4":
+        return 700;
+      case "G5":
+        return 600;
+      case "G6":
+        return 500;
+      case "G7":
+        return 300;
+      case "G8":
+        return 250;
+      default:
+        return 0;
+    }
+  }
+};
+export const IEAllotAmout = (grade) => {
+  switch (grade) {
+    case "G0":
+      return 1000;
+    case "G1":
+      return 300;
+    case "G2":
+      return 220;
+    case "G3":
+      return 220;
+    case "G4":
+      return 180;
+    case "G5":
+      return 160;
+    case "G6":
+      return 160;
+    case "G7":
+      return 100;
+    case "G8":
+      return 50;
+    default:
+      return 0;
+  }
+};

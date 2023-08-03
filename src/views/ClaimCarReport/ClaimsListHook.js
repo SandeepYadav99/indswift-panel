@@ -138,7 +138,7 @@ const useClaimCarReport = ({}) => {
 
   const handleCsvDownload = useCallback(() => {
     serviceExportCarClaimReport({
-      fy_year: '2022-2023',
+      fy_year: '2023-2024',
       claim_type: 'CAR',
     }).then(res => {
       if (!res.error) {

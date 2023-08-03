@@ -34,3 +34,6 @@ export async function serviceUpdateEmployeeLoan(params) {
 export async function serviceCheckLoanAmount (params) {
     return await postRequest('employee/loans/check', params);
 }
+export async function serviceUpdateIntClaim(params) {
+    return await formDataRequest('employee/claims/create/travel', params);
+}
