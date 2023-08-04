@@ -9,6 +9,7 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import {serviceFreezeIncrementLetters, serviceGetIncrementLetter} from "../../../services/incrementLetter.service";
 import LogUtils from "../../../libs/LogUtils";
+import Constants from "../../../config/constants";
 
 const totalShow = 50;
 const useIncrementLetter = ({ location }) => {
@@ -319,6 +320,7 @@ const useIncrementLetter = ({ location }) => {
       const index = tData.findIndex(tD => tD.employee_id === id);
       if (index >= 0) {
         (tData[index]).is_awarded = true;
+        (tData[index]).status = 'INCREMENT_RELEASED';
       }
     });
     setApiData(apiData);
