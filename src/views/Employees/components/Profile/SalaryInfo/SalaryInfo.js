@@ -3,11 +3,11 @@ import GeneralInfo from "./components/GeneralInfo/GeneralInfo";
 import SalaryInfoTable from "./SalaryInfoTable";
 import styles from "./Style.module.css";
 
-function SalaryInfo() {
+function SalaryInfo({Empid}) {
 
   return (
     <div className={styles.wrapper}>
-      <SalaryInfoTable />
+      <SalaryInfoTable Empid={Empid}/>
       <GeneralInfo />
     </div>
   );

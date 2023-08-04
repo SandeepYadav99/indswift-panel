@@ -4,16 +4,18 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { serviceGetEmployeeSalaryInfo } from "../../../../../services/employeeSalaryInfo.service";
 
-function SalaryInfoHook() {
+function SalaryInfoHook({ Empid }) {
   const [EmployeeSalaryInfo, setEmployeeKnowledgeSalaryInfo] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const { employeeData } = useSelector((state) => state.employee);
   const [totalPages, setTotalPages] = useState(10);
 
+  const Id = Empid ? Empid : employeeData?.id;
+
   useEffect(() => {
-    if (employeeData.id) {
+    if (Id) {
       let dataValues = serviceGetEmployeeSalaryInfo({
-        employee_id: employeeData.id,
+        employee_id: Id,
         index: currentPage,
       });
       dataValues
@@ -23,7 +25,7 @@ function SalaryInfoHook() {
         })
         .catch((err) => console.log(err));
     }
-  }, [employeeData.id, currentPage]);
+  }, [Id, currentPage]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);

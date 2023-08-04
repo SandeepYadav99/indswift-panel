@@ -5,11 +5,9 @@ import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import { useDispatch, useSelector } from "react-redux";
 import history from "../../../libs/history.utils";
-import { Button, ButtonBase } from "@material-ui/core";
+import { ButtonBase } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { useParams } from "react-router";
 import UpperInfo from "../../Employees/UpperInfo.view";
 import ProfileView from "../../Employees/Profile.view";
 import SalaryInfo from "../../Employees/components/Profile/SalaryInfo/SalaryInfo";
@@ -23,7 +21,6 @@ function TabPanel(props) {
       role="tabpanel"
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
-      // aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -50,27 +47,10 @@ const useStyles = makeStyles({
 const NewEmployeeDetail = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [empId, setEmpId] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const dispatch = useDispatch();
   const [isResetDialog, setIsResetDialog] = useState(false);
   const [isUpdateDialog, setIsUpdateDialog] = useState(false);
-  const {
-    user: { emp_code },
-  } = useSelector((state) => state.auth);
-  const { id } = useParams();
 
   const { employeeData } = useNewEmployeeDetails({});
-  useEffect(() => {
-    if (id) {
-      setEmpId(id);
-      setIsAdmin(true);
-    } else {
-      setIsAdmin(false);
-      setEmpId(emp_code);
-    }
-  }, [id, emp_code]);
-
 
   const handleChange = useCallback(
     (event, newValue) => {
@@ -87,32 +67,30 @@ const NewEmployeeDetail = () => {
   return (
     <div>
       <div className={"container"}>
-        {isAdmin && (
-          <div className={styles.outerFlex}>
-            <div>
-              <ButtonBase onClick={() => history.goBack()}>
-                <ArrowBackIosIcon
-                  fontSize={"small"}
-                  className={styles.backIcon}
-                />
-              </ButtonBase>
-            </div>
-            <div>
-              <div style={{ fontSize: "0.8rem" }}>
-                <b>View Employee</b>
-              </div>
-              <div className={styles.newLine} />
-            </div>
+        <div className={styles.outerFlex}>
+          <div>
+            <ButtonBase onClick={() => history.goBack()}>
+              <ArrowBackIosIcon
+                fontSize={"small"}
+                className={styles.backIcon}
+              />
+            </ButtonBase>
           </div>
-        )}
+          <div>
+            <div style={{ fontSize: "0.8rem" }}>
+              <b>View Employee</b>
+            </div>
+            <div className={styles.newLine} />
+          </div>
+        </div>
         <br />
         <div>
           <UpperInfo
-            isAdmin={isAdmin}
             data={employeeData}
             isResetDialog={isResetDialog}
             handleToggle={toggleResetDialog}
             handleStatusToggle={toggleStatusDialog}
+            isNew={true}
           />
         </div>
         <div>
@@ -130,10 +108,10 @@ const NewEmployeeDetail = () => {
 
           <div className={styles.paperBackground}>
             <TabPanel value={value} index={0} dir={"ltr"}>
-              <ProfileView data={employeeData} />
+              <ProfileView data={employeeData} isNew={true} />
             </TabPanel>
             <TabPanel value={value} index={1} dir={"ltr"}>
-              <SalaryInfo />
+              <SalaryInfo Empid={employeeData?.id} />
             </TabPanel>
           </div>
         </div>

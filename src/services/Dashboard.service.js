@@ -31,4 +31,8 @@ export async function serviceGetUpcomingJoin (params) {
 export async function serviceGetInterviewStatus (params) {
     return await getRequest('dashboard/interview/stats', params);
 }
+export async function serviceGetRPStatus (params) {
+    return await getRequest('dashboard/admin/rpstats', params);
+}
+
 

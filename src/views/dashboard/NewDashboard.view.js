@@ -5,11 +5,12 @@ import PendingOfferTable from "./components/WarehouseTables/PendingOfferTable.co
 import InterviewsTable from "./components/WarehouseTables/InterviewsTable.component";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetDashboard } from "../../actions/Dashboard.action";
-import { serviceGetInterviewStatus } from "../../services/Dashboard.service";
+import { serviceGetInterviewStatus, serviceGetRPStatus } from "../../services/Dashboard.service";
 import { useState } from "react";
 
 const NewDashboard = () => {
   const [data, setData] = useState([]);
+  const [rpdata,setRpdata]=useState()
   const dispatch = useDispatch();
   const { tiles } = useSelector((state) => state.dashboard);
   useEffect(() => {
@@ -24,6 +25,16 @@ const NewDashboard = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    let dataValues = serviceGetRPStatus();
+    dataValues
+      .then((data) => {
+        setRpdata(data?.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  
+  console.log('rpdata',rpdata)
   const _renderTopCards = () => {
     return (
       <div className={styles.dashboardFlex}>
@@ -104,7 +115,7 @@ const NewDashboard = () => {
       {_renderTopCards()}
 
       <div className={styles.newFlex}>{locationData}</div>
-      <div className={styles.tableFlex21}>
+      <div className={styles.tableFlex212}>
         <div className={styles.dashboardFlex} style={{width:'100%'}}>
           <div className={styles.plainPaper221}>
             <div className={styles.activeWrapper}>
@@ -158,6 +169,35 @@ const NewDashboard = () => {
               <div>
                 <div className={styles.number}>{tiles?.prc_stats?.inactive}</div>
                 <div className={styles.prcStatus} style={{color:'#FA8B0C'}}>Inactive PRC's</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.rpWrap}>
+        <div className={styles.plainPaper222}>
+            <div className={styles.activeWrapper}>
+              <div className={styles.imgBox}>
+                <img
+                  src={require("../../assets/img/ic_vacancy_count.png")}
+                  height={50}
+                />
+              </div>
+              <div>
+                <div className={styles.number}>{tiles?.prc_stats?.active}</div>
+                <div className={styles.prcStatus} >Vacancy Count</div>
+              </div>
+            </div>
+            <div className={styles.verticalLine}></div>
+            <div className={styles.activeWrapper}>
+              <div className={styles.imgBox2}>
+                <img
+                  src={tiles?.prc_stats?.last_avg_tat >= tiles?.prc_stats?.avg_tat ? require("../../assets/img/ic_decrease.png") : require("../../assets/img/ic_increase.png")}
+                  height={50}
+                />
+              </div>
+              <div>
+                <div className={styles.number}>{tiles?.prc_stats?.avg_tat}</div>
+                <div className={styles.prcStatus}>Avg TAT (Days)</div>
               </div>
             </div>
           </div>
