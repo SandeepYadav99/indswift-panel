@@ -8,6 +8,7 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
+import { serviceTravelAuthRepord } from "../../../services/TravelAuth.service";
 
 const useTravelAuth = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -118,6 +119,15 @@ const useTravelAuth = ({}) => {
     historyUtils.push(`${RouteName.TRAVEL_AUTHEN_DETAILS}${data?.id}`); //+data.id
   }, []);
 
+  const handleCsvDownload = useCallback(() => {
+    serviceTravelAuthRepord().then(res => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    })
+  }, []);
+
   const configFilter = useMemo(() => {
     return [
       {
@@ -149,6 +159,7 @@ const useTravelAuth = ({}) => {
     isCalling,
     configFilter,
     handleEdit,
+    handleCsvDownload
   };
 };
 

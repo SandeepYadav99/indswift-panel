@@ -66,6 +66,10 @@ const initialForm = {
       panelist_role: "TRAVEL_DESK_TWO",
       employee_id: "",
     },
+    {
+      panelist_role: "MD",
+      employee_id: "",
+    },
   ],
 };
 

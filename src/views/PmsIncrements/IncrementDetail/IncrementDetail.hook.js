@@ -78,20 +78,14 @@ const useIncrementDetail = ({location}) => {
         const totalIncrement = data.reduce((accumulator, item) => {
             return accumulator + (item?.new_salary - item?.current_salary);
         }, 0);
-        const totalAvg = data.reduce((accumulator, item) => {
-            return accumulator + ( item?.avg_increment);
-        }, 0);
-        const totalCount = data.reduce((accumulator, item) => {
-            return accumulator + (item?.total_count);
-        }, 0);
 
         const dT = [...apiData];
         dT.push({
             "current_salary": current,
             "new_salary": newSalary,
-            "avg_increment": totalAvg,
+            "avg_increment": '-',
             totalIncrement: totalIncrement,
-            "total_count": totalCount,
+            "total_count": '-',
             "department": {
                 "name": "Total",
                 "code": "",

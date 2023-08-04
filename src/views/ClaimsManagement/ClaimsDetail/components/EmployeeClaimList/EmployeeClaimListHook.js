@@ -18,9 +18,6 @@ const useEmployeeClaimList = ({}) => {
     const isMountRef = useRef(false);
     const {sorting_data: sortingData, is_fetching: isFetching, query, query_data: queryData} = useSelector(state => state.emp_claimList);
 
-    useEffect(() => {
-        // dispatch(actionFetchClaimList());
-    }, []);
 
     useEffect(() => {
         dispatch(actionFetchClaimList(1, sortingData, {

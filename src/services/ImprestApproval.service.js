@@ -33,3 +33,9 @@ export async function serviceApproveImprestApproval(params) {
 export async function serviceRejectImprestApproval(params) {
     return await postRequest('ir/reject', params);
 }
+export async function serviceExportEmployeeImprestReport(params) {
+    return await postRequest('ilt/export', params);
+}
+export async function serviceExportImprestApprovalReport(params) {
+    return await postRequest('imprest/export', params);
+}

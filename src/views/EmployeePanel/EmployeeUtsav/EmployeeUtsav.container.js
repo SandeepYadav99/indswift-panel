@@ -5,14 +5,27 @@ import UtsavImage from "../../../assets/img/utsav illustration.png";
 import { DeepakData } from "../../../helper/helper";
 import EmployeeUtsavHook from "./EmployeeUtsavHook";
 import DownArrow from "../../../assets/img/ic_dropdown.png";
+import UpArrow from "../../../assets/img/ic_up_arrow.png";
 import GalleryImages from "./components/GalleryImages";
+import { Accordion } from "@material-ui/core";
 
 function EmployeeUtsav() {
-  const { handleViewDetails, employeeUtsavData } = EmployeeUtsavHook({});
+  const {
+    handleViewDetails,
+    employeeUtsavData,
+    selectedItemIndex,
+    handleItemClick,
+  } = EmployeeUtsavHook({});
   const DeepakDescription = DeepakData;
-  const reverseArray=(arr)=>{
-    return arr.reverse()
-  }
+  const reverseArray = (arr) => {
+    return arr.reverse();
+  };
+  const accordionStyles = {
+    background: "transparent",
+    boxShadow: "none",
+    backgroundColor: "none",
+  };
+
   return (
     <div className={styles.employeeDrishtiWrapper}>
       <div className={styles.employeeInducationWrapper}>
@@ -138,29 +151,36 @@ function EmployeeUtsav() {
       {employeeUtsavData?.map((item, index) => {
         return (
           item?.items?.length > 0 && (
-            <div
-              className={styles.imageGalleryWrapper}
-              key={`utsav_galery${index}`}
-            >
+            <div className={"imageGalleryWrapper"} key={`utsav_galery${index}`}>
               <div className={styles.headingContainer}>
                 <span className={styles.title}>{item?.name}</span>
-                {/* <img style={{ cursor: "pointer" }} src={DownArrow} /> */}
+                <img
+                  style={{ cursor: "pointer" }}
+                  src={selectedItemIndex === index ? UpArrow : DownArrow}
+                  onClick={() => handleItemClick(index)}
+                />
               </div>
               {item?.items?.length > 0 && (
-                <div className={styles.Catalogue}>
-                  {reverseArray(item?.items)?.map((images, id) => {
-                    return images?.cover_image ? (
-                      <GalleryImages
-                        key={`gallery_image${id}`}
-                        onClick={() => handleViewDetails(images?.id)}
-                        imageUrl={images?.cover_image}
-                        name={images?.name}
-                      />
-                    ) : (
-                      <></>
-                    );
-                  })}
-                </div>
+                <Accordion
+                  expanded={selectedItemIndex === index}
+                  style={accordionStyles}
+                >
+                  <div className={styles.Catalogue}>
+                    {reverseArray(item?.items)?.map((images, id) => {
+                      return images?.cover_image &&
+                        selectedItemIndex === index ? (
+                        <GalleryImages
+                          key={`gallery_image${id}`}
+                          onClick={() => handleViewDetails(images?.id)}
+                          imageUrl={images?.cover_image}
+                          name={images?.name}
+                        />
+                      ) : (
+                        <></>
+                      );
+                    })}
+                  </div>
+                </Accordion>
               )}
             </div>
           )

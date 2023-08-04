@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import { useSelector } from "react-redux";
-import { serviceGetImprestType } from "../../../services/ImprestApproval.service";
+import { serviceExportEmployeeImprestReport, serviceGetImprestType } from "../../../services/ImprestApproval.service";
 
 const useImprestList = ({ jobId }) => {
   const [candidateEl, setCandidateEl] = useState(null);
@@ -31,12 +31,26 @@ const useImprestList = ({ jobId }) => {
   const handleCreate = useCallback(() => {
     historyUtils.push(`${RouteName.CLAIMS_IMPREST_CREATE}`);
   }, []);
+
+  const handleCsvDownload = useCallback((type) => {
+    serviceExportEmployeeImprestReport({
+      employee_id: user_id,
+      imprest_type: type,
+    }).then(res => {
+      if (!res.error) {
+        const data = res.data;
+        window.open(data, "_blank");
+      }
+    })
+  }, [user_id]);
+
   return {
     handleAddCandidate,
     candidateEl,
     handleCreate,
     typeData,
     user_id,
+    handleCsvDownload
   };
 };
 

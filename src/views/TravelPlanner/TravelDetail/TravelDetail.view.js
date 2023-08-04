@@ -284,7 +284,7 @@ function TravelDetail() {
         handleToggle={toggleClosureDialog}
         data={employeeDetail}
       />
-      {employeeDetail?.status &&  employeeDetail?.status !== "CLOSED" && (
+      {employeeDetail?.status &&  employeeDetail?.status === "BOOKING_DONE" && (
         <BottomPanelComponent open={true}>
           <div className={styles.btnWrap}>
             <ButtonBase

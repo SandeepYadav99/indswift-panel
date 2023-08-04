@@ -14,6 +14,8 @@ import FaqListContainer from "./components/Faq/FaqList.container";
 import EmployeeInductionComponent from "./components/EmployeeInduction/EmployeeInduction.component";
 import MonthlyTheme from "./components/MonthlyTheme/MonthlyTheme";
 import CAGRView from "./components/CAGR/CAGRView";
+import LoanBudget from "./components/LoanBudget/LoanBudget.view";
+import CPCView from "./components/CPC/CPCView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,8 +47,13 @@ const HRSettings = ({}) => {
     } else if (value === 1) {
       return <MonthlyTheme />;
     }
-    else if (value ===3){
+    else if (value === 3){
       return <CAGRView/>
+    }else if (value === 4){
+      return <CPCView/>
+    }
+    else if (value === 5){
+      return <LoanBudget/>
     }
     return <h1>{value}</h1>;
   }, []);
@@ -67,6 +74,8 @@ const HRSettings = ({}) => {
             <Tab label="Monthly Theme" {...a11yProps(1)} />
             <Tab label="Drishti Updates" {...a11yProps(2)} />
             <Tab label="CAGR values" {...a11yProps(3)} />
+            <Tab label="CPC File" {...a11yProps(4)} />
+            <Tab label="Loan Budget" {...a11yProps(5)} />
 
           </Tabs>
           <div className={styles.tabPanel}>{renderPanel(tabIndex)}</div>

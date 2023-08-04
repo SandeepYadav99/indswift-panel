@@ -233,11 +233,11 @@ const EmployeeImprest = ({}) => {
         />
         <div className={styles.yearFlex}>
           <div className={styles.down}>{renderDropDownType}</div>
-          {/* <div className={styles.rightFlex}>
+          <div className={styles.rightFlex}>
             <ButtonBase className={styles.download} onClick={handleCsvDownload}>
               DOWNLOAD
             </ButtonBase>
-          </div> */}
+          </div>
         </div>
 
         <div style={{ marginTop: "30px" }}>

@@ -6,7 +6,12 @@ import { serviceGetUtsavDetails } from "../../../services/EmployeeUtsav.service"
 
 function EmployeeUtsavHook() {
   const [employeeUtsavData, setemployeeUtsavData] = useState([]);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(null);
   const staticEmployeeDeepakData = EmployeeDeepakData;
+
+  const handleItemClick = (index) => {
+    setSelectedItemIndex(index === selectedItemIndex ? null : index);
+  };
 
   useEffect(() => {
     let dataValues = serviceGetUtsavDetails({});
@@ -20,11 +25,12 @@ function EmployeeUtsavHook() {
   const handleViewDetails = useCallback((data) => {
     historyUtils.push(`/employee/utsav/${data}`);
   }, []);
-  console.log("employeeData", employeeUtsavData);
   return {
     staticEmployeeDeepakData,
     employeeUtsavData,
     handleViewDetails,
+    handleItemClick,
+    selectedItemIndex
   };
 }
 

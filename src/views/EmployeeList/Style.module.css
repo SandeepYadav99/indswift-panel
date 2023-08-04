@@ -52,7 +52,7 @@
   text-transform: capitalize;
   font-size: 12px;
 }
-.HODUpperCase{
+.HODUpperCase {
   text-transform: uppercase;
 }
 .belowLabel {
@@ -102,7 +102,12 @@
 .lhs {
   flex: 0.5;
 }
-
+.editBtnWrap {
+  display: flex;
+  padding: 10px 0;
+  align-items: center;
+  justify-content: center;
+}
 .newLine {
   height: 4px;
   width: 30px;
@@ -160,6 +165,7 @@
   border-radius: 30px !important;
   text-transform: uppercase !important;
   font-weight: 600 !important;
+  white-space: nowrap !important;
 }
 
 .newLines {
@@ -197,9 +203,48 @@
 .redField {
   color: #e92828;
   font-weight: bold;
-
 }
-.btnWrapperGap{
+.btnWrapperGap {
   display: flex;
   gap: 15px;
 }
+.InterviewPopUpWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height: 366px; */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  padding: 35px 25px;
+}
+.closeWrap {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.descriptionStrong {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.headingText {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.confirmedWrapper {
+  margin-top: 20px;
+}
+.confirmWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mainContainer {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+}
+
+
+/* USC Create css */

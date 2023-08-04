@@ -112,7 +112,9 @@ function ImprestApprovalDetail() {
         }
       >
         {employeeDetail?.imprest?.status !== "APPROVED" &&
-          employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && (
+          employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && 
+          employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && 
+          (
             <div className={styles.editBtn2}>
               <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
                 REJECT
@@ -122,7 +124,9 @@ function ImprestApprovalDetail() {
 
         <div className={styles.btnApproveWrapper}>
           {employeeDetail?.imprest?.status !== "APPROVED" &&
-            employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && (
+            employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && 
+            employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && 
+            (
               <div>
                 <ButtonBase
                   // disabled={isSubmitting}
@@ -140,7 +144,8 @@ function ImprestApprovalDetail() {
               onClick={toggleStatusDialog}
             >
               {employeeDetail?.imprest?.status !== "APPROVED" &&
-              employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED"
+              employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && 
+              employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED"
                 ? "APPROVE"
                 : "PROCESS"}
             </ButtonBase>

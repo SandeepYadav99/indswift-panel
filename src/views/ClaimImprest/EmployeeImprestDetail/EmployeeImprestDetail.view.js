@@ -24,6 +24,7 @@ function EmployeeImprestDetail() {
     isTraineeDialog,
     listData,
     typeData,
+    handleCsvDownload
   } = useEmployeeImprestDetail({});
   return (
     <div>
@@ -135,12 +136,22 @@ function EmployeeImprestDetail() {
       <div className={styles.plainPaper}>
         <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
+            <div>
             <span>
               <b>Non Travel Imprest Ledger</b>
             </span>
             <div className={styles.newLine2} />
+            </div>
+            <div className={styles.rightFlex}>
+            <ButtonBase
+              className={styles.download}
+              onClick={()=>handleCsvDownload('OTHER')}
+            >
+              DOWNLOAD
+            </ButtonBase>
           </div>
-
+          </div>
+            
           <div className={styles.experseWrap}>
             BALANCE :{` ₹ ${typeData?.other?.INR?.balance} `}
           </div>
@@ -149,11 +160,21 @@ function EmployeeImprestDetail() {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.headingWrap}>
-          <div className={styles.newLineWrap}>
+        <div className={styles.newLineWrap}>
+            <div>
             <span>
               <b>Travel Imprest Ledger</b>
             </span>
             <div className={styles.newLine2} />
+            </div>
+            <div className={styles.rightFlex}>
+            <ButtonBase
+              className={styles.download}
+              onClick={()=>handleCsvDownload('TRAVEL')}
+            >
+              DOWNLOAD
+            </ButtonBase>
+          </div>
           </div>
           <div className={styles.experseWrap}>
             BALANCE :{` ₹ ${typeData?.travel?.INR?.balance} |`}

@@ -6,7 +6,7 @@ import useTravelAuthDetail from "./TravelAuthDetail.hook";
 import TravelUpperCard from "../TravelCreate/component/TravelUpperCard/TravelUpperCard";
 import Upper from "./component/upper/Upper";
 import history from "../../../libs/history.utils";
-import { removeUnderScore } from "../../../helper/helper";
+import { getCurrency, removeUnderScore } from "../../../helper/helper";
 import ApproveAuthDialog from "./component/ApproveAuthPopUp/ApproveAuthDialog.view";
 import RejectAuthDialog from "./component/RejectAuthPopUp/RejectDialog.view";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
@@ -215,6 +215,45 @@ function TravelAuthDetail() {
                   }
                 </div>
               </div>
+              { employeeDetail?.travelPlanner?.imprest_required && <>
+              <div className={styles.verti}></div>
+              <div className={styles.mainFlex}>
+                <div className={styles.left}>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Imprest Required:</span>
+                    {employeeDetail?.travelPlanner?.imprest_required ? "Yes" : "No"}
+                  </div>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Amount:</span>
+                    {getCurrency(employeeDetail?.travelPlanner?.imprest?.currency)}
+                    {employeeDetail?.travelPlanner?.imprest?.amount}
+                  </div>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Previous Outstanding:</span>
+                    {getCurrency(employeeDetail?.travelPlanner?.imprest?.currency)}
+                    {employeeDetail?.balance?.balance}
+                  </div>
+                </div>
+                <div className={styles.right}>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Imprest ID:</span>
+                    {employeeDetail?.travelPlanner?.imprest?.code}
+                  </div>
+
+                  <div className={styles.key}>
+                    <span className={styles.value}>Entitled:</span>
+                    {getCurrency(employeeDetail?.travelPlanner?.imprest?.currency)}
+                    {employeeDetail?.balance?.entitled}
+                  </div>
+
+                  <div className={styles.key}>
+                    <span className={styles.value}>Sanctioned:</span>
+                    {getCurrency(employeeDetail?.travelPlanner?.imprest?.currency)}
+                    {employeeDetail?.travelPlanner?.imprest?.sanctionable_amount}
+                  </div>
+                      </div>
+              </div>
+              </>}
             </div>
           </div>
         </div>

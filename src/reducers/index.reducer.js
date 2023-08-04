@@ -74,6 +74,9 @@ import ImprestApprovalReducer from "./ImprestApproval.reducer";
 import ImprestApprovalDetailReducer from "./ImprestApprovalDetail.reducer";
 import PmsOverallHodReducer from "./PmsOverallHod.reducer";
 import PmsOverallHodReviewReducer from "./PmsOverallHodReview.reducer";
+import EmployeeLoanListReducer from "./EmployeeLoanList.reducer";
+import LoanListReducer from "./LoanList.reducer";
+import NewEmployeeListReducer from "./NewEmployeeList.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -146,6 +149,9 @@ const rootReducer = combineReducers({
   imprest_detail:ImprestApprovalDetailReducer,
   pmsOverallHodBatches: PmsOverallHodReducer,
   pmsOverallHodMyReviews: PmsOverallHodReviewReducer,
+  emp_loanList:EmployeeLoanListReducer,
+  loanList:LoanListReducer,
+  newEmployee:NewEmployeeListReducer
   // form: formReducer,
 });
 

@@ -4,11 +4,13 @@ import { useParams } from "react-router";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
 import {
+  serviceCheckLoanAmount,
   serviceGetEmployeeDetails,
   serviceUpdateEmployeeLoan,
 } from "../../../../../services/ClaimsManagement.service";
 import { useSelector } from "react-redux";
 import { serviceGetList } from "../../../../../services/Common.service";
+import useDebounce from "../../../../../hooks/DebounceHook";
 
 const initialForm = {
   loan_type: "",
@@ -31,16 +33,18 @@ const useClaimLoanCard = ({}) => {
   const [currentExp, setCurrentExp] = useState([]);
   const travelRef = useRef(null);
   const [isChecked, setIsChecked] = React.useState(false);
+  const codeDebouncer = useDebounce(form?.amount, 300);
+  const typeDebounce = useDebounce(form?.loan_type, 500);
 
   const { id } = useParams();
   const {
-    user: { emp_code },
+    user: { emp_code ,user_id},
   } = useSelector((state) => state.auth);
 
   useEffect(() => {
     Promise.allSettled([
       serviceGetEmployeeDetails({ code: emp_code }),
-      serviceGetList(["LOAN_GUARANTEES"]),
+      serviceGetList(["LOAN_GUARANTEES"],{'employee_id':user_id}),
     ]).then((promises) => {
       const empDetail = promises[0]?.value?.data;
       const listData = promises[1]?.value?.data;
@@ -50,6 +54,36 @@ const useClaimLoanCard = ({}) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (typeDebounce) {
+      checkImprestAmount();
+    }
+  }, [typeDebounce]);
+
+  useEffect(() => {
+    if (codeDebouncer) {
+      checkImprestAmount();
+    }
+  }, [codeDebouncer]);
+
+  const checkImprestAmount = useCallback(() => {
+    if (form?.loan_type && form?.amount) {
+      const errors = JSON.parse(JSON.stringify(errorData));
+      serviceCheckLoanAmount({
+        loan_type: form?.loan_type,
+        amount: form?.amount,
+      }).then((res) => {
+        if (res.error) {
+          errors["amount"] = true;
+          setErrorData(errors);
+          SnackbarUtils.error(res.message);
+        } else {
+          delete errors.amount;
+          setErrorData(errors);
+        }
+      });
+    }
+  }, [errorData, setErrorData, form?.loan_type, form?.amount]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["loan_type", "amount", "description", "g1", "g2", "g3"];
@@ -80,6 +114,7 @@ const useClaimLoanCard = ({}) => {
           fd.append(key, form[key]);
         }
       });
+      fd.append('employee_id',user_id)
       const idsArray = [];
       for (const key in form) {
         if (key?.startsWith("g")) {
@@ -161,15 +196,12 @@ const useClaimLoanCard = ({}) => {
     setForm({ ...initialForm });
   }, [form]);
 
-  // const filteredEmployees = useMemo(() => {
-  //   return employees?.filter((val) => {
-  //     return (
-  //       val.department_id === form?.department_id &&
-  //       val.location_id === form?.location_id
-  //     );
-  //   });
-  // }, [form?.g1, form?.g2,form?.g3, employees]);
-
+  const filteredEmployees = useMemo(() => {
+    const idArray = Object.values(form)
+      .map((item) => item?.id)
+      .filter((id) => id !== undefined && id !== null);
+    return employees?.filter((val) => !idArray.includes(val?.id));
+  }, [form?.g1, form?.g2, form?.g3, employees]);
   return {
     form,
     changeTextData,
@@ -190,6 +222,7 @@ const useClaimLoanCard = ({}) => {
     setIsChecked,
     employees,
     currentExp,
+    filteredEmployees,
   };
 };
 

@@ -135,6 +135,7 @@ const IncludeFields = ({
             onChange={(e, value) => {
               handleChangeValue(value, "sub_department_ids");
             }}
+            value={data?.sub_department_ids}
             // id="tags-standard"
             options={filteredSubDepartments ? filteredSubDepartments : subdepartments}
             getOptionLabel={(option) => option.name}

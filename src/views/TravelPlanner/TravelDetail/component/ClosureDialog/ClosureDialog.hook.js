@@ -74,7 +74,7 @@ const useClosureDialogHook = ({ isOpen, handleToggle, candidateId,data }) => {
         ...form,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Rejected");
+          SnackbarUtils.success("Travel planner closed successfully");
           handleToggle();
           historyUtils.push(RouteName.TRAVEL_PLANNER);
         } else {

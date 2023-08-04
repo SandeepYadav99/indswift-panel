@@ -38,6 +38,7 @@ function ClaimLoanCard() {
     currentExp,
     isChecked,
     setIsChecked,
+    filteredEmployees
   } = useClaimLoanCard({});
 
   const eligibleLoans = useMemo(() => {
@@ -90,9 +91,6 @@ function ClaimLoanCard() {
                 onTextChange={(text) => {
                   changeTextData(text, "amount");
                 }}
-                onBlur={() => {
-                  onBlurHandler("amount");
-                }}
               />
             </div>
           </div>
@@ -109,6 +107,8 @@ function ClaimLoanCard() {
                 onBlur={() => {
                   onBlurHandler("description");
                 }}
+                multiline
+                rows={2}
               />
             </div>
           </div>
@@ -132,7 +132,7 @@ function ClaimLoanCard() {
                   freeSolo: false,
                   getOptionLabel: (option) => option?.label,
                 }}
-                dataset={employees}
+                dataset={filteredEmployees}
                 datasetKey={"label"}
                 onTextChange={(text, value) => {
                   changeTextData(text, "g1");
@@ -209,7 +209,7 @@ function ClaimLoanCard() {
                   freeSolo: false,
                   getOptionLabel: (option) => option?.label,
                 }}
-                dataset={employees}
+                dataset={filteredEmployees}
                 datasetKey={"label"}
                 onTextChange={(text, value) => {
                   changeTextData(text, "g2");
@@ -286,7 +286,7 @@ function ClaimLoanCard() {
                   freeSolo: false,
                   getOptionLabel: (option) => option?.label,
                 }}
-                dataset={employees}
+                dataset={filteredEmployees}
                 datasetKey={"label"}
                 onTextChange={(text, value) => {
                   changeTextData(text, "g3");

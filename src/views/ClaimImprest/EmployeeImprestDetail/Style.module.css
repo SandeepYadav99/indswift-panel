@@ -147,9 +147,24 @@
 .detailFlex {
   display: flex;
 }
-
+.newLineWrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 .info {
   margin-left: 10px;
+}
+.download{
+  border: 2px solid #29cb97!important;
+  border-radius: 30px!important;
+  color: #29cb97!important;
+  font-size: .8rem!important;
+  font-weight: 600!important;
+  padding: 7px 50px!important;
+  text-transform: uppercase!important;
+  height: 40px !important;
 }
 .experseWrap{
   display: flex;

@@ -30,7 +30,16 @@
   display: flex;
   /*align-items: center;*/
 }
-
+.download{
+  border: 2px solid #29cb97!important;
+  border-radius: 30px!important;
+  color: #29cb97!important;
+  font-size: .8rem!important;
+  font-weight: 600!important;
+  padding: 7px 50px!important;
+  text-transform: uppercase!important;
+  height: 40px !important;
+}
 .vertical {
   border-left: 1px dashed #b8c5d3;
   max-height: 130px;
@@ -177,4 +186,5 @@
   text-transform: uppercase;
   font-weight: 600;
   font-size: 0.8rem;
+  gap: 40px;
 }

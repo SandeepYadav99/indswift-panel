@@ -31,3 +31,7 @@ export async function serviceApproveTravelAuth(params) {
 export async function serviceRejectTravelAuth(params) {
     return await postRequest('tpr/reject', params);
 }
+export async function serviceTravelAuthRepord(params) {
+    return await postRequest('tpr/export', params);
+}
+

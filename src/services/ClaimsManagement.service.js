@@ -31,3 +31,9 @@ export async function serviceGetmyImprestDetailsCLaim(params) {
 export async function serviceUpdateEmployeeLoan(params) {
     return await formDataRequest('employee/loans/create', params);
 }
+export async function serviceCheckLoanAmount (params) {
+    return await postRequest('employee/loans/check', params);
+}
+export async function serviceUpdateIntClaim(params) {
+    return await formDataRequest('employee/claims/create/travel', params);
+}

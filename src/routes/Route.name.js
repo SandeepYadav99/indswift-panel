@@ -73,6 +73,10 @@ export default {
   EMPLOYEE_DETAIL: "/employees/details/",
   EMPLOYEE_VERSIONS: "/employee/versions",
 
+  NEW_EMPLOYEES:"/new/employee",
+  NEW_EMPLOYEE_DETAIL: "/new/employee/details/",
+
+
   EAF_LOGIN: '/eaf/login',
   EAF_PERSONAL_DATA: '/eaf/personal',
   EAF_QUALIFICATION_FORM: '/eaf/qualification',
@@ -82,6 +86,10 @@ export default {
   OFFER_LOGIN:'/candidate/offer/login',
   OFFER_LETTER:'/candidate/offer/letter',
   OFFER_SUCCESS:'/candidate/offer/success',
+
+  GUARANTOR_LOGIN:'/guarantor/login',
+  GUARANTOR_LETTER:'/guarantor/letter',
+  GUARANTOR_SUCCESS:'/guarantor/success',
 
   MY_PROFILE: '/my/profile',
   MY_PROFILE_UPDATE: '/my/profile/edit',
@@ -102,6 +110,7 @@ export default {
   CLAIMS_INFO:'/employee/claim/info',
   CLAIMS_HEALTH:'/employee/claim/health',
   CLAIMS_TRAVEL:'/employee/claim/travel',
+  CLAIMS_INT:'/employee/claim/int',
   CLAIMS_INTERVIEW:'/cm/interview',
   CLAIMS_INTERVIEW_DETAILS:'/cm/interview/details/',
   CLAIMS_LOC:'/employee/claim/loc',
@@ -115,8 +124,9 @@ export default {
   IMPREST_APPROVAL_DETAILS:'/imprest/details/',
   EMPLOYEES_IMPREST:'/employee/imprest',
   EMPLOYEES_IMPREST_DETAILS:'/employee/imprest/details/',
-
-
+  EMPLOYEE_LOAN_DETAILS:'/employee/loan/details/',
+  ADMIN_LOAN_LIST:'/loan/list',
+  ADMIN_LOAN_LIST_DETAIL:'/loan/list/details/',
 
 
 
