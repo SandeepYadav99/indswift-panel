@@ -269,6 +269,13 @@ const EmployeeList = ({}) => {
                 className={"plusIcon"}
               ></CloudUpload>
             </ButtonBase>
+            <ButtonBase onClick={toggleCPCDialog} className={"createBtn"}>
+              Upload CPC
+              <CloudUpload
+                  fontSize={"small"}
+                  className={"plusIcon"}
+              ></CloudUpload>
+            </ButtonBase>
            <div>
             <ButtonBase
               aria-owns={createDD ? "createDD" : undefined}
@@ -316,7 +323,7 @@ const EmployeeList = ({}) => {
           isOpen={isExtendDialog}
           handleToggle={toggleExtendDialog}
         />
-        <TraineeDialog 
+        <TraineeDialog
         listData={listData}
         isOpen={isTraineeDialog}
         handleToggle={toggleTraineeDialog}/>
@@ -359,11 +366,4 @@ const EmployeeList = ({}) => {
     </div>
   );
 };
-{/*<ButtonBase onClick={toggleCPCDialog} className={"createBtn"}>*/}
-{/*  Upload{" "}*/}
-{/*  <CloudUpload*/}
-{/*      fontSize={"small"}*/}
-{/*      className={"plusIcon"}*/}
-{/*  ></CloudUpload>*/}
-{/*</ButtonBase>*/}
 export default EmployeeList;
