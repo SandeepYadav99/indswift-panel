@@ -1,9 +1,8 @@
-import {useCallback, useEffect, useMemo} from "react";
+import { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { serviceGetEmployeeRecord } from "../../../../../services/EmployeeRecords.services";
 import { useSelector } from "react-redux";
 import { useLocation } from 'react-router';
-import Constants from "../../../../../config/constants";
 
 function EmployeeRecordList({}) {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -12,8 +11,6 @@ function EmployeeRecordList({}) {
   const [data, setData] = useState([]);
   const [type,setType]=useState("")
   const location = useLocation();
-  const {role} = useSelector(state => state.auth);
-
   useEffect(() => {
     serviceGetEmployeeRecord({
       employee_id: employeeData.id,
@@ -41,10 +38,6 @@ function EmployeeRecordList({}) {
     setCreateDD(null);
   }, [setCreateDD]);
 
-  const isCorporateAdminHR = useMemo(() => {
-    return role === Constants.ROLES.CORPORATE_HR || role === Constants.ROLES.ADMIN;
-  }, [role]);
-
   return {
     isSidePanel,
     handleSideToggle,
@@ -53,8 +46,7 @@ function EmployeeRecordList({}) {
     handleAddCandidate,
     handleClosedownloadCL,
     type,
-    location,
-    isCorporateAdminHR
+    location
   };
 }
 

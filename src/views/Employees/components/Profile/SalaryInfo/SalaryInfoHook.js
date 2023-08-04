@@ -4,22 +4,38 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { serviceGetEmployeeSalaryInfo } from "../../../../../services/employeeSalaryInfo.service";
 
-function SalaryInfoHook() {
-  const [EmployeeSalaryInfo, setEmployeeKnowledgeSalaryInfo] = useState([]);
+function SalaryInfoHook({ Empid }) {
+  const [EmployeeSalaryInfo, setEmployeeKnowledgeSalaryInfo] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
   const { employeeData } = useSelector((state) => state.employee);
+  const [totalPages, setTotalPages] = useState(10);
+
+  const Id = Empid ? Empid : employeeData?.id;
+
   useEffect(() => {
-    let dataValues = serviceGetEmployeeSalaryInfo({
-      emp_id: employeeData.id,
-    });
-    dataValues
-      .then((data) => {
-        setEmployeeKnowledgeSalaryInfo(data.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    if (Id) {
+      let dataValues = serviceGetEmployeeSalaryInfo({
+        employee_id: Id,
+        index: currentPage,
+      });
+      dataValues
+        .then((data) => {
+          setEmployeeKnowledgeSalaryInfo(data.data);
+          setTotalPages(data?.data?.totalCount);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [Id, currentPage]);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return {
     EmployeeSalaryInfo,
+    currentPage,
+    handlePageChange,
+    totalPages,
   };
 }
 

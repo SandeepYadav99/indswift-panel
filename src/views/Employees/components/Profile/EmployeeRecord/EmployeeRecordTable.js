@@ -18,7 +18,6 @@ function EmployeeRecordTable({ empId }) {
     handleClosedownloadCL,
     type,
     location,
-    isCorporateAdminHR
   } = useEmployeeList({ empId });
 
   const renderCreateForm = useMemo(() => {
@@ -40,7 +39,7 @@ function EmployeeRecordTable({ empId }) {
               <span className={styles.title}>Letters List</span>
               <div className={styles.newLine} />
             </div>
-            {(location?.pathname !== "/my/profile" && isCorporateAdminHR) && (
+            {location?.pathname !== "/my/profile" && (
               <div>
                 <ButtonBase
                   aria-owns={createDD ? "createDD" : undefined}

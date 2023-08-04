@@ -7,7 +7,13 @@ import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 
-const UpperInfo = ({ data, handleToggle,handleStatusToggle, isAdmin }) => {
+const UpperInfo = ({
+  data,
+  handleToggle,
+  handleStatusToggle,
+  isAdmin,
+  isNew,
+}) => {
   return (
     <div>
       <div className={styles.blueBackground}>
@@ -35,60 +41,65 @@ const UpperInfo = ({ data, handleToggle,handleStatusToggle, isAdmin }) => {
               {data?.sub_department?.name}
             </div>
           </div>
-         {!isAdmin && <div className={styles.activeEditWrapper}>
-          <div className={styles.statusWrapper}>
-          <StatusPill
-              status={data?.status}
-              // style={{ color: "#fff", borderColor: "#fff" }}
-              />
+          {!isAdmin && (
+            <div className={styles.activeEditWrapper}>
+              <div className={styles.statusWrapper}>
+                <StatusPill
+                  status={data?.status}
+                  // style={{ color: "#fff", borderColor: "#fff" }}
+                />
+              </div>
+              {!isNew && (
+                <div className={styles.btnUpper2}>
+                  <ActionButton
+                    onClick={() => {
+                      historyUtils.push(`${RouteName.MY_PROFILE_UPDATE}`);
+                    }}
+                  >
+                    <RepeatRounded fontSize={"small"} />
+                    <span className={styles.actionBtnSpan2}>Edit</span>
+                  </ActionButton>
+                </div>
+              )}
             </div>
-
-              <div className={styles.btnUpper2}>
-                <ActionButton
-                  onClick={() => {
-                    historyUtils.push(
-                      `${RouteName.MY_PROFILE_UPDATE}`
-                    );
-                  }}
-                >
-                  <RepeatRounded fontSize={"small"} />
-                  <span className={styles.actionBtnSpan2}>Edit</span>
-                </ActionButton>
-              </div>
-          </div>}
+          )}
           <div className={styles.btnWrap}>
-            {isAdmin &&<div className={styles.statusWrap}>
-              <StatusPill
-                status={data?.status}
-                // style={{ color: "#fff", borderColor: "#fff" }}
-              />
-            </div>}
-            {isAdmin && (<div className={styles.actionWrap}>
-              <div className={styles.btnUpper}>
-                <ActionButton onClick={handleStatusToggle}>
-                  <InfoOutlined fontSize={"small"} />
-                  <span className={styles.actionBtnSpan}>Update Status</span>
-                </ActionButton>
+            {isAdmin && (
+              <div className={styles.statusWrap}>
+                <StatusPill
+                  status={data?.status}
+                  // style={{ color: "#fff", borderColor: "#fff" }}
+                />
               </div>
-              <div className={styles.btnUpper}>
-                <ActionButton onClick={handleToggle}>
-                  <RepeatRounded fontSize={"small"} />
-                  <span className={styles.actionBtnSpan}>Reset Password</span>
-                </ActionButton>
+            )}
+            {isAdmin && (
+              <div className={styles.actionWrap}>
+                <div className={styles.btnUpper}>
+                  <ActionButton onClick={handleStatusToggle}>
+                    <InfoOutlined fontSize={"small"} />
+                    <span className={styles.actionBtnSpan}>Update Status</span>
+                  </ActionButton>
+                </div>
+                <div className={styles.btnUpper}>
+                  <ActionButton onClick={handleToggle}>
+                    <RepeatRounded fontSize={"small"} />
+                    <span className={styles.actionBtnSpan}>Reset Password</span>
+                  </ActionButton>
+                </div>
+                <div className={styles.btnUpper}>
+                  <ActionButton
+                    onClick={() => {
+                      historyUtils.push(
+                        `${RouteName.EMPLOYEE_UPDATE}${data?.id}`
+                      );
+                    }}
+                  >
+                    <RepeatRounded fontSize={"small"} />
+                    <span className={styles.actionBtnSpan}>Edit</span>
+                  </ActionButton>
+                </div>
               </div>
-              <div className={styles.btnUpper}>
-                <ActionButton
-                  onClick={() => {
-                    historyUtils.push(
-                      `${RouteName.EMPLOYEE_UPDATE}${data?.id}`
-                    );
-                  }}
-                >
-                  <RepeatRounded fontSize={"small"} />
-                  <span className={styles.actionBtnSpan}>Edit</span>
-                </ActionButton>
-              </div>
-            </div>)}
+            )}
           </div>
         </div>
       </div>

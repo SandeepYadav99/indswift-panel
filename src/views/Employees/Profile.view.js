@@ -12,7 +12,7 @@ import ProfileDisclaimer from "./components/ProfileDisclaimer/ProfileDisclaimer"
 import NomineeDetails from "./components/Profile/NomineeDetails";
 import ResignInfo from "./components/Profile/ResignInfo";
 
-const ProfileView = ({ data }) => {
+const ProfileView = ({ data, isNew }) => {
   return (
     <div>
       <div className={styles.profileContainer}>
@@ -20,10 +20,9 @@ const ProfileView = ({ data }) => {
           <PersonalInfo data={data} />
           <ContactInfo contact={data?.contact} />
           <AddressInfo address={data?.address} />
-          {
-            data?.status !=='ACTIVE' && 
-          <ResignInfo bankD={data?.resign_data}/>
-          }
+          {data?.status !== "ACTIVE" && (
+            <ResignInfo bankD={data?.resign_data} />
+          )}
           {/*<Timeline />*/}
         </div>
         <div className={styles.rhs}>
@@ -31,11 +30,14 @@ const ProfileView = ({ data }) => {
           <DepartmentInfo data={data} />
           <GovtInfo idCards={data?.identity_date} />
           <BankInfo bankD={data?.bank} />
-          <PerformanceReview reviewer={data?.pms_reviewer} image={data?.image}/>
-          <NomineeDetails nominee={data?.nominees}/>
+          <PerformanceReview
+            reviewer={data?.pms_reviewer}
+            image={data?.image}
+          />
+          <NomineeDetails nominee={data?.nominees} />
         </div>
       </div>
-      <ProfileDisclaimer />
+      {!isNew && <ProfileDisclaimer />}
     </div>
   );
 };
