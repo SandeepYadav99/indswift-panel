@@ -215,6 +215,7 @@ function EmployeeListCreateHook({ location }) {
 
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
+  const [isDialog, setIsDialog] = useState(false);
   const [salaryInfo, setSalaryInfo] = useState([
     ...SALARY_KEYS,
     ...BOOLEAN_KEYS,
@@ -260,6 +261,11 @@ function EmployeeListCreateHook({ location }) {
       }
     });
   }, []);
+
+  const toggleConfirmDialog = useCallback((type) => {
+    setIsDialog(e => !e);
+}, [setIsDialog]);
+
   useEffect(() => {
     if (listData?.EMPLOYEES?.length > 0 && (candidateId || traineeId)) {
       let req;
@@ -648,8 +654,8 @@ function EmployeeListCreateHook({ location }) {
     ].forEach((item) => {
       delete form[item];
     });
-
-    submitToServer();
+    toggleConfirmDialog()
+    // submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const handleReset = useCallback(() => {
@@ -717,6 +723,9 @@ function EmployeeListCreateHook({ location }) {
     ChildenRef,
     empFlag,
     defaultImg,
+    toggleConfirmDialog,
+    isDialog,
+    submitToServer
   };
 }
 

@@ -75,7 +75,7 @@ const ClaimsDetail = () => {
           title="Loan Application"
           subtitle="Request Personal loan from Company as per company Employee Loan Policy"
           handleClick={() => handleClaimPage(7)}
-          enableBtn
+          enableBtn={data?.loan?.is_show}
           isLoan={true}
         />
         <ClaimCards

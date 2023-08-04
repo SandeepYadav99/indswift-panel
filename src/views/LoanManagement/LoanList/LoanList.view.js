@@ -154,7 +154,7 @@ const LoanList = () => {
         key: "issue",
         label: "ISSUE DATE",
         sortable: false,
-        render: (temp, all) => <div>{all?.loan?.createdAtText}</div>,
+        render: (temp, all) => <div>{all?.loan?.issueDateText}</div>,
       },
       {
         key: "status",
