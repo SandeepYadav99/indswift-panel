@@ -5,7 +5,7 @@ import PendingOfferTable from "./components/WarehouseTables/PendingOfferTable.co
 import InterviewsTable from "./components/WarehouseTables/InterviewsTable.component";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetDashboard } from "../../actions/Dashboard.action";
-import { serviceGetInterviewStatus, serviceGetRPStatus } from "../../services/Dashboard.service";
+import { serviceGetInterviewStatus } from "../../services/Dashboard.service";
 import { useState } from "react";
 
 const NewDashboard = () => {
@@ -24,17 +24,7 @@ const NewDashboard = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-
-  useEffect(() => {
-    let dataValues = serviceGetRPStatus();
-    dataValues
-      .then((data) => {
-        setRpdata(data?.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
   
-  console.log('rpdata',rpdata)
   const _renderTopCards = () => {
     return (
       <div className={styles.dashboardFlex}>
@@ -183,7 +173,7 @@ const NewDashboard = () => {
                 />
               </div>
               <div>
-                <div className={styles.number}>{tiles?.prc_stats?.active}</div>
+                <div className={styles.number}>{tiles?.rp_stats?.active}</div>
                 <div className={styles.prcStatus} >Vacancy Count</div>
               </div>
             </div>
@@ -191,12 +181,12 @@ const NewDashboard = () => {
             <div className={styles.activeWrapper}>
               <div className={styles.imgBox2}>
                 <img
-                  src={tiles?.prc_stats?.last_avg_tat >= tiles?.prc_stats?.avg_tat ? require("../../assets/img/ic_decrease.png") : require("../../assets/img/ic_increase.png")}
+                  src={tiles?.rp_stats?.last_avg_tat >= tiles?.rp_stats?.avg_tat ? require("../../assets/img/ic_decrease.png") : require("../../assets/img/ic_increase.png")}
                   height={50}
                 />
               </div>
               <div>
-                <div className={styles.number}>{tiles?.prc_stats?.avg_tat}</div>
+                <div className={styles.number}>{tiles?.rp_stats?.avg_tat}</div>
                 <div className={styles.prcStatus}>Avg TAT (Days)</div>
               </div>
             </div>
