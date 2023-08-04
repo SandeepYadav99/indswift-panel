@@ -12,6 +12,8 @@ import {
  import RouteName from "./Route.name";
  import Constants from "../config/constants";
 import ClaimIntCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view";
+import NewEmployeeList from "../views/NewEmployeeList/NewEmployeeList.view";
+import NewEmployeeDetails from "../views/NewEmployeeList/NewEmployeeDetails/NewEmployeeDetails.view";
 
  const EmployeeLoanDetail = lazy(()=> import ("../views/ClaimsManagement/EmployeeLoanDetail/EmployeeLoanDetail.view"));
  const LoanList = lazy(()=> import ("../views/LoanManagement/LoanList/LoanList.view"));
@@ -714,6 +716,38 @@ const dashboardRoutes = [
         parent: 'masters',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
+    {
+        path: 'null',
+        sidebarName: "HR Approvals",
+        navbarName: "HR Approvals",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: "approval",
+        is_parent: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: RouteName.NEW_EMPLOYEES,
+        sidebarName: "New Employee Request",
+        navbarName: "New Employee Request",
+        icon: PeopleOutlined,
+        component: NewEmployeeList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'approval',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.NEW_EMPLOYEE_DETAIL}:id`,
+        sidebarName: "Employee Details",
+        navbarName: "Employee Details",
+        icon: Dashboard,
+        component: NewEmployeeDetails,
+        is_sidebar: false,
+        is_protect: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    }, 
     {
         path: 'null',
         sidebarName: "Budget & Planning",

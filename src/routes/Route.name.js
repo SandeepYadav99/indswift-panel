@@ -73,6 +73,10 @@ export default {
   EMPLOYEE_DETAIL: "/employees/details/",
   EMPLOYEE_VERSIONS: "/employee/versions",
 
+  NEW_EMPLOYEES:"/new/employee",
+  NEW_EMPLOYEE_DETAIL: "/new/employee/details/",
+
+
   EAF_LOGIN: '/eaf/login',
   EAF_PERSONAL_DATA: '/eaf/personal',
   EAF_QUALIFICATION_FORM: '/eaf/qualification',
