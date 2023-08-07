@@ -4,13 +4,13 @@ import progressArrow  from '../../../../../../../assets/img/ic_arrow.png';
 import uparrow  from '../../../../../../../assets/img/ic_upwards_whitearrow.png'
 
 
-function CareerMonthlyCard({isLast, data}) {
+function CareerMonthlyCard({isFirst, isLast, data}) {
   return (
     <div className={styles.monthContainer}>
       <div className={styles.careerMonthlyContainer}>
         <div className={styles.monthWrap}>
           <span className={styles.ctcyear}>{data?.headerText}</span>
-          <span className={styles.monthDate}>({data?.fromText} - {data?.toText})</span>
+           <span className={styles.monthDate}>({data?.fromText}{!isFirst ? (<>- {data?.toText})</>) : ')'}</span>
         </div>
         <div className={styles.dgm}>
           <span>{data?.designation?.name}</span>

@@ -39,7 +39,7 @@ function CareerProgression({}) {
   const annualTransition = useMemo(() => {
     return [...history].reverse().map((data, index) => {
       return (
-        <CareerMonthlyCard data={data} isLast={index + 1 === history.length} />
+        <CareerMonthlyCard data={data} isFirst={index === 0} isLast={index + 1 === history.length} />
       );
     });
   }, [history]);

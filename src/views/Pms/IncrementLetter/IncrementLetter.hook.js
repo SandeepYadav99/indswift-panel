@@ -188,7 +188,7 @@ const useIncrementLetter = ({ location }) => {
     setInfoPanel(true);
   }, []);
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`/employees/details/${data?.emp_code}`);
+    historyUtils.push(`/employees/details/${data?.code}`);
   }, []);
 
   const configFilter = useMemo(() => {
@@ -235,10 +235,10 @@ const useIncrementLetter = ({ location }) => {
         ],
       },
       {
-        label: "Is Modified",
-        name: "is_modified",
+        label: "Status",
+        name: "status",
         type: "select",
-        fields: ["YES", "NO"],
+        fields: ["INCREMENT_SAVED", "INCREMENT_FROZEN", "INCREMENT_RELEASED"],
       },
     ];
   }, [listData]);
