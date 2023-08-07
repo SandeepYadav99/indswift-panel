@@ -128,7 +128,8 @@ export default {
     "OVERALL HOD REVIEW PENDING":'error',
     'POSITIVE':'positiveBg',
     'NEGATIVE':'errorBg',
-    'NEUTRAL':'neutralBg'
+    'NEUTRAL':'neutralBg',
+    'INCREMENT FROZEN':'success'
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',
