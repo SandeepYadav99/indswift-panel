@@ -11,6 +11,7 @@ import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import LogUtils from "../../../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
+import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
 
 const TEMP_OBJ = {
   check_in: "",
@@ -78,19 +79,26 @@ const LodgingIncludeForm = (
         "check_out",
         "booking_by",
         "stay_at",
-        "hotel",
         "shared_with",
-        "payment_by",
-        "amount",
-        "lodging_voucher",
+        // "payment_by",
+        // "amount",
+        // "lodging_voucher",
       ];
-      if (val.payment_by !== "Cash") {
+      if (val?.payment_by && val.payment_by !== "Cash") {
         required.push("lodging_payment_proof");
       }
       if (tourType === "FOREIGN") {
         required.push("country", "country_name");
       } else {
         required.push("city_cluster", "city");
+      }
+      if (["HOTEL", "SELF_ARRANGEMENT"].includes(val?.stay_at)) {
+        required.push(
+          "amount",
+          "lodging_voucher",
+          "lodging_payment_proof",
+          "payment_by"
+        );
       }
       {
         required.forEach((key) => {
@@ -104,8 +112,15 @@ const LodgingIncludeForm = (
           err["amount"] = true;
         }
       }
-      if(val.payment_by === "Cash" && !val?.lodging_payment_proof){
-        delete err['lodging_payment_proof']
+      if (val?.stay_at === "HOTEL" && !val?.hotel) {
+        err["hotel"] = true;
+      }
+      if (val.payment_by === "Cash" && !val?.lodging_payment_proof) {
+        delete err["lodging_payment_proof"];
+      }
+      if (val?.total_nights < 0) {
+        SnackbarUtils.error('Tour start date should be less than tour end date')
+        err["check_out"] = true;
       }
       // if (val?.travel_date) {
       //   const date = new Date(val?.travel_date);

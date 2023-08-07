@@ -262,7 +262,6 @@ function useClaimIntCard() {
     setForm({ ...initialForm });
   }, [form]);
 
-  console.log("curr", currency);
   return {
     employeeDetails,
     employees,
