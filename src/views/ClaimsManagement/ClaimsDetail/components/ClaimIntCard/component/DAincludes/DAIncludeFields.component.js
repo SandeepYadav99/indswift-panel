@@ -82,9 +82,9 @@ const DAIncludeFields = ({
       if (data?.stay_at === "GUEST_HOUSE") {
         percent = 50;
       } else {
-        if (timeDifferenceInHours > 12) {
+        if (timeDifferenceInHours >= 12) {
           percent = 100;
-        } else if (timeDifferenceInHours > 6 && timeDifferenceInHours < 12) {
+        } else if (timeDifferenceInHours >= 6 && timeDifferenceInHours < 12) {
           percent = 60;
         } else {
           percent = 40;

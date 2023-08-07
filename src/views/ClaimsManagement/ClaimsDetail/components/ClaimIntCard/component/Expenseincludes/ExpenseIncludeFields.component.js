@@ -221,6 +221,17 @@ const ExpenseIncludeFields = ({
               label={"No of KMs"}
             />
           </div>
+          <div className={"textCenter"}>
+            <ButtonBase
+              className={styles.removeBtn}
+              // label={this.props.index == 0 ? "+" : '-'}
+              onClick={() => {
+                handlePress(index == 0 ? "-" : "-", index);
+              }}
+            >
+              {index == 0 ? "Remove" : "Remove"}
+            </ButtonBase>
+          </div>
         </div>
       </div>
     </div>
