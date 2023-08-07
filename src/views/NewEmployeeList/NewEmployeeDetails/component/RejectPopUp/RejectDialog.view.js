@@ -1,18 +1,12 @@
-import React, { useCallback, useMemo, useState } from "react";
-import {
-  Button,
-  ButtonBase,
-  IconButton,
-  InputAdornment,
-  MenuItem,
-} from "@material-ui/core";
-import { Close, Visibility, VisibilityOff } from "@material-ui/icons";
+import React from "react";
+import { Button, ButtonBase } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
-import useApproveDialogHook from "./ApproveDialog.hook";
+import useRejectDialogHook from "./RejectDialog.hook";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -37,21 +31,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ApproveDialog = ({ isOpen, handleToggle, candidateId, isInterview }) => {
+const RejectDialog = ({ isOpen, handleToggle, candidateId }) => {
   const classes = useStyles();
-  const {
-    changeTextData,
-    errorData,
-    form,
-    handleSubmit,
-    onBlurHandler,
-    removeError,
-    resData,
-    isSubmitted,
-    isSubmitting,
-    setDeclaration,
-    declaration,
-  } = useApproveDialogHook({ isOpen, handleToggle, candidateId, isInterview });
+  const { changeTextData, errorData, form, handleSubmit, onBlurHandler } =
+    useRejectDialogHook({ isOpen, handleToggle, candidateId });
 
   return (
     <div>
@@ -78,10 +61,12 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId, isInterview }) => {
             </ButtonBase>
           </div>
           <div className={styles.headingWrapper}>
-            <div className={styles.heading}>Confirm Action</div>
+            <div className={styles.heading}>Rejection Confirmation</div>
             <div className={styles.newLine}></div>
             <div className={styles.des}>
-              Do you approve the documents and the reimbursement amount.
+              Are you sure you want to reject this employee creation?
+              <br />
+              Describe the reason for the same
             </div>
           </div>
 
@@ -90,7 +75,7 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId, isInterview }) => {
               <CustomTextField
                 isError={errorData?.comment}
                 errorText={errorData?.comment}
-                label={"Add comments (Optional)"}
+                label={"Reason for Rejection"}
                 value={form?.comment}
                 onTextChange={(text) => {
                   changeTextData(text, "comment");
@@ -103,33 +88,9 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId, isInterview }) => {
               />
             </div>
           </div>
-          <div className={styles.cleckboxWrapper}>
-            <div className={styles.checkBox}>
-              <input
-                checked={declaration}
-                type="checkbox"
-                id="confirmation"
-                name="confirmation"
-                onChange={() => {
-                  setDeclaration((s) => !s);
-                }}
-              />
-              <label htmlFor="confirmation">
-                I have verified and approve of the information and action on the
-                claim request.
-              </label>
-              <br />
-            </div>
-          </div>
           <div className={styles.printFlex}>
-            <ButtonBase
-              onClick={handleSubmit}
-              disabled={!declaration ? true : false}
-              className={
-                declaration ? styles.createBtn : styles.disabledCreatebtn
-              }
-            >
-              CONFIRM
+            <ButtonBase onClick={handleSubmit} className={styles.createBtn}>
+              Reject
             </ButtonBase>
           </div>
         </div>
@@ -138,4 +99,4 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId, isInterview }) => {
   );
 };
 
-export default ApproveDialog;
+export default RejectDialog;

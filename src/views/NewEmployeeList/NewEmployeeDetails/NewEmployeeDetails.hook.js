@@ -1,12 +1,17 @@
 import React from "react";
-import { serviceGetNewEmployeeDetails } from "../../../services/NewEmployeeList.service";
+import { serviceGetNewEmployeeApprove, serviceGetNewEmployeeDetails } from "../../../services/NewEmployeeList.service";
 import historyUtils from "../../../libs/history.utils";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
+import { useCallback } from "react";
+import RouteName from "../../../routes/Route.name";
 
 function useNewEmployeeDetails() {
   const [employeeData, setEmployeeData] = useState({});
+  const [rejectDialog, setRejectDialog] = useState(false);
+  const [approveDialog, setApproveDialog] = useState(false);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,8 +25,34 @@ function useNewEmployeeDetails() {
       }
     });
   }, [id]);
+
+  const toggleStatusDialog = useCallback(() => {
+    setApproveDialog((e) => !e);
+  }, [approveDialog]);
+
+  const toggleRejectDialog = useCallback(() => {
+    setRejectDialog((e) => !e);
+  }, [rejectDialog]);
+
+  const handleDialogConfirm = useCallback(() => {
+    let req = serviceGetNewEmployeeApprove;
+    req({ emp_id: id }).then((res) => {
+      if (!res.error) {
+        historyUtils.push(RouteName.NEW_EMPLOYEES);
+      } else {
+        SnackbarUtils.error(res?.message);
+      }
+    });
+  }, [id]);
+
   return {
     employeeData,
+    rejectDialog,
+    toggleRejectDialog,
+    approveDialog,
+    toggleStatusDialog,
+    handleDialogConfirm,
+    id,
   };
 }
 

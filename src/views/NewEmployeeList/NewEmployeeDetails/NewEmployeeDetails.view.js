@@ -12,6 +12,8 @@ import UpperInfo from "../../Employees/UpperInfo.view";
 import ProfileView from "../../Employees/Profile.view";
 import SalaryInfo from "../../Employees/components/Profile/SalaryInfo/SalaryInfo";
 import useNewEmployeeDetails from "./NewEmployeeDetails.hook";
+import RejectDialog from "./component/RejectPopUp/RejectDialog.view";
+import DialogComponent from "./component/Dialog.component";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,10 +49,16 @@ const useStyles = makeStyles({
 const NewEmployeeDetail = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [isResetDialog, setIsResetDialog] = useState(false);
-  const [isUpdateDialog, setIsUpdateDialog] = useState(false);
 
-  const { employeeData } = useNewEmployeeDetails({});
+  const {
+    employeeData,
+    rejectDialog,
+    toggleRejectDialog,
+    approveDialog,
+    toggleStatusDialog,
+    handleDialogConfirm,
+    id,
+  } = useNewEmployeeDetails({});
 
   const handleChange = useCallback(
     (event, newValue) => {
@@ -58,12 +66,6 @@ const NewEmployeeDetail = () => {
     },
     [setValue, value]
   );
-  const toggleStatusDialog = useCallback(() => {
-    setIsUpdateDialog((e) => !e);
-  }, [isUpdateDialog]);
-  const toggleResetDialog = useCallback(() => {
-    setIsResetDialog((e) => !e);
-  }, [isResetDialog]);
   return (
     <div>
       <div className={"container"}>
@@ -87,12 +89,21 @@ const NewEmployeeDetail = () => {
         <div>
           <UpperInfo
             data={employeeData}
-            isResetDialog={isResetDialog}
-            handleToggle={toggleResetDialog}
+            // isResetDialog={isResetDialog}
             handleStatusToggle={toggleStatusDialog}
             isNew={true}
           />
         </div>
+        <DialogComponent
+          isOpen={approveDialog}
+          handleClose={toggleStatusDialog}
+          handleConfirm={handleDialogConfirm}
+        />
+        <RejectDialog
+          candidateId={id}
+          isOpen={rejectDialog}
+          handleToggle={toggleRejectDialog}
+        />
         <div>
           <AppBar position="static" className={styles.backgroundColor}>
             <Tabs
@@ -109,6 +120,30 @@ const NewEmployeeDetail = () => {
           <div className={styles.paperBackground}>
             <TabPanel value={value} index={0} dir={"ltr"}>
               <ProfileView data={employeeData} isNew={true} />
+              {employeeData?.status === "PENDING" && (
+                <div className={styles.approvedWrapper}>
+                  <div className={styles.editBtn2}>
+                    <ButtonBase
+                      className={styles.edit}
+                      onClick={toggleRejectDialog}
+                    >
+                      REJECT
+                    </ButtonBase>
+                  </div>
+
+                  <div className={styles.btnApproveWrapper}>
+                    <div>
+                      <ButtonBase
+                        // disabled={isSubmitting}
+                        className={styles.editSuccess}
+                        onClick={toggleStatusDialog}
+                      >
+                        APPROVE
+                      </ButtonBase>
+                    </div>
+                  </div>
+                </div>
+              )}
             </TabPanel>
             <TabPanel value={value} index={1} dir={"ltr"}>
               <SalaryInfo Empid={employeeData?.id} />
