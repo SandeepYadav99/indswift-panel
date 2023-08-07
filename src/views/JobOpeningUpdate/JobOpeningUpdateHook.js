@@ -212,7 +212,7 @@ const useJobOpeningsEditDetail = ({}) => {
         }
         if (fieldName === 'replacing_person') {
             t[fieldName] = text;
-            const designationId = form?.replacing_person?.designation_id;
+            const designationId = text.designation_id;
             const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
             t['designation'] = listData?.DESIGNATIONS[index];
         }
