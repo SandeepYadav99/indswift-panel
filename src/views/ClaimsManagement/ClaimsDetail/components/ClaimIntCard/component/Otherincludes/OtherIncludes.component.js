@@ -18,12 +18,12 @@ const TEMP_OBJ = {
   date: "",
   details: "",
   amount: "",
-  reason:"",
+  reason: "",
   other_payment_proof: null,
 };
 
 const OtherIncludeForm = (
-  { data, errorData: errorForm, grade, changeAmount ,startDate,endDate},
+  { data, errorData: errorForm, grade, changeAmount, startDate, endDate },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -54,7 +54,13 @@ const OtherIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [];
+      const required = [
+        "date",
+        "details",
+        "amount",
+        "reason",
+        "other_payment_proof",
+      ];
       const hasValues = Object.values(val).some(
         (value) => value !== "" && value !== null
       );
@@ -65,6 +71,12 @@ const OtherIncludeForm = (
               err[key] = true;
             }
           });
+      }
+      if (val?.date) {
+        let newDate = new Date(val?.date);
+        if (isNaN(newDate.getTime())) {
+          err["date"] = true;
+        }
       }
       // if (val?.check_in && val?.check_out) {
       //   const joinDate = new Date(val?.check_in);
@@ -171,8 +183,8 @@ const OtherIncludeForm = (
             index={index}
             onBlur={onBlur}
             grade={grade}
-            startDate = {startDate}
-  endDate={endDate}
+            startDate={startDate}
+            endDate={endDate}
           />
         </div>
       );

@@ -47,7 +47,10 @@ const LodgingIncludeFields = ({
       endTime.getHours(0, 0, 0, 0);
       const millisecondsPerDay = 24 * 60 * 60 * 1000;
       const timeDifference = endTime.getTime() - startTime.getTime();
-      const numberOfNights = Math.ceil(timeDifference / millisecondsPerDay) - 1;
+      const numberOfNights =
+        timeDifference == "0"
+          ? 0
+          : Math.ceil(timeDifference / millisecondsPerDay) - 1;
       changeData(index, {
         ["total_nights"]: numberOfNights,
       });
@@ -76,7 +79,6 @@ const LodgingIncludeFields = ({
     }
   }, [grade, data?.stay_at, data?.city_cluster, data?.total_nights]);
 
-  console.log(">>>datav", data);
   useEffect(() => {
     let res;
     if (grade && data?.country && data?.stay_at) {
@@ -265,7 +267,7 @@ const LodgingIncludeFields = ({
                 value={data?.shared_with}
                 // id="tags-standard"
                 options={CoPass ? CoPass : []}
-                getOptionLabel={(option) => option?.name}
+                getOptionLabel={(option) => `${option?.name} - ( ${option?.emp_code} )`}
                 defaultValue={data?.shared_with}
                 renderInput={(params) => (
                   <TextField
@@ -286,12 +288,12 @@ const LodgingIncludeFields = ({
           </div>
           <div className={styles.flextitle}>
             <span className={styles.heading21}>Per Day Entitlement:</span>
-            <span className={styles.count}>{data?.per_day_entitlement}</span>
+            <span className={styles.count}>{data?.per_day_entitlement && `₹ ${data?.per_day_entitlement}`}</span>
           </div>
           <div className={styles.flextitle}>
             <span className={styles.heading21}>Total Max Entittement:</span>
             <span className={styles.count}>
-              {isNaN(data?.max_entitlement) ? "-" : data?.max_entitlement}
+              {isNaN(data?.max_entitlement) ? "-" : `₹ ${data?.max_entitlement}`}
             </span>
           </div>
         </div>

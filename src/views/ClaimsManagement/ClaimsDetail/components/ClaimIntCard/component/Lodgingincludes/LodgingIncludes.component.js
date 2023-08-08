@@ -119,7 +119,9 @@ const LodgingIncludeForm = (
         delete err["lodging_payment_proof"];
       }
       if (val?.total_nights < 0) {
-        SnackbarUtils.error('Tour start date should be less than tour end date')
+        SnackbarUtils.error(
+          "Tour start date should be less than tour end date"
+        );
         err["check_out"] = true;
       }
       // if (val?.travel_date) {
@@ -131,15 +133,18 @@ const LodgingIncludeForm = (
       //     err["travel_date"] = true;
       //   }
       // }
-      // if (val?.travel_date) {
-      //   let newDate = new Date(val?.travel_date);
-      //   if (isNaN(newDate.getTime())) {
-      //     err["travel_date"] = true;
-      //   }
-      // }
-      // if (val?.shared_with?.length === 0) {
-      //   err["shared_with"] = true;
-      // }
+      if (val?.check_in) {
+        let newDate = new Date(val?.check_in);
+        if (isNaN(newDate.getTime())) {
+          err["check_in"] = true;
+        }
+      }
+      if (val?.check_out) {
+        let newDate = new Date(val?.check_out);
+        if (isNaN(newDate.getTime())) {
+          err["check_out"] = true;
+        }
+      }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }

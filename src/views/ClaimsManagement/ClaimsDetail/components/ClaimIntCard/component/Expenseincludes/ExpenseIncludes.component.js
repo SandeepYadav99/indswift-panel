@@ -94,12 +94,12 @@ const ExpenseIncludeForm = (
       //     err["travel_date"] = true;
       //   }
       // }
-      // if (val?.travel_date) {
-      //   let newDate = new Date(val?.travel_date);
-      //   if (isNaN(newDate.getTime())) {
-      //     err["travel_date"] = true;
-      //   }
-      // }
+      if (val?.travel_date) {
+        let newDate = new Date(val?.travel_date);
+        if (isNaN(newDate.getTime())) {
+          err["travel_date"] = true;
+        }
+      }
       
       if(val.payment_by === "Cash" && !val?.travel_payment_proof){
         delete err['travel_payment_proof']
@@ -179,7 +179,6 @@ const ExpenseIncludeForm = (
         const index = fields.findIndex((val) => val?.sku?.sku === variant?.sku);
         return index < 0;
       });
-      console.log("data", val);
       return (
         <div>
           <IncludeFields

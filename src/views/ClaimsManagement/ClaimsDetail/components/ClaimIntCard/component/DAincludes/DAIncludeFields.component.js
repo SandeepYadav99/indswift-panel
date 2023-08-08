@@ -3,9 +3,6 @@ import {
   TextField,
   ButtonBase,
   MenuItem,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
   InputAdornment,
   IconButton,
 } from "@material-ui/core";
@@ -44,7 +41,7 @@ const DAIncludeFields = ({
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
-      if (name === "amount") {
+      if (name === "da_amount" || name === "ie_amount") {
         if (value >= 0) {
           changeData(index, { [name]: value });
         }
