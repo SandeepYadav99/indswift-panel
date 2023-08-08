@@ -95,6 +95,14 @@ function useClaimIntCard() {
       Object.keys(totalAmount).forEach((key) => {
         fd.append(key, totalAmount[key]);
       });
+      const sum = Object.values(totalAmount).reduce((acc, value) => {
+        if (value !== "") {
+          acc += parseFloat(value);
+        }
+        return acc;
+      }, 0);
+      
+      fd.append("total_amount", sum);
       const lodgeData = lodgeRef.current.getData();
 
       let modifiedArr = lodgeData?.map((item) => {

@@ -65,7 +65,7 @@ const DAIncludeForm = (
       startDateValue.setHours(0, 0, 0, 0);
       endDateValue.setHours(0, 0, 0, 0);
       const daysDiff = (endDateValue - startDateValue) / (1000 * 60 * 60 * 24);
-      return daysDiff;
+      return daysDiff + 1;
     } else {
       return 0;
     }
@@ -85,9 +85,7 @@ const DAIncludeForm = (
         "da_entitlement",
         "da_amount",
       ];
-      // if (checkDays >= 5) {
-      //   required.push("ie_entitlement", "ie_amount");
-      // }
+
       {
         required.forEach((key) => {
           if (!val[key]) {
@@ -97,28 +95,18 @@ const DAIncludeForm = (
       }
       if (val?.hours < 0) {
         err["hours"] = true;
-        SnackbarUtils.error('End time should be greater than start time')
+        SnackbarUtils.error("End time should be greater than start time");
       }
-      // if (val.da_amount && val?.da_entitlement && val?.da_pct) {
-      //   let maxValue = (val?.da_entitlement * val?.da_pct) / 100;
-      //   if (val?.da_amount > maxValue) {
-      //     err["da_amount"] = true;
-      //   }
-      // }
+      if (val.da_amount && val?.da_entitlement) {
+        if (val?.da_amount > val?.da_entitlement) {
+          err["da_amount"] = true;
+        }
+      }
       if (checkDays >= 5 && val?.ie_amount && val?.ie_entitlement) {
         if (val?.ie_amount > val?.ie_entitlement) {
           err["ie_amount"] = true;
         }
       }
-      // if (val?.travel_date) {
-      //   const date = new Date(val?.travel_date);
-      //   const today = new Date();
-      //   var fortyFiveDaysAgo = new Date();
-      //   fortyFiveDaysAgo.setDate(today.getDate() - 46);
-      //   if (date > today || date < fortyFiveDaysAgo) {
-      //     err["travel_date"] = true;
-      //   }
-      // }
       if (val?.date) {
         let newDate = new Date(val?.date);
         if (isNaN(newDate.getTime())) {
@@ -233,18 +221,22 @@ const DAIncludeForm = (
     onBlur,
     fields,
   ]);
-  const sum = fields.reduce((acc, curr) => {
-    const value = curr["da_amount"];
-    if (value !== "") {
-      return acc + parseFloat(value);
-    } else {
-      return acc;
+
+  const totalSum = fields.reduce((acc, obj) => {
+    const daAmount = parseFloat(obj.da_amount);
+    const ieAmount = parseFloat(obj.ie_amount);
+    if (!isNaN(daAmount)) {
+      acc += daAmount;
     }
+    if (!isNaN(ieAmount)) {
+      acc += ieAmount;
+    }
+    return acc;
   }, 0);
 
   useEffect(() => {
-    changeAmount(sum, "da_ie_expenses_amount");
-  }, [sum]);
+    changeAmount(totalSum, "da_ie_expenses_amount");
+  }, [totalSum]);
 
   return (
     <>
@@ -266,7 +258,8 @@ const DAIncludeForm = (
       {/*</div>*/}
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
-          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
+          Total Claim Amount:{" "}
+          <span>{totalSum || totalSum === 0 ? `₹ ${totalSum}` : ""}</span>
         </div>
       </div>
     </>

@@ -51,13 +51,44 @@ const DAIncludeFields = ({
     }
   };
   useEffect(() => {
-    if (grade && data?.stay_at) {
+    if (grade && data?.stay_at && data?.hours) {
       let storeValue = DAAllotAmout(grade, data?.stay_at);
+      let percent;
+      if (data?.stay_at === "GUEST_HOUSE") {
+        percent = 50;
+      } else {
+        if (data?.hours >= 12) {
+          percent = 100;
+        } else if (data?.hours >= 6 && data?.hours < 12) {
+          percent = 60;
+        } else {
+          percent = 40;
+        }
+      }
+      let maxValue = (storeValue * percent) / 100;
       changeData(index, {
-        ["da_entitlement"]: storeValue,
+        ["da_entitlement"]: maxValue,
+        ["da_pct"]: percent,
       });
     }
-  }, [grade, data?.stay_at]);
+  }, [grade, data?.stay_at, data?.hours]);
+
+  useEffect(() => {
+    if (data?.start_time && data?.end_time) {
+      const starttime = new Date(data?.start_time);
+      const endtime = new Date(data?.end_time);
+      const timeDifferenceInMilliseconds = endtime - starttime;
+      const timeDifferenceInHours =
+        timeDifferenceInMilliseconds / (1000 * 60 * 60);
+
+      const roundedTimeDifference =
+        Math.round(timeDifferenceInHours * 100) / 100;
+
+      changeData(index, {
+        ["hours"]: roundedTimeDifference,
+      });
+    }
+  }, [data?.start_time, data?.end_time]);
 
   useEffect(() => {
     if (checkDays >= 5 && grade) {
@@ -67,41 +98,8 @@ const DAIncludeFields = ({
       });
     }
   }, [checkDays]);
-  useEffect(() => {
-    if (data?.start_time && data?.end_time) {
-      const starttime = new Date(data?.start_time);
-      const endtime = new Date(data?.end_time);
-      console.log("endtime", starttime.getHours(), endtime.getHours());
-      const timeDifferenceInHours = Math.floor(
-        (endtime - starttime) / (1000 * 60 * 60)
-      );
-      let percent;
-      if (data?.stay_at === "GUEST_HOUSE") {
-        percent = 50;
-      } else {
-        if (timeDifferenceInHours >= 12) {
-          percent = 100;
-        } else if (timeDifferenceInHours >= 6 && timeDifferenceInHours < 12) {
-          percent = 60;
-        } else {
-          percent = 40;
-        }
-      }
 
-      changeData(index, {
-        ["hours"]: timeDifferenceInHours,
-        ["da_pct"]: percent,
-      });
-
-      console.log(
-        "time",
-        data?.start_time,
-        data?.end_time,
-        timeDifferenceInHours
-      );
-    }
-  }, [data?.start_time, data?.end_time, data?.stay_at]);
-  console.log(">>>>>", startDate, endDate, grade);
+  console.log("checkDays", checkDays, index);
   return (
     <div>
       <div className={styles.heading}>Travel Type</div>
@@ -251,7 +249,7 @@ const DAIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
-              disabled={checkDays < 5 ? true : false}
+              disabled={true}
               type="number"
               error={errors?.ie_entitlement}
               onChange={handleChange}
@@ -265,7 +263,7 @@ const DAIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
-              disabled={checkDays < 5 ? true : false}
+              disabled={index > 2 || checkDays < 5 ? true : false}
               type="number"
               error={errors?.ie_amount}
               onChange={handleChange}

@@ -481,8 +481,10 @@ export const DAAllotAmout = (grade, book) => {
     }
   } else {
     switch (grade) {
+      case 'G0':
+        return 1200;
       case "G1":
-        return 6500;
+        return 1000;
       case "G2":
         return 900;
       case "G3":
