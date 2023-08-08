@@ -352,7 +352,7 @@ const useIncrementLetter = ({ location }) => {
         employee_ids: batchIds,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Award sheets sent successfully");
+          SnackbarUtils.success("Increment letter send successfully");
           updateAwardStatus(batchIds);
           setSelected([]);
           toggleConfirmDialog();
