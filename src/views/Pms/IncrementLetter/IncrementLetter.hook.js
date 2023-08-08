@@ -7,7 +7,10 @@ import {
   serviceIncrementPlannerDownload,
 } from "../../../services/IncrementPlanner.service";
 import historyUtils from "../../../libs/history.utils";
-import {serviceFreezeIncrementLetters, serviceGetIncrementLetter} from "../../../services/incrementLetter.service";
+import {
+  serviceFreezeIncrementLetters,
+  serviceGetIncrementLetter,
+} from "../../../services/incrementLetter.service";
 import LogUtils from "../../../libs/LogUtils";
 import Constants from "../../../config/constants";
 
@@ -304,7 +307,16 @@ const useIncrementLetter = ({ location }) => {
       }
       setSelected(tempSelected);
     },
-    [selected, setSelected]);
+    [selected, setSelected]
+  );
+
+  const selectAllEmployee = useCallback((e) => {
+    if(e.target.checked){
+    setSelected(data);
+    }else{
+      setSelected([])
+    }
+  }, [selected, setSelected, data]);
 
   const selectedEmps = useMemo(() => {
     let total = 0;
@@ -314,24 +326,31 @@ const useIncrementLetter = ({ location }) => {
     return total;
   }, [selected]);
 
-  const updateAwardStatus = useCallback((selectedIds) => {
-    const tData = [...apiData];
-    selectedIds.forEach(id => {
-      const index = tData.findIndex(tD => tD.employee_id === id);
-      if (index >= 0) {
-        (tData[index]).is_awarded = true;
-        (tData[index]).status = 'INCREMENT_RELEASED';
-      }
-    });
-    setApiData(apiData);
-  }, [setApiData, apiData]);
+  const updateAwardStatus = useCallback(
+    (selectedIds) => {
+      const tData = [...apiData];
+      selectedIds.forEach((id) => {
+        const index = tData.findIndex((tD) => tD.employee_id === id);
+        if (index >= 0) {
+          tData[index].is_awarded = true;
+          tData[index].status = "INCREMENT_RELEASED";
+        }
+      });
+      setApiData(apiData);
+    },
+    [setApiData, apiData]
+  );
 
   const submitToServer = useCallback(() => {
     const tData = [];
     if (!isSubmitting) {
       setIsSubmitting(true);
       const batchIds = selected.map((val) => val.employee_id);
-      serviceFreezeIncrementLetters({ batch: type, year, employee_ids: batchIds }).then((res) => {
+      serviceFreezeIncrementLetters({
+        batch: type,
+        year,
+        employee_ids: batchIds,
+      }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Award sheets sent successfully");
           updateAwardStatus(batchIds);
@@ -354,7 +373,7 @@ const useIncrementLetter = ({ location }) => {
     setIsFreezed,
     resetData,
     selected,
-    updateAwardStatus
+    updateAwardStatus,
   ]);
 
   const handleDialogConfirm = useCallback(() => {
@@ -408,6 +427,7 @@ const useIncrementLetter = ({ location }) => {
     selectedEmps,
     selected,
     handleCheckbox,
+    selectAllEmployee,
   };
 };
 

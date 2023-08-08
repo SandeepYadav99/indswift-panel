@@ -23,7 +23,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import DialogIncComponent from "./component/confirmDialogInc";
 import { removeUnderScore } from "../../../helper/helper";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
-import BarChartSharpIcon from '@material-ui/icons/BarChartSharp';
+import BarChartSharpIcon from "@material-ui/icons/BarChartSharp";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 
@@ -92,16 +92,11 @@ const TableHead = ({ columns }) => {
               }}
               className={styles.thead}
             >
-              <div className={styles.tipWrap}>
-                {label?.replace(/_/g, " ")}
-                {text && (
-                  <Tooltip title={text} enterDelay={2} leaveDelay={2000}>
-                    <IconButton size="small">
-                      <InfoOutlined color="secondary" />
-                    </IconButton>
-                  </Tooltip>
-                )}
-              </div>
+              {key === "name" ? (
+                <div className={styles.tipWrap2}>{label}</div>
+              ) : (
+                <div className={styles.tipWrap}>{label}</div>
+              )}
             </th>
           </>
         ))}
@@ -138,6 +133,7 @@ const IncrementLetter = ({ location }) => {
     selected,
     selectedEmps,
     handleCheckbox,
+    selectAllEmployee,
   } = useIncrementPlanner({ location });
 
   const renderStatus = useCallback((status) => {
@@ -152,7 +148,7 @@ const IncrementLetter = ({ location }) => {
           <div className={styles.firstCellFlex}>
             <div className={styles.flex}>
               <Checkbox
-                  disabled={obj.is_awarded}
+                disabled={obj.is_awarded}
                 onChange={() => {
                   handleCheckbox(obj);
                 }}
@@ -178,14 +174,24 @@ const IncrementLetter = ({ location }) => {
     return [
       {
         key: "name",
-        label: "EMPLOYEE NAME",
+        label: (
+          <div className={styles.checkBoxEMp}>
+            <Checkbox
+              onChange={(e) => {
+                selectAllEmployee(e);
+              }}
+              checked={data?.length > 0 && data?.length === selected?.length}
+              value="secondary"
+              color="primary"
+              inputProps={{ "aria-label": "secondary checkbox" }}
+            />
+            EMPLOYEE NAME
+          </div>
+        ),
         sortable: false,
         fixed: true,
         render: (temp, all) => (
-          <div className={styles.noWrapName}>
-            {renderFirstCell(all)}
-            {/* <b>{all?.name}</b> <br /> {all?.code} */}
-          </div>
+          <div className={styles.noWrapName}>{renderFirstCell(all)}</div>
         ),
       },
 
