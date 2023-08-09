@@ -165,11 +165,22 @@
 .rpWrap{
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+}
+.rpLink{
+    font-size: .8rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2896E9;
+    cursor: pointer;
 }
 .plainPaper222{
     display: flex;
-    justify-content: space-between;
-    flex: .36 !important;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    width: 28%;
+    flex-wrap: wrap;
+    /* flex: .36 !important; */
     border-radius: 10px;
     padding: 1.2rem;
     margin-bottom: 20px;
@@ -178,6 +189,9 @@
     margin-right: 10px;
     margin-left: 10px;
     
+}
+.rpLowerWrap{
+    display: flex;
 }
 .whiteFlex{
     display: flex;
@@ -283,6 +297,7 @@
 }
 .verticalLine{
     border: 1px dashed #B8C5D3;
+    margin: 0 10px;
 }
 @media(max-width:1150px){
     .rhsInterview{

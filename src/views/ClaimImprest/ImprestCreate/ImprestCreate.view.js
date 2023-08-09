@@ -190,6 +190,9 @@ function ImprestCreate() {
                 <div className={styles.valuesV}>
                  <div className={styles.flex1}>Balance Outstanding:</div> <div className={styles.flex12}>{getCurrency(form?.currency)}{amountDetail[form?.currency]?.balance}</div>
                 </div>
+                <div className={styles.valuesV}>
+                 <div className={styles.flex1}>Progress Amount:</div> <div className={styles.flex12}>{getCurrency(form?.currency)}{amountDetail[form?.currency]?.progress}</div>
+                </div>
               </div>
             )}
           </div>

@@ -6,11 +6,13 @@ import InterviewsTable from "./components/WarehouseTables/InterviewsTable.compon
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetDashboard } from "../../actions/Dashboard.action";
 import { serviceGetInterviewStatus } from "../../services/Dashboard.service";
-import { useState } from "react";
+import { useState,useCallback } from "react";
+import historyUtils from "../../libs/history.utils";
+import RouteName from "../../routes/Route.name";
 
 const NewDashboard = () => {
   const [data, setData] = useState([]);
-  const [rpdata,setRpdata]=useState()
+  const [rpdata, setRpdata] = useState();
   const dispatch = useDispatch();
   const { tiles } = useSelector((state) => state.dashboard);
   useEffect(() => {
@@ -100,13 +102,17 @@ const NewDashboard = () => {
     });
   }, [tiles?.locationData]);
 
+  const changeRPRoute = useCallback((data) => {
+    historyUtils.push(`${RouteName.JOB_OPENINGS_DETAILS}${data}`);
+  }, []);
+  
   return (
     <div>
       {_renderTopCards()}
 
       <div className={styles.newFlex}>{locationData}</div>
       <div className={styles.tableFlex212}>
-        <div className={styles.dashboardFlex} style={{width:'100%'}}>
+        <div className={styles.dashboardFlex} style={{ width: "100%" }}>
           <div className={styles.plainPaper221}>
             <div className={styles.activeWrapper}>
               <div className={styles.imgBox}>
@@ -117,14 +123,20 @@ const NewDashboard = () => {
               </div>
               <div>
                 <div className={styles.number}>{tiles?.prc_stats?.active}</div>
-                <div className={styles.prcStatus} style={{color:'#E92828'}}>Active PRC's</div>
+                <div className={styles.prcStatus} style={{ color: "#E92828" }}>
+                  Active PRC's
+                </div>
               </div>
             </div>
             <div className={styles.verticalLine}></div>
             <div className={styles.activeWrapper}>
               <div className={styles.imgBox2}>
                 <img
-                  src={tiles?.prc_stats?.last_avg_tat >= tiles?.prc_stats?.avg_tat ? require("../../assets/img/ic_decrease.png") : require("../../assets/img/ic_increase.png")}
+                  src={
+                    tiles?.prc_stats?.last_avg_tat >= tiles?.prc_stats?.avg_tat
+                      ? require("../../assets/img/ic_decrease.png")
+                      : require("../../assets/img/ic_increase.png")
+                  }
                   height={50}
                 />
               </div>
@@ -144,7 +156,9 @@ const NewDashboard = () => {
               </div>
               <div>
                 <div className={styles.number}>{tiles?.prc_stats?.closed}</div>
-                <div className={styles.prcStatus} style={{color:'#29CB97'}} >Closed PRC's</div>
+                <div className={styles.prcStatus} style={{ color: "#29CB97" }}>
+                  Closed PRC's
+                </div>
               </div>
             </div>
           </div>
@@ -157,40 +171,53 @@ const NewDashboard = () => {
                 />
               </div>
               <div>
-                <div className={styles.number}>{tiles?.prc_stats?.inactive}</div>
-                <div className={styles.prcStatus} style={{color:'#FA8B0C'}}>Inactive PRC's</div>
+                <div className={styles.number}>
+                  {tiles?.prc_stats?.inactive}
+                </div>
+                <div className={styles.prcStatus} style={{ color: "#FA8B0C" }}>
+                  Inactive PRC's
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className={styles.rpWrap}>
-        <div className={styles.plainPaper222}>
-            <div className={styles.activeWrapper}>
-              <div className={styles.imgBox}>
-                <img
-                  src={require("../../assets/img/ic_vacancy_count.png")}
-                  height={50}
-                />
-              </div>
-              <div>
-                <div className={styles.number}>{tiles?.rp_stats?.active}</div>
-                <div className={styles.prcStatus} >Vacancy Count</div>
+          {tiles?.rp_stats?.length > 0  && tiles?.rp_stats?.map((item) => (
+            <div className={styles.plainPaper222}>
+              <div className={styles.rpLink} onClick={()=>changeRPRoute(item?.job_id)}>{item?.job_code}</div>
+              <div className={styles.rpLowerWrap}>
+                <div className={styles.activeWrapper}>
+                  <div className={styles.imgBox}>
+                    <img
+                      src={require("../../assets/img/ic_vacancy_count.png")}
+                      height={50}
+                    />
+                  </div>
+                  <div>
+                    <div className={styles.number}>{item?.active}</div>
+                    <div className={styles.prcStatus}>Vacancy Count</div>
+                  </div>
+                </div>
+                <div className={styles.verticalLine}></div>
+                <div className={styles.activeWrapper}>
+                  <div className={styles.imgBox2}>
+                    <img
+                      src={
+                        item?.last_avg_tat >= item?.avg_tat
+                          ? require("../../assets/img/ic_decrease.png")
+                          : require("../../assets/img/ic_increase.png")
+                      }
+                      height={50}
+                    />
+                  </div>
+                  <div>
+                    <div className={styles.number}>{item?.avg_tat}</div>
+                    <div className={styles.prcStatus}>Avg TAT (Days)</div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className={styles.verticalLine}></div>
-            <div className={styles.activeWrapper}>
-              <div className={styles.imgBox2}>
-                <img
-                  src={tiles?.rp_stats?.last_avg_tat >= tiles?.rp_stats?.avg_tat ? require("../../assets/img/ic_decrease.png") : require("../../assets/img/ic_increase.png")}
-                  height={50}
-                />
-              </div>
-              <div>
-                <div className={styles.number}>{tiles?.rp_stats?.avg_tat}</div>
-                <div className={styles.prcStatus}>Avg TAT (Days)</div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
       <div className={styles.tableFlex21}>
