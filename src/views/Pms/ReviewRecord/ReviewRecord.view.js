@@ -186,7 +186,7 @@ const ReviewRecord = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Review Records</span>
+            <span className={styles.title}>Review Increment Records</span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
