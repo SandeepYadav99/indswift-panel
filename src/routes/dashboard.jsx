@@ -15,6 +15,7 @@ import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 import ClaimIntCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view";
 import NewEmployeeList from "../views/NewEmployeeList/NewEmployeeList.view";
 import NewEmployeeDetails from "../views/NewEmployeeList/NewEmployeeDetails/NewEmployeeDetails.view";
+import ReviewRecord from "../views/Pms/ReviewRecord/ReviewRecord.view";
 
  const EmployeeLoanDetail = lazy(()=> import ("../views/ClaimsManagement/EmployeeLoanDetail/EmployeeLoanDetail.view"));
  const LoanList = lazy(()=> import ("../views/LoanManagement/LoanList/LoanList.view"));
@@ -600,6 +601,18 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'pms_increments',
+        roles: [Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.REVIEW_RECORD}`,
+        sidebarName: "Review Record",
+        navbarName: "Review Record",
+        icon: PeopleOutlined,
+        component: ReviewRecord,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'pms_increments',
         roles: [Roles.CORPORATE_HR],
     },
     {
