@@ -88,6 +88,8 @@ function useEmailCompHook() {
         ...idObject,
       }).then((res) => {
         if (!res.error) {
+          SnackbarUtils.success('Email send successfully')
+          window.location.reload();
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -120,6 +122,7 @@ function useEmailCompHook() {
     handleSubmit,
     listData,
     descriptionRef,
+    isSubmitting
   };
 }
 

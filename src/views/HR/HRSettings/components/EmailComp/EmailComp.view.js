@@ -1,4 +1,9 @@
-import { ButtonBase, MenuItem, TextField } from "@material-ui/core";
+import {
+  ButtonBase,
+  CircularProgress,
+  MenuItem,
+  TextField,
+} from "@material-ui/core";
 import React, { useEffect } from "react";
 import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
 import styles from "./Style.module.css";
@@ -8,8 +13,15 @@ import { Autocomplete } from "@material-ui/lab";
 import NewEditor from "../../../../JobRoleCreate/components/NewEditor/NewEditor.component";
 
 function EmailCompView() {
-  const { form, errorData, changeTextData, handleSubmit, listData,descriptionRef } =
-    useEmailCompHook({});
+  const {
+    form,
+    errorData,
+    changeTextData,
+    handleSubmit,
+    listData,
+    descriptionRef,
+    isSubmitting,
+  } = useEmailCompHook({});
 
   return (
     <div className={styles.cagrWrapper}>
@@ -133,11 +145,16 @@ function EmailCompView() {
       <div className={styles.btnContainer}>
         <div className={styles.btnCont1}>
           <ButtonBase
+            disabled={isSubmitting ? true : false}
             type={"button"}
             onClick={handleSubmit}
-            className={styles.createBtn}
+            className={isSubmitting ? styles.disabledCreatebtn : styles.createBtn}
           >
-            Send
+            {isSubmitting ? (
+              <CircularProgress color="success" size="20px" />
+            ) : (
+              "Send"
+            )}
           </ButtonBase>
         </div>
       </div>
