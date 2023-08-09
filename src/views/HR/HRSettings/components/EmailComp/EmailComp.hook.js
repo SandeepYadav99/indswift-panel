@@ -50,7 +50,7 @@ function useEmailCompHook() {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    ["subject"].forEach((val) => {
+    ["subject",'type'].forEach((val) => {
       if (!form?.[val]) {
         errors[val] = true;
       } else {

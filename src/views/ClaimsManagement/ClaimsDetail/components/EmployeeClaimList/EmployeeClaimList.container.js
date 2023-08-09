@@ -83,6 +83,8 @@ const EmployeeClaimList = ({}) => {
             </div>
           </a>
         );
+      } else if (obj?.claim_type === "TRAVEL") {
+        return <div> N/A </div>;
       } else {
         return (
           <a href={obj?.document} target="_blank">

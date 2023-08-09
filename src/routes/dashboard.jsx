@@ -738,7 +738,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: "approval",
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: RouteName.NEW_EMPLOYEES,
@@ -750,7 +750,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'approval',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.NEW_EMPLOYEE_DETAIL}:id`,

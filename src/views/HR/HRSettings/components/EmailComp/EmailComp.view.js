@@ -137,7 +137,7 @@ function EmailCompView() {
             onClick={handleSubmit}
             className={styles.createBtn}
           >
-            NEXT
+            Send
           </ButtonBase>
         </div>
       </div>
