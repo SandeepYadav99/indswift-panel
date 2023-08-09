@@ -287,6 +287,50 @@ const DAIncludeFields = ({
             </ButtonBase>
           </div>
         </div>
+        <div className={styles.firstRow}>
+          {(grade === "G0" || grade === "G1") && (
+            <div className={styles.flex1}>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                fullWidth={true}
+                name="proof"
+                label="Attach Proof for DA"
+                accept={"application/pdf,application/msword,image/*"}
+                // link={data?.slip ? data?.slip : null}
+                error={errors?.da_payment_proof}
+                value={data?.da_payment_proof}
+                placeholder={"Attach Proof for DA"}
+                onChange={(file) => {
+                  if (file) {
+                    handleChange(file, "da_payment_proof");
+                  }
+                }}
+              />
+            </div>
+          )}
+          <div className={styles.flex1}>
+            {grade === "G0" && (
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                fullWidth={true}
+                name="proof"
+                label="Attach Proof for IE"
+                accept={"application/pdf,application/msword,image/*"}
+                // link={data?.slip ? data?.slip : null}
+                error={errors?.ie_payment_proof}
+                value={data?.ie_payment_proof}
+                placeholder={"Attach Proof for IE"}
+                onChange={(file) => {
+                  if (file) {
+                    handleChange(file, "ie_payment_proof");
+                  }
+                }}
+              />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

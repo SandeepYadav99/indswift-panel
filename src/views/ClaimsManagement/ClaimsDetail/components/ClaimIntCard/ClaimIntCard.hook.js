@@ -101,7 +101,7 @@ function useClaimIntCard() {
         }
         return acc;
       }, 0);
-      
+
       fd.append("total_amount", sum);
       const lodgeData = lodgeRef.current.getData();
 
@@ -144,6 +144,20 @@ function useClaimIntCard() {
       fd.append("travel_expenses", JSON.stringify(ExpensesData));
 
       const daData = daRef.current.getData();
+      daData.forEach((val) => {
+        if (val.ie_payment_proof) {
+          fd.append("ie_payment_proof", val?.ie_payment_proof);
+        } else {
+          const file = dataURLtoFile(nullImg, "null.png");
+          fd.append("ie_payment_proof", file);
+        }
+        if (val.da_payment_proof) {
+          fd.append("da_payment_proof", val?.da_payment_proof);
+        } else {
+          const file = dataURLtoFile(nullImg, "null.png");
+          fd.append("da_payment_proof", file);
+        }
+      });
       fd.append("da_ie_expenses", JSON.stringify(daData));
 
       const enterData = enterRef.current.getData();

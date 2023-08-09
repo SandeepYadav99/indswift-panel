@@ -24,6 +24,8 @@ const TEMP_OBJ = {
   ie_entitlement: "",
   ie_amount: "",
   hours: "",
+  da_payment_proof: null,
+  ie_payment_proof: null,
 };
 
 const DAIncludeForm = (
@@ -98,13 +100,33 @@ const DAIncludeForm = (
         SnackbarUtils.error("End time should be greater than start time");
       }
       if (val.da_amount && val?.da_entitlement) {
-        if (val?.da_amount > val?.da_entitlement) {
-          err["da_amount"] = true;
+        if (!val?.da_payment_proof) {
+          if (val?.da_amount > val?.da_entitlement) {
+            err["da_amount"] = true;
+          }
+        } else if (
+          val?.da_payment_proof &&
+          val?.stay_at === "SELF_ARRANGEMENT" &&
+          grade === "G1"
+        ) {
+          if (val?.da_amount > val?.da_entitlement) {
+            err["da_amount"] = true;
+          }
+        } else {
+          delete err["da_amount"];
         }
       }
       if (checkDays >= 5 && val?.ie_amount && val?.ie_entitlement) {
-        if (val?.ie_amount > val?.ie_entitlement) {
-          err["ie_amount"] = true;
+        if (!val?.ie_payment_proof) {
+          if (val?.ie_amount > val?.ie_entitlement) {
+            err["ie_amount"] = true;
+          }
+        } else if (val?.ie_payment_proof && grade === "G0") {
+          if (val?.ie_amount > 1000) {
+            err["ie_amount"] = true;
+          }else{
+            delete err ['ie_amount']
+          }
         }
       }
       if (val?.date) {

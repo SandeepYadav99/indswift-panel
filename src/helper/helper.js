@@ -460,6 +460,8 @@ export const travelListExpense = [
 export const DAAllotAmout = (grade, book) => {
   if (book === "SELF_ARRANGEMENT") {
     switch (grade) {
+      case 'G0':
+        return 500;
       case "G1":
         return 400;
       case "G2":
@@ -507,7 +509,7 @@ export const DAAllotAmout = (grade, book) => {
 export const IEAllotAmout = (grade) => {
   switch (grade) {
     case "G0":
-      return 1000;
+      return 500;
     case "G1":
       return 300;
     case "G2":
