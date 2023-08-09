@@ -11,9 +11,11 @@ import {
 } from "@material-ui/icons";
  import RouteName from "./Route.name";
  import Constants from "../config/constants";
-import ClaimIntCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view";
-import NewEmployeeList from "../views/NewEmployeeList/NewEmployeeList.view";
-import NewEmployeeDetails from "../views/NewEmployeeList/NewEmployeeDetails/NewEmployeeDetails.view";
+
+const ClaimIntCard = lazy(()=>import ( "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view"));
+const NewEmployeeList = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeList.view"));
+const NewEmployeeDetails = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeDetails/NewEmployeeDetails.view"));
+const ReviewRecord = lazy(()=>import ( "../views/Pms/ReviewRecord/PmsNormailize.view"));
 
  const EmployeeLoanDetail = lazy(()=> import ("../views/ClaimsManagement/EmployeeLoanDetail/EmployeeLoanDetail.view"));
  const LoanList = lazy(()=> import ("../views/LoanManagement/LoanList/LoanList.view"));
@@ -594,6 +596,18 @@ const dashboardRoutes = [
         navbarName: "Normalized Records",
         icon: PeopleOutlined,
         component: PmsNormailize,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'pms_increments',
+        roles: [Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.REVIEW_RECORD}`,
+        sidebarName: "Review Record",
+        navbarName: "Review Record",
+        icon: PeopleOutlined,
+        component: ReviewRecord,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
