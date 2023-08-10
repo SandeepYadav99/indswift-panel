@@ -187,6 +187,13 @@ function ClaimIntCard() {
           </div>
         </div>
       </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.heading}>Summary</div>
+        <div className={styles.lowerWrapImprest}>
+          <div className={styles.headingWrap}>Imprest for tour:<span>{form?.travel_planner_id?.imprest?.code}</span></div>
+          <div className={styles.headingWrap}>Amount:<span>{form?.travel_planner_id?.imprest?.amount}</span></div>
+        </div>
+      </div>
       <div className={styles.cleckboxWrapper}>
         <div className={styles.checkBox}>
           <input

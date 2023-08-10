@@ -112,7 +112,7 @@ const NewDashboard = () => {
 
       <div className={styles.newFlex}>{locationData}</div>
       <div className={styles.tableFlex212}>
-        <div className={styles.dashboardFlex} style={{ width: "100%" }}>
+        <div className={styles.dashboardFlex} style={{ width: "100%",display:'flex', flexWrap:"wrap" }}>
           <div className={styles.plainPaper221}>
             <div className={styles.activeWrapper}>
               <div className={styles.imgBox}>
