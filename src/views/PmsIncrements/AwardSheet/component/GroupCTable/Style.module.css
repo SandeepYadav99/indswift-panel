@@ -24,8 +24,8 @@
   /* width: 100%; */
   width: calc(95vw - 60px);
   margin-left: 15px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  /* margin-bottom: 20px; */
 }
 .thead {
   background: #ecf7ff 0% 0% no-repeat padding-box;

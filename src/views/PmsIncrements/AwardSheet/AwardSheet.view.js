@@ -147,7 +147,6 @@ const AwardSheetView = ({}) => {
         {empData?.form_type === "TYPE_4" && (
           <div className={styles.typeContainer}>
             <Header empData={empData} />
-            <br />
             <p className={styles.txtJustify2}>
               Incumbent’s self-rating and the team’s average on Behavioral
               competence has a difference of{" "}

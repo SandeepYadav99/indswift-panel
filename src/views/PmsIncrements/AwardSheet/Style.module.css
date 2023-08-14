@@ -70,7 +70,7 @@
   }
 .graphCont {
       width: calc(100% - 40px);
-    height: 350px;
+    height: 340px;
   }
 .txtJustify {
     text-align: justify;
@@ -83,7 +83,7 @@
   text-align: justify;
     width: calc(100% - 40px);
     font-size: .8rem;
-    margin: 20px 15px;
+    margin: 10px 15px;
 }
 .typeContainer{
   page-break-before: always;
