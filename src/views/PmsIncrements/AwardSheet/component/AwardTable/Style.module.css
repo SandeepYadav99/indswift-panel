@@ -22,6 +22,9 @@
   /* border: 1px solid black; */
   border-collapse: collapse;
   width: calc(95vw - 60px);
+  margin-left: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .thead {
   background: #ecf7ff 0% 0% no-repeat padding-box;
@@ -86,16 +89,17 @@
 
 .label {
   font-size: 0.8rem;
-  padding: 10px 15px;
+  padding: 5px 15px;
   text-align: center;
   white-space: nowrap;
 }
 .labelhead{
   font-size: 0.8rem;
-  padding: 10px 15px;
+  padding: 5px 15px;
   text-align: center;
   white-space: nowrap;
   font-weight: 500;
+  min-width: 310px;
 }
 .label21 {
   font-size: 0.8rem;

@@ -82,13 +82,10 @@ const AwardSheetView = ({}) => {
           title="Functional Performance Index (FARS)"
           data={ratingData?.fars}
         />
-        <br />
-        <br />
         <AwardTable
           title="Behavioural Performance Index (BARS)"
           data={ratingData?.bars}
         />
-        <br />
         <br />
         <p className={styles.txtJustify}>
           Any competency that scores less than 85 % is an improvement area for
@@ -145,12 +142,12 @@ const AwardSheetView = ({}) => {
           all the best for your performance in next cycle.
           <br />
         </p>
-
+        
         {empData?.form_type === "TYPE_4" && (
-          <div>
+          <div className={styles.typeContainer}>
             <Header empData={empData} />
             <br />
-            <p className={styles.txtJustify}>
+            <p className={styles.txtJustify2}>
               Incumbent’s self-rating and the team’s average on Behavioral
               competence has a difference of{" "}
               <strong>{empData?.bars_diff}</strong>.
