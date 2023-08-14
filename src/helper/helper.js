@@ -289,101 +289,118 @@ export const dropDownValuesLoan = [
 ];
 
 export const entitlementAmout = (grade, book, cluster) => {
-  if (grade === "G0") {
-    return 2200;
-  } else {
-    if (book === "SELF") {
+  if (book === "SELF_ARRANGEMENT") {
+    switch (grade) {
+      case "G1":
+        return 600;
+      case "G2":
+        return 500;
+      case "G3":
+        return 500;
+      case "G4":
+        return 300;
+      case "G5":
+        return 300;
+      case "G6":
+        return 200;
+      case "G7":
+        return 200;
+      case "G8":
+        return 150;
+      default:
+        return 0;
+    }
+  } else if (book === "HOTEL") {
+    if (cluster === "A") {
       switch (grade) {
         case "G1":
-          return 600;
+          return 6500;
         case "G2":
-          return 500;
+          return 5000;
         case "G3":
-          return 500;
+          return 4000;
         case "G4":
-          return 300;
+          return 3700;
         case "G5":
-          return 300;
+          return 3500;
         case "G6":
-          return 200;
+          return 3300;
         case "G7":
-          return 200;
+          return 2300;
         case "G8":
-          return 100;
+          return 1700;
         default:
           return 0;
       }
-    } else if (book === "OFFICE") {
-      if (cluster === "A") {
-        switch (grade) {
-          case "G1":
-            return 6500;
-          case "G2":
-            return 5000;
-          case "G3":
-            return 4000;
-          case "G4":
-            return 3700;
-          case "G5":
-            return 3500;
-          case "G6":
-            return 3300;
-          case "G7":
-            return 2300;
-          case "G8":
-            return 1700;
-          default:
-            return 0;
-        }
-      } else if (cluster === "B") {
-        switch (grade) {
-          case "G1":
-            return 5500;
-          case "G2":
-            return 4000;
-          case "G3":
-            return 3000;
-          case "G4":
-            return 2700;
-          case "G5":
-            return 2500;
-          case "G6":
-            return 2300;
-          case "G7":
-            return 1700;
-          case "G8":
-            return 1200;
-          default:
-            return 0;
-        }
-      } else if (cluster === "C") {
-        switch (grade) {
-          case "G1":
-            return 5000;
-          case "G2":
-            return 3500;
-          case "G3":
-            return 2700;
-          case "G4":
-            return 2500;
-          case "G5":
-            return 2300;
-          case "G6":
-            return 2100;
-          case "G7":
-            return 1500;
-          case "G8":
-            return 1000;
-          default:
-            return 0;
-        }
+    } else if (cluster === "B") {
+      switch (grade) {
+        case "G1":
+          return 5500;
+        case "G2":
+          return 4000;
+        case "G3":
+          return 3000;
+        case "G4":
+          return 2700;
+        case "G5":
+          return 2500;
+        case "G6":
+          return 2300;
+        case "G7":
+          return 1700;
+        case "G8":
+          return 1200;
+        default:
+          return 0;
       }
+    } else if (cluster === "C") {
+      switch (grade) {
+        case "G1":
+          return 5000;
+        case "G2":
+          return 3500;
+        case "G3":
+          return 2700;
+        case "G4":
+          return 2500;
+        case "G5":
+          return 2300;
+        case "G6":
+          return 2100;
+        case "G7":
+          return 1500;
+        case "G8":
+          return 1000;
+        default:
+          return 0;
+      }
+    }
+  } else {
+    switch (grade) {
+      case "G1":
+        return 0;
+      case "G2":
+        return 0;
+      case "G3":
+        return 0;
+      case "G4":
+        return 0;
+      case "G5":
+        return 0;
+      case "G6":
+        return 0;
+      case "G7":
+        return 0;
+      case "G8":
+        return 0;
+      default:
+        return 0;
     }
   }
 };
 
 export const entitlementForeign = (grade, book) => {
-  if (book === "SELF") {
+  if (book === "SELF_ARRANGEMENT") {
     switch (grade) {
       case "G0":
         return 32;
@@ -443,6 +460,8 @@ export const travelListExpense = [
 export const DAAllotAmout = (grade, book) => {
   if (book === "SELF_ARRANGEMENT") {
     switch (grade) {
+      case 'G0':
+        return 500;
       case "G1":
         return 400;
       case "G2":
@@ -464,8 +483,10 @@ export const DAAllotAmout = (grade, book) => {
     }
   } else {
     switch (grade) {
+      case 'G0':
+        return 1200;
       case "G1":
-        return 6500;
+        return 1000;
       case "G2":
         return 900;
       case "G3":
@@ -488,7 +509,7 @@ export const DAAllotAmout = (grade, book) => {
 export const IEAllotAmout = (grade) => {
   switch (grade) {
     case "G0":
-      return 1000;
+      return 500;
     case "G1":
       return 300;
     case "G2":

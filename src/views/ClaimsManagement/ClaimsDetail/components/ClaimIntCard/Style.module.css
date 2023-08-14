@@ -31,7 +31,18 @@
   margin-bottom: 20px;
   font-weight: 600;
 }
-
+.lowerWrapImprest{
+  display: flex;
+}
+.headingWrap{
+  font-size: .75rem;
+  font-weight: 600;
+  flex: 1;
+}
+.headingWrap > span{
+  margin-left: 10px;
+  color: #818181;
+}
 .mainFlex {
   display: flex;
   /*align-items: center;*/

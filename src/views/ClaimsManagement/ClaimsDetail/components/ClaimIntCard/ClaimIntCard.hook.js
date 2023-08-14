@@ -95,6 +95,14 @@ function useClaimIntCard() {
       Object.keys(totalAmount).forEach((key) => {
         fd.append(key, totalAmount[key]);
       });
+      const sum = Object.values(totalAmount).reduce((acc, value) => {
+        if (value !== "") {
+          acc += parseFloat(value);
+        }
+        return acc;
+      }, 0);
+
+      fd.append("total_amount", sum);
       const lodgeData = lodgeRef.current.getData();
 
       let modifiedArr = lodgeData?.map((item) => {
@@ -136,6 +144,20 @@ function useClaimIntCard() {
       fd.append("travel_expenses", JSON.stringify(ExpensesData));
 
       const daData = daRef.current.getData();
+      daData.forEach((val) => {
+        if (val.ie_payment_proof) {
+          fd.append("ie_payment_proof", val?.ie_payment_proof);
+        } else {
+          const file = dataURLtoFile(nullImg, "null.png");
+          fd.append("ie_payment_proof", file);
+        }
+        if (val.da_payment_proof) {
+          fd.append("da_payment_proof", val?.da_payment_proof);
+        } else {
+          const file = dataURLtoFile(nullImg, "null.png");
+          fd.append("da_payment_proof", file);
+        }
+      });
       fd.append("da_ie_expenses", JSON.stringify(daData));
 
       const enterData = enterRef.current.getData();
@@ -262,7 +284,6 @@ function useClaimIntCard() {
     setForm({ ...initialForm });
   }, [form]);
 
-  console.log("curr", currency);
   return {
     employeeDetails,
     employees,

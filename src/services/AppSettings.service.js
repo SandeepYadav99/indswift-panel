@@ -30,3 +30,6 @@ export async function servicePmsUpdateIncrements(params){
 export async function serviceGetPmsIncrements(params){
     return await postRequest('pms/increments', params);
 }
+export async function serviceSetEmailTrigger(params) {
+    return await postRequest('employees/send/bulk/email', params);
+}

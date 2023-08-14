@@ -11,18 +11,21 @@ import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import LogUtils from "../../../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
+import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
 
 const TEMP_OBJ = {
   stay_at: "",
   date: "",
-  start_time: "",
-  end_time: "",
+  start_time: new Date(0, 0, 0, 10, 0),
+  end_time: new Date(0, 0, 0, 10, 0),
   da_pct: "",
   da_entitlement: "",
   da_amount: "",
   ie_entitlement: "",
   ie_amount: "",
   hours: "",
+  da_payment_proof: null,
+  ie_payment_proof: null,
 };
 
 const DAIncludeForm = (
@@ -64,13 +67,12 @@ const DAIncludeForm = (
       startDateValue.setHours(0, 0, 0, 0);
       endDateValue.setHours(0, 0, 0, 0);
       const daysDiff = (endDateValue - startDateValue) / (1000 * 60 * 60 * 24);
-      return daysDiff;
+      return daysDiff + 1;
     } else {
       return 0;
     }
   }, [startDate, endDate]);
 
-  console.log("checkDays", checkDays);
   const validateData = (index, type) => {
     const errors = {};
     fields.forEach((val, index) => {
@@ -85,9 +87,7 @@ const DAIncludeForm = (
         "da_entitlement",
         "da_amount",
       ];
-      // if (checkDays >= 5) {
-      //   required.push("ie_entitlement", "ie_amount");
-      // }
+
       {
         required.forEach((key) => {
           if (!val[key]) {
@@ -97,33 +97,44 @@ const DAIncludeForm = (
       }
       if (val?.hours < 0) {
         err["hours"] = true;
+        SnackbarUtils.error("End time should be greater than start time");
       }
-      if (val.da_amount && val?.da_entitlement && val?.da_pct) {
-        let maxValue = (val?.da_entitlement * val?.da_pct) / 100;
-        if (val?.da_amount > maxValue) {
-          err["da_amount"] = true;
+      if (val.da_amount && val?.da_entitlement) {
+        if (!val?.da_payment_proof) {
+          if (val?.da_amount > val?.da_entitlement) {
+            err["da_amount"] = true;
+          }
+        } else if (
+          val?.da_payment_proof &&
+          val?.stay_at === "SELF_ARRANGEMENT" &&
+          grade === "G1"
+        ) {
+          if (val?.da_amount > val?.da_entitlement) {
+            err["da_amount"] = true;
+          }
+        } else {
+          delete err["da_amount"];
         }
       }
       if (checkDays >= 5 && val?.ie_amount && val?.ie_entitlement) {
-        if (val?.ie_amount > val?.ie_entitlement) {
-          err["ie_amount"] = true;
+        if (!val?.ie_payment_proof) {
+          if (val?.ie_amount > val?.ie_entitlement) {
+            err["ie_amount"] = true;
+          }
+        } else if (val?.ie_payment_proof && grade === "G0") {
+          if (val?.ie_amount > 1000) {
+            err["ie_amount"] = true;
+          }else{
+            delete err ['ie_amount']
+          }
         }
       }
-      // if (val?.travel_date) {
-      //   const date = new Date(val?.travel_date);
-      //   const today = new Date();
-      //   var fortyFiveDaysAgo = new Date();
-      //   fortyFiveDaysAgo.setDate(today.getDate() - 46);
-      //   if (date > today || date < fortyFiveDaysAgo) {
-      //     err["travel_date"] = true;
-      //   }
-      // }
-      // if (val?.travel_date) {
-      //   let newDate = new Date(val?.travel_date);
-      //   if (isNaN(newDate.getTime())) {
-      //     err["travel_date"] = true;
-      //   }
-      // }
+      if (val?.date) {
+        let newDate = new Date(val?.date);
+        if (isNaN(newDate.getTime())) {
+          err["date"] = true;
+        }
+      }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
@@ -199,7 +210,6 @@ const DAIncludeForm = (
         const index = fields.findIndex((val) => val?.sku?.sku === variant?.sku);
         return index < 0;
       });
-      console.log("data", val);
       return (
         <div>
           <IncludeFields
@@ -233,18 +243,22 @@ const DAIncludeForm = (
     onBlur,
     fields,
   ]);
-  const sum = fields.reduce((acc, curr) => {
-    const value = curr["da_amount"];
-    if (value !== "") {
-      return acc + parseFloat(value);
-    } else {
-      return acc;
+
+  const totalSum = fields.reduce((acc, obj) => {
+    const daAmount = parseFloat(obj.da_amount);
+    const ieAmount = parseFloat(obj.ie_amount);
+    if (!isNaN(daAmount)) {
+      acc += daAmount;
     }
+    if (!isNaN(ieAmount)) {
+      acc += ieAmount;
+    }
+    return acc;
   }, 0);
 
   useEffect(() => {
-    changeAmount(sum, "da_ie_expenses_amount");
-  }, [sum]);
+    changeAmount(totalSum, "da_ie_expenses_amount");
+  }, [totalSum]);
 
   return (
     <>
@@ -266,7 +280,8 @@ const DAIncludeForm = (
       {/*</div>*/}
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
-          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
+          Total Claim Amount:{" "}
+          <span>{totalSum || totalSum === 0 ? `₹ ${totalSum}` : ""}</span>
         </div>
       </div>
     </>

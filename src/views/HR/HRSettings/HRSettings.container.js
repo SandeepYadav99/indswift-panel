@@ -16,6 +16,7 @@ import MonthlyTheme from "./components/MonthlyTheme/MonthlyTheme";
 import CAGRView from "./components/CAGR/CAGRView";
 import LoanBudget from "./components/LoanBudget/LoanBudget.view";
 import CPCView from "./components/CPC/CPCView";
+import EmailComp from "./components/EmailComp/EmailComp.view";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,14 +47,14 @@ const HRSettings = ({}) => {
       return <FaqListContainer />;
     } else if (value === 1) {
       return <MonthlyTheme />;
-    }
-    else if (value === 3){
-      return <CAGRView/>
-    }else if (value === 4){
-      return <CPCView/>
-    }
-    else if (value === 5){
-      return <LoanBudget/>
+    } else if (value === 3) {
+      return <CAGRView />;
+    } else if (value === 4) {
+      return <CPCView />;
+    } else if (value === 5) {
+      return <LoanBudget />;
+    } else if (value === 6) {
+      return <EmailComp />;
     }
     return <h1>{value}</h1>;
   }, []);
@@ -76,7 +77,7 @@ const HRSettings = ({}) => {
             <Tab label="CAGR values" {...a11yProps(3)} />
             <Tab label="CPC File" {...a11yProps(4)} />
             <Tab label="Loan Budget" {...a11yProps(5)} />
-
+            <Tab label="Email Composer" {...a11yProps(6)} />
           </Tabs>
           <div className={styles.tabPanel}>{renderPanel(tabIndex)}</div>
         </div>

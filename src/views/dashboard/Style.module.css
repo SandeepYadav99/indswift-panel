@@ -162,6 +162,39 @@
     margin-left: 10px;
     
 }
+.rpWrap{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.rpLink{
+    font-size: .8rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2896E9;
+    cursor: pointer;
+}
+.plainPaper222{
+    min-width: 25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    /* width: 28%; */
+    flex-wrap: wrap;
+    /* flex: .36 !important; */
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    margin-right: 10px;
+    margin-left: 10px;
+    
+}
+.rpLowerWrap{
+    display: flex;
+}
 .whiteFlex{
     display: flex;
 }
@@ -240,7 +273,10 @@
     flex-wrap: wrap;
     gap: 20px;
 }
-
+.tableFlex212{
+    display: flex;
+    flex-wrap: wrap;
+}
 .lhs{
     flex: 1;
     margin-left: 15px;
@@ -263,6 +299,7 @@
 }
 .verticalLine{
     border: 1px dashed #B8C5D3;
+    margin: 0 15px;
 }
 @media(max-width:1150px){
     .rhsInterview{

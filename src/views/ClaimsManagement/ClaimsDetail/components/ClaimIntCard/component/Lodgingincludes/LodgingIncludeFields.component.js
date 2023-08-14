@@ -1,12 +1,5 @@
 import React, { useMemo } from "react";
-import {
-  TextField,
-  ButtonBase,
-  MenuItem,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-} from "@material-ui/core";
+import { TextField, ButtonBase, MenuItem } from "@material-ui/core";
 import styles from "./style.module.css";
 import CustomDatePicker from "../../../../../../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomSelectField from "../../../../../../../components/FormFields/SelectField/SelectField.component";
@@ -33,11 +26,7 @@ const LodgingIncludeFields = ({
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
-      if (fieldName === "type") {
-        changeData(index, { [fieldName]: e.target.value });
-      } else {
-        changeData(index, { [fieldName]: e });
-      }
+      changeData(index, { [fieldName]: e });
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
@@ -59,7 +48,9 @@ const LodgingIncludeFields = ({
       const millisecondsPerDay = 24 * 60 * 60 * 1000;
       const timeDifference = endTime.getTime() - startTime.getTime();
       const numberOfNights =
-        Math.ceil(timeDifference / millisecondsPerDay) - 1;
+        timeDifference == "0"
+          ? 0
+          : Math.ceil(timeDifference / millisecondsPerDay) - 1;
       changeData(index, {
         ["total_nights"]: numberOfNights,
       });
@@ -68,36 +59,49 @@ const LodgingIncludeFields = ({
 
   useEffect(() => {
     let result;
-    if (grade && data?.city_cluster && data?.booking_by) {
-      if (grade === "G0") {
-        // changeData(index, {
-        //   ["per_day_entitlement"]: data?.amount,
-        //   ["max_entitlement"]: data?.total_nights * result,
-        // });
+    if (grade && data?.city_cluster && data?.stay_at && grade !== "G0") {
+      result = entitlementAmout(grade, data?.stay_at, data?.city_cluster);
+      if (data?.stay_at === "GUEST_HOUSE") {
+        changeData(index, {
+          ["per_day_entitlement"]: result,
+          ["max_entitlement"]: data?.total_nights * result,
+          ["payment_by"]: "",
+          ["amount"]: "",
+          ["lodging_payment_proof"]: null,
+          ["lodging_voucher"]: null,
+        });
       } else {
-        result = entitlementAmout(grade, data?.booking_by, data?.city_cluster);
         changeData(index, {
           ["per_day_entitlement"]: result,
           ["max_entitlement"]: data?.total_nights * result,
         });
       }
     }
-  }, [grade, data?.booking_by, data?.city_cluster]);
+  }, [grade, data?.stay_at, data?.city_cluster, data?.total_nights]);
 
-  console.log(">>>datav", data);
   useEffect(() => {
     let res;
-    if (grade && data?.country && data?.booking_by) {
-      res = entitlementForeign(grade, data?.booking_by);
+    if (grade && data?.country && data?.stay_at) {
+      res = entitlementForeign(grade, data?.stay_at);
       let curr = data?.country === "OTHERS" ? "USD" : "EUR";
       setCurrency(curr);
       changeData(index, {
         ["per_day_entitlement"]: res,
-        // ["currency"]: curr,
-        ["max_entitlement"]: data?.total_nights ? data?.total_nights * res : 0,
+        ["max_entitlement"]: data?.total_nights * res,
       });
     }
-  }, [grade, data?.booking_by, data?.country]);
+  }, [grade, data?.stay_at, data?.country]);
+
+  useEffect(() => {
+    if (data?.stay_at === "N/A") {
+      changeData(index, {
+        ["payment_by"]: "",
+        ["amount"]: "",
+        ["lodging_payment_proof"]: null,
+        ["lodging_voucher"]: null,
+      });
+    }
+  }, [data?.stay_at]);
 
   return (
     <div>
@@ -142,6 +146,17 @@ const LodgingIncludeFields = ({
               <MenuItem value="OFFICE">OFFICE</MenuItem>
             </CustomSelectField>
           </div>
+          <div className={"textCenter"}>
+            <ButtonBase
+              className={styles.removeBtn}
+              // label={this.props.index == 0 ? "+" : '-'}
+              onClick={() => {
+                handlePress(index == 0 ? "-" : "-", index);
+              }}
+            >
+              {index == 0 ? "Remove" : "Remove"}
+            </ButtonBase>
+          </div>
         </div>
         <div className={styles.firstRow}>
           {tourType === "FOREIGN" ? (
@@ -165,7 +180,6 @@ const LodgingIncludeFields = ({
               </div>
               <div className={styles.flex1}>
                 <TextField
-                  // disabled={data?.type === "Interlocation"}
                   error={errors?.country_name}
                   onChange={handleChange}
                   value={data?.country_name}
@@ -196,7 +210,6 @@ const LodgingIncludeFields = ({
               </div>
               <div className={styles.flex1}>
                 <TextField
-                  // disabled={data?.type === "Interlocation"}
                   error={errors?.city}
                   onChange={handleChange}
                   value={data?.city}
@@ -227,19 +240,22 @@ const LodgingIncludeFields = ({
             </CustomSelectField>
           </div>
         </div>
+
         <div className={styles.firstRow221}>
-          <div className={styles.flex122}>
-            <TextField
-              error={errors?.hotel}
-              onChange={handleChange}
-              value={data?.hotel}
-              fullWidth={true}
-              name={"hotel"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Hotel Name"}
-            />
-          </div>
+          {data?.stay_at === "HOTEL" && (
+            <div className={styles.flex122}>
+              <TextField
+                error={errors?.hotel}
+                onChange={handleChange}
+                value={data?.hotel}
+                fullWidth={true}
+                name={"hotel"}
+                margin={"dense"}
+                variant={"outlined"}
+                label={"Hotel Name"}
+              />
+            </div>
+          )}
           {CoPass?.length > 0 && (
             <div className={styles.flex1}>
               <Autocomplete
@@ -251,7 +267,7 @@ const LodgingIncludeFields = ({
                 value={data?.shared_with}
                 // id="tags-standard"
                 options={CoPass ? CoPass : []}
-                getOptionLabel={(option) => option?.name}
+                getOptionLabel={(option) => `${option?.name} - ( ${option?.emp_code} )`}
                 defaultValue={data?.shared_with}
                 renderInput={(params) => (
                   <TextField
@@ -264,18 +280,6 @@ const LodgingIncludeFields = ({
               />
             </div>
           )}
-
-          <div className={"textCenter"}>
-            <ButtonBase
-              className={styles.removeBtn}
-              // label={this.props.index == 0 ? "+" : '-'}
-              onClick={() => {
-                handlePress(index == 0 ? "-" : "-", index);
-              }}
-            >
-              {index == 0 ? "Remove" : "Remove"}
-            </ButtonBase>
-          </div>
         </div>
         <div className={styles.firstRowent}>
           <div className={styles.flextitle}>
@@ -284,85 +288,89 @@ const LodgingIncludeFields = ({
           </div>
           <div className={styles.flextitle}>
             <span className={styles.heading21}>Per Day Entitlement:</span>
-            <span className={styles.count}>{data?.per_day_entitlement}</span>
+            <span className={styles.count}>{data?.per_day_entitlement && `₹ ${data?.per_day_entitlement}`}</span>
           </div>
           <div className={styles.flextitle}>
             <span className={styles.heading21}>Total Max Entittement:</span>
             <span className={styles.count}>
-              {isNaN(data?.max_entitlement) ? "-" : data?.max_entitlement}
+              {isNaN(data?.max_entitlement) ? "-" : `₹ ${data?.max_entitlement}`}
             </span>
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.payment_by}
-              errorText={errors?.payment_by}
-              label={"Payment Mode"}
-              value={data?.payment_by}
-              handleChange={(value) => {
-                handleChange(value, "payment_by");
-              }}
-            >
-              <MenuItem value="Cash">Cash</MenuItem>
-              <MenuItem value="Card">Card</MenuItem>
-              <MenuItem value="OTHER">OTHER</MenuItem>
-            </CustomSelectField>
-          </div>
-          <div className={styles.flex1}>
-            <TextField
-              type="number"
-              error={errors?.amount}
-              onChange={handleChange}
-              value={data?.amount}
-              fullWidth={true}
-              name={"amount"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Expense Amount"}
-            />
-          </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <File
-              max_size={10 * 1024 * 1024}
-              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
-              fullWidth={true}
-              name="proof"
-              label="Attach Proof of Payment"
-              accept={"application/pdf,application/msword,image/*"}
-              // link={data?.slip ? data?.slip : null}
-              error={errors?.lodging_payment_proof}
-              value={data?.lodging_payment_proof}
-              placeholder={"Attach Proof of Payment"}
-              onChange={(file) => {
-                if (file) {
-                  handleChange(file, "lodging_payment_proof");
-                }
-              }}
-            />
-          </div>
-          <div className={styles.flex1}>
-            <File
-              max_size={10 * 1024 * 1024}
-              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
-              fullWidth={true}
-              name="proof"
-              label="Attach Voucher/Bill"
-              accept={"application/pdf,application/msword,image/*"}
-              // link={data?.slip ? data?.slip : null}
-              error={errors?.lodging_voucher}
-              value={data?.lodging_voucher}
-              placeholder={"Attach Voucher/Bill"}
-              onChange={(file) => {
-                if (file) {
-                  handleChange(file, "lodging_voucher");
-                }
-              }}
-            />
-          </div>
-        </div>
+        {data?.stay_at !== "N/A" && data?.stay_at !== "GUEST_HOUSE" && (
+          <>
+            <div className={styles.firstRow}>
+              <div className={styles.flex1}>
+                <CustomSelectField
+                  isError={errors?.payment_by}
+                  errorText={errors?.payment_by}
+                  label={"Payment Mode"}
+                  value={data?.payment_by}
+                  handleChange={(value) => {
+                    handleChange(value, "payment_by");
+                  }}
+                >
+                  <MenuItem value="Cash">Cash</MenuItem>
+                  <MenuItem value="Card">Card</MenuItem>
+                  <MenuItem value="OTHER">OTHER</MenuItem>
+                </CustomSelectField>
+              </div>
+              <div className={styles.flex1}>
+                <TextField
+                  type="number"
+                  error={errors?.amount}
+                  onChange={handleChange}
+                  value={data?.amount}
+                  fullWidth={true}
+                  name={"amount"}
+                  margin={"dense"}
+                  variant={"outlined"}
+                  label={"Expense Amount"}
+                />
+              </div>
+            </div>
+            <div className={styles.firstRow}>
+              <div className={styles.flex1}>
+                <File
+                  max_size={10 * 1024 * 1024}
+                  type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                  fullWidth={true}
+                  name="proof"
+                  label="Attach Proof of Payment"
+                  accept={"application/pdf,application/msword,image/*"}
+                  // link={data?.slip ? data?.slip : null}
+                  error={errors?.lodging_payment_proof}
+                  value={data?.lodging_payment_proof}
+                  placeholder={"Attach Proof of Payment"}
+                  onChange={(file) => {
+                    if (file) {
+                      handleChange(file, "lodging_payment_proof");
+                    }
+                  }}
+                />
+              </div>
+              <div className={styles.flex1}>
+                <File
+                  max_size={10 * 1024 * 1024}
+                  type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                  fullWidth={true}
+                  name="proof"
+                  label="Attach Voucher/Bill"
+                  accept={"application/pdf,application/msword,image/*"}
+                  // link={data?.slip ? data?.slip : null}
+                  error={errors?.lodging_voucher}
+                  value={data?.lodging_voucher}
+                  placeholder={"Attach Voucher/Bill"}
+                  onChange={(file) => {
+                    if (file) {
+                      handleChange(file, "lodging_voucher");
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

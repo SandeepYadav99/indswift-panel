@@ -3,9 +3,6 @@ import {
   TextField,
   ButtonBase,
   MenuItem,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
   InputAdornment,
   IconButton,
 } from "@material-ui/core";
@@ -44,7 +41,7 @@ const DAIncludeFields = ({
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
-      if (name === "amount") {
+      if (name === "da_amount" || name === "ie_amount") {
         if (value >= 0) {
           changeData(index, { [name]: value });
         }
@@ -53,14 +50,52 @@ const DAIncludeFields = ({
       }
     }
   };
+  function isTimeInRange(timeString) {
+    const hours = new Date(timeString).getHours();
+    return hours >= 20 && hours < 24; // Checking if it's between 8:00 PM and 12:00 PM (midnight)
+  }
+
   useEffect(() => {
-    if (grade && data?.stay_at) {
+    if (grade && data?.stay_at && data?.hours) {
       let storeValue = DAAllotAmout(grade, data?.stay_at);
+      const isStartTimeInRange = isTimeInRange(data?.start_time);
+      const isEndTimeInRange = isTimeInRange(data?.end_time);
+      let percent;
+      if (data?.stay_at === "GUEST_HOUSE" || isStartTimeInRange || isEndTimeInRange ) {
+        percent = 50;
+      } else {
+        if (data?.hours >= 12) {
+          percent = 100;
+        } else if (data?.hours >= 6 && data?.hours < 12) {
+          percent = 60;
+        } else {
+          percent = 40;
+        }
+      }
+      let maxValue = (storeValue * percent) / 100;
       changeData(index, {
-        ["da_entitlement"]: storeValue,
+        ["da_entitlement"]: maxValue,
+        ["da_pct"]: percent,
       });
     }
-  }, [grade, data?.stay_at]);
+  }, [grade, data?.stay_at, data?.hours]);
+
+  useEffect(() => {
+    if (data?.start_time && data?.end_time) {
+      const starttime = new Date(data?.start_time);
+      const endtime = new Date(data?.end_time);
+      const timeDifferenceInMilliseconds = endtime - starttime;
+      const timeDifferenceInHours =
+        timeDifferenceInMilliseconds / (1000 * 60 * 60);
+
+      const roundedTimeDifference =
+        Math.round(timeDifferenceInHours * 100) / 100;
+
+      changeData(index, {
+        ["hours"]: roundedTimeDifference,
+      });
+    }
+  }, [data?.start_time, data?.end_time]);
 
   useEffect(() => {
     if (checkDays >= 5 && grade) {
@@ -70,41 +105,8 @@ const DAIncludeFields = ({
       });
     }
   }, [checkDays]);
-  useEffect(() => {
-    if (data?.start_time && data?.end_time) {
-      const starttime = new Date(data?.start_time);
-      const endtime = new Date(data?.end_time);
-      console.log("endtime", starttime.getHours(), endtime.getHours());
-      const timeDifferenceInHours = Math.floor(
-        (endtime - starttime) / (1000 * 60 * 60)
-      );
-      let percent;
-      if (data?.stay_at === "GUEST_HOUSE") {
-        percent = 50;
-      } else {
-        if (timeDifferenceInHours > 12) {
-          percent = 100;
-        } else if (timeDifferenceInHours > 6 && timeDifferenceInHours < 12) {
-          percent = 60;
-        } else {
-          percent = 40;
-        }
-      }
 
-      changeData(index, {
-        ["hours"]: timeDifferenceInHours,
-        ["da_pct"]: percent,
-      });
-
-      console.log(
-        "time",
-        data?.start_time,
-        data?.end_time,
-        timeDifferenceInHours
-      );
-    }
-  }, [data?.start_time, data?.end_time, data?.stay_at]);
-  console.log(">>>>>", startDate, endDate, grade);
+  console.log("checkDays", checkDays, index);
   return (
     <div>
       <div className={styles.heading}>Travel Type</div>
@@ -254,7 +256,7 @@ const DAIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
-              disabled={checkDays < 5 ? true : false}
+              disabled={true}
               type="number"
               error={errors?.ie_entitlement}
               onChange={handleChange}
@@ -268,7 +270,7 @@ const DAIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
-              disabled={checkDays < 5 ? true : false}
+              disabled={index > 2 || checkDays < 5 ? true : false}
               type="number"
               error={errors?.ie_amount}
               onChange={handleChange}
@@ -290,6 +292,50 @@ const DAIncludeFields = ({
             >
               {index == 0 ? "Remove" : "Remove"}
             </ButtonBase>
+          </div>
+        </div>
+        <div className={styles.firstRow}>
+          {(grade === "G0" || grade === "G1") && (
+            <div className={styles.flex1}>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                fullWidth={true}
+                name="proof"
+                label="Attach Proof for DA"
+                accept={"application/pdf,application/msword,image/*"}
+                // link={data?.slip ? data?.slip : null}
+                error={errors?.da_payment_proof}
+                value={data?.da_payment_proof}
+                placeholder={"Attach Proof for DA"}
+                onChange={(file) => {
+                  if (file) {
+                    handleChange(file, "da_payment_proof");
+                  }
+                }}
+              />
+            </div>
+          )}
+          <div className={styles.flex1}>
+            {grade === "G0" && (
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                fullWidth={true}
+                name="proof"
+                label="Attach Proof for IE"
+                accept={"application/pdf,application/msword,image/*"}
+                // link={data?.slip ? data?.slip : null}
+                error={errors?.ie_payment_proof}
+                value={data?.ie_payment_proof}
+                placeholder={"Attach Proof for IE"}
+                onChange={(file) => {
+                  if (file) {
+                    handleChange(file, "ie_payment_proof");
+                  }
+                }}
+              />
+            )}
           </div>
         </div>
       </div>

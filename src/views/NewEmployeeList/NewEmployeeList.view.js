@@ -67,7 +67,7 @@ const NewEmployeeList = ({ location }) => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.location.name}</div>,
+        render: (temp, all) => <div>{all?.location.name}<br/>{all?.department.name}/{all?.sub_department.name}</div>,
       },
       {
         key: "created_by",
