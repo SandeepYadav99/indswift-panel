@@ -30,6 +30,7 @@
   background: #ecf7ff 0% 0% no-repeat padding-box;
   padding: 10px 20px;
   border: 2px solid #ebedf4;
+  font-size: 14px;
 }
 .columData {
   border: 2px solid #ebedf4;
@@ -40,6 +41,7 @@
   border: 2px solid #ebedf4;
   width: 100%;
   align-items: center;
+  font-size: 14px;
 }
 .formUpper > img {
   width: 140px;
@@ -94,12 +96,12 @@
   white-space: nowrap;
 }
 .labelhead{
-  font-size: 0.8rem;
-  padding: 5px 15px;
+  font-size: 0.7rem;
+  padding: 5px 10px;
   text-align: center;
   white-space: nowrap;
   font-weight: 500;
-  min-width: 310px;
+  min-width: 270px;
 }
 .label21 {
   font-size: 0.8rem;

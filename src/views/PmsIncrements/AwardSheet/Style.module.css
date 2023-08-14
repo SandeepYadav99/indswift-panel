@@ -91,9 +91,15 @@
     width: 600px;
     height: 300px;
 }
-@media print {
+/* @media print {
   body {
     margin-top: 15px;
     margin-bottom: 15px;
+  }
+} */
+@media print {
+  @page {
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 }
