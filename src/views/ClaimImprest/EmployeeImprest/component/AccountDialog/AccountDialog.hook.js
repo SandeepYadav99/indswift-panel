@@ -107,8 +107,8 @@ const useAccountDialogHook = ({
     if (form?.debit_amount === 0) {
       delete errors["debit_amount"]
     }
-    if (form?.credit_amount == 0) {
-      errors["credit_amount"] = true;
+    if (form?.credit_amount === 0) {
+      delete errors["credit_amount"]
     }
     if(!form?.voucher_no?.trim()){
       errors["voucher_no"] = true;
