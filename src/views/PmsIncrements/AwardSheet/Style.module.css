@@ -54,13 +54,14 @@
     flex-direction: column;
     gap: 4px;
     font-weight: 500;
-    margin: 20px 15px;
+    margin: 10px 15px;
   }
   .dateWrap{
     margin-right: 35px;
     display: flex;
     align-items: center;
     font-weight: 500;
+    font-size: .875rem;
     /* height: 70px; */
   }
   .upperWrapper{
@@ -69,7 +70,7 @@
   }
 .graphCont {
       width: calc(100% - 40px);
-    height: 400px;
+    height: 350px;
   }
 .txtJustify {
     text-align: justify;

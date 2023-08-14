@@ -28,20 +28,20 @@
 }
 .thead {
   background: #ecf7ff 0% 0% no-repeat padding-box;
-  padding: 10px 20px;
+  padding: 5px 20px;
   border: 2px solid #ebedf4;
-  font-size: 14px;
+  font-size: .7rem;
 }
 .columData {
   border: 2px solid #ebedf4;
 }
 .theadTitle {
   background: #ecf7ff 0% 0% no-repeat padding-box;
-  padding: 10px 20px;
+  padding: 5px 20px;
   border: 2px solid #ebedf4;
   width: 100%;
   align-items: center;
-  font-size: 14px;
+  font-size: .7rem;
 }
 .formUpper > img {
   width: 140px;
@@ -90,7 +90,7 @@
 }
 
 .label {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   padding: 5px 15px;
   text-align: center;
   white-space: nowrap;
@@ -102,9 +102,10 @@
   white-space: nowrap;
   font-weight: 500;
   min-width: 270px;
+  text-transform: uppercase;
 }
 .label21 {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   padding: 4px;
   z-index: 10;
 }
