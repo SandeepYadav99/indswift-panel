@@ -141,6 +141,7 @@ const AwardSheetView = ({}) => {
           Please review your areas of improvement critically, and we wish you
           all the best for your performance in next cycle.
           <br />
+              <b>version_name: 1.0</b>
         </p>
         
         {empData?.form_type === "TYPE_4" && (
