@@ -86,7 +86,6 @@ const AwardSheetView = ({}) => {
           title="Behavioural Performance Index (BARS)"
           data={ratingData?.bars}
         />
-        <br />
         <p className={styles.txtJustify}>
           Any competency that scores less than 85 % is an improvement area for
           you in next performance cycles.
@@ -127,7 +126,6 @@ const AwardSheetView = ({}) => {
         <p className={styles.txtJustify}>
           {/*<strong>Your final performance category is {empData?.increment_level}.</strong><br/>*/}
           <br />
-          <br />
           To refer the chart of performance categories and other PMS related
           policy guidelines please refer to the back side of this sheet. If you
           are eligible for 360 Degree feedback of your behavior, you will find
@@ -140,8 +138,6 @@ const AwardSheetView = ({}) => {
           <br />
           Please review your areas of improvement critically, and we wish you
           all the best for your performance in next cycle.
-          <br />
-              <b>version_name: 1.0</b>
         </p>
         
         {empData?.form_type === "TYPE_4" && (

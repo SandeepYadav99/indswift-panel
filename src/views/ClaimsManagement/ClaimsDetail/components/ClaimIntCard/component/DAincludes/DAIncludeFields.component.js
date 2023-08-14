@@ -50,18 +50,12 @@ const DAIncludeFields = ({
       }
     }
   };
-  function isTimeInRange(timeString) {
-    const hours = new Date(timeString).getHours();
-    return hours >= 20 && hours < 24; // Checking if it's between 8:00 PM and 12:00 PM (midnight)
-  }
 
   useEffect(() => {
     if (grade && data?.stay_at && data?.hours) {
       let storeValue = DAAllotAmout(grade, data?.stay_at);
-      const isStartTimeInRange = isTimeInRange(data?.start_time);
-      const isEndTimeInRange = isTimeInRange(data?.end_time);
       let percent;
-      if (data?.stay_at === "GUEST_HOUSE" || isStartTimeInRange || isEndTimeInRange ) {
+      if (data?.stay_at === "GUEST_HOUSE" ) {
         percent = 50;
       } else {
         if (data?.hours >= 12) {
