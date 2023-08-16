@@ -7,7 +7,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ClaimUpperCard from "../ClaimUpperCard/ClaimUpperCard";
 import CustomAutoComplete from "../../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
-import { removeUnderScore } from "../../../../../helper/helper";
+import { getCurrency, removeUnderScore } from "../../../../../helper/helper";
 import LodgingIncludeForm from "./component/Lodgingincludes/LodgingIncludes.component";
 import ExpenseIncludeForm from "./component/Expenseincludes/ExpenseIncludes.component";
 import DAIncludeForm from "./component/DAincludes/DAIncludes.component";
@@ -191,7 +191,7 @@ function ClaimIntCard() {
         <div className={styles.heading}>Summary</div>
         <div className={styles.lowerWrapImprest}>
           <div className={styles.headingWrap}>Imprest for tour:<span>{form?.travel_planner_id?.imprest?.code}</span></div>
-          <div className={styles.headingWrap}>Amount:<span>{form?.travel_planner_id?.imprest?.amount}</span></div>
+          <div className={styles.headingWrap}>Amount:<span>{getCurrency(form?.travel_planner_id?.imprest?.currency)}{form?.travel_planner_id?.imprest?.amount}</span></div>
         </div>
       </div>
       <div className={styles.cleckboxWrapper}>

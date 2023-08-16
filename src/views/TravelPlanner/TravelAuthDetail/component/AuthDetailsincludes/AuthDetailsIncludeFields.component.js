@@ -87,6 +87,23 @@ const AuthDetailsIncludeFields = ({
             />
           </div>
         </div>
+        <div className={styles.firstRow}>
+          <div className={styles.flex1}>
+            <TextField
+              error={errors?.comment}
+              onChange={handleChange}
+              value={data?.comment}
+              fullWidth={true}
+              name={"comment"}
+              margin={"dense"}
+              variant={"outlined"}
+              label={"Comment"}
+            />
+          </div>
+
+          <div className={styles.flex1}>
+          </div>
+        </div>
         <div className={styles.lowerBtn}>
           <div className={styles.firstRow221}>
             <div className={styles.flex1}></div>

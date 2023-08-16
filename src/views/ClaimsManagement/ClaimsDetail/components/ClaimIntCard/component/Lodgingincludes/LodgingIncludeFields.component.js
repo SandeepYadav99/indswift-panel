@@ -50,7 +50,7 @@ const LodgingIncludeFields = ({
       const numberOfNights =
         timeDifference == "0"
           ? 0
-          : Math.ceil(timeDifference / millisecondsPerDay) - 1;
+          : Math.ceil(timeDifference / millisecondsPerDay);
       changeData(index, {
         ["total_nights"]: numberOfNights,
       });

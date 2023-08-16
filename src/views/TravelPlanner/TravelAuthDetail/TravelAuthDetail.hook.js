@@ -50,7 +50,7 @@ function useTravelAuthDetail() {
     "ADMIN_AUTHORIZED"
   ].includes(employeeDetail?.travelPlanner?.status);
 
-  console.log('valid',enableType , !TypeEnabledStatus , !CheckexceptionRejected,TypeEnabledStatus)
+  // console.log('valid',enableType , !TypeEnabledStatus , !CheckexceptionRejected,TypeEnabledStatus)
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -112,7 +112,7 @@ function useTravelAuthDetail() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id]);
+  }, [form, isSubmitting, setIsSubmitting, id,fieldStatusEnabled]);
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     console.log("---->", errors);

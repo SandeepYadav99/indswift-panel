@@ -41,7 +41,7 @@ const DAIncludeFields = ({
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
-      if (name === "da_amount" || name === "ie_amount") {
+      if (name === "da_amount" || name === "ie_amount" || "da_pct") {
         if (value >= 0) {
           changeData(index, { [name]: value });
         }
@@ -57,11 +57,9 @@ const DAIncludeFields = ({
 
   useEffect(() => {
     if (grade && data?.stay_at && data?.hours) {
-      let storeValue = DAAllotAmout(grade, data?.stay_at);
-      const isStartTimeInRange = isTimeInRange(data?.start_time);
-      const isEndTimeInRange = isTimeInRange(data?.end_time);
+      // let storeValue = DAAllotAmout(grade, data?.stay_at);
       let percent;
-      if (data?.stay_at === "GUEST_HOUSE" || isStartTimeInRange || isEndTimeInRange ) {
+      if (data?.stay_at === "GUEST_HOUSE") {
         percent = 50;
       } else {
         if (data?.hours >= 12) {
@@ -72,13 +70,23 @@ const DAIncludeFields = ({
           percent = 40;
         }
       }
-      let maxValue = (storeValue * percent) / 100;
+      // let maxValue = (storeValue * percent) / 100;
       changeData(index, {
-        ["da_entitlement"]: maxValue,
+        // ["da_entitlement"]: maxValue,
         ["da_pct"]: percent,
       });
     }
   }, [grade, data?.stay_at, data?.hours]);
+
+  useEffect(() => {
+    if (data?.da_pct && data?.stay_at && grade) {
+      let storeValue = DAAllotAmout(grade, data?.stay_at);
+      let maxValue = (storeValue * data?.da_pct) / 100;
+      changeData(index, {
+        ["da_entitlement"]: maxValue,
+      });
+    }
+  }, [data?.da_pct, data?.stay_at, grade]);
 
   useEffect(() => {
     if (data?.start_time && data?.end_time) {
@@ -212,7 +220,7 @@ const DAIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
-              disabled={true}
+              // disabled={true}
               type="number"
               error={errors?.da_pct}
               onChange={handleChange}
@@ -235,7 +243,7 @@ const DAIncludeFields = ({
               name={"da_entitlement"}
               margin={"dense"}
               variant={"outlined"}
-              label={"DA Entitelment/Day"}
+              label={"DA Entitlement/Day"}
             />
           </div>
         </div>
@@ -265,7 +273,7 @@ const DAIncludeFields = ({
               name={"ie_entitlement"}
               margin={"dense"}
               variant={"outlined"}
-              label={"IE Entitelment/Day"}
+              label={"IE Entitlement/Day"}
             />
           </div>
           <div className={styles.flex1}>
