@@ -59,10 +59,12 @@ const initialForm = {
     {
       panelist_role: "EXCEPTION_APPROVER",
       employee_id: "",
-    },{
-      panelist_role: "TRAVEL_DESK_ONE",
-      employee_id: "",
-    },{
+    },
+    // {
+    //   panelist_role: "TRAVEL_DESK_ONE",
+    //   employee_id: "",
+    // },
+    {
       panelist_role: "TRAVEL_DESK_TWO",
       employee_id: "",
     },
