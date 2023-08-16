@@ -11,6 +11,7 @@ import {
 } from "@material-ui/icons";
  import RouteName from "./Route.name";
  import Constants from "../config/constants";
+import TravelClaimListDetail from "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view";
 
 const ClaimIntCard = lazy(()=>import ( "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view"));
 const NewEmployeeList = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeList.view"));
@@ -981,6 +982,19 @@ const dashboardRoutes = [
         parent: 'cm',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
+    {
+        path: `${RouteName.TRAVEL_CLAIMS_DETAILS}:id`,
+        sidebarName: "Claims List",
+        navbarName: "Claims List",
+        icon: PeopleOutlined,
+        component: TravelClaimListDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    },
+    
     {
         path: `${RouteName.CLAIMS_IMPREST}`,
         sidebarName: "My Imprest Ledger",

@@ -250,6 +250,12 @@ function TravelAuthDetail() {
                         )}
                         {employeeDetail?.balance?.balance}
                       </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>
+                          Comment:
+                        </span>
+                        {employeeDetail?.travelPlanner?.imprest?.comment}
+                      </div>
                     </div>
                     <div className={styles.right}>
                       <div className={styles.key}>
@@ -303,7 +309,7 @@ function TravelAuthDetail() {
         <div className={styles.plainPaper}>
           <div className={styles.newContainer}>
             <div className={styles.heading}>
-            Travel and Accommodation Vouchers Details
+              Travel and Accommodation Vouchers Details
             </div>
             <div className={styles.commentContainer}>
               {employeeDetail?.travelPlanner?.voucherDetails &&

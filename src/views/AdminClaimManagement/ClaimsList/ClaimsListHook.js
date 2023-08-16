@@ -181,7 +181,11 @@ const useClaimsList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
+    if (data?.claim?.claim_type === "TRAVEL") {
+      historyUtils.push(`${RouteName.TRAVEL_CLAIMS_DETAILS}${data?.id}`); //+data.id
+    } else {
+      historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
+    }
   }, []);
 
   const configFilter = useMemo(() => {

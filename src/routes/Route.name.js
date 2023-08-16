@@ -104,6 +104,8 @@ export default {
 
   CLAIMS_LIST:'/cm/claims' ,
   CLAIMS_DETAILS:'/cm/details/',
+  TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',
+
   CLAIMS_MARRIGE:'/employee/claim/marriage',
   CLAIMS_MOBILE:'/employee/claim/mobile',
   CLAIMS_CAR:'/employee/claim/car',

@@ -41,8 +41,12 @@ const DAIncludeFields = ({
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
-      if (name === "da_amount" || name === "ie_amount" || "da_pct") {
+      if (name === "da_amount" || name === "ie_amount") {
         if (value >= 0) {
+          changeData(index, { [name]: value });
+        }
+      } else if (name === "da_pct") {
+        if (value >= 0 && value <= 100) {
           changeData(index, { [name]: value });
         }
       } else {

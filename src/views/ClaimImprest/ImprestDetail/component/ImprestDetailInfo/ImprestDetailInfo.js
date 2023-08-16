@@ -49,6 +49,10 @@ function ImprestDetailInfo({ idCards }) {
                   <span className={styles.value}>Describe the Purpose:</span>
                   {idCards?.purpose}
                 </div>
+                <div className={styles.key}>
+                  <span className={styles.value}>Comment:</span>
+                  {idCards?.comment}
+                </div>
               </div>
               <div className={styles.right}>
                 <div className={styles.key}>
