@@ -20,6 +20,7 @@ const initialForm = {
   amount: 0,
   sanctionable_amount: 0,
   is_salary_adjustment_agreed: false,
+  comment:""
 };
 
 const useImprestCreate = ({}) => {

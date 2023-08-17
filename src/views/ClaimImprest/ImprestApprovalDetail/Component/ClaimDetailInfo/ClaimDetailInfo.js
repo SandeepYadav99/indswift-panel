@@ -42,6 +42,10 @@ function ClaimDetailInfo({ idCards }) {
                 {idCards?.imprest?.sanctionable_amount &&
                   `${getCurrency(idCards?.imprest?.currency)} ${idCards?.imprest?.sanctionable_amount}`}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Comment:</span>
+                {idCards?.comment}
+              </div>
             </div>
             <div className={styles.right}>
               <div className={styles.key}>
