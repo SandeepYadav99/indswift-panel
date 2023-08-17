@@ -4,14 +4,15 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
 import styles from "./Style.module.css";
 import UpperClaimInfo from "../ClaimListDetail/Component/UpperClaimInfo/UpperClaimInfo";
-import StatusPill from "../../../components/Status/StatusPill.component";
 import { getCurrency, removeUnderScore } from "../../../helper/helper";
-import ApproveDialog from "../ClaimListDetail/Component/ApprovePopUp/ApproveDialog.view";
-import ChangeDialog from "../ClaimListDetail/Component/ChangePopUp/ChangeDialog.view";
 import RejectDialog from "../ClaimListDetail/Component/RejectPopUp/RejectDialog.view";
 import useTravelClaimListDetail from "./TravelClaimDetail.hook";
-import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-
+import LodgingincludesDetailForm from "./component/LodgingincludesDetail/LodgingincludesDetail.component";
+import TravelincludesDetailForm from "./component/TravelincludesDetail/TravelincludesDetail.component";
+import DAincludesDetailForm from "./component/DAincludesDetail/DAincludesDetail.component";
+import EnterincludesDetailForm from "./component/EnterincludesDetail/EnterincludesDetail.component";
+import OtherincludesDetailForm from "./component/OtherincludesDetail/OtherincludesDetail.component";
+import ApproveDialog from "./component/ApproveDialog/ApproveDialog.view";
 function TravelClaimListDetail() {
   const {
     id,
@@ -19,11 +20,24 @@ function TravelClaimListDetail() {
     toggleStatusDialog,
     approveDialog,
     toggleChangeDialog,
-    ischangeDialog,
     toggleRejectDialog,
     rejectDialog,
+    form,
+    changeTextData,
+    onBlurHandler,
+    removeError,
+    handleSubmit,
+    isSubmitting,
+    errorData,
+    editData,
+    lodgeRef,
+    travelRef,
+    daRef,
+    enterRef,
+    otherRef,
+    changeAmount,
   } = useTravelClaimListDetail({});
-  console.log("employeeDetail", employeeDetail?.travel_expenses);
+
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -31,18 +45,17 @@ function TravelClaimListDetail() {
           candidateId={id}
           isOpen={approveDialog}
           handleToggle={toggleStatusDialog}
+          form={form}
+          changeTextData={changeTextData}
+          onBlurHandler={onBlurHandler}
+          handleSubmit={handleSubmit}
+          errorData={errorData}
+          isSubmitting={isSubmitting}
         />
         <RejectDialog
           candidateId={id}
           isOpen={rejectDialog}
           handleToggle={toggleRejectDialog}
-        />
-        <ChangeDialog
-          claimAmount={employeeDetail?.claim_amount}
-          entitledAmount={employeeDetail?.claim_details?.entitled_amount}
-          candidateId={id}
-          isOpen={ischangeDialog}
-          handleToggle={toggleChangeDialog}
         />
         <div>
           <ButtonBase onClick={() => history.goBack()}>
@@ -65,22 +78,23 @@ function TravelClaimListDetail() {
                 <div className={styles.left}>
                   <div className={styles.key}>
                     <span className={styles.value}>TAP No. :</span>
-                    {employeeDetail?.type}
+                    {employeeDetail?.travelPlanner?.code}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Tour Type:</span>
-                    {employeeDetail?.from}
+                    {employeeDetail?.travelPlanner?.tour_type}
                   </div>
                 </div>
                 <div className={styles.right}>
                   <div className={styles.key}>
                     <span className={styles.value}>Tour Dates:</span>
-                    {employeeDetail?.travelDateText}
+                    {employeeDetail?.travelPlanner?.startDateText} -{" "}
+                    {employeeDetail?.travelPlanner?.endDateText}
                   </div>
 
                   <div className={styles.key}>
                     <span className={styles.value}>Status:</span>
-                    {employeeDetail?.to}
+                    {employeeDetail?.travelPlanner?.status}
                   </div>
                 </div>
               </div>
@@ -88,224 +102,89 @@ function TravelClaimListDetail() {
           </div>
         </div>
       </div>
-
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Part A: Lodging Expense</div>
-          <div className={styles.commentContainer}>
-            {employeeDetail?.lodging_expenses &&
-              employeeDetail?.lodging_expenses.map((item, index) => (
-                <div className={styles.otherWrap}>
-                  <div className={styles.mainFlex}>
-                    <div className={styles.left}>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Check In Date:</span>
-                        {item?.checkInDateText}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Booking By :</span>
-                        {item?.booking_by}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>City:</span>
-                        {item?.city}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Hotel Name :</span>
-                        {item?.hotel}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>No. of Nights:</span>
-                        {item?.total_nights}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>
-                          Total Max Entitlement:
-                        </span>
-                        {item?.max_entitlement}
-                      </div>
-                      {item?.payment_proof && (
-                        <div className={styles.key}>
-                          <a href={item?.payment_proof} target="_blank">
-                            <div className={styles.hyperlinkText}>
-                              View Proof of Payment
-                            </div>
-                          </a>
-                        </div>
-                      )}
-                      <div className={styles.key}>
-                        <span className={styles.value}>
-                          {" "}
-                          <CustomTextField
-                            // isError={errorData?.venue}
-                            // errorText={errorData?.venue}
-                            label={"Expense Amount"}
-                            // value={form?.name}
-                            // onTextChange={(text) => {
-                            //     changeTextData(text, "venue");
-                            // }}
-                            // onBlur={() => {
-                            //     onBlurHandler("venue");
-                            // }}
-                          />
-                        </span>
-                      </div>
-                    </div>
-                    <div className={styles.right}>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Check Out Date:</span>
-                        {item?.checkOutDateText}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>City Cluster:</span>
-                        {item?.city_cluster}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Stay at:</span>
-                        {item?.stay_at}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Shared with:</span>
-                        {item?.travelDateText}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>
-                          Per Day Entitlement:
-                        </span>
-                        {item?.per_day_entitlement}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Payment Made By:</span>
-                        {item?.payment_by}
-                      </div>
-
-                      {item?.voucher && (
-                        <div className={styles.key}>
-                          <a href={item?.voucher} target="_blank">
-                            <div className={styles.hyperlinkText}>
-                              View Voucher/Bill
-                            </div>
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  {employeeDetail?.lodging_expenses?.length !== index + 1 && (
-                    <div className={styles.verti}></div>
-                  )}
-                </div>
-              ))}
-          </div>
-          <div className={styles.totalWrap}>
-            <div className={styles.inner}>
-              Total Claim Amount:
-              <span>
-                {employeeDetail?.lodging_expenses_amount
-                  ? `₹ ${employeeDetail?.lodging_expenses_amount}`
-                  : ""}
-              </span>
-            </div>
-          </div>
+          <LodgingincludesDetailForm
+            ref={lodgeRef}
+            changeAmount={changeAmount}
+          />
         </div>
       </div>
 
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Part B: Travel Expense</div>
-          <div className={styles.commentContainer}>
-            {employeeDetail?.travel_expenses &&
-              employeeDetail?.travel_expenses.map((item, index) => (
-                <div className={styles.otherWrap}>
-                  <div className={styles.mainFlex}>
-                    <div className={styles.left}>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Travel Date:</span>
-                        {item?.travelDateText}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Travel From :</span>
-                        {item?.from}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Payment Made By:</span>
-                        {item?.payment_by}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Travel Mode :</span>
-                        {item?.mode}
-                      </div>
-                      {item?.voucher && (
-                        <div className={styles.key}>
-                          <a href={item?.voucher} target="_blank">
-                            <div className={styles.hyperlinkText}>
-                              View Voucher/Bill
-                            </div>
-                          </a>
-                        </div>
-                      )}
-                      <div className={styles.key}>
-                        <span className={styles.value}>
-                          Details of Travel Medium:
-                        </span>
-                        {item?.details}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>
-                          {" "}
-                          <CustomTextField
-                            // isError={errorData?.venue}
-                            // errorText={errorData?.venue}
-                            label={"Expense Amount"}
-                            // value={form?.name}
-                            // onTextChange={(text) => {
-                            //     changeTextData(text, "venue");
-                            // }}
-                            // onBlur={() => {
-                            //     onBlurHandler("venue");
-                            // }}
-                          />
-                        </span>
-                      </div>
-                    </div>
-                    <div className={styles.right}>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Booking By:</span>
-                        {item?.booking_by}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>Travel To:</span>
-                        {item?.to}
-                      </div>
-                      <div className={styles.key}>
-                        <span className={styles.value}>No of KMs:</span>
-                        {item?.total_kms}
-                      </div>
+          <TravelincludesDetailForm
+            ref={travelRef}
+            changeAmount={changeAmount}
+          />
+        </div>
+      </div>
 
-                      {item?.payment_proof && (
-                        <div className={styles.key}>
-                          <a href={item?.payment_proof} target="_blank">
-                            <div className={styles.hyperlinkText}>
-                              View Proof of Payment
-                            </div>
-                          </a>
-                        </div>
-                      )}
-                    </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>Part C: DA & IE Expenses</div>
+          <DAincludesDetailForm ref={daRef} changeAmount={changeAmount} />
+        </div>
+      </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>Part D: Entertainment Expenses</div>
+          <EnterincludesDetailForm ref={enterRef} changeAmount={changeAmount} />
+        </div>
+      </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>Part E: Other Expenses</div>
+          <OtherincludesDetailForm ref={otherRef} changeAmount={changeAmount} />
+        </div>
+      </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>Imprest Details</div>
+          <div className={styles.commentContainer}>
+            <div className={styles.otherWrap}>
+              <div className={styles.mainFlex}>
+                <div className={styles.left}>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Imprest for tour:</span>
+                    {employeeDetail?.travelPlanner?.imprest?.code}
                   </div>
-                  {employeeDetail?.travel_expenses?.length !== index + 1 && (
-                    <div className={styles.verti}></div>
-                  )}
+                  <div className={styles.key}>
+                    <span className={styles.value}>Claim Amount :</span>
+                    {getCurrency(
+                      employeeDetail?.travelPlanner?.imprest?.currency
+                    )}
+                    {employeeDetail?.travelPlanner?.imprest?.amount}
+                  </div>
                 </div>
-              ))}
-          </div>
-          <div className={styles.totalWrap}>
-            <div className={styles.inner}>
-              Total Claim Amount:
-              <span>
-                {employeeDetail?.travel_expenses?.amount
-                  ? `₹ ${employeeDetail?.travel_expenses?.amount}`
-                  : ""}
-              </span>
+                <div className={styles.right}>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Imprest Amount:</span>
+                    {getCurrency(
+                      employeeDetail?.travelPlanner?.imprest?.currency
+                    )}
+                    {
+                      employeeDetail?.travelPlanner?.imprest
+                        ?.sanctionable_amount
+                    }
+                  </div>
+                </div>
+              </div>
+              <div className={styles.totalWrap}>
+                <div className={styles.inner}>
+                  Total Claim Amount:{" "}
+                  <span>
+                    {getCurrency(
+                      employeeDetail?.travelPlanner?.imprest?.currency
+                    )}
+                    {employeeDetail?.travelPlanner?.imprest?.amount -
+                      employeeDetail?.travelPlanner?.imprest
+                        ?.sanctionable_amount}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -327,7 +206,7 @@ function TravelClaimListDetail() {
           </div>
         </div>
       </div>
-      {/* {employeeDetail?.panelist_status === "PENDING" && (
+      {employeeDetail?.panelist_status === "PENDING" && (
         <div
           className={
             employeeDetail?.status === "APPROVED"
@@ -348,33 +227,18 @@ function TravelClaimListDetail() {
             )}
 
           <div className={styles.btnApproveWrapper}>
-            {employeeDetail?.status !== "APPROVED" &&
-              employeeDetail?.status !== "ACCOUNTS_APPROVED" && (
-                <div>
-                  <ButtonBase
-                    // disabled={isSubmitting}
-                    className={styles.editSuccess}
-                    onClick={toggleChangeDialog}
-                  >
-                    CHANGE & APPROVE
-                  </ButtonBase>
-                </div>
-              )}
             <div>
               <ButtonBase
                 // disabled={isSubmitting}
                 className={styles.createBtn}
                 onClick={toggleStatusDialog}
               >
-                {employeeDetail?.status !== "APPROVED" &&
-                employeeDetail?.status !== "ACCOUNTS_APPROVED"
-                  ? "APPROVE"
-                  : "PROCESS"}
+                APPROVE
               </ButtonBase>
             </div>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 }
