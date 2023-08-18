@@ -44,7 +44,7 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Comment:</span>
-                {idCards?.comment}
+                {idCards?.imprest?.comment}
               </div>
             </div>
             <div className={styles.right}>
