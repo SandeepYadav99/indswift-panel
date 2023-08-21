@@ -13,6 +13,8 @@ import DAincludesDetailForm from "./component/DAincludesDetail/DAincludesDetail.
 import EnterincludesDetailForm from "./component/EnterincludesDetail/EnterincludesDetail.component";
 import OtherincludesDetailForm from "./component/OtherincludesDetail/OtherincludesDetail.component";
 import ApproveDialog from "./component/ApproveDialog/ApproveDialog.view";
+import StatusPill from "../../../components/Status/StatusPill.component";
+
 function TravelClaimListDetail() {
   const {
     id,
@@ -94,7 +96,12 @@ function TravelClaimListDetail() {
 
                   <div className={styles.key}>
                     <span className={styles.value}>Status:</span>
-                    {employeeDetail?.travelPlanner?.status}
+                    {
+                      <StatusPill
+                        status={employeeDetail?.travelPlanner?.status}
+                        style={{ border: "none" }}
+                      />
+                    }
                   </div>
                 </div>
               </div>
@@ -149,39 +156,60 @@ function TravelClaimListDetail() {
                 <div className={styles.left}>
                   <div className={styles.key}>
                     <span className={styles.value}>Imprest for tour:</span>
-                    {employeeDetail?.travelPlanner?.imprest?.code}
+                    {employeeDetail?.travelPlanner?.imprest?.code
+                      ? employeeDetail?.travelPlanner?.imprest?.code
+                      : "N/A"}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Claim Amount :</span>
-                    {getCurrency(
-                      employeeDetail?.travelPlanner?.imprest?.currency
+                    {employeeDetail?.travelPlanner?.imprest?.amount ? (
+                      <>
+                        {getCurrency(
+                          employeeDetail?.travelPlanner?.imprest?.currency
+                        )}
+                        {employeeDetail?.travelPlanner?.imprest?.amount}
+                      </>
+                    ) : (
+                      "N/A"
                     )}
-                    {employeeDetail?.travelPlanner?.imprest?.amount}
                   </div>
                 </div>
                 <div className={styles.right}>
                   <div className={styles.key}>
                     <span className={styles.value}>Imprest Amount:</span>
-                    {getCurrency(
-                      employeeDetail?.travelPlanner?.imprest?.currency
+                    {employeeDetail?.travelPlanner?.imprest
+                      ?.sanctionable_amount ? (
+                      <>
+                        {getCurrency(
+                          employeeDetail?.travelPlanner?.imprest?.currency
+                        )}
+                        {
+                          employeeDetail?.travelPlanner?.imprest
+                            ?.sanctionable_amount
+                        }
+                      </>
+                    ) : (
+                      "N/A"
                     )}
-                    {
-                      employeeDetail?.travelPlanner?.imprest
-                        ?.sanctionable_amount
-                    }
                   </div>
                 </div>
               </div>
               <div className={styles.totalWrap}>
                 <div className={styles.inner}>
-                  Total Claim Amount:{" "}
+                  Amount to be Refunded:{" "}
                   <span>
                     {getCurrency(
                       employeeDetail?.travelPlanner?.imprest?.currency
                     )}
-                    {employeeDetail?.travelPlanner?.imprest?.amount -
-                      employeeDetail?.travelPlanner?.imprest
-                        ?.sanctionable_amount}
+                    {isNaN(
+                      employeeDetail?.travelPlanner?.imprest?.amount -
+                        employeeDetail?.travelPlanner?.imprest
+                          ?.sanctionable_amount
+                    )
+                      ? 0
+                      : employeeDetail?.travelPlanner?.imprest?.amount -
+                        employeeDetail?.travelPlanner?.imprest
+                          ?.sanctionable_amount}
                   </span>
                 </div>
               </div>

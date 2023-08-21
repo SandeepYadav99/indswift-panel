@@ -51,7 +51,7 @@ const DAincludesDetailForm = (
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = ["da_pct", "da_amount", "ie_amount"];
       required.forEach((key) => {
-        if (!val[key]) {
+        if (!val[key] && val[key] !== 0) {
           err[key] = true;
         }
       });

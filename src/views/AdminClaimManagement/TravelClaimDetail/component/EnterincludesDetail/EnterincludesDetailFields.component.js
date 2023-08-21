@@ -32,7 +32,7 @@ const EnterincludesDetailFields = ({
             <div className={styles.left}>
               <div className={styles.key}>
                 <span className={styles.value}>Name of Guest:</span>
-                {data?.guest_name}
+                {data?.guest_name ? data?.guest_name : 'N/A'}
               </div>
               {data?.payment_proof && (
                 <div className={styles.key}>
@@ -45,11 +45,10 @@ const EnterincludesDetailFields = ({
               )}
               <div className={styles.key}>
                 <span className={styles.value}>Details of Guest:</span>
-                {data?.guest_details}
+                {data?.guest_details ? data?.guest_details : 'N/A'}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>
-                  {" "}
                   <TextField
                     error={errors?.amount}
                     onChange={handleChange}
@@ -66,7 +65,7 @@ const EnterincludesDetailFields = ({
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>Nature of Expenses:</span>
-                {data?.expense_nature}
+                {data?.expense_nature ? data?.expense_nature : 'N/A'}
               </div>
             </div>
           </div>

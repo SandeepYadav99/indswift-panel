@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { TextField } from "@material-ui/core";
 import styles from "./style.module.css";
 import { useEffect } from "react";
+import { getCurrency } from "../../../../../helper/helper";
 const LodgingincludesDetailFields = ({
   index,
   changeData,
@@ -52,7 +53,7 @@ const LodgingincludesDetailFields = ({
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Total Max Entitlement:</span>
-                {data?.max_entitlement}
+                {getCurrency('INR')}{data?.max_entitlement}
               </div>
               {data?.payment_proof && (
                 <div className={styles.key}>
@@ -97,7 +98,10 @@ const LodgingincludesDetailFields = ({
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Per Day Entitlement:</span>
-                {data?.per_day_entitlement}
+                {
+                  data?.per_day_entitlement ? <>{getCurrency('INR')}{data?.per_day_entitlement}</> : '-'
+                }
+                
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Payment Made By:</span>

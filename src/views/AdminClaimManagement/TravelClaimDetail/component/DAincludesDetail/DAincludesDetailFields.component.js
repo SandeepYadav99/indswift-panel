@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { TextField } from "@material-ui/core";
 import styles from "./style.module.css";
 import { useEffect } from "react";
+import { getCurrency, removeUnderScore } from "../../../../../helper/helper";
 const DAincludesDetailFields = ({
   index,
   changeData,
@@ -15,7 +16,7 @@ const DAincludesDetailFields = ({
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
-      if (name === "amount") {
+      if (name === "da_amount" || name === 'ie_amount') {
         if (value >= 0) {
           changeData(index, { [name]: value });
         }
@@ -34,6 +35,10 @@ const DAincludesDetailFields = ({
         <div className={styles.otherWrap}>
           <div className={styles.mainFlex}>
             <div className={styles.left}>
+            <div className={styles.key}>
+                <span className={styles.value}>Stay At:</span>
+                {removeUnderScore(data?.stay_at)}
+              </div>
               <div className={styles.key}>
                 <span className={styles.value}>Date:</span>
                 {data?.dateText}
@@ -44,13 +49,13 @@ const DAincludesDetailFields = ({
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>DA Entitelment/Day:</span>
-                {data?.da_entitlement}
+                {data?.da_entitlement && <>{getCurrency('INR')} {data?.da_entitlement}</>}
               </div>
-              {data?.voucher && (
+              {data?.da_payment_proof && (
                 <div className={styles.key}>
-                  <a href={data?.voucher} target="_blank">
+                  <a href={data?.da_payment_proof} target="_blank">
                     <div className={styles.hyperlinkText}>
-                      View Voucher/Bill
+                      DA Payment Proof
                     </div>
                   </a>
                 </div>
@@ -63,18 +68,18 @@ const DAincludesDetailFields = ({
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Duration in Hours:</span>
-                {data?.hours}
+                {data?.hours} hrs
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>IE Entitelment/Day:</span>
-                {data?.ie_entitlement}
+                {data?.ie_entitlement && <>{getCurrency('INR')} {data?.ie_entitlement}</>}
               </div>
 
-              {data?.payment_proof && (
+              {data?.ie_payment_proof && (
                 <div className={styles.key}>
-                  <a href={data?.payment_proof} target="_blank">
+                  <a href={data?.ie_payment_proof} target="_blank">
                     <div className={styles.hyperlinkText}>
-                      View Proof of Payment
+                      IE payment Proof
                     </div>
                   </a>
                 </div>

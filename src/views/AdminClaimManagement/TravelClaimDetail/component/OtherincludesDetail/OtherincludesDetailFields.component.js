@@ -36,15 +36,14 @@ const OtherincludesDetailFields = ({
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Description of Expense:</span>
-                {data?.details}
-              </div>{" "}
+                {data?.details ? data?.details : 'N/A'}
+              </div>
               <div className={styles.key}>
                 <span className={styles.value}>Reason of Expense:</span>
-                {data?.reason}
+                {data?.reason ? data?.reason : 'N/A'}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>
-                  {" "}
                   <TextField
                     error={errors?.amount}
                     onChange={handleChange}

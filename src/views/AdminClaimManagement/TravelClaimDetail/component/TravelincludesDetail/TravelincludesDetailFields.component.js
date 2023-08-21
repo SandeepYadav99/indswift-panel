@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { TextField } from "@material-ui/core";
 import styles from "./style.module.css";
 import { useEffect } from "react";
+import { removeUnderScore } from "../../../../../helper/helper";
 const TravelincludesDetailFields = ({
   index,
   changeData,
@@ -44,7 +45,7 @@ const TravelincludesDetailFields = ({
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Travel Mode :</span>
-                {data?.mode}
+                {removeUnderScore(data?.mode)}
               </div>
               {data?.voucher && (
                 <div className={styles.key}>
@@ -86,7 +87,7 @@ const TravelincludesDetailFields = ({
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>No of KMs:</span>
-                {data?.total_kms}
+                {data?.total_kms && `${data?.total_kms} Km`}
               </div>
 
               {data?.payment_proof && (

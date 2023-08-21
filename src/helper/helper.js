@@ -451,11 +451,11 @@ export const entitlementForeign = (grade, book) => {
 
 export const travelListExpense = [
   { id: "flight", name: "Flight" },
-  { id: "publictransport", name: "Public Transport (Bus)" },
-  { id: "train", name: "Train (if available)" },
-  { id: "auto", name: "Auto/e-rikshaw" },
-  { id: "twoWheeler", name: "Own 2 Wheeler" },
-  { id: "uberBike", name: "Uber - Bike" },
+  { id: "PUBLIC_TRANSPORT", name: "Public Transport (Bus)" },
+  { id: "TRAIN", name: "Train (if available)" },
+  { id: "AUTO", name: "Auto/e-rikshaw" },
+  { id: "TWO_WHEELER", name: "Own 2 Wheeler" },
+  { id: "UBER_BIKE", name: "Uber - Bike" },
 ];
 export const DAAllotAmout = (grade, book) => {
   if (book === "SELF_ARRANGEMENT") {
