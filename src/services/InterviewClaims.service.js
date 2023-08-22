@@ -26,3 +26,6 @@ export async function serviceApproveInterviewCLaim(params) {
 export async function serviceRejectInterviewClaim(params) {
     return await postRequest('irfr/reject', params);
 }
+export async function serviceExportBankSheetListInterview(params) {
+    return await postRequest('candidate/irf/export/bank/transfer', params);
+}

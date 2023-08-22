@@ -53,7 +53,8 @@ const LodgingincludesDetailFields = ({
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Total Max Entitlement:</span>
-                {getCurrency('INR')}{data?.max_entitlement}
+                {getCurrency("INR")}
+                {data?.max_entitlement}
               </div>
               {data?.payment_proof && (
                 <div className={styles.key}>
@@ -92,16 +93,24 @@ const LodgingincludesDetailFields = ({
                 <span className={styles.value}>Stay at:</span>
                 {data?.stay_at}
               </div>
-              <div className={styles.key}>
+              <div className={styles.keyShared}>
                 <span className={styles.value}>Shared with:</span>
-                {data?.travelDateText}
+                <div className={styles.shared}>
+                {data?.shared_with?.length > 0 &&
+                  data?.shared_with?.map((item) => <div className={styles.innerWrap}>{item?.name}{`(${item?.emp_code})`}</div>)}
+                </div>
+                
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Per Day Entitlement:</span>
-                {
-                  data?.per_day_entitlement ? <>{getCurrency('INR')}{data?.per_day_entitlement}</> : '-'
-                }
-                
+                {data?.per_day_entitlement ? (
+                  <>
+                    {getCurrency("INR")}
+                    {data?.per_day_entitlement}
+                  </>
+                ) : (
+                  "-"
+                )}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Payment Made By:</span>

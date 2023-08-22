@@ -9,7 +9,7 @@ import React, {
 import styles from "./style.module.css";
 import { useParams } from "react-router";
 import LogUtils from "../../../../../libs/LogUtils";
-import TravelincludesDetailFields from './OtherincludesDetailFields.component';
+import TravelincludesDetailFields from "./OtherincludesDetailFields.component";
 import OtherincludesDetailFields from "./OtherincludesDetailFields.component";
 
 const TEMP_OBJ = {
@@ -17,8 +17,8 @@ const TEMP_OBJ = {
 };
 
 const OtherincludesDetailForm = (
-  { data, errorData: errorForm, grade ,changeAmount},
-  ref,
+  { data, errorData: errorForm, grade, changeAmount },
+  ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
@@ -35,6 +35,11 @@ const OtherincludesDetailForm = (
       return fields;
     },
     setData(data) {
+      for (const item of data) {
+        if (item?.amount === null) {
+          item.amount = 0;
+        }
+      }
       setFields([...data]);
     },
   }));

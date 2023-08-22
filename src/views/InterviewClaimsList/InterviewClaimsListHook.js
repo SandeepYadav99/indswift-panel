@@ -9,10 +9,13 @@ import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
+import Constants from "../../config/constants";
+import { serviceExportBankSheetListInterview } from "../../services/InterviewClaims.service";
 
 const useInterviewClaimsList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const {role} = useSelector(state => state.auth);
   const [listData, setListData] = useState({
     LOCATIONS: [],
     HR: [],
@@ -63,6 +66,14 @@ const useInterviewClaimsList = ({}) => {
     [sortingData, query, queryData]
   );
 
+  const isShowDownloadBtn = useMemo(() => {
+    const Roles = Constants.ROLES;
+    if (([ Roles.CORPORATE_HR, Roles.ACCOUNTANT]).indexOf(role) >=0) {
+      return true;
+    } return false;
+
+  }, [role]);
+
   const handleFilterDataChange = useCallback(
     (value) => {
       console.log("_handleFilterDataChange", value);
@@ -101,7 +112,14 @@ const useInterviewClaimsList = ({}) => {
     console.log(page);
   };
 
-  
+  const handleBankSheetDownload = useCallback(() => {
+    serviceExportBankSheetListInterview({}).then((res) => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    });
+  }, []);
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
@@ -135,6 +153,8 @@ const useInterviewClaimsList = ({}) => {
     isCalling,
     editData,
     configFilter,
+    handleBankSheetDownload,
+    isShowDownloadBtn
   };
 };
 

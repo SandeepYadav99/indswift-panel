@@ -34,6 +34,11 @@ const EnterincludesDetailForm = (
       return fields;
     },
     setData(data) {
+      for (const item of data) {
+        if (item?.amount === null) {
+          item.amount = 0;
+        }
+      }
       setFields([...data]);
     },
   }));
