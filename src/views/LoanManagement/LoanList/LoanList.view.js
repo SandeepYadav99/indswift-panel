@@ -21,7 +21,7 @@ const LoanList = () => {
     handleSearchValueChange,
     handleViewDetails,
     isCalling,
-    configFilter,
+    configFilter,handleViewDetails2
   } = useLoanList({});
 
   const {
@@ -184,6 +184,16 @@ const LoanList = () => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
+            {/* <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewDetails2(all);
+              }}
+            >
+              <InfoOutlined fontSize={"small"} />
+            </IconButton> */}
           </div>
         ),
       },

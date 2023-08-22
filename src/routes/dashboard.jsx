@@ -12,6 +12,8 @@ import {
  import RouteName from "./Route.name";
  import Constants from "../config/constants";
 import TravelClaimListDetail from "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view";
+import LoanProcessDetail from "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view";
+import LoanRecovery from "../views/LoanManagement/LoanRecovery/LoanRecovery.view";
 
 const ClaimIntCard = lazy(()=>import ( "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view"));
 const NewEmployeeList = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeList.view"));
@@ -1683,7 +1685,31 @@ const dashboardRoutes = [
         // parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     },
-
+    {
+        path: `${RouteName.ADMIN_LOAN_PROCESS}:id`,
+        sidebarName: "Loan Management",
+        navbarName: "Loan Management",
+        icon: PeopleOutlined,
+        component: LoanProcessDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'tp',
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: `${RouteName.ADMIN_LOAN_RECOVERY}`,
+        sidebarName: "Loan Management",
+        navbarName: "Loan Management",
+        icon: PeopleOutlined,
+        component: LoanRecovery,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'tp',
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    
     
 
 

@@ -129,8 +129,8 @@ export default {
   EMPLOYEE_LOAN_DETAILS:'/employee/loan/details/',
   ADMIN_LOAN_LIST:'/loan/list',
   ADMIN_LOAN_LIST_DETAIL:'/loan/list/details/',
-
-
+  ADMIN_LOAN_PROCESS:'/loan/process/',
+  ADMIN_LOAN_RECOVERY:'/loan/recovery/',
 
   TRAVEL_PLANNER:'/travel/plan',
   TRAVEL_PLANNER_CREATE:'/travel/plan/create',

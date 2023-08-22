@@ -45,7 +45,7 @@ const DAincludesDetailFields = ({
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Ending Time :</span>
-                {data?.endDateText}
+                {data?.endTimeText}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>DA Entitelment/Day:</span>
@@ -64,7 +64,7 @@ const DAincludesDetailFields = ({
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>Starting Time:</span>
-                {data?.startDateText}
+                {data?.startTimeText}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Duration in Hours:</span>
