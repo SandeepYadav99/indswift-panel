@@ -14,6 +14,7 @@ import AwardTable from "./component/AwardTable/AwardTable.view";
 import useAwardSheet from "./AwardSheet.hook";
 import GroupCTable from "./component/GroupCTable/GroupCTable.view";
 import WaitingComponent from "../../../components/Waiting.component";
+import sign from "../../../assets/img/sign.png";
 
 const Header = ({ empData }) => {
   return (
@@ -160,13 +161,39 @@ const AwardSheetView = ({}) => {
           Please review your areas of improvement critically, and we wish you
           all the best for your performance in next cycle.
         </p>
+        <div className={styles.sigWrap}>
+          <p className={styles.txtJustify}>
+            <div>
+              <img className={styles.imgWrapSign} src={sign} />
+            </div>
+            <strong>Authorized Signatory</strong>
+            <br />
+            <strong>Corporate HR</strong>
+            <br />
+            <a
+              className={styles.hyperlinkText}
+              // href="akashdeep.sharma@indswiftlabs.com"
+              target="_blank"
+            >
+              akashdeep.sharma@indswiftlabs.com
+            </a>
+            <br />
+            <br /> Contents of this letter are extremely confidential and
+            restricted for any circulation or discussion with anyone in
+            organization. Breaching this confidently may attract suitable
+            disciplinary action against the provider and receiver of this
+            information. If someone influence to share this information at any
+            platform, please stop the communication and immediately report to
+            Corporate HR or Site HR.
+          </p>
+        </div>
 
         {empData?.form_type === "TYPE_4" && (
           <div className={styles.typeContainer}>
             <Header empData={empData} />
             <p className={styles.txtJustify2}>
               Incumbent’s self-rating and the team’s average on Behavioral
-              competence has a difference of{" "}
+              competence has a difference of
               <strong>{empData?.bars_diff}</strong>.
               <br />
               Higher the variance poor is the relation between incumbent and
@@ -176,6 +203,20 @@ const AwardSheetView = ({}) => {
               influence his her/her team in deriving better performances from
               them and vice versa.
               <br />
+              <br />
+              <b>
+                Positive Variance means you over-rate yourself on Behavioral
+                capabilities and Negative Variance means you are under-rated
+                yourself on Behavioral Capabilities. Ideally the variance should
+                be less than 10 % in positive or negative side .
+              </b>
+              <br />
+              <b>
+                Higher the variance on either side means lower is the score on
+                360 Degree Assessment.
+              </b>
+              <br />
+              <br />
               A low score may also remove or dilute your right to rate your team
               on set performance standards.
               <br />
@@ -184,9 +225,10 @@ const AwardSheetView = ({}) => {
               for that.
               <br />
               Therefore, if the score is low or if the variance is high, then
-              you may receive a separate action plan for HR to improve on this
+              you may receive a separate action plan form HR to improve on this
               aspect.
             </p>
+
             <GroupCTable title="" data={group4Data} />
             <div className={styles.graphCont}>
               <ResponsiveContainer width="100%" height="100%">
@@ -218,6 +260,32 @@ const AwardSheetView = ({}) => {
                   <Legend />
                 </RadarChart>
               </ResponsiveContainer>
+            </div>
+            <div className={styles.sigWrapLower}>
+              <p className={styles.txtJustify}>
+                <div>
+                  <img className={styles.imgWrapSign} src={sign} />
+                </div>
+                <strong>Authorized Signatory</strong>
+                <br />
+                <strong>Corporate HR</strong>
+                <br />
+                <a
+                  className={styles.hyperlinkText}
+                  // href="akashdeep.sharma@indswiftlabs.com"
+                  target="_blank"
+                >
+                  akashdeep.sharma@indswiftlabs.com
+                </a>
+                <br />
+                <br /> Contents of this letter are extremely confidential and
+                restricted for any circulation or discussion with anyone in
+                organization. Breaching this confidently may attract suitable
+                disciplinary action against the provider and receiver of this
+                information. If someone influence to share this information at
+                any platform, please stop the communication and immediately
+                report to Corporate HR or Site HR.
+              </p>
             </div>
           </div>
         )}

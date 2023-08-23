@@ -43,6 +43,22 @@
     flex-direction: column;
     gap: 10px;
 }
+.sigWrap{
+  margin-top: 50px;
+}
+.sigWrapLower{
+  margin-top: 15px;
+}
+.imgWrapSign{
+  width: 110px;
+  margin-bottom: 15px;
+}
+.hyperlinkText{
+  color: #2896E9;
+  text-decoration-line: underline;
+  font-weight: 500;
+  /* cursor: pointer; */
+}
 .verti{
     border: 1px solid #B8C5D3;
     margin:10px 15px;
