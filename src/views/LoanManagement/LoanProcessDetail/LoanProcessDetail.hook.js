@@ -41,7 +41,7 @@ function useLoanProcessDetail() {
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
-  const [info,setInfo]=useState({})
+  const [info, setInfo] = useState({});
   const travelRef = useRef(null);
   const { id } = useParams();
 
@@ -71,9 +71,15 @@ function useLoanProcessDetail() {
       const loanHistory = promises[1]?.value?.data;
       setEmployeeDetail(empDetail);
       setExperience(empDetail?.loan?.employee?.experience?.current);
+
+      const serializedData = sessionStorage.getItem("formValues");
+      if (serializedData) {
+        const parsedData = JSON.parse(serializedData);
+        sessionStorage.removeItem('formValues');
+        setForm({ ...form, ...parsedData });
+      }
     });
   }, [id]);
-
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
   }, [approveDialog]);
@@ -88,8 +94,7 @@ function useLoanProcessDetail() {
         interest: Number(data?.interest),
       });
       req.then((res) => {
-        console.log("resposne", res.data);
-        setInfo(res.data)
+        setInfo(res.data);
       });
     } else {
       SnackbarUtils.error(
@@ -128,7 +133,6 @@ function useLoanProcessDetail() {
     return errors;
   }, [form, errorData]);
 
-  console.log("form", form);
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsLoading(true);
@@ -138,6 +142,7 @@ function useLoanProcessDetail() {
         ...form,
       }).then((res) => {
         if (!res.error) {
+          sessionStorage.removeItem('formValues');
           historyUtils.goBack();
         } else {
           SnackbarUtils.error(res?.message);
@@ -172,6 +177,8 @@ function useLoanProcessDetail() {
         id: employeeDetail?.loan_id,
         formValues: form,
       });
+      const serializedData = JSON.stringify(form);
+      sessionStorage.setItem("formValues", serializedData);
     },
     [employeeDetail, form]
   );
@@ -238,7 +245,7 @@ function useLoanProcessDetail() {
     viewRecoveryPage,
     approveDialog,
     toggleStatusDialog,
-    info
+    info,
   };
 }
 

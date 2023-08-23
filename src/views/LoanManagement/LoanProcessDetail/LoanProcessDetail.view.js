@@ -31,7 +31,7 @@ function LoanProcessDetail() {
     approveDialog,
     toggleStatusDialog,
     id,
-    info
+    info,
   } = useLoanProcessDetail({});
   const data = [
     {
@@ -54,7 +54,7 @@ function LoanProcessDetail() {
       after: 200000,
     },
   ];
-  console.log('info',info)
+
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -278,9 +278,6 @@ function LoanProcessDetail() {
                   onTextChange={(text) => {
                     changeTextData(text, "exceptional_approval");
                   }}
-                  //   onBlur={() => {
-                  //     onBlurHandler("exceptional_approval");
-                  //   }}
                 />
               </div>
 
@@ -295,9 +292,6 @@ function LoanProcessDetail() {
                   onTextChange={(text) => {
                     changeTextData(text, "total_applied_loan");
                   }}
-                  //   onBlur={() => {
-                  //     onBlurHandler("total_applied_loan");
-                  //   }}
                 />
               </div>
               <div className={"formGroup"}>
@@ -449,7 +443,8 @@ function LoanProcessDetail() {
               </div>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Net Recovery Amount: </span>
-                {info?.total?.totalRepaybleAmmount && `₹ ${info?.total?.totalRepaybleAmmount}`}
+                {info?.total?.totalRepaybleAmmount &&
+                  `₹ ${info?.total?.totalRepaybleAmmount}`}
               </div>
               {form?.loan_start_date &&
                 form?.loan_end_date &&
