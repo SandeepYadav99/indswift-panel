@@ -38,6 +38,7 @@ const LoanHistoryIncludeFields = ({
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <CustomSelectField
+              disabled={true}
               isError={errors?.loan_type}
               errorText={errors?.loan_type}
               label={"Type of Loan"}
@@ -53,6 +54,7 @@ const LoanHistoryIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
+              disabled={true}
               error={errors?.amount}
               onChange={handleChange}
               value={data?.amount}
@@ -65,6 +67,7 @@ const LoanHistoryIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
+              disabled={true}
               error={errors?.interest}
               onChange={handleChange}
               value={data?.interest}
@@ -79,6 +82,7 @@ const LoanHistoryIncludeFields = ({
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <CustomSelectField
+              disabled={true}
               isError={errors?.gender}
               errorText={errors?.gender}
               label={"Status"}
@@ -93,6 +97,7 @@ const LoanHistoryIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <CustomDatePicker
+              disabled={true}
               clearable
               label={"From"}
               // minDate={startDate}
@@ -104,6 +109,7 @@ const LoanHistoryIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <CustomDatePicker
+              disabled={true}
               clearable
               label={"To"}
               // minDate={startDate}

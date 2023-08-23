@@ -43,3 +43,6 @@ export async function serviceGetLoanEligiblityCalculator(params) {
 export async function serviceGetLoanSchedule(params) {
   return await postRequest("employee/loans/recovery/schedule", params);
 }
+export async function serviceUpdateLoanFormDetails(params) {
+  return await postRequest("employee/loans/review/update", params);
+}

@@ -11,6 +11,9 @@ import LoanHistoryIncludeForm from "./component/LoanHistory/LoanHistoryIncludes.
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
+import LoanTable from "./component/LoanTable/LoanTable.view";
+import ApproveDialog from "../../AdminClaimManagement/TravelClaimDetail/component/ApproveDialog/ApproveDialog.view";
+
 function LoanProcessDetail() {
   const {
     employeeDetail,
@@ -25,8 +28,33 @@ function LoanProcessDetail() {
     errorData,
     loanDetail,
     viewRecoveryPage,
+    approveDialog,
+    toggleStatusDialog,
+    id,
+    info
   } = useLoanProcessDetail({});
-
+  const data = [
+    {
+      key: "totalYearBudget",
+      before: 1000000,
+      after: 1000000,
+    },
+    {
+      key: "userBudget",
+      before: 100000,
+      after: 200000,
+    },
+    {
+      key: "remainingBudget",
+      before: 900000,
+      after: 800000,
+    },
+    {
+      key: "currentOutstanding",
+      after: 200000,
+    },
+  ];
+  console.log('info',info)
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -41,6 +69,17 @@ function LoanProcessDetail() {
         </div>
       </div>
       <ClaimUpperCard data={employeeDetail?.loan?.employee} isLoan={true} />
+      <ApproveDialog
+        candidateId={id}
+        isOpen={approveDialog}
+        handleToggle={toggleStatusDialog}
+        form={form}
+        changeTextData={changeTextData}
+        onBlurHandler={onBlurHandler}
+        handleSubmit={handleSubmit}
+        errorData={errorData}
+        isSubmitting={isSubmitting}
+      />
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.headWrap}>
@@ -175,10 +214,18 @@ function LoanProcessDetail() {
         <LoanHistoryIncludeForm
           experience={experience}
           //   ref={enterRef}
-          //   grade={employeeDetails?.grade?.code}
-          //   startDate={startDate}
-          //   endDate={endDate}
-          //   changeAmount={changeAmount}
+        />
+        <CustomTextField
+          type="number"
+          isError={errorData?.previous_year_loan_comment}
+          errorText={errorData?.previous_year_loan_comment}
+          label={"Add Comments"}
+          value={form?.previous_year_loan_comment}
+          onTextChange={(text) => {
+            changeTextData(text, "previous_year_loan_comment");
+          }}
+          multiline
+          rows={3}
         />
       </div>
       <div className={styles.plainPaper}>
@@ -347,7 +394,7 @@ function LoanProcessDetail() {
               <div className={styles.left}>
                 <div className={styles.key}>
                   <span className={styles.value}>Proposed Loan:</span>
-                  {removeUnderScore(employeeDetail?.loan?.loan_type)}
+                  {form?.total_applied_loan}
                 </div>
               </div>
             </div>
@@ -398,11 +445,11 @@ function LoanProcessDetail() {
             <div className={styles.Wrap}>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Tenure (MONTHS)/ EMIs:</span>
-                {employeeDetail?.loan?.loan_type}
+                {info?.totalTenureMounth}
               </div>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Net Recovery Amount: </span>
-                {employeeDetail?.loan?.loan_type}
+                {info?.total?.totalRepaybleAmmount && `₹ ${info?.total?.totalRepaybleAmmount}`}
               </div>
               {form?.loan_start_date &&
                 form?.loan_end_date &&
@@ -412,7 +459,7 @@ function LoanProcessDetail() {
                       className={styles.hyperlinkText}
                       onClick={viewRecoveryPage}
                     >
-                      View Recovery Schedul:
+                      View Recovery Schedule :
                     </span>
                   </div>
                 )}
@@ -420,8 +467,44 @@ function LoanProcessDetail() {
           </div>
         </div>
       </div>
-      <div>
-        <button onClick={handleSubmit}>submit</button>
+      <div className={styles.plainPaper}>
+        <div className={styles.heading}>
+          Budget Positioning After Considering Loan (From Corporate HR)
+        </div>
+
+        <LoanTable title="hello" data={data} />
+      </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.heading}>
+          Loan Sanctioned Details (From Corporate HR)
+        </div>
+        <div className={styles.otherWrap}>
+          <div className={styles.mainFlex}>
+            <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value}>Loan Sanctioned:</span>
+                {form?.total_applied_loan}
+              </div>
+            </div>
+            <div className={styles.right}>
+              <div className={styles.key}>
+                <span className={styles.value}>Loan Case Code (LCC):</span>
+                {employeeDetail?.loan?.code}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.btnApproveWrapper}>
+        <div>
+          <ButtonBase
+            // disabled={isSubmitting}
+            className={styles.createBtn}
+            onClick={toggleStatusDialog}
+          >
+            SUBMIT & APPROVE
+          </ButtonBase>
+        </div>
       </div>
     </div>
   );

@@ -18,7 +18,10 @@ function LoanListDetail() {
     approveDialog,
     toggleRejectDialog,
     rejectDialog,
+    role,
+    handleViewDetails2,
   } = useLoanListDetail({});
+
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -70,7 +73,8 @@ function LoanListDetail() {
                 <div className={styles.right}>
                   <div className={styles.key}>
                     <span className={styles.value}>Amount Requested:</span>
-                    {employeeDetail?.loan?.amount && `₹ ${employeeDetail?.loan?.amount}`}
+                    {employeeDetail?.loan?.amount &&
+                      `₹ ${employeeDetail?.loan?.amount}`}
                   </div>
                 </div>
               </div>
@@ -197,13 +201,25 @@ function LoanListDetail() {
 
           <div className={styles.btnApproveWrapper}>
             <div>
-              <ButtonBase
-                // disabled={isSubmitting}
-                className={styles.createBtn}
-                onClick={toggleStatusDialog}
-              >
-                Approve
-              </ButtonBase>
+              {role === "SITE_HR" ? (
+                <ButtonBase
+                  // disabled={isSubmitting}
+                  className={styles.createBtn2}
+                  onClick={() => {
+                    handleViewDetails2(employeeDetail);
+                  }}
+                >
+                  FILL LOAN PROCESSING SHEET
+                </ButtonBase>
+              ) : (
+                <ButtonBase
+                  // disabled={isSubmitting}
+                  className={styles.createBtn}
+                  onClick={toggleStatusDialog}
+                >
+                  Approve
+                </ButtonBase>
+              )}
             </div>
           </div>
         </div>

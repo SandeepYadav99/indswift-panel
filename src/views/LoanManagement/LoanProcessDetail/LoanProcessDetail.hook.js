@@ -7,6 +7,7 @@ import {
   serviceGetLoanHistory,
   serviceGetLoanListDetails,
   serviceGetLoanSchedule,
+  serviceUpdateLoanFormDetails,
 } from "../../../services/LoanList.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useRef } from "react";
@@ -32,6 +33,7 @@ const initialForm = {
 
 function useLoanProcessDetail() {
   const [employeeDetail, setEmployeeDetail] = useState({});
+  const [approveDialog, setApproveDialog] = useState(false);
   const [loanDetail, setLoanDetail] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [experience, setExperience] = useState();
@@ -39,7 +41,7 @@ function useLoanProcessDetail() {
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
-  const [editData, setEditData] = useState(null);
+  const [info,setInfo]=useState({})
   const travelRef = useRef(null);
   const { id } = useParams();
 
@@ -72,6 +74,10 @@ function useLoanProcessDetail() {
     });
   }, [id]);
 
+  const toggleStatusDialog = useCallback(() => {
+    setApproveDialog((e) => !e);
+  }, [approveDialog]);
+
   const checkForLoanSchedule = (data) => {
     if (data?.loan_start_date && data?.loan_end_date && data?.interest) {
       let req = serviceGetLoanSchedule({
@@ -83,9 +89,7 @@ function useLoanProcessDetail() {
       });
       req.then((res) => {
         console.log("resposne", res.data);
-        const salaryData = res.data;
-        const booleanData = {};
-        // setForm({ ...data, ...booleanData });
+        setInfo(res.data)
       });
     } else {
       SnackbarUtils.error(
@@ -129,35 +133,18 @@ function useLoanProcessDetail() {
     if (!isSubmitting) {
       setIsLoading(true);
       setIsSubmitting(true);
-      const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        fd.append(key, form[key]);
+      serviceUpdateLoanFormDetails({
+        id: id,
+        ...form,
+      }).then((res) => {
+        if (!res.error) {
+          historyUtils.goBack();
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsLoading(false);
+        setIsSubmitting(false);
       });
-      //   const ExpensesData = travelRef.current.getData();
-      //   ExpensesData.forEach((val) => {
-      //     if (val?.relocation_documents) {
-      //       fd.append("relocation_documents", val?.relocation_documents);
-      //     }
-      //     if (val.relocation_payment_proof) {
-      //       fd.append("relocation_payment_proof", val?.relocation_payment_proof);
-      //     } else {
-      //       const file = dataURLtoFile(nullImg, "null.png");
-      //       fd.append("travel_payment_proof", file);
-      //     }
-      //   });
-      //   fd.append("bill_amount", amount);
-      //   fd.append("relocation_expense_details", JSON.stringify(ExpensesData));
-      console.log("serverhit");
-      //   let req = serviceUpdateLocClaims;
-      //   req(fd).then((res) => {
-      //     if (!res.error) {
-      //       historyUtils.goBack();
-      //     } else {
-      //       SnackbarUtils.error(res?.message);
-      //     }
-      //     setIsLoading(false);
-      //     setIsSubmitting(false);
-      //   });
     }
   }, [form, isSubmitting, setIsSubmitting, id]);
 
@@ -249,6 +236,9 @@ function useLoanProcessDetail() {
     experience,
     loanDetail,
     viewRecoveryPage,
+    approveDialog,
+    toggleStatusDialog,
+    info
   };
 }
 

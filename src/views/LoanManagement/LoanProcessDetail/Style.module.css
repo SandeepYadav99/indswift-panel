@@ -233,7 +233,10 @@
       margin-left: 15px;
   }
   .btnApproveWrapper{
-      margin-right: 15px;
+     display: flex;
+     width: 100%;
+     justify-content: flex-end;
+     align-items: center;
   }
   .approvedWrapper {
     background: #ffffff;
