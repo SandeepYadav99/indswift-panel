@@ -102,9 +102,10 @@ const AwardSheetView = ({}) => {
           Goal Sheet-B reflects employee’s performance on specific KRAs (Key
           Result Areas), allocated to him/her as part of his/her direct
           contributions towards achievement of departmental and organizational
-          objectives. A certain set KRAs are always specific to a certain set of
-          performance cycles, however you may ask for your specific detailed KRA
-          sheet from your HOD for improving yourself in next performance cycle.
+          objectives. A certain set of KRAs are always specific to a certain set
+          of performance cycles, however you may ask for your specific detailed
+          KRA sheet from your HOD for improving yourself in next performance
+          cycle.
         </p>
 
         <span className={styles.heading}>
@@ -112,15 +113,35 @@ const AwardSheetView = ({}) => {
         </span>
         <p className={styles.txtJustify}>
           Goal Sheet-C reflects overall achievement of incumbent’s department on
-          its set departmental objectives.
+          its set departmental objectives. An employee’s performance is always a
+          sub-function of department’s overall results. For example- if a
+          certain crew member sailing on a ship is doing well, but the ship has
+          not been able to reach at its destination in set time, then that crew
+          member is also a part of that miss. Therefore, Categorization of
+          employee in certain performance category is also a dependent on how
+          well the department has achieved its overall targets.
           <br />
-          An employee’s performance is always a sub-function of department’s
-          overall results. For example- if a certain crew member sailing on a
-          ship is doing well, but the ship has not been able to reach at its
-          destination in set time, then that crew member is also a part of that
-          miss. Therefore, Categorization of employee in certain performance
-          category is also a dependent on how well the department has achieved
-          its overall targets.
+          If you are eligible for 360 Degree feedback of your behavior, you will
+          find another sheet attached. Your final performance category may make
+          your eligible for a revision or CDP or PIP or some other action. If
+          you have a revised compensation, then you may receive another letter
+          about the same from HR. Please review your areas of improvement
+          critically, and we wish you all the best for your performance in next
+          cycle.
+          <br />
+          <br />
+          <b>
+            For final classification of employee in one of several performance
+            categories following criteria applies-
+          </b>
+          <br />
+          <b>
+            20 % weightage to Goal Sheet A* + 60 % Weightage to Goal Sheet-B +
+            20 % Weightage to Goal Sheet C{" "}
+          </b>
+          <br />
+          This generates final score of an employee out of 100. based on which
+          employee gets classified in in one of the 11 performance categories.
         </p>
 
         <p className={styles.txtJustify}>
@@ -139,7 +160,7 @@ const AwardSheetView = ({}) => {
           Please review your areas of improvement critically, and we wish you
           all the best for your performance in next cycle.
         </p>
-        
+
         {empData?.form_type === "TYPE_4" && (
           <div className={styles.typeContainer}>
             <Header empData={empData} />
