@@ -36,6 +36,11 @@ const DAincludesDetailForm = (
       return fields;
     },
     setData(data) {
+      for (const item of data) {
+        if (item?.ie_amount === null) {
+          item.ie_amount = 0;
+        }
+      }
       setFields([...data]);
     },
   }));
