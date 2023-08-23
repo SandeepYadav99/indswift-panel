@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useState } from "react";
 import {
+  serviceGetLoanBudgetOutstanding,
+  serviceGetLoanBudgetPosition,
   serviceGetLoanEligiblityCalculator,
   serviceGetLoanHistory,
   serviceGetLoanListDetails,
@@ -39,11 +41,15 @@ function useLoanProcessDetail() {
   const [experience, setExperience] = useState();
   const [employees, setEmployees] = useState([]);
   const [errorData, setErrorData] = useState({});
+  const [tabledata, setTableData] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [tableField, setTableField] = useState("");
   const [form, setForm] = useState({ ...initialForm });
   const [info, setInfo] = useState({});
   const travelRef = useRef(null);
   const { id } = useParams();
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
 
   useEffect(() => {
     if (employeeDetail?.loan_id) {
@@ -56,9 +62,31 @@ function useLoanProcessDetail() {
     }
   }, [employeeDetail?.loan_id]);
 
+  const loanBudgetOutstanding = () => {
+    if (employeeDetail?.loan_id) {
+      let req = serviceGetLoanBudgetOutstanding({
+        loan_id: employeeDetail?.loan_id,
+        financial_year: `${currentYear}-${currentYear + 1}`,
+        current_outstanding: "1000",
+      });
+      req.then((data) => {
+        console.log("jdjdj", data);
+      });
+    }
+  };
+
+  const loanBudgetOutstandingDebounce = useMemo(() => {
+    return debounce((e) => {
+      loanBudgetOutstanding(e);
+    }, 1000);
+  }, [employeeDetail?.loan_id, tableField, setTableField]);
+
+  console.log("tabledata", tabledata);
+  
   useEffect(() => {
     if (loanDetail?.applied_amount) {
       setForm({ ...form, total_applied_loan: loanDetail?.applied_amount });
+      checkLoanBudgetAmount(loanDetail?.applied_amount);
     }
   }, [loanDetail?.applied_amount]);
 
@@ -75,7 +103,7 @@ function useLoanProcessDetail() {
       const serializedData = sessionStorage.getItem("formValues");
       if (serializedData) {
         const parsedData = JSON.parse(serializedData);
-        sessionStorage.removeItem('formValues');
+        sessionStorage.removeItem("formValues");
         setForm({ ...form, ...parsedData });
       }
     });
@@ -83,6 +111,26 @@ function useLoanProcessDetail() {
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
   }, [approveDialog]);
+
+  const checkLoanBudgetAmount = (val) => {
+    if (employeeDetail?.loan_id) {
+      let req = serviceGetLoanBudgetPosition({
+        loan_id: employeeDetail?.loan_id,
+        financial_year: `${currentYear}-${currentYear + 1}`,
+        tota_applied_amount: val,
+        // current_outstanding:''
+      });
+      req.then((data) => {
+        setTableData(data?.data);
+      });
+    }
+  };
+
+  const checkLoanBudgetDebounce = useMemo(() => {
+    return debounce((e) => {
+      checkLoanBudgetAmount(e);
+    }, 1000);
+  }, [employeeDetail?.loan_id]);
 
   const checkForLoanSchedule = (data) => {
     if (data?.loan_start_date && data?.loan_end_date && data?.interest) {
@@ -142,7 +190,7 @@ function useLoanProcessDetail() {
         ...form,
       }).then((res) => {
         if (!res.error) {
-          sessionStorage.removeItem('formValues');
+          sessionStorage.removeItem("formValues");
           historyUtils.goBack();
         } else {
           SnackbarUtils.error(res?.message);
@@ -210,6 +258,9 @@ function useLoanProcessDetail() {
       if (fieldName === "exceptional_approval") {
         t["total_applied_loan"] =
           Number(text) + Number(loanDetail?.applied_amount);
+        checkLoanBudgetDebounce(
+          Number(text) + Number(loanDetail?.applied_amount)
+        );
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
@@ -221,6 +272,7 @@ function useLoanProcessDetail() {
     },
     [removeError, form, setForm, loanDetail, employeeDetail?.loan_id]
   );
+
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {
@@ -246,6 +298,7 @@ function useLoanProcessDetail() {
     approveDialog,
     toggleStatusDialog,
     info,
+    tabledata,
   };
 }
 

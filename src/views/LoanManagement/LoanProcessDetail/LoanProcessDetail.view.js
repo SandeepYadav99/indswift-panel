@@ -32,6 +32,7 @@ function LoanProcessDetail() {
     toggleStatusDialog,
     id,
     info,
+    tabledata,
   } = useLoanProcessDetail({});
   const data = [
     {
@@ -467,7 +468,7 @@ function LoanProcessDetail() {
           Budget Positioning After Considering Loan (From Corporate HR)
         </div>
 
-        <LoanTable title="hello" data={data} />
+        <LoanTable title="hello" data={tabledata} />
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>
