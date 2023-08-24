@@ -33,8 +33,8 @@ function LoanProcessDetail() {
     id,
     info,
     tabledata,
+    afterAmount
   } = useLoanProcessDetail({});
-
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -223,7 +223,7 @@ function LoanProcessDetail() {
                     Cap for the Type of Loan:
                   </span>
 
-                  {employeeDetail?.loan?.description}
+                  {loanDetail?.cap_for_the_type_of_loan}
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Applied Amount:</span>
@@ -239,8 +239,8 @@ function LoanProcessDetail() {
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Eligible for Loan of:</span>
-                  {/* {employeeDetail?.loan?.amount &&
-                    `₹ ${employeeDetail?.loan?.amount}`} */}
+                  {loanDetail?.userEligibleForLoan &&
+                    `₹ ${loanDetail?.userEligibleForLoan}`}
                   tester
                 </div>
               </div>
@@ -452,6 +452,7 @@ function LoanProcessDetail() {
           data={tabledata}
           form={form}
           changeTextData={changeTextData}
+          afterAmount={afterAmount}
         />
       </div>
       <div className={styles.plainPaper}>

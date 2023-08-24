@@ -184,7 +184,7 @@ const LoanList = () => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-            <IconButton
+            {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -193,7 +193,7 @@ const LoanList = () => {
               }}
             >
               <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            </IconButton> */}
           </div>
         ),
       },

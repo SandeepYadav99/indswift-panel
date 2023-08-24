@@ -32,7 +32,6 @@ const initialForm = {
   previous_year_loan_comment: "",
   exceptional_approval: "",
   tableamount: "",
-  afteramount: "",
 };
 
 function useLoanProcessDetail() {
@@ -44,6 +43,7 @@ function useLoanProcessDetail() {
   const [errorData, setErrorData] = useState({});
   const [tabledata, setTableData] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [afterAmount, setAfterAmount] = useState("");
   const [form, setForm] = useState({ ...initialForm });
   const [info, setInfo] = useState({});
   const travelRef = useRef(null);
@@ -73,11 +73,7 @@ function useLoanProcessDetail() {
       req.then((data) => {
         const td = data?.data;
         if (td?.length > 0) {
-          // setForm({
-          //   ...form,
-          //   afteramount: td[3]?.after,
-          //   tableamount: td[3]?.before,
-          // });
+          setAfterAmount(td[3]?.after);
         }
         setTableData(data?.data);
       });
@@ -126,6 +122,7 @@ function useLoanProcessDetail() {
       });
       req.then((data) => {
         setTableData(data?.data);
+        // setAfterAmount('')
       });
     }
   };
@@ -307,6 +304,7 @@ function useLoanProcessDetail() {
     toggleStatusDialog,
     info,
     tabledata,
+    afterAmount
   };
 }
 

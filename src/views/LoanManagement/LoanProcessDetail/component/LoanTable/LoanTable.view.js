@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Style.module.css";
 import { removeUnderScore } from "../../../../../helper/helper";
 
-const CustomTable = ({ columns, data, title, form, changeTextData }) => {
+const CustomTable = ({ columns, data, title, form, changeTextData,afterAmount }) => {
   const renderCell = (item, column) => {
     if (typeof column.render === "function") {
       return column.render(item);
@@ -60,7 +60,7 @@ const CustomTable = ({ columns, data, title, form, changeTextData }) => {
             />
           </td>
           <td className={styles.columData}>
-            <div className={styles.label}>{form?.afteramount}</div>
+            <div className={styles.label}>{afterAmount}</div>
           </td>
         </tr>
         {/* )} */}
@@ -69,7 +69,7 @@ const CustomTable = ({ columns, data, title, form, changeTextData }) => {
   );
 };
 
-function LoanTable({ data, title, form, changeTextData }) {
+function LoanTable({ data, title, form, changeTextData,afterAmount }) {
   const [columns, setColumns] = useState([
     {
       key: "test",
@@ -98,6 +98,7 @@ function LoanTable({ data, title, form, changeTextData }) {
           data={data}
           form={form}
           changeTextData={changeTextData}
+          afterAmount={afterAmount}
         />
       }
     </div>
