@@ -187,7 +187,7 @@ function useLoanProcessDetail() {
       setIsLoading(true);
       setIsSubmitting(true);
       serviceUpdateLoanFormDetails({
-        id: id,
+        id: employeeDetail?.loan_id,
         ...form,
       }).then((res) => {
         if (!res.error) {
@@ -200,7 +200,7 @@ function useLoanProcessDetail() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id]);
+  }, [form, isSubmitting, setIsSubmitting, employeeDetail?.loan_id]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -209,7 +209,7 @@ function useLoanProcessDetail() {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, submitToServer]);
+  }, [checkFormValidation, setErrorData, submitToServer,employeeDetail?.loan_id]);
 
   const removeError = useCallback(
     (title) => {
