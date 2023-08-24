@@ -14,6 +14,7 @@ import {
 import TravelClaimListDetail from "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view";
 import LoanProcessDetail from "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view";
 import LoanRecovery from "../views/LoanManagement/LoanRecovery/LoanRecovery.view";
+import EmployeeSalaryReport from "../views/EmployeeSalaryReport/EmployeeSalaryReport.view";
 
 const ClaimIntCard = lazy(()=>import ( "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view"));
 const NewEmployeeList = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeList.view"));
@@ -1220,6 +1221,15 @@ const dashboardRoutes = [
         component: EmployeeReport,
         is_sidebar: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.EMPLOYEE_SALARY}`,
+        sidebarName: "Salary Comparison Report",
+        navbarName: "Salary Comparison Report",
+        icon: AssignmentOutlined,
+        component: EmployeeSalaryReport,
+        is_sidebar: true,
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: 'null',

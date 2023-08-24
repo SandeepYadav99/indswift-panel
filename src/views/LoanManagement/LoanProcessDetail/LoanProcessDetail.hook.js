@@ -192,7 +192,7 @@ function useLoanProcessDetail() {
       }).then((res) => {
         if (!res.error) {
           sessionStorage.removeItem("formValues");
-          historyUtils.goBack();
+          historyUtils.push(`${RouteName.ADMIN_LOAN_LIST}`);
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -304,7 +304,7 @@ function useLoanProcessDetail() {
     toggleStatusDialog,
     info,
     tabledata,
-    afterAmount
+    afterAmount,
   };
 }
 

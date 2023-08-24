@@ -167,6 +167,8 @@ export default {
   EMPLOYEE_REPORT:'/employee/report',
   PMS_4B_FORM: '/pms/4B/submission',
   PMS_4B_REVIEW_DETAIL: '/pms/4B/detail/',
+  EMPLOYEE_SALARY:'/employee/salary',
+
 
   PMS_INCREMENT_PLANNER : '/increment/planner',
   PMS_INCREMENT_PLANNER_RED: '/increment/planner/red',
