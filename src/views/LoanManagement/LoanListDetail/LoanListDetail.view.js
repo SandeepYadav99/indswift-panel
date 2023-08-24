@@ -201,7 +201,7 @@ function LoanListDetail() {
 
           <div className={styles.btnApproveWrapper}>
             <div>
-              {role === "SITE_HR" ? (
+              {employeeDetail?.loan?.status === 'PENDING' ? (
                 <ButtonBase
                   // disabled={isSubmitting}
                   className={styles.createBtn2}
