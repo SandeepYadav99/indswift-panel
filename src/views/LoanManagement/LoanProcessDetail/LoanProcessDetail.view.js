@@ -34,27 +34,6 @@ function LoanProcessDetail() {
     info,
     tabledata,
   } = useLoanProcessDetail({});
-  const data = [
-    {
-      key: "totalYearBudget",
-      before: 1000000,
-      after: 1000000,
-    },
-    {
-      key: "userBudget",
-      before: 100000,
-      after: 200000,
-    },
-    {
-      key: "remainingBudget",
-      before: 900000,
-      after: 800000,
-    },
-    {
-      key: "currentOutstanding",
-      after: 200000,
-    },
-  ];
 
   return (
     <div>
@@ -468,7 +447,12 @@ function LoanProcessDetail() {
           Budget Positioning After Considering Loan (From Corporate HR)
         </div>
 
-        <LoanTable title="hello" data={tabledata} />
+        <LoanTable
+          title="hello"
+          data={tabledata}
+          form={form}
+          changeTextData={changeTextData}
+        />
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>

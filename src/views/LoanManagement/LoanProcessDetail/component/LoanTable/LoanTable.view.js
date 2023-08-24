@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Style.module.css";
 import { removeUnderScore } from "../../../../../helper/helper";
 
-const CustomTable = ({ columns, data, title }) => {
+const CustomTable = ({ columns, data, title, form, changeTextData }) => {
   const renderCell = (item, column) => {
     if (typeof column.render === "function") {
       return column.render(item);
@@ -35,19 +35,41 @@ const CustomTable = ({ columns, data, title }) => {
                 : styles.evenRow
             }
           >
-            {columns?.map((column) => (
-              <td key={column.key} className={styles.columData}>
-                {renderCell(item, column)}
-              </td>
-            ))}
+            {item.key !== "Current Outstanding" &&
+              columns?.map((column) => (
+                <td key={column.key} className={styles.columData}>
+                  {renderCell(item, column)}
+                </td>
+              ))}
           </tr>
         ))}
+
+        {/* {data.length !== 5 && ( */}
+        <tr>
+          <td className={styles.columData}>
+            <div className={styles.labelhead}>Current Outstanding</div>
+          </td>
+          <td className={styles.columData}>
+            <input
+              type="number"
+              min={0}
+              className={styles.inputWrapper}
+              name="tableamount"
+              value={form?.tableamount}
+              onChange={(e) => changeTextData(e.target.value, "tableamount")}
+            />
+          </td>
+          <td className={styles.columData}>
+            <div className={styles.label}>{form?.afteramount}</div>
+          </td>
+        </tr>
+        {/* )} */}
       </tbody>
     </table>
   );
 };
 
-function LoanTable({ data, title }) {
+function LoanTable({ data, title, form, changeTextData }) {
   const [columns, setColumns] = useState([
     {
       key: "test",
@@ -59,11 +81,7 @@ function LoanTable({ data, title }) {
     {
       key: "2023",
       title: "Before",
-      render: (all) => (
-        <div className={styles.label}>
-          {all?.before}
-        </div>
-      ),
+      render: (all) => <div className={styles.label}>{all?.before}</div>,
     },
     {
       key: "",
@@ -72,7 +90,17 @@ function LoanTable({ data, title }) {
     },
   ]);
   return (
-    <div className={styles.tableWrap}>{<CustomTable title={title} columns={columns} data={data} />}</div>
+    <div className={styles.tableWrap}>
+      {
+        <CustomTable
+          title={title}
+          columns={columns}
+          data={data}
+          form={form}
+          changeTextData={changeTextData}
+        />
+      }
+    </div>
   );
 }
 

@@ -31,6 +31,8 @@ const initialForm = {
   comment: "",
   previous_year_loan_comment: "",
   exceptional_approval: "",
+  tableamount: "",
+  afteramount: "",
 };
 
 function useLoanProcessDetail() {
@@ -39,11 +41,9 @@ function useLoanProcessDetail() {
   const [loanDetail, setLoanDetail] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [experience, setExperience] = useState();
-  const [employees, setEmployees] = useState([]);
   const [errorData, setErrorData] = useState({});
   const [tabledata, setTableData] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [tableField, setTableField] = useState("");
   const [form, setForm] = useState({ ...initialForm });
   const [info, setInfo] = useState({});
   const travelRef = useRef(null);
@@ -62,27 +62,33 @@ function useLoanProcessDetail() {
     }
   }, [employeeDetail?.loan_id]);
 
-  const loanBudgetOutstanding = () => {
+  const loanBudgetOutstanding = (val) => {
     if (employeeDetail?.loan_id) {
       let req = serviceGetLoanBudgetOutstanding({
         loan_id: employeeDetail?.loan_id,
         financial_year: `${currentYear}-${currentYear + 1}`,
-        current_outstanding: "1000",
+        tota_applied_amount: val?.total_applied_loan,
+        current_outstanding: Number(val.tableamount),
       });
       req.then((data) => {
-        console.log("jdjdj", data);
+        const td = data?.data;
+        if (td?.length > 0) {
+          // setForm({
+          //   ...form,
+          //   afteramount: td[3]?.after,
+          //   tableamount: td[3]?.before,
+          // });
+        }
+        setTableData(data?.data);
       });
     }
   };
-
   const loanBudgetOutstandingDebounce = useMemo(() => {
     return debounce((e) => {
       loanBudgetOutstanding(e);
     }, 1000);
-  }, [employeeDetail?.loan_id, tableField, setTableField]);
+  }, [employeeDetail?.loan_id]);
 
-  console.log("tabledata", tabledata);
-  
   useEffect(() => {
     if (loanDetail?.applied_amount) {
       setForm({ ...form, total_applied_loan: loanDetail?.applied_amount });
@@ -99,7 +105,6 @@ function useLoanProcessDetail() {
       const loanHistory = promises[1]?.value?.data;
       setEmployeeDetail(empDetail);
       setExperience(empDetail?.loan?.employee?.experience?.current);
-
       const serializedData = sessionStorage.getItem("formValues");
       if (serializedData) {
         const parsedData = JSON.parse(serializedData);
@@ -118,7 +123,6 @@ function useLoanProcessDetail() {
         loan_id: employeeDetail?.loan_id,
         financial_year: `${currentYear}-${currentYear + 1}`,
         tota_applied_amount: val,
-        // current_outstanding:''
       });
       req.then((data) => {
         setTableData(data?.data);
@@ -261,6 +265,10 @@ function useLoanProcessDetail() {
         checkLoanBudgetDebounce(
           Number(text) + Number(loanDetail?.applied_amount)
         );
+      }
+      if (fieldName === "tableamount") {
+        t["tableamount"] = text;
+        loanBudgetOutstandingDebounce(t);
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);

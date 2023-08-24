@@ -94,6 +94,13 @@
     text-align: center;
     white-space: nowrap;
   }
+  .inputWrapper{
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 10px 0px;
+    text-align: center;
+    white-space: nowrap;
+  }
   .labelhead{
     font-size: 0.8rem;
     padding: 10px 15px;
