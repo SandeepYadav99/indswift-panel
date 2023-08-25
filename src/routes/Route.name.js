@@ -132,6 +132,8 @@ export default {
   ADMIN_LOAN_PROCESS:'/loan/process/',
   ADMIN_LOAN_RECOVERY:'/loan/recovery/',
   ADMIN_ONGOING_LOANS:'/ongoing/loans',
+  ADMIN_ONGOING_LOANS_DETIALS:'/ongoing/loans/details/',
+
 
   TRAVEL_PLANNER:'/travel/plan',
   TRAVEL_PLANNER_CREATE:'/travel/plan/create',

@@ -101,7 +101,7 @@ const useOngoingLoans = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.ADMIN_LOAN_LIST_DETAIL}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.ADMIN_ONGOING_LOANS_DETIALS}${data?.id}`); //+data.id
   }, []);
   const handleViewDetails2 = useCallback((data) => {
     LogUtils.log("data", data);
