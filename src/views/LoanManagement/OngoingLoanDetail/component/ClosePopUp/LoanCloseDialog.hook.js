@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
-import { serviceRejectEmployeeList } from "../../../../../services/LoanList.service";
+import { serviceCloseEmployeeLoan, serviceRejectEmployeeList } from "../../../../../services/LoanList.service";
 
 const initialForm={
   comment:"",
@@ -75,14 +75,14 @@ const useLoanCloseDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      serviceRejectEmployeeList({
-        review_id: candidateId,
-        ...form,
+      serviceCloseEmployeeLoan({
+        id: candidateId,
+        description:form?.comment,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Rejected");
+          SnackbarUtils.success("Request Closed Successfully");
           handleToggle();
-          historyUtils.push(RouteName.CLAIMS_LIST);
+          historyUtils.push(RouteName.ADMIN_ONGOING_LOANS);
         } else {
           SnackbarUtils.error(res?.message);
         }

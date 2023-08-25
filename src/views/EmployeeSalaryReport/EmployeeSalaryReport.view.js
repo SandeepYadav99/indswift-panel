@@ -141,7 +141,7 @@ const EmployeeSalaryReport = ({ location }) => {
         sortable: false,
         fixed: true,
         render: (temp, all) => (
-          <div className={styles.noWrapName}>
+          <div className={styles.noWrap}>
             <b>{all?.name}</b> <br /> {all?.emp_code}
           </div>
         ),
@@ -267,7 +267,7 @@ const EmployeeSalaryReport = ({ location }) => {
         label: "NPS",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrapName}>
+          <div className={styles.noWrap}>
             <b>{all?.reviewer?.name}</b> <br /> {all?.nps}
           </div>
         ),
@@ -277,7 +277,7 @@ const EmployeeSalaryReport = ({ location }) => {
         label: "Vehicle maint(ctc)",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrapName}>{all?.vehicle_maintenance}</div>
+          <div className={styles.noWrap}>{all?.vehicle_maintenance}</div>
         ),
       },
       {
@@ -285,7 +285,7 @@ const EmployeeSalaryReport = ({ location }) => {
         label: "Vehicle EMIs(ctc)",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrapName}>{all?.vehicle_emi}</div>
+          <div className={styles.noWrap}>{all?.vehicle_emi}</div>
         ),
       },
       {
@@ -298,20 +298,20 @@ const EmployeeSalaryReport = ({ location }) => {
       },
       {
         key: "vpf",
-        label: "vpf",
+        label: "Deduction vpf",
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}> ₹{all?.deduction_vpf}</div>
         ),
       },
-      {
-        key: "pli",
-        label: "pli",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.earning_three_pli}</div>
-        ),
-      },
+      // {
+      //   key: "pli",
+      //   label: "pli",
+      //   sortable: false,
+      //   render: (temp, all) => (
+      //     <div className={styles.noWrap}> ₹ {all?.earning_three_pli}</div>
+      //   ),
+      // },
       {
         key: "empf",
         label: "em pf-deduction part",
@@ -389,7 +389,7 @@ const EmployeeSalaryReport = ({ location }) => {
         label: "medical insurance premium",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.medical_allowance}</div>
+          <div className={styles.noWrap}> ₹ {all?.insurance}</div>
         ),
       },
       {
@@ -445,7 +445,7 @@ const EmployeeSalaryReport = ({ location }) => {
         label: "nps",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.effectiveDateText}</div>
+          <div className={styles.noWrap}> ₹ {all?.nps_part_e}</div>
         ),
       },
       {
@@ -453,7 +453,7 @@ const EmployeeSalaryReport = ({ location }) => {
         label: "deputation allowance",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.nps_part_e}</div>
+          <div className={styles.noWrap}> ₹ {all?.deputation_allowance}</div>
         ),
       },
     ];

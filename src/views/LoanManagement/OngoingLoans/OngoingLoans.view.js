@@ -49,10 +49,10 @@ const OngoingLoans = () => {
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>
-              <b>{obj?.employees_name}</b>
+              <b>{obj?.employee.name}</b>
             </span>
             <br />
-            <span className={styles.productName}>{obj?.employees_code}</span>
+            <span className={styles.productName}>{obj?.employee.emp_code}</span>
             <br />
           </div>
         </div>
@@ -70,7 +70,7 @@ const OngoingLoans = () => {
         render: (temp, all) => (
           <div>
             {console.log("all", all)}
-            {all?.loan_id}
+            {all?.code}
           </div>
         ),
       },
@@ -88,7 +88,7 @@ const OngoingLoans = () => {
           <div>
             {all?.contact}
             <br />
-            {`${all?.grades}/${all?.cadres}`}
+            {`${all?.employee?.grade?.code}/${all?.employee?.cadre?.code}`}
           </div>
         ),
       },
@@ -96,13 +96,13 @@ const OngoingLoans = () => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.loan?.employee?.location?.name}</div>,
+        render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
       },
       {
         key: "desigination",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.designations_name}</div>,
+        render: (temp, all) => <div>{all?.employee?.designation.name}</div>,
       },
       {
         key: "department",
@@ -110,7 +110,7 @@ const OngoingLoans = () => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.departments_name} / {all?.subdepartment}
+            {all?.employee?.department.name} / {all?.employee?.sub_department?.name}
           </div>
         ),
       },
@@ -119,7 +119,7 @@ const OngoingLoans = () => {
         label: "CONTACT",
         sortable: false,
         render: (temp, all) => (
-          <div>{all?.employees_personal_contact}</div>
+          <div>{all?.employee?.contact?.personal_contact}</div>
         ),
       },
       {
@@ -136,7 +136,7 @@ const OngoingLoans = () => {
         key: "date",
         label: "APPLICATION DATE",
         sortable: false,
-        render: (temp, all) => <div>{all?.application_date}</div>,
+        render: (temp, all) => <div>{all?.requestDateText}</div>,
       },
       {
         key: "amount",
@@ -144,8 +144,8 @@ const OngoingLoans = () => {
         sortable: false,
         render: (temp, all) => (
           <div style={{ whiteSpace: "nowrap" }}>
-            {all?.loan?.amount || all?.loan?.amount === 0
-              ? `₹ ${all?.loan?.amount}`
+            {all?.amount || all?.amount === 0
+              ? `₹ ${all?.amount}`
               : ""}
           </div>
         ),
@@ -154,17 +154,16 @@ const OngoingLoans = () => {
         key: "issue",
         label: "ISSUE DATE",
         sortable: false,
-        render: (temp, all) => <div>{all?.loan?.issueDateText}</div>,
+        render: (temp, all) => <div>{all?.issueDateText}</div>,
       },
       {
         key: "status",
-        label: "Current status/Overall status",
+        label: "status",
         sortable: true,
         render: (temp, all) => (
           <div>
             {renderStatus(removeUnderScore(all?.status))}
-            <br /> <br />
-            {renderStatus(removeUnderScore(all?.loan?.status))}
+            
           </div>
         ),
       },

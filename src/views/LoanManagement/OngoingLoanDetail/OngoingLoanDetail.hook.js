@@ -2,11 +2,11 @@ import React, { useCallback } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useState } from "react";
-import { serviceGetLoanListDetails } from "../../../services/LoanList.service";
 import { useSelector } from "react-redux";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import LogUtils from "../../../libs/LogUtils";
+import { serviceGetEmployeeLoanDetails } from "../../../services/EmployeeLoanList.service";
 
 function useOngoingLoanDetail() {
   const [employeeDetail, setEmployeeDetail] = useState({});
@@ -21,7 +21,7 @@ function useOngoingLoanDetail() {
 
   const { id } = useParams();
   useEffect(() => {
-    let req = serviceGetLoanListDetails({ id: id });
+    let req = serviceGetEmployeeLoanDetails({ id: id });
     req.then((data) => {
       setEmployeeDetail(data?.data?.details);
     });

@@ -13,13 +13,12 @@ function OngoingLoanDetail() {
   const {
     employeeDetail,
     id,
-    toggleStatusDialog,
-    approveDialog,
     toggleRejectDialog,
     rejectDialog,
     handleViewDetails2,
   } = useOngoingLoanDetail({});
 
+  // console.log('employeeDetail',employeeDetail)
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -33,7 +32,7 @@ function OngoingLoanDetail() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <ClaimUpperCard data={employeeDetail?.loan?.employee} isLoan={true} />
+      <ClaimUpperCard data={employeeDetail?.employee} isLoan={true} />
       <LoanCloseDialog
         candidateId={id}
         isOpen={rejectDialog}
@@ -54,21 +53,21 @@ function OngoingLoanDetail() {
                 <div className={styles.left}>
                   <div className={styles.key}>
                     <span className={styles.value}>Type of Loan:</span>
-                    {removeUnderScore(employeeDetail?.loan?.loan_type)}
+                    {removeUnderScore(employeeDetail?.loan_type)}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>
                       Describe your Request for Loan:
                     </span>
 
-                    {employeeDetail?.loan?.description}
+                    {employeeDetail?.description}
                   </div>
                 </div>
                 <div className={styles.right}>
                   <div className={styles.key}>
                     <span className={styles.value}>Amount Requested:</span>
-                    {employeeDetail?.loan?.amount &&
-                      `₹ ${employeeDetail?.loan?.amount}`}
+                    {employeeDetail?.amount &&
+                      `₹ ${employeeDetail?.amount}`}
                   </div>
                 </div>
               </div>
@@ -80,8 +79,8 @@ function OngoingLoanDetail() {
         <div className={styles.newContainer}>
           <div className={styles.heading}>Attachments</div>
           <div className={styles.commentContainer}>
-            {employeeDetail?.loan?.attachments &&
-              employeeDetail?.loan?.attachments.map((item, index) => (
+            {employeeDetail?.attachments &&
+              employeeDetail?.attachments.map((item, index) => (
                 <div className={styles.otherWrap} key={`attachment_${index}`}>
                   <div className={styles.mainFlex}>
                     <div className={styles.left}>
@@ -106,8 +105,8 @@ function OngoingLoanDetail() {
         <div className={styles.newContainer}>
           <div className={styles.heading}>Loan Guarantees</div>
           <div className={styles.commentContainer}>
-            {employeeDetail?.loan?.guarantees &&
-              employeeDetail?.loan?.guarantees.map((item, index) => (
+            {employeeDetail?.guarantees &&
+              employeeDetail?.guarantees.map((item, index) => (
                 <div className={styles.otherWrap} key={`guarantee_${index}`}>
                   <div className={styles.heading}>{`Guarantee ${
                     index + 1
@@ -161,7 +160,7 @@ function OngoingLoanDetail() {
                       )}
                     </div>
                   </div>
-                  {employeeDetail?.loan?.guarantees?.length !== index + 1 && (
+                  {employeeDetail?.guarantees?.length !== index + 1 && (
                     <div className={styles.verti}></div>
                   )}
                 </div>
@@ -169,7 +168,7 @@ function OngoingLoanDetail() {
           </div>
         </div>
       </div>
-      <div className={styles.plainPaper}>
+      {/* <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Comments/Notes</div>
           <div className={styles.commentContainer}>
@@ -184,8 +183,8 @@ function OngoingLoanDetail() {
               ))}
           </div>
         </div>
-      </div>
-      {/* {employeeDetail?.status === "PENDING" && ( */}
+      </div> */}
+      {employeeDetail?.status === "PROCESSED" && (
       <div className={styles.approvedWrapper}>
         <div className={styles.editBtn2}>
           <ButtonBase className={styles.createBtn} onClick={toggleRejectDialog}>
@@ -193,7 +192,7 @@ function OngoingLoanDetail() {
           </ButtonBase>
         </div>
       </div>
-      {/* )} */}
+       )}
     </div>
   );
 }

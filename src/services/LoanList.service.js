@@ -34,6 +34,9 @@ export async function serviceApproveEmployeeLoan(params) {
 export async function serviceRejectEmployeeList(params) {
   return await postRequest("employee/loans/review/reject", params);
 }
+export async function serviceCloseEmployeeLoan(params) {
+  return await postRequest("employee/loans/closed", params);
+}
 export async function serviceGetLoanHistory(params) {
   return await postRequest("employee/loans/previous/history", params);
 }
@@ -44,7 +47,7 @@ export async function serviceGetLoanSchedule(params) {
   return await postRequest("employee/loans/recovery/schedule", params);
 }
 export async function serviceUpdateLoanFormDetails(params) {
-  return await postRequest("employee/loans/review/update", params);
+  return await postRequest("employee/loans/review/accept", params);
 }
 export async function serviceGetLoanBudgetPosition(params) {
   return await postRequest("employee/loans/budget/positioning", params);
