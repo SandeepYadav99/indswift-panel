@@ -15,6 +15,7 @@ import TravelClaimListDetail from "../views/AdminClaimManagement/TravelClaimDeta
 import LoanProcessDetail from "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view";
 import LoanRecovery from "../views/LoanManagement/LoanRecovery/LoanRecovery.view";
 import EmployeeSalaryReport from "../views/EmployeeSalaryReport/EmployeeSalaryReport.view";
+import OngoingLoans from "../views/LoanManagement/OngoingLoans/OngoingLoans.view";
 
 const ClaimIntCard = lazy(()=>import ( "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view"));
 const NewEmployeeList = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeList.view"));
@@ -1718,6 +1719,17 @@ const dashboardRoutes = [
         should_regex: true,
         // parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: RouteName.ADMIN_ONGOING_LOANS,
+        sidebarName: "Ongoing Loans",
+        navbarName: "Ongoing Loans",
+        icon: AssignmentOutlined,
+        component: OngoingLoans,
+        is_sidebar: true,
+        is_protect: true,
+        roles: [Roles.CORPORATE_HR],
+
     },
     
     
