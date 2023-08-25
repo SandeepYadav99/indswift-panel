@@ -6,7 +6,6 @@ import {
   serviceGetLoanBudgetOutstanding,
   serviceGetLoanBudgetPosition,
   serviceGetLoanEligiblityCalculator,
-  serviceGetLoanHistory,
   serviceGetLoanListDetails,
   serviceGetLoanSchedule,
   serviceUpdateLoanFormDetails,
@@ -33,6 +32,21 @@ const initialForm = {
   exceptional_approval: "",
   tableamount: "",
 };
+const eligibility_fields = [
+  "total_applied_loan",
+  "employee_el",
+  "employee_el_amount",
+  "gratuity_amount",
+  "total_recoverable_amount",
+  "posible_recovery_loan",
+  "exceptional_approval",
+];
+
+const recoveryField = [
+  "loan_start_date",
+  "loan_end_date",
+  "interest",
+];
 
 function useLoanProcessDetail() {
   const [employeeDetail, setEmployeeDetail] = useState({});
@@ -93,21 +107,19 @@ function useLoanProcessDetail() {
   }, [loanDetail?.applied_amount]);
 
   useEffect(() => {
-    Promise.allSettled([
-      serviceGetLoanListDetails({ id: id }),
-      serviceGetLoanHistory({ employee_id: id }),
-    ]).then((promises) => {
-      const empDetail = promises[0]?.value?.data?.details;
-      const loanHistory = promises[1]?.value?.data;
-      setEmployeeDetail(empDetail);
-      setExperience(empDetail?.loan?.employee?.experience?.current);
-      const serializedData = sessionStorage.getItem("formValues");
-      if (serializedData) {
-        const parsedData = JSON.parse(serializedData);
-        sessionStorage.removeItem("formValues");
-        setForm({ ...form, ...parsedData });
+    Promise.allSettled([serviceGetLoanListDetails({ id: id })]).then(
+      (promises) => {
+        const empDetail = promises[0]?.value?.data?.details;
+        setEmployeeDetail(empDetail);
+        setExperience(empDetail?.loan?.employee?.experience?.current);
+        const serializedData = sessionStorage.getItem("formValues");
+        if (serializedData) {
+          const parsedData = JSON.parse(serializedData);
+          sessionStorage.removeItem("formValues");
+          setForm({ ...form, ...parsedData });
+        }
       }
-    });
+    );
   }, [id]);
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
@@ -186,9 +198,33 @@ function useLoanProcessDetail() {
     if (!isSubmitting) {
       setIsLoading(true);
       setIsSubmitting(true);
+      const TravelData = travelRef.current.getData();
+      const eligibility_calculations = {};
+      eligibility_fields.forEach((key) => {
+        if (key in form) {
+          eligibility_calculations[key] = form[key];
+        }
+      });
+      const proposal_recovery_plan = {
+        net_recovery_amount: info?.totalTenureMounth,
+        tenure_month: info?.total?.totalRepaybleAmmount,
+      };
+      recoveryField.forEach((key) => {
+        if (key in form) {
+          proposal_recovery_plan[key] = form[key];
+        }
+      });
+      const data = {
+        previous_loan_history: TravelData,
+        eligibility_calculations,
+        proposal_recovery_plan,
+        loan_history_comment: form?.previous_year_loan_comment,
+      };
+      // console.log('loan_update',{loan_update:{...data}})
       serviceUpdateLoanFormDetails({
-        id: employeeDetail?.loan_id,
-        ...form,
+        review_id: id,
+        comment: form?.comment,
+        loan_update: { ...data },
       }).then((res) => {
         if (!res.error) {
           sessionStorage.removeItem("formValues");
@@ -200,16 +236,24 @@ function useLoanProcessDetail() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, employeeDetail?.loan_id]);
+  }, [form, isSubmitting, setIsSubmitting, employeeDetail?.loan_id, info]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    if (Object.keys(errors).length > 0) {
+    const isTravelValid = travelRef.current.isValid();
+
+    if (!isTravelValid || Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, submitToServer,employeeDetail?.loan_id]);
+  }, [
+    checkFormValidation,
+    setErrorData,
+    submitToServer,
+    employeeDetail?.loan_id,
+    info,
+  ]);
 
   const removeError = useCallback(
     (title) => {
@@ -305,6 +349,7 @@ function useLoanProcessDetail() {
     info,
     tabledata,
     afterAmount,
+    travelRef,
   };
 }
 

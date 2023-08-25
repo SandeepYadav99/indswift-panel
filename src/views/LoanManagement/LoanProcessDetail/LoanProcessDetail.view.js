@@ -33,7 +33,8 @@ function LoanProcessDetail() {
     id,
     info,
     tabledata,
-    afterAmount
+    afterAmount,
+    travelRef,
   } = useLoanProcessDetail({});
   return (
     <div>
@@ -191,10 +192,7 @@ function LoanProcessDetail() {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Previous Loan History</div>
-        <LoanHistoryIncludeForm
-          experience={experience}
-          //   ref={enterRef}
-        />
+        <LoanHistoryIncludeForm experience={experience} ref={travelRef} />
         <CustomTextField
           type="number"
           isError={errorData?.previous_year_loan_comment}
@@ -241,7 +239,6 @@ function LoanProcessDetail() {
                   <span className={styles.value}>Eligible for Loan of:</span>
                   {loanDetail?.userEligibleForLoan &&
                     `₹ ${loanDetail?.userEligibleForLoan}`}
-                  tester
                 </div>
               </div>
             </div>

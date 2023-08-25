@@ -16,11 +16,12 @@ import LoanHistoryIncludeFields from "./LoanHistoryFields.component";
 import { dropDownValuesLoan } from "../../../../../helper/helper";
 
 const TEMP_OBJ = {
-  guest_name: "",
-  guest_details: "",
-  expense_nature: "",
+  type: "",
   amount: "",
-  entertainment_payment_proof: null,
+  interest: "",
+  status: "",
+  from: "",
+  to: "",
 };
 
 const LoanHistoryIncludeForm = (
@@ -55,13 +56,7 @@ const LoanHistoryIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [
-        "guest_name",
-        "guest_details",
-        "expense_nature",
-        "amount",
-        "entertainment_payment_proof",
-      ];
+      const required = ["type", "amount", "interest", "status", "from", "to"];
       const hasValues = Object.values(val).some(
         (value) => value !== "" && value !== null
       );
@@ -73,18 +68,18 @@ const LoanHistoryIncludeForm = (
             }
           });
       }
-      // if (val?.check_in && val?.check_out) {
-      //   const joinDate = new Date(val?.check_in);
-      //   const expectedDate = new Date(val?.check_out);
-      //   joinDate.setHours(0, 0, 0, 0);
-      //   expectedDate.setHours(0, 0, 0, 0);
-      //   if (joinDate.getTime() > expectedDate.getTime()) {
-      //     err["check_out"] = true;
-      //     SnackbarUtils.error(
-      //       "CheckOut Date should not be Less than CheckIn Date"
-      //     );
-      //   }
-      // }
+      if (val?.to && val?.from) {
+        const joinDate = new Date(val?.to);
+        const expectedDate = new Date(val?.from);
+        joinDate.setHours(0, 0, 0, 0);
+        expectedDate.setHours(0, 0, 0, 0);
+        if (joinDate.getTime() < expectedDate.getTime()) {
+          err["from"] = true;
+          SnackbarUtils.error(
+            "From Date should not be Less than To Date"
+          );
+        }
+      }
       if (!hasValues) {
         for (const key in err) {
           if (err.hasOwnProperty(key)) {
@@ -199,7 +194,7 @@ const LoanHistoryIncludeForm = (
   return (
     <>
       {renderFields}
-      {/* <div className={styles.btnWrapper}>
+      <div className={styles.btnWrapper}>
         <ButtonBase
           className={styles.addition}
           label={"+"}
@@ -209,7 +204,7 @@ const LoanHistoryIncludeForm = (
         >
           <Add fontSize={"small"} /> <span>Add More</span>
         </ButtonBase>
-      </div> */}
+      </div>
     </>
   );
 };

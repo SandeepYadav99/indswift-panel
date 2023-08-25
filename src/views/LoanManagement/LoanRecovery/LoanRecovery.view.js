@@ -167,7 +167,7 @@ function LoanRecovery({ location }) {
               <div className={styles.mainFlex}>
                 <div className={styles.left}>
                   <div className={styles.key}>
-                    <span className={styles.value}>Loan EMI:</span>
+                    <span className={styles.value}>Loan Amount:</span>
                     {loanData?.total_applied_loan}
                   </div>
                   <div className={styles.key}>
