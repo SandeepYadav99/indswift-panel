@@ -319,6 +319,14 @@
   padding: 12px 10px;
   font-weight: 500;
 }
+.noWrapFixed{
+  white-space: nowrap;
+  font-size: .8rem;
+  text-align: center;
+  padding: 12px 10px;
+  font-weight: 500;
+  width: 150px;
+}
 .noWrapheading{
   white-space: nowrap;
   font-size: .8rem;
@@ -326,6 +334,7 @@
   padding: 12px 10px;
   font-weight: 500;
   margin-top: 10px;
+  width:150px
 }
 .Wrap{
   white-space: nowrap;
@@ -371,11 +380,11 @@
 .tipWrap{
   display: flex;
   align-items: center;
-  gap: 25px;
+  /* gap: 25px; */
   justify-content: center;
   font-size: 0.75rem;
   white-space: nowrap;
-  margin: 0 15px;
+  margin: 0 10px;
   text-transform: uppercase;
   padding: 7px 0;
 }
@@ -416,7 +425,7 @@
   flex-direction: column;
   margin-top: 30px;
 }
-.tipWrap{
+/* .tipWrap{
   display: flex;
   align-items: center;
   gap: 25px;
@@ -424,7 +433,7 @@
   font-size: 0.75rem;
   white-space: nowrap;
   margin: 0 15px;
-}
+} */
 .inputComp{
   padding: 1rem 0;
   text-indent: 10px;

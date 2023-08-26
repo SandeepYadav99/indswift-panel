@@ -18,6 +18,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import StatusPill from "../../components/Status/StatusPill.component";
 import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/CustomAutoComplete";
+import { getFixedValue } from "../../helper/helper";
 
 const useStyles = makeStyles((theme) => ({
   customTooltip: {
@@ -52,7 +53,7 @@ const TableCell = ({
       key={key}
       style={{
         position: fixed ? "sticky" : "static",
-        left: fixed ? 0 : undefined,
+        left: fixed ? getFixedValue(index) : undefined,
         // border:  "2px solid #EBEDF4",
         padding: "0",
         zIndex: fixed ? 10 : 9,
@@ -87,21 +88,14 @@ const TableHead = ({ columns }) => {
               key={key}
               style={{
                 position: "sticky",
-                left: fixed ? 0 : undefined,
+                left: fixed ? getFixedValue(key) : undefined,
                 top: 0,
                 zIndex: fixed ? 100 : 9,
               }}
               className={styles.thead}
             >
-              <div className={styles.tipWrap}>
-                {label?.replace(/_/g, " ")}
-                {text && (
-                  <Tooltip title={text} enterDelay={2} leaveDelay={2000}>
-                    <IconButton size="small">
-                      <InfoOutlined color="secondary" />
-                    </IconButton>
-                  </Tooltip>
-                )}
+              <div className={styles.tipWrap} style={{width:fixed && '150px'}}>
+                {label}
               </div>
             </th>
           </>
@@ -147,32 +141,36 @@ const EmployeeSalaryReport = ({ location }) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "name",
+        key: "0",
         label: "EMPLOYEE NAME",
         sortable: false,
         fixed: true,
         render: (temp, all) => (
-          <div className={styles.noWrap}>
-            {/* {all?.incremental_gross_salary} */}
-          </div>
+          <>
+          </>
+          // <div className={styles.noWrapEmp}>
+          //   {/* {all?.incremental_gross_salary} */}
+          // </div>
         ),
       },
       {
-        key: "cadre",
+        key: "1",
         label: "Grade/Cadre",
         sortable: true,
+        fixed: true,
         render: (value, all) => (
-          <div className={styles.noWrap}>
+          <div className={styles.noWrapFixed}>
             {all?.grade?.code}/{all?.cadre?.name}
           </div>
         ),
       },
       {
-        key: "date",
+        key: "2",
         label: "DATE",
         sortable: false,
+        fixed: true,
         render: (temp, all) => (
-          <div className={styles.noWrap}>{all?.effectiveDateText}</div>
+          <div className={styles.noWrapFixed}>{all?.effectiveDateText}</div>
         ),
       },
       {
@@ -313,14 +311,6 @@ const EmployeeSalaryReport = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}> ₹{all?.deduction_vpf}</div>
-        ),
-      },
-      {
-        key: "pli",
-        label: "pli",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.earning_three_pli}</div>
         ),
       },
       {
@@ -469,34 +459,6 @@ const EmployeeSalaryReport = ({ location }) => {
       },
     ];
   }, [renderStatus, isCalling, formData, currentData, data]);
-
-  const tableData = useMemo(() => {
-    const datatableFunctions = {
-      onSortOrderChange: handleSortOrderChange,
-      onPageChange: handlePageChange,
-      onRowSizeChange: handleRowSize,
-    };
-
-    const datatable = {
-      ...Constants.DATATABLE_PROPERTIES,
-      columns: tableStructure,
-      data: currentData,
-      count: data?.length,
-      page: currentPage - 1,
-      rowsPerPage: 50,
-      allRowSelected: false,
-      showSelection: false,
-    };
-
-    return { datatableFunctions, datatable };
-  }, [
-    tableStructure,
-    handleSortOrderChange,
-    handlePageChange,
-    handleRowSize,
-    data,
-    currentPage,
-  ]);
 
   const renderDropDown = useMemo(() => {
     return (
@@ -653,10 +615,6 @@ const EmployeeSalaryReport = ({ location }) => {
             />
             <br />
             <div style={{ width: "100%", marginBottom: "50px" }}>
-              {/*<DataTables*/}
-              {/*    {...tableData.datatable}*/}
-              {/*    {...tableData.datatableFunctions}*/}
-              {/*/>*/}
               <div className={styles.tableWrapper}>
                 <div className={styles.container}>
                   <table

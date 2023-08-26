@@ -126,7 +126,6 @@ const useEmployeeSalaryReport = ({}) => {
 
   const initialApiCall = useCallback(() => {
     const checkVaid = checkValidation(startDate, endDate);
-    console.log("checkVaid", checkVaid);
     if (startDate && endDate && checkVaid) {
       resetData();
     }
