@@ -59,7 +59,13 @@ const TableCell = ({
         background: readOnly ? "#EDF2F5 " : "#ffffff",
       }}
     >
-      {index == 0 && <div className={styles.noWrapheading}><b>{row._id?.name}</b><br/>{row._id?.emp_code}</div>}
+      {index == 0 && (
+        <div className={styles.noWrapheading}>
+          <b>{row._id?.name}</b>
+          <br />
+          {row._id?.emp_code}
+        </div>
+      )}
       {row?.comparisionData?.map((item, index) => {
         return render(row[key], item, index);
       })}
@@ -130,6 +136,8 @@ const EmployeeSalaryReport = ({ location }) => {
     listData,
     listType,
     setListType,
+    startValid,
+    endValid,
   } = useEmployeeSalaryReport({ location });
 
   const renderStatus = useCallback((status) => {
@@ -164,7 +172,7 @@ const EmployeeSalaryReport = ({ location }) => {
         label: "DATE",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>{all?.createdAtText}</div>
+          <div className={styles.noWrap}>{all?.effectiveDateText}</div>
         ),
       },
       {
@@ -460,7 +468,7 @@ const EmployeeSalaryReport = ({ location }) => {
         ),
       },
     ];
-  }, [renderStatus, isCalling, formData]);
+  }, [renderStatus, isCalling, formData, currentData, data]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -576,9 +584,10 @@ const EmployeeSalaryReport = ({ location }) => {
           handleChangeDate(value, "start");
         }}
         value={startDate}
+        isError={startValid}
       />
     );
-  }, [startDate]);
+  }, [startDate,startValid]);
 
   const renderEndDate = useMemo(() => {
     return (
@@ -590,9 +599,10 @@ const EmployeeSalaryReport = ({ location }) => {
           handleChangeDate(value, "end");
         }}
         value={endDate}
+        isError={endValid}
       />
     );
-  }, [endDate]);
+  }, [endDate,endValid]);
   return (
     <div>
       <PageBox>

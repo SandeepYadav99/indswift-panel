@@ -16,6 +16,7 @@ import { useMemo } from "react";
 import debounce from "lodash.debounce";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import { isDate } from "../../../libs/RegexUtils";
 
 const initialForm = {
   total_applied_loan: "",
@@ -149,7 +150,7 @@ function useLoanProcessDetail() {
     if (data?.loan_start_date && data?.loan_end_date && data?.interest) {
       let req = serviceGetLoanSchedule({
         id: employeeDetail?.loan_id,
-        total_applied_loan: data?.total_applied_loan,
+        total_applied_loan: data?.total_applied_loan ? data?.total_applied_loan : 0,
         loan_start_date: data?.loan_start_date,
         loan_end_date: data?.loan_end_date,
         interest: Number(data?.interest),
@@ -157,11 +158,12 @@ function useLoanProcessDetail() {
       req.then((res) => {
         setInfo(res.data);
       });
-    } else {
-      SnackbarUtils.error(
-        "Please Fill the start date End date and Interest Rate"
-      );
     }
+    //  else {
+    //   SnackbarUtils.error(
+    //     "Please Fill the start date End date and Interest Rate"
+    //   );
+    // }
   };
 
   const checkLoanScheduleDebounce = useMemo(() => {
@@ -182,9 +184,23 @@ function useLoanProcessDetail() {
         errors[val] = true;
       }
     });
-    if (form?.relocation_type?.length === 0) {
-      errors["relocation_type"] = true;
-      SnackbarUtils.error("Please Select the Type");
+    if (!isDate(form?.loan_start_date)) {
+      errors["loan_start_date"] = true;
+    }
+    if (!isDate(form?.loan_end_date)) {
+      errors["loan_end_date"] = true;
+    }
+    if (form?.loan_start_date && form?.loan_end_date) {
+      const joinDate = new Date(form?.loan_start_date);
+      const expectedDate = new Date(form?.loan_end_date);
+      joinDate.setHours(0, 0, 0, 0);
+      expectedDate.setHours(0, 0, 0, 0);
+      if (joinDate.getTime() > expectedDate.getTime()) {
+        SnackbarUtils.error(
+          "Loan End date should not be Less than Loan Start date"
+        );
+        errors["loan_end_date"] = true;
+      }
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {

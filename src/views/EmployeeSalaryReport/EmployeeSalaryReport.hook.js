@@ -7,6 +7,7 @@ import {
   serviceEmployeeSalaryReportExcelDownload,
   serviceGetEmployeeSalaryReport,
 } from "../../services/EmployeeSalaryReport.service";
+import { isDate } from "../../libs/RegexUtils";
 
 const totalShow = 50;
 const useEmployeeSalaryReport = ({}) => {
@@ -21,6 +22,8 @@ const useEmployeeSalaryReport = ({}) => {
   const [apiData, setApiData] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [startValid, setStartValid] = useState(false);
+  const [endValid, setEndValid] = useState(false);
   const [type, setType] = useState("");
   const [year, setYear] = useState("");
   const [formData, setFormData] = useState({});
@@ -36,21 +39,34 @@ const useEmployeeSalaryReport = ({}) => {
     (Date, name) => {
       if (name == "start") {
         setStartDate(Date);
-        sessionStorage.setItem("start", Date);
+        setStartValid(false);
+        // sessionStorage.setItem("start", Date);
       } else if (name == "end") {
         setEndDate(Date);
-        sessionStorage.setItem("end", Date);
+        setEndValid(false);
+        // sessionStorage.setItem("end", Date);
       }
     },
-    [startDate, setStartDate, setEndDate, endDate]
+    [
+      startDate,
+      setStartDate,
+      setEndDate,
+      endDate,
+      startValid,
+      endValid,
+      setStartValid,
+      setEndValid,
+    ]
   );
 
   useEffect(() => {
-    serviceGetList(["LOCATIONS", "DEPARTMENTS", "DESIGNATIONS", "GRADES"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
+    serviceGetList(["LOCATIONS", "DEPARTMENTS", "DESIGNATIONS", "GRADES"]).then(
+      (res) => {
+        if (!res.error) {
+          setListData(res.data);
+        }
       }
-    });
+    );
   }, []);
 
   const resetData = useCallback(() => {
@@ -78,6 +94,43 @@ const useEmployeeSalaryReport = ({}) => {
       setIsCalling(false);
     });
   }, [year, type, setIsCalling, startDate, endDate, listType]);
+
+  const checkValidation = (start, end) => {
+    if (!isDate(start) || !isDate(end)) {
+      if (!isDate(start)) {
+        setStartValid(true);
+      }
+      if (!isDate(end)) {
+        setEndValid(true);
+      }
+      return false;
+    }
+    if (start && end) {
+      const startDate = new Date(start);
+      const endDate = new Date(end);
+      startDate.setHours(0, 0, 0, 0);
+      endDate.setHours(0, 0, 0, 0);
+      if (startDate.getTime() > endDate.getTime()) {
+        SnackbarUtils.error(
+          "End Date should not be Less than Start Date"
+        );
+        setStartValid(true);
+        setEndValid(true);
+        return false;
+      }
+    }
+    setStartValid(false);
+    setEndValid(false);
+    return true;
+  };
+
+  const initialApiCall = useCallback(() => {
+    const checkVaid = checkValidation(startDate, endDate);
+    console.log("checkVaid", checkVaid);
+    if (startDate && endDate && checkVaid) {
+      resetData();
+    }
+  }, [type, startDate, endDate, type, listType]);
 
   useEffect(() => {
     setData(apiData);
@@ -180,12 +233,6 @@ const useEmployeeSalaryReport = ({}) => {
     [queryFilter, _processData, data, setData, apiData]
   );
 
-  const initialApiCall = useCallback(() => {
-    if (startDate && endDate) {
-      resetData();
-    }
-  }, [type, startDate, endDate, type, listType]);
-
   useEffect(() => {
     if (type) {
       setListType("");
@@ -267,6 +314,8 @@ const useEmployeeSalaryReport = ({}) => {
     handleChangeDate,
     listType,
     setListType,
+    startValid,
+    endValid,
   };
 };
 

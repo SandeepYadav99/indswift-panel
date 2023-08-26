@@ -25,31 +25,31 @@ function LoanRecovery({ location }) {
         key: "amount",
         label: "LOAN AMOUNT",
         sortable: false,
-        render: (value, all) => <div>{all.amountRemaining}</div>,
+        render: (value, all) => <div>{all.amountRemaining && `₹ ${all.amountRemaining}` }</div>,
       },
       {
         key: "emi",
         label: "EMI",
         sortable: false,
-        render: (value, all) => <div>{all.EMI}</div>,
+        render: (value, all) => <div>{all.EMI && `₹ ${all.EMI}` }</div>,
       },
       {
         key: "interest",
         label: "INTEREST",
         sortable: false,
-        render: (value, all) => <div>{all.Interest}</div>,
+        render: (value, all) => <div>{all.Interest && `${all.Interest} %` }</div>,
       },
       {
         key: "principal",
         label: "PRINCIPAL",
         sortable: false,
-        render: (value, all) => <div>{all.Principal}</div>,
+        render: (value, all) => <div>{all.Principal && `₹ ${all.Principal}` }</div>,
       },
       {
         key: "out",
         label: "OUTSTATION",
         sortable: false,
-        render: (value, all) => <div>{all.Outstation}</div>,
+        render: (value, all) => <div>{all.Outstation && `₹ ${all.Outstation}` }</div>,
       },
       {
         key: "date",
@@ -121,8 +121,8 @@ function LoanRecovery({ location }) {
                     <span className={styles.value}>
                       EMI (Monthly Installment):
                     </span>
-                    {loanData?.total?.totalRepaybleAmmount &&
-                      Number(loanData?.total?.totalRepaybleAmmount) /
+                    ₹ {loanData?.total?.totalRepaybleAmmount && 
+                        Number(loanData?.total?.totalRepaybleAmmount) /
                         Number(loanData?.totalTenureMounth)}
                   </div>
                   <div className={styles.key}>
@@ -144,12 +144,12 @@ function LoanRecovery({ location }) {
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Interest Rate:</span>
-                    {loanData?.interest}
+                    {loanData?.interest && `${loanData?.interest} %`}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Tenure of Loan:</span>
                     {loanData?.totalTenureYear &&
-                      loanData?.totalTenureYear.toFixed(2)}
+                      `${loanData?.totalTenureYear.toFixed(2)} yr`}
                   </div>
                 </div>
               </div>
@@ -168,12 +168,12 @@ function LoanRecovery({ location }) {
                 <div className={styles.left}>
                   <div className={styles.key}>
                     <span className={styles.value}>Loan Amount:</span>
-                    {loanData?.total_applied_loan}
+                    {loanData?.total_applied_loan && `₹ ${loanData?.total_applied_loan}`}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Rate of Interest:</span>
 
-                    {loanData?.interest}
+                    {loanData?.interest && `${loanData?.interest} %`}
                   </div>
                 </div>
                 <div className={styles.right}>
