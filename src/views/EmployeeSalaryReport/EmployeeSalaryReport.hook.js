@@ -29,6 +29,7 @@ const useEmployeeSalaryReport = ({}) => {
     LOCATIONS: [],
     DESIGNATIONS: [],
     DEPARTMENTS: [],
+    GRADES: [],
   });
 
   const handleChangeDate = useCallback(
@@ -45,7 +46,7 @@ const useEmployeeSalaryReport = ({}) => {
   );
 
   useEffect(() => {
-    serviceGetList(["LOCATIONS", "DEPARTMENTS", "DESIGNATIONS"]).then((res) => {
+    serviceGetList(["LOCATIONS", "DEPARTMENTS", "DESIGNATIONS", "GRADES"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -65,7 +66,10 @@ const useEmployeeSalaryReport = ({}) => {
     serviceGetEmployeeSalaryReport({
       start_date: startDate,
       end_date: endDate,
-      ...value,
+      index: 1,
+      query: null,
+      query_data: null,
+      // ...value,
     }).then((res) => {
       if (!res.error) {
         const data = res.data;
@@ -80,7 +84,7 @@ const useEmployeeSalaryReport = ({}) => {
   }, [apiData]);
 
   const handleDownload = useCallback(() => {
-    if (startDate && endDate && type && listType) {
+    if (startDate && endDate) {
       const value = {};
       if (type === "LOCATION") {
         value.location_id = [listType];
@@ -92,7 +96,10 @@ const useEmployeeSalaryReport = ({}) => {
       serviceEmployeeSalaryReportExcelDownload({
         start_date: startDate,
         end_date: endDate,
-        ...value,
+        index: 1,
+        query: null,
+        query_data: null,
+        // ...value,
       }).then((res) => {
         if (!res.error) {
           const data = res.data;
@@ -159,8 +166,8 @@ const useEmployeeSalaryReport = ({}) => {
       if (value) {
         const tempData = apiData?.filter((val) => {
           if (
-            val?.name?.match(new RegExp(value, "ig")) ||
-            val?.emp_code?.match(new RegExp(value, "ig"))
+            val?._id?.name?.match(new RegExp(value, "ig")) ||
+            val?._id?.emp_code?.match(new RegExp(value, "ig"))
           ) {
             return val;
           }
@@ -174,7 +181,7 @@ const useEmployeeSalaryReport = ({}) => {
   );
 
   const initialApiCall = useCallback(() => {
-    if (startDate && endDate && type && listType) {
+    if (startDate && endDate) {
       resetData();
     }
   }, [type, startDate, endDate, type, listType]);
@@ -205,29 +212,29 @@ const useEmployeeSalaryReport = ({}) => {
 
   const configFilter = useMemo(() => {
     return [
-      ...[
-        {
-          label: "Location",
-          name: "loc_id",
-          type: "selectObject",
-          custom: { extract: { id: "id", title: "name" } },
-          fields: listData?.LOCATIONS,
-        },
-      ],
+      // ...[
+      //   {
+      //     label: "Location",
+      //     name: "loc_id",
+      //     type: "selectObject",
+      //     custom: { extract: { id: "id", title: "name" } },
+      //     fields: listData?.LOCATIONS,
+      //   },
+      // ],
       {
         label: "Grade",
         name: "grade_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "label" } },
-        fields: listData?.DESIGNATIONS,
+        fields: listData?.GRADES,
       },
-      {
-        label: "Department",
-        name: "department_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.DEPARTMENTS,
-      },
+      // {
+      //   label: "Department",
+      //   name: "department_id",
+      //   type: "selectObject",
+      //   custom: { extract: { id: "id", title: "name" } },
+      //   fields: listData?.DEPARTMENTS,
+      // },
     ];
   }, [listData]);
 

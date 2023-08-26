@@ -59,7 +59,10 @@ const TableCell = ({
         background: readOnly ? "#EDF2F5 " : "#ffffff",
       }}
     >
-      {render(row[key], row, index)}
+      {index == 0 && <div className={styles.noWrapheading}><b>{row._id?.name}</b><br/>{row._id?.emp_code}</div>}
+      {row?.comparisionData?.map((item, index) => {
+        return render(row[key], item, index);
+      })}
     </td>
   );
 };
@@ -142,7 +145,7 @@ const EmployeeSalaryReport = ({ location }) => {
         fixed: true,
         render: (temp, all) => (
           <div className={styles.noWrap}>
-            <b>{all?.name}</b> <br /> {all?.emp_code}
+            {/* {all?.incremental_gross_salary} */}
           </div>
         ),
       },
@@ -152,7 +155,7 @@ const EmployeeSalaryReport = ({ location }) => {
         sortable: true,
         render: (value, all) => (
           <div className={styles.noWrap}>
-            {all?.grade}/{all?.cadre}
+            {all?.grade?.code}/{all?.cadre?.name}
           </div>
         ),
       },
@@ -161,7 +164,7 @@ const EmployeeSalaryReport = ({ location }) => {
         label: "DATE",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>{all?.location}</div>
+          <div className={styles.noWrap}>{all?.createdAtText}</div>
         ),
       },
       {
@@ -304,14 +307,14 @@ const EmployeeSalaryReport = ({ location }) => {
           <div className={styles.noWrap}> ₹{all?.deduction_vpf}</div>
         ),
       },
-      // {
-      //   key: "pli",
-      //   label: "pli",
-      //   sortable: false,
-      //   render: (temp, all) => (
-      //     <div className={styles.noWrap}> ₹ {all?.earning_three_pli}</div>
-      //   ),
-      // },
+      {
+        key: "pli",
+        label: "pli",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}> ₹ {all?.earning_three_pli}</div>
+        ),
+      },
       {
         key: "empf",
         label: "em pf-deduction part",
@@ -604,9 +607,9 @@ const EmployeeSalaryReport = ({ location }) => {
           <div className={styles.UpperWrap}>
             <div className={styles.down}>{renderStartDate}</div>
             <div className={styles.down}>{renderEndDate}</div>
-            <div className={styles.down}>{renderDropDown}</div>
+            {/* <div className={styles.down}>{renderDropDown}</div> */}
 
-            {type && (
+            {/* {type && (
               <div className={styles.down}>
                 {type === "LOCATION"
                   ? renderLocation
@@ -614,9 +617,9 @@ const EmployeeSalaryReport = ({ location }) => {
                   ? renderDepartment
                   : renderDesignation}
               </div>
-            )}
+            )} */}
           </div>
-          {startDate && endDate && listType && (
+          {startDate && endDate && (
             <div className={styles.rightFlex}>
               <ButtonBase
                 onClick={initialApiCall}
@@ -657,9 +660,9 @@ const EmployeeSalaryReport = ({ location }) => {
                   >
                     <TableHead columns={tableStructure} />
                     <tbody>
-                      {currentData.map((row, rowIndex) => (
-                        <tr key={row.id}>
-                          {tableStructure.map(
+                      {currentData?.map((row, rowIndex) => (
+                        <tr key={row.id} className={styles.tr}>
+                          {tableStructure?.map(
                             (
                               { key, fixed, readOnly, render, ...props },
                               index

@@ -316,8 +316,16 @@
   white-space: nowrap;
   font-size: .8rem;
   text-align: center;
-  margin: 4px 10px;
+  padding: 12px 10px;
   font-weight: 500;
+}
+.noWrapheading{
+  white-space: nowrap;
+  font-size: .8rem;
+  text-align: center;
+  padding: 12px 10px;
+  font-weight: 500;
+  margin-top: 10px;
 }
 .Wrap{
   white-space: nowrap;
@@ -371,7 +379,9 @@
   text-transform: uppercase;
   padding: 7px 0;
 }
-
+.tr{
+  border-bottom: 1px solid #919BB0;
+}
 
 .container {
   margin: auto;
