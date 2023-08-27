@@ -18,7 +18,7 @@ const initialForm = {
   description: "",
   g1: "",
   g2: "",
-  g3: "",
+  // g3: "",
 };
 
 const useClaimLoanCard = ({}) => {
@@ -86,7 +86,7 @@ const useClaimLoanCard = ({}) => {
   }, [errorData, setErrorData, form?.loan_type, form?.amount]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["loan_type", "amount", "description", "g1", "g2", "g3"];
+    let required = ["loan_type", "amount", "description", "g1", "g2"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -201,7 +201,7 @@ const useClaimLoanCard = ({}) => {
       .map((item) => item?.id)
       .filter((id) => id !== undefined && id !== null);
     return employees?.filter((val) => !idArray.includes(val?.id));
-  }, [form?.g1, form?.g2, form?.g3, employees]);
+  }, [form?.g1, form?.g2, employees]);
   return {
     form,
     changeTextData,

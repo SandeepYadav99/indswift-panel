@@ -9,20 +9,25 @@ import {
     PersonRounded,
     FingerprintOutlined
 } from "@material-ui/icons";
-import RouteName from "./Route.name";
-import Constants from "../config/constants";
-import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
-import ClaimIntCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view";
-import NewEmployeeList from "../views/NewEmployeeList/NewEmployeeList.view";
-import NewEmployeeDetails from "../views/NewEmployeeList/NewEmployeeDetails/NewEmployeeDetails.view";
-import ReviewRecord from "../views/Pms/ReviewRecord/ReviewRecord.view";
+ import RouteName from "./Route.name";
+ import Constants from "../config/constants";
+import TravelClaimListDetail from "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view";
+import LoanProcessDetail from "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view";
+import LoanRecovery from "../views/LoanManagement/LoanRecovery/LoanRecovery.view";
+import EmployeeSalaryReport from "../views/EmployeeSalaryReport/EmployeeSalaryReport.view";
+import OngoingLoans from "../views/LoanManagement/OngoingLoans/OngoingLoans.view";
+import OngoingLoanDetail from "../views/LoanManagement/OngoingLoanDetail/OngoingLoanDetail.view";
+
+const ClaimIntCard = lazy(()=>import ( "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view"));
+const NewEmployeeList = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeList.view"));
+const NewEmployeeDetails = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeDetails/NewEmployeeDetails.view"));
+const ReviewRecord = lazy(()=>import ( "../views/Pms/ReviewRecord/PmsNormailize.view"));
 
  const EmployeeLoanDetail = lazy(()=> import ("../views/ClaimsManagement/EmployeeLoanDetail/EmployeeLoanDetail.view"));
  const LoanList = lazy(()=> import ("../views/LoanManagement/LoanList/LoanList.view"));
  const LoanListDetail = lazy(()=> import ("../views/LoanManagement/LoanListDetail/LoanListDetail.view"));
 
 const IncrementDetail = lazy(()=> import ("../views/PmsIncrements/IncrementDetail/IncrementDetail.view"));
-
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
 const ClaimMarriageCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimMarriageCard/ClaimMarriageCard.view"));
@@ -605,15 +610,15 @@ const dashboardRoutes = [
     },
     {
         path: `${RouteName.REVIEW_RECORD}`,
-        sidebarName: "Review Increment Records",
-        navbarName: "Review Increment Records",
+        sidebarName: "Review Record",
+        navbarName: "Review Record",
         icon: PeopleOutlined,
         component: ReviewRecord,
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
-        // parent: 'pms_increments',
-        roles: [Roles.CORPORATE_HR,Roles.PMS],
+        parent: 'pms_increments',
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.PMS_INCREMENT_PLANNER}`,
@@ -645,18 +650,6 @@ const dashboardRoutes = [
         navbarName: "Blank Award Sheet",
         icon: PeopleOutlined,
         component: IncrementPlanner,
-        is_sidebar: true,
-        is_protect: true,
-        should_regex: false,
-        parent: 'pms_increments',
-        roles: [Roles.CORPORATE_HR],
-    },
-    {
-        path: `${RouteName.PMS_INCREMENT_LETTER}`,
-        sidebarName: "Increment Letter",
-        navbarName: "Increment Letter",
-        icon: PeopleOutlined,
-        component: IncrementLetter,
         is_sidebar: true,
         is_protect: true,
         should_regex: false,
@@ -774,7 +767,7 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
-    },
+    }, 
     {
         path: 'null',
         sidebarName: "Budget & Planning",
@@ -994,6 +987,19 @@ const dashboardRoutes = [
         parent: 'cm',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
+    {
+        path: `${RouteName.TRAVEL_CLAIMS_DETAILS}:id`,
+        sidebarName: "Claims List",
+        navbarName: "Claims List",
+        icon: PeopleOutlined,
+        component: TravelClaimListDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    },
+    
     {
         path: `${RouteName.CLAIMS_IMPREST}`,
         sidebarName: "My Imprest Ledger",
@@ -1217,6 +1223,15 @@ const dashboardRoutes = [
         component: EmployeeReport,
         is_sidebar: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.EMPLOYEE_SALARY}`,
+        sidebarName: "Salary Comparison Report",
+        navbarName: "Salary Comparison Report",
+        icon: AssignmentOutlined,
+        component: EmployeeSalaryReport,
+        is_sidebar: true,
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: 'null',
@@ -1682,8 +1697,54 @@ const dashboardRoutes = [
         // parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     },
-
-
+    {
+        path: `${RouteName.ADMIN_LOAN_PROCESS}:id`,
+        sidebarName: "Loan Management",
+        navbarName: "Loan Management",
+        icon: PeopleOutlined,
+        component: LoanProcessDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'tp',
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: `${RouteName.ADMIN_LOAN_RECOVERY}`,
+        sidebarName: "Loan Management",
+        navbarName: "Loan Management",
+        icon: PeopleOutlined,
+        component: LoanRecovery,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'tp',
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: RouteName.ADMIN_ONGOING_LOANS,
+        sidebarName: "Ongoing Loans",
+        navbarName: "Ongoing Loans",
+        icon: AssignmentOutlined,
+        component: OngoingLoans,
+        is_sidebar: true,
+        is_protect: true,
+        roles: [Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.ADMIN_ONGOING_LOANS_DETIALS}:id`,
+        sidebarName: "Ongoing Loans",
+        navbarName: "Ongoing Loans",
+        icon: PeopleOutlined,
+        component: OngoingLoanDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'tp',
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    
+    
 
 
     // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }

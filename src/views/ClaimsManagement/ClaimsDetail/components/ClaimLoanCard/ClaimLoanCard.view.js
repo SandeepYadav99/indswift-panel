@@ -279,7 +279,7 @@ function ClaimLoanCard() {
               </div>
             </div>
           </div>
-          <div className={"formFlex"}>
+          {/* <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomAutoComplete
                 autoCompleteProps={{
@@ -355,7 +355,7 @@ function ClaimLoanCard() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className={styles.cleckboxWrapper}>
             <div className={styles.checkBox}>
               <input

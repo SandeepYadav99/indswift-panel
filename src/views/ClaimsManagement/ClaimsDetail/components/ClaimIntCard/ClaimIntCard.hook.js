@@ -140,6 +140,12 @@ function useClaimIntCard() {
           const file = dataURLtoFile(nullImg, "null.png");
           fd.append("travel_payment_proof", file);
         }
+        if (val?.travel_voucher) {
+          fd.append("travel_voucher", val?.travel_voucher);
+        } else {
+          const file = dataURLtoFile(nullImg, "null.png");
+          fd.append("travel_payment_proof", file);
+        }
       });
       fd.append("travel_expenses", JSON.stringify(ExpensesData));
 

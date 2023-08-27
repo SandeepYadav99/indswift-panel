@@ -19,6 +19,7 @@ const TEMP_OBJ = {
   name: "",
   amount: "",
   voucher_documents: null,
+  comment: "",
 };
 
 const AuthDetailsIncludeForm = (
@@ -56,8 +57,10 @@ const AuthDetailsIncludeForm = (
       const required = ["type", "name", "amount", "voucher_documents"];
       {
         required.forEach((key) => {
-          if (!val[key]) {
+          if (!val?.comment && !val[key]) {
             err[key] = true;
+          } else {
+            delete err[key];
           }
         });
       }

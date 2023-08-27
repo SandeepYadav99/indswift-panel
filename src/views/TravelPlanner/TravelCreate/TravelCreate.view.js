@@ -340,6 +340,13 @@ function TravelCreate() {
                         </div>
                       </div>
                       <div className={styles.valuesV}>
+                        <div className={styles.flex1}>Progress:</div>{" "}
+                        <div className={styles.flex12}>
+                          {getCurrency(form?.imprest_currency)}
+                          {amountDetail[form?.imprest_currency]?.progress}
+                        </div>
+                      </div>
+                      <div className={styles.valuesV}>
                         <div className={styles.flex1}>Balance Outstanding:</div>{" "}
                         <div className={styles.flex12}>
                           {getCurrency(form?.imprest_currency)}
@@ -349,6 +356,24 @@ function TravelCreate() {
                     </div>
                   )}
                 </div>
+              </div>
+              <div className={styles.formWrap}>
+              <div className={styles.wrap}>
+                    <CustomTextField
+                      isError={errorData?.imprest_comment}
+                      errorText={errorData?.imprest_comment}
+                      label={"Comment"}
+                      value={form?.imprest_comment}
+                      onTextChange={(text) => {
+                        changeTextData(text, "imprest_comment");
+                      }}
+                      multiline
+                      rows={2}
+                      // onBlur={() => {
+                      //   onBlurHandler("imprest_comment");
+                      // }}
+                    />
+                  </div>
               </div>
               <div className={styles.formWrap}>
                 <div className={styles.formWrapInner}>
