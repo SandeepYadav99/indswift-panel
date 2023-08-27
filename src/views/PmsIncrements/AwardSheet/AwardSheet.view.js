@@ -192,9 +192,21 @@ const AwardSheetView = ({}) => {
           <div className={styles.typeContainer}>
             <Header empData={empData} />
             <p className={styles.txtJustify2}>
+            <b>
+                Positive Variance means you over-rate yourself on Behavioral
+                capabilities and Negative Variance means you under-rated
+                yourself on Behavioral Capabilities. Ideally the variance should
+                be less than 10 % in positive or negative side .
+              </b>
+              <br/>
+              <b>
+                Higher the variance on either side means lower is the score on
+                360 Degree Assessment.
+              </b>
+              <br/>
+              <br/>
               Incumbent’s self-rating and the team’s average on Behavioral
-              competence has a difference of
-              <strong>{empData?.bars_diff}</strong>.
+              competence has a difference of  <strong>{  empData?.bars_diff}</strong>.
               <br />
               Higher the variance poor is the relation between incumbent and
               his/her team.
@@ -203,19 +215,7 @@ const AwardSheetView = ({}) => {
               influence his her/her team in deriving better performances from
               them and vice versa.
               <br />
-              <br />
-              <b>
-                Positive Variance means you over-rate yourself on Behavioral
-                capabilities and Negative Variance means you are under-rated
-                yourself on Behavioral Capabilities. Ideally the variance should
-                be less than 10 % in positive or negative side .
-              </b>
-              <br />
-              <b>
-                Higher the variance on either side means lower is the score on
-                360 Degree Assessment.
-              </b>
-              <br />
+              
               <br />
               A low score may also remove or dilute your right to rate your team
               on set performance standards.
