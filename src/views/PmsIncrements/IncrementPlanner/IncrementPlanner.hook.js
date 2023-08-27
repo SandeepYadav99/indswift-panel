@@ -5,7 +5,10 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 import {
     serviceFreezeIncrementPlanner,
     serviceGetIncrementPlanner,
-    serviceIncrementPlannerDownload, serviceIncrementPlannerStatus, serviceUpdateIncrementPlanner,
+    serviceIncrementPlannerDownload,
+    serviceIncrementPlannerStatus,
+    serviceRefreshIncrementPlanner,
+    serviceUpdateIncrementPlanner,
 } from "../../../services/IncrementPlanner.service";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
@@ -31,6 +34,7 @@ const useIncrementPlanner = ({location}) => {
     const [isFreezed, setIsFreezed] = useState(false);
     const [isFreezeDialog, setIsFreezeDialog] = useState(false);
     const [isFreezing, setIsFreezing] = useState(false);
+    const [isFreezeSet, setIsFreezeSet] = useState(false);
     const getUrl =useLocation();
 
     const [listData, setListData] = useState({
@@ -91,14 +95,14 @@ const useIncrementPlanner = ({location}) => {
             setIsCalling(false);
         });
 
-        // serviceIncrementPlannerStatus({
-        //     year, batch: type, type: plannerType
-        // }).then((res) => {
-        //     if(!res.error) {
-        //         const status = res?.data;
-        //         setIsFreezed(status !== 'PENDING');
-        //     }
-        // })
+        serviceIncrementPlannerStatus({
+            year, batch: type, type: plannerType
+        }).then((res) => {
+            if(!res.error) {
+                const status = res?.data;
+                setIsFreezed(status !== 'PENDING');
+            }
+        })
     }, [year, type, plannerType, setIsCalling]);
 
 
@@ -300,7 +304,7 @@ const useIncrementPlanner = ({location}) => {
     const submitToServer = useCallback(() => {
         const tData = [];
         data.forEach((dT) => {
-            if (changedIds.indexOf(dT.id) >= 0) {
+            // if (changedIds.indexOf(dT.id) >= 0 ) {
             tData.push({
                 final_percentage: dT.final_percentage,
                 is_promoted: dT.is_promoted,
@@ -311,11 +315,17 @@ const useIncrementPlanner = ({location}) => {
                 employee_id: dT?.employee_id,
                 incr_due_month: dT?.incr_due_month,
             });
-            }
+            // }
         });
         if (!isSubmitting) {
             setIsSubmitting(true);
-            serviceUpdateIncrementPlanner({data: tData, batch: type, year, type: plannerType}).then((res) => {
+            let req = serviceUpdateIncrementPlanner;
+
+            if (isFreezeSet) {
+                req = serviceFreezeIncrementPlanner;
+            }
+
+            req({data: tData, batch: type, year, type: plannerType}).then((res) => {
                 if (!res.error) {
                     SnackbarUtils.success('Data Saved');
                 } else {
@@ -323,11 +333,13 @@ const useIncrementPlanner = ({location}) => {
                 }
                 setIsSubmitting(false);
                 toggleConfirmDialog();
-                // setIsFreezed(true);
+                if (isFreezeSet) {
+                    setIsFreezed(true);
+                }
                 resetData();
             })
         }
-    }, [data, isSubmitting, setIsSubmitting, toggleConfirmDialog, changedIds, plannerType, type, year, setIsFreezed, resetData]);
+    }, [data, isSubmitting, setIsSubmitting, toggleConfirmDialog, changedIds, plannerType, type, year, setIsFreezed, resetData, isFreezeSet]);
 
     const handleDialogConfirm = useCallback(() => {
         submitToServer();
@@ -348,7 +360,7 @@ const useIncrementPlanner = ({location}) => {
     const freezeIncrementPlanner = useCallback(() => {
         if(!isFreezing) {
             setIsFreezing(true);
-            serviceFreezeIncrementPlanner({batch: type, year}).then((res) => {
+            serviceRefreshIncrementPlanner({batch: type, year}).then((res) => {
                 if (!res.error) {
                     window.location.reload();
                 } else {
@@ -359,6 +371,16 @@ const useIncrementPlanner = ({location}) => {
             });
         }
     }, [type, year, isFreezing, setIsFreezing, toggleFreezeDialog]);
+
+    const handleFreezeBtn = useCallback(() => {
+        setIsFreezeSet(true);
+        toggleConfirmDialog();
+    }, [toggleConfirmDialog, setIsFreezeSet]);
+
+    const handleSaveBtn = useCallback(() => {
+        setIsFreezeSet(false);
+        toggleConfirmDialog();
+    }, [setIsFreezeSet, toggleConfirmDialog]);
 
     return {
         handlePageChange,
@@ -393,7 +415,9 @@ const useIncrementPlanner = ({location}) => {
         isFreezeDialog,
         toggleFreezeDialog,
         isFreezing,
-        getUrl
+        getUrl,
+        handleFreezeBtn,
+        handleSaveBtn
     };
 };
 
