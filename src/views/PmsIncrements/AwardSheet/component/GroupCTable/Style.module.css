@@ -21,12 +21,17 @@
 .table {
   /* border: 1px solid black; */
   border-collapse: collapse;
-  width: 100%;
+  /* width: 100%; */
+  width: calc(95vw - 60px);
+  margin-left: 15px;
+  margin-top: 20px;
+  /* margin-bottom: 20px; */
 }
 .thead {
   background: #ecf7ff 0% 0% no-repeat padding-box;
   padding: 10px 20px;
   border: 2px solid #ebedf4;
+  font-size: .7rem;
 }
 .columData {
   border: 2px solid #ebedf4;
@@ -49,7 +54,7 @@
 .formUpper > span {
   margin: 10px 0;
   text-align: center;
-  font-size: 0.875rem;
+  font-size: 0.7rem;
 }
 .tableWrapper {
   display: flex;
@@ -61,7 +66,7 @@
   align-items: center;
   gap: 25px;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   white-space: nowrap;
   margin: 0 15px;
 }
@@ -85,13 +90,16 @@
 }
 
 .label {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   padding: 10px 15px;
   text-align: center;
   white-space: nowrap;
+  text-transform: uppercase;
+  font-weight: 500;
+
 }
 .label21 {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   padding: 4px;
   z-index: 10;
 }

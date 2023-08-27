@@ -14,6 +14,7 @@ import AwardTable from "./component/AwardTable/AwardTable.view";
 import useAwardSheet from "./AwardSheet.hook";
 import GroupCTable from "./component/GroupCTable/GroupCTable.view";
 import WaitingComponent from "../../../components/Waiting.component";
+import sign from "../../../assets/img/sign.png";
 
 const Header = ({ empData }) => {
   return (
@@ -82,14 +83,10 @@ const AwardSheetView = ({}) => {
           title="Functional Performance Index (FARS)"
           data={ratingData?.fars}
         />
-        <br />
-        <br />
         <AwardTable
           title="Behavioural Performance Index (BARS)"
           data={ratingData?.bars}
         />
-        <br />
-        <br />
         <p className={styles.txtJustify}>
           Any competency that scores less than 85 % is an improvement area for
           you in next performance cycles.
@@ -106,9 +103,10 @@ const AwardSheetView = ({}) => {
           Goal Sheet-B reflects employee’s performance on specific KRAs (Key
           Result Areas), allocated to him/her as part of his/her direct
           contributions towards achievement of departmental and organizational
-          objectives. A certain set KRAs are always specific to a certain set of
-          performance cycles, however you may ask for your specific detailed KRA
-          sheet from your HOD for improving yourself in next performance cycle.
+          objectives. A certain set of KRAs are always specific to a certain set
+          of performance cycles, however you may ask for your specific detailed
+          KRA sheet from your HOD for improving yourself in next performance
+          cycle.
         </p>
 
         <span className={styles.heading}>
@@ -116,20 +114,39 @@ const AwardSheetView = ({}) => {
         </span>
         <p className={styles.txtJustify}>
           Goal Sheet-C reflects overall achievement of incumbent’s department on
-          its set departmental objectives.
+          its set departmental objectives. An employee’s performance is always a
+          sub-function of department’s overall results. For example- if a
+          certain crew member sailing on a ship is doing well, but the ship has
+          not been able to reach at its destination in set time, then that crew
+          member is also a part of that miss. Therefore, Categorization of
+          employee in certain performance category is also a dependent on how
+          well the department has achieved its overall targets.
           <br />
-          An employee’s performance is always a sub-function of department’s
-          overall results. For example- if a certain crew member sailing on a
-          ship is doing well, but the ship has not been able to reach at its
-          destination in set time, then that crew member is also a part of that
-          miss. Therefore, Categorization of employee in certain performance
-          category is also a dependent on how well the department has achieved
-          its overall targets.
+          If you are eligible for 360 Degree feedback of your behavior, you will
+          find another sheet attached. Your final performance category may make
+          your eligible for a revision or CDP or PIP or some other action. If
+          you have a revised compensation, then you may receive another letter
+          about the same from HR. Please review your areas of improvement
+          critically, and we wish you all the best for your performance in next
+          cycle.
+          <br />
+          <br />
+          <b>
+            For final classification of employee in one of several performance
+            categories following criteria applies-
+          </b>
+          <br />
+          <b>
+            20 % weightage to Goal Sheet A* + 60 % Weightage to Goal Sheet-B +
+            20 % Weightage to Goal Sheet C{" "}
+          </b>
+          <br />
+          This generates final score of an employee out of 100. based on which
+          employee gets classified in in one of the 11 performance categories.
         </p>
 
         <p className={styles.txtJustify}>
           {/*<strong>Your final performance category is {empData?.increment_level}.</strong><br/>*/}
-          <br />
           <br />
           To refer the chart of performance categories and other PMS related
           policy guidelines please refer to the back side of this sheet. If you
@@ -143,16 +160,40 @@ const AwardSheetView = ({}) => {
           <br />
           Please review your areas of improvement critically, and we wish you
           all the best for your performance in next cycle.
-          <br />
         </p>
+        <div className={styles.sigWrap}>
+          <p className={styles.txtJustify}>
+            <div>
+              <img className={styles.imgWrapSign} src={sign} />
+            </div>
+            <strong>Authorized Signatory</strong>
+            <br />
+            <strong>Corporate HR</strong>
+            <br />
+            <a
+              className={styles.hyperlinkText}
+              // href="akashdeep.sharma@indswiftlabs.com"
+              target="_blank"
+            >
+              akashdeep.sharma@indswiftlabs.com
+            </a>
+            <br />
+            <br /> Contents of this letter are extremely confidential and
+            restricted for any circulation or discussion with anyone in
+            organization. Breaching this confidently may attract suitable
+            disciplinary action against the provider and receiver of this
+            information. If someone influence to share this information at any
+            platform, please stop the communication and immediately report to
+            Corporate HR or Site HR.
+          </p>
+        </div>
 
         {empData?.form_type === "TYPE_4" && (
-          <div>
+          <div className={styles.typeContainer}>
             <Header empData={empData} />
-            <br />
-            <p className={styles.txtJustify}>
+            <p className={styles.txtJustify2}>
               Incumbent’s self-rating and the team’s average on Behavioral
-              competence has a difference of{" "}
+              competence has a difference of
               <strong>{empData?.bars_diff}</strong>.
               <br />
               Higher the variance poor is the relation between incumbent and
@@ -162,6 +203,20 @@ const AwardSheetView = ({}) => {
               influence his her/her team in deriving better performances from
               them and vice versa.
               <br />
+              <br />
+              <b>
+                Positive Variance means you over-rate yourself on Behavioral
+                capabilities and Negative Variance means you are under-rated
+                yourself on Behavioral Capabilities. Ideally the variance should
+                be less than 10 % in positive or negative side .
+              </b>
+              <br />
+              <b>
+                Higher the variance on either side means lower is the score on
+                360 Degree Assessment.
+              </b>
+              <br />
+              <br />
               A low score may also remove or dilute your right to rate your team
               on set performance standards.
               <br />
@@ -170,9 +225,10 @@ const AwardSheetView = ({}) => {
               for that.
               <br />
               Therefore, if the score is low or if the variance is high, then
-              you may receive a separate action plan for HR to improve on this
+              you may receive a separate action plan form HR to improve on this
               aspect.
             </p>
+
             <GroupCTable title="" data={group4Data} />
             <div className={styles.graphCont}>
               <ResponsiveContainer width="100%" height="100%">
@@ -204,6 +260,32 @@ const AwardSheetView = ({}) => {
                   <Legend />
                 </RadarChart>
               </ResponsiveContainer>
+            </div>
+            <div className={styles.sigWrapLower}>
+              <p className={styles.txtJustify}>
+                <div>
+                  <img className={styles.imgWrapSign} src={sign} />
+                </div>
+                <strong>Authorized Signatory</strong>
+                <br />
+                <strong>Corporate HR</strong>
+                <br />
+                <a
+                  className={styles.hyperlinkText}
+                  // href="akashdeep.sharma@indswiftlabs.com"
+                  target="_blank"
+                >
+                  akashdeep.sharma@indswiftlabs.com
+                </a>
+                <br />
+                <br /> Contents of this letter are extremely confidential and
+                restricted for any circulation or discussion with anyone in
+                organization. Breaching this confidently may attract suitable
+                disciplinary action against the provider and receiver of this
+                information. If someone influence to share this information at
+                any platform, please stop the communication and immediately
+                report to Corporate HR or Site HR.
+              </p>
             </div>
           </div>
         )}

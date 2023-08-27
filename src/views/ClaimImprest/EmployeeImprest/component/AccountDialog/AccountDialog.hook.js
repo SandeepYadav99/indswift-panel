@@ -100,16 +100,19 @@ const useAccountDialogHook = ({
         (Array.isArray(form?.[val]) && form?.[val].length === 0)
       ) {
         errors[val] = true;
-      } else if ([].indexOf(val) < 0) {
+      } if (form?.[val] === 0) {
         delete errors[val];
       }
     });
-    if (form?.debit_amount == 0) {
-      errors["debit_amount"] = true;
+    if (form?.credit_amount == 0 && form?.debit_amount == 0){
+      errors['credit_amount'] = true
+      errors['debit_amount'] = true
+      SnackbarUtils.error('Credit and Debit Amount cannot be Zero')
+    }else{
+      delete errors['credit_amount']
+      delete errors['debit_amount']
     }
-    if (form?.credit_amount == 0) {
-      errors["credit_amount"] = true;
-    }
+
     if(!form?.voucher_no?.trim()){
       errors["voucher_no"] = true;
     }
