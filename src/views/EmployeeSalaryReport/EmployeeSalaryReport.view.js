@@ -614,7 +614,7 @@ const EmployeeSalaryReport = ({ location }) => {
       <CustomDatePicker
         clearable
         label={"Start Date"}
-        maxDate={new Date()}
+        // maxDate={new Date()}
         onChange={(value) => {
           handleChangeDate(value, "start");
         }}
@@ -629,7 +629,7 @@ const EmployeeSalaryReport = ({ location }) => {
       <CustomDatePicker
         clearable
         label={"End Date"}
-        maxDate={new Date()}
+        // maxDate={new Date()}
         onChange={(value) => {
           handleChangeDate(value, "end");
         }}
