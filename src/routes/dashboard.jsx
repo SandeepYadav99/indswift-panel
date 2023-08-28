@@ -17,6 +17,7 @@ import LoanRecovery from "../views/LoanManagement/LoanRecovery/LoanRecovery.view
 import EmployeeSalaryReport from "../views/EmployeeSalaryReport/EmployeeSalaryReport.view";
 import OngoingLoans from "../views/LoanManagement/OngoingLoans/OngoingLoans.view";
 import OngoingLoanDetail from "../views/LoanManagement/OngoingLoanDetail/OngoingLoanDetail.view";
+import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 
 const ClaimIntCard = lazy(()=>import ( "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view"));
 const NewEmployeeList = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeList.view"));
@@ -657,6 +658,18 @@ const dashboardRoutes = [
         roles: [Roles.CORPORATE_HR],
     },
     {
+        path: `${RouteName.PMS_INCREMENT_LETTER}`,
+        sidebarName: "Increment Letter",
+        navbarName: "Increment Letter",
+        icon: PeopleOutlined,
+        component: IncrementLetter,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: false,
+        parent: 'pms_increments',
+        roles: [Roles.CORPORATE_HR],
+    },
+    {
         path: `${RouteName.PMS_INCREMENT_PLANNER_GRAPH}`,
         sidebarName: "Increments Planner Detail",
         navbarName: "Increments Planner",
@@ -767,7 +780,7 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
-    }, 
+    },
     {
         path: 'null',
         sidebarName: "Budget & Planning",
@@ -999,7 +1012,7 @@ const dashboardRoutes = [
         parent: 'cm',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
-    
+
     {
         path: `${RouteName.CLAIMS_IMPREST}`,
         sidebarName: "My Imprest Ledger",
@@ -1743,8 +1756,8 @@ const dashboardRoutes = [
         // parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     },
-    
-    
+
+
 
 
     // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
