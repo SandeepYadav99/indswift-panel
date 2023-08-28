@@ -1,5 +1,4 @@
 import React from "react";
-import useLoanProcessDetail from "./LoanProcessDetail.hook";
 import styles from "./Style.module.css";
 import { ButtonBase, MenuItem } from "@material-ui/core";
 import history from "../../../libs/history.utils";
@@ -7,35 +6,32 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { removeUnderScore } from "../../../helper/helper";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import ClaimUpperCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimUpperCard/ClaimUpperCard";
-import LoanHistoryIncludeForm from "./component/LoanHistory/LoanHistoryIncludes.component";
+import LoanHistoryIncludeForm from "../LoanProcessDetail/component/LoanHistory/LoanHistoryIncludes.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import LoanTable from "./component/LoanTable/LoanTable.view";
-import ApproveDialog from "../../AdminClaimManagement/TravelClaimDetail/component/ApproveDialog/ApproveDialog.view";
+import useProcessDetail from "./ProcessDetail.hook";
 
-function LoanProcessDetail() {
+function ProcessDetail() {
   const {
     employeeDetail,
     experience,
     form,
     changeTextData,
     onBlurHandler,
-    removeError,
-    handleSubmit,
-    isLoading,
-    isSubmitting,
     errorData,
     loanDetail,
     viewRecoveryPage,
-    approveDialog,
     toggleStatusDialog,
     id,
     info,
     tabledata,
     afterAmount,
     travelRef,
-  } = useLoanProcessDetail({});
+  } = useProcessDetail({});
+
+  console.log("employeeDetail", form);
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -49,18 +45,7 @@ function LoanProcessDetail() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <ClaimUpperCard data={employeeDetail?.loan?.employee} isLoan={true} />
-      <ApproveDialog
-        candidateId={id}
-        isOpen={approveDialog}
-        handleToggle={toggleStatusDialog}
-        form={form}
-        changeTextData={changeTextData}
-        onBlurHandler={onBlurHandler}
-        handleSubmit={handleSubmit}
-        errorData={errorData}
-        isSubmitting={isSubmitting}
-      />
+      <ClaimUpperCard data={employeeDetail?.employee} isLoan={true} />
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.headWrap}>
@@ -75,14 +60,14 @@ function LoanProcessDetail() {
                 <div className={styles.left}>
                   <div className={styles.key}>
                     <span className={styles.value}>Type of Loan:</span>
-                    {removeUnderScore(employeeDetail?.loan?.loan_type)}
+                    {removeUnderScore(employeeDetail?.loan_type)}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>
                       Describe your Request for Loan:
                     </span>
 
-                    {employeeDetail?.loan?.description}
+                    {employeeDetail?.description}
                   </div>
                 </div>
                 <div className={styles.right}>
@@ -101,8 +86,8 @@ function LoanProcessDetail() {
         <div className={styles.newContainer}>
           <div className={styles.heading}>Attachments</div>
           <div className={styles.commentContainer}>
-            {employeeDetail?.loan?.attachments &&
-              employeeDetail?.loan?.attachments.map((item, index) => (
+            {employeeDetail?.attachments &&
+              employeeDetail?.attachments.map((item, index) => (
                 <div className={styles.otherWrap} key={`attachment_${index}`}>
                   <div className={styles.mainFlex}>
                     <div className={styles.left}>
@@ -127,8 +112,8 @@ function LoanProcessDetail() {
         <div className={styles.newContainer}>
           <div className={styles.heading}>Loan Guarantees</div>
           <div className={styles.commentContainer}>
-            {employeeDetail?.loan?.guarantees &&
-              employeeDetail?.loan?.guarantees.map((item, index) => (
+            {employeeDetail?.guarantees &&
+              employeeDetail?.guarantees.map((item, index) => (
                 <div className={styles.otherWrap} key={`guarantee_${index}`}>
                   <div className={styles.heading}>{`Guarantee ${
                     index + 1
@@ -137,7 +122,7 @@ function LoanProcessDetail() {
                     <div className={styles.left}>
                       <div className={styles.key}>
                         <span className={styles.value}>Employee:</span>
-                        {`${item?.name} ( ${item?.emp_code} )`}
+                        {item?.name}
                       </div>
                       <div className={styles.key}>
                         <span className={styles.value}>Location:</span>
@@ -148,16 +133,8 @@ function LoanProcessDetail() {
                         {item?.department}
                       </div>{" "}
                       <div className={styles.key}>
-                        <span className={styles.value}>Status:</span>
-                        {
-                          <StatusPill
-                            status={removeUnderScore(item?.status)}
-                            style={{
-                              border: "none",
-                              background: "transparent",
-                            }}
-                          />
-                        }
+                        <span className={styles.value}>Salary:</span>
+                        {item?.guaranteeSalary}
                       </div>
                     </div>
                     <div className={styles.right}>
@@ -182,7 +159,7 @@ function LoanProcessDetail() {
                       )}
                     </div>
                   </div>
-                  {employeeDetail?.loan?.guarantees?.length !== index + 1 && (
+                  {employeeDetail?.guarantees?.length !== index + 1 && (
                     <div className={styles.verti}></div>
                   )}
                 </div>
@@ -192,18 +169,19 @@ function LoanProcessDetail() {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Previous Loan History</div>
-        <LoanHistoryIncludeForm experience={experience} ref={travelRef} />
+        <LoanHistoryIncludeForm
+          experience={experience}
+          ref={travelRef}
+          isDetail={true}
+        />
         <CustomTextField
           type="number"
-          isError={errorData?.previous_year_loan_comment}
-          errorText={errorData?.previous_year_loan_comment}
+          disabled={true}
           label={"Add Comments"}
-          value={form?.previous_year_loan_comment}
-          onTextChange={(text) => {
-            changeTextData(text, "previous_year_loan_comment");
-          }}
+          value={form?.loan_history_comment}
           multiline
           rows={3}
+          InputLabelProps={{ shrink: true }}
         />
       </div>
       <div className={styles.plainPaper}>
@@ -226,7 +204,7 @@ function LoanProcessDetail() {
                 <div className={styles.key}>
                   <span className={styles.value}>Applied Amount:</span>
 
-                  {loanDetail?.applied_amount}
+                  {employeeDetail?.eligibility_calculations?.total_applied_loan}
                 </div>
               </div>
               <div className={styles.right}>
@@ -248,13 +226,9 @@ function LoanProcessDetail() {
               <div className={"formGroup"}>
                 <CustomTextField
                   type="number"
-                  isError={errorData?.exceptional_approval}
-                  errorText={errorData?.exceptional_approval}
+                  disabled={true}
                   label={"Exceptional Approval"}
                   value={form?.exceptional_approval}
-                  onTextChange={(text) => {
-                    changeTextData(text, "exceptional_approval");
-                  }}
                 />
               </div>
 
@@ -273,6 +247,7 @@ function LoanProcessDetail() {
               </div>
               <div className={"formGroup"}>
                 <CustomTextField
+                  disabled={true}
                   type="number"
                   isError={errorData?.employee_el}
                   errorText={errorData?.employee_el}
@@ -290,6 +265,7 @@ function LoanProcessDetail() {
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomTextField
+                  disabled={true}
                   type={"number"}
                   isError={errorData?.employee_el_amount}
                   errorText={errorData?.employee_el_amount}
@@ -305,6 +281,7 @@ function LoanProcessDetail() {
               </div>
               <div className={"formGroup"}>
                 <CustomTextField
+                  disabled={true}
                   type="number"
                   isError={errorData?.gratuity_amount}
                   errorText={errorData?.gratuity_amount}
@@ -320,6 +297,7 @@ function LoanProcessDetail() {
               </div>
               <div className={"formGroup"}>
                 <CustomTextField
+                  disabled={true}
                   type="number"
                   isError={errorData?.total_recoverable_amount}
                   errorText={errorData?.total_recoverable_amount}
@@ -337,6 +315,7 @@ function LoanProcessDetail() {
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomSelectField
+                  disabled={true}
                   isError={errorData?.posible_recovery_loan}
                   errorText={errorData?.posible_recovery_loan}
                   label={"Possible Recovery Loan"}
@@ -374,6 +353,7 @@ function LoanProcessDetail() {
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomDatePicker
+                  disabled={true}
                   clearable
                   label={"Start Date"}
                   //   maxDate={new Date()}
@@ -387,6 +367,7 @@ function LoanProcessDetail() {
 
               <div className={"formGroup"}>
                 <CustomDatePicker
+                  disabled={true}
                   clearable
                   label={"End Date"}
                   //   maxDate={new Date()}
@@ -399,6 +380,7 @@ function LoanProcessDetail() {
               </div>
               <div className={"formGroup"}>
                 <CustomTextField
+                  disabled={true}
                   type="number"
                   isError={errorData?.interest}
                   errorText={errorData?.interest}
@@ -423,18 +405,6 @@ function LoanProcessDetail() {
                 {info?.total?.totalRepaybleAmmount &&
                   `₹ ${info?.total?.totalRepaybleAmmount}`}
               </div>
-              {form?.loan_start_date &&
-                form?.loan_end_date &&
-                form?.interest && (
-                  <div className={styles.keyWrap}>
-                    <span
-                      className={styles.hyperlinkText}
-                      onClick={viewRecoveryPage}
-                    >
-                      View Recovery Schedule :
-                    </span>
-                  </div>
-                )}
             </div>
           </div>
         </div>
@@ -444,13 +414,7 @@ function LoanProcessDetail() {
           Budget Positioning After Considering Loan (From Corporate HR)
         </div>
 
-        <LoanTable
-          title="hello"
-          data={tabledata}
-          form={form}
-          changeTextData={changeTextData}
-          afterAmount={afterAmount}
-        />
+        <LoanTable title="hello" data={tabledata} />
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>
@@ -467,25 +431,14 @@ function LoanProcessDetail() {
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>Loan Case Code (LCC):</span>
-                {employeeDetail?.loan?.code}
+                {employeeDetail?.code}
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className={styles.btnApproveWrapper}>
-        <div>
-          <ButtonBase
-            // disabled={isSubmitting}
-            className={styles.createBtn}
-            onClick={toggleStatusDialog}
-          >
-            SUBMIT & APPROVE
-          </ButtonBase>
         </div>
       </div>
     </div>
   );
 }
 
-export default LoanProcessDetail;
+export default ProcessDetail;

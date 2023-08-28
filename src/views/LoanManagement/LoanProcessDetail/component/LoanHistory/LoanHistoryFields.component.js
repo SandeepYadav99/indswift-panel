@@ -15,6 +15,7 @@ const LoanHistoryIncludeFields = ({
   data,
   errors,
   eligibleLoans,
+  isDetail,
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
@@ -41,22 +42,38 @@ const LoanHistoryIncludeFields = ({
       <div className={styles.flexContainer}>
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.type}
-              errorText={errors?.type}
-              label={"Type of Loan"}
-              value={data?.type}
-              handleChange={(value) => {
-                handleChange(value, "type");
-              }}
-            >
-              {eligibleLoans?.map((item) => (
-                <MenuItem value={item}>{removeUnderScore(item)}</MenuItem>
-              ))}
-            </CustomSelectField>
+            {isDetail ? (
+              <TextField
+                disabled={isDetail}
+                error={errors?.type}
+                onChange={handleChange}
+                value={data?.type}
+                fullWidth={true}
+                name={"type"}
+                margin={"dense"}
+                variant={"outlined"}
+                label={"Type"}
+              />
+            ) : (
+              <CustomSelectField
+                disabled={isDetail}
+                isError={errors?.type}
+                errorText={errors?.type}
+                label={"Type of Loan"}
+                value={data?.type}
+                handleChange={(value) => {
+                  handleChange(value, "type");
+                }}
+              >
+                {eligibleLoans?.map((item) => (
+                  <MenuItem value={item}>{removeUnderScore(item)}</MenuItem>
+                ))}
+              </CustomSelectField>
+            )}
           </div>
           <div className={styles.flex1}>
             <TextField
+              disabled={isDetail}
               error={errors?.amount}
               onChange={handleChange}
               value={data?.amount}
@@ -69,6 +86,7 @@ const LoanHistoryIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
+              disabled={isDetail}
               error={errors?.interest}
               onChange={handleChange}
               value={data?.interest}
@@ -83,6 +101,7 @@ const LoanHistoryIncludeFields = ({
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <CustomSelectField
+              disabled={isDetail}
               isError={errors?.status}
               errorText={errors?.status}
               label={"Status"}
@@ -97,6 +116,7 @@ const LoanHistoryIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <CustomDatePicker
+              disabled={isDetail}
               clearable
               label={"From"}
               // minDate={startDate}
@@ -108,6 +128,7 @@ const LoanHistoryIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <CustomDatePicker
+              disabled={isDetail}
               clearable
               label={"To"}
               // minDate={startDate}
@@ -121,15 +142,17 @@ const LoanHistoryIncludeFields = ({
 
         <div className={styles.firstRow221}>
           <div className={"textCenter"}>
-            <ButtonBase
-              className={styles.removeBtn}
-              // label={this.props.index == 0 ? "+" : '-'}
-              onClick={() => {
-                handlePress(index == 0 ? "-" : "-", index);
-              }}
-            >
-              {index == 0 ? "Remove" : "Remove"}
-            </ButtonBase>
+            {!isDetail && (
+              <ButtonBase
+                className={styles.removeBtn}
+                // label={this.props.index == 0 ? "+" : '-'}
+                onClick={() => {
+                  handlePress(index == 0 ? "-" : "-", index);
+                }}
+              >
+                {index == 0 ? "Remove" : "Remove"}
+              </ButtonBase>
+            )}
           </div>
         </div>
       </div>

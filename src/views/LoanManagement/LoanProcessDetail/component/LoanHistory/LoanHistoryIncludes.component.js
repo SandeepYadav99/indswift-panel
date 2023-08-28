@@ -25,7 +25,7 @@ const TEMP_OBJ = {
 };
 
 const LoanHistoryIncludeForm = (
-  { data, errorData: errorForm, grade, experience },
+  { data, errorData: errorForm, grade, experience, isDetail },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -75,9 +75,7 @@ const LoanHistoryIncludeForm = (
         expectedDate.setHours(0, 0, 0, 0);
         if (joinDate.getTime() < expectedDate.getTime()) {
           err["from"] = true;
-          SnackbarUtils.error(
-            "From Date should not be Less than To Date"
-          );
+          SnackbarUtils.error("From Date should not be Less than To Date");
         }
       }
       if (!hasValues) {
@@ -177,6 +175,7 @@ const LoanHistoryIncludeForm = (
             onBlur={onBlur}
             grade={grade}
             eligibleLoans={eligibleLoans}
+            isDetail={isDetail}
           />
         </div>
       );
@@ -195,15 +194,17 @@ const LoanHistoryIncludeForm = (
     <>
       {renderFields}
       <div className={styles.btnWrapper}>
-        <ButtonBase
-          className={styles.addition}
-          label={"+"}
-          onClick={() => {
-            handlePress("ADDITION", 0);
-          }}
-        >
-          <Add fontSize={"small"} /> <span>Add More</span>
-        </ButtonBase>
+        {!isDetail && (
+          <ButtonBase
+            className={styles.addition}
+            label={"+"}
+            onClick={() => {
+              handlePress("ADDITION", 0);
+            }}
+          >
+            <Add fontSize={"small"} /> <span>Add More</span>
+          </ButtonBase>
+        )}
       </div>
     </>
   );

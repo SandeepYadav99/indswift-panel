@@ -55,3 +55,6 @@ export async function serviceGetLoanBudgetPosition(params) {
 export async function serviceGetLoanBudgetOutstanding(params) {
   return await postRequest("employee/loans/budget/outstanding", params);
 }
+export async function serviceGetLoanProcessDetails(params) {
+  return await postRequest("employee/loans/details", params);
+}
