@@ -130,6 +130,7 @@ export default {
   ADMIN_LOAN_LIST:'/loan/list',
   ADMIN_LOAN_LIST_DETAIL:'/loan/list/details/',
   ADMIN_LOAN_PROCESS:'/loan/process/',
+  ADMIN_LOAN_PROCESS_DETAIL:'/loan/process/details/',
   ADMIN_LOAN_RECOVERY:'/loan/recovery/',
   ADMIN_ONGOING_LOANS:'/ongoing/loans',
   ADMIN_ONGOING_LOANS_DETIALS:'/ongoing/loans/details/',

@@ -31,7 +31,7 @@ const initialForm = {
   comment: "",
   previous_year_loan_comment: "",
   exceptional_approval: "",
-  tableamount: "",
+  table_amount: "",
 };
 const eligibility_fields = [
   "total_applied_loan",
@@ -41,6 +41,7 @@ const eligibility_fields = [
   "total_recoverable_amount",
   "posible_recovery_loan",
   "exceptional_approval",
+  'table_amount'
 ];
 
 const recoveryField = [
@@ -83,7 +84,7 @@ function useLoanProcessDetail() {
         loan_id: employeeDetail?.loan_id,
         financial_year: `${currentYear}-${currentYear + 1}`,
         tota_applied_amount: val?.total_applied_loan,
-        current_outstanding: Number(val.tableamount),
+        current_outstanding: Number(val.table_amount),
       });
       req.then((data) => {
         const td = data?.data;
@@ -323,8 +324,8 @@ function useLoanProcessDetail() {
           Number(text) + Number(loanDetail?.applied_amount)
         );
       }
-      if (fieldName === "tableamount") {
-        t["tableamount"] = text;
+      if (fieldName === "table_amount") {
+        t["table_amount"] = text;
         loanBudgetOutstandingDebounce(t);
       }
       setForm(t);

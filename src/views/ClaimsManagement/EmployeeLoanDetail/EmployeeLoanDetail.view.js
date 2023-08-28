@@ -100,7 +100,7 @@ function EmployeeLoanDetail() {
                     <div className={styles.left}>
                       <div className={styles.key}>
                         <span className={styles.value}>Employee:</span>
-                        {item?.name}
+                        {`${item?.name} ( ${item?.emp_code} ) `}
                       </div>
                       <div className={styles.key}>
                         <span className={styles.value}>Location:</span>
