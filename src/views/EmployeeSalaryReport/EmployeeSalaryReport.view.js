@@ -191,6 +191,14 @@ const EmployeeSalaryReport = ({ location }) => {
         ),
       },
       {
+        key: "total_1",
+        label: "total",
+        sortable: true,
+        render: (value, all) => (
+          <div className={styles.noWrap}>₹ {all?.gross}</div>
+        ),
+      },
+      {
         key: "basic",
         label: "BASIC",
         sortable: false,
@@ -220,6 +228,14 @@ const EmployeeSalaryReport = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}>₹ {all?.special_allowance}</div>
+        ),
+      },
+      {
+        key: "total_2",
+        label: "total earning 1",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}>₹ {all?.earning_one}</div>
         ),
       },
       {
@@ -307,10 +323,34 @@ const EmployeeSalaryReport = ({ location }) => {
       },
       {
         key: "vpf",
-        label: "Deduction vpf",
+        label: "vpf",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹{all?.deduction_vpf}</div>
+          <div className={styles.noWrap}> ₹{all?.earning2_vpf}</div>
+        ),
+      },
+      {
+        key: "total_3",
+        label: "total earning 2",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}> ₹{all?.earning_two}</div>
+        ),
+      },
+      {
+        key: "gross_salary",
+        label: "gross salary",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}> ₹{all?.gross_component}</div>
+        ),
+      },
+      {
+        key: "pli",
+        label: "pli",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}> ₹ {all?.earning_three_pli}</div>
         ),
       },
       {
@@ -329,28 +369,30 @@ const EmployeeSalaryReport = ({ location }) => {
           <div className={styles.noWrap}> ₹ {all?.em_esi}</div>
         ),
       },
+      
       {
         key: "vpf2",
         label: "vpf",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.vpf}</div>
+          <div className={styles.noWrap}> ₹ {all?.deduction_vpf}</div>
         ),
       },
-      {
-        key: "pli",
-        label: "pli",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.earning_three_pli}</div>
-        ),
-      },
+     
       {
         key: "emlwf",
         label: "em lwf",
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}> ₹ {all?.em_lwf}</div>
+        ),
+      },
+      {
+        key: "deduction_one",
+        label: "total deduction",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}> ₹ {all?.total_deduction}</div>
         ),
       },
       {
@@ -378,6 +420,14 @@ const EmployeeSalaryReport = ({ location }) => {
         ),
       },
       {
+        key: "earning_four",
+        label: "total earning 4",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}> ₹ {all?.earning_four}</div>
+        ),
+      },
+      {
         key: "gratuity",
         label: "gratuity",
         sortable: false,
@@ -385,6 +435,7 @@ const EmployeeSalaryReport = ({ location }) => {
           <div className={styles.noWrap}> ₹ {all?.gratuity}</div>
         ),
       },
+      
       {
         key: "medipre",
         label: "medical insurance premium",
@@ -455,6 +506,28 @@ const EmployeeSalaryReport = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}> ₹ {all?.deputation_allowance}</div>
+        ),
+      },
+      {
+        key: "total_six",
+        label: "total earning 5",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}> ₹ {all?.earning_five}</div>
+        ),
+      }, {
+        key: "net_composite",
+        label: "net composite ctc",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}> ₹ {all?.monthly_ctc}</div>
+        ),
+      }, {
+        key: "net_pay",
+        label: "net pay",
+        sortable: false,
+        render: (temp, all) => (
+          <div className={styles.noWrap}> ₹ {all?.net_pay}</div>
         ),
       },
     ];
