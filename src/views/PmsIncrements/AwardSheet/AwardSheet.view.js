@@ -192,7 +192,11 @@ const AwardSheetView = ({}) => {
           <div className={styles.typeContainer}>
             <Header empData={empData} />
             <p className={styles.txtJustify2}>
-            <b>
+              <br/>
+              Incumbent’s self-rating and the team’s average on Behavioral
+              competence has a difference of  <strong>{  empData?.bars_diff}</strong>.
+              <br />
+              <b>
                 Positive Variance means you over-rate yourself on Behavioral
                 capabilities and Negative Variance means you under-rated
                 yourself on Behavioral Capabilities. Ideally the variance should
@@ -203,19 +207,15 @@ const AwardSheetView = ({}) => {
                 Higher the variance on either side means lower is the score on
                 360 Degree Assessment.
               </b>
+              {/* <br/> */}
               <br/>
-              <br/>
-              Incumbent’s self-rating and the team’s average on Behavioral
-              competence has a difference of  <strong>{  empData?.bars_diff}</strong>.
-              <br />
               Higher the variance poor is the relation between incumbent and
               his/her team.
               <br />
               Lower score reflects that incumbent may not be able to positively
               influence his her/her team in deriving better performances from
               them and vice versa.
-              <br />
-              
+              {/* <br /> */}
               <br />
               A low score may also remove or dilute your right to rate your team
               on set performance standards.
