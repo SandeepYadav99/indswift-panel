@@ -24,17 +24,19 @@ function useLoanListDetail() {
   const { id } = useParams();
 
   useEffect(() => {
-    let req = serviceGetLoanListDetails({ id: id });
-    req.then((data) => {
-      const empData = data?.data?.details?.loan;
-      const { eligibility_calculations, proposal_recovery_plan } = empData;
-      setForm({
-        ...form,
-        ...eligibility_calculations,
-        ...proposal_recovery_plan,
+    if (id) {
+      let req = serviceGetLoanListDetails({ id: id });
+      req.then((data) => {
+        const empData = data?.data?.details?.loan;
+        const { eligibility_calculations, proposal_recovery_plan } = empData;
+        setForm({
+          ...form,
+          ...eligibility_calculations,
+          ...proposal_recovery_plan,
+        });
+        setEmployeeDetail(data?.data?.details);
       });
-      setEmployeeDetail(data?.data?.details);
-    });
+    }
   }, [id]);
 
   const handleViewDetails2 = useCallback((data) => {
@@ -67,7 +69,8 @@ function useLoanListDetail() {
     role,
     handleViewDetails2,
     handleViewProcessing,
-    handleViewRecovery
+    handleViewRecovery,
+    form
   };
 }
 

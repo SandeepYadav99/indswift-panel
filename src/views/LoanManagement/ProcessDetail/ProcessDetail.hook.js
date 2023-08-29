@@ -61,7 +61,9 @@ function useProcessDetail() {
           previous_loan_history,
           loan_history_comment
         } = empdata;
-        travelRef.current?.setData(previous_loan_history);
+        if(previous_loan_history){
+          travelRef.current?.setData(previous_loan_history);
+        }
         setForm({
           ...form,
           ...eligibility_calculations,
@@ -74,7 +76,7 @@ function useProcessDetail() {
   }, [id]);
 
   useEffect(() => {
-    if (form?.total_applied_loan) {
+    if (form?.total_applied_loan || form?.total_applied_loan === 0) {
       let req = serviceGetLoanBudgetOutstanding({
         loan_id: id,
         financial_year: `${currentYear}-${currentYear + 1}`,
@@ -85,7 +87,7 @@ function useProcessDetail() {
         setTableData(data?.data);
       });
     }
-  }, [id,form,setForm]);
+  }, [id,employeeDetail]);
 
   return {
     id,

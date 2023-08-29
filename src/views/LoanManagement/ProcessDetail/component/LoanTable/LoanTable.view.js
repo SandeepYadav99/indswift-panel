@@ -10,7 +10,6 @@ const CustomTable = ({
   changeTextData,
   afterAmount,
 }) => {
-  console.log("data", data);
   const renderCell = (item, column) => {
     if (typeof column.render === "function") {
       return column.render(item);

@@ -15,7 +15,7 @@ function useLoanRecovery({ location }) {
       interest: Number(userInfo?.formValues?.interest),
     });
     req.then((res) => {
-      setLoanData(res.data);
+      setLoanData(res?.data);
     });
   };
   useEffect(() => {

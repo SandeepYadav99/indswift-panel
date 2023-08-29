@@ -31,7 +31,6 @@ function ProcessDetail() {
     travelRef,
   } = useProcessDetail({});
 
-  console.log("employeeDetail", form);
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -51,7 +50,7 @@ function ProcessDetail() {
           <div className={styles.headWrap}>
             <div className={styles.heading}>Loan Request Form</div>
             <div>
-              <StatusPill status={employeeDetail?.status} />
+              <StatusPill status={removeUnderScore(employeeDetail?.status)} />
             </div>
           </div>
           <div className={styles.commentContainer}>
@@ -73,8 +72,7 @@ function ProcessDetail() {
                 <div className={styles.right}>
                   <div className={styles.key}>
                     <span className={styles.value}>Amount Requested:</span>
-                    {employeeDetail?.loan?.amount &&
-                      `₹ ${employeeDetail?.loan?.amount}`}
+                      {form?.total_applied_loan && `₹ ${form?.total_applied_loan}`}
                   </div>
                 </div>
               </div>
@@ -134,7 +132,7 @@ function ProcessDetail() {
                       </div>{" "}
                       <div className={styles.key}>
                         <span className={styles.value}>Salary:</span>
-                        {item?.guaranteeSalary}
+                        {item?.guaranteeSalary && `₹ ${item?.guaranteeSalary}`}
                       </div>
                     </div>
                     <div className={styles.right}>
@@ -192,19 +190,19 @@ function ProcessDetail() {
               <div className={styles.left}>
                 <div className={styles.key}>
                   <span className={styles.value}>Basic Salary:</span>
-                  {loanDetail?.Basic_salary}
+                  {loanDetail?.Basic_salary && `₹ ${loanDetail?.Basic_salary}`}
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>
                     Cap for the Type of Loan:
                   </span>
 
-                  {loanDetail?.cap_for_the_type_of_loan}
+                  {loanDetail?.cap_for_the_type_of_loan && `₹ ${loanDetail?.cap_for_the_type_of_loan}`}
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Applied Amount:</span>
 
-                  {employeeDetail?.eligibility_calculations?.total_applied_loan}
+                  {form?.total_applied_loan && `₹ ${form?.total_applied_loan}`}
                 </div>
               </div>
               <div className={styles.right}>
@@ -413,8 +411,7 @@ function ProcessDetail() {
         <div className={styles.heading}>
           Budget Positioning After Considering Loan (From Corporate HR)
         </div>
-
-        <LoanTable title="hello" data={tabledata} />
+        {tabledata?.length > 0 && <LoanTable title="hello" data={tabledata} />}
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>
