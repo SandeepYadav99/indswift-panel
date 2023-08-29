@@ -16,7 +16,7 @@ import { useMemo } from "react";
 import debounce from "lodash.debounce";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
-import { isDate } from "../../../libs/RegexUtils";
+import { isDate, isInvalidDateFormat } from "../../../libs/RegexUtils";
 
 const initialForm = {
   total_applied_loan: "",
@@ -41,14 +41,10 @@ const eligibility_fields = [
   "total_recoverable_amount",
   "posible_recovery_loan",
   "exceptional_approval",
-  'table_amount'
+  "table_amount",
 ];
 
-const recoveryField = [
-  "loan_start_date",
-  "loan_end_date",
-  "interest",
-];
+const recoveryField = ["loan_start_date", "loan_end_date", "interest"];
 
 function useLoanProcessDetail() {
   const [employeeDetail, setEmployeeDetail] = useState({});
@@ -73,7 +69,10 @@ function useLoanProcessDetail() {
         id: employeeDetail?.loan_id,
       });
       req.then((data) => {
-        setLoanDetail(data?.data[0]);
+        const loan_data = data?.data;
+        if (loan_data?.length > 0) {
+          setLoanDetail(loan_data[0]);
+        }
       });
     }
   }, [employeeDetail?.loan_id]);
@@ -102,7 +101,7 @@ function useLoanProcessDetail() {
   }, [employeeDetail?.loan_id]);
 
   useEffect(() => {
-    if (loanDetail?.applied_amount) {
+    if (loanDetail?.applied_amount && form?.exceptional_approval == 0) {
       setForm({ ...form, total_applied_loan: loanDetail?.applied_amount });
       checkLoanBudgetAmount(loanDetail?.applied_amount);
     }
@@ -118,6 +117,9 @@ function useLoanProcessDetail() {
         if (serializedData) {
           const parsedData = JSON.parse(serializedData);
           sessionStorage.removeItem("formValues");
+          setTimeout(() => {
+            checkForLoanSchedule(parsedData);
+          }, 0);
           setForm({ ...form, ...parsedData });
         }
       }
@@ -149,9 +151,12 @@ function useLoanProcessDetail() {
 
   const checkForLoanSchedule = (data) => {
     if (data?.loan_start_date && data?.loan_end_date && data?.interest) {
+      const loanId = sessionStorage.getItem("loan_id");
       let req = serviceGetLoanSchedule({
-        id: employeeDetail?.loan_id,
-        total_applied_loan: data?.total_applied_loan ? data?.total_applied_loan : 0,
+        id: employeeDetail?.loan_id ? employeeDetail?.loan_id : loanId,
+        total_applied_loan: data?.total_applied_loan
+          ? data?.total_applied_loan
+          : 0,
         loan_start_date: data?.loan_start_date,
         loan_end_date: data?.loan_end_date,
         interest: Number(data?.interest),
@@ -159,12 +164,8 @@ function useLoanProcessDetail() {
       req.then((res) => {
         setInfo(res.data);
       });
+      sessionStorage.removeItem("loan_id");
     }
-    //  else {
-    //   SnackbarUtils.error(
-    //     "Please Fill the start date End date and Interest Rate"
-    //   );
-    // }
   };
 
   const checkLoanScheduleDebounce = useMemo(() => {
@@ -176,7 +177,6 @@ function useLoanProcessDetail() {
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["loan_start_date", "loan_end_date", "interest"];
-
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -186,10 +186,16 @@ function useLoanProcessDetail() {
       }
     });
     if (!isDate(form?.loan_start_date)) {
-      errors["loan_start_date"] = true;
+      if (isInvalidDateFormat(form?.loan_start_date)) {
+        SnackbarUtils.error("date erro");
+        errors["loan_start_date"] = true;
+      }
     }
     if (!isDate(form?.loan_end_date)) {
-      errors["loan_end_date"] = true;
+      if (isInvalidDateFormat(form?.loan_end_date)) {
+        errors["loan_end_date"] = true;
+        SnackbarUtils.error("date erro");
+      }
     }
     if (form?.loan_start_date && form?.loan_end_date) {
       const joinDate = new Date(form?.loan_start_date);
@@ -209,7 +215,7 @@ function useLoanProcessDetail() {
       }
     });
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData, setForm]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -223,9 +229,9 @@ function useLoanProcessDetail() {
         }
       });
       const proposal_recovery_plan = {
-        net_recovery_amount: info?.totalRepaybleAmmount,
-        tenure_month: info?.total?.totalTenureMounth,
-        emi:info?.loanEmi?.length > 0 ? info?.loanEmi?.[0]?.EMI : ""
+        net_recovery_amount: info?.total?.totalRepaybleAmmount,
+        tenure_month: info?.totalTenureMounth,
+        emi: info?.loanEmi?.length > 0 ? info?.loanEmi?.[0]?.EMI : "",
       };
       recoveryField.forEach((key) => {
         if (key in form) {
@@ -238,6 +244,7 @@ function useLoanProcessDetail() {
         proposal_recovery_plan,
         loan_history_comment: form?.previous_year_loan_comment,
       };
+      // console.log("data", data);
       // console.log('loan_update',{loan_update:{...data}})
       serviceUpdateLoanFormDetails({
         review_id: id,
@@ -246,6 +253,7 @@ function useLoanProcessDetail() {
       }).then((res) => {
         if (!res.error) {
           sessionStorage.removeItem("formValues");
+          sessionStorage.removeItem("loan_id");
           historyUtils.push(`${RouteName.ADMIN_LOAN_LIST}`);
         } else {
           SnackbarUtils.error(res?.message);
@@ -254,7 +262,14 @@ function useLoanProcessDetail() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, employeeDetail?.loan_id, info]);
+  }, [
+    form,
+    isSubmitting,
+    setIsSubmitting,
+    employeeDetail?.loan_id,
+    info,
+    setInfo,
+  ]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -271,6 +286,8 @@ function useLoanProcessDetail() {
     submitToServer,
     employeeDetail?.loan_id,
     info,
+    form,
+    setInfo,
   ]);
 
   const removeError = useCallback(
@@ -290,6 +307,7 @@ function useLoanProcessDetail() {
       });
       const serializedData = JSON.stringify(form);
       sessionStorage.setItem("formValues", serializedData);
+      sessionStorage.setItem("loan_id", employeeDetail?.loan_id);
     },
     [employeeDetail, form]
   );

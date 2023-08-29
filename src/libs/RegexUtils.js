@@ -35,6 +35,10 @@ const isNumDecTwoPlaces = (value) => {
 const isDate = (value) => {
         return value instanceof Date && !isNaN(value);
 }
+function isInvalidDateFormat(dateString) {
+    const regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
+    return !regex.test(dateString);
+}
 
 const isSpace = (value) => {
     return /\s/.test(value);
@@ -66,6 +70,7 @@ export {
     isNum,
     isAlpha,
     isDate,
+    isInvalidDateFormat,
     isSpace,isAlphaNumChars,
     isAadhar,
     IsIFSCCode,
