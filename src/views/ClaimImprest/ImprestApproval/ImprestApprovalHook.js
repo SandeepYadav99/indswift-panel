@@ -22,6 +22,8 @@ const useImprestApproval = ({}) => {
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
+  const {role} = useSelector(state => state.auth);
+
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -185,6 +187,7 @@ const useImprestApproval = ({}) => {
     editData,
     configFilter,
     handleCsvDownload,
+    role
   };
 };
 

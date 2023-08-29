@@ -38,6 +38,7 @@ const ImprestApproval = ({ location }) => {
     configFilter,
     warehouses,
     handleCsvDownload,
+    role,
   } = useImprestApproval({});
 
   const {
@@ -253,9 +254,15 @@ const ImprestApproval = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
-            <ButtonBase className={styles.download} onClick={handleCsvDownload}>
-              DOWNLOAD
-            </ButtonBase>
+            {(role === Constants.ROLES.CORPORATE_HR ||
+              role === Constants.ROLES.ACCOUNTANT) && (
+              <ButtonBase
+                className={styles.download}
+                onClick={handleCsvDownload}
+              >
+                DOWNLOAD
+              </ButtonBase>
+            )}
           </div>
         </div>
 
