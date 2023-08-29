@@ -223,8 +223,8 @@ function useLoanProcessDetail() {
         }
       });
       const proposal_recovery_plan = {
-        net_recovery_amount: info?.totalTenureMounth,
-        tenure_month: info?.total?.totalRepaybleAmmount,
+        net_recovery_amount: info?.totalRepaybleAmmount,
+        tenure_month: info?.total?.totalTenureMounth,
       };
       recoveryField.forEach((key) => {
         if (key in form) {

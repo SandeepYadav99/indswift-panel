@@ -120,7 +120,7 @@ function ProcessDetail() {
                     <div className={styles.left}>
                       <div className={styles.key}>
                         <span className={styles.value}>Employee:</span>
-                        {item?.name}
+                        {`${item?.name} ( ${item?.emp_code})`}
                       </div>
                       <div className={styles.key}>
                         <span className={styles.value}>Location:</span>
@@ -396,12 +396,12 @@ function ProcessDetail() {
             <div className={styles.Wrap}>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Tenure (MONTHS)/ EMIs:</span>
-                {info?.totalTenureMounth}
+                {employeeDetail?.proposal_recovery_plan?.tenure_month}
               </div>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Net Recovery Amount: </span>
-                {info?.total?.totalRepaybleAmmount &&
-                  `₹ ${info?.total?.totalRepaybleAmmount}`}
+                {employeeDetail?.proposal_recovery_plan?.net_recovery_amount &&
+                  `₹ ${employeeDetail?.proposal_recovery_plan?.net_recovery_amount}`}
               </div>
             </div>
           </div>

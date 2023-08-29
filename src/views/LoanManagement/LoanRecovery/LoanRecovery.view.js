@@ -37,7 +37,7 @@ function LoanRecovery({ location }) {
         key: "interest",
         label: "INTEREST",
         sortable: false,
-        render: (value, all) => <div>{all.Interest && `${all.Interest} %` }</div>,
+        render: (value, all) => <div>{all.Interest && `₹ ${all.Interest} ` }</div>,
       },
       {
         key: "principal",
@@ -149,7 +149,7 @@ function LoanRecovery({ location }) {
                   <div className={styles.key}>
                     <span className={styles.value}>Tenure of Loan:</span>
                     {loanData?.totalTenureYear &&
-                      `${loanData?.totalTenureYear.toFixed(2)} yr`}
+                      `${Math.floor(loanData?.totalTenureYear)} yr`}
                   </div>
                 </div>
               </div>

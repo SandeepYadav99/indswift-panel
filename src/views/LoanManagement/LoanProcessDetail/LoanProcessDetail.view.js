@@ -146,7 +146,11 @@ function LoanProcessDetail() {
                       <div className={styles.key}>
                         <span className={styles.value}>Department:</span>
                         {item?.department}
-                      </div>{" "}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Salary:</span>
+                        {item?.guaranteeSalary && `₹ ${item?.guaranteeSalary}`}
+                      </div>
                       <div className={styles.key}>
                         <span className={styles.value}>Status:</span>
                         {
