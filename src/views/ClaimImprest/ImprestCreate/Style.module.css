@@ -234,7 +234,8 @@
     font-weight: 600;
   }
   .wrap{
-    margin-right: 15px;
+    /* margin-right: 15px; */
+    width: 330px;
   }
   .checkWrapper {
     display: flex;

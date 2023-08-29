@@ -83,25 +83,25 @@ const OtherTable = ({ jobId, Claimtype }) => {
         sortable: false,
         render: (temp, all) => <div>{all?.code}</div>,
       },
-      {
-        key: "action_key",
-        label: "Action",
-        sortable: false,
-        render: (temp, all) => (
-          <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              // onClick={() => {
-              //   handleViewDetails(all);
-              // }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-          </div>
-        ),
-      },
+      // {
+      //   key: "action_key",
+      //   label: "Action",
+      //   sortable: false,
+      //   render: (temp, all) => (
+      //     <div>
+      //       <IconButton
+      //         className={"tableActionBtn"}
+      //         color="secondary"
+      //         disabled={isCalling}
+      //         // onClick={() => {
+      //         //   handleViewDetails(all);
+      //         // }}
+      //       >
+      //         <InfoOutlined fontSize={"small"} />
+      //       </IconButton>
+      //     </div>
+      //   ),
+      // },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
 

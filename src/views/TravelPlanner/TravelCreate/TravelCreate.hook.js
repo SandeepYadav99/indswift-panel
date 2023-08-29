@@ -31,6 +31,7 @@ const initialForm = {
   imprest_currency: "",
   imprest_amount: "",
   imprest_sanctionable_amount: "",
+  imprest_comment:""
 };
 
 const useTravelCreate = ({}) => {

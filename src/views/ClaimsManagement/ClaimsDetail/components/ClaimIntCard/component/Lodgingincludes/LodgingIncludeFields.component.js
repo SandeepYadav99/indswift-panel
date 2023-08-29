@@ -50,7 +50,7 @@ const LodgingIncludeFields = ({
       const numberOfNights =
         timeDifference == "0"
           ? 0
-          : Math.ceil(timeDifference / millisecondsPerDay) - 1;
+          : Math.ceil(timeDifference / millisecondsPerDay);
       changeData(index, {
         ["total_nights"]: numberOfNights,
       });
@@ -291,7 +291,7 @@ const LodgingIncludeFields = ({
             <span className={styles.count}>{data?.per_day_entitlement && `₹ ${data?.per_day_entitlement}`}</span>
           </div>
           <div className={styles.flextitle}>
-            <span className={styles.heading21}>Total Max Entittement:</span>
+            <span className={styles.heading21}>Total Max Entitlement:</span>
             <span className={styles.count}>
               {isNaN(data?.max_entitlement) ? "-" : `₹ ${data?.max_entitlement}`}
             </span>

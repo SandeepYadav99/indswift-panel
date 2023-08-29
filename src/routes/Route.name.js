@@ -104,6 +104,8 @@ export default {
 
   CLAIMS_LIST:'/cm/claims' ,
   CLAIMS_DETAILS:'/cm/details/',
+  TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',
+
   CLAIMS_MARRIGE:'/employee/claim/marriage',
   CLAIMS_MOBILE:'/employee/claim/mobile',
   CLAIMS_CAR:'/employee/claim/car',
@@ -127,7 +129,11 @@ export default {
   EMPLOYEE_LOAN_DETAILS:'/employee/loan/details/',
   ADMIN_LOAN_LIST:'/loan/list',
   ADMIN_LOAN_LIST_DETAIL:'/loan/list/details/',
-
+  ADMIN_LOAN_PROCESS:'/loan/process/',
+  ADMIN_LOAN_PROCESS_DETAIL:'/loan/process/details/',
+  ADMIN_LOAN_RECOVERY:'/loan/recovery/',
+  ADMIN_ONGOING_LOANS:'/ongoing/loans',
+  ADMIN_ONGOING_LOANS_DETIALS:'/ongoing/loans/details/',
 
 
   TRAVEL_PLANNER:'/travel/plan',
@@ -165,6 +171,8 @@ export default {
   EMPLOYEE_REPORT:'/employee/report',
   PMS_4B_FORM: '/pms/4B/submission',
   PMS_4B_REVIEW_DETAIL: '/pms/4B/detail/',
+  EMPLOYEE_SALARY:'/employee/salary',
+
 
   PMS_INCREMENT_PLANNER : '/increment/planner',
   PMS_INCREMENT_PLANNER_RED: '/increment/planner/red',

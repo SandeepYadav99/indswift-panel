@@ -18,7 +18,13 @@ function LoanListDetail() {
     approveDialog,
     toggleRejectDialog,
     rejectDialog,
+    role,
+    handleViewDetails2,
+    handleViewRecovery,
+    handleViewProcessing,
+    form,
   } = useLoanListDetail({});
+
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -63,15 +69,36 @@ function LoanListDetail() {
                     <span className={styles.value}>
                       Describe your Request for Loan:
                     </span>
-
                     {employeeDetail?.loan?.description}
                   </div>
+                  {employeeDetail?.loan?.status !== "PENDING" &&
+                    form?.interest && (
+                      <div className={styles.key7}>
+                        <div
+                          className={styles.hyperlinkText}
+                          onClick={() => handleViewRecovery()}
+                        >
+                          View Recovery Schedule
+                        </div>
+                      </div>
+                    )}
                 </div>
                 <div className={styles.right}>
                   <div className={styles.key}>
                     <span className={styles.value}>Amount Requested:</span>
-                    {employeeDetail?.loan?.amount && `₹ ${employeeDetail?.loan?.amount}`}
+                    {employeeDetail?.loan?.amount &&
+                      `₹ ${employeeDetail?.loan?.amount}`}
                   </div>
+                  {employeeDetail?.loan?.status !== "PENDING" && (
+                    <div
+                      className={styles.key7}
+                      onClick={() => handleViewProcessing(employeeDetail)}
+                    >
+                      <div className={styles.hyperlinkText}>
+                        View Loan Processing Sheet
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -118,7 +145,7 @@ function LoanListDetail() {
                     <div className={styles.left}>
                       <div className={styles.key}>
                         <span className={styles.value}>Employee:</span>
-                        {item?.name}
+                        {`${item?.name} (${item?.emp_code})`}
                       </div>
                       <div className={styles.key}>
                         <span className={styles.value}>Location:</span>
@@ -197,13 +224,25 @@ function LoanListDetail() {
 
           <div className={styles.btnApproveWrapper}>
             <div>
-              <ButtonBase
-                // disabled={isSubmitting}
-                className={styles.createBtn}
-                onClick={toggleStatusDialog}
-              >
-                Approve
-              </ButtonBase>
+              {employeeDetail?.loan?.status === "PENDING" ? (
+                <ButtonBase
+                  // disabled={isSubmitting}
+                  className={styles.createBtn2}
+                  onClick={() => {
+                    handleViewDetails2(employeeDetail);
+                  }}
+                >
+                  FILL LOAN PROCESSING SHEET
+                </ButtonBase>
+              ) : (
+                <ButtonBase
+                  // disabled={isSubmitting}
+                  className={styles.createBtn}
+                  onClick={toggleStatusDialog}
+                >
+                  Approve
+                </ButtonBase>
+              )}
             </div>
           </div>
         </div>

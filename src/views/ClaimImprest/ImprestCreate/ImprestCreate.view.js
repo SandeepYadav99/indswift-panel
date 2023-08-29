@@ -150,7 +150,10 @@ function ImprestCreate() {
           <div className={styles.formCurr}>
             <div className={styles.formWrapInner}>
               <CustomSelectField
-                disabled={form?.imprest_type === 'OTHER' || form?.tour_type?.tour_type === 'DOMESTIC'}
+                disabled={
+                  form?.imprest_type === "OTHER" ||
+                  form?.tour_type?.tour_type === "DOMESTIC"
+                }
                 isError={errorData?.currency}
                 errorText={errorData?.currency}
                 label={"Currency"}
@@ -185,16 +188,46 @@ function ImprestCreate() {
             {form?.currency && (
               <div className={styles.entitledVa}>
                 <div className={styles.valuesV}>
-                  <div className={styles.flex1}>Max Entitled:</div> <div className={styles.flex12}>{getCurrency(form?.currency)}{amountDetail[form?.currency]?.entitled}</div>
+                  <div className={styles.flex1}>Max Entitled:</div>{" "}
+                  <div className={styles.flex12}>
+                    {getCurrency(form?.currency)}
+                    {amountDetail[form?.currency]?.entitled}
+                  </div>
                 </div>
                 <div className={styles.valuesV}>
-                 <div className={styles.flex1}>Balance Outstanding:</div> <div className={styles.flex12}>{getCurrency(form?.currency)}{amountDetail[form?.currency]?.balance}</div>
+                  <div className={styles.flex1}>Balance Outstanding:</div>{" "}
+                  <div className={styles.flex12}>
+                    {getCurrency(form?.currency)}
+                    {amountDetail[form?.currency]?.balance}
+                  </div>
                 </div>
                 <div className={styles.valuesV}>
-                 <div className={styles.flex1}>Progress Amount:</div> <div className={styles.flex12}>{getCurrency(form?.currency)}{amountDetail[form?.currency]?.progress}</div>
+                  <div className={styles.flex1}>Progress Amount:</div>{" "}
+                  <div className={styles.flex12}>
+                    {getCurrency(form?.currency)}
+                    {amountDetail[form?.currency]?.progress}
+                  </div>
                 </div>
               </div>
             )}
+          </div>
+        </div>
+        <div className={styles.formWrap}>
+          <div className={styles.wrap}>
+            <CustomTextField
+              isError={errorData?.comment}
+              errorText={errorData?.comment}
+              label={"Comment"}
+              value={form?.comment}
+              onTextChange={(text) => {
+                changeTextData(text, "comment");
+              }}
+              multiline
+              rows={2}
+              // onBlur={() => {
+              //   onBlurHandler("comment");
+              // }}
+            />
           </div>
         </div>
         <div className={styles.formWrap}>

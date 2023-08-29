@@ -451,11 +451,11 @@ export const entitlementForeign = (grade, book) => {
 
 export const travelListExpense = [
   { id: "flight", name: "Flight" },
-  { id: "publictransport", name: "Public Transport (Bus)" },
-  { id: "train", name: "Train (if available)" },
-  { id: "auto", name: "Auto/e-rikshaw" },
-  { id: "twoWheeler", name: "Own 2 Wheeler" },
-  { id: "uberBike", name: "Uber - Bike" },
+  { id: "PUBLIC_TRANSPORT", name: "Public Transport (Bus)" },
+  { id: "TRAIN", name: "Train (if available)" },
+  { id: "AUTO", name: "Auto/e-rikshaw" },
+  { id: "TWO_WHEELER", name: "Own 2 Wheeler" },
+  { id: "UBER_BIKE", name: "Uber - Bike" },
 ];
 export const DAAllotAmout = (grade, book) => {
   if (book === "SELF_ARRANGEMENT") {
@@ -530,3 +530,13 @@ export const IEAllotAmout = (grade) => {
       return 0;
   }
 };
+export const getFixedValue=(val)=>{
+  const num = Number(val)
+  if(num === 0){
+    return 0
+  }else if (num === 1){
+    return 170
+  }else if (num === 2){
+    return 340
+  }
+}

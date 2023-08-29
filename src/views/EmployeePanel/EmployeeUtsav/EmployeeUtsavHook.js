@@ -6,7 +6,7 @@ import { serviceGetUtsavDetails } from "../../../services/EmployeeUtsav.service"
 
 function EmployeeUtsavHook() {
   const [employeeUtsavData, setemployeeUtsavData] = useState([]);
-  const [selectedItemIndex, setSelectedItemIndex] = useState(null);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   const staticEmployeeDeepakData = EmployeeDeepakData;
 
   const handleItemClick = (index) => {

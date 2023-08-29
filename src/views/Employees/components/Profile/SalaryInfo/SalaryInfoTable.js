@@ -26,15 +26,6 @@ function SalaryInfoTable({Empid}) {
     }
   };
 
-  const netPay = () => {
-    {
-      if (data?.earning_one && data?.total_deduction) {
-        return data
-          ? parseFloat(data?.earning_one) - parseFloat(data?.total_deduction)
-          : "-";
-      }
-    }
-  };
   return (
     <div className={styles.salaryInfoWrapper}>
       <div className={styles.pageWrap}>
@@ -269,18 +260,14 @@ function SalaryInfoTable({Empid}) {
             className={styles.grossSalaryGreenWrapper}
             component="Net Composite CTC (Earning 1 + Earning 2 + Earning 3 + Earning 4 + Earning 5)"
             monthly={getSumValue(
-              data?.earning_one,
-              data?.earning_two,
-              data?.earning_three_pli,
-              data?.earning_four,
-              data?.earning_five
+              data?.monthly_ctc
             )}
           />
         </div>{" "}
         <div className={styles.grossWrapper}>
           <SaleryInfoField
             component="Net Pay [ (Earning 1) - (Deduction 1) ]"
-            monthly={netPay()}
+            monthly={data?.net_pay}
           />
           {/* <SaleryInfoField
             component="Quarterly Payments (Helper + PUG + PLI + Perf Bonus)"

@@ -18,7 +18,10 @@ function EmployeeUtsav() {
   } = EmployeeUtsavHook({});
   const DeepakDescription = DeepakData;
   const reverseArray = (arr) => {
-    return arr.reverse();
+    if (arr){
+      const newArr= [...arr]
+      return newArr?.reverse();
+    }
   };
   const accordionStyles = {
     background: "transparent",

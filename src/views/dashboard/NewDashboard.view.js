@@ -203,7 +203,7 @@ const NewDashboard = () => {
                   <div className={styles.imgBox2}>
                     <img
                       src={
-                        item?.last_avg_tat >= item?.avg_tat
+                        Number(item?.last_avg_tat) >= Number(item?.avg_tat)
                           ? require("../../assets/img/ic_decrease.png")
                           : require("../../assets/img/ic_increase.png")
                       }

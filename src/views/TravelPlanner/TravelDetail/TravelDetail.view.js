@@ -186,6 +186,10 @@ function TravelDetail() {
                           <span className={styles.value}>Amount :</span>
                           {item?.amount && `₹ ${item?.amount}`}
                         </div>
+                        <div className={styles.key}>
+                          <span className={styles.value}>Comment:</span>
+                          {item?.comment}
+                        </div>
                       </div>
                       <div className={styles.right}>
                         <div className={styles.key}>
@@ -285,7 +289,8 @@ function TravelDetail() {
         data={employeeDetail}
       />
       {employeeDetail?.status &&  employeeDetail?.status === "BOOKING_DONE" && (
-        <BottomPanelComponent open={true}>
+        <div className={styles.plainPaper}>
+        {/* <BottomPanelComponent open={true}> */}
           <div className={styles.btnWrap}>
             <ButtonBase
               aria-haspopup="true"
@@ -295,7 +300,8 @@ function TravelDetail() {
               TRAVEL CLOSURE
             </ButtonBase>
           </div>
-        </BottomPanelComponent>
+        {/* </BottomPanelComponent> */}
+        </div>
       )}
     </div>
   );

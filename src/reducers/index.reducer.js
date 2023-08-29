@@ -77,6 +77,7 @@ import PmsOverallHodReviewReducer from "./PmsOverallHodReview.reducer";
 import EmployeeLoanListReducer from "./EmployeeLoanList.reducer";
 import LoanListReducer from "./LoanList.reducer";
 import NewEmployeeListReducer from "./NewEmployeeList.reducer";
+import OngoingLoansReducer from "./OngoingLoans.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -151,7 +152,8 @@ const rootReducer = combineReducers({
   pmsOverallHodMyReviews: PmsOverallHodReviewReducer,
   emp_loanList:EmployeeLoanListReducer,
   loanList:LoanListReducer,
-  newEmployee:NewEmployeeListReducer
+  newEmployee:NewEmployeeListReducer,
+  OngoingLoans:OngoingLoansReducer
   // form: formReducer,
 });
 

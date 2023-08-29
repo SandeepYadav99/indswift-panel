@@ -1,5 +1,5 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton, Menu } from "@material-ui/core";
+import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
 import {
@@ -26,6 +26,8 @@ const InterviewClaimsList = ({ location }) => {
     handleViewDetails,
     isCalling,
     configFilter,
+    handleBankSheetDownload,
+    isShowDownloadBtn
   } = useInterviewClaimsList({});
 
   const {
@@ -203,6 +205,17 @@ const InterviewClaimsList = ({ location }) => {
             <span className={styles.title}>Interview Claims List</span>
             <div className={styles.newLine} />
           </div>
+          {
+            isShowDownloadBtn &&  <ButtonBase
+            // aria-owns={downloadCL ? "downloadCL" : undefined}
+            aria-haspopup="true"
+            onClick={handleBankSheetDownload}
+            className={"createBtn"}
+          >
+            Bank Transfer Sheet
+          </ButtonBase>
+          }
+         
         </div>
         <div>
           <FilterComponent
