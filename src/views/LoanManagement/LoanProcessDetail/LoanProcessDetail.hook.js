@@ -236,6 +236,7 @@ function useLoanProcessDetail() {
         eligibility_calculations,
         proposal_recovery_plan,
         loan_history_comment: form?.previous_year_loan_comment,
+        emi:info?.loanEmi?.length > 0 ? info?.loanEmi?.[0]?.EMI : ""
       };
       // console.log('loan_update',{loan_update:{...data}})
       serviceUpdateLoanFormDetails({
