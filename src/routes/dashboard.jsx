@@ -12,10 +12,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
-import ClaimIntCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view";
-import NewEmployeeList from "../views/NewEmployeeList/NewEmployeeList.view";
-import NewEmployeeDetails from "../views/NewEmployeeList/NewEmployeeDetails/NewEmployeeDetails.view";
-import ReviewRecord from "../views/Pms/ReviewRecord/ReviewRecord.view";
+
 import TravelClaimListDetail from "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view";
 import LoanProcessDetail from "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view";
 import LoanRecovery from "../views/LoanManagement/LoanRecovery/LoanRecovery.view";
