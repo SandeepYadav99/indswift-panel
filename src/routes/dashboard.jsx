@@ -1232,12 +1232,23 @@ const dashboardRoutes = [
         // roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },
     {
+        path: 'null',
+        sidebarName: "SkyNet Reports",
+        navbarName: "SkyNet Reports",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: 'reports',
+        is_parent: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
         path: `${RouteName.EMPLOYEE_REPORT}`,
         sidebarName: "Employee Reports",
         navbarName: "Employee Reports",
         icon: AssignmentOutlined,
         component: EmployeeReport,
         is_sidebar: true,
+        parent: 'reports',
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
@@ -1247,6 +1258,7 @@ const dashboardRoutes = [
         icon: AssignmentOutlined,
         component: EmployeeSalaryReport,
         is_sidebar: true,
+        parent: 'reports',
         roles: [Roles.CORPORATE_HR],
     },
     {
@@ -1256,6 +1268,7 @@ const dashboardRoutes = [
         icon: AssignmentOutlined,
         component: IncrementEmployeeSalaryReport,
         is_sidebar: true,
+        parent: 'reports',
         roles: [Roles.CORPORATE_HR],
     },
     {
