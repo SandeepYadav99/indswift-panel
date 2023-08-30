@@ -13,15 +13,6 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 
-import TravelClaimListDetail from "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view";
-import LoanProcessDetail from "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view";
-import LoanRecovery from "../views/LoanManagement/LoanRecovery/LoanRecovery.view";
-import EmployeeSalaryReport from "../views/EmployeeSalaryReport/EmployeeSalaryReport.view";
-import OngoingLoans from "../views/LoanManagement/OngoingLoans/OngoingLoans.view";
-import OngoingLoanDetail from "../views/LoanManagement/OngoingLoanDetail/OngoingLoanDetail.view";
-import ProcessDetail from "../views/LoanManagement/ProcessDetail/ProcessDetail.view";
- import RouteName from "./Route.name";
- import Constants from "../config/constants";
 const TravelClaimListDetail = lazy(()=> import ( "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"));
 const LoanProcessDetail = lazy(()=> import ( "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view"));
 const LoanRecovery = lazy(()=> import ( "../views/LoanManagement/LoanRecovery/LoanRecovery.view"));
