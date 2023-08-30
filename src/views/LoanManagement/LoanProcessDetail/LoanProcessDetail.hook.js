@@ -122,6 +122,12 @@ function useLoanProcessDetail() {
           }, 0);
           setForm({ ...form, ...parsedData });
         }
+        const historyData = sessionStorage.getItem("history");
+        if (historyData) {
+          const parsedhistory = JSON.parse(historyData);
+          travelRef.current.setData(parsedhistory);
+          sessionStorage.removeItem("history");
+        }
       }
     );
   }, [id]);
@@ -176,7 +182,7 @@ function useLoanProcessDetail() {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["loan_start_date", "loan_end_date", "interest"];
+    let required = ["loan_start_date", "loan_end_date", "interest",'table_amount'];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -187,14 +193,12 @@ function useLoanProcessDetail() {
     });
     if (!isDate(form?.loan_start_date)) {
       if (isInvalidDateFormat(form?.loan_start_date)) {
-        SnackbarUtils.error("date erro");
         errors["loan_start_date"] = true;
       }
     }
     if (!isDate(form?.loan_end_date)) {
       if (isInvalidDateFormat(form?.loan_end_date)) {
         errors["loan_end_date"] = true;
-        SnackbarUtils.error("date erro");
       }
     }
     if (form?.loan_start_date && form?.loan_end_date) {
@@ -254,6 +258,7 @@ function useLoanProcessDetail() {
         if (!res.error) {
           sessionStorage.removeItem("formValues");
           sessionStorage.removeItem("loan_id");
+          sessionStorage.removeItem("history");
           historyUtils.push(`${RouteName.ADMIN_LOAN_LIST}`);
         } else {
           SnackbarUtils.error(res?.message);
@@ -306,8 +311,10 @@ function useLoanProcessDetail() {
         formValues: form,
       });
       const serializedData = JSON.stringify(form);
+      const TravelData = JSON.stringify(travelRef.current.getData());
       sessionStorage.setItem("formValues", serializedData);
       sessionStorage.setItem("loan_id", employeeDetail?.loan_id);
+      sessionStorage.setItem("history", TravelData);
     },
     [employeeDetail, form]
   );
@@ -338,9 +345,9 @@ function useLoanProcessDetail() {
       }
       if (fieldName === "exceptional_approval") {
         t["total_applied_loan"] =
-          Number(text) + Number(loanDetail?.applied_amount);
+          Number(text) + Number(loanDetail?.applied_amount ? loanDetail?.applied_amount : 0);
         checkLoanBudgetDebounce(
-          Number(text) + Number(loanDetail?.applied_amount)
+          Number(text) + Number(loanDetail?.applied_amount ? loanDetail?.applied_amount : 0)
         );
       }
       if (fieldName === "table_amount") {

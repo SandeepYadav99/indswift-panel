@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Style.module.css";
 import { removeUnderScore } from "../../../../../helper/helper";
 
-const CustomTable = ({ columns, data, title, form, changeTextData,afterAmount }) => {
+const CustomTable = ({ columns, data, title, form, changeTextData,afterAmount,errorData }) => {
   const renderCell = (item, column) => {
     if (typeof column.render === "function") {
       return column.render(item);
@@ -53,7 +53,7 @@ const CustomTable = ({ columns, data, title, form, changeTextData,afterAmount })
             <input
               type="number"
               min={0}
-              className={styles.inputWrapper}
+              className={errorData.table_amount ? styles.errorInputWrap : styles.inputWrapper  }
               name="table_amount"
               value={form?.table_amount}
               onChange={(e) => changeTextData(e.target.value, "table_amount")}
@@ -69,7 +69,7 @@ const CustomTable = ({ columns, data, title, form, changeTextData,afterAmount })
   );
 };
 
-function LoanTable({ data, title, form, changeTextData,afterAmount }) {
+function LoanTable({ data, title, form, changeTextData,afterAmount,errorData }) {
   const [columns, setColumns] = useState([
     {
       key: "test",
@@ -99,6 +99,7 @@ function LoanTable({ data, title, form, changeTextData,afterAmount }) {
           form={form}
           changeTextData={changeTextData}
           afterAmount={afterAmount}
+          errorData={errorData}
         />
       }
     </div>

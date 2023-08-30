@@ -101,6 +101,14 @@
     text-align: center;
     white-space: nowrap;
   }
+  .errorInputWrap{
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 10px 0px;
+    text-align: center;
+    white-space: nowrap;
+    border: 1px solid red;
+  }
   .labelhead{
     font-size: 0.8rem;
     padding: 10px 15px;
