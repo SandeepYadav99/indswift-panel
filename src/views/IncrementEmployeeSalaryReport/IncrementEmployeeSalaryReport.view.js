@@ -565,9 +565,10 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
             <ButtonBase onClick={initialApiCall} className={styles.downloadrun}>
               RUN REPORT
             </ButtonBase>
-            <ButtonBase className={styles.download} onClick={handleDownload}>
+            {/* <ButtonBase className={styles.download} onClick={handleDownload}>
               DOWNLOAD
-            </ButtonBase>
+            </ButtonBase> */}
+            
           </div>
         </div>
         <div>
