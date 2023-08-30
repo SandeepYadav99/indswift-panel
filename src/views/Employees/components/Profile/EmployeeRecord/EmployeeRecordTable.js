@@ -7,6 +7,7 @@ import styles from "./Style.module.css";
 import SidePanelComponent from "../../../../../components/SidePanel/SidePanel.component";
 import EmployeeList from "./EmployeeList.js";
 import EmployeeView from "./component/Employee.view";
+import EmployeeEditForm from "./component/EmployeeEditForm/EmployeeEditForm.view";
 
 function EmployeeRecordTable({ empId }) {
   const {
@@ -18,6 +19,10 @@ function EmployeeRecordTable({ empId }) {
     handleClosedownloadCL,
     type,
     location,
+    handleEditToggle,
+    isEditPanel,
+    selectedEmp,
+    setSelectEmp
   } = useEmployeeList({ empId });
 
   const renderCreateForm = useMemo(() => {
@@ -26,9 +31,15 @@ function EmployeeRecordTable({ empId }) {
 
   const listArr = useMemo(() => {
     return data?.map((item) => {
-      return <EmployeeList data={item} />;
+      return <EmployeeList data={item} handleEditToggle={handleEditToggle} />;
     });
   }, [data]);
+
+  const renderEditForm = useMemo(() => {
+    return (
+      <EmployeeEditForm closeSidePanel={handleEditToggle} data={selectedEmp}/>
+    );
+  }, [isEditPanel,selectedEmp,setSelectEmp]);
 
   return (
     <>
@@ -78,7 +89,6 @@ function EmployeeRecordTable({ empId }) {
           <br />
           <div className={styles.EmployeeListWrapper}>{listArr}</div>
         </PageBox>
-
         <SidePanelComponent
           handleToggle={handleSideToggle}
           title={type === "STAR" ? "Add PMS Star" : "Upload Employee Records"}
@@ -87,6 +97,16 @@ function EmployeeRecordTable({ empId }) {
         >
           {isSidePanel && renderCreateForm}
         </SidePanelComponent>
+
+        <SidePanelComponent
+          handleToggle={handleEditToggle}
+          title={selectedEmp?.star_type ? "Add PMS Star" : "Upload Employee Records"}
+          open={isEditPanel}
+          side={"right"}
+        >
+          {isEditPanel && renderEditForm}
+        </SidePanelComponent>
+        ,
       </div>
     </>
   );

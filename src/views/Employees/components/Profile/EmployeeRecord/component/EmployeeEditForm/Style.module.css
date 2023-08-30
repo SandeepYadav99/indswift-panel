@@ -20,20 +20,20 @@
   flex-direction: column;
   gap: 20px;
 }
-.editWrap{
+.editWrap {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.btnClass{
-  color: #2896E9;
+.btnClass {
+  color: #2896e9;
   font-size: medium;
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 5px;
 }
-.iconWrap{
+.iconWrap {
   display: flex;
   align-items: center;
   /* gap: 10px; */
@@ -86,7 +86,7 @@
   flex-direction: column;
   gap: 12px;
 }
-.typeCont{
+.typeCont {
   margin-left: 10px;
   font-weight: 600;
 }
@@ -211,11 +211,11 @@
   border-top-left-radius: 10px;
   background: #28da65 0% 0% no-repeat padding-box;
 }
-.neutralColor{
+.neutralColor {
   width: 13px;
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
-  background: #F4881B 0% 0% no-repeat padding-box;
+  background: #f4881b 0% 0% no-repeat padding-box;
 }
 .decreaseColor {
   width: 13px;
@@ -237,7 +237,9 @@
   padding: 5px 0;
   align-items: center;
 }
-
+.editformWrapper{
+    margin-top: 15px;
+}
 .salaryHeading {
   font-size: 1.125rem;
   color: #161616;
@@ -253,13 +255,13 @@
 }
 
 /* .grossSalaryGreenWrapperBg {
-    display: flex;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #29cb97;
-    padding: 5px 0;
-    background: green;
-  } */
+      display: flex;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #29cb97;
+      padding: 5px 0;
+      background: green;
+    } */
 .grossWrapperBg {
   border-radius: 10px;
   padding: 1.2rem;
