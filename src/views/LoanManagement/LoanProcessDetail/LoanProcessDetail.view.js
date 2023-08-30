@@ -454,6 +454,7 @@ function LoanProcessDetail() {
           form={form}
           changeTextData={changeTextData}
           afterAmount={afterAmount}
+          errorData={errorData}
         />
       </div>
       <div className={styles.plainPaper}>

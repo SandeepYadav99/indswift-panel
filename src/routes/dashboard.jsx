@@ -20,6 +20,16 @@ import EmployeeSalaryReport from "../views/EmployeeSalaryReport/EmployeeSalaryRe
 import OngoingLoans from "../views/LoanManagement/OngoingLoans/OngoingLoans.view";
 import OngoingLoanDetail from "../views/LoanManagement/OngoingLoanDetail/OngoingLoanDetail.view";
 import ProcessDetail from "../views/LoanManagement/ProcessDetail/ProcessDetail.view";
+ import RouteName from "./Route.name";
+ import Constants from "../config/constants";
+const TravelClaimListDetail = lazy(()=> import ( "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"));
+const LoanProcessDetail = lazy(()=> import ( "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view"));
+const LoanRecovery = lazy(()=> import ( "../views/LoanManagement/LoanRecovery/LoanRecovery.view"));
+const EmployeeSalaryReport = lazy(()=> import ( "../views/EmployeeSalaryReport/EmployeeSalaryReport.view"));
+const OngoingLoans = lazy(()=> import ( "../views/LoanManagement/OngoingLoans/OngoingLoans.view"));
+const OngoingLoanDetail = lazy(()=> import ( "../views/LoanManagement/OngoingLoanDetail/OngoingLoanDetail.view"));
+const ProcessDetail = lazy(()=> import ( "../views/LoanManagement/ProcessDetail/ProcessDetail.view"));
+const IncrementEmployeeSalaryReport = lazy(()=> import ( "../views/IncrementEmployeeSalaryReport/IncrementEmployeeSalaryReport.view"));
 
 const ClaimIntCard = lazy(()=>import ( "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view"));
 const NewEmployeeList = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeList.view"));
@@ -31,7 +41,6 @@ const ReviewRecord = lazy(()=>import ( "../views/Pms/ReviewRecord/PmsNormailize.
  const LoanListDetail = lazy(()=> import ("../views/LoanManagement/LoanListDetail/LoanListDetail.view"));
 
 const IncrementDetail = lazy(()=> import ("../views/PmsIncrements/IncrementDetail/IncrementDetail.view"));
-
 const CandidateInfo = lazy(() => import("../views/Candidates/CandidateInfo/CandidateInfo.view"));
 const ClaimsDetail = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/ClaimsDetail.view"));
 const ClaimMarriageCard = lazy(() => import("../views/ClaimsManagement/ClaimsDetail/components/ClaimMarriageCard/ClaimMarriageCard.view"));
@@ -1250,6 +1259,15 @@ const dashboardRoutes = [
         roles: [Roles.CORPORATE_HR],
     },
     {
+        path: `${RouteName.EMPLOYEE_INCREMENT_SALARY}`,
+        sidebarName: "Increment Salary Comparison Report",
+        navbarName: " Increment Salary Comparison Report",
+        icon: AssignmentOutlined,
+        component: IncrementEmployeeSalaryReport,
+        is_sidebar: true,
+        roles: [Roles.CORPORATE_HR],
+    },
+    {
         path: 'null',
         sidebarName: "HR Documents & Updates",
         navbarName: "HR Documents & Updates",
@@ -1773,8 +1791,6 @@ const dashboardRoutes = [
     //     // parent: 'tp',
     //     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     // },
-
-
 
 
     // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }

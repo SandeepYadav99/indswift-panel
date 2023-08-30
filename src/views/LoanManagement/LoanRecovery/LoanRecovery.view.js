@@ -6,6 +6,7 @@ import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import DataTables from "../../../Datatables/Datatable.table";
 import constants from "../../../config/constants";
+import EmiTable from "./component/EmiTable/EmiTable.view";
 
 function LoanRecovery({ location }) {
   const { loanData, handleSortOrderChange, handleRowSize, handlePageChange } =
@@ -181,21 +182,19 @@ function LoanRecovery({ location }) {
                     <span className={styles.value}>Months:</span>
                     {loanData?.totalTenureMounth}
                   </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Loan A/C-:</span>
-                    {/* {loanData?.loanType} */}
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className={styles.TableWrapper}>
-          <DataTables
+          {/* <DataTables
             {...tableData.datatable}
             {...tableData.datatableFunctions}
-          />
+          /> */}
         </div>
+        <br/>
+        <EmiTable data={loanData?.loanEmi}/>
       </div>
     </div>
   );
