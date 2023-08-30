@@ -172,6 +172,7 @@ export default {
   PMS_4B_FORM: '/pms/4B/submission',
   PMS_4B_REVIEW_DETAIL: '/pms/4B/detail/',
   EMPLOYEE_SALARY:'/employee/salary',
+  EMPLOYEE_INCREMENT_SALARY:'/employee/increment/salary',
 
 
   PMS_INCREMENT_PLANNER : '/increment/planner',

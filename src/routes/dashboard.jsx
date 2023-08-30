@@ -11,13 +11,14 @@ import {
 } from "@material-ui/icons";
  import RouteName from "./Route.name";
  import Constants from "../config/constants";
-import TravelClaimListDetail from "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view";
-import LoanProcessDetail from "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view";
-import LoanRecovery from "../views/LoanManagement/LoanRecovery/LoanRecovery.view";
-import EmployeeSalaryReport from "../views/EmployeeSalaryReport/EmployeeSalaryReport.view";
-import OngoingLoans from "../views/LoanManagement/OngoingLoans/OngoingLoans.view";
-import OngoingLoanDetail from "../views/LoanManagement/OngoingLoanDetail/OngoingLoanDetail.view";
-import ProcessDetail from "../views/LoanManagement/ProcessDetail/ProcessDetail.view";
+const TravelClaimListDetail = lazy(()=> import ( "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"));
+const LoanProcessDetail = lazy(()=> import ( "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view"));
+const LoanRecovery = lazy(()=> import ( "../views/LoanManagement/LoanRecovery/LoanRecovery.view"));
+const EmployeeSalaryReport = lazy(()=> import ( "../views/EmployeeSalaryReport/EmployeeSalaryReport.view"));
+const OngoingLoans = lazy(()=> import ( "../views/LoanManagement/OngoingLoans/OngoingLoans.view"));
+const OngoingLoanDetail = lazy(()=> import ( "../views/LoanManagement/OngoingLoanDetail/OngoingLoanDetail.view"));
+const ProcessDetail = lazy(()=> import ( "../views/LoanManagement/ProcessDetail/ProcessDetail.view"));
+const IncrementEmployeeSalaryReport = lazy(()=> import ( "../views/IncrementEmployeeSalaryReport/IncrementEmployeeSalaryReport.view"));
 
 const ClaimIntCard = lazy(()=>import ( "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view"));
 const NewEmployeeList = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeList.view"));
@@ -1231,6 +1232,15 @@ const dashboardRoutes = [
         navbarName: "Salary Comparison Report",
         icon: AssignmentOutlined,
         component: EmployeeSalaryReport,
+        is_sidebar: true,
+        roles: [Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.EMPLOYEE_INCREMENT_SALARY}`,
+        sidebarName: "Increment Salary Comparison Report",
+        navbarName: " Increment Salary Comparison Report",
+        icon: AssignmentOutlined,
+        component: IncrementEmployeeSalaryReport,
         is_sidebar: true,
         roles: [Roles.CORPORATE_HR],
     },

@@ -380,6 +380,8 @@ function CandidateOfferLetterHook({location}) {
             if(fieldName === 'designation'){
                 t['grade_id'] = text?.grade?.id
                 t['cadre_id'] = text?.cadre?.id
+                t['grade']=text?.grade?.code
+                t['cadre'] = text?.cadre?.code
             }
             setForm(t);
             shouldRemoveError && removeError(fieldName);
