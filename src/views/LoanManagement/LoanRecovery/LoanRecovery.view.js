@@ -181,10 +181,6 @@ function LoanRecovery({ location }) {
                     <span className={styles.value}>Months:</span>
                     {loanData?.totalTenureMounth}
                   </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Loan A/C-:</span>
-                    {/* {loanData?.loanType} */}
-                  </div>
                 </div>
               </div>
             </div>

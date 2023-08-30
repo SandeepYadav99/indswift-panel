@@ -45,7 +45,7 @@ const useEmployeeEditForm = ({ closeSidePanel, data }) => {
     id: "",
   };
 
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({letter_type:"",star_type:""});
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [Formtype, setFormType] = useState("");
@@ -131,8 +131,8 @@ const useEmployeeEditForm = ({ closeSidePanel, data }) => {
       }
       req(fd).then((res) => {
         if (!res.error) {
-          //   closeSidePanel();
-          //   window.location.reload();
+            closeSidePanel();
+            window.location.reload();
         } else {
           SnackbarUtils.error(res?.message);
         }
