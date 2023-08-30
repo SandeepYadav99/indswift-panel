@@ -78,10 +78,7 @@ const useIncrementEmployeeSalaryReport = ({}) => {
   const handleDownload = useCallback(() => {
     if (startDate) {
       serviceEmployeeSalaryReportExcelDownload({
-        start_date: startDate,
-        index: 1,
-        query: null,
-        query_data: null,
+        batch: startDate,
       }).then((res) => {
         if (!res.error) {
           const data = res.data;
