@@ -6,6 +6,7 @@ import RouteName from "../../routes/Route.name";
 import {
   serviceEmployeeSalaryReportExcelDownload,
   serviceGetEmployeeSalaryReport,
+  serviceGetPmsEmployeeSalaryReport,
 } from "../../services/EmployeeSalaryReport.service";
 
 const totalShow = 50;
@@ -43,8 +44,8 @@ const useIncrementEmployeeSalaryReport = ({}) => {
 
   const resetData = useCallback(() => {
     setIsCalling(true);
-    serviceGetEmployeeSalaryReport({
-      start_date: startDate,
+    serviceGetPmsEmployeeSalaryReport({
+      batch: startDate,
     }).then((res) => {
       if (!res.error) {
         const data = res.data;
