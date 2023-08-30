@@ -479,7 +479,7 @@ function EmployeeListCreateHook({ location }) {
   );
 
   const checkForSalaryInfo = (data) => {
-    if (data?.grade_id) {
+    if (data?.grade_id && data?.cadre_id) {
       let filteredForm = {};
       for (let key in data) {
         if (salaryInfo.includes(key)) {
@@ -496,6 +496,7 @@ function EmployeeListCreateHook({ location }) {
       }
       let req = serviceGetSalaryInfoInfo({
         grade_id: data?.grade_id,
+        cadre_id:data?.cadre_id,
         ...filteredForm,
       });
       req.then((res) => {
@@ -513,7 +514,7 @@ function EmployeeListCreateHook({ location }) {
         setForm({ ...data, ...booleanData });
       });
     } else {
-      SnackbarUtils.error("Please Select the Grade");
+      SnackbarUtils.error("Please Select the Grade and Cadre");
     }
   };
 
@@ -547,13 +548,16 @@ function EmployeeListCreateHook({ location }) {
         if (!text || isNum(text)) {
           t[fieldName] = text;
         }
+      }else if (fieldName === 'grade_id'){
+        t[fieldName] = text;
+        t['cadre_id'] = ""
       } else {
         t[fieldName] = text;
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
 
-      if ([...salaryInfo,'grade_id']?.includes(fieldName)) {
+      if ([...salaryInfo,'grade_id','cadre_id']?.includes(fieldName)) {
         checkSalaryInfoDebouncer(t);
       }
     }, [removeError, form, setForm, checkSalaryInfoDebouncer]);
