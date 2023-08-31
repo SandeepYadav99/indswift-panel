@@ -21,10 +21,12 @@ function SalaryInfoHook({ Empid, isPending}) {
       if (isPending) {
         req = serviceGetPendingEmployeeSalaryInfo;
       }
-      let dataValues = ({
+      let dataValues = req({
         employee_id: Id,
+        emp_id: Id,
         index: currentPage,
       });
+
       dataValues
         .then((data) => {
           setEmployeeKnowledgeSalaryInfo(data.data);
