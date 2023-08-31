@@ -775,6 +775,17 @@ const dashboardRoutes = [
         roles: [Roles.CORPORATE_HR],
     },
     {
+        path: `${RouteName.EMPLOYEE_VERSIONS}`,
+        sidebarName: "Employee Changes",
+        navbarName: "Employee Changes",
+        icon: LocalOffer,
+        component: EmployeeEditVersionListContainer,
+        is_sidebar: true,
+        is_protect: true,
+        parent: 'approval',
+        roles: Constants.is_development ? [Roles.ADMIN, Roles.CORPORATE_HR] : [Roles.CORPORATE_HR],
+    },
+    {
         path: `${RouteName.NEW_EMPLOYEE_DETAIL}:id`,
         sidebarName: "Employee Details",
         navbarName: "Employee Details",
@@ -912,16 +923,7 @@ const dashboardRoutes = [
         is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
-    {
-        path: `${RouteName.EMPLOYEE_VERSIONS}`,
-        sidebarName: "Employee Changes",
-        navbarName: "Employee Changes",
-        icon: LocalOffer,
-        component: EmployeeEditVersionListContainer,
-        is_sidebar: true,
-        is_protect: true,
-        roles: Constants.is_development ? [Roles.ADMIN, Roles.CORPORATE_HR] : [Roles.CORPORATE_HR],
-    },
+
     {
         path: `${RouteName.VIEW_DOCUMENTS}`,
         sidebarName: "",
@@ -1062,7 +1064,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.EMPLOYEES_IMPREST}`,

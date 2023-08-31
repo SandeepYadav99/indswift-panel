@@ -148,6 +148,17 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
       },
       {
         key: "1",
+        label: "Location",
+        sortable: true,
+        fixed: true,
+        render: (value, all) => (
+            <div className={styles.noWrapFixed}>
+              {all?.employee?.location}
+            </div>
+        ),
+      },
+      {
+        key: "2",
         label: "Grade/Cadre",
         sortable: true,
         fixed: true,
@@ -158,7 +169,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         ),
       },
       {
-        key: "2",
+        key: "3",
         label: "DATE",
         sortable: false,
         fixed: true,
@@ -568,7 +579,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
             <ButtonBase className={styles.download} onClick={handleDownload}>
               DOWNLOAD
             </ButtonBase>
-            
+
           </div>
         </div>
         <div>

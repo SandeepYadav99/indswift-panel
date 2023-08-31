@@ -254,8 +254,7 @@ const ImprestApproval = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
-            {(role === Constants.ROLES.CORPORATE_HR ||
-              role === Constants.ROLES.ACCOUNTANT) && (
+            {(([Constants.ROLES.CORPORATE_HR, Constants.ROLES.ACCOUNTANT, Constants.ROLES.ADMIN]).indexOf(role) >= 0) && (
               <ButtonBase
                 className={styles.download}
                 onClick={handleCsvDownload}
