@@ -320,7 +320,11 @@ function EmployeeListCreateHook({ location }) {
         } else {
           const { salary } = empData;
           Object.keys(salary).forEach((key) => {
-            salary[key] /= 12;
+            if(BOOLEAN_KEYS?.includes(key)){
+              salary[key] = salary[key] ? 'YES' : 'NO'
+            }else{
+              salary[key] /= 12;
+            }
           });
           const designationIndex = listData?.DESIGNATIONS.findIndex(
             (val) => val.id === empData?.designation?.id
