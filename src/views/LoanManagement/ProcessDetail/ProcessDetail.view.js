@@ -396,7 +396,7 @@ function ProcessDetail() {
             <div className={styles.Wrap}>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Tenure (MONTHS)/ EMIs:</span>
-                {employeeDetail?.proposal_recovery_plan?.tenure_month}
+                {employeeDetail?.proposal_recovery_plan?.tenure_month} {employeeDetail?.proposal_recovery_plan?.emi && ` / ₹ ${employeeDetail?.proposal_recovery_plan?.emi}`}
               </div>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Net Recovery Amount: </span>
