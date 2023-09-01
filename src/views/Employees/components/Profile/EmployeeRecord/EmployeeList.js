@@ -4,7 +4,7 @@ import styles from "./Style.module.css";
 import { IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 
-function EmployeeList({ className, data, handleEditToggle }) {
+function EmployeeList({ className, data, handleEditToggle , role}) {
   return (
     <div className={styles.editWrap}>
       <div className={styles.recordItem}>
@@ -53,7 +53,8 @@ function EmployeeList({ className, data, handleEditToggle }) {
           </div>
         </div>
       </div>
-      <div className={styles.iconWrap}>
+      {
+        role === 'CORPORATE_HR' && <div className={styles.iconWrap}>
         <IconButton
           className={styles.btnClass}
           color="secondary"
@@ -65,6 +66,7 @@ function EmployeeList({ className, data, handleEditToggle }) {
         </IconButton>
         <span></span>
       </div>
+      }
     </div>
   );
 }
