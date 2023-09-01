@@ -146,7 +146,7 @@ const NewEmployeeDetail = () => {
               )}
             </TabPanel>
             <TabPanel value={value} index={1} dir={"ltr"}>
-              <SalaryInfo Empid={employeeData?.id} />
+              <SalaryInfo Empid={employeeData?.id} isPending={true} />
             </TabPanel>
           </div>
         </div>
