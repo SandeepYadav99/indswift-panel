@@ -162,7 +162,8 @@ function CandidateOfferLetterHook({location}) {
         deduction_vpf_pct: 0,
         gross_component:0,
         deputation_allowance:0,
-        nps_part_e:0
+        nps_part_e:0,
+        comment: '',
     };
 
     const [form, setForm] = useState({...initialForm});
