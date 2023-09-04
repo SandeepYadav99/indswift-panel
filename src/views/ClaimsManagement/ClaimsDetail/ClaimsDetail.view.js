@@ -71,20 +71,20 @@ const ClaimsDetail = () => {
             enableBtn={data?.relocation_claim?.can_claim}
           />
         )}
-        {/* <ClaimCards
+        <ClaimCards
           title="Loan Application"
           subtitle="Request Personal loan from Company as per company Employee Loan Policy"
           handleClick={() => handleClaimPage(7)}
           enableBtn={data?.loan?.is_show}
           isLoan={true}
-        /> */}
-        {/* <ClaimCards
-          title="Domestic/International Travel Claim Form"
-          subtitle="Claim the amount for your Domestic/International Travel"
+        />
+        <ClaimCards
+          title="Domestic Travel Claim Form"
+          subtitle="Claim the amount for your Domestic Travel"
           handleClick={() => handleClaimPage(8)}
           enableBtn
           // isLoan={true}
-        /> */}
+        />
       </div>
       <div className={styles.tableWrapper}>
         <EmployeeClaimList />
