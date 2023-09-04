@@ -49,9 +49,10 @@ function useLoanListDetail() {
       historyUtils.push(RouteName.ADMIN_LOAN_RECOVERY, {
         id: employeeDetail?.loan_id,
         formValues: form,
+        detailId:id,
       });
     },
-    [employeeDetail, form]
+    [employeeDetail, form,id]
   );
 
   const handleViewProcessing = useCallback((data) => {

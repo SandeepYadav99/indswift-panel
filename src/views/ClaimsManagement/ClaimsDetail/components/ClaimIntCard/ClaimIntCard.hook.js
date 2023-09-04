@@ -164,8 +164,18 @@ function useClaimIntCard() {
           fd.append("da_payment_proof", file);
         }
       });
-      fd.append("da_ie_expenses", JSON.stringify(daData));
-
+      const modifiedData = daData.map(item => {
+        const parsedStartTime = new Date(item.start_time);
+        const parsedEndTime = new Date(item.end_time);
+        const isStartString = parsedStartTime.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+        const isEndString = parsedEndTime.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+        return {
+            ...item,
+            start_time: isStartString,
+            end_time: isEndString,
+        };
+    });
+      fd.append("da_ie_expenses", JSON.stringify(modifiedData));
       const enterData = enterRef.current.getData();
       enterData.forEach((val) => {
         if (val?.entertainment_payment_proof) {
