@@ -184,7 +184,10 @@ const NewDashboard = () => {
         <div className={styles.rpWrap}>
           {tiles?.rp_stats?.length > 0  && tiles?.rp_stats?.map((item) => (
             <div className={styles.plainPaper222}>
+              <div className={styles.deptWrapp}>
               <div className={styles.rpLink} onClick={()=>changeRPRoute(item?.job_id)}>{item?.job_code}</div>
+              <div style={{marginBottom:'10px'}}>({item?.location}/{item?.department})</div>
+              </div>
               <div className={styles.rpLowerWrap}>
                 <div className={styles.activeWrapper}>
                   <div className={styles.imgBox}>

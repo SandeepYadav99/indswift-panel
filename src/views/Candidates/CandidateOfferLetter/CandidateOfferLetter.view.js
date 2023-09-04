@@ -273,6 +273,7 @@ const CandidateOfferLetter = ({ location }) => {
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
+                  disabled={true}
                   type={"number"}
                   isError={errorData?.education_allowance}
                   errorText={errorData?.education_allowance}
