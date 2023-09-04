@@ -1064,7 +1064,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.EMPLOYEES_IMPREST}`,

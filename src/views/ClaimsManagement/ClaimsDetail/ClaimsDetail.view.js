@@ -78,13 +78,13 @@ const ClaimsDetail = () => {
           enableBtn={data?.loan?.is_show}
           isLoan={true}
         /> */}
-        {/* <ClaimCards
+        <ClaimCards
           title="Domestic Travel Claim Form"
           subtitle="Claim the amount for your Domestic Travel"
           handleClick={() => handleClaimPage(8)}
           enableBtn
           // isLoan={true}
-        /> */}
+        />
       </div>
       <div className={styles.tableWrapper}>
         <EmployeeClaimList />
