@@ -80,7 +80,7 @@ function useProcessDetail() {
       let req = serviceGetLoanBudgetOutstanding({
         loan_id: id,
         financial_year: `${currentYear}-${currentYear + 1}`,
-        tota_applied_amount: form?.total_applied_loan,
+        total_applied_amount: form?.total_applied_loan,
         current_outstanding: Number(form.table_amount),
       });
       req.then((data) => {
