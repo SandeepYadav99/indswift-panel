@@ -53,6 +53,7 @@
   "scripts": {
     "start": "env-cmd -e local react-scripts start",
     "start_development": "env-cmd -e development react-scripts --max_old_space_size=4096 start",
+    "start_stage": "env-cmd -e stage react-scripts --max_old_space_size=4096 start",
     "build_cmd": "react-scripts build",
     "build_production": "env-cmd -e production npm run build_cmd",
     "build_development": "env-cmd -e development  react-scripts build",

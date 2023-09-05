@@ -69,19 +69,19 @@ const useJobOpeningsEditDetail = ({}) => {
             });
         }
     }, [id]);
-    // useEffect(() => {
-    //     if (form?.replacing_person) {
-    //         const designationId = form?.replacing_person?.designation_id;
-    //         const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
+    useEffect(() => {
+        if (form?.replacing_person) {
+            const designationId = form?.replacing_person?.designation_id;
+            const index = listData?.DESIGNATIONS.findIndex(l => l.id === designationId);
 
-    //         if (index >= 0) {
-    //             setForm({
-    //                 ...form,
-    //                 designation: listData?.DESIGNATIONS[index]
-    //             });
-    //         }
-    //     }
-    // }, [form?.replacing_person]);
+            if (index >= 0) {
+                setForm({
+                    ...form,
+                    designation: listData?.DESIGNATIONS[index]
+                });
+            }
+        }
+    }, [form?.replacing_person]);
 
     useEffect(() => {
         if (!isLoading) {
@@ -102,7 +102,7 @@ const useJobOpeningsEditDetail = ({}) => {
                 ...tempForm
             });
         }
-    }, [listData, isLoading,filteredEmployees]);
+    }, [listData, isLoading]);
 
     useEffect(() => {
         serviceGetList(['LOCATION_DEPARTMENTS',  "EMPLOYEES_ALL", 'DEPARTMENTS', 'HR', 'SUB_DEPARTMENTS', 'JOB_ROLES', 'DESIGNATIONS']).then(res => {

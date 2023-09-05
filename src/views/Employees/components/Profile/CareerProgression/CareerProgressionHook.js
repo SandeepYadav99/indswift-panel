@@ -9,20 +9,22 @@ const useCareerProgression = ({}) => {
     const { employeeData } = useSelector((state) => state.employee);
 
     useEffect(() => {
-        serviceGetEmployeeProgression({ emp_id: employeeData?.id }).then((res) => {
-            setIsLoading(true)
-            if (!res.error) {
-                const tempData = res?.data;
-                setHistory(tempData?.data);
+        if (employeeData) {
+            serviceGetEmployeeProgression({emp_id: employeeData?.id}).then((res) => {
+                setIsLoading(true)
+                if (!res.error) {
+                    const tempData = res?.data;
+                    setHistory(tempData?.data);
+                    setIsLoading(false)
+                    setOtherData({
+                        employee_cagr: tempData?.employee_cagr,
+                        cagr: tempData?.cagr,
+                        cost_cagr: tempData?.cost_cagr,
+                    });
+                }
                 setIsLoading(false)
-                setOtherData({
-                    employee_cagr: tempData?.employee_cagr,
-                    cagr: tempData?.cagr,
-                    cost_cagr: tempData?.cost_cagr,
-                });
-            }
-            setIsLoading(false)
-        })
+            });
+        }
     }, [employeeData]);
 
     const lineStatistics = useMemo(() => {

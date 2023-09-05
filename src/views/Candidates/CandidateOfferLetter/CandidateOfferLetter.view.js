@@ -273,6 +273,7 @@ const CandidateOfferLetter = ({ location }) => {
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
+                  disabled={true}
                   type={"number"}
                   isError={errorData?.education_allowance}
                   errorText={errorData?.education_allowance}
@@ -819,7 +820,7 @@ const CandidateOfferLetter = ({ location }) => {
             />
           </div>
 
-          
+
         </div>
         <div className={"formFlex"}>
         <div className={"formGroup"}>
@@ -1097,7 +1098,7 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
-        </div> 
+        </div>
           <div className={"formFlex"}>
               <TotalSum
                   firstName="Total Earnings 5 :  "

@@ -1,0 +1,151 @@
+.pmsformWrap {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+.formUpper {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container {
+  margin: auto;
+  width: 100%;
+  max-height: 60vh;
+  /*position: absolute;*/
+  overflow: scroll;
+}
+.table {
+  /* border: 1px solid black; */
+  border-collapse: collapse;
+  width: calc(95vw - 60px);
+  margin-left: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.thead {
+  background: #ecf7ff 0% 0% no-repeat padding-box;
+  padding: 5px 20px;
+  border: 2px solid #ebedf4;
+  font-size: .7rem;
+}
+.columData {
+  border: 2px solid #ebedf4;
+}
+.theadTitle {
+  background: #ecf7ff 0% 0% no-repeat padding-box;
+  padding: 5px 20px;
+  border: 2px solid #ebedf4;
+  width: 100%;
+  align-items: center;
+  font-size: .7rem;
+}
+.formUpper > img {
+  width: 140px;
+}
+.formUpper > p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+.formUpper > span {
+  margin: 10px 0;
+  text-align: center;
+  font-size: 0.875rem;
+}
+.tableWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+.tipWrap {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  justify-content: center;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  margin: 0 15px;
+}
+.inputComp {
+  padding: 1rem 0;
+  text-indent: 10px;
+  border: none;
+}
+.readOnlyClass {
+  background-color: #edf2f5;
+  padding: 1rem 0;
+  text-indent: 10px;
+  border: none;
+}
+.lowerBtnwr {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  padding: 1.2rem;
+  position: relative;
+  bottom: 0;
+  /* width: 100vw; */
+}
+
+.label {
+  font-size: 0.7rem;
+  padding: 5px 15px;
+  text-align: center;
+  white-space: nowrap;
+}
+.labelhead{
+  font-size: 0.7rem;
+  padding: 5px 10px;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 500;
+  min-width: 270px;
+  text-transform: uppercase;
+}
+.label21 {
+  font-size: 0.7rem;
+  padding: 4px;
+  z-index: 10;
+}
+.label21 > span {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.label21 > p {
+  margin: 0;
+  white-space: nowrap;
+}
+.inputWrap {
+  position: relative;
+  display: block;
+  height: 100%;
+  margin: 5px 0px;
+  display: flex;
+  align-items: center;
+}
+.evenRow {
+  background-color: #ffffff;
+  border: 1px solid #b8c5d3;
+  border-image: initial;
+  padding: 0px;
+  min-height: 40px;
+}
+.blueField {
+  background-color: #2896e9;
+  color: white;
+  border: 1px solid #b8c5d3;
+  border-image: initial;
+  padding: 0px;
+  min-height: 40px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+.oddRow {
+  background-color: #f7f7f7;
+  border: 1px solid #b8c5d3;
+  border-image: initial;
+  padding: 0px;
+  min-height: 40px;
+}

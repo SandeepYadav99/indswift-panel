@@ -128,7 +128,8 @@ export default {
     "OVERALL HOD REVIEW PENDING":'error',
     'POSITIVE':'positiveBg',
     'NEGATIVE':'errorBg',
-    'NEUTRAL':'neutralBg'
+    'NEUTRAL':'neutralBg',
+    'INCREMENT FROZEN':'success'
   },
   JOB_OPENING_STATUS: {
     ACTIVE: 'ACTIVE',
@@ -430,7 +431,8 @@ export default {
     GENERAL: 'GENERAL',
     OLR: 'OLR',
     ACCOUNTANT: 'ACCOUNTANT',
-    CORPORATE_REVIEWER: 'CORPORATE_REVIEWER'
+    CORPORATE_REVIEWER: 'CORPORATE_REVIEWER',
+    PMS:'PMS'
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,

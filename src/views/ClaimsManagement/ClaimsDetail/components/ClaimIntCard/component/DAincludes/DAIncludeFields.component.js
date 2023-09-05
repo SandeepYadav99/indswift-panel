@@ -62,8 +62,9 @@ const DAIncludeFields = ({
   useEffect(() => {
     if (grade && data?.stay_at && data?.hours) {
       // let storeValue = DAAllotAmout(grade, data?.stay_at);
+      // let storeValue = DAAllotAmout(grade, data?.stay_at);
       let percent;
-      if (data?.stay_at === "GUEST_HOUSE") {
+      if (data?.stay_at === "GUEST_HOUSE" ) {
         percent = 50;
       } else {
         if (data?.hours >= 12) {

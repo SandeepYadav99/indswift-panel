@@ -13,6 +13,8 @@ function EmployeeRecordList({}) {
   const [data, setData] = useState([]);
   const [type, setType] = useState("");
   const location = useLocation();
+  const {role} = useSelector(state => state.auth);
+  
   useEffect(() => {
     serviceGetEmployeeRecord({
       employee_id: employeeData.id,
@@ -69,7 +71,8 @@ function EmployeeRecordList({}) {
     handleEditToggle,
     isEditPanel,
     selectedEmp,
-    setSelectEmp
+    setSelectEmp,
+    role
   };
 }
 

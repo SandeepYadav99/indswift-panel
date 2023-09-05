@@ -10,19 +10,21 @@ import {
 } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
+import {
+  Add,
+  CloudDownload,
+  InfoOutlined,
+  PrintOutlined,
+} from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
-import CreateView from "./ImprestApproval.view";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import useImprestApproval from "./ImprestApprovalHook";
-import { Edit, InfoOutlined } from "@material-ui/icons";
-import { getCurrency } from "../../../helper/helper";
+import useReviewRecord from "./ReviewRecord.hook";
 
-const ImprestApproval = ({ location }) => {
+const ReviewRecord = ({ location }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -32,33 +34,29 @@ const ImprestApproval = ({ location }) => {
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
+    handleSideToggle,
     handleViewDetails,
     editData,
     isCalling,
     configFilter,
     warehouses,
-    handleCsvDownload,
+    handleViewGraph,
     role,
-  } = useImprestApproval({});
+      handleCsvDownload
+  } = useReviewRecord({ location });
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.imprestApproval);
+  } = useSelector((state) => state.PmsNormalize);
 
-  const { user } = useSelector((state) => state.auth);
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
   const renderStatus = useCallback((status) => {
-    return (
-      <StatusPill
-        status={status}
-        style={status === "PROCESSED" && { background: "#ceece2" }}
-      />
-    );
+    return <StatusPill status={status} />;
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
@@ -66,9 +64,7 @@ const ImprestApproval = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>
-              <strong>{obj?.employee?.name}</strong>
-            </span>{" "}
+            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
             <br />
             <span className={styles.productName}>
               {obj?.employee?.emp_code}
@@ -84,14 +80,8 @@ const ImprestApproval = ({ location }) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "id",
-        label: "IMP ID",
-        sortable: false,
-        render: (temp, all) => <div>{all?.imprest?.code}</div>,
-      },
-      {
         key: "name",
-        label: "EMPLOYEE",
+        label: "EMPLOYEE NAME",
         sortable: true,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
@@ -99,13 +89,7 @@ const ImprestApproval = ({ location }) => {
         key: "grade",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.contact}
-            <br />
-            {`${all?.employee?.grade?.code}/${all?.employee?.cadre?.code}`}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.grade?.code}</div>,
       },
       {
         key: "location",
@@ -131,89 +115,41 @@ const ImprestApproval = ({ location }) => {
         ),
       },
       {
-        key: "type",
-        label: "TYPE",
-        sortable: false,
-        render: (temp, all) => <div>{all?.imprest?.imprestTypeText}</div>,
-      },
-      {
-        key: "tap",
-        label: "ASSOCIATED TAP",
-        sortable: false,
-        render: (temp, all) => (
-          <>
-            {all?.imprest?.travelPlanner?.code ? (
-              <div className={styles.naClass}>
-                {all?.imprest?.travelPlanner?.code} <br />
-                <StatusPill
-                  status={removeUnderScore(all?.imprest?.travelPlanner?.status)}
-                  style={{
-                    background: "transparent",
-                    border: "none",
-                    padding: "0",
-                    whiteSpace: "nowrap",
-                  }}
-                />
-              </div>
-            ) : (
-              <div className={styles.naClass}>N/A</div>
-            )}
-          </>
-        ),
-      },
-      {
-        key: "date",
-        label: "DATE",
-        sortable: false,
-        render: (temp, all) => <div>{all?.imprest?.createdAtText}</div>,
-      },
-      {
-        key: "imprest",
-        label: "IMPREST AMOUNT",
-        sortable: false,
-        render: (temp, all) => (
-          <div style={{ whiteSpace: "nowrap" }}>
-            {getCurrency(all?.imprest?.currency)}
-            {all?.imprest?.amount}
-          </div>
-        ),
-      },
-      {
-        key: "balance",
-        label: "Current status /IMPREST STATUS",
+        key: "hod",
+        label: "HOD",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {renderStatus(removeUnderScore(all?.status))}
-            <br /> <br />
-            {renderStatus(removeUnderScore(all?.imprest?.status))}
+            {all?.employee?.hod?.hod_name} <br />
+            {all?.hod?.hod_code}
           </div>
         ),
       },
-
       {
-        key: "issue",
-        label: "ISSUE DATE",
+        key: "status",
+        label: "Status",
         sortable: false,
-        render: (temp, all) => <div>{all?.imprest?.issueDateText}</div>,
+        render: (temp, all) => (
+          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+        ),
       },
       {
-        key: "user_id",
-        label: "Action",
-        render: (temp, all) => (
-          <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-          </div>
-        ),
+        key: "batch",
+        label: "BATCH",
+        sortable: false,
+        render: (temp, all) => <div>{all?.batch}</div>,
+      },
+      {
+        key: "overall_hod_rating",
+        label: "Overall HOD RATING",
+        sortable: true,
+        render: (temp, all) => <div>{all?.overall_hod_rating}</div>,
+      },
+      {
+        key: "overall_hod_is_recommended",
+        label: "Overall HOD Recommended",
+        sortable: false,
+        render: (temp, all) => <div>{all?.overall_hod_is_recommended}</div>,
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
@@ -250,21 +186,30 @@ const ImprestApproval = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Imprest Approval Requests</span>
+            <span className={styles.title}>Review Increment Records</span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
-            {(([Constants.ROLES.CORPORATE_HR, Constants.ROLES.ACCOUNTANT, Constants.ROLES.ADMIN]).indexOf(role) >= 0) && (
-              <ButtonBase
-                className={styles.download}
-                onClick={handleCsvDownload}
-              >
-                DOWNLOAD
-              </ButtonBase>
-            )}
-          </div>
-        </div>
+            { role === Constants.ROLES.CORPORATE_HR && <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
+              Download
+              <CloudDownload
+                  fontSize={"small"}
+                  className={"plusIcon"}
+              ></CloudDownload>
+            </ButtonBase>}
+            &nbsp; &nbsp; &nbsp;
+         { role === Constants.ROLES.CORPORATE_HR &&  <ButtonBase
+            className={styles.edit}
+            onClick={() => {
+              handleViewGraph();
+            }}
+          >
+            VIEW GRAPH
+          </ButtonBase>}
 
+
+        </div>
+        </div>
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -287,4 +232,4 @@ const ImprestApproval = ({ location }) => {
   );
 };
 
-export default ImprestApproval;
+export default ReviewRecord;

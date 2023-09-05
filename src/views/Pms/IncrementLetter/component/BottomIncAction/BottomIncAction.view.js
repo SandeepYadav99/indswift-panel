@@ -2,20 +2,14 @@ import React from "react";
 import styles from "./Style.module.css";
 import { ButtonBase } from "@material-ui/core";
 
-const BottomIncActionView = ({
-  isSubmitting,
-  handleSend,
-    handleFreeze
-}) => {
+const BottomIncActionView = ({ isSubmitting, handleSend, employees }) => {
   return (
     <div className={styles.stickyBtnWrap}>
       <div className={styles.WrapOuter}>
         <div className={styles.upperWrap}>
           <span>
-            NOTE: IF A USER DOES NOT QUALIFY IN RANGE, FIRST RANGE INCREMENT
-            WILL BE APPLIED.
+            EMPLOYEES: <strong>{employees}</strong>
           </span>
-          <span>Slab 1 will be applied on grade if a grade is not mapped.</span>
         </div>
         <div className={styles.btnWrap}>
           <ButtonBase
@@ -24,16 +18,7 @@ const BottomIncActionView = ({
             onClick={handleSend}
             className={"createBtn"}
           >
-            Save Increment
-          </ButtonBase>
-          &nbsp;&nbsp;
-          <ButtonBase
-              disabled={isSubmitting}
-              aria-haspopup="true"
-              onClick={handleFreeze}
-              className={"createBtn"}
-          >
-            Freeze
+            SEND INCREMENT LETTER
           </ButtonBase>
         </div>
       </div>

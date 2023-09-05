@@ -1136,7 +1136,8 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={empFlag ? true : false}
+              disabled={true}
+              // disabled={empFlag ? true : false}
               type={"number"}
               isError={errorData?.education_allowance}
               errorText={errorData?.education_allowance}

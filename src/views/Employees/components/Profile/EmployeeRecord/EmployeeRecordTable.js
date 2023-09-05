@@ -22,7 +22,8 @@ function EmployeeRecordTable({ empId }) {
     handleEditToggle,
     isEditPanel,
     selectedEmp,
-    setSelectEmp
+    setSelectEmp,
+    role
   } = useEmployeeList({ empId });
 
   const renderCreateForm = useMemo(() => {
@@ -31,9 +32,9 @@ function EmployeeRecordTable({ empId }) {
 
   const listArr = useMemo(() => {
     return data?.map((item) => {
-      return <EmployeeList data={item} handleEditToggle={handleEditToggle} />;
+      return <EmployeeList data={item} handleEditToggle={handleEditToggle} role={role}/>;
     });
-  }, [data]);
+  }, [data,role]);
 
   const renderEditForm = useMemo(() => {
     return (

@@ -2,9 +2,12 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { serviceGetEmployeeSalaryInfo } from "../../../../../services/employeeSalaryInfo.service";
+import {
+  serviceGetEmployeeSalaryInfo,
+  serviceGetPendingEmployeeSalaryInfo
+} from "../../../../../services/employeeSalaryInfo.service";
 
-function SalaryInfoHook({ Empid }) {
+function SalaryInfoHook({ Empid, isPending}) {
   const [EmployeeSalaryInfo, setEmployeeKnowledgeSalaryInfo] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const { employeeData } = useSelector((state) => state.employee);
@@ -14,10 +17,16 @@ function SalaryInfoHook({ Empid }) {
 
   useEffect(() => {
     if (Id) {
-      let dataValues = serviceGetEmployeeSalaryInfo({
+      let req = serviceGetEmployeeSalaryInfo;
+      if (isPending) {
+        req = serviceGetPendingEmployeeSalaryInfo;
+      }
+      let dataValues = req({
         employee_id: Id,
+        emp_id: Id,
         index: currentPage,
       });
+
       dataValues
         .then((data) => {
           setEmployeeKnowledgeSalaryInfo(data.data);
@@ -25,7 +34,7 @@ function SalaryInfoHook({ Empid }) {
         })
         .catch((err) => console.log(err));
     }
-  }, [Id, currentPage]);
+  }, [Id, currentPage, isPending]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
