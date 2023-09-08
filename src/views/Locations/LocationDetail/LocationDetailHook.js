@@ -25,7 +25,7 @@ const initialForm = {
       employee_id: "",
     },
     {
-      panelist_role: "SIT_HR_TAP",
+      panelist_role: "SITE_HR_TAP",
       employee_id: "",
     },
     {
