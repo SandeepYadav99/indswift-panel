@@ -60,8 +60,9 @@ const DetailsIncludeForm = (
         "mode",
         "travel_documents",
       ];
+      const hasValues = Object.values(val).some(value => value !== "" && value !== null);
       {
-        required.forEach((key) => {
+        hasValues && required.forEach((key) => {
           if (!val[key]) {
             err[key] = true;
           }
@@ -74,6 +75,13 @@ const DetailsIncludeForm = (
             err[key] = true;
           }
         });
+      }
+      if(!hasValues){
+        for (const key in err) {
+          if (err.hasOwnProperty(key)) {
+            delete err[key];
+          }
+        }
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
