@@ -103,9 +103,11 @@ function useLoanProcessDetail() {
   useEffect(() => {
     if (loanDetail?.applied_amount) {
       let t = { ...form };
-      t["total_applied_loan"] = loanDetail?.applied_amount
+      if(!form?.total_applied_loan){
+        t["total_applied_loan"] = loanDetail?.applied_amount
         ? loanDetail?.applied_amount
         : 0;
+      }
       loanBudgetOutstanding(t);
       setForm(t);
     }

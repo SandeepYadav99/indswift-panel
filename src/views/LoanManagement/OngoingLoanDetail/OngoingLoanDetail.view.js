@@ -168,7 +168,7 @@ function OngoingLoanDetail() {
           </div>
         </div>
       </div>
-      {/* <div className={styles.plainPaper}>
+      <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Comments/Notes</div>
           <div className={styles.commentContainer}>
@@ -183,7 +183,7 @@ function OngoingLoanDetail() {
               ))}
           </div>
         </div>
-      </div> */}
+      </div>
       {employeeDetail?.status === "PROCESSED" && (
       <div className={styles.approvedWrapper}>
         <div className={styles.editBtn2}>

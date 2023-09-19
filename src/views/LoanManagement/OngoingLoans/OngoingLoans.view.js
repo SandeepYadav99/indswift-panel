@@ -69,7 +69,6 @@ const OngoingLoans = () => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {console.log("all", all)}
             {all?.code}
           </div>
         ),
@@ -119,7 +118,7 @@ const OngoingLoans = () => {
         label: "CONTACT",
         sortable: false,
         render: (temp, all) => (
-          <div>{all?.employee?.contact?.personal_contact}</div>
+          <div>{all?.employee?.contact?.official_contact ? all?.employee?.contact?.official_contact : '-'}</div>
         ),
       },
       {
