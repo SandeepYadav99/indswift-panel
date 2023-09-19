@@ -25,7 +25,7 @@ import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
-import debounce from 'lodash.debounce';
+import debounce from "lodash.debounce";
 
 const SALARY_KEYS = [
   "basic_salary",
@@ -72,8 +72,8 @@ const SALARY_KEYS = [
   "stability_incentive",
   "deduction_vpf_pct",
   "gross_component",
-  'deputation_allowance',
-  'nps_part_e'
+  "deputation_allowance",
+  "nps_part_e",
 ];
 
 const BOOLEAN_KEYS = [
@@ -90,7 +90,7 @@ const BOOLEAN_KEYS = [
   "is_em_pf",
   "is_deduction_vpf",
   "is_car_component_manual",
-  "is_em_esi"
+  "is_em_esi",
 ];
 
 function EmployeeListCreateHook({ location }) {
@@ -205,12 +205,12 @@ function EmployeeListCreateHook({ location }) {
     is_nps: "NO",
     is_em_pf: "NO",
     is_deduction_vpf: "NO",
-    is_car_component_manual:"NO",
-    is_em_esi:"NO",
+    is_car_component_manual: "NO",
+    is_em_esi: "NO",
     deduction_vpf_pct: 0,
-    gross_component:0,
-    deputation_allowance:0,
-    nps_part_e:0
+    gross_component: 0,
+    deputation_allowance: 0,
+    nps_part_e: 0,
   };
 
   const [form, setForm] = useState({ ...initialForm });
@@ -262,9 +262,12 @@ function EmployeeListCreateHook({ location }) {
     });
   }, []);
 
-  const toggleConfirmDialog = useCallback((type) => {
-    setIsDialog(e => !e);
-}, [setIsDialog]);
+  const toggleConfirmDialog = useCallback(
+    (type) => {
+      setIsDialog((e) => !e);
+    },
+    [setIsDialog]
+  );
 
   useEffect(() => {
     if (listData?.EMPLOYEES?.length > 0 && (candidateId || traineeId)) {
@@ -320,9 +323,9 @@ function EmployeeListCreateHook({ location }) {
         } else {
           const { salary } = empData;
           Object.keys(salary).forEach((key) => {
-            if(BOOLEAN_KEYS?.includes(key)){
-              salary[key] = salary[key] ? 'YES' : 'NO'
-            }else{
+            if (BOOLEAN_KEYS?.includes(key)) {
+              salary[key] = salary[key] ? "YES" : "NO";
+            } else {
               salary[key] /= 12;
             }
           });
@@ -350,9 +353,10 @@ function EmployeeListCreateHook({ location }) {
               } else if (key === "current_address") {
                 data[key] = empData["correspondence_address"];
               } else if (key === "previous_organisation") {
-                if(empData?.employment_history?.length > 0){
-                  data[key] = empData["employment_history"][0]?.organisation_name;
-                } 
+                if (empData?.employment_history?.length > 0) {
+                  data[key] =
+                    empData["employment_history"][0]?.organisation_name;
+                }
               } else {
                 data[key] = empData[key];
               }
@@ -365,8 +369,10 @@ function EmployeeListCreateHook({ location }) {
   }, [candidateId, traineeId, listData]);
 
   const checkSalaryInfoDebouncer = useMemo(() => {
-    return debounce((e) => {checkForSalaryInfo(e)}, 1000);
-      }, []);
+    return debounce((e) => {
+      checkForSalaryInfo(e);
+    }, 1000);
+  }, [listData]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -483,7 +489,7 @@ function EmployeeListCreateHook({ location }) {
   );
 
   const checkForSalaryInfo = (data) => {
-    if (data?.grade_id && data?.cadre_id) {
+    if (data?.grade_id && data?.cadre_id && data?.designation_id?.id) {
       let filteredForm = {};
       for (let key in data) {
         if (salaryInfo.includes(key)) {
@@ -500,7 +506,8 @@ function EmployeeListCreateHook({ location }) {
       }
       let req = serviceGetSalaryInfoInfo({
         grade_id: data?.grade_id,
-        cadre_id:data?.cadre_id,
+        cadre_id: data?.cadre_id,
+        designation_id: data?.designation_id?.id,
         ...filteredForm,
       });
       req.then((res) => {
@@ -512,13 +519,23 @@ function EmployeeListCreateHook({ location }) {
             if (BOOLEAN_KEYS.includes(key)) {
               value = value ? "YES" : "NO";
             }
-            booleanData[key] = value;
+            if (key === "designation_id") {
+              const designationIndex = listData?.DESIGNATIONS.findIndex(
+                (val) => val.id === value
+              );
+              if (designationIndex >= 0) {
+                booleanData[key] = listData?.DESIGNATIONS[designationIndex];
+              }
+            } else {
+              booleanData[key] = value;
+            }
           }
         }
+        console.log('bool',booleanData)
         setForm({ ...data, ...booleanData });
       });
     } else {
-      SnackbarUtils.error("Please Select the Grade and Cadre");
+      SnackbarUtils.error("Please Select the Grade , Cadre and Designation");
     }
   };
 
@@ -552,19 +569,25 @@ function EmployeeListCreateHook({ location }) {
         if (!text || isNum(text)) {
           t[fieldName] = text;
         }
-      }else if (fieldName === 'grade_id'){
+      } else if (fieldName === "grade_id") {
         t[fieldName] = text;
-        t['cadre_id'] = ""
+        t["cadre_id"] = "";
       } else {
         t[fieldName] = text;
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
 
-      if ([...salaryInfo,'grade_id','cadre_id']?.includes(fieldName)) {
+      if (
+        [...salaryInfo, "grade_id", "cadre_id", "designation_id"]?.includes(
+          fieldName
+        )
+      ) {
         checkSalaryInfoDebouncer(t);
       }
-    }, [removeError, form, setForm, checkSalaryInfoDebouncer]);
+    },
+    [removeError, form, setForm, checkSalaryInfoDebouncer]
+  );
 
   const checkCodeValidation = useCallback(() => {
     if (form?.emp_code) {
@@ -619,10 +642,9 @@ function EmployeeListCreateHook({ location }) {
           fd.append(key, form[key]?.id);
         } else if (key === "is_transport_facility") {
           fd.append("is_transport_facility", form[key] === "availed");
-        } else if (BOOLEAN_KEYS.includes(key)){
-          fd.append(key,form[key] === 'YES')
-        }
-         else if (form[key]) {
+        } else if (BOOLEAN_KEYS.includes(key)) {
+          fd.append(key, form[key] === "YES");
+        } else if (form[key]) {
           fd.append(key, form[key]);
         }
       });
@@ -662,7 +684,7 @@ function EmployeeListCreateHook({ location }) {
     ].forEach((item) => {
       delete form[item];
     });
-    toggleConfirmDialog()
+    toggleConfirmDialog();
     // submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
@@ -733,11 +755,10 @@ function EmployeeListCreateHook({ location }) {
     defaultImg,
     toggleConfirmDialog,
     isDialog,
-    submitToServer
+    submitToServer,
   };
 }
 
 export default EmployeeListCreateHook;
-
 
 //USC create Hook
