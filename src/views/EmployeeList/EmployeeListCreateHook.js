@@ -145,6 +145,8 @@ function EmployeeListCreateHook({ location }) {
     mother_state: "ALIVE",
     mother_dod: "",
     is_transport_facility: "notavailed",
+    vehicle_type:"",
+    vehicle_number:"",
     basic_salary: 0,
     hra: 0,
     education_allowance: 0,

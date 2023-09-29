@@ -500,7 +500,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           
           </div>
-          <div className={"formFlex"} style={{width:'50%'}}>
+          <div className={"formFlex"}>
                <div className={"formGroup"}>
                  <CustomSelectField
                    isError={errorData?.is_transport_facility}
@@ -515,6 +515,37 @@ const EmployeeListCreate = ({}) => {
                    <MenuItem value='notavailed'>Not Availed </MenuItem>
                  </CustomSelectField>
                </div>
+               <div className={"formGroup"}>
+                  <CustomTextField
+                    isError={errorData?.vehicle_type}
+                    errorText={errorData?.vehicle_type}
+                    label={"Vehicle Type"}
+                    value={form?.vehicle_type}
+                    onTextChange={(text) => {
+                      changeTextData(text, "vehicle_type");
+                    }}
+                    onBlur={() => {
+                      onBlurHandler("vehicle_type");
+                    }}
+                  />
+               </div>
+                </div>
+                <div className={"formFlex"}>
+                  <div className={"formGroup"}>
+                    <CustomTextField
+                      isError={errorData?.vehicle_number}
+                      errorText={errorData?.vehicle_number}
+                      label={"Vehicle Number"}
+                      value={form?.vehicle_number}
+                      onTextChange={(text) => {
+                                changeTextData(text, "vehicle_number");
+                      }}
+                      onBlur={() => {
+                                onBlurHandler("vehicle_number");
+                      }}
+                    />
+                  </div>
+                  <div className={"formGroup"}></div>
              </div>
         </div>
         <div className={"plainPaper"}>

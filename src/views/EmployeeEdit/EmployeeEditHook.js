@@ -77,6 +77,8 @@ const initialForm = {
   bank_name: "",
   ifsc: "",
   is_transport_facility:'notavailed',
+  vehicle_type:"",
+  vehicle_number:"",
   father_state:"ALIVE",
   father_dob:"",
   father_dod:"",
