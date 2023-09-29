@@ -805,7 +805,7 @@ const CandidateOfferLetter = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={true}
+              disabled={form?.is_em_esi_manual === "NO" ? true : false}
               type={"number"}
               isError={errorData?.em_esi}
               errorText={errorData?.em_esi}
@@ -819,7 +819,28 @@ const CandidateOfferLetter = ({ location }) => {
               }}
             />
           </div>
-
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_em_esi_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_em_esi_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+            </div>
 
         </div>
         <div className={"formFlex"}>
@@ -841,7 +862,7 @@ const CandidateOfferLetter = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={true}
+              disabled={form?.is_em_pf_manual === "NO" ? true : false}
               type={"number"}
               isError={errorData?.em_pf}
               errorText={errorData?.em_pf}
@@ -854,6 +875,28 @@ const CandidateOfferLetter = ({ location }) => {
                 onBlurHandler("em_pf");
               }}
             />
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_em_pf_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_em_pf_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
           </div>
         </div>
           <div className={"formFlex"}>
@@ -875,7 +918,7 @@ const CandidateOfferLetter = ({ location }) => {
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
-                  disabled={true}
+                  disabled={form?.is_er_pf_manual === "NO" ? true : false}
                   type={"number"}
                   isError={errorData?.er_pf}
                   errorText={errorData?.er_pf}
@@ -889,9 +932,31 @@ const CandidateOfferLetter = ({ location }) => {
                   }}
               />
             </div>
+            <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_er_pf_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_er_pf_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+          </div>
             <div className={"formGroup"}>
               <CustomTextField
-                  disabled={true}
+                  disabled={form?.is_er_esi_manual === "NO" ? true : false}
                   type={"number"}
                   isError={errorData?.er_esi}
                   errorText={errorData?.er_esi}
@@ -905,6 +970,28 @@ const CandidateOfferLetter = ({ location }) => {
                   }}
               />
             </div>
+            <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_er_esi_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_er_esi_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+          </div>
           </div>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -940,7 +1027,7 @@ const CandidateOfferLetter = ({ location }) => {
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
-                  disabled={true}
+                  disabled={form?.is_gratuity_manual === "NO" ? true : false}
                   type={"number"}
                   isError={errorData?.gratuity}
                   errorText={errorData?.gratuity}
@@ -954,6 +1041,28 @@ const CandidateOfferLetter = ({ location }) => {
                   }}
               />
             </div>
+            <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_gratuity_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_gratuity_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+          </div>
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
@@ -1039,6 +1148,7 @@ const CandidateOfferLetter = ({ location }) => {
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
+                  disabled={(form?.vehicle_maintenance || form?.fuel) || (form?.is_two_car_maintenance_manual === "NO" ? true : false) }
                   isError={errorData?.two_car_maintenance}
                   errorText={errorData?.two_car_maintenance}
                   label={"Type II Car Maint"}
@@ -1051,8 +1161,31 @@ const CandidateOfferLetter = ({ location }) => {
                   }}
               />
             </div>
+            <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_two_car_maintenance_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_two_car_maintenance_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+          </div>
             <div className={"formGroup"}>
               <CustomTextField
+                  disabled={form?.is_two_fuel_manual === "NO" ? true : false}
                   type={"number"}
                   isError={errorData?.two_fuel}
                   errorText={errorData?.two_fuel}
@@ -1066,6 +1199,28 @@ const CandidateOfferLetter = ({ location }) => {
                   }}
               />
             </div>
+            <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_two_fuel_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_two_fuel_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+          </div>
           </div>
           <div className={"formFlex"}>
           <div className={"formGroup"}>
