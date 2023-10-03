@@ -547,7 +547,7 @@ function EmployeeListCreateHook({ location }) {
             }
           }
         }
-        console.log('bool',booleanData)
+        console.log("bool", booleanData);
         setForm({ ...data, ...booleanData });
       });
     } else {
@@ -642,6 +642,7 @@ function EmployeeListCreateHook({ location }) {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+      const vehicleObj = {};
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
         LogUtils.log("key", key);
@@ -660,10 +661,15 @@ function EmployeeListCreateHook({ location }) {
           fd.append("is_transport_facility", form[key] === "availed");
         } else if (BOOLEAN_KEYS.includes(key)) {
           fd.append(key, form[key] === "YES");
-        } else if (form[key]) {
+        } else if (["vehicle_type", "vehicle_number"].includes(key)) {
+          vehicleObj[key] = form[key];
+        }else if (form[key]) {
           fd.append(key, form[key]);
         }
       });
+      if (vehicleObj) {
+        fd.append("vehicle", JSON.stringify(vehicleObj));
+      }
       if (remotePath?.length > 0) {
         fd.append("remote_image_path", remotePath);
       }
