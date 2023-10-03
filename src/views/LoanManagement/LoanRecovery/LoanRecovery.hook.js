@@ -5,6 +5,7 @@ import {
 } from "../../../services/LoanList.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import LogUtils from "../../../libs/LogUtils";
+import { serviceGetEmployeeLoanDetails } from "../../../services/EmployeeLoanList.service";
 
 function useLoanRecovery({ location }) {
   const [loanData, setLoanData] = useState({});
@@ -29,6 +30,12 @@ function useLoanRecovery({ location }) {
       let req = serviceGetLoanListDetails({ id: userInfo?.detailId });
       req.then((data) => {
         const empData = data?.data?.details?.loan;
+        setLoanData(empData?.loanSchedule);
+      });
+    }else if(userInfo?.onGoing){
+      let req = serviceGetEmployeeLoanDetails({ id: userInfo?.onGoing });
+      req.then((data) => {
+        const empData = data?.data?.details;
         setLoanData(empData?.loanSchedule);
       });
     } else {
