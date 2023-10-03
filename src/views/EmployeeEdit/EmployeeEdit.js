@@ -516,36 +516,36 @@ const EmployeeListCreate = ({}) => {
                  </CustomSelectField>
                </div>
                <div className={"formGroup"}>
-                  <CustomTextField
-                    isError={errorData?.vehicle_type}
-                    errorText={errorData?.vehicle_type}
-                    label={"Vehicle Type"}
-                    value={form?.vehicle_type}
-                    onTextChange={(text) => {
-                      changeTextData(text, "vehicle_type");
-                    }}
-                    onBlur={() => {
-                      onBlurHandler("vehicle_type");
-                    }}
-                  />
-               </div>
-                </div>
-                <div className={"formFlex"}>
-                  <div className={"formGroup"}>
-                    <CustomTextField
-                      isError={errorData?.vehicle_number}
-                      errorText={errorData?.vehicle_number}
-                      label={"Vehicle Number"}
-                      value={form?.vehicle_number}
-                      onTextChange={(text) => {
-                                changeTextData(text, "vehicle_number");
-                      }}
-                      onBlur={() => {
-                                onBlurHandler("vehicle_number");
-                      }}
-                    />
-                  </div>
-                  <div className={"formGroup"}></div>
+            <CustomTextField
+              isError={errorData?.vehicle_type}
+              errorText={errorData?.vehicle_type}
+              label={"Vehicle Type"}
+              value={form?.vehicle_type}
+              onTextChange={(text) => {
+                changeTextData(text, "vehicle_type");
+              }}
+              onBlur={() => {
+                onBlurHandler("vehicle_type");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.vehicle_number}
+              errorText={errorData?.vehicle_number}
+              label={"Vehicle Number"}
+              value={form?.vehicle_number}
+              onTextChange={(text) => {
+                changeTextData(text, "vehicle_number");
+              }}
+              onBlur={() => {
+                onBlurHandler("vehicle_number");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}></div>
              </div>
         </div>
         <div className={"plainPaper"}>
@@ -1687,7 +1687,8 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={true}
+              // disabled={true}
+             disabled={form?.is_em_esi_manual === "NO" ? true : false}
               type={"number"}
               isError={errorData?.em_esi}
               errorText={errorData?.em_esi}
@@ -1701,6 +1702,28 @@ const EmployeeListCreate = ({}) => {
               }}
             />
           </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_em_esi_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_em_esi_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+            </div>
         </div>
         <div className={"formFlex"}>
         <div className={"formGroup"}>
@@ -1721,7 +1744,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={true}
+             disabled={form?.is_em_pf_manual === "NO" ? true : false}
               type={"number"}
               isError={errorData?.em_pf}
               errorText={errorData?.em_pf}
@@ -1734,6 +1757,28 @@ const EmployeeListCreate = ({}) => {
                 onBlurHandler("em_pf");
               }}
             />
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_em_pf_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_em_pf_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
           </div>
         </div>
           <div className={"formFlex"}>
@@ -1755,7 +1800,8 @@ const EmployeeListCreate = ({}) => {
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
-                  disabled={true}
+                  disabled={form?.is_er_pf_manual === "NO" ? true : false}
+                  // disabled={true}
                   type={"number"}
                   isError={errorData?.er_pf}
                   errorText={errorData?.er_pf}
@@ -1769,9 +1815,31 @@ const EmployeeListCreate = ({}) => {
                   }}
               />
             </div>
+            <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_er_pf_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_er_pf_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+          </div>
             <div className={"formGroup"}>
               <CustomTextField
-                  disabled={true}
+                   disabled={form?.is_er_esi_manual === "NO" ? true : false}
                   type={"number"}
                   isError={errorData?.er_esi}
                   errorText={errorData?.er_esi}
@@ -1785,6 +1853,28 @@ const EmployeeListCreate = ({}) => {
                   }}
               />
             </div>
+            <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_er_esi_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_er_esi_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+          </div>
           </div>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -1820,7 +1910,7 @@ const EmployeeListCreate = ({}) => {
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
-                  disabled={true}
+                  disabled={form?.is_gratuity_manual === "NO" ? true : false}
                   type={"number"}
                   isError={errorData?.gratuity}
                   errorText={errorData?.gratuity}
@@ -1834,6 +1924,28 @@ const EmployeeListCreate = ({}) => {
                   }}
               />
             </div>
+            <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_gratuity_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_gratuity_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+          </div>
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
@@ -1919,6 +2031,7 @@ const EmployeeListCreate = ({}) => {
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
+                  disabled={(form?.vehicle_maintenance || form?.fuel) || (form?.is_two_car_maintenance_manual === "NO" ? true : false) }
                   isError={errorData?.two_car_maintenance}
                   errorText={errorData?.two_car_maintenance}
                   label={"Type II Car Maint"}
@@ -1931,8 +2044,31 @@ const EmployeeListCreate = ({}) => {
                   }}
               />
             </div>
+            <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_two_car_maintenance_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_two_car_maintenance_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+          </div>
             <div className={"formGroup"}>
               <CustomTextField
+                  disabled={form?.is_two_fuel_manual === "NO" ? true : false}
                   type={"number"}
                   isError={errorData?.two_fuel}
                   errorText={errorData?.two_fuel}
@@ -1946,6 +2082,28 @@ const EmployeeListCreate = ({}) => {
                   }}
               />
             </div>
+            <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_two_fuel_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_two_fuel_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
+          </div>
           </div>
           <div className={"formFlex"}>
           <div className={"formGroup"}>

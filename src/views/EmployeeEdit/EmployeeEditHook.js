@@ -24,6 +24,13 @@ const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allo
 
 const BOOLEAN_KEYS = [
   "is_pug",
+  "is_two_car_maintenance_manual",
+  "is_two_fuel_manual",
+  "is_gratuity_manual",
+  "is_er_pf_manual",
+  "is_er_esi_manual",
+  "is_em_pf_manual",
+  "is_em_esi_manual",
   "is_pug_manual",
   "is_helper",
   "is_helper_manual",
@@ -77,8 +84,8 @@ const initialForm = {
   bank_name: "",
   ifsc: "",
   is_transport_facility:'notavailed',
-  vehicle_type:"",
-  vehicle_number:"",
+  vehicle_type: "",
+  vehicle_number: "",
   father_state:"ALIVE",
   father_dob:"",
   father_dod:"",
@@ -141,6 +148,13 @@ const initialForm = {
   is_address_same: false,
   is_pug: "NO",
   is_pug_manual: "NO",
+  is_two_car_maintenance_manual: "NO",
+  is_two_fuel_manual: "NO",
+  is_gratuity_manual: "NO",
+  is_er_pf_manual: "NO",
+  is_er_esi_manual: "NO",
+  is_em_pf_manual: "NO",
+  is_em_esi_manual: "NO",
   is_helper: "NO",
   is_helper_manual: "NO",
   is_food_coupons: "NO",
@@ -388,7 +402,7 @@ function EmployeeListCreateHook() {
   }, [isUpdateDialog]);
 
   const checkForSalaryInfo = (data) => {
-    if (data?.grade_id && data?.cadre_id) {
+    if (data?.grade_id && data?.cadre_id && data?.designation_id?.id) {
       let filteredForm = {employee_id:id};
       for (let key in data) {
         if (salaryInfo.includes(key)) {
@@ -406,6 +420,7 @@ function EmployeeListCreateHook() {
       let req = serviceGetSalaryInfoInfo({
         grade_id: data?.grade_id,
         cadre_id:data?.cadre_id,
+        designation_id: data?.designation_id?.id,
         ...filteredForm,
       });
       req.then((res) => {
@@ -417,13 +432,22 @@ function EmployeeListCreateHook() {
             if (BOOLEAN_KEYS.includes(key)) {
               value = value ? "YES" : "NO";
             }
-            booleanData[key] = value;
+             if (key === "designation_id") {
+              const designationIndex = listData?.DESIGNATIONS.findIndex(
+                (val) => val.id === value
+              );
+              if (designationIndex >= 0) {
+                booleanData[key] = listData?.DESIGNATIONS[designationIndex];
+              }
+            } else {
+              booleanData[key] = value;
+            }
           }
         }
         setForm({ ...data, ...booleanData });
       });
     } else {
-      SnackbarUtils.error("Please Select the Grade and Cadre");
+      SnackbarUtils.error("Please Select the Grade , Cadre and Designation");
     }
   };
 
@@ -473,13 +497,13 @@ function EmployeeListCreateHook() {
           t[fieldName] = text;
         }
         setForm(t);
-        if ([...salaryInfo,'grade_id','cadre_id']?.includes(fieldName)) {
+        if ([...salaryInfo,'grade_id','cadre_id','designation_id']?.includes(fieldName)) {
           checkSalaryInfoDebouncer(t);
         }
         if (changedFields.current.indexOf(fieldName) < 0) {
           changedFields.current = [...changedFields.current, fieldName];
         }
-        if([...salaryInfo,'grade_id','cadre_id']?.includes(fieldName)){
+        if([...salaryInfo,'grade_id','cadre_id','designation_id']?.includes(fieldName)){
           setSalaryField(true)
         }
         shouldRemoveError && removeError(fieldName);
@@ -508,7 +532,7 @@ function EmployeeListCreateHook() {
 
   const checkSalaryInfoDebouncer = useMemo(() => {
     return debounce((e) => {checkForSalaryInfo(e)}, 1000);
-      }, []);
+      }, [listData]);
 
   useEffect(() => {
     if (codeDebouncer) {
@@ -530,7 +554,7 @@ function EmployeeListCreateHook() {
       const changedData = [];
       let foundMatch = false;
       for (let i = 0; i < changedFields?.current?.length; i++) {
-        if ([...salaryInfo,'grade_id','cadre_id']?.includes(changedFields?.current[i])) {
+        if ([...salaryInfo,'grade_id','cadre_id','designation_id']?.includes(changedFields?.current[i])) {
           foundMatch = true;
           break;
         }

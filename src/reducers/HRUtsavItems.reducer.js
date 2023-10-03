@@ -62,7 +62,7 @@ export default function (
         newAll = [...state.all, ...newData];
         console.log(newAll);
       }
-      const tableData = mapPresetPRequest(newAll, state.currentPage);
+      const tableData = newAll; //mapPresetPRequest(newAll, state.currentPage);
       return { ...state, all: newAll, present: tableData, is_fetching: false }; // { ...state , all: newAll, present: tableData, serverPage: 1, currentPage: 1 };
     }
     case SET_SORTING: {
@@ -81,7 +81,7 @@ export default function (
         if (tIndex != null) {
           prevState[tIndex] = action.payload;
         }
-        const tableData = mapPresetPRequest(prevState, state.currentPage);
+        const tableData = prevState; //mapPresetPRequest(prevState, state.currentPage);
         return { ...state, all: prevState, present: tableData };
       }
       return state;
@@ -102,7 +102,7 @@ export default function (
         if (tempIndex != null) {
           prevState.splice(tempIndex, 1);
         }
-        const tableData = mapPresetPRequest(prevState, state.currentPage);
+        const tableData = prevState;//mapPresetPRequest(prevState, state.currentPage);
         return { ...state, all: prevState, present: tableData };
       }
       return state;
@@ -111,7 +111,7 @@ export default function (
       if (action.payload) {
         const prevState = state.all;
         prevState.unshift(action.payload);
-        const tableData = mapPresetPRequest(prevState, state.currentPage);
+        const tableData = prevState;//mapPresetPRequest(prevState, state.currentPage);
         return { ...state, all: prevState, present: tableData };
       }
       return state;
@@ -129,14 +129,14 @@ export default function (
         if (tIndex != null) {
           prevState[tIndex] = action.payload;
         }
-        const tableData = mapPresetPRequest(prevState, state.currentPage);
+        const tableData = prevState;//mapPresetPRequest(prevState, state.currentPage);
         return { ...state, all: prevState, present: tableData };
       }
       return state;
     }
     case CHANGE_PAGE: {
       const tempPage = action.payload;
-      const tableData = mapPresetPRequest(state.all, tempPage);
+      const tableData = state.all;//mapPresetPRequest(state.all, tempPage);
       return { ...state, present: tableData, currentPage: tempPage };
     }
     case FETCH_NEXT: {
@@ -154,7 +154,7 @@ export default function (
       };
     }
     case RESET_FILTER: {
-      const tableData = mapPresetPRequest(state.all, state.currentPage);
+      const tableData = state.all; //mapPresetPRequest(state.all, state.currentPage);
       return { ...state, present: tableData };
     }
     case SET_PAGE: {

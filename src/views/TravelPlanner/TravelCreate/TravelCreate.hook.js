@@ -260,7 +260,9 @@ const useTravelCreate = ({}) => {
             fd.append("travel_documents", val?.travel_documents);
           }
         });
+        if (ExpensesData[0].mode?.length > 0) {
         fd.append("travel_details", JSON.stringify(ExpensesData));
+        }
         const otherExpensesData = otherRef.current.getData();
         otherExpensesData.forEach((val) => {
           if (val?.accomodation_documents) {

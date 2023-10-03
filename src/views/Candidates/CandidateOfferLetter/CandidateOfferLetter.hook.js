@@ -69,6 +69,13 @@ const SALARY_KEYS = [
 
 const BOOLEAN_KEYS = [
   "is_pug",
+  "is_two_car_maintenance_manual",
+  "is_two_fuel_manual",
+  "is_gratuity_manual",
+  "is_er_pf_manual",
+  "is_er_esi_manual",
+  "is_em_pf_manual",
+  "is_em_esi_manual",
   "is_pug_manual",
   "is_helper",
   "is_helper_manual",
@@ -147,6 +154,13 @@ function CandidateOfferLetterHook({location}) {
         cadre_id:'',
         is_pug: "NO",
         is_pug_manual: "NO",
+        is_two_car_maintenance_manual: "NO",
+        is_two_fuel_manual: "NO",
+        is_gratuity_manual: "NO",
+        is_er_pf_manual: "NO",
+        is_er_esi_manual: "NO",
+        is_em_pf_manual: "NO",
+        is_em_esi_manual: "NO",
         is_helper: "NO",
         is_helper_manual: "NO",
         is_food_coupons: "NO",
@@ -266,7 +280,7 @@ function CandidateOfferLetterHook({location}) {
 
     const checkSalaryInfoDebouncer = useMemo(() => {
         return debounce((e) => {checkForSalaryInfo(e)}, 1000);
-          }, [candidateData]);
+          }, [candidateData,listData]);
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
@@ -328,7 +342,7 @@ function CandidateOfferLetterHook({location}) {
         [setErrorData, errorData]
     );
     const checkForSalaryInfo = (data) => {
-        if (data?.grade_id && data?.cadre_id) {
+        if (data?.grade_id && data?.cadre_id && data?.designation?.id) {
           let filteredForm = {};
           for (let key in data) {
             if (salaryInfo.includes(key)) {
@@ -346,6 +360,7 @@ function CandidateOfferLetterHook({location}) {
           let req = serviceGetSalaryInfoInfoMonthly({
             grade_id: data?.grade_id,
             cadre_id:data?.cadre_id,
+            designation_id:data?.designation?.id,
             ...filteredForm,
           });
           req.then((res) => {
@@ -357,7 +372,16 @@ function CandidateOfferLetterHook({location}) {
                 if (BOOLEAN_KEYS.includes(key)) {
                   value = value ? "YES" : "NO";
                 }
-                booleanData[key] = value;
+                if (key === "designation_id") {
+                    const designationIndex = listData?.DESIGNATIONS.findIndex(
+                      (val) => val.id === value
+                    );
+                    if (designationIndex >= 0) {
+                      booleanData['designation'] = listData?.DESIGNATIONS[designationIndex];
+                    }
+                  } else {
+                    booleanData[key] = value;
+                  }
               }
             }
             setForm({ ...data, ...booleanData });
