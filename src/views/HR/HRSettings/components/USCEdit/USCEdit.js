@@ -42,7 +42,7 @@ function USCEditView() {
             onClick={handleSubmit}
             className={styles.createBtn}
           >
-            NEXT
+            Update
           </ButtonBase>
         </div>
       </div>
