@@ -12,6 +12,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
+import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
 
 const TravelClaimListDetail = lazy(()=> import ( "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"));
 const LoanProcessDetail = lazy(()=> import ( "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view"));
@@ -1314,6 +1315,18 @@ const dashboardRoutes = [
         icon: PeopleOutlined,
         component: HRSettings,
         is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'Hr',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.HR_USC_UPDATE}:id`,
+        sidebarName: "Settings",
+        navbarName: "Settings",
+        icon: PeopleOutlined,
+        component: USCEditView,
+        is_sidebar: false,
         is_protect: true,
         should_regex: true,
         parent: 'Hr',

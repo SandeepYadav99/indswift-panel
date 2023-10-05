@@ -33,3 +33,12 @@ export async function serviceGetPmsIncrements(params){
 export async function serviceSetEmailTrigger(params) {
     return await postRequest('employees/send/bulk/email', params);
 }
+export async function serviceGetUscList(params) {
+    return await postRequest('location/salary', params);
+}
+export async function serviceGetUscDetails(params) {
+    return await postRequest('location/salary/detail', params);
+}
+export async function serviceGetUscUpdate(params) {
+    return await postRequest('location/salary/update', params);
+}

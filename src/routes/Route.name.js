@@ -61,6 +61,7 @@ export default {
 
   SETTINGS: "/settings",
   HR_SETTINGS: "/hr/settings",
+  HR_USC_UPDATE:'/hr/usc/update/',
 
   EMPLOYEE_DASHBOARD: "/employee/dashboard",
   RESET_PASSWORD_FIRST: "/reset/password/first",
