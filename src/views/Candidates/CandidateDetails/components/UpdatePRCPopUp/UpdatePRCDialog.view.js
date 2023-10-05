@@ -1,11 +1,6 @@
-import React, { useCallback, useMemo, useState } from "react";
-import {
-  Button,
-  ButtonBase,
-  IconButton,
-  InputAdornment,
-} from "@material-ui/core";
-import { Close, Visibility, VisibilityOff } from "@material-ui/icons";
+import React from "react";
+import { Button, ButtonBase, MenuItem } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
@@ -36,23 +31,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const UpdatePRCDialog = ({ isOpen, handleToggle, empId }) => {
+const UpdatePRCDialog = ({ isOpen, handleToggle, candidateId }) => {
   const classes = useStyles();
   const {
     changeTextData,
     errorData,
     form,
     handleSubmit,
-    onBlurHandler,
-    removeError,
-    resData,
-    isSubmitted,
     isSubmitting,
-    isVerified,
-    showPasswordCurrent,
-    setShowPasswordCurrent,
-  } = useUpdatePRCDialogHook({ isOpen, handleToggle, empId });
-
+    onBlurHandler,
+  } = useUpdatePRCDialogHook({ isOpen, handleToggle, candidateId });
   return (
     <div>
       <Dialog
@@ -78,9 +66,33 @@ const UpdatePRCDialog = ({ isOpen, handleToggle, empId }) => {
             </ButtonBase>
           </div>
           {/*</DialogTitle>*/}
-         
-        </div>
+          <div className={styles.fieldWrapper}>
+            <div>
+              <CustomTextField
+                isError={errorData?.code}
+                errorText={errorData?.code}
+                label={"Search RAP ID"}
+                value={form?.code}
+                onTextChange={(text) => {
+                  changeTextData(text, "code");
+                }}
+                onBlur={() => {
+                  onBlurHandler("code");
+                }}
+              />
+            </div>
+          </div>
 
+          <div className={styles.printFlex}>
+            <ButtonBase
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className={"createBtnreset"}
+            >
+              Proceed
+            </ButtonBase>
+          </div>
+        </div>
       </Dialog>
     </div>
   );

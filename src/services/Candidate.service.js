@@ -48,3 +48,9 @@ export async function serviceUpdateCandidateStatus(params) {
 export async function serviceResendEaf(candidateId) {
     return await postRequest('candidates/resend/eaf', { candidate_id: candidateId })
 }
+export async function serviceGetCandidatePRCList(params) {
+    return await postRequest('job/openings/search/code', params);
+}
+export async function serviceCheckCandidatePRC(params) {
+    return await postRequest('job/openings/candidates/can/associate', params);
+}
