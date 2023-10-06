@@ -63,7 +63,7 @@ const PersonalInfo = ({ data }) => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Father's Name:</span>
-                <span className={styles.valueWrap}>
+                <span className={styles.valueWrapCaps}>
                   {data?.family?.father_name}
                 </span>
               </div>
