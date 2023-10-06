@@ -40,6 +40,7 @@ function EmailCompView() {
           <MenuItem value="DEPARTMENT">DEPARTMENT WISE</MenuItem>
           <MenuItem value="LOCATION">Location WISE</MenuItem>
           <MenuItem value="DESIGNATION">Designation WISE</MenuItem>
+          <MenuItem value="GRADE">GRADE</MenuItem>
         </CustomSelectField>
       </div>
       {form?.type === "LOCATION" && (
@@ -114,7 +115,30 @@ function EmailCompView() {
           />
         </div>
       )}
-
+      {form?.type === "GRADE" && (
+        <div className={"formGroup"}>
+          <Autocomplete
+            multiple
+            id="tags-outlined"
+            onChange={(e, value) => {
+              changeTextData(value, "grade");
+            }}
+            value={form?.grade}
+            // id="tags-standard"
+            options={listData?.GRADES ? listData?.GRADES : []}
+            getOptionLabel={(option) => option.code}
+            defaultValue={form?.grade}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Grade"
+                error={errorData?.grade}
+              />
+            )}
+          />
+        </div>
+      )}
       <div className={"formGroup"}>
         <CustomTextField
           isError={errorData?.subject}
@@ -148,7 +172,9 @@ function EmailCompView() {
             disabled={isSubmitting ? true : false}
             type={"button"}
             onClick={handleSubmit}
-            className={isSubmitting ? styles.disabledCreatebtn : styles.createBtn}
+            className={
+              isSubmitting ? styles.disabledCreatebtn : styles.createBtn
+            }
           >
             {isSubmitting ? (
               <CircularProgress color="success" size="20px" />

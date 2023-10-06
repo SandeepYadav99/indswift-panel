@@ -12,6 +12,7 @@ function useEmailCompHook() {
     location_id: [],
     department_id: [],
     designation_id: [],
+    grade:[],
     subject: "",
     body: "",
   };
@@ -36,12 +37,13 @@ function useEmailCompHook() {
         location_id: [],
         department_id: [],
         designation_id: [],
+        grade:[]
       });
     }
   }, [form?.type]);
 
   useEffect(() => {
-    serviceGetList(["DEPARTMENTS", "DESIGNATIONS", "LOCATIONS"]).then((res) => {
+    serviceGetList(["DEPARTMENTS", "DESIGNATIONS", "LOCATIONS","GRADES"]).then((res) => {
       if (!res.error) {
         setListData(res?.data);
       }
@@ -79,6 +81,10 @@ function useEmailCompHook() {
         designation_id:
           form?.designation_id?.length > 0
             ? form?.designation_id.map((item) => item?.id)
+            : [],
+            grade:
+          form?.grade?.length > 0
+            ? form?.grade.map((item) => item?.id)
             : [],
       };
       delete idObject?.type;
