@@ -14,6 +14,9 @@ export async function serviceCandidateEditData(params) {
 export async function serviceDeleteCandidate(params) {
     return await postRequest('candidates/delete', params);
 }
+export async function serviceCheckCandidateExist(params) {
+    return await postRequest('candidates/exists', params);
+}
 export async function serviceGetCandidateDetails(params) {
     return await postRequest('candidates/details', params);
 }
