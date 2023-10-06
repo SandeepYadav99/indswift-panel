@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   serviceCandidateHistory,
+  serviceCheckCandidatePRC,
   serviceGetCandidateDetails,
   serviceGetCandidateJobHistory,
   serviceResendEaf,
@@ -18,7 +19,7 @@ function useCandidateDetails() {
   const [isResetDialog, setIsResetDialog] = useState(false);
   const [isUpdateDialog, setIsUpdateDialog] = useState(false);
   const [isExtendDialog, setIsExtendDialog] = useState(false);
-
+  const [checkPrc,setCheckPrc]=useState(false)
   const [isConfirmDialog, setIsConfirmDialog] = useState(false);
   const [isEafDialog, setIsEafDialog] = useState(false);
   const [isReoccuring, setIsReoccuring] = useState(false);
@@ -41,15 +42,17 @@ function useCandidateDetails() {
         setCandidateData(dataValues?.details);
       }
     );
-
     Promise.allSettled([
       serviceGetCandidateJobHistory({ candidate_id: id }),
       serviceCandidateHistory({ candidate_id: id }),
+      serviceCheckCandidatePRC({candidate_id: id})
     ]).then((promises) => {
       const historyData = promises[0]?.value?.data;
       const historyDetailed = promises[1]?.value?.data;
+      const checkPRCavailable= promises[2]?.value?.data
       setHistoryData(historyData);
       setHistoryDetail(historyDetailed);
+      setCheckPrc(checkPRCavailable)
     });
   }, [id]);
   //
@@ -141,7 +144,8 @@ function useCandidateDetails() {
     toggleConfirmDialog,
     toggleEafDialog,
     handleCVShortlistReminder,
-    handleResendEafClick
+    handleResendEafClick,
+    checkPrc
   };
 }
 

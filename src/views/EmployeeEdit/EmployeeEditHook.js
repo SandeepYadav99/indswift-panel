@@ -238,11 +238,14 @@ function EmployeeListCreateHook() {
           updatedForm[key] = empData[key] ? "YES" : "NO";
         }
       }
-      setForm({
+      const vehicleValue=empData?.vehicle
+      delete empData?.vehicle
+          setForm({
         ...initialForm,
         ...empData,
         image: '',
         is_transport_facility: transportvalue,
+        ...vehicleValue,
         ...updatedForm,
         effective_date:"",
         salary_notes:""
@@ -251,6 +254,7 @@ function EmployeeListCreateHook() {
         ...empData,
         image: '',
         is_transport_facility: transportvalue,
+        ...vehicleValue,
         ...updatedForm});
       setIsLoading(false);
     });

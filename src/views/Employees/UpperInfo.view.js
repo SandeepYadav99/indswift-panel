@@ -22,7 +22,7 @@ const UpperInfo = ({
             <img src={data?.image} height={70} />
           </div>
           <div className={styles.profileInfo}>
-            <div className={styles.name}>{data?.name}</div>
+            <div className={styles.nameCap}>{data?.name?.toLowerCase()}</div>
             <div>{data?.designation?.name}</div>
             <div>Employee Code: {data?.emp_code}</div>
           </div>

@@ -14,6 +14,9 @@ export async function serviceCandidateEditData(params) {
 export async function serviceDeleteCandidate(params) {
     return await postRequest('candidates/delete', params);
 }
+export async function serviceCheckCandidateExist(params) {
+    return await postRequest('candidates/exists', params);
+}
 export async function serviceGetCandidateDetails(params) {
     return await postRequest('candidates/details', params);
 }
@@ -47,4 +50,13 @@ export async function serviceUpdateCandidateStatus(params) {
 
 export async function serviceResendEaf(candidateId) {
     return await postRequest('candidates/resend/eaf', { candidate_id: candidateId })
+}
+export async function serviceGetCandidatePRCList(params) {
+    return await postRequest('job/openings/search/code', params);
+}
+export async function serviceGetCandidatePRCUpdate(params) {
+    return await postRequest('job/openings/candidates/associate', params);
+}
+export async function serviceCheckCandidatePRC(params) {
+    return await postRequest('job/openings/candidates/can/associate', params);
 }
