@@ -89,7 +89,7 @@ const DAIncludeForm = (
       ];
 
       {
-        required.forEach((key) => {
+        checkDays > 1 && required.forEach((key) => {
           if (!val[key]) {
             err[key] = true;
           }

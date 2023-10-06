@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import { serviceGetCandidatePRCList } from "../../../../../services/Candidate.service";
+import {
+  serviceGetCandidatePRCList,
+  serviceGetCandidatePRCUpdate,
+} from "../../../../../services/Candidate.service";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
 import LogUtils from "../../../../../libs/LogUtils";
 import useDebounce from "../../../../../hooks/DebounceHook";
+import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 
 const initialForm = {
   code: "",
@@ -21,17 +25,18 @@ const useUpdatePRCDialogHook = ({ isOpen, handleToggle, candidateId }) => {
 
   const checkCodeValidation = useCallback(() => {
     serviceGetCandidatePRCList({ code: form?.code }).then((res) => {
+      const ed = { ...errorData };
+      const dataValue = res?.data;
       if (!res.error) {
-        const errors = JSON.parse(JSON.stringify(errorData));
-        if (res.data.is_exists) {
-          console.log("reponse", res);
-          // errors["name"] = "Cadre Name Exists";
-          // setErrorData(errors);
-        } else {
-          // delete errors.name;
-          // setErrorData(errors);
-        }
+        delete ed["code"];
+        setForm({ ...form, ...dataValue });
+      } else {
+        ed["code"] = "Job Id doesnot Exist";
+        setForm({
+          code: form?.code,
+        });
       }
+      setErrorData(ed);
     });
   }, [errorData, setErrorData, form?.code]);
 
@@ -85,7 +90,18 @@ const useUpdatePRCDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       console.log("form", form);
-
+      let req = serviceGetCandidatePRCUpdate({
+        job_id: form?.id,
+        candidate_id: candidateId,
+      });
+      req.then((res) => {
+        if (!res.error) {
+          handleToggle();
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
       LogUtils.log("submitToServer");
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId]);

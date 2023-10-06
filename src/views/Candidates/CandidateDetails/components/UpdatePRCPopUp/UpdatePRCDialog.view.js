@@ -76,12 +76,46 @@ const UpdatePRCDialog = ({ isOpen, handleToggle, candidateId }) => {
                 onTextChange={(text) => {
                   changeTextData(text, "code");
                 }}
-                onBlur={() => {
-                  onBlurHandler("code");
-                }}
+                // onBlur={() => {
+                //   onBlurHandler("code");
+                // }}
               />
             </div>
           </div>
+          {form?.vacancy_type && (
+            <div className={styles.wr}>
+              <div className={styles.lowerWrap}>
+                <div className={styles.labelWrap}>RAP ID:</div>
+                <div className={styles.solWrap}>{form?.code}</div>
+              </div>
+              <div className={styles.lowerWrap}>
+                <div className={styles.labelWrap}>Type of Vacancy:</div>
+                <div className={styles.solWrap}>{form?.vacancy_type}</div>
+              </div>{" "}
+              <div className={styles.lowerWrap}>
+                <div className={styles.labelWrap}>Place of Posting:</div>
+                <div className={styles.solWrap}>-</div>
+              </div>
+              <div className={styles.lowerWrap}>
+                <div className={styles.labelWrap}>Candidate Grade:</div>
+                <div className={styles.solWrap}>{form?.grade?.code}</div>
+              </div>
+              <div className={styles.lowerWrap}>
+                <div className={styles.labelWrap}>Department Applied For:</div>
+                <div className={styles.solWrap}>{form?.department?.name}</div>
+              </div>
+              <div className={styles.lowerWrap}>
+                <div className={styles.labelWrap}>Designation Applied For:</div>
+                <div className={styles.solWrap}>{form?.designation?.name}</div>
+              </div>
+              <div className={styles.lowerWrap}>
+                <div className={styles.labelWrap}>Associated HR:</div>
+                <div className={styles.solWrap}>
+                  {form?.assigned_person?.name}
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className={styles.printFlex}>
             <ButtonBase
@@ -89,7 +123,7 @@ const UpdatePRCDialog = ({ isOpen, handleToggle, candidateId }) => {
               disabled={isSubmitting}
               className={"createBtnreset"}
             >
-              Proceed
+              Update
             </ButtonBase>
           </div>
         </div>

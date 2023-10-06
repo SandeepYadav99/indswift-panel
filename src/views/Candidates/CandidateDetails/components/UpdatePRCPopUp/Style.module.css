@@ -41,7 +41,27 @@
 .checkBox > label{
     font-size:.75rem
 }
+.labelWrap{
+    flex: 1;
+    font-weight: 600;
+}
+.wr{
+    margin: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.solWrap{
+    flex: 1;
+    font-weight: 500;
+    color: #818181;
+}
 .checkBox{
     display: flex;
     align-items: center;
+}
+.lowerWrap{
+    display: flex;
+    font-size: .8rem;
+    flex: 1;
 }

@@ -135,6 +135,7 @@ function CandidateDetails() {
         <UpdatePRCDialog
           isOpen={isResetDialog}
           handleToggle={toggleResetDialog}
+          candidateId={id}
         />
         <CandidateStatusDialog
           handleStatusUpdate={handleStatusUpdate}
