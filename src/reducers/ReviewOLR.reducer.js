@@ -31,7 +31,7 @@ const initialState = {
     serverPage: 0,
     query: null, // search text data
     query_data: null, // popover filter data change
-    sorting_data: {row: null, order: null},
+    sorting_data: {row: 'offerObj.code_serial_number', order: 'desc'},
     is_fetching: false
 };
 
