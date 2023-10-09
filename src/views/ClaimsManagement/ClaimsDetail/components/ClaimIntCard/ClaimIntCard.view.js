@@ -63,7 +63,7 @@ function ClaimIntCard() {
                   freeSolo: false,
                   getOptionLabel: (option) => option.code,
                 }}
-                dataset={employees}
+                dataset={employees ? employees : []}
                 datasetKey={"code"}
                 onTextChange={(text, value) => {
                   changeTextData(text, "travel_planner_id");
