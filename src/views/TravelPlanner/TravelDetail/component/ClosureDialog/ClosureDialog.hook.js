@@ -71,6 +71,7 @@ const useClosureDialogHook = ({ isOpen, handleToggle, candidateId,data }) => {
       setIsSubmitting(true);
       serviceClosuretravel({
         id: data?.id,
+        employee_id:data?.employee_id,
         ...form,
       }).then((res) => {
         if (!res.error) {

@@ -24,6 +24,7 @@ function TravelDetail() {
     closureDialog,
   } = useTravelDetail({});
 
+  console.log("employeeDetail", employeeDetail);
   return (
     <div className={styles.claimListWrapper}>
       <div style={{ marginBottom: "20px" }}>
@@ -288,21 +289,23 @@ function TravelDetail() {
         handleToggle={toggleClosureDialog}
         data={employeeDetail}
       />
-      {employeeDetail?.status &&  employeeDetail?.status === "BOOKING_DONE" && (
-        <div className={styles.plainPaper}>
-        {/* <BottomPanelComponent open={true}> */}
-          <div className={styles.btnWrap}>
-            <ButtonBase
-              aria-haspopup="true"
-              onClick={toggleClosureDialog}
-              className={"createBtn"}
-            >
-              TRAVEL CLOSURE
-            </ButtonBase>
+      {employeeDetail?.copassengerStatus?.status &&
+        employeeDetail?.status === "BOOKING_DONE" &&
+        employeeDetail?.copassengerStatus?.status === "PENDING" && (
+          <div className={styles.plainPaper}>
+            {/* <BottomPanelComponent open={true}> */}
+            <div className={styles.btnWrap}>
+              <ButtonBase
+                aria-haspopup="true"
+                onClick={toggleClosureDialog}
+                className={"createBtn"}
+              >
+                TRAVEL CLOSURE
+              </ButtonBase>
+            </div>
+            {/* </BottomPanelComponent> */}
           </div>
-        {/* </BottomPanelComponent> */}
-        </div>
-      )}
+        )}
     </div>
   );
 }
