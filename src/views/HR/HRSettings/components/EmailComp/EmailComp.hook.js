@@ -12,7 +12,7 @@ function useEmailCompHook() {
     location_id: [],
     department_id: [],
     designation_id: [],
-    grade:[],
+    grade_id:[],
     subject: "",
     body: "",
   };
@@ -37,7 +37,7 @@ function useEmailCompHook() {
         location_id: [],
         department_id: [],
         designation_id: [],
-        grade:[]
+        grade_id:[]
       });
     }
   }, [form?.type]);
@@ -82,9 +82,9 @@ function useEmailCompHook() {
           form?.designation_id?.length > 0
             ? form?.designation_id.map((item) => item?.id)
             : [],
-            grade:
-          form?.grade?.length > 0
-            ? form?.grade.map((item) => item?.id)
+            grade_id:
+          form?.grade_id?.length > 0
+            ? form?.grade_id.map((item) => item?.id)
             : [],
       };
       delete idObject?.type;

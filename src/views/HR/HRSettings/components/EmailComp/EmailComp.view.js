@@ -121,19 +121,19 @@ function EmailCompView() {
             multiple
             id="tags-outlined"
             onChange={(e, value) => {
-              changeTextData(value, "grade");
+              changeTextData(value, "grade_id");
             }}
-            value={form?.grade}
+            value={form?.grade_id}
             // id="tags-standard"
             options={listData?.GRADES ? listData?.GRADES : []}
             getOptionLabel={(option) => option.code}
-            defaultValue={form?.grade}
+            defaultValue={form?.grade_id}
             renderInput={(params) => (
               <TextField
                 {...params}
                 variant="outlined"
                 label="Grade"
-                error={errorData?.grade}
+                error={errorData?.grade_id}
               />
             )}
           />
