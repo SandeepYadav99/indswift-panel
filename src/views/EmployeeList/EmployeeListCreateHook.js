@@ -505,7 +505,7 @@ function EmployeeListCreateHook({ location }) {
   );
 
   const checkForSalaryInfo = (data) => {
-    if (data?.grade_id && data?.cadre_id && data?.designation_id?.id) {
+    if (data?.grade_id && data?.cadre_id && data?.designation_id?.id && data?.location_id) {
       let filteredForm = {};
       for (let key in data) {
         if (salaryInfo.includes(key)) {
@@ -524,6 +524,7 @@ function EmployeeListCreateHook({ location }) {
         grade_id: data?.grade_id,
         cadre_id: data?.cadre_id,
         designation_id: data?.designation_id?.id,
+        location_id:data?.location_id,
         ...filteredForm,
       });
       req.then((res) => {
@@ -595,7 +596,7 @@ function EmployeeListCreateHook({ location }) {
       shouldRemoveError && removeError(fieldName);
 
       if (
-        [...salaryInfo, "grade_id", "cadre_id", "designation_id"]?.includes(
+        [...salaryInfo, "grade_id", "cadre_id", "designation_id","location_id"]?.includes(
           fieldName
         )
       ) {
