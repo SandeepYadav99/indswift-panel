@@ -36,6 +36,10 @@ function ClaimIntCard() {
     tourType,
     changeAmount,
     setCurrency,
+    getTotalValue,
+    setOfficeAmount,
+    officeAmount,
+    getRefundAmount,
   } = useClaimIntCard({});
 
   return (
@@ -125,6 +129,7 @@ function ClaimIntCard() {
               changeAmount={changeAmount}
               tourType={tourType}
               setCurrency={setCurrency}
+              setOfficeAmount={setOfficeAmount}
             />
           </div>
         </div>
@@ -190,8 +195,40 @@ function ClaimIntCard() {
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Summary</div>
         <div className={styles.lowerWrapImprest}>
-          <div className={styles.headingWrap}>Imprest for tour:<span>{form?.travel_planner_id?.imprest?.code}</span></div>
-          <div className={styles.headingWrap}>Amount:<span>{getCurrency(form?.travel_planner_id?.imprest?.currency)}{form?.travel_planner_id?.imprest?.amount}</span></div>
+          <div className={styles.headingWrap}>
+            Imprest for tour:
+            <span>{form?.travel_planner_id?.imprest?.code}</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Amount:
+            <span>
+              {getCurrency(form?.travel_planner_id?.imprest?.currency)}
+              {form?.travel_planner_id?.imprest?.amount}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.heading}>Reimbursable Expense</div>
+        <div className={styles.lowerWrapImprest}>
+          <div className={styles.headingWrap}>
+            Total Expense (self + office):
+            <span>{getTotalValue ? ` ₹ ${getTotalValue}` : 0}</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Self Borne Expense::
+            <span>₹ {Number(getTotalValue) - Number(officeAmount)}</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Office Borne Expense:
+            <span>{officeAmount ? `₹ ${officeAmount} ` : 0}</span>
+          </div>
+        </div>
+        <div className={styles.totalWrap}>
+          <div className={styles.inner}>
+            Amount to be Refunded:{" "}
+            <span>{getRefundAmount ? `₹ ${getRefundAmount}` : 0}</span>
+          </div>
         </div>
       </div>
       <div className={styles.cleckboxWrapper}>

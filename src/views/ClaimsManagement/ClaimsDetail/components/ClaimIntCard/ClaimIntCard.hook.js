@@ -34,6 +34,7 @@ function useClaimIntCard() {
   const [form, setForm] = useState({ ...initialForm });
   const [declaration, setDeclaration] = useState(false);
   const [totalAmount, setTotalAmount] = useState({ ...amountKeys });
+  const [officeAmount, setOfficeAmount] = useState(0);
   const lodgeRef = useRef(null);
   const travelRef = useRef(null);
   const daRef = useRef(null);
@@ -85,6 +86,23 @@ function useClaimIntCard() {
     return errors;
   }, [form, errorData]);
 
+  const getTotalValue = useMemo(() => {
+    return Object.values(totalAmount).reduce((acc, value) => {
+      if (value !== "") {
+        acc += parseFloat(value);
+      }
+      return acc;
+    }, 0);
+  }, [totalAmount, setTotalAmount]);
+
+  const getRefundAmount = useMemo(() => {
+    return form?.travel_planner_id?.imprest?.amount
+      ? Number(getTotalValue) -
+          Number(officeAmount) -
+          Number(form?.travel_planner_id?.imprest?.amount)
+      : Number(getTotalValue) - Number(officeAmount);
+  }, [form?.travel_planner_id, getTotalValue, officeAmount]);
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsLoading(true);
@@ -95,14 +113,14 @@ function useClaimIntCard() {
       Object.keys(totalAmount).forEach((key) => {
         fd.append(key, totalAmount[key]);
       });
-      const sum = Object.values(totalAmount).reduce((acc, value) => {
-        if (value !== "") {
-          acc += parseFloat(value);
-        }
-        return acc;
-      }, 0);
+      // const sum = Object.values(totalAmount).reduce((acc, value) => {
+      //   if (value !== "") {
+      //     acc += parseFloat(value);
+      //   }
+      //   return acc;
+      // }, 0);
 
-      fd.append("total_amount", sum);
+      fd.append("total_amount", getRefundAmount);
       const lodgeData = lodgeRef.current.getData();
 
       let modifiedArr = lodgeData?.map((item) => {
@@ -164,17 +182,21 @@ function useClaimIntCard() {
           fd.append("da_payment_proof", file);
         }
       });
-      const modifiedData = daData.map(item => {
+      const modifiedData = daData.map((item) => {
         const parsedStartTime = new Date(item.start_time);
         const parsedEndTime = new Date(item.end_time);
-        const isStartString = parsedStartTime.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
-        const isEndString = parsedEndTime.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+        const isStartString = parsedStartTime.toLocaleString("en-US", {
+          timeZone: "Asia/Kolkata",
+        });
+        const isEndString = parsedEndTime.toLocaleString("en-US", {
+          timeZone: "Asia/Kolkata",
+        });
         return {
-            ...item,
-            start_time: isStartString,
-            end_time: isEndString,
+          ...item,
+          start_time: isStartString,
+          end_time: isEndString,
         };
-    });
+      });
       fd.append("da_ie_expenses", JSON.stringify(modifiedData));
       const enterData = enterRef.current.getData();
       enterData.forEach((val) => {
@@ -186,6 +208,9 @@ function useClaimIntCard() {
         }
       });
       fd.append("entertainment_expenses", JSON.stringify(enterData));
+      fd.append("total_expense", getTotalValue ? getTotalValue : 0);
+      fd.append("office_expense", officeAmount ? officeAmount : 0);
+      fd.append("self_expense", Number(getTotalValue) - Number(officeAmount));
 
       const otherData = otherRef.current.getData();
       otherData.forEach((val) => {
@@ -213,6 +238,10 @@ function useClaimIntCard() {
     setTotalAmount,
     currency,
     setCurrency,
+    getTotalValue,
+    officeAmount,
+    setOfficeAmount,
+    getRefundAmount
   ]);
 
   const removeError = useCallback(
@@ -275,7 +304,15 @@ function useClaimIntCard() {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, submitToServer]);
+  }, [
+    checkFormValidation,
+    setErrorData,
+    submitToServer,
+    getTotalValue,
+    officeAmount,
+    setOfficeAmount,
+    getRefundAmount
+  ]);
 
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -325,6 +362,10 @@ function useClaimIntCard() {
     changeAmount,
     tourType,
     setCurrency,
+    getTotalValue,
+    setOfficeAmount,
+    officeAmount,
+    getRefundAmount
   };
 }
 

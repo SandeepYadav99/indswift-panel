@@ -17,6 +17,10 @@ const useClosureDialogHook = ({ isOpen, handleToggle, candidateId,data }) => {
   const [errorData, setErrorData] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    user: { user_id },
+  } = useSelector((state) => state.auth);
+
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
@@ -71,7 +75,7 @@ const useClosureDialogHook = ({ isOpen, handleToggle, candidateId,data }) => {
       setIsSubmitting(true);
       serviceClosuretravel({
         id: data?.id,
-        employee_id:data?.employee_id,
+        employee_id:user_id,
         ...form,
       }).then((res) => {
         if (!res.error) {
