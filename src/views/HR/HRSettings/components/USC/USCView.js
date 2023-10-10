@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { Button, IconButton } from "@material-ui/core";
+import { Button, ButtonBase, IconButton } from "@material-ui/core";
 import PageBox from "../../../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../../../Datatables/Datatable.table";
@@ -10,6 +10,7 @@ import { useMemo } from "react";
 import { useCallback } from "react";
 import useUSCHook from "./USCHook";
 import { Edit } from "@material-ui/icons";
+import ConfirmationDialog from "../../../../EmployeeEdit/components/ConfirmationDialog/ConfirmationDialogDialog.view";
 
 function USCView() {
   const {
@@ -20,7 +21,14 @@ function USCView() {
     handleViewDetails,
     isCalling,
     UscData,
-    handleViewUpdate
+    handleViewUpdate,
+    isUpdateDialog,
+    form,
+    errorData,
+    changeTextData,
+    onBlurHandler,
+    handleSubmit,
+    toggleStatusDialog,
   } = useUSCHook({});
 
   const tableStructure = useMemo(() => {
@@ -29,11 +37,7 @@ function USCView() {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.location?.name}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.location?.name}</div>,
       },
       {
         key: "basic",
@@ -51,19 +55,27 @@ function USCView() {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div>
+          <div className={styles.btnWrap}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              onClick={
-                ()=>{
-                  handleViewUpdate(all)
-                }
-              }
+              onClick={() => {
+                handleViewUpdate(all);
+              }}
             >
               <Edit fontSize={"small"} />
             </IconButton>
+            <div className={styles.rightFlex}>
+              <ButtonBase
+                className={styles.download}
+                onClick={() => {
+                  toggleStatusDialog(all);
+                }}
+              >
+                Run Script
+              </ButtonBase>
+            </div>
           </div>
         ),
       },
@@ -94,6 +106,15 @@ function USCView() {
   ]);
   return (
     <div className={styles.EmployeeCircularWrapper}>
+      <ConfirmationDialog
+        isOpen={isUpdateDialog}
+        handleToggle={toggleStatusDialog}
+        form={form}
+        errorData={errorData}
+        changeTextData={changeTextData}
+        onBlurHandler={onBlurHandler}
+        handleSubmit={handleSubmit}
+      />
       <PageBox>
         <div className={styles.headerContainer}>
           <span className={styles.title}>Universal Salary Calculator</span>

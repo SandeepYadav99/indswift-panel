@@ -36,6 +36,9 @@ export async function serviceSetEmailTrigger(params) {
 export async function serviceGetUscList(params) {
     return await postRequest('location/salary', params);
 }
+export async function serviceGetUscScriptUpdate(params) {
+    return await postRequest('location/salary/update/salary', params);
+}
 export async function serviceGetUscDetails(params) {
     return await postRequest('location/salary/detail', params);
 }
