@@ -35,7 +35,7 @@ const ManpowerList = ({}) => {
     selectedAnnualId,
     locationId,
     setLocationId,
-    sanction
+    sanction,
   } = useManpowerList({});
 
   const {
@@ -260,10 +260,16 @@ const ManpowerList = ({}) => {
         <div style={{ marginTop: "30px" }}>
           <div className={styles.experseWrap}>
             SANCTIONED : {sanction?.sanctioned && `${sanction?.sanctioned}`}|
-            POSTED : {sanction?.posted && `${sanction?.posted} `} | VACANCY :
-            {sanction?.vacancies && ` ${sanction?.vacancies} `} | EXPENSES :
+            POSTED :{sanction?.posted && `${sanction?.posted} `} | RESIGNATION :{" "}
+            {sanction?.resigned && `${sanction?.resigned}`}| OFFERED :{" "}
+            {sanction?.offered && `${sanction?.offered}`}| VACANCY :
+            {sanction?.vacancies && ` ${sanction?.vacancies} `} | ACTIVE :
+            {sanction?.active_hiring && `${sanction?.active_hiring}`}| HIRING :{" "}
+            {sanction?.active_hiring && `${sanction?.active_hiring}`}
+            {/* EXPENSES
+            :
             {sanction?.expense_budget !== undefined &&
-              `  ${sanction?.expense_budget}`}
+              `  ${sanction?.expense_budget}`} */}
           </div>
           <div>
             <br />
