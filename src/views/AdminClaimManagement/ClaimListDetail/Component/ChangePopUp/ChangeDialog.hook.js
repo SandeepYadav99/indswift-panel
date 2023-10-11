@@ -30,6 +30,10 @@ const useChangeDialogHook = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [declaration, setDeclaration] = useState(false);
   const [approved, setApproved] = useState();
+  const EmpId = window.location.pathname?.includes("/cm/hr/details/")
+    ? { employee_id: "63d9267d3d18b8ce6e9b700c" }
+    : {};
+
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
@@ -108,6 +112,7 @@ const useChangeDialogHook = ({
         review_id: candidateId,
         comment: form?.comment,
         approved_amount: approved,
+        ...EmpId
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Placed Successfully");

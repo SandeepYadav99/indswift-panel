@@ -5,10 +5,10 @@ import { serviceRejectCLaim } from "../../../../../services/Claims.service";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
 
-const initialForm={
-  comment:"",
-}
-const useRejectDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
+const initialForm = {
+  comment: "",
+};
+const useRejectDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -19,7 +19,15 @@ const useRejectDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
   const [resData, setResData] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [declaration,setDeclaration]=useState(false)
+  const [declaration, setDeclaration] = useState(false);
+  const EmpId = window.location.pathname?.includes("/cm/hr/details/")
+    ? { employee_id: "63d9267d3d18b8ce6e9b700c" }
+    : {};
+
+  if (window.location.pathname?.includes("/cm/hr/travel/details/")) {
+    EmpId.employee_id = "63d9267d3d18b8ce6e9b700c";
+  }
+  console.log("window.location.pathname", EmpId);
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
@@ -78,6 +86,7 @@ const useRejectDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
       serviceRejectCLaim({
         review_id: candidateId,
         ...form,
+        ...EmpId,
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Rejected");
@@ -93,7 +102,7 @@ const useRejectDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("===?",form,errors)
+    console.log("===?", form, errors);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
@@ -124,7 +133,7 @@ const useRejectDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
     showPasswordCurrent,
     setShowPasswordCurrent,
     setDeclaration,
-    declaration
+    declaration,
   };
 };
 

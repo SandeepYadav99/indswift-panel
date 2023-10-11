@@ -6,10 +6,15 @@ import RouteName from "../../../../../routes/Route.name";
 import historyUtils from "../../../../../libs/history.utils";
 import { serviceApproveInterviewCLaim } from "../../../../../services/InterviewClaims.service";
 
-const initialForm={
-  comment:"",
-}
-const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId,isInterview}) => {
+const initialForm = {
+  comment: "",
+};
+const useApproveDialogHook = ({
+  isOpen,
+  handleToggle,
+  candidateId,
+  isInterview,
+}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -20,7 +25,10 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId,isInterview}) 
   const [resData, setResData] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [declaration,setDeclaration]=useState(false)
+  const [declaration, setDeclaration] = useState(false);
+  const EmpId = window.location.pathname?.includes("/cm/hr/details/")
+    ? { employee_id: "63d9267d3d18b8ce6e9b700c" }
+    : {};
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
@@ -79,6 +87,7 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId,isInterview}) 
       serviceApproveCLaim({
         review_id: candidateId,
         ...form,
+        ...EmpId
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Approved");
@@ -98,6 +107,7 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId,isInterview}) 
       serviceApproveInterviewCLaim({
         review_id: candidateId,
         ...form,
+        ...EmpId
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Approved");
@@ -113,15 +123,15 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId,isInterview}) 
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("===?",form,errors)
+    console.log("===?", form, errors);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
     }
-    if(!isInterview){
+    if (!isInterview) {
       submitToServer();
-    }else{
-      submitToServerInterview()
+    } else {
+      submitToServerInterview();
     }
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
@@ -148,7 +158,7 @@ const useApproveDialogHook = ({ isOpen, handleToggle ,candidateId,isInterview}) 
     showPasswordCurrent,
     setShowPasswordCurrent,
     setDeclaration,
-    declaration
+    declaration,
   };
 };
 
