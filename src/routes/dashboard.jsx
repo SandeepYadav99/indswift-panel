@@ -815,7 +815,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'budget',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
         path: "/annual",
@@ -827,7 +827,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'budget',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
         path: "/manpower",
@@ -839,7 +839,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'budget',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
         path: "/budget/pending",
