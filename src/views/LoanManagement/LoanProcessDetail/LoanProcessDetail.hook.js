@@ -234,6 +234,7 @@ function useLoanProcessDetail() {
         eligibility_calculations,
         proposal_recovery_plan,
         loan_history_comment: form?.previous_year_loan_comment,
+        budget_positioning:tabledata
       };
       console.log("data", data);
       serviceUpdateLoanFormDetails({
@@ -259,6 +260,8 @@ function useLoanProcessDetail() {
     employeeDetail?.loan_id,
     info,
     setInfo,
+    tabledata,
+    setTableData
   ]);
 
   const handleSubmit = useCallback(async () => {
@@ -278,6 +281,7 @@ function useLoanProcessDetail() {
     info,
     form,
     setInfo,
+    tabledata
   ]);
 
   const removeError = useCallback(

@@ -59,11 +59,13 @@ function useProcessDetail() {
           eligibility_calculations,
           proposal_recovery_plan,
           previous_loan_history,
-          loan_history_comment
+          loan_history_comment,
+          budget_positioning
         } = empdata;
         if(previous_loan_history){
           travelRef.current?.setData(previous_loan_history);
         }
+        setTableData([...budget_positioning]);
         setForm({
           ...form,
           ...eligibility_calculations,
@@ -75,19 +77,19 @@ function useProcessDetail() {
     }
   }, [id]);
 
-  useEffect(() => {
-    if (form?.total_applied_loan || form?.total_applied_loan === 0) {
-      let req = serviceGetLoanBudgetOutstanding({
-        loan_id: id,
-        financial_year: `${currentYear}-${currentYear + 1}`,
-        total_applied_amount: form?.total_applied_loan,
-        current_outstanding: Number(form.table_amount),
-      });
-      req.then((data) => {
-        setTableData(data?.data);
-      });
-    }
-  }, [id,employeeDetail]);
+  // useEffect(() => {
+  //   if (form?.total_applied_loan || form?.total_applied_loan === 0) {
+  //     let req = serviceGetLoanBudgetOutstanding({
+  //       loan_id: id,
+  //       financial_year: `${currentYear}-${currentYear + 1}`,
+  //       total_applied_amount: form?.total_applied_loan,
+  //       current_outstanding: Number(form.table_amount),
+  //     });
+  //     req.then((data) => {
+  //       setTableData(data?.data);
+  //     });
+  //   }
+  // }, [id,employeeDetail]);
 
   return {
     id,
