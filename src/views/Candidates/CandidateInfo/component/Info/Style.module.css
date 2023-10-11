@@ -39,6 +39,11 @@
     flex: 1;
     font-weight: 600;
 }
+.valueWrapCaps{
+    color: black;
+    flex: 1;
+    font-weight: 600;
+}
 .valueWrapemail{
     max-width: 180px;
     overflow-wrap: anywhere;

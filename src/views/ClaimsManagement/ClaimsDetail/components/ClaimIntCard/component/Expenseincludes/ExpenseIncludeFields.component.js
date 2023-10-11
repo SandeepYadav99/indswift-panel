@@ -48,6 +48,16 @@ const ExpenseIncludeFields = ({
     }
   };
 
+  useEffect(() => {
+    if (data?.mode === "OWN_CAR") {
+      if (data?.total_kms) {
+        changeData(index, {
+          ["amount"]: 9 * Number(data?.total_kms),
+        });
+      }
+    }
+  }, [data?.total_kms, data?.mode]);
+
   return (
     <div>
       <div className={styles.heading}>Travel Type</div>

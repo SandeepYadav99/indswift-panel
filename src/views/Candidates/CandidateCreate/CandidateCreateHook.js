@@ -9,6 +9,7 @@ import useDebounce from "../../../hooks/DebounceHook";
 import LogUtils from "../../../libs/LogUtils";
 import {
   serviceCandidateEditData,
+  serviceCheckCandidateExist,
   serviceCreateCandidate,
   serviceGetCandidateDetails, serviceUpdateCandidate
 } from "../../../services/Candidate.service";
@@ -18,6 +19,7 @@ import RouteName from "../../../routes/Route.name";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { serviceJobOpeningsDetails } from "../../../services/JobOpenings.service";
 import {useParams} from "react-router";
+import debounce from "lodash.debounce";
 
 const initialForm = {
   name: "",
@@ -42,6 +44,7 @@ const initialForm = {
 const useCandidateDetail = ({ location }) => {
   const isEditEnabled = location.state?.isEdit;
   const [isLoading, setIsLoading] = useState(false);
+  const [isDialog, setIsDialog] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
@@ -51,6 +54,7 @@ const useCandidateDetail = ({ location }) => {
   const historyRef = useRef(null);
   const [jobDetails, setJobDetails] = useState(null);
   const [employees, setEmployees] = useState([]);
+  const [candidatedata,setCandidateData]=useState([])
   const [isReoccuring, setIsReoccuring] = useState(false);
   const {id} = useParams();
 
@@ -69,6 +73,30 @@ const useCandidateDetail = ({ location }) => {
     }
   }, [selectedJobId, isEditEnabled]);
 
+  const checkCandidateExistDebouncer = useMemo(() => {
+    return debounce((e) => {
+      checkForCandidateInfo(e);
+    }, 1000);
+  }, []);
+
+  const checkForCandidateInfo = (data) => {
+    if ((data?.name && data?.contact) || (data?.name && data?.email) || (data?.contact && data?.email)) {
+      let req = serviceCheckCandidateExist({
+        name: data?.name,
+        contact: data?.contact,
+        email: data?.email,
+      });
+      req.then((res) => {
+        if(!res.error){
+          const salaryData = res.data;
+          setCandidateData([...salaryData])
+          if(salaryData?.length > 0){
+            setIsDialog(true)
+          }
+        }
+      });
+    }
+  };
   useEffect(() => {
     if (id) {
       serviceCandidateEditData({ id: id }).then((res) => {
@@ -111,6 +139,9 @@ const useCandidateDetail = ({ location }) => {
       }
     });
   }, []);
+  const toggleConfirmDialog = useCallback((type) => {
+    setIsDialog(e => !e);
+}, [setIsDialog]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = [
@@ -284,9 +315,16 @@ const useCandidateDetail = ({ location }) => {
         t[fieldName] = text;
       }
       setForm(t);
+      if (
+        ["name", "email", "contact"]?.includes(
+          fieldName
+        )
+      ) {
+        checkCandidateExistDebouncer(t);
+      }
       shouldRemoveError && removeError(fieldName);
     },
-    [removeError, form, setForm]
+    [removeError, form, setForm,checkCandidateExistDebouncer]
   );
 
   const onBlurHandler = useCallback(
@@ -324,6 +362,9 @@ const useCandidateDetail = ({ location }) => {
     isReoccuring,
     isEditEnabled,
     editData,
+    isDialog,
+    toggleConfirmDialog,
+    candidatedata
   };
 };
 

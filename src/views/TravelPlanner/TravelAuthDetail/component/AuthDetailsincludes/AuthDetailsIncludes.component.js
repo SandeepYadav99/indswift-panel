@@ -55,14 +55,32 @@ const AuthDetailsIncludeForm = (
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = ["type", "name", "amount", "voucher_documents"];
+      const hasValues = Object.values(val).some(
+        (value) => value !== "" && value !== null
+      );
       {
-        required.forEach((key) => {
-          if (!val?.comment && !val[key]) {
-            err[key] = true;
-          } else {
+        hasValues &&
+          required.forEach((key) => {
+            if (!val[key]) {
+              err[key] = true;
+            }
+          });
+      }
+      // {
+      //   required.forEach((key) => {
+      //     if (!val?.comment && !val[key]) {
+      //       err[key] = true;
+      //     } else {
+      //       delete err[key];
+      //     }
+      //   });
+      // }
+      if (!hasValues) {
+        for (const key in err) {
+          if (err.hasOwnProperty(key)) {
             delete err[key];
           }
-        });
+        }
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;

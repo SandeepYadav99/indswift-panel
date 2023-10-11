@@ -505,7 +505,7 @@ function EmployeeListCreateHook({ location }) {
   );
 
   const checkForSalaryInfo = (data) => {
-    if (data?.grade_id && data?.cadre_id && data?.designation_id?.id) {
+    if (data?.grade_id && data?.cadre_id && data?.designation_id?.id && data?.location_id) {
       let filteredForm = {};
       for (let key in data) {
         if (salaryInfo.includes(key)) {
@@ -524,6 +524,7 @@ function EmployeeListCreateHook({ location }) {
         grade_id: data?.grade_id,
         cadre_id: data?.cadre_id,
         designation_id: data?.designation_id?.id,
+        location_id:data?.location_id,
         ...filteredForm,
       });
       req.then((res) => {
@@ -547,7 +548,7 @@ function EmployeeListCreateHook({ location }) {
             }
           }
         }
-        console.log('bool',booleanData)
+        console.log("bool", booleanData);
         setForm({ ...data, ...booleanData });
       });
     } else {
@@ -595,7 +596,7 @@ function EmployeeListCreateHook({ location }) {
       shouldRemoveError && removeError(fieldName);
 
       if (
-        [...salaryInfo, "grade_id", "cadre_id", "designation_id"]?.includes(
+        [...salaryInfo, "grade_id", "cadre_id", "designation_id","location_id"]?.includes(
           fieldName
         )
       ) {
@@ -642,6 +643,7 @@ function EmployeeListCreateHook({ location }) {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+      const vehicleObj = {};
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
         LogUtils.log("key", key);
@@ -660,10 +662,15 @@ function EmployeeListCreateHook({ location }) {
           fd.append("is_transport_facility", form[key] === "availed");
         } else if (BOOLEAN_KEYS.includes(key)) {
           fd.append(key, form[key] === "YES");
-        } else if (form[key]) {
+        } else if (["vehicle_type", "vehicle_number"].includes(key)) {
+          vehicleObj[key] = form[key];
+        }else if (form[key]) {
           fd.append(key, form[key]);
         }
       });
+      if (vehicleObj) {
+        fd.append("vehicle", JSON.stringify(vehicleObj));
+      }
       if (remotePath?.length > 0) {
         fd.append("remote_image_path", remotePath);
       }

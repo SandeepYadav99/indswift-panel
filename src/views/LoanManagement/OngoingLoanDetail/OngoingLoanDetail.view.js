@@ -16,6 +16,8 @@ function OngoingLoanDetail() {
     toggleRejectDialog,
     rejectDialog,
     handleViewDetails2,
+    handleViewRecovery,
+    handleViewProcessing
   } = useOngoingLoanDetail({});
 
   // console.log('employeeDetail',employeeDetail)
@@ -62,6 +64,17 @@ function OngoingLoanDetail() {
 
                     {employeeDetail?.description}
                   </div>
+                  {employeeDetail?.status !== "PENDING" &&
+                    employeeDetail?.proposal_recovery_plan?.interest && (
+                      <div className={styles.key7}>
+                        <div
+                          className={styles.hyperlinkText}
+                          onClick={() => handleViewRecovery()}
+                        >
+                          View Recovery Schedule
+                        </div>
+                      </div>
+                    )}
                 </div>
                 <div className={styles.right}>
                   <div className={styles.key}>
@@ -69,6 +82,16 @@ function OngoingLoanDetail() {
                     {employeeDetail?.amount &&
                       `₹ ${employeeDetail?.amount}`}
                   </div>
+                  {employeeDetail?.status !== "PENDING" && (
+                    <div
+                      className={styles.key7}
+                      onClick={() => handleViewProcessing(employeeDetail)}
+                    >
+                      <div className={styles.hyperlinkText}>
+                        View Loan Processing Sheet
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -168,7 +191,7 @@ function OngoingLoanDetail() {
           </div>
         </div>
       </div>
-      {/* <div className={styles.plainPaper}>
+      <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Comments/Notes</div>
           <div className={styles.commentContainer}>
@@ -183,7 +206,7 @@ function OngoingLoanDetail() {
               ))}
           </div>
         </div>
-      </div> */}
+      </div>
       {employeeDetail?.status === "PROCESSED" && (
       <div className={styles.approvedWrapper}>
         <div className={styles.editBtn2}>

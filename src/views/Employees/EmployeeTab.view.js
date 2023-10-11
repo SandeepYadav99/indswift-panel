@@ -19,6 +19,7 @@ import ResetPasswordDialog from "./components/ResetPasswordPopUp/ResetPasswordDi
 import UpdateStatusDialog from "./components/UpdateStatusPopUp/UpdateStatusDialog.view";
 import EmployeeRecord from "./components/Profile/EmployeeRecord/EmployeeRecord";
 import {useParams} from "react-router";
+import EmployeeClaim from "../EmployeePanel/EmployeeClaim/EmployeeClaim.container";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -154,6 +155,7 @@ const EmployeeTab = () => {
                 label="Career Progression Chart (CPC)"
               />
                <Tab className={"iconTabs"} label="Employee Records" />
+               <Tab className={"iconTabs"} label="Job Description & Key Result Area" style={{whiteSpace:'nowrap'}}/>
             </Tabs>
           </AppBar>
 
@@ -169,6 +171,9 @@ const EmployeeTab = () => {
             </TabPanel>
             <TabPanel value={value} index={3} dir={"ltr"}>
                <EmployeeRecord empId={id} />
+            </TabPanel>
+            <TabPanel value={value} index={4} dir={"ltr"}>
+               <EmployeeClaim  />
             </TabPanel>
           </div>
         </div>

@@ -55,9 +55,9 @@ const EmployeeLoanList = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.eligibility_calculations?.total_applied_loan ||
-            all?.eligibility_calculations?.total_applied_loan === 0
-              ? `₹ ${all?.eligibility_calculations?.total_applied_loan}`
+            {all?.amount ||
+            all?.amount === 0
+              ? `₹ ${all?.amount}`
               : ""}
           </div>
         ),

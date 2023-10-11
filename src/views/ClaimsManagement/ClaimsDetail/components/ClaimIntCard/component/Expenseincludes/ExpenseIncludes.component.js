@@ -20,7 +20,7 @@ const TEMP_OBJ = {
   details: "",
   booking_by: "",
   payment_by: "",
-  amount: "",
+  amount: 0,
   total_kms: "",
   travel_payment_proof: null,
   travel_voucher: null,
@@ -84,6 +84,11 @@ const ExpenseIncludeForm = (
             err[key] = true;
           }
         });
+      }
+      if(val?.mode === 'COMPANY_VEHICLE'){
+        delete err['travel_payment_proof']
+        delete err['amount']
+        delete err['travel_voucher']
       }
       // if (val?.travel_date) {
       //   const date = new Date(val?.travel_date);

@@ -420,7 +420,7 @@ function LoanProcessDetail() {
             <div className={styles.Wrap}>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Tenure (MONTHS)/ EMIs:</span>
-                {info?.totalTenureMounth}
+                {info?.totalTenureMounth}{info?.loanEmi?.length > 0 ? `/ ₹ ${info?.loanEmi?.[0]?.EMI}` : ""}
               </div>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Net Recovery Amount: </span>

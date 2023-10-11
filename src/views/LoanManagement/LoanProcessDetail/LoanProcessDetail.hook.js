@@ -82,7 +82,7 @@ function useLoanProcessDetail() {
       let req = serviceGetLoanBudgetOutstanding({
         loan_id: employeeDetail?.loan_id,
         financial_year: `${currentYear}-${currentYear + 1}`,
-        tota_applied_amount: val?.total_applied_loan,
+        total_applied_amount: val?.total_applied_loan,
         current_outstanding: Number(val.table_amount),
       });
       req.then((data) => {
@@ -101,9 +101,15 @@ function useLoanProcessDetail() {
   }, [employeeDetail?.loan_id]);
 
   useEffect(() => {
-    if (loanDetail?.applied_amount && form?.exceptional_approval == 0) {
-      setForm({ ...form, total_applied_loan: loanDetail?.applied_amount });
-      checkLoanBudgetAmount(loanDetail?.applied_amount);
+    if (loanDetail?.applied_amount) {
+      let t = { ...form };
+      if(!form?.total_applied_loan){
+        t["total_applied_loan"] = loanDetail?.applied_amount
+        ? loanDetail?.applied_amount
+        : 0;
+      }
+      loanBudgetOutstanding(t);
+      setForm(t);
     }
   }, [loanDetail?.applied_amount]);
 
@@ -117,9 +123,7 @@ function useLoanProcessDetail() {
         if (serializedData) {
           const parsedData = JSON.parse(serializedData);
           sessionStorage.removeItem("formValues");
-          setTimeout(() => {
-            checkForLoanSchedule(parsedData);
-          }, 0);
+            checkForLoanSchedule(parsedData,empDetail?.loan_id);
           setForm({ ...form, ...parsedData });
         }
         const historyData = sessionStorage.getItem("history");
@@ -135,31 +139,10 @@ function useLoanProcessDetail() {
     setApproveDialog((e) => !e);
   }, [approveDialog]);
 
-  const checkLoanBudgetAmount = (val) => {
-    if (employeeDetail?.loan_id) {
-      let req = serviceGetLoanBudgetPosition({
-        loan_id: employeeDetail?.loan_id,
-        financial_year: `${currentYear}-${currentYear + 1}`,
-        tota_applied_amount: val,
-      });
-      req.then((data) => {
-        setTableData(data?.data);
-        // setAfterAmount('')
-      });
-    }
-  };
-
-  const checkLoanBudgetDebounce = useMemo(() => {
-    return debounce((e) => {
-      checkLoanBudgetAmount(e);
-    }, 1000);
-  }, [employeeDetail?.loan_id]);
-
-  const checkForLoanSchedule = (data) => {
+  const checkForLoanSchedule = (data,loanId) => {
     if (data?.loan_start_date && data?.loan_end_date && data?.interest) {
-      const loanId = sessionStorage.getItem("loan_id");
       let req = serviceGetLoanSchedule({
-        id: employeeDetail?.loan_id ? employeeDetail?.loan_id : loanId,
+        id: employeeDetail?.loan_id && employeeDetail?.loan_id !== null ? employeeDetail?.loan_id : loanId,
         total_applied_loan: data?.total_applied_loan
           ? data?.total_applied_loan
           : 0,
@@ -170,7 +153,6 @@ function useLoanProcessDetail() {
       req.then((res) => {
         setInfo(res.data);
       });
-      sessionStorage.removeItem("loan_id");
     }
   };
 
@@ -182,7 +164,12 @@ function useLoanProcessDetail() {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["loan_start_date", "loan_end_date", "interest",'table_amount'];
+    let required = [
+      "loan_start_date",
+      "loan_end_date",
+      "interest",
+      "table_amount",
+    ];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -247,9 +234,9 @@ function useLoanProcessDetail() {
         eligibility_calculations,
         proposal_recovery_plan,
         loan_history_comment: form?.previous_year_loan_comment,
+        budget_positioning:tabledata
       };
-      // console.log("data", data);
-      // console.log('loan_update',{loan_update:{...data}})
+      console.log("data", data);
       serviceUpdateLoanFormDetails({
         review_id: id,
         comment: form?.comment,
@@ -257,7 +244,6 @@ function useLoanProcessDetail() {
       }).then((res) => {
         if (!res.error) {
           sessionStorage.removeItem("formValues");
-          sessionStorage.removeItem("loan_id");
           sessionStorage.removeItem("history");
           historyUtils.push(`${RouteName.ADMIN_LOAN_LIST}`);
         } else {
@@ -274,6 +260,8 @@ function useLoanProcessDetail() {
     employeeDetail?.loan_id,
     info,
     setInfo,
+    tabledata,
+    setTableData
   ]);
 
   const handleSubmit = useCallback(async () => {
@@ -293,6 +281,7 @@ function useLoanProcessDetail() {
     info,
     form,
     setInfo,
+    tabledata
   ]);
 
   const removeError = useCallback(
@@ -313,7 +302,6 @@ function useLoanProcessDetail() {
       const serializedData = JSON.stringify(form);
       const TravelData = JSON.stringify(travelRef.current.getData());
       sessionStorage.setItem("formValues", serializedData);
-      sessionStorage.setItem("loan_id", employeeDetail?.loan_id);
       sessionStorage.setItem("history", TravelData);
     },
     [employeeDetail, form]
@@ -345,10 +333,9 @@ function useLoanProcessDetail() {
       }
       if (fieldName === "exceptional_approval") {
         t["total_applied_loan"] =
-          Number(text) + Number(loanDetail?.applied_amount ? loanDetail?.applied_amount : 0);
-        checkLoanBudgetDebounce(
-          Number(text) + Number(loanDetail?.applied_amount ? loanDetail?.applied_amount : 0)
-        );
+          Number(text) +
+          Number(loanDetail?.applied_amount ? loanDetail?.applied_amount : 0);
+          loanBudgetOutstandingDebounce(t)
       }
       if (fieldName === "table_amount") {
         t["table_amount"] = text;

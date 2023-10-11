@@ -23,19 +23,20 @@ function useTravelAuthDetail() {
   const [employeeDetail, setEmployeeDetail] = useState({});
   const [approveDialog, setApproveDialog] = useState(false);
   const [rejectDialog, setRejectDialog] = useState(false);
-  const [enableType,setEnableType]=useState(true)
-  const [CheckexceptionRejected,setCheckexceptionRejected]=useState(null)
+  const [enableType, setEnableType] = useState(true);
+  const [CheckexceptionRejected, setCheckexceptionRejected] = useState(null);
   const travelRef = useRef(null);
 
   const { id } = useParams();
-  
 
   useEffect(() => {
     let req = serviceGetTravelAuthDetails({ id: id });
     req.then((data) => {
       setEmployeeDetail(data?.data?.details);
-      setEnableType(data?.data?.details?.travelPlanner?.exception_required)
-      setCheckexceptionRejected(data?.data?.details?.travelPlanner?.exception?.status === 'REJECTED')
+      setEnableType(data?.data?.details?.travelPlanner?.exception_required);
+      setCheckexceptionRejected(
+        data?.data?.details?.travelPlanner?.exception?.status === "REJECTED"
+      );
     });
   }, [id]);
 
@@ -46,8 +47,8 @@ function useTravelAuthDetail() {
 
   const TypeEnabledStatus = [
     "CORPORATE_HR_APPROVED",
-    "EXCEPTION_APPROVED" ,
-    "ADMIN_AUTHORIZED"
+    "EXCEPTION_APPROVED",
+    "ADMIN_AUTHORIZED",
   ].includes(employeeDetail?.travelPlanner?.status);
 
   // console.log('valid',enableType , !TypeEnabledStatus , !CheckexceptionRejected,TypeEnabledStatus)
@@ -63,11 +64,11 @@ function useTravelAuthDetail() {
         errors[val] = true;
       }
     });
-    if(enableType && !TypeEnabledStatus && !CheckexceptionRejected){
+    if (enableType && !TypeEnabledStatus && !CheckexceptionRejected) {
       if (form.exception_approved?.length === 0) {
         errors["exception_approved"] = true;
         SnackbarUtils.error("Please Approve or Reject the Exception");
-    }
+      }
     }
 
     Object.keys(errors).forEach((key) => {
@@ -76,7 +77,7 @@ function useTravelAuthDetail() {
       }
     });
     return errors;
-  }, [form, errorData,employeeDetail,enableType,CheckexceptionRejected]);
+  }, [form, errorData, employeeDetail, enableType, CheckexceptionRejected]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -99,7 +100,9 @@ function useTravelAuthDetail() {
             fd.append("voucher_documents", val?.voucher_documents);
           }
         });
-        fd.append("voucher_details", JSON.stringify(ExpensesData));
+        if (ExpensesData[0]?.type) {
+          fd.append("voucher_details", JSON.stringify(ExpensesData));
+        }
       }
 
       let req = serviceApproveTravelAuth;
@@ -112,7 +115,7 @@ function useTravelAuthDetail() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id,fieldStatusEnabled]);
+  }, [form, isSubmitting, setIsSubmitting, id, fieldStatusEnabled]);
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     console.log("---->", errors);
@@ -187,7 +190,7 @@ function useTravelAuthDetail() {
     fieldStatusEnabled,
     enableType,
     TypeEnabledStatus,
-    CheckexceptionRejected
+    CheckexceptionRejected,
   };
 }
 

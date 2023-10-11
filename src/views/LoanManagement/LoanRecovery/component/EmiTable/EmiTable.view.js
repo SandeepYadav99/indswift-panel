@@ -25,7 +25,7 @@ const CustomTable = ({ columns, data }) => {
           <tr
             key={index}
             className={
-              item?.key === "avg" || item?.key === "count"
+              data?.length === index + 1
                 ? styles.blueField
                 : index % 2 === 0
                 ? styles.evenRow
@@ -50,45 +50,65 @@ function GraphTable({ data, title }) {
       key: "no",
       title: "SR. NO.",
       sortable: false,
-      render: ( all) => (
-        <div className={styles.label}>{all?.SR_No}</div>
-      ),
+      render: (all) => <div className={styles.label}>{all?.SR_No}</div>,
     },
     {
       key: "amount",
       title: "LOAN AMOUNT",
       sortable: false,
-      render: (all) => <div className={styles.label}>{all?.amountRemaining && `₹ ${all?.amountRemaining}` }</div>,
+      render: (all) => (
+        <div className={styles.label}>
+          {all?.amountRemaining === "Total"
+            ? all?.amountRemaining
+            : `₹ ${all?.amountRemaining}`}
+        </div>
+      ),
     },
     {
       key: "emi",
       title: "EMI",
       sortable: false,
-      render: (all) => <div className={styles.label}>{all?.EMI && `₹ ${all?.EMI}` }</div>,
+      render: (all) => (
+        <div className={styles.label}>{all?.EMI && `₹ ${all?.EMI}`}</div>
+      ),
     },
     {
       key: "interest",
       title: "INTEREST",
       sortable: false,
-      render: (all) => <div className={styles.label}>{all?.Interest && `₹ ${all?.Interest} ` }</div>,
+      render: (all) => (
+        <div className={styles.label}>
+          {all?.Interest && `₹ ${all?.Interest} `}
+        </div>
+      ),
     },
     {
       key: "principal",
       title: "PRINCIPAL",
       sortable: false,
-      render: (all) => <div className={styles.label}>{all?.Principal && `₹ ${all?.Principal}` }</div>,
+      render: (all) => (
+        <div className={styles.label}>
+          {all?.Principal && `₹ ${all?.Principal}`}
+        </div>
+      ),
     },
     {
       key: "out",
       title: "OUTSTATION",
       sortable: false,
-      render: (all) => <div className={styles.label}>{all?.Outstation && `₹ ${all?.Outstation}` }</div>,
+      render: (all) => (
+        <div className={styles.label}>
+          {all?.Outstation && `₹ ${all?.Outstation}`}
+        </div>
+      ),
     },
     {
       key: "date",
       title: "DATE",
       sortable: false,
-      render: (all) => <div className={styles.label}>{all?.loanSubmissionDate}</div>,
+      render: (all) => (
+        <div className={styles.label}>{all?.loanSubmissionDate}</div>
+      ),
     },
   ]);
   return (

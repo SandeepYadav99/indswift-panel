@@ -61,6 +61,7 @@ export default {
 
   SETTINGS: "/settings",
   HR_SETTINGS: "/hr/settings",
+  HR_USC_UPDATE:'/hr/usc/update/',
 
   EMPLOYEE_DASHBOARD: "/employee/dashboard",
   RESET_PASSWORD_FIRST: "/reset/password/first",
@@ -104,7 +105,10 @@ export default {
 
   CLAIMS_LIST:'/cm/claims' ,
   CLAIMS_DETAILS:'/cm/details/',
+  CLAIMS_HR_DETAILS:'/cm/hr/details/',
   TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',
+  TRAVEL_HR_CLAIMS_DETAILS:'/cm/hr/travel/details/',
+  CLAIMS_HR_LIST:'/cm/hr/claims' ,
 
   CLAIMS_MARRIGE:'/employee/claim/marriage',
   CLAIMS_MOBILE:'/employee/claim/mobile',

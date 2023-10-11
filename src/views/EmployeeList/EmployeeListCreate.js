@@ -50,7 +50,7 @@ const EmployeeListCreate = ({ location }) => {
     empFlag,
     toggleConfirmDialog,
     isDialog,
-    submitToServer
+    submitToServer,
   } = EmployeeListCreateHook({ location });
   const getSumValue = (...numbers) => {
     return numbers

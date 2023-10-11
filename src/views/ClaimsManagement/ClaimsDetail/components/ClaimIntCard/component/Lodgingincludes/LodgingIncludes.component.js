@@ -48,6 +48,7 @@ const LodgingIncludeForm = (
     changeAmount,
     tourType,
     setCurrency,
+    setOfficeAmount
   },
   ref
 ) => {
@@ -116,6 +117,10 @@ const LodgingIncludeForm = (
         err["hotel"] = true;
       }
       if (val.payment_by === "Cash" && !val?.lodging_payment_proof) {
+        delete err["lodging_payment_proof"];
+      }
+      if (val?.total_nights <= 1) {
+        delete err["lodging_voucher"];
         delete err["lodging_payment_proof"];
       }
       if (val?.total_nights < 0) {
@@ -264,8 +269,20 @@ const LodgingIncludeForm = (
     }
   }, 0);
 
+  const getOfficeAmount = useMemo(() => {
+    const officeBookings = fields?.filter(
+      (booking) => booking.booking_by === "OFFICE" && booking.amount !== ""
+    );
+    const sum = officeBookings?.reduce(
+      (total, booking) => total + parseFloat(booking?.amount),
+      0
+    );
+    return sum;
+  }, [fields]);
+
   useEffect(() => {
     changeAmount(sum, "lodging_expenses_amount");
+    setOfficeAmount(getOfficeAmount)
   }, [sum]);
 
   return (

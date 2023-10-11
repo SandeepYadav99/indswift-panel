@@ -35,7 +35,7 @@ function CareerMonthlyCard({isFirst, isLast, data}) {
         </div>
         <div className={styles.dgmGreen}>
           <span>Increment: {data?.increment}</span>
-          <span>{data?.percentage}% {data?.percentage > 0 && (<img src={uparrow}/>)}</span>
+          <span>{data?.percentage ? `${data?.percentage} % ` : 'NA'} {data?.percentage > 0 && (<img src={uparrow}/>)}</span>
         </div>
       </div>
       {

@@ -1,7 +1,10 @@
 import React, { useCallback } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import { serviceApproveCLaim, serviceDetailsCLaim } from "../../../services/Claims.service";
+import {
+  serviceApproveCLaim,
+  serviceDetailsCLaim,
+} from "../../../services/Claims.service";
 import { useState } from "react";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
@@ -35,6 +38,9 @@ function useTravelClaimListDetail() {
   const enterRef = useRef(null);
   const otherRef = useRef(null);
 
+  const EmpId = window.location.pathname?.includes("/cm/hr/travel/details/")
+    ? { employee_id: "63d9267d3d18b8ce6e9b700c" }
+    : {};
   const { id } = useParams();
   useEffect(() => {
     let req = serviceDetailsCLaim({ id: id });
@@ -103,7 +109,7 @@ function useTravelClaimListDetail() {
         },
       };
       console.log("Payload", objData);
-      serviceApproveCLaim({ ...objData}).then((res) => {
+      serviceApproveCLaim({ ...objData, ...EmpId }).then((res) => {
         if (!res.error) {
           historyUtils.push(RouteName.CLAIMS_LIST);
         } else {
