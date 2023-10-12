@@ -6,7 +6,7 @@ import useTravelDetail from "./TravelDetail.hook";
 import TravelUpperCard from "../TravelCreate/component/TravelUpperCard/TravelUpperCard";
 import Upper from "./component/upper/Upper";
 import history from "../../../libs/history.utils";
-import { removeUnderScore } from "../../../helper/helper";
+import { getCurrency, removeUnderScore } from "../../../helper/helper";
 import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
 import ClosureDialog from "./component/ClosureDialog/ClosureDialog.view";
 
@@ -163,6 +163,68 @@ function TravelDetail() {
                   </div>
                 </div>
               </div>
+              {employeeDetail?.imprest_required && (
+                <>
+                  <div className={styles.verti}></div>
+                  <div className={styles.mainFlex}>
+                    <div className={styles.left}>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Imprest Required:</span>
+                        {employeeDetail?.imprest_required
+                          ? "Yes"
+                          : "No"}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Amount:</span>
+                        {getCurrency(
+                          employeeDetail?.imprest?.currency
+                        )}
+                        {employeeDetail?.imprest?.amount}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>
+                          Previous Outstanding:
+                        </span>
+                        {getCurrency(
+                          employeeDetail?.imprest?.currency
+                        )}
+                        {employeeDetail?.balance?.balance}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>
+                          Comment:
+                        </span>
+                        {employeeDetail?.imprest?.comment}
+                      </div>
+                    </div>
+                    <div className={styles.right}>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Imprest ID:</span>
+                        {employeeDetail?.imprest?.code}
+                      </div>
+
+                      <div className={styles.key}>
+                        <span className={styles.value}>Entitled:</span>
+                        {getCurrency(
+                          employeeDetail?.imprest?.currency
+                        )}
+                        {employeeDetail?.balance?.entitled}
+                      </div>
+
+                      <div className={styles.key}>
+                        <span className={styles.value}>Sanctioned:</span>
+                        {getCurrency(
+                          employeeDetail?.imprest?.currency
+                        )}
+                        {
+                          employeeDetail?.imprest
+                            ?.sanctionable_amount
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

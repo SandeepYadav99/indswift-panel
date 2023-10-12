@@ -150,6 +150,12 @@ const ClaimsList = ({ location }) => {
         sortable: false,
         render: (temp, all) => <div>{removeUnderScore(all?.claim?.claim_type)}</div>,
       },
+      // {
+      //   key: "tap",
+      //   label: "tap",
+      //   sortable: false,
+      //   render: (temp, all) => <div>{console.log(all)}{all?.employee?.contact}</div>,
+      // },
       {
         key: "status",
         label: "Current status/Overall status",

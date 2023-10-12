@@ -263,8 +263,7 @@ const ManpowerList = ({}) => {
             POSTED :{sanction?.posted && `${sanction?.posted} `} | RESIGNATION :{" "}
             {sanction?.resigned && `${sanction?.resigned}`}| OFFERED :{" "}
             {sanction?.offered && `${sanction?.offered}`}| VACANCY :
-            {sanction?.vacancies && ` ${sanction?.vacancies} `} | ACTIVE :
-            {sanction?.active_hiring && `${sanction?.active_hiring}`}| HIRING :{" "}
+            {sanction?.vacancies && ` ${sanction?.vacancies} `} | ACTIVE HIRING:
             {sanction?.active_hiring && `${sanction?.active_hiring}`}
             {/* EXPENSES
             :
