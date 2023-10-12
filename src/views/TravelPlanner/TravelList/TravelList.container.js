@@ -172,12 +172,12 @@ const TravelList = ({ location }) => {
         sortable: false,
         render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
-      {
-        key: "imprest",
-        label: "IMPREST",
-        sortable: false,
-        render: (temp, all) => <div>{renderImprest(all)}</div>,
-      },
+      // {
+      //   key: "imprest",
+      //   label: "IMPREST",
+      //   sortable: false,
+      //   render: (temp, all) => <div>{renderImprest(all)}</div>,
+      // },
       {
         key: "exception",
         label: "EXCEPTION",
