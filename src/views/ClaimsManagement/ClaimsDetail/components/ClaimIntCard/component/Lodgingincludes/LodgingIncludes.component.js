@@ -282,7 +282,7 @@ const LodgingIncludeForm = (
 
   useEffect(() => {
     changeAmount(sum, "lodging_expenses_amount");
-    setOfficeAmount(getOfficeAmount)
+    // setOfficeAmount(getOfficeAmount)
   }, [sum]);
 
   useEffect(() => {

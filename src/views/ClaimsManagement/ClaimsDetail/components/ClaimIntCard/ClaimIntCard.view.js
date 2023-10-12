@@ -40,6 +40,8 @@ function ClaimIntCard() {
     setOfficeAmount,
     officeAmount,
     getRefundAmount,
+    setOfficeAmount2,
+    officeAmount2,
   } = useClaimIntCard({});
 
   return (
@@ -145,6 +147,7 @@ function ClaimIntCard() {
               ref={travelRef}
               grade={employeeDetails?.grade?.code}
               changeAmount={changeAmount}
+              setOfficeAmount2={setOfficeAmount2}
             />
           </div>
         </div>
@@ -217,11 +220,11 @@ function ClaimIntCard() {
           </div>
           <div className={styles.headingWrap}>
             Self Borne Expense::
-            <span>₹ {Number(getTotalValue) - Number(officeAmount)}</span>
+            <span>₹ {Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2))}</span>
           </div>
           <div className={styles.headingWrap}>
             Office Borne Expense:
-            <span>{officeAmount ? `₹ ${officeAmount} ` : 0}</span>
+            <span>₹ {(Number(officeAmount) + Number(officeAmount2))}</span>
           </div>
         </div>
         <div className={styles.totalWrap}>

@@ -35,6 +35,7 @@ function useClaimIntCard() {
   const [declaration, setDeclaration] = useState(false);
   const [totalAmount, setTotalAmount] = useState({ ...amountKeys });
   const [officeAmount, setOfficeAmount] = useState(0);
+  const [officeAmount2, setOfficeAmount2] = useState(0);
   const lodgeRef = useRef(null);
   const travelRef = useRef(null);
   const daRef = useRef(null);
@@ -98,10 +99,10 @@ function useClaimIntCard() {
   const getRefundAmount = useMemo(() => {
     return form?.travel_planner_id?.imprest?.amount
       ? Number(getTotalValue) -
-          Number(officeAmount) -
+          (Number(officeAmount) + Number(officeAmount2)) -
           Number(form?.travel_planner_id?.imprest?.amount)
       : Number(getTotalValue) - Number(officeAmount);
-  }, [form?.travel_planner_id, getTotalValue, officeAmount]);
+  }, [form?.travel_planner_id, getTotalValue, officeAmount, officeAmount2]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -209,8 +210,11 @@ function useClaimIntCard() {
       });
       fd.append("entertainment_expenses", JSON.stringify(enterData));
       fd.append("total_expense", getTotalValue ? getTotalValue : 0);
-      fd.append("office_expense", officeAmount ? officeAmount : 0);
-      fd.append("self_expense", Number(getTotalValue) - Number(officeAmount));
+      fd.append("office_expense", Number(officeAmount) + Number(officeAmount2));
+      fd.append(
+        "self_expense",
+        Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2))
+      );
 
       const otherData = otherRef.current.getData();
       otherData.forEach((val) => {
@@ -241,7 +245,9 @@ function useClaimIntCard() {
     getTotalValue,
     officeAmount,
     setOfficeAmount,
-    getRefundAmount
+    officeAmount2,
+    setOfficeAmount2,
+    getRefundAmount,
   ]);
 
   const removeError = useCallback(
@@ -311,7 +317,9 @@ function useClaimIntCard() {
     getTotalValue,
     officeAmount,
     setOfficeAmount,
-    getRefundAmount
+    officeAmount2,
+    setOfficeAmount2,
+    getRefundAmount,
   ]);
 
   const changeTextData = useCallback(
@@ -337,6 +345,7 @@ function useClaimIntCard() {
     setForm({ ...initialForm });
   }, [form]);
 
+  console.log("part", officeAmount2);
   return {
     employeeDetails,
     employees,
@@ -365,7 +374,9 @@ function useClaimIntCard() {
     getTotalValue,
     setOfficeAmount,
     officeAmount,
-    getRefundAmount
+    setOfficeAmount2,
+    officeAmount2,
+    getRefundAmount,
   };
 }
 
