@@ -152,7 +152,7 @@ const ClaimsList = ({ location }) => {
       },
       // {
       //   key: "tap",
-      //   label: "tap",
+      //   label: "ASSOCIATED TAP ID",
       //   sortable: false,
       //   render: (temp, all) => <div>{console.log(all)}{all?.employee?.contact}</div>,
       // },

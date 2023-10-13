@@ -44,6 +44,7 @@ function TravelClaimListDetail() {
     setOfficeAmount2,
     officeAmount2,
     getRefundAmount,
+    imprestAmount
   } = useTravelClaimListDetail({});
 
   return (
@@ -185,15 +186,13 @@ function TravelClaimListDetail() {
                 <div className={styles.right}>
                   <div className={styles.key}>
                     <span className={styles.value}>Imprest Amount:</span>
-                    {employeeDetail?.travelPlanner?.imprest
-                      ?.sanctionable_amount ? (
+                    {imprestAmount ? (
                       <>
                         {getCurrency(
                           employeeDetail?.travelPlanner?.imprest?.currency
                         )}
                         {
-                          employeeDetail?.travelPlanner?.imprest
-                            ?.sanctionable_amount
+                          imprestAmount
                         }
                       </>
                     ) : (

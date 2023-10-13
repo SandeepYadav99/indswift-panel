@@ -42,6 +42,7 @@ function ClaimIntCard() {
     getRefundAmount,
     setOfficeAmount2,
     officeAmount2,
+    imprestAmount
   } = useClaimIntCard({});
 
   return (
@@ -206,7 +207,7 @@ function ClaimIntCard() {
             Amount:
             <span>
               {getCurrency(form?.travel_planner_id?.imprest?.currency)}
-              {form?.travel_planner_id?.imprest?.amount ? form?.travel_planner_id?.imprest?.amount : 0}
+              {imprestAmount ? imprestAmount : 0}
             </span>
           </div>
         </div>

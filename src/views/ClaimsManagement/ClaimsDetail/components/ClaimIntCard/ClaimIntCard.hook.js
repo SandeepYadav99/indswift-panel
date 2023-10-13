@@ -87,6 +87,24 @@ function useClaimIntCard() {
     return errors;
   }, [form, errorData]);
 
+  // const ImprestAmount =
+  //   (() => {
+  //     if (form?.travel_planner_id?.id) {
+  //       if (form?.travel_planner_id?.imprest?.status === "ACCOUNTS_APPROVED") {
+  //         return form?.travel_planner_id?.imprest?.amount;
+  //       }
+  //     }
+  //     return 0;
+  //   },
+  //   [form?.travel_planner_id]);
+
+  const imprestAmount = useMemo(() => {
+    if (form?.travel_planner_id?.imprest?.status === "ACCOUNTS_APPROVED") {
+      return form?.travel_planner_id?.imprest?.amount;
+    }
+    return 0;
+  }, [form]);
+
   const getTotalValue = useMemo(() => {
     return Object.values(totalAmount).reduce((acc, value) => {
       if (value !== "") {
@@ -97,12 +115,12 @@ function useClaimIntCard() {
   }, [totalAmount, setTotalAmount]);
 
   const getRefundAmount = useMemo(() => {
-    return form?.travel_planner_id?.imprest?.amount
+    return imprestAmount
       ? Number(getTotalValue) -
           (Number(officeAmount) + Number(officeAmount2)) -
-          Number(form?.travel_planner_id?.imprest?.amount)
+          Number(imprestAmount)
       : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
-  }, [form?.travel_planner_id, getTotalValue, officeAmount, officeAmount2]);
+  }, [form?.travel_planner_id, getTotalValue, officeAmount, officeAmount2,imprestAmount]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -377,6 +395,7 @@ function useClaimIntCard() {
     setOfficeAmount2,
     officeAmount2,
     getRefundAmount,
+    imprestAmount
   };
 }
 

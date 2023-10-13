@@ -93,13 +93,20 @@ function useTravelClaimListDetail() {
     }, 0);
   }, [totalAmount, setTotalAmount]);
 
+  const imprestAmount = useMemo(() => {
+    if (employeeDetail?.travelPlanner?.imprest?.status === "ACCOUNTS_APPROVED") {
+      return employeeDetail?.travelPlanner?.imprest?.amount;
+    }
+    return 0;
+  }, [employeeDetail]);
+
   const getRefundAmount = useMemo(() => {
-    return employeeDetail?.travelPlanner?.imprest?.amount
+    return imprestAmount
       ? Number(getTotalValue) -
           (Number(officeAmount) + Number(officeAmount2)) -
-          Number(employeeDetail?.travelPlanner?.imprest?.amount)
+          Number(imprestAmount)
       : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
-  }, [employeeDetail, getTotalValue, officeAmount, officeAmount2]);
+  }, [employeeDetail, getTotalValue, officeAmount, officeAmount2,imprestAmount]);
 
   console.log(
     "totalAmount",
@@ -270,6 +277,7 @@ function useTravelClaimListDetail() {
     setOfficeAmount2,
     officeAmount2,
     getRefundAmount,
+    imprestAmount
   };
 }
 
