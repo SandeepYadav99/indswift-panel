@@ -30,7 +30,8 @@ const useAnnualList = ({}) => {
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
-
+  const {role} = useSelector(state => state.auth);
+console.log('role',role)
   useEffect(() => {
     serviceGetList(["LOCATIONS"]).then((res) => {
       if (!res.error) {
@@ -238,7 +239,7 @@ const useAnnualList = ({}) => {
     listData,
     locationId,
     setLocationId,
-    sanction
+    sanction,role
   };
 };
 

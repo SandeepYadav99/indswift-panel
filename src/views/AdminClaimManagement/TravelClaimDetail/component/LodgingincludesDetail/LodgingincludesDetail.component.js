@@ -16,7 +16,7 @@ const TEMP_OBJ = {
 };
 
 const LodgingincludesDetailForm = (
-  { data, errorData: errorForm, grade ,changeAmount},
+  { data, errorData: errorForm, grade, changeAmount, setOfficeAmount },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -159,6 +159,23 @@ const LodgingincludesDetailForm = (
       return acc;
     }
   }, 0);
+
+  const getOfficeAmount = useMemo(() => {
+    const officeBookings = fields?.filter(
+      (booking) => booking.booking_by === "OFFICE" && booking.amount !== ""
+    );
+    const sum = officeBookings?.reduce(
+      (total, booking) => total + parseFloat(booking?.amount),
+      0
+    );
+    return sum;
+  }, [fields]);
+
+  useEffect(() => {
+    if (sum) {
+      setOfficeAmount(getOfficeAmount);
+    }
+  }, [fields]);
 
   useEffect(() => {
     changeAmount(sum, "lodging_expenses_amount");

@@ -119,7 +119,7 @@ const LodgingIncludeForm = (
       if (val.payment_by === "Cash" && !val?.lodging_payment_proof) {
         delete err["lodging_payment_proof"];
       }
-      if (val?.total_nights <= 1) {
+      if (val?.total_nights == 0) {
         delete err["lodging_voucher"];
         delete err["lodging_payment_proof"];
       }
@@ -282,8 +282,15 @@ const LodgingIncludeForm = (
 
   useEffect(() => {
     changeAmount(sum, "lodging_expenses_amount");
-    setOfficeAmount(getOfficeAmount)
+    // setOfficeAmount(getOfficeAmount)
   }, [sum]);
+
+  useEffect(() => {
+    if(sum){
+      setOfficeAmount(getOfficeAmount)
+    }
+  }, [fields]);
+
 
   return (
     <>

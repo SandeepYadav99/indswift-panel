@@ -267,7 +267,9 @@ const LodgingIncludeFields = ({
                 value={data?.shared_with}
                 // id="tags-standard"
                 options={CoPass ? CoPass : []}
-                getOptionLabel={(option) => `${option?.name} - ( ${option?.emp_code} )`}
+                getOptionLabel={(option) =>
+                  `${option?.name} - ( ${option?.emp_code} )`
+                }
                 defaultValue={data?.shared_with}
                 renderInput={(params) => (
                   <TextField
@@ -288,12 +290,16 @@ const LodgingIncludeFields = ({
           </div>
           <div className={styles.flextitle}>
             <span className={styles.heading21}>Per Day Entitlement:</span>
-            <span className={styles.count}>{data?.per_day_entitlement && `₹ ${data?.per_day_entitlement}`}</span>
+            <span className={styles.count}>
+              {data?.per_day_entitlement && `₹ ${data?.per_day_entitlement}`}
+            </span>
           </div>
           <div className={styles.flextitle}>
             <span className={styles.heading21}>Total Max Entitlement:</span>
             <span className={styles.count}>
-              {isNaN(data?.max_entitlement) ? "-" : `₹ ${data?.max_entitlement}`}
+              {isNaN(data?.max_entitlement)
+                ? "-"
+                : `₹ ${data?.max_entitlement}`}
             </span>
           </div>
         </div>

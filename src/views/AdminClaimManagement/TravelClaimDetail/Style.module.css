@@ -39,6 +39,22 @@
     border-radius: 10px;
     padding: 1.2rem 0;
   }
+  .lowerWrapImprest {
+    display: flex;
+  }
+  .headingWrap {
+    font-size: 0.75rem;
+    font-weight: 600;
+    flex: 1;
+  }
+  .headingWrap > span {
+    margin-left: 10px;
+    color: #818181;
+  }
+  .det{
+    font-size: .8rem;
+    font-weight: 500;
+  }
   .editBtn2 {
     margin-left: 15px;
   }
