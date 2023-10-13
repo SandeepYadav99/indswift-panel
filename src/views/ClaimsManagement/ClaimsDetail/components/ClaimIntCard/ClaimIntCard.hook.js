@@ -99,8 +99,8 @@ function useClaimIntCard() {
   //   [form?.travel_planner_id]);
 
   const imprestAmount = useMemo(() => {
-    if (form?.travel_planner_id?.imprest?.status === "ACCOUNTS_APPROVED") {
-      return form?.travel_planner_id?.imprest?.amount;
+    if (form?.travel_planner_id?.myImprest?.status === "ACCOUNTS_APPROVED") {
+      return form?.travel_planner_id?.myImprest?.amount;
     }
     return 0;
   }, [form]);

@@ -201,12 +201,12 @@ function ClaimIntCard() {
         <div className={styles.lowerWrapImprest}>
           <div className={styles.headingWrap}>
             Imprest for tour:
-            <span>{form?.travel_planner_id?.imprest?.code}</span>
+            <span>{form?.travel_planner_id?.myImprest?.code}</span>
           </div>
           <div className={styles.headingWrap}>
             Amount:
             <span>
-              {getCurrency(form?.travel_planner_id?.imprest?.currency)}
+              {getCurrency(form?.travel_planner_id?.myImprest?.currency)}
               {imprestAmount ? imprestAmount : 0}
             </span>
           </div>

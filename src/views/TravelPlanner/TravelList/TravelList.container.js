@@ -118,7 +118,7 @@ const TravelList = ({ location }) => {
               </span>
             </div>
           ) : (
-            <div style={{textAlign:'center',marginLeft:'20px'}}>N.A</div>
+            <div style={{ textAlign: "center", marginLeft: "20px" }}>N.A</div>
           )}
         </div>
       );
@@ -160,10 +160,16 @@ const TravelList = ({ location }) => {
       },
       {
         key: "status",
-        label: "Current status/ overall status",
+        label: "status",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+          <div>
+            {all?.copassengerStatus?.status ? (
+              <StatusPill status={removeUnderScore(all?.copassengerStatus?.status)} />
+            ) : (
+              "N.A"
+            )}
+          </div>
         ),
       },
       {

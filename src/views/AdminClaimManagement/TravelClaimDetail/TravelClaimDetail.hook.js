@@ -94,8 +94,8 @@ function useTravelClaimListDetail() {
   }, [totalAmount, setTotalAmount]);
 
   const imprestAmount = useMemo(() => {
-    if (employeeDetail?.travelPlanner?.imprest?.status === "ACCOUNTS_APPROVED") {
-      return employeeDetail?.travelPlanner?.imprest?.amount;
+    if (employeeDetail?.imprest?.status === "ACCOUNTS_APPROVED") {
+      return employeeDetail?.imprest?.amount;
     }
     return 0;
   }, [employeeDetail]);

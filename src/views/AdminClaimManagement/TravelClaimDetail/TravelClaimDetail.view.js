@@ -189,7 +189,7 @@ function TravelClaimListDetail() {
                     {imprestAmount ? (
                       <>
                         {getCurrency(
-                          employeeDetail?.travelPlanner?.imprest?.currency
+                          employeeDetail?.imprest?.currency
                         )}
                         {
                           imprestAmount
