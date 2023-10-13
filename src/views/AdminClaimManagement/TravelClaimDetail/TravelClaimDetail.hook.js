@@ -10,6 +10,7 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import { useRef } from "react";
 import RouteName from "../../../routes/Route.name";
+import { useMemo } from "react";
 
 const initialForm = {
   comment: "",
@@ -26,6 +27,8 @@ const amountKeys = {
 function useTravelClaimListDetail() {
   const [form, setForm] = useState({ ...initialForm });
   const [totalAmount, setTotalAmount] = useState({ ...amountKeys });
+  const [officeAmount, setOfficeAmount] = useState(0);
+  const [officeAmount2, setOfficeAmount2] = useState(0);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -81,6 +84,31 @@ function useTravelClaimListDetail() {
     return errors;
   }, [form, errorData, employeeDetail]);
 
+  const getTotalValue = useMemo(() => {
+    return Object.values(totalAmount).reduce((acc, value) => {
+      if (value !== "") {
+        acc += parseFloat(value);
+      }
+      return acc;
+    }, 0);
+  }, [totalAmount, setTotalAmount]);
+
+  const getRefundAmount = useMemo(() => {
+    return employeeDetail?.travelPlanner?.imprest?.amount
+      ? Number(getTotalValue) -
+          (Number(officeAmount) + Number(officeAmount2)) -
+          Number(employeeDetail?.travelPlanner?.imprest?.amount)
+      : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
+  }, [employeeDetail, getTotalValue, officeAmount, officeAmount2]);
+
+  console.log(
+    "totalAmount",
+    getTotalValue,
+    "one",
+    officeAmount,
+    "two",
+    officeAmount2
+  );
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
@@ -89,12 +117,12 @@ function useTravelClaimListDetail() {
       const DAData = daRef.current.getData();
       const EnterData = enterRef.current.getData();
       const OtherData = otherRef.current.getData();
-      const sum = Object.values(totalAmount).reduce((acc, value) => {
-        if (value !== "") {
-          acc += parseFloat(value);
-        }
-        return acc;
-      }, 0);
+      // const sum = Object.values(totalAmount).reduce((acc, value) => {
+      //   if (value !== "") {
+      //     acc += parseFloat(value);
+      //   }
+      //   return acc;
+      // }, 0);
       const objData = {
         ...form,
         review_id: id,
@@ -104,7 +132,12 @@ function useTravelClaimListDetail() {
           da_ie_expenses: DAData,
           entertainment_expenses: EnterData,
           tap_other_expenses: OtherData,
-          total_amount: sum,
+          total_amount: getRefundAmount,
+          total_expense: getTotalValue ? getTotalValue : 0,
+          office_expense: Number(officeAmount) + Number(officeAmount2),
+          self_expense:
+            Number(getTotalValue) -
+            (Number(officeAmount) + Number(officeAmount2)),
           ...totalAmount,
         },
       };
@@ -119,7 +152,20 @@ function useTravelClaimListDetail() {
       });
       setIsSubmitting(false);
     }
-  }, [form, isSubmitting, setIsSubmitting, id, totalAmount, setTotalAmount]);
+  }, [
+    form,
+    isSubmitting,
+    setIsSubmitting,
+    id,
+    totalAmount,
+    setTotalAmount,
+    getTotalValue,
+    officeAmount,
+    setOfficeAmount,
+    officeAmount2,
+    setOfficeAmount2,
+    getRefundAmount,
+  ]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -218,6 +264,12 @@ function useTravelClaimListDetail() {
     enterRef,
     otherRef,
     changeAmount,
+    getTotalValue,
+    setOfficeAmount,
+    officeAmount,
+    setOfficeAmount2,
+    officeAmount2,
+    getRefundAmount,
   };
 }
 

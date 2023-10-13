@@ -101,7 +101,7 @@ function useClaimIntCard() {
       ? Number(getTotalValue) -
           (Number(officeAmount) + Number(officeAmount2)) -
           Number(form?.travel_planner_id?.imprest?.amount)
-      : Number(getTotalValue) - Number(officeAmount);
+      : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
   }, [form?.travel_planner_id, getTotalValue, officeAmount, officeAmount2]);
 
   const submitToServer = useCallback(() => {

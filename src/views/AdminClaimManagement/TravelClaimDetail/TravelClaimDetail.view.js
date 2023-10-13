@@ -38,6 +38,12 @@ function TravelClaimListDetail() {
     enterRef,
     otherRef,
     changeAmount,
+    getTotalValue,
+    setOfficeAmount,
+    officeAmount,
+    setOfficeAmount2,
+    officeAmount2,
+    getRefundAmount,
   } = useTravelClaimListDetail({});
 
   return (
@@ -115,6 +121,7 @@ function TravelClaimListDetail() {
           <LodgingincludesDetailForm
             ref={lodgeRef}
             changeAmount={changeAmount}
+            setOfficeAmount={setOfficeAmount}
           />
         </div>
       </div>
@@ -125,6 +132,7 @@ function TravelClaimListDetail() {
           <TravelincludesDetailForm
             ref={travelRef}
             changeAmount={changeAmount}
+            setOfficeAmount2={setOfficeAmount2}
           />
         </div>
       </div>
@@ -160,7 +168,7 @@ function TravelClaimListDetail() {
                       ? employeeDetail?.travelPlanner?.imprest?.code
                       : "N/A"}
                   </div>
-                  <div className={styles.key}>
+                  {/* <div className={styles.key}>
                     <span className={styles.value}>Claim Amount :</span>
                     {employeeDetail?.travelPlanner?.imprest?.amount ? (
                       <>
@@ -172,7 +180,7 @@ function TravelClaimListDetail() {
                     ) : (
                       "N/A"
                     )}
-                  </div>
+                  </div> */}
                 </div>
                 <div className={styles.right}>
                   <div className={styles.key}>
@@ -194,7 +202,7 @@ function TravelClaimListDetail() {
                   </div>
                 </div>
               </div>
-              <div className={styles.totalWrap}>
+              {/* <div className={styles.totalWrap}>
                 <div className={styles.inner}>
                   Amount to be Refunded:{" "}
                   <span>
@@ -212,12 +220,39 @@ function TravelClaimListDetail() {
                           ?.sanctionable_amount}
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </div>
 
+      <div className={styles.plainPaper}>
+        <div className={styles.heading}>Reimbursable Expense</div>
+        <div className={styles.lowerWrapImprest}>
+          <div className={styles.headingWrap}>
+            Total Expense (self + office):
+            <span>{getTotalValue ? ` ₹ ${getTotalValue}` : 0}</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Self Borne Expense::
+            <span>
+              ₹{" "}
+              {Number(getTotalValue) -
+                (Number(officeAmount) + Number(officeAmount2))}
+            </span>
+          </div>
+          <div className={styles.headingWrap}>
+            Office Borne Expense:
+            <span>₹ {Number(officeAmount) + Number(officeAmount2)}</span>
+          </div>
+        </div>
+        <div className={styles.totalWrap} style={{marginTop:'20px'}}>
+          <div className={styles.inner}>
+            Amount to be Refunded:{" "}
+            <span>{getRefundAmount ? `₹ ${getRefundAmount}` : 0}</span>
+          </div>
+        </div>
+      </div>
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Comments/Notes</div>
@@ -231,6 +266,16 @@ function TravelClaimListDetail() {
                   </div>
                 </div>
               ))}
+          </div>
+        </div>
+      </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>
+            Travel Planner Closing Remarks of Employee
+          </div>
+          <div className={styles.det}>
+            {employeeDetail?.travelPlanner?.achievement}
           </div>
         </div>
       </div>
