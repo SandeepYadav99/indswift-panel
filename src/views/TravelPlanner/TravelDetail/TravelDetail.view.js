@@ -177,38 +177,38 @@ function TravelDetail() {
                       <div className={styles.key}>
                         <span className={styles.value}>Amount:</span>
                         {getCurrency(
-                          employeeDetail?.imprest?.currency
+                          employeeDetail?.myImprest?.currency
                         )}
-                        {employeeDetail?.imprest?.amount}
+                        {employeeDetail?.myImprest?.amount}
                       </div>
                       <div className={styles.key}>
                         <span className={styles.value}>
                           Previous Outstanding:
                         </span>
                         {getCurrency(
-                          employeeDetail?.imprest?.currency
+                          employeeDetail?.myImprest?.currency
                         )}
-                        {employeeDetail?.balance?.balance}
+                        {employeeDetail?.myImprest?.balance?.balance}
                       </div>
                       <div className={styles.key}>
                         <span className={styles.value}>
                           Comment:
                         </span>
-                        {employeeDetail?.imprest?.comment}
+                        {employeeDetail?.myImprest?.comment}
                       </div>
                     </div>
                     <div className={styles.right}>
                       <div className={styles.key}>
                         <span className={styles.value}>Imprest ID:</span>
-                        {employeeDetail?.imprest?.code}
+                        {employeeDetail?.myImprest?.code}
                       </div>
 
                       <div className={styles.key}>
                         <span className={styles.value}>Entitled:</span>
                         {getCurrency(
-                          employeeDetail?.imprest?.currency
+                          employeeDetail?.myImprest?.currency
                         )}
-                        {employeeDetail?.balance?.entitled}
+                        {employeeDetail?.myImprest?.balance?.entitled}
                       </div>
 
                       <div className={styles.key}>
@@ -217,7 +217,7 @@ function TravelDetail() {
                           employeeDetail?.imprest?.currency
                         )}
                         {
-                          employeeDetail?.imprest
+                          employeeDetail?.myImprest
                             ?.sanctionable_amount
                         }
                       </div>
