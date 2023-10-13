@@ -67,7 +67,7 @@ function useTravelClaimListDetail() {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["comment"];
+    let required = [];
     required.forEach((val) => {
       if (
         !form?.[val] ||

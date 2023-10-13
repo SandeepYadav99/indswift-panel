@@ -275,7 +275,7 @@ function TravelClaimListDetail() {
             Travel Planner Closing Remarks of Employee
           </div>
           <div className={styles.det}>
-            {employeeDetail?.travelPlanner?.achievement}
+            {employeeDetail?.copassengerStatus?.achievement}
           </div>
         </div>
       </div>
