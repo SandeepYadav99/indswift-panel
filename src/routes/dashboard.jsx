@@ -827,7 +827,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'budget',
-        // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: "/manpower",
