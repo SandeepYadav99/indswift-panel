@@ -1,5 +1,5 @@
 import { ButtonBase, MenuItem, TextField } from "@material-ui/core";
-import React from "react";
+import React,{useEffect} from "react";
 import useCandidateInfo from "./CandidateInfo.hook";
 import styles from "./Style.module.css";
 import UpperDetail from "./component/UpperDetail";
@@ -11,11 +11,49 @@ import ProfessionalInfo from "./component/Info/ProfessionalInfo";
 import HistoryInfo from "./component/Info/HistoryInfo";
 import SalaryInfo from "./component/Info/SalaryInfo";
 import OtherInfo from "./component/Info/OtherInfo";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
+
 
 function CandidateInfo() {
   const { handlePreviousPage, personalData } = useCandidateInfo({});
+
+  useEffect(() => {
+    const handleKeyPress = async (event) => {
+      // Check if the user pressed Ctrl + P
+      if (event.ctrlKey && event.key === 'p') {
+        event.preventDefault(); // Prevent default printing behavior
+
+        // Convert content to PDF with page breaks
+        const content = document.getElementById('content-to-print');
+
+        // Create a canvas from the content
+        const canvas = await html2canvas(content);
+
+        // Create a PDF instance
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        // Add the canvas to the PDF
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
+
+        // Open the print dialog
+        pdf.autoPrint();
+        window.open(pdf.output('bloburl'), '_blank');
+      }
+    };
+
+    // Add event listener for key press
+    window.addEventListener('keydown', handleKeyPress);
+
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   return (
-    <div className="CandidateInfoWrappers">
+    <div className="CandidateInfoWrappers" id="content-to-print">
       <div className={styles.employeeLoginWrapper}>
         <div className={styles.employeeLoginContainer}>
           <div className={styles.logoImg}>
