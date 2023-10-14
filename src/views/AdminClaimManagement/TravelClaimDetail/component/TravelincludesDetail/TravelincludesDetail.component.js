@@ -9,14 +9,14 @@ import React, {
 import styles from "./style.module.css";
 import { useParams } from "react-router";
 import LogUtils from "../../../../../libs/LogUtils";
-import TravelincludesDetailFields from './TravelincludesDetailFields.component';
+import TravelincludesDetailFields from "./TravelincludesDetailFields.component";
 
 const TEMP_OBJ = {
   amount: "",
 };
 
 const TravelincludesDetailForm = (
-  { data, errorData: errorForm, grade,changeAmount },
+  { data, errorData: errorForm, grade, changeAmount, setOfficeAmount2 },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -163,6 +163,25 @@ const TravelincludesDetailForm = (
   useEffect(() => {
     changeAmount(sum, "travel_expenses_amount");
   }, [sum]);
+
+  const getOfficeAmount = useMemo(() => {
+    const officeBookings = fields?.filter(
+      (booking) =>
+        (booking.booking_by === "OFFICE" && booking.amount !== "") ||
+        (booking?.booking_by === "SELF" && booking?.mode === "COMPANY_VEHICLE")
+    );
+    const sum = officeBookings?.reduce(
+      (total, booking) => total + parseFloat(booking?.amount),
+      0
+    );
+    return sum;
+  }, [fields]);
+
+  useEffect(() => {
+    if (sum) {
+      setOfficeAmount2(getOfficeAmount);
+    }
+  }, [fields]);
 
   return (
     <>

@@ -6,9 +6,10 @@ import useTravelDetail from "./TravelDetail.hook";
 import TravelUpperCard from "../TravelCreate/component/TravelUpperCard/TravelUpperCard";
 import Upper from "./component/upper/Upper";
 import history from "../../../libs/history.utils";
-import { removeUnderScore } from "../../../helper/helper";
+import { getCurrency, removeUnderScore } from "../../../helper/helper";
 import BottomPanelComponent from "../../../components/BottomBar/BottomBar.component";
 import ClosureDialog from "./component/ClosureDialog/ClosureDialog.view";
+import StatusPill from "../../../components/Status/StatusPill.component";
 
 function TravelDetail() {
   const {
@@ -161,8 +162,76 @@ function TravelDetail() {
                     {employeeDetail?.exception?.expense_value &&
                       `₹ ${employeeDetail?.exception?.expense_value}`}
                   </div>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Exception Status:</span>
+
+                    <StatusPill
+                      status={removeUnderScore(
+                        employeeDetail?.exception?.status
+                      )}
+                      style={{ background: "transparent", border: "none" }}
+                    />
+                  </div>
                 </div>
               </div>
+              {employeeDetail?.myImprest?.code && (
+                <>
+                  <div className={styles.verti}></div>
+                <div className={styles.heading}>Imprest Details</div>
+
+                  <div className={styles.mainFlex}>
+                    <div className={styles.left}>
+                      {/* <div className={styles.key}>
+                        <span className={styles.value}>Imprest Required:</span>
+                        {employeeDetail?.imprest_required ? "Yes" : "No"}
+                      </div> */}
+                      <div className={styles.key}>
+                        <span className={styles.value}>Amount:</span>
+                        {getCurrency(employeeDetail?.myImprest?.currency)}
+                        {employeeDetail?.myImprest?.amount}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>
+                          Previous Outstanding:
+                        </span>
+                        {getCurrency(employeeDetail?.myImprest?.currency)}
+                        {employeeDetail?.myImprest?.balance?.balance}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Comment:</span>
+                        {employeeDetail?.myImprest?.comment}
+                      </div>
+                      <div className={styles.key}>
+                    <span className={styles.value}>Imprest Status:</span>
+                    <StatusPill
+                      status={removeUnderScore(
+                        employeeDetail?.myImprest?.status
+                      )}
+                      style={{ background: "transparent", border: "none" }}
+                    />
+                  </div>
+                    </div>
+                    <div className={styles.right}>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Imprest ID:</span>
+                        {employeeDetail?.myImprest?.code}
+                      </div>
+
+                      <div className={styles.key}>
+                        <span className={styles.value}>Entitled:</span>
+                        {getCurrency(employeeDetail?.myImprest?.currency)}
+                        {employeeDetail?.myImprest?.balance?.entitled}
+                      </div>
+
+                      <div className={styles.key}>
+                        <span className={styles.value}>Sanctioned:</span>
+                        {getCurrency(employeeDetail?.imprest?.currency)}
+                        {employeeDetail?.myImprest?.sanctionable_amount}
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

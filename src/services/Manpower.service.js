@@ -19,3 +19,6 @@ export async function serviceGetManpower (params) {
 export async function serviceManpowerDetail (params) {
     return await postRequest('annual/budget/manpower/detail', params);
 }
+export async function serviceGetManDetail (params) {
+    return await postRequest('annual/budget/manpower/aggregates', params);
+}

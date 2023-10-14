@@ -40,6 +40,9 @@ function ClaimIntCard() {
     setOfficeAmount,
     officeAmount,
     getRefundAmount,
+    setOfficeAmount2,
+    officeAmount2,
+    imprestAmount
   } = useClaimIntCard({});
 
   return (
@@ -145,6 +148,7 @@ function ClaimIntCard() {
               ref={travelRef}
               grade={employeeDetails?.grade?.code}
               changeAmount={changeAmount}
+              setOfficeAmount2={setOfficeAmount2}
             />
           </div>
         </div>
@@ -197,13 +201,13 @@ function ClaimIntCard() {
         <div className={styles.lowerWrapImprest}>
           <div className={styles.headingWrap}>
             Imprest for tour:
-            <span>{form?.travel_planner_id?.imprest?.code}</span>
+            <span>{form?.travel_planner_id?.myImprest?.code}</span>
           </div>
           <div className={styles.headingWrap}>
             Amount:
             <span>
-              {getCurrency(form?.travel_planner_id?.imprest?.currency)}
-              {form?.travel_planner_id?.imprest?.amount ? form?.travel_planner_id?.imprest?.amount : 0}
+              {getCurrency(form?.travel_planner_id?.myImprest?.currency)}
+              {imprestAmount ? imprestAmount : 0}
             </span>
           </div>
         </div>
@@ -217,11 +221,11 @@ function ClaimIntCard() {
           </div>
           <div className={styles.headingWrap}>
             Self Borne Expense::
-            <span>₹ {Number(getTotalValue) - Number(officeAmount)}</span>
+            <span>₹ {Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2))}</span>
           </div>
           <div className={styles.headingWrap}>
             Office Borne Expense:
-            <span>{officeAmount ? `₹ ${officeAmount} ` : 0}</span>
+            <span>₹ {(Number(officeAmount) + Number(officeAmount2))}</span>
           </div>
         </div>
         <div className={styles.totalWrap}>
