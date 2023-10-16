@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, ButtonBase, MenuItem } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
+import { Button, ButtonBase, IconButton, InputAdornment, MenuItem } from "@material-ui/core";
+import { Close, Search, Visibility } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
@@ -79,6 +79,13 @@ const UpdatePRCDialog = ({ isOpen, handleToggle, candidateId }) => {
                 // onBlur={() => {
                 //   onBlurHandler("code");
                 // }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Search />
+                    </InputAdornment>
+                  ),
+                }}
               />
             </div>
           </div>
@@ -94,7 +101,7 @@ const UpdatePRCDialog = ({ isOpen, handleToggle, candidateId }) => {
               </div>{" "}
               <div className={styles.lowerWrap}>
                 <div className={styles.labelWrap}>Place of Posting:</div>
-                <div className={styles.solWrap}>-</div>
+                <div className={styles.solWrap}>{form?.location?.name}</div>
               </div>
               <div className={styles.lowerWrap}>
                 <div className={styles.labelWrap}>Candidate Grade:</div>

@@ -23,6 +23,11 @@
     align-items: center;
     gap: 30px;
   }
+  .help{
+    font-size: .75rem;
+    font-weight: 500;
+    text-align: end;
+  }
   .createBtn {
     background-color: #29cb97 !important;
     color: #ffffff !important;

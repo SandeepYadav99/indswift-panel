@@ -2121,7 +2121,8 @@ const EmployeeListCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-             disabled={empFlag || form?.is_two_fuel_manual === "NO" ? true : false}
+             disabled={(form?.vehicle_maintenance || form?.fuel) || (empFlag || form?.is_two_fuel_manual === "NO" ? true : false) }
+            //  disabled={empFlag || form?.is_two_fuel_manual === "NO" ? true : false}
               type={"number"}
               isError={errorData?.two_fuel}
               errorText={errorData?.two_fuel}
