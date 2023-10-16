@@ -91,7 +91,8 @@ const useRejectDialogHook = ({ isOpen, handleToggle, candidateId }) => {
         if (!res.error) {
           SnackbarUtils.success("Request Rejected");
           handleToggle();
-          historyUtils.push(RouteName.CLAIMS_LIST);
+          historyUtils?.goBack()
+          // historyUtils.push(RouteName.CLAIMS_LIST);
         } else {
           SnackbarUtils.error(res?.message);
         }

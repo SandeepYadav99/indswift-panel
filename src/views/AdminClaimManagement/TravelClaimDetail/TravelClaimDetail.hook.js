@@ -151,7 +151,8 @@ function useTravelClaimListDetail() {
       console.log("Payload", objData);
       serviceApproveCLaim({ ...objData, ...EmpId }).then((res) => {
         if (!res.error) {
-          historyUtils.push(RouteName.CLAIMS_LIST);
+          historyUtils.goBack()
+          // historyUtils.push(RouteName.CLAIMS_LIST);
         } else {
           SnackbarUtils.error(res?.message);
         }
