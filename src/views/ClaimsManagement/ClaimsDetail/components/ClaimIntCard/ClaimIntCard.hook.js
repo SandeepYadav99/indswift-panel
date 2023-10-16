@@ -12,6 +12,7 @@ import nullImg from "../../../../../assets/img/null.png";
 import { dataURLtoFile } from "../../../../../helper/helper";
 import historyUtils from "../../../../../libs/history.utils";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import moment from "moment";
 
 const initialForm = {
   travel_planner_id: "",
@@ -120,7 +121,13 @@ function useClaimIntCard() {
           (Number(officeAmount) + Number(officeAmount2)) -
           Number(imprestAmount)
       : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
-  }, [form?.travel_planner_id, getTotalValue, officeAmount, officeAmount2,imprestAmount]);
+  }, [
+    form?.travel_planner_id,
+    getTotalValue,
+    officeAmount,
+    officeAmount2,
+    imprestAmount,
+  ]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -202,18 +209,10 @@ function useClaimIntCard() {
         }
       });
       const modifiedData = daData.map((item) => {
-        const parsedStartTime = new Date(item.start_time);
-        const parsedEndTime = new Date(item.end_time);
-        const isStartString = parsedStartTime.toLocaleString("en-US", {
-          timeZone: "Asia/Kolkata",
-        });
-        const isEndString = parsedEndTime.toLocaleString("en-US", {
-          timeZone: "Asia/Kolkata",
-        });
         return {
           ...item,
-          start_time: isStartString,
-          end_time: isEndString,
+          start_time: moment(item.start_time).format("hh:mm A"),
+          end_time: moment(item.end_time).format("hh:mm A"),
         };
       });
       fd.append("da_ie_expenses", JSON.stringify(modifiedData));
@@ -395,7 +394,7 @@ function useClaimIntCard() {
     setOfficeAmount2,
     officeAmount2,
     getRefundAmount,
-    imprestAmount
+    imprestAmount,
   };
 }
 

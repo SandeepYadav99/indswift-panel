@@ -79,7 +79,7 @@ const HRSettings = ({}) => {
             {/* <Tab label="CPC File" {...a11yProps(4)} /> */}
             <Tab label="Loan Budget" {...a11yProps(4)} />
             <Tab label="Email Composer" {...a11yProps(5)} />
-            {/* <Tab label="USC" {...a11yProps(6)} /> */}
+            <Tab label="USC" {...a11yProps(6)} />
           </Tabs>
           <div className={styles.tabPanel}>{renderPanel(tabIndex)}</div>
         </div>
