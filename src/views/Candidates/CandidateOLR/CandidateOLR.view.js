@@ -1,5 +1,5 @@
 import { ButtonBase, Checkbox } from "@material-ui/core";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo,useEffect } from "react";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../../libs/history.utils";
@@ -11,7 +11,8 @@ import CandidateOLRHook from "./CandidateOLR.hook";
 import RejectOLRDialog from "./components/RejectOLRPopUp/RejectOLRDialog.view";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
-import classNames from "classnames";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 function CandidateOLR({ location }) {
   const {
@@ -35,6 +36,31 @@ function CandidateOLR({ location }) {
     role,
     handleCheckboxChange,
   } = CandidateOLRHook({ location });
+
+  useEffect(() => {
+    const handleKeyPress = async (event) => {
+      if (event.ctrlKey && event.key === 'p') {
+        event.preventDefault(); 
+
+        const content = document.getElementById('content-to-print');
+
+        const canvas = await html2canvas(content);
+
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
+
+        pdf.autoPrint();
+        window.open(pdf.output('bloburl'), '_blank');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
@@ -82,7 +108,7 @@ function CandidateOLR({ location }) {
     return { datatable };
   }, [tableStructure, panelList]);
   return (
-    <div className={"container"}>
+    <div className={"container"} id="content-to-print">
       <div className={styles.outerFlex}>
         <div>
           <ButtonBase onClick={() => historyUtils.goBack()}>

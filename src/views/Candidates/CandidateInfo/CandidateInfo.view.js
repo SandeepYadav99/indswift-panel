@@ -21,32 +21,24 @@ function CandidateInfo() {
 
   useEffect(() => {
     const handleKeyPress = async (event) => {
-      // Check if the user pressed Ctrl + P
       if (event.ctrlKey && event.key === 'p') {
-        event.preventDefault(); // Prevent default printing behavior
+        event.preventDefault(); 
 
-        // Convert content to PDF with page breaks
         const content = document.getElementById('content-to-print');
 
-        // Create a canvas from the content
         const canvas = await html2canvas(content);
 
-        // Create a PDF instance
         const pdf = new jsPDF('p', 'mm', 'a4');
 
-        // Add the canvas to the PDF
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
 
-        // Open the print dialog
         pdf.autoPrint();
         window.open(pdf.output('bloburl'), '_blank');
       }
     };
 
-    // Add event listener for key press
     window.addEventListener('keydown', handleKeyPress);
 
-    // Clean up the event listener
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
