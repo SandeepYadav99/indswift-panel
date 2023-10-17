@@ -1223,6 +1223,18 @@ const dashboardRoutes = [
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
+        path: `${RouteName.CLAIMS_CURR}`,
+        sidebarName: "Claims Int",
+        navbarName: "Claims Int",
+        icon: PeopleOutlined,
+        component: ClaimIntCard,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
         path: `${RouteName.CLAIMS_LOC}`,
         sidebarName: "Claims Loc",
         navbarName: "Claims Loc",
