@@ -165,8 +165,8 @@ function TravelClaimListDetail() {
                 <div className={styles.left}>
                   <div className={styles.key}>
                     <span className={styles.value}>Imprest for tour:</span>
-                    {employeeDetail?.travelPlanner?.imprest?.code
-                      ? employeeDetail?.travelPlanner?.imprest?.code
+                    {employeeDetail?.imprest?.code
+                      ? employeeDetail?.imprest?.code
                       : "N/A"}
                   </div>
                   {/* <div className={styles.key}>
