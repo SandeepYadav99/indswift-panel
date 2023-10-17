@@ -18,6 +18,7 @@ import LoanBudget from "./components/LoanBudget/LoanBudget.view";
 import CPCView from "./components/CPC/CPCView";
 import EmailComp from "./components/EmailComp/EmailComp.view";
 import USCView from "./components/USC/USCView";
+import CurrencyView from "./components/Currency/CurrencyView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,6 +57,8 @@ const HRSettings = ({}) => {
       return <EmailComp />;
     }else if (value === 6){
       return <USCView/>
+    }else if (value === 7){
+      return <CurrencyView/>
     }
     return <h1>{value}</h1>;
   }, []);
@@ -80,6 +83,7 @@ const HRSettings = ({}) => {
             <Tab label="Loan Budget" {...a11yProps(4)} />
             <Tab label="Email Composer" {...a11yProps(5)} />
             <Tab label="USC" {...a11yProps(6)} />
+            <Tab label="Currency Conversion" {...a11yProps(6)} />
           </Tabs>
           <div className={styles.tabPanel}>{renderPanel(tabIndex)}</div>
         </div>

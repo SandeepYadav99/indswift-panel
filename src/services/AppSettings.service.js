@@ -45,3 +45,12 @@ export async function serviceGetUscDetails(params) {
 export async function serviceGetUscUpdate(params) {
     return await postRequest('location/salary/update', params);
 }
+export async function serviceGetCurrencyList(params) {
+    return await postRequest('currencies', params);
+}
+export async function serviceGetCurrencyDetails(params) {
+    return await postRequest('currencies/detail', params);
+}
+export async function serviceGetCurrencyUpdate(params) {
+    return await postRequest('currencies/update', params);
+}
