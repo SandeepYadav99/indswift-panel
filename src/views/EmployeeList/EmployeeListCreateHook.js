@@ -152,8 +152,8 @@ function EmployeeListCreateHook({ location }) {
     mother_state: "ALIVE",
     mother_dod: "",
     is_transport_facility: "notavailed",
-    vehicle_type: "",
-    vehicle_number: "",
+    variant: "",
+    rc_number: "",
     basic_salary: 0,
     hra: 0,
     education_allowance: 0,
@@ -662,7 +662,7 @@ function EmployeeListCreateHook({ location }) {
           fd.append("is_transport_facility", form[key] === "availed");
         } else if (BOOLEAN_KEYS.includes(key)) {
           fd.append(key, form[key] === "YES");
-        } else if (["vehicle_type", "vehicle_number"].includes(key)) {
+        } else if (["variant", "rc_number"].includes(key)) {
           vehicleObj[key] = form[key];
         }else if (form[key]) {
           fd.append(key, form[key]);

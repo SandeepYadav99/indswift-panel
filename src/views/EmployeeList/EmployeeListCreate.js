@@ -511,15 +511,15 @@ const EmployeeListCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.vehicle_type}
-              errorText={errorData?.vehicle_type}
+              isError={errorData?.variant}
+              errorText={errorData?.variant}
               label={"Vehicle Type"}
-              value={form?.vehicle_type}
+              value={form?.variant}
               onTextChange={(text) => {
-                changeTextData(text, "vehicle_type");
+                changeTextData(text, "variant");
               }}
               onBlur={() => {
-                onBlurHandler("vehicle_type");
+                onBlurHandler("variant");
               }}
             />
           </div>
@@ -527,15 +527,15 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.vehicle_number}
-              errorText={errorData?.vehicle_number}
+              isError={errorData?.rc_number}
+              errorText={errorData?.rc_number}
               label={"Vehicle Number"}
-              value={form?.vehicle_number}
+              value={form?.rc_number}
               onTextChange={(text) => {
-                changeTextData(text, "vehicle_number");
+                changeTextData(text, "rc_number");
               }}
               onBlur={() => {
-                onBlurHandler("vehicle_number");
+                onBlurHandler("rc_number");
               }}
             />
           </div>
