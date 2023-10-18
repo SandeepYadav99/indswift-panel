@@ -25,10 +25,11 @@ const amountKeys = {
   tap_other_expenses_amount: "",
 };
 
-function useClaimIntCard() {
+function useClaimForCard() {
   const [employeeDetails, setEmployeeDetails] = useState({});
   const [currency, setCurrency] = useState("INR");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCP, setIsCp] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -50,7 +51,10 @@ function useClaimIntCard() {
   useEffect(() => {
     Promise.allSettled([
       serviceGetEmployeeDetails({ code: emp_code }),
-      serviceGetList(["CLAIM_TAP"], { employee_id: user_id ,tour_type:"DOMESTIC"}),
+      serviceGetList(["CLAIM_TAP"], {
+        employee_id: user_id,
+        tour_type: "FOREIGN",
+      }),
     ]).then((promises) => {
       const empDetail = promises[0]?.value?.data;
       const listData = promises[1]?.value?.data;
@@ -59,6 +63,15 @@ function useClaimIntCard() {
     });
   }, []);
 
+  useEffect(() => {
+    if (form?.travel_planner_id?.id) {
+      if (form?.travel_planner_id?.is_cphi) {
+        setIsCp(true);
+      } else {
+        setIsCp(false);
+      }
+    }
+  }, [form?.travel_planner_id]);
   const changeAmount = useCallback(
     (text, fieldName) => {
       const t = { ...totalAmount };
@@ -139,13 +152,6 @@ function useClaimIntCard() {
       Object.keys(totalAmount).forEach((key) => {
         fd.append(key, totalAmount[key]);
       });
-      // const sum = Object.values(totalAmount).reduce((acc, value) => {
-      //   if (value !== "") {
-      //     acc += parseFloat(value);
-      //   }
-      //   return acc;
-      // }, 0);
-
       fd.append("total_amount", getRefundAmount);
       const lodgeData = lodgeRef.current.getData();
 
@@ -265,6 +271,7 @@ function useClaimIntCard() {
     officeAmount2,
     setOfficeAmount2,
     getRefundAmount,
+    isCP
   ]);
 
   const removeError = useCallback(
@@ -337,6 +344,7 @@ function useClaimIntCard() {
     officeAmount2,
     setOfficeAmount2,
     getRefundAmount,
+    isCP
   ]);
 
   const changeTextData = useCallback(
@@ -395,7 +403,8 @@ function useClaimIntCard() {
     officeAmount2,
     getRefundAmount,
     imprestAmount,
+    isCP
   };
 }
 
-export default useClaimIntCard;
+export default useClaimForCard;
