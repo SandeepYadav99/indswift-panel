@@ -7,13 +7,13 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
-function SalaryInfoTable({Empid}) {
+function SalaryInfoTable({Empid, isPending}) {
   const {
     EmployeeSalaryInfo: data,
     totalPages,
     currentPage,
     handlePageChange,
-  } = SalaryInfoHook({Empid});
+  } = SalaryInfoHook({Empid, isPending});
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {

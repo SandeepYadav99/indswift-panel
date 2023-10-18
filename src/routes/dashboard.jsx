@@ -9,16 +9,20 @@ import {
     PersonRounded,
     FingerprintOutlined
 } from "@material-ui/icons";
- import RouteName from "./Route.name";
- import Constants from "../config/constants";
-import TravelClaimListDetail from "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view";
-import LoanProcessDetail from "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view";
-import LoanRecovery from "../views/LoanManagement/LoanRecovery/LoanRecovery.view";
-import EmployeeSalaryReport from "../views/EmployeeSalaryReport/EmployeeSalaryReport.view";
-import OngoingLoans from "../views/LoanManagement/OngoingLoans/OngoingLoans.view";
-import OngoingLoanDetail from "../views/LoanManagement/OngoingLoanDetail/OngoingLoanDetail.view";
+import RouteName from "./Route.name";
+import Constants from "../config/constants";
 import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
-import ProcessDetail from "../views/LoanManagement/ProcessDetail/ProcessDetail.view";
+import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
+import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
+
+const TravelClaimListDetail = lazy(()=> import ( "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"));
+const LoanProcessDetail = lazy(()=> import ( "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view"));
+const LoanRecovery = lazy(()=> import ( "../views/LoanManagement/LoanRecovery/LoanRecovery.view"));
+const EmployeeSalaryReport = lazy(()=> import ( "../views/EmployeeSalaryReport/EmployeeSalaryReport.view"));
+const OngoingLoans = lazy(()=> import ( "../views/LoanManagement/OngoingLoans/OngoingLoans.view"));
+const OngoingLoanDetail = lazy(()=> import ( "../views/LoanManagement/OngoingLoanDetail/OngoingLoanDetail.view"));
+const ProcessDetail = lazy(()=> import ( "../views/LoanManagement/ProcessDetail/ProcessDetail.view"));
+const IncrementEmployeeSalaryReport = lazy(()=> import ( "../views/IncrementEmployeeSalaryReport/IncrementEmployeeSalaryReport.view"));
 
 const ClaimIntCard = lazy(()=>import ( "../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.view"));
 const NewEmployeeList = lazy(()=>import ( "../views/NewEmployeeList/NewEmployeeList.view"));
@@ -180,6 +184,27 @@ const dashboardRoutes = [
         component: NewDashboard,
         is_sidebar: true,
         roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    },
+    {
+        path: RouteName.EMPLOYEES,
+        sidebarName: "Employee Records",
+        navbarName: "Employee Records",
+        icon: AssignmentOutlined,
+        component: EmployeeList,
+        is_sidebar: true,
+        is_protect: true,
+        // should_regex: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: 'null',
+        sidebarName: "HR Approvals",
+        navbarName: "HR Approvals",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: "approval",
+        is_parent: true,
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: '/employeeInduction',
@@ -610,18 +635,18 @@ const dashboardRoutes = [
         parent: 'pms_increments',
         roles: [Roles.CORPORATE_HR],
     },
-    {
-        path: `${RouteName.REVIEW_RECORD}`,
-        sidebarName: "Review Record",
-        navbarName: "Review Record",
-        icon: PeopleOutlined,
-        component: ReviewRecord,
-        is_sidebar: true,
-        is_protect: true,
-        should_regex: true,
-        parent: 'pms_increments',
-        roles: [Roles.CORPORATE_HR],
-    },
+    // {
+    //     path: `${RouteName.REVIEW_RECORD}`,
+    //     sidebarName: "Review Increment Records",
+    //     navbarName: "Review Increment Records",
+    //     icon: PeopleOutlined,
+    //     component: ReviewRecord,
+    //     is_sidebar: true,
+    //     is_protect: true,
+    //     should_regex: true,
+    //     // parent: 'pms_increments',
+    //     roles: [Roles.CORPORATE_HR,Roles.PMS],
+    // },
     {
         path: `${RouteName.PMS_INCREMENT_PLANNER}`,
         sidebarName: "General Award Sheet",
@@ -700,7 +725,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'masters',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [ Roles.CORPORATE_HR],
     },
     {
         path: RouteName.LOCATIONS,
@@ -751,16 +776,6 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
-        path: 'null',
-        sidebarName: "HR Approvals",
-        navbarName: "HR Approvals",
-        icon: EventNote,
-        is_sidebar: true,
-        slug: "approval",
-        is_parent: true,
-        roles: [Roles.CORPORATE_HR],
-    },
-    {
         path: RouteName.NEW_EMPLOYEES,
         sidebarName: "New Employee Request",
         navbarName: "New Employee Request",
@@ -771,6 +786,17 @@ const dashboardRoutes = [
         should_regex: true,
         parent: 'approval',
         roles: [Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.EMPLOYEE_VERSIONS}`,
+        sidebarName: "Employee Changes",
+        navbarName: "Employee Changes",
+        icon: LocalOffer,
+        component: EmployeeEditVersionListContainer,
+        is_sidebar: true,
+        is_protect: true,
+        parent: 'approval',
+        roles: Constants.is_development ? [Roles.ADMIN, Roles.CORPORATE_HR] : [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.NEW_EMPLOYEE_DETAIL}:id`,
@@ -790,7 +816,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         slug: 'budget',
         is_parent: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
         path: "/annual",
@@ -802,7 +828,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'budget',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: "/manpower",
@@ -814,7 +840,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'budget',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
         path: "/budget/pending",
@@ -870,17 +896,6 @@ const dashboardRoutes = [
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
     {
-        path: RouteName.EMPLOYEES,
-        sidebarName: "Employee Records",
-        navbarName: "Employee Records",
-        icon: AssignmentOutlined,
-        component: EmployeeList,
-        is_sidebar: true,
-        is_protect: true,
-        // should_regex: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
-    },
-    {
         path: RouteName.EMPLOYEE_CREATE,
         sidebarName: "Employee Records",
         navbarName: "Employee Records",
@@ -910,16 +925,7 @@ const dashboardRoutes = [
         is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
-    {
-        path: `${RouteName.EMPLOYEE_VERSIONS}`,
-        sidebarName: "Employee Changes",
-        navbarName: "Employee Changes",
-        icon: LocalOffer,
-        component: EmployeeEditVersionListContainer,
-        is_sidebar: true,
-        is_protect: true,
-        roles: Constants.is_development ? [Roles.ADMIN, Roles.CORPORATE_HR] : [Roles.CORPORATE_HR],
-    },
+
     {
         path: `${RouteName.VIEW_DOCUMENTS}`,
         sidebarName: "",
@@ -955,6 +961,18 @@ const dashboardRoutes = [
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     },
     {
+        path: `${RouteName.CLAIMS_HR_LIST}`,
+        sidebarName: "Spl claim list",
+        navbarName: "Spl claim list",
+        icon: PeopleOutlined,
+        component: ClaimsList,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        roles: [Roles.CORPORATE_HR],
+    },
+    {
         path: `${RouteName.CLAIMS_CAR_REPORT}`,
         sidebarName: "Car Claims Report",
         navbarName: "Car Claims Report",
@@ -964,7 +982,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [ Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CLAIMS_REPORT}`,
@@ -976,7 +994,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'cm',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [ Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.CLAIMS_INFO}`,
@@ -1002,6 +1020,18 @@ const dashboardRoutes = [
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
     {
+        path: `${RouteName.CLAIMS_HR_DETAILS}:id`,
+        sidebarName: "Claims List",
+        navbarName: "Claims List",
+        icon: PeopleOutlined,
+        component: ClaimListDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        roles: [Roles.CORPORATE_HR],
+    },
+    {
         path: `${RouteName.TRAVEL_CLAIMS_DETAILS}:id`,
         sidebarName: "Claims List",
         navbarName: "Claims List",
@@ -1013,7 +1043,18 @@ const dashboardRoutes = [
         parent: 'cm',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
-
+    {
+        path: `${RouteName.TRAVEL_HR_CLAIMS_DETAILS}:id`,
+        sidebarName: "Claims List",
+        navbarName: "Claims List",
+        icon: PeopleOutlined,
+        component: TravelClaimListDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        roles: [Roles.CORPORATE_HR],
+    },
     {
         path: `${RouteName.CLAIMS_IMPREST}`,
         sidebarName: "My Imprest Ledger",
@@ -1023,7 +1064,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
-        parent: 'cm',
+        parent: 'imp',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
     {
@@ -1035,7 +1076,7 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
         should_regex: true,
-        parent: 'cm',
+        parent: 'imp',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
     {
@@ -1047,7 +1088,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
-        parent: 'cm',
+        parent: 'imp',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
     {
@@ -1059,8 +1100,8 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
         should_regex: true,
-        parent: 'cm',
-        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+        parent: 'imp',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.EMPLOYEES_IMPREST}`,
@@ -1071,7 +1112,7 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
         should_regex: true,
-        parent: 'cm',
+        parent: 'imp',
         roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
@@ -1083,7 +1124,7 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
         should_regex: true,
-        parent: 'cm',
+        parent: 'imp',
         roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
@@ -1095,7 +1136,7 @@ const dashboardRoutes = [
         is_sidebar: false,
         is_protect: true,
         should_regex: true,
-        parent: 'cm',
+        parent: 'imp',
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
     },
     {
@@ -1182,6 +1223,18 @@ const dashboardRoutes = [
         // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
     },
     {
+        path: `${RouteName.CLAIMS_CURR}`,
+        sidebarName: "Claims Int",
+        navbarName: "Claims Int",
+        icon: PeopleOutlined,
+        component: ClaimIntCard,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'cm',
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
+    {
         path: `${RouteName.CLAIMS_LOC}`,
         sidebarName: "Claims Loc",
         navbarName: "Claims Loc",
@@ -1230,13 +1283,35 @@ const dashboardRoutes = [
         // roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
     },
     {
+        path: 'null',
+        sidebarName: "Imprest",
+        navbarName: "Imprest",
+        icon: AssignmentOutlined,
+        is_sidebar: true,
+        slug: 'imp',
+        is_parent: true,
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+
+    },
+    {
+        path: 'null',
+        sidebarName: "SkyNet Reports",
+        navbarName: "SkyNet Reports",
+        icon: EventNote,
+        is_sidebar: true,
+        slug: 'reports',
+        is_parent: true,
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
         path: `${RouteName.EMPLOYEE_REPORT}`,
         sidebarName: "Employee Reports",
         navbarName: "Employee Reports",
         icon: AssignmentOutlined,
         component: EmployeeReport,
         is_sidebar: true,
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        parent: 'reports',
+        roles: [Roles.CORPORATE_HR],
     },
     {
         path: `${RouteName.EMPLOYEE_SALARY}`,
@@ -1245,6 +1320,17 @@ const dashboardRoutes = [
         icon: AssignmentOutlined,
         component: EmployeeSalaryReport,
         is_sidebar: true,
+        parent: 'reports',
+        roles: [Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.EMPLOYEE_INCREMENT_SALARY}`,
+        sidebarName: "Increment Salary Comparison Report",
+        navbarName: " Increment Salary Comparison Report",
+        icon: AssignmentOutlined,
+        component: IncrementEmployeeSalaryReport,
+        is_sidebar: true,
+        parent: 'reports',
         roles: [Roles.CORPORATE_HR],
     },
     {
@@ -1267,7 +1353,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'Hr',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [ Roles.CORPORATE_HR],
     },
     {
         path: RouteName.HR_CIRCULARS,
@@ -1279,7 +1365,7 @@ const dashboardRoutes = [
         is_protect: true,
         should_regex: true,
         parent: 'Hr',
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+        roles: [ Roles.CORPORATE_HR],
     },
     {
         path: RouteName.HR_SETTINGS,
@@ -1288,6 +1374,30 @@ const dashboardRoutes = [
         icon: PeopleOutlined,
         component: HRSettings,
         is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        parent: 'Hr',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.HR_USC_UPDATE}:id`,
+        sidebarName: "Settings",
+        navbarName: "Settings",
+        icon: PeopleOutlined,
+        component: USCEditView,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: 'Hr',
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
+    {
+        path: `${RouteName.CURRENCY_UPDATE}:id`,
+        sidebarName: "Settings",
+        navbarName: "Settings",
+        icon: PeopleOutlined,
+        component: CurrencyEditView,
+        is_sidebar: false,
         is_protect: true,
         should_regex: true,
         parent: 'Hr',
@@ -1711,6 +1821,8 @@ const dashboardRoutes = [
         // parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     },
+
+
     {
         path: `${RouteName.ADMIN_LOAN_PROCESS}:id`,
         sidebarName: "Loan Management",
@@ -1769,8 +1881,6 @@ const dashboardRoutes = [
         // parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
     },
-
-
 
 
     // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }

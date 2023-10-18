@@ -82,7 +82,7 @@ const useLoanRejectDialogHook = ({ isOpen, handleToggle ,candidateId}) => {
         if (!res.error) {
           SnackbarUtils.success("Request Rejected");
           handleToggle();
-          historyUtils.push(RouteName.CLAIMS_LIST);
+          historyUtils.push(RouteName.ADMIN_LOAN_LIST);
         } else {
           SnackbarUtils.error(res?.message);
         }

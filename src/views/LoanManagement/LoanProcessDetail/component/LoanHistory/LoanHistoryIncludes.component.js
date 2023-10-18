@@ -14,6 +14,7 @@ import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import LogUtils from "../../../../../libs/LogUtils";
 import LoanHistoryIncludeFields from "./LoanHistoryFields.component";
 import { dropDownValuesLoan } from "../../../../../helper/helper";
+import { isDate, isInvalidDateFormat } from "../../../../../libs/RegexUtils";
 
 const TEMP_OBJ = {
   type: "",
@@ -67,6 +68,16 @@ const LoanHistoryIncludeForm = (
               err[key] = true;
             }
           });
+      }
+      if (!isDate(val?.to)) {
+        if (isInvalidDateFormat(val?.to)) {
+          err["to"] = true;
+        }
+      }
+      if (!isDate(val?.from)) {
+        if (isInvalidDateFormat(val?.from)) {
+          err["from"] = true;
+        }
       }
       if (val?.to && val?.from) {
         const joinDate = new Date(val?.to);

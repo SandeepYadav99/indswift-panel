@@ -78,7 +78,8 @@ function CandidateDetails() {
     toggleConfirmDialog,
     toggleEafDialog,
     handleCVShortlistReminder,
-    handleResendEafClick
+    handleResendEafClick,
+    checkPrc
   } = useCandidateDetails({});
 
   return (
@@ -92,6 +93,7 @@ function CandidateDetails() {
         handleToggleExtendPage={toggleExtendDialog}
         handleToggleRPDialog={toggleReoccuringDialog}
         handleToggleShareDialog={toggleShareDialog}
+        checkPrc={checkPrc}
       />
       <div>
         <AppBar position="static" className={styles.backgroundColor}>
@@ -130,10 +132,11 @@ function CandidateDetails() {
         {/*  isOpen={isReoccuring}*/}
         {/*  handleToggle={toggleReoccuringDialog}*/}
         {/*/>*/}
-        {/* <UpdatePRCDialog
+        <UpdatePRCDialog
           isOpen={isResetDialog}
           handleToggle={toggleResetDialog}
-        /> */}
+          candidateId={id}
+        />
         <CandidateStatusDialog
           handleStatusUpdate={handleStatusUpdate}
           isOpen={isUpdateDialog}

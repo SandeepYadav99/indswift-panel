@@ -83,10 +83,43 @@ const TravelList = ({ location }) => {
               />
             </span>
             <br />
-            <span className={styles.productName21}>{obj?.exception_required ? 'Yes' : 'No'}</span>
+            <span className={styles.productName21}>
+              {obj?.exception_required ? "Yes" : "No"}
+            </span>
             <br />
-            <span className={styles.productName21}>{obj?.exception?.expense_value && `₹ ${obj?.exception?.expense_value}`}</span>
+            <span className={styles.productName21}>
+              {obj?.exception?.expense_value &&
+                `₹ ${obj?.exception?.expense_value}`}
+            </span>
           </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
+
+  const renderImprest = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          {obj?.imprest_required ? (
+            <div className={classNames(styles.firstCellInfo, "openSans")}>
+              <span className={styles.productName21}>
+                {obj?.imprest?.amount && `₹ ${obj?.imprest?.amount}`}
+              </span>
+              <br />
+              <span className={styles.productName21}>{obj?.imprest?.code}</span>
+              <br />
+              <span className={styles.productName}>
+                <StatusPill
+                  status={removeUnderScore(obj?.imprest?.status)}
+                  style={{ background: "transparent", border: "none" }}
+                />
+              </span>
+            </div>
+          ) : (
+            <div style={{ textAlign: "center", marginLeft: "20px" }}>N.A</div>
+          )}
         </div>
       );
     }
@@ -127,27 +160,29 @@ const TravelList = ({ location }) => {
       },
       {
         key: "status",
-        label: " status",
+        label: "status",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+          <div>
+            {all?.copassengerStatus?.status ? (
+              <StatusPill status={removeUnderScore(all?.copassengerStatus?.status)} />
+            ) : (
+              "N.A"
+            )}
+          </div>
         ),
       },
       {
         key: "Updatedate",
         label: "DATE",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.createdAtText}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
       // {
       //   key: "imprest",
       //   label: "IMPREST",
       //   sortable: false,
-      //   render: (temp, all) => <div>{all?.employee?.contact}</div>,
+      //   render: (temp, all) => <div>{renderImprest(all)}</div>,
       // },
       {
         key: "exception",

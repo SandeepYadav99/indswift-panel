@@ -25,7 +25,7 @@ import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
-import debounce from 'lodash.debounce';
+import debounce from "lodash.debounce";
 
 const SALARY_KEYS = [
   "basic_salary",
@@ -72,12 +72,19 @@ const SALARY_KEYS = [
   "stability_incentive",
   "deduction_vpf_pct",
   "gross_component",
-  'deputation_allowance',
-  'nps_part_e'
+  "deputation_allowance",
+  "nps_part_e",
 ];
 
 const BOOLEAN_KEYS = [
   "is_pug",
+  "is_two_car_maintenance_manual",
+  "is_two_fuel_manual",
+  "is_gratuity_manual",
+  "is_er_pf_manual",
+  "is_er_esi_manual",
+  "is_em_pf_manual",
+  "is_em_esi_manual",
   "is_pug_manual",
   "is_helper",
   "is_helper_manual",
@@ -90,7 +97,7 @@ const BOOLEAN_KEYS = [
   "is_em_pf",
   "is_deduction_vpf",
   "is_car_component_manual",
-  "is_em_esi"
+  "is_em_esi",
 ];
 
 function EmployeeListCreateHook({ location }) {
@@ -145,6 +152,8 @@ function EmployeeListCreateHook({ location }) {
     mother_state: "ALIVE",
     mother_dod: "",
     is_transport_facility: "notavailed",
+    variant: "",
+    rc_number: "",
     basic_salary: 0,
     hra: 0,
     education_allowance: 0,
@@ -195,6 +204,13 @@ function EmployeeListCreateHook({ location }) {
     is_address_same: false,
     is_pug: "NO",
     is_pug_manual: "NO",
+    is_two_car_maintenance_manual: "NO",
+    is_two_fuel_manual: "NO",
+    is_gratuity_manual: "NO",
+    is_er_pf_manual: "NO",
+    is_er_esi_manual: "NO",
+    is_em_pf_manual: "NO",
+    is_em_esi_manual: "NO",
     is_helper: "NO",
     is_helper_manual: "NO",
     is_food_coupons: "NO",
@@ -205,12 +221,12 @@ function EmployeeListCreateHook({ location }) {
     is_nps: "NO",
     is_em_pf: "NO",
     is_deduction_vpf: "NO",
-    is_car_component_manual:"NO",
-    is_em_esi:"NO",
+    is_car_component_manual: "NO",
+    is_em_esi: "NO",
     deduction_vpf_pct: 0,
-    gross_component:0,
-    deputation_allowance:0,
-    nps_part_e:0
+    gross_component: 0,
+    deputation_allowance: 0,
+    nps_part_e: 0,
   };
 
   const [form, setForm] = useState({ ...initialForm });
@@ -262,9 +278,12 @@ function EmployeeListCreateHook({ location }) {
     });
   }, []);
 
-  const toggleConfirmDialog = useCallback((type) => {
-    setIsDialog(e => !e);
-}, [setIsDialog]);
+  const toggleConfirmDialog = useCallback(
+    (type) => {
+      setIsDialog((e) => !e);
+    },
+    [setIsDialog]
+  );
 
   useEffect(() => {
     if (listData?.EMPLOYEES?.length > 0 && (candidateId || traineeId)) {
@@ -320,7 +339,11 @@ function EmployeeListCreateHook({ location }) {
         } else {
           const { salary } = empData;
           Object.keys(salary).forEach((key) => {
-            salary[key] /= 12;
+            if (BOOLEAN_KEYS?.includes(key)) {
+              salary[key] = salary[key] ? "YES" : "NO";
+            } else {
+              salary[key] /= 12;
+            }
           });
           const designationIndex = listData?.DESIGNATIONS.findIndex(
             (val) => val.id === empData?.designation?.id
@@ -346,9 +369,10 @@ function EmployeeListCreateHook({ location }) {
               } else if (key === "current_address") {
                 data[key] = empData["correspondence_address"];
               } else if (key === "previous_organisation") {
-                if(empData?.employment_history?.length > 0){
-                  data[key] = empData["employment_history"][0]?.organisation_name;
-                } 
+                if (empData?.employment_history?.length > 0) {
+                  data[key] =
+                    empData["employment_history"][0]?.organisation_name;
+                }
               } else {
                 data[key] = empData[key];
               }
@@ -361,8 +385,10 @@ function EmployeeListCreateHook({ location }) {
   }, [candidateId, traineeId, listData]);
 
   const checkSalaryInfoDebouncer = useMemo(() => {
-    return debounce((e) => {checkForSalaryInfo(e)}, 1000);
-      }, []);
+    return debounce((e) => {
+      checkForSalaryInfo(e);
+    }, 1000);
+  }, [listData]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -479,7 +505,7 @@ function EmployeeListCreateHook({ location }) {
   );
 
   const checkForSalaryInfo = (data) => {
-    if (data?.grade_id) {
+    if (data?.grade_id && data?.cadre_id && data?.designation_id?.id && data?.location_id) {
       let filteredForm = {};
       for (let key in data) {
         if (salaryInfo.includes(key)) {
@@ -496,6 +522,9 @@ function EmployeeListCreateHook({ location }) {
       }
       let req = serviceGetSalaryInfoInfo({
         grade_id: data?.grade_id,
+        cadre_id: data?.cadre_id,
+        designation_id: data?.designation_id?.id,
+        location_id:data?.location_id,
         ...filteredForm,
       });
       req.then((res) => {
@@ -507,13 +536,23 @@ function EmployeeListCreateHook({ location }) {
             if (BOOLEAN_KEYS.includes(key)) {
               value = value ? "YES" : "NO";
             }
-            booleanData[key] = value;
+            if (key === "designation_id") {
+              const designationIndex = listData?.DESIGNATIONS.findIndex(
+                (val) => val.id === value
+              );
+              if (designationIndex >= 0) {
+                booleanData[key] = listData?.DESIGNATIONS[designationIndex];
+              }
+            } else {
+              booleanData[key] = value;
+            }
           }
         }
+        console.log("bool", booleanData);
         setForm({ ...data, ...booleanData });
       });
     } else {
-      SnackbarUtils.error("Please Select the Grade");
+      SnackbarUtils.error("Please Select the Grade , Cadre and Designation");
     }
   };
 
@@ -547,16 +586,25 @@ function EmployeeListCreateHook({ location }) {
         if (!text || isNum(text)) {
           t[fieldName] = text;
         }
+      } else if (fieldName === "grade_id") {
+        t[fieldName] = text;
+        t["cadre_id"] = "";
       } else {
         t[fieldName] = text;
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
 
-      if ([...salaryInfo,'grade_id']?.includes(fieldName)) {
+      if (
+        [...salaryInfo, "grade_id", "cadre_id", "designation_id","location_id"]?.includes(
+          fieldName
+        )
+      ) {
         checkSalaryInfoDebouncer(t);
       }
-    }, [removeError, form, setForm, checkSalaryInfoDebouncer]);
+    },
+    [removeError, form, setForm, checkSalaryInfoDebouncer]
+  );
 
   const checkCodeValidation = useCallback(() => {
     if (form?.emp_code) {
@@ -595,6 +643,7 @@ function EmployeeListCreateHook({ location }) {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+      const vehicleObj = {};
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
         LogUtils.log("key", key);
@@ -611,13 +660,17 @@ function EmployeeListCreateHook({ location }) {
           fd.append(key, form[key]?.id);
         } else if (key === "is_transport_facility") {
           fd.append("is_transport_facility", form[key] === "availed");
-        } else if (BOOLEAN_KEYS.includes(key)){
-          fd.append(key,form[key] === 'YES')
-        }
-         else if (form[key]) {
+        } else if (BOOLEAN_KEYS.includes(key)) {
+          fd.append(key, form[key] === "YES");
+        } else if (["variant", "rc_number"].includes(key)) {
+          vehicleObj[key] = form[key];
+        }else if (form[key]) {
           fd.append(key, form[key]);
         }
       });
+      if (vehicleObj) {
+        fd.append("vehicle", JSON.stringify(vehicleObj));
+      }
       if (remotePath?.length > 0) {
         fd.append("remote_image_path", remotePath);
       }
@@ -654,7 +707,7 @@ function EmployeeListCreateHook({ location }) {
     ].forEach((item) => {
       delete form[item];
     });
-    toggleConfirmDialog()
+    toggleConfirmDialog();
     // submitToServer();
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
@@ -725,11 +778,10 @@ function EmployeeListCreateHook({ location }) {
     defaultImg,
     toggleConfirmDialog,
     isDialog,
-    submitToServer
+    submitToServer,
   };
 }
 
 export default EmployeeListCreateHook;
-
 
 //USC create Hook

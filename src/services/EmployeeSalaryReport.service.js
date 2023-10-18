@@ -15,7 +15,9 @@ export async function serviceDeleteEmployeeSalaryReport(params) {
 export async function serviceGetEmployeeSalaryReport (params) {
     return await postRequest('employee/salary/transactions/comparision/report', params);
 }
-
+export async function serviceGetPmsEmployeeSalaryReport (params) {
+    return await postRequest('employee/salary/transactions/comparison/report/pms', params);
+}
 export async function serviceEmployeeSalaryReportDetail (params) {
     return await postRequest('employee/report/budget/detail', params);
 }

@@ -69,7 +69,6 @@ const OngoingLoans = () => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {console.log("all", all)}
             {all?.code}
           </div>
         ),
@@ -119,7 +118,7 @@ const OngoingLoans = () => {
         label: "CONTACT",
         sortable: false,
         render: (temp, all) => (
-          <div>{all?.employee?.contact?.personal_contact}</div>
+          <div>{all?.employee?.contact?.official_contact ? all?.employee?.contact?.official_contact : '-'}</div>
         ),
       },
       {
@@ -144,8 +143,8 @@ const OngoingLoans = () => {
         sortable: false,
         render: (temp, all) => (
           <div style={{ whiteSpace: "nowrap" }}>
-            {all?.amount || all?.amount === 0
-              ? `₹ ${all?.amount}`
+            {all?.eligibility_calculations?.total_applied_loan || all?.eligibility_calculations?.total_applied_loan === 0
+              ? `₹ ${all?.eligibility_calculations?.total_applied_loan}`
               : ""}
           </div>
         ),

@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { serviceGetLoanSchedule } from "../../../services/LoanList.service";
+import {
+  serviceGetLoanListDetails,
+  serviceGetLoanSchedule,
+} from "../../../services/LoanList.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
+import LogUtils from "../../../libs/LogUtils";
+import { serviceGetEmployeeLoanDetails } from "../../../services/EmployeeLoanList.service";
 
 function useLoanRecovery({ location }) {
   const [loanData, setLoanData] = useState({});
   const userInfo = location?.state;
 
   const getUserInfo = () => {
+    LogUtils.log('run Time')
     let req = serviceGetLoanSchedule({
       id: userInfo?.id,
       total_applied_loan: userInfo?.formValues?.total_applied_loan,
@@ -15,15 +21,30 @@ function useLoanRecovery({ location }) {
       interest: Number(userInfo?.formValues?.interest),
     });
     req.then((res) => {
-      setLoanData(res.data);
+      setLoanData(res?.data);
     });
   };
   useEffect(() => {
-    if (userInfo?.id) {
-      getUserInfo();
+    if (userInfo?.detailId) {
+      LogUtils.log('detail')
+      let req = serviceGetLoanListDetails({ id: userInfo?.detailId });
+      req.then((data) => {
+        const empData = data?.data?.details?.loan;
+        setLoanData(empData?.loanSchedule);
+      });
+    }else if(userInfo?.onGoing){
+      let req = serviceGetEmployeeLoanDetails({ id: userInfo?.onGoing });
+      req.then((data) => {
+        const empData = data?.data?.details;
+        setLoanData(empData?.loanSchedule);
+      });
+    } else {
+      if (userInfo?.id) {
+        getUserInfo();
+      }
     }
   }, [userInfo?.id]);
-  return {loanData};
+  return { loanData };
 }
 
 export default useLoanRecovery;

@@ -22,6 +22,7 @@ function LoanListDetail() {
     handleViewDetails2,
     handleViewRecovery,
     handleViewProcessing,
+    form,
   } = useLoanListDetail({});
 
   return (
@@ -70,16 +71,17 @@ function LoanListDetail() {
                     </span>
                     {employeeDetail?.loan?.description}
                   </div>
-                  {employeeDetail?.loan?.status !== "PENDING" && (
-                    <div className={styles.key7}>
-                      <div
-                        className={styles.hyperlinkText}
-                        onClick={() => handleViewRecovery()}
-                      >
-                        View Recovery Schedule
+                  {employeeDetail?.loan?.status !== "PENDING" &&
+                    form?.interest && (
+                      <div className={styles.key7}>
+                        <div
+                          className={styles.hyperlinkText}
+                          onClick={() => handleViewRecovery()}
+                        >
+                          View Recovery Schedule
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                 </div>
                 <div className={styles.right}>
                   <div className={styles.key}>

@@ -32,6 +32,18 @@ function useOngoingLoanDetail() {
     historyUtils.push(`${RouteName.ADMIN_LOAN_PROCESS}${data?.id}`); //+data.id
   }, []);
 
+  const handleViewRecovery = useCallback(
+    (data) => {
+      historyUtils.push(RouteName.ADMIN_LOAN_RECOVERY, {
+        onGoing: employeeDetail?.id,
+      });
+    },
+    [employeeDetail, id]
+  );
+  const handleViewProcessing = useCallback((data) => {
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.ADMIN_LOAN_PROCESS_DETAIL}${data?.id}`); //+data.id
+  }, []);
   return {
     id,
     employeeDetail,
@@ -40,6 +52,8 @@ function useOngoingLoanDetail() {
     toggleRejectDialog,
     rejectDialog,
     handleViewDetails2,
+    handleViewRecovery,
+    handleViewProcessing
   };
 }
 

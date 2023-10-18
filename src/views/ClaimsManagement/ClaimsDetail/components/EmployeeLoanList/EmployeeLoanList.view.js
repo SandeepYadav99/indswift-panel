@@ -53,7 +53,14 @@ const EmployeeLoanList = ({}) => {
         key: "amount",
         label: "PRINCIPLE AMOUNT",
         sortable: false,
-        render: (temp, all) => <div>{all?.amount && `₹ ${all?.amount}`}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.amount ||
+            all?.amount === 0
+              ? `₹ ${all?.amount}`
+              : ""}
+          </div>
+        ),
       },
       {
         key: "issue",

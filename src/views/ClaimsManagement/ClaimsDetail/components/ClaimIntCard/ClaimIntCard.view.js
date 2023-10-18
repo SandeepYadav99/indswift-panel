@@ -36,6 +36,13 @@ function ClaimIntCard() {
     tourType,
     changeAmount,
     setCurrency,
+    getTotalValue,
+    setOfficeAmount,
+    officeAmount,
+    getRefundAmount,
+    setOfficeAmount2,
+    officeAmount2,
+    imprestAmount
   } = useClaimIntCard({});
 
   return (
@@ -63,7 +70,7 @@ function ClaimIntCard() {
                   freeSolo: false,
                   getOptionLabel: (option) => option.code,
                 }}
-                dataset={employees}
+                dataset={employees ? employees : []}
                 datasetKey={"code"}
                 onTextChange={(text, value) => {
                   changeTextData(text, "travel_planner_id");
@@ -125,6 +132,7 @@ function ClaimIntCard() {
               changeAmount={changeAmount}
               tourType={tourType}
               setCurrency={setCurrency}
+              setOfficeAmount={setOfficeAmount}
             />
           </div>
         </div>
@@ -140,6 +148,7 @@ function ClaimIntCard() {
               ref={travelRef}
               grade={employeeDetails?.grade?.code}
               changeAmount={changeAmount}
+              setOfficeAmount2={setOfficeAmount2}
             />
           </div>
         </div>
@@ -190,8 +199,40 @@ function ClaimIntCard() {
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Summary</div>
         <div className={styles.lowerWrapImprest}>
-          <div className={styles.headingWrap}>Imprest for tour:<span>{form?.travel_planner_id?.imprest?.code}</span></div>
-          <div className={styles.headingWrap}>Amount:<span>{getCurrency(form?.travel_planner_id?.imprest?.currency)}{form?.travel_planner_id?.imprest?.amount}</span></div>
+          <div className={styles.headingWrap}>
+            Imprest for tour:
+            <span>{form?.travel_planner_id?.myImprest?.code}</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Amount:
+            <span>
+              {getCurrency(form?.travel_planner_id?.myImprest?.currency)}
+              {imprestAmount ? imprestAmount : 0}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.heading}>Reimbursable Expense</div>
+        <div className={styles.lowerWrapImprest}>
+          <div className={styles.headingWrap}>
+            Total Expense (self + office):
+            <span>{getTotalValue ? ` ₹ ${getTotalValue}` : 0}</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Self Borne Expense::
+            <span>₹ {Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2))}</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Office Borne Expense:
+            <span>₹ {(Number(officeAmount) + Number(officeAmount2))}</span>
+          </div>
+        </div>
+        <div className={styles.totalWrap}>
+          <div className={styles.inner}>
+            Amount to be Refunded:{" "}
+            <span>{getRefundAmount ? `₹ ${getRefundAmount}` : 0}</span>
+          </div>
         </div>
       </div>
       <div className={styles.cleckboxWrapper}>

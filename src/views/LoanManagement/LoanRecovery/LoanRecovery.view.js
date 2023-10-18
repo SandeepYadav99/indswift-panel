@@ -6,6 +6,7 @@ import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import DataTables from "../../../Datatables/Datatable.table";
 import constants from "../../../config/constants";
+import EmiTable from "./component/EmiTable/EmiTable.view";
 
 function LoanRecovery({ location }) {
   const { loanData, handleSortOrderChange, handleRowSize, handlePageChange } =
@@ -37,7 +38,7 @@ function LoanRecovery({ location }) {
         key: "interest",
         label: "INTEREST",
         sortable: false,
-        render: (value, all) => <div>{all.Interest && `${all.Interest} %` }</div>,
+        render: (value, all) => <div>{all.Interest && `₹ ${all.Interest} ` }</div>,
       },
       {
         key: "principal",
@@ -149,7 +150,7 @@ function LoanRecovery({ location }) {
                   <div className={styles.key}>
                     <span className={styles.value}>Tenure of Loan:</span>
                     {loanData?.totalTenureYear &&
-                      `${loanData?.totalTenureYear.toFixed(2)} yr`}
+                      `${Math.floor(loanData?.totalTenureYear)} yr`}
                   </div>
                 </div>
               </div>
@@ -181,21 +182,19 @@ function LoanRecovery({ location }) {
                     <span className={styles.value}>Months:</span>
                     {loanData?.totalTenureMounth}
                   </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Loan A/C-:</span>
-                    {/* {loanData?.loanType} */}
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className={styles.TableWrapper}>
-          <DataTables
+          {/* <DataTables
             {...tableData.datatable}
             {...tableData.datatableFunctions}
-          />
+          /> */}
         </div>
+        <br/>
+        <EmiTable data={loanData?.loanEmi}/>
       </div>
     </div>
   );

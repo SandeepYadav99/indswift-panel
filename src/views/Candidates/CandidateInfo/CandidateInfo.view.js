@@ -1,5 +1,5 @@
 import { ButtonBase, MenuItem, TextField } from "@material-ui/core";
-import React from "react";
+import React,{useEffect} from "react";
 import useCandidateInfo from "./CandidateInfo.hook";
 import styles from "./Style.module.css";
 import UpperDetail from "./component/UpperDetail";
@@ -11,11 +11,41 @@ import ProfessionalInfo from "./component/Info/ProfessionalInfo";
 import HistoryInfo from "./component/Info/HistoryInfo";
 import SalaryInfo from "./component/Info/SalaryInfo";
 import OtherInfo from "./component/Info/OtherInfo";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
+
 
 function CandidateInfo() {
   const { handlePreviousPage, personalData } = useCandidateInfo({});
+
+  useEffect(() => {
+    const handleKeyPress = async (event) => {
+      if (event.ctrlKey && event.key === 'p') {
+        event.preventDefault(); 
+
+        const content = document.getElementById('content-to-print');
+
+        const canvas = await html2canvas(content);
+
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
+
+        pdf.autoPrint();
+        window.open(pdf.output('bloburl'), '_blank');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   return (
-    <div className="CandidateInfoWrappers">
+    <div className="CandidateInfoWrappers" id="content-to-print">
       <div className={styles.employeeLoginWrapper}>
         <div className={styles.employeeLoginContainer}>
           <div className={styles.logoImg}>

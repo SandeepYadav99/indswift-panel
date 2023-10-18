@@ -15,8 +15,9 @@ import EmployeeInductionComponent from "./components/EmployeeInduction/EmployeeI
 import MonthlyTheme from "./components/MonthlyTheme/MonthlyTheme";
 import CAGRView from "./components/CAGR/CAGRView";
 import LoanBudget from "./components/LoanBudget/LoanBudget.view";
-import CPCView from "./components/CPC/CPCView";
 import EmailComp from "./components/EmailComp/EmailComp.view";
+import USCView from "./components/USC/USCView";
+import CurrencyView from "./components/Currency/CurrencyView.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,12 +50,14 @@ const HRSettings = ({}) => {
       return <MonthlyTheme />;
     } else if (value === 3) {
       return <CAGRView />;
-    } else if (value === 4) {
-      return <CPCView />;
-    } else if (value === 5) {
+    }else if (value === 4) {
       return <LoanBudget />;
-    } else if (value === 6) {
+    } else if (value === 5) {
       return <EmailComp />;
+    }else if (value === 6){
+      return <USCView/>
+    }else if (value === 7){
+      return <CurrencyView/>
     }
     return <h1>{value}</h1>;
   }, []);
@@ -75,9 +78,11 @@ const HRSettings = ({}) => {
             <Tab label="Monthly Theme" {...a11yProps(1)} />
             <Tab label="Drishti Updates" {...a11yProps(2)} />
             <Tab label="CAGR values" {...a11yProps(3)} />
-            <Tab label="CPC File" {...a11yProps(4)} />
-            <Tab label="Loan Budget" {...a11yProps(5)} />
-            <Tab label="Email Composer" {...a11yProps(6)} />
+            {/* <Tab label="CPC File" {...a11yProps(4)} /> */}
+            <Tab label="Loan Budget" {...a11yProps(4)} />
+            <Tab label="Email Composer" {...a11yProps(5)} />
+            <Tab label="USC" {...a11yProps(6)} />
+            <Tab label="Currency Conversion" {...a11yProps(6)} />
           </Tabs>
           <div className={styles.tabPanel}>{renderPanel(tabIndex)}</div>
         </div>

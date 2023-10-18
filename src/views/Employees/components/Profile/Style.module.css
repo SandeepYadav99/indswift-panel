@@ -36,6 +36,11 @@
     overflow-wrap: anywhere;
     text-transform: uppercase;
 }
+.valueWrapCaps{
+    max-width: 180px;
+    overflow-wrap: anywhere;
+    text-transform: capitalize; 
+}
 .valueWrapemail{
     max-width: 180px;
     overflow-wrap: anywhere;

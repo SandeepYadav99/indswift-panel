@@ -146,7 +146,11 @@ function LoanProcessDetail() {
                       <div className={styles.key}>
                         <span className={styles.value}>Department:</span>
                         {item?.department}
-                      </div>{" "}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Salary:</span>
+                        {item?.guaranteeSalary && `₹ ${item?.guaranteeSalary}`}
+                      </div>
                       <div className={styles.key}>
                         <span className={styles.value}>Status:</span>
                         {
@@ -416,7 +420,7 @@ function LoanProcessDetail() {
             <div className={styles.Wrap}>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Tenure (MONTHS)/ EMIs:</span>
-                {info?.totalTenureMounth}
+                {info?.totalTenureMounth}{info?.loanEmi?.length > 0 ? `/ ₹ ${info?.loanEmi?.[0]?.EMI}` : ""}
               </div>
               <div className={styles.keyWrap}>
                 <span className={styles.value}>Net Recovery Amount: </span>
@@ -450,6 +454,7 @@ function LoanProcessDetail() {
           form={form}
           changeTextData={changeTextData}
           afterAmount={afterAmount}
+          errorData={errorData}
         />
       </div>
       <div className={styles.plainPaper}>

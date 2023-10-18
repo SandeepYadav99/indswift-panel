@@ -41,6 +41,7 @@ const AnnualList = ({}) => {
     locationId,
     setLocationId,
     sanction,
+    role,
   } = useAnnualList({});
 
   const {
@@ -166,26 +167,30 @@ const AnnualList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleSideInfo(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleSideToggle(all);
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
+            {role === "CORPORATE_HR" && (
+              <>
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    handleSideInfo(all);
+                  }}
+                >
+                  <InfoOutlined fontSize={"small"} />
+                </IconButton>
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    handleSideToggle(all);
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </>
+            )}
           </div>
         ),
       },
@@ -274,26 +279,30 @@ const AnnualList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleSideInfo(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleSideToggle(all);
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
+            {role === "CORPORATE_HR" && (
+              <>
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    handleSideInfo(all);
+                  }}
+                >
+                  <InfoOutlined fontSize={"small"} />
+                </IconButton>
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    handleSideToggle(all);
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </>
+            )}
           </div>
         ),
       },

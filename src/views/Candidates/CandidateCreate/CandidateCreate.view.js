@@ -21,6 +21,7 @@ import CustomToggle from "../../../components/FormFields/CustomToggle";
 import Constants from "../../../config/constants";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import LogUtils from "../../../libs/LogUtils";
+import DialogComponent from "./components/DuplicateDialog/DuplicateDialog";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -52,7 +53,10 @@ const CandidateCreateView = ({ location }) => {
     jobDetails,
     isReoccuring,
       editData,
-      isEditEnabled
+      isEditEnabled,
+      isDialog,
+      toggleConfirmDialog,
+      candidatedata
   } = useCandidateDetail({ location });
   const classes = useStyles();
 
@@ -69,7 +73,11 @@ const CandidateCreateView = ({ location }) => {
           <div className={styles.newLine} />
         </div>
       </div>
-
+      <DialogComponent
+        isOpen={isDialog}
+        handleClose={toggleConfirmDialog}
+        candidatedata={candidatedata}
+        />
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>

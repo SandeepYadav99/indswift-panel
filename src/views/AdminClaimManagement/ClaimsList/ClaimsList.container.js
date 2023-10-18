@@ -151,6 +151,18 @@ const ClaimsList = ({ location }) => {
         render: (temp, all) => <div>{removeUnderScore(all?.claim?.claim_type)}</div>,
       },
       {
+        key: "tap",
+        label: "ASSOCIATED TAP ID",
+        sortable: false,
+        render: (temp, all) => <div>{all?.claim?.travelPlanner?.code ? all?.claim?.travelPlanner?.code : 'N.A'}</div>,
+      },
+      {
+        key: "co",
+        label: "NO. OF CO TRAVELLERS",
+        sortable: false,
+        render: (temp, all) => <div>{all?.claim?.travelPlanner?.coPassengersCount ? all?.claim?.travelPlanner?.coPassengersCount : 'N.A'}</div>,
+      },
+      {
         key: "status",
         label: "Current status/Overall status",
         sortable: true,

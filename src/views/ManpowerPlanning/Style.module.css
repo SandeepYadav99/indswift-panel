@@ -24,7 +24,16 @@
     display: flex;
     align-items: center;
 }
-
+.experseWrap{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 10px;
+    color: #2896E9;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: .8rem;
+}
 .firstCellFlex .driverImgCont {
     width: 40px;
     height: 40px;

@@ -1,12 +1,16 @@
 import React, { useCallback } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import { serviceApproveCLaim, serviceDetailsCLaim } from "../../../services/Claims.service";
+import {
+  serviceApproveCLaim,
+  serviceDetailsCLaim,
+} from "../../../services/Claims.service";
 import { useState } from "react";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import { useRef } from "react";
 import RouteName from "../../../routes/Route.name";
+import { useMemo } from "react";
 
 const initialForm = {
   comment: "",
@@ -23,6 +27,8 @@ const amountKeys = {
 function useTravelClaimListDetail() {
   const [form, setForm] = useState({ ...initialForm });
   const [totalAmount, setTotalAmount] = useState({ ...amountKeys });
+  const [officeAmount, setOfficeAmount] = useState(0);
+  const [officeAmount2, setOfficeAmount2] = useState(0);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -35,6 +41,9 @@ function useTravelClaimListDetail() {
   const enterRef = useRef(null);
   const otherRef = useRef(null);
 
+  const EmpId = window.location.pathname?.includes("/cm/hr/travel/details/")
+    ? { employee_id: "63d9267d3d18b8ce6e9b700c" }
+    : {};
   const { id } = useParams();
   useEffect(() => {
     let req = serviceDetailsCLaim({ id: id });
@@ -58,7 +67,7 @@ function useTravelClaimListDetail() {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["comment"];
+    let required = [];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -75,6 +84,38 @@ function useTravelClaimListDetail() {
     return errors;
   }, [form, errorData, employeeDetail]);
 
+  const getTotalValue = useMemo(() => {
+    return Object.values(totalAmount).reduce((acc, value) => {
+      if (value !== "") {
+        acc += parseFloat(value);
+      }
+      return acc;
+    }, 0);
+  }, [totalAmount, setTotalAmount]);
+
+  const imprestAmount = useMemo(() => {
+    if (employeeDetail?.imprest?.status === "ACCOUNTS_APPROVED") {
+      return employeeDetail?.imprest?.amount;
+    }
+    return 0;
+  }, [employeeDetail]);
+
+  const getRefundAmount = useMemo(() => {
+    return imprestAmount
+      ? Number(getTotalValue) -
+          (Number(officeAmount) + Number(officeAmount2)) -
+          Number(imprestAmount)
+      : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
+  }, [employeeDetail, getTotalValue, officeAmount, officeAmount2,imprestAmount]);
+
+  console.log(
+    "totalAmount",
+    getTotalValue,
+    "one",
+    officeAmount,
+    "two",
+    officeAmount2
+  );
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
@@ -83,12 +124,12 @@ function useTravelClaimListDetail() {
       const DAData = daRef.current.getData();
       const EnterData = enterRef.current.getData();
       const OtherData = otherRef.current.getData();
-      const sum = Object.values(totalAmount).reduce((acc, value) => {
-        if (value !== "") {
-          acc += parseFloat(value);
-        }
-        return acc;
-      }, 0);
+      // const sum = Object.values(totalAmount).reduce((acc, value) => {
+      //   if (value !== "") {
+      //     acc += parseFloat(value);
+      //   }
+      //   return acc;
+      // }, 0);
       const objData = {
         ...form,
         review_id: id,
@@ -98,14 +139,20 @@ function useTravelClaimListDetail() {
           da_ie_expenses: DAData,
           entertainment_expenses: EnterData,
           tap_other_expenses: OtherData,
-          total_amount: sum,
+          total_amount: getRefundAmount,
+          total_expense: getTotalValue ? getTotalValue : 0,
+          office_expense: Number(officeAmount) + Number(officeAmount2),
+          self_expense:
+            Number(getTotalValue) -
+            (Number(officeAmount) + Number(officeAmount2)),
           ...totalAmount,
         },
       };
       console.log("Payload", objData);
-      serviceApproveCLaim({ ...objData}).then((res) => {
+      serviceApproveCLaim({ ...objData, ...EmpId }).then((res) => {
         if (!res.error) {
-          historyUtils.push(RouteName.CLAIMS_LIST);
+          historyUtils.goBack()
+          // historyUtils.push(RouteName.CLAIMS_LIST);
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -113,7 +160,20 @@ function useTravelClaimListDetail() {
       });
       setIsSubmitting(false);
     }
-  }, [form, isSubmitting, setIsSubmitting, id, totalAmount, setTotalAmount]);
+  }, [
+    form,
+    isSubmitting,
+    setIsSubmitting,
+    id,
+    totalAmount,
+    setTotalAmount,
+    getTotalValue,
+    officeAmount,
+    setOfficeAmount,
+    officeAmount2,
+    setOfficeAmount2,
+    getRefundAmount,
+  ]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -212,6 +272,13 @@ function useTravelClaimListDetail() {
     enterRef,
     otherRef,
     changeAmount,
+    getTotalValue,
+    setOfficeAmount,
+    officeAmount,
+    setOfficeAmount2,
+    officeAmount2,
+    getRefundAmount,
+    imprestAmount
   };
 }
 

@@ -33,3 +33,24 @@ export async function serviceGetPmsIncrements(params){
 export async function serviceSetEmailTrigger(params) {
     return await postRequest('employees/send/bulk/email', params);
 }
+export async function serviceGetUscList(params) {
+    return await postRequest('location/salary', params);
+}
+export async function serviceGetUscScriptUpdate(params) {
+    return await postRequest('location/salary/update/salary', params);
+}
+export async function serviceGetUscDetails(params) {
+    return await postRequest('location/salary/detail', params);
+}
+export async function serviceGetUscUpdate(params) {
+    return await postRequest('location/salary/update', params);
+}
+export async function serviceGetCurrencyList(params) {
+    return await postRequest('currencies', params);
+}
+export async function serviceGetCurrencyDetails(params) {
+    return await postRequest('currencies/detail', params);
+}
+export async function serviceGetCurrencyUpdate(params) {
+    return await postRequest('currencies/update', params);
+}

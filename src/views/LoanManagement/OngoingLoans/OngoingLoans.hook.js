@@ -117,22 +117,6 @@ const useOngoingLoans = ({}) => {
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
-      {
-        label: "Status",
-        name: "loanObj.status",
-        type: "select",
-        fields: [
-          "REJECTED",
-          "PENDING",
-          "APPROVED",
-          "PROCESSED",
-          "CORPORATE_HR_APPROVED",
-          "MD_APPROVED",
-          "SITE_HR_APPROVED",
-          "CORPORATE_AUDIT_1_APPROVED",
-          "CORPORATE_AUDIT_2_APPROVED",
-        ],
-      },
     ];
   }, [listData]);
 

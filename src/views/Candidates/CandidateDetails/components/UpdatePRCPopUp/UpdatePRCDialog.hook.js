@@ -1,38 +1,50 @@
-import {useCallback, useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import { useCallback, useEffect, useState } from "react";
+import {
+  serviceGetCandidatePRCList,
+  serviceGetCandidatePRCUpdate,
+} from "../../../../../services/Candidate.service";
+import historyUtils from "../../../../../libs/history.utils";
+import RouteName from "../../../../../routes/Route.name";
 import LogUtils from "../../../../../libs/LogUtils";
+import useDebounce from "../../../../../hooks/DebounceHook";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
-import { serviceChangeEmployeePassword } from "../../../../../services/Employee.service";
 
 const initialForm = {
-  password: '',
-    share_password: false
+  code: "",
 };
-
-const useUpdatePRCDialogHook = ({
-  isOpen,
-    handleToggle
-}) => {
+const useUpdatePRCDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
-    const { employeeData } = useSelector((state) => state.employee);
   const [errorData, setErrorData] = useState({});
-  const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-  const [resData, setResData] = useState([]);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [jobs, setJobs] = useState([]);
+  const [IsReoccuring, setIsReoccuring] = useState(false);
+  const [employeeList, setEmployeeList] = useState([]);
+  const codeDebouncer = useDebounce(form?.code, 500);
+
+  const checkCodeValidation = useCallback(() => {
+    serviceGetCandidatePRCList({ code: form?.code }).then((res) => {
+      const ed = { ...errorData };
+      const dataValue = res?.data;
+      if (!res.error) {
+        delete ed["code"];
+        setForm({ ...form, ...dataValue });
+      } else {
+        ed["code"] = "Job Id does not Exist";
+        setForm({
+          code: form?.code,
+        });
+      }
+      setErrorData(ed);
+    });
+  }, [errorData, setErrorData, form?.code]);
 
   useEffect(() => {
-    if (isOpen) {
-      setForm({ ...initialForm });
-      setResData([]);
-      setIsSubmitted(false);
-      setIsVerified(false);
-      setErrorData({});
+    if (codeDebouncer) {
+      checkCodeValidation();
     }
-  }, [isOpen]);
+  }, [codeDebouncer]);
 
   const removeError = useCallback(
     (title) => {
@@ -50,62 +62,57 @@ const useUpdatePRCDialogHook = ({
       t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
-      setIsVerified(false);
     },
-    [removeError, form, setForm, setIsVerified]
+    [removeError, form, setForm]
   );
 
-    const checkFormValidation = useCallback(() => {
-        const errors = {...errorData};
-        let required = ['password'];
-        required.forEach(val => {
-            if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
-                errors[val] = true;
-            } else if ([].indexOf(val) < 0) {
-                delete errors[val]
-            }
-        });
-        Object.keys(errors).forEach(key => {
-            if (!errors[key]) {
-                delete errors[key];
-            }
-        })
-        return errors;
-    }, [form, errorData]);
+  const checkFormValidation = useCallback(() => {
+    const errors = { ...errorData };
+    let required = ["code"];
+    required.forEach((val) => {
+      if (
+        !form?.[val] ||
+        (Array.isArray(form?.[val]) && form?.[val].length === 0)
+      ) {
+        errors[val] = true;
+      } else if ([].indexOf(val) < 0) {
+        delete errors[val];
+      }
+    });
+    Object.keys(errors).forEach((key) => {
+      if (!errors[key]) {
+        delete errors[key];
+      }
+    });
+    return errors;
+  }, [form, errorData, IsReoccuring]);
 
-    const submitToServer = useCallback(() => {
-        if (!isSubmitting) {
-            setIsSubmitting(true);
-            serviceChangeEmployeePassword({
-                emp_id: employeeData?.id,
-                ...form
-            }).then(res => {
-                if (!res.error) {
-                    SnackbarUtils.success('Password Changed Successfully');
-                    handleToggle();
-                } else {
-                    SnackbarUtils.error(res?.message);
-                }
-                setIsSubmitting(false);
-            })
+  const submitToServer = useCallback(() => {
+    if (!isSubmitting) {
+      console.log("form", form);
+      let req = serviceGetCandidatePRCUpdate({
+        job_id: form?.id,
+        candidate_id: candidateId,
+      });
+      req.then((res) => {
+        if (!res.error) {
+          handleToggle();
+        } else {
+          SnackbarUtils.error(res?.message);
         }
-    }, [form, isSubmitting, setIsSubmitting, employeeData, handleToggle ]);
-
-    const handleSubmit = useCallback(async () => {
-        const errors = checkFormValidation();
-        LogUtils.log('errors', errors);
-        if (Object.keys(errors).length > 0) {
-            setErrorData(errors);
-            return true;
-        }
-        // submitToServer();
-
-    }, [
-        checkFormValidation,
-        setErrorData,
-        form,
-        submitToServer
-    ]);
+        setIsSubmitting(false);
+      });
+      LogUtils.log("submitToServer");
+    }
+  }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId]);
+  const handleSubmit = useCallback(async () => {
+    const errors = checkFormValidation();
+    if (Object.keys(errors).length > 0) {
+      setErrorData(errors);
+      return true;
+    }
+    submitToServer();
+  }, [checkFormValidation, setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(
     (type) => {
@@ -124,13 +131,9 @@ const useUpdatePRCDialogHook = ({
     handleSubmit,
     errorData,
     isSubmitting,
-    resData,
-    isSubmitted,
-    isVerified,
-    showPasswordCurrent,
-    setShowPasswordCurrent
-
-
+    IsReoccuring,
+    jobs,
+    employeeList,
   };
 };
 

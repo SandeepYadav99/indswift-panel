@@ -61,6 +61,8 @@ export default {
 
   SETTINGS: "/settings",
   HR_SETTINGS: "/hr/settings",
+  HR_USC_UPDATE:'/hr/usc/update/',
+  CURRENCY_UPDATE:'/hr/currency/update/',
 
   EMPLOYEE_DASHBOARD: "/employee/dashboard",
   RESET_PASSWORD_FIRST: "/reset/password/first",
@@ -104,7 +106,10 @@ export default {
 
   CLAIMS_LIST:'/cm/claims' ,
   CLAIMS_DETAILS:'/cm/details/',
+  CLAIMS_HR_DETAILS:'/cm/hr/details/',
   TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',
+  TRAVEL_HR_CLAIMS_DETAILS:'/cm/hr/travel/details/',
+  CLAIMS_HR_LIST:'/cm/hr/claims' ,
 
   CLAIMS_MARRIGE:'/employee/claim/marriage',
   CLAIMS_MOBILE:'/employee/claim/mobile',
@@ -113,6 +118,7 @@ export default {
   CLAIMS_HEALTH:'/employee/claim/health',
   CLAIMS_TRAVEL:'/employee/claim/travel',
   CLAIMS_INT:'/employee/claim/int',
+  CLAIMS_CURR:'/employee/claim/curr',
   CLAIMS_INTERVIEW:'/cm/interview',
   CLAIMS_INTERVIEW_DETAILS:'/cm/interview/details/',
   CLAIMS_LOC:'/employee/claim/loc',
@@ -172,6 +178,7 @@ export default {
   PMS_4B_FORM: '/pms/4B/submission',
   PMS_4B_REVIEW_DETAIL: '/pms/4B/detail/',
   EMPLOYEE_SALARY:'/employee/salary',
+  EMPLOYEE_INCREMENT_SALARY:'/employee/increment/salary',
 
 
   PMS_INCREMENT_PLANNER : '/increment/planner',

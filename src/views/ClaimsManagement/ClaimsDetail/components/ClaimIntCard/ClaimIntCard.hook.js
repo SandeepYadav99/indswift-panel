@@ -12,6 +12,7 @@ import nullImg from "../../../../../assets/img/null.png";
 import { dataURLtoFile } from "../../../../../helper/helper";
 import historyUtils from "../../../../../libs/history.utils";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import moment from "moment";
 
 const initialForm = {
   travel_planner_id: "",
@@ -34,6 +35,8 @@ function useClaimIntCard() {
   const [form, setForm] = useState({ ...initialForm });
   const [declaration, setDeclaration] = useState(false);
   const [totalAmount, setTotalAmount] = useState({ ...amountKeys });
+  const [officeAmount, setOfficeAmount] = useState(0);
+  const [officeAmount2, setOfficeAmount2] = useState(0);
   const lodgeRef = useRef(null);
   const travelRef = useRef(null);
   const daRef = useRef(null);
@@ -85,6 +88,47 @@ function useClaimIntCard() {
     return errors;
   }, [form, errorData]);
 
+  // const ImprestAmount =
+  //   (() => {
+  //     if (form?.travel_planner_id?.id) {
+  //       if (form?.travel_planner_id?.imprest?.status === "ACCOUNTS_APPROVED") {
+  //         return form?.travel_planner_id?.imprest?.amount;
+  //       }
+  //     }
+  //     return 0;
+  //   },
+  //   [form?.travel_planner_id]);
+
+  const imprestAmount = useMemo(() => {
+    if (form?.travel_planner_id?.myImprest?.status === "ACCOUNTS_APPROVED") {
+      return form?.travel_planner_id?.myImprest?.amount;
+    }
+    return 0;
+  }, [form]);
+
+  const getTotalValue = useMemo(() => {
+    return Object.values(totalAmount).reduce((acc, value) => {
+      if (value !== "") {
+        acc += parseFloat(value);
+      }
+      return acc;
+    }, 0);
+  }, [totalAmount, setTotalAmount]);
+
+  const getRefundAmount = useMemo(() => {
+    return imprestAmount
+      ? Number(getTotalValue) -
+          (Number(officeAmount) + Number(officeAmount2)) -
+          Number(imprestAmount)
+      : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
+  }, [
+    form?.travel_planner_id,
+    getTotalValue,
+    officeAmount,
+    officeAmount2,
+    imprestAmount,
+  ]);
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsLoading(true);
@@ -95,14 +139,14 @@ function useClaimIntCard() {
       Object.keys(totalAmount).forEach((key) => {
         fd.append(key, totalAmount[key]);
       });
-      const sum = Object.values(totalAmount).reduce((acc, value) => {
-        if (value !== "") {
-          acc += parseFloat(value);
-        }
-        return acc;
-      }, 0);
+      // const sum = Object.values(totalAmount).reduce((acc, value) => {
+      //   if (value !== "") {
+      //     acc += parseFloat(value);
+      //   }
+      //   return acc;
+      // }, 0);
 
-      fd.append("total_amount", sum);
+      fd.append("total_amount", getRefundAmount);
       const lodgeData = lodgeRef.current.getData();
 
       let modifiedArr = lodgeData?.map((item) => {
@@ -164,8 +208,14 @@ function useClaimIntCard() {
           fd.append("da_payment_proof", file);
         }
       });
-      fd.append("da_ie_expenses", JSON.stringify(daData));
-
+      const modifiedData = daData.map((item) => {
+        return {
+          ...item,
+          start_time: moment(item.start_time).format("hh:mm A"),
+          end_time: moment(item.end_time).format("hh:mm A"),
+        };
+      });
+      fd.append("da_ie_expenses", JSON.stringify(modifiedData));
       const enterData = enterRef.current.getData();
       enterData.forEach((val) => {
         if (val?.entertainment_payment_proof) {
@@ -176,6 +226,12 @@ function useClaimIntCard() {
         }
       });
       fd.append("entertainment_expenses", JSON.stringify(enterData));
+      fd.append("total_expense", getTotalValue ? getTotalValue : 0);
+      fd.append("office_expense", Number(officeAmount) + Number(officeAmount2));
+      fd.append(
+        "self_expense",
+        Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2))
+      );
 
       const otherData = otherRef.current.getData();
       otherData.forEach((val) => {
@@ -203,6 +259,12 @@ function useClaimIntCard() {
     setTotalAmount,
     currency,
     setCurrency,
+    getTotalValue,
+    officeAmount,
+    setOfficeAmount,
+    officeAmount2,
+    setOfficeAmount2,
+    getRefundAmount,
   ]);
 
   const removeError = useCallback(
@@ -265,7 +327,17 @@ function useClaimIntCard() {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, submitToServer]);
+  }, [
+    checkFormValidation,
+    setErrorData,
+    submitToServer,
+    getTotalValue,
+    officeAmount,
+    setOfficeAmount,
+    officeAmount2,
+    setOfficeAmount2,
+    getRefundAmount,
+  ]);
 
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -290,6 +362,7 @@ function useClaimIntCard() {
     setForm({ ...initialForm });
   }, [form]);
 
+  console.log("part", officeAmount2);
   return {
     employeeDetails,
     employees,
@@ -315,6 +388,13 @@ function useClaimIntCard() {
     changeAmount,
     tourType,
     setCurrency,
+    getTotalValue,
+    setOfficeAmount,
+    officeAmount,
+    setOfficeAmount2,
+    officeAmount2,
+    getRefundAmount,
+    imprestAmount,
   };
 }
 

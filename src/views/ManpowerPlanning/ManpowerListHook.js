@@ -10,6 +10,7 @@ import {
 import historyUtils from "../../libs/history.utils";
 import { serviceGetList } from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
+import { serviceGetManDetail } from "../../services/Manpower.service";
 
 const useManpowerList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -21,9 +22,9 @@ const useManpowerList = ({}) => {
   const [selected, setSelected] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
   const [warehouseId, setWareHouseId] = useState("");
-  const [type,setType]=useState("")
+  const [type, setType] = useState("");
   const [locationId, setLocationId] = useState("");
-  const [sanction,SetSanction]=useState({})
+  const [sanction, SetSanction] = useState({});
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
@@ -41,15 +42,15 @@ const useManpowerList = ({}) => {
   useEffect(() => {
     const storedLoc = sessionStorage.getItem("manlocation");
     const storedYr = sessionStorage.getItem("manwarehouse");
-    const storedType= sessionStorage.getItem("mantype");
+    const storedType = sessionStorage.getItem("mantype");
     if (storedLoc) {
       setLocationId(storedLoc);
     }
     if (storedYr) {
       setWareHouseId(storedYr);
     }
-    if(storedType){
-      setType(storedType)
+    if (storedType) {
+      setType(storedType);
     }
   }, []);
 
@@ -59,6 +60,20 @@ const useManpowerList = ({}) => {
     query,
     query_data: queryData,
   } = useSelector((state) => state.manpower);
+
+  useEffect(() => {
+    if (warehouseId && locationId && type) {
+      serviceGetManDetail({
+        location_id: locationId,
+        fy_year: warehouseId,
+        employee_type: type,
+      }).then((res) => {
+        if (!res.error) {
+          SetSanction(res.data);
+        }
+      });
+    }
+  }, [warehouseId, locationId, type]);
 
   const resetData = useCallback(
     (sort = {}, updateQuery = {}) => {
@@ -71,21 +86,21 @@ const useManpowerList = ({}) => {
             query_data: isMountRef.current ? queryData : null,
             fy_year: warehouseId,
             location_id: locationId,
-            employee_type:type,
+            employee_type: type,
             ...updateQuery,
           }
         )
       );
       isMountRef.current = true;
     },
-    [query, queryData, warehouseId, sortingData, type,locationId]
+    [query, queryData, warehouseId, sortingData, type, locationId]
   );
 
   useEffect(() => {
     if (warehouseId && locationId && type) {
       resetData();
     }
-  }, [warehouseId, locationId,type]);
+  }, [warehouseId, locationId, type]);
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
@@ -229,7 +244,7 @@ const useManpowerList = ({}) => {
     listData,
     locationId,
     setLocationId,
-    sanction
+    sanction,
   };
 };
 

@@ -48,6 +48,24 @@ const ExpenseIncludeFields = ({
     }
   };
 
+  useEffect(() => {
+    if (data?.mode) {
+      if (data?.mode === "OWN_CAR") {
+        if (data?.total_kms) {
+          changeData(index, {
+            ["amount"]: 9 * Number(data?.total_kms),
+          });
+        }
+      } else if (data?.mode === "TWO_WHEELER") {
+        if (data?.total_kms) {
+          changeData(index, {
+            ["amount"]: 5 * Number(data?.total_kms),
+          });
+        }
+      }
+    }
+  }, [data?.total_kms, data?.mode]);
+
   return (
     <div>
       <div className={styles.heading}>Travel Type</div>
@@ -158,14 +176,14 @@ const ExpenseIncludeFields = ({
           <div className={styles.flex1}>
             <TextField
               type="number"
-              error={errors?.amount}
+              error={errors?.total_kms}
               onChange={handleChange}
-              value={data?.amount}
+              value={data?.total_kms}
               fullWidth={true}
-              name={"amount"}
+              name={"total_kms"}
               margin={"dense"}
               variant={"outlined"}
-              label={"Expense Amount"}
+              label={"No of KMs"}
             />
           </div>
         </div>
@@ -210,15 +228,18 @@ const ExpenseIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
+              disabled={
+                data?.mode === "OWN_CAR" || data?.mode === "TWO_WHEELER"
+              }
               type="number"
-              error={errors?.total_kms}
+              error={errors?.amount}
               onChange={handleChange}
-              value={data?.total_kms}
+              value={data?.amount}
               fullWidth={true}
-              name={"total_kms"}
+              name={"amount"}
               margin={"dense"}
               variant={"outlined"}
-              label={"No of KMs"}
+              label={"Expense Amount"}
             />
           </div>
           <div className={"textCenter"}>

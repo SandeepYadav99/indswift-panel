@@ -1,6 +1,6 @@
 import React, {useCallback, useMemo, useState} from "react";
 import styles from "./Style.module.css";
-import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
+import { Edit, InfoOutlined, RepeatRounded } from "@material-ui/icons";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import ActionButton from "../../../../../components/ActionButton/ActionButton";
 import DefaultImg from "../../../../../assets/img/download.png";
@@ -14,7 +14,8 @@ const UpperCard = ({
   handleStatusToggle,
   handleOfferPage,
   handleToggleExtendPage,
-  handleShare
+  handleShare,
+  checkPrc
 }) => {
   const [isShareDialog, setIsShareDialog] = useState(false);
   const {user_profile, role} = useSelector(state => state.auth);
@@ -103,12 +104,14 @@ const UpperCard = ({
                  <span className={styles.actionBtnSpan}>Update Status</span>
                </ActionButton>
               </div>
-              <div className={styles.btnUpper21}>
+              {
+                checkPrc &&  <div className={styles.btnUpper}>
                 <ActionButton onClick={handleToggle}>
-                  <RepeatRounded fontSize={"small"} />
+                  <Edit fontSize={"small"} />
                   <span className={styles.actionBtnSpan}>Update PRC</span>
                 </ActionButton>
               </div>
+              }
             </div>
           </div>
         </div>

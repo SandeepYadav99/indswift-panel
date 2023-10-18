@@ -20,7 +20,7 @@ const TEMP_OBJ = {
   details: "",
   booking_by: "",
   payment_by: "",
-  amount: "",
+  amount: 0,
   total_kms: "",
   travel_payment_proof: null,
   travel_voucher: null,
@@ -37,6 +37,7 @@ const ExpenseIncludeForm = (
     startDate,
     endDate,
     CoPass,
+    setOfficeAmount2
   },
   ref
 ) => {
@@ -85,6 +86,11 @@ const ExpenseIncludeForm = (
           }
         });
       }
+      if (val?.mode === "COMPANY_VEHICLE") {
+        delete err["travel_payment_proof"];
+        delete err["amount"];
+        delete err["travel_voucher"];
+      }
       // if (val?.travel_date) {
       //   const date = new Date(val?.travel_date);
       //   const today = new Date();
@@ -100,9 +106,9 @@ const ExpenseIncludeForm = (
           err["travel_date"] = true;
         }
       }
-      
-      if(val.payment_by === "Cash" && !val?.travel_payment_proof){
-        delete err['travel_payment_proof']
+
+      if (val.payment_by === "Cash" && !val?.travel_payment_proof) {
+        delete err["travel_payment_proof"];
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
@@ -220,10 +226,28 @@ const ExpenseIncludeForm = (
     }
   }, 0);
 
+  const getOfficeAmount = useMemo(() => {
+    const officeBookings = fields?.filter(
+      (booking) =>
+        (booking.booking_by === "OFFICE" && booking.amount !== "") ||
+        (booking?.booking_by === "SELF" && booking?.mode === "COMPANY_VEHICLE")
+    );
+    const sum = officeBookings?.reduce(
+      (total, booking) => total + parseFloat(booking?.amount),
+      0
+    );
+    return sum;
+  }, [fields]);
+
   useEffect(() => {
     changeAmount(sum, "travel_expenses_amount");
   }, [sum]);
 
+  useEffect(() => {
+    if(sum){
+      setOfficeAmount2(getOfficeAmount)
+    }
+  }, [fields]);
   return (
     <>
       {renderFields}

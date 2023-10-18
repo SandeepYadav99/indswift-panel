@@ -11,14 +11,21 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-import { serviceExportBankSheetList, serviceExportClaimList } from "../../../services/Claims.service";
+import {
+  serviceExportBankSheetList,
+  serviceExportClaimList,
+} from "../../../services/Claims.service";
 import Constants from "../../../config/constants";
 const useClaimsList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [downloadCL, setdownloadCL] = useState(null);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
-  const {role} = useSelector(state => state.auth);
+  const { role } = useSelector((state) => state.auth);
+  const EmpId =
+    window.location.pathname === "/cm/hr/claims"
+      ? { employee_id: "63d9267d3d18b8ce6e9b700c" }
+      : {};
   const [listData, setListData] = useState({
     LOCATIONS: [],
     HR: [],
@@ -37,6 +44,7 @@ const useClaimsList = ({}) => {
       actionFetchClaims(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
+        ...EmpId,
       })
     );
     isMountRef.current = true;
@@ -111,6 +119,7 @@ const useClaimsList = ({}) => {
         actionFetchClaims(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+          ...EmpId,
         })
       );
     },
@@ -144,6 +153,7 @@ const useClaimsList = ({}) => {
           {
             query: query,
             query_data: queryData,
+            ...EmpId,
           }
         )
       );
@@ -178,14 +188,25 @@ const useClaimsList = ({}) => {
     // setEditData(null);
   }, [setEditData, setSidePanel]);
 
-  const handleViewDetails = useCallback((data) => {
-    LogUtils.log("data", data);
-    if (data?.claim?.claim_type === "TRAVEL") {
-      historyUtils.push(`${RouteName.TRAVEL_CLAIMS_DETAILS}${data?.id}`); //+data.id
-    } else {
-      historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
-    }
-  }, []);
+  const handleViewDetails = useCallback(
+    (data) => {
+      LogUtils.log("data", data);
+      if (EmpId?.employee_id) {
+        if (data?.claim?.claim_type === "TRAVEL") {
+          historyUtils.push(`${RouteName.TRAVEL_HR_CLAIMS_DETAILS}${data?.id}`);
+        } else {
+          historyUtils.push(`${RouteName.CLAIMS_HR_DETAILS}${data?.id}`); //+data.id
+        }
+      } else {
+        if (data?.claim?.claim_type === "TRAVEL") {
+          historyUtils.push(`${RouteName.TRAVEL_CLAIMS_DETAILS}${data?.id}`); //+data.id
+        } else {
+          historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
+        }
+      }
+    },
+    [EmpId]
+  );
 
   const configFilter = useMemo(() => {
     return [
@@ -200,23 +221,47 @@ const useClaimsList = ({}) => {
         label: "Status",
         name: "claimObj.status",
         type: "select",
-        fields: ["REJECTED", "PENDING", "APPROVED","PROCESSED","HOD_APPROVED","SITE_HR_APPROVED","CORPORATE_AUDIT_1_APPROVED","CORPORATE_AUDIT_2_APPROVED","ACCOUNTS_APPROVED"],
+        fields: [
+          "REJECTED",
+          "PENDING",
+          "APPROVED",
+          "PROCESSED",
+          "HOD_APPROVED",
+          "SITE_HR_APPROVED",
+          "CORPORATE_AUDIT_1_APPROVED",
+          "CORPORATE_AUDIT_2_APPROVED",
+          "ACCOUNTS_APPROVED",
+        ],
       },
       {
         label: "Claim Type",
         name: "claimObj.claim_type",
         type: "select",
-        fields: ["MARRAIGE", "CAR", "MOBILE", "PHC",'LOCAL_TRAVEL','RELOCATION'],
+        fields: [
+          "MARRAIGE",
+          "CAR",
+          "MOBILE",
+          "PHC",
+          "LOCAL_TRAVEL",
+          "RELOCATION",
+        ],
       },
     ];
   }, [listData]);
 
   const isShowDownloadBtn = useMemo(() => {
     const Roles = Constants.ROLES;
-    if (([Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER]).indexOf(role) >=0) {
+    if (
+      [
+        Roles.ADMIN,
+        Roles.CORPORATE_HR,
+        Roles.ACCOUNTANT,
+        Roles.CORPORATE_REVIEWER,
+      ].indexOf(role) >= 0
+    ) {
       return true;
-    } return false;
-
+    }
+    return false;
   }, [role]);
 
   return {
@@ -243,7 +288,7 @@ const useClaimsList = ({}) => {
     downloadCL,
     handleClosedownloadCL,
     handleCandidateMenu,
-    isShowDownloadBtn
+    isShowDownloadBtn,
   };
 };
 

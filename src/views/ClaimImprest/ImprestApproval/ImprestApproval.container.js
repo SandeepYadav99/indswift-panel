@@ -38,6 +38,7 @@ const ImprestApproval = ({ location }) => {
     configFilter,
     warehouses,
     handleCsvDownload,
+    role,
   } = useImprestApproval({});
 
   const {
@@ -253,9 +254,14 @@ const ImprestApproval = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
-            <ButtonBase className={styles.download} onClick={handleCsvDownload}>
-              DOWNLOAD
-            </ButtonBase>
+            {(([Constants.ROLES.CORPORATE_HR, Constants.ROLES.ACCOUNTANT, Constants.ROLES.ADMIN]).indexOf(role) >= 0) && (
+              <ButtonBase
+                className={styles.download}
+                onClick={handleCsvDownload}
+              >
+                DOWNLOAD
+              </ButtonBase>
+            )}
           </div>
         </div>
 
