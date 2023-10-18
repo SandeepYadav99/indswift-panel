@@ -13,6 +13,7 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
+import CandidateStatusGlossary_List from "../views/CandidateStatusGlossary/CandidateStatusGlossary_List";
 
 const TravelClaimListDetail = lazy(()=> import ( "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"));
 const LoanProcessDetail = lazy(()=> import ( "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view"));
@@ -1833,6 +1834,16 @@ const dashboardRoutes = [
         should_regex: true,
         // parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: RouteName.CANDIDATE_STATUS_GLOSSARY,
+        sidebarName: "Candidate Status Glossary",
+        navbarName: "Candidate Status Glossary",
+        icon: AssignmentOutlined,
+        component: CandidateStatusGlossary_List,
+        is_sidebar: true,
+        is_protect: true,
+        // roles: [Roles.CORPORATE_HR],
     },
     {
         path: RouteName.ADMIN_ONGOING_LOANS,

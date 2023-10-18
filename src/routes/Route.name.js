@@ -188,5 +188,7 @@ export default {
 
   IRF_LOGIN:'/irf/login',
   IRF_FORM:'/irf/form',
-  INCREMENT_MASTER:'/increment-master'
+  INCREMENT_MASTER:'/increment-master',
+
+  CANDIDATE_STATUS_GLOSSARY:"/candidate/status"
 };

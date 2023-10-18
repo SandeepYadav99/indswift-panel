@@ -1,0 +1,69 @@
+{
+    "candidates": [
+      {
+        "status": "ACTIVE",
+        "description": "Means a candidate who is part of Database but not associated with any PRC. This will be basically someone who was added in some PRC but was neither rejected nor selected, they were never interviewed. Once PRC gets closed, all such candidates added in that PRC will become Active."
+      },
+      {
+        "status": "PENDING",
+        "description": "Means a candidate who is added under a PRC- yet not under any review."
+      },
+      {
+        "status": "PENDING REVIEW",
+        "description": "Means a candidate for whom request has been sent to panel for shortlisting or rejecting the CV."
+      },
+      {
+        "status": "CV SHORTLISTED",
+        "description": "Means resume of candidate has been shortlisted by panel for Interview after review of CV"
+      },
+      {
+        "status": "CV REJECTED",
+        "description": "Means resume of candidate has been rejected by panel for Interview after review of CV"
+      },
+      {
+        "status": "INTERVIEW ALIGNED",
+        "description": " Means candidate has been aligned for an Interview with panel"
+      },
+      {
+        "status": "INTERVIEW REJECTED",
+        "description": "Means candidate has been rejected by Interviewer after Interview"
+      },
+      {
+        "status": "SELECTED",
+        "description": "Means candidate has been selected by Interviewer after Interview"
+      },
+      {
+        "status": "SHORTLISTED",
+        "description": "Means candidate has been shortlisted by Interviewer after Interview but not yet selected. They are different from “Active”, they were interviewed but yet not selected."
+      },
+      {
+        "status": "OFFER LETTER",
+        "description": "This will mean that offer has been extended by HR, but the offer is yet to be approved from management."
+      },
+      {
+        "status": "UNDER OFFER",
+        "description": "Means candidate is under Offer from Organization. This will mean that offer has been approved by management, but the candidate has yet not accepted or rejected it."
+      },
+      {
+        "status": "JOINING",
+        "description": "Means candidates has accepted the offer and he/she is under offer."
+      },
+      {
+        "status": "OFFER DECLINED",
+        "description": "Means candidate is has rejected or declined the offer letter"
+      },
+      {
+        "status": "NOT JOINING",
+        "description": "Means candidate is not Joining after accepting the offer letter."
+      },
+      {
+        "status": "JOINED",
+        "description": "Means candidate has Joined the organization.."
+      },
+      {
+        "status": "DROPPED",
+        "description": "Means candidate was line up for Interview but he/she has nor attended the Interview and not responding to calls after being a “no-show”."
+      }
+    ]
+  }
+  
