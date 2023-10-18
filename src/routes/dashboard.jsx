@@ -14,6 +14,10 @@ import Constants from "../config/constants";
 import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
 import CandidateStatusGlossary_List from "../views/CandidateStatusGlossary/CandidateStatusGlossary_List";
+import SuccessionApproval_List from "../views/SuccessionApproval/SuccessionApproval_List";
+import SuccessionPlanner_list from "../views/SuccessionPlaner/SuccessionPlanner_list";
+
+
 
 const TravelClaimListDetail = lazy(()=> import ( "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"));
 const LoanProcessDetail = lazy(()=> import ( "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view"));
@@ -205,6 +209,28 @@ const dashboardRoutes = [
         slug: "approval",
         is_parent: true,
         roles: [Roles.CORPORATE_HR],
+    },
+    {
+        path: RouteName.SUCCESSION_PLANING,
+        sidebarName: "Succession Planner",
+        navbarName: "Succession Planner",
+        icon: PeopleOutlined,
+        component: SuccessionPlanner_list,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'employeedashboard',
+    },
+    {
+        path: RouteName.SUCCESSION_APPROVAL,
+        sidebarName: "Succession Approval",
+        navbarName: "Succession Approval",
+        icon: PeopleOutlined,
+        component: SuccessionApproval_List,
+        is_sidebar: true,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'employeedashboard',
     },
     {
         path: '/employeeInduction',

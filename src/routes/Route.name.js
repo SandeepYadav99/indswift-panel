@@ -190,5 +190,7 @@ export default {
   IRF_FORM:'/irf/form',
   INCREMENT_MASTER:'/increment-master',
 
-  CANDIDATE_STATUS_GLOSSARY:"/candidate/status"
+  CANDIDATE_STATUS_GLOSSARY:"/candidate/status",
+  SUCCESSION_PLANING:"/succession-planing",
+  SUCCESSION_APPROVAL:"/succession-approval"
 };
