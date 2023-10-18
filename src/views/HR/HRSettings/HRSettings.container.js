@@ -15,10 +15,9 @@ import EmployeeInductionComponent from "./components/EmployeeInduction/EmployeeI
 import MonthlyTheme from "./components/MonthlyTheme/MonthlyTheme";
 import CAGRView from "./components/CAGR/CAGRView";
 import LoanBudget from "./components/LoanBudget/LoanBudget.view";
-import CPCView from "./components/CPC/CPCView";
 import EmailComp from "./components/EmailComp/EmailComp.view";
 import USCView from "./components/USC/USCView";
-import CurrencyView from "./components/Currency/CurrencyView";
+import CurrencyView from "./components/Currency/CurrencyView.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
