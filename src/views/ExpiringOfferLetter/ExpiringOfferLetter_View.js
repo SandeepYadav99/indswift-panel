@@ -25,6 +25,8 @@ import StatusPill from "../../components/Status/StatusPill.component";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 import useExpiringOfferLetterHook from "./ExpiringOfferLetter_hook";
+import ExpireOffer_PopUp from "./component/ExpireOffer_PopUp";
+import ResendOffer_PopUp from "./component/ResendOffer_PopUp";
 
 const ExpiringOfferLetterView = ({ location }) => {
   const {
@@ -45,6 +47,10 @@ const ExpiringOfferLetterView = ({ location }) => {
     isCalling,
     configFilter,
     warehouses,
+    toggleIsOpenDialog,
+    isOpenDialog,
+    toggleIsOpenResendDialog,
+    isOpenResendDialog,
   } = useExpiringOfferLetterHook({});
 
   const {
@@ -88,14 +94,16 @@ const ExpiringOfferLetterView = ({ location }) => {
     if (obj) {
       return (
         <div>
-            {
-                obj?.replacing_person?.name ? <div
-                className={styles.hyperlinkText}
-                onClick={() => changeEmployeeRoute(obj?.replacing_person)}
-              >
-                {obj?.replacing_person?.name}
-              </div> : <div>N/A</div>
-            }
+          {obj?.replacing_person?.name ? (
+            <div
+              className={styles.hyperlinkText}
+              onClick={() => changeEmployeeRoute(obj?.replacing_person)}
+            >
+              {obj?.replacing_person?.name}
+            </div>
+          ) : (
+            <div>N/A</div>
+          )}
 
           <br />
           {obj?.replacing_person?.code}
@@ -125,7 +133,10 @@ const ExpiringOfferLetterView = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.designation?.name ? all?.designation?.name : all?.job_details?.designation}/{all?.job_details?.department}
+            {all?.designation?.name
+              ? all?.designation?.name
+              : all?.job_details?.designation}
+            /{all?.job_details?.department}
           </div>
         ),
       },
@@ -156,20 +167,16 @@ const ExpiringOfferLetterView = ({ location }) => {
         label: "Candidate STATUS",
         sortable: true,
         render: (temp, all) => (
-            <div>
-              <StatusPill status={removeUnderScore(all?.candidate?.status)} />
-            </div>
+          <div>
+            <StatusPill status={removeUnderScore(all?.candidate?.status)} />
+          </div>
         ),
       },
       {
         key: "offerObj.joining_date",
         label: "Joining Date",
         sortable: true,
-        render: (temp, all) => (
-            <div>
-              {all?.offer?.joining_date}
-            </div>
-        ),
+        render: (temp, all) => <div>{all?.offer?.joining_date}</div>,
       },
       {
         key: "expiring_on",
@@ -187,25 +194,20 @@ const ExpiringOfferLetterView = ({ location }) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                handleViewDetails(all);
+                // handleViewDetails(all);
+                toggleIsOpenDialog();
               }}
             >
               <PeopleOutlined fontSize={"small"} className={styles.openIcon} />{" "}
               <span className={styles.subText}>Expire Offer</span>
             </IconButton>
-            {all.status === Constants.OFFER_LETTER_STATUS.PENDING && (
+          
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  historyUtils.push(
-                    `${RouteName.CANDIDATES_OFFER_DETAILS}${all?.offer_id}`,
-                    {
-                      isReview: true,
-                      reviewId: all?.id,
-                    }
-                  );
+                  toggleIsOpenResendDialog()
                 }}
               >
                 <AssignmentOutlined
@@ -214,7 +216,7 @@ const ExpiringOfferLetterView = ({ location }) => {
                 />{" "}
                 <span className={styles.subText}>Resend Offer</span>
               </IconButton>
-            )}
+          
           </div>
         ),
       },
@@ -275,6 +277,16 @@ const ExpiringOfferLetterView = ({ location }) => {
           </div>
         </div>
       </PageBox>
+
+      <ExpireOffer_PopUp
+        // candidateId={ids}
+        isOpen={isOpenDialog}
+        handleToggle={toggleIsOpenDialog}
+      />
+      <ResendOffer_PopUp
+        isOpen={isOpenResendDialog}
+        handleToggle={toggleIsOpenResendDialog}
+      />
     </div>
   );
 };

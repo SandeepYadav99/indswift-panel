@@ -112,7 +112,7 @@ const useVacancyList = ({ jobId }) => {
       setEmpDetail(data)
       setIsOpenDialog((e) => !e);
     },
-    [rejectDialog]
+    [isOpenDialog]
   );
 
   return {
