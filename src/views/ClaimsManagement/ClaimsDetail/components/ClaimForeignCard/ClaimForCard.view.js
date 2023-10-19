@@ -43,9 +43,16 @@ function ClaimForCard() {
     setOfficeAmount2,
     officeAmount2,
     imprestAmount,
-    isCP
+    isCP,
+    InrAmount,
+    EuroAmount,
+    USDAmount,
+    curr,
+    USDtoINR,
+    EurotoINR,
   } = useClaimForCard({});
 
+  console.log("form", form);
   return (
     <>
       <div className={styles.outerFlex}>
@@ -213,6 +220,79 @@ function ClaimForCard() {
             </span>
           </div>
         </div>
+        <div className={styles.Vertiva}></div>
+        <div className={styles.lowerWrapImprest}>
+          <div className={styles.headingWrap}>
+            Currency Used:
+            <span>USD</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Amount:
+            <span>
+              {getCurrency("USD")}
+              {USDAmount ? USDAmount : 0}
+            </span>
+          </div>
+          <div className={styles.headingWrap}>
+            Conversion Rate:
+            <span>{curr?.length > 0 ? curr[1]?.conversion_rate : "-"}</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Amount after conversion:
+            <span>
+              {getCurrency("INR")}
+              {USDtoINR ? USDtoINR : 0}
+            </span>
+          </div>
+        </div>
+        <div className={styles.lowerWrapImprest2}>
+          <div className={styles.headingWrap}>
+            Currency Used:
+            <span>EURO</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Amount:
+            <span>
+              {getCurrency("EUR")}
+              {EuroAmount ? EuroAmount : 0}
+            </span>
+          </div>
+          <div className={styles.headingWrap}>
+            Conversion Rate:
+            <span>{curr?.length > 0 ? curr[0]?.conversion_rate : "-"}</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Amount after conversion:
+            <span>
+              {getCurrency("INR")}
+              {EurotoINR ? EurotoINR : 0}
+            </span>
+          </div>
+        </div>
+        <div className={styles.lowerWrapImprest2}>
+          <div className={styles.headingWrap}>
+            Currency Used:
+            <span>INR</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Amount:
+            <span>
+              {getCurrency("INR")}
+              {InrAmount ? InrAmount : 0}
+            </span>
+          </div>
+          <div className={styles.headingWrap}>
+            Conversion Rate:
+            <span>1</span>
+          </div>
+          <div className={styles.headingWrap}>
+            Amount after conversion:
+            <span>
+              {getCurrency("INR")}
+              {InrAmount ? InrAmount : 0}
+            </span>
+          </div>
+        </div>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Reimbursable Expense</div>
@@ -222,12 +302,16 @@ function ClaimForCard() {
             <span>{getTotalValue ? ` ₹ ${getTotalValue}` : 0}</span>
           </div>
           <div className={styles.headingWrap}>
-            Self Borne Expense::
-            <span>₹ {Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2))}</span>
+            Self Borne Expense:
+            <span>
+              ₹{" "}
+              {Number(getTotalValue) -
+                (Number(officeAmount) + Number(officeAmount2))}
+            </span>
           </div>
           <div className={styles.headingWrap}>
             Office Borne Expense:
-            <span>₹ {(Number(officeAmount) + Number(officeAmount2))}</span>
+            <span>₹ {Number(officeAmount) + Number(officeAmount2)}</span>
           </div>
         </div>
         <div className={styles.totalWrap}>

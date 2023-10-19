@@ -537,7 +537,7 @@ export const DAAllotForeignAmout = (grade, currency, cp) => {
   if (cp) {
     return 50;
   }
-  if (currency === "EURO") {
+  if (currency === "EUR") {
     switch (grade) {
       case "G0":
         return 70;

@@ -13,6 +13,7 @@ import { dataURLtoFile } from "../../../../../helper/helper";
 import historyUtils from "../../../../../libs/history.utils";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import moment from "moment";
+import { serviceGetCurrencyList } from "../../../../../services/AppSettings.service";
 
 const initialForm = {
   travel_planner_id: "",
@@ -39,6 +40,7 @@ function useClaimForCard() {
   const [employeeDetails, setEmployeeDetails] = useState({});
   const [currency, setCurrency] = useState("INR");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [curr, SetCurr] = useState({});
   const [isCP, setIsCp] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -65,11 +67,14 @@ function useClaimForCard() {
         employee_id: user_id,
         tour_type: "FOREIGN",
       }),
+      serviceGetCurrencyList(),
     ]).then((promises) => {
       const empDetail = promises[0]?.value?.data;
       const listData = promises[1]?.value?.data;
+      const Currency = promises[2]?.value?.data;
       setEmployeeDetails(empDetail);
       setEmployees(listData?.CLAIM_TAP);
+      SetCurr(Currency);
     });
   }, []);
 
@@ -112,19 +117,8 @@ function useClaimForCard() {
     return errors;
   }, [form, errorData]);
 
-  // const ImprestAmount =
-  //   (() => {
-  //     if (form?.travel_planner_id?.id) {
-  //       if (form?.travel_planner_id?.imprest?.status === "ACCOUNTS_APPROVED") {
-  //         return form?.travel_planner_id?.imprest?.amount;
-  //       }
-  //     }
-  //     return 0;
-  //   },
-  //   [form?.travel_planner_id]);
-
   const imprestAmount = useMemo(() => {
-    if (form?.travel_planner_id?.myImprest?.status === "ACCOUNTS_APPROVED") {
+    if (form?.travel_planner_id?.myImprest?.status === "FINANCE_APPROVED") {
       return form?.travel_planner_id?.myImprest?.amount;
     }
     return 0;
@@ -138,6 +132,68 @@ function useClaimForCard() {
       return acc;
     }, 0);
   }, [totalAmount, setTotalAmount]);
+
+  const USDAmount = useMemo(() => {
+    let total = 0;
+    console.log("inside2");
+    for (const key in totalAmount) {
+      if (key.endsWith("usd")) {
+        const numericValue = parseFloat(totalAmount[key]);
+        if (!isNaN(numericValue)) {
+          total += numericValue;
+        }
+      }
+    }
+    return total;
+  }, [totalAmount, setTotalAmount]);
+
+  const USDtoINR = useMemo(() => {
+    let total = 0;
+    if (curr?.length > 0) {
+      total = Number(USDAmount) * Number(curr[1]?.conversion_rate);
+    }
+    return total;
+  }, [USDAmount, curr, SetCurr]);
+
+ 
+
+  const EuroAmount = useMemo(() => {
+    let total = 0;
+    console.log("inside2");
+    for (const key in totalAmount) {
+      if (key.endsWith("eur")) {
+        const numericValue = parseFloat(totalAmount[key]);
+        if (!isNaN(numericValue)) {
+          total += numericValue;
+        }
+      }
+    }
+    return total;
+  }, [totalAmount, setTotalAmount]);
+
+  const EurotoINR = useMemo(() => {
+    let total = 0;
+    if (curr?.length > 0) {
+      total = Number(EuroAmount) * Number(curr[0]?.conversion_rate);
+    }
+    return total;
+  }, [EuroAmount, curr, SetCurr]);
+
+  const InrAmount = useMemo(() => {
+    let total = 0;
+    console.log("inside2");
+    for (const key in totalAmount) {
+      if (key.endsWith("amount")) {
+        const numericValue = parseFloat(totalAmount[key]);
+        if (!isNaN(numericValue)) {
+          total += numericValue;
+        }
+      }
+    }
+    return total;
+  }, [totalAmount, setTotalAmount]);
+
+  console.log(USDAmount, "totalAmount", totalAmount);
 
   const getRefundAmount = useMemo(() => {
     return imprestAmount
@@ -415,6 +471,12 @@ function useClaimForCard() {
     getRefundAmount,
     imprestAmount,
     isCP,
+    InrAmount,
+    EuroAmount,
+    USDAmount,
+    curr,
+    USDtoINR,
+    EurotoINR
   };
 }
 

@@ -251,7 +251,7 @@ const DAIncludeForm = (
 
   const Eurosum = useMemo(() => {
     return fields.reduce((acc, obj) => {
-      if (obj.currency === "EURO") {
+      if (obj.currency === "EUR") {
         const daAmount = parseFloat(obj.da_amount);
         const ieAmount = parseFloat(obj.ie_amount);
         if (!isNaN(daAmount)) {

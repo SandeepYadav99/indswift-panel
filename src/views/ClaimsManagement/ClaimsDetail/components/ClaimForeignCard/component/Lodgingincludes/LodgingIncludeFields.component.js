@@ -66,7 +66,7 @@ const LodgingIncludeFields = ({
           ? "INR"
           : data?.country === "OTHERS"
           ? "USD"
-          : "EURO";
+          : "EUR";
       if (data?.stay_at === "GUEST_HOUSE") {
         changeData(index, {
           ["per_day_entitlement"]: result,
@@ -289,7 +289,7 @@ const LodgingIncludeFields = ({
               }}
             >
               <MenuItem value="USD">USD</MenuItem>
-              <MenuItem value="EURO">EURO</MenuItem>
+              <MenuItem value="EUR">EUR</MenuItem>
               <MenuItem value="INR">INR</MenuItem>
             </CustomSelectField>
           </div>

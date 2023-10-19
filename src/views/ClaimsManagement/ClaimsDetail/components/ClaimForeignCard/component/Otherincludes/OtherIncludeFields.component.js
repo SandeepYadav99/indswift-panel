@@ -107,7 +107,7 @@ const OtherIncludeFields = ({
               }}
             >
               <MenuItem value="USD">USD</MenuItem>
-              <MenuItem value="EURO">EURO</MenuItem>
+              <MenuItem value="EUR">EUR</MenuItem>
               <MenuItem value="INR">INR</MenuItem>
             </CustomSelectField>
           </div>

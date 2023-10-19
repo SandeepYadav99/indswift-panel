@@ -218,7 +218,7 @@ const OtherIncludeForm = (
 
   const Eurosum = useMemo(() => {
     return fields.reduce((acc, curr) => {
-      if (curr?.currency === "EURO") {
+      if (curr?.currency === "EUR") {
         const value = curr["amount"];
         if (value !== "") {
           return acc + parseFloat(value);
