@@ -88,22 +88,21 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      if(candidateId){
+      if (candidateId) {
         serviceVacanciesInactive({
           vacancy_id: candidateId,
-          reason:form?.reason
+          reason: form?.reason,
         }).then((res) => {
           if (!res.error) {
             SnackbarUtils.success("Request Rejected");
             handleToggle();
-           
+            // window.location.reload();
           } else {
             SnackbarUtils.error(res?.message);
           }
           setIsSubmitting(false);
         });
       }
-    
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId]);
 

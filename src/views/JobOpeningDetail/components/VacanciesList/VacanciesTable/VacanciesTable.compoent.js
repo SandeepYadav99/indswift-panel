@@ -15,7 +15,6 @@ import InactivePopUp from "../Component/InactivePopUp";
 import DetailsDialog from "../Component/ReasonDetail_Dilog/VacanciesDetailDialog";
 
 function VacanciesTable({ jobId }) {
-
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -35,8 +34,8 @@ function VacanciesTable({ jobId }) {
     toggleIsOpenDialog,
     ids,
     isOpenDialog,
-    empDetail
-  } = useVacancyList({ jobId  });
+    empDetail,
+  } = useVacancyList({ jobId });
 
   const renderStatus = useCallback((status) => {
     if (status) {
@@ -112,7 +111,7 @@ function VacanciesTable({ jobId }) {
         label: "Action",
         sortable: false,
         render: (temp, all) => (
-          <div style={{display:"flex"}}>
+          <div style={{ display: "flex" }}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -124,7 +123,7 @@ function VacanciesTable({ jobId }) {
               <InfoOutlined fontSize={"small"} />
             </IconButton>
 
-            {(all?.status === "HIRING") ? (
+            {all?.status === "HIRING" ? (
               <IconButton
                 className={"tableActionBtnError"}
                 color="error"
@@ -145,7 +144,7 @@ function VacanciesTable({ jobId }) {
               <img
                 src={CommentIcon}
                 alt="comment"
-                style={{cursor:"pointer"}}
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   toggleIsOpenDialog(all);
                 }}
@@ -213,7 +212,11 @@ function VacanciesTable({ jobId }) {
         isOpen={rejectDialog}
         handleToggle={toggleRejectDialog}
       />
-      <DetailsDialog data={empDetail} isOpen={isOpenDialog} handleToggleDetail={toggleIsOpenDialog}/>
+      <DetailsDialog
+        data={empDetail}
+        isOpen={isOpenDialog}
+        handleToggleDetail={toggleIsOpenDialog}
+      />
     </div>
   );
 }

@@ -13,10 +13,11 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
-import CandidateStatusGlossary_List from "../views/CandidateStatusGlossary/CandidateStatusGlossary_List";
 import SuccessionApproval_List from "../views/SuccessionApproval/SuccessionApproval_List";
 import SuccessionPlanner_list from "../views/SuccessionPlaner/SuccessionPlanner_list";
 
+const CandidateStatusGlossary_List = lazy(()=> import ( "../views/CandidateStatusGlossary/CandidateStatusGlossary_List"));
+const ExpiringOfferLetterView = lazy(()=> import ( "../views/ExpiringOfferLetter/ExpiringOfferLetter_View"));
 
 
 const TravelClaimListDetail = lazy(()=> import ( "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"));
@@ -217,6 +218,17 @@ const dashboardRoutes = [
         icon: PeopleOutlined,
         component: SuccessionPlanner_list,
         is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        // parent: 'employeedashboard',
+    },
+    {
+        path: RouteName.EXPIRING_OFFER_LETTER,
+        sidebarName: "Expiring Offer Letter",
+        navbarName: "Expiring Offer Letter",
+        icon: PeopleOutlined,
+        component: ExpiringOfferLetterView,
+        is_sidebar: true,
         is_protect: true,
         should_regex: true,
         // parent: 'employeedashboard',
