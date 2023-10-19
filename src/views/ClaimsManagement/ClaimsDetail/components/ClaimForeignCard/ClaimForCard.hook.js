@@ -117,21 +117,31 @@ function useClaimForCard() {
     return errors;
   }, [form, errorData]);
 
+  const imprestINRAmount = useMemo(() => {
+    if (curr?.length > 0) {
+      if (form?.travel_planner_id?.myImprest?.currency === "USD") {
+        return (
+          Number(form?.travel_planner_id?.myImprest?.amount) *
+          Number(curr[1]?.conversion_rate)
+        );
+      } else if (form?.travel_planner_id?.myImprest?.currency === "EUR") {
+        return (
+          Number(form?.travel_planner_id?.myImprest?.amount) *
+          Number(curr[0]?.conversion_rate)
+        );
+      } else {
+        return Number(form?.travel_planner_id?.myImprest?.amount);
+      }
+    }
+
+    return 0;
+  }, [form, curr, SetCurr]);
   const imprestAmount = useMemo(() => {
     if (form?.travel_planner_id?.myImprest?.status === "FINANCE_APPROVED") {
       return form?.travel_planner_id?.myImprest?.amount;
     }
     return 0;
   }, [form]);
-
-  const getTotalValue = useMemo(() => {
-    return Object.values(totalAmount).reduce((acc, value) => {
-      if (value !== "") {
-        acc += parseFloat(value);
-      }
-      return acc;
-    }, 0);
-  }, [totalAmount, setTotalAmount]);
 
   const USDAmount = useMemo(() => {
     let total = 0;
@@ -154,8 +164,6 @@ function useClaimForCard() {
     }
     return total;
   }, [USDAmount, curr, SetCurr]);
-
- 
 
   const EuroAmount = useMemo(() => {
     let total = 0;
@@ -195,6 +203,12 @@ function useClaimForCard() {
 
   console.log(USDAmount, "totalAmount", totalAmount);
 
+  const getTotalValue = useMemo(() => {
+    let total = 0;
+    total = Number(InrAmount) + Number(USDtoINR) + Number(EurotoINR);
+    return total;
+  }, [InrAmount, USDtoINR, EurotoINR]);
+
   const getRefundAmount = useMemo(() => {
     return imprestAmount
       ? Number(getTotalValue) -
@@ -215,11 +229,23 @@ function useClaimForCard() {
       setIsSubmitting(true);
       const fd = new FormData();
       fd.append("travel_planner_id", form?.travel_planner_id?.id);
-      fd.append("currency", currency);
       Object.keys(totalAmount).forEach((key) => {
         fd.append(key, totalAmount[key]);
       });
+      const summery = {
+        conversion_rate_usd: curr[1]?.conversion_rate,
+        conversion_rate_eur: curr[0]?.conversion_rate,
+        conversion_rate_inr: 1,
+        amount_usd: USDAmount,
+        amount_eur: EuroAmount,
+        amount_inr: InrAmount,
+        converted_amount_usd: USDtoINR,
+        converted_amount_eur: EurotoINR,
+        converted_amount_inr:InrAmount
+      };
       fd.append("total_amount", getRefundAmount);
+      fd.append("imprest_amount", imprestAmount);
+      fd.append("imprest_converted_amount", imprestINRAmount);
       const lodgeData = lodgeRef.current.getData();
 
       let modifiedArr = lodgeData?.map((item) => {
@@ -228,13 +254,6 @@ function useClaimForCard() {
           shared_with: item?.shared_with?.map((person) => person?.id),
         };
       });
-      if (tourType === "FOREIGN") {
-        delete modifiedArr.city_cluster;
-        delete modifiedArr.city_name;
-      } else {
-        delete modifiedArr.country;
-        delete modifiedArr.country_name;
-      }
       lodgeData.forEach((val) => {
         if (val?.lodging_voucher) {
           fd.append("lodging_voucher", val?.lodging_voucher);
@@ -248,6 +267,7 @@ function useClaimForCard() {
       });
 
       fd.append("lodging_expenses", JSON.stringify(modifiedArr));
+      fd.append("imprest_summary", JSON.stringify(summery));
 
       const ExpensesData = travelRef.current.getData();
       ExpensesData.forEach((val) => {
@@ -339,6 +359,15 @@ function useClaimForCard() {
     setOfficeAmount2,
     getRefundAmount,
     isCP,
+    imprestAmount,
+    imprestINRAmount,
+    curr,
+    SetCurr,
+    USDAmount,
+    EuroAmount,
+    InrAmount,
+    USDtoINR,
+    EurotoINR,
   ]);
 
   const removeError = useCallback(
@@ -412,6 +441,13 @@ function useClaimForCard() {
     setOfficeAmount2,
     getRefundAmount,
     isCP,
+    curr,
+    SetCurr,
+    USDAmount,
+    EuroAmount,
+    InrAmount,
+    USDtoINR,
+    EurotoINR,
   ]);
 
   const changeTextData = useCallback(
@@ -476,7 +512,8 @@ function useClaimForCard() {
     USDAmount,
     curr,
     USDtoINR,
-    EurotoINR
+    EurotoINR,
+    imprestINRAmount,
   };
 }
 

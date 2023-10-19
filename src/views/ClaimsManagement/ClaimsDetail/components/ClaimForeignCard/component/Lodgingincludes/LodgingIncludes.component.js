@@ -323,7 +323,6 @@ const LodgingIncludeForm = (
   //     setOfficeAmount(getOfficeAmount);
   //   }
   // }, [fields]);
-  const sum = 0;
   return (
     <>
       {renderFields}

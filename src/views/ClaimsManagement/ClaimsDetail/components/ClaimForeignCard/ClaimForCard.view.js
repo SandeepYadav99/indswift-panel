@@ -50,6 +50,7 @@ function ClaimForCard() {
     curr,
     USDtoINR,
     EurotoINR,
+    imprestINRAmount,
   } = useClaimForCard({});
 
   console.log("form", form);
@@ -291,6 +292,16 @@ function ClaimForCard() {
               {getCurrency("INR")}
               {InrAmount ? InrAmount : 0}
             </span>
+          </div>
+        </div>
+        <div className={styles.totalWrap}>
+          <div className={styles.inner}>
+            Total Amount in INR:
+            <span>{getTotalValue ? `₹ ${getTotalValue}` : 0}</span>
+          </div>
+          <div className={styles.inner} style={{ marginRight: "30px" }}>
+            Imprest amount INR conversion:
+            <span>{imprestINRAmount ? `₹ ${imprestINRAmount}` : 0}</span>
           </div>
         </div>
       </div>
