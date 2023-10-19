@@ -81,6 +81,7 @@
 }
 .inner {
   margin-left: 20px;
+  flex: 1;
 }
 .inner > span {
   color: #2896e9;

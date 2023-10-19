@@ -12,11 +12,8 @@ import CustomSelectField from "../../../../../../../components/FormFields/Select
 import { useEffect } from "react";
 import File from "../../../../../../../components/FileComponent/FileComponent.component";
 import {
-  DAAllotAmout,
   DAAllotForeignAmout,
-  IEAllotAmout,
   IEForeignAllotAmout,
-  entitlementAmout,
 } from "../../../../../../../helper/helper";
 import { MuiPickersUtilsProvider, TimePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -276,7 +273,7 @@ const DAIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
-              disabled={index > 1 || checkDays < 5 ? true : false}
+              disabled={isCP ||index > 1 || checkDays < 5 ? true : false}
               type="number"
               error={errors?.ie_amount}
               onChange={handleChange}

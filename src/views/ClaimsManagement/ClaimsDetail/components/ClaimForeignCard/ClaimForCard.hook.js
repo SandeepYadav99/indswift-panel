@@ -19,10 +19,20 @@ const initialForm = {
 };
 const amountKeys = {
   lodging_expenses_amount: "",
+  lodging_expenses_amount_usd: "",
+  lodging_expenses_amount_eur: "",
   travel_expenses_amount: "",
+  travel_expenses_amount_usd: "",
+  travel_expenses_amount_eur: "",
   da_ie_expenses_amount: "",
+  da_ie_expenses_amount_usd: "",
+  da_ie_expenses_amount_eur: "",
   entertainment_expenses_amount: "",
+  entertainment_expenses_amount_usd: "",
+  entertainment_expenses_amount_eur: "",
   tap_other_expenses_amount: "",
+  tap_other_expenses_amount_usd: "",
+  tap_other_expenses_amount_eur: "",
 };
 
 function useClaimForCard() {
@@ -81,6 +91,7 @@ function useClaimForCard() {
     [totalAmount, setTotalAmount]
   );
 
+  console.log("total", totalAmount);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["travel_planner_id"];
@@ -271,7 +282,7 @@ function useClaimForCard() {
     officeAmount2,
     setOfficeAmount2,
     getRefundAmount,
-    isCP
+    isCP,
   ]);
 
   const removeError = useCallback(
@@ -344,7 +355,7 @@ function useClaimForCard() {
     officeAmount2,
     setOfficeAmount2,
     getRefundAmount,
-    isCP
+    isCP,
   ]);
 
   const changeTextData = useCallback(
@@ -403,7 +414,7 @@ function useClaimForCard() {
     officeAmount2,
     getRefundAmount,
     imprestAmount,
-    isCP
+    isCP,
   };
 }
 

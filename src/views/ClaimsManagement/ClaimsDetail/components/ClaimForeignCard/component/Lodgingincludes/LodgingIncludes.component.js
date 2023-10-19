@@ -16,8 +16,8 @@ import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
 const TEMP_OBJ = {
   check_in: "",
   check_out: "",
-  booking_by: "",
-  stay_at: "",
+  booking_by: "SELF",
+  stay_at: "HOTEL",
   hotel: "",
   shared_with: [],
   total_nights: "",
@@ -122,15 +122,6 @@ const LodgingIncludeForm = (
         );
         err["check_out"] = true;
       }
-      // if (val?.travel_date) {
-      //   const date = new Date(val?.travel_date);
-      //   const today = new Date();
-      //   var fortyFiveDaysAgo = new Date();
-      //   fortyFiveDaysAgo.setDate(today.getDate() - 46);
-      //   if (date > today || date < fortyFiveDaysAgo) {
-      //     err["travel_date"] = true;
-      //   }
-      // }
       if (val?.check_in) {
         let newDate = new Date(val?.check_in);
         if (isNaN(newDate.getTime())) {
@@ -253,40 +244,86 @@ const LodgingIncludeForm = (
     onBlur,
     fields,
   ]);
-  const sum = fields.reduce((acc, curr) => {
-    console.log(">>>>", curr, acc);
-    if (curr?.currency === "USD") {
-      const value = curr["amount"];
-      if (value !== "") {
-        return acc + parseFloat(value);
+  const USDsum = useMemo(() => {
+    return fields.reduce((acc, curr) => {
+      if (curr?.currency === "USD") {
+        const value = curr["amount"];
+        if (value !== "") {
+          return acc + parseFloat(value);
+        } else {
+          return acc;
+        }
       } else {
         return acc;
       }
-    }
-  }, 0);
+    }, 0);
+  }, [fields]);
 
-  const getOfficeAmount = useMemo(() => {
-    const officeBookings = fields?.filter(
-      (booking) => booking.booking_by === "OFFICE" && booking.amount !== ""
-    );
-    const sum = officeBookings?.reduce(
-      (total, booking) => total + parseFloat(booking?.amount),
-      0
-    );
-    return sum;
+  const Eurosum = useMemo(() => {
+    return fields.reduce((acc, curr) => {
+      if (curr?.currency === "EURO") {
+        const value = curr["amount"];
+        if (value !== "") {
+          return acc + parseFloat(value);
+        } else {
+          return acc;
+        }
+      } else {
+        return acc;
+      }
+    }, 0);
+  }, [fields]);
+
+  const Inrsum = useMemo(() => {
+    return fields.reduce((acc, curr) => {
+      if (curr?.currency === "INR") {
+        const value = curr["amount"];
+        if (value !== "") {
+          return acc + parseFloat(value);
+        } else {
+          return acc;
+        }
+      } else {
+        return acc;
+      }
+    }, 0);
   }, [fields]);
 
   useEffect(() => {
-    changeAmount(sum, "lodging_expenses_amount");
-    // setOfficeAmount(getOfficeAmount)
-  }, [sum]);
+    changeAmount(USDsum, "lodging_expenses_amount_usd");
+  }, [USDsum]);
 
   useEffect(() => {
-    if (sum) {
-      setOfficeAmount(getOfficeAmount);
-    }
-  }, [fields]);
+    changeAmount(Eurosum, "lodging_expenses_amount_eur");
+  }, [Eurosum]);
 
+  useEffect(() => {
+    changeAmount(Inrsum, "lodging_expenses_amount");
+  }, [Inrsum]);
+
+  console.log("USDsum", USDsum, fields);
+  // const getOfficeAmount = useMemo(() => {
+  //   const officeBookings = fields?.filter(
+  //     (booking) => booking.booking_by === "OFFICE" && booking.amount !== ""
+  //   );
+  //   const sum = officeBookings?.reduce(
+  //     (total, booking) => total + parseFloat(booking?.amount),
+  //     0
+  //   );
+  //   return sum;
+  // }, [fields]);
+
+  // useEffect(() => {
+  //   changeAmount(sum, "lodging_expenses_amount");
+  //   // setOfficeAmount(getOfficeAmount)
+  // }, [sum]);
+
+  // useEffect(() => {
+  //   if (sum) {
+  //     setOfficeAmount(getOfficeAmount);
+  //   }
+  // }, [fields]);
+  const sum = 0;
   return (
     <>
       {renderFields}
@@ -307,13 +344,16 @@ const LodgingIncludeForm = (
       {/*</div>*/}
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
-          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
+          Total USD Used:{" "}
+          <span>{USDsum || USDsum === 0 ? `₹ ${USDsum}` : ""}</span>
         </div>
         <div className={styles.inner}>
-          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
+          Total Euro Used:{" "}
+          <span>{Eurosum || Eurosum === 0 ? `₹ ${Eurosum}` : ""}</span>
         </div>
         <div className={styles.inner}>
-          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
+          Total INR Used:{" "}
+          <span>{Inrsum || Inrsum === 0 ? `₹ ${Inrsum}` : ""}</span>
         </div>
       </div>
     </>

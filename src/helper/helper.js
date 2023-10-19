@@ -399,7 +399,7 @@ export const entitlementAmout = (grade, book, cluster) => {
   }
 };
 
-export const entitlementForeign = (grade, book) => {
+export const entitlementForeign = (grade, book, country) => {
   if (book === "SELF_ARRANGEMENT") {
     switch (grade) {
       case "G0":
@@ -424,27 +424,52 @@ export const entitlementForeign = (grade, book) => {
         return 0;
     }
   } else {
-    switch (grade) {
-      case "G0":
-        return 160;
-      case "G1":
-        return 160;
-      case "G2":
-        return 160;
-      case "G3":
-        return 140;
-      case "G4":
-        return 140;
-      case "G5":
-        return 140;
-      case "G6":
-        return 140;
-      case "G7":
-        return 140;
-      case "G8":
-        return 140;
-      default:
-        return 0;
+    if (country === "INDIA") {
+      switch (grade) {
+        case "G0":
+          return 6500;
+        case "G1":
+          return 5500;
+        case "G2":
+          return 4000;
+        case "G3":
+          return 3000;
+        case "G4":
+          return 2700;
+        case "G5":
+          return 2500;
+        case "G6":
+          return 2300;
+        case "G7":
+          return 1700;
+        case "G8":
+          return 1200;
+        default:
+          return 0;
+      }
+    } else {
+      switch (grade) {
+        case "G0":
+          return 160;
+        case "G1":
+          return 160;
+        case "G2":
+          return 160;
+        case "G3":
+          return 140;
+        case "G4":
+          return 140;
+        case "G5":
+          return 140;
+        case "G6":
+          return 140;
+        case "G7":
+          return 140;
+        case "G8":
+          return 140;
+        default:
+          return 0;
+      }
     }
   }
 };
@@ -583,8 +608,8 @@ export const DAAllotForeignAmout = (grade, currency, cp) => {
     }
   }
 };
-export const IEForeignAllotAmout = (grade,currency) => {
-  if(currency === 'INR'){
+export const IEForeignAllotAmout = (grade, currency) => {
+  if (currency === "INR") {
     switch (grade) {
       case "G0":
         return 500;
@@ -607,7 +632,7 @@ export const IEForeignAllotAmout = (grade,currency) => {
       default:
         return 0;
     }
-  }else{
+  } else {
     switch (grade) {
       case "G0":
         return 15;
@@ -631,7 +656,6 @@ export const IEForeignAllotAmout = (grade,currency) => {
         return 0;
     }
   }
- 
 };
 
 export const IEAllotAmout = (grade) => {

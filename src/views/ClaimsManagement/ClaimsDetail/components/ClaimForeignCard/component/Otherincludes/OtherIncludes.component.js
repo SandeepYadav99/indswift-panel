@@ -201,18 +201,66 @@ const OtherIncludeForm = (
     fields,
   ]);
 
-  const sum = fields.reduce((acc, curr) => {
-    const value = curr["amount"];
-    if (value !== "") {
-      return acc + parseFloat(value);
-    } else {
-      return acc;
-    }
-  }, 0);
+  const USDsum = useMemo(() => {
+    return fields.reduce((acc, curr) => {
+      if (curr?.currency === "USD") {
+        const value = curr["amount"];
+        if (value !== "") {
+          return acc + parseFloat(value);
+        } else {
+          return acc;
+        }
+      } else {
+        return acc;
+      }
+    }, 0);
+  }, [fields]);
+
+  const Eurosum = useMemo(() => {
+    return fields.reduce((acc, curr) => {
+      if (curr?.currency === "EURO") {
+        const value = curr["amount"];
+        if (value !== "") {
+          return acc + parseFloat(value);
+        } else {
+          return acc;
+        }
+      } else {
+        return acc;
+      }
+    }, 0);
+  }, [fields]);
+
+  const Inrsum = useMemo(() => {
+    return fields.reduce((acc, curr) => {
+      if (curr?.currency === "INR") {
+        const value = curr["amount"];
+        if (value !== "") {
+          return acc + parseFloat(value);
+        } else {
+          return acc;
+        }
+      } else {
+        return acc;
+      }
+    }, 0);
+  }, [fields]);
 
   useEffect(() => {
-    changeAmount(sum, "tap_other_expenses_amount");
-  }, [sum]);
+    changeAmount(USDsum, "tap_other_expenses_amount_usd");
+  }, [USDsum]);
+
+  useEffect(() => {
+    changeAmount(Eurosum, "tap_other_expenses_amount_eur");
+  }, [Eurosum]);
+
+  useEffect(() => {
+    changeAmount(Inrsum, "tap_other_expenses_amount");
+  }, [Inrsum]);
+
+  // useEffect(() => {
+  //   changeAmount(sum, "tap_other_expenses_amount");
+  // }, [sum]);
 
   return (
     <>
@@ -230,7 +278,16 @@ const OtherIncludeForm = (
       </div>
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
-          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
+          Total USD Used:{" "}
+          <span>{USDsum || USDsum === 0 ? `₹ ${USDsum}` : ""}</span>
+        </div>
+        <div className={styles.inner}>
+          Total Euro Used:{" "}
+          <span>{Eurosum || Eurosum === 0 ? `₹ ${Eurosum}` : ""}</span>
+        </div>
+        <div className={styles.inner}>
+          Total INR Used:{" "}
+          <span>{Inrsum || Inrsum === 0 ? `₹ ${Inrsum}` : ""}</span>
         </div>
       </div>
     </>

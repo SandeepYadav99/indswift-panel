@@ -57,36 +57,21 @@ const LodgingIncludeFields = ({
     }
   }, [data?.check_out, data?.check_in]);
 
-  // useEffect(() => {
-  //   let result;
-  //   if (grade && data?.city_cluster && data?.stay_at && grade !== "G0") {
-  //     result = entitlementAmout(grade, data?.stay_at, data?.city_cluster);
-  //     if (data?.stay_at === "GUEST_HOUSE") {
-  //       changeData(index, {
-  //         ["per_day_entitlement"]: result,
-  //         ["max_entitlement"]: data?.total_nights * result,
-  //         ["payment_by"]: "",
-  //         ["amount"]: "",
-  //         ["lodging_payment_proof"]: null,
-  //         ["lodging_voucher"]: null,
-  //       });
-  //     } else {
-  //       changeData(index, {
-  //         ["per_day_entitlement"]: result,
-  //         ["max_entitlement"]: data?.total_nights * result,
-  //       });
-  //     }
-  //   }
-  // }, [grade, data?.stay_at, data?.city_cluster, data?.total_nights]);
-
   useEffect(() => {
     let result;
     if (grade && data?.country && data?.stay_at) {
-      result = entitlementForeign(grade, data?.stay_at);
+      result = entitlementForeign(grade, data?.stay_at, data?.country);
+      const getCurr =
+        data?.country === "INDIA"
+          ? "INR"
+          : data?.country === "OTHERS"
+          ? "USD"
+          : "EURO";
       if (data?.stay_at === "GUEST_HOUSE") {
         changeData(index, {
           ["per_day_entitlement"]: result,
           ["max_entitlement"]: data?.total_nights * result,
+          ["currency"]: getCurr,
           ["payment_by"]: "",
           ["amount"]: "",
           ["lodging_payment_proof"]: null,
@@ -96,16 +81,7 @@ const LodgingIncludeFields = ({
         changeData(index, {
           ["per_day_entitlement"]: result,
           ["max_entitlement"]: data?.total_nights * result,
-          
-        });
-      }
-      if(data?.country === 'OTHER'){
-        changeData(index, {
-          ["currency"]: 'USD',          
-        });
-      }else{
-        changeData(index, {
-          ["currency"]: 'EURO',          
+          ["currency"]: getCurr,
         });
       }
     }
@@ -189,6 +165,7 @@ const LodgingIncludeFields = ({
                   handleChange(value, "country");
                 }}
               >
+                <MenuItem value="INDIA">INDIA</MenuItem>
                 <MenuItem value="RUSSIA">RUSSIA</MenuItem>
                 <MenuItem value="UKRAINE">UKRAINE</MenuItem>
                 <MenuItem value="UK">UK</MenuItem>
@@ -313,6 +290,7 @@ const LodgingIncludeFields = ({
             >
               <MenuItem value="USD">USD</MenuItem>
               <MenuItem value="EURO">EURO</MenuItem>
+              <MenuItem value="INR">INR</MenuItem>
             </CustomSelectField>
           </div>
           <div className={styles.Low}>

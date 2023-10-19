@@ -231,21 +231,71 @@ const DAIncludeForm = (
     isCP,
   ]);
 
-  const totalSum = fields.reduce((acc, obj) => {
-    const daAmount = parseFloat(obj.da_amount);
-    const ieAmount = parseFloat(obj.ie_amount);
-    if (!isNaN(daAmount)) {
-      acc += daAmount;
-    }
-    if (!isNaN(ieAmount)) {
-      acc += ieAmount;
-    }
-    return acc;
-  }, 0);
+  const USDsum = useMemo(() => {
+    return fields.reduce((acc, obj) => {
+      if (obj.currency === "USD") {
+        const daAmount = parseFloat(obj.da_amount);
+        const ieAmount = parseFloat(obj.ie_amount);
+        if (!isNaN(daAmount)) {
+          acc += daAmount;
+        }
+        if (!isNaN(ieAmount)) {
+          acc += ieAmount;
+        }
+        return acc;
+      } else {
+        return acc;
+      }
+    }, 0);
+  }, [fields]);
+
+  const Eurosum = useMemo(() => {
+    return fields.reduce((acc, obj) => {
+      if (obj.currency === "EURO") {
+        const daAmount = parseFloat(obj.da_amount);
+        const ieAmount = parseFloat(obj.ie_amount);
+        if (!isNaN(daAmount)) {
+          acc += daAmount;
+        }
+        if (!isNaN(ieAmount)) {
+          acc += ieAmount;
+        }
+        return acc;
+      } else {
+        return acc;
+      }
+    }, 0);
+  }, [fields]);
+
+  const Inrsum = useMemo(() => {
+    return fields.reduce((acc, obj) => {
+      if (obj.currency === "INR") {
+        const daAmount = parseFloat(obj.da_amount);
+        const ieAmount = parseFloat(obj.ie_amount);
+        if (!isNaN(daAmount)) {
+          acc += daAmount;
+        }
+        if (!isNaN(ieAmount)) {
+          acc += ieAmount;
+        }
+        return acc;
+      } else {
+        return acc;
+      }
+    }, 0);
+  }, [fields]);
 
   useEffect(() => {
-    changeAmount(totalSum, "da_ie_expenses_amount");
-  }, [totalSum]);
+    changeAmount(USDsum, "da_ie_expenses_amount_usd");
+  }, [USDsum]);
+
+  useEffect(() => {
+    changeAmount(Eurosum, "da_ie_expenses_amount_eur");
+  }, [Eurosum]);
+
+  useEffect(() => {
+    changeAmount(Inrsum, "da_ie_expenses_amount");
+  }, [Inrsum]);
 
   return (
     <>
@@ -267,8 +317,16 @@ const DAIncludeForm = (
       {/*</div>*/}
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
-          Total Claim Amount:{" "}
-          <span>{totalSum || totalSum === 0 ? `₹ ${totalSum}` : ""}</span>
+          Total USD Used:{" "}
+          <span>{USDsum || USDsum === 0 ? `₹ ${USDsum}` : ""}</span>
+        </div>
+        <div className={styles.inner}>
+          Total Euro Used:{" "}
+          <span>{Eurosum || Eurosum === 0 ? `₹ ${Eurosum}` : ""}</span>
+        </div>
+        <div className={styles.inner}>
+          Total INR Used:{" "}
+          <span>{Inrsum || Inrsum === 0 ? `₹ ${Inrsum}` : ""}</span>
         </div>
       </div>
     </>
