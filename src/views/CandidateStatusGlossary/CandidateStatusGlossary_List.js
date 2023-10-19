@@ -12,8 +12,6 @@ import { useState } from "react";
 
 
 const TravelList = ({ location }) => {
-
-
   const [candidates, setCandidates] = useState([]);
 
   useEffect(() => {
@@ -21,7 +19,6 @@ const TravelList = ({ location }) => {
     const fetchData = async () => {
       const response = await fetch('/CandidateStatus.json');
       const data = await response.json();
-
       setCandidates(data.candidates);
     };
 
@@ -34,7 +31,7 @@ const TravelList = ({ location }) => {
         key: "status",
         label: "STATUS",
         sortable: false,
-        render: (value, all) =><div style={{width:"20rem"}}><StatusPill status={all?.status} /> </div> ,
+        render: (value, all) =><div style={{width:"11rem"}}><StatusPill status={all?.status} /> </div> ,
       },
       {
         key: "Meaning",
