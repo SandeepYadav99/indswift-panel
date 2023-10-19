@@ -111,7 +111,7 @@ const OtherIncludeFields = ({
               <MenuItem value="INR">INR</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.flex121}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -130,7 +130,6 @@ const OtherIncludeFields = ({
               }}
             />
           </div>
-          <div className={styles.flex12}></div>
         </div>
         <div className={styles.firstRow221}>
           <div className={"textCenter"}>

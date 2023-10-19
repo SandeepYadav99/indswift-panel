@@ -3,6 +3,11 @@
   min-width: 170px;
   margin: 0px 5px;
 }
+.flex121{
+  flex: 2;
+  min-width: 170px;
+  margin: 0px 5px;
+}
 .flex12 {
   flex: 2;
   min-width: 170px;
