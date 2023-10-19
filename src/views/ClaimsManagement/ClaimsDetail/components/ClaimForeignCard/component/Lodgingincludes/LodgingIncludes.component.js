@@ -30,7 +30,7 @@ const TEMP_OBJ = {
   currency: "",
   country: "",
   country_name: "",
-  payment_made_by:""
+  payment_made_by: "",
 };
 
 const LodgingIncludeForm = (
@@ -48,6 +48,7 @@ const LodgingIncludeForm = (
     tourType,
     setCurrency,
     setOfficeAmount,
+    curr,
   },
   ref
 ) => {
@@ -302,28 +303,42 @@ const LodgingIncludeForm = (
     changeAmount(Inrsum, "lodging_expenses_amount");
   }, [Inrsum]);
 
-  console.log("USDsum", USDsum, fields);
-  // const getOfficeAmount = useMemo(() => {
-  //   const officeBookings = fields?.filter(
-  //     (booking) => booking.booking_by === "OFFICE" && booking.amount !== ""
-  //   );
-  //   const sum = officeBookings?.reduce(
-  //     (total, booking) => total + parseFloat(booking?.amount),
-  //     0
-  //   );
-  //   return sum;
-  // }, [fields]);
+  const totalAmount = useMemo(() => {
+    let sum = 0;
+    if (curr?.length > 0) {
+      fields.forEach((item) => {
+        if (item.booking_by === "OFFICE" && item.amount !== "") {
+          switch (item.currency) {
+            case "USD":
+              sum += parseFloat(item.amount) * Number(curr[1]?.conversion_rate);
+              break;
+            case "EUR":
+              sum += parseFloat(item.amount) * Number(curr[0]?.conversion_rate);
+              break;
+            case "INR":
+              sum += parseFloat(item.amount);
+              break;
+            default:
+              break;
+          }
+        }
+      });
+    }
 
+    return sum;
+  }, [fields]);
+
+  console.log("getOfficeAmount", curr[1]?.conversion_rate, totalAmount);
   // useEffect(() => {
   //   changeAmount(sum, "lodging_expenses_amount");
   //   // setOfficeAmount(getOfficeAmount)
   // }, [sum]);
 
-  // useEffect(() => {
-  //   if (sum) {
-  //     setOfficeAmount(getOfficeAmount);
-  //   }
-  // }, [fields]);
+  useEffect(() => {
+    if (totalAmount) {
+      setOfficeAmount(totalAmount);
+    }
+  }, [fields]);
   return (
     <>
       {renderFields}

@@ -14,7 +14,7 @@ import { Add } from "@material-ui/icons";
 
 const TEMP_OBJ = {
   travel_date: "",
-  currency:"",
+  currency: "",
   from: "",
   to: "",
   mode: "",
@@ -23,7 +23,7 @@ const TEMP_OBJ = {
   payment_by: "",
   amount: 0,
   total_kms: "",
-  payment_made_by:"",
+  payment_made_by: "",
   travel_payment_proof: null,
   travel_voucher: null,
 };
@@ -39,7 +39,8 @@ const ExpenseIncludeForm = (
     startDate,
     endDate,
     CoPass,
-    setOfficeAmount2
+    setOfficeAmount2,
+    curr,
   },
   ref
 ) => {
@@ -77,7 +78,7 @@ const ExpenseIncludeForm = (
         "amount",
         "total_kms",
         "travel_voucher",
-        "currency"
+        "currency",
       ];
       if (val.payment_by !== "Cash") {
         required.push("travel_payment_proof");
@@ -278,14 +279,39 @@ const ExpenseIncludeForm = (
     changeAmount(Inrsum, "travel_expenses_amount");
   }, [Inrsum]);
 
-  // const sum = fields.reduce((acc, curr) => {
-  //   const value = curr["amount"];
-  //   if (value !== "") {
-  //     return acc + parseFloat(value);
-  //   } else {
-  //     return acc;
-  //   }
-  // }, 0);
+  const totalAmount = useMemo(() => {
+    let sum = 0;
+    if (curr?.length > 0) {
+      fields.forEach((item) => {
+        if (
+          (item?.booking_by === "OFFICE" && item?.amount !== "") ||
+          (item?.booking_by === "SELF" && item?.mode === "COMPANY_VEHICLE")
+        ) {
+          switch (item.currency) {
+            case "USD":
+              sum += parseFloat(item.amount) * Number(curr[1]?.conversion_rate);
+              break;
+            case "EUR":
+              sum += parseFloat(item.amount) * Number(curr[0]?.conversion_rate);
+              break;
+            case "INR":
+              sum += parseFloat(item.amount);
+              break;
+            default:
+              break;
+          }
+        }
+      });
+    }
+
+    return sum;
+  }, [fields]);
+
+  useEffect(() => {
+    if (USDsum || Eurosum || Inrsum) {
+      setOfficeAmount2(totalAmount);
+    }
+  }, [fields]);
 
   // const getOfficeAmount = useMemo(() => {
   //   const officeBookings = fields?.filter(
@@ -300,15 +326,6 @@ const ExpenseIncludeForm = (
   //   return sum;
   // }, [fields]);
 
-  // useEffect(() => {
-  //   changeAmount(sum, "travel_expenses_amount");
-  // }, [sum]);
-
-  // useEffect(() => {
-  //   if(sum){
-  //     setOfficeAmount2(getOfficeAmount)
-  //   }
-  // }, [fields]);
   return (
     <>
       {renderFields}
@@ -327,7 +344,7 @@ const ExpenseIncludeForm = (
       )}
 
       {/*</div>*/}
-       <div className={styles.totalWrap}>
+      <div className={styles.totalWrap}>
         <div className={styles.inner}>
           Total USD Used:{" "}
           <span>{USDsum || USDsum === 0 ? `₹ ${USDsum}` : ""}</span>

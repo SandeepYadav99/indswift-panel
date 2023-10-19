@@ -142,6 +142,7 @@ function ClaimForCard() {
               tourType={tourType}
               setCurrency={setCurrency}
               setOfficeAmount={setOfficeAmount}
+              curr={curr}
             />
           </div>
         </div>
@@ -158,6 +159,7 @@ function ClaimForCard() {
               grade={employeeDetails?.grade?.code}
               changeAmount={changeAmount}
               setOfficeAmount2={setOfficeAmount2}
+              curr={curr}
             />
           </div>
         </div>

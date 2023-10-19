@@ -16,6 +16,7 @@ import { Autocomplete } from "@material-ui/lab";
 import {
   entitlementAmout,
   travelListExpense,
+  travelListForeignExpense,
 } from "../../../../../../../helper/helper";
 
 const ExpenseIncludeFields = ({
@@ -47,24 +48,6 @@ const ExpenseIncludeFields = ({
       }
     }
   };
-
-  useEffect(() => {
-    if (data?.mode) {
-      if (data?.mode === "OWN_CAR") {
-        if (data?.total_kms) {
-          changeData(index, {
-            ["amount"]: 9 * Number(data?.total_kms),
-          });
-        }
-      } else if (data?.mode === "TWO_WHEELER") {
-        if (data?.total_kms) {
-          changeData(index, {
-            ["amount"]: 5 * Number(data?.total_kms),
-          });
-        }
-      }
-    }
-  }, [data?.total_kms, data?.mode]);
 
   return (
     <div>
@@ -139,7 +122,7 @@ const ExpenseIncludeFields = ({
                 handleChange(value, "mode");
               }}
             >
-              {travelListExpense?.map((item, index) => (
+              {travelListForeignExpense?.map((item, index) => (
                 <MenuItem value={item?.id} key={`menu_${index}`}>
                   {" "}
                   {item?.name}

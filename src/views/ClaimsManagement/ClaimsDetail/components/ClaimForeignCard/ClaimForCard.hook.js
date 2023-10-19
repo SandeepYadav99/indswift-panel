@@ -136,6 +136,8 @@ function useClaimForCard() {
 
     return 0;
   }, [form, curr, SetCurr]);
+
+  console.log('office',officeAmount,officeAmount2)
   const imprestAmount = useMemo(() => {
     if (form?.travel_planner_id?.myImprest?.status === "FINANCE_APPROVED") {
       return form?.travel_planner_id?.myImprest?.amount;
@@ -210,17 +212,17 @@ function useClaimForCard() {
   }, [InrAmount, USDtoINR, EurotoINR]);
 
   const getRefundAmount = useMemo(() => {
-    return imprestAmount
+    return imprestINRAmount
       ? Number(getTotalValue) -
           (Number(officeAmount) + Number(officeAmount2)) -
-          Number(imprestAmount)
+          Number(imprestINRAmount)
       : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
   }, [
     form?.travel_planner_id,
     getTotalValue,
     officeAmount,
     officeAmount2,
-    imprestAmount,
+    imprestINRAmount,
   ]);
 
   const submitToServer = useCallback(() => {
@@ -514,6 +516,7 @@ function useClaimForCard() {
     USDtoINR,
     EurotoINR,
     imprestINRAmount,
+    curr
   };
 }
 

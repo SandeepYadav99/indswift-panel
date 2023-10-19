@@ -484,6 +484,16 @@ export const travelListExpense = [
   { id: "COMPANY_VEHICLE", name: "Company Vehicle" },
   { id: "OWN_CAR", name: "Personal Car" },
 ];
+
+export const travelListForeignExpense = [
+  { id: "flight", name: "Flight" },
+  { id: "PUBLIC_TRANSPORT", name: "Public Transport (Bus)" },
+  { id: "TRAIN", name: "Train (if available)" },
+  { id: "AUTO", name: "Auto/e-rikshaw" },
+  { id: "UBER_BIKE", name: "Uber - Bike" },
+  { id: "COMPANY_VEHICLE", name: "Company Vehicle" },
+];
+
 export const DAAllotAmout = (grade, book) => {
   if (book === "SELF_ARRANGEMENT") {
     switch (grade) {
