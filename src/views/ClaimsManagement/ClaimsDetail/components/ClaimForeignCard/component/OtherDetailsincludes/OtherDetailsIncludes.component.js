@@ -20,6 +20,7 @@ const TEMP_OBJ = {
   expense_nature: "",
   amount: "",
   currency:"",
+  payment_made_by:"",
   entertainment_payment_proof: null,
 };
 

@@ -314,6 +314,25 @@ const LodgingIncludeFields = ({
             </div>
           </div>
         </div>
+        <div className={styles.firstRow}>
+          <div className={styles.flex1}>
+            <TextField
+              error={errors?.payment_made_by}
+              onChange={handleChange}
+              value={data?.payment_made_by}
+              fullWidth={true}
+              name={"payment_made_by"}
+              margin={"dense"}
+              variant={"outlined"}
+              label={"Choose currency of payment"}
+            />
+            <div style={{ fontWeight: "500", textAlign: "end" }}>
+              Please mention the amount in spent currency and the exchange rate
+              applied to reach at above currency.
+            </div>
+          </div>
+          <div className={styles.flex1}></div>
+        </div>
         {data?.stay_at !== "N/A" && data?.stay_at !== "GUEST_HOUSE" && (
           <>
             <div className={styles.firstRow}>

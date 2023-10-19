@@ -30,6 +30,7 @@ const TEMP_OBJ = {
   currency: "",
   country: "",
   country_name: "",
+  payment_made_by:""
 };
 
 const LodgingIncludeForm = (

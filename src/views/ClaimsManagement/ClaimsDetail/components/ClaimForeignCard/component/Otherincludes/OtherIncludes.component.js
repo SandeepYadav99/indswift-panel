@@ -20,6 +20,7 @@ const TEMP_OBJ = {
   amount: "",
   reason: "",
   currency:"",
+  payment_made_by:"",
   other_payment_proof: null,
 };
 

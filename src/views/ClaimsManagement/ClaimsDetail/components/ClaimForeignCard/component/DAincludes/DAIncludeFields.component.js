@@ -117,6 +117,25 @@ const DAIncludeFields = ({
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <CustomSelectField
+              isError={errors?.currency}
+              errorText={errors?.currency}
+              label={"Choose Currency"}
+              value={data?.currency}
+              handleChange={(value) => {
+                handleChange(value, "currency");
+              }}
+            >
+              <MenuItem value="USD">USD</MenuItem>
+              <MenuItem value="EUR">EUR</MenuItem>
+              <MenuItem value="INR">INR</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={styles.flex1}></div>
+          <div className={styles.flex1}></div>
+        </div>
+        <div className={styles.firstRow}>
+          <div className={styles.flex1}>
+            <CustomSelectField
               isError={errors?.stay_at}
               errorText={errors?.stay_at}
               label={"Stay at"}
@@ -273,7 +292,7 @@ const DAIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
-              disabled={isCP ||index > 1 || checkDays < 5 ? true : false}
+              disabled={isCP || index > 1 || checkDays < 5 ? true : false}
               type="number"
               error={errors?.ie_amount}
               onChange={handleChange}
@@ -296,25 +315,6 @@ const DAIncludeFields = ({
               {index == 0 ? "Remove" : "Remove"}
             </ButtonBase>
           </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.currency}
-              errorText={errors?.currency}
-              label={"Choose Currency"}
-              value={data?.currency}
-              handleChange={(value) => {
-                handleChange(value, "currency");
-              }}
-            >
-              <MenuItem value="USD">USD</MenuItem>
-              <MenuItem value="EUR">EUR</MenuItem>
-              <MenuItem value="INR">INR</MenuItem>
-            </CustomSelectField>
-          </div>
-          <div className={styles.flex1}></div>
-          <div className={styles.flex1}></div>
         </div>
       </div>
     </div>

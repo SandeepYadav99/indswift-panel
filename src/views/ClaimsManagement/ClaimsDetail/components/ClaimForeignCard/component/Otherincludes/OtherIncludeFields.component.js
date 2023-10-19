@@ -22,7 +22,7 @@ const OtherIncludeFields = ({
   data,
   errors,
   startDate,
-  endDate
+  endDate,
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
@@ -43,6 +43,23 @@ const OtherIncludeFields = ({
   return (
     <div>
       <div className={styles.flexContainer}>
+        <div className={styles.firstRow}>
+          <div className={styles.flex1}>
+            <CustomSelectField
+              isError={errors?.currency}
+              errorText={errors?.currency}
+              label={"Choose Currency"}
+              value={data?.currency}
+              handleChange={(value) => {
+                handleChange(value, "currency");
+              }}
+            >
+              <MenuItem value="USD">USD</MenuItem>
+              <MenuItem value="EUR">EUR</MenuItem>
+              <MenuItem value="INR">INR</MenuItem>
+            </CustomSelectField>
+          </div>
+        </div>
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <CustomDatePicker
@@ -96,20 +113,21 @@ const OtherIncludeFields = ({
           </div>
         </div>
         <div className={styles.firstRow}>
-        <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.currency}
-              errorText={errors?.currency}
-              label={"Choose Currency"}
-              value={data?.currency}
-              handleChange={(value) => {
-                handleChange(value, "currency");
-              }}
-            >
-              <MenuItem value="USD">USD</MenuItem>
-              <MenuItem value="EUR">EUR</MenuItem>
-              <MenuItem value="INR">INR</MenuItem>
-            </CustomSelectField>
+          <div className={styles.flex1}>
+            <TextField
+              error={errors?.payment_made_by}
+              onChange={handleChange}
+              value={data?.payment_made_by}
+              fullWidth={true}
+              name={"payment_made_by"}
+              margin={"dense"}
+              variant={"outlined"}
+              label={"Choose currency of payment"}
+            />
+            <div style={{ fontWeight: "500", textAlign: "start" }}>
+              Please mention the amount in spent currency and the exchange rate
+              applied to reach at above currency.
+            </div>
           </div>
           <div className={styles.flex121}>
             <File

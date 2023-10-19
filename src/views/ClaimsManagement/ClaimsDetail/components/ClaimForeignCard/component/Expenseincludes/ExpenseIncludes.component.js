@@ -23,6 +23,7 @@ const TEMP_OBJ = {
   payment_by: "",
   amount: 0,
   total_kms: "",
+  payment_made_by:"",
   travel_payment_proof: null,
   travel_voucher: null,
 };
