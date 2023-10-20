@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.profileDetail {
+  margin-top: 30px;
+  height: fit-content;
+  border-radius: 3px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.about {
+  display: grid;
+  grid-template-columns: 45% 55%;
+}
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.imageBlock {
+  display: flex;
+  gap: 10px;
+  border-right: 2px dashed gray;
+}
+.name {
+  display: flex;
+  flex-direction: column;
+  gap: "16px";
+  font-size: 0.8rem;
+}
+.otherInfo {
+  display: flex;
+  flex-direction: column;
+  gap: "16px";
+  margin-left: 40px;
+  font-size: 0.8rem;
+}
+.image {
+  border-radius: 24px;
+  height: 60px;
+  width: 60px;
+}
+.formContainer {
+  margin-top: 50px;
+  height: 300px;
+  border-radius: 3px;
+  padding: 10px;
+}
+.btnContainer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: end;
+}
+.leaveForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+.leaveTitle {
+  font-size: 16px;
+}
+
+.radioButtonContainer {
+  display: flex;
+  flex-direction: row !important;
+  font-size: 0.7rem;
+  margin-top: 10px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.firstBlock {
+  display: grid;
+  grid-template-columns: 36% 36% 10% 10%;
+  gap: 10px;
+}
+.leaveText {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+}

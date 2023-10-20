@@ -15,6 +15,8 @@ import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
 import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
 
+const LeaveApplicationForm = lazy(()=>import("../views/LeaveApplicationModule/LeaveApplicationForm/LeaveApplicationForm.container"))
+const LeaveApplication = lazy(()=>import("../views/LeaveApplicationModule/LeaveApplication.view")); 
 const TravelClaimListDetail = lazy(()=> import ( "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"));
 const LoanProcessDetail = lazy(()=> import ( "../views/LoanManagement/LoanProcessDetail/LoanProcessDetail.view"));
 const LoanRecovery = lazy(()=> import ( "../views/LoanManagement/LoanRecovery/LoanRecovery.view"));
@@ -1724,10 +1726,6 @@ const dashboardRoutes = [
         is_protect: true,
         roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     },
-
-
-
-
     {
         path: 'null',
         sidebarName: "Travel Planner",
@@ -1880,10 +1878,24 @@ const dashboardRoutes = [
         should_regex: true,
         // parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
-    },
-
-
-    // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+    }, 
+    {
+        path: RouteName.LEAVE_APPLICATION_LIST_VIEW,
+        sidebarName: "My Leave Application",
+        navbarName: "My Leave Application",
+        icon: AssignmentOutlined,
+        component: LeaveApplication,
+        is_sidebar: true,
+        is_protect: true,
+    }, 
+    {
+        path: RouteName.LEAVE_APPLICATION_FORM,
+        sidebarName: "My Leave Application",
+        navbarName: "My Leave Application",
+        component: LeaveApplicationForm,
+        is_sidebar: false,
+        is_protect: true,
+    },     
 ];
 
 export default dashboardRoutes;
