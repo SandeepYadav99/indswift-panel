@@ -13,22 +13,35 @@ import { dataURLtoFile } from "../../../../../helper/helper";
 import historyUtils from "../../../../../libs/history.utils";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import moment from "moment";
+import { serviceGetCurrencyList } from "../../../../../services/AppSettings.service";
 
 const initialForm = {
   travel_planner_id: "",
 };
 const amountKeys = {
   lodging_expenses_amount: "",
+  lodging_expenses_amount_usd: "",
+  lodging_expenses_amount_eur: "",
   travel_expenses_amount: "",
+  travel_expenses_amount_usd: "",
+  travel_expenses_amount_eur: "",
   da_ie_expenses_amount: "",
+  da_ie_expenses_amount_usd: "",
+  da_ie_expenses_amount_eur: "",
   entertainment_expenses_amount: "",
+  entertainment_expenses_amount_usd: "",
+  entertainment_expenses_amount_eur: "",
   tap_other_expenses_amount: "",
+  tap_other_expenses_amount_usd: "",
+  tap_other_expenses_amount_eur: "",
 };
 
-function useClaimIntCard() {
+function useClaimForCard() {
   const [employeeDetails, setEmployeeDetails] = useState({});
   const [currency, setCurrency] = useState("INR");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [curr, SetCurr] = useState({});
+  const [isCP, setIsCp] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -50,15 +63,30 @@ function useClaimIntCard() {
   useEffect(() => {
     Promise.allSettled([
       serviceGetEmployeeDetails({ code: emp_code }),
-      serviceGetList(["CLAIM_TAP"], { employee_id: user_id ,tour_type:"DOMESTIC"}),
+      serviceGetList(["CLAIM_TAP"], {
+        employee_id: user_id,
+        tour_type: "FOREIGN",
+      }),
+      serviceGetCurrencyList(),
     ]).then((promises) => {
       const empDetail = promises[0]?.value?.data;
       const listData = promises[1]?.value?.data;
+      const Currency = promises[2]?.value?.data;
       setEmployeeDetails(empDetail);
       setEmployees(listData?.CLAIM_TAP);
+      SetCurr(Currency);
     });
   }, []);
 
+  useEffect(() => {
+    if (form?.travel_planner_id?.id) {
+      if (form?.travel_planner_id?.is_cphi) {
+        setIsCp(true);
+      } else {
+        setIsCp(false);
+      }
+    }
+  }, [form?.travel_planner_id]);
   const changeAmount = useCallback(
     (text, fieldName) => {
       const t = { ...totalAmount };
@@ -68,6 +96,7 @@ function useClaimIntCard() {
     [totalAmount, setTotalAmount]
   );
 
+  console.log("total", totalAmount);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["travel_planner_id"];
@@ -88,45 +117,112 @@ function useClaimIntCard() {
     return errors;
   }, [form, errorData]);
 
-  // const ImprestAmount =
-  //   (() => {
-  //     if (form?.travel_planner_id?.id) {
-  //       if (form?.travel_planner_id?.imprest?.status === "ACCOUNTS_APPROVED") {
-  //         return form?.travel_planner_id?.imprest?.amount;
-  //       }
-  //     }
-  //     return 0;
-  //   },
-  //   [form?.travel_planner_id]);
+  const imprestINRAmount = useMemo(() => {
+    if (curr?.length > 0) {
+      if (form?.travel_planner_id?.myImprest?.currency === "USD") {
+        return (
+          Number(form?.travel_planner_id?.myImprest?.amount) *
+          Number(curr[1]?.conversion_rate)
+        );
+      } else if (form?.travel_planner_id?.myImprest?.currency === "EUR") {
+        return (
+          Number(form?.travel_planner_id?.myImprest?.amount) *
+          Number(curr[0]?.conversion_rate)
+        );
+      } else {
+        return Number(form?.travel_planner_id?.myImprest?.amount);
+      }
+    }
 
+    return 0;
+  }, [form, curr, SetCurr]);
+
+  console.log('office',officeAmount,officeAmount2)
   const imprestAmount = useMemo(() => {
-    if (form?.travel_planner_id?.myImprest?.status === "ACCOUNTS_APPROVED") {
+    if (form?.travel_planner_id?.myImprest?.status === "FINANCE_APPROVED") {
       return form?.travel_planner_id?.myImprest?.amount;
     }
     return 0;
   }, [form]);
 
-  const getTotalValue = useMemo(() => {
-    return Object.values(totalAmount).reduce((acc, value) => {
-      if (value !== "") {
-        acc += parseFloat(value);
+  const USDAmount = useMemo(() => {
+    let total = 0;
+    console.log("inside2");
+    for (const key in totalAmount) {
+      if (key.endsWith("usd")) {
+        const numericValue = parseFloat(totalAmount[key]);
+        if (!isNaN(numericValue)) {
+          total += numericValue;
+        }
       }
-      return acc;
-    }, 0);
+    }
+    return total;
   }, [totalAmount, setTotalAmount]);
 
+  const USDtoINR = useMemo(() => {
+    let total = 0;
+    if (curr?.length > 0) {
+      total = Number(USDAmount) * Number(curr[1]?.conversion_rate);
+    }
+    return total;
+  }, [USDAmount, curr, SetCurr]);
+
+  const EuroAmount = useMemo(() => {
+    let total = 0;
+    console.log("inside2");
+    for (const key in totalAmount) {
+      if (key.endsWith("eur")) {
+        const numericValue = parseFloat(totalAmount[key]);
+        if (!isNaN(numericValue)) {
+          total += numericValue;
+        }
+      }
+    }
+    return total;
+  }, [totalAmount, setTotalAmount]);
+
+  const EurotoINR = useMemo(() => {
+    let total = 0;
+    if (curr?.length > 0) {
+      total = Number(EuroAmount) * Number(curr[0]?.conversion_rate);
+    }
+    return total;
+  }, [EuroAmount, curr, SetCurr]);
+
+  const InrAmount = useMemo(() => {
+    let total = 0;
+    console.log("inside2");
+    for (const key in totalAmount) {
+      if (key.endsWith("amount")) {
+        const numericValue = parseFloat(totalAmount[key]);
+        if (!isNaN(numericValue)) {
+          total += numericValue;
+        }
+      }
+    }
+    return total;
+  }, [totalAmount, setTotalAmount]);
+
+  console.log(USDAmount, "totalAmount", totalAmount);
+
+  const getTotalValue = useMemo(() => {
+    let total = 0;
+    total = Number(InrAmount) + Number(USDtoINR) + Number(EurotoINR);
+    return total;
+  }, [InrAmount, USDtoINR, EurotoINR]);
+
   const getRefundAmount = useMemo(() => {
-    return imprestAmount
+    return imprestINRAmount
       ? Number(getTotalValue) -
           (Number(officeAmount) + Number(officeAmount2)) -
-          Number(imprestAmount)
+          Number(imprestINRAmount)
       : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
   }, [
     form?.travel_planner_id,
     getTotalValue,
     officeAmount,
     officeAmount2,
-    imprestAmount,
+    imprestINRAmount,
   ]);
 
   const submitToServer = useCallback(() => {
@@ -135,18 +231,23 @@ function useClaimIntCard() {
       setIsSubmitting(true);
       const fd = new FormData();
       fd.append("travel_planner_id", form?.travel_planner_id?.id);
-      fd.append("currency", currency);
       Object.keys(totalAmount).forEach((key) => {
         fd.append(key, totalAmount[key]);
       });
-      // const sum = Object.values(totalAmount).reduce((acc, value) => {
-      //   if (value !== "") {
-      //     acc += parseFloat(value);
-      //   }
-      //   return acc;
-      // }, 0);
-
+      const summery = {
+        conversion_rate_usd: curr[1]?.conversion_rate,
+        conversion_rate_eur: curr[0]?.conversion_rate,
+        conversion_rate_inr: 1,
+        amount_usd: USDAmount,
+        amount_eur: EuroAmount,
+        amount_inr: InrAmount,
+        converted_amount_usd: USDtoINR,
+        converted_amount_eur: EurotoINR,
+        converted_amount_inr:InrAmount
+      };
       fd.append("total_amount", getRefundAmount);
+      fd.append("imprest_amount", imprestAmount);
+      fd.append("imprest_converted_amount", imprestINRAmount);
       const lodgeData = lodgeRef.current.getData();
 
       let modifiedArr = lodgeData?.map((item) => {
@@ -155,13 +256,6 @@ function useClaimIntCard() {
           shared_with: item?.shared_with?.map((person) => person?.id),
         };
       });
-      if (tourType === "FOREIGN") {
-        delete modifiedArr.city_cluster;
-        delete modifiedArr.city_name;
-      } else {
-        delete modifiedArr.country;
-        delete modifiedArr.country_name;
-      }
       lodgeData.forEach((val) => {
         if (val?.lodging_voucher) {
           fd.append("lodging_voucher", val?.lodging_voucher);
@@ -175,6 +269,7 @@ function useClaimIntCard() {
       });
 
       fd.append("lodging_expenses", JSON.stringify(modifiedArr));
+      fd.append("imprest_summary", JSON.stringify(summery));
 
       const ExpensesData = travelRef.current.getData();
       ExpensesData.forEach((val) => {
@@ -265,6 +360,16 @@ function useClaimIntCard() {
     officeAmount2,
     setOfficeAmount2,
     getRefundAmount,
+    isCP,
+    imprestAmount,
+    imprestINRAmount,
+    curr,
+    SetCurr,
+    USDAmount,
+    EuroAmount,
+    InrAmount,
+    USDtoINR,
+    EurotoINR,
   ]);
 
   const removeError = useCallback(
@@ -337,6 +442,14 @@ function useClaimIntCard() {
     officeAmount2,
     setOfficeAmount2,
     getRefundAmount,
+    isCP,
+    curr,
+    SetCurr,
+    USDAmount,
+    EuroAmount,
+    InrAmount,
+    USDtoINR,
+    EurotoINR,
   ]);
 
   const changeTextData = useCallback(
@@ -395,7 +508,16 @@ function useClaimIntCard() {
     officeAmount2,
     getRefundAmount,
     imprestAmount,
+    isCP,
+    InrAmount,
+    EuroAmount,
+    USDAmount,
+    curr,
+    USDtoINR,
+    EurotoINR,
+    imprestINRAmount,
+    curr
   };
 }
 
-export default useClaimIntCard;
+export default useClaimForCard;

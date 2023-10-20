@@ -14,6 +14,7 @@ import Constants from "../config/constants";
 import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
 import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
+import ClaimForCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view";
 
 const LeaveApplicationForm = lazy(()=>import("../views/LeaveApplicationModule/LeaveApplicationForm/LeaveApplicationForm.container"))
 const LeaveApplication = lazy(()=>import("../views/LeaveApplicationModule/LeaveApplication.view")); 
@@ -1229,7 +1230,7 @@ const dashboardRoutes = [
         sidebarName: "Claims Int",
         navbarName: "Claims Int",
         icon: PeopleOutlined,
-        component: ClaimIntCard,
+        component: ClaimForCard,
         is_sidebar: false,
         is_protect: true,
         should_regex: true,
