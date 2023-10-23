@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Style.module.css";
-import { Paper, ButtonBase } from "@material-ui/core";
+import { Paper, ButtonBase, MenuItem } from "@material-ui/core";
 import CircularPng from "../../../assets/img/circulars illustration.png";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -12,42 +12,33 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import useLeaveApplication from "./LeaveApplication.hook";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import { useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreateLeave } from "../../../actions/LeaveModule.action";
-import useClaimIntCard from '../../../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook';
+import useClaimIntCard from "../../../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
+import LogUtils from "../../../libs/LogUtils";
 
 const LeaveApplicationForm = () => {
   const dispatch = useDispatch();
-  const { state} = useSelector((state)=>state)
+  const { state } = useSelector((state) => state);
+  const { employeeDetails } = useClaimIntCard({});
+
   const {
-    employeeDetails,
-  } = useClaimIntCard({});
-
-  const { leaveType, setLeaveType } = useLeaveApplication({});
-
-  console.log(state,"state");
-  console.log(employeeDetails,"employeeDetails is here")
-
-  const data = {
-    type: "OCCASION_LEAVE",
-    duration: "FULL_DAY",
-    duration_days: "1",
-    event_type: "BIRTHDAY",
-    start_date: `2023-10-15T16:41:00.000Z`,
-    end_date: `2023-10-19T16:41:00.000Z`,
-    purpose: "official work",
-    document:"document",
-    comment: "Test comment",
-    deceased_relationship:"",
-    reason: "test",
-    child: "FIRST_BABY"
-  };
-
-
-
-  useEffect(() => {
-    dispatch(actionCreateLeave(data));
-  }, []);
+    form,
+    changeTextData,
+    onBlurHandler,
+    removeError,
+    handleSubmit,
+    isLoading,
+    isSubmitting,
+    errorData,
+    isEdit,
+    handleDelete,
+    includeRef,
+    handleReset,
+    id,
+    leaveType,
+    setLeaveType,
+  } = useLeaveApplication({});
 
   return (
     <div className={styles.container}>
@@ -64,7 +55,7 @@ const LeaveApplicationForm = () => {
           <div className={styles.imageBlock}>
             <img src={CircularPng} alt="profile" className={styles.image} />
             <div className={styles.name}>
-            <span className={styles.formData}>
+              <span className={styles.formData}>
                 <b>Name</b>:<span>{employeeDetails?.name}</span>
               </span>
               <span className={styles.formData}>
@@ -78,7 +69,8 @@ const LeaveApplicationForm = () => {
           <div className={styles.otherInfo}>
             {" "}
             <span className={styles.formData}>
-              <b>Designation</b>:<span>{employeeDetails?.designation?.name}</span>
+              <b>Designation</b>:
+              <span>{employeeDetails?.designation?.name}</span>
             </span>
             <span className={styles.formData}>
               <b>Grade/Level</b>:<span>{employeeDetails?.grade?.code}</span>
@@ -100,58 +92,67 @@ const LeaveApplicationForm = () => {
           <FormControl>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue=""
-              name="radio-buttons-group"
+              aria-label="option"
+              name="type"
+              value={form?.type}
+              onChange={(e) => changeTextData(e.target.value, "type")}
+              row
               className={styles.radioButtonContainer}
             >
               <FormControlLabel
                 value="OCCASION_LEAVE"
                 control={<Radio />}
                 label="Occasion Leave"
-                onClick={() => setLeaveType("OCCASION_LEAVE")}
               />
               <FormControlLabel
                 value="BEREAVEMENT_LEAVE"
                 control={<Radio />}
                 label="Bereavement Leave"
-                onClick={() => setLeaveType("BEREAVEMENT_LEAVE")}
               />
               <FormControlLabel
                 value="FACILITATION_LEAVE"
                 control={<Radio />}
                 label="Facilitation Leave"
-                onClick={() => setLeaveType("FACILITATION_LEAVE")}
               />
               <FormControlLabel
                 value="PATERNITY_LEAVE"
                 control={<Radio />}
                 label="Paternity Leave"
-                onClick={() => setLeaveType("PATERNITY_LEAVE")}
               />
             </RadioGroup>
           </FormControl>
-          {leaveType === "OCCASION_LEAVE" && (
+          {form?.type === "OCCASION_LEAVE" && (
             <div className={styles.inputContainer}>
               <div className={styles.firstBlock}>
                 <CustomSelectField
+                  isError={errorData?.duration}
+                  errorText={errorData?.duration}
                   label={"Choose Leave"}
-                  value={""}
-                  handleChange={() => console.log("Hello")}
+                  value={form?.duration}
+                  handleChange={(value) => {
+                    changeTextData(value, "duration");
+                  }}
                 >
-                  <p>Hello</p>
-                  <p>Hey</p>
+                  <MenuItem value="HALF_DAY">Half Day</MenuItem>
+                  <MenuItem value="FULL_DAY">Full Day</MenuItem>
                 </CustomSelectField>
                 <CustomSelectField
+                  isError={errorData?.event_type}
+                  errorText={errorData?.event_type}
                   label={"Select Event"}
-                  value={""}
-                  handleChange={() => console.log("Hello")}
+                  value={form?.event_type}
+                  handleChange={(value) => {
+                    changeTextData(value, "event_type");
+                  }}
                 >
-                  <p>Hello</p>
-                  <p>Hey</p>
+                  <MenuItem value="BIRTHDAY">BIRTHDAY</MenuItem>
+                  <MenuItem value="MARRIAGE_ANNIVERSARY">
+                    MARRIAGE ANNIVERSARY
+                  </MenuItem>
                 </CustomSelectField>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Birthday</b>:
+                    <b>Birthday</b>:{employeeDetails?.dob}
                   </p>
                 </div>
                 <div className={styles.leaveText}>
@@ -175,31 +176,57 @@ const LeaveApplicationForm = () => {
                   console.log("hello");
                 }}
               />
-              <CustomTextField label={"Comment"} rows={4} columns={3} />
+              <CustomTextField
+                isError={errorData?.comment}
+                errorText={errorData?.comment}
+                label={"Add comments "}
+                value={form?.comment}
+                onTextChange={(text) => {
+                  changeTextData(text, "comment");
+                }}
+                onBlur={() => {
+                  onBlurHandler("comment");
+                }}
+                multiline
+                rows={3}
+              />{" "}
             </div>
           )}
-          {leaveType === "BEREAVEMENT_LEAVE" && (
+          {form?.type === "BEREAVEMENT_LEAVE" && (
             <div className={styles.inputContainer}>
               <CustomTextField
-                label={
-                  leaveType === "BEREAVEMENT_LEAVE"
-                    ? "Relationship with Deceased"
-                    : "Reason for Leave"
-                }
-                rows={2}
+                isError={errorData?.deceased_relationship}
+                errorText={errorData?.deceased_relationship}
+                label={"Relation with Deceased"}
+                value={form?.deceased_relationship}
+                onTextChange={(text) => {
+                  changeTextData(text, "deceased_relationship");
+                }}
+                onBlur={() => {
+                  onBlurHandler("deceased_relationship");
+                }}
+                rows={1}
               />
               <div className={styles.firstBlock}>
                 <CustomDatePicker
-                  disabled={false}
                   clearable
                   label={"Leave From"}
-                  onChange={(e) => console.log("Hello World")}
+                  minDate={new Date()}
+                  onChange={(date) => {
+                    changeTextData(date, "start_date");
+                  }}
+                  value={form?.start_date}
+                  isError={errorData?.start_date}
                 />
                 <CustomDatePicker
-                  disabled={false}
                   clearable
-                  label={"Leave To"}
-                  onChange={(e) => console.log("Hello World")}
+                  label={" Leave To"}
+                  minDate={new Date()}
+                  onChange={(date) => {
+                    changeTextData(date, "end_date");
+                  }}
+                  value={form?.end_date}
+                  isError={errorData?.end_date}
                 />
                 <div className={styles.leaveText}>
                   <p>
@@ -216,35 +243,71 @@ const LeaveApplicationForm = () => {
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
                 fullWidth={true}
-                name="od1"
-                label="Attachments"
+                name="document"
+                label="Upload document"
                 accept={"application/pdf,application/msword,image/*"}
-                link={""}
-                error={""}
-                value={""}
-                placeholder={`Add Attachments (optional)`}
-                onChange={() => {
-                  console.log("hello");
+                // link={data?.document ? data?.document : null}
+                error={errorData?.document}
+                value={form?.document}
+                placeholder={"Upload document"}
+                onChange={(file) => {
+                  if (file) {
+                    LogUtils.log("file", file);
+                    changeTextData(file, "document");
+                  }
                 }}
               />
-              <CustomTextField label={"Comment"} rows={3} columns={3} />
+              <CustomTextField
+                isError={errorData?.comment}
+                errorText={errorData?.comment}
+                label={"Add comments "}
+                value={form?.comment}
+                onTextChange={(text) => {
+                  changeTextData(text, "comment");
+                }}
+                onBlur={() => {
+                  onBlurHandler("comment");
+                }}
+                multiline
+                rows={3}
+              />{" "}
             </div>
           )}
-          {leaveType === "FACILITATION_LEAVE" && (
+          {form?.type === "FACILITATION_LEAVE" && (
             <div className={styles.inputContainer}>
-              <CustomTextField label={"Reason for Leave"} rows={2} />
+              <CustomTextField
+                isError={errorData?.reason}
+                errorText={errorData?.reason}
+                label={"Reason for Leave"}
+                value={form?.reason}
+                onTextChange={(text) => {
+                  changeTextData(text, "reason");
+                }}
+                onBlur={() => {
+                  onBlurHandler("reason");
+                }}
+                rows={1}
+              />{" "}
               <div className={styles.firstBlock}>
                 <CustomDatePicker
-                  disabled={false}
                   clearable
                   label={"Leave From"}
-                  onChange={(e) => console.log("Hello World")}
+                  minDate={new Date()}
+                  onChange={(date) => {
+                    changeTextData(date, "start_date");
+                  }}
+                  value={form?.start_date}
+                  isError={errorData?.start_date}
                 />
                 <CustomDatePicker
-                  disabled={false}
                   clearable
-                  label={"Leave To"}
-                  onChange={(e) => console.log("Hello World")}
+                  label={" Leave To"}
+                  minDate={new Date()}
+                  onChange={(date) => {
+                    changeTextData(date, "end_date");
+                  }}
+                  value={form?.end_date}
+                  isError={errorData?.end_date}
                 />
                 <div className={styles.leaveText}>
                   <p>
@@ -272,49 +335,77 @@ const LeaveApplicationForm = () => {
                   console.log("hello");
                 }}
               />
-              <CustomTextField label={"Comment"} rows={4} columns={3} />
+              <CustomTextField
+                isError={errorData?.comment}
+                errorText={errorData?.comment}
+                label={"Add comments "}
+                value={form?.comment}
+                onTextChange={(text) => {
+                  changeTextData(text, "comment");
+                }}
+                onBlur={() => {
+                  onBlurHandler("comment");
+                }}
+                multiline
+                rows={3}
+              />{" "}
             </div>
           )}
-          {leaveType === "PATERNITY_LEAVE" && (
+          {form?.type === "PATERNITY_LEAVE" && (
             <div className={styles.inputContainer}>
               <div className={styles.parentalLeaveBlock}>
                 <CustomSelectField
-                  label={"Type of Event"}
-                  value={""}
-                  handleChange={() => console.log("Hello")}
+                  isError={errorData?.event_type}
+                  errorText={errorData?.event_type}
+                  label={"Type Of Event"}
+                  value={form?.event_type}
+                  handleChange={(value) => {
+                    changeTextData(value, "event_type");
+                  }}
                 >
-                  <p>Hello</p>
-                  <p>Hey</p>
+                  <MenuItem value="NORMAL_DELIVERY">Normal Delievery</MenuItem>
+                  <MenuItem value="C_SECTION_DELIVERY">
+                    C_Section_Delievery
+                  </MenuItem>
+                  <MenuItem value="MISCARRIAGE">Miscarriage</MenuItem>
                 </CustomSelectField>
                 <CustomSelectField
+                  isError={errorData?.child}
+                  errorText={errorData?.child}
                   label={"Select Child"}
-                  value={""}
-                  handleChange={() => console.log("Hello")}
+                  value={form?.child}
+                  handleChange={(value) => {
+                    changeTextData(value, "child");
+                  }}
                 >
-                  <p>Hello</p>
-                  <p>Hey</p>
+                  <MenuItem value="FIRST_CHILD">First Child</MenuItem>
+                  <MenuItem value="SECOND_CHILD">Second Child</MenuItem>
                 </CustomSelectField>
               </div>
               <div className={styles.firstBlock}>
-                <CustomSelectField
-                  label={"Choose Leave"}
-                  value={""}
-                  handleChange={() => console.log("Hello")}
-                >
-                  <p>Hello</p>
-                  <p>Hey</p>
-                </CustomSelectField>
-                <CustomSelectField
-                  label={"Select Event"}
-                  value={""}
-                  handleChange={() => console.log("Hello")}
-                >
-                  <p>Hello</p>
-                  <p>Hey</p>
-                </CustomSelectField>
+                <CustomDatePicker
+                  clearable
+                  label={"Leave From"}
+                  minDate={new Date()}
+                  onChange={(date) => {
+                    changeTextData(date, "start_date");
+                  }}
+                  value={form?.start_date}
+                  isError={errorData?.start_date}
+                />
+                <CustomDatePicker
+                  clearable
+                  label={" Leave To"}
+                  minDate={new Date()}
+                  onChange={(date) => {
+                    changeTextData(date, "end_date");
+                  }}
+                  value={form?.end_date}
+                  isError={errorData?.end_date}
+                />
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Birthday</b>:
+                    <b>No of Days</b>:
                   </p>
                 </div>
                 <div className={styles.leaveText}>
@@ -338,13 +429,28 @@ const LeaveApplicationForm = () => {
                   console.log("hello");
                 }}
               />
-              <CustomTextField label={"Comment"} rows={4} columns={3} />
+              <CustomTextField
+                isError={errorData?.comment}
+                errorText={errorData?.comment}
+                label={"Add comments "}
+                value={form?.comment}
+                onTextChange={(text) => {
+                  changeTextData(text, "comment");
+                }}
+                onBlur={() => {
+                  onBlurHandler("comment");
+                }}
+                multiline
+                rows={3}
+              />{" "}
             </div>
           )}
         </div>
       </Paper>
       <div className={styles.btnContainer}>
-        <ButtonBase className={"createBtn"}>SUBMIT</ButtonBase>
+        <ButtonBase className={"createBtn"} onClick={handleSubmit}>
+          SUBMIT
+        </ButtonBase>
       </div>
     </div>
   );
