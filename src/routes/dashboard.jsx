@@ -18,6 +18,8 @@ import SuccessionPlanner_list from "../views/SuccessionPlaner/SuccessionPlanner_
 
 const CandidateStatusGlossary_List = lazy(()=> import ( "../views/CandidateStatusGlossary/CandidateStatusGlossary_List"));
 const ExpiringOfferLetterView = lazy(()=> import ( "../views/ExpiringOfferLetter/ExpiringOfferLetter_View"));
+const C3MLetterView = lazy(()=> import ( "../views/C3MLetters/C3MLetters_View"));
+
 
 
 const TravelClaimListDetail = lazy(()=> import ( "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"));
@@ -1753,6 +1755,7 @@ const dashboardRoutes = [
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
 
     },
+   
     {
         path: `${RouteName.TRAVEL_PLANNER}`,
         sidebarName: "My Travel Planner",
@@ -1904,6 +1907,19 @@ const dashboardRoutes = [
         should_regex: true,
         // parent: 'tp',
         // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    },
+    {
+        path: RouteName.C3MLETTER,
+        sidebarName: "C3M Letters",
+        navbarName: "C3M Letters",
+        icon: AssignmentOutlined,
+        component:C3MLetterView,
+        is_sidebar: true,
+        is_protect:true,
+        // slug: 'tp',
+        // is_parent: true,
+        // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+
     },
 
 

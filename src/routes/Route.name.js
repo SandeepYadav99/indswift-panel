@@ -193,5 +193,7 @@ export default {
   CANDIDATE_STATUS_GLOSSARY:"/candidate/status",
   SUCCESSION_PLANING:"/succession-planing",
   SUCCESSION_APPROVAL:"/succession-approval",
-  EXPIRING_OFFER_LETTER:"/expiring-offer-letter"
+  EXPIRING_OFFER_LETTER:"/expiring-offer-letter",
+
+  C3MLETTER:"/c3mletter"
 };

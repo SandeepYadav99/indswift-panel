@@ -123,7 +123,7 @@ function VacanciesTable({ jobId }) {
               <InfoOutlined fontSize={"small"} />
             </IconButton>
 
-            {all?.status === "HIRING" ? (
+            {all?.status === "HIRING" && all?.type === "ADDITIONAL_REQUIREMENT" ? (
               <IconButton
                 className={"tableActionBtnError"}
                 color="error"

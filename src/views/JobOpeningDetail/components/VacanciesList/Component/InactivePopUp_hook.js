@@ -96,7 +96,7 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
           if (!res.error) {
             SnackbarUtils.success("Request Rejected");
             handleToggle();
-            // window.location.reload();
+              window.location.reload();
           } else {
             SnackbarUtils.error(res?.message);
           }
