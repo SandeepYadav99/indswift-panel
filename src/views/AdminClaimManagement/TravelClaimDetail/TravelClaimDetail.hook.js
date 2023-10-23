@@ -119,7 +119,7 @@ function useTravelClaimListDetail() {
     getTotalValue,
     "one",
     officeAmount,
-    // "two",
+    "two",
     officeAmount2
   );
   const submitToServer = useCallback(() => {
