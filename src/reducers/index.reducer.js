@@ -78,6 +78,7 @@ import EmployeeLoanListReducer from "./EmployeeLoanList.reducer";
 import LoanListReducer from "./LoanList.reducer";
 import NewEmployeeListReducer from "./NewEmployeeList.reducer";
 import OngoingLoansReducer from "./OngoingLoans.reducer";
+import LeaveReducer from './LeaveModule.reducer';
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -153,7 +154,8 @@ const rootReducer = combineReducers({
   emp_loanList:EmployeeLoanListReducer,
   loanList:LoanListReducer,
   newEmployee:NewEmployeeListReducer,
-  OngoingLoans:OngoingLoansReducer
+  OngoingLoans:OngoingLoansReducer,
+  Leave:LeaveReducer
   // form: formReducer,
 });
 

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import styles from "./Style.module.css";
 import { Paper, ButtonBase } from "@material-ui/core";
 import CircularPng from "../../../assets/img/circulars illustration.png";
@@ -8,9 +9,46 @@ import FormControl from "@material-ui/core/FormControl";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import File from "../../../components/FileComponent/FileComponent.component";
-import TextField from "@material-ui/core/TextField";
+import useLeaveApplication from "./LeaveApplication.hook";
+import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
+import { useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { actionCreateLeave } from "../../../actions/LeaveModule.action";
+import useClaimIntCard from '../../../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook';
 
 const LeaveApplicationForm = () => {
+  const dispatch = useDispatch();
+  const { state} = useSelector((state)=>state)
+  const {
+    employeeDetails,
+  } = useClaimIntCard({});
+
+  const { leaveType, setLeaveType } = useLeaveApplication({});
+
+  console.log(state,"state");
+  console.log(employeeDetails,"employeeDetails is here")
+
+  const data = {
+    type: "OCCASION_LEAVE",
+    duration: "FULL_DAY",
+    duration_days: "1",
+    event_type: "BIRTHDAY",
+    start_date: `2023-10-15T16:41:00.000Z`,
+    end_date: `2023-10-19T16:41:00.000Z`,
+    purpose: "official work",
+    document:"document",
+    comment: "Test comment",
+    deceased_relationship:"",
+    reason: "test",
+    child: "FIRST_BABY"
+  };
+
+
+
+  useEffect(() => {
+    dispatch(actionCreateLeave(data));
+  }, []);
+
   return (
     <div className={styles.container}>
       <div>
@@ -26,27 +64,27 @@ const LeaveApplicationForm = () => {
           <div className={styles.imageBlock}>
             <img src={CircularPng} alt="profile" className={styles.image} />
             <div className={styles.name}>
-              <span>
-                <b>Name</b>:
+            <span className={styles.formData}>
+                <b>Name</b>:<span>{employeeDetails?.name}</span>
               </span>
-              <span>
-                <b>Employee ID</b>:
+              <span className={styles.formData}>
+                <b>Employee ID</b>:{employeeDetails?.emp_code}
               </span>
-              <span>
-                <b>Location</b>:
+              <span className={styles.formData}>
+                <b>Location</b>:<span>{employeeDetails?.location?.name}</span>
               </span>
             </div>
           </div>
           <div className={styles.otherInfo}>
             {" "}
-            <span>
-              <b>Designation</b>:
+            <span className={styles.formData}>
+              <b>Designation</b>:<span>{employeeDetails?.designation?.name}</span>
             </span>
-            <span>
-              <b>Grade/Level</b>:
+            <span className={styles.formData}>
+              <b>Grade/Level</b>:<span>{employeeDetails?.grade?.code}</span>
             </span>
-            <span>
-              <b>Department</b>:
+            <span className={styles.formData}>
+              <b>Department</b>:<span>{employeeDetails?.department?.name}</span>
             </span>
           </div>
         </div>
@@ -67,73 +105,242 @@ const LeaveApplicationForm = () => {
               className={styles.radioButtonContainer}
             >
               <FormControlLabel
-                value="Occasion Leave"
+                value="OCCASION_LEAVE"
                 control={<Radio />}
                 label="Occasion Leave"
+                onClick={() => setLeaveType("OCCASION_LEAVE")}
               />
               <FormControlLabel
-                value="Bereavement Leave"
+                value="BEREAVEMENT_LEAVE"
                 control={<Radio />}
                 label="Bereavement Leave"
+                onClick={() => setLeaveType("BEREAVEMENT_LEAVE")}
               />
               <FormControlLabel
-                value="Facilitation Leave"
+                value="FACILITATION_LEAVE"
                 control={<Radio />}
                 label="Facilitation Leave"
+                onClick={() => setLeaveType("FACILITATION_LEAVE")}
               />
               <FormControlLabel
-                value="Paternity Leave"
+                value="PATERNITY_LEAVE"
                 control={<Radio />}
                 label="Paternity Leave"
+                onClick={() => setLeaveType("PATERNITY_LEAVE")}
               />
             </RadioGroup>
           </FormControl>
-          <div className={styles.inputContainer}>
-            <div className={styles.firstBlock}>
-              <CustomSelectField
-                label={"Choose Leave"}
-                value={""}
-                handleChange={() => console.log("Hello")}
-              >
-                <p>Hello</p>
-                <p>Hey</p>
-              </CustomSelectField>
-              <CustomSelectField
-                label={"Select Event"}
-                value={""}
-                handleChange={() => console.log("Hello")}
-              >
-                <p>Hello</p>
-                <p>Hey</p>
-              </CustomSelectField>
-              <div className={styles.leaveText}>
-                <p>
-                  <b>Birthday</b>:
-                </p>
+          {leaveType === "OCCASION_LEAVE" && (
+            <div className={styles.inputContainer}>
+              <div className={styles.firstBlock}>
+                <CustomSelectField
+                  label={"Choose Leave"}
+                  value={""}
+                  handleChange={() => console.log("Hello")}
+                >
+                  <p>Hello</p>
+                  <p>Hey</p>
+                </CustomSelectField>
+                <CustomSelectField
+                  label={"Select Event"}
+                  value={""}
+                  handleChange={() => console.log("Hello")}
+                >
+                  <p>Hello</p>
+                  <p>Hey</p>
+                </CustomSelectField>
+                <div className={styles.leaveText}>
+                  <p>
+                    <b>Birthday</b>:
+                  </p>
+                </div>
+                <div className={styles.leaveText}>
+                  <p>
+                    <b>Pending Leaves</b>:
+                  </p>
+                </div>
               </div>
-              <div className={styles.leaveText}>
-                <p>
-                  <b>Pending Leaves</b>:
-                </p>
-              </div>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                fullWidth={true}
+                name="od1"
+                label="Attachments"
+                accept={"application/pdf,application/msword,image/*"}
+                link={""}
+                error={""}
+                value={""}
+                placeholder={`Add Attachments (optional)`}
+                onChange={() => {
+                  console.log("hello");
+                }}
+              />
+              <CustomTextField label={"Comment"} rows={4} columns={3} />
             </div>
-            <File
-              max_size={10 * 1024 * 1024}
-              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
-              fullWidth={true}
-              name="od1"
-              label="Attachments"
-              accept={"application/pdf,application/msword,image/*"}
-              link={""}
-              error={""}
-              value={""}
-              placeholder={`Add Attachments (optional)`}
-              onChange={() => {
-                console.log("hello");
-              }}
-            />
-            <CustomTextField label={"Comment"} rows={4} columns={3} />
-          </div>
+          )}
+          {leaveType === "BEREAVEMENT_LEAVE" && (
+            <div className={styles.inputContainer}>
+              <CustomTextField
+                label={
+                  leaveType === "BEREAVEMENT_LEAVE"
+                    ? "Relationship with Deceased"
+                    : "Reason for Leave"
+                }
+                rows={2}
+              />
+              <div className={styles.firstBlock}>
+                <CustomDatePicker
+                  disabled={false}
+                  clearable
+                  label={"Leave From"}
+                  onChange={(e) => console.log("Hello World")}
+                />
+                <CustomDatePicker
+                  disabled={false}
+                  clearable
+                  label={"Leave To"}
+                  onChange={(e) => console.log("Hello World")}
+                />
+                <div className={styles.leaveText}>
+                  <p>
+                    <b>No of Days</b>:
+                  </p>
+                </div>
+                <div className={styles.leaveText}>
+                  <p>
+                    <b>Pending Leaves</b>:
+                  </p>
+                </div>
+              </div>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                fullWidth={true}
+                name="od1"
+                label="Attachments"
+                accept={"application/pdf,application/msword,image/*"}
+                link={""}
+                error={""}
+                value={""}
+                placeholder={`Add Attachments (optional)`}
+                onChange={() => {
+                  console.log("hello");
+                }}
+              />
+              <CustomTextField label={"Comment"} rows={3} columns={3} />
+            </div>
+          )}
+          {leaveType === "FACILITATION_LEAVE" && (
+            <div className={styles.inputContainer}>
+              <CustomTextField label={"Reason for Leave"} rows={2} />
+              <div className={styles.firstBlock}>
+                <CustomDatePicker
+                  disabled={false}
+                  clearable
+                  label={"Leave From"}
+                  onChange={(e) => console.log("Hello World")}
+                />
+                <CustomDatePicker
+                  disabled={false}
+                  clearable
+                  label={"Leave To"}
+                  onChange={(e) => console.log("Hello World")}
+                />
+                <div className={styles.leaveText}>
+                  <p>
+                    <b>No of Days</b>:
+                  </p>
+                </div>
+                <div className={styles.leaveText}>
+                  <p>
+                    <b>Pending Leaves</b>:
+                  </p>
+                </div>
+              </div>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                fullWidth={true}
+                name="od1"
+                label="Attachments"
+                accept={"application/pdf,application/msword,image/*"}
+                link={""}
+                error={""}
+                value={""}
+                placeholder={`Add Attachments (optional)`}
+                onChange={() => {
+                  console.log("hello");
+                }}
+              />
+              <CustomTextField label={"Comment"} rows={4} columns={3} />
+            </div>
+          )}
+          {leaveType === "PATERNITY_LEAVE" && (
+            <div className={styles.inputContainer}>
+              <div className={styles.parentalLeaveBlock}>
+                <CustomSelectField
+                  label={"Type of Event"}
+                  value={""}
+                  handleChange={() => console.log("Hello")}
+                >
+                  <p>Hello</p>
+                  <p>Hey</p>
+                </CustomSelectField>
+                <CustomSelectField
+                  label={"Select Child"}
+                  value={""}
+                  handleChange={() => console.log("Hello")}
+                >
+                  <p>Hello</p>
+                  <p>Hey</p>
+                </CustomSelectField>
+              </div>
+              <div className={styles.firstBlock}>
+                <CustomSelectField
+                  label={"Choose Leave"}
+                  value={""}
+                  handleChange={() => console.log("Hello")}
+                >
+                  <p>Hello</p>
+                  <p>Hey</p>
+                </CustomSelectField>
+                <CustomSelectField
+                  label={"Select Event"}
+                  value={""}
+                  handleChange={() => console.log("Hello")}
+                >
+                  <p>Hello</p>
+                  <p>Hey</p>
+                </CustomSelectField>
+                <div className={styles.leaveText}>
+                  <p>
+                    <b>Birthday</b>:
+                  </p>
+                </div>
+                <div className={styles.leaveText}>
+                  <p>
+                    <b>Pending Leaves</b>:
+                  </p>
+                </div>
+              </div>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                fullWidth={true}
+                name="od1"
+                label="Attachments"
+                accept={"application/pdf,application/msword,image/*"}
+                link={""}
+                error={""}
+                value={""}
+                placeholder={`Add Attachments (optional)`}
+                onChange={() => {
+                  console.log("hello");
+                }}
+              />
+              <CustomTextField label={"Comment"} rows={4} columns={3} />
+            </div>
+          )}
         </div>
       </Paper>
       <div className={styles.btnContainer}>
