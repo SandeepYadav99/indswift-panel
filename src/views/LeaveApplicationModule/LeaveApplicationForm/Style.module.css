@@ -86,8 +86,8 @@
 
 .firstBlock {
   display: grid;
-  grid-template-columns: 36% 36% 10% 10%;
-  gap: 10px;
+  grid-template-columns: 36% 36% 15% 13%;
+  gap: 3px;
 }
 .leaveText {
   display: flex;
