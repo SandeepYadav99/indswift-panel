@@ -112,7 +112,7 @@ const ExpiringOfferLetterView = ({ location }) => {
       {
         key: "candidate_name",
         label: "CANDIDATE NAME",
-        sortable: true,
+        sortable: false,
         render: (value, all) => (
           <div>
             {console.log(all)} {all?.candidate?.name}
@@ -161,7 +161,7 @@ const ExpiringOfferLetterView = ({ location }) => {
       {
         key: "candidateObj.status",
         label: "Candidate STATUS",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div>
             <StatusPill status={removeUnderScore(all?.candidate?.status)} />
@@ -171,7 +171,7 @@ const ExpiringOfferLetterView = ({ location }) => {
       {
         key: "offerObj.joining_date",
         label: "Joining Date",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{all?.joiningDate}</div>,
       },
       {
