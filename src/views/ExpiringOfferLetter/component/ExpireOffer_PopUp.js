@@ -9,6 +9,9 @@ import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
+import { serviceMarkExpired, serviceMarkResharedOfferLetter } from "../../../services/ExpirOfferLetter.service";
+import historyUtils from "../../../libs/history.utils";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 
 
@@ -38,6 +41,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const ExpireOffer_PopUp = ({ isOpen, handleToggle, candidateId }) => {
   const classes = useStyles();
   
+  const handleSubmit = () => {
+    if (candidateId) {
+      serviceMarkExpired({ letter_id: candidateId }).then((res) => {
+        if (!res?.error) {
+          handleToggle()
+        }else{
+          SnackbarUtils.error("Offer letter not found")
+        }
+      });
+    }
+  };
   return (
     <div>
       <Dialog
@@ -74,7 +88,7 @@ const ExpireOffer_PopUp = ({ isOpen, handleToggle, candidateId }) => {
        
           <div className={styles.printFlex}>
             <ButtonBase
-            //   onClick={handleSubmit}
+               onClick={handleSubmit}
             
               className={
                styles.createBtn 

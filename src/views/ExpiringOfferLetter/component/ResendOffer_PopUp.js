@@ -5,6 +5,9 @@ import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
+import { serviceMarkResharedOfferLetter } from "../../../services/ExpirOfferLetter.service";
+import historyUtils from "../../../libs/history.utils";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -29,9 +32,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ResendOffer_PopUp = ({ isOpen, handleToggle, candidateId }) => {
+const ResendOffer_PopUp = ({ isOpen, handleToggle, letter_id }) => {
   const classes = useStyles();
-
+console.log(letter_id)
+  const handleSubmit = () => {
+    if (letter_id) {
+      serviceMarkResharedOfferLetter({ letter_id: letter_id }).then((res) => {
+        if (!res?.error) {
+          handleToggle()
+        }else{
+          SnackbarUtils.error("Offer letter not found")
+        }
+      });
+    }
+  };
   return (
     <div>
       <Dialog
@@ -65,11 +79,7 @@ const ResendOffer_PopUp = ({ isOpen, handleToggle, candidateId }) => {
           </div>
 
           <div className={styles.printFlex}>
-            <ButtonBase
-              //   onClick={handleSubmit}
-
-              className={styles.createBtn}
-            >
+            <ButtonBase onClick={handleSubmit} className={styles.createBtn}>
               CONFIRM
             </ButtonBase>
           </div>

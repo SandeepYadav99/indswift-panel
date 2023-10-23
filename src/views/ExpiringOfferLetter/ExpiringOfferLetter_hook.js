@@ -1,36 +1,32 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  actionCreateReviewOLR,
-  actionDeleteReviewOLR,
-  actionFetchReviewOLR,
-  actionSetPageReviewOLR,
-  actionUpdateReviewOLR,
-} from "../../actions/ReviewOLR.action";
-import LogUtils from "../../libs/LogUtils";
-import RouteName from "../../routes/Route.name";
-import historyUtils from "../../libs/history.utils";
+
 import Constants from "../../config/constants";
+import { actionFetchExpirOfferLetterList,   actionSetPageExpirOfferLetterList } from "../../actions/ExpirOfferLetter.action";
+import { serviceMarkResharedOfferLetter } from "../../services/ExpirOfferLetter.service";
 
 const useExpiringOfferLetterHook = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [isOpenResendDialog, setIsOpenResendDialog]=useState(false)
+  const [letterResendId,setLetterResendId]=useState("");
+  const [expireLetter,setExpireLetter]=useState("")
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
 
   const [isOpenDialog, setIsOpenDialog] = useState(false);
+  
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.review_olr);
+  } = useSelector((state) => state.expirOfferLetter);
 
   useEffect(() => {
     dispatch(
-      actionFetchReviewOLR(1, sortingData, {
+      actionFetchExpirOfferLetterList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -39,32 +35,21 @@ const useExpiringOfferLetterHook = ({}) => {
   }, []);
 
   const changeRoute = useCallback((data) => {
-    historyUtils.push(RouteName.JOB_OPENINGS_DETAILS + data?.job_details?.id); //+data.id
+    // historyUtils.push(RouteName.JOB_OPENINGS_DETAILS + data?.job_details?.id); //+data.id
   }, []);
   const changeEmployeeRoute = useCallback((data) => {
-    historyUtils.push(`/employees/details/${data?.code}`);
+    // historyUtils.push(`/employees/details/${data?.code}`);
   }, []);
   const handlePageChange = useCallback((type) => {
-    dispatch(actionSetPageReviewOLR(type));
+    dispatch(actionSetPageExpirOfferLetterList(type));
   }, []);
 
-  const handleDataSave = useCallback(
-    (data, type) => {
-      if (type == "CREATE") {
-        dispatch(actionCreateReviewOLR(data));
-      } else {
-        dispatch(actionUpdateReviewOLR(data));
-      }
-      setSidePanel((e) => !e);
-      setEditData(null);
-    },
-    [setSidePanel, setEditData]
-  );
+
 
   const queryFilter = useCallback(
     (key, value) => {
       dispatch(
-        actionFetchReviewOLR(1, sortingData, {
+        actionFetchExpirOfferLetterList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -90,9 +75,9 @@ const useExpiringOfferLetterHook = ({}) => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      // dispatch(actionSetPageReviewOLR(1));
+      //  dispatch(actionFetchExpireOfferLetter(1));
       dispatch(
-        actionFetchReviewOLR(
+        actionFetchExpirOfferLetterList(
           1,
           { row, order },
           {
@@ -109,30 +94,23 @@ const useExpiringOfferLetterHook = ({}) => {
     console.log(page);
   };
 
-  const handleDelete = useCallback(
-    (id) => {
-      dispatch(actionDeleteReviewOLR(id));
-      setSidePanel(false);
-      setEditData(null);
-    },
-    [setEditData, setSidePanel]
-  );
 
-  const handleEdit = useCallback(
-    (data) => {
-      setEditData(data);
-      setSidePanel((e) => !e);
-    },
-    [setEditData, setSidePanel]
-  );
+
+  // const handleEdit = useCallback(
+  //   (data) => {
+  //     setEditData(data);
+  //     setSidePanel((e) => !e);
+  //   },
+  //   [setEditData, setSidePanel]
+  // );
 
   const handleSideToggle = useCallback(() => {
-    historyUtils.push(RouteName.CANDIDATES_CREATE);
+    // historyUtils.push(RouteName.CANDIDATES_CREATE);
   }, [setEditData, setSidePanel]);
 
   const handleViewDetails = useCallback((data) => {
-    LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data.candidate_id}`);
+    // LogUtils.log("data", data);
+    // historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data.candidate_id}`);
   }, []);
   const configFilter = useMemo(() => {
     return [
@@ -160,25 +138,27 @@ const useExpiringOfferLetterHook = ({}) => {
   const toggleIsOpenDialog = useCallback(
     (data) => {
       setIsOpenDialog((e) => !e);
+      setExpireLetter(data?.id)
     },
-    [isOpenDialog]
+    [isOpenDialog, expireLetter]
   );
 
   const toggleIsOpenResendDialog = useCallback(
     (data) => {
+   
       setIsOpenResendDialog((e) => !e);
+      setLetterResendId(data?.id)
     },
-    [isOpenDialog]
+    [isOpenDialog, letterResendId]
   );
   return {
     handlePageChange,
-    handleDataSave,
+
     handleFilterDataChange,
-    handleSearchValueChange,
+     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
-    handleDelete,
-    handleEdit,
+
     handleSideToggle,
     handleViewDetails,
     isCalling,
@@ -191,6 +171,8 @@ const useExpiringOfferLetterHook = ({}) => {
     isOpenDialog,
     toggleIsOpenResendDialog,
     isOpenResendDialog,
+    letterResendId,
+    expireLetter
   };
 };
 

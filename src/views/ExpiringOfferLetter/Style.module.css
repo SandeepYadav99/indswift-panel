@@ -30,12 +30,20 @@
   align-items: center;
 }
 .openIcon{
-  color: #2896E9 !important;
+  color: #E92828 !important;
+}
+.openIconResponse{
+  color: #29CB97 !important;
 }
 .subText{
   font-size: 0.7rem;
   margin-left: 5px;
-  color: #2896E9;
+  color: #E92828;
+}
+.subTextResponse{
+  font-size: 0.7rem;
+  margin-left: 5px;
+  color: #29CB97;
 }
 .firstCellFlex .driverImgCont {
   width: 40px;

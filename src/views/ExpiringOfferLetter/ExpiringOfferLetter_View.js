@@ -9,21 +9,14 @@ import {
 } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import {
-  Add,
-  AssignmentOutlined,
-  InfoOutlined,
-  OpenInNew,
-  PeopleOutlined,
-} from "@material-ui/icons";
+import { AssignmentOutlined, PeopleOutlined } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
-import historyUtils from "../../libs/history.utils";
-import RouteName from "../../routes/Route.name";
+
 import useExpiringOfferLetterHook from "./ExpiringOfferLetter_hook";
 import ExpireOffer_PopUp from "./component/ExpireOffer_PopUp";
 import ResendOffer_PopUp from "./component/ResendOffer_PopUp";
@@ -33,8 +26,7 @@ const ExpiringOfferLetterView = ({ location }) => {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
+
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
@@ -51,6 +43,8 @@ const ExpiringOfferLetterView = ({ location }) => {
     isOpenDialog,
     toggleIsOpenResendDialog,
     isOpenResendDialog,
+    letterResendId,
+    expireLetter,
   } = useExpiringOfferLetterHook({});
 
   const {
@@ -58,7 +52,7 @@ const ExpiringOfferLetterView = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.review_olr);
+  } = useSelector((state) => state.expirOfferLetter);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/, " ") : "";
@@ -94,19 +88,19 @@ const ExpiringOfferLetterView = ({ location }) => {
     if (obj) {
       return (
         <div>
-          {obj?.replacing_person?.name ? (
+          {obj?.cadre?.name ? (
             <div
               className={styles.hyperlinkText}
-              onClick={() => changeEmployeeRoute(obj?.replacing_person)}
+              onClick={() => changeEmployeeRoute(obj?.cadre)}
             >
-              {obj?.replacing_person?.name}
+              {obj?.cadre?.name}
             </div>
           ) : (
             <div>N/A</div>
           )}
 
           <br />
-          {obj?.replacing_person?.code}
+          {obj?.cadre?.code}
         </div>
       );
     }
@@ -119,7 +113,11 @@ const ExpiringOfferLetterView = ({ location }) => {
         key: "candidate_name",
         label: "CANDIDATE NAME",
         sortable: true,
-        render: (value, all) => <div>{renderFirstCell(all)}</div>,
+        render: (value, all) => (
+          <div>
+            {console.log(all)} {all?.candidate?.name}
+          </div>
+        ),
       },
       {
         key: "code",
@@ -133,10 +131,8 @@ const ExpiringOfferLetterView = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.designation?.name
-              ? all?.designation?.name
-              : all?.job_details?.designation}
-            /{all?.job_details?.department}
+            {all?.designation?.name}
+            {/* {all?.designation?.code} */}
           </div>
         ),
       },
@@ -176,7 +172,7 @@ const ExpiringOfferLetterView = ({ location }) => {
         key: "offerObj.joining_date",
         label: "Joining Date",
         sortable: true,
-        render: (temp, all) => <div>{all?.offer?.joining_date}</div>,
+        render: (temp, all) => <div>{all?.joiningDate}</div>,
       },
       {
         key: "expiring_on",
@@ -190,33 +186,32 @@ const ExpiringOfferLetterView = ({ location }) => {
         render: (temp, all) => (
           <div className={styles.btnWrapContainer}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnError"}
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                // handleViewDetails(all);
-                toggleIsOpenDialog();
+                handleViewDetails(all);
+                toggleIsOpenDialog(all);
               }}
             >
               <PeopleOutlined fontSize={"small"} className={styles.openIcon} />{" "}
               <span className={styles.subText}>Expire Offer</span>
             </IconButton>
-          
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  toggleIsOpenResendDialog()
-                }}
-              >
-                <AssignmentOutlined
-                  fontSize={"small"}
-                  className={styles.openIcon}
-                />{" "}
-                <span className={styles.subText}>Resend Offer</span>
-              </IconButton>
-          
+
+            <IconButton
+              className={"tableActionBtnSuccess"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                toggleIsOpenResendDialog(all);
+              }}
+            >
+              <AssignmentOutlined
+                fontSize={"small"}
+                className={styles.openIconResponse}
+              />{" "}
+              <span className={styles.subTextResponse}>Resend Offer</span>
+            </IconButton>
           </div>
         ),
       },
@@ -254,7 +249,7 @@ const ExpiringOfferLetterView = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Offer Letters List</span>
+            <span className={styles.title}>Expiring Offer Letters List</span>
             <div className={styles.newLine} />
           </div>
         </div>
@@ -279,11 +274,12 @@ const ExpiringOfferLetterView = ({ location }) => {
       </PageBox>
 
       <ExpireOffer_PopUp
-        // candidateId={ids}
+        candidateId={expireLetter}
         isOpen={isOpenDialog}
         handleToggle={toggleIsOpenDialog}
       />
       <ResendOffer_PopUp
+        letter_id={letterResendId}
         isOpen={isOpenResendDialog}
         handleToggle={toggleIsOpenResendDialog}
       />
