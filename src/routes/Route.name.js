@@ -195,5 +195,7 @@ export default {
   SUCCESSION_APPROVAL:"/succession-approval",
   EXPIRING_OFFER_LETTER:"/expiring-offer-letter",
 
-  C3MLETTER:"/c3mletter"
+  C3MLETTER:"/c3mletter",
+  NAPS_TRANING:"/naps_traning",
+  APPOINTMENT_LETTER:"/appointment_letter"
 };

@@ -8,7 +8,7 @@ import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
 
-const useNapsTraning_Hook = () => {
+const useAppointemntLetter_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
@@ -132,4 +132,4 @@ const useNapsTraning_Hook = () => {
   };
 };
 
-export default useNapsTraning_Hook;
+export default useAppointemntLetter_Hook;

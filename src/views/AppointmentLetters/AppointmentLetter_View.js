@@ -13,9 +13,9 @@ import StatusPill from "../../components/Status/StatusPill.component";
 import { removeUnderScore } from "../../helper/helper";
 
 import { InfoOutlined } from "@material-ui/icons";
-import useNapsTraning_Hook from "./NAPS_Traning_hook";
+import useAppointemntLetter_Hook from "./AppointmentLetter_hook";
 
-const NapsTraning_View = ({ location }) => {
+const AppointmentLetter_View = ({ location }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -26,7 +26,7 @@ const NapsTraning_View = ({ location }) => {
     handleViewDetails,
     isCalling,
     configFilter,
-  } = useNapsTraning_Hook({ location });
+  } = useAppointemntLetter_Hook({ location });
 
   const {
     data,
@@ -211,4 +211,4 @@ const NapsTraning_View = ({ location }) => {
   );
 };
 
-export default NapsTraning_View;
+export default AppointmentLetter_View;
