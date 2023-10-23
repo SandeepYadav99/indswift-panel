@@ -106,14 +106,20 @@ function useTravelClaimListDetail() {
           (Number(officeAmount) + Number(officeAmount2)) -
           Number(imprestAmount)
       : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
-  }, [employeeDetail, getTotalValue, officeAmount, officeAmount2,imprestAmount]);
+  }, [
+    employeeDetail,
+    getTotalValue,
+    officeAmount,
+    officeAmount2,
+    imprestAmount,
+  ]);
 
   console.log(
     "totalAmount",
     getTotalValue,
     "one",
     officeAmount,
-    "two",
+    // "two",
     officeAmount2
   );
   const submitToServer = useCallback(() => {
@@ -151,7 +157,7 @@ function useTravelClaimListDetail() {
       console.log("Payload", objData);
       serviceApproveCLaim({ ...objData, ...EmpId }).then((res) => {
         if (!res.error) {
-          historyUtils.goBack()
+          historyUtils.goBack();
           // historyUtils.push(RouteName.CLAIMS_LIST);
         } else {
           SnackbarUtils.error(res?.message);
@@ -278,7 +284,7 @@ function useTravelClaimListDetail() {
     setOfficeAmount2,
     officeAmount2,
     getRefundAmount,
-    imprestAmount
+    imprestAmount,
   };
 }
 
