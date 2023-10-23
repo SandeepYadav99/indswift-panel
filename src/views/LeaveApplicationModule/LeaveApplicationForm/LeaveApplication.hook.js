@@ -3,6 +3,7 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import { isAlphaNumChars, isSpace } from "../../../libs/RegexUtils";
 import { useParams } from "react-router-dom";
+import { serviceLeaveCreate } from "../../../services/Leave.service";
 
 const initialForm = {
   type: "",
@@ -21,7 +22,13 @@ const initialForm = {
   reason: "",
   document: null,
 };
-
+const OccasionKey = [
+  "duration",
+  "duration_days",
+  "type",
+  "comment",
+  "document",
+];
 const useLeaveApplication = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [leaveType, setLeaveType] = useState();
@@ -74,13 +81,7 @@ const useLeaveApplication = () => {
       });
     }
     if (form?.type === "PATERNITY_LEAVE") {
-      let required = [
-        "duration",
-        "child",
-        "start_date",
-        "end_date",
-        "comment",
-      ];
+      let required = ["duration", "child", "start_date", "end_date", "comment"];
       required.forEach((val) => {
         if (
           !form?.[val] ||
@@ -98,12 +99,33 @@ const useLeaveApplication = () => {
     return errors;
   }, [form, errorData]);
 
+  useEffect(() => {
+    if (form?.type) {
+      const type = form?.type;
+      setErrorData({});
+      setForm({ ...initialForm, type: type });
+    }
+  }, [form?.type]);
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+      let req = serviceLeaveCreate;
+      const fd = new FormData();
+      let reqParam = form?.type === "OCCASION_LEAVE" ? OccasionKey : [];
+      reqParam?.forEach((key) => {
+        fd.append(key, form[key]);
+      });
+      req(fd).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Submitted SuccessFully");
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
     }
-    alert("API is being Called");
-  }, [form, isSubmitting, setIsSubmitting, id]);
+  }, [form, isSubmitting, setIsSubmitting]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -127,13 +149,22 @@ const useLeaveApplication = () => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      t[fieldName] = text;
+      if (fieldName === "duration") {
+        if (text === "HALF_DAY") {
+          t["duration_days"] = 0.5;
+        } else {
+          t["duration_days"] = 1;
+        }
+        t[fieldName] = text;
+      } else {
+        t[fieldName] = text;
+      }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
     [removeError, form, setForm]
   );
-
+  console.log("form", form, errorData);
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {

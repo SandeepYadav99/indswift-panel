@@ -165,15 +165,17 @@ const LeaveApplicationForm = () => {
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
                 fullWidth={true}
-                name="od1"
-                label="Attachments"
+                name="document"
+                label="Document"
                 accept={"application/pdf,application/msword,image/*"}
-                link={""}
-                error={""}
-                value={""}
-                placeholder={`Add Attachments (optional)`}
-                onChange={() => {
-                  console.log("hello");
+                // link={data?.slip ? data?.slip : null}
+                error={errorData?.document}
+                value={form?.document}
+                placeholder={"Add Attachment (optional)"}
+                onChange={(file) => {
+                  if (file) {
+                    changeTextData(file, "document");
+                  }
                 }}
               />
               <CustomTextField
