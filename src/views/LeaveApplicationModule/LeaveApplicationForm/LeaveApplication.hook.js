@@ -29,6 +29,18 @@ const OccasionKey = [
   "comment",
   "document",
 ];
+
+const Bereavement = [
+  "deceased_relationship",
+  "start_date",
+  "end_date",
+  "comment",
+];
+
+const Facilitation = ["reason", "start_date", "end_date", "comment"];
+
+const Paternity = ["event_type", "child", "start_date", "end_date", "comment"];
+
 const useLeaveApplication = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [leaveType, setLeaveType] = useState();
@@ -41,7 +53,6 @@ const useLeaveApplication = () => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "code"];
     if (form?.type === "OCCASION_LEAVE") {
       let required = ["duration", "event_type", "comment"];
       required.forEach((val) => {
@@ -81,7 +92,7 @@ const useLeaveApplication = () => {
       });
     }
     if (form?.type === "PATERNITY_LEAVE") {
-      let required = ["duration", "child", "start_date", "end_date", "comment"];
+      let required = ["event_type", "child", "start_date", "end_date", "comment"];
       required.forEach((val) => {
         if (
           !form?.[val] ||
@@ -112,7 +123,14 @@ const useLeaveApplication = () => {
       setIsSubmitting(true);
       let req = serviceLeaveCreate;
       const fd = new FormData();
-      let reqParam = form?.type === "OCCASION_LEAVE" ? OccasionKey : [];
+      let reqParam =
+        form?.type === "OCCASION_LEAVE"
+          ? OccasionKey
+          : form?.type === "BEREAVEMENT_LEAVE"
+          ? Bereavement
+          : form?.type === "FACILITATION_LEAVE"
+          ? Facilitation
+          : Paternity;
       reqParam?.forEach((key) => {
         fd.append(key, form[key]);
       });
