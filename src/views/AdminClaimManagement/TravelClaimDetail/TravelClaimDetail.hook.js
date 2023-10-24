@@ -29,6 +29,7 @@ function useTravelClaimListDetail() {
   const [totalAmount, setTotalAmount] = useState({ ...amountKeys });
   const [officeAmount, setOfficeAmount] = useState(0);
   const [officeAmount2, setOfficeAmount2] = useState(0);
+  const [refundData, setRefundData] = useState(0);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -101,11 +102,13 @@ function useTravelClaimListDetail() {
   }, [employeeDetail]);
 
   const getRefundAmount = useMemo(() => {
-    return imprestAmount
+    const value = imprestAmount
       ? Number(getTotalValue) -
-          (Number(officeAmount) + Number(officeAmount2)) -
-          Number(imprestAmount)
+        (Number(officeAmount) + Number(officeAmount2)) -
+        Number(imprestAmount)
       : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
+    setRefundData(value);
+    return value;
   }, [
     employeeDetail,
     getTotalValue,
@@ -122,6 +125,7 @@ function useTravelClaimListDetail() {
     "two",
     officeAmount2
   );
+  console.log("refund", refundData);
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
@@ -145,7 +149,8 @@ function useTravelClaimListDetail() {
           da_ie_expenses: DAData,
           entertainment_expenses: EnterData,
           tap_other_expenses: OtherData,
-          total_amount: getRefundAmount,
+          total_amount: Number(refundData),
+          refund_amount: Number(getRefundAmount),
           total_expense: getTotalValue ? getTotalValue : 0,
           office_expense: Number(officeAmount) + Number(officeAmount2),
           self_expense:
@@ -179,6 +184,8 @@ function useTravelClaimListDetail() {
     officeAmount2,
     setOfficeAmount2,
     getRefundAmount,
+    refundData,
+    setRefundData,
   ]);
 
   const handleSubmit = useCallback(async () => {
@@ -203,7 +210,13 @@ function useTravelClaimListDetail() {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, submitToServer]);
+  }, [
+    checkFormValidation,
+    setErrorData,
+    submitToServer,
+    refundData,
+    setRefundData,
+  ]);
 
   const removeError = useCallback(
     (title) => {
@@ -285,6 +298,8 @@ function useTravelClaimListDetail() {
     officeAmount2,
     getRefundAmount,
     imprestAmount,
+    refundData,
+    setRefundData,
   };
 }
 

@@ -14,6 +14,7 @@ import EnterincludesDetailForm from "./component/EnterincludesDetail/Enterinclud
 import OtherincludesDetailForm from "./component/OtherincludesDetail/OtherincludesDetail.component";
 import ApproveDialog from "./component/ApproveDialog/ApproveDialog.view";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 
 function TravelClaimListDetail() {
   const {
@@ -44,7 +45,9 @@ function TravelClaimListDetail() {
     setOfficeAmount2,
     officeAmount2,
     getRefundAmount,
-    imprestAmount
+    imprestAmount,
+    refundData,
+    setRefundData,
   } = useTravelClaimListDetail({});
 
   return (
@@ -188,12 +191,8 @@ function TravelClaimListDetail() {
                     <span className={styles.value}>Imprest Amount:</span>
                     {imprestAmount ? (
                       <>
-                        {getCurrency(
-                          employeeDetail?.imprest?.currency
-                        )}
-                        {
-                          imprestAmount
-                        }
+                        {getCurrency(employeeDetail?.imprest?.currency)}
+                        {imprestAmount}
                       </>
                     ) : (
                       "N/A"
@@ -245,10 +244,20 @@ function TravelClaimListDetail() {
             <span>₹ {Number(officeAmount) + Number(officeAmount2)}</span>
           </div>
         </div>
-        <div className={styles.totalWrap} style={{marginTop:'20px'}}>
+        <div className={styles.totalWrap} style={{ marginTop: "20px" }}>
           <div className={styles.inner}>
             Amount to be Refunded:{" "}
             <span>{getRefundAmount ? `₹ ${getRefundAmount}` : 0}</span>
+          </div>
+          <div className={styles.inner32}>
+            <CustomTextField
+              type="number"
+              label={"Final Amount"}
+              value={refundData}
+              onTextChange={(text) => {
+                setRefundData(text);
+              }}
+            />
           </div>
         </div>
       </div>
