@@ -22,7 +22,6 @@ import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-import StatusPill from "../../components/Status/StatusPill.component";
 import useLeaveList from "./LeaveApplication.hook";
 
 const LeaveApplication = ({ location }) => {
@@ -57,20 +56,13 @@ const LeaveApplication = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.claims);
+  } = useSelector((state) => state.LeaveModule);
 
   const { user } = useSelector((state) => state.auth);
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
-  const renderStatus = useCallback((status) => {
-    return (
-      <StatusPill
-        status={status}
-        style={status === "PROCESSED" && { background: "#ceece2" }}
-      />
-    );
-  }, []);
+ 
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
@@ -112,7 +104,7 @@ const LeaveApplication = ({ location }) => {
       },
       {
         key: "status",
-        label: "Status",
+        label: "status",
         sortable: false,
         render: (temp, all) => <div>{all?.employee?.location}</div>,
       },
@@ -133,7 +125,7 @@ const LeaveApplication = ({ location }) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderFirstCell, handleViewDetails, handleEdit, isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

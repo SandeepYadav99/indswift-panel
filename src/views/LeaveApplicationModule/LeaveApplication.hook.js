@@ -1,10 +1,13 @@
 import React, { useCallback,useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import { serviceDetailsCLaim, serviceGetClaimsDetails } from "../../services/Claims.service";
 import { useHistory } from "react-router-dom";
+import { actionLeaveList } from "../../actions/LeaveModule.action";
+import { useDispatch } from "react-redux";
+
 
 function useLeaveList() {
+  const dispatch = useDispatch()
   const [employeeDetail, setEmployeeDetail] = useState({});
   const [approveDialog, setApproveDialog] = useState(false);
   const [rejectDialog, setRejectDialog] = useState(false);
@@ -12,18 +15,27 @@ function useLeaveList() {
   const [ischangeDialog, setIschangeDialog] = useState(false);
   const history = useHistory();
 
+  let params = {
+    index: 1,
+    row: "createdAt",
+    order: "desc",
+    query: "",
+    query_data: null,
+  };
+
+  useEffect(()=>[
+     dispatch(actionLeaveList(params))
+  ],[])
+
+
+
 
   const  handleLeaveApplicationForm =()=>{
     history.push("form")
   }
 
   const { id } = useParams();
-  useEffect(() => {
-    let req = serviceDetailsCLaim({ id: id });
-    req.then((data) => {
-      setEmployeeDetail(data?.data?.details);
-    });
-  }, [id]);
+ 
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
   }, [approveDialog]);
@@ -33,6 +45,7 @@ function useLeaveList() {
   const toggleChangeDialog = useCallback(() => {
     setIschangeDialog((e) => !e);
   }, [ischangeDialog]);
+  
   return {
     id,
     employeeDetail,
