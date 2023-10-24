@@ -26,7 +26,7 @@ class DateUtils {
              return true;
          }
          return false;
-        const limit = new Date("2023-06-30 18:00:00");
+        const limit = new Date("2023-11-05 18:00:00");
         const nowDate = new Date();
         return limit.getTime() > nowDate.getTime();
     });
