@@ -35,6 +35,7 @@ const initialState = {
     is_fetching: false
 };
 
+
 export default function (state = JSON.parse(JSON.stringify(initialState)), action) {
     switch (action.type) {
         case FETCH_INIT: {
