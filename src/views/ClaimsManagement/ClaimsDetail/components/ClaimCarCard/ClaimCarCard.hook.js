@@ -2,8 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../../libs/history.utils";
-import { serviceGetEmployeeDetails, serviceUpdateCarClaims } from "../../../../../services/ClaimsManagement.service";
-import { isNum ,IsVehicleNo} from "../../../../../libs/RegexUtils";
+import {
+  serviceGetEmployeeDetails,
+  serviceUpdateCarClaims,
+} from "../../../../../services/ClaimsManagement.service";
+import { isNum, IsVehicleNo } from "../../../../../libs/RegexUtils";
 import { useSelector } from "react-redux";
 import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
 
@@ -12,20 +15,20 @@ const initialForm = {
   bill_date: "",
   vehicle_no: "",
   document: null,
-  payment_mode:'',
-  payment_proof:null,
-  invoice_no:""
+  payment_mode: "",
+  payment_proof: null,
+  invoice_no: "",
 };
 
 const useClaimCarCard = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [declaration,setDeclaration]=useState(false)
+  const [declaration, setDeclaration] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState(null);
-  const [employeeDetails,setEmployeeDetails] = useState({})
+  const [employeeDetails, setEmployeeDetails] = useState({});
   const [claimInfo, setClaimInfo] = useState({});
   const { id } = useParams();
   const {
@@ -52,14 +55,22 @@ const useClaimCarCard = ({}) => {
     }
   }, []);
 
-  useEffect(()=>{
-    if(employeeDetails){
-      setForm({...form,vehicle_no:employeeDetails?.vehicle?.rc_number})
+  useEffect(() => {
+    if (employeeDetails) {
+      setForm({ ...form, vehicle_no: employeeDetails?.vehicle?.rc_number });
     }
-  },[employeeDetails])
+  }, [employeeDetails]);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["bill_amount", "bill_date", "vehicle_no", "document","payment_mode",'payment_proof',"invoice_no"];
+    let required = [
+      "bill_amount",
+      "bill_date",
+      "vehicle_no",
+      "document",
+      "payment_mode",
+      "payment_proof",
+      "invoice_no",
+    ];
 
     required.forEach((val) => {
       if (
@@ -69,8 +80,8 @@ const useClaimCarCard = ({}) => {
         errors[val] = true;
       }
     });
-    if(form?.payment_mode ==='Cash' && !form?.payment_proof){
-      delete errors['payment_proof'];
+    if (form?.payment_mode === "Cash" && !form?.payment_proof) {
+      delete errors["payment_proof"];
     }
     // if (form?.vehicle_no && !IsVehicleNo(form?.vehicle_no)) {
     //   errors["vehicle_no"] = true;
@@ -81,9 +92,9 @@ const useClaimCarCard = ({}) => {
       date.setHours(0, 0, 0, 0);
       todayDate.setHours(0, 0, 0, 0);
       if (date.getTime() > todayDate.getTime()) {
-          errors["bill_date"] = true;
+        errors["bill_date"] = true;
       }
-  }
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -95,10 +106,10 @@ const useClaimCarCard = ({}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      setIsLoading(true)
+      setIsLoading(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["document" , "payment_proof"].indexOf(key) < 0 && form[key]) {
+        if (["document", "payment_proof"].indexOf(key) < 0 && form[key]) {
           fd.append(key, form[key]);
         }
       });
@@ -115,7 +126,7 @@ const useClaimCarCard = ({}) => {
         } else {
           SnackbarUtils.error(res?.message);
         }
-        setIsLoading(false)
+        setIsLoading(false);
         setIsSubmitting(false);
       });
     }
@@ -146,12 +157,11 @@ const useClaimCarCard = ({}) => {
       const t = { ...form };
       if (fieldName === "marrige_of") {
         t[fieldName] = text.target.value;
-      }else if (fieldName === 'bill_amount'){
-        if(text >=0){
-          t[fieldName]=text;
+      } else if (fieldName === "bill_amount") {
+        if (text >= 0) {
+          t[fieldName] = text;
         }
-      }
-       else {
+      } else {
         t[fieldName] = text;
       }
       setForm(t);
@@ -189,7 +199,7 @@ const useClaimCarCard = ({}) => {
     declaration,
     setDeclaration,
     employeeDetails,
-    claimInfo
+    claimInfo,
   };
 };
 

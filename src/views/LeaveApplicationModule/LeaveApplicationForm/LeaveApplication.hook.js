@@ -22,13 +22,7 @@ const initialForm = {
   reason: "",
   document: null,
 };
-const OccasionKey = [
-  "type",
-  "duration",
-  "duration_days",
-  "comment",
-  "document",
-];
+const OccasionKey = ["type", "duration", "duration_days", "comment"];
 
 const Bereavement = [
   "deceased_relationship",
@@ -36,17 +30,9 @@ const Bereavement = [
   "end_date",
   "comment",
   "type",
- 
 ];
 
-const Facilitation = [
-  "reason",
-  "start_date",
-  "end_date",
-  "comment",
-  "type",
-  
-];
+const Facilitation = ["reason", "start_date", "end_date", "comment", "type"];
 
 const Paternity = [
   "event_type",
@@ -61,6 +47,7 @@ const useLeaveApplication = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [leaveType, setLeaveType] = useState();
   const [errorData, setErrorData] = useState({});
+  const [daysCount, setDaysCount] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
@@ -140,6 +127,23 @@ const useLeaveApplication = () => {
     }
   }, [form?.type]);
 
+  useEffect(() => {
+    if (form?.start_date && form?.end_date) {
+      const startTime = new Date(form?.end_date);
+      const endTime = new Date(form?.start_date);
+      startTime.getHours(0, 0, 0, 0);
+      endTime.getHours(0, 0, 0, 0);
+      const millisecondsPerDay = 24 * 60 * 60 * 1000;
+      const timeDifference = startTime.getTime() - endTime.getTime();
+      const numberOfNights =
+        timeDifference == "0"
+          ? 0
+          : Math.ceil(timeDifference / millisecondsPerDay);
+      setDaysCount(numberOfNights ? Number(numberOfNights + 1) : 1);
+    }
+  }, [form?.start_date, form?.end_date]);
+
+  console.log("dats", daysCount);
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
@@ -156,6 +160,13 @@ const useLeaveApplication = () => {
       reqParam?.forEach((key) => {
         fd.append(key, form[key]);
       });
+      if (form?.type !== "OCCASION_LEAVE") {
+        fd.append("duration", "FULL_DAY");
+        fd.append("duration_days", daysCount);
+      }
+      if (form?.document) {
+        fd.append("document", form?.document);
+      }
       req(fd).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Submitted SuccessFully");
@@ -165,7 +176,7 @@ const useLeaveApplication = () => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting]);
+  }, [form, isSubmitting, setIsSubmitting, daysCount, setDaysCount]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -174,7 +185,7 @@ const useLeaveApplication = () => {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, includeRef.current]);
+  }, [checkFormValidation, setErrorData, form, daysCount, setDaysCount]);
 
   const removeError = useCallback(
     (title) => {
