@@ -23,9 +23,9 @@ const initialForm = {
   document: null,
 };
 const OccasionKey = [
+  "type",
   "duration",
   "duration_days",
-  "type",
   "comment",
   "document",
 ];
@@ -35,11 +35,27 @@ const Bereavement = [
   "start_date",
   "end_date",
   "comment",
+  "type",
+ 
 ];
 
-const Facilitation = ["reason", "start_date", "end_date", "comment"];
+const Facilitation = [
+  "reason",
+  "start_date",
+  "end_date",
+  "comment",
+  "type",
+  
+];
 
-const Paternity = ["event_type", "child", "start_date", "end_date", "comment"];
+const Paternity = [
+  "event_type",
+  "child",
+  "start_date",
+  "end_date",
+  "comment",
+  "type",
+];
 
 const useLeaveApplication = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -92,7 +108,13 @@ const useLeaveApplication = () => {
       });
     }
     if (form?.type === "PATERNITY_LEAVE") {
-      let required = ["event_type", "child", "start_date", "end_date", "comment"];
+      let required = [
+        "event_type",
+        "child",
+        "start_date",
+        "end_date",
+        "comment",
+      ];
       required.forEach((val) => {
         if (
           !form?.[val] ||
