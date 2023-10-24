@@ -1,12 +1,12 @@
-import {serviceLeaveCreate} from "../services/Leave.service";
+import {serviceLeaveList} from "../services/Leave.service";
 
+export const LIST_LEAVE = "LIST_LEAVE";
 
-export const CREATE_LEAVE = "CREATE_LEAVE";
-
-
-export function actionCreateLeave(data) {
-  const req = serviceLeaveCreate(data);
-  return (dispatch) => {
-    dispatch({ type: CREATE_LEAVE, payload: data });
-  };
+export function actionLeaveList(data){
+   const request = serviceLeaveList(data);
+   return (dispatch) => {
+      request.then((data) => {
+              dispatch({type: LIST_LEAVE, payload: data})  
+      })
+  }
 }

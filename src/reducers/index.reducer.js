@@ -155,7 +155,7 @@ const rootReducer = combineReducers({
   loanList:LoanListReducer,
   newEmployee:NewEmployeeListReducer,
   OngoingLoans:OngoingLoansReducer,
-  Leave:LeaveReducer,
+  LeaveModule:LeaveReducer,
   // form: formReducer,
 });
 
