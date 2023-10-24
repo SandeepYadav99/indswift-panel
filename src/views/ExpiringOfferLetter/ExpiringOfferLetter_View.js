@@ -78,7 +78,7 @@ const ExpiringOfferLetterView = ({ location }) => {
     if (obj) {
       return (
         <div className={styles.hyperlinkText} onClick={() => changeRoute(obj)}>
-          <div>{obj?.job_details?.code}</div>
+          <div>{obj?.job?.code}</div>
         </div>
       );
     }
@@ -131,8 +131,8 @@ const ExpiringOfferLetterView = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.designation?.name}
-            {/* {all?.designation?.code} */}
+            {all?.job?.designation_note}/
+            {all?.job?.department?.name}
           </div>
         ),
       },
@@ -146,7 +146,7 @@ const ExpiringOfferLetterView = ({ location }) => {
         key: "olr",
         label: "OLR",
         sortable: false,
-        render: (temp, all) => <div>{all?.olr}</div>,
+        render: (temp, all) => <div>{all?.code}</div>,
       },
       {
         key: "offer_letter_status",
@@ -178,7 +178,7 @@ const ExpiringOfferLetterView = ({ location }) => {
         key: "expiring_on",
         label: "EXPIRING ON",
         sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText}</div>,
+        render: (temp, all) => <div>{all?.expected_response_date}</div>,
       },
       {
         key: "user_id",

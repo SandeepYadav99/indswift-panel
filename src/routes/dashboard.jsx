@@ -16,6 +16,9 @@ import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
 import SuccessionApproval_List from "../views/SuccessionApproval/SuccessionApproval_List";
 import SuccessionPlanner_list from "../views/SuccessionPlaner/SuccessionPlanner_list";
+import LetterApprovalProces_View from "../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View";
+import LetterApprovalDetail from "../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail";
+import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/RelievingExpLetter_View";
 
 const CandidateStatusGlossary_List = lazy(() =>
   import("../views/CandidateStatusGlossary/CandidateStatusGlossary_List")
@@ -2212,7 +2215,45 @@ const dashboardRoutes = [
     parent: "skynetLetter",
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
-
+  {
+    path: RouteName.RELIEVING_EXPERIENCE_APPROVALS,
+    sidebarName: "Relieving & Experience Letter Approvals",
+    navbarName: "Relieving & Experience Letter Approvals",
+    icon: PeopleOutlined,
+    component: LetterApprovalProces_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: RouteName.RELIEVING_EXPERIENCE_APPROVALS_DETAILS,
+    sidebarName: "Relieving & Experience Letter Approvals",
+    navbarName: "Relieving & Experience Letter Approvals",
+    icon: PeopleOutlined,
+    component: LetterApprovalDetail,
+    is_sidebar: false,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: RouteName.RELIEVING_EXPERIENCE_LETTER,
+    sidebarName: "Relieving & Experience Letter",
+    navbarName: "Relieving & Experience Letter",
+    icon: PeopleOutlined,
+    component: RelievingExpLetter_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
   // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 
