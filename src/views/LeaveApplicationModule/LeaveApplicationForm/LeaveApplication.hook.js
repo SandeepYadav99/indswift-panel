@@ -123,7 +123,7 @@ const useLeaveApplication = () => {
         }
       });
     }
-    if(daysCount > leaveCount){
+    if(daysCount > count?.data?.pending_leave){
       errors["leave"] = true;
       SnackbarUtils.error("Applied Leave cannot be greater than Pending Leaves")
     }
@@ -250,31 +250,34 @@ const useLeaveApplication = () => {
     setForm({ ...initialForm });
   }, [form]);
 
+  let eventTypeData = form?.event_type
 
   useEffect(() => {
     if (form?.type === "PATERNITY_LEAVE") {
       dispatch(actionLeaveCount({
         "leave_type": "PATERNITY_LEAVE",
-        "event_type": `form?.event_type`
+        "event_type": form?.event_type
       }))
     }
-    if (form?.type === "OCCASION_LEAVE") {
+    else if (form?.type === "OCCASION_LEAVE") {
       dispatch(actionLeaveCount({
         "leave_type": "OCCASION_LEAVE"
       }))
     }
-    if (form?.type === "BEREAVEMENT_LEAVE") {
+    else if (form?.type === "BEREAVEMENT_LEAVE") {
       dispatch(actionLeaveCount({
         "leave_type": "BEREAVEMENT_LEAVE"
       }))
     }
-    else {
+    else if(form?.type === "FACILITATION_LEAVE") {
       dispatch(actionLeaveCount({
         "leave_type": "FACILITATION_LEAVE"
       }))
     }
-    setLeaveCount(count?.data?.total_leave)
+    setLeaveCount(count?.data?.pending_leave)
   }, [form?.type])
+
+
 
   return {
     form,
