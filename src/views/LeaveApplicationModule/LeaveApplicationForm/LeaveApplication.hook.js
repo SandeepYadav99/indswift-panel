@@ -69,7 +69,7 @@ const useLeaveApplication = () => {
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     if (form?.type === "OCCASION_LEAVE") {
-      let required = ["duration", "event_type", "comment"];
+      let required = ["duration", "event_type"];
       required.forEach((val) => {
         if (
           !form?.[val] ||
@@ -96,7 +96,7 @@ const useLeaveApplication = () => {
       });
     }
     if (form?.type === "FACILITATION_LEAVE") {
-      let required = ["reason", "start_date", "end_date", "comment"];
+      let required = ["reason", "start_date", "end_date"];
       required.forEach((val) => {
         if (
           !form?.[val] ||
