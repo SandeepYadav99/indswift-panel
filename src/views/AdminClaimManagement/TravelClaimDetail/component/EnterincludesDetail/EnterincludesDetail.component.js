@@ -16,7 +16,7 @@ const TEMP_OBJ = {
 };
 
 const EnterincludesDetailForm = (
-  { data, errorData: errorForm, grade,changeAmount },
+  { data, errorData: errorForm, grade,changeAmount,setOfficeAmount3 },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -165,9 +165,26 @@ const EnterincludesDetailForm = (
     }
   }, 0);
 
+  const getOfficeAmount = useMemo(() => {
+    const officeBookings = fields?.filter(
+      (booking) => booking.booking_by !== "SELF" && booking.amount !== ""
+    );
+    const sum = officeBookings?.reduce(
+      (total, booking) => total + parseFloat(booking?.amount),
+      0
+    );
+    return sum;
+  }, [fields]);
+
   useEffect(() => {
     changeAmount(sum, "entertainment_expenses_amount");
   }, [sum]);
+
+  useEffect(() => {
+    if (sum) {
+      setOfficeAmount3(getOfficeAmount);
+    }
+  }, [fields]);
 
   return (
     <>

@@ -29,6 +29,8 @@ function useTravelClaimListDetail() {
   const [totalAmount, setTotalAmount] = useState({ ...amountKeys });
   const [officeAmount, setOfficeAmount] = useState(0);
   const [officeAmount2, setOfficeAmount2] = useState(0);
+  const [officeAmount3, setOfficeAmount3] = useState(0);
+  const [officeAmount4, setOfficeAmount4] = useState(0);
   const [refundData, setRefundData] = useState(0);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -94,6 +96,15 @@ function useTravelClaimListDetail() {
     }, 0);
   }, [totalAmount, setTotalAmount]);
 
+  const getOfficeAmount = useMemo(() => {
+    const value =
+      Number(officeAmount ? officeAmount : 0) +
+      Number(officeAmount2 ? officeAmount2 : 0) +
+      Number(officeAmount3 ? officeAmount3 : 0) +
+      Number(officeAmount4 ? officeAmount4 : 0);
+    return value ? value : 0;
+  }, [officeAmount, officeAmount2, officeAmount3, officeAmount4]);
+
   const imprestAmount = useMemo(() => {
     if (employeeDetail?.imprest?.status === "ACCOUNTS_APPROVED") {
       return employeeDetail?.imprest?.amount;
@@ -101,22 +112,28 @@ function useTravelClaimListDetail() {
     return 0;
   }, [employeeDetail]);
 
+  // const getRefundAmount = useMemo(() => {
+  //   const value = imprestAmount
+  //     ? Number(getTotalValue) -
+  //       (Number(officeAmount) + Number(officeAmount2)) -
+  //       Number(imprestAmount)
+  //     : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
+  //   setRefundData(value);
+  //   return value;
+  // }, [
+  //   employeeDetail,
+  //   getTotalValue,
+  //   officeAmount,
+  //   officeAmount2,
+  //   imprestAmount,
+  // ]);
   const getRefundAmount = useMemo(() => {
     const value = imprestAmount
-      ? Number(getTotalValue) -
-        (Number(officeAmount) + Number(officeAmount2)) -
-        Number(imprestAmount)
-      : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
+    ? Number(getTotalValue) - Number(getOfficeAmount) - Number(imprestAmount)
+    : Number(getTotalValue) - Number(getOfficeAmount);
     setRefundData(value);
-    return value;
-  }, [
-    employeeDetail,
-    getTotalValue,
-    officeAmount,
-    officeAmount2,
-    imprestAmount,
-  ]);
-
+    return value
+  }, [employeeDetail, getTotalValue, imprestAmount, getOfficeAmount]);
   console.log(
     "totalAmount",
     getTotalValue,
@@ -152,10 +169,10 @@ function useTravelClaimListDetail() {
           total_amount: Number(refundData),
           refund_amount: Number(getRefundAmount),
           total_expense: getTotalValue ? getTotalValue : 0,
-          office_expense: Number(officeAmount) + Number(officeAmount2),
+          office_expense: Number(getOfficeAmount),
           self_expense:
             Number(getTotalValue) -
-            (Number(officeAmount) + Number(officeAmount2)),
+            (Number(getOfficeAmount)),
           ...totalAmount,
         },
       };
@@ -186,6 +203,7 @@ function useTravelClaimListDetail() {
     getRefundAmount,
     refundData,
     setRefundData,
+    getOfficeAmount
   ]);
 
   const handleSubmit = useCallback(async () => {
@@ -216,6 +234,7 @@ function useTravelClaimListDetail() {
     submitToServer,
     refundData,
     setRefundData,
+    getOfficeAmount
   ]);
 
   const removeError = useCallback(
@@ -300,6 +319,10 @@ function useTravelClaimListDetail() {
     imprestAmount,
     refundData,
     setRefundData,
+    getOfficeAmount,
+    officeAmount3,
+    setOfficeAmount3,
+    setOfficeAmount4,
   };
 }
 

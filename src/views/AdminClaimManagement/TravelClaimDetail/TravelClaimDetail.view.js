@@ -48,6 +48,10 @@ function TravelClaimListDetail() {
     imprestAmount,
     refundData,
     setRefundData,
+    getOfficeAmount,
+    officeAmount3,
+    setOfficeAmount3,
+    setOfficeAmount4,
   } = useTravelClaimListDetail({});
 
   return (
@@ -150,13 +154,21 @@ function TravelClaimListDetail() {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Part D: Entertainment Expenses</div>
-          <EnterincludesDetailForm ref={enterRef} changeAmount={changeAmount} />
+          <EnterincludesDetailForm
+            ref={enterRef}
+            changeAmount={changeAmount}
+            setOfficeAmount3={setOfficeAmount3}
+          />
         </div>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Part E: Other Expenses</div>
-          <OtherincludesDetailForm ref={otherRef} changeAmount={changeAmount} />
+          <OtherincludesDetailForm
+            ref={otherRef}
+            changeAmount={changeAmount}
+            setOfficeAmount4={setOfficeAmount4}
+          />
         </div>
       </div>
       <div className={styles.plainPaper}>
@@ -233,15 +245,11 @@ function TravelClaimListDetail() {
           </div>
           <div className={styles.headingWrap}>
             Self Borne Expense::
-            <span>
-              ₹{" "}
-              {Number(getTotalValue) -
-                (Number(officeAmount) + Number(officeAmount2))}
-            </span>
+            <span>₹ {Number(getTotalValue) - Number(getOfficeAmount)}</span>
           </div>
           <div className={styles.headingWrap}>
             Office Borne Expense:
-            <span>₹ {Number(officeAmount) + Number(officeAmount2)}</span>
+            <span>₹ {Number(getOfficeAmount)}</span>
           </div>
         </div>
         <div className={styles.totalWrap} style={{ marginTop: "20px" }}>
