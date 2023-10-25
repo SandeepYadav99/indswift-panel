@@ -20,6 +20,9 @@ import LetterApprovalProces_View from "../views/Relving&ExpernsLetterAprvl/Lette
 import LetterApprovalDetail from "../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail";
 import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/RelievingExpLetter_View";
 
+const PendingVerification_View = lazy(() =>
+  import("../views/PendingBckgroundVerification/View/PendingVerification_View")
+);
 const CandidateStatusGlossary_List = lazy(() =>
   import("../views/CandidateStatusGlossary/CandidateStatusGlossary_List")
 );
@@ -2167,6 +2170,19 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
+    path: RouteName.PENDING_BACKGROUND_VERIFICATION,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: PeopleOutlined,
+    component: PendingVerification_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
     path: "null",
     sidebarName: "Skynet Letters",
     navbarName: "Skynet Letters",
@@ -2188,7 +2204,7 @@ const dashboardRoutes = [
     parent: "skynetLetter",
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
-
+  
   {
     path: RouteName.APPOINTMENT_LETTER,
     sidebarName: "Appointment Letters",

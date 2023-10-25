@@ -42,7 +42,7 @@ const PmsNormailize = ({ location }) => {
     warehouses,
     handleViewGraph,
     role,
-      handleCsvDownload
+    handleCsvDownload,
   } = usePmsNormailize({ location });
 
   const {
@@ -216,25 +216,27 @@ const PmsNormailize = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
-            { role === Constants.ROLES.CORPORATE_HR && <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
-              Download
-              <CloudDownload
+            {role === Constants.ROLES.CORPORATE_HR && (
+              <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
+                Download
+                <CloudDownload
                   fontSize={"small"}
                   className={"plusIcon"}
-              ></CloudDownload>
-            </ButtonBase>}
+                ></CloudDownload>
+              </ButtonBase>
+            )}
             &nbsp; &nbsp; &nbsp;
-         { role === Constants.ROLES.CORPORATE_HR &&  <ButtonBase
-            className={styles.edit}
-            onClick={() => {
-              handleViewGraph();
-            }}
-          >
-            VIEW GRAPH
-          </ButtonBase>}
-
-
-        </div>
+            {role === Constants.ROLES.CORPORATE_HR && (
+              <ButtonBase
+                className={styles.edit}
+                onClick={() => {
+                  handleViewGraph();
+                }}
+              >
+                VIEW GRAPH
+              </ButtonBase>
+            )}
+          </div>
         </div>
         <div>
           <FilterComponent

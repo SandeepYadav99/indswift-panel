@@ -1,21 +1,20 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { IconButton } from "@material-ui/core";
+import { ButtonBase, IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
-import PageBox from "../../components/PageBox/PageBox.component";
+import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
-import Constants from "../../config/constants";
-import FilterComponent from "../../components/Filter/Filter.component";
+import DataTables from "../../../Datatables/Datatable.table";
+import Constants from "../../../config/constants";
+import FilterComponent from "../../../components/Filter/Filter.component";
 
-import StatusPill from "../../components/Status/StatusPill.component";
-import { removeUnderScore } from "../../helper/helper";
+import StatusPill from "../../../components/Status/StatusPill.component";
 
 import { InfoOutlined } from "@material-ui/icons";
-import useNapsTraning_Hook from "./NAPS_Traning_hook";
+import usePendingVerification_Hook from "./PendingVerification_Hook";
 
-const NapsTraning_View = ({ location }) => {
+const PendingVerification_View = ({ location }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -26,8 +25,8 @@ const NapsTraning_View = ({ location }) => {
     handleViewDetails,
     isCalling,
     configFilter,
-    openPDFInNewTab
-  } = useNapsTraning_Hook({ location });
+    openPDFInNewTab,
+  } = usePendingVerification_Hook({ location });
 
   const {
     data,
@@ -56,20 +55,24 @@ const NapsTraning_View = ({ location }) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "trainee_name",
-        label: "NAPS TRAINEE NAME",
+        key: "name",
+        label: "NAME",
         sortable: true,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
-        key: "grade_cadre",
-        label: "GRADE/CADRE",
+        key: "location",
+        label: "LOCATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.grade?.name} / {all?.cadre?.name}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.grade?.name} / {all?.cadre?.name}
+          </div>
+        ),
       },
       {
-        key: "location",
-        label: "Location",
+        key: "month",
+        label: "MONTH",
         sortable: false,
         render: (temp, all) => <div>{all?.location.name}</div>,
       },
@@ -77,32 +80,27 @@ const NapsTraning_View = ({ location }) => {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.designation?.name}
-          
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.designation?.name}</div>,
       },
       {
-        key: "dept_sub_dept",
-        label: "DEPT & SUB-DEPT",
+        key: "department",
+        label: "DEPARTMENT",
         sortable: false,
         render: (temp, all) => (
           <div>
             {all?.department?.name}
             <br />
-            {all?.sub_department?.code} 
+            {all?.sub_department?.code}
           </div>
         ),
       },
       {
-        key: "contact",
-        label: "CONTACT",
+        key: "offer_accepted",
+        label: "OFFER ACCEPTED",
         sortable: false,
         render: (temp, all) => (
           <div>
-          (O)  {all?.contact?.personal_contact}
+            (O) {all?.contact?.personal_contact}
             <br />
             {all?.createdBy?.code} <br />
             {all?.createdAtText}
@@ -110,8 +108,8 @@ const NapsTraning_View = ({ location }) => {
         ),
       },
       {
-        key: "date_of_completion",
-        label: "DATE OF COMPLETION",
+        key: "doj",
+        label: "DOJ",
         sortable: false,
         render: (temp, all) => (
           <div>
@@ -123,18 +121,26 @@ const NapsTraning_View = ({ location }) => {
         ),
       },
       {
-        key: "reporting",
-        label: "REPORTING TO",
+        key: "status",
+        label: "STATUS",
         sortable: true,
-        render: (temp, all) => (
-          <div>{all?.hod?.hod_name}</div>
-        ),
+        render: (temp, all) => <div>{all?.hod?.hod_name}</div>,
+      },
+      {
+        key: "bgv-result",
+        label: "BGV RESULT",
+        sortable: true,
+        render: (temp, all) => <div>{all?.hod?.hod_name}</div>,
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <a   href="javascript:void(0);"  target="_blank"  onClick={() => openPDFInNewTab(all?.naps?.letter_pdf)}>
+          <a
+            href="javascript:void(0);"
+            target="_blank"
+            onClick={() => openPDFInNewTab(all?.naps?.letter_pdf)}
+          >
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -183,8 +189,21 @@ const NapsTraning_View = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>NAPS Training Completion list</span>
+            <span className={styles.title}>
+              Pending Background Verification List
+            </span>
             <div className={styles.newLine} />
+          </div>
+
+          <div className={styles.rightFlex}>
+            <ButtonBase
+              className={styles.edit}
+              onClick={() => {
+                // handleViewGraph();
+              }}
+            >
+             BGV ANALYSIS REPORT
+            </ButtonBase>
           </div>
         </div>
 
@@ -210,4 +229,4 @@ const NapsTraning_View = ({ location }) => {
   );
 };
 
-export default NapsTraning_View;
+export default PendingVerification_View;

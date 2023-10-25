@@ -200,5 +200,6 @@ export default {
   APPOINTMENT_LETTER:"/appointment_letter",
   RELIEVING_EXPERIENCE_APPROVALS:"/relieving-experience-approval",
   RELIEVING_EXPERIENCE_APPROVALS_DETAILS:"/relieving-experience-approval/details",
-  RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter"
+  RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
+  PENDING_BACKGROUND_VERIFICATION:"/pending-verification"
 };

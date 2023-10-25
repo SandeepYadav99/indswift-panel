@@ -7,9 +7,9 @@ import ReactDOM from "react-dom"
 import {
   actionFetchNapsTraningList,
   actionSetPageNapsTraningList,
-} from "../../actions/NAPS_Traning.action";
+} from "../../../actions/NAPS_Traning.action";
 
-const useNapsTraning_Hook = () => {
+const usePendingVerification_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
@@ -138,4 +138,4 @@ const useNapsTraning_Hook = () => {
   };
 };
 
-export default useNapsTraning_Hook;
+export default usePendingVerification_Hook;
