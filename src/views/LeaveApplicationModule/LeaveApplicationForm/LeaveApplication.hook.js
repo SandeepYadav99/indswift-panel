@@ -84,7 +84,6 @@ const useLeaveApplication = () => {
         "deceased_relationship",
         "start_date",
         "end_date",
-        "comment",
       ];
       required.forEach((val) => {
         if (
@@ -112,7 +111,6 @@ const useLeaveApplication = () => {
         "child",
         "start_date",
         "end_date",
-        "comment",
       ];
       required.forEach((val) => {
         if (
@@ -250,13 +248,13 @@ const useLeaveApplication = () => {
     setForm({ ...initialForm });
   }, [form]);
 
-  let eventTypeData = form?.event_type
+  let eventTypeData = form?.event_type;
 
   useEffect(() => {
     if (form?.type === "PATERNITY_LEAVE") {
       dispatch(actionLeaveCount({
         "leave_type": "PATERNITY_LEAVE",
-        "event_type": form?.event_type
+        "event_type": eventTypeData
       }))
     }
     else if (form?.type === "OCCASION_LEAVE") {
@@ -275,7 +273,7 @@ const useLeaveApplication = () => {
       }))
     }
     setLeaveCount(count?.data?.pending_leave)
-  }, [form?.type])
+  }, [form?.type,form?.event_type])
 
 
 
