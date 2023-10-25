@@ -7,3 +7,8 @@ export async function serviceLeaveCreate(params) {
 export async function serviceLeaveList(params){
   return await postRequest("leaves",params)
 }
+
+export async function serviceLeaveCount(params){
+  return await postRequest("leaves/count",params)
+}
+

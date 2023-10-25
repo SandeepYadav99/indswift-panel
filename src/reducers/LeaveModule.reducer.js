@@ -2,7 +2,7 @@
  * Created by charnjeetelectrovese@gmail.com on 6/29/2020.
  */
 
-import { CREATE_LEAVE, LIST_LEAVE } from "../actions/LeaveModule.action";
+import { COUNT_LEAVE, CREATE_LEAVE, LIST_LEAVE } from "../actions/LeaveModule.action";
 
 const initialState = {
   all: [],
@@ -31,6 +31,9 @@ export default function (
   switch (action.type) {
     case LIST_LEAVE: {
       return { ...state, data: action.payload };
+    }
+    case COUNT_LEAVE:{
+      return { ...state, count: action.payload };
     }
     default: {
       return state;

@@ -11,15 +11,15 @@ import CustomTextField from "../../../components/FormFields/TextField/TextField.
 import File from "../../../components/FileComponent/FileComponent.component";
 import useLeaveApplication from "./LeaveApplication.hook";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreateLeave } from "../../../actions/LeaveModule.action";
 import useClaimIntCard from "../../../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
 import LogUtils from "../../../libs/LogUtils";
+import ClaimUpperCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimUpperCard/ClaimUpperCard";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import history from "../../../libs/history.utils";
 
 const LeaveApplicationForm = () => {
-  const dispatch = useDispatch();
-  const { state } = useSelector((state) => state);
+  const { state } = useSelector((state) => state?.user);
   const { employeeDetails } = useClaimIntCard({});
 
   const {
@@ -38,57 +38,29 @@ const LeaveApplicationForm = () => {
     id,
     leaveType,
     setLeaveType,
+    daysCount,
+    leaveCount,
   } = useLeaveApplication({});
+
+  
 
   return (
     <div className={styles.container}>
       <div>
-        <span className={styles.title}>Leave Applications</span>
+        <ButtonBase onClick={() => history.goBack()}>
+          <ArrowBackIosIcon fontSize={"small"} />{" "}
+          <span className={"capitalize"}>
+            <b>Leave Application</b>
+          </span>
+        </ButtonBase>
         <div className={styles.newLine} />
       </div>
-      <Paper elevation={2} className={styles.profileDetail}>
-        <span>
-          <b>Employee Information</b>
-        </span>
-        <br />
-        <div className={styles.about}>
-          <div className={styles.imageBlock}>
-            <img src={CircularPng} alt="profile" className={styles.image} />
-            <div className={styles.name}>
-              <span className={styles.formData}>
-                <b>Name</b>:<span>{employeeDetails?.name}</span>
-              </span>
-              <span className={styles.formData}>
-                <b>Employee ID</b>:{employeeDetails?.emp_code}
-              </span>
-              <span className={styles.formData}>
-                <b>Location</b>:<span>{employeeDetails?.location?.name}</span>
-              </span>
-            </div>
-          </div>
-          <div className={styles.otherInfo}>
-            {" "}
-            <span className={styles.formData}>
-              <b>Designation</b>:
-              <span>{employeeDetails?.designation?.name}</span>
-            </span>
-            <span className={styles.formData}>
-              <b>Grade/Level</b>:<span>{employeeDetails?.grade?.code}</span>
-            </span>
-            <span className={styles.formData}>
-              <b>Department</b>:<span>{employeeDetails?.department?.name}</span>
-            </span>
-          </div>
-        </div>
-      </Paper>
-      <Paper elevation={2} className={styles.formContainer}>
-        <span>
-          <b>Leave Details</b>
-        </span>
+      <br />
+      <ClaimUpperCard data={employeeDetails} />
+      <div className={styles.plainPaper}>
+        <div className={styles.heading}>Employee Information</div>
         <div className={styles.leaveForm}>
-          <span className={styles.leaveTitle}>
-            <b>Type of Leave</b>
-          </span>
+          <div className={styles.heading}>Type of Leave</div>
           <FormControl>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
@@ -97,7 +69,7 @@ const LeaveApplicationForm = () => {
               value={form?.type}
               onChange={(e) => changeTextData(e.target.value, "type")}
               row
-              className={styles.radioButtonContainer}
+              className={styles.heading}
             >
               <FormControlLabel
                 value="OCCASION_LEAVE"
@@ -157,7 +129,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:
+                    <b>Pending Leaves</b>:{leaveCount}
                   </p>
                 </div>
               </div>
@@ -232,12 +204,12 @@ const LeaveApplicationForm = () => {
                 />
                 <div className={styles.leaveText}>
                   <p>
-                    <b>No of Days</b>:
+                    <b>No of Days</b>:{daysCount}
                   </p>
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:
+                    <b>Pending Leaves</b>:{leaveCount}
                   </p>
                 </div>
               </div>
@@ -245,16 +217,13 @@ const LeaveApplicationForm = () => {
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
                 fullWidth={true}
-                name="document"
-                label="Upload document"
+                name="od1"
+                label="Attachments"
                 accept={"application/pdf,application/msword,image/*"}
-                // link={data?.document ? data?.document : null}
-                error={errorData?.document}
                 value={form?.document}
-                placeholder={"Upload document"}
+                placeholder={`Add Attachments (optional)`}
                 onChange={(file) => {
                   if (file) {
-                    LogUtils.log("file", file);
                     changeTextData(file, "document");
                   }
                 }}
@@ -313,12 +282,12 @@ const LeaveApplicationForm = () => {
                 />
                 <div className={styles.leaveText}>
                   <p>
-                    <b>No of Days</b>:
+                    <b>No of Days</b>:{daysCount}
                   </p>
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:
+                    <b>Pending Leaves</b>:{leaveCount}
                   </p>
                 </div>
               </div>
@@ -329,12 +298,12 @@ const LeaveApplicationForm = () => {
                 name="od1"
                 label="Attachments"
                 accept={"application/pdf,application/msword,image/*"}
-                link={""}
-                error={""}
-                value={""}
+                value={form?.document}
                 placeholder={`Add Attachments (optional)`}
-                onChange={() => {
-                  console.log("hello");
+                onChange={(file) => {
+                  if (file) {
+                    changeTextData(file, "document");
+                  }
                 }}
               />
               <CustomTextField
@@ -380,8 +349,8 @@ const LeaveApplicationForm = () => {
                     changeTextData(value, "child");
                   }}
                 >
-                  <MenuItem value="FIRST_CHILD">First Child</MenuItem>
-                  <MenuItem value="SECOND_CHILD">Second Child</MenuItem>
+                  <MenuItem value="FIRST_BABY">First Child</MenuItem>
+                  <MenuItem value="SECOND_BABY">Second Child</MenuItem>
                 </CustomSelectField>
               </div>
               <div className={styles.firstBlock}>
@@ -407,12 +376,12 @@ const LeaveApplicationForm = () => {
                 />
                 <div className={styles.leaveText}>
                   <p>
-                    <b>No of Days</b>:
+                    <b>No of Days</b>:{daysCount}
                   </p>
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:
+                    <b>Pending Leaves</b>:{leaveCount}
                   </p>
                 </div>
               </div>
@@ -423,12 +392,12 @@ const LeaveApplicationForm = () => {
                 name="od1"
                 label="Attachments"
                 accept={"application/pdf,application/msword,image/*"}
-                link={""}
-                error={""}
-                value={""}
+                value={form?.document}
                 placeholder={`Add Attachments (optional)`}
-                onChange={() => {
-                  console.log("hello");
+                onChange={(file) => {
+                  if (file) {
+                    changeTextData(file, "document");
+                  }
                 }}
               />
               <CustomTextField
@@ -448,7 +417,7 @@ const LeaveApplicationForm = () => {
             </div>
           )}
         </div>
-      </Paper>
+      </div>
       <div className={styles.btnContainer}>
         <ButtonBase className={"createBtn"} onClick={handleSubmit}>
           SUBMIT
