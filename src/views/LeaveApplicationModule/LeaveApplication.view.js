@@ -23,8 +23,9 @@ import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import useLeaveList from "./LeaveApplication.hook";
+import StatusPill from "../../components/Status/StatusPill.component";
 
-const LeaveApplication = ({ location }) => {
+const LeaveApplication = ({ }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -40,14 +41,6 @@ const LeaveApplication = ({ location }) => {
     isSidePanel,
     isCalling,
     configFilter,
-    warehouses,
-    handleCsvDownload,
-    handleBankSheetDownload,
-    handleAddCandidate,
-    downloadCL,
-    handleClosedownloadCL,
-    handleCandidateMenu,
-    isShowDownloadBtn,
     handleLeaveApplicationForm,
   } = useLeaveList({});
 
@@ -62,7 +55,6 @@ const LeaveApplication = ({ location }) => {
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
- 
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
@@ -88,7 +80,7 @@ const LeaveApplication = ({ location }) => {
         key: "type",
         label: "Leave Type",
         sortable: true,
-        render: (value, all) => <div>{renderFirstCell(all)}</div>,
+        render: (value, all) => <div>{removeUnderScore(all?.type)}</div>,
       },
       {
         key: "date",
@@ -98,7 +90,7 @@ const LeaveApplication = ({ location }) => {
           <div>
             {all?.contact}
             <br />
-            {`${all?.employee?.grade}/${all?.employee?.cadre}`}
+            {`${all?.startDateText} - ${all?.endDateText}`}
           </div>
         ),
       },
@@ -106,13 +98,13 @@ const LeaveApplication = ({ location }) => {
         key: "status",
         label: "status",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.location}</div>,
+        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
       },
       {
         key: "appliedon",
         label: "Applied On",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.designation}</div>,
+        render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
       {
         key: "attachments",
@@ -120,7 +112,13 @@ const LeaveApplication = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department} / {all?.employee?.sub_department}
+            {all?.document && (
+              <div className={styles.key}>
+                <a href={all?.document} target="_blank">
+                  <div className={styles.hyperlinkText}>View Attachment</div>
+                </a>
+              </div>
+            )}
           </div>
         ),
       },
@@ -138,8 +136,8 @@ const LeaveApplication = ({ location }) => {
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: data,
-      count: allData.length,
+      data: data?.data ? data?.data : [],
+      count: data?.data?.length ? data?.data?.length : 0,
       page: currentPage,
     };
 
@@ -163,7 +161,10 @@ const LeaveApplication = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrapperGap}>
-            <ButtonBase onClick={handleLeaveApplicationForm} className={"createBtn"}>
+            <ButtonBase
+              onClick={handleLeaveApplicationForm}
+              className={"createBtn"}
+            >
               APPLY LEAVE
             </ButtonBase>
           </div>
