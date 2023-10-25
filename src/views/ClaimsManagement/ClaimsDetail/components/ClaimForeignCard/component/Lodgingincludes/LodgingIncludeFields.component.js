@@ -139,6 +139,9 @@ const LodgingIncludeFields = ({
             >
               <MenuItem value="SELF">SELF</MenuItem>
               <MenuItem value="OFFICE">OFFICE</MenuItem>
+              <MenuItem value="COMPANY_ALLOTTED_CREDIT_CARD">
+                COMPANY ALLOTTED CREDIT CARD
+              </MenuItem>
             </CustomSelectField>
           </div>
           <div className={"textCenter"}>

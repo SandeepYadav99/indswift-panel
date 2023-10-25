@@ -21,11 +21,12 @@ const TEMP_OBJ = {
   reason: "",
   currency:"",
   payment_made_by:"",
+  booking_by:"",
   other_payment_proof: null,
 };
 
 const OtherIncludeForm = (
-  { data, errorData: errorForm, grade, changeAmount, startDate, endDate },
+  { data, errorData: errorForm, grade, changeAmount, startDate, endDate ,curr,setOfficeAmount4},
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -62,7 +63,8 @@ const OtherIncludeForm = (
         "amount",
         "reason",
         "other_payment_proof",
-        "currency"
+        "currency",
+        "booking_by"
       ];
       const hasValues = Object.values(val).some(
         (value) => value !== "" && value !== null
@@ -245,6 +247,38 @@ const OtherIncludeForm = (
         return acc;
       }
     }, 0);
+  }, [fields]);
+
+  const totalAmount = useMemo(() => {
+    let sum = 0;
+    if (curr?.length > 0) {
+      fields.forEach((item) => {
+        if (item.booking_by !== "SELF" && item.amount !== "") {
+          switch (item.currency) {
+            case "USD":
+              sum += parseFloat(item.amount) * Number(curr[1]?.conversion_rate);
+              break;
+            case "EUR":
+              sum += parseFloat(item.amount) * Number(curr[0]?.conversion_rate);
+              break;
+            case "INR":
+              sum += parseFloat(item.amount);
+              break;
+            default:
+              break;
+          }
+        }
+      });
+    }
+
+    return sum;
+  }, [fields]);
+
+  console.log('test',totalAmount)
+  useEffect(() => {
+    if (totalAmount || totalAmount === 0) {
+      setOfficeAmount4(totalAmount);
+    }
   }, [fields]);
 
   useEffect(() => {
