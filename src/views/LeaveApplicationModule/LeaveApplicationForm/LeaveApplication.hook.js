@@ -96,7 +96,7 @@ const useLeaveApplication = () => {
       });
     }
     if (form?.type === "FACILITATION_LEAVE") {
-      let required = ["reason", "start_date", "end_date", "comment"];
+      let required = ["reason", "start_date", "end_date"];
       required.forEach((val) => {
         if (
           !form?.[val] ||
