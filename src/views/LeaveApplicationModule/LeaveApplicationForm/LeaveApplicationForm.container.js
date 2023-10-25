@@ -19,8 +19,11 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
 
 const LeaveApplicationForm = () => {
-  const { state } = useSelector((state) => state?.user);
   const { employeeDetails } = useClaimIntCard({});
+
+  const {
+    count,
+  } = useSelector((state) => state.LeaveModule);
 
   const {
     form,
@@ -129,7 +132,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{leaveCount}
+                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
                   </p>
                 </div>
               </div>
@@ -209,7 +212,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{leaveCount}
+                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
                   </p>
                 </div>
               </div>
@@ -287,7 +290,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{leaveCount}
+                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
                   </p>
                 </div>
               </div>
@@ -381,7 +384,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{leaveCount}
+                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
                   </p>
                 </div>
               </div>
