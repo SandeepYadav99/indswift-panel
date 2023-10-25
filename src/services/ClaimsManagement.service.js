@@ -37,3 +37,6 @@ export async function serviceCheckLoanAmount (params) {
 export async function serviceUpdateIntClaim(params) {
     return await formDataRequest('employee/claims/create/travel', params);
 }
+export async function serviceUpdateForeignClaim(params) {
+    return await formDataRequest('employee/claims/create/travel/foreign', params);
+}
