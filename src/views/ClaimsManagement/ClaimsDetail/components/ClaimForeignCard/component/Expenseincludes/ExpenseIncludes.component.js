@@ -285,6 +285,7 @@ const ExpenseIncludeForm = (
       fields.forEach((item) => {
         if (
           (item?.booking_by === "OFFICE" && item?.amount !== "") ||
+          (item?.booking_by === "COMPANY_ALLOTTED_CREDIT_CARD" && item?.amount !== "") ||
           (item?.booking_by === "SELF" && item?.mode === "COMPANY_VEHICLE")
         ) {
           switch (item.currency) {

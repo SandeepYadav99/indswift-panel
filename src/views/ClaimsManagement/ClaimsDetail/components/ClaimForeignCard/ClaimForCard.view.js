@@ -51,6 +51,9 @@ function ClaimForCard() {
     USDtoINR,
     EurotoINR,
     imprestINRAmount,
+    getOfficeAmount,
+    setOfficeAmount3,
+    setOfficeAmount4,
   } = useClaimForCard({});
 
   console.log("form", form);
@@ -190,6 +193,8 @@ function ClaimForCard() {
               startDate={startDate}
               endDate={endDate}
               changeAmount={changeAmount}
+              setOfficeAmount3={setOfficeAmount3}
+              curr={curr}
             />
           </div>
         </div>
@@ -204,6 +209,8 @@ function ClaimForCard() {
               startDate={startDate}
               endDate={endDate}
               changeAmount={changeAmount}
+              setOfficeAmount4={setOfficeAmount4}
+              curr={curr}
             />
           </div>
         </div>
@@ -319,12 +326,12 @@ function ClaimForCard() {
             <span>
               ₹{" "}
               {Number(getTotalValue) -
-                (Number(officeAmount) + Number(officeAmount2))}
+                (Number(getOfficeAmount))}
             </span>
           </div>
           <div className={styles.headingWrap}>
             Office Borne Expense:
-            <span>₹ {Number(officeAmount) + Number(officeAmount2)}</span>
+            <span>₹ {Number(getOfficeAmount)}</span>
           </div>
         </div>
         <div className={styles.totalWrap}>

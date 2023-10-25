@@ -59,6 +59,23 @@ const OtherIncludeFields = ({
               <MenuItem value="INR">INR</MenuItem>
             </CustomSelectField>
           </div>
+          <div className={styles.flex1}>
+            <CustomSelectField
+              isError={errors?.booking_by}
+              errorText={errors?.booking_by}
+              label={"Booking By"}
+              value={data?.booking_by}
+              handleChange={(value) => {
+                handleChange(value, "booking_by");
+              }}
+            >
+              <MenuItem value="SELF">SELF</MenuItem>
+              <MenuItem value="OFFICE">OFFICE</MenuItem>
+              <MenuItem value="COMPANY_ALLOTTED_CREDIT_CARD">
+                COMPANY ALLOTTED CREDIT CARD
+              </MenuItem>
+            </CustomSelectField>
+          </div>
         </div>
         <div className={styles.firstRow}>
           <div className={styles.flex1}>

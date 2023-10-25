@@ -65,6 +65,7 @@ function useTravelClaimListDetail() {
       daRef.current?.setData(da_ie_expenses);
       enterRef.current?.setData(entertainment_expenses);
       otherRef.current?.setData(tap_other_expenses);
+      setRefundData(rest?.claim_amount ? Number(rest?.claim_amount) : 0)
     });
   }, [id]);
 
@@ -131,7 +132,7 @@ function useTravelClaimListDetail() {
     const value = imprestAmount
     ? Number(getTotalValue) - Number(getOfficeAmount) - Number(imprestAmount)
     : Number(getTotalValue) - Number(getOfficeAmount);
-    setRefundData(value);
+    // setRefundData(value);
     return value
   }, [employeeDetail, getTotalValue, imprestAmount, getOfficeAmount]);
   console.log(

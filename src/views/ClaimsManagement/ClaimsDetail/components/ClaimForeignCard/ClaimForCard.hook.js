@@ -51,6 +51,8 @@ function useClaimForCard() {
   const [totalAmount, setTotalAmount] = useState({ ...amountKeys });
   const [officeAmount, setOfficeAmount] = useState(0);
   const [officeAmount2, setOfficeAmount2] = useState(0);
+  const [officeAmount3, setOfficeAmount3] = useState(0);
+  const [officeAmount4, setOfficeAmount4] = useState(0);
   const lodgeRef = useRef(null);
   const travelRef = useRef(null);
   const daRef = useRef(null);
@@ -137,7 +139,7 @@ function useClaimForCard() {
 
     return 0;
   }, [form, curr, SetCurr]);
-
+  
   console.log('office',officeAmount,officeAmount2)
   const imprestAmount = useMemo(() => {
     if (form?.travel_planner_id?.myImprest?.status === "FINANCE_APPROVED") {
@@ -212,18 +214,28 @@ function useClaimForCard() {
     return total;
   }, [InrAmount, USDtoINR, EurotoINR]);
 
+  const getOfficeAmount = useMemo(() => {
+    const value =
+      Number(officeAmount ? officeAmount : 0) +
+      Number(officeAmount2 ? officeAmount2 : 0) +
+      Number(officeAmount3 ? officeAmount3 : 0) +
+      Number(officeAmount4 ? officeAmount4 : 0);
+    return value ? value : 0;
+  }, [officeAmount, officeAmount2, officeAmount3, officeAmount4]);
+
   const getRefundAmount = useMemo(() => {
     return imprestINRAmount
       ? Number(getTotalValue) -
-          (Number(officeAmount) + Number(officeAmount2)) -
+          (Number(getOfficeAmount)) -
           Number(imprestINRAmount)
-      : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
+      : Number(getTotalValue) - (Number(getOfficeAmount));
   }, [
     form?.travel_planner_id,
     getTotalValue,
     officeAmount,
     officeAmount2,
     imprestINRAmount,
+    getOfficeAmount
   ]);
 
   const submitToServer = useCallback(() => {
@@ -324,10 +336,10 @@ function useClaimForCard() {
       });
       fd.append("entertainment_expenses", JSON.stringify(enterData));
       fd.append("total_expense", getTotalValue ? getTotalValue : 0);
-      fd.append("office_expense", Number(officeAmount) + Number(officeAmount2));
+      fd.append("office_expense", Number(getOfficeAmount));
       fd.append(
         "self_expense",
-        Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2))
+        Number(getTotalValue) - (Number(getOfficeAmount))
       );
 
       const otherData = otherRef.current.getData();
@@ -372,6 +384,7 @@ function useClaimForCard() {
     InrAmount,
     USDtoINR,
     EurotoINR,
+    getOfficeAmount
   ]);
 
   const removeError = useCallback(
@@ -452,6 +465,7 @@ function useClaimForCard() {
     InrAmount,
     USDtoINR,
     EurotoINR,
+    getOfficeAmount
   ]);
 
   const changeTextData = useCallback(
@@ -518,7 +532,11 @@ function useClaimForCard() {
     USDtoINR,
     EurotoINR,
     imprestINRAmount,
-    curr
+    curr,
+    getOfficeAmount,
+    officeAmount3,
+    setOfficeAmount3,
+    setOfficeAmount4,
   };
 }
 
