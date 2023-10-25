@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import {
   serviceGetEmployeeDetails,
+  serviceUpdateForeignClaim,
   serviceUpdateIntClaim,
 } from "../../../../../services/ClaimsManagement.service";
 import { serviceGetList } from "../../../../../services/Common.service";
@@ -118,7 +119,7 @@ function useClaimForCard() {
   }, [form, errorData]);
 
   const imprestINRAmount = useMemo(() => {
-    if (curr?.length > 0) {
+    if (curr?.length > 0 && form?.travel_planner_id?.myImprest?.amount) {
       if (form?.travel_planner_id?.myImprest?.currency === "USD") {
         return (
           Number(form?.travel_planner_id?.myImprest?.amount) *
@@ -247,6 +248,7 @@ function useClaimForCard() {
       };
       fd.append("total_amount", getRefundAmount);
       fd.append("imprest_amount", imprestAmount);
+      fd.append("refund_amount", getRefundAmount);
       fd.append("imprest_converted_amount", imprestINRAmount);
       const lodgeData = lodgeRef.current.getData();
 
@@ -335,7 +337,7 @@ function useClaimForCard() {
         }
       });
       fd.append("tap_other_expenses", JSON.stringify(otherData));
-      let req = serviceUpdateIntClaim;
+      let req = serviceUpdateForeignClaim;
       req(fd).then((res) => {
         if (!res.error) {
           historyUtils.goBack();
