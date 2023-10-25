@@ -11,7 +11,7 @@ import CustomTextField from "../../../components/FormFields/TextField/TextField.
 import File from "../../../components/FileComponent/FileComponent.component";
 import useLeaveApplication from "./LeaveApplication.hook";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import useClaimIntCard from "../../../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
 import LogUtils from "../../../libs/LogUtils";
 import ClaimUpperCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimUpperCard/ClaimUpperCard";
@@ -19,8 +19,39 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
 
 const LeaveApplicationForm = () => {
-  const { state } = useSelector((state) => state?.user);
   const { employeeDetails } = useClaimIntCard({});
+  let Designation = ["G1", "G2", "G3", "G4", "G5", "G6"];
+  let gradeLevel = employeeDetails?.grade?.code;
+  let Experience = employeeDetails?.experience?.total;
+  let FacilitationCondition = [0.1, 0.2, 0.3];
+  let ExperienceInCompany = employeeDetails?.experience?.current;
+
+
+  function FacilitationGiven() {
+    if (FacilitationCondition.includes(Experience)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  function renderOccasion() {
+    if (!Designation.includes(gradeLevel) || Experience < 1.0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function PaternityLeaveApply() {
+    if (!Designation.includes(gradeLevel) || ExperienceInCompany < 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const { count } = useSelector((state) => state.LeaveModule);
 
   const {
     form,
@@ -41,8 +72,6 @@ const LeaveApplicationForm = () => {
     daysCount,
     leaveCount,
   } = useLeaveApplication({});
-
-  
 
   return (
     <div className={styles.container}>
@@ -75,6 +104,7 @@ const LeaveApplicationForm = () => {
                 value="OCCASION_LEAVE"
                 control={<Radio />}
                 label="Occasion Leave"
+                disabled={renderOccasion()}
               />
               <FormControlLabel
                 value="BEREAVEMENT_LEAVE"
@@ -85,11 +115,13 @@ const LeaveApplicationForm = () => {
                 value="FACILITATION_LEAVE"
                 control={<Radio />}
                 label="Facilitation Leave"
+                disabled={FacilitationGiven()}
               />
               <FormControlLabel
                 value="PATERNITY_LEAVE"
                 control={<Radio />}
                 label="Paternity Leave"
+                disabled={PaternityLeaveApply()}
               />
             </RadioGroup>
           </FormControl>
@@ -118,18 +150,26 @@ const LeaveApplicationForm = () => {
                   }}
                 >
                   <MenuItem value="BIRTHDAY">BIRTHDAY</MenuItem>
-                  <MenuItem value="MARRIAGE_ANNIVERSARY">
-                    MARRIAGE ANNIVERSARY
-                  </MenuItem>
+                  { employeeDetails?.family?.martial_status === "Married" &&
+                    <MenuItem value="MARRIAGE_ANNIVERSARY">
+                      MARRIAGE ANNIVERSARY
+                    </MenuItem>
+                  }
                 </CustomSelectField>
                 <div className={styles.leaveText}>
-                  <p>
-                    <b>Birthday</b>:{employeeDetails?.dob}
-                  </p>
+                  {form?.event_type === "MARRIAGE_ANNIVERSARY" ? (
+                    <p>
+                      <b>Anniversary</b>:{employeeDetails?.dom}
+                    </p>
+                  ) : (
+                    <p>
+                      <b>Birthday</b>:{employeeDetails?.dob}
+                    </p>
+                  )}
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{leaveCount}
+                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
                   </p>
                 </div>
               </div>
@@ -209,7 +249,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{leaveCount}
+                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
                   </p>
                 </div>
               </div>
@@ -287,7 +327,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{leaveCount}
+                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
                   </p>
                 </div>
               </div>
@@ -381,7 +421,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{leaveCount}
+                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
                   </p>
                 </div>
               </div>
