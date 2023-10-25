@@ -136,23 +136,20 @@ const PendingVerification_View = ({ location }) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <a
-            href="javascript:void(0);"
-            target="_blank"
-            onClick={() => openPDFInNewTab(all?.naps?.letter_pdf)}
+          <div
           >
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              // onClick={() => {
-              //   // window.open(all?.naps?.letter_pdf, "_blank");
-              //    handleViewDetails(all);
-              // }}
+              onClick={() => {
+               
+                 handleViewDetails(all);
+              }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-          </a>
+          </div>
         ),
       },
     ];

@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-
-import ReactDOM from "react-dom"
+import ReactDOM from "react-dom";
 
 import {
   actionFetchNapsTraningList,
   actionSetPageNapsTraningList,
 } from "../../../actions/NAPS_Traning.action";
+import historyUtils from "../../../libs/history.utils";
+import RouteName from "../../../routes/Route.name";
 
 const usePendingVerification_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
@@ -97,13 +98,16 @@ const usePendingVerification_Hook = () => {
     console.log(page);
   };
 
-  const openPDFInNewTab = useCallback((pdfUrl) => {
-  
-    const newWindow = window.open('', '_blank');
-    if (newWindow) {
-      window.open(pdfUrl, "_blank")
-      // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
-    }
+  // const openPDFInNewTab = useCallback((pdfUrl) => {
+  //   const newWindow = window.open("", "_blank");
+  //   if (newWindow) {
+  //     window.open(pdfUrl, "_blank");
+  //     // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
+  //   }
+  // }, []);
+
+  const handleViewDetails = useCallback((data) => {
+    historyUtils.push(`${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}`);
   }, []);
 
   const configFilter = useMemo(() => {
@@ -131,10 +135,11 @@ const usePendingVerification_Hook = () => {
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
-    openPDFInNewTab,
+  
     isCalling,
     editData,
     configFilter,
+    handleViewDetails,
   };
 };
 
