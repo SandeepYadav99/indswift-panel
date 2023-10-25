@@ -67,6 +67,10 @@ const EnterincludesDetailFields = ({
                 <span className={styles.value}>Nature of Expenses:</span>
                 {data?.expense_nature ? data?.expense_nature : 'N/A'}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Booking By:</span>
+                {data?.booking_by ? data?.booking_by : '-'}
+              </div>
             </div>
           </div>
         </div>

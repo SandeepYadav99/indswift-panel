@@ -345,7 +345,6 @@ function useClaimIntCard() {
     getOfficeAmount,
     setOfficeAmount2,
     getRefundAmount,
-    getOfficeAmount,
   ]);
 
   const changeTextData = useCallback(
