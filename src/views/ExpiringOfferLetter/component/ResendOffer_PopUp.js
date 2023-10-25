@@ -39,7 +39,8 @@ console.log(letter_id)
     if (letter_id) {
       serviceMarkResharedOfferLetter({ letter_id: letter_id }).then((res) => {
         if (!res?.error) {
-          handleToggle()
+          handleToggle();
+          SnackbarUtils.success("Successfully email has been sent")
         }else{
           SnackbarUtils.error("Offer letter not found")
         }

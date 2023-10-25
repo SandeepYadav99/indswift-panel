@@ -9,5 +9,5 @@ export async function serviceMarkExpired(params) {
 }
 
 export async function serviceMarkResharedOfferLetter(params) {
-    return await postRequest('offer/letters/mark/expired', params);
+    return await postRequest('offer/letters/reshare', params);
 }
