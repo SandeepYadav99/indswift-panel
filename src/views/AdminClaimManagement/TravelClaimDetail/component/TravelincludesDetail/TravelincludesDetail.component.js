@@ -167,7 +167,9 @@ const TravelincludesDetailForm = (
   const getOfficeAmount = useMemo(() => {
     const officeBookings = fields?.filter(
       (booking) =>
-        (booking.booking_by === "OFFICE" && booking.amount !== "") ||
+        ((booking.booking_by === "OFFICE" ||
+          booking?.booking_by === "COMPANY_ALLOTTED_CREDIT_CARD") &&
+          booking.amount !== "") ||
         (booking?.booking_by === "SELF" && booking?.mode === "COMPANY_VEHICLE")
     );
     const sum = officeBookings?.reduce(
