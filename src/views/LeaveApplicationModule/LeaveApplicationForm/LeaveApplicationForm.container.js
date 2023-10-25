@@ -26,7 +26,6 @@ const LeaveApplicationForm = () => {
   let FacilitationCondition = [0.1, 0.2, 0.3];
   let ExperienceInCompany = employeeDetails?.experience?.current;
 
-  console.log(ExperienceInCompany, "ExperienceInCompany is here");
 
   function FacilitationGiven() {
     if (FacilitationCondition.includes(Experience)) {

@@ -1,7 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import historyUtils from "../../../libs/history.utils";
-import { isAlphaNumChars, isSpace } from "../../../libs/RegexUtils";
 import { useParams } from "react-router-dom";
 import { serviceLeaveCreate } from "../../../services/Leave.service";
 import { actionLeaveCount } from "../../../actions/LeaveModule.action";
