@@ -4,6 +4,9 @@ import historyUtils from "../../../libs/history.utils";
 import { isAlphaNumChars, isSpace } from "../../../libs/RegexUtils";
 import { useParams } from "react-router-dom";
 import { serviceLeaveCreate } from "../../../services/Leave.service";
+import { actionLeaveCount } from "../../../actions/LeaveModule.action";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const initialForm = {
   type: "",
@@ -22,7 +25,7 @@ const initialForm = {
   reason: "",
   document: null,
 };
-const OccasionKey = ["type", "duration", "duration_days", "comment"];
+const OccasionKey = ["type", "duration", "duration_days", "comment","event_type","start_date"];
 
 const Bereavement = [
   "deceased_relationship",
@@ -43,6 +46,7 @@ const Paternity = [
   "type",
 ];
 
+
 const useLeaveApplication = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [leaveType, setLeaveType] = useState();
@@ -52,12 +56,20 @@ const useLeaveApplication = () => {
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const includeRef = useRef(null);
+  const [leaveCount,setLeaveCount] = useState();
   const { id } = useParams();
+
+  const dispatch = useDispatch();
+
+  const {
+    count,
+  } = useSelector((state) => state.LeaveModule);
+
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     if (form?.type === "OCCASION_LEAVE") {
-      let required = ["duration", "event_type", "comment"];
+      let required = ["duration", "event_type"];
       required.forEach((val) => {
         if (
           !form?.[val] ||
@@ -84,7 +96,7 @@ const useLeaveApplication = () => {
       });
     }
     if (form?.type === "FACILITATION_LEAVE") {
-      let required = ["reason", "start_date", "end_date", "comment"];
+      let required = ["reason", "start_date", "end_date"];
       required.forEach((val) => {
         if (
           !form?.[val] ||
@@ -111,6 +123,13 @@ const useLeaveApplication = () => {
         }
       });
     }
+    if(daysCount > leaveCount){
+      errors["leave"] = true;
+      SnackbarUtils.error("Applied Leave cannot be greater than Pending Leaves")
+    }
+    else{
+      delete errors["leave"]
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -124,6 +143,7 @@ const useLeaveApplication = () => {
       const type = form?.type;
       setErrorData({});
       setForm({ ...initialForm, type: type });
+      setDaysCount(0)
     }
   }, [form?.type]);
 
@@ -143,39 +163,38 @@ const useLeaveApplication = () => {
     }
   }, [form?.start_date, form?.end_date]);
 
-  console.log("dats", daysCount);
   const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-      setIsSubmitting(true);
-      let req = serviceLeaveCreate;
-      const fd = new FormData();
-      let reqParam =
-        form?.type === "OCCASION_LEAVE"
-          ? OccasionKey
-          : form?.type === "BEREAVEMENT_LEAVE"
-          ? Bereavement
-          : form?.type === "FACILITATION_LEAVE"
-          ? Facilitation
-          : Paternity;
-      reqParam?.forEach((key) => {
-        fd.append(key, form[key]);
-      });
-      if (form?.type !== "OCCASION_LEAVE") {
-        fd.append("duration", "FULL_DAY");
-        fd.append("duration_days", daysCount);
-      }
-      if (form?.document) {
-        fd.append("document", form?.document);
-      }
-      req(fd).then((res) => {
-        if (!res.error) {
-          SnackbarUtils.success("Submitted SuccessFully");
-        } else {
-          SnackbarUtils.error(res?.message);
+      if (!isSubmitting) {
+        setIsSubmitting(true);
+        let req = serviceLeaveCreate;
+        const fd = new FormData();
+        let reqParam =
+          form?.type === "OCCASION_LEAVE"
+            ? OccasionKey
+            : form?.type === "BEREAVEMENT_LEAVE"
+              ? Bereavement
+              : form?.type === "FACILITATION_LEAVE"
+                ? Facilitation
+                : Paternity;
+        reqParam?.forEach((key) => {
+          fd.append(key, form[key]);
+        });
+        if (form?.type !== "OCCASION_LEAVE") {
+          fd.append("duration", "FULL_DAY");
+          fd.append("duration_days", daysCount);
         }
-        setIsSubmitting(false);
-      });
-    }
+        if (form?.document) {
+          fd.append("document", form?.document);
+        }
+        req(fd).then((res) => {
+          if (!res.error) {
+            SnackbarUtils.success("Submitted SuccessFully");
+          } else {
+            SnackbarUtils.error(res?.message);
+          }
+          setIsSubmitting(false);
+        });
+      }
   }, [form, isSubmitting, setIsSubmitting, daysCount, setDaysCount]);
 
   const handleSubmit = useCallback(async () => {
@@ -215,7 +234,7 @@ const useLeaveApplication = () => {
     },
     [removeError, form, setForm]
   );
-  console.log("form", form, errorData);
+
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {
@@ -225,11 +244,37 @@ const useLeaveApplication = () => {
     [changeTextData]
   );
 
-  const handleDelete = useCallback(() => {}, []);
+  const handleDelete = useCallback(() => { }, []);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form]);
+
+
+  useEffect(() => {
+    if (form?.type === "PATERNITY_LEAVE") {
+      dispatch(actionLeaveCount({
+        "leave_type": "PATERNITY_LEAVE",
+        "event_type": `form?.event_type`
+      }))
+    }
+    if (form?.type === "OCCASION_LEAVE") {
+      dispatch(actionLeaveCount({
+        "leave_type": "OCCASION_LEAVE"
+      }))
+    }
+    if (form?.type === "BEREAVEMENT_LEAVE") {
+      dispatch(actionLeaveCount({
+        "leave_type": "BEREAVEMENT_LEAVE"
+      }))
+    }
+    else {
+      dispatch(actionLeaveCount({
+        "leave_type": "FACILITATION_LEAVE"
+      }))
+    }
+    setLeaveCount(count?.data?.total_leave)
+  }, [form?.type])
 
   return {
     form,
@@ -247,6 +292,8 @@ const useLeaveApplication = () => {
     id,
     leaveType,
     setLeaveType,
+    daysCount,
+    leaveCount,
   };
 };
 

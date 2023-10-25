@@ -9,13 +9,8 @@ import {
   Menu,
 } from "@material-ui/core";
 import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
-import {
-  Add,
-  CloudDownload,
-  InfoOutlined,
-  PrintOutlined,
-} from "@material-ui/icons";
+import { useSelector } from "react-redux";
+
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -24,8 +19,10 @@ import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import useLeaveList from "./LeaveApplication.hook";
 import StatusPill from "../../components/Status/StatusPill.component";
+import OnBoardDialog from "../EmployeeList/components/OnBoardPopUp/OnBoardDialog.view";
+import TraineeDialog from "../EmployeeList/components/TraineePopUp copy/TraineeDialog.view";
 
-const LeaveApplication = ({ }) => {
+const LeaveApplication = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -37,11 +34,15 @@ const LeaveApplication = ({ }) => {
     handleSearchValueChange,
     handleSideToggle,
     handleViewDetails,
-    editData,
     isSidePanel,
     isCalling,
     configFilter,
     handleLeaveApplicationForm,
+    isExtendDialog,
+    toggleExtendDialog,
+    isTraineeDialog,
+    toggleTraineeDialog,
+    listData,
   } = useLeaveList({});
 
   const {
@@ -157,7 +158,7 @@ const LeaveApplication = ({ }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Leave Applications</span>
+            <span className={styles.title}>Leave Application</span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrapperGap}>
@@ -169,6 +170,17 @@ const LeaveApplication = ({ }) => {
             </ButtonBase>
           </div>
         </div>
+        <OnBoardDialog
+          listData={listData}
+          // candidateId={id}
+          isOpen={isExtendDialog}
+          handleToggle={toggleExtendDialog}
+        />
+        <TraineeDialog
+          listData={listData}
+          isOpen={isTraineeDialog}
+          handleToggle={toggleTraineeDialog}
+        />
         <div>
           <FilterComponent
             is_progress={isFetching}
