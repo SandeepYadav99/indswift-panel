@@ -192,6 +192,8 @@ export default {
   IRF_LOGIN:'/irf/login',
   IRF_FORM:'/irf/form',
   INCREMENT_MASTER:'/increment-master',
+
   LEAVE_APPLICATION_LIST_VIEW:'/leave-application/list',
   LEAVE_APPLICATION_FORM:"/leave-application/form",
+  PENDING_LEAVE_APPLICATION:"/pending-application/list",
 };
