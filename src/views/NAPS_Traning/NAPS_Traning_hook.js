@@ -7,6 +7,7 @@ import {
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
+import { actionFetchNapsTraningList, actionSetPageNapsTraningList } from "../../actions/NAPS_Traning.action";
 
 const useNapsTraning_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
@@ -21,11 +22,11 @@ const useNapsTraning_Hook = () => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.newEmployee);
+  } = useSelector((state) => state?.napsTraning);
 
   useEffect(() => {
     dispatch(
-      actionFetchNewEmployeeList(1, sortingData, {
+      actionFetchNapsTraningList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -33,24 +34,24 @@ const useNapsTraning_Hook = () => {
     isMountRef.current = true;
   }, []);
 
-  useEffect(() => {
-    serviceGetList(["LOCATIONS"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   serviceGetList(["LOCATIONS"]).then((res) => {
+  //     if (!res.error) {
+  //       setListData(res.data);
+  //     }
+  //   });
+  // }, []);
   console.log("list", listData);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageNewEmployeeList(type));
+    dispatch(actionSetPageNapsTraningList(type));
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
       dispatch(
-        actionFetchNewEmployeeList(1, sortingData, {
+        actionFetchNapsTraningList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -79,7 +80,7 @@ const useNapsTraning_Hook = () => {
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(
-        actionFetchNewEmployeeList(
+        actionFetchNapsTraningList(
           1,
           { row, order },
           {

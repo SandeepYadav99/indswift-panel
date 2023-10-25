@@ -33,7 +33,7 @@ const NapsTraning_View = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.newEmployee);
+  } = useSelector((state) => state.napsTraning);
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
@@ -64,13 +64,13 @@ const NapsTraning_View = ({ location }) => {
         key: "grade_cadre",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => <div>{all?.emp_code}</div>,
+        render: (temp, all) => <div>{all?.grade?.name} / {all?.cadre?.name}</div>,
       },
       {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.location.name}<br/>{all?.department.name}/{all?.sub_department.name}</div>,
+        render: (temp, all) => <div>{all?.location.name}</div>,
       },
       {
         key: "designation",
@@ -78,10 +78,8 @@ const NapsTraning_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
+            {all?.designation?.name}
+          
           </div>
         ),
       },
@@ -91,10 +89,9 @@ const NapsTraning_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.createdBy?.name}
+            {all?.department?.name}
             <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
+            {all?.sub_department?.code} 
           </div>
         ),
       },
@@ -104,7 +101,7 @@ const NapsTraning_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.createdBy?.name}
+          (O)  {all?.contact?.personal_contact}
             <br />
             {all?.createdBy?.code} <br />
             {all?.createdAtText}
@@ -129,7 +126,7 @@ const NapsTraning_View = ({ location }) => {
         label: "REPORTING TO",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+          <div>{all?.hod?.hod_name}</div>
         ),
       },
       {
@@ -141,9 +138,10 @@ const NapsTraning_View = ({ location }) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              // onClick={() => {
-              //   handleViewDetails(all);
-              // }}
+              onClick={() => {
+                window.open(all?.naps?.letter_pdf, "_blank");
+                // handleViewDetails(all);
+              }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>

@@ -79,6 +79,7 @@ import LoanListReducer from "./LoanList.reducer";
 import NewEmployeeListReducer from "./NewEmployeeList.reducer";
 import OngoingLoansReducer from "./OngoingLoans.reducer";
 import ExpirOfferLetterReducer from "./ExpirOfferLetter.reducer";
+import NAPS_TraningReducer from "./NAPS_Traning.reducer"
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form: formReducer,
@@ -154,7 +155,8 @@ const rootReducer = combineReducers({
   loanList:LoanListReducer,
   newEmployee:NewEmployeeListReducer,
   OngoingLoans:OngoingLoansReducer,
-  expirOfferLetter:ExpirOfferLetterReducer
+  expirOfferLetter:ExpirOfferLetterReducer,
+  napsTraning:NAPS_TraningReducer
   // form: formReducer,
 });
 
