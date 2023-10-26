@@ -111,7 +111,7 @@ const DAIncludeFields = ({
     }
   }, [checkDays, data?.currency]);
 
-  console.log("checkDays", checkDays, index);
+  // console.log("checkDays", data, index);
   return (
     <div>
       <div className={styles.commentContainer}>
@@ -159,7 +159,7 @@ const DAIncludeFields = ({
                 <span className={styles.value}>IE Entitelment/Day:</span>
                 {data?.ie_entitlement && (
                   <>
-                    {getCurrency("INR")} {data?.ie_entitlement}
+                    {getCurrency(data?.currency)} {data?.ie_entitlement}
                   </>
                 )}
               </div>

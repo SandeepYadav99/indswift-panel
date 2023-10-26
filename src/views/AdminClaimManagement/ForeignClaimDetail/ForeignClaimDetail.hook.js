@@ -110,10 +110,11 @@ function useClaimForDetail() {
   //   }, [form?.travel_planner_id]);
 
   const changeAmount = useCallback(
-    (text, fieldName) => {
-      const t = { ...totalAmount };
-      t[fieldName] = text;
-      setTotalAmount(t);
+    (text) => {
+      setTotalAmount({...totalAmount,...text})
+      // const t = { ...totalAmount };
+      // t[fieldName] = text;
+      // setTotalAmount(t);
     },
     [totalAmount, setTotalAmount]
   );
@@ -242,6 +243,7 @@ function useClaimForDetail() {
     return value ? value : 0;
   }, [officeAmount, officeAmount2, officeAmount3, officeAmount4]);
 
+  console.log('>>>>',officeAmount, officeAmount2, officeAmount3, officeAmount4,getOfficeAmount)
   const getRefundAmount = useMemo(() => {
     return imprestINRAmount
       ? Number(getTotalValue) -

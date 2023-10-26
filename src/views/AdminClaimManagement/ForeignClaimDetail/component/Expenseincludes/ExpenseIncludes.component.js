@@ -221,17 +221,26 @@ const ExpenseIncludeForm = (
     }, 0);
   }, [fields]);
 
-  useEffect(() => {
-    changeAmount(USDsum, "travel_expenses_amount_usd");
-  }, [USDsum]);
+  // useEffect(() => {
+  //   changeAmount(USDsum, "travel_expenses_amount_usd");
+  // }, [USDsum]);
+
+  // useEffect(() => {
+  //   changeAmount(Eurosum, "travel_expenses_amount_eur");
+  // }, [Eurosum]);
+
+  // useEffect(() => {
+  //   changeAmount(Inrsum, "travel_expenses_amount");
+  // }, [Inrsum]);
 
   useEffect(() => {
-    changeAmount(Eurosum, "travel_expenses_amount_eur");
-  }, [Eurosum]);
-
-  useEffect(() => {
-    changeAmount(Inrsum, "travel_expenses_amount");
-  }, [Inrsum]);
+    const value = {
+      travel_expenses_amount: Inrsum,
+      travel_expenses_amount_eur: Eurosum,
+      travel_expenses_amount_usd: USDsum,
+    };
+    changeAmount(value);
+  }, [Inrsum, USDsum, Eurosum]);
 
   const totalAmount = useMemo(() => {
     let sum = 0;
@@ -239,6 +248,7 @@ const ExpenseIncludeForm = (
       fields.forEach((item) => {
         if (
           (item?.booking_by === "OFFICE" && item?.amount !== "") ||
+          (item?.booking_by === "COMPANY_ALLOTTED_CREDIT_CARD" && item?.amount !== "") ||
           (item?.booking_by === "SELF" && item?.mode === "COMPANY_VEHICLE")
         ) {
           switch (item.currency) {
