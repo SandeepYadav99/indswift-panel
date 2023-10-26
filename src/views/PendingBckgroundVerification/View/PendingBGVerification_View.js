@@ -12,9 +12,9 @@ import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 
 import { InfoOutlined } from "@material-ui/icons";
-import usePendingVerification_Hook from "./PendingVerification_Hook";
+import usePendingBGVerification_Hook from "./PendingBGVerification_Hook";
 
-const PendingVerification_View = ({ location }) => {
+const PendingBGVerification_View = ({ location }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -26,7 +26,7 @@ const PendingVerification_View = ({ location }) => {
     isCalling,
     configFilter,
     openPDFInNewTab,
-  } = usePendingVerification_Hook({ location });
+  } = usePendingBGVerification_Hook({ location });
 
   const {
     data,
@@ -226,4 +226,4 @@ const PendingVerification_View = ({ location }) => {
   );
 };
 
-export default PendingVerification_View;
+export default PendingBGVerification_View;

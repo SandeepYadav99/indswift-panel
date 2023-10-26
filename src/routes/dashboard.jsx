@@ -20,11 +20,11 @@ import LetterApprovalProces_View from "../views/Relving&ExpernsLetterAprvl/Lette
 import LetterApprovalDetail from "../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail";
 import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/RelievingExpLetter_View";
 
-const VerificationDetail = lazy(() =>
-  import("../views/PendingBckgroundVerification/CandidateInformation/CandidateInformation")
+const BGVDetails = lazy(() =>
+  import("../views/PendingBckgroundVerification/BGVerificationDetails/BGVDetails")
 );
-const PendingVerification_View = lazy(() =>
-  import("../views/PendingBckgroundVerification/View/PendingVerification_View")
+const PendingBGVerification_View = lazy(() =>
+  import("../views/PendingBckgroundVerification/View/PendingBGVerification_View")
 );
 const CandidateStatusGlossary_List = lazy(() =>
   import("../views/CandidateStatusGlossary/CandidateStatusGlossary_List")
@@ -2177,7 +2177,7 @@ const dashboardRoutes = [
     sidebarName: "Pending Background Verification",
     navbarName: "Pending Background Verification",
     icon: PeopleOutlined,
-    component: PendingVerification_View,
+    component: PendingBGVerification_View,
     is_sidebar: true,
     is_protect: true,
     // slug: 'tp',
@@ -2190,7 +2190,7 @@ const dashboardRoutes = [
     sidebarName: "Pending Background Verification",
     navbarName: "Pending Background Verification",
     icon: PeopleOutlined,
-    component: VerificationDetail,
+    component: BGVDetails,
     is_sidebar: false,
     is_protect: true,
     // slug: 'tp',

@@ -9,10 +9,10 @@ import WaitingComponent from "../../../components/Waiting.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 
-import useBackgroundVerification_Hook from "./BackgroundVerification_Hook";
 import { EditOutlined } from "@material-ui/icons";
+import useBGVDetails_Hook from "./BGVDetails_Hook";
 
-const BackgroundVerificationDetails = () => {
+const BGVDetails = () => {
   const {
     data,
     isLoading,
@@ -20,7 +20,7 @@ const BackgroundVerificationDetails = () => {
     isInterviewStatus,
     handleChangeInterviewStatus,
     handleViewEditDetails,
-  } = useBackgroundVerification_Hook({});
+  } = useBGVDetails_Hook({});
   if (isLoading) {
     return <WaitingComponent />;
   }
@@ -163,4 +163,4 @@ const BackgroundVerificationDetails = () => {
   );
 };
 
-export default BackgroundVerificationDetails;
+export default BGVDetails;

@@ -10,7 +10,7 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 
-const usePendingVerification_Hook = () => {
+const usePendingBGVerification_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
@@ -143,4 +143,4 @@ const usePendingVerification_Hook = () => {
   };
 };
 
-export default usePendingVerification_Hook;
+export default usePendingBGVerification_Hook;

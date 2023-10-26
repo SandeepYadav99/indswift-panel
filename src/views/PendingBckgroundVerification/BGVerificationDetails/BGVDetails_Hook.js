@@ -5,7 +5,7 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 
-const useBackgroundVerification_Hook = ({}) => {
+const useBGVDetails_Hook = ({}) => {
     const {id} = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState(null);
@@ -41,4 +41,4 @@ const useBackgroundVerification_Hook = ({}) => {
     };
 };
 
-export default useBackgroundVerification_Hook;
+export default useBGVDetails_Hook;
