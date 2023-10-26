@@ -22,21 +22,27 @@ const LeaveApplicationForm = () => {
   const { employeeDetails } = useClaimIntCard({});
   let Designation = ["G1", "G2", "G3", "G4", "G5", "G6"];
   let gradeLevel = employeeDetails?.grade?.code;
-  let Experience = employeeDetails?.experience?.total;
-  let FacilitationCondition = [0.1, 0.2, 0.3];
+  let FacilitationCondition = ["0.1", "0.2", "0.3"];
   let ExperienceInCompany = employeeDetails?.experience?.current;
 
-
   function FacilitationGiven() {
-    if (FacilitationCondition.includes(Experience)) {
+    if (FacilitationCondition.includes(ExperienceInCompany)) {
       return false;
     } else {
       return true;
     }
   }
 
+  function BearvementLeave() {
+    if (ExperienceInCompany < "1.0") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   function renderOccasion() {
-    if (!Designation.includes(gradeLevel) || Experience < 1.0) {
+    if (!Designation.includes(gradeLevel) || ExperienceInCompany < 1.0) {
       return true;
     } else {
       return false;
@@ -110,6 +116,7 @@ const LeaveApplicationForm = () => {
                 value="BEREAVEMENT_LEAVE"
                 control={<Radio />}
                 label="Bereavement Leave"
+                disabled={BearvementLeave()}
               />
               <FormControlLabel
                 value="FACILITATION_LEAVE"
@@ -150,11 +157,11 @@ const LeaveApplicationForm = () => {
                   }}
                 >
                   <MenuItem value="BIRTHDAY">BIRTHDAY</MenuItem>
-                  { employeeDetails?.family?.martial_status === "Married" &&
+                  {employeeDetails?.family?.martial_status === "Married" && (
                     <MenuItem value="MARRIAGE_ANNIVERSARY">
                       MARRIAGE ANNIVERSARY
                     </MenuItem>
-                  }
+                  )}
                 </CustomSelectField>
                 <div className={styles.leaveText}>
                   {form?.event_type === "MARRIAGE_ANNIVERSARY" ? (
@@ -376,7 +383,7 @@ const LeaveApplicationForm = () => {
                 >
                   <MenuItem value="NORMAL_DELIVERY">Normal Delievery</MenuItem>
                   <MenuItem value="C_SECTION_DELIVERY">
-                    C_Section_Delievery
+                    C Section Delievery
                   </MenuItem>
                   <MenuItem value="MISCARRIAGE">Miscarriage</MenuItem>
                 </CustomSelectField>

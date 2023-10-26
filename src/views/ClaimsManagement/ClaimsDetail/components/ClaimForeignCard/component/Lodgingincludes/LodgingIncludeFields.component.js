@@ -98,6 +98,16 @@ const LodgingIncludeFields = ({
     }
   }, [data?.stay_at]);
 
+  useEffect(() => {
+    if (data?.max_entitlement && data?.amount) {
+      let amount = Number(data?.amount) - Number(data?.max_entitlement);
+      console.log("amount", amount);
+      changeData(index, {
+        ["over_expenditure"]: amount >= 0 ? amount : 0,
+      });
+    }
+  }, [data?.max_entitlement, data?.amount]);
+
   return (
     <div>
       <div className={styles.heading}>Travel Type</div>
@@ -189,36 +199,6 @@ const LodgingIncludeFields = ({
               />
             </div>
           </>
-          {/* //   <>
-          //     <div className={styles.flex1}>
-          //       <CustomSelectField
-          //         isError={errors?.city_cluster}
-          //         errorText={errors?.city_cluster}
-          //         label={"City Cluster"}
-          //         value={data?.city_cluster}
-          //         handleChange={(value) => {
-          //           handleChange(value, "city_cluster");
-          //         }}
-          //       >
-          //         <MenuItem value="A">A</MenuItem>
-          //         <MenuItem value="B">B</MenuItem>
-          //         <MenuItem value="C">C</MenuItem>
-          //       </CustomSelectField>
-          //     </div>
-          //     <div className={styles.flex1}>
-          //       <TextField
-          //         error={errors?.city}
-          //         onChange={handleChange}
-          //         value={data?.city}
-          //         fullWidth={true}
-          //         name={"city"}
-          //         margin={"dense"}
-          //         variant={"outlined"}
-          //         label={"City"}
-          //       />
-          //     </div>
-          //   </> */}
-
           <div className={styles.flex1}>
             <CustomSelectField
               isError={errors?.stay_at}
@@ -410,6 +390,14 @@ const LodgingIncludeFields = ({
             </div>
           </>
         )}
+      </div>
+      <div className={styles.firstRowent}>
+        <div className={styles.flextitle}>
+          <span className={styles.heading21}>Over Expenditure:</span>
+          <span className={styles.count}>
+            {data?.over_expenditure && `₹ ${data?.over_expenditure}`}
+          </span>
+        </div>
       </div>
     </div>
   );
