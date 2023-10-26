@@ -221,17 +221,26 @@ const ExpenseIncludeForm = (
     }, 0);
   }, [fields]);
 
-  useEffect(() => {
-    changeAmount(USDsum, "travel_expenses_amount_usd");
-  }, [USDsum]);
+  // useEffect(() => {
+  //   changeAmount(USDsum, "travel_expenses_amount_usd");
+  // }, [USDsum]);
+
+  // useEffect(() => {
+  //   changeAmount(Eurosum, "travel_expenses_amount_eur");
+  // }, [Eurosum]);
+
+  // useEffect(() => {
+  //   changeAmount(Inrsum, "travel_expenses_amount");
+  // }, [Inrsum]);
 
   useEffect(() => {
-    changeAmount(Eurosum, "travel_expenses_amount_eur");
-  }, [Eurosum]);
-
-  useEffect(() => {
-    changeAmount(Inrsum, "travel_expenses_amount");
-  }, [Inrsum]);
+    const value = {
+      travel_expenses_amount: Inrsum,
+      travel_expenses_amount_eur: Eurosum,
+      travel_expenses_amount_usd: USDsum,
+    };
+    changeAmount(value);
+  }, [Inrsum, USDsum, Eurosum]);
 
   const totalAmount = useMemo(() => {
     let sum = 0;

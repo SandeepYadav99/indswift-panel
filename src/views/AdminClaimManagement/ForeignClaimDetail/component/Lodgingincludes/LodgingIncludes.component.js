@@ -157,7 +157,6 @@ const LodgingIncludeForm = (
             CoPass={CoPass}
           />
           {fields?.length !== index + 1 && <div className={styles.verti}></div>}
-
         </div>
       );
     });
@@ -226,8 +225,13 @@ const LodgingIncludeForm = (
   }, [Eurosum]);
 
   useEffect(() => {
-    changeAmount(Inrsum, "lodging_expenses_amount");
-  }, [Inrsum]);
+    const value = {
+      lodging_expenses_amount: Inrsum,
+      lodging_expenses_amount_eur: Eurosum,
+      lodging_expenses_amount_usd: USDsum,
+    };
+    changeAmount(value);
+  }, [Inrsum, USDsum, Eurosum]);
 
   const totalAmount = useMemo(() => {
     let sum = 0;
@@ -257,7 +261,7 @@ const LodgingIncludeForm = (
   console.log("getOfficeAmount", curr[1]?.conversion_rate, totalAmount);
 
   useEffect(() => {
-    if (totalAmount) {
+    if (totalAmount || totalAmount == 0) {
       setOfficeAmount(totalAmount);
     }
   }, [fields]);

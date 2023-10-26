@@ -20,7 +20,7 @@ const TEMP_OBJ = {
 };
 
 const OtherDetailsIncludeForm = (
-  { data, errorData: errorForm, grade, changeAmount },
+  { data, errorData: errorForm, grade, changeAmount,setOfficeAmount3,curr },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -212,17 +212,57 @@ const OtherDetailsIncludeForm = (
     }, 0);
   }, [fields]);
 
-  useEffect(() => {
-    changeAmount(USDsum, "entertainment_expenses_amount_usd");
-  }, [USDsum]);
+  const totalAmount = useMemo(() => {
+    let sum = 0;
+    if (curr?.length > 0) {
+      fields.forEach((item) => {
+        if (item.booking_by === "OFFICE" && item.amount !== "") {
+          switch (item.currency) {
+            case "USD":
+              sum += parseFloat(item.amount) * Number(curr[1]?.conversion_rate);
+              break;
+            case "EUR":
+              sum += parseFloat(item.amount) * Number(curr[0]?.conversion_rate);
+              break;
+            case "INR":
+              sum += parseFloat(item.amount);
+              break;
+            default:
+              break;
+          }
+        }
+      });
+    }
+
+    return sum;
+  }, [fields]);
 
   useEffect(() => {
-    changeAmount(Eurosum, "entertainment_expenses_amount_eur");
-  }, [Eurosum]);
+    const value = {
+      entertainment_expenses_amount: Inrsum,
+      entertainment_expenses_amount_eur: Eurosum,
+      entertainment_expenses_amount_usd: USDsum,
+    };
+    changeAmount(value);
+  }, [Inrsum, USDsum, Eurosum]);
+
+  // useEffect(() => {
+  //   changeAmount(USDsum, "entertainment_expenses_amount_usd");
+  // }, [USDsum]);
+
+  // useEffect(() => {
+  //   changeAmount(Eurosum, "entertainment_expenses_amount_eur");
+  // }, [Eurosum]);
+
+  // useEffect(() => {
+  //   changeAmount(Inrsum, "entertainment_expenses_amount");
+  // }, [Inrsum]);
 
   useEffect(() => {
-    changeAmount(Inrsum, "entertainment_expenses_amount");
-  }, [Inrsum]);
+    if (totalAmount || totalAmount == 0) {
+      setOfficeAmount3(totalAmount);
+    }
+  }, [fields]);
 
   // useEffect(() => {
   //   changeAmount(sum, "entertainment_expenses_amount");
