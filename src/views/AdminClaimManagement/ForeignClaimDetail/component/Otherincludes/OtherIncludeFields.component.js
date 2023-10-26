@@ -65,6 +65,7 @@ const OtherIncludeFields = ({
               <div className={styles.key221}>
                 <span className={styles.value}>
                   <CustomSelectField
+                    disabled={true}
                     isError={errors?.currency}
                     errorText={errors?.currency}
                     label={"Choose Currency"}

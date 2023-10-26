@@ -70,6 +70,7 @@ const LodgingIncludeFields = ({
               <div className={styles.key95}>
                 <span className={styles.value}>
                   <CustomSelectField
+                    disabled={true}
                     isError={errors?.currency}
                     errorText={errors?.currency}
                     label={"Choose Currency"}

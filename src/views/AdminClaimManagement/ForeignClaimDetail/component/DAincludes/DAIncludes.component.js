@@ -63,7 +63,7 @@ const DAIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["da_pct", "da_amount", "ie_amount", "currency"];
+      const required = ["da_pct", "da_amount"];
 
       {
         required.forEach((key) => {

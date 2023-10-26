@@ -51,7 +51,7 @@ const OtherDetailsIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["amount", "currency"];
+      const required = ["amount"];
       const hasValues = Object.values(val).some(
         (value) => value !== "" && value !== null
       );
