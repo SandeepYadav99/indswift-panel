@@ -176,6 +176,7 @@ const DAIncludeFields = ({
           <div className={styles.key221}>
             <span className={styles.valueField}>
               <CustomSelectField
+                disabled={true}
                 isError={errors?.currency}
                 errorText={errors?.currency}
                 label={"Choose Currency"}

@@ -15,7 +15,10 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 import moment from "moment";
 import { serviceGetCurrencyList } from "../../../services/AppSettings.service";
 import { useParams } from "react-router-dom";
-import { serviceDetailsCLaim } from "../../../services/Claims.service";
+import {
+  serviceApproveCLaim,
+  serviceDetailsCLaim,
+} from "../../../services/Claims.service";
 
 const initialForm = {
   comment: "",
@@ -258,11 +261,6 @@ function useClaimForDetail() {
     if (!isSubmitting) {
       setIsLoading(true);
       setIsSubmitting(true);
-      const fd = new FormData();
-      fd.append("travel_planner_id", form?.travel_planner_id?.id);
-      Object.keys(totalAmount).forEach((key) => {
-        fd.append(key, totalAmount[key]);
-      });
       const summery = {
         conversion_rate_usd: curr[1]?.conversion_rate,
         conversion_rate_eur: curr[0]?.conversion_rate,
@@ -274,99 +272,33 @@ function useClaimForDetail() {
         converted_amount_eur: EurotoINR,
         converted_amount_inr: InrAmount,
       };
-      fd.append("total_amount", getRefundAmount);
-      fd.append("imprest_amount", imprestAmount);
-      fd.append("refund_amount", getRefundAmount);
-      fd.append("imprest_converted_amount", imprestINRAmount);
       const lodgeData = lodgeRef.current.getData();
-
-      let modifiedArr = lodgeData?.map((item) => {
-        return {
-          ...item,
-          shared_with: item?.shared_with?.map((person) => person?.id),
-        };
-      });
-      lodgeData.forEach((val) => {
-        if (val?.lodging_voucher) {
-          fd.append("lodging_voucher", val?.lodging_voucher);
-        }
-        if (val?.lodging_payment_proof) {
-          fd.append("lodging_payment_proof", val?.lodging_payment_proof);
-        } else {
-          const file = dataURLtoFile(nullImg, "null.png");
-          fd.append("lodging_payment_proof", file);
-        }
-      });
-
-      fd.append("lodging_expenses", JSON.stringify(modifiedArr));
-      fd.append("imprest_summary", JSON.stringify(summery));
-
-      const ExpensesData = travelRef.current.getData();
-      ExpensesData.forEach((val) => {
-        if (val?.travel_payment_proof) {
-          fd.append("travel_payment_proof", val?.travel_payment_proof);
-        } else {
-          const file = dataURLtoFile(nullImg, "null.png");
-          fd.append("travel_payment_proof", file);
-        }
-        if (val?.travel_voucher) {
-          fd.append("travel_voucher", val?.travel_voucher);
-        } else {
-          const file = dataURLtoFile(nullImg, "null.png");
-          fd.append("travel_payment_proof", file);
-        }
-      });
-      fd.append("travel_expenses", JSON.stringify(ExpensesData));
-
       const daData = daRef.current.getData();
-      daData.forEach((val) => {
-        if (val.ie_payment_proof) {
-          fd.append("ie_payment_proof", val?.ie_payment_proof);
-        } else {
-          const file = dataURLtoFile(nullImg, "null.png");
-          fd.append("ie_payment_proof", file);
-        }
-        if (val.da_payment_proof) {
-          fd.append("da_payment_proof", val?.da_payment_proof);
-        } else {
-          const file = dataURLtoFile(nullImg, "null.png");
-          fd.append("da_payment_proof", file);
-        }
-      });
-      const modifiedData = daData.map((item) => {
-        return {
-          ...item,
-          start_time: moment(item.start_time).format("hh:mm A"),
-          end_time: moment(item.end_time).format("hh:mm A"),
-        };
-      });
-      fd.append("da_ie_expenses", JSON.stringify(modifiedData));
+      const ExpensesData = travelRef.current.getData();
       const enterData = enterRef.current.getData();
-      enterData.forEach((val) => {
-        if (val?.entertainment_payment_proof) {
-          fd.append(
-            "entertainment_payment_proof",
-            val?.entertainment_payment_proof
-          );
-        }
-      });
-      fd.append("entertainment_expenses", JSON.stringify(enterData));
-      fd.append("total_expense", getTotalValue ? getTotalValue : 0);
-      fd.append("office_expense", Number(getOfficeAmount));
-      fd.append(
-        "self_expense",
-        Number(getTotalValue) - Number(getOfficeAmount)
-      );
-
       const otherData = otherRef.current.getData();
-      otherData.forEach((val) => {
-        if (val?.other_payment_proof) {
-          fd.append("other_payment_proof", val?.other_payment_proof);
-        }
-      });
-      fd.append("tap_other_expenses", JSON.stringify(otherData));
-      let req = serviceUpdateForeignClaim;
-      req(fd).then((res) => {
+
+      const objData = {
+        ...form,
+        review_id: id,
+        travel_claim_update: {
+          lodging_expenses: lodgeData,
+          travel_expenses: ExpensesData,
+          da_ie_expenses: daData,
+          entertainment_expenses: enterData,
+          tap_other_expenses: otherData,
+          total_amount: Number(refundData),
+          refund_amount: Number(getRefundAmount),
+          imprest_amount: imprestAmount,
+          total_expense: getTotalValue ? getTotalValue : 0,
+          office_expense: Number(getOfficeAmount),
+          imprest_converted_amount: Number(imprestINRAmount),
+          self_expense: Number(getTotalValue) - Number(getOfficeAmount),
+          ...totalAmount,
+          imprest_summary: summery,
+        },
+      };
+      serviceApproveCLaim({ ...objData, ...EmpId }).then((res) => {
         if (!res.error) {
           historyUtils.goBack();
         } else {

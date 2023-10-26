@@ -53,7 +53,7 @@ const OtherIncludeForm = (
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = [
         "amount",
-        "currency"
+        // "currency"
       ];
       const hasValues = Object.values(val).some(
         (value) => value !== "" && value !== null

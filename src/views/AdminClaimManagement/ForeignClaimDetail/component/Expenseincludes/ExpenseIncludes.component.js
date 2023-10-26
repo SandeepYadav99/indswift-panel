@@ -56,7 +56,7 @@ const ExpenseIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["amount", "currency"];
+      const required = ["amount"];
 
       {
         required.forEach((key) => {
