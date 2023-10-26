@@ -15,6 +15,7 @@ function useUSCEditHook() {
     annual_bonus: "",
   };
   const [form, setForm] = useState({ ...initialForm });
+  const [detail,setDetail]=useState({})
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { id } = useParams();
@@ -30,6 +31,7 @@ function useUSCEditHook() {
             basic_salary: data?.basic_salary,
             annual_bonus: data?.annual_bonus,
           });
+          setDetail(data)
         } else {
           SnackbarUtils.error(res?.message);
           historyUtils.goBack();
@@ -100,6 +102,7 @@ function useUSCEditHook() {
     errorData,
     changeTextData,
     handleSubmit,
+    detail
   };
 }
 

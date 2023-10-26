@@ -1,0 +1,46 @@
+.headerContainer {
+}
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.EmployeeCircularWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.squareDiv {
+  width: 9px;
+  height: 9px;
+  background: #2896e9;
+}
+.productName {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.productDate {
+  color: #818181;
+  font-size: 0.75rem;
+}
+.btnWrap{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.download {
+  border: 2px solid #29cb97 !important;
+  border-radius: 30px !important;
+  color: #29cb97 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  padding: 7px 25px !important;
+  text-transform: uppercase !important;
+  height: 40px !important;
+}

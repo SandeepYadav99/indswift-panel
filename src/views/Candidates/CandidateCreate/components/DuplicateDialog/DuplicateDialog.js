@@ -5,16 +5,15 @@ import React from "react";
 import RouteName from "../../../../../routes/Route.name";
 import historyUtils from "../../../../../libs/history.utils";
 import { useCallback } from "react";
+import { Link } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const DialogComponent = ({ isOpen, handleClose, candidatedata }) => {
-  const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data.id}`); //+data.id
-  }, []);
-  console.log("candidatedata");
+
+  // console.log("candidatedata");
   return (
     <Dialog
       keepMounted
@@ -54,19 +53,22 @@ const DialogComponent = ({ isOpen, handleClose, candidatedata }) => {
                     <div>{item?.contact}</div>
                   </div>
                   <div className={styles.btnWrap}>
-                    <IconButton
-                      className={"tableActionBtn"}
-                      color="secondary"
-                      onClick={() => {
-                        handleViewDetails(item);
-                      }}
+                    <Link
+                      to={`${RouteName.CANDIDATES_DETAILS}${item.id}`}
+                      style={{ textDecoration: "none", color: "black" }}
+                      target="_blank"
                     >
-                      <OpenInNew
-                        fontSize={"small"}
-                        className={styles.openIcon}
-                      />{" "}
-                      <span className={styles.subText}>View Profile</span>
-                    </IconButton>
+                      <IconButton
+                        className={"tableActionBtn"}
+                        color="secondary"
+                      >
+                        <OpenInNew
+                          fontSize={"small"}
+                          className={styles.openIcon}
+                        />{" "}
+                        <span className={styles.subText}>View Profile</span>
+                      </IconButton>
+                    </Link>
                   </div>
                 </div>
               ))}

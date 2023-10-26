@@ -78,6 +78,7 @@ import EmployeeLoanListReducer from "./EmployeeLoanList.reducer";
 import LoanListReducer from "./LoanList.reducer";
 import NewEmployeeListReducer from "./NewEmployeeList.reducer";
 import OngoingLoansReducer from "./OngoingLoans.reducer";
+import LeaveReducer from './LeaveModule.reducer';
 import ExpirOfferLetterReducer from "./ExpirOfferLetter.reducer";
 import NAPS_TraningReducer from "./NAPS_Traning.reducer"
 import PendingBGVReducer from "./PendingBGV.reducer";
@@ -155,10 +156,11 @@ const rootReducer = combineReducers({
   emp_loanList:EmployeeLoanListReducer,
   loanList:LoanListReducer,
   newEmployee:NewEmployeeListReducer,
-  OngoingLoans:OngoingLoansReducer,
   expirOfferLetter:ExpirOfferLetterReducer,
   napsTraning:NAPS_TraningReducer,
-  pendingBGV:PendingBGVReducer
+  pendingBGV:PendingBGVReducer,
+  OngoingLoans:OngoingLoansReducer,
+  LeaveModule:LeaveReducer,
   // form: formReducer,
 });
 

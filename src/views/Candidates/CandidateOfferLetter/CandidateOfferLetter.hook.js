@@ -342,7 +342,7 @@ function CandidateOfferLetterHook({location}) {
         [setErrorData, errorData]
     );
     const checkForSalaryInfo = (data) => {
-        if (data?.grade_id && data?.cadre_id && data?.designation?.id) {
+        if (data?.grade_id && data?.cadre_id && data?.designation?.id && data?.reporting_location?.id) {
           let filteredForm = {};
           for (let key in data) {
             if (salaryInfo.includes(key)) {
@@ -361,6 +361,7 @@ function CandidateOfferLetterHook({location}) {
             grade_id: data?.grade_id,
             cadre_id:data?.cadre_id,
             designation_id:data?.designation?.id,
+            location_id:data?.reporting_location?.id,
             ...filteredForm,
           });
           req.then((res) => {
@@ -379,7 +380,15 @@ function CandidateOfferLetterHook({location}) {
                     if (designationIndex >= 0) {
                       booleanData['designation'] = listData?.DESIGNATIONS[designationIndex];
                     }
-                  } else {
+                  }else if (key === "location_id") {
+                    const locationIndex = listData?.LOCATIONS.findIndex(
+                      (val) => val.id === value
+                    );
+                    if (locationIndex >= 0) {
+                      booleanData['reporting_location'] = listData?.LOCATIONS[locationIndex];
+                    }
+                  }
+                   else {
                     booleanData[key] = value;
                   }
               }
@@ -387,7 +396,7 @@ function CandidateOfferLetterHook({location}) {
             setForm({ ...data, ...booleanData });
           });
         } else {
-          SnackbarUtils.error("Please Select the Designation");
+          SnackbarUtils.error("Please Select the Designation and Reporting Location");
         }
       };
 
@@ -410,7 +419,7 @@ function CandidateOfferLetterHook({location}) {
             }
             setForm(t);
             shouldRemoveError && removeError(fieldName);
-            if ([...salaryInfo,'designation']?.includes(fieldName)) {
+            if ([...salaryInfo,'designation','reporting_location']?.includes(fieldName)) {
                 checkSalaryInfoDebouncer(t);
               }
         },

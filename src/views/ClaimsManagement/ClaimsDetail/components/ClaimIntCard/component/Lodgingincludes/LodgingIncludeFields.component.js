@@ -93,6 +93,16 @@ const LodgingIncludeFields = ({
   }, [grade, data?.stay_at, data?.country]);
 
   useEffect(() => {
+    if (data?.max_entitlement && data?.amount) {
+      let amount = Number(data?.amount) - Number(data?.max_entitlement);
+      console.log("amount", amount);
+      changeData(index, {
+        ["over_expenditure"]: amount >= 0 ? amount : 0,
+      });
+    }
+  }, [data?.max_entitlement, data?.amount]);
+
+  useEffect(() => {
     if (data?.stay_at === "N/A") {
       changeData(index, {
         ["payment_by"]: "",
@@ -144,6 +154,9 @@ const LodgingIncludeFields = ({
             >
               <MenuItem value="SELF">SELF</MenuItem>
               <MenuItem value="OFFICE">OFFICE</MenuItem>
+              <MenuItem value="COMPANY_ALLOTTED_CREDIT_CARD">
+                COMPANY ALLOTTED CREDIT CARD
+              </MenuItem>
             </CustomSelectField>
           </div>
           <div className={"textCenter"}>
@@ -373,6 +386,14 @@ const LodgingIncludeFields = ({
                     }
                   }}
                 />
+              </div>
+            </div>
+            <div className={styles.firstRowent}>
+              <div className={styles.flextitle}>
+                <span className={styles.heading21}>Over Expenditure:</span>
+                <span className={styles.count}>
+                  {data?.over_expenditure && `₹ ${data?.over_expenditure}`}
+                </span>
               </div>
             </div>
           </>

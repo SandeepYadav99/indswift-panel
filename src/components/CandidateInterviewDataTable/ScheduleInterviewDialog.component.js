@@ -59,6 +59,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                             value={form?.date}
                             isError={errorData?.date}
                         />
+                        <div className={styles.help}>Time in IST</div>
                     </div>
                     <div className="formGroup1">
                         <CustomTextField
@@ -125,6 +126,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                         >
                             <MenuItem value="IN_PERSON">IN PERSON</MenuItem>
                             <MenuItem value="TELEPHONIC">TELEPHONIC</MenuItem>
+                            <MenuItem value="VIRTUAL">VIRTUAL</MenuItem>
                         </CustomSelectField>
                     </div>
                 </div>

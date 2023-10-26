@@ -32,6 +32,7 @@ const TEMP_OBJ = {
   currency: "",
   country: "",
   country_name: "",
+  over_expenditure: 0,
 };
 
 const LodgingIncludeForm = (
@@ -48,7 +49,7 @@ const LodgingIncludeForm = (
     changeAmount,
     tourType,
     setCurrency,
-    setOfficeAmount
+    setOfficeAmount,
   },
   ref
 ) => {
@@ -108,11 +109,11 @@ const LodgingIncludeForm = (
           }
         });
       }
-      if (val?.amount && grade !== "G0") {
-        if (val?.amount > val?.max_entitlement) {
-          err["amount"] = true;
-        }
-      }
+      // if (val?.amount && grade !== "G0") {
+      //   if (val?.amount > val?.max_entitlement) {
+      //     err["amount"] = true;
+      //   }
+      // }
       if (val?.stay_at === "HOTEL" && !val?.hotel) {
         err["hotel"] = true;
       }
@@ -186,6 +187,7 @@ const LodgingIncludeForm = (
 
   const changeData = (index, data, dateValue) => {
     // const tempData = JSON.parse(JSON.stringify(fields));
+    console.log("amount2", data);
     const tempData = [...fields];
     if (dateValue) {
       tempData.forEach((item) => (item.travel_date = ""));
@@ -271,7 +273,7 @@ const LodgingIncludeForm = (
 
   const getOfficeAmount = useMemo(() => {
     const officeBookings = fields?.filter(
-      (booking) => booking.booking_by === "OFFICE" && booking.amount !== ""
+      (booking) => booking.booking_by !== "SELF" && booking.amount !== ""
     );
     const sum = officeBookings?.reduce(
       (total, booking) => total + parseFloat(booking?.amount),
@@ -286,11 +288,10 @@ const LodgingIncludeForm = (
   }, [sum]);
 
   useEffect(() => {
-    if(sum){
-      setOfficeAmount(getOfficeAmount)
+    if (sum) {
+      setOfficeAmount(getOfficeAmount);
     }
   }, [fields]);
-
 
   return (
     <>

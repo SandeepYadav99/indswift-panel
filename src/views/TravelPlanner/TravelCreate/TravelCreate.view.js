@@ -150,6 +150,34 @@ function TravelCreate() {
               </div>
             </div>
           </div>
+          {form?.tour_type === "FOREIGN" && (
+            <div className={"formFlex"} style={{ paddingBottom: "0" }}>
+              <div className={"formGroup"} style={{ paddingBottom: "0" }}>
+                <div className={styles.radioWrapper}>
+                  <div className={styles.radioheading}>Is CPHI:</div>
+                  <RadioGroup
+                    aria-label="option"
+                    name="is_cphi"
+                    value={form?.is_cphi}
+                    onChange={(e) => changeTextData(e.target.value, "is_cphi")}
+                    row
+                  >
+                    <FormControlLabel
+                      value="YES"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      style={{ marginLeft: "20px" }}
+                      value="NO"
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </div>
+              </div>
+            </div>
+          )}
           <div className={"formFlex2"}>
             <div className={"formGroup1"}>
               <CustomTextField
@@ -201,7 +229,9 @@ function TravelCreate() {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Travel Details</div>
-          <div className={styles.heading}>Entitlement: Air/Train/Bus/Own Car/ Company Car</div>
+          <div className={styles.heading}>
+            Entitlement: Air/Train/Bus/Own Car/ Company Car
+          </div>
           <div>
             <DetailsIncludeForm
               ref={travelRef}
@@ -214,7 +244,9 @@ function TravelCreate() {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Accommodation Details</div>
-          <div className={styles.heading}>Entitlement: Hotel/Guest House/ Self-Arrangement/NA</div>
+          <div className={styles.heading}>
+            Entitlement: Hotel/Guest House/ Self-Arrangement/NA
+          </div>
           <div>
             <OtherDetailsIncludeForm
               ref={otherRef}
@@ -292,7 +324,6 @@ function TravelCreate() {
               <div className={styles.formWrap2}>
                 <div className={styles.formCurr}>
                   <div className={styles.formWrapInner}>
-                   
                     <CustomSelectField
                       isError={errorData?.imprest_currency}
                       errorText={errorData?.imprest_currency}
@@ -303,12 +334,12 @@ function TravelCreate() {
                       }}
                     >
                       <MenuItem value="INR">₹</MenuItem>
-                  {form?.tour_type === "FOREIGN" && (
-                      <MenuItem value="USD">$</MenuItem>
-                  )}
-                  {form?.tour_type === "FOREIGN" && (
-                      <MenuItem value="EUR">€</MenuItem>
-                  )}
+                      {form?.tour_type === "FOREIGN" && (
+                        <MenuItem value="USD">$</MenuItem>
+                      )}
+                      {form?.tour_type === "FOREIGN" && (
+                        <MenuItem value="EUR">€</MenuItem>
+                      )}
                     </CustomSelectField>
                   </div>
                   <div className={styles.amountWrap}>
@@ -358,22 +389,22 @@ function TravelCreate() {
                 </div>
               </div>
               <div className={styles.formWrap}>
-              <div className={styles.wrap}>
-                    <CustomTextField
-                      isError={errorData?.imprest_comment}
-                      errorText={errorData?.imprest_comment}
-                      label={"Comment"}
-                      value={form?.imprest_comment}
-                      onTextChange={(text) => {
-                        changeTextData(text, "imprest_comment");
-                      }}
-                      multiline
-                      rows={2}
-                      // onBlur={() => {
-                      //   onBlurHandler("imprest_comment");
-                      // }}
-                    />
-                  </div>
+                <div className={styles.wrap}>
+                  <CustomTextField
+                    isError={errorData?.imprest_comment}
+                    errorText={errorData?.imprest_comment}
+                    label={"Comment"}
+                    value={form?.imprest_comment}
+                    onTextChange={(text) => {
+                      changeTextData(text, "imprest_comment");
+                    }}
+                    multiline
+                    rows={2}
+                    // onBlur={() => {
+                    //   onBlurHandler("imprest_comment");
+                    // }}
+                  />
+                </div>
               </div>
               <div className={styles.formWrap}>
                 <div className={styles.formWrapInner}>

@@ -19,6 +19,18 @@ import SuccessionPlanner_list from "../views/SuccessionPlaner/SuccessionPlanner_
 import LetterApprovalProces_View from "../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View";
 import LetterApprovalDetail from "../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail";
 import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/RelievingExpLetter_View";
+import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
+import ClaimForCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view";
+import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view";
+
+const LeaveApplicationForm = lazy(() =>
+    import(
+        "../views/LeaveApplicationModule/LeaveApplicationForm/LeaveApplicationForm.container"
+        )
+);
+const LeaveApplication = lazy(() =>
+    import("../views/LeaveApplicationModule/LeaveApplication.view")
+);
 
 const CandidateInformation = lazy(() =>
   import("../views/PendingBckgroundVerification/BGCandidateInformation/CandidateInformation")
@@ -1340,6 +1352,18 @@ const dashboardRoutes = [
     parent: "cm",
     // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
+    {
+        path: `${RouteName.FOREIGN_CLAIMS_DETAILS}:id`,
+        sidebarName: "Claims List",
+        navbarName: "Claims List",
+        icon: PeopleOutlined,
+        component: ForeignClaimDetail,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: "cm",
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    },
   {
     path: `${RouteName.TRAVEL_HR_CLAIMS_DETAILS}:id`,
     sidebarName: "Claims List",
@@ -1520,6 +1544,18 @@ const dashboardRoutes = [
     parent: "cm",
     // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
+    {
+        path: `${RouteName.CLAIMS_CURR}`,
+        sidebarName: "Claims Int",
+        navbarName: "Claims Int",
+        icon: PeopleOutlined,
+        component: ClaimForCard,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: "cm",
+        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    },
   {
     path: `${RouteName.CLAIMS_LOC}`,
     sidebarName: "Claims Loc",
@@ -1676,6 +1712,18 @@ const dashboardRoutes = [
     parent: "Hr",
     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
+    {
+        path: `${RouteName.CURRENCY_UPDATE}:id`,
+        sidebarName: "Settings",
+        navbarName: "Settings",
+        icon: PeopleOutlined,
+        component: CurrencyEditView,
+        is_sidebar: false,
+        is_protect: true,
+        should_regex: true,
+        parent: "Hr",
+        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    },
   {
     path: "/hr/knowledge",
     sidebarName: "Knowledge Center",
@@ -2220,7 +2268,7 @@ const dashboardRoutes = [
     parent: "skynetLetter",
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
-  
+
   {
     path: RouteName.APPOINTMENT_LETTER,
     sidebarName: "Appointment Letters",
@@ -2287,6 +2335,41 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+    {
+        path: RouteName.LEAVE_APPLICATION_LIST_VIEW,
+        sidebarName: "My Leave Application",
+        navbarName: "My Leave Application",
+        icon: AssignmentOutlined,
+        component: LeaveApplication,
+        is_sidebar: true,
+        is_protect: true,
+    },
+    {
+        path: RouteName.LEAVE_APPLICATION_FORM,
+        sidebarName: "My Leave Application",
+        navbarName: "My Leave Application",
+        component: LeaveApplicationForm,
+        is_sidebar: false,
+        is_protect: true,
+    },
+    {
+        path: RouteName.PENDING_LEAVE_APPLICATION,
+        sidebarName: "Pending Leave Application",
+        navbarName: "Pending Leave Application",
+        icon: AssignmentOutlined,
+        component: PendingLeaveApplication,
+        is_sidebar: true,
+        is_protect: true,
+    },
+    {
+        path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
+        sidebarName: "Pending Leave Application",
+        navbarName: "Pending Leave Application",
+        icon: AssignmentOutlined,
+        component: PendingLeaveDetail,
+        is_sidebar: false,
+        is_protect: true,
+    },
 ];
 
 export default dashboardRoutes;
