@@ -25,7 +25,6 @@ class DateUtils {
          if (Constants.testing_env === 'development') {
              return true;
          }
-         return false;
         const limit = new Date("2023-11-10 18:00:00");
         const nowDate = new Date();
         return limit.getTime() > nowDate.getTime();
