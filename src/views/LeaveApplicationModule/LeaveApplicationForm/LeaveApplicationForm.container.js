@@ -33,8 +33,7 @@ const LeaveApplicationForm = () => {
       return true;
     }
   }
-
-
+  
   function BearvementLeave (){
     if(ExperienceInCompany < "1.0"){
       return true;
@@ -61,8 +60,6 @@ const LeaveApplicationForm = () => {
   }
 
   const { count } = useSelector((state) => state.LeaveModule);
-
-  console.log(count,"count leave");
 
   const {
     form,
