@@ -22,6 +22,7 @@ import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/Relievi
 import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
 import ClaimForCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view";
 import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view";
+import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLeaveApplication.view";
 
 const LeaveApplicationForm = lazy(() =>
     import(
@@ -803,6 +804,7 @@ const dashboardRoutes = [
     is_parent: true,
     roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
+
   {
     path: RouteName.CANDIDATES,
     sidebarName: "Interview Candidates",
@@ -826,6 +828,18 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "recruitment",
     roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.CANDIDATE_STATUS_GLOSSARY,
+    sidebarName: "Candidate Status Glossary",
+    navbarName: "Candidate Status Glossary",
+    icon: AssignmentOutlined,
+    component: CandidateStatusGlossary_List,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    parent: "recruitment",
+    // roles: [Roles.CORPORATE_HR],
   },
   {
     path: "null",
@@ -1969,7 +1983,7 @@ const dashboardRoutes = [
     should_regex: true,
     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
-
+ 
   {
     path: RouteName.JOB_OPENINGS_CREATE,
     sidebarName: "Job Openings Create",
@@ -2000,6 +2014,7 @@ const dashboardRoutes = [
     is_protect: true,
     roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
+ 
   {
     path: RouteName.HR_ANNOUNCEMENT_CREATE,
     component: HRAnnouncementCreateView,
@@ -2188,16 +2203,7 @@ const dashboardRoutes = [
     // parent: 'tp',
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
-  {
-    path: RouteName.CANDIDATE_STATUS_GLOSSARY,
-    sidebarName: "Candidate Status Glossary",
-    navbarName: "Candidate Status Glossary",
-    icon: AssignmentOutlined,
-    component: CandidateStatusGlossary_List,
-    is_sidebar: true,
-    is_protect: true,
-    // roles: [Roles.CORPORATE_HR],
-  },
+ 
   {
     path: RouteName.ADMIN_ONGOING_LOANS,
     sidebarName: "Ongoing Loans",
@@ -2361,15 +2367,15 @@ const dashboardRoutes = [
         is_sidebar: true,
         is_protect: true,
     },
-    {
-        path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
-        sidebarName: "Pending Leave Application",
-        navbarName: "Pending Leave Application",
-        icon: AssignmentOutlined,
-        component: PendingLeaveDetail,
-        is_sidebar: false,
-        is_protect: true,
-    },
+    // {
+    //     path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
+    //     sidebarName: "Pending Leave Application",
+    //     navbarName: "Pending Leave Application",
+    //     icon: AssignmentOutlined,
+    //     component: PendingLeaveDetail,
+    //     is_sidebar: false,
+    //     is_protect: true,
+    // },
 ];
 
 export default dashboardRoutes;
