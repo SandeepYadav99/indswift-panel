@@ -8,16 +8,17 @@ import {
   Radio,
 } from "@material-ui/core";
 import styles from "./style.module.css";
-import CustomDatePicker from "../../../../../../../components/FormFields/DatePicker/CustomDatePicker";
-import CustomSelectField from "../../../../../../../components/FormFields/SelectField/SelectField.component";
+import CustomDatePicker from "../../../../../components/FormFields/DatePicker/CustomDatePicker";
+import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import { useEffect } from "react";
-import File from "../../../../../../../components/FileComponent/FileComponent.component";
+import File from "../../../../../components/FileComponent/FileComponent.component";
 import { Autocomplete } from "@material-ui/lab";
 import {
   entitlementAmout,
+  removeUnderScore,
   travelListExpense,
   travelListForeignExpense,
-} from "../../../../../../../helper/helper";
+} from "../../../../../helper/helper";
 
 const ExpenseIncludeFields = ({
   index,
@@ -51,231 +52,95 @@ const ExpenseIncludeFields = ({
 
   return (
     <div>
-      <div className={styles.heading}>Travel Type</div>
-      <div className={styles.flexContainer}>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.currency}
-              errorText={errors?.currency}
-              label={"Choose Currency"}
-              value={data?.currency}
-              handleChange={(value) => {
-                handleChange(value, "currency");
-              }}
-            >
-              <MenuItem value="USD">USD</MenuItem>
-              <MenuItem value="EUR">EUR</MenuItem>
-              <MenuItem value="INR">INR</MenuItem>
-            </CustomSelectField>
-          </div>
-          <div className={styles.flex1}></div>
-          <div className={styles.flex1}></div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomDatePicker
-              disabled={!startDate ? true : false}
-              clearable
-              label={"Check In Date"}
-              minDate={startDate}
-              maxDate={endDate}
-              onChange={(e) => handleChange(e, "travel_date")}
-              value={data?.travel_date}
-              isError={errors?.travel_date}
-            />
-          </div>
-
-          <div className={styles.flex1}>
-            <TextField
-              error={errors?.from}
-              onChange={handleChange}
-              value={data?.from}
-              fullWidth={true}
-              name={"from"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Travel From"}
-            />
-          </div>
-          <div className={styles.flex1}>
-            <TextField
-              error={errors?.to}
-              onChange={handleChange}
-              value={data?.to}
-              fullWidth={true}
-              name={"to"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Travel To"}
-            />
-          </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.mode}
-              errorText={errors?.mode}
-              label={"Travel Mode"}
-              value={data?.mode}
-              handleChange={(value) => {
-                handleChange(value, "mode");
-              }}
-            >
-              {travelListForeignExpense?.map((item, index) => (
-                <MenuItem value={item?.id} key={`menu_${index}`}>
+      <div className={styles.commentContainer}>
+        <div className={styles.otherWrap}>
+          <div className={styles.mainFlex}>
+            <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value}>Travel Date:</span>
+                {data?.travelDateText}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Travel From :</span>
+                {data?.from}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Payment Made By:</span>
+                {data?.payment_by}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Travel Mode :</span>
+                {removeUnderScore(data?.mode)}
+              </div>
+              {data?.voucher && (
+                <div className={styles.key}>
+                  <a href={data?.voucher} target="_blank">
+                    <div className={styles.hyperlinkText}>
+                      View Voucher/Bill
+                    </div>
+                  </a>
+                </div>
+              )}
+              <div className={styles.key}>
+                <span className={styles.value}>Details of Travel Medium:</span>
+                {data?.details}
+              </div>
+              <div className={styles.key221}>
+                <span className={styles.value}>
+                  <CustomSelectField
+                    isError={errors?.currency}
+                    errorText={errors?.currency}
+                    label={"Choose Currency"}
+                    value={data?.currency}
+                    handleChange={(value) => {
+                      handleChange(value, "currency");
+                    }}
+                  >
+                    <MenuItem value="USD">USD</MenuItem>
+                    <MenuItem value="EUR">EUR</MenuItem>
+                    <MenuItem value="INR">INR</MenuItem>
+                  </CustomSelectField>
+                </span>
+                <span className={styles.value}>
                   {" "}
-                  {item?.name}
-                </MenuItem>
-              ))}
-            </CustomSelectField>
-          </div>
-          <div className={styles.flex155}>
-            <TextField
-              error={errors?.details}
-              onChange={handleChange}
-              value={data?.details}
-              fullWidth={true}
-              name={"details"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={
-                "Details of Travel Medium (Train No, Flight No, Bus Type etc)"
-              }
-            />
-          </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.booking_by}
-              errorText={errors?.booking_by}
-              label={"Booking By"}
-              value={data?.booking_by}
-              handleChange={(value) => {
-                handleChange(value, "booking_by");
-              }}
-            >
-              <MenuItem value="SELF">SELF</MenuItem>
-              <MenuItem value="OFFICE">OFFICE</MenuItem>
-            </CustomSelectField>
-          </div>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.payment_by}
-              errorText={errors?.payment_by}
-              label={"Payment Made By"}
-              value={data?.payment_by}
-              handleChange={(value) => {
-                handleChange(value, "payment_by");
-              }}
-            >
-              <MenuItem value="Cash">Cash</MenuItem>
-              <MenuItem value="Card">Card</MenuItem>
-              <MenuItem value="OTHER">OTHER</MenuItem>
-            </CustomSelectField>
-          </div>
-          <div className={styles.flex1}>
-            <TextField
-              type="number"
-              error={errors?.total_kms}
-              onChange={handleChange}
-              value={data?.total_kms}
-              fullWidth={true}
-              name={"total_kms"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"No of KMs"}
-            />
-          </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <File
-              max_size={10 * 1024 * 1024}
-              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
-              fullWidth={true}
-              name="proof"
-              label="Attach Proof of Payment"
-              accept={"application/pdf,application/msword,image/*"}
-              // link={data?.slip ? data?.slip : null}
-              error={errors?.travel_payment_proof}
-              value={data?.travel_payment_proof}
-              placeholder={"Attach Proof of Payment"}
-              onChange={(file) => {
-                if (file) {
-                  handleChange(file, "travel_payment_proof");
-                }
-              }}
-            />
-          </div>
-          <div className={styles.flex1}>
-            <File
-              max_size={10 * 1024 * 1024}
-              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
-              fullWidth={true}
-              name="proof"
-              label="Attach Voucher/Bill"
-              accept={"application/pdf,application/msword,image/*"}
-              // link={data?.slip ? data?.slip : null}
-              error={errors?.travel_voucher}
-              value={data?.travel_voucher}
-              placeholder={"Attach Voucher/Bill"}
-              onChange={(file) => {
-                if (file) {
-                  handleChange(file, "travel_voucher");
-                }
-              }}
-            />
-          </div>
+                  <TextField
+                    error={errors?.amount}
+                    onChange={handleChange}
+                    value={data?.amount}
+                    fullWidth={true}
+                    name={"amount"}
+                    margin={"dense"}
+                    variant={"outlined"}
+                    label={"Expense Amount"}
+                  />
+                </span>
+              </div>
+            </div>
+            <div className={styles.right}>
+              <div className={styles.key}>
+                <span className={styles.value}>Booking By:</span>
+                {data?.booking_by}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Travel To:</span>
+                {data?.to}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>No of KMs:</span>
+                {data?.total_kms && `${data?.total_kms} Km`}
+              </div>
 
-          <div className={styles.flex1}>
-            <TextField
-              disabled={
-                data?.mode === "OWN_CAR" || data?.mode === "TWO_WHEELER"
-              }
-              type="number"
-              error={errors?.amount}
-              onChange={handleChange}
-              value={data?.amount}
-              fullWidth={true}
-              name={"amount"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Expense Amount"}
-            />
-          </div>
-          <div className={"textCenter"}>
-            <ButtonBase
-              className={styles.removeBtn}
-              // label={this.props.index == 0 ? "+" : '-'}
-              onClick={() => {
-                handlePress(index == 0 ? "-" : "-", index);
-              }}
-            >
-              {index == 0 ? "Remove" : "Remove"}
-            </ButtonBase>
-          </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <TextField
-              error={errors?.payment_made_by}
-              onChange={handleChange}
-              value={data?.payment_made_by}
-              fullWidth={true}
-              name={"payment_made_by"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Choose currency of payment"}
-            />
-            <div style={{ fontWeight: "500", textAlign: "end" }}>
-              Please mention the amount in spent currency and the exchange rate
-              applied to reach at above currency.
+              {data?.payment_proof && (
+                <div className={styles.key}>
+                  <a href={data?.payment_proof} target="_blank">
+                    <div className={styles.hyperlinkText}>
+                      View Proof of Payment
+                    </div>
+                  </a>
+                </div>
+              )}
             </div>
           </div>
-          <div className={styles.flex1}></div>
-          {/* <div className={styles.flex1}></div> */}
         </div>
       </div>
     </div>

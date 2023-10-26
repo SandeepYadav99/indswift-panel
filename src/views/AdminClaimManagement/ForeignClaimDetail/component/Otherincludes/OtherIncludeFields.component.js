@@ -8,12 +8,12 @@ import {
   Radio,
 } from "@material-ui/core";
 import styles from "./style.module.css";
-import CustomDatePicker from "../../../../../../../components/FormFields/DatePicker/CustomDatePicker";
+import CustomDatePicker from "../../../../../components/FormFields/DatePicker/CustomDatePicker";
 import { useEffect } from "react";
-import File from "../../../../../../../components/FileComponent/FileComponent.component";
-import LogUtils from "../../../../../../../libs/LogUtils";
-import CustomSelectField from "../../../../../../../components/FormFields/SelectField/SelectField.component";
-import { accomodationType } from "../../../../../../../helper/helper";
+import File from "../../../../../components/FileComponent/FileComponent.component";
+import LogUtils from "../../../../../libs/LogUtils";
+import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
+import { accomodationType } from "../../../../../helper/helper";
 
 const OtherIncludeFields = ({
   index,
@@ -42,124 +42,67 @@ const OtherIncludeFields = ({
 
   return (
     <div>
-      <div className={styles.flexContainer}>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.currency}
-              errorText={errors?.currency}
-              label={"Choose Currency"}
-              value={data?.currency}
-              handleChange={(value) => {
-                handleChange(value, "currency");
-              }}
-            >
-              <MenuItem value="USD">USD</MenuItem>
-              <MenuItem value="EUR">EUR</MenuItem>
-              <MenuItem value="INR">INR</MenuItem>
-            </CustomSelectField>
-          </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomDatePicker
-              // disabled={!startDate ? true : false}
-              clearable
-              label={"Date"}
-              minDate={startDate}
-              maxDate={endDate}
-              onChange={(e) => handleChange(e, "date")}
-              value={data?.date}
-              isError={errors?.date}
-            />
-          </div>
-          <div className={styles.flex12}>
-            <TextField
-              error={errors?.details}
-              onChange={handleChange}
-              value={data?.details}
-              fullWidth={true}
-              name={"details"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Description of Expense"}
-            />
-          </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <TextField
-              error={errors?.amount}
-              onChange={handleChange}
-              value={data?.amount}
-              fullWidth={true}
-              name={"amount"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Amount"}
-            />
-          </div>
-          <div className={styles.flex12}>
-            <TextField
-              error={errors?.reason}
-              onChange={handleChange}
-              value={data?.reason}
-              fullWidth={true}
-              name={"reason"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Reason of Expense"}
-            />
-          </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <TextField
-              error={errors?.payment_made_by}
-              onChange={handleChange}
-              value={data?.payment_made_by}
-              fullWidth={true}
-              name={"payment_made_by"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Choose currency of payment"}
-            />
-            <div style={{ fontWeight: "500", textAlign: "start" }}>
-              Please mention the amount in spent currency and the exchange rate
-              applied to reach at above currency.
+      <div className={styles.commentContainer}>
+        <div className={styles.otherWrap}>
+          <div className={styles.mainFlex}>
+            <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value}>Date:</span>
+                {data?.dateText}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Description of Expense:</span>
+                {data?.details ? data?.details : "N/A"}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Reason of Expense:</span>
+                {data?.reason ? data?.reason : "N/A"}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Booking By:</span>
+                {data?.booking_by ? data?.booking_by : "-"}
+              </div>
+              <div className={styles.key221}>
+                <span className={styles.value}>
+                  <CustomSelectField
+                    isError={errors?.currency}
+                    errorText={errors?.currency}
+                    label={"Choose Currency"}
+                    value={data?.currency}
+                    handleChange={(value) => {
+                      handleChange(value, "currency");
+                    }}
+                  >
+                    <MenuItem value="USD">USD</MenuItem>
+                    <MenuItem value="EUR">EUR</MenuItem>
+                    <MenuItem value="INR">INR</MenuItem>
+                  </CustomSelectField>
+                </span>
+                <span className={styles.value}>
+                  <TextField
+                    error={errors?.amount}
+                    onChange={handleChange}
+                    value={data?.amount}
+                    fullWidth={true}
+                    name={"amount"}
+                    margin={"dense"}
+                    variant={"outlined"}
+                    label={"Expense Amount"}
+                  />
+                </span>
+              </div>
             </div>
-          </div>
-          <div className={styles.flex121}>
-            <File
-              max_size={10 * 1024 * 1024}
-              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
-              fullWidth={true}
-              name="other_payment_proof"
-              label="Attach Proof of Payment"
-              accept={"application/pdf,application/msword,image/*"}
-              error={errors?.other_payment_proof}
-              value={data?.other_payment_proof}
-              placeholder={"Attach Proof of Payment"}
-              onChange={(file) => {
-                if (file) {
-                  LogUtils.log("file", file);
-                  handleChange(file, "other_payment_proof");
-                }
-              }}
-            />
-          </div>
-        </div>
-        <div className={styles.firstRow221}>
-          <div className={"textCenter"}>
-            <ButtonBase
-              className={styles.removeBtn}
-              // label={this.props.index == 0 ? "+" : '-'}
-              onClick={() => {
-                handlePress(index == 0 ? "-" : "-", index);
-              }}
-            >
-              {index == 0 ? "Remove" : "Remove"}
-            </ButtonBase>
+            <div className={styles.right}>
+              {data?.payment_proof && (
+                <div className={styles.key}>
+                  <a href={data?.payment_proof} target="_blank">
+                    <div className={styles.hyperlinkText}>
+                      View Proof of Payment
+                    </div>
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

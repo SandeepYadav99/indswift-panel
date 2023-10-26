@@ -11,17 +11,12 @@ import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import OtherDetailsIncludeFields from "./OtherDetailsIncludeFields.component";
-import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
-import LogUtils from "../../../../../../../libs/LogUtils";
+import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import LogUtils from "../../../../../libs/LogUtils";
 
 const TEMP_OBJ = {
-  guest_name: "",
-  guest_details: "",
-  expense_nature: "",
   amount: "",
-  currency:"",
-  payment_made_by:"",
-  entertainment_payment_proof: null,
+  currency: "",
 };
 
 const OtherDetailsIncludeForm = (
@@ -56,14 +51,7 @@ const OtherDetailsIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [
-        "guest_name",
-        "guest_details",
-        "expense_nature",
-        "amount",
-        "entertainment_payment_proof",
-        "currency"
-      ];
+      const required = ["amount", "currency"];
       const hasValues = Object.values(val).some(
         (value) => value !== "" && value !== null
       );
@@ -75,18 +63,7 @@ const OtherDetailsIncludeForm = (
             }
           });
       }
-      // if (val?.check_in && val?.check_out) {
-      //   const joinDate = new Date(val?.check_in);
-      //   const expectedDate = new Date(val?.check_out);
-      //   joinDate.setHours(0, 0, 0, 0);
-      //   expectedDate.setHours(0, 0, 0, 0);
-      //   if (joinDate.getTime() > expectedDate.getTime()) {
-      //     err["check_out"] = true;
-      //     SnackbarUtils.error(
-      //       "CheckOut Date should not be Less than CheckIn Date"
-      //     );
-      //   }
-      // }
+
       if (!hasValues) {
         for (const key in err) {
           if (err.hasOwnProperty(key)) {
@@ -254,25 +231,14 @@ const OtherDetailsIncludeForm = (
   return (
     <>
       {renderFields}
-      <div className={styles.btnWrapper}>
-        <ButtonBase
-          className={styles.addition}
-          label={"+"}
-          onClick={() => {
-            handlePress("ADDITION", 0);
-          }}
-        >
-          <Add fontSize={"small"} /> <span>Add More</span>
-        </ButtonBase>
-      </div>
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
           Total USD Used:{" "}
-          <span>{USDsum || USDsum === 0 ? `₹ ${USDsum}` : ""}</span>
+          <span>{USDsum || USDsum === 0 ? `$ ${USDsum}` : ""}</span>
         </div>
         <div className={styles.inner}>
           Total Euro Used:{" "}
-          <span>{Eurosum || Eurosum === 0 ? `₹ ${Eurosum}` : ""}</span>
+          <span>{Eurosum || Eurosum === 0 ? `€ ${Eurosum}` : ""}</span>
         </div>
         <div className={styles.inner}>
           Total INR Used:{" "}

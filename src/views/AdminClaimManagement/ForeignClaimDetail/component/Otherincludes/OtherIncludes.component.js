@@ -11,17 +11,12 @@ import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import OtherDetailsIncludeFields from "./OtherIncludeFields.component";
-import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
-import LogUtils from "../../../../../../../libs/LogUtils";
+import SnackbarUtils from "../../../../../libs/SnackbarUtils";
+import LogUtils from "../../../../../libs/LogUtils";
 
 const TEMP_OBJ = {
-  date: "",
-  details: "",
   amount: "",
-  reason: "",
   currency:"",
-  payment_made_by:"",
-  other_payment_proof: null,
 };
 
 const OtherIncludeForm = (
@@ -57,11 +52,7 @@ const OtherIncludeForm = (
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
       const required = [
-        "date",
-        "details",
         "amount",
-        "reason",
-        "other_payment_proof",
         "currency"
       ];
       const hasValues = Object.values(val).some(
@@ -81,18 +72,6 @@ const OtherIncludeForm = (
           err["date"] = true;
         }
       }
-      // if (val?.check_in && val?.check_out) {
-      //   const joinDate = new Date(val?.check_in);
-      //   const expectedDate = new Date(val?.check_out);
-      //   joinDate.setHours(0, 0, 0, 0);
-      //   expectedDate.setHours(0, 0, 0, 0);
-      //   if (joinDate.getTime() > expectedDate.getTime()) {
-      //     err["check_out"] = true;
-      //     SnackbarUtils.error(
-      //       "CheckOut Date should not be Less than CheckIn Date"
-      //     );
-      //   }
-      // }
       if (!hasValues) {
         for (const key in err) {
           if (err.hasOwnProperty(key)) {
@@ -266,21 +245,11 @@ const OtherIncludeForm = (
   return (
     <>
       {renderFields}
-      <div className={styles.btnWrapper}>
-        <ButtonBase
-          className={styles.addition}
-          label={"+"}
-          onClick={() => {
-            handlePress("ADDITION", 0);
-          }}
-        >
-          <Add fontSize={"small"} /> <span>Add More</span>
-        </ButtonBase>
-      </div>
+       
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
           Total USD Used:{" "}
-          <span>{USDsum || USDsum === 0 ? `₹ ${USDsum}` : ""}</span>
+          <span>{USDsum || USDsum === 0 ? `$ ${USDsum}` : ""}</span>
         </div>
         <div className={styles.inner}>
           Total Euro Used:{" "}

@@ -7,14 +7,16 @@ import {
   IconButton,
 } from "@material-ui/core";
 import styles from "./style.module.css";
-import CustomDatePicker from "../../../../../../../components/FormFields/DatePicker/CustomDatePicker";
-import CustomSelectField from "../../../../../../../components/FormFields/SelectField/SelectField.component";
+import CustomDatePicker from "../../../../../components/FormFields/DatePicker/CustomDatePicker";
+import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import { useEffect } from "react";
-import File from "../../../../../../../components/FileComponent/FileComponent.component";
+import File from "../../../../../components/FileComponent/FileComponent.component";
 import {
   DAAllotForeignAmout,
   IEForeignAllotAmout,
-} from "../../../../../../../helper/helper";
+  getCurrency,
+  removeUnderScore,
+} from "../../../../../helper/helper";
 import { MuiPickersUtilsProvider, TimePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
@@ -112,208 +114,124 @@ const DAIncludeFields = ({
   console.log("checkDays", checkDays, index);
   return (
     <div>
-      <div className={styles.heading}>Travel Type</div>
-      <div className={styles.flexContainer}>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.currency}
-              errorText={errors?.currency}
-              label={"Choose Currency"}
-              value={data?.currency}
-              handleChange={(value) => {
-                handleChange(value, "currency");
-              }}
-            >
-              <MenuItem value="USD">USD</MenuItem>
-              <MenuItem value="EUR">EUR</MenuItem>
-              <MenuItem value="INR">INR</MenuItem>
-            </CustomSelectField>
+      <div className={styles.commentContainer}>
+        <div className={styles.otherWrap}>
+          <div className={styles.mainFlex}>
+            <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value}>Stay At:</span>
+                {removeUnderScore(data?.stay_at)}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Date:</span>
+                {data?.dateText}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Ending Time :</span>
+                {data?.end_time}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>DA Entitelment/Day:</span>
+                {data?.da_entitlement && (
+                  <>
+                    {getCurrency(data?.currency)} {data?.da_entitlement}
+                  </>
+                )}
+              </div>
+              {data?.da_payment_proof && (
+                <div className={styles.key}>
+                  <a href={data?.da_payment_proof} target="_blank">
+                    <div className={styles.hyperlinkText}>DA Payment Proof</div>
+                  </a>
+                </div>
+              )}
+            </div>
+            <div className={styles.right}>
+              <div className={styles.key}>
+                <span className={styles.value}>Starting Time:</span>
+                {data?.start_time}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Duration in Hours:</span>
+                {data?.hours} hrs
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>IE Entitelment/Day:</span>
+                {data?.ie_entitlement && (
+                  <>
+                    {getCurrency("INR")} {data?.ie_entitlement}
+                  </>
+                )}
+              </div>
+
+              {data?.ie_payment_proof && (
+                <div className={styles.key}>
+                  <a href={data?.ie_payment_proof} target="_blank">
+                    <div className={styles.hyperlinkText}>IE payment Proof</div>
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
-          <div className={styles.flex1}></div>
-          <div className={styles.flex1}></div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.stay_at}
-              errorText={errors?.stay_at}
-              label={"Stay at"}
-              value={data?.stay_at}
-              handleChange={(value) => {
-                handleChange(value, "stay_at");
-              }}
-            >
-              <MenuItem value="HOTEL">HOTEL</MenuItem>
-              <MenuItem value="GUEST_HOUSE">GUEST HOUSE</MenuItem>
-              <MenuItem value="SELF_ARRANGEMENT">SELF ARRANGEMENT</MenuItem>
-              <MenuItem value="N/A">N/A</MenuItem>
-            </CustomSelectField>
-          </div>
-          <div className={styles.flex1}>
-            <CustomDatePicker
-              disabled={!startDate ? true : false}
-              clearable
-              label={"Date"}
-              minDate={startDate}
-              maxDate={endDate}
-              onChange={(e) => handleChange(e, "date")}
-              value={data?.date}
-              isError={errors?.date}
-            />
-          </div>
-          <div className={styles.flex1}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <TimePicker
-                margin="dense"
-                variant="inline"
-                id="time-picker"
-                fullWidth
-                label={"Starting Time"}
-                value={data?.start_time}
-                onChange={(e) => handleChange(e, "start_time")}
-                inputVariant={"outlined"}
-                minutesStep={5}
-                // format="HH:mm"
-                format="h:mm a"
-                error={errors?.start_time}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton>
-                        <AccessTimeIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
+          <div className={styles.key221}>
+            <span className={styles.valueField}>
+              <CustomSelectField
+                isError={errors?.currency}
+                errorText={errors?.currency}
+                label={"Choose Currency"}
+                value={data?.currency}
+                handleChange={(value) => {
+                  handleChange(value, "currency");
                 }}
+              >
+                <MenuItem value="USD">USD</MenuItem>
+                <MenuItem value="EUR">EUR</MenuItem>
+                <MenuItem value="INR">INR</MenuItem>
+              </CustomSelectField>
+            </span>
+            <span className={styles.valueField}>
+              {" "}
+              <TextField
+                error={errors?.da_pct}
+                onChange={handleChange}
+                value={data?.da_pct}
+                fullWidth={true}
+                name={"da_pct"}
+                margin={"dense"}
+                variant={"outlined"}
+                label={"% of DA"}
+                InputLabelProps={{ shrink: true }}
               />
-            </MuiPickersUtilsProvider>
-          </div>
-          <div className={styles.flex1}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <TimePicker
-                margin="dense"
-                variant="inline"
-                id="time-picker"
-                fullWidth
-                label={"Ending Time"}
-                value={data?.end_time}
-                onChange={(e) => handleChange(e, "end_time")}
-                inputVariant={"outlined"}
-                minutesStep={5}
-                // format="HH:mm"
-                format="h:mm a"
-                error={errors?.end_time}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton>
-                        <AccessTimeIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
+            </span>
+            <span className={styles.valueField}>
+              {" "}
+              <TextField
+                error={errors?.da_amount}
+                onChange={handleChange}
+                value={data?.da_amount}
+                fullWidth={true}
+                name={"da_amount"}
+                margin={"dense"}
+                variant={"outlined"}
+                label={"DA Claimed Amount"}
+                InputLabelProps={{ shrink: true }}
               />
-            </MuiPickersUtilsProvider>
-          </div>
-        </div>
-        <div className={styles.firstRow} style={{ marginTop: "15px" }}>
-          <div className={styles.flex1}>
-            <TextField
-              disabled={true}
-              type="number"
-              error={errors?.hours}
-              onChange={handleChange}
-              value={data?.hours}
-              fullWidth={true}
-              name={"hours"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Duration in Hours"}
-            />
-          </div>
-          <div className={styles.flex1}>
-            <TextField
-              // disabled={true}
-              type="number"
-              error={errors?.da_pct}
-              onChange={handleChange}
-              value={data?.da_pct}
-              fullWidth={true}
-              name={"da_pct"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"% of DA"}
-            />
-          </div>
-          <div className={styles.flex1}>
-            <TextField
-              disabled={true}
-              type="number"
-              error={errors?.da_entitlement}
-              onChange={handleChange}
-              value={data?.da_entitlement}
-              fullWidth={true}
-              name={"da_entitlement"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"DA Entitlement/Day"}
-            />
-          </div>
-        </div>
-        <div className={styles.firstRow221}></div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <TextField
-              type="number"
-              error={errors?.da_amount}
-              onChange={handleChange}
-              value={data?.da_amount}
-              fullWidth={true}
-              name={"da_amount"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"DA Claimed Amount"}
-            />
-          </div>
-          <div className={styles.flex1}>
-            <TextField
-              disabled={true}
-              type="number"
-              error={errors?.ie_entitlement}
-              onChange={handleChange}
-              value={data?.ie_entitlement}
-              fullWidth={true}
-              name={"ie_entitlement"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"IE Entitlement/Day"}
-            />
-          </div>
-          <div className={styles.flex1}>
-            <TextField
-              disabled={isCP || index > 1 || checkDays < 5 ? true : false}
-              type="number"
-              error={errors?.ie_amount}
-              onChange={handleChange}
-              value={data?.ie_amount}
-              fullWidth={true}
-              name={"ie_amount"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"IE Claimed Amount"}
-            />
-          </div>
-          <div className={"textCenter"}>
-            <ButtonBase
-              className={styles.removeBtn}
-              // label={this.props.index == 0 ? "+" : '-'}
-              onClick={() => {
-                handlePress(index == 0 ? "-" : "-", index);
-              }}
-            >
-              {index == 0 ? "Remove" : "Remove"}
-            </ButtonBase>
+            </span>
+            <span className={styles.valueField}>
+              {" "}
+              <TextField
+                disabled={isCP || index > 1 || checkDays < 5 ? true : false}
+                error={errors?.ie_amount}
+                onChange={handleChange}
+                value={data?.ie_amount}
+                fullWidth={true}
+                name={"ie_amount"}
+                margin={"dense"}
+                variant={"outlined"}
+                label={"IE Claimed Amount"}
+                InputLabelProps={{ shrink: true }}
+              />
+            </span>
           </div>
         </div>
       </div>

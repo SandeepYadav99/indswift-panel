@@ -9,23 +9,12 @@ import React, {
 import IncludeFields from "./ExpenseIncludeFields.component";
 import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
-import LogUtils from "../../../../../../../libs/LogUtils";
+import LogUtils from "../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
 
 const TEMP_OBJ = {
-  travel_date: "",
   currency: "",
-  from: "",
-  to: "",
-  mode: "",
-  details: "",
-  booking_by: "",
-  payment_by: "",
   amount: 0,
-  total_kms: "",
-  payment_made_by: "",
-  travel_payment_proof: null,
-  travel_voucher: null,
 };
 
 const ExpenseIncludeForm = (
@@ -67,22 +56,8 @@ const ExpenseIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [
-        "travel_date",
-        "from",
-        "to",
-        "mode",
-        "details",
-        "booking_by",
-        "payment_by",
-        "amount",
-        "total_kms",
-        "travel_voucher",
-        "currency",
-      ];
-      if (val.payment_by !== "Cash") {
-        required.push("travel_payment_proof");
-      }
+      const required = ["amount", "currency"];
+
       {
         required.forEach((key) => {
           if (!val[key]) {
@@ -90,30 +65,7 @@ const ExpenseIncludeForm = (
           }
         });
       }
-      if (val?.mode === "COMPANY_VEHICLE") {
-        delete err["travel_payment_proof"];
-        delete err["amount"];
-        delete err["travel_voucher"];
-      }
-      // if (val?.travel_date) {
-      //   const date = new Date(val?.travel_date);
-      //   const today = new Date();
-      //   var fortyFiveDaysAgo = new Date();
-      //   fortyFiveDaysAgo.setDate(today.getDate() - 46);
-      //   if (date > today || date < fortyFiveDaysAgo) {
-      //     err["travel_date"] = true;
-      //   }
-      // }
-      if (val?.travel_date) {
-        let newDate = new Date(val?.travel_date);
-        if (isNaN(newDate.getTime())) {
-          err["travel_date"] = true;
-        }
-      }
 
-      if (val.payment_by === "Cash" && !val?.travel_payment_proof) {
-        delete err["travel_payment_proof"];
-      }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
@@ -207,6 +159,8 @@ const ExpenseIncludeForm = (
             endDate={endDate}
             CoPass={CoPass}
           />
+          {fields?.length !== index + 1 && <div className={styles.verti}></div>}
+
         </div>
       );
     });
@@ -313,45 +267,19 @@ const ExpenseIncludeForm = (
     }
   }, [fields]);
 
-  // const getOfficeAmount = useMemo(() => {
-  //   const officeBookings = fields?.filter(
-  //     (booking) =>
-  //       (booking.booking_by === "OFFICE" && booking.amount !== "") ||
-  //       (booking?.booking_by === "SELF" && booking?.mode === "COMPANY_VEHICLE")
-  //   );
-  //   const sum = officeBookings?.reduce(
-  //     (total, booking) => total + parseFloat(booking?.amount),
-  //     0
-  //   );
-  //   return sum;
-  // }, [fields]);
-
   return (
     <>
       {renderFields}
-      {fields?.length < 20 && (
-        <div className={styles.btnWrapper}>
-          <ButtonBase
-            className={styles.addition}
-            label={"+"}
-            onClick={() => {
-              handlePress("ADDITION", 0);
-            }}
-          >
-            <Add fontSize={"small"} /> <span>Add Travel Detail</span>
-          </ButtonBase>
-        </div>
-      )}
 
       {/*</div>*/}
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
           Total USD Used:{" "}
-          <span>{USDsum || USDsum === 0 ? `₹ ${USDsum}` : ""}</span>
+          <span>{USDsum || USDsum === 0 ? `$ ${USDsum}` : ""}</span>
         </div>
         <div className={styles.inner}>
           Total Euro Used:{" "}
-          <span>{Eurosum || Eurosum === 0 ? `₹ ${Eurosum}` : ""}</span>
+          <span>{Eurosum || Eurosum === 0 ? `€ ${Eurosum}` : ""}</span>
         </div>
         <div className={styles.inner}>
           Total INR Used:{" "}

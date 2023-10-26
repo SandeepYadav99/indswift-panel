@@ -8,12 +8,12 @@ import {
   Radio,
 } from "@material-ui/core";
 import styles from "./style.module.css";
-import CustomDatePicker from "../../../../../../../components/FormFields/DatePicker/CustomDatePicker";
+import CustomDatePicker from "../../../../../components/FormFields/DatePicker/CustomDatePicker";
 import { useEffect } from "react";
-import File from "../../../../../../../components/FileComponent/FileComponent.component";
-import LogUtils from "../../../../../../../libs/LogUtils";
-import CustomSelectField from "../../../../../../../components/FormFields/SelectField/SelectField.component";
-import { accomodationType } from "../../../../../../../helper/helper";
+import File from "../../../../../components/FileComponent/FileComponent.component";
+import LogUtils from "../../../../../libs/LogUtils";
+import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
+import { accomodationType } from "../../../../../helper/helper";
 
 const OtherDetailsIncludeFields = ({
   index,
@@ -40,132 +40,67 @@ const OtherDetailsIncludeFields = ({
 
   return (
     <div>
-      <div className={styles.flexContainer}>
-      <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.currency}
-              errorText={errors?.currency}
-              label={"Choose Currency"}
-              value={data?.currency}
-              handleChange={(value) => {
-                handleChange(value, "currency");
-              }}
-            >
-              <MenuItem value="USD">USD</MenuItem>
-              <MenuItem value="EUR">EUR</MenuItem>
-              <MenuItem value="INR">INR</MenuItem>
-            </CustomSelectField>
-          </div>
-          <div className={styles.flex1}></div>
-          <div className={styles.flex1}></div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <TextField
-              error={errors?.guest_name}
-              onChange={handleChange}
-              value={data?.guest_name}
-              fullWidth={true}
-              name={"guest_name"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Name of Guest"}
-            />
-          </div>
-          <div className={styles.flex12}>
-            <TextField
-              error={errors?.guest_details}
-              onChange={handleChange}
-              value={data?.guest_details}
-              fullWidth={true}
-              name={"guest_details"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Details of Guest"}
-            />
-          </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <CustomSelectField
-              isError={errors?.expense_nature}
-              errorText={errors?.expense_nature}
-              label={"Nature of Expenses"}
-              value={data?.expense_nature}
-              handleChange={(value) => {
-                handleChange(value, "expense_nature");
-              }}
-            >
-              <MenuItem value="EATING">EATING</MenuItem>
-              <MenuItem value="TRAVEL">TRAVEL</MenuItem>
-              <MenuItem value="GIFT">GIFT</MenuItem>
-            </CustomSelectField>
-          </div>
-          <div className={styles.flex1}>
-            <TextField
-              error={errors?.amount}
-              onChange={handleChange}
-              value={data?.amount}
-              fullWidth={true}
-              name={"amount"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Bill Amount"}
-            />
-          </div>
-          <div className={styles.flex13}>
-            <File
-              max_size={10 * 1024 * 1024}
-              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
-              fullWidth={true}
-              name="entertainment_payment_proof"
-              label="Attach Proof of Payment"
-              accept={"application/pdf,application/msword,image/*"}
-              error={errors?.entertainment_payment_proof}
-              value={data?.entertainment_payment_proof}
-              placeholder={"Attach Proof of Payment"}
-              onChange={(file) => {
-                if (file) {
-                  LogUtils.log("file", file);
-                  handleChange(file, "entertainment_payment_proof");
-                }
-              }}
-            />
-          </div>
-        </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <TextField
-              error={errors?.payment_made_by}
-              onChange={handleChange}
-              value={data?.payment_made_by}
-              fullWidth={true}
-              name={"payment_made_by"}
-              margin={"dense"}
-              variant={"outlined"}
-              label={"Choose currency of payment"}
-            />
-            <div style={{ fontWeight: "500", textAlign: "end" }}>
-              Please mention the amount in spent currency and the exchange rate
-              applied to reach at above currency.
+      <div className={styles.commentContainer}>
+        <div className={styles.otherWrap}>
+          <div className={styles.mainFlex}>
+            <div className={styles.left}>
+              <div className={styles.key}>
+                <span className={styles.value}>Name of Guest:</span>
+                {data?.guest_name ? data?.guest_name : "N/A"}
+              </div>
+              {data?.payment_proof && (
+                <div className={styles.key}>
+                  <a href={data?.payment_proof} target="_blank">
+                    <div className={styles.hyperlinkText}>
+                      View Proof of Payment
+                    </div>
+                  </a>
+                </div>
+              )}
+              <div className={styles.key}>
+                <span className={styles.value}>Details of Guest:</span>
+                {data?.guest_details ? data?.guest_details : "N/A"}
+              </div>
+              <div className={styles.key221}>
+                <span className={styles.value}>
+                  <CustomSelectField
+                    isError={errors?.currency}
+                    errorText={errors?.currency}
+                    label={"Choose Currency"}
+                    value={data?.currency}
+                    handleChange={(value) => {
+                      handleChange(value, "currency");
+                    }}
+                  >
+                    <MenuItem value="USD">USD</MenuItem>
+                    <MenuItem value="EUR">EUR</MenuItem>
+                    <MenuItem value="INR">INR</MenuItem>
+                  </CustomSelectField>
+                </span>
+                <span className={styles.value}>
+                  <TextField
+                    error={errors?.amount}
+                    onChange={handleChange}
+                    value={data?.amount}
+                    fullWidth={true}
+                    name={"amount"}
+                    margin={"dense"}
+                    variant={"outlined"}
+                    label={"Expense Amount"}
+                  />
+                </span>
+              </div>
             </div>
-          </div>
-          <div className={styles.flex1}></div>
-          {/* <div className={styles.flex1}></div> */}
-        </div>
-       
-        <div className={styles.firstRow221}>
-          <div className={"textCenter"}>
-            <ButtonBase
-              className={styles.removeBtn}
-              // label={this.props.index == 0 ? "+" : '-'}
-              onClick={() => {
-                handlePress(index == 0 ? "-" : "-", index);
-              }}
-            >
-              {index == 0 ? "Remove" : "Remove"}
-            </ButtonBase>
+            <div className={styles.right}>
+              <div className={styles.key}>
+                <span className={styles.value}>Nature of Expenses:</span>
+                {data?.expense_nature ? data?.expense_nature : "N/A"}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Booking By:</span>
+                {data?.booking_by ? data?.booking_by : "-"}
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -9,28 +9,13 @@ import React, {
 import IncludeFields from "./LodgingIncludeFields.component";
 import styles from "./style.module.css";
 import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
-import LogUtils from "../../../../../../../libs/LogUtils";
+import LogUtils from "../../../../../libs/LogUtils";
 import { Add } from "@material-ui/icons";
-import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
+import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 
 const TEMP_OBJ = {
-  check_in: "",
-  check_out: "",
-  booking_by: "SELF",
-  stay_at: "HOTEL",
-  hotel: "",
-  shared_with: [],
-  total_nights: "",
-  per_day_entitlement: "",
-  payment_by: "",
   amount: "",
-  max_entitlement: 0,
-  lodging_payment_proof: null,
-  lodging_voucher: null,
   currency: "",
-  country: "",
-  country_name: "",
-  payment_made_by: "",
 };
 
 const LodgingIncludeForm = (
@@ -75,66 +60,13 @@ const LodgingIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [
-        "check_in",
-        "check_out",
-        "booking_by",
-        "stay_at",
-        "shared_with",
-        "country",
-        "country_name",
-        // "currency"
-      ];
-      if (val?.payment_by && val.payment_by !== "Cash") {
-        required.push("lodging_payment_proof");
-      }
-      if (["HOTEL", "SELF_ARRANGEMENT"].includes(val?.stay_at)) {
-        required.push(
-          "amount",
-          "lodging_voucher",
-          "lodging_payment_proof",
-          "payment_by"
-        );
-      }
+      const required = ["amount", "currency"];
       {
         required.forEach((key) => {
           if (!val[key]) {
             err[key] = true;
           }
         });
-      }
-      if (val?.amount) {
-        if (val?.amount > val?.max_entitlement) {
-          err["amount"] = true;
-        }
-      }
-      if (val?.stay_at === "HOTEL" && !val?.hotel) {
-        err["hotel"] = true;
-      }
-      if (val.payment_by === "Cash" && !val?.lodging_payment_proof) {
-        delete err["lodging_payment_proof"];
-      }
-      if (val?.total_nights == 0) {
-        delete err["lodging_voucher"];
-        delete err["lodging_payment_proof"];
-      }
-      if (val?.total_nights < 0) {
-        SnackbarUtils.error(
-          "Tour start date should be less than tour end date"
-        );
-        err["check_out"] = true;
-      }
-      if (val?.check_in) {
-        let newDate = new Date(val?.check_in);
-        if (isNaN(newDate.getTime())) {
-          err["check_in"] = true;
-        }
-      }
-      if (val?.check_out) {
-        let newDate = new Date(val?.check_out);
-        if (isNaN(newDate.getTime())) {
-          err["check_out"] = true;
-        }
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
@@ -211,13 +143,10 @@ const LodgingIncludeForm = (
         const index = fields.findIndex((val) => val?.sku?.sku === variant?.sku);
         return index < 0;
       });
-
       return (
         <div>
           <IncludeFields
             variants={tempFilters}
-            listWarehouse={listWarehouse}
-            currency={currency}
             validateData={validateData}
             errors={index in errorData ? errorData[index] : null}
             changeData={changeData}
@@ -225,13 +154,10 @@ const LodgingIncludeForm = (
             data={val}
             index={index}
             onBlur={onBlur}
-            grade={grade}
-            startDate={startDate}
-            endDate={endDate}
             CoPass={CoPass}
-            tourType={tourType}
-            setCurrency={setCurrency}
           />
+          {fields?.length !== index + 1 && <div className={styles.verti}></div>}
+
         </div>
       );
     });
@@ -329,10 +255,6 @@ const LodgingIncludeForm = (
   }, [fields]);
 
   console.log("getOfficeAmount", curr[1]?.conversion_rate, totalAmount);
-  // useEffect(() => {
-  //   changeAmount(sum, "lodging_expenses_amount");
-  //   // setOfficeAmount(getOfficeAmount)
-  // }, [sum]);
 
   useEffect(() => {
     if (totalAmount) {
@@ -342,29 +264,15 @@ const LodgingIncludeForm = (
   return (
     <>
       {renderFields}
-      {fields?.length < 20 && (
-        <div className={styles.btnWrapper}>
-          <ButtonBase
-            className={styles.addition}
-            label={"+"}
-            onClick={() => {
-              handlePress("ADDITION", 0);
-            }}
-          >
-            <Add fontSize={"small"} /> <span>Add Travel Detail</span>
-          </ButtonBase>
-        </div>
-      )}
-
       {/*</div>*/}
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
           Total USD Used:{" "}
-          <span>{USDsum || USDsum === 0 ? `₹ ${USDsum}` : ""}</span>
+          <span>{USDsum || USDsum === 0 ? `$ ${USDsum}` : ""}</span>
         </div>
         <div className={styles.inner}>
           Total Euro Used:{" "}
-          <span>{Eurosum || Eurosum === 0 ? `₹ ${Eurosum}` : ""}</span>
+          <span>{Eurosum || Eurosum === 0 ? `€ ${Eurosum}` : ""}</span>
         </div>
         <div className={styles.inner}>
           Total INR Used:{" "}

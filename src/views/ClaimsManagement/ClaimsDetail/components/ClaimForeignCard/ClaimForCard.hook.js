@@ -139,8 +139,8 @@ function useClaimForCard() {
 
     return 0;
   }, [form, curr, SetCurr]);
-  
-  console.log('office',officeAmount,officeAmount2)
+
+  console.log("office", officeAmount, officeAmount2);
   const imprestAmount = useMemo(() => {
     if (form?.travel_planner_id?.myImprest?.status === "FINANCE_APPROVED") {
       return form?.travel_planner_id?.myImprest?.amount;
@@ -226,16 +226,16 @@ function useClaimForCard() {
   const getRefundAmount = useMemo(() => {
     return imprestINRAmount
       ? Number(getTotalValue) -
-          (Number(getOfficeAmount)) -
+          Number(getOfficeAmount) -
           Number(imprestINRAmount)
-      : Number(getTotalValue) - (Number(getOfficeAmount));
+      : Number(getTotalValue) - Number(getOfficeAmount);
   }, [
     form?.travel_planner_id,
     getTotalValue,
     officeAmount,
     officeAmount2,
     imprestINRAmount,
-    getOfficeAmount
+    getOfficeAmount,
   ]);
 
   const submitToServer = useCallback(() => {
@@ -256,7 +256,7 @@ function useClaimForCard() {
         amount_inr: InrAmount,
         converted_amount_usd: USDtoINR,
         converted_amount_eur: EurotoINR,
-        converted_amount_inr:InrAmount
+        converted_amount_inr: InrAmount,
       };
       fd.append("total_amount", getRefundAmount);
       fd.append("imprest_amount", imprestAmount);
@@ -339,7 +339,7 @@ function useClaimForCard() {
       fd.append("office_expense", Number(getOfficeAmount));
       fd.append(
         "self_expense",
-        Number(getTotalValue) - (Number(getOfficeAmount))
+        Number(getTotalValue) - Number(getOfficeAmount)
       );
 
       const otherData = otherRef.current.getData();
@@ -384,7 +384,7 @@ function useClaimForCard() {
     InrAmount,
     USDtoINR,
     EurotoINR,
-    getOfficeAmount
+    getOfficeAmount,
   ]);
 
   const removeError = useCallback(
@@ -465,7 +465,7 @@ function useClaimForCard() {
     InrAmount,
     USDtoINR,
     EurotoINR,
-    getOfficeAmount
+    getOfficeAmount,
   ]);
 
   const changeTextData = useCallback(
