@@ -1305,7 +1305,7 @@ const dashboardRoutes = [
     sidebarName: "Claims List",
     navbarName: "Claims List",
     icon: PeopleOutlined,
-    component: TravelClaimListDetail,
+    component: ForeignClaimDetail,
     is_sidebar: false,
     is_protect: true,
     should_regex: true,
