@@ -230,7 +230,7 @@ const OtherIncludeForm = (
     let sum = 0;
     if (curr?.length > 0) {
       fields.forEach((item) => {
-        if (item.booking_by === "OFFICE" && item.amount !== "") {
+        if (item.booking_by !== "SELF" && item.amount !== "") {
           switch (item.currency) {
             case "USD":
               sum += parseFloat(item.amount) * Number(curr[1]?.conversion_rate);
