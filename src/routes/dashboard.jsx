@@ -20,8 +20,8 @@ import LetterApprovalProces_View from "../views/Relving&ExpernsLetterAprvl/Lette
 import LetterApprovalDetail from "../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail";
 import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/RelievingExpLetter_View";
 
-const BGVDetails = lazy(() =>
-  import("../views/PendingBckgroundVerification/BGVerificationDetails/BGVDetails")
+const CandidateInformation = lazy(() =>
+  import("../views/PendingBckgroundVerification/BGCandidateInformation/CandidateInformation")
 );
 const PendingBGVerification_View = lazy(() =>
   import("../views/PendingBckgroundVerification/View/PendingBGVerification_View")
@@ -2186,11 +2186,11 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
-    path: `${RouteName.PENDING_VERIFICATION_DETAIL}:id`,
+    path: `${RouteName.PENDING_VERIFICATION_CREATE}:id`,
     sidebarName: "Pending Background Verification",
     navbarName: "Pending Background Verification",
     icon: PeopleOutlined,
-    component: BGVDetails,
+    component: CandidateInformation,
     is_sidebar: false,
     is_protect: true,
     // slug: 'tp',

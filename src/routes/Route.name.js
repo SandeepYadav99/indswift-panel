@@ -202,5 +202,5 @@ export default {
   RELIEVING_EXPERIENCE_APPROVALS_DETAILS:"/relieving-experience-approval/details",
   RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
   PENDING_BACKGROUND_VERIFICATION:"/pending-verification",
-  PENDING_VERIFICATION_DETAIL:"/verification/detail"
+  PENDING_VERIFICATION_CREATE:"/verification/create/"
 };

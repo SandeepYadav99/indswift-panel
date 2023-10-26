@@ -1,16 +1,10 @@
-import Reacts from "react";
 import styles from "./Style.module.css";
-import { ButtonBase, IconButton, Menu, MenuItem } from "@material-ui/core";
-import history from "../../../libs/history.utils";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import classnames from "classnames";
+import { ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
-import WaitingComponent from "../../../components/Waiting.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import StatusPill from "../../../components/Status/StatusPill.component";
-
 import { EditOutlined } from "@material-ui/icons";
 import useBGVDetails_Hook from "./BGVDetails_Hook";
+import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 
 const BGVDetails = () => {
   const {
@@ -20,10 +14,17 @@ const BGVDetails = () => {
     isInterviewStatus,
     handleChangeInterviewStatus,
     handleViewEditDetails,
+    form,
+    changeTextData,
+    errorData,
+    handleSubmit,
+    isCostEdit,
+    toggleCostEdit
   } = useBGVDetails_Hook({});
-  if (isLoading) {
-    return <WaitingComponent />;
-  }
+console.log(isCostEdit)
+  // if (isLoading) {
+  //   return <WaitingComponent />;
+  // }
   const valencyChange = (value) => {
     return value ? value.replace(/_/, " ") : "NA";
   };
@@ -40,6 +41,7 @@ const BGVDetails = () => {
             <div className={styles.heading}>
               Background Verification Details
             </div>
+            {/* <div>Choose type of verification required:</div> */}
           </div>
 
           <div className={styles.mainFlex}>
@@ -48,11 +50,14 @@ const BGVDetails = () => {
                 <div className={"formGroup"}>
                   <CustomCheckbox
                     color={"primary"}
-                    // handleChange={(text) => {
-                    //   setSelectEvent((e) => !e);
-                    // }}
+                    handleChange={() => {
+                      changeTextData(
+                        !form?.is_education_verification,
+                        "is_education_verification"
+                      );
+                    }}
                     label={"Education"}
-                    // checked={selectEvent}
+                    checked={form?.is_education_verification}
                   />
                 </div>
               </div>
@@ -60,11 +65,14 @@ const BGVDetails = () => {
                 <div className={"formGroup"}>
                   <CustomCheckbox
                     color={"primary"}
-                    // handleChange={(text) => {
-                    //   setSelectEvent((e) => !e);
-                    // }}
+                    handleChange={() => {
+                      changeTextData(
+                        !form?.is_first_employment_verification,
+                        "is_first_employment_verification"
+                      );
+                    }}
                     label={"1st Employment"}
-                    // checked={selectEvent}
+                    checked={form?.is_first_employment_verification}
                   />
                 </div>
               </div>
@@ -72,11 +80,14 @@ const BGVDetails = () => {
                 <div className={"formGroup"}>
                   <CustomCheckbox
                     color={"primary"}
-                    // handleChange={(text) => {
-                    //   setSelectEvent((e) => !e);
-                    // }}
+                    handleChange={() => {
+                      changeTextData(
+                        !form?.is_secound_employment_verification,
+                        "is_secound_employment_verification"
+                      );
+                    }}
                     label={"2nd Employment"}
-                    // checked={selectEvent}
+                    checked={form?.is_secound_employment_verification}
                   />
                 </div>
               </div>
@@ -84,56 +95,80 @@ const BGVDetails = () => {
                 <div className={"formGroup"}>
                   <CustomCheckbox
                     color={"primary"}
-                    // handleChange={(text) => {
-                    //   setSelectEvent((e) => !e);
-                    // }}
+                    handleChange={() => {
+                      changeTextData(
+                        !form?.is_criminal_verification,
+                        "is_criminal_verification"
+                      );
+                    }}
                     label={"Criminal"}
-                    // checked={selectEvent}
+                    checked={form?.is_criminal_verification}
                   />
                 </div>
               </div>
             </div>
           </div>
           <div className={"formFlex"}>
-            <div className={"formGroup"} style={{display:"flex",gap:"10px", justifyContent:"space-between", alignItems:"center"}}>
-              <CustomTextField
-                // isError={errorData?.name}
-                // errorText={errorData?.name}
-                label={"Cost"}
-                // value={form?.name}
-                // onTextChange={(text) => {
-                //   changeTextData(text, "name");
-                // }}
-                onBlur={() => {
-                  // onBlurHandler("name");
-                }}
-              />
+            <div
+              className={"formGroup"}
+              style={{
+                display: "flex",
+                gap: "10px",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              {isCostEdit ? (
+                <CustomTextField
+                  isError={errorData?.cost}
+                  errorText={errorData?.cost}
+                  label={"Cost"}
+                  type={"number"}
+                  value={form?.cost}
+                  onTextChange={(text) => {
+                    changeTextData(text, "cost");
+                  }}
+                  onBlur={() => {
+                    // onBlurHandler("name");
+                  }}
+                />
+              ) : (
+                <CustomTextField
+                  isError={errorData?.cost}
+                  errorText={errorData?.cost}
+                  label={"Cost"}
+                  type={"number"}
+                  value={form?.cost}
+                  disabled={true} // Initially disabled
+                />
+              )}
               <div>
                 <IconButton
                   className={"tableActionBtn"}
                   color="secondary"
                   // disabled={isCalling}
-                  onClick={() => {
-                    //  handleViewDetails(all);
-                  }}
+                  onMouseDown={toggleCostEdit}
+                
                 >
                   <EditOutlined fontSize={"small"} />
                 </IconButton>
               </div>
             </div>
+
             <div className={"formGroup"}>
-              <CustomTextField
-                // isError={errorData?.name}
-                // errorText={errorData?.name}
-                label={"Billing to"}
-                // value={form?.name}
-                // onTextChange={(text) => {
-                //   changeTextData(text, "name");
-                // }}
-                onBlur={() => {
-                  // onBlurHandler("name");
+              <CustomSelectField
+                isError={errorData?.billing_to}
+                errorText={errorData?.billing_to}
+                label={"Billing To "}
+                value={form?.billing_to}
+                handleChange={(value) => {
+                  changeTextData(value, "billing_to");
                 }}
-              />
+              >
+                <MenuItem value="isl">ISL</MenuItem>
+                <MenuItem value="isll">ISLL </MenuItem>
+                <MenuItem value="esix">ESIX </MenuItem>
+              </CustomSelectField>
             </div>
           </div>
           <div className={"formFlex"}>
@@ -142,13 +177,13 @@ const BGVDetails = () => {
                 // isError={errorData?.description}
                 // errorText={errorData?.description}
                 label={"Any Remarks"}
-                // value={form?.description}
+                value={form?.remark}
                 onTextChange={(text) => {
-                  // changeTextData(text, "description");
+                  changeTextData(text, "remark");
                 }}
-                onBlur={() => {
-                  // onBlurHandler("description");
-                }}
+                // onBlur={() => {
+                //    onBlurHandler("remark");
+                // }}
                 multiline
                 rows={3}
               />
@@ -156,9 +191,15 @@ const BGVDetails = () => {
           </div>
         </div>
       </div>
-      {/* <CandidatePaperComponent isRecurring={data?.is_recurring} jobId={id} status={data?.status}/>
-      <InterviewerListComponent jobId={id} isInterviewStatus={isInterviewStatus} handleChangeInterviewStatus={handleChangeInterviewStatus} status={data?.status}/>
-      {data?.is_recurring && (<VacanciesList jobId={id} prc={data.code}/>)} */}
+      <div className={styles.btnCont}>
+        <ButtonBase
+          type={"button"}
+          onClick={handleSubmit}
+          className={styles.createBtn}
+        >
+          SUBMIT
+        </ButtonBase>
+      </div>
     </div>
   );
 };

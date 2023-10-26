@@ -10,7 +10,7 @@ import WaitingComponent from "../../../components/Waiting.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 
 import useCandidateInformation_Hook from "./CandidateInformation_Hook";
-import BackgroundVerificationDetails from "../BackgroundVerificationDetails/BackgroundVerificationDetails";
+import BGVDetails from "../BGVerificationDetails/BGVDetails";
 
 const CandidateInformation = () => {
   const {
@@ -21,9 +21,9 @@ const CandidateInformation = () => {
     handleChangeInterviewStatus,
     handleViewEditDetails,
   } = useCandidateInformation_Hook({});
-  if (isLoading) {
-    return <WaitingComponent />;
-  }
+  // if (isLoading) {
+  //   return <WaitingComponent />;
+  // }
   const valencyChange = (value) => {
     return value ? value.replace(/_/, " ") : "NA";
   };
@@ -107,7 +107,8 @@ const CandidateInformation = () => {
           </div>
         </div>
       </div>
-      <BackgroundVerificationDetails/>
+      
+      <BGVDetails/>
       {/* <CandidatePaperComponent isRecurring={data?.is_recurring} jobId={id} status={data?.status}/>
       <InterviewerListComponent jobId={id} isInterviewStatus={isInterviewStatus} handleChangeInterviewStatus={handleChangeInterviewStatus} status={data?.status}/>
       {data?.is_recurring && (<VacanciesList jobId={id} prc={data.code}/>)} */}

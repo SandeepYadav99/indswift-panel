@@ -15,17 +15,17 @@ const useCandidateInformation_Hook = ({}) => {
         setIsInterviewStatus(value)
     }
 
-    useEffect(() => {
-        setIsLoading(true);
-        serviceJobOpeningsDetails({id: id}).then((res) => {
-            if (!res.error) {
-                setData(res.data.details);
-            } else {
-                SnackbarUtils.error(res.message);
-            }
-            setIsLoading(false);
-        });
-    }, [id]);
+    // useEffect(() => {
+    //     setIsLoading(true);
+    //     serviceJobOpeningsDetails({id: id}).then((res) => {
+    //         if (!res.error) {
+    //             setData(res.data.details);
+    //         } else {
+    //             SnackbarUtils.error(res.message);
+    //         }
+    //         setIsLoading(false);
+    //     });
+    // }, [id]);
 
     const handleViewEditDetails = useCallback((data) => {
         historyUtils.push(RouteName.JOB_OPENINGS_UPDATE + data.id)

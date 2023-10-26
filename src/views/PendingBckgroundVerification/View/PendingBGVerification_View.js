@@ -11,7 +11,7 @@ import FilterComponent from "../../../components/Filter/Filter.component";
 
 import StatusPill from "../../../components/Status/StatusPill.component";
 
-import { InfoOutlined } from "@material-ui/icons";
+import { AssignmentOutlined, InfoOutlined } from "@material-ui/icons";
 import usePendingBGVerification_Hook from "./PendingBGVerification_Hook";
 
 const PendingBGVerification_View = ({ location }) => {
@@ -33,10 +33,14 @@ const PendingBGVerification_View = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.napsTraning);
+  } = useSelector((state) => state.pendingBGV);
 
   const renderStatus = useCallback((status) => {
-    return <StatusPill status={status} />;
+    return status === "PENDING" || "CLEAR" || "FAILED" ? (
+      <StatusPill status={status} />
+    ) : (
+      null
+    );
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
@@ -57,24 +61,20 @@ const PendingBGVerification_View = ({ location }) => {
       {
         key: "name",
         label: "NAME",
-        sortable: true,
-        render: (value, all) => <div>{renderFirstCell(all)}</div>,
+        sortable: false,
+        render: (value, all) => <div>{all?.name}</div>,
       },
       {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.grade?.name} / {all?.cadre?.name}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.location?.name}</div>,
       },
       {
         key: "month",
         label: "MONTH",
         sortable: false,
-        render: (temp, all) => <div>{all?.location.name}</div>,
+        render: (temp, all) => <div>{all?.verificationText}</div>,
       },
       {
         key: "designation",
@@ -86,13 +86,7 @@ const PendingBGVerification_View = ({ location }) => {
         key: "department",
         label: "DEPARTMENT",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.department?.name}
-            <br />
-            {all?.sub_department?.code}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.department?.name}</div>,
       },
       {
         key: "offer_accepted",
@@ -111,44 +105,49 @@ const PendingBGVerification_View = ({ location }) => {
         key: "doj",
         label: "DOJ",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.dojText}</div>,
       },
       {
         key: "status",
         label: "STATUS",
         sortable: true,
-        render: (temp, all) => <div>{all?.hod?.hod_name}</div>,
+        render: (temp, all) => <StatusPill status={all?.status} />,
       },
       {
         key: "bgv-result",
         label: "BGV RESULT",
         sortable: true,
-        render: (temp, all) => <div>{all?.hod?.hod_name}</div>,
+        render: (temp, all) =><div>{renderStatus(all?.bgv_result)}</div>
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div
-          >
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-               
-                 handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
+          <div>
+              {all?.status === "PENDING_VERIFICATION" && (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleViewDetails(all);
+                }}
+              >
+                <InfoOutlined fontSize={"small"} />
+              </IconButton>
+            )}
+            {all?.status === "SENT_FOR_VERIFICATION" && (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleViewDetails(all);
+                }}
+              >
+                <AssignmentOutlined fontSize={"small"} />
+              </IconButton>
+            )}
           </div>
         ),
       },
@@ -199,7 +198,7 @@ const PendingBGVerification_View = ({ location }) => {
                 // handleViewGraph();
               }}
             >
-             BGV ANALYSIS REPORT
+              BGV ANALYSIS REPORT
             </ButtonBase>
           </div>
         </div>
