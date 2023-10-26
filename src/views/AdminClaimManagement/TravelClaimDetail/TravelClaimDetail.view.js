@@ -14,6 +14,7 @@ import EnterincludesDetailForm from "./component/EnterincludesDetail/Enterinclud
 import OtherincludesDetailForm from "./component/OtherincludesDetail/OtherincludesDetail.component";
 import ApproveDialog from "./component/ApproveDialog/ApproveDialog.view";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 
 function TravelClaimListDetail() {
   const {
@@ -44,7 +45,13 @@ function TravelClaimListDetail() {
     setOfficeAmount2,
     officeAmount2,
     getRefundAmount,
-    imprestAmount
+    imprestAmount,
+    refundData,
+    setRefundData,
+    getOfficeAmount,
+    officeAmount3,
+    setOfficeAmount3,
+    setOfficeAmount4,
   } = useTravelClaimListDetail({});
 
   return (
@@ -147,13 +154,21 @@ function TravelClaimListDetail() {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Part D: Entertainment Expenses</div>
-          <EnterincludesDetailForm ref={enterRef} changeAmount={changeAmount} />
+          <EnterincludesDetailForm
+            ref={enterRef}
+            changeAmount={changeAmount}
+            setOfficeAmount3={setOfficeAmount3}
+          />
         </div>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Part E: Other Expenses</div>
-          <OtherincludesDetailForm ref={otherRef} changeAmount={changeAmount} />
+          <OtherincludesDetailForm
+            ref={otherRef}
+            changeAmount={changeAmount}
+            setOfficeAmount4={setOfficeAmount4}
+          />
         </div>
       </div>
       <div className={styles.plainPaper}>
@@ -188,12 +203,8 @@ function TravelClaimListDetail() {
                     <span className={styles.value}>Imprest Amount:</span>
                     {imprestAmount ? (
                       <>
-                        {getCurrency(
-                          employeeDetail?.imprest?.currency
-                        )}
-                        {
-                          imprestAmount
-                        }
+                        {getCurrency(employeeDetail?.imprest?.currency)}
+                        {imprestAmount}
                       </>
                     ) : (
                       "N/A"
@@ -234,21 +245,27 @@ function TravelClaimListDetail() {
           </div>
           <div className={styles.headingWrap}>
             Self Borne Expense::
-            <span>
-              ₹{" "}
-              {Number(getTotalValue) -
-                (Number(officeAmount) + Number(officeAmount2))}
-            </span>
+            <span>₹ {Number(getTotalValue) - Number(getOfficeAmount)}</span>
           </div>
           <div className={styles.headingWrap}>
             Office Borne Expense:
-            <span>₹ {Number(officeAmount) + Number(officeAmount2)}</span>
+            <span>₹ {Number(getOfficeAmount)}</span>
           </div>
         </div>
-        <div className={styles.totalWrap} style={{marginTop:'20px'}}>
+        <div className={styles.totalWrap} style={{ marginTop: "20px" }}>
           <div className={styles.inner}>
             Amount to be Refunded:{" "}
             <span>{getRefundAmount ? `₹ ${getRefundAmount}` : 0}</span>
+          </div>
+          <div className={styles.inner32}>
+            <CustomTextField
+              type="number"
+              label={"Final Amount"}
+              value={refundData}
+              onTextChange={(text) => {
+                setRefundData(text);
+              }}
+            />
           </div>
         </div>
       </div>

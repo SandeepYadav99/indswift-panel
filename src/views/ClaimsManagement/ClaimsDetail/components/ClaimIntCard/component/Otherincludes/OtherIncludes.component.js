@@ -19,11 +19,20 @@ const TEMP_OBJ = {
   details: "",
   amount: "",
   reason: "",
+  booking_by: "",
   other_payment_proof: null,
 };
 
 const OtherIncludeForm = (
-  { data, errorData: errorForm, grade, changeAmount, startDate, endDate },
+  {
+    data,
+    errorData: errorForm,
+    grade,
+    changeAmount,
+    startDate,
+    endDate,
+    setOfficeAmount4,
+  },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -60,6 +69,7 @@ const OtherIncludeForm = (
         "amount",
         "reason",
         "other_payment_proof",
+        "booking_by",
       ];
       const hasValues = Object.values(val).some(
         (value) => value !== "" && value !== null
@@ -208,9 +218,26 @@ const OtherIncludeForm = (
     }
   }, 0);
 
+  const getOfficeAmount = useMemo(() => {
+    const officeBookings = fields?.filter(
+      (booking) => booking.booking_by !== "SELF" && booking.amount !== ""
+    );
+    const sum = officeBookings?.reduce(
+      (total, booking) => total + parseFloat(booking?.amount),
+      0
+    );
+    return sum;
+  }, [fields]);
+
   useEffect(() => {
     changeAmount(sum, "tap_other_expenses_amount");
   }, [sum]);
+
+  useEffect(() => {
+    if (sum) {
+      setOfficeAmount4(getOfficeAmount);
+    }
+  }, [fields]);
 
   return (
     <>

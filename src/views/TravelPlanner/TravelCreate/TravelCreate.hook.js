@@ -31,7 +31,8 @@ const initialForm = {
   imprest_currency: "",
   imprest_amount: "",
   imprest_sanctionable_amount: "",
-  imprest_comment:""
+  imprest_comment: "",
+  is_cphi: "NO",
 };
 
 const useTravelCreate = ({}) => {
@@ -77,6 +78,7 @@ const useTravelCreate = ({}) => {
     }
   }, [codeDebouncer]);
 
+  console.log("form", form);
   const checkImprestAmount = useCallback(() => {
     if (form?.imprest_currency && form?.imprest_amount) {
       const errors = JSON.parse(JSON.stringify(errorData));
@@ -87,7 +89,7 @@ const useTravelCreate = ({}) => {
         if (res.error) {
           errors["imprest_amount"] = true;
           setErrorData(errors);
-          SnackbarUtils.error(res.message)
+          SnackbarUtils.error(res.message);
         } else {
           delete errors.imprest_amount;
           setErrorData(errors);
@@ -134,7 +136,7 @@ const useTravelCreate = ({}) => {
     } else {
       setIsBond(false);
     }
-  });
+  }, [form?.tour_type]);
 
   const checkCodeValidation = () => {
     serviceCheckCoPassenger({
@@ -234,7 +236,9 @@ const useTravelCreate = ({}) => {
 
   useEffect(() => {
     if (form.tour_type) {
-      setForm({ ...form, imprest_currency: "" });
+      if (form?.tour_type === "FOREIGN") {
+        setForm({ ...form, imprest_currency: "" });
+      } else setForm({ ...form, imprest_currency: "", is_cphi: "NO" });
     }
   }, [form.tour_type]);
 
@@ -245,13 +249,20 @@ const useTravelCreate = ({}) => {
         setIsSubmitting(true);
         const fd = new FormData();
         Object.keys(form).forEach((key) => {
-          if (key !== "imprest_amount" && key !== "imprest_currency") {
+          if (
+            key !== "imprest_amount" &&
+            key !== "imprest_currency" &&
+            key !== "is_cphi"
+          ) {
             fd.append(key, form[key]);
           }
         });
         if (form.imprest_required) {
           fd.append("imprest_currency", form.imprest_currency);
           fd.append("imprest_amount", form.imprest_amount);
+        }
+        if (form?.tour_type === "FOREIGN") {
+          fd.append("is_cphi", form?.is_cphi === "YES");
         }
         fd.append("foreign_travel_bond_agreed", isBond);
         const ExpensesData = travelRef.current.getData();
@@ -261,7 +272,7 @@ const useTravelCreate = ({}) => {
           }
         });
         if (ExpensesData[0].mode?.length > 0) {
-        fd.append("travel_details", JSON.stringify(ExpensesData));
+          fd.append("travel_details", JSON.stringify(ExpensesData));
         }
         const otherExpensesData = otherRef.current.getData();
         otherExpensesData.forEach((val) => {

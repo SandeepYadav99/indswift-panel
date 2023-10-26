@@ -43,6 +43,10 @@ const OtherincludesDetailFields = ({
                 {data?.reason ? data?.reason : 'N/A'}
               </div>
               <div className={styles.key}>
+                <span className={styles.value}>Booking By:</span>
+                {data?.booking_by ? data?.booking_by : '-'}
+              </div>
+              <div className={styles.key}>
                 <span className={styles.value}>
                   <TextField
                     error={errors?.amount}
