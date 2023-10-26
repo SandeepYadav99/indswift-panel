@@ -1,0 +1,24 @@
+.mainFlex{
+    display: flex;
+    /*align-items: center;*/
+}
+.left{
+    /*margin-right: 30px;*/
+    flex: 1.4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.editFlex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.heading{
+    font-size: 0.8rem;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+

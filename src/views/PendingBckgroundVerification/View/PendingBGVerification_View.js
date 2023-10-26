@@ -25,7 +25,7 @@ const PendingBGVerification_View = ({ location }) => {
     handleViewDetails,
     isCalling,
     configFilter,
-    openPDFInNewTab,
+    handleBGVUpdateDetails,
   } = usePendingBGVerification_Hook({ location });
 
   const {
@@ -128,7 +128,7 @@ const PendingBGVerification_View = ({ location }) => {
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
-                disabled={isCalling}
+                // disabled={isCalling}
                 onClick={() => {
                   handleViewDetails(all);
                 }}
@@ -140,9 +140,9 @@ const PendingBGVerification_View = ({ location }) => {
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
-                disabled={isCalling}
+                // disabled={isCalling}
                 onClick={() => {
-                  handleViewDetails(all);
+                  handleBGVUpdateDetails(all);
                 }}
               >
                 <AssignmentOutlined fontSize={"small"} />

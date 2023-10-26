@@ -23,6 +23,7 @@ import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/Cur
 import ClaimForCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view";
 import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view";
 import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLeaveApplication.view";
+import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 
 const LeaveApplicationForm = lazy(() =>
     import(
@@ -2245,6 +2246,19 @@ const dashboardRoutes = [
     navbarName: "Pending Background Verification",
     icon: PeopleOutlined,
     component: CandidateInformation,
+    is_sidebar: false,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.PENDING_VERIFICATION_UPDATE}:id`,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: PeopleOutlined,
+    component: BGVStatus_Update,
     is_sidebar: false,
     is_protect: true,
     // slug: 'tp',

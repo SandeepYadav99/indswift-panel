@@ -111,6 +111,10 @@ const usePendingBGVerification_Hook = () => {
     historyUtils.push(`${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}`);
   }, []);
 
+  const handleBGVUpdateDetails =useCallback((data)=>{
+    historyUtils.push(`${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}`);
+  },[])
+
   const configFilter = useMemo(() => {
     return [
       {
@@ -136,7 +140,7 @@ const usePendingBGVerification_Hook = () => {
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
-  
+    handleBGVUpdateDetails,
     isCalling,
     editData,
     configFilter,

@@ -207,8 +207,10 @@ export default {
   PENDING_BACKGROUND_VERIFICATION:"/pending-verification",
   PENDING_VERIFICATION_CREATE:"/verification/create/",
   PENDING_VERIFICATION_DETAIL:"/verification/detail",
+  PENDING_VERIFICATION_UPDATE:"/verification/update/",
 
   LEAVE_APPLICATION_LIST_VIEW:'/leave-application/list',
   LEAVE_APPLICATION_FORM:"/leave-application/form",
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
+ 
 };

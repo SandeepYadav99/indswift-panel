@@ -2,9 +2,10 @@ import styles from "./Style.module.css";
 import { ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import { EditOutlined } from "@material-ui/icons";
+import { CheckBox, EditOutlined } from "@material-ui/icons";
 import useBGVDetails_Hook from "./BGVDetails_Hook";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
+import CheckboxList from "../component/Checkbox";
 
 const BGVDetails = () => {
   const {
@@ -44,70 +45,7 @@ console.log(isCostEdit)
             {/* <div>Choose type of verification required:</div> */}
           </div>
 
-          <div className={styles.mainFlex}>
-            <div className={styles.left}>
-              <div>
-                <div className={"formGroup"}>
-                  <CustomCheckbox
-                    color={"primary"}
-                    handleChange={() => {
-                      changeTextData(
-                        !form?.is_education_verification,
-                        "is_education_verification"
-                      );
-                    }}
-                    label={"Education"}
-                    checked={form?.is_education_verification}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className={"formGroup"}>
-                  <CustomCheckbox
-                    color={"primary"}
-                    handleChange={() => {
-                      changeTextData(
-                        !form?.is_first_employment_verification,
-                        "is_first_employment_verification"
-                      );
-                    }}
-                    label={"1st Employment"}
-                    checked={form?.is_first_employment_verification}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className={"formGroup"}>
-                  <CustomCheckbox
-                    color={"primary"}
-                    handleChange={() => {
-                      changeTextData(
-                        !form?.is_secound_employment_verification,
-                        "is_secound_employment_verification"
-                      );
-                    }}
-                    label={"2nd Employment"}
-                    checked={form?.is_secound_employment_verification}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className={"formGroup"}>
-                  <CustomCheckbox
-                    color={"primary"}
-                    handleChange={() => {
-                      changeTextData(
-                        !form?.is_criminal_verification,
-                        "is_criminal_verification"
-                      );
-                    }}
-                    label={"Criminal"}
-                    checked={form?.is_criminal_verification}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <CheckboxList form={form} changeTextData={changeTextData}/>
           <div className={"formFlex"}>
             <div
               className={"formGroup"}
