@@ -37,7 +37,7 @@ const ExpenseIncludeForm = (
     startDate,
     endDate,
     CoPass,
-    setOfficeAmount2
+    setOfficeAmount2,
   },
   ref
 ) => {
@@ -229,7 +229,9 @@ const ExpenseIncludeForm = (
   const getOfficeAmount = useMemo(() => {
     const officeBookings = fields?.filter(
       (booking) =>
-        (booking.booking_by === "OFFICE" && booking.amount !== "") ||
+        ((booking.booking_by === "OFFICE" ||
+          booking?.booking_by === "COMPANY_ALLOTTED_CREDIT_CARD") &&
+          booking.amount !== "") ||
         (booking?.booking_by === "SELF" && booking?.mode === "COMPANY_VEHICLE")
     );
     const sum = officeBookings?.reduce(
@@ -244,8 +246,8 @@ const ExpenseIncludeForm = (
   }, [sum]);
 
   useEffect(() => {
-    if(sum){
-      setOfficeAmount2(getOfficeAmount)
+    if (sum) {
+      setOfficeAmount2(getOfficeAmount);
     }
   }, [fields]);
   return (

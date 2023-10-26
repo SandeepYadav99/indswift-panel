@@ -162,7 +162,7 @@ const LodgingincludesDetailForm = (
 
   const getOfficeAmount = useMemo(() => {
     const officeBookings = fields?.filter(
-      (booking) => booking.booking_by === "OFFICE" && booking.amount !== ""
+      (booking) => booking.booking_by !== "SELF"  && booking.amount !== ""
     );
     const sum = officeBookings?.reduce(
       (total, booking) => total + parseFloat(booking?.amount),

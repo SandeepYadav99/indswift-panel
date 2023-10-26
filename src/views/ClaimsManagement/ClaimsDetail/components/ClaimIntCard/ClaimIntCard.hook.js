@@ -37,6 +37,8 @@ function useClaimIntCard() {
   const [totalAmount, setTotalAmount] = useState({ ...amountKeys });
   const [officeAmount, setOfficeAmount] = useState(0);
   const [officeAmount2, setOfficeAmount2] = useState(0);
+  const [officeAmount3, setOfficeAmount3] = useState(0);
+  const [officeAmount4, setOfficeAmount4] = useState(0);
   const lodgeRef = useRef(null);
   const travelRef = useRef(null);
   const daRef = useRef(null);
@@ -50,7 +52,10 @@ function useClaimIntCard() {
   useEffect(() => {
     Promise.allSettled([
       serviceGetEmployeeDetails({ code: emp_code }),
-      serviceGetList(["CLAIM_TAP"], { employee_id: user_id }),
+      serviceGetList(["CLAIM_TAP"], {
+        employee_id: user_id,
+        tour_type: "DOMESTIC",
+      }),
     ]).then((promises) => {
       const empDetail = promises[0]?.value?.data;
       const listData = promises[1]?.value?.data;
@@ -115,19 +120,21 @@ function useClaimIntCard() {
     }, 0);
   }, [totalAmount, setTotalAmount]);
 
+  const getOfficeAmount = useMemo(() => {
+    const value =
+      Number(officeAmount ? officeAmount : 0) +
+      Number(officeAmount2 ? officeAmount2 : 0) +
+      Number(officeAmount3 ? officeAmount3 : 0) +
+      Number(officeAmount4 ? officeAmount4 : 0);
+    return value ? value : 0;
+  }, [officeAmount, officeAmount2, officeAmount3, officeAmount4]);
+
+  console.log("getOfficeAmount", getOfficeAmount);
   const getRefundAmount = useMemo(() => {
     return imprestAmount
-      ? Number(getTotalValue) -
-          (Number(officeAmount) + Number(officeAmount2)) -
-          Number(imprestAmount)
-      : Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2));
-  }, [
-    form?.travel_planner_id,
-    getTotalValue,
-    officeAmount,
-    officeAmount2,
-    imprestAmount,
-  ]);
+      ? Number(getTotalValue) - Number(getOfficeAmount) - Number(imprestAmount)
+      : Number(getTotalValue) - Number(getOfficeAmount);
+  }, [form?.travel_planner_id, getTotalValue, imprestAmount, getOfficeAmount]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -227,10 +234,10 @@ function useClaimIntCard() {
       });
       fd.append("entertainment_expenses", JSON.stringify(enterData));
       fd.append("total_expense", getTotalValue ? getTotalValue : 0);
-      fd.append("office_expense", Number(officeAmount) + Number(officeAmount2));
+      fd.append("office_expense", Number(getOfficeAmount));
       fd.append(
         "self_expense",
-        Number(getTotalValue) - (Number(officeAmount) + Number(officeAmount2))
+        Number(getTotalValue) - Number(getOfficeAmount)
       );
 
       const otherData = otherRef.current.getData();
@@ -264,6 +271,7 @@ function useClaimIntCard() {
     setOfficeAmount,
     officeAmount2,
     setOfficeAmount2,
+    getOfficeAmount,
     getRefundAmount,
   ]);
 
@@ -334,7 +342,7 @@ function useClaimIntCard() {
     getTotalValue,
     officeAmount,
     setOfficeAmount,
-    officeAmount2,
+    getOfficeAmount,
     setOfficeAmount2,
     getRefundAmount,
   ]);
@@ -392,6 +400,10 @@ function useClaimIntCard() {
     setOfficeAmount,
     officeAmount,
     setOfficeAmount2,
+    officeAmount3,
+    setOfficeAmount3,
+    setOfficeAmount4,
+    getOfficeAmount,
     officeAmount2,
     getRefundAmount,
     imprestAmount,

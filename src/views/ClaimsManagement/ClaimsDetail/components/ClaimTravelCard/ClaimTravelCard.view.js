@@ -18,8 +18,10 @@ import DetailsIncludeForm from "./component/Detailsincludes/DetailsIncludes.comp
 import CoIncludeForm from "./component/Coincludes/Coinclude.component";
 import OtherDetailsIncludeForm from "./component/OtherDetailsincludes/OtherDetailsIncludes.component";
 import { CheckBox } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 function ClaimTravelCard() {
+  const history = useHistory();
   const {
     form,
     changeTextData,
