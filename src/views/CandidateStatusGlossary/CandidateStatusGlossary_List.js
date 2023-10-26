@@ -40,7 +40,7 @@ const TravelList = ({ location }) => {
         render: (temp, all) => <div>{all?.description}</div>,
       },
     ];
-  }, []);
+  }, [candidates]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
