@@ -30,6 +30,7 @@ const TEMP_OBJ = {
   currency: "",
   country: "",
   country_name: "",
+  over_expenditure:0,
   payment_made_by: "",
 };
 
@@ -103,11 +104,11 @@ const LodgingIncludeForm = (
           }
         });
       }
-      if (val?.amount) {
-        if (val?.amount > val?.max_entitlement) {
-          err["amount"] = true;
-        }
-      }
+      // if (val?.amount) {
+      //   if (val?.amount > val?.max_entitlement) {
+      //     err["amount"] = true;
+      //   }
+      // }
       if (val?.stay_at === "HOTEL" && !val?.hotel) {
         err["hotel"] = true;
       }

@@ -683,7 +683,7 @@ export const IEAllotAmout = (grade) => {
     case "G5":
       return 160;
     case "G6":
-      return 160;
+      return 100;
     case "G7":
       return 100;
     case "G8":
