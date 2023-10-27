@@ -26,7 +26,7 @@ const initialForm = {
 const OccasionKey = [
   "type",
   // "duration",
-  // "duration_days",
+  "duration_days",
   "comment",
   "event_type",
   // "start_date",
@@ -283,7 +283,7 @@ const useLeaveApplication = () => {
   const date = new Date();
   const CurrentMonth = date?.getMonth() + 1;
   const CurrentYear = date?.getFullYear();
-  const nextYear = CurrentYear + 1;
+  const nextYear = date?.getFullYear() + 1;
 
   let startPointBday = employeeDetails?.dob?.indexOf("/");
   let endPointBday = employeeDetails?.dob?.lastIndexOf("/");
@@ -307,8 +307,6 @@ const useLeaveApplication = () => {
   const BdayLeaveThisYearAnni =
     valueDaysAnni + "/" + valueMonthAnni + "/" + CurrentYear;
 
-  console.log(anniNext, "anniNext is here");
-
   useEffect(() => {
     MonthConvertor();
     AnniversaryConvertor();
@@ -317,6 +315,18 @@ const useLeaveApplication = () => {
     setAnniYear(BdayLeaveThisYearAnni);
     setAnniNext(BdayLeaveNextYearAnni);
   });
+
+  const formatDate = (inputDate) => {
+    const dateParts = inputDate.split("/");
+    const month = dateParts[1];
+    const day = dateParts[0];
+    const year = dateParts[2];
+
+    const formattedDate = new Date(`${year}-${month}-${day}`);
+
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return formattedDate.toLocaleDateString("en-GB", options);
+  };
 
   useEffect(() => {
     if (form?.start_date && form?.end_date) {
@@ -336,7 +346,6 @@ const useLeaveApplication = () => {
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
-      console.log("bdayYear", bdayYear, anniNext, bdayYear, bdayNext);
       setIsSubmitting(true);
       let req = serviceLeaveCreate;
       const fd = new FormData();
@@ -351,29 +360,22 @@ const useLeaveApplication = () => {
       reqParam?.forEach((key) => {
         fd.append(key, form[key]);
       });
-      if (form?.type === "OCCASION_LEAVE") {
+      if (form?.type !== "OCCASION_LEAVE") {
+        fd.append("duration", "FULL_DAY");
+        fd.append("duration_days", daysCount);
+      } else if (form?.type === "OCCASION_LEAVE") {
         if (form?.event_type === "BIRTHDAY") {
-          if (alphabet < CurrentMonth) {
-            console.log("bdayYear1", bdayNext);
-            fd.append("duration", "FULL_DAY");
-            fd.append("duration_days", daysCount);
-            fd.append("start_date", bdayNext);
+          if (valueMonth < CurrentMonth) {
+            fd.append("start_date", formatDate(bdayNext));
+            console.log(bdayNext,"Hello");
           } else {
-            console.log("bdayYear2", bdayYear);
-            fd.append("duration", "FULL_DAY");
-            fd.append("duration_days", daysCount);
-            fd.append("start_date", bdayYear);
+            fd.append("start_date", formatDate(bdayYear));
           }
-        }
-         else if (form?.event_type === "MARRIAGE_ANNIVERSARY") {
-          if (monthhook < CurrentMonth) {
-            fd.append("duration", "FULL_DAY");
-            fd.append("duration_days", daysCount);
-            fd.append("start_date", anniYear);
+        } else {
+          if (valueMonthAnni < CurrentMonth) {
+            fd.append("start_date", formatDate(anniNext));
           } else {
-            fd.append("duration", "FULL_DAY");
-            fd.append("duration_days", daysCount);
-            fd.append("start_date", anniNext);
+            fd.append("start_date", formatDate(anniYear));
           }
         }
       }
