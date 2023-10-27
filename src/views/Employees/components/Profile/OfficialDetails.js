@@ -54,7 +54,7 @@ const OfficialDetails = ({ data }) => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Vehicle Type:</span>
-                <span className={styles.valueWrap}>{data?.vehicle?.vehicle_type}</span>
+                <span className={styles.valueWrap}>{data?.vehicle?.variant}</span>
               </div>
             </div>
             <div className={styles.vertical}></div>
@@ -81,7 +81,7 @@ const OfficialDetails = ({ data }) => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Vehicle Number:</span>
-                <span className={styles.valueWrap}>{data?.vehicle?.vehicle_number}</span>
+                <span className={styles.valueWrap}>{data?.vehicle?.rc_number}</span>
               </div>
             </div>
           </div>

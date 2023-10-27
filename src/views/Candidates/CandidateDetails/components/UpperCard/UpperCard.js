@@ -104,14 +104,14 @@ const UpperCard = ({
                  <span className={styles.actionBtnSpan}>Update Status</span>
                </ActionButton>
               </div>
-              {/* {
+              {
                 checkPrc &&  <div className={styles.btnUpper}>
                 <ActionButton onClick={handleToggle}>
                   <Edit fontSize={"small"} />
                   <span className={styles.actionBtnSpan}>Update PRC</span>
                 </ActionButton>
               </div>
-              } */}
+              }
             </div>
           </div>
         </div>

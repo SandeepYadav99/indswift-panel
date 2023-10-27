@@ -62,6 +62,7 @@ export default {
   SETTINGS: "/settings",
   HR_SETTINGS: "/hr/settings",
   HR_USC_UPDATE:'/hr/usc/update/',
+  CURRENCY_UPDATE:'/hr/currency/update/',
 
   EMPLOYEE_DASHBOARD: "/employee/dashboard",
   RESET_PASSWORD_FIRST: "/reset/password/first",
@@ -107,6 +108,7 @@ export default {
   CLAIMS_DETAILS:'/cm/details/',
   CLAIMS_HR_DETAILS:'/cm/hr/details/',
   TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',
+  FOREIGN_CLAIMS_DETAILS:'/cm/foreign/details/',
   TRAVEL_HR_CLAIMS_DETAILS:'/cm/hr/travel/details/',
   CLAIMS_HR_LIST:'/cm/hr/claims' ,
 
@@ -117,6 +119,7 @@ export default {
   CLAIMS_HEALTH:'/employee/claim/health',
   CLAIMS_TRAVEL:'/employee/claim/travel',
   CLAIMS_INT:'/employee/claim/int',
+  CLAIMS_CURR:'/employee/claim/foreign',
   CLAIMS_INTERVIEW:'/cm/interview',
   CLAIMS_INTERVIEW_DETAILS:'/cm/interview/details/',
   CLAIMS_LOC:'/employee/claim/loc',
@@ -188,5 +191,9 @@ export default {
 
   IRF_LOGIN:'/irf/login',
   IRF_FORM:'/irf/form',
-  INCREMENT_MASTER:'/increment-master'
+  INCREMENT_MASTER:'/increment-master',
+
+  LEAVE_APPLICATION_LIST_VIEW:'/leave-application/list',
+  LEAVE_APPLICATION_FORM:"/leave-application/form",
+  PENDING_LEAVE_APPLICATION:"/pending-application/list",
 };

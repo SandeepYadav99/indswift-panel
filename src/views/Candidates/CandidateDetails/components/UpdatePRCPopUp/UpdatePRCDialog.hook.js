@@ -31,7 +31,7 @@ const useUpdatePRCDialogHook = ({ isOpen, handleToggle, candidateId }) => {
         delete ed["code"];
         setForm({ ...form, ...dataValue });
       } else {
-        ed["code"] = "Job Id doesnot Exist";
+        ed["code"] = "Job Id does not Exist";
         setForm({
           code: form?.code,
         });

@@ -399,52 +399,102 @@ export const entitlementAmout = (grade, book, cluster) => {
   }
 };
 
-export const entitlementForeign = (grade, book) => {
+export const entitlementForeign = (grade, book, country) => {
   if (book === "SELF_ARRANGEMENT") {
-    switch (grade) {
-      case "G0":
-        return 32;
-      case "G1":
-        return 32;
-      case "G2":
-        return 32;
-      case "G3":
-        return 28;
-      case "G4":
-        return 28;
-      case "G5":
-        return 28;
-      case "G6":
-        return 28;
-      case "G7":
-        return 28;
-      case "G8":
-        return 28;
-      default:
-        return 0;
+    if (country === "INDIA") {
+      switch (grade) {
+        case "G0":
+          return 1300;
+        case "G1":
+          return 1100;
+        case "G2":
+          return 800;
+        case "G3":
+          return 600;
+        case "G4":
+          return 540;
+        case "G5":
+          return 500;
+        case "G6":
+          return 460;
+        case "G7":
+          return 340;
+        case "G8":
+          return 240;
+        default:
+          return 0;
+      }
+    } else {
+      switch (grade) {
+        case "G0":
+          return 32;
+        case "G1":
+          return 32;
+        case "G2":
+          return 32;
+        case "G3":
+          return 28;
+        case "G4":
+          return 28;
+        case "G5":
+          return 28;
+        case "G6":
+          return 28;
+        case "G7":
+          return 28;
+        case "G8":
+          return 28;
+        default:
+          return 0;
+      }
     }
   } else {
-    switch (grade) {
-      case "G0":
-        return 160;
-      case "G1":
-        return 160;
-      case "G2":
-        return 160;
-      case "G3":
-        return 140;
-      case "G4":
-        return 140;
-      case "G5":
-        return 140;
-      case "G6":
-        return 140;
-      case "G7":
-        return 140;
-      case "G8":
-        return 140;
-      default:
-        return 0;
+    if (country === "INDIA") {
+      switch (grade) {
+        case "G0":
+          return 6500;
+        case "G1":
+          return 5500;
+        case "G2":
+          return 4000;
+        case "G3":
+          return 3000;
+        case "G4":
+          return 2700;
+        case "G5":
+          return 2500;
+        case "G6":
+          return 2300;
+        case "G7":
+          return 1700;
+        case "G8":
+          return 1200;
+        default:
+          return 0;
+      }
+    } else {
+      switch (grade) {
+        case "G0":
+          return 160;
+        case "G1":
+          return 160;
+        case "G2":
+          return 160;
+        case "G3":
+          return 140;
+        case "G4":
+          return 140;
+        case "G5":
+          return 140;
+        case "G6":
+          return 140;
+        case "G7":
+          return 140;
+        case "G8":
+          return 140;
+        default:
+          return 0;
+      }
     }
   }
 };
@@ -459,10 +509,20 @@ export const travelListExpense = [
   { id: "COMPANY_VEHICLE", name: "Company Vehicle" },
   { id: "OWN_CAR", name: "Personal Car" },
 ];
+
+export const travelListForeignExpense = [
+  { id: "flight", name: "Flight" },
+  { id: "PUBLIC_TRANSPORT", name: "Public Transport (Bus)" },
+  { id: "TRAIN", name: "Train (if available)" },
+  { id: "AUTO", name: "Auto/e-rikshaw" },
+  { id: "UBER_BIKE", name: "Uber - Bike" },
+  { id: "COMPANY_VEHICLE", name: "Company Vehicle" },
+];
+
 export const DAAllotAmout = (grade, book) => {
   if (book === "SELF_ARRANGEMENT") {
     switch (grade) {
-      case 'G0':
+      case "G0":
         return 500;
       case "G1":
         return 400;
@@ -485,7 +545,7 @@ export const DAAllotAmout = (grade, book) => {
     }
   } else {
     switch (grade) {
-      case 'G0':
+      case "G0":
         return 1200;
       case "G1":
         return 1000;
@@ -508,6 +568,131 @@ export const DAAllotAmout = (grade, book) => {
     }
   }
 };
+export const DAAllotForeignAmout = (grade, currency, cp) => {
+  if (cp) {
+    return 50;
+  }
+  if (currency === "EUR") {
+    switch (grade) {
+      case "G0":
+        return 70;
+      case "G1":
+        return 70;
+      case "G2":
+        return 70;
+      case "G3":
+        return 60;
+      case "G4":
+        return 60;
+      case "G5":
+        return 60;
+      case "G6":
+        return 60;
+      case "G7":
+        return 60;
+      case "G8":
+        return 60;
+      default:
+        return 0;
+    }
+  } else if (currency === "USD") {
+    switch (grade) {
+      case "G0":
+        return 75;
+      case "G1":
+        return 75;
+      case "G2":
+        return 75;
+      case "G3":
+        return 65;
+      case "G4":
+        return 65;
+      case "G5":
+        return 65;
+      case "G6":
+        return 65;
+      case "G7":
+        return 65;
+      case "G8":
+        return 65;
+      default:
+        return 0;
+    }
+  } else {
+    switch (grade) {
+      case "G0":
+        return 1200;
+      case "G1":
+        return 1000;
+      case "G2":
+        return 900;
+      case "G3":
+        return 800;
+      case "G4":
+        return 700;
+      case "G5":
+        return 600;
+      case "G6":
+        return 500;
+      case "G7":
+        return 300;
+      case "G8":
+        return 250;
+      default:
+        return 0;
+    }
+  }
+};
+export const IEForeignAllotAmout = (grade, currency) => {
+  if (currency === "INR") {
+    switch (grade) {
+      case "G0":
+        return 500;
+      case "G1":
+        return 300;
+      case "G2":
+        return 220;
+      case "G3":
+        return 200;
+      case "G4":
+        return 180;
+      case "G5":
+        return 160;
+      case "G6":
+        return 160;
+      case "G7":
+        return 100;
+      case "G8":
+        return 50;
+      default:
+        return 0;
+    }
+  } else {
+    switch (grade) {
+      case "G0":
+        return 15;
+      case "G1":
+        return 15;
+      case "G2":
+        return 15;
+      case "G3":
+        return 10;
+      case "G4":
+        return 10;
+      case "G5":
+        return 10;
+      case "G6":
+        return 10;
+      case "G7":
+        return 10;
+      case "G8":
+        return 10;
+      default:
+        return 0;
+    }
+  }
+};
+
 export const IEAllotAmout = (grade) => {
   switch (grade) {
     case "G0":
@@ -523,7 +708,7 @@ export const IEAllotAmout = (grade) => {
     case "G5":
       return 160;
     case "G6":
-      return 160;
+      return 100;
     case "G7":
       return 100;
     case "G8":
@@ -532,13 +717,13 @@ export const IEAllotAmout = (grade) => {
       return 0;
   }
 };
-export const getFixedValue=(val)=>{
-  const num = Number(val)
-  if(num === 0){
-    return 0
-  }else if (num === 1){
-    return 170
-  }else if (num === 2){
-    return 340
+export const getFixedValue = (val) => {
+  const num = Number(val);
+  if (num === 0) {
+    return 0;
+  } else if (num === 1) {
+    return 170;
+  } else if (num === 2) {
+    return 340;
   }
-}
+};

@@ -5,10 +5,10 @@ import styles from "./Style.module.css";
 import useUSCEditHook from "./USCEditHook";
 
 function USCEditView() {
-  const { form, errorData, changeTextData, handleSubmit } = useUSCEditHook({});
+  const { form, errorData, changeTextData, handleSubmit,detail } = useUSCEditHook({});
   return (
     <div className={styles.cagrWrapper}>
-      <div className={styles.Heading}>Universal Salary Calculator</div>
+      <div className={styles.Heading}>Universal Salary Calculator - {detail?.location?.name}</div>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField
