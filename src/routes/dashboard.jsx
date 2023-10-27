@@ -36,7 +36,7 @@ const LeaveApplication = lazy(() =>
 
 const CandidateInformation = lazy(() =>
   import(
-    "../views/PendingBckgroundVerification/BGCandidateInformation/CandidateInformation"
+    "../views/PendingBckgroundVerification/BGCandidateInformation/BG_CndidateInfo"
   )
 );
 const PendingBGVerification_View = lazy(() =>

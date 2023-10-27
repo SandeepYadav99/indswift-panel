@@ -4,9 +4,9 @@ import { ButtonBase, Menu, MenuItem } from "@material-ui/core";
 import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
-import useCandidateInformation_Hook from "./CandidateInformation_Hook";
-import BGVDetails from "../BGVerificationDetails/BGVDetails";
-import CandidateInfor from "../component/CandidateInfor";
+import useCandidateInformation_Hook from "./BG_CandidateInfo_Hook";
+import BGVDetails from "../BGVerificationForm/BGVForm";
+import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
 
 const CandidateInformation = () => {
   const {
@@ -20,14 +20,7 @@ const CandidateInformation = () => {
   // if (isLoading) {
   //   return <WaitingComponent />;
   // }
-  const valencyChange = (value) => {
-    return value ? value.replace(/_/, " ") : "NA";
-  };
-  const styleRed = {
-    color: "#ff4d4f",
-    backgroundColor: "rgba(255,77,79,.06274509803921569)",
-    border: "none",
-  };
+  
   return (
     <div>
       <div className={styles.outerFlex}>

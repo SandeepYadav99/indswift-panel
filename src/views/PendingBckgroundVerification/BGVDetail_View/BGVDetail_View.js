@@ -1,41 +1,28 @@
-import React from "react";
-import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
-import CheckboxList from "../component/Checkbox";
-import useCandidateUpdate_Hook from "./BGVStatusUpdate_Hook";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, MenuItem } from '@material-ui/core'
+import React from 'react'
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import styles from "./Style.module.css";
-import historyUtils from "../../../libs/history.utils";
-import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
-import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-const BGVStatus_Update = () => {
-  const {
-    data,
-    isLoading,
-    id,
-    isInterviewStatus,
-    handleChangeInterviewStatus,
-    handleViewEditDetails,
-    form,
-    changeTextData,
-    errorData,
-  } = useCandidateUpdate_Hook({});
-
+import historyUtils from '../../../libs/history.utils';
+import styles from "./Style.module.css"
+import CandidateInfor from '../component/CandidateInfor/CandidateInfor';
+import CustomSelectField from '../../../components/FormFields/SelectField/SelectField.component';
+import CheckboxList from '../component/Checkbox';
+import CustomTextField from '../../../components/FormFields/TextField/TextField.component';
+const BGVDetailView = ({errorData, form, changeTextData}) => {
   return (
     <div>
-      <div className={styles.outerFlex}>
-        <div>
-          <ButtonBase onClick={() => historyUtils.goBack()}>
-            <ArrowBackIosIcon fontSize={"small"} />{" "}
-            <span>
-              <b>Background Verification Form</b>
-            </span>
-          </ButtonBase>
-          <div className={styles.newLine} />
-        </div>
+    <div className={styles.outerFlex}>
+      <div>
+        <ButtonBase onClick={() => historyUtils.goBack()}>
+          <ArrowBackIosIcon fontSize={"small"} />{" "}
+          <span>
+            <b>Background Verification Form</b>
+          </span>
+        </ButtonBase>
+        <div className={styles.newLine} />
       </div>
-      <CandidateInfor data={{}} />
-      <div className={styles.plainPaper}>
+    </div>
+    <CandidateInfor data={{}} />
+    <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
 
           <CheckboxList form={form} changeTextData={changeTextData} />
@@ -221,17 +208,8 @@ const BGVStatus_Update = () => {
           </p>
         </div>
       </div>
-      <div className={styles.btnCont}>
-        <ButtonBase
-          type={"button"}
-          // onClick={handleSubmit}
-          className={styles.createBtn}
-        >
-          UPDATE
-        </ButtonBase>
-      </div>
-    </div>
-  );
-};
+  </div>
+  )
+}
 
-export default BGVStatus_Update;
+export default BGVDetailView

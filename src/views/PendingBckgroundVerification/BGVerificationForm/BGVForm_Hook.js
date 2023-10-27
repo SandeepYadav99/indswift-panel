@@ -9,7 +9,7 @@ import {
   serviceEmployeeBGVDetail,
 } from "../../../services/PendingBGVerification.service";
 
-const useBGVDetails_Hook = ({}) => {
+const useBGVForm_Hook = ({}) => {
   const initialForm = {
     is_education_verification: false,
     is_first_employment_verification: false,
@@ -222,4 +222,4 @@ const useBGVDetails_Hook = ({}) => {
   };
 };
 
-export default useBGVDetails_Hook;
+export default useBGVForm_Hook;

@@ -1,13 +1,13 @@
 import styles from "./Style.module.css";
 import { ButtonBase, IconButton, MenuItem } from "@material-ui/core";
-import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import { CheckBox, EditOutlined } from "@material-ui/icons";
-import useBGVDetails_Hook from "./BGVDetails_Hook";
+
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CheckboxList from "../component/Checkbox";
+import useBGVForm_Hook from "./BGVForm_Hook";
 
-const BGVDetails = () => {
+const BGVForm = () => {
   const {
    
     form,
@@ -16,7 +16,7 @@ const BGVDetails = () => {
     handleSubmit,
     isCostEdit,
     toggleCostEdit
-  } = useBGVDetails_Hook({});
+  } = useBGVForm_Hook({});
 
 
   return (
@@ -127,4 +127,4 @@ const BGVDetails = () => {
   );
 };
 
-export default BGVDetails;
+export default BGVForm;
