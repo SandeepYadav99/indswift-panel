@@ -25,11 +25,11 @@ const initialForm = {
 };
 const OccasionKey = [
   "type",
-  "duration",
-  "duration_days",
+  // "duration",
+  // "duration_days",
   "comment",
   "event_type",
-  "start_date",
+  // "start_date",
 ];
 
 const Bereavement = [
@@ -307,7 +307,7 @@ const useLeaveApplication = () => {
   const BdayLeaveThisYearAnni =
     valueDaysAnni + "/" + valueMonthAnni + "/" + CurrentYear;
 
-  console.log(anniNext,"anniNext is here");
+  console.log(anniNext, "anniNext is here");
 
   useEffect(() => {
     MonthConvertor();
@@ -336,6 +336,7 @@ const useLeaveApplication = () => {
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
+      console.log("bdayYear", bdayYear, anniNext, bdayYear, bdayNext);
       setIsSubmitting(true);
       let req = serviceLeaveCreate;
       const fd = new FormData();
@@ -350,37 +351,29 @@ const useLeaveApplication = () => {
       reqParam?.forEach((key) => {
         fd.append(key, form[key]);
       });
-      if (form?.type !== "OCCASION_LEAVE") {
+      if (form?.type === "OCCASION_LEAVE") {
         if (form?.event_type === "BIRTHDAY") {
           if (alphabet < CurrentMonth) {
+            console.log("bdayYear1", bdayNext);
             fd.append("duration", "FULL_DAY");
             fd.append("duration_days", daysCount);
-            fd.append(
-              "start_date",
-              bdayNext
-            );
+            fd.append("start_date", bdayNext);
+          } else {
+            console.log("bdayYear2", bdayYear);
+            fd.append("duration", "FULL_DAY");
+            fd.append("duration_days", daysCount);
+            fd.append("start_date", bdayYear);
           }
-          fd.append("duration", "FULL_DAY");
-          fd.append("duration_days", daysCount);
-          fd.append(
-            "start_date",
-            bdayYear
-          );
-        } else if (form?.event_type === "MARRIAGE_ANNIVERSARY") {
+        }
+         else if (form?.event_type === "MARRIAGE_ANNIVERSARY") {
           if (monthhook < CurrentMonth) {
             fd.append("duration", "FULL_DAY");
             fd.append("duration_days", daysCount);
-            fd.append(
-              "start_date",
-              anniYear
-            );
+            fd.append("start_date", anniYear);
           } else {
             fd.append("duration", "FULL_DAY");
             fd.append("duration_days", daysCount);
-            fd.append(
-              "start_date",
-              anniNext
-            );
+            fd.append("start_date", anniNext);
           }
         }
       }
@@ -396,7 +389,25 @@ const useLeaveApplication = () => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, daysCount, setDaysCount,bdayYear,bdayNext,anniYear,anniNext,setBdayYear,setBdayNext,setAnniYear,setAnniNext,valueDaysAnni,valueMonthAnni,valueDays,valueMonth]);
+  }, [
+    form,
+    isSubmitting,
+    setIsSubmitting,
+    daysCount,
+    setDaysCount,
+    bdayYear,
+    bdayNext,
+    anniYear,
+    anniNext,
+    setBdayYear,
+    setBdayNext,
+    setAnniYear,
+    setAnniNext,
+    valueDaysAnni,
+    valueMonthAnni,
+    valueDays,
+    valueMonth,
+  ]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -405,7 +416,25 @@ const useLeaveApplication = () => {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, daysCount, setDaysCount,bdayYear,bdayNext,anniYear,anniNext,setBdayYear,setBdayNext,setAnniYear,setAnniNext,valueDaysAnni,valueMonthAnni,valueDays,valueMonth]);
+  }, [
+    checkFormValidation,
+    setErrorData,
+    form,
+    daysCount,
+    setDaysCount,
+    bdayYear,
+    bdayNext,
+    anniYear,
+    anniNext,
+    setBdayYear,
+    setBdayNext,
+    setAnniYear,
+    setAnniNext,
+    valueDaysAnni,
+    valueMonthAnni,
+    valueDays,
+    valueMonth,
+  ]);
 
   const removeError = useCallback(
     (title) => {
