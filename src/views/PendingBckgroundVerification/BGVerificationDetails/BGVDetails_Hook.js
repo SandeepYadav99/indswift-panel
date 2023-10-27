@@ -1,9 +1,9 @@
 import { useParams } from "react-router";
 import React, { useCallback, useEffect, useState } from "react";
-import { serviceJobOpeningsDetails } from "../../../services/JobOpenings.service";
+
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
-import RouteName from "../../../routes/Route.name";
+
 import {
   serviceEmployeeBGVCreate,
   serviceEmployeeBGVDetail,
@@ -36,47 +36,48 @@ const useBGVDetails_Hook = ({}) => {
     "is_criminal_verification",
   ];
 
- const calculateCost = (form) => {
-  const selectedCheckboxes = checkboxFields.filter((field) => form[field]);
-  let cost = 0;
+  const calculateCost = (form) => {
+    const selectedCheckboxes = checkboxFields.filter((field) => form[field]);
+    let cost = 0;
 
-  switch (selectedCheckboxes.length) {
-    case 2:
-      cost = 500;
-      break;
-    case 3:
-      cost = 900;
-      break;
-    case 4:
-      cost = 1400;
-      break;
-    default:
-      cost = 0;
-  }
-  return cost;
-};
-
+    switch (selectedCheckboxes.length) {
+      case 2:
+        cost = 500;
+        break;
+      case 3:
+        cost = 900;
+        break;
+      case 4:
+        cost = 1400;
+        break;
+      default:
+        cost = 0;
+    }
+    return cost;
+  };
 
   const toggleCostEdit = useCallback(() => {
     setIsCostEdit(!isCostEdit);
   }, [isCostEdit]);
 
   useEffect(() => {
-    // setIsLoading(true);
+    setIsLoading(true);
     serviceEmployeeBGVDetail({ id: id }).then((res) => {
       if (!res.error) {
-       console.log(res)
-       const data = res?.data?.details;
-       setForm({
-        ...form,
-        is_education_verification: data?.is_education_verification,
-        is_first_employment_verification: data?.is_first_employment_verification,
-        is_secound_employment_verification: data?.is_secound_employment_verification,
-        is_criminal_verification: data?.is_criminal_verification,
-        cost: data?.cost,
-        billing_to: data?.billing_to,
-        remark: data?.remark,
-       })
+        const data = res?.data?.details;
+        console.log(data)
+        setForm({
+          ...form,
+          is_education_verification: data?.is_education_verification,
+          is_first_employment_verification:
+            data?.is_first_employment_verification,
+          is_secound_employment_verification:
+            data?.is_secound_employment_verification,
+          is_criminal_verification: data?.is_criminal_verification,
+          cost: data?.cost,
+          billing_to: data?.billing_to,
+          remark: data?.remark,
+        });
       } else {
         SnackbarUtils.error(res.message);
       }
@@ -86,10 +87,7 @@ const useBGVDetails_Hook = ({}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [
-       "cost",
-       "billing_to",
-    ];
+    let required = ["cost", "billing_to"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -130,7 +128,7 @@ const useBGVDetails_Hook = ({}) => {
       billing_to: form?.billing_to,
       remark: form?.remark,
     };
-  
+
     try {
       let req = serviceEmployeeBGVCreate(updatedData);
       let res = await req;
@@ -139,7 +137,6 @@ const useBGVDetails_Hook = ({}) => {
       // const res = await req;
 
       if (!res.error) {
-      
         historyUtils.goBack();
       } else {
         SnackbarUtils.error(res.message);
@@ -175,7 +172,7 @@ const useBGVDetails_Hook = ({}) => {
       let shouldRemoveError = true;
       const t = { ...form };
 
-      if (fieldName === "billing_to" ) {
+      if (fieldName === "billing_to") {
         t[fieldName] = value;
       } else if (fieldName === "cost") {
         t.cost = value;
@@ -185,7 +182,7 @@ const useBGVDetails_Hook = ({}) => {
         t[fieldName] = value;
         t.cost = calculateCost(t);
         const selectedCount = checkboxFields.filter((field) => t[field]).length;
-        setSelectedCheckboxes(selectedCount)
+        setSelectedCheckboxes(selectedCount);
       }
 
       setForm(t);
@@ -200,7 +197,7 @@ const useBGVDetails_Hook = ({}) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
- 
+
     [changeTextData]
   );
 

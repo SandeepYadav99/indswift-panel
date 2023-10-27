@@ -3,6 +3,7 @@ import styles from "./Style.module.css"
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 
 const CheckboxList = ({changeTextData, form}) => {
+  console.log(form)
   return (
     <div className={styles.mainFlex}>
     <div className={styles.left}>

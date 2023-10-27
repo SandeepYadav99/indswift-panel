@@ -35,6 +35,9 @@ const PendingBGVerification_View = ({ location }) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.pendingBGV);
 
+  const removeUnderScore = (value) => {
+    return value ? value.replace(/_/g, " ") : "";
+  };
   const renderStatus = useCallback((status) => {
     if (status === "PENDING" || "CLEAR" || "FAILED") {
       return <StatusPill status={status} />;
@@ -111,7 +114,7 @@ const PendingBGVerification_View = ({ location }) => {
         key: "status",
         label: "STATUS",
         sortable: true,
-        render: (temp, all) => <StatusPill status={all?.status} />,
+        render: (temp, all) => {renderStatus(removeUnderScore(all?.status))},
       },
       {
         key: "bgv-result",

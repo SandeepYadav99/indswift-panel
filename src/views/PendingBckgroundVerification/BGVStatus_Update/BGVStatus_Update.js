@@ -20,6 +20,7 @@ const BGVStatus_Update = () => {
     changeTextData,
     errorData,
   } = useCandidateUpdate_Hook({});
+
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -36,16 +37,18 @@ const BGVStatus_Update = () => {
       <CandidateInfor data={{}} />
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
+
           <CheckboxList form={form} changeTextData={changeTextData} />
+
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomSelectField
-                isError={errorData?.billing_to}
-                errorText={errorData?.billing_to}
+                isError={errorData?.is_education_verification_status}
+                errorText={errorData?.is_education_verification_status}
                 label={"Choose Status"}
-                value={form?.billing_to}
+                value={form?.is_education_verification_status}
                 handleChange={(value) => {
-                  changeTextData(value, "billing_to");
+                  changeTextData(value, "is_education_verification_status");
                 }}
               >
                 <MenuItem value="clear">CLEAR</MenuItem>

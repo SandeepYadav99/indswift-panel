@@ -4,6 +4,7 @@ import { serviceJobOpeningsDetails } from "../../../services/JobOpenings.service
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import { serviceEmployeeBGVDetail } from "../../../services/PendingBGVerification.service";
 
 const initialForm = {
   is_education_verification: false,
@@ -34,31 +35,33 @@ const useCandidateUpdate_Hook = ({}) => {
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // useEffect(() => {
-  //     setIsLoading(true);
-  //     serviceJobOpeningsDetails({id: id}).then((res) => {
-  //         if (!res.error) {
-  //             setData(res.data.details);
-  //         } else {
-  //             SnackbarUtils.error(res.message);
-  //         }
-  //         setIsLoading(false);
-  //     });
-  // }, [id]);
+  useEffect(() => {
+    // setIsLoading(true);
+    serviceEmployeeBGVDetail({ id: id }).then((res) => {
+      if (!res.error) {
+       console.log(res)
+       const data = res?.data?.details;
+       console.log(data)
+       setForm({
+        ...form,
+        is_education_verification: data?.is_education_verification,
+        // is_first_employment_verification: data?.is_first_employment_verification,
+        // is_secound_employment_verification: data?.is_secound_employment_verification,
+        // is_criminal_verification: data?.is_criminal_verification,
+        // cost: data?.cost,
+        // billing_to: data?.billing_to,
+        // remark: data?.remark,
+       })
+      } else {
+        SnackbarUtils.error(res.message);
+      }
+      setIsLoading(false);
+    });
+  }, [id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [
-      "name",
-      "effective_date",
-      "chapter_id",
-      // "document",
-      // "status",
-    ];
-
-    // if (!empId) {
-    //   required.push("document");
-    // }
+    let required = ["cost", "billing_to"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -69,6 +72,7 @@ const useCandidateUpdate_Hook = ({}) => {
         delete errors[val];
       }
     });
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -128,6 +132,39 @@ const useCandidateUpdate_Hook = ({}) => {
     }
   }, [checkFormValidation, setErrorData, form, submitToServer]);
 
+  const removeError = useCallback(
+    (title) => {
+      const temp = JSON.parse(JSON.stringify(errorData));
+      temp[title] = false;
+      setErrorData(temp);
+    },
+    [setErrorData, errorData]
+  );
+
+  const changeTextData = useCallback(
+    (value, fieldName) => {
+      let shouldRemoveError = true;
+      const t = { ...form };
+
+      if (fieldName === "billing_to") {
+        t[fieldName] = value;
+      } else if (fieldName === "cost") {
+        t.cost = value;
+      } else if (fieldName === "remark") {
+        t.remark = value;
+      } else {
+        t[fieldName] = value;
+        // t.cost = calculateCost(t);
+        // const selectedCount = checkboxFields.filter((field) => t[field]).length;
+        // setSelectedCheckboxes(selectedCount);
+      }
+
+      setForm(t);
+      shouldRemoveError && removeError(fieldName);
+    },
+    [ form, setForm, removeError]// calculateCost
+  );
+
 
   const handleViewEditDetails = useCallback((data) => {
     historyUtils.push(RouteName.JOB_OPENINGS_UPDATE + data.id);
@@ -140,6 +177,8 @@ const useCandidateUpdate_Hook = ({}) => {
     id,
     isInterviewStatus,
     handleViewEditDetails,
+    changeTextData,
+    form
   };
 };
 
