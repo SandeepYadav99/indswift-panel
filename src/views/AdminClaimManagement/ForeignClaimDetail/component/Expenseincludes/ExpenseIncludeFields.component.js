@@ -130,7 +130,10 @@ const ExpenseIncludeFields = ({
                 <span className={styles.value}>No of KMs:</span>
                 {data?.total_kms && `${data?.total_kms} Km`}
               </div>
-
+              <div className={styles.key}>
+                <span className={styles.value}>Choose the currency of payment:</span>
+                {data?.payment_made_by ? data?.payment_made_by : "-"}
+              </div>
               {data?.payment_proof && (
                 <div className={styles.key}>
                   <a href={data?.payment_proof} target="_blank">

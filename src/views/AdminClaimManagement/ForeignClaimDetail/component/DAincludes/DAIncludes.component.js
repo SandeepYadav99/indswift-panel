@@ -237,17 +237,27 @@ const DAIncludeForm = (
     }, 0);
   }, [fields]);
 
-  useEffect(() => {
-    changeAmount(USDsum, "da_ie_expenses_amount_usd");
-  }, [USDsum]);
+  // useEffect(() => {
+  //   changeAmount(USDsum, "da_ie_expenses_amount_usd");
+  // }, [USDsum]);
 
-  useEffect(() => {
-    changeAmount(Eurosum, "da_ie_expenses_amount_eur");
-  }, [Eurosum]);
+  // useEffect(() => {
+  //   changeAmount(Eurosum, "da_ie_expenses_amount_eur");
+  // }, [Eurosum]);
 
+  // useEffect(() => {
+  //   changeAmount(Inrsum, "da_ie_expenses_amount");
+  // }, [Inrsum]);
+
+  
   useEffect(() => {
-    changeAmount(Inrsum, "da_ie_expenses_amount");
-  }, [Inrsum]);
+    const value = {
+      da_ie_expenses_amount: Inrsum,
+      da_ie_expenses_amount_eur: Eurosum,
+      da_ie_expenses_amount_usd: USDsum,
+    };
+    changeAmount(value);
+  }, [Inrsum, USDsum, Eurosum]);
 
   return (
     <>

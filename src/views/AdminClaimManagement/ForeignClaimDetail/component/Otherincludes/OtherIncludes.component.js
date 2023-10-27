@@ -20,7 +20,7 @@ const TEMP_OBJ = {
 };
 
 const OtherIncludeForm = (
-  { data, errorData: errorForm, grade, changeAmount, startDate, endDate },
+  { data, errorData: errorForm, grade, changeAmount, startDate, endDate ,setOfficeAmount4,curr},
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -226,21 +226,57 @@ const OtherIncludeForm = (
     }, 0);
   }, [fields]);
 
-  useEffect(() => {
-    changeAmount(USDsum, "tap_other_expenses_amount_usd");
-  }, [USDsum]);
+  const totalAmount = useMemo(() => {
+    let sum = 0;
+    if (curr?.length > 0) {
+      fields.forEach((item) => {
+        if (item.booking_by !== "SELF" && item.amount !== "") {
+          switch (item.currency) {
+            case "USD":
+              sum += parseFloat(item.amount) * Number(curr[1]?.conversion_rate);
+              break;
+            case "EUR":
+              sum += parseFloat(item.amount) * Number(curr[0]?.conversion_rate);
+              break;
+            case "INR":
+              sum += parseFloat(item.amount);
+              break;
+            default:
+              break;
+          }
+        }
+      });
+    }
 
-  useEffect(() => {
-    changeAmount(Eurosum, "tap_other_expenses_amount_eur");
-  }, [Eurosum]);
-
-  useEffect(() => {
-    changeAmount(Inrsum, "tap_other_expenses_amount");
-  }, [Inrsum]);
+    return sum;
+  }, [fields,curr]);
 
   // useEffect(() => {
-  //   changeAmount(sum, "tap_other_expenses_amount");
-  // }, [sum]);
+  //   changeAmount(USDsum, "tap_other_expenses_amount_usd");
+  // }, [USDsum]);
+
+  // useEffect(() => {
+  //   changeAmount(Eurosum, "tap_other_expenses_amount_eur");
+  // }, [Eurosum]);
+
+  // useEffect(() => {
+  //   changeAmount(Inrsum, "tap_other_expenses_amount");
+  // }, [Inrsum]);
+
+  useEffect(() => {
+    const value = {
+      tap_other_expenses_amount: Inrsum,
+      tap_other_expenses_amount_eur: Eurosum,
+      tap_other_expenses_amount_usd: USDsum,
+    };
+    changeAmount(value);
+  }, [Inrsum, USDsum, Eurosum]);
+
+ useEffect(() => {
+    if (totalAmount || totalAmount == 0) {
+      setOfficeAmount4(totalAmount);
+    }
+  }, [fields,curr]);
 
   return (
     <>
@@ -253,7 +289,7 @@ const OtherIncludeForm = (
         </div>
         <div className={styles.inner}>
           Total Euro Used:{" "}
-          <span>{Eurosum || Eurosum === 0 ? `₹ ${Eurosum}` : ""}</span>
+          <span>{Eurosum || Eurosum === 0 ? `€ ${Eurosum}` : ""}</span>
         </div>
         <div className={styles.inner}>
           Total INR Used:{" "}

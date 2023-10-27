@@ -30,6 +30,7 @@ const TEMP_OBJ = {
   currency: "",
   country: "",
   country_name: "",
+  over_expenditure:0,
   payment_made_by: "",
 };
 
@@ -103,11 +104,11 @@ const LodgingIncludeForm = (
           }
         });
       }
-      if (val?.amount) {
-        if (val?.amount > val?.max_entitlement) {
-          err["amount"] = true;
-        }
-      }
+      // if (val?.amount) {
+      //   if (val?.amount > val?.max_entitlement) {
+      //     err["amount"] = true;
+      //   }
+      // }
       if (val?.stay_at === "HOTEL" && !val?.hotel) {
         err["hotel"] = true;
       }
@@ -360,11 +361,11 @@ const LodgingIncludeForm = (
       <div className={styles.totalWrap}>
         <div className={styles.inner}>
           Total USD Used:{" "}
-          <span>{USDsum || USDsum === 0 ? `₹ ${USDsum}` : ""}</span>
+          <span>{USDsum || USDsum === 0 ? `$ ${USDsum}` : ""}</span>
         </div>
         <div className={styles.inner}>
           Total Euro Used:{" "}
-          <span>{Eurosum || Eurosum === 0 ? `₹ ${Eurosum}` : ""}</span>
+          <span>{Eurosum || Eurosum === 0 ? `€ ${Eurosum}` : ""}</span>
         </div>
         <div className={styles.inner}>
           Total INR Used:{" "}
