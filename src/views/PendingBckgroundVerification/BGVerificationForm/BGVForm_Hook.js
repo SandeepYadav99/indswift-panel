@@ -60,30 +60,6 @@ const useBGVForm_Hook = ({}) => {
     setIsCostEdit(!isCostEdit);
   }, [isCostEdit]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    serviceEmployeeBGVDetail({ id: id }).then((res) => {
-      if (!res.error) {
-        const data = res?.data?.details;
-        console.log(data)
-        setForm({
-          ...form,
-          is_education_verification: data?.is_education_verification,
-          is_first_employment_verification:
-            data?.is_first_employment_verification,
-          is_secound_employment_verification:
-            data?.is_secound_employment_verification,
-          is_criminal_verification: data?.is_criminal_verification,
-          cost: data?.cost,
-          billing_to: data?.billing_to,
-          remark: data?.remark,
-        });
-      } else {
-        SnackbarUtils.error(res.message);
-      }
-      setIsLoading(false);
-    });
-  }, [id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };

@@ -4,7 +4,10 @@ import { serviceJobOpeningsDetails } from "../../../services/JobOpenings.service
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
-import { serviceEmployeeBGVDetail } from "../../../services/PendingBGVerification.service";
+import {
+  serviceEmployeeBGVDetail,
+  serviceEmployeeBGVUpdate,
+} from "../../../services/PendingBGVerification.service";
 
 const initialForm = {
   is_education_verification: false,
@@ -18,12 +21,13 @@ const initialForm = {
   action_remark: "",
   remark: "",
   status: "SENT_FOR_VERIFICATION",
-  // id: "653694d7feb8e04554c49ba5",
+  id: "",
   is_education_verification_status: "",
   is_first_employment_verification_status: "",
   is_secound_employment_verification_status: "",
   is_criminal_verification_status: "",
   payment_complete: "2023-09-08",
+  //
 };
 
 const useCandidateUpdate_Hook = ({}) => {
@@ -34,24 +38,30 @@ const useCandidateUpdate_Hook = ({}) => {
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   useEffect(() => {
-    // setIsLoading(true);
+    setIsLoading(true);
     serviceEmployeeBGVDetail({ id: id }).then((res) => {
       if (!res.error) {
-       console.log(res)
-       const data = res?.data?.details;
-       console.log(data)
-       setForm({
-        ...form,
-        is_education_verification: data?.is_education_verification,
-        // is_first_employment_verification: data?.is_first_employment_verification,
-        // is_secound_employment_verification: data?.is_secound_employment_verification,
-        // is_criminal_verification: data?.is_criminal_verification,
-        // cost: data?.cost,
-        // billing_to: data?.billing_to,
-        // remark: data?.remark,
-       })
+        console.log(res);
+        const data = res?.data;
+        console.log(data);
+        setForm({
+          ...form,
+          name: data?.employeeObj?.name,
+          is_education_verification: data?.is_education_verification,
+          is_first_employment_verification:
+            data?.is_first_employment_verification,
+          is_secound_employment_verification:
+            data?.is_secound_employment_verification,
+          is_criminal_verification: data?.is_criminal_verification,
+          cost: data?.cost,
+          billing_to: data?.billing_to,
+          remark: data?.remark,
+          verificatioMonth: data?.verificatioMonth,
+          id: data?.id,
+          bgv_status:data?.bgv_status
+        });
       } else {
         SnackbarUtils.error(res.message);
       }
@@ -80,36 +90,42 @@ const useCandidateUpdate_Hook = ({}) => {
     });
     return errors;
   }, [form, errorData]);
-
-
-
+  console.log(form);
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
     }
     setIsSubmitting(true);
-    try {
-      const formData = new FormData();
-      Object.keys(form).forEach((key) => {
-        if (key !== "document") {
-          formData.append(
-            key,
-            key === "status" ? (form[key] ? "ACTIVE" : "INACTIVE") : form[key]
-          );
-        }
-      });
-      if (form.document) {
-        formData.append("document", form?.document);
-      }
-      //   if (empId) {
-      //     formData.append("id", empId);
-      //   }
+    const updatedData = {
+      employee_id: id,
+      is_education_verification: form?.is_education_verification,
+      is_first_employment_verification: form?.is_first_employment_verification,
+      is_secound_employment_verification:
+        form?.is_secound_employment_verification,
+      is_criminal_verification: form?.is_criminal_verification,
+      bgv_result: form?.bgv_result,
+      cost: form?.cost,
+      billing_to: form?.billing_to,
+      choose_action: form?.choose_action,
+      action_remark: form?.action_remark,
+      remark: form?.remark,
+      status: form?.status,
+      id: form?.id, // id
+      is_education_verification_status: form?.is_education_verification_status,
+      is_first_employment_verification_status:
+        form?.is_first_employment_verification,
+      is_secound_employment_verification_status:
+        form?.is_secound_employment_verification,
+      payment_complete: "",
+    };
 
-      //   const req = empId ? serviceUpdatePolicyList(formData) : serviceCreatePolicyList(formData);
-      //   const res = await req;
-      const res = "";
+    try {
+      const req = serviceEmployeeBGVUpdate(updatedData);
+      const res = await req;
+
       if (!res.error) {
-        window.location.reload();
+        historyUtils.goBack()
+        // window.location.reload();
       } else {
         SnackbarUtils.error(res.message);
       }
@@ -118,9 +134,7 @@ const useCandidateUpdate_Hook = ({}) => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [form, isSubmitting, setIsSubmitting]);// EmpID
-
-
+  }, [form, isSubmitting, setIsSubmitting]); // EmpID
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -162,14 +176,12 @@ const useCandidateUpdate_Hook = ({}) => {
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
-    [ form, setForm, removeError]// calculateCost
+    [form, setForm, removeError] // calculateCost
   );
-
 
   const handleViewEditDetails = useCallback((data) => {
     historyUtils.push(RouteName.JOB_OPENINGS_UPDATE + data.id);
   }, []);
-
 
   return {
     isLoading,
@@ -178,7 +190,8 @@ const useCandidateUpdate_Hook = ({}) => {
     isInterviewStatus,
     handleViewEditDetails,
     changeTextData,
-    form
+    form,
+    handleSubmit,
   };
 };
 

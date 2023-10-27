@@ -114,7 +114,7 @@ const PendingBGVerification_View = ({ location }) => {
         key: "status",
         label: "STATUS",
         sortable: true,
-        render: (temp, all) => {renderStatus(removeUnderScore(all?.status))},
+        render: (temp, all) =>  <div>{renderStatus(removeUnderScore(all?.status))}</div>,
       },
       {
         key: "bgv-result",
@@ -130,6 +130,7 @@ const PendingBGVerification_View = ({ location }) => {
         render: (temp, all) => (
           <div>
             {all?.status === "PENDING_VERIFICATION" && (
+              
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"

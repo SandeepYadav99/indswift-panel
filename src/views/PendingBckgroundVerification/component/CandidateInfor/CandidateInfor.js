@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from "./CandidateInfor.module.css"
 const CandidateInfor = ({data}) => {
+  console.log(data)
   return (
     <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
@@ -14,11 +15,11 @@ const CandidateInfor = ({data}) => {
             <div className={styles.left}>
               <div className={styles.key}>
                 <span className={styles.value}>Name:</span>
-                {data?.location?.name}
+                {data?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Month:</span>
-                {data?.department?.name}
+                {data?.verificatioMonth}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Location:</span>
