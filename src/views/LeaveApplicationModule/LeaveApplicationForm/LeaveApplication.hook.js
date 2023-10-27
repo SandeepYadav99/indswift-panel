@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { serviceLeaveCreate } from "../../../services/Leave.service";
 import { actionLeaveCount } from "../../../actions/LeaveModule.action";
 import { useDispatch, useSelector } from "react-redux";
-
+import useClaimIntCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
 
 const initialForm = {
   type: "",
@@ -21,9 +21,16 @@ const initialForm = {
   comment: "",
   deceased_relationship: "",
   reason: "",
-  document: null,
+  document: "",
 };
-const OccasionKey = ["type", "duration", "duration_days", "comment","event_type","start_date"];
+const OccasionKey = [
+  "type",
+  "duration",
+  "duration_days",
+  "comment",
+  "event_type",
+  "start_date",
+];
 
 const Bereavement = [
   "deceased_relationship",
@@ -44,7 +51,6 @@ const Paternity = [
   "type",
 ];
 
-
 const useLeaveApplication = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [leaveType, setLeaveType] = useState();
@@ -54,15 +60,21 @@ const useLeaveApplication = () => {
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const includeRef = useRef(null);
-  const [leaveCount,setLeaveCount] = useState();
+  const [alphabet, setAlphabet] = useState();
+  const [monthhook, setMonthhook] = useState();
+  const [leaveCount, setLeaveCount] = useState();
+  const [bdayYear, setBdayYear] = useState("");
+  const [bdayNext, setBdayNext] = useState("");
+  const [anniYear, setAnniYear] = useState("");
+  const [anniNext, setAnniNext] = useState("");
+
   const { id } = useParams();
 
   const dispatch = useDispatch();
 
-  const {
-    count,
-  } = useSelector((state) => state.LeaveModule);
+  const { employeeDetails } = useClaimIntCard({});
 
+  const { count } = useSelector((state) => state.LeaveModule);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -78,11 +90,7 @@ const useLeaveApplication = () => {
       });
     }
     if (form?.type === "BEREAVEMENT_LEAVE") {
-      let required = [
-        "deceased_relationship",
-        "start_date",
-        "end_date",
-      ];
+      let required = ["deceased_relationship", "start_date", "end_date"];
       required.forEach((val) => {
         if (
           !form?.[val] ||
@@ -104,12 +112,7 @@ const useLeaveApplication = () => {
       });
     }
     if (form?.type === "PATERNITY_LEAVE") {
-      let required = [
-        "event_type",
-        "child",
-        "start_date",
-        "end_date",
-      ];
+      let required = ["event_type", "child", "start_date", "end_date"];
       required.forEach((val) => {
         if (
           !form?.[val] ||
@@ -119,20 +122,20 @@ const useLeaveApplication = () => {
         }
       });
     }
-    if(daysCount < "0"){
+    if (daysCount < "0") {
       errors["dayscount"] = true;
-      SnackbarUtils.error("Start Days Cannot be Greater than End Date")
+      SnackbarUtils.error("Start Days Cannot be Greater than End Date");
+    } else {
+      delete errors["dayscount"];
     }
-    else{
-      delete errors["dayscount"]
-    }
-     
-    if(daysCount > count?.data?.pending_leave){
+
+    if (daysCount > count?.data?.pending_leave) {
       errors["leave"] = true;
-      SnackbarUtils.error("Applied Leave cannot be greater than Pending Leaves")
-    }
-    else{
-      delete errors["leave"]
+      SnackbarUtils.error(
+        "Applied Leave cannot be greater than Pending Leaves"
+      );
+    } else {
+      delete errors["leave"];
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -147,10 +150,173 @@ const useLeaveApplication = () => {
       const type = form?.type;
       setErrorData({});
       setForm({ ...initialForm, type: type });
-      setDaysCount(0)
+      setDaysCount(0);
     }
   }, [form?.type]);
 
+  const MonthConvertor = () => {
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Jan"
+    ) {
+      setAlphabet("1");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Feb"
+    ) {
+      setAlphabet("2");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Mar"
+    ) {
+      setAlphabet("3");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Apr"
+    ) {
+      setAlphabet("4");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "May"
+    ) {
+      setAlphabet("5");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Jun"
+    ) {
+      setAlphabet("6");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Jul"
+    ) {
+      setAlphabet("7");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Aug"
+    ) {
+      setAlphabet("8");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Sep"
+    ) {
+      setAlphabet("9");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Oct"
+    ) {
+      setAlphabet("10");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Nov"
+    ) {
+      setAlphabet("11");
+    }
+    if (
+      employeeDetails?.dob?.slice(startPointBday + 1, endPointBday) === "Dec"
+    ) {
+      setAlphabet("12");
+    }
+  };
+
+  const AnniversaryConvertor = () => {
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Jan"
+    ) {
+      setMonthhook("1");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Feb"
+    ) {
+      setMonthhook("2");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Mar"
+    ) {
+      setMonthhook("3");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Apr"
+    ) {
+      setMonthhook("4");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "May"
+    ) {
+      setMonthhook("5");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Jun"
+    ) {
+      setMonthhook("6");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Jul"
+    ) {
+      setMonthhook("7");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Aug"
+    ) {
+      setMonthhook("8");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Sep"
+    ) {
+      setMonthhook("9");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Oct"
+    ) {
+      setMonthhook("10");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Nov"
+    ) {
+      setMonthhook("11");
+    }
+    if (
+      employeeDetails?.dom?.slice(startPointAnni + 1, endPointAnni) === "Dec"
+    ) {
+      setMonthhook("12");
+    }
+  };
+
+  const date = new Date();
+  const CurrentMonth = date?.getMonth() + 1;
+  const CurrentYear = date?.getFullYear();
+  const nextYear = CurrentYear + 1;
+
+  let startPointBday = employeeDetails?.dob?.indexOf("/");
+  let endPointBday = employeeDetails?.dob?.lastIndexOf("/");
+  let valueMonth = employeeDetails?.dob?.slice(
+    startPointBday + 1,
+    endPointBday
+  );
+  let valueDays = employeeDetails?.dob?.slice(0, startPointBday);
+  const BdayLeaveNextYear = valueDays + "/" + valueMonth + "/" + nextYear;
+  const BdayLeaveThisYear = valueDays + "/" + valueMonth + "/" + CurrentYear;
+
+  let startPointAnni = employeeDetails?.dom?.indexOf("/");
+  let endPointAnni = employeeDetails?.dom?.lastIndexOf("/");
+  let valueMonthAnni = employeeDetails?.dom?.slice(
+    startPointAnni + 1,
+    endPointAnni
+  );
+  let valueDaysAnni = employeeDetails?.dom?.slice(0, startPointAnni);
+  const BdayLeaveNextYearAnni =
+    valueDaysAnni + "/" + valueMonthAnni + "/" + nextYear;
+  const BdayLeaveThisYearAnni =
+    valueDaysAnni + "/" + valueMonthAnni + "/" + CurrentYear;
+
+  console.log(anniNext,"anniNext is here");
+
+  useEffect(() => {
+    MonthConvertor();
+    AnniversaryConvertor();
+    setBdayYear(BdayLeaveThisYear);
+    setBdayNext(BdayLeaveNextYear);
+    setAnniYear(BdayLeaveThisYearAnni);
+    setAnniNext(BdayLeaveNextYearAnni);
+  });
 
   useEffect(() => {
     if (form?.start_date && form?.end_date) {
@@ -169,38 +335,68 @@ const useLeaveApplication = () => {
   }, [form?.start_date, form?.end_date]);
 
   const submitToServer = useCallback(() => {
-      if (!isSubmitting) {
-        setIsSubmitting(true);
-        let req = serviceLeaveCreate;
-        const fd = new FormData();
-        let reqParam =
-          form?.type === "OCCASION_LEAVE"
-            ? OccasionKey
-            : form?.type === "BEREAVEMENT_LEAVE"
-              ? Bereavement
-              : form?.type === "FACILITATION_LEAVE"
-                ? Facilitation
-                : Paternity;
-        reqParam?.forEach((key) => {
-          fd.append(key, form[key]);
-        });
-        if (form?.type !== "OCCASION_LEAVE") {
+    if (!isSubmitting) {
+      setIsSubmitting(true);
+      let req = serviceLeaveCreate;
+      const fd = new FormData();
+      let reqParam =
+        form?.type === "OCCASION_LEAVE"
+          ? OccasionKey
+          : form?.type === "BEREAVEMENT_LEAVE"
+          ? Bereavement
+          : form?.type === "FACILITATION_LEAVE"
+          ? Facilitation
+          : Paternity;
+      reqParam?.forEach((key) => {
+        fd.append(key, form[key]);
+      });
+      if (form?.type !== "OCCASION_LEAVE") {
+        if (form?.event_type === "BIRTHDAY") {
+          if (alphabet < CurrentMonth) {
+            fd.append("duration", "FULL_DAY");
+            fd.append("duration_days", daysCount);
+            fd.append(
+              "start_date",
+              bdayNext
+            );
+          }
           fd.append("duration", "FULL_DAY");
           fd.append("duration_days", daysCount);
-        }
-        if (form?.document) {
-          fd.append("document", form?.document);
-        }
-        req(fd).then((res) => {
-          if (!res.error) {
-            SnackbarUtils.success("Submitted SuccessFully");
+          fd.append(
+            "start_date",
+            bdayYear
+          );
+        } else if (form?.event_type === "MARRIAGE_ANNIVERSARY") {
+          if (monthhook < CurrentMonth) {
+            fd.append("duration", "FULL_DAY");
+            fd.append("duration_days", daysCount);
+            fd.append(
+              "start_date",
+              anniYear
+            );
           } else {
-            SnackbarUtils.error(res?.message);
+            fd.append("duration", "FULL_DAY");
+            fd.append("duration_days", daysCount);
+            fd.append(
+              "start_date",
+              anniNext
+            );
           }
-          setIsSubmitting(false);
-        });
+        }
       }
-  }, [form, isSubmitting, setIsSubmitting, daysCount, setDaysCount]);
+      if (form?.document) {
+        fd.append("document", form?.document);
+      }
+      req(fd).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Submitted SuccessFully");
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
+    }
+  }, [form, isSubmitting, setIsSubmitting, daysCount, setDaysCount,bdayYear,bdayNext,anniYear,anniNext,setBdayYear,setBdayNext,setAnniYear,setAnniNext,valueDaysAnni,valueMonthAnni,valueDays,valueMonth]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -209,7 +405,7 @@ const useLeaveApplication = () => {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, daysCount, setDaysCount]);
+  }, [checkFormValidation, setErrorData, form, daysCount, setDaysCount,bdayYear,bdayNext,anniYear,anniNext,setBdayYear,setBdayNext,setAnniYear,setAnniNext,valueDaysAnni,valueMonthAnni,valueDays,valueMonth]);
 
   const removeError = useCallback(
     (title) => {
@@ -249,7 +445,7 @@ const useLeaveApplication = () => {
     [changeTextData]
   );
 
-  const handleDelete = useCallback(() => { }, []);
+  const handleDelete = useCallback(() => {}, []);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
@@ -259,30 +455,35 @@ const useLeaveApplication = () => {
 
   useEffect(() => {
     if (form?.type === "PATERNITY_LEAVE") {
-      dispatch(actionLeaveCount({
-        "leave_type": "PATERNITY_LEAVE",
-        "event_type": eventTypeData
-      }))
+      dispatch(
+        actionLeaveCount({
+          leave_type: "PATERNITY_LEAVE",
+          event_type: eventTypeData,
+        })
+      );
+    } else if (form?.type === "OCCASION_LEAVE") {
+      dispatch(
+        actionLeaveCount({
+          leave_type: "OCCASION_LEAVE",
+        })
+      );
+    } else if (form?.type === "BEREAVEMENT_LEAVE") {
+      dispatch(
+        actionLeaveCount({
+          leave_type: "BEREAVEMENT_LEAVE",
+        })
+      );
+    } else if (form?.type === "FACILITATION_LEAVE") {
+      dispatch(
+        actionLeaveCount({
+          leave_type: "FACILITATION_LEAVE",
+        })
+      );
     }
-    else if (form?.type === "OCCASION_LEAVE") {
-      dispatch(actionLeaveCount({
-        "leave_type": "OCCASION_LEAVE"
-      }))
-    }
-    else if (form?.type === "BEREAVEMENT_LEAVE") {
-      dispatch(actionLeaveCount({
-        "leave_type": "BEREAVEMENT_LEAVE"
-      }))
-    }
-    else if(form?.type === "FACILITATION_LEAVE") {
-      dispatch(actionLeaveCount({
-        "leave_type": "FACILITATION_LEAVE"
-      }))
-    }
-    setLeaveCount(count?.data?.pending_leave)
-  }, [form?.type,form?.event_type])
-
-
+    setLeaveCount(count?.data?.pending_leave);
+    MonthConvertor();
+    AnniversaryConvertor();
+  }, [form?.type, form?.event_type]);
 
   return {
     form,
