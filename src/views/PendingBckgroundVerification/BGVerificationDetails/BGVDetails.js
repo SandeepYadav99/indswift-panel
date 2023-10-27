@@ -9,12 +9,7 @@ import CheckboxList from "../component/Checkbox";
 
 const BGVDetails = () => {
   const {
-    data,
-    isLoading,
-    id,
-    isInterviewStatus,
-    handleChangeInterviewStatus,
-    handleViewEditDetails,
+   
     form,
     changeTextData,
     errorData,
@@ -22,18 +17,8 @@ const BGVDetails = () => {
     isCostEdit,
     toggleCostEdit
   } = useBGVDetails_Hook({});
-console.log(isCostEdit)
-  // if (isLoading) {
-  //   return <WaitingComponent />;
-  // }
-  const valencyChange = (value) => {
-    return value ? value.replace(/_/, " ") : "NA";
-  };
-  const styleRed = {
-    color: "#ff4d4f",
-    backgroundColor: "rgba(255,77,79,.06274509803921569)",
-    border: "none",
-  };
+
+
   return (
     <div>
       <div className={styles.plainPaper}>
@@ -77,7 +62,7 @@ console.log(isCostEdit)
                   label={"Cost"}
                   type={"number"}
                   value={form?.cost}
-                  disabled={true} // Initially disabled
+                  disabled={true} 
                 />
               )}
               <div>

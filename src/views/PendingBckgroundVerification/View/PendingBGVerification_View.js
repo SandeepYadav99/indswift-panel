@@ -36,11 +36,11 @@ const PendingBGVerification_View = ({ location }) => {
   } = useSelector((state) => state.pendingBGV);
 
   const renderStatus = useCallback((status) => {
-    return status === "PENDING" || "CLEAR" || "FAILED" ? (
-      <StatusPill status={status} />
-    ) : (
-      null
-    );
+    if (status === "PENDING" || "CLEAR" || "FAILED") {
+      return <StatusPill status={status} />;
+    } else {
+      return null;
+    }
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
@@ -117,14 +117,16 @@ const PendingBGVerification_View = ({ location }) => {
         key: "bgv-result",
         label: "BGV RESULT",
         sortable: true,
-        render: (temp, all) =><div>{renderStatus(all?.bgv_result)}</div>
+        render: (temp, all) => (
+          <div>{all?.bgv_result ? renderStatus(all?.bgv_result) : ""}</div>
+        ),
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
           <div>
-              {all?.status === "PENDING_VERIFICATION" && (
+            {all?.status === "PENDING_VERIFICATION" && (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
