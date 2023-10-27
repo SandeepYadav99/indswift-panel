@@ -24,7 +24,7 @@ const TEMP_OBJ = {
   ie_entitlement: "",
   ie_amount: "",
   hours: "",
-  currency: "",
+  currency: "EUR",
 };
 
 const DAIncludeForm = (

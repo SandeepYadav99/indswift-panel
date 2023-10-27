@@ -71,12 +71,12 @@ function useClaimForDetail() {
     ? { employee_id: "63d9267d3d18b8ce6e9b700c" }
     : {};
 
-  useEffect(() => {
-    Promise.allSettled([serviceGetCurrencyList()]).then((promises) => {
-      const Currency = promises[0]?.value?.data;
-      SetCurr(Currency);
-    });
-  }, []);
+  // useEffect(() => {
+  //   Promise.allSettled([serviceGetCurrencyList()]).then((promises) => {
+  //     const Currency = promises[0]?.value?.data;
+  //     SetCurr(Currency);
+  //   });
+  // }, []);
 
   useEffect(() => {
     let req = serviceDetailsCLaim({ id: id });
@@ -96,6 +96,17 @@ function useClaimForDetail() {
       enterRef.current?.setData(entertainment_expenses);
       otherRef.current?.setData(tap_other_expenses);
       setRefundData(rest?.claim_amount ? Number(rest?.claim_amount) : 0);
+      const FixCurrency = [
+        {
+          currency: "EUR",
+          conversion_rate: rest?.imprest_summary?.conversion_rate_eur,
+        },
+        {
+          currency: "USD",
+          conversion_rate: rest?.imprest_summary?.conversion_rate_usd,
+        },
+      ];
+      SetCurr([...FixCurrency])
     });
   }, [id]);
 
@@ -111,7 +122,7 @@ function useClaimForDetail() {
 
   const changeAmount = useCallback(
     (text) => {
-      setTotalAmount({...totalAmount,...text})
+      setTotalAmount({ ...totalAmount, ...text });
       // const t = { ...totalAmount };
       // t[fieldName] = text;
       // setTotalAmount(t);
@@ -152,25 +163,19 @@ function useClaimForDetail() {
   const imprestINRAmount = useMemo(() => {
     if (curr?.length > 0 && imprestAmount) {
       if (employeeDetails?.imprest?.currency === "USD") {
-        return (
-          Number(imprestAmount) *
-          Number(curr[1]?.conversion_rate)
-        );
+        return Number(imprestAmount) * Number(curr[1]?.conversion_rate);
       } else if (employeeDetails?.imprest?.currency === "EUR") {
-        return (
-          Number(imprestAmount) *
-          Number(curr[0]?.conversion_rate)
-        );
+        return Number(imprestAmount) * Number(curr[0]?.conversion_rate);
       } else {
         return Number(imprestAmount);
       }
     }
 
     return 0;
-  }, [employeeDetails, curr, SetCurr,imprestAmount]);
+  }, [employeeDetails, curr, SetCurr, imprestAmount]);
 
   console.log("office", officeAmount, officeAmount2);
- 
+
   const USDAmount = useMemo(() => {
     let total = 0;
     console.log("inside2");
@@ -246,7 +251,14 @@ function useClaimForDetail() {
     return value ? value : 0;
   }, [officeAmount, officeAmount2, officeAmount3, officeAmount4]);
 
-  console.log('>>>>',officeAmount, officeAmount2, officeAmount3, officeAmount4,getOfficeAmount)
+  console.log(
+    ">>>>",
+    officeAmount,
+    officeAmount2,
+    officeAmount3,
+    officeAmount4,
+    getOfficeAmount
+  );
   const getRefundAmount = useMemo(() => {
     return imprestINRAmount
       ? Number(getTotalValue) -

@@ -49,7 +49,7 @@ const ClaimsList = ({ location }) => {
     downloadCL,
     handleClosedownloadCL,
     handleCandidateMenu,
-    isShowDownloadBtn
+    isShowDownloadBtn,
   } = useClaimsList({});
 
   const {
@@ -59,12 +59,17 @@ const ClaimsList = ({ location }) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.claims);
 
-  const {user}=useSelector((state)=>state.auth)
+  const { user } = useSelector((state) => state.auth);
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
   const renderStatus = useCallback((status) => {
-    return <StatusPill status={status} style={status === 'PROCESSED' && {background:'#ceece2'}}/>;
+    return (
+      <StatusPill
+        status={status}
+        style={status === "PROCESSED" && { background: "#ceece2" }}
+      />
+    );
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
@@ -148,19 +153,33 @@ const ClaimsList = ({ location }) => {
         key: "claim_type",
         label: "CLAIM TYPE",
         sortable: false,
-        render: (temp, all) => <div>{removeUnderScore(all?.claim?.claim_type)}</div>,
+        render: (temp, all) => (
+          <div>{removeUnderScore(all?.claim?.claim_type)}</div>
+        ),
       },
       {
         key: "tap",
         label: "ASSOCIATED TAP ID",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim?.travelPlanner?.code ? all?.claim?.travelPlanner?.code : 'N.A'}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.claim?.travelPlanner?.code
+              ? all?.claim?.travelPlanner?.code
+              : "N.A"}
+          </div>
+        ),
       },
       {
         key: "co",
         label: "NO. OF CO TRAVELLERS",
         sortable: false,
-        render: (temp, all) => <div>{all?.claim?.travelPlanner?.coPassengersCount ? all?.claim?.travelPlanner?.coPassengersCount : 'N.A'}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.claim?.travelPlanner?.coPassengersCount
+              ? all?.claim?.travelPlanner?.coPassengersCount
+              : "N.A"}
+          </div>
+        ),
       },
       {
         key: "status",
@@ -184,7 +203,14 @@ const ClaimsList = ({ location }) => {
         key: "value",
         label: "VALUE",
         sortable: false,
-        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>{all?.claim?.claim_amount || all?.claim?.claim_amount === 0 ? `₹ ${all?.claim?.claim_amount}` : ''}</div>,
+        render: (temp, all) => (
+          <div style={{ whiteSpace: "nowrap" }}>
+            {/* {console.log('>>>>',all?.claim?.claim_amount)} */}
+            {all?.claim?.claim_amount || all?.claim?.claim_amount === 0
+              ? `₹ ${Math.round(all?.claim?.claim_amount)}`
+              : ""}
+          </div>
+        ),
       },
       {
         key: "claim_id",
@@ -248,61 +274,62 @@ const ClaimsList = ({ location }) => {
             <span className={styles.title}>Claim Management</span>
             <div className={styles.newLine} />
           </div>
-          {isShowDownloadBtn && (<div className={styles.btnWrap}>
-            <ButtonBase
-              aria-owns={downloadCL ? "downloadCL" : undefined}
-              aria-haspopup="true"
-              onClick={handleAddCandidate}
-              // onClick={handleCsvDownload}
-              className={"createBtn"}
-            >
-              Download
-              <CloudDownload
-                fontSize={"small"}
-                className={"plusIcon"}
-              ></CloudDownload>
-            </ButtonBase>
-            <Menu
-              id="downloadCL"
-              anchorEl={downloadCL}
-              open={Boolean(downloadCL)}
-              onClose={handleClosedownloadCL}
-            >
-              {
-                user?.role === 'CORPORATE_HR' &&
+          {isShowDownloadBtn && (
+            <div className={styles.btnWrap}>
+              <ButtonBase
+                aria-owns={downloadCL ? "downloadCL" : undefined}
+                aria-haspopup="true"
+                onClick={handleAddCandidate}
+                // onClick={handleCsvDownload}
+                className={"createBtn"}
+              >
+                Download
+                <CloudDownload
+                  fontSize={"small"}
+                  className={"plusIcon"}
+                ></CloudDownload>
+              </ButtonBase>
+              <Menu
+                id="downloadCL"
+                anchorEl={downloadCL}
+                open={Boolean(downloadCL)}
+                onClose={handleClosedownloadCL}
+              >
+                {user?.role === "CORPORATE_HR" && (
+                  <MenuItem
+                    onClick={() => {
+                      handleCandidateMenu("ALL");
+                    }}
+                  >
+                    ALL
+                  </MenuItem>
+                )}
                 <MenuItem
-                onClick={() => {
-                  handleCandidateMenu("ALL");
-                }}
+                  onClick={() => {
+                    handleCandidateMenu("APPROVED");
+                  }}
+                >
+                  APPROVED
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleCandidateMenu("PROCESSED");
+                  }}
+                >
+                  PROCESSED
+                </MenuItem>
+              </Menu>
+              <ButtonBase
+                aria-owns={downloadCL ? "downloadCL" : undefined}
+                aria-haspopup="true"
+                // onClick={handleAddCandidate}
+                onClick={handleBankSheetDownload}
+                className={"createBtn"}
               >
-                ALL
-              </MenuItem>
-              }
-              <MenuItem
-                onClick={() => {
-                  handleCandidateMenu("APPROVED");
-                }}
-              >
-                APPROVED
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleCandidateMenu("PROCESSED");
-                }}
-              >
-                PROCESSED
-              </MenuItem>
-            </Menu>
-             <ButtonBase
-              aria-owns={downloadCL ? "downloadCL" : undefined}
-              aria-haspopup="true"
-              // onClick={handleAddCandidate}
-              onClick={handleBankSheetDownload}
-              className={"createBtn"}
-            >
-              Bank Transfer Sheet
-            </ButtonBase>
-          </div>)}
+                Bank Transfer Sheet
+              </ButtonBase>
+            </div>
+          )}
         </div>
 
         <div>

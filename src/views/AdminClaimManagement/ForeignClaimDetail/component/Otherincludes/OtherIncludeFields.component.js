@@ -62,6 +62,10 @@ const OtherIncludeFields = ({
                 <span className={styles.value}>Booking By:</span>
                 {data?.booking_by ? data?.booking_by : "-"}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Choose the currency of payment:</span>
+                {data?.payment_made_by ? data?.payment_made_by : "-"}
+              </div>
               <div className={styles.key221}>
                 <span className={styles.value}>
                   <CustomSelectField
@@ -79,6 +83,7 @@ const OtherIncludeFields = ({
                     <MenuItem value="INR">INR</MenuItem>
                   </CustomSelectField>
                 </span>
+                
                 <span className={styles.value}>
                   <TextField
                     error={errors?.amount}
@@ -94,6 +99,7 @@ const OtherIncludeFields = ({
               </div>
             </div>
             <div className={styles.right}>
+              
               {data?.payment_proof && (
                 <div className={styles.key}>
                   <a href={data?.payment_proof} target="_blank">
