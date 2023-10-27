@@ -129,7 +129,7 @@ const LodgingIncludeFields = ({ index, changeData, data, errors }) => {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Over Expenditure:</span>
-                {data?.over_expenditure ? `₹ ${data?.over_expenditure} ` : 0}
+                {data?.over_expenditure ? `${getCurrency(data?.currency)} ${data?.over_expenditure} ` : 0}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Payment Made By:</span>
