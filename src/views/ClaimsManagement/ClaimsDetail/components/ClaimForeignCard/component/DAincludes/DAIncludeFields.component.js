@@ -54,7 +54,7 @@ const DAIncludeFields = ({
       }
     }
   };
-
+console.log('isCP',isCP)
   useEffect(() => {
     if (grade && data?.stay_at && data?.hours) {
       let percent;

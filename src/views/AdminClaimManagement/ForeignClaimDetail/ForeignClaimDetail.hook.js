@@ -141,33 +141,36 @@ function useClaimForDetail() {
   }, [form, errorData]);
 
   console.log("employeeDetails?.imprest", employeeDetails);
-  const imprestINRAmount = useMemo(() => {
-    if (curr?.length > 0 && employeeDetails?.imprest?.amount) {
-      if (employeeDetails?.imprest?.currency === "USD") {
-        return (
-          Number(employeeDetails?.imprest?.amount) *
-          Number(curr[1]?.conversion_rate)
-        );
-      } else if (employeeDetails?.imprest?.currency === "EUR") {
-        return (
-          Number(employeeDetails?.imprest?.amount) *
-          Number(curr[0]?.conversion_rate)
-        );
-      } else {
-        return Number(employeeDetails?.imprest?.amount);
-      }
-    }
 
-    return 0;
-  }, [employeeDetails, curr, SetCurr]);
-
-  console.log("office", officeAmount, officeAmount2);
   const imprestAmount = useMemo(() => {
     if (employeeDetails?.imprest?.status === "FINANCE_APPROVED") {
       return employeeDetails?.imprest?.amount;
     }
     return 0;
   }, [employeeDetails]);
+
+  const imprestINRAmount = useMemo(() => {
+    if (curr?.length > 0 && imprestAmount) {
+      if (employeeDetails?.imprest?.currency === "USD") {
+        return (
+          Number(imprestAmount) *
+          Number(curr[1]?.conversion_rate)
+        );
+      } else if (employeeDetails?.imprest?.currency === "EUR") {
+        return (
+          Number(imprestAmount) *
+          Number(curr[0]?.conversion_rate)
+        );
+      } else {
+        return Number(imprestAmount);
+      }
+    }
+
+    return 0;
+  }, [employeeDetails, curr, SetCurr,imprestAmount]);
+
+  console.log("office", officeAmount, officeAmount2);
+ 
   const USDAmount = useMemo(() => {
     let total = 0;
     console.log("inside2");

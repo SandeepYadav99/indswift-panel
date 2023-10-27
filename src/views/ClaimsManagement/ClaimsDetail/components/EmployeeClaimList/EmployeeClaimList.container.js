@@ -83,7 +83,7 @@ const EmployeeClaimList = ({}) => {
             </div>
           </a>
         );
-      } else if (obj?.claim_type === "TRAVEL") {
+      } else if (obj?.claim_type === "TRAVEL" || obj?.claim_type === "FOREIGN_TRAVEL") {
         return <div> N/A </div>;
       } else {
         return (
