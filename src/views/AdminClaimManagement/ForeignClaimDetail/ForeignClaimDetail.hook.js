@@ -350,6 +350,8 @@ function useClaimForDetail() {
     USDtoINR,
     EurotoINR,
     getOfficeAmount,
+    refundData,
+    setRefundData
   ]);
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
@@ -437,6 +439,8 @@ function useClaimForDetail() {
     USDtoINR,
     EurotoINR,
     getOfficeAmount,
+    refundData,
+    setRefundData
   ]);
 
   const changeTextData = useCallback(
