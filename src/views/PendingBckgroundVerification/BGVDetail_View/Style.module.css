@@ -1,0 +1,87 @@
+.outerFlex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 20px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.plainPaper {
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0px 20px 80px #00000011;
+}
+.newContainer {
+  font-size: 0.7rem;
+}
+.requiredFooter {
+  background: #f5f7fb 0% 0% no-repeat padding-box;
+  padding: 2px;
+  border-radius: 10px;
+  height: 61px;
+  display: flex;
+  flex-direction: start;
+  align-items: center;
+  justify-content: space-between;
+}
+.topText {
+  margin:0px 50px 0px 20px;
+}
+.btnCont {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+.mainFlex {
+  /* display: flex; */
+  /*align-items: center;*/
+}
+.left {
+  /*margin-right: 30px;*/
+  flex: 1.4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.editFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heading {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.backgroundStatus {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 20rem 0px 0px;
+}
+.backgroundStatus > span {
+  font-size: 14px;
+  /* font-weight: 600 !important; */
+}
+.gaps {
+  padding: 10px;
+}

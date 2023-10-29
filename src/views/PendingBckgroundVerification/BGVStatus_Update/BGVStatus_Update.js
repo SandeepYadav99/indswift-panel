@@ -1,6 +1,6 @@
 import React from "react";
 import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
-import CheckboxList from "../component/Checkbox";
+
 import useCandidateUpdate_Hook from "./BGVStatusUpdate_Hook";
 import { ButtonBase, MenuItem } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -46,12 +46,7 @@ const BGVStatus_Update = () => {
                   {form?.is_education_verification ? (
                     <CustomCheckbox
                       color={"primary"}
-                      // handleChange={() => {
-                      //   changeTextData(
-                      //     !form?.is_education_verification,
-                      //     "is_education_verification"
-                      //   );
-                      // }}
+                     
                       label={"Education"}
                       disabled={form?.is_education_verification}
                       checked={form?.is_education_verification}
@@ -64,12 +59,7 @@ const BGVStatus_Update = () => {
                   {form?.is_first_employment_verification ? (
                     <CustomCheckbox
                       color={"primary"}
-                      handleChange={() => {
-                        changeTextData(
-                          !form?.is_first_employment_verification,
-                          "is_first_employment_verification"
-                        );
-                      }}
+                    
                       disabled={form?.is_first_employment_verification}
                       label={"1st Employment"}
                       checked={form?.is_first_employment_verification}
@@ -79,17 +69,12 @@ const BGVStatus_Update = () => {
               </div>
               <div>
                 <div className={"formGroup"}>
-                  {form.is_secound_employment_verification ? ( // Render only if is_secound_employment_verification is true
+                  {form.is_secound_employment_verification ? ( 
                     <div>
                       <div className={"formGroup"}>
                         <CustomCheckbox
                           color={"primary"}
-                          handleChange={() => {
-                            changeTextData(
-                              !form?.is_secound_employment_verification,
-                              "is_secound_employment_verification"
-                            );
-                          }}
+                       
                           disabled={form?.is_secound_employment_verification}
                           label={"2nd Employment"}
                           checked={form?.is_secound_employment_verification}
@@ -104,12 +89,7 @@ const BGVStatus_Update = () => {
                   {form?.is_criminal_verification ? (
                     <CustomCheckbox
                       color={"primary"}
-                      handleChange={() => {
-                        changeTextData(
-                          !form?.is_criminal_verification,
-                          "is_criminal_verification"
-                        );
-                      }}
+                     
                       disabled={form?.is_criminal_verification}
                       label={"Criminal"}
                       checked={form?.is_criminal_verification}
@@ -129,13 +109,14 @@ const BGVStatus_Update = () => {
                   label={"Choose Status"}
                   value={form?.is_education_verification_status}
                   handleChange={(value) => {
+                    console.log("Selected value:", value);
                     changeTextData(value, "is_education_verification_status");
                   }}
                 >
-                  <MenuItem value="clear">CLEAR</MenuItem>
-                  <MenuItem value="failed">FAILED </MenuItem>
-                  <MenuItem value="unable">UNABLE TO VERIFY </MenuItem>
-                  <MenuItem value="pending">PENDING </MenuItem>
+                  <MenuItem value="CLEAR">Clear</MenuItem>
+                  <MenuItem value="FAILED">Failed </MenuItem>
+                  <MenuItem value="UNABLE_TO_VERIFY">Unable to Verify</MenuItem>
+                  <MenuItem value="PENDING">Pending</MenuItem>
                 </CustomSelectField>
               </div>
             )}
@@ -147,16 +128,17 @@ const BGVStatus_Update = () => {
                   label={"Choose Status"}
                   value={form?.is_first_employment_verification_status}
                   handleChange={(value) => {
+                    console.log(value)
                     changeTextData(
-                      value,
+                      value.toUpperCase(),
                       "is_first_employment_verification_status"
                     );
                   }}
                 >
-                  <MenuItem value="clear">CLEAR</MenuItem>
-                  <MenuItem value="failed">FAILED </MenuItem>
-                  <MenuItem value="unable">UNABLE TO VERIFY </MenuItem>
-                  <MenuItem value="pending">PENDING </MenuItem>
+                    <MenuItem value="CLEAR">Clear</MenuItem>
+                  <MenuItem value="FAILED">Failed </MenuItem>
+                  <MenuItem value="UNABLE_TO_VERIFY">Unable To Verify </MenuItem>
+                  <MenuItem value="PENDING">Pending</MenuItem>
                 </CustomSelectField>
               </div>
             )}
@@ -176,10 +158,10 @@ const BGVStatus_Update = () => {
                     );
                   }}
                 >
-                  <MenuItem value="clear">CLEAR</MenuItem>
-                  <MenuItem value="failed">FAILED </MenuItem>
-                  <MenuItem value="unable">UNABLE TO VERIFY </MenuItem>
-                  <MenuItem value="pending">PENDING </MenuItem>
+                      <MenuItem value="CLEAR">Clear</MenuItem>
+                  <MenuItem value="FAILED">Failed </MenuItem>
+                  <MenuItem value="UNABLE_TO_VERIFY">Unable To Verify </MenuItem>
+                  <MenuItem value="PENDING">Pending</MenuItem>
                 </CustomSelectField>
               </div>
             )}
@@ -194,10 +176,10 @@ const BGVStatus_Update = () => {
                     changeTextData(value, "is_criminal_verification_status");
                   }}
                 >
-                  <MenuItem value="clear">CLEAR</MenuItem>
-                  <MenuItem value="failed">FAILED </MenuItem>
-                  <MenuItem value="unable">UNABLE TO VERIFY </MenuItem>
-                  <MenuItem value="pending">PENDING </MenuItem>
+                    <MenuItem value="CLEAR">Clear</MenuItem>
+                  <MenuItem value="FAILED">Failed </MenuItem>
+                  <MenuItem value="UNABLE_TO_VERIFY">Unable To Verify </MenuItem>
+                  <MenuItem value="PENDING">Pending</MenuItem>
                   {/* <MenuItem value="terminated">Terminated</MenuItem>
                 <MenuItem value="allowed_to_work">Allowed To Work </MenuItem> */}
                 </CustomSelectField>
@@ -215,9 +197,9 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "bgv_result");
                 }}
               >
-                <MenuItem value="in_process">IN_PROCESS</MenuItem>
-                <MenuItem value="clear">CLEAR </MenuItem>
-                <MenuItem value="pending">PENDIG </MenuItem>
+                <MenuItem value="IN_PROCESS">In_Process</MenuItem>
+                <MenuItem value="CLEAR">Clear </MenuItem>
+                <MenuItem value="PENDING">Pending </MenuItem>
               </CustomSelectField>
             </div>
           </div>
@@ -237,14 +219,14 @@ const BGVStatus_Update = () => {
                 isError={errorData?.choose_action}
                 errorText={errorData?.choose_action}
                 label={"Choose Action "}
-                value={form?.billinchoose_actiong_to}
+                value={form?.choose_action}
                 handleChange={(value) => {
                   changeTextData(value, "choose_action");
                 }}
               >
-                <MenuItem value="isl">ISL</MenuItem>
-                <MenuItem value="isll">ISLL </MenuItem>
-                <MenuItem value="esix">ESIX </MenuItem>
+                <MenuItem value="ISL">Isl</MenuItem>
+                <MenuItem value="ISLL">Isll </MenuItem>
+                <MenuItem value="ESIX">Esix</MenuItem>
               </CustomSelectField>
             </div>
           </div>
@@ -255,9 +237,9 @@ const BGVStatus_Update = () => {
                 // isError={errorData?.description}
                 // errorText={errorData?.description}
                 label={"Any Remarks"}
-                value={form?.action_remark}
+                value={form?.remark}
                 onTextChange={(text) => {
-                  changeTextData(text, "action_remark");
+                  changeTextData(text, "remark");
                 }}
                 // onBlur={() => {
                 //    onBlurHandler("remark");
@@ -292,9 +274,9 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "payment_status");
                 }}
               >
-                <MenuItem value="in-Process">In-Process</MenuItem>
-                <MenuItem value="clear">Clear </MenuItem>
-                <MenuItem value="pending">Pending </MenuItem>
+                <MenuItem value="IN_PROCESS">In-Process</MenuItem>
+                <MenuItem value="CLEAR">Clear </MenuItem>
+                <MenuItem value="PENDING">Pending </MenuItem>
               </CustomSelectField>
             </div>
             <div className={"formGroup"}>

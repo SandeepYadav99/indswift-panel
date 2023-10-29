@@ -11,7 +11,12 @@ import FilterComponent from "../../../components/Filter/Filter.component";
 
 import StatusPill from "../../../components/Status/StatusPill.component";
 
-import { AssignmentOutlined, InfoOutlined } from "@material-ui/icons";
+import {
+  AssignmentOutlined,
+  InfoOutlined,
+  VisibilityOffOutlined,
+  VisibilityOutlined,
+} from "@material-ui/icons";
 import usePendingBGVerification_Hook from "./PendingBGVerification_Hook";
 
 const PendingBGVerification_View = ({ location }) => {
@@ -26,6 +31,7 @@ const PendingBGVerification_View = ({ location }) => {
     isCalling,
     configFilter,
     handleBGVUpdateDetails,
+    handleBGVDetails,
   } = usePendingBGVerification_Hook({ location });
 
   const {
@@ -42,7 +48,7 @@ const PendingBGVerification_View = ({ location }) => {
     if (status === "PENDING" || "CLEAR" || "FAILED") {
       return <StatusPill status={status} />;
     } else {
-      return null;
+      return <></>;
     }
   }, []);
 
@@ -59,6 +65,36 @@ const PendingBGVerification_View = ({ location }) => {
     return null;
   }, []);
 
+  const button_VerificationHandler = (all) => {
+    if (all?.status === "SENT_FOR_VERIFICATION") {
+      if (all?.bgv_result === "CLEAR" || all?.bgv_result === "FAILED" || all?.bgv_result === "Unable to Verify") {
+        return (
+          <IconButton
+            className={"tableActionBtn"}
+            color="secondary"
+            // disabled={isCalling}
+            onClick={() => {
+              handleBGVDetails(all);
+            }}
+          >
+            <VisibilityOutlined fontSize={"small"} />
+          </IconButton>
+        );
+      }
+      return (
+        <IconButton
+          className={"tableActionBtn"}
+          color="secondary"
+          // disabled={isCalling}
+          onClick={() => {
+            handleBGVUpdateDetails(all);
+          }}
+        >
+          <AssignmentOutlined fontSize={"small"} />
+        </IconButton>
+      );
+    }
+  };
   const tableStructure = useMemo(() => {
     return [
       {
@@ -114,14 +150,18 @@ const PendingBGVerification_View = ({ location }) => {
         key: "status",
         label: "STATUS",
         sortable: true,
-        render: (temp, all) =>  <div>{renderStatus(removeUnderScore(all?.status))}</div>,
+        render: (temp, all) => (
+          <div>{renderStatus(all?.status)}</div>
+        ),
       },
       {
         key: "bgv-result",
         label: "BGV RESULT",
         sortable: true,
         render: (temp, all) => (
-          <div>{all?.bgv_result ? renderStatus(all?.bgv_result) : ""}</div>
+          <div>
+            {all?.bgv_result ? <StatusPill status={all?.bgv_result} /> : <>-</>}
+          </div>
         ),
       },
       {
@@ -130,7 +170,6 @@ const PendingBGVerification_View = ({ location }) => {
         render: (temp, all) => (
           <div>
             {all?.status === "PENDING_VERIFICATION" && (
-              
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
@@ -142,18 +181,7 @@ const PendingBGVerification_View = ({ location }) => {
                 <InfoOutlined fontSize={"small"} />
               </IconButton>
             )}
-            {all?.status === "SENT_FOR_VERIFICATION" && (
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                // disabled={isCalling}
-                onClick={() => {
-                  handleBGVUpdateDetails(all);
-                }}
-              >
-                <AssignmentOutlined fontSize={"small"} />
-              </IconButton>
-            )}
+            {button_VerificationHandler(all)}
           </div>
         ),
       },

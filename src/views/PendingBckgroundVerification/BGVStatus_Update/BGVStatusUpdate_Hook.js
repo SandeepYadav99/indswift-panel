@@ -27,6 +27,7 @@ const initialForm = {
   is_secound_employment_verification_status: "",
   is_criminal_verification_status: "",
   payment_complete: "2023-09-08",
+  payment_status:""
   //
 };
 
@@ -43,12 +44,11 @@ const useCandidateUpdate_Hook = ({}) => {
     setIsLoading(true);
     serviceEmployeeBGVDetail({ id: id }).then((res) => {
       if (!res.error) {
-        console.log(res);
+   
         const data = res?.data;
-        console.log(data);
+     
         setForm({
           ...form,
-          name: data?.employeeObj?.name,
           is_education_verification: data?.is_education_verification,
           is_first_employment_verification:
             data?.is_first_employment_verification,
@@ -60,7 +60,15 @@ const useCandidateUpdate_Hook = ({}) => {
           remark: data?.remark,
           verificatioMonth: data?.verificatioMonth,
           id: data?.id,
-          bgv_status:data?.bgv_status
+          bgv_status: data?.bgv_status,
+          is_education_verification_status:
+            data?.is_education_verification_status,
+          is_first_employment_verification_status:data?.is_first_employment_verification_status,
+          is_secound_employment_verification_status: data?.is_secound_employment_verification_status,
+          is_criminal_verification_status: data?.is_criminal_verification_status,
+          bgv_result: data?.bgv_result,
+          payment_status:data?.payment_status,
+       
         });
       } else {
         SnackbarUtils.error(res.message);
@@ -90,7 +98,7 @@ const useCandidateUpdate_Hook = ({}) => {
     });
     return errors;
   }, [form, errorData]);
-  console.log(form);
+
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -124,7 +132,7 @@ const useCandidateUpdate_Hook = ({}) => {
       const res = await req;
 
       if (!res.error) {
-        historyUtils.goBack()
+        historyUtils.goBack();
         // window.location.reload();
       } else {
         SnackbarUtils.error(res.message);
@@ -157,27 +165,31 @@ const useCandidateUpdate_Hook = ({}) => {
 
   const changeTextData = useCallback(
     (value, fieldName) => {
-      let shouldRemoveError = true;
-      const t = { ...form };
-
-      if (fieldName === "billing_to") {
-        t[fieldName] = value;
-      } else if (fieldName === "cost") {
-        t.cost = value;
-      } else if (fieldName === "remark") {
-        t.remark = value;
-      } else {
-        t[fieldName] = value;
-        // t.cost = calculateCost(t);
-        // const selectedCount = checkboxFields.filter((field) => t[field]).length;
-        // setSelectedCheckboxes(selectedCount);
+      const fieldMappings = {
+        billing_to: "billing_to",
+        cost: "cost",
+        remark: "remark",
+        is_education_verification_status: "is_education_verification_status",
+        is_first_employment_verification_status: "is_first_employment_verification_status",
+        is_secound_employment_verification_status: "is_secound_employment_verification_status",
+        is_criminal_verification_status: "is_criminal_verification_status",
+        bgv_result: "bgv_result",
+        choose_action: "choose_action",
+        payment_status: "payment_status",
+      };
+  
+      if (fieldMappings.hasOwnProperty(fieldName)) {
+        setForm((prevForm) => ({
+          ...prevForm,
+          [fieldMappings[fieldName]]: value,
+        }));
+        removeError(fieldName);
       }
-
-      setForm(t);
-      shouldRemoveError && removeError(fieldName);
     },
-    [form, setForm, removeError] // calculateCost
+    [setForm, removeError]
   );
+  
+  
 
   const handleViewEditDetails = useCallback((data) => {
     historyUtils.push(RouteName.JOB_OPENINGS_UPDATE + data.id);

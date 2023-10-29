@@ -1,192 +1,144 @@
-import { ButtonBase, MenuItem } from '@material-ui/core'
-import React from 'react'
+import { ButtonBase, MenuItem } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import historyUtils from '../../../libs/history.utils';
-import styles from "./Style.module.css"
-import CandidateInfor from '../component/CandidateInfor/CandidateInfor';
-import CustomSelectField from '../../../components/FormFields/SelectField/SelectField.component';
-import CheckboxList from '../component/Checkbox';
-import CustomTextField from '../../../components/FormFields/TextField/TextField.component';
-const BGVDetailView = ({errorData, form, changeTextData}) => {
+import historyUtils from "../../../libs/history.utils";
+import styles from "./Style.module.css";
+import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
+import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
+import CheckboxList from "../component/Checkbox";
+import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
+import StatusPill from "../../../components/Status/StatusPill.component";
+import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
+import { serviceEmployeeBGVDetail } from "../../../services/PendingBGVerification.service";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
+
+const BGVDetailView = ({}) => {
+  const [details, setDetails] = useState([]);
+  const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    //  setIsLoading(true);
+    serviceEmployeeBGVDetail({ id: id }).then((res) => {
+      if (!res.error) {
+        const data = res?.data;
+        console.log(data);
+        setDetails({
+          ...details,
+          is_education_verification_status:
+            data?.is_education_verification_status,
+          is_first_employment_verification_status:
+            data?.is_first_employment_verification_status,
+          is_secound_employment_verification_status:
+            data?.is_secound_employment_verification_status,
+          is_criminal_verification_status:
+            data?.is_criminal_verification_status,
+          bgv_status: data?.bgv_status,
+          bgv_result: data?.bgv_result,
+          payment_status: data?.payment_status,
+          paymentCompleteText: data?.paymentCompleteText,
+          billing_to: data?.billing_to,
+          cost: data?.cost,
+          choose_action: data?.choose_action,
+          remark: data?.remark,
+        });
+      } else {
+        SnackbarUtils.error(res.message);
+      }
+      // setIsLoading(false);
+    });
+  }, [id]);
+
   return (
     <div>
-    <div className={styles.outerFlex}>
-      <div>
-        <ButtonBase onClick={() => historyUtils.goBack()}>
-          <ArrowBackIosIcon fontSize={"small"} />{" "}
-          <span>
-            <b>Background Verification Form</b>
-          </span>
-        </ButtonBase>
-        <div className={styles.newLine} />
+      <div className={styles.outerFlex}>
+        <div>
+          <ButtonBase onClick={() => historyUtils.goBack()}>
+            <ArrowBackIosIcon fontSize={"small"} />{" "}
+            <span>
+              <b>Background Verification Details</b>
+            </span>
+          </ButtonBase>
+          <div className={styles.newLine} />
+        </div>
       </div>
-    </div>
-    <CandidateInfor data={{}} />
-    <div className={styles.plainPaper}>
+      <CandidateInfor data={{}} />
+      <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-
-          <CheckboxList form={form} changeTextData={changeTextData} />
-
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <CustomSelectField
-                isError={errorData?.is_education_verification_status}
-                errorText={errorData?.is_education_verification_status}
-                label={"Choose Status"}
-                value={form?.is_education_verification_status}
-                handleChange={(value) => {
-                  changeTextData(value, "is_education_verification_status");
-                }}
-              >
-                <MenuItem value="clear">CLEAR</MenuItem>
-                <MenuItem value="failed">FAILED </MenuItem>
-                <MenuItem value="unable">UNABLE TO VERIFY </MenuItem>
-                <MenuItem value="pending">PENDING </MenuItem>
-              </CustomSelectField>
+          <h3>Background Verification Status</h3>
+          <div className={styles.mainFlex}>
+            <div className={styles.backgroundStatus}>
+              <span>
+                Education:{" "}
+                <StatusPill
+                  status={details?.is_education_verification_status}
+                />
+              </span>
+              <span>
+                2nd Employment:
+                <StatusPill
+                  status={details?.is_secound_employment_verification_status}
+                />
+              </span>
             </div>
-            <div className={"formGroup"}>
-              <CustomSelectField
-                isError={errorData?.billing_to}
-                errorText={errorData?.billing_to}
-                label={"Choose Status"}
-                value={form?.billing_to}
-                handleChange={(value) => {
-                  changeTextData(value, "billing_to");
-                }}
-              >
-                <MenuItem value="clear">CLEAR</MenuItem>
-                <MenuItem value="failed">FAILED </MenuItem>
-                <MenuItem value="unable">UNABLE TO VERIFY </MenuItem>
-                <MenuItem value="pending">PENDING </MenuItem>
-              </CustomSelectField>
-            </div>
-            <div className={"formGroup"}>
-              <CustomSelectField
-                isError={errorData?.billing_to}
-                errorText={errorData?.billing_to}
-                label={"Choose Status"}
-                value={form?.billing_to}
-                handleChange={(value) => {
-                  changeTextData(value, "billing_to");
-                }}
-              >
-                <MenuItem value="terminated">Terminated</MenuItem>
-                <MenuItem value="allowed_to_work">Allowed To Work </MenuItem>
-              </CustomSelectField>
+            <div className={styles.gaps} />
+            <div className={styles.backgroundStatus}>
+              <span>
+                1st Employment:
+                <StatusPill
+                  status={details?.is_first_employment_verification_status}
+                />
+              </span>
+              <span>
+                Criminal:
+                <StatusPill status={details?.is_criminal_verification_status} />
+              </span>
             </div>
           </div>
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <CustomSelectField
-                isError={errorData?.billing_to}
-                errorText={errorData?.billing_to}
-                label={"Choose BGV Result Status"}
-                value={form?.billing_to}
-                handleChange={(value) => {
-                  changeTextData(value, "billing_to");
-                }}
-              >
-                <MenuItem value="in_process">IN_PROCESS</MenuItem>
-                <MenuItem value="clear">CLEAR </MenuItem>
-                <MenuItem value="pending">PENDIG </MenuItem>
-              </CustomSelectField>
-            </div>
-          </div>
+          <div className={styles.gaps} />
           <div className={styles.requiredFooter}>
             <div className={styles.topText}>
-              <b>BGV Status:</b>
+              <b>BGV Status: {details?.bgv_status}</b>
+            </div>
+            <div className={styles.topText}>
+              <b>BGV Result: {details?.bgv_result}</b>
             </div>
           </div>
+        </div>
+      </div>
+      {/*  */}
+      <div className={styles.plainPaper}>
+        <div className={styles.newContainer}>
+          <h3>Required Action Details</h3>
+          <div className={styles.mainFlex}>
+            <div className={styles.backgroundStatus}>
+              <span>Action Choosen:   <b>{details?.choose_action}</b>  </span>
+            </div>
+            <div className={styles.gaps} />
+            <div className={styles.backgroundStatus}>
+              <span>Remarks: <b>{details?.remark}</b></span>
+            </div>
+          </div>
+          <div className={styles.gaps} />
         </div>
       </div>
 
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <CustomSelectField
-                isError={errorData?.billing_to}
-                errorText={errorData?.billing_to}
-                label={"Choose Action "}
-                value={form?.billing_to}
-                handleChange={(value) => {
-                  changeTextData(value, "billing_to");
-                }}
-              >
-                <MenuItem value="isl">ISL</MenuItem>
-                <MenuItem value="isll">ISLL </MenuItem>
-                <MenuItem value="esix">ESIX </MenuItem>
-              </CustomSelectField>
+          <h3>Payment Details</h3>
+          <div className={styles.mainFlex}>
+            <div className={styles.backgroundStatus}>
+              <span>Cost: <b>{details?.cost}</b></span>
+              <span>Billing To: <b>{details?.billing_to}</b></span>
+            </div>
+            <div className={styles.gaps} />
+            <div className={styles.backgroundStatus}>
+              <span>Payment Status: <b>{details?.payment_status}</b></span>
+              <span>Completed In: <b>{details?.paymentCompleteText}</b></span>
             </div>
           </div>
-
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <CustomTextField
-                // isError={errorData?.description}
-                // errorText={errorData?.description}
-                label={"Any Remarks"}
-                value={form?.remark}
-                onTextChange={(text) => {
-                  changeTextData(text, "remark");
-                }}
-                // onBlur={() => {
-                //    onBlurHandler("remark");
-                // }}
-                multiline
-                rows={3}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.plainPaper}>
-        <div className={styles.newContainer}>
-        <div className={"formFlex"}>
-            <div style={{ color: "#161616", fontSize: "15px" }}>
-              <b> Payment Details</b>
-            </div>
-           
-          </div>
-         
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-            <span><b>Cost:</b> </span>
-              <CustomSelectField
-                isError={errorData?.billing_to}
-                errorText={errorData?.billing_to}
-                label={"Choose Action "}
-                value={form?.billing_to}
-                handleChange={(value) => {
-                  changeTextData(value, "billing_to");
-                }}
-              >
-                
-
-
-                <MenuItem value="in-Process">In-Process</MenuItem>
-                <MenuItem value="clear">Clear </MenuItem>
-                <MenuItem value="pending">Pending </MenuItem>
-              </CustomSelectField>
-            </div>
-            <div className={"formGroup"}>
-            <span><b>Billing To:</b> </span>
-              <CustomSelectField
-                isError={errorData?.billing_to}
-                errorText={errorData?.billing_to}
-                label={"Choose Action "}
-                value={form?.billing_to}
-                handleChange={(value) => {
-                  changeTextData(value, "billing_to");
-                }}
-              >
-              
-                <MenuItem value="isll">ISLL </MenuItem>
-                <MenuItem value="esix">ESIX </MenuItem>
-              </CustomSelectField>
-            </div>
-          </div>
+          <div className={styles.gaps} />
         </div>
       </div>
 
@@ -208,8 +160,8 @@ const BGVDetailView = ({errorData, form, changeTextData}) => {
           </p>
         </div>
       </div>
-  </div>
-  )
-}
+    </div>
+  );
+};
 
-export default BGVDetailView
+export default BGVDetailView;

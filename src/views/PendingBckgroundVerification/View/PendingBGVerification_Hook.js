@@ -13,7 +13,7 @@ import RouteName from "../../../routes/Route.name";
 const usePendingBGVerification_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
-  
+
   const [listData, setListData] = useState({
     EMPLOYEES: [],
   });
@@ -111,9 +111,13 @@ const usePendingBGVerification_Hook = () => {
     historyUtils.push(`${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}`);
   }, []);
 
-  const handleBGVUpdateDetails =useCallback((data)=>{
+  const handleBGVUpdateDetails = useCallback((data) => {
     historyUtils.push(`${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}`);
-  },[])
+  }, []);
+
+  const handleBGVDetails = useCallback((data) => {
+    historyUtils.push(`${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}`);
+  }, []);
 
   const configFilter = useMemo(() => {
     return [
@@ -145,6 +149,7 @@ const usePendingBGVerification_Hook = () => {
     editData,
     configFilter,
     handleViewDetails,
+    handleBGVDetails,
   };
 };
 
