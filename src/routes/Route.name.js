@@ -193,7 +193,25 @@ export default {
   IRF_FORM:'/irf/form',
   INCREMENT_MASTER:'/increment-master',
 
+  CANDIDATE_STATUS_GLOSSARY:"/candidate/status",
+  SUCCESSION_PLANING:"/succession-planing",
+  SUCCESSION_APPROVAL:"/succession-approval",
+  EXPIRING_OFFER_LETTER:"/expiring-offer-letter",
+
+  C3MLETTER:"/c3mletter",
+  NAPS_TRANING:"/naps_traning",
+  APPOINTMENT_LETTER:"/appointment_letter",
+  RELIEVING_EXPERIENCE_APPROVALS:"/relieving-experience-approval",
+  RELIEVING_EXPERIENCE_APPROVALS_DETAILS:"/relieving-experience-approval/details",
+  RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
+  PENDING_BACKGROUND_VERIFICATION:"/pending-verification",
+  PENDING_VERIFICATION_CREATE:"/verification/create/",
+  PENDING_VERIFICATION_DETAIL:"/verification/detail",
+  PENDING_VERIFICATION_UPDATE:"/verification/update/",
+  PENDING_VERIFICATION_DETAIL:"/verification/detail/",
+
   LEAVE_APPLICATION_LIST_VIEW:'/leave-application/list',
   LEAVE_APPLICATION_FORM:"/leave-application/form",
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
+ 
 };

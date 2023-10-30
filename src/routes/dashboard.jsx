@@ -14,9 +14,17 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
+import SuccessionApproval_List from "../views/SuccessionApproval/SuccessionApproval_List";
+import SuccessionPlanner_list from "../views/SuccessionPlaner/SuccessionPlanner_list";
+import LetterApprovalProces_View from "../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View";
+import LetterApprovalDetail from "../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail";
+import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/RelievingExpLetter_View";
 import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
 import ClaimForCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view";
 import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view";
+import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLeaveApplication.view";
+import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
+import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
 
 const LeaveApplicationForm = lazy(() =>
   import(
@@ -26,6 +34,31 @@ const LeaveApplicationForm = lazy(() =>
 const LeaveApplication = lazy(() =>
   import("../views/LeaveApplicationModule/LeaveApplication.view")
 );
+
+const CandidateInformation = lazy(() =>
+  import(
+    "../views/PendingBckgroundVerification/BGCandidateInformation/BG_CndidateInfo"
+  )
+);
+const PendingBGVerification_View = lazy(() =>
+  import(
+    "../views/PendingBckgroundVerification/View/PendingBGVerification_View"
+  )
+);
+const CandidateStatusGlossary_List = lazy(() =>
+  import("../views/CandidateStatusGlossary/CandidateStatusGlossary_List")
+);
+const ExpiringOfferLetterView = lazy(() =>
+  import("../views/ExpiringOfferLetter/ExpiringOfferLetter_View")
+);
+const C3MLetterView = lazy(() => import("../views/C3MLetters/C3MLetters_View"));
+const NAPS_Traning_View = lazy(() =>
+  import("../views/NAPS_Traning/NAPS_Traning_View")
+);
+const AppointmentLetter_View = lazy(() =>
+  import("../views/AppointmentLetters/AppointmentLetter_View")
+);
+
 const TravelClaimListDetail = lazy(() =>
   import(
     "../views/AdminClaimManagement/TravelClaimDetail/TravelClaimDetail.view"
@@ -402,13 +435,6 @@ const ImprestDetail = lazy(() =>
 const IncrementPlanner = lazy(() =>
   import("../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view")
 );
-const PendingLeaveApplication = lazy(() =>
-  import("../views/PendingLeaveApplication/PendingLeaveApplication.view")
-);
-
-const PendingLeaveDetail = lazy(() =>
-  import("../views/PendingLeaveApplication/PendingApplicationDetail/PendingApplication.view")
-);
 
 const Roles = Constants.ROLES;
 
@@ -471,6 +497,40 @@ const dashboardRoutes = [
     slug: "approval",
     is_parent: true,
     roles: [Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.SUCCESSION_PLANING,
+    sidebarName: "Succession Planner",
+    navbarName: "Succession Planner",
+    icon: PeopleOutlined,
+    component: SuccessionPlanner_list,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    // parent: 'employeedashboard',
+  },
+  {
+    path: RouteName.EXPIRING_OFFER_LETTER,
+    sidebarName: "Expiring Offer Letter",
+    navbarName: "Expiring Offer Letter",
+    icon: PeopleOutlined,
+    component: ExpiringOfferLetterView,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    // parent: 'employeedashboard',
+    roles: [Roles.RECRUITER, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.SUCCESSION_APPROVAL,
+    sidebarName: "Succession Approval",
+    navbarName: "Succession Approval",
+    icon: PeopleOutlined,
+    component: SuccessionApproval_List,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    // parent: 'employeedashboard',
   },
   {
     path: "/employeeInduction",
@@ -751,6 +811,7 @@ const dashboardRoutes = [
     is_parent: true,
     roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
+
   {
     path: RouteName.CANDIDATES,
     sidebarName: "Interview Candidates",
@@ -774,6 +835,18 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "recruitment",
     roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.CANDIDATE_STATUS_GLOSSARY,
+    sidebarName: "Candidate Status Glossary",
+    navbarName: "Candidate Status Glossary",
+    icon: AssignmentOutlined,
+    component: CandidateStatusGlossary_List,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    parent: "recruitment",
+    // roles: [Roles.CORPORATE_HR],
   },
   {
     path: "null",
@@ -1948,6 +2021,7 @@ const dashboardRoutes = [
     is_protect: true,
     roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
+
   {
     path: RouteName.HR_ANNOUNCEMENT_CREATE,
     component: HRAnnouncementCreateView,
@@ -2005,6 +2079,7 @@ const dashboardRoutes = [
     is_protect: true,
     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
+
   {
     path: "null",
     sidebarName: "Travel Planner",
@@ -2015,6 +2090,7 @@ const dashboardRoutes = [
     is_parent: true,
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
+
   {
     path: `${RouteName.TRAVEL_PLANNER}`,
     sidebarName: "My Travel Planner",
@@ -2134,6 +2210,7 @@ const dashboardRoutes = [
     // parent: 'tp',
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
+
   {
     path: RouteName.ADMIN_ONGOING_LOANS,
     sidebarName: "Ongoing Loans",
@@ -2156,6 +2233,147 @@ const dashboardRoutes = [
     // parent: 'tp',
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
+  {
+    path: RouteName.PENDING_BACKGROUND_VERIFICATION,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: PeopleOutlined,
+    component: PendingBGVerification_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.PENDING_VERIFICATION_CREATE}:id`,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: PeopleOutlined,
+    component: CandidateInformation,
+    is_sidebar: false,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.PENDING_VERIFICATION_UPDATE}:id`,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: PeopleOutlined,
+    component: BGVStatus_Update,
+    is_sidebar: false,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.PENDING_VERIFICATION_DETAIL}:id`,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: PeopleOutlined,
+    component: BGVDetailView,
+    is_sidebar: false,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: "null",
+    sidebarName: "Skynet Letters",
+    navbarName: "Skynet Letters",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "skynetLetter",
+    is_parent: true,
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: RouteName.NAPS_TRANING,
+    sidebarName: "NAPS Training Completion Letters",
+    navbarName: "NAPS Training Completion Letters",
+    icon: PeopleOutlined,
+    component: NAPS_Traning_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+
+  {
+    path: RouteName.APPOINTMENT_LETTER,
+    sidebarName: "Appointment Letters",
+    navbarName: "Appointment Letters",
+    icon: PeopleOutlined,
+    component: AppointmentLetter_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: RouteName.C3MLETTER,
+    sidebarName: "C3M Letters",
+    navbarName: "C3M Letters",
+    icon: PeopleOutlined,
+    component: C3MLetterView,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: RouteName.RELIEVING_EXPERIENCE_APPROVALS,
+    sidebarName: "Relieving & Experience Letter Approvals",
+    navbarName: "Relieving & Experience Letter Approvals",
+    icon: PeopleOutlined,
+    component: LetterApprovalProces_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: RouteName.RELIEVING_EXPERIENCE_APPROVALS_DETAILS,
+    sidebarName: "Relieving & Experience Letter Approvals",
+    navbarName: "Relieving & Experience Letter Approvals",
+    icon: PeopleOutlined,
+    component: LetterApprovalDetail,
+    is_sidebar: false,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: RouteName.RELIEVING_EXPERIENCE_LETTER,
+    sidebarName: "Relieving & Experience Letter",
+    navbarName: "Relieving & Experience Letter",
+    icon: PeopleOutlined,
+    component: RelievingExpLetter_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
   {
     path: RouteName.LEAVE_APPLICATION_LIST_VIEW,
     sidebarName: "My Leave Application",
@@ -2182,15 +2400,15 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
   },
-  {
-    path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
-    sidebarName: "Pending Leave Application",
-    navbarName: "Pending Leave Application",
-    icon: AssignmentOutlined,
-    component: PendingLeaveDetail,
-    is_sidebar: false,
-    is_protect: true,
-  },
+  // {
+  //     path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
+  //     sidebarName: "Pending Leave Application",
+  //     navbarName: "Pending Leave Application",
+  //     icon: AssignmentOutlined,
+  //     component: PendingLeaveDetail,
+  //     is_sidebar: false,
+  //     is_protect: true,
+  // },
 ];
 
 export default dashboardRoutes;
