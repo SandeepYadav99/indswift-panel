@@ -143,11 +143,18 @@ const useLeaveApplication = () => {
     } else {
       delete errors["leave"];
     }
+    if (Number(count?.data?.pending_leave) <= 0) {
+      errors["leave"] = true;
+      SnackbarUtils.error("No Leaves Pending ");
+    } else {
+      delete errors["leave"];
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
       }
     });
+
     return errors;
   }, [form, errorData, daysCount, setDaysCount]);
 
@@ -327,14 +334,7 @@ const useLeaveApplication = () => {
     BdayLeaveThisYear,
   });
   const formatDate = (inputDate) => {
-    // const dateParts = inputDate.split("/");
-    // const month = dateParts[1];
-    // const day = dateParts[0];
-    // const year = dateParts[2];
-
-    // const formattedDate = new Date(`${year}-${month}-${day}`);
     const formattedDate = new Date(inputDate);
-    // const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     const options = {
       weekday: "short",
       month: "short",
@@ -387,10 +387,8 @@ const useLeaveApplication = () => {
           if (valueMonth < CurrentMonth) {
             console.log("bdayNext");
             fd.append("start_date", formatDate(bdayNext));
-            console.log(bdayNext, "Hello1", bdayNext, formatDate(bdayNext));
           } else {
             fd.append("start_date", formatDate(bdayYear));
-            console.log(bdayNext, "Hello2", bdayYear, formatDate(bdayYear));
           }
         } else {
           if (valueMonthAnni < CurrentMonth) {
