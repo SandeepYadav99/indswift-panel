@@ -122,14 +122,14 @@ const useLeaveApplication = () => {
         }
       });
     }
-    if (daysCount < "0") {
+    if (daysCount <= "0") {
       errors["dayscount"] = true;
       SnackbarUtils.error("Start Days Cannot be Greater than End Date");
     } else {
       delete errors["dayscount"];
     }
 
-    if (daysCount > count?.data?.pending_leave) {
+    if (daysCount > count?.data?.pending_leave ) {
       errors["leave"] = true;
       SnackbarUtils.error(
         "Applied Leave cannot be greater than Pending Leaves"
