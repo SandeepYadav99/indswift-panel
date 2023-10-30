@@ -42,7 +42,7 @@ console.log(letter_id)
           handleToggle();
           SnackbarUtils.success("Successfully email has been sent")
         }else{
-          SnackbarUtils.error("Offer letter not found")
+          SnackbarUtils.error("Offer Letter Not Found")
         }
       });
     }

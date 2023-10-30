@@ -1,12 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  actionFetchNewEmployeeList,
-  actionSetPageNewEmployeeList,
-} from "../../actions/NewEmployeeList.action";
-import historyUtils from "../../libs/history.utils";
-import RouteName from "../../routes/Route.name";
-import { serviceGetList } from "../../services/Common.service";
+
+import { actionFetchC3MLetterList, actionSetPageC3MLetterList } from "../../actions/C3MLetters_action";
 
 const useC3MLetters_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
@@ -21,11 +16,11 @@ const useC3MLetters_Hook = () => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.newEmployee);
+  } = useSelector((state) => state?.C3MLetter);
 
   useEffect(() => {
     dispatch(
-      actionFetchNewEmployeeList(1, sortingData, {
+      actionFetchC3MLetterList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -33,24 +28,24 @@ const useC3MLetters_Hook = () => {
     isMountRef.current = true;
   }, []);
 
-  useEffect(() => {
-    serviceGetList(["LOCATIONS"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   serviceGetList(["LOCATIONS"]).then((res) => {
+  //     if (!res.error) {
+  //       setListData(res.data);
+  //     }
+  //   });
+  // }, []);
   console.log("list", listData);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageNewEmployeeList(type));
+    dispatch(actionSetPageC3MLetterList(type));
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
       dispatch(
-        actionFetchNewEmployeeList(1, sortingData, {
+        actionFetchC3MLetterList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -79,7 +74,7 @@ const useC3MLetters_Hook = () => {
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(
-        actionFetchNewEmployeeList(
+        actionFetchC3MLetterList(
           1,
           { row, order },
           {
@@ -96,8 +91,13 @@ const useC3MLetters_Hook = () => {
     console.log(page);
   };
 
-  const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.NEW_EMPLOYEE_DETAIL}${data?.id}`); //+data.id
+  const openPDFInNewTab = useCallback((pdfUrl) => {
+  console.log(pdfUrl)
+    // const newWindow = window.open('', '_blank');
+    if (pdfUrl) {
+      window.open(pdfUrl?.joining_letter, "_blank")
+      // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
+    }
   }, []);
 
   const configFilter = useMemo(() => {
@@ -125,7 +125,7 @@ const useC3MLetters_Hook = () => {
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
-    handleViewDetails,
+    openPDFInNewTab,
     isCalling,
     editData,
     configFilter,

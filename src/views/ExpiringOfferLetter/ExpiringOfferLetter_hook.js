@@ -34,7 +34,7 @@ const useExpiringOfferLetterHook = ({}) => {
       })
     );
     isMountRef.current = true;
-  }, []);
+  }, [expireLetter]);
 
 
   const changeRoute = useCallback((data) => {
@@ -101,31 +101,18 @@ const useExpiringOfferLetterHook = ({}) => {
   };
 
 
-
-  // const handleEdit = useCallback(
-  //   (data) => {
-  //     setEditData(data);
-  //     setSidePanel((e) => !e);
-  //   },
-  //   [setEditData, setSidePanel]
-  // );
-
   const handleSideToggle = useCallback(() => {
     // historyUtils.push(RouteName.CANDIDATES_CREATE);
   }, [setEditData, setSidePanel]);
 
-  const handleViewDetails = useCallback((data) => {
+  const olrDetailPages = useCallback((data) => {
     // LogUtils.log("data", data);
-    // historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data.candidate_id}`);
+  
+    historyUtils.push(`${RouteName.CANDIDATES_OFFER_DETAILS}${data?.id}`);
   }, []);
   const configFilter = useMemo(() => {
     return [
-      {
-        label: "Created Date",
-        options: { maxDate: new Date() },
-        name: "createdAt",
-        type: "date",
-      },
+      
       {
         label: "Status",
         name: "status",
@@ -149,6 +136,7 @@ const useExpiringOfferLetterHook = ({}) => {
     [isOpenDialog, expireLetter]
   );
 
+
   const toggleIsOpenResendDialog = useCallback(
     (data) => {
    
@@ -166,7 +154,7 @@ const useExpiringOfferLetterHook = ({}) => {
     handleSortOrderChange,
 
     handleSideToggle,
-    handleViewDetails,
+  
     isCalling,
     editData,
     isSidePanel,
@@ -178,7 +166,8 @@ const useExpiringOfferLetterHook = ({}) => {
     toggleIsOpenResendDialog,
     isOpenResendDialog,
     letterResendId,
-    expireLetter
+    expireLetter,
+    olrDetailPages
   };
 };
 

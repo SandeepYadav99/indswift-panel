@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-
-import ReactDOM from "react-dom"
+import ReactDOM from "react-dom";
 
 import {
   actionFetchNapsTraningList,
@@ -98,11 +97,11 @@ const useNapsTraning_Hook = () => {
   };
 
   const openPDFInNewTab = useCallback((pdfUrl) => {
-  
-    const newWindow = window.open('', '_blank');
-    if (newWindow) {
-      window.open(pdfUrl, "_blank")
+    if (pdfUrl) {
+      window.open(pdfUrl?.joining_letter, "_blank");
       // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
+    } else {
+     
     }
   }, []);
 
