@@ -157,11 +157,12 @@ const LeaveApplicationForm = () => {
                   }}
                 >
                   <MenuItem value="BIRTHDAY">BIRTHDAY</MenuItem>
-                  {employeeDetails?.family?.martial_status === "Married" && (
-                    <MenuItem value="MARRIAGE_ANNIVERSARY">
-                      MARRIAGE ANNIVERSARY
-                    </MenuItem>
-                  )}
+                  {employeeDetails?.family?.martial_status === "Married" &&
+                    employeeDetails?.dom !== "N/A" && (
+                      <MenuItem value="MARRIAGE_ANNIVERSARY">
+                        MARRIAGE ANNIVERSARY
+                      </MenuItem>
+                    )}
                 </CustomSelectField>
                 <div className={styles.leaveText}>
                   {form?.event_type === "MARRIAGE_ANNIVERSARY" ? (

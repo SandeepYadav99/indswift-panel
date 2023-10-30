@@ -5,6 +5,7 @@ import { serviceLeaveCreate } from "../../../services/Leave.service";
 import { actionLeaveCount } from "../../../actions/LeaveModule.action";
 import { useDispatch, useSelector } from "react-redux";
 import useClaimIntCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
+import historyUtils from "../../../libs/history.utils";
 
 const initialForm = {
   type: "",
@@ -122,14 +123,14 @@ const useLeaveApplication = () => {
         }
       });
     }
-    if (daysCount <= "0") {
+    if (Number(daysCount) <= 0 && form?.type !== "OCCASION_LEAVE") {
       errors["dayscount"] = true;
       SnackbarUtils.error("Start Days Cannot be Greater than End Date");
     } else {
       delete errors["dayscount"];
     }
 
-    if (daysCount > count?.data?.pending_leave ) {
+    if (Number(daysCount) > Number(count?.data?.pending_leave)) {
       errors["leave"] = true;
       SnackbarUtils.error(
         "Applied Leave cannot be greater than Pending Leaves"
@@ -316,18 +317,31 @@ const useLeaveApplication = () => {
     setAnniNext(BdayLeaveNextYearAnni);
   });
 
+  console.log("BdayLeaveThisYearAnni", employeeDetails?.dob, {
+    BdayLeaveNextYear,
+    BdayLeaveThisYear,
+  });
   const formatDate = (inputDate) => {
-    const dateParts = inputDate.split("/");
-    const month = dateParts[1];
-    const day = dateParts[0];
-    const year = dateParts[2];
+    // const dateParts = inputDate.split("/");
+    // const month = dateParts[1];
+    // const day = dateParts[0];
+    // const year = dateParts[2];
 
-    const formattedDate = new Date(`${year}-${month}-${day}`);
-
-    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-    return formattedDate.toLocaleDateString("en-GB", options);
+    // const formattedDate = new Date(`${year}-${month}-${day}`);
+    const formattedDate = new Date(inputDate);
+    // const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    const options = {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      timeZoneName: "short",
+    };
+    return formattedDate.toLocaleString("en-US", options);
   };
-
   useEffect(() => {
     if (form?.start_date && form?.end_date) {
       const startTime = new Date(form?.end_date);
@@ -366,10 +380,12 @@ const useLeaveApplication = () => {
       } else if (form?.type === "OCCASION_LEAVE") {
         if (form?.event_type === "BIRTHDAY") {
           if (valueMonth < CurrentMonth) {
+            console.log("bdayNext");
             fd.append("start_date", formatDate(bdayNext));
-            console.log(bdayNext,"Hello");
+            console.log(bdayNext, "Hello1", bdayNext, formatDate(bdayNext));
           } else {
             fd.append("start_date", formatDate(bdayYear));
+            console.log(bdayNext, "Hello2", bdayYear, formatDate(bdayYear));
           }
         } else {
           if (valueMonthAnni < CurrentMonth) {
@@ -378,6 +394,9 @@ const useLeaveApplication = () => {
             fd.append("start_date", formatDate(anniYear));
           }
         }
+        form?.duration_days === 1
+          ? fd.append("duration", "FULL_DAY")
+          : fd.append("duration", "HALF_DAY");
       }
       if (form?.document) {
         fd.append("document", form?.document);
@@ -385,6 +404,7 @@ const useLeaveApplication = () => {
       req(fd).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Submitted SuccessFully");
+          historyUtils.goBack();
         } else {
           SnackbarUtils.error(res?.message);
         }
