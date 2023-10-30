@@ -36,7 +36,7 @@ const BGVStatus_Update = () => {
           <div className={styles.newLine} />
         </div>
       </div>
-      <CandidateInfor data={form} />
+      <CandidateInfor empId={form?.emp_code} />
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.mainFlex}>
@@ -268,7 +268,7 @@ const BGVStatus_Update = () => {
               <CustomSelectField
                 isError={errorData?.payment_status}
                 errorText={errorData?.payment_status}
-                label={"Choose Action "}
+                label={"Payment Status "}
                 value={form?.payment_status}
                 handleChange={(value) => {
                   changeTextData(value, "payment_status");
@@ -286,7 +286,7 @@ const BGVStatus_Update = () => {
               <CustomSelectField
                 isError={errorData?.payment_complete}
                 errorText={errorData?.payment_complete}
-                label={"Choose Action "}
+                label={"Complete in "}
                 value={form?.payment_complete}
                 handleChange={(value) => {
                   changeTextData(value, "payment_complete");

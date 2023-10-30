@@ -14,7 +14,8 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 const BGVDetailView = ({}) => {
   const [details, setDetails] = useState([]);
   const { id } = useParams();
- 
+ console.log(details?.emp_code
+  )
 
   useEffect(() => {
     //  setIsLoading(true);
@@ -40,6 +41,7 @@ const BGVDetailView = ({}) => {
           cost: data?.cost,
           choose_action: data?.choose_action,
           remark: data?.remark,
+          emp_code:data?.employeeObj?.emp_code
         });
       } else {
         SnackbarUtils.error(res.message);
@@ -61,7 +63,8 @@ const BGVDetailView = ({}) => {
           <div className={styles.newLine} />
         </div>
       </div>
-      <CandidateInfor data={{}} />
+      <CandidateInfor empId={details?.emp_code
+} />
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <h3>Background Verification Status</h3>
