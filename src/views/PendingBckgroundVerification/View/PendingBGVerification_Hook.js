@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import ReactDOM from "react-dom";
-
 import {
   actionFetchPendingBGVList,
   actionSetPagePendingBGVList,
@@ -11,17 +9,17 @@ import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 
 const usePendingBGVerification_Hook = () => {
-  const [isCalling, setIsCalling] = useState(false);
-  const [editData, setEditData] = useState(null);
+  const [isCalling] = useState(false);
+  const [editData] = useState(null);
 
-  const [listData, setListData] = useState({
+  const [listData] = useState({
     EMPLOYEES: [],
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
-    is_fetching: isFetching,
+    // is_fetching: isFetching,
     query,
     query_data: queryData,
   } = useSelector((state) => state?.pendingBGV);

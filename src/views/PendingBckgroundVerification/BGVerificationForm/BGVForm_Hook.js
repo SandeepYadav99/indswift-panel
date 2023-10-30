@@ -1,12 +1,12 @@
 import { useParams } from "react-router";
-import React, { useCallback, useEffect, useState } from "react";
+import  { useCallback,  useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 
 import {
   serviceEmployeeBGVCreate,
-  serviceEmployeeBGVDetail,
+ 
 } from "../../../services/PendingBGVerification.service";
 
 const useBGVForm_Hook = ({}) => {

@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback,  useMemo } from "react";
 import { ButtonBase, IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
+
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
@@ -14,7 +14,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import {
   AssignmentOutlined,
   InfoOutlined,
-  VisibilityOffOutlined,
+
   VisibilityOutlined,
 } from "@material-ui/icons";
 import usePendingBGVerification_Hook from "./PendingBGVerification_Hook";
@@ -41,9 +41,7 @@ const PendingBGVerification_View = ({ location }) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.pendingBGV);
 
-  const removeUnderScore = (value) => {
-    return value ? value.replace(/_/g, " ") : "";
-  };
+ 
   const renderStatus = useCallback((status) => {
     if (status === "PENDING" || "CLEAR" || "FAILED") {
       return <StatusPill status={status} />;

@@ -1,7 +1,7 @@
 import styles from "./Style.module.css";
 import { ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import { CheckBox, EditOutlined } from "@material-ui/icons";
+import {  EditOutlined } from "@material-ui/icons";
 
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 

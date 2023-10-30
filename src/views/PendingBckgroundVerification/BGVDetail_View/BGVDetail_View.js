@@ -1,14 +1,12 @@
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../../libs/history.utils";
 import styles from "./Style.module.css";
 import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
-import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
-import CheckboxList from "../component/Checkbox";
-import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
+
 import StatusPill from "../../../components/Status/StatusPill.component";
-import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
+
 import { serviceEmployeeBGVDetail } from "../../../services/PendingBGVerification.service";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
@@ -16,7 +14,7 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 const BGVDetailView = ({}) => {
   const [details, setDetails] = useState([]);
   const { id } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
+ 
 
   useEffect(() => {
     //  setIsLoading(true);
