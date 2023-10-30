@@ -114,11 +114,11 @@ const BGVDetailView = ({}) => {
           <h3>Required Action Details</h3>
           <div className={styles.mainFlex}>
             <div className={styles.backgroundStatus}>
-              <span>Action Choosen:   <b>{details?.choose_action}</b>  </span>
+              <span> <b>Action Choosen:</b>   {details?.choose_action} </span>
             </div>
             <div className={styles.gaps} />
             <div className={styles.backgroundStatus}>
-              <span>Remarks: <b>{details?.remark}</b></span>
+              <span><b>Remarks:</b> {details?.remark}</span>
             </div>
           </div>
           <div className={styles.gaps} />
@@ -130,13 +130,13 @@ const BGVDetailView = ({}) => {
           <h3>Payment Details</h3>
           <div className={styles.mainFlex}>
             <div className={styles.backgroundStatus}>
-              <span>Cost: <b>{details?.cost}</b></span>
-              <span>Billing To: <b>{details?.billing_to}</b></span>
+              <span><b>Cost: </b>{details?.cost}</span>
+              <span><b>Billing To: </b>{details?.billing_to}</span>
             </div>
             <div className={styles.gaps} />
             <div className={styles.backgroundStatus}>
-              <span>Payment Status: <b>{details?.payment_status}</b></span>
-              <span>Completed In: <b>{details?.paymentCompleteText}</b></span>
+              <span> <b>Payment Status:</b>{details?.payment_status}</span>
+              <span> <b>Completed In:</b>{details?.paymentCompleteText}</span>
             </div>
           </div>
           <div className={styles.gaps} />

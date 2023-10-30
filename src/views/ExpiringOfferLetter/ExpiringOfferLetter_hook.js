@@ -110,21 +110,17 @@ const useExpiringOfferLetterHook = ({}) => {
   
     historyUtils.push(`${RouteName.CANDIDATES_OFFER_DETAILS}${data?.id}`);
   }, []);
+
   const configFilter = useMemo(() => {
     return [
-      
+    
       {
-        label: "Status",
-        name: "status",
+        label: "Offer letter status",
+        name: "Offer_letter_status",
         type: "select",
         fields: ["APPROVED", "PENDING", "REJECTED"],
       },
-      {
-        label: "Candidate Status",
-        name: "candidateObj.status",
-        type: "select",
-        fields: Object.keys(Constants.JOB_CANDIDATE_STATUS),
-      },
+    
     ];
   }, []);
 
@@ -172,3 +168,4 @@ const useExpiringOfferLetterHook = ({}) => {
 };
 
 export default useExpiringOfferLetterHook;
+
