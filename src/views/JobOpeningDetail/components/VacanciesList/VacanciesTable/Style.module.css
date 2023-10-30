@@ -1,18 +1,30 @@
 .firstCellFlex {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .firstCellFlex img {
-    width: 40px;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
+  width: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
 }
 .firstCellInfo {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .headerFlex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tableInactive {
+  border: 1px solid #2896E9;
+}
+.tableInActionBtn {
+  color: #e92828;
+  font-size: 20px;
+}
+.subText{
+  font-size: 1rem;
+  font-weight: 500;
+  margin-left: 10px;
 }
