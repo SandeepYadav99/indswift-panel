@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Constants from "../../config/constants";
 import { actionFetchExpirOfferLetterList,   actionSetPageExpirOfferLetterList } from "../../actions/ExpirOfferLetter.action";
 import { serviceMarkResharedOfferLetter } from "../../services/ExpirOfferLetter.service";
+import historyUtils from "../../libs/history.utils";
+import RouteName from "../../routes/Route.name";
 
 const useExpiringOfferLetterHook = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -34,9 +36,13 @@ const useExpiringOfferLetterHook = ({}) => {
     isMountRef.current = true;
   }, []);
 
+
   const changeRoute = useCallback((data) => {
-    // historyUtils.push(RouteName.JOB_OPENINGS_DETAILS + data?.job_details?.id); //+data.id
+
+     historyUtils.push(RouteName.JOB_OPENINGS_DETAILS + data?.job?.id); //+data.id
   }, []);
+
+
   const changeEmployeeRoute = useCallback((data) => {
     // historyUtils.push(`/employees/details/${data?.code}`);
   }, []);

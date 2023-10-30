@@ -269,13 +269,13 @@ const ExpenseIncludeForm = (
     }
 
     return sum;
-  }, [fields]);
+  }, [fields,curr]);
 
   useEffect(() => {
     if (USDsum || Eurosum || Inrsum) {
       setOfficeAmount2(totalAmount);
     }
-  }, [fields]);
+  }, [fields,curr]);
 
   return (
     <>

@@ -401,27 +401,52 @@ export const entitlementAmout = (grade, book, cluster) => {
 
 export const entitlementForeign = (grade, book, country) => {
   if (book === "SELF_ARRANGEMENT") {
-    switch (grade) {
-      case "G0":
-        return 32;
-      case "G1":
-        return 32;
-      case "G2":
-        return 32;
-      case "G3":
-        return 28;
-      case "G4":
-        return 28;
-      case "G5":
-        return 28;
-      case "G6":
-        return 28;
-      case "G7":
-        return 28;
-      case "G8":
-        return 28;
-      default:
-        return 0;
+    if (country === "INDIA") {
+      switch (grade) {
+        case "G0":
+          return 1300;
+        case "G1":
+          return 1100;
+        case "G2":
+          return 800;
+        case "G3":
+          return 600;
+        case "G4":
+          return 540;
+        case "G5":
+          return 500;
+        case "G6":
+          return 460;
+        case "G7":
+          return 340;
+        case "G8":
+          return 240;
+        default:
+          return 0;
+      }
+    } else {
+      switch (grade) {
+        case "G0":
+          return 32;
+        case "G1":
+          return 32;
+        case "G2":
+          return 32;
+        case "G3":
+          return 28;
+        case "G4":
+          return 28;
+        case "G5":
+          return 28;
+        case "G6":
+          return 28;
+        case "G7":
+          return 28;
+        case "G8":
+          return 28;
+        default:
+          return 0;
+      }
     }
   } else {
     if (country === "INDIA") {

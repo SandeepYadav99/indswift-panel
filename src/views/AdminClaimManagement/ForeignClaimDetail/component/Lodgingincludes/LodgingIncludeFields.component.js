@@ -2,16 +2,9 @@ import React, { useMemo } from "react";
 import { TextField, ButtonBase, MenuItem } from "@material-ui/core";
 import styles from "./style.module.css";
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
-import {
-  getCurrency,
-} from "../../../../../helper/helper";
+import { getCurrency } from "../../../../../helper/helper";
 
-const LodgingIncludeFields = ({
-  index,
-  changeData,
-  data,
-  errors,
-}) => {
+const LodgingIncludeFields = ({ index, changeData, data, errors }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
       changeData(index, { [fieldName]: e });
@@ -135,10 +128,18 @@ const LodgingIncludeFields = ({
                 )}
               </div>
               <div className={styles.key}>
+                <span className={styles.value}>Over Expenditure:</span>
+                {data?.over_expenditure ? `${getCurrency(data?.currency)} ${data?.over_expenditure} ` : 0}
+              </div>
+              <div className={styles.key}>
                 <span className={styles.value}>Payment Made By:</span>
                 {data?.payment_by}
               </div>
-
+              <div className={styles.key}>
+                <span className={styles.value}>Choose the currency of payment:</span>
+                {data?.payment_made_by ? data?.payment_made_by : "-"}
+              </div>
+              
               {data?.voucher && (
                 <div className={styles.key}>
                   <a href={data?.voucher} target="_blank">

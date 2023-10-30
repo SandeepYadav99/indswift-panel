@@ -120,33 +120,35 @@ function useClaimForCard() {
     return errors;
   }, [form, errorData]);
 
-  const imprestINRAmount = useMemo(() => {
-    if (curr?.length > 0 && form?.travel_planner_id?.myImprest?.amount) {
-      if (form?.travel_planner_id?.myImprest?.currency === "USD") {
-        return (
-          Number(form?.travel_planner_id?.myImprest?.amount) *
-          Number(curr[1]?.conversion_rate)
-        );
-      } else if (form?.travel_planner_id?.myImprest?.currency === "EUR") {
-        return (
-          Number(form?.travel_planner_id?.myImprest?.amount) *
-          Number(curr[0]?.conversion_rate)
-        );
-      } else {
-        return Number(form?.travel_planner_id?.myImprest?.amount);
-      }
-    }
-
-    return 0;
-  }, [form, curr, SetCurr]);
-
-  console.log("office", officeAmount, officeAmount2);
   const imprestAmount = useMemo(() => {
     if (form?.travel_planner_id?.myImprest?.status === "FINANCE_APPROVED") {
       return form?.travel_planner_id?.myImprest?.amount;
     }
     return 0;
   }, [form]);
+
+  const imprestINRAmount = useMemo(() => {
+    if (curr?.length > 0 && imprestAmount) {
+      if (form?.travel_planner_id?.myImprest?.currency === "USD") {
+        return (
+          Number(imprestAmount) *
+          Number(curr[1]?.conversion_rate)
+        );
+      } else if (form?.travel_planner_id?.myImprest?.currency === "EUR") {
+        return (
+          Number(imprestAmount) *
+          Number(curr[0]?.conversion_rate)
+        );
+      } else {
+        return Number(imprestAmount);
+      }
+    }
+
+    return 0;
+  }, [form, curr, SetCurr,imprestAmount]);
+
+  console.log("office", officeAmount, officeAmount2);
+  
 
   const USDAmount = useMemo(() => {
     let total = 0;

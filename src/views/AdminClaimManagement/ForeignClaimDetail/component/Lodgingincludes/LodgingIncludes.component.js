@@ -256,15 +256,15 @@ const LodgingIncludeForm = (
     }
 
     return sum;
-  }, [fields]);
+  }, [fields,curr]);
 
-  console.log("getOfficeAmount", curr[1]?.conversion_rate, totalAmount);
+  console.log("getOfficeAmountt", curr[1]?.conversion_rate, totalAmount);
 
   useEffect(() => {
     if (totalAmount || totalAmount == 0) {
       setOfficeAmount(totalAmount);
     }
-  }, [fields]);
+  }, [fields,curr]);
   return (
     <>
       {renderFields}
