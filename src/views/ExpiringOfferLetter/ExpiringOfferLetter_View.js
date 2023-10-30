@@ -74,6 +74,7 @@ const ExpiringOfferLetterView = ({ location }) => {
     }
     return null;
   }, []);
+
   const renderPRCCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -84,6 +85,7 @@ const ExpiringOfferLetterView = ({ location }) => {
     }
     return null;
   }, []);
+  
   const renderReplacingCell = useCallback((obj) => {
     if (obj) {
       return (

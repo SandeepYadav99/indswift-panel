@@ -42,26 +42,7 @@ const TravelList = ({ location }) => {
     ];
   }, []);
 
-  const tableData = useMemo(() => {
-    const datatableFunctions = {
-     
-    };
 
-    const datatable = {
-      ...Constants.DATATABLE_PROPERTIES,
-      columns: tableStructure,
-      data: candidates,
-      count: candidates.length,
-   
-    };
-
-    return { datatableFunctions, datatable };
-  }, [
- 
-    tableStructure,
-    candidates,
-   
-  ]);
 
   return (
     <div>
@@ -75,8 +56,10 @@ const TravelList = ({ location }) => {
         <br />
         <div style={{ width: "100%" }}>
           <DataTables
-            {...tableData.datatable}
-            {...tableData.datatableFunctions}
+            {...Constants.DATATABLE_PROPERTIES}
+            columns={tableStructure}
+            data={candidates}
+            count={candidates.length}
           />
         </div>
       </PageBox>

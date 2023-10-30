@@ -22,21 +22,28 @@ import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/Relievi
 import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
 import ClaimForCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view";
 import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view";
+import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLeaveApplication.view";
+import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
+import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
 
 const LeaveApplicationForm = lazy(() =>
-    import(
-        "../views/LeaveApplicationModule/LeaveApplicationForm/LeaveApplicationForm.container"
-        )
+  import(
+    "../views/LeaveApplicationModule/LeaveApplicationForm/LeaveApplicationForm.container"
+  )
 );
 const LeaveApplication = lazy(() =>
-    import("../views/LeaveApplicationModule/LeaveApplication.view")
+  import("../views/LeaveApplicationModule/LeaveApplication.view")
 );
 
-const BGVDetails = lazy(() =>
-  import("../views/PendingBckgroundVerification/BGVerificationDetails/BGVDetails")
+const CandidateInformation = lazy(() =>
+  import(
+    "../views/PendingBckgroundVerification/BGCandidateInformation/BG_CndidateInfo"
+  )
 );
 const PendingBGVerification_View = lazy(() =>
-  import("../views/PendingBckgroundVerification/View/PendingBGVerification_View")
+  import(
+    "../views/PendingBckgroundVerification/View/PendingBGVerification_View"
+  )
 );
 const CandidateStatusGlossary_List = lazy(() =>
   import("../views/CandidateStatusGlossary/CandidateStatusGlossary_List")
@@ -512,6 +519,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'employeedashboard',
+    roles: [Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.SUCCESSION_APPROVAL,
@@ -803,6 +811,7 @@ const dashboardRoutes = [
     is_parent: true,
     roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
+
   {
     path: RouteName.CANDIDATES,
     sidebarName: "Interview Candidates",
@@ -826,6 +835,18 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "recruitment",
     roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.CANDIDATE_STATUS_GLOSSARY,
+    sidebarName: "Candidate Status Glossary",
+    navbarName: "Candidate Status Glossary",
+    icon: AssignmentOutlined,
+    component: CandidateStatusGlossary_List,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    parent: "recruitment",
+    // roles: [Roles.CORPORATE_HR],
   },
   {
     path: "null",
@@ -1352,18 +1373,18 @@ const dashboardRoutes = [
     parent: "cm",
     // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
-    {
-        path: `${RouteName.FOREIGN_CLAIMS_DETAILS}:id`,
-        sidebarName: "Claims List",
-        navbarName: "Claims List",
-        icon: PeopleOutlined,
-        component: ForeignClaimDetail,
-        is_sidebar: false,
-        is_protect: true,
-        should_regex: true,
-        parent: "cm",
-        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
-    },
+  {
+    path: `${RouteName.FOREIGN_CLAIMS_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: ForeignClaimDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
   {
     path: `${RouteName.TRAVEL_HR_CLAIMS_DETAILS}:id`,
     sidebarName: "Claims List",
@@ -1544,18 +1565,18 @@ const dashboardRoutes = [
     parent: "cm",
     // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
-    {
-        path: `${RouteName.CLAIMS_CURR}`,
-        sidebarName: "Claims Int",
-        navbarName: "Claims Int",
-        icon: PeopleOutlined,
-        component: ClaimForCard,
-        is_sidebar: false,
-        is_protect: true,
-        should_regex: true,
-        parent: "cm",
-        // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
-    },
+  {
+    path: `${RouteName.CLAIMS_CURR}`,
+    sidebarName: "Claims Int",
+    navbarName: "Claims Int",
+    icon: PeopleOutlined,
+    component: ClaimForCard,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+  },
   {
     path: `${RouteName.CLAIMS_LOC}`,
     sidebarName: "Claims Loc",
@@ -1712,18 +1733,18 @@ const dashboardRoutes = [
     parent: "Hr",
     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
-    {
-        path: `${RouteName.CURRENCY_UPDATE}:id`,
-        sidebarName: "Settings",
-        navbarName: "Settings",
-        icon: PeopleOutlined,
-        component: CurrencyEditView,
-        is_sidebar: false,
-        is_protect: true,
-        should_regex: true,
-        parent: "Hr",
-        roles: [Roles.ADMIN, Roles.CORPORATE_HR],
-    },
+  {
+    path: `${RouteName.CURRENCY_UPDATE}:id`,
+    sidebarName: "Settings",
+    navbarName: "Settings",
+    icon: PeopleOutlined,
+    component: CurrencyEditView,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "Hr",
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
   {
     path: "/hr/knowledge",
     sidebarName: "Knowledge Center",
@@ -2000,6 +2021,7 @@ const dashboardRoutes = [
     is_protect: true,
     roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
+
   {
     path: RouteName.HR_ANNOUNCEMENT_CREATE,
     component: HRAnnouncementCreateView,
@@ -2188,16 +2210,7 @@ const dashboardRoutes = [
     // parent: 'tp',
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
-  {
-    path: RouteName.CANDIDATE_STATUS_GLOSSARY,
-    sidebarName: "Candidate Status Glossary",
-    navbarName: "Candidate Status Glossary",
-    icon: AssignmentOutlined,
-    component: CandidateStatusGlossary_List,
-    is_sidebar: true,
-    is_protect: true,
-    // roles: [Roles.CORPORATE_HR],
-  },
+
   {
     path: RouteName.ADMIN_ONGOING_LOANS,
     sidebarName: "Ongoing Loans",
@@ -2234,11 +2247,37 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
+    path: `${RouteName.PENDING_VERIFICATION_CREATE}:id`,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: PeopleOutlined,
+    component: CandidateInformation,
+    is_sidebar: false,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.PENDING_VERIFICATION_UPDATE}:id`,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: PeopleOutlined,
+    component: BGVStatus_Update,
+    is_sidebar: false,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
     path: `${RouteName.PENDING_VERIFICATION_DETAIL}:id`,
     sidebarName: "Pending Background Verification",
     navbarName: "Pending Background Verification",
     icon: PeopleOutlined,
-    component: BGVDetails,
+    component: BGVDetailView,
     is_sidebar: false,
     is_protect: true,
     // slug: 'tp',
@@ -2335,41 +2374,41 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
-    {
-        path: RouteName.LEAVE_APPLICATION_LIST_VIEW,
-        sidebarName: "My Leave Application",
-        navbarName: "My Leave Application",
-        icon: AssignmentOutlined,
-        component: LeaveApplication,
-        is_sidebar: true,
-        is_protect: true,
-    },
-    {
-        path: RouteName.LEAVE_APPLICATION_FORM,
-        sidebarName: "My Leave Application",
-        navbarName: "My Leave Application",
-        component: LeaveApplicationForm,
-        is_sidebar: false,
-        is_protect: true,
-    },
-    {
-        path: RouteName.PENDING_LEAVE_APPLICATION,
-        sidebarName: "Pending Leave Application",
-        navbarName: "Pending Leave Application",
-        icon: AssignmentOutlined,
-        component: PendingLeaveApplication,
-        is_sidebar: true,
-        is_protect: true,
-    },
-    {
-        path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
-        sidebarName: "Pending Leave Application",
-        navbarName: "Pending Leave Application",
-        icon: AssignmentOutlined,
-        component: PendingLeaveDetail,
-        is_sidebar: false,
-        is_protect: true,
-    },
+  {
+    path: RouteName.LEAVE_APPLICATION_LIST_VIEW,
+    sidebarName: "My Leave Application",
+    navbarName: "My Leave Application",
+    icon: AssignmentOutlined,
+    component: LeaveApplication,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: RouteName.LEAVE_APPLICATION_FORM,
+    sidebarName: "My Leave Application",
+    navbarName: "My Leave Application",
+    component: LeaveApplicationForm,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: RouteName.PENDING_LEAVE_APPLICATION,
+    sidebarName: "Pending Leave Application",
+    navbarName: "Pending Leave Application",
+    icon: AssignmentOutlined,
+    component: PendingLeaveApplication,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  // {
+  //     path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
+  //     sidebarName: "Pending Leave Application",
+  //     navbarName: "Pending Leave Application",
+  //     icon: AssignmentOutlined,
+  //     component: PendingLeaveDetail,
+  //     is_sidebar: false,
+  //     is_protect: true,
+  // },
 ];
 
 export default dashboardRoutes;

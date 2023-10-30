@@ -81,7 +81,7 @@ import OngoingLoansReducer from "./OngoingLoans.reducer";
 import LeaveReducer from './LeaveModule.reducer';
 import ExpirOfferLetterReducer from "./ExpirOfferLetter.reducer";
 import NAPS_TraningReducer from "./NAPS_Traning.reducer"
-
+import PendingBGVReducer from "./PendingBGV.reducer";
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form: formReducer,
@@ -158,6 +158,7 @@ const rootReducer = combineReducers({
   newEmployee:NewEmployeeListReducer,
   expirOfferLetter:ExpirOfferLetterReducer,
   napsTraning:NAPS_TraningReducer,
+  pendingBGV:PendingBGVReducer,
   OngoingLoans:OngoingLoansReducer,
   LeaveModule:LeaveReducer,
   // form: formReducer,

@@ -54,15 +54,19 @@ const DAIncludeFields = ({
       }
     }
   };
-
+  console.log("isCP", isCP);
   useEffect(() => {
     if (grade && data?.stay_at && data?.hours) {
       let percent;
+      // if (data?.stay_at === "SELF_ARRANGEMENT") {
+      //   percent = 20;
+      // } else {
       if (data?.hours >= 12) {
         percent = 100;
       } else {
         percent = 50;
       }
+      // }
       changeData(index, {
         ["da_pct"]: percent,
       });
@@ -70,15 +74,23 @@ const DAIncludeFields = ({
   }, [grade, data?.stay_at, data?.hours]);
 
   useEffect(() => {
+    if (isCP) {
+      changeData(index, {
+        ["currency"]: "EUR",
+      });
+    }
+  }, [isCP]);
+
+  useEffect(() => {
     if (data?.da_pct && data?.stay_at && grade && data?.currency) {
       let storeValue = DAAllotForeignAmout(grade, data?.currency, isCP);
-      if (data?.data?.stay_at === "SELF_ARRANGEMENT" && !isCP) {
+      if (data?.stay_at === "SELF_ARRANGEMENT" && !isCP) {
         let result = Math.round((1 / 5) * storeValue);
         storeValue = result;
       }
       let maxValue = (storeValue * data?.da_pct) / 100;
       changeData(index, {
-        ["da_entitlement"]: maxValue,
+        ["da_entitlement"]: isCP ? 50 : maxValue,
       });
     }
   }, [data?.da_pct, data?.stay_at, grade, data?.currency, isCP]);
@@ -117,6 +129,7 @@ const DAIncludeFields = ({
         <div className={styles.firstRow}>
           <div className={styles.flex1}>
             <CustomSelectField
+              disabled={isCP}
               isError={errors?.currency}
               errorText={errors?.currency}
               label={"Choose Currency"}

@@ -75,9 +75,6 @@
 .left{
     /*margin-right: 30px;*/
     flex: 1.4;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .right{

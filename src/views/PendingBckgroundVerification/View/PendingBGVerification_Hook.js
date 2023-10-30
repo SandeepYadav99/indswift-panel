@@ -1,33 +1,32 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import ReactDOM from "react-dom";
-
 import {
-  actionFetchNapsTraningList,
-  actionSetPageNapsTraningList,
-} from "../../../actions/NAPS_Traning.action";
+  actionFetchPendingBGVList,
+  actionSetPagePendingBGVList,
+} from "../../../actions/PendingBGVerification.action";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 
 const usePendingBGVerification_Hook = () => {
-  const [isCalling, setIsCalling] = useState(false);
-  const [editData, setEditData] = useState(null);
-  const [listData, setListData] = useState({
+  const [isCalling] = useState(false);
+  const [editData] = useState(null);
+
+  const [listData] = useState({
     EMPLOYEES: [],
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
-    is_fetching: isFetching,
+    // is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.napsTraning);
+  } = useSelector((state) => state?.pendingBGV);
 
   useEffect(() => {
     dispatch(
-      actionFetchNapsTraningList(1, sortingData, {
+      actionFetchPendingBGVList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -45,14 +44,14 @@ const usePendingBGVerification_Hook = () => {
   console.log("list", listData);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageNapsTraningList(type));
+    dispatch(actionSetPagePendingBGVList(type));
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
       dispatch(
-        actionFetchNapsTraningList(1, sortingData, {
+        actionFetchPendingBGVList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -81,7 +80,7 @@ const usePendingBGVerification_Hook = () => {
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(
-        actionFetchNapsTraningList(
+        actionFetchPendingBGVList(
           1,
           { row, order },
           {
@@ -107,6 +106,14 @@ const usePendingBGVerification_Hook = () => {
   // }, []);
 
   const handleViewDetails = useCallback((data) => {
+    historyUtils.push(`${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}`);
+  }, []);
+
+  const handleBGVUpdateDetails = useCallback((data) => {
+    historyUtils.push(`${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}`);
+  }, []);
+
+  const handleBGVDetails = useCallback((data) => {
     historyUtils.push(`${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}`);
   }, []);
 
@@ -135,11 +142,12 @@ const usePendingBGVerification_Hook = () => {
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
-  
+    handleBGVUpdateDetails,
     isCalling,
     editData,
     configFilter,
     handleViewDetails,
+    handleBGVDetails,
   };
 };
 
