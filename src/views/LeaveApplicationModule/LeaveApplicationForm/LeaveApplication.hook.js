@@ -123,7 +123,12 @@ const useLeaveApplication = () => {
         }
       });
     }
-    if (Number(daysCount) <= 0 && form?.type !== "OCCASION_LEAVE") {
+    if (
+      form?.start_date &&
+      form?.end_date &&
+      Number(daysCount) <= 0 &&
+      form?.type !== "OCCASION_LEAVE"
+    ) {
       errors["dayscount"] = true;
       SnackbarUtils.error("Start Days Cannot be Greater than End Date");
     } else {
@@ -144,7 +149,7 @@ const useLeaveApplication = () => {
       }
     });
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData, daysCount, setDaysCount]);
 
   useEffect(() => {
     if (form?.type) {
@@ -456,6 +461,8 @@ const useLeaveApplication = () => {
     valueMonthAnni,
     valueDays,
     valueMonth,
+    daysCount,
+    setDaysCount,
   ]);
 
   const removeError = useCallback(
