@@ -55,3 +55,7 @@ export async function serviceScheduleInterview(params) {
 export async function serviceRequestCVShortlist(params) {
     return await postRequest('job/openings/request/cv/shortlist', params);
 }
+
+export async function serviceVacanciesInactive(params) {
+    return await postRequest('/vacancies/inactivate', params);
+}

@@ -235,7 +235,7 @@ const OtherDetailsIncludeForm = (
     }
 
     return sum;
-  }, [fields]);
+  }, [fields,curr]);
 
   useEffect(() => {
     const value = {
@@ -262,7 +262,7 @@ const OtherDetailsIncludeForm = (
     if (totalAmount || totalAmount == 0) {
       setOfficeAmount3(totalAmount);
     }
-  }, [fields]);
+  }, [fields,curr]);
 
   // useEffect(() => {
   //   changeAmount(sum, "entertainment_expenses_amount");

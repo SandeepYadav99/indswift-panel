@@ -101,6 +101,10 @@ const OtherDetailsIncludeFields = ({
                 <span className={styles.value}>Booking By:</span>
                 {data?.booking_by ? data?.booking_by : "-"}
               </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Choose the currency of payment:</span>
+                {data?.payment_made_by ? data?.payment_made_by : "-"}
+              </div>
             </div>
           </div>
         </div>

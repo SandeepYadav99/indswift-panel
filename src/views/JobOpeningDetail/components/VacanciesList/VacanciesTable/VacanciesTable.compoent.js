@@ -9,6 +9,10 @@ import FilterComponent from "../../../../../components/Filter/Filter.component";
 import useVacancyList from "./VacanciesTableHook";
 import constants from "../../../../../config/constants";
 import Constants from "../../../../../config/constants";
+import CommentIcon from "../../../../../assets/img/ic_comment.png";
+import rejectPng from "../../../../../assets/img/ic_reject@2x.png";
+import InactivePopUp from "../Component/InactivePopUp";
+import DetailsDialog from "../Component/ReasonDetail_Dilog/VacanciesDetailDialog";
 
 function VacanciesTable({ jobId }) {
   const {
@@ -22,10 +26,17 @@ function VacanciesTable({ jobId }) {
     editData,
     isCalling,
     data,
-      currentData,
+    currentData,
     currentPage,
     isVacanciesFetching,
+    toggleRejectDialog,
+    rejectDialog,
+    toggleIsOpenDialog,
+    ids,
+    isOpenDialog,
+    empDetail,
   } = useVacancyList({ jobId });
+
   const renderStatus = useCallback((status) => {
     if (status) {
       return <StatusPill status={status} />;
@@ -63,7 +74,13 @@ function VacanciesTable({ jobId }) {
         key: "designation",
         label: "Designation",
         sortable: false,
-        render: (temp, all) => <div>{all?.type === 'RAP' ? all?.employee?.designation: all?.designation}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.type === "RAP"
+              ? all?.employee?.designation
+              : all?.designation}
+          </div>
+        ),
       },
       {
         key: "appliedDateText",
@@ -87,14 +104,14 @@ function VacanciesTable({ jobId }) {
         key: "age",
         label: "Aging",
         sortable: false,
-        render: (temp, all) => (all?.age),
+        render: (temp, all) => all?.age,
       },
       {
         key: "Replacement Status",
         label: "Action",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div style={{ display: "flex" }}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -105,6 +122,34 @@ function VacanciesTable({ jobId }) {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
+
+            {all?.status === "HIRING" && all?.type === "ADDITIONAL_REQUIREMENT" ? (
+              <IconButton
+                className={"tableActionBtnError"}
+                color="error"
+                style={{ padding: "1px" }}
+                disabled={isCalling}
+                onClick={() => {
+                  toggleRejectDialog(all);
+                }}
+              >
+                <img
+                  src={rejectPng}
+                  className={styles.rejct}
+                  style={{ width: "1.5rem" }}
+                />
+                <div className={styles.subText}> Mark Inactive</div>
+              </IconButton>
+            ) : (
+              <img
+                src={CommentIcon}
+                alt="comment"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  toggleIsOpenDialog(all);
+                }}
+              />
+            )}
           </div>
         ),
       },
@@ -162,6 +207,16 @@ function VacanciesTable({ jobId }) {
           </div>
         </div>
       </div>
+      <InactivePopUp
+        candidateId={ids}
+        isOpen={rejectDialog}
+        handleToggle={toggleRejectDialog}
+      />
+      <DetailsDialog
+        data={empDetail}
+        isOpen={isOpenDialog}
+        handleToggleDetail={toggleIsOpenDialog}
+      />
     </div>
   );
 }

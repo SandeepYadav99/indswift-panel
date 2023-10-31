@@ -249,7 +249,7 @@ const OtherIncludeForm = (
     }
 
     return sum;
-  }, [fields]);
+  }, [fields,curr]);
 
   // useEffect(() => {
   //   changeAmount(USDsum, "tap_other_expenses_amount_usd");
@@ -276,7 +276,7 @@ const OtherIncludeForm = (
     if (totalAmount || totalAmount == 0) {
       setOfficeAmount4(totalAmount);
     }
-  }, [fields]);
+  }, [fields,curr]);
 
   return (
     <>

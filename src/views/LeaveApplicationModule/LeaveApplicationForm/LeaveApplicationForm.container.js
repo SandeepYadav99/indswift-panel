@@ -20,7 +20,7 @@ import history from "../../../libs/history.utils";
 
 const LeaveApplicationForm = () => {
   const { employeeDetails } = useClaimIntCard({});
-  let Designation = ["G1", "G2", "G3", "G4", "G5", "G6"];
+  let Designation = ["G1", "G2", "G3", "G4", "G5", "G6","G0"];
   let gradeLevel = employeeDetails?.grade?.code;
   let FacilitationCondition = ["0.1", "0.2", "0.3"];
   let ExperienceInCompany = employeeDetails?.experience?.current;
@@ -157,11 +157,12 @@ const LeaveApplicationForm = () => {
                   }}
                 >
                   <MenuItem value="BIRTHDAY">BIRTHDAY</MenuItem>
-                  {employeeDetails?.family?.martial_status === "Married" && (
-                    <MenuItem value="MARRIAGE_ANNIVERSARY">
-                      MARRIAGE ANNIVERSARY
-                    </MenuItem>
-                  )}
+                  {employeeDetails?.family?.martial_status === "Married" &&
+                    employeeDetails?.dom !== "N/A" && (
+                      <MenuItem value="MARRIAGE_ANNIVERSARY">
+                        MARRIAGE ANNIVERSARY
+                      </MenuItem>
+                    )}
                 </CustomSelectField>
                 <div className={styles.leaveText}>
                   {form?.event_type === "MARRIAGE_ANNIVERSARY" ? (

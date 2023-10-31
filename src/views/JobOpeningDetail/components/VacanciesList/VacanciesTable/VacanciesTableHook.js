@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   actionGetJobOpeningCandidates,
-  actionGetJobOpeningVacancies
+  actionGetJobOpeningVacancies,
 } from "../../../../../actions/JobOpeningDetail.action";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
@@ -13,12 +13,16 @@ const useVacancyList = ({ jobId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
-  const {isVacanciesFetching, vacancies } = useSelector(state => state.job_opening_detail);
-
+  const { isVacanciesFetching, vacancies } = useSelector(
+    (state) => state.job_opening_detail
+  );
+  const [rejectDialog, setRejectDialog] = useState(false);
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [ids, setIds] = useState(null);
+  const [empDetail, setEmpDetail]=useState(null)
   useEffect(() => {
     dispatch(actionGetJobOpeningVacancies(jobId));
   }, []);
-
 
   useEffect(() => {
     setData(vacancies);
@@ -29,7 +33,9 @@ const useVacancyList = ({ jobId }) => {
   }, [data, currentPage]);
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data?.employee?.emp_code}`);
+    historyUtils.push(
+      `${RouteName.EMPLOYEE_DETAIL}${data?.employee?.emp_code}`
+    );
   }, []);
 
   const _processData = useCallback(() => {
@@ -45,7 +51,7 @@ const useVacancyList = ({ jobId }) => {
     (type) => {
       if (Math.ceil(data.length / totalShow) >= type + 1) {
         setCurrentPage(type + 1);
-        _processData()
+        _processData();
       }
     },
     [_processData, setCurrentPage, data]
@@ -92,6 +98,23 @@ const useVacancyList = ({ jobId }) => {
     [queryFilter, _processData, data, setData, vacancies]
   );
 
+  const toggleRejectDialog = useCallback(
+    (data) => {
+      setIds(data?.id);
+      setRejectDialog((e) => !e);
+    },
+    [rejectDialog]
+  );
+
+  const toggleIsOpenDialog = useCallback(
+    (data) => {
+    
+      setEmpDetail(data)
+      setIsOpenDialog((e) => !e);
+    },
+    [isOpenDialog]
+  );
+
   return {
     handlePageChange,
     // handleCellClick,
@@ -104,6 +127,12 @@ const useVacancyList = ({ jobId }) => {
     currentData,
     currentPage,
     handleViewDetails,
+    rejectDialog,
+    toggleRejectDialog,
+    ids,
+    toggleIsOpenDialog,
+    isOpenDialog,
+    empDetail
   };
 };
 
