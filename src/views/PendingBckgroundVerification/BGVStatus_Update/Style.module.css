@@ -76,3 +76,9 @@
     font-weight: 600;
 }
 
+.block{
+    display: block;
+}
+.unBlock{
+    display: none;
+}
