@@ -31,8 +31,6 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
     EmpId.employee_id = "63d9267d3d18b8ce6e9b700c";
   }
 
-  console.log("window.location.pathname", EmpId);
-
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
