@@ -54,6 +54,7 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId, jobId }) => 
               handleToggle();
               SnackbarUtils.success("Inactive successfully");
               dispatch(actionGetJobOpeningVacancies(jobId));
+              setIsSubmitting(false);
           });
 
       }
