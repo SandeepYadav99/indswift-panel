@@ -145,7 +145,7 @@ function VacanciesTable({ jobId }) {
                 <div className={styles.subText}> Mark Inactive</div>
               </IconButton>
             ) : (all?.status === "INACTIVE" &&
-              all?.type === "ADDITIONAL_REQUIREMENT" )? (
+              all?.type === "ADDITIONAL_REQUIREMENT" ) ? (
               <img
                 src={CommentIcon}
                 alt="comment"
