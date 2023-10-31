@@ -58,7 +58,7 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId, jobId }) => 
 
       }
     }
-  }, [form, isSubmitting, setIsSubmitting, handleToggle,  dispatch, candidateId]);
+  }, [form, isSubmitting, setIsSubmitting, handleToggle,  dispatch, jobId, candidateId]);
 
 
   const onBlurHandler = useCallback(
