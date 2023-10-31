@@ -41,6 +41,7 @@ import GuarantorLogin from "../views/LoanManagement/GuarantorLogin/GuarantorLogi
 import LoanConfirmation from "../views/LoanManagement/LoanConfirmation/LoanConfirmation.view.js";
 import LoanSubmittedResponse
     from "../views/LoanManagement/LoanConfirmation/component/LoanSubmittedResponse/LoanSubmittedResponse.js";
+import ExitForm from "../views/ExitInterview/ExitForm/ExitForm.view.js";
 
 const indexRoutes = [{path: "/", component: Dashboard}];
 
@@ -74,7 +75,7 @@ const RouteComponent = () => (
         <Route path={RouteName.IRF_LOGIN} component={CandidateIrfLogin}/>
         <Route path={RouteName.IRF_FORM} component={IrfForm}/>
         <Route path={RouteName.PERFORMANCE_GRAPH} component={PmsGraph}/>
-
+        <Route path={RouteName.EXIT_INTERVIEW_FORM} component={ExitForm}/>
 
         {/*<Route path={'/signup'} component={Signup} />*/}
         <Route path={"/forgot/password"} component={ForgotPassword}/>

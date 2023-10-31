@@ -1,10 +1,5 @@
-import { Snackbar } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { useCallback } from "react";
-import SnackbarUtils from "../../libs/SnackbarUtils";
-import { useParams } from "react-router";
-import { serviceGetInterviewScheduleDetails } from "../../services/InterviewSchedule.service";
-import LogUtils from "../../libs/LogUtils";
+import { useCallback, useState } from "react";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const KEYS = [
   "experience",
@@ -18,18 +13,18 @@ const KEYS = [
   "initiative",
 ];
 const initialForm = {
-  experience: { value: null, notes: "" },
-  educational: { value: null, notes: "" },
-  exposure: { value: null, notes: "" },
-  expertise: { value: null, notes: "" },
-  communication: { value: null, notes: "" },
-  candidate: { value: null, notes: "" },
-  knowledge: { value: null, notes: "" },
-  teambuilding: { value: null, notes: "" },
-  initiative: { value: null, notes: "" },
+  experience: { value: null },
+  educational: { value: null },
+  exposure: { value: null },
+  expertise: { value: null },
+  communication: { value: null },
+  candidate: { value: null },
+  knowledge: { value: null },
+  teambuilding: { value: null },
+  initiative: { value: null },
 };
 
-function useEvaluationFormHook({ handleNext }) {
+function UseExitForm({ handleNext }) {
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
 
@@ -42,7 +37,7 @@ function useEvaluationFormHook({ handleNext }) {
     },
     [form, setForm, errorData]
   );
-
+  console.log(">>>>", form);
   const removeError = useCallback(
     (key) => {
       if (errorData?.[key]) {
@@ -88,4 +83,4 @@ function useEvaluationFormHook({ handleNext }) {
   };
 }
 
-export default useEvaluationFormHook;
+export default UseExitForm;
