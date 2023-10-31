@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { useDispatch } from "react-redux";
-import { actionGetMarkInactive } from "../../../../../actions/JobOpeningDetail.action";
+import {actionGetJobOpeningVacancies, actionGetMarkInactive} from "../../../../../actions/JobOpeningDetail.action";
+import {serviceVacanciesInactive} from "../../../../../services/JobOpenings.service";
 
 const initialForm = {
   reason: "",
 };
 
-const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
+const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId, jobId }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -38,33 +39,27 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
       t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
-      
+
     },
     [removeError, form, setForm]
   );
 
- 
-  const submitToServer = useCallback(() => {
+
+  const handleSubmit = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
 
       if (candidateId) {
-        dispatch(
-          actionGetMarkInactive({
-            vacancy_id: candidateId,
-            reason: form?.reason,
-          })
-        );
-        handleToggle();
-        // window.location.reload();
-        SnackbarUtils.success("Inactive successfully");
+          serviceVacanciesInactive({ vacancy_id: candidateId , reason: form?.reason}).then(() => {
+              handleToggle();
+              SnackbarUtils.success("Inactive successfully");
+              dispatch(actionGetJobOpeningVacancies(jobId));
+          });
+
       }
     }
-  }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId, dispatch]);
+  }, [form, isSubmitting, setIsSubmitting, handleToggle,  dispatch, jobId, candidateId]);
 
-  const handleSubmit = useCallback(async () => {
-    submitToServer();
-  }, [ setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(
     (type) => {

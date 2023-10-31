@@ -112,18 +112,19 @@ function VacanciesTable({ jobId }) {
         sortable: false,
         render: (temp, all) => (
           <div style={{ display: "flex" }}>
-            {all?.employee?.name !== "N.A" && (
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  handleViewDetails(all);
-                }}
-              >
-                <InfoOutlined fontSize={"small"} />
-              </IconButton>
-            )}
+            {(all?.status === "HIRING" || all?.status === "HIRED") &&
+              all?.type === "RAP" && (
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    handleViewDetails(all);
+                  }}
+                >
+                  <InfoOutlined fontSize={"small"} />
+                </IconButton>
+              )}
 
             {all?.status === "HIRING" &&
             all?.type === "ADDITIONAL_REQUIREMENT" ? (
@@ -143,7 +144,8 @@ function VacanciesTable({ jobId }) {
                 />
                 <div className={styles.subText}> Mark Inactive</div>
               </IconButton>
-            ) : all?.replacing_id !== null ? (
+            ) : (all?.status === "INACTIVE" &&
+              all?.type === "ADDITIONAL_REQUIREMENT" )? (
               <img
                 src={CommentIcon}
                 alt="comment"
@@ -211,6 +213,7 @@ function VacanciesTable({ jobId }) {
         </div>
       </div>
       <InactivePopUp
+          jobId={jobId}
         candidateId={ids}
         isOpen={rejectDialog}
         handleToggle={toggleRejectDialog}

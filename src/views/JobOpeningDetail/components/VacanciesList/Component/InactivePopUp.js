@@ -1,8 +1,8 @@
 import React from "react";
 import {
- 
+
   ButtonBase,
- 
+
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
@@ -36,7 +36,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const InactivePopUp = ({ isOpen, handleToggle, candidateId }) => {
+const InactivePopUp = ({ isOpen, handleToggle, candidateId, jobId }) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -44,8 +44,8 @@ const InactivePopUp = ({ isOpen, handleToggle, candidateId }) => {
     form,
     handleSubmit,
     onBlurHandler,
-   
-  } = useInactivePopUp_hook({ isOpen, handleToggle, candidateId });
+
+  } = useInactivePopUp_hook({ isOpen, handleToggle, candidateId, jobId });
 
   return (
     <div>
@@ -97,7 +97,7 @@ const InactivePopUp = ({ isOpen, handleToggle, candidateId }) => {
               />
             </div>
           </div>
-       
+
           <div className={styles.printFlex}>
             <ButtonBase
               onClick={handleSubmit}
@@ -105,7 +105,7 @@ const InactivePopUp = ({ isOpen, handleToggle, candidateId }) => {
               //   declaration ? styles.createBtn : styles.disabledCreatebtn
               // }
               className={
-               styles.createBtn 
+               styles.createBtn
               }
             >
               CONFIRM
