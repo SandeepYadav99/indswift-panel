@@ -29,7 +29,7 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
   //     vacancy_id: candidateId,
   //     reason: form?.reason,
   //   }));
-  // }, []);
+  // }, [candidateId]);
 
 
 
