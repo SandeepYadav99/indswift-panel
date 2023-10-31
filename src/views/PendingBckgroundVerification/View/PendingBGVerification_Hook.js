@@ -106,7 +106,8 @@ const usePendingBGVerification_Hook = () => {
   // }, []);
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}`);
+    console.log(data?.emp_code)
+    historyUtils.push(`${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}`,);
   }, []);
 
   const handleBGVUpdateDetails = useCallback((data) => {

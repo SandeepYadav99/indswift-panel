@@ -83,6 +83,7 @@ import ExpirOfferLetterReducer from "./ExpirOfferLetter.reducer";
 import NAPS_TraningReducer from "./NAPS_Traning.reducer"
 import PendingBGVReducer from "./PendingBGV.reducer";
 import ExitInterviewReducer from "./ExitInterview.reducer";
+import C3MLetterReducer from "./C3MLetter.reducer";
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form: formReducer,
@@ -162,7 +163,8 @@ const rootReducer = combineReducers({
   pendingBGV:PendingBGVReducer,
   OngoingLoans:OngoingLoansReducer,
   LeaveModule:LeaveReducer,
-  exit_interview:ExitInterviewReducer
+  exit_interview:ExitInterviewReducer,
+  C3MLetter:C3MLetterReducer,
   // form: formReducer,
 });
 

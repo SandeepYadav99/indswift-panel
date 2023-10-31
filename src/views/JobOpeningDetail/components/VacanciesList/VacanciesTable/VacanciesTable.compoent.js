@@ -86,7 +86,7 @@ function VacanciesTable({ jobId }) {
         key: "appliedDateText",
         label: "Date Added",
         sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText}</div>,
+        render: (temp, all) => <div> {all?.createdAtText}</div>,
       },
       {
         key: "status",
@@ -112,18 +112,22 @@ function VacanciesTable({ jobId }) {
         sortable: false,
         render: (temp, all) => (
           <div style={{ display: "flex" }}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            {(all?.status === "HIRING" || all?.status === "HIRED") &&
+              all?.type === "RAP" && (
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    handleViewDetails(all);
+                  }}
+                >
+                  <InfoOutlined fontSize={"small"} />
+                </IconButton>
+              )}
 
-            {all?.status === "HIRING" && all?.type === "ADDITIONAL_REQUIREMENT" ? (
+            {all?.status === "HIRING" &&
+            all?.type === "ADDITIONAL_REQUIREMENT" ? (
               <IconButton
                 className={"tableActionBtnError"}
                 color="error"
@@ -140,7 +144,8 @@ function VacanciesTable({ jobId }) {
                 />
                 <div className={styles.subText}> Mark Inactive</div>
               </IconButton>
-            ) : (
+            ) : (all?.status === "INACTIVE" &&
+              all?.type === "ADDITIONAL_REQUIREMENT" ) ? (
               <img
                 src={CommentIcon}
                 alt="comment"
@@ -149,12 +154,12 @@ function VacanciesTable({ jobId }) {
                   toggleIsOpenDialog(all);
                 }}
               />
-            )}
+            ) : null}
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, ids]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -208,6 +213,7 @@ function VacanciesTable({ jobId }) {
         </div>
       </div>
       <InactivePopUp
+          jobId={jobId}
         candidateId={ids}
         isOpen={rejectDialog}
         handleToggle={toggleRejectDialog}

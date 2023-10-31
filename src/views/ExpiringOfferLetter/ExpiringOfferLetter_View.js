@@ -45,6 +45,7 @@ const ExpiringOfferLetterView = ({ location }) => {
     isOpenResendDialog,
     letterResendId,
     expireLetter,
+    olrDetailPages,
   } = useExpiringOfferLetterHook({});
 
   const {
@@ -85,7 +86,7 @@ const ExpiringOfferLetterView = ({ location }) => {
     }
     return null;
   }, []);
-  
+
   const renderReplacingCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -93,16 +94,15 @@ const ExpiringOfferLetterView = ({ location }) => {
           {obj?.cadre?.name ? (
             <div
               className={styles.hyperlinkText}
-              onClick={() => changeEmployeeRoute(obj?.cadre)}
+              onClick={() => changeEmployeeRoute(obj?.job?.replacing_person)}
             >
-              {obj?.cadre?.name}
+              {obj?.job?.replacing_person?.name}
             </div>
           ) : (
             <div>N/A</div>
           )}
-
-          <br />
-          {obj?.cadre?.code}
+        
+          {obj?.job?.replacing_person?.code}
         </div>
       );
     }
@@ -115,11 +115,7 @@ const ExpiringOfferLetterView = ({ location }) => {
         key: "candidate_name",
         label: "CANDIDATE NAME",
         sortable: false,
-        render: (value, all) => (
-          <div>
-            {console.log(all)} {all?.candidate?.name}
-          </div>
-        ),
+        render: (value, all) => <div>{all?.candidate?.name}</div>,
       },
       {
         key: "code",
@@ -133,8 +129,7 @@ const ExpiringOfferLetterView = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.job?.designation_note}/
-            {all?.job?.department?.name}
+            {all?.job?.designation_note}/{all?.job?.department?.name}
           </div>
         ),
       },
@@ -148,7 +143,14 @@ const ExpiringOfferLetterView = ({ location }) => {
         key: "olr",
         label: "OLR",
         sortable: false,
-        render: (temp, all) => <div>{all?.code}</div>,
+        render: (temp, all) => (
+          <div
+            onClick={() => olrDetailPages(all)}
+            className={styles.hyperlinkText}
+          >
+            {all?.code}
+          </div>
+        ),
       },
       {
         key: "offer_letter_status",
@@ -192,7 +194,7 @@ const ExpiringOfferLetterView = ({ location }) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                handleViewDetails(all);
+              
                 toggleIsOpenDialog(all);
               }}
             >
@@ -259,7 +261,7 @@ const ExpiringOfferLetterView = ({ location }) => {
         <div>
           <FilterComponent
             is_progress={isFetching}
-            filters={configFilter}
+            filters={[]}
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />

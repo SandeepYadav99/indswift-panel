@@ -14,7 +14,8 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 const BGVDetailView = ({}) => {
   const [details, setDetails] = useState([]);
   const { id } = useParams();
- 
+ console.log(details?.emp_code
+  )
 
   useEffect(() => {
     //  setIsLoading(true);
@@ -40,6 +41,7 @@ const BGVDetailView = ({}) => {
           cost: data?.cost,
           choose_action: data?.choose_action,
           remark: data?.remark,
+          emp_code:data?.employeeObj?.emp_code
         });
       } else {
         SnackbarUtils.error(res.message);
@@ -61,7 +63,8 @@ const BGVDetailView = ({}) => {
           <div className={styles.newLine} />
         </div>
       </div>
-      <CandidateInfor data={{}} />
+      <CandidateInfor empId={details?.emp_code
+} />
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <h3>Background Verification Status</h3>
@@ -111,11 +114,11 @@ const BGVDetailView = ({}) => {
           <h3>Required Action Details</h3>
           <div className={styles.mainFlex}>
             <div className={styles.backgroundStatus}>
-              <span>Action Choosen:   <b>{details?.choose_action}</b>  </span>
+              <span> <b>Action Choosen:</b>   {details?.choose_action} </span>
             </div>
             <div className={styles.gaps} />
             <div className={styles.backgroundStatus}>
-              <span>Remarks: <b>{details?.remark}</b></span>
+              <span><b>Remarks:</b> {details?.remark}</span>
             </div>
           </div>
           <div className={styles.gaps} />
@@ -127,13 +130,13 @@ const BGVDetailView = ({}) => {
           <h3>Payment Details</h3>
           <div className={styles.mainFlex}>
             <div className={styles.backgroundStatus}>
-              <span>Cost: <b>{details?.cost}</b></span>
-              <span>Billing To: <b>{details?.billing_to}</b></span>
+              <span><b>Cost: </b>{details?.cost}</span>
+              <span><b>Billing To: </b>{details?.billing_to}</span>
             </div>
             <div className={styles.gaps} />
             <div className={styles.backgroundStatus}>
-              <span>Payment Status: <b>{details?.payment_status}</b></span>
-              <span>Completed In: <b>{details?.paymentCompleteText}</b></span>
+              <span> <b>Payment Status:</b>{details?.payment_status}</span>
+              <span> <b>Completed In:</b>{details?.paymentCompleteText}</span>
             </div>
           </div>
           <div className={styles.gaps} />

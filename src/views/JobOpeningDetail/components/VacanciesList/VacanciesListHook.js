@@ -41,6 +41,7 @@ function VacanciesListHook({ jobId }) {
     setCandidateEl(null);
   }, [setCandidateEl]);
 
+  
   const handleSubmit = useCallback(() => {
     setIsReplacingPopUp(false);
     setIsNewPosition(false);

@@ -2,7 +2,9 @@ import {
     DONE_JOB_CANDIDATES,
     DONE_JOB_INTERVIEWERS, DONE_JOB_VACANCIES,
     INIT_JOB_CANDIDATES,
-    INIT_JOB_INTERVIEWERS, INIT_JOB_VACANCIES
+    INIT_JOB_INTERVIEWERS, INIT_JOB_VACANCIES,
+    INACTIVE_VACENCY,
+    DONE_INACTIVE_VACANCIES
 } from "../actions/JobOpeningDetail.action";
 
 
@@ -33,6 +35,7 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
                 isInterviewersFetching: true
             }
         }
+        
         case DONE_JOB_INTERVIEWERS: {
             return {
                 ...state,
@@ -52,6 +55,20 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
                 vacancies: action.payload,
                 isVacanciesFetching: false
             }
+        }
+        case INACTIVE_VACENCY:{
+            return {
+                ...state,
+
+            }
+        }
+        case DONE_INACTIVE_VACANCIES :{
+           return {
+            ...state,
+            vacancy_id:action.payload.vacancy_id,
+            reason:action.payload.reason
+           }
+
         }
         default: {
             return state;
