@@ -64,7 +64,7 @@ export function actionGetMarkInactive(vacancy) {
         request.then((data) => {
             if (!data.error) {
                 dispatch({type: DONE_INACTIVE_VACANCIES, payload: data.data})
-                window.location.reload();
+                // window.location.reload();
             }
         })
     }
