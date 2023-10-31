@@ -20,7 +20,7 @@ import history from "../../../libs/history.utils";
 
 const LeaveApplicationForm = () => {
   const { employeeDetails } = useClaimIntCard({});
-  let Designation = ["G1", "G2", "G3", "G4", "G5", "G6"];
+  let Designation = ["G1", "G2", "G3", "G4", "G5", "G6","G0"];
   let gradeLevel = employeeDetails?.grade?.code;
   let FacilitationCondition = ["0.1", "0.2", "0.3"];
   let ExperienceInCompany = employeeDetails?.experience?.current;
