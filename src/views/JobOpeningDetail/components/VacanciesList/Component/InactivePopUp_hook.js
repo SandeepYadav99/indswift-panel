@@ -45,7 +45,7 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId, jobId }) => 
   );
 
 
-  const submitToServer = useCallback(() => {
+  const handleSubmit = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
 
