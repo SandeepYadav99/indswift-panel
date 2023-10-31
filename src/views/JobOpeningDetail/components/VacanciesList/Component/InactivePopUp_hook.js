@@ -3,6 +3,7 @@ import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { useDispatch } from "react-redux";
 import { actionGetMarkInactive } from "../../../../../actions/JobOpeningDetail.action";
 
+
 const initialForm = {
   reason: "",
 };
@@ -15,12 +16,13 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
       setErrorData({});
     }
-  }, [isOpen]);
+  }, [isOpen, candidateId]);
 
   const removeError = useCallback(
     (title) => {
@@ -54,9 +56,10 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
             vacancy_id: candidateId,
             reason: form?.reason,
           })
+
         );
         handleToggle();
-        // window.location.reload();
+ 
         SnackbarUtils.success("Inactive successfully");
       }
     }

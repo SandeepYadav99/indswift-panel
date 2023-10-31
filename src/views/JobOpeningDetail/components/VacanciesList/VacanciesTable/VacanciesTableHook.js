@@ -106,7 +106,7 @@ const useVacancyList = ({ jobId }) => {
       setIds(data?.id);
       setRejectDialog((e) => !e);
     },
-    [rejectDialog]
+    [rejectDialog, ids]
   );
 
   const toggleIsOpenDialog = useCallback(

@@ -159,7 +159,7 @@ function VacanciesTable({ jobId }) {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, ids]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
