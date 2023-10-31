@@ -213,6 +213,7 @@ function VacanciesTable({ jobId }) {
         </div>
       </div>
       <InactivePopUp
+          jobId={jobId}
         candidateId={ids}
         isOpen={rejectDialog}
         handleToggle={toggleRejectDialog}

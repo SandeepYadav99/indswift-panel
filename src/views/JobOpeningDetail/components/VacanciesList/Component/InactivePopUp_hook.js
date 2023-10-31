@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { useDispatch } from "react-redux";
-import { actionGetMarkInactive } from "../../../../../actions/JobOpeningDetail.action";
+import {actionGetJobOpeningVacancies, actionGetMarkInactive} from "../../../../../actions/JobOpeningDetail.action";
+import {serviceVacanciesInactive} from "../../../../../services/JobOpenings.service";
 
 
 const initialForm = {
   reason: "",
 };
 
-const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
+const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId, jobId }) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -40,30 +41,25 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
       t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
-      
+
     },
     [removeError, form, setForm]
   );
 
- 
+
   const handleSubmit = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-
       if (candidateId) {
-        dispatch(
-          actionGetMarkInactive({
-            vacancy_id: candidateId,
-            reason: form?.reason,
-          })
+          serviceVacanciesInactive({ vacancy_id: candidateId , reason: form?.reason}).then(() => {
+              handleToggle();
+              SnackbarUtils.success("Inactive successfully");
+              dispatch(actionGetJobOpeningVacancies(jobId));
+          });
 
-        );
-        handleToggle();
- 
-        SnackbarUtils.success("Inactive successfully");
       }
     }
-  }, [form, isSubmitting, setIsSubmitting, handleToggle,  dispatch, candidateId]);
+  }, [form, isSubmitting, setIsSubmitting, handleToggle,  dispatch, jobId, candidateId]);
 
 
   const onBlurHandler = useCallback(
