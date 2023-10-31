@@ -261,7 +261,7 @@ const ExpiringOfferLetterView = ({ location }) => {
         <div>
           <FilterComponent
             is_progress={isFetching}
-            filters={configFilter}
+            filters={[]}
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />

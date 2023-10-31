@@ -91,6 +91,7 @@ export default function (
             }
             return state;
         }
+        
         case UPDATE_DATA: {
             if (action.payload) {
                 const prevState = [...state.all];

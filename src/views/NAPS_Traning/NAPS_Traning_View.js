@@ -65,7 +65,7 @@ const NapsTraning_View = ({ location }) => {
         key: "grade_cadre",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => <div>{all?.grade?.name} / {all?.cadre?.name}</div>,
+        render: (temp, all) => <div>{all?.grade?.code} / {all?.cadre?.name}</div>,
       },
       {
         key: "location",
@@ -92,7 +92,7 @@ const NapsTraning_View = ({ location }) => {
           <div>
             {all?.department?.name}
             <br />
-            {all?.sub_department?.code} 
+            {all?.sub_department?.name} 
           </div>
         ),
       },
