@@ -25,6 +25,7 @@ import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail
 import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLeaveApplication.view";
 import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
+import ExitInterviewList from "../views/ExitInterview/ExitInterviewList/ExitInterviewList.container";
 
 const LeaveApplicationForm = lazy(() =>
   import(
@@ -1571,18 +1572,18 @@ const dashboardRoutes = [
     parent: "cm",
     // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
-  {
-    path: `${RouteName.CLAIMS_CURR}`,
-    sidebarName: "Claims Int",
-    navbarName: "Claims Int",
-    icon: PeopleOutlined,
-    component: ClaimForCard,
-    is_sidebar: false,
-    is_protect: true,
-    should_regex: true,
-    parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
-  },
+  // {
+  //   path: `${RouteName.CLAIMS_CURR}`,
+  //   sidebarName: "Claims Int",
+  //   navbarName: "Claims Int",
+  //   icon: PeopleOutlined,
+  //   component: ClaimForCard,
+  //   is_sidebar: false,
+  //   is_protect: true,
+  //   should_regex: true,
+  //   parent: "cm",
+  //   // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+  // },
   {
     path: `${RouteName.CLAIMS_LOC}`,
     sidebarName: "Claims Loc",
@@ -2396,6 +2397,16 @@ const dashboardRoutes = [
     component: LeaveApplicationForm,
     is_sidebar: false,
     is_protect: true,
+  },
+  {
+    path: RouteName.EXIT_INTERVIEW_LIST,
+    sidebarName: "Exit Interview List",
+    navbarName: "Exit Interview List",
+    icon: PeopleOutlined,
+    component: ExitInterviewList,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
   },
   {
     path: RouteName.PENDING_LEAVE_APPLICATION,

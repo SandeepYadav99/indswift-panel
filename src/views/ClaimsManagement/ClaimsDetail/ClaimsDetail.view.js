@@ -85,13 +85,13 @@ const ClaimsDetail = () => {
           enableBtn
           // isLoan={true}
         />
-         <ClaimCards
+         {/* <ClaimCards
           title="International Travel Claim Form"
           subtitle="Claim the amount for your International Travel"
           handleClick={() => handleClaimPage(9)}
           enableBtn
           // isLoan={true}
-        />
+        /> */}
       </div>
       <div className={styles.tableWrapper}>
         <EmployeeClaimList />
