@@ -45,7 +45,7 @@ const useExpiringOfferLetterHook = ({}) => {
 
   const changeEmployeeRoute = useCallback((data) => {
     console.log(data)
-    historyUtils.push(`/employees/details/${data?.emp_code}`);
+    historyUtils.push(`/employees/details/${data?.code}`);
   }, []);
 
   const handlePageChange = useCallback((type) => {
