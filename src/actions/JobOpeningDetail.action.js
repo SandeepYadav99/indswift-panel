@@ -57,6 +57,7 @@ export function actionGetJobOpeningVacancies(openingId) {
 }
 
 export function actionGetMarkInactive(vacancy) {
+
     const request = serviceVacanciesInactive({ vacancy_id: vacancy.vacancy_id , reason:vacancy.reason});
     return (dispatch) => {
         dispatch({ type: INACTIVE_VACENCY, payload: null });
