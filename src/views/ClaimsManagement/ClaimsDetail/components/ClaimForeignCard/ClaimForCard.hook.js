@@ -128,27 +128,25 @@ function useClaimForCard() {
   }, [form]);
 
   const imprestINRAmount = useMemo(() => {
-    if (curr?.length > 0 && imprestAmount) {
+    if (curr?.length > 0 && form?.travel_planner_id?.myImprest?.amount) {
       if (form?.travel_planner_id?.myImprest?.currency === "USD") {
         return (
-          Number(imprestAmount) *
+          Number(form?.travel_planner_id?.myImprest?.amount) *
           Number(curr[1]?.conversion_rate)
         );
       } else if (form?.travel_planner_id?.myImprest?.currency === "EUR") {
         return (
-          Number(imprestAmount) *
+          Number(form?.travel_planner_id?.myImprest?.amount) *
           Number(curr[0]?.conversion_rate)
         );
       } else {
-        return Number(imprestAmount);
+        return Number(form?.travel_planner_id?.myImprest?.amount);
       }
     }
 
     return 0;
   }, [form, curr, SetCurr,imprestAmount]);
 
-  console.log("office", officeAmount, officeAmount2);
-  
 
   const USDAmount = useMemo(() => {
     let total = 0;
@@ -534,7 +532,6 @@ function useClaimForCard() {
     USDtoINR,
     EurotoINR,
     imprestINRAmount,
-    curr,
     getOfficeAmount,
     officeAmount3,
     setOfficeAmount3,
