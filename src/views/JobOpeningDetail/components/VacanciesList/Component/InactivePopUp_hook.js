@@ -24,12 +24,13 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
   const [declaration, setDeclaration] = useState(false);
   const dispatch = useDispatch();
   
-  useEffect(() => {
-    dispatch(actionGetMarkInactive({
-      vacancy_id: candidateId,
-      reason: form?.reason,
-    }));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(actionGetMarkInactive({
+  //     vacancy_id: candidateId,
+  //     reason: form?.reason,
+  //   }));
+  // }, []);
+
 
 
   useEffect(() => {
