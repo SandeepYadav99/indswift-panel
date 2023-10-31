@@ -94,7 +94,7 @@ const ExpiringOfferLetterView = ({ location }) => {
           {obj?.cadre?.name ? (
             <div
               className={styles.hyperlinkText}
-              onClick={() => changeEmployeeRoute(obj?.job?.assigned_person)}
+              onClick={() => changeEmployeeRoute(obj?.replacing_person)}
             >
               {obj?.job?.replacing_person?.name}
             </div>
