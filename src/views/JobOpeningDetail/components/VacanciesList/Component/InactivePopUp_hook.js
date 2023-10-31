@@ -54,15 +54,14 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId, jobId }) => 
               handleToggle();
               SnackbarUtils.success("Inactive successfully");
               dispatch(actionGetJobOpeningVacancies(jobId));
+              setIsSubmitting(false);
           });
-
       }
     }
   }, [form, isSubmitting, setIsSubmitting, handleToggle,  dispatch, jobId, candidateId]);
 
 
-  const onBlurHandler = useCallback(
-    (type) => {
+  const onBlurHandler = useCallback((type) => {
       if (form?.[type]) {
         changeTextData(form?.[type].trim(), type);
       }
