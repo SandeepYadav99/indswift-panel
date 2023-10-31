@@ -214,4 +214,5 @@ export default {
   LEAVE_APPLICATION_FORM:"/leave-application/form",
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
  
+  EXIT_INTERVIEW_LIST:"/exit/interview/list"
 };
