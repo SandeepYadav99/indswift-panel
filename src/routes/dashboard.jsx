@@ -436,6 +436,8 @@ const IncrementPlanner = lazy(() =>
   import("../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view")
 );
 
+const FullFinalComponent = lazy(()=>import("../views/Full&Final/FullFinal.component"));
+
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -2400,6 +2402,16 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
   },
+  {
+    path: RouteName.FULL_FINAL_APPLICATION,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FullFinalComponent,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  
   // {
   //     path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
   //     sidebarName: "Pending Leave Application",
