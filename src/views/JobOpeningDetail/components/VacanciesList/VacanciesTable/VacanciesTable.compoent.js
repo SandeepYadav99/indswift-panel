@@ -140,7 +140,7 @@ function VacanciesTable({ jobId }) {
                 <img
                   src={rejectPng}
                   className={styles.rejct}
-                  style={{ width: "1.5rem" }}
+                  style={{ width: "1.2rem" }}
                 />
                 <div className={styles.subText}> Mark Inactive</div>
               </IconButton>
