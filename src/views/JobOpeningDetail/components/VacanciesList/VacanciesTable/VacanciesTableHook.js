@@ -13,17 +13,20 @@ const useVacancyList = ({ jobId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
+
   const { isVacanciesFetching, vacancies } = useSelector(
     (state) => state.job_opening_detail
   );
   const [rejectDialog, setRejectDialog] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [ids, setIds] = useState(null);
-  const [empDetail, setEmpDetail]=useState(null)
+  const [empDetail, setEmpDetail]=useState(null);
+
   useEffect(() => {
     dispatch(actionGetJobOpeningVacancies(jobId));
   }, []);
 
+  
   useEffect(() => {
     setData(vacancies);
   }, [vacancies]);
