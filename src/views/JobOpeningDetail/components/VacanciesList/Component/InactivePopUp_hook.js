@@ -44,7 +44,7 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
   );
 
  
-  const submitToServer = useCallback(() => {
+  const handleSubmit = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
 
@@ -60,11 +60,8 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId }) => {
         SnackbarUtils.success("Inactive successfully");
       }
     }
-  }, [form, isSubmitting, setIsSubmitting, handleToggle, candidateId, dispatch]);
+  }, [form, isSubmitting, setIsSubmitting, handleToggle,  dispatch, candidateId]);
 
-  const handleSubmit = useCallback(async () => {
-    submitToServer();
-  }, [ setErrorData, form, submitToServer]);
 
   const onBlurHandler = useCallback(
     (type) => {
