@@ -4,11 +4,10 @@ import { useEffect } from "react";
 import images from "./ExitRatingImages";
 
 const ratings = [1, 2, 3, 4, 5];
-function ExitRatingView({ type, title, question, handleChange, isError }) {
+function ExitRatingView({ title, question, handleChange, isError }) {
   const [activeIndex, setActiveIndex] = useState(-1);
-
   useEffect(() => {
-    handleChange && handleChange(type, { value: ratings[activeIndex - 1] });
+    handleChange && handleChange(ratings[activeIndex - 1]);
   }, [activeIndex]);
 
   const handleClick = (index) => {

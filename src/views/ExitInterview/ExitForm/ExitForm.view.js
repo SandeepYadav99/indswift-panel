@@ -5,10 +5,25 @@ import UseExitForm from "./ExitForm.hook";
 import { ButtonBase, MenuItem } from "@material-ui/core";
 import ExitRatingView from "./component/ExitRating/ExitRatingView";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
+import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
+
+const rankingValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const rankingFive = [1, 2, 3, 4, 5];
 
 function ExitForm() {
-  const { handleRatingChange, handleSubmit, errorData, isSubmitting ,changeTextData,form} =
-    UseExitForm({});
+  const {
+    form,
+    changeTextData,
+    onBlurHandler,
+    removeError,
+    handleSubmit,
+    errorData,
+    isSubmitting,
+    resData,
+    isSubmitted,
+    declaration,
+    setDeclaration,
+  } = UseExitForm({});
   const data = {};
   return (
     <div className={styles.evaluationFormWrapper}>
@@ -46,97 +61,436 @@ function ExitForm() {
                 </span>
               </div>
             </div>
-            <div className={styles.first}>
-              <div className={styles.headtitle}>
-                Get closer to your home town
+            <>
+              <div className={styles.first}>
+                <div className={styles.headtitle}>
+                  Get closer to your home town
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.get_closer_to_your_home_town}
+                    errorText={errorData?.get_closer_to_your_home_town}
+                    label={"Choose Rank"}
+                    value={form?.get_closer_to_your_home_town}
+                    handleChange={(value) => {
+                      changeTextData(value, "get_closer_to_your_home_town");
+                    }}
+                  >
+                    {rankingValues?.length > 0 &&
+                      rankingValues?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
               </div>
-              <div className={"formGroup1"}>
-                <CustomSelectField
-                  isError={errorData?.gender}
-                  errorText={errorData?.gender}
-                  label={"Gender"}
-                  value={form?.gender}
-                  handleChange={(value) => {
-                    changeTextData(value, "gender");
-                  }}
-                >
-                  <MenuItem value="MALE">Male</MenuItem>
-                  <MenuItem value="FEMALE">Female</MenuItem>
-                </CustomSelectField>
+              <div className={styles.first}>
+                <div className={styles.headtitle}>
+                  Discharge family responsibilities or attend personal problems
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.discharge_family_responsibility}
+                    errorText={errorData?.discharge_family_responsibility}
+                    label={"Choose Rank"}
+                    value={form?.discharge_family_responsibility}
+                    handleChange={(value) => {
+                      changeTextData(value, "discharge_family_responsibility");
+                    }}
+                  >
+                    {rankingValues?.length > 0 &&
+                      rankingValues?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle}>
+                  Get more basic salary/take home salary
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.get_more_basic_salary}
+                    errorText={errorData?.get_more_basic_salary}
+                    label={"Choose Rank"}
+                    value={form?.get_more_basic_salary}
+                    handleChange={(value) => {
+                      changeTextData(value, "get_more_basic_salary");
+                    }}
+                  >
+                    {rankingValues?.length > 0 &&
+                      rankingValues?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle}>
+                  Get more perks and Employee benefits
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.get_more_perks_and_employee_benefits}
+                    errorText={errorData?.get_more_perks_and_employee_benefits}
+                    label={"Choose Rank"}
+                    value={form?.get_more_perks_and_employee_benefits}
+                    handleChange={(value) => {
+                      changeTextData(
+                        value,
+                        "get_more_perks_and_employee_benefits"
+                      );
+                    }}
+                  >
+                    {rankingValues?.length > 0 &&
+                      rankingValues?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle}>
+                  Have more job responsibilities and exposure
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={
+                      errorData?.have_more_job_responsibilities_and_exposure
+                    }
+                    errorText={
+                      errorData?.have_more_job_responsibilities_and_exposure
+                    }
+                    label={"Choose Rank"}
+                    value={form?.have_more_job_responsibilities_and_exposure}
+                    handleChange={(value) => {
+                      changeTextData(
+                        value,
+                        "have_more_job_responsibilities_and_exposure"
+                      );
+                    }}
+                  >
+                    {rankingValues?.length > 0 &&
+                      rankingValues?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle}>
+                  Have better career prospects (growth and development)
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.have_better_carreer_prospects}
+                    errorText={errorData?.have_better_carreer_prospects}
+                    label={"Choose Rank"}
+                    value={form?.have_better_carreer_prospects}
+                    handleChange={(value) => {
+                      changeTextData(value, "have_better_carreer_prospects");
+                    }}
+                  >
+                    {rankingValues?.length > 0 &&
+                      rankingValues?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle}>
+                  Get more challenging, innovative & dynamic working environment
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={
+                      errorData?.get_more_challenging_innovative_dynamic_working_env
+                    }
+                    errorText={
+                      errorData?.get_more_challenging_innovative_dynamic_working_env
+                    }
+                    label={"Choose Rank"}
+                    value={
+                      form?.get_more_challenging_innovative_dynamic_working_env
+                    }
+                    handleChange={(value) => {
+                      changeTextData(
+                        value,
+                        "get_more_challenging_innovative_dynamic_working_env"
+                      );
+                    }}
+                  >
+                    {rankingValues?.length > 0 &&
+                      rankingValues?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle}>
+                  Due to my Supervisor or other work relations with Colleagues
+                  etc
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={
+                      errorData?.due_to_my_supervisor_work_relations_with_colleagues
+                    }
+                    errorText={
+                      errorData?.due_to_my_supervisor_work_relations_with_colleagues
+                    }
+                    label={"Choose Rank"}
+                    value={
+                      form?.due_to_my_supervisor_work_relations_with_colleagues
+                    }
+                    handleChange={(value) => {
+                      changeTextData(
+                        value,
+                        "due_to_my_supervisor_work_relations_with_colleagues"
+                      );
+                    }}
+                  >
+                    {rankingValues?.length > 0 &&
+                      rankingValues?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle}>
+                  Due to some health problem
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.due_to_some_health_problem}
+                    errorText={errorData?.due_to_some_health_problem}
+                    label={"Choose Rank"}
+                    value={form?.due_to_some_health_problem}
+                    handleChange={(value) => {
+                      changeTextData(value, "due_to_some_health_problem");
+                    }}
+                  >
+                    {rankingValues?.length > 0 &&
+                      rankingValues?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+            </>
+            <div className={styles.horizontalLine}></div>
+            <div className={styles.rankingWrapper}>
+              <span className={styles.heading}>
+                2. Among the following what do you value most & least ?
+              </span>
+              <div className={styles.headingDes}>
+                <span>
+                  Please rank them by assigning number against each reason in
+                  order of priority from 1 to 5, Also write whether this company
+                  meets requirements by marking{" "}
+                  <strong>
+                    Very good/Good/Average/Poor/Very Poor against each{" "}
+                  </strong>
+                </span>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle2}>Salary & Perks</div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.salary_perks_rank}
+                    errorText={errorData?.salary_perks_rank}
+                    label={"Choose Rank"}
+                    value={form?.salary_perks_rank}
+                    handleChange={(value) => {
+                      changeTextData(value, "salary_perks_rank");
+                    }}
+                  >
+                    {rankingFive?.length > 0 &&
+                      rankingFive?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.salary_perks_status}
+                    errorText={errorData?.salary_perks_status}
+                    label={"Status of Parameter in ISLL"}
+                    value={form?.salary_perks_status}
+                    handleChange={(value) => {
+                      changeTextData(value, "salary_perks_status");
+                    }}
+                  >
+                    {rankingFive?.length > 0 &&
+                      rankingFive?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
               </div>
             </div>
             <div className={styles.horizontalLine}></div>
-            <ExitRatingView
-              handleChange={handleRatingChange}
-              isError={errorData?.experience}
-              type="experience"
-              title="1. Experience"
-              question="Does the candidate acquired Relevant skills or qualifications through past work experiences?"
-            />
+            <div className={styles.rankingWrapper}>
+              <span className={styles.heading}>
+                3. What according to you are 3 main strengths of the Company?
+              </span>
+            </div>
+            <div className={styles.commentWrap}>
+              <CustomTextField
+                isError={errorData?.strengths_of_company}
+                errorText={errorData?.strengths_of_company}
+                label={"Please describe 3 strengths"}
+                value={form?.strengths_of_company}
+                onTextChange={(text) => {
+                  changeTextData(text, "strengths_of_company");
+                }}
+                onBlur={() => {
+                  onBlurHandler("strengths_of_company");
+                }}
+                multiline
+                rows={3}
+              />
+            </div>
             <div className={styles.horizontalLine}></div>
-            <ExitRatingView
-              isError={errorData?.educational}
-              handleChange={handleRatingChange}
-              type="educational"
-              title="2. Educational Background"
-              question="Does the candidate have the appropriate educational qualifications or training for this position?"
-            />
+            <div className={styles.rankingWrapper}>
+              <span className={styles.heading}>
+                4. What according to you are 3 main weaknesses of the Company?
+              </span>
+            </div>
+            <div className={styles.commentWrap}>
+              <CustomTextField
+                isError={errorData?.weaknesses_of_company}
+                errorText={errorData?.weaknesses_of_company}
+                label={"Please describe 3 weakness"}
+                value={form?.weaknesses_of_company}
+                onTextChange={(text) => {
+                  changeTextData(text, "weaknesses_of_company");
+                }}
+                onBlur={() => {
+                  onBlurHandler("weaknesses_of_company");
+                }}
+                multiline
+                rows={3}
+              />
+            </div>
             <div className={styles.horizontalLine}></div>
-            <ExitRatingView
-              isError={errorData?.exposure}
-              handleChange={handleRatingChange}
-              type="exposure"
-              title="3. Exposure"
-              question=" How diverse is the experience of candidate in different domains and how well exposed is candidate in different performance environments at Regional, National and International Levels"
-            />
+            <div className={styles.rankingWrapper}>
+              <span className={styles.heading}>
+                5. In reply to point No. 4 above, what in your view the Company
+                should be doing alternatively or Your 3 suggestions of
+                improvements ?
+              </span>
+            </div>
+            <div className={styles.commentWrap}>
+              <CustomTextField
+                isError={errorData?.suggestions_of_improvements}
+                errorText={errorData?.suggestions_of_improvements}
+                label={"Please write related comments"}
+                value={form?.suggestions_of_improvements}
+                onTextChange={(text) => {
+                  changeTextData(text, "suggestions_of_improvements");
+                }}
+                onBlur={() => {
+                  onBlurHandler("suggestions_of_improvements");
+                }}
+                multiline
+                rows={3}
+              />
+            </div>
             <div className={styles.horizontalLine}></div>
-            <ExitRatingView
-              isError={errorData?.expertise}
-              handleChange={handleRatingChange}
-              type="expertise"
-              title="4. Expertise i.e. Technical/Functional Qualifications & Skills"
-              question=" Does the candidate have the technical or Functional skills necessary for this position?"
-            />
-            <div className={styles.horizontalLine}></div>
-            <ExitRatingView
-              isError={errorData?.communication}
-              handleChange={handleRatingChange}
-              type="communication"
-              title="5. Communication"
-              question=" How were the candidate’s communication skills during the interview?"
-            />
-            <div className={styles.horizontalLine}></div>
-            <ExitRatingView
-              isError={errorData?.candidate}
-              handleChange={handleRatingChange}
-              type="candidate"
-              title="6. Candidate Interest/Attitude"
-              question="How much interest did the candidate show in the position and the organization?"
-            />
-            <div className={styles.horizontalLine}></div>
-            <ExitRatingView
-              isError={errorData?.knowledge}
-              handleChange={handleRatingChange}
-              type="knowledge"
-              title="7. Knowledge About Organization & Role"
-              question=" How well the candidate researched the organization & role prior to the interview?"
-            />
-            <div className={styles.horizontalLine}></div>
-            <ExitRatingView
-              isError={errorData?.teambuilding}
-              handleChange={handleRatingChange}
-              type="teambuilding"
-              title="8. Teambuilding/Interpersonal Skills"
-              question=" Did the candidate demonstrate, through their answers, good teambuilding/interpersonal skills?"
-            />
-            <div className={styles.horizontalLine}></div>
-            <ExitRatingView
-              isError={errorData?.initiative}
-              handleChange={handleRatingChange}
-              type="initiative"
-              title="9. Initiative, Self-Innovation"
-              question=" Did the candidate demonstrate, through their answers, a high degree of initiative?"
-            />
+            <div className={styles.rankingWrapper}>
+              <span className={styles.heading}>
+                6. Questions relating to jobs
+              </span>
+            </div>
+            <>
+              <ExitRatingView
+                handleChange={(val) => {
+                  changeTextData(val, "job_challenging");
+                }}
+                isError={errorData?.job_challenging}
+                title="a. Was the job challenging in terms of its content and utilisation of your skill and Capabilities?"
+              />
+              <div className={styles.horizontalLine}></div>
+              <ExitRatingView
+                handleChange={(val) => {
+                  changeTextData(val, "job_regularly_enhance");
+                }}
+                isError={errorData?.job_regularly_enhance}
+                title="b. Did you regularly enhance your learning while being on the job? Did your job add value to your professional growth?"
+              />
+              <div className={styles.horizontalLine}></div>
+              <ExitRatingView
+                isError={errorData?.job_condition_location}
+                handleChange={(val) => {
+                  changeTextData(val, "job_condition_location");
+                }}
+                title="c. Was your job condition & location comfortable? Was working environment enjoyable?"
+              />
+              <div className={styles.horizontalLine}></div>
+              <ExitRatingView
+                isError={errorData?.job_experience_growth}
+                handleChange={(val) => {
+                  changeTextData(val, "job_experience_growth");
+                }}
+                title="d. Did you experience growth in terms of level & responsibilities?"
+              />
+              <div className={styles.horizontalLine}></div>
+              <ExitRatingView
+                isError={errorData?.job_organisation_provide}
+                handleChange={(val) => {
+                  changeTextData(val, "job_organisation_provide");
+                }}
+                title="7.a. Did the Organisation provide you with sufficient development inputs to grow as a Professional?"
+              />
+              <div className={styles.horizontalLine}></div>
+              <ExitRatingView
+                isError={errorData?.job_feel_boss_organisation_provide}
+                handleChange={(val) => {
+                  changeTextData(val, "job_feel_boss_organisation_provide");
+                }}
+                title="7.b. Did you feel your boss/Organisation provided you with enough freedom and space to? Allow your creativity to grow?"
+              />
+              <div className={styles.horizontalLine}></div>
+              <ExitRatingView
+                isError={
+                  errorData?.new_job_compare_with_organisation_in_term_job_contents
+                }
+                handleChange={(val) => {
+                  changeTextData(
+                    val,
+                    "new_job_compare_with_organisation_in_term_job_contents"
+                  );
+                }}
+                title="8.a. How does your new job compare with that in this Organisation in terms of job contents? Designation/position and salary & perks ?"
+              />
+              <div className={styles.horizontalLine}></div>
+            </>
           </div>
           <div className={styles.btnContainer}>
             <div className={styles.btnCont1}>
