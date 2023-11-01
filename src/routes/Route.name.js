@@ -213,6 +213,12 @@ export default {
   LEAVE_APPLICATION_LIST_VIEW:'/leave-application/list',
   LEAVE_APPLICATION_FORM:"/leave-application/form",
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
+
+
+  FULL_FINAL_APPLICATION:"/full-final",
+  FULL_FINAL_APPROVAL:"/full-final-approval",
+ 
+  EXIT_INTERVIEW_LIST:"/exit/interview/list",
   
   EXIT_LOGIN:"/exit/login",
   EXIT_SUCCESS:"/exit/success",

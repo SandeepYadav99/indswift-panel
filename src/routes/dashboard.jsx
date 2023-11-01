@@ -437,6 +437,12 @@ const IncrementPlanner = lazy(() =>
   import("../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view")
 );
 
+const FullFinalComponent = lazy(()=>import("../views/Full&Final/FullFinal.component"));
+
+const FullFinalApprovalJourney = lazy(()=>import("../views/Full&FinalApproval/FullFinalApproval.component"))
+
+const PendingLeaveDetailApplication = lazy(()=>import("../views/PendingLeaveApplication/PendingApplicationDetail/PendingApplication.view.js"))
+
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -2411,15 +2417,33 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
   },
-  // {
-  //     path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
-  //     sidebarName: "Pending Leave Application",
-  //     navbarName: "Pending Leave Application",
-  //     icon: AssignmentOutlined,
-  //     component: PendingLeaveDetail,
-  //     is_sidebar: false,
-  //     is_protect: true,
-  // },
+  {
+    path: RouteName.FULL_FINAL_APPLICATION,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FullFinalComponent,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: RouteName.FULL_FINAL_APPROVAL,
+    sidebarName: "Full & Final Approval",
+    navbarName: "Full & Final Approval",
+    icon: AssignmentOutlined,
+    component: FullFinalApprovalJourney,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+      path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
+      sidebarName: "Pending Leave Application",
+      navbarName: "Pending Leave Application",
+      icon: AssignmentOutlined,
+      component: PendingLeaveDetailApplication,
+      is_sidebar: false,
+      is_protect: true,
+  },
 ];
 
 export default dashboardRoutes;

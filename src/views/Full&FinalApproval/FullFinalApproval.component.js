@@ -1,5 +1,13 @@
-import React, { useCallback, useMemo } from "react";
-
+import React, { Component, useCallback, useEffect, useMemo } from "react";
+import {
+  Button,
+  Paper,
+  Checkbox,
+  IconButton,
+  MenuItem,
+  ButtonBase,
+  Menu,
+} from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 
@@ -9,19 +17,19 @@ import styles from "./Styled.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-import usePendingLeaveApplication from "./PendingLeaveApplication.hook";
+import useFullFinalApproval from "./FullFinalApproval.hook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import OnBoardDialog from "../EmployeeList/components/OnBoardPopUp/OnBoardDialog.view";
 import TraineeDialog from "../EmployeeList/components/TraineePopUp copy/TraineeDialog.view";
-import { IconButton } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
-import { Link } from "react-router-dom";
 
-const PendingLeaveApplication = () => {
+const FullFinalApproval = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
+    handleDataSave,
+    handleDelete,
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
@@ -30,16 +38,15 @@ const PendingLeaveApplication = () => {
     isSidePanel,
     isCalling,
     configFilter,
+    handleLeaveApplicationForm,
     isExtendDialog,
     toggleExtendDialog,
     isTraineeDialog,
     toggleTraineeDialog,
     listData,
-    detailPageRoute,
-  } = usePendingLeaveApplication({});
+  } = useFullFinalApproval({});
 
   const {
-    list,
     data,
     all: allData,
     currentPage,
@@ -72,94 +79,74 @@ const PendingLeaveApplication = () => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "type",
+        key: "employee",
         label: "EMPLOYEE",
         sortable: true,
-        render: (value, all) => <div>{all?.employee?.name}</div>,
+        render: (value, all) => <div>{removeUnderScore(all?.type)}</div>,
       },
       {
-        key: "date",
+        key: "grades",
         label: "GRADE/CADRE",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.grade?.code}/{all?.employee?.cadre?.name}
+            {all?.contact}
+            <br />
+            {`${all?.startDateText} - ${all?.endDateText}`}
           </div>
         ),
       },
       {
-        key: "status",
+        key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
+        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
       },
       {
-        key: "appliedon",
+        key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.designation?.name}</div>,
+        render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
       {
-        key: "attachments",
+        key: "dept",
         label: "DEPT & SUB-DEPT",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department?.name}/
-            {all?.employee?.sub_department?.name}
+            {all?.contact}
+            <br />
+            {`${all?.startDateText} - ${all?.endDateText}`}
           </div>
         ),
       },
       {
-        key: "type",
+        key: "contact",
         label: "CONTACT",
-        sortable: true,
-        render: (value, all) => (
-          <div>
-            {" "}
-            {all?.employee?.contact?.official_contact}-
-            {all?.employee?.contact?.personal_contact}
-          </div>
-        ),
-      },
-      {
-        key: "date",
-        label: "LEAVE TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.leave?.type}</div>,
+        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
       },
       {
-        key: "status",
+        key: "employee-status",
+        label: "EMPLOYEE STATUS",
+        sortable: false,
+        render: (temp, all) => <div>{all?.createdAtText}</div>,
+      },
+      {
+        key: "current_status",
         label: "CURRENT STATUS/ OVERALL STATUS",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.leave?.status}/{all?.status}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
       {
-        key: "appliedon",
-        label: "LEAVE DATES",
-        sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.leave?.startDateText}-{all?.leave?.endDateText}
-          </div>
-        ),
-      },
-      {
-        key: "attachments",
-        label: "APPLIED ON",
-        sortable: false,
-        render: (temp, all) => <div>{all?.leave?.createdAtText}</div>,
-      },
-      {
-        key: "attachments",
+        key: "action",
         label: "ACTION",
         sortable: false,
         render: (temp, all) => (
-          <Link to={"list/" + all?._id}>
+          <a
+            href="javascript:void(0);"
+            target="_blank"
+          >
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -167,7 +154,7 @@ const PendingLeaveApplication = () => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-          </Link>
+          </a>
         ),
       },
     ];
@@ -184,8 +171,8 @@ const PendingLeaveApplication = () => {
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: list?.data ? list?.data : [],
-      count: list?.data?.length ? list?.data?.length : 0,
+      data: data?.data ? [] : [],
+      count: data?.data?.length ? [] : [],
       page: currentPage,
     };
 
@@ -205,7 +192,7 @@ const PendingLeaveApplication = () => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Pending Leave Applications</span>
+            <span className={styles.title}>Full & Final Pending Approval</span>
             <div className={styles.newLine} />
           </div>
         </div>
@@ -248,4 +235,4 @@ const PendingLeaveApplication = () => {
   );
 };
 
-export default PendingLeaveApplication;
+export default FullFinalApproval;
