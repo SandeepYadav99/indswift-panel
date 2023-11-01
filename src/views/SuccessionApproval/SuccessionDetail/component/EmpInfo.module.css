@@ -21,7 +21,14 @@
     background-color: #fff;
     box-shadow: 0px 20px 80px #00000011;
 }
-
+.plainPaper_footer{
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 20px 80px #00000011;
+    bottom: 0px; 
+}
 .heading{
     font-size: 0.8rem;
     margin-top: 5px;
@@ -99,13 +106,25 @@
 }
 
 .edit{
-    color: #29CB97 !important;
-    border: 2px solid #29CB97 !important;
+    color: #E92828 !important;
+    border: 2px solid #E92828 !important;
     padding: 10px 40px !important;
     border-radius: 30px !important;
     font-weight: 600 !important;
 }
-
+.approve{
+    background-color: #29CB97 !important;
+    border: 2px solid #29CB97 !important;
+    padding: 10px 40px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+    color: #fff;
+}
+.rightFlex{
+    display: flex;
+    justify-content: space-between;
+    
+}
 .editFlex{
     display: flex;
     justify-content: space-between;

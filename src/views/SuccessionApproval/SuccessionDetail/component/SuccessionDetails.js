@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "./EmpInfo.module.css";
+import { ButtonBase } from "@material-ui/core";
+import ApprovalPopup from "./ApprovalPopup/ApprovalPopup";
+import RejectionPopup from "./RejectionPopup/RejectionPopup";
 
-const SuccessionDetailInfor = ({ employeeData }) => {
+const SuccessionDetailInfor = ({ employeeData , jobId, ids, toggleIsOpenDialog, isOpenDialog,  toggleIsOpenRejectionDialog,
+  isOpenRejectionDialog}) => {
   return (
     <div>
       <div className={styles.plainPaper}>
@@ -82,23 +86,59 @@ const SuccessionDetailInfor = ({ employeeData }) => {
       {/* Comments/Notes  */}
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-        <div className={styles.editFlex}>
+          <div className={styles.editFlex}>
             <div className={styles.heading}>
-            Comments/Notes <span>{employeeData?.code}</span>
+              Comments/Notes <span>{employeeData?.code}</span>
             </div>
           </div>
-          <div >
+          <div>
+            <div className={styles.key}>
+              <span className={styles.value_submission}>APPROVED</span>
+              <br />
+            </div>
             <div className={styles.key}>
               <span className={styles.value_submission}>
-              APPROVED
+                Pranav Bhasin | 21/02/2023
               </span>
-              <br/>
-            </div> 
-            <div className={styles.key}>
-              <span className={styles.value_submission}>Pranav Bhasin | 21/02/2023</span>
               {employeeData?.verificationText}
             </div>
-            
+          </div>
+        </div>
+      </div>
+      {/* Approval Pop  */}
+      <ApprovalPopup
+     
+        // candidateId={ids}
+        isOpen={isOpenDialog}
+        handleToggle={toggleIsOpenDialog}
+      />
+      <RejectionPopup 
+       isOpen={isOpenRejectionDialog}
+        handleToggle={toggleIsOpenRejectionDialog}/>
+      {/* Footer Button  */}
+
+      <div className={styles.plainPaper_footer}>
+        <div className={styles.newContainer}>
+          <div>
+            <div className={styles.rightFlex}>
+              <ButtonBase
+                className={styles.edit}
+                onClick={() => {
+                  // handleViewGraph();
+                  toggleIsOpenRejectionDialog()
+                }}
+              >
+                REJECT
+              </ButtonBase>
+              <ButtonBase
+                className={styles.approve}
+                onClick={() => {
+                  toggleIsOpenDialog();
+                }}
+              >
+                APPROVE
+              </ButtonBase>
+            </div>
           </div>
         </div>
       </div>

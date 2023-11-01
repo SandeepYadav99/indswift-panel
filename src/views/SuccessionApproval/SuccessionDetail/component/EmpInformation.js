@@ -7,6 +7,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ButtonBase } from "@material-ui/core";
 import historyUtils from "../../../../libs/history.utils";
 import SuccessionDetailInfor from "./SuccessionDetails";
+import useEmpInformation from "./EmpInformationHook";
 const EmployeeInformation = ({ empId }) => {
   console.log(empId);
   const dispatch = useDispatch();
@@ -17,7 +18,17 @@ const EmployeeInformation = ({ empId }) => {
   }, [empId]);
 
   const { employeeData } = useSelector((state) => state.employee);
+  const {
+   
+    
+ 
+    toggleIsOpenDialog,
 
+    isOpenDialog,
+    toggleIsOpenRejectionDialog,
+    isOpenRejectionDialog
+  
+  } = useEmpInformation();
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -112,8 +123,13 @@ const EmployeeInformation = ({ empId }) => {
           </div>
         </div>
       </div>
+      
       {/* Succession Details Information */}
-      <SuccessionDetailInfor/>
+      <SuccessionDetailInfor 
+      isOpenDialog={isOpenDialog}
+       toggleIsOpenDialog={toggleIsOpenDialog}
+       isOpenRejectionDialog={isOpenRejectionDialog}
+       toggleIsOpenRejectionDialog={toggleIsOpenRejectionDialog}/>
     </div>
   );
 };

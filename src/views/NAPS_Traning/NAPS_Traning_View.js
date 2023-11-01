@@ -121,10 +121,7 @@ const NapsTraning_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
+            {all?.resign_data?.separated_date || "N/A"}
           </div>
         ),
       },
