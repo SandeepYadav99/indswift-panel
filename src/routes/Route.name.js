@@ -213,7 +213,9 @@ export default {
   LEAVE_APPLICATION_LIST_VIEW:'/leave-application/list',
   LEAVE_APPLICATION_FORM:"/leave-application/form",
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
- 
+  
+  EXIT_LOGIN:"/exit/login",
+  EXIT_SUCCESS:"/exit/success",
   EXIT_INTERVIEW_LIST:"/exit/interview/list",
   EXIT_INTERVIEW_FORM:"/exit/interview/form",
 

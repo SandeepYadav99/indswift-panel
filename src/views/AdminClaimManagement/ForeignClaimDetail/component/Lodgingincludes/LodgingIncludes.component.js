@@ -258,7 +258,7 @@ const LodgingIncludeForm = (
     return sum;
   }, [fields,curr]);
 
-  console.log("getOfficeAmountt", curr[1]?.conversion_rate, totalAmount);
+  // console.log("getOfficeAmountt", curr[1]?.conversion_rate, totalAmount);
 
   useEffect(() => {
     if (totalAmount || totalAmount == 0) {
