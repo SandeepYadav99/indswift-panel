@@ -219,4 +219,10 @@ export default {
   FULL_FINAL_APPROVAL:"/full-final-approval",
  
   EXIT_INTERVIEW_LIST:"/exit/interview/list"
+  
+  EXIT_LOGIN:"/exit/login",
+  EXIT_SUCCESS:"/exit/success",
+  EXIT_INTERVIEW_LIST:"/exit/interview/list",
+  EXIT_INTERVIEW_FORM:"/exit/interview/form",
+
 };

@@ -507,7 +507,6 @@ function useClaimForDetail() {
     USDtoINR,
     EurotoINR,
     imprestINRAmount,
-    curr,
     getOfficeAmount,
     officeAmount3,
     setOfficeAmount3,
