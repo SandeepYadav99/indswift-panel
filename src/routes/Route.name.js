@@ -109,6 +109,7 @@ export default {
   CLAIMS_HR_DETAILS:'/cm/hr/details/',
   TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',
   FOREIGN_CLAIMS_DETAILS:'/cm/foreign/details/',
+  FOREIGN_HR_CLAIMS_DETAILS:'/cm/hr/foreign/details/',
   TRAVEL_HR_CLAIMS_DETAILS:'/cm/hr/travel/details/',
   CLAIMS_HR_LIST:'/cm/hr/claims' ,
 

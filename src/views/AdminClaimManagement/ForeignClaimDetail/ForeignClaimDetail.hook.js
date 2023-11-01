@@ -67,7 +67,7 @@ function useClaimForDetail() {
   const otherRef = useRef(null);
   const { id } = useParams();
 
-  const EmpId = window.location.pathname?.includes("/cm/hr/travel/details/")
+  const EmpId = window.location.pathname?.includes("/cm/hr/foreign/details/")
     ? { employee_id: "63d9267d3d18b8ce6e9b700c" }
     : {};
 
