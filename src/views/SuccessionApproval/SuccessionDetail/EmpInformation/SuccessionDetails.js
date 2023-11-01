@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./EmpInfo.module.css";
 import { ButtonBase } from "@material-ui/core";
-import ApprovalPopup from "./ApprovalPopup/ApprovalPopup";
-import RejectionPopup from "./RejectionPopup/RejectionPopup";
+import ApprovalPopup from "../component/ApprovalPopup/ApprovalPopup";
+import RejectionPopup from "../component/RejectionPopup/RejectionPopup";
 
 const SuccessionDetailInfor = ({ employeeData , jobId, ids, toggleIsOpenDialog, isOpenDialog,  toggleIsOpenRejectionDialog,
   isOpenRejectionDialog}) => {

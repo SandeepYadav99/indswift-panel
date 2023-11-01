@@ -1,4 +1,4 @@
-import React, { useCallback,  useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { ButtonBase, IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
@@ -14,7 +14,6 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import {
   AssignmentOutlined,
   InfoOutlined,
-
   VisibilityOutlined,
 } from "@material-ui/icons";
 import usePendingBGVerification_Hook from "./PendingBGVerification_Hook";
@@ -41,7 +40,6 @@ const PendingBGVerification_View = ({ location }) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.pendingBGV);
 
- 
   const renderStatus = useCallback((status) => {
     if (status === "PENDING" || "CLEAR" || "FAILED") {
       return <StatusPill status={status} />;
@@ -65,7 +63,11 @@ const PendingBGVerification_View = ({ location }) => {
 
   const button_VerificationHandler = (all) => {
     if (all?.status === "SENT_FOR_VERIFICATION") {
-      if (all?.bgv_result === "CLEAR" || all?.bgv_result === "FAILED" || all?.bgv_result === "Unable to Verify") {
+      if (
+        all?.bgv_result === "CLEAR" ||
+        all?.bgv_result === "FAILED" ||
+        all?.bgv_result === "Unable to Verify"
+      ) {
         return (
           <IconButton
             className={"tableActionBtn"}
@@ -129,14 +131,7 @@ const PendingBGVerification_View = ({ location }) => {
         key: "offer_accepted",
         label: "OFFER ACCEPTED",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            (O) {all?.contact?.personal_contact}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.offerAcceptedDate}</div>,
       },
       {
         key: "doj",
@@ -148,9 +143,7 @@ const PendingBGVerification_View = ({ location }) => {
         key: "status",
         label: "STATUS",
         sortable: true,
-        render: (temp, all) => (
-          <div>{renderStatus(all?.status)}</div>
-        ),
+        render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
       },
       {
         key: "bgv-result",

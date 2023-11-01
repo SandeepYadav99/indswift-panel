@@ -47,7 +47,7 @@ const useCandidateUpdate_Hook = ({}) => {
       if (!res.error) {
    
         const data = res?.data;
-     console.log(data)
+  
         setForm({
           ...form,
           is_education_verification: data?.is_education_verification,
@@ -68,8 +68,10 @@ const useCandidateUpdate_Hook = ({}) => {
           is_secound_employment_verification_status: data?.is_secound_employment_verification_status,
           is_criminal_verification_status: data?.is_criminal_verification_status,
           bgv_result: data?.bgv_result,
+          is_criminal_verification_status:data?.is_criminal_verification_status,
           payment_status:data?.payment_status,
-          emp_code:data?.employeeObj?.emp_code
+          emp_code:data?.employeeObj?.emp_code,
+          choose_action:data?.choose_action
        
         });
       } else {
@@ -123,10 +125,12 @@ const useCandidateUpdate_Hook = ({}) => {
       id: form?.id, // id
       is_education_verification_status: form?.is_education_verification_status,
       is_first_employment_verification_status:
-        form?.is_first_employment_verification,
+        form?.is_first_employment_verification_status,
       is_secound_employment_verification_status:
-        form?.is_secound_employment_verification,
+        form?.is_secound_employment_verification_status,
+        is_criminal_verification_status:form?.is_criminal_verification_status,
       payment_complete: "",
+      payment_status:form?.payment_status,
     };
 
     try {

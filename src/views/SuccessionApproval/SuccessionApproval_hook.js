@@ -164,8 +164,7 @@ const useSuccessionApprovalHook = ({}) => {
 
   const configFilter = useMemo(() => {
     return [
-      // {label: 'Country', name: 'country', type: 'text'},
-      // {label: 'City', name: 'city', type: 'text'},
+      
       {
         label: "Status",
         name: "status",
@@ -173,12 +172,7 @@ const useSuccessionApprovalHook = ({}) => {
         custom: { extract: { id: "id", title: "name" } },
         fields: status,
       },
-      // {
-      //   label: "Created Date",
-      //   options: { maxDate: new Date() },
-      //   name: "createdAt",
-      //   type: "date",
-      // },
+      
       {
         label: "Changed By",
         name: "edited_by",

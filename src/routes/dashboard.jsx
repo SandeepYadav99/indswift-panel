@@ -27,7 +27,7 @@ import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Up
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
 
 
-const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/component/EmpInformation"));
+const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
 const SuccessionApproval_List = lazy(() =>import("../views/SuccessionApproval/SuccessionApproval_List"));
 
 const LeaveApplicationForm = lazy(() =>

@@ -1,12 +1,8 @@
 /**
- * Created by sandeepelectrovese@gmail.com on 10/18/2023.
+ * Created by sandeepelectrovese@gmail.com on 11/01/2023.
  */
 import React, {  useCallback,  useMemo } from "react";
-import {
-  
-  IconButton,
-
-} from "@material-ui/core";
+import {IconButton} from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { InfoOutlined} from "@material-ui/icons";
@@ -16,11 +12,7 @@ import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-
-
 import StatusPill from "../../components/Status/StatusPill.component";
-// import CandidateTable from "../../../components/CandidateDataTable/CandidateTable.component";
-
 import useSuccessionApprovalHook from "./SuccessionApproval_hook";
 
 const SuccessionApproval_List = ({}) => {
@@ -28,19 +20,14 @@ const SuccessionApproval_List = ({}) => {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
     handleSideToggle,
     handleViewDetails,
-    editData,
     isSidePanel,
-    handleCreate,
     isCalling,
     configFilter,
-    warehouses,
     changeEmployeeRoute,
     handleToggleDetail
   } = useSuccessionApprovalHook({});
