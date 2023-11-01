@@ -21,7 +21,14 @@
     background-color: #fff;
     box-shadow: 0px 20px 80px #00000011;
 }
-
+.plainPaper_footer{
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 20px 80px #00000011;
+    bottom: 0px; 
+}
 .heading{
     font-size: 0.8rem;
     margin-top: 5px;
@@ -75,9 +82,6 @@
 .left{
     /*margin-right: 30px;*/
     flex: 1.4;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .right{
@@ -102,13 +106,25 @@
 }
 
 .edit{
-    color: #29CB97 !important;
-    border: 2px solid #29CB97 !important;
+    color: #E92828 !important;
+    border: 2px solid #E92828 !important;
     padding: 10px 40px !important;
     border-radius: 30px !important;
     font-weight: 600 !important;
 }
-
+.approve{
+    background-color: #29CB97 !important;
+    border: 2px solid #29CB97 !important;
+    padding: 10px 40px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+    color: #fff;
+}
+.rightFlex{
+    display: flex;
+    justify-content: space-between;
+    
+}
 .editFlex{
     display: flex;
     justify-content: space-between;
@@ -154,29 +170,17 @@
     justify-content: space-between;
     /*align-items: center;*/
 }
-
-.btnCont {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 20px;
+.hyperlinkText{
+    color: #2896E9;
+    text-decoration-line: underline;
+    cursor: pointer;
+    font-size: 14px;
   }
-  .createBtn {
-    background-color: #29cb97 !important;
-    color: #ffffff !important;
-    padding: 12px 35px !important;
-    font-size: 0.8rem !important;
-    border-radius: 30px !important;
-    text-transform: uppercase !important;
-    font-weight: 600 !important;
-  }
-  .gaps {
-    padding: 10px;
-  }
-  .text_{
+  .value_submission{
     font-size: 14px;
     color: #161616;
   }
-  .bgv_verification{
-    font-size: 18px;
-    color: #161616;
+  .hrline{
+    border: 1px solid #B8C5D3;
+    margin: 10px 0px 10px 0px;
   }

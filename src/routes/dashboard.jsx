@@ -14,7 +14,7 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
 import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
-import SuccessionApproval_List from "../views/SuccessionApproval/SuccessionApproval_List";
+
 import SuccessionPlanner_list from "../views/SuccessionPlaner/SuccessionPlanner_list";
 import LetterApprovalProces_View from "../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View";
 import LetterApprovalDetail from "../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail";
@@ -26,6 +26,10 @@ import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLea
 import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
 import ExitInterviewList from "../views/ExitInterview/ExitInterviewList/ExitInterviewList.container";
+
+
+const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/component/EmpInformation"));
+const SuccessionApproval_List = lazy(() =>import("../views/SuccessionApproval/SuccessionApproval_List"));
 
 const LeaveApplicationForm = lazy(() =>
   import(
@@ -534,6 +538,17 @@ const dashboardRoutes = [
     navbarName: "Succession Approval",
     icon: PeopleOutlined,
     component: SuccessionApproval_List,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    // parent: 'employeedashboard',
+  },
+  {
+    path: `${RouteName.SUCCESSION_APPROVAL_DETAIL}:id`,
+    sidebarName: "Succession Approval",
+    navbarName: "Succession Approval",
+    icon: PeopleOutlined,
+    component: EmployeeInformation,
     is_sidebar: false,
     is_protect: true,
     should_regex: true,

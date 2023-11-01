@@ -82,3 +82,18 @@
 .unBlock{
     display: none;
 }
+.bgv_header{
+    margin-top: 10px;
+}
+.gaps {
+    padding: 10px;
+  }
+  .required_action{
+    font-size: 18px;
+    color: #161616;
+  }
+  .right_gaps{
+    margin-right: 10px;
+    font-size: 14px;
+    color:  #818181;
+  }

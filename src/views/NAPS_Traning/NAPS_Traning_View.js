@@ -26,7 +26,8 @@ const NapsTraning_View = ({ location }) => {
     handleViewDetails,
     isCalling,
     configFilter,
-    openPDFInNewTab,
+
+    handleNapsCertificatePage,
   } = useNapsTraning_Hook({ location });
 
   const {
@@ -105,11 +106,10 @@ const NapsTraning_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            
-            (O){all?.contact?.official_contact || "N/A"} <br/>
+            (O){all?.contact?.official_contact || "N/A"} <br />
             (P) {all?.contact?.personal_contact || "N/A"}
             <br />
-            (O) {all?.contact?.official_email || "N/A"} 
+            (O) {all?.contact?.official_email || "N/A"}
             <br />
             (P) {all?.contact?.personal_email || "N/A"}
           </div>
@@ -121,10 +121,7 @@ const NapsTraning_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
+            {all?.resign_data?.separated_date || "N/A"}
           </div>
         ),
       },
@@ -138,23 +135,18 @@ const NapsTraning_View = ({ location }) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <a
-            href="javascript:void(0);"
-            target="_blank"
-            onClick={() => openPDFInNewTab(all)}
-          >
+          <div>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              // onClick={() => {
-              //   // window.open(all?.naps?.letter_pdf, "_blank");
-              //    handleViewDetails(all);
-              // }}
+              onClick={() => {
+                handleNapsCertificatePage(all);
+              }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-          </a>
+          </div>
         ),
       },
     ];

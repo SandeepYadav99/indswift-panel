@@ -1,7 +1,7 @@
 import styles from "./Style.module.css";
 import { ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import {  EditOutlined } from "@material-ui/icons";
+import { EditOutlined } from "@material-ui/icons";
 
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 
@@ -23,10 +23,16 @@ const BGVForm = () => {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
-            <div className={styles.heading}>
-              Background Verification Details
+            <div>
+              <span className={styles.bgv_verification}>
+                Background Verification Details{" "}
+              </span>
+              <br />
+              <div className={styles.gpas}/>
+              <span className={styles.text_}>
+                Choose type of verification required:
+              </span>
             </div>
-            {/* <div>Choose type of verification required:</div> */}
           </div>
 
           <div className={styles.mainFlex}>
