@@ -26,7 +26,7 @@ const NapsTraning_View = ({ location }) => {
     handleViewDetails,
     isCalling,
     configFilter,
-    openPDFInNewTab
+    openPDFInNewTab,
   } = useNapsTraning_Hook({ location });
 
   const {
@@ -45,7 +45,11 @@ const NapsTraning_View = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span> <br />
+            <span className={styles.productName}>
+              <b>{obj?.name}</b>{" "}
+            </span>{" "}
+            <br />
+            <span>{obj?.emp_code}</span>
           </div>
         </div>
       );
@@ -65,7 +69,11 @@ const NapsTraning_View = ({ location }) => {
         key: "grade_cadre",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => <div>{all?.grade?.code} / {all?.cadre?.name}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.grade?.code} / {all?.cadre?.name}
+          </div>
+        ),
       },
       {
         key: "location",
@@ -77,12 +85,7 @@ const NapsTraning_View = ({ location }) => {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.designation?.name}
-          
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.designation?.name}</div>,
       },
       {
         key: "dept_sub_dept",
@@ -92,7 +95,7 @@ const NapsTraning_View = ({ location }) => {
           <div>
             {all?.department?.name}
             <br />
-            {all?.sub_department?.name} 
+            {all?.sub_department?.name}
           </div>
         ),
       },
@@ -102,10 +105,13 @@ const NapsTraning_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-          (O)  {all?.contact?.personal_contact}
+            
+            (O){all?.contact?.official_contact || "N/A"} <br/>
+            (P) {all?.contact?.personal_contact || "N/A"}
             <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
+            (O) {all?.contact?.official_email || "N/A"} 
+            <br />
+            (P) {all?.contact?.personal_email || "N/A"}
           </div>
         ),
       },
@@ -126,15 +132,17 @@ const NapsTraning_View = ({ location }) => {
         key: "reporting",
         label: "REPORTING TO",
         sortable: true,
-        render: (temp, all) => (
-          <div>{all?.hod?.hod_name}</div>
-        ),
+        render: (temp, all) => <div>{all?.hod?.hod_name}</div>,
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <a   href="javascript:void(0);"  target="_blank"  onClick={() => openPDFInNewTab(all)}>
+          <a
+            href="javascript:void(0);"
+            target="_blank"
+            onClick={() => openPDFInNewTab(all)}
+          >
             <IconButton
               className={"tableActionBtn"}
               color="secondary"

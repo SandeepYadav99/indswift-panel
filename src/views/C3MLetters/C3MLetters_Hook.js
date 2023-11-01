@@ -28,16 +28,9 @@ const useC3MLetters_Hook = () => {
     isMountRef.current = true;
   }, []);
 
-  // useEffect(() => {
-  //   serviceGetList(["LOCATIONS"]).then((res) => {
-  //     if (!res.error) {
-  //       setListData(res.data);
-  //     }
-  //   });
-  // }, []);
-  console.log("list", listData);
+
   const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
+   
     dispatch(actionSetPageC3MLetterList(type));
   }, []);
 
@@ -56,7 +49,7 @@ const useC3MLetters_Hook = () => {
 
   const handleFilterDataChange = useCallback(
     (value) => {
-      console.log("_handleFilterDataChange", value);
+    
       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
@@ -64,7 +57,7 @@ const useC3MLetters_Hook = () => {
 
   const handleSearchValueChange = useCallback(
     (value) => {
-      console.log("_handleSearchValueChange", value);
+    
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -92,11 +85,9 @@ const useC3MLetters_Hook = () => {
   };
 
   const openPDFInNewTab = useCallback((pdfUrl) => {
-  console.log(pdfUrl)
-    // const newWindow = window.open('', '_blank');
-    if (pdfUrl) {
+  if (pdfUrl) {
       window.open(pdfUrl?.joining_letter, "_blank")
-      // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
+   
     }
   }, []);
 

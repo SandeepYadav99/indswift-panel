@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {actionGetJobOpeningVacancies, actionGetMarkInactive} from "../../../../../actions/JobOpeningDetail.action";
 import {serviceVacanciesInactive} from "../../../../../services/JobOpenings.service";
 
+
 const initialForm = {
   reason: "",
 };
@@ -16,12 +17,13 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId, jobId }) => 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     if (isOpen) {
       setForm({ ...initialForm });
       setErrorData({});
     }
-  }, [isOpen]);
+  }, [isOpen, candidateId]);
 
   const removeError = useCallback(
     (title) => {
@@ -48,7 +50,6 @@ const useInactivePopUp_hook = ({ isOpen, handleToggle, candidateId, jobId }) => 
   const handleSubmit = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-
       if (candidateId) {
           serviceVacanciesInactive({ vacancy_id: candidateId , reason: form?.reason}).then(() => {
               handleToggle();

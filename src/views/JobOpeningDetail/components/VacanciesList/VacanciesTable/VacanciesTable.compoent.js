@@ -140,12 +140,12 @@ function VacanciesTable({ jobId }) {
                 <img
                   src={rejectPng}
                   className={styles.rejct}
-                  style={{ width: "1.5rem" }}
+                  style={{ width: "1.2rem" }}
                 />
                 <div className={styles.subText}> Mark Inactive</div>
               </IconButton>
             ) : (all?.status === "INACTIVE" &&
-              all?.type === "ADDITIONAL_REQUIREMENT" )? (
+              all?.type === "ADDITIONAL_REQUIREMENT" ) ? (
               <img
                 src={CommentIcon}
                 alt="comment"
@@ -159,7 +159,7 @@ function VacanciesTable({ jobId }) {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, ids]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

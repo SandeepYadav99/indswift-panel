@@ -2294,7 +2294,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "skynetLetter",
     is_parent: true,
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+     roles: [Roles.CORPORATE_HR, Roles.ADMIN],
   },
   {
     path: RouteName.NAPS_TRANING,
