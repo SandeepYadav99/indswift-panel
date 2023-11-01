@@ -1,17 +1,13 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback,  useMemo } from "react";
 import { IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-
 import StatusPill from "../../components/Status/StatusPill.component";
-import { removeUnderScore } from "../../helper/helper";
-
 import { InfoOutlined } from "@material-ui/icons";
 import useAppointemntLetter_Hook from "./AppointmentLetter_hook";
 

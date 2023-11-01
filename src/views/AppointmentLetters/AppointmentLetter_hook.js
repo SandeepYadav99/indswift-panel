@@ -1,18 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
-import historyUtils from "../../libs/history.utils";
-import RouteName from "../../routes/Route.name";
 import { actionFetchAppointmentLetterList, actionFilterAppointmentLetterList } from "../../actions/AppointmentLetter.action";
-
 
 const useAppointemntLetter_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const dispatch = useDispatch();
   const [listData, setListData] = useState({
     EMPLOYEES: [],
   });
-  const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
