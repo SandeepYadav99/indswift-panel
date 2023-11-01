@@ -5,7 +5,6 @@ import { actionLeaveList } from "../../actions/LeaveModule.action";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef,useEffect } from "react";
 import { actionCreateEmployee, actionDeleteEmployee, actionFetchEmployee, actionSetPageEmployeeRequests, actionUpdateEmployee } from "../../actions/Employee.action";
-import {actionLeavesListData} from '../../actions/LeaveModule.action.js';
 import { serviceGetList } from "../../services/Common.service";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
@@ -13,7 +12,7 @@ import { useMemo } from "react";
 import constants from "../../config/constants";
 import { serviceExportEmployees } from "../../services/Employee.service";
 
-function usePendingLeaveApplication() {
+function useFullFinalApproval() {
   const dispatch = useDispatch();
   const [employeeDetail, setEmployeeDetail] = useState({});
   const [approveDialog, setApproveDialog] = useState(false);
@@ -45,14 +44,6 @@ function usePendingLeaveApplication() {
     query_data: queryData,
   } = useSelector((state) => state.employee);
 
-  let LeaveParameters ={
-    "index": 1,
-    "row": "createdAt",
-    "order": "desc",
-    "query": "",
-    "query_data": null
-  }
-
   const initData = useCallback(() => {
     dispatch(
       actionFetchEmployee(1, sortingData, {
@@ -60,7 +51,6 @@ function usePendingLeaveApplication() {
         query_data: isMountRef.current ? queryData : null,
       })
     );
-    dispatch(actionLeavesListData(LeaveParameters))
   }, []);
 
   const toggleExtendDialog = useCallback(() => {
@@ -89,8 +79,18 @@ function usePendingLeaveApplication() {
     });
   }, []);
 
- 
+  // const handleCellClick = (rowIndex, columnIndex, row, column) => {
+  //     console.log(`handleCellClick rowIndex: ${rowIndex} columnIndex: ${columnIndex}`);
+  // }
+  // const handlePreviousPageClick = () => {
+  //     console.log('handlePreviousPageClick', 'PREV');
+  // }
+  //
+  // const handleNextPageClick = () => {
+  //     console.log('handleNextPageClick', 'NEXT');
+  // }
   const handlePageChange = useCallback((type) => {
+    console.log("_handlePageChange", type);
     dispatch(actionSetPageEmployeeRequests(type));
   }, []);
   const handleCreate = useCallback(() => {
@@ -211,11 +211,6 @@ function usePendingLeaveApplication() {
   const handleViewUpdate = useCallback((data) => {
     historyUtils.push(`${RouteName.EMPLOYEE_UPDATE}${data?.id}`);
   }, []);
-
-const detailPageRoute =(all)=>{
-  history.push(all?.employee_id)
-}
-  
 
   const configFilter = useMemo(() => {
     return [
@@ -353,8 +348,7 @@ const detailPageRoute =(all)=>{
     isTraineeDialog,
     toggleTraineeDialog,
     listData,
-    detailPageRoute,
   };
 }
 
-export default usePendingLeaveApplication;
+export default useFullFinalApproval;
