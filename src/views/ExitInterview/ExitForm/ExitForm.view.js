@@ -24,8 +24,9 @@ function ExitForm() {
     isSubmitted,
     declaration,
     setDeclaration,
+    employeeDetail
   } = UseExitForm({});
-  const data = {};
+
   return (
     <div className={styles.evaluationFormWrapper}>
       <div>
@@ -41,7 +42,7 @@ function ExitForm() {
         </div>
         <div className={styles.evaluationContainer}>
           <div className={styles.candidateInfoContainer2}>
-            <InfoCard data={data} />
+            <InfoCard data={employeeDetail?.employee} />
           </div>
           <div className={styles.candidateInfoContainer2}>
             <div className={styles.rankingWrapper}>

@@ -48,7 +48,9 @@ const ExitInterviewList = ({}) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.candidate?.name}</span>{" "}
+            <span className={styles.productName}>
+              <strong>{obj?.employee?.name}</strong>
+            </span>
             <br />
             <span className={styles.productName}>
               {obj?.employee?.emp_code}
@@ -65,7 +67,7 @@ const ExitInterviewList = ({}) => {
     return [
       {
         key: "name",
-        label: "CANDIDATE NAME",
+        label: "EMPLOYEE",
         sortable: false,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
@@ -75,7 +77,8 @@ const ExitInterviewList = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.captialize}>
-            {all?.grade?.code} / {all?.cadre?.code}
+            {console.log("all", all)}
+            {all?.employee?.grade?.code} / {all?.employee?.cadre?.code}
           </div>
         ),
       },
@@ -84,7 +87,7 @@ const ExitInterviewList = ({}) => {
         label: "Location",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.captialize}>{all?.location.name}</div>
+          <div className={styles.captialize}>{all?.employee?.location?.name}</div>
         ),
       },
       {
@@ -92,7 +95,7 @@ const ExitInterviewList = ({}) => {
         label: "Designation",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.captialize}>{all?.designation?.name}</div>
+          <div className={styles.captialize}>{all?.employee?.designation?.name}</div>
         ),
       },
       {
@@ -102,7 +105,7 @@ const ExitInterviewList = ({}) => {
         style: { width: "12%" },
         render: (temp, all) => (
           <div className={styles.captialize}>
-            {all?.department?.name}/{all?.sub_department?.name}
+            {all?.employee?.department?.name}/{all?.employee?.sub_department?.name}
           </div>
         ),
       },
@@ -111,21 +114,13 @@ const ExitInterviewList = ({}) => {
         label: "Contact",
         sortable: false,
         style: { width: "18%" },
-        render: (temp, all) => <div>{(all?.fds)}</div>,
-      },
-      {
-        key: "hod",
-        label: "HOD",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.HODUpperCase}>{all?.hod?.hod_name}</div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.contact?.official_contact}</div>,
       },
       {
         key: "status",
-        label: "Status",
+        label: "EMPLOYEE STATUS",
         sortable: true,
-        render: (temp, all) => <div>{renderStatus(all.status)}</div>,
+        render: (temp, all) => <div>{renderStatus(all.employee?.status)}</div>,
       },
       {
         key: "user_id",
@@ -136,9 +131,9 @@ const ExitInterviewList = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
+              // onClick={() => {
+              //   handleViewDetails(all);
+              // }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>

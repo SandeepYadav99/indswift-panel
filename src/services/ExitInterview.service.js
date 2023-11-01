@@ -8,7 +8,7 @@ export async function serviceCreateExitInterview(params) {
   return await formDataRequest("exit/interview/exit/intervieweate", params);
 }
 export async function serviceUpdateExitInterview(params) {
-  return await postRequest("exit/interview/update", params);
+  return await postRequest("exit/interview/form/submit", params);
 }
 
 export async function serviceDeleteExitInterview(params) {

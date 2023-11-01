@@ -3,7 +3,8 @@ import { serviceApproveCLaim } from "../../../services/Claims.service";
 import RouteName from "../../../routes/Route.name";
 import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-// import useEAFSession from "../../EmployeeApplicationForm/EAFSessionHook";
+import useEAFSession from "../../EmployeeApplicationForm/EAFSessionHook";
+import { serviceGetExitFormDetails, serviceUpdateExitInterview } from "../../../services/ExitInterview.service";
 
 const Ratingkeys = [
   "get_closer_to_your_home_town",
@@ -78,8 +79,8 @@ const useExitForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [declaration, setDeclaration] = useState(false);
-  // const { candidateId } = useEAFSession();
-
+  const { candidateId } = useEAFSession();
+  const [employeeDetail,setEmployeeDetail]=useState({})
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
@@ -88,30 +89,31 @@ const useExitForm = () => {
     },
     [setErrorData, errorData]
   );
-  // useEffect(() => {
-  //   if (candidateId) {
-  //     serviceGetExitFormDetails({ id: candidateId }).then((res) => {
-  //       if (!res.error) {
-  //         const tempData = res?.data;
-  //         // setCandidateData(tempData?.details);
-  //         // setImage(tempData?.details?.image);
-  //       }
-  //     });
-  //     // serviceGetCandidateEafPersonalDetails({ candidate_id: candidateId }).then(
-  //     //   (res) => {
-  //     //     if (!res.error) {
-  //     //       const tempData = res?.data?.details;
-  //     //       if (tempData) {
-  //     //         const { contact, family, ...rest } = tempData;
-  //     //         refPersonalForm.current?.setData(rest);
-  //     //         refContactForm.current?.setData(contact);
-  //     //         refFamilyDetail.current?.setData(family);
-  //     //       }
-  //     //     }
-  //     //   }
-  //     // );
-  //   }
-  // }, [candidateId]);
+  useEffect(() => {
+    if (candidateId) {
+      serviceGetExitFormDetails({ id: candidateId }).then((res) => {
+        if (!res.error) {
+          const tempData = res?.data;
+          setEmployeeDetail(tempData)
+          // setCandidateData(tempData?.details);
+          // setImage(tempData?.details?.image);
+        }
+      });
+      // serviceGetCandidateEafPersonalDetails({ candidate_id: candidateId }).then(
+      //   (res) => {
+      //     if (!res.error) {
+      //       const tempData = res?.data?.details;
+      //       if (tempData) {
+      //         const { contact, family, ...rest } = tempData;
+      //         refPersonalForm.current?.setData(rest);
+      //         refContactForm.current?.setData(contact);
+      //         refFamilyDetail.current?.setData(family);
+      //       }
+      //     }
+      //   }
+      // );
+    }
+  }, [candidateId]);
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
@@ -203,19 +205,20 @@ const useExitForm = () => {
         }
       }
       console.log("result", result);
-      // serviceApproveCLaim({
-      //   ...form,
-      // }).then((res) => {
-      //   if (!res.error) {
-      //     SnackbarUtils.success("Request Placed Successfully");
-      //     historyUtils.push(RouteName.EXIT_SUCCESS);
-      //   } else {
-      //     SnackbarUtils.error(res?.message);
-      //   }
-      //   setIsSubmitting(false);
-      // });
+      serviceUpdateExitInterview({
+        ...result,
+        id:candidateId
+      }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Request Placed Successfully");
+          historyUtils.push(RouteName.EXIT_SUCCESS);
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
     }
-  }, [form, isSubmitting, setIsSubmitting]);
+  }, [form, isSubmitting, setIsSubmitting,candidateId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -227,7 +230,7 @@ const useExitForm = () => {
     }
 
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, submitToServer, setForm]);
+  }, [checkFormValidation, setErrorData, form, submitToServer, setForm,candidateId]);
 
   const onBlurHandler = useCallback(
     (type) => {
@@ -250,6 +253,7 @@ const useExitForm = () => {
     isSubmitted,
     declaration,
     setDeclaration,
+    employeeDetail
   };
 };
 
