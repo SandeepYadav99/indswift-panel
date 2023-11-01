@@ -215,6 +215,7 @@ export default {
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
   
   EXIT_LOGIN:"/exit/login",
+  EXIT_SUCCESS:"/exit/success",
   EXIT_INTERVIEW_LIST:"/exit/interview/list",
   EXIT_INTERVIEW_FORM:"/exit/interview/form",
 

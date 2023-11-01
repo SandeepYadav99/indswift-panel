@@ -78,6 +78,7 @@ const RouteComponent = () => (
         <Route path={RouteName.PERFORMANCE_GRAPH} component={PmsGraph}/>
         <Route path={RouteName.EXIT_LOGIN} component={ExitLogin}/>
         <Route path={RouteName.EXIT_INTERVIEW_FORM} component={ExitForm}/>
+        <Route path={RouteName.EXIT_SUCCESS} component={SubmittedResponse}/>
 
         {/*<Route path={'/signup'} component={Signup} />*/}
         <Route path={"/forgot/password"} component={ForgotPassword}/>

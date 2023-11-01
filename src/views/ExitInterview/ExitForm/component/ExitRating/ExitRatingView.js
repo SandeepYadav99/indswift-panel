@@ -26,38 +26,15 @@ function ExitRatingView({ title, question, handleChange, isError }) {
         <span>{question}</span>
       </div>
       <div className={styles.emojWrapper}>
-        <div className={styles.emojCard} onClick={(e) => handleClick(1)}>
+        <div className={styles.emojCard} onClick={(e) => handleClick(5)}>
           <img
             src={
-              activeIndex == 1
-                ? images?.unsatisfactortory.active
-                : images?.unsatisfactortory.inactive
+              activeIndex == 5
+                ? images?.exceptional.active
+                : images?.exceptional.inactive
             }
           />
-          <span className={styles.performanceindex}>Unsatisfactory</span>
-          <span id="1">(Less than 30 %)</span>
-        </div>
-        <div className={styles.emojCard} onClick={(e) => handleClick(2)}>
-          <img
-            src={
-              activeIndex == 2
-                ? images?.below_average.active
-                : images?.below_average.inactive
-            }
-          />
-          <span className={styles.performanceindex}>Below Average</span>
-          <span>(b/w 30 % to 50%)</span>
-        </div>
-        <div className={styles.emojCard} onClick={(e) => handleClick(3)}>
-          <img
-            src={
-              activeIndex == 3
-                ? images?.average.active
-                : images?.average.inactive
-            }
-          />
-          <span className={styles.performanceindex}>Average</span>
-          <span>(b/w 50 % to 70%)</span>
+          <span className={styles.performanceindex}>Strongly agree</span>
         </div>
         <div className={styles.emojCard} onClick={(e) => handleClick(4)}>
           <img
@@ -67,19 +44,37 @@ function ExitRatingView({ title, question, handleChange, isError }) {
                 : images?.above_average.inactive
             }
           />
-          <span className={styles.performanceindex}>Above Average</span>
-          <span>(b/w 70 % to 90 %)</span>
+          <span className={styles.performanceindex}>Somewhat agree</span>
         </div>
-        <div className={styles.emojCard} onClick={(e) => handleClick(5)}>
+        <div className={styles.emojCard} onClick={(e) => handleClick(3)}>
           <img
             src={
-              activeIndex == 5
-                ? images?.exceptional.active
-                : images?.exceptional.inactive
+              activeIndex == 3
+                ? images?.average.active
+                : images?.average.inactive
             }
           />
-          <span className={styles.performanceindex}>Exceptional</span>
-          <span>(Above 90%)</span>
+          <span className={styles.performanceindex}>Somewhat disagree</span>
+        </div>
+        <div className={styles.emojCard} onClick={(e) => handleClick(2)}>
+          <img
+            src={
+              activeIndex == 2
+                ? images?.below_average.active
+                : images?.below_average.inactive
+            }
+          />
+          <span className={styles.performanceindex}>Strongly disagree</span>
+        </div>
+        <div className={styles.emojCard} onClick={(e) => handleClick(1)}>
+          <img
+            src={
+              activeIndex == 1
+                ? images?.unsatisfactortory.active
+                : images?.unsatisfactortory.inactive
+            }
+          />
+          <span className={styles.performanceindex}>Cannot say</span>
         </div>
       </div>
     </div>
