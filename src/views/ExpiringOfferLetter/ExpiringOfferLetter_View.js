@@ -91,18 +91,19 @@ const ExpiringOfferLetterView = ({ location }) => {
     if (obj) {
       return (
         <div>
-          {obj?.cadre?.name ? (
+          {obj?.job?.replacing_person?.name ? (
             <div
               className={styles.hyperlinkText}
               onClick={() => changeEmployeeRoute(obj?.job?.replacing_person)}
             >
-              {obj?.job?.replacing_person?.name}
+              {obj?.job?.replacing_person?.name} <br/>
+           
             </div>
           ) : (
             <div>N/A</div>
           )}
         
-          {obj?.job?.replacing_person?.code}
+        {obj?.job?.replacing_person?.code}
         </div>
       );
     }

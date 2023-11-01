@@ -134,7 +134,7 @@ export function actionSetPageC3MLetterList(page) {
     );
   }
 
-  console.log(currentPage, totalLength);
+ 
   return {
     type: CHANGE_PAGE,
     payload: page,
