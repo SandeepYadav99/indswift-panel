@@ -96,9 +96,9 @@ const useNapsTraning_Hook = () => {
     console.log(page);
   };
 
-  const openPDFInNewTab = useCallback((pdfUrl) => {
+  const handleNapsCertificatePage = useCallback((pdfUrl) => {
     if (pdfUrl) {
-      window.open(pdfUrl?.joining_letter, "_blank");
+      window.open(pdfUrl?.naps?.letter_pdf, "_blank");
       // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
     } else {
      
@@ -130,7 +130,7 @@ const useNapsTraning_Hook = () => {
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
-    openPDFInNewTab,
+    handleNapsCertificatePage,
     isCalling,
     editData,
     configFilter,

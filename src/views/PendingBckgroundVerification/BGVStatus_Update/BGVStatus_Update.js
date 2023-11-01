@@ -38,6 +38,11 @@ const BGVStatus_Update = () => {
       </div>
       <CandidateInfor empId={form?.emp_code} />
       <div className={styles.plainPaper}>
+        <div >
+          <div className={styles.required_action}>Background Verification Status </div>
+         <div className={styles.gaps}/>
+          <span >Update Verification Status</span>
+        </div>
         <div className={styles.newContainer}>
           <div className={styles.mainFlex}>
             <div className={styles.left}>
@@ -223,6 +228,10 @@ const BGVStatus_Update = () => {
       </div>
 
       <div className={styles.plainPaper}>
+      <div >
+          <div className={styles.required_action}>Required Action Details </div>
+        
+        </div>
         <div className={styles.newContainer}>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -274,7 +283,8 @@ const BGVStatus_Update = () => {
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <span>
-                <b>Cost: {form?.cost}</b>{" "}
+                <b>Cost: </b><span className={styles.right_gaps}>{form?.cost}</span>    
+                <div className={styles.gaps}></div>
               </span>
               <CustomSelectField
                 isError={errorData?.payment_status}
@@ -292,8 +302,9 @@ const BGVStatus_Update = () => {
             </div>
             <div className={"formGroup"}>
               <span>
-                <b>Billing To: {form?.billing_to}</b>{" "}
+                <b>Billing To:</b>{" "}<span className={styles.right_gaps}> {form?.billing_to}</span>       
               </span>
+              <div className={styles.gaps}></div>
               <CustomSelectField
                 isError={errorData?.payment_complete}
                 errorText={errorData?.payment_complete}

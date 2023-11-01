@@ -6,7 +6,7 @@ import {
 } from "../../actions/EmployeeEditVersions.action";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
-import {serviceGetList} from "../../services/Common.service";
+import { serviceGetList } from "../../services/Common.service";
 
 const useSuccessionApprovalHook = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -27,13 +27,13 @@ const useSuccessionApprovalHook = ({}) => {
     { id: "REJECTED", name: "REJECTED" },
   ];
 
-    useEffect(() => {
-        serviceGetList(['EMPLOYEES']).then((res) => {
-            if (!res.error) {
-                setEmployees(res?.data?.EMPLOYEES);
-            }
-        });
-    }, [])
+  useEffect(() => {
+    serviceGetList(["EMPLOYEES"]).then((res) => {
+      if (!res.error) {
+        setEmployees(res?.data?.EMPLOYEES);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     dispatch(
@@ -70,7 +70,7 @@ const useSuccessionApprovalHook = ({}) => {
   );
   const changeEmployeeRoute = useCallback((data) => {
     historyUtils.push(`/employees/details/${data?.code}`);
-}, []);
+  }, []);
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
@@ -158,6 +158,10 @@ const useSuccessionApprovalHook = ({}) => {
     historyUtils.push(RouteName.LOCATIONS_CREATE);
   }, []);
 
+  const handleToggleDetail = useCallback((data) => {
+    historyUtils.push(`${RouteName.SUCCESSION_APPROVAL_DETAIL}${data?.id}`);
+  }, []);
+
   const configFilter = useMemo(() => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
@@ -175,7 +179,13 @@ const useSuccessionApprovalHook = ({}) => {
       //   name: "createdAt",
       //   type: "date",
       // },
-        {label: 'Changed By', name: 'edited_by', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: employees},
+      {
+        label: "Changed By",
+        name: "edited_by",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: employees,
+      },
     ];
   }, [employees]);
 
@@ -198,7 +208,8 @@ const useSuccessionApprovalHook = ({}) => {
     isSidePanel,
     configFilter,
     handleCreate,
-    changeEmployeeRoute
+    changeEmployeeRoute,
+    handleToggleDetail,
   };
 };
 
