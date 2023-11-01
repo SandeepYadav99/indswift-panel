@@ -20,3 +20,9 @@ export async function serviceGetExitInterviewDetails(params) {
 export async function serviceGetExitInterview(params) {
   return await postRequest("exit/interview", params);
 }
+export async function serviceExitInterviewLogin(params) {
+  return await postRequest("exit/interview/authenticate", params);
+}
+export async function serviceGetExitFormDetails(params) {
+  return await postRequest("exit/interview/form", params);
+}
