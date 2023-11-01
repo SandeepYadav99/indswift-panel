@@ -143,6 +143,7 @@ const FullFinal = ({}) => {
         label: "ACTION",
         sortable: false,
         render: (temp, all) => (
+          <div>
           <a
             href="javascript:void(0);"
             target="_blank"
@@ -155,6 +156,7 @@ const FullFinal = ({}) => {
               <InfoOutlined fontSize={"small"} />
             </IconButton>
           </a>
+          </div>
         ),
       },
     ];

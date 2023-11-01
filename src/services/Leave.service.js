@@ -12,3 +12,18 @@ export async function serviceLeaveCount(params){
   return await postRequest("leaves/count",params)
 }
 
+export async function serviceLeaveDataList(params){
+  return await postRequest("leaves/review",params)
+}
+
+export async function servicesLeaveDetailApprove(params){
+  return await postRequest("leaves/review/details",params)
+}
+
+export async function serviceLeaveApprove(params){
+  return await postRequest("leaves/review/accept",params)
+}
+
+export async function serviceLeaveReject(params){
+  return await postRequest("leaves/review/reject",params)
+}

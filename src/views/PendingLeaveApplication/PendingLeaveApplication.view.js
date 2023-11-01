@@ -1,13 +1,5 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
-import {
-  Button,
-  Paper,
-  Checkbox,
-  IconButton,
-  MenuItem,
-  ButtonBase,
-  Menu,
-} from "@material-ui/core";
+import React, { useCallback, useMemo } from "react";
+
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 
@@ -21,14 +13,15 @@ import usePendingLeaveApplication from "./PendingLeaveApplication.hook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import OnBoardDialog from "../EmployeeList/components/OnBoardPopUp/OnBoardDialog.view";
 import TraineeDialog from "../EmployeeList/components/TraineePopUp copy/TraineeDialog.view";
+import { IconButton } from "@material-ui/core";
+import { InfoOutlined } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 const PendingLeaveApplication = () => {
   const {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
@@ -37,15 +30,16 @@ const PendingLeaveApplication = () => {
     isSidePanel,
     isCalling,
     configFilter,
-    handleLeaveApplicationForm,
     isExtendDialog,
     toggleExtendDialog,
     isTraineeDialog,
     toggleTraineeDialog,
     listData,
+    detailPageRoute,
   } = usePendingLeaveApplication({});
 
   const {
+    list,
     data,
     all: allData,
     currentPage,
@@ -81,69 +75,100 @@ const PendingLeaveApplication = () => {
         key: "type",
         label: "EMPLOYEE",
         sortable: true,
-        render: (value, all) => <div></div>,
+        render: (value, all) => <div>{all?.employee?.name}</div>,
       },
       {
         key: "date",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => (
+          <div>
+            {all?.employee?.grade?.code}/{all?.employee?.cadre?.name}
+          </div>
+        ),
       },
       {
         key: "status",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
       },
       {
         key: "appliedon",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => <div>{all?.employee?.designation?.name}</div>,
       },
       {
         key: "attachments",
         label: "DEPT & SUB-DEPT",
         sortable: false,
         render: (temp, all) => (
-          <div>{all?.document && <div className={styles.key}></div>}</div>
+          <div>
+            {all?.employee?.department?.name}/
+            {all?.employee?.sub_department?.name}
+          </div>
         ),
       },
       {
         key: "type",
         label: "CONTACT",
         sortable: true,
-        render: (value, all) => <div> </div>,
+        render: (value, all) => (
+          <div>
+            {" "}
+            {all?.employee?.contact?.official_contact}-
+            {all?.employee?.contact?.personal_contact}
+          </div>
+        ),
       },
       {
         key: "date",
         label: "LEAVE TYPE",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => <div>{all?.leave?.type}</div>,
       },
       {
         key: "status",
         label: "CURRENT STATUS/ OVERALL STATUS",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => (
+          <div>
+            {all?.leave?.status}/{all?.status}
+          </div>
+        ),
       },
       {
         key: "appliedon",
         label: "LEAVE DATES",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => (
+          <div>
+            {all?.leave?.startDateText}-{all?.leave?.endDateText}
+          </div>
+        ),
       },
       {
         key: "attachments",
         label: "APPLIED ON",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => <div>{all?.leave?.createdAtText}</div>,
       },
       {
         key: "attachments",
         label: "ACTION",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => (
+          <Link to={"list/" + all?._id}>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+            >
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
+          </Link>
+        ),
       },
     ];
   }, [renderFirstCell, handleViewDetails, handleEdit, isCalling]);
@@ -159,8 +184,8 @@ const PendingLeaveApplication = () => {
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: data?.data ? data?.data : [],
-      count: data?.data?.length ? data?.data?.length : 0,
+      data: list?.data ? list?.data : [],
+      count: list?.data?.length ? list?.data?.length : 0,
       page: currentPage,
     };
 
