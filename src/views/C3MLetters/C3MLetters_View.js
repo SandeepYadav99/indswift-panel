@@ -25,7 +25,7 @@ const C3MLetters_View = ({ location }) => {
     handleViewDetails,
     isCalling,
     configFilter,
-    openPDFInNewTab
+    openPDFInNewTab,
   } = useC3MLetters_Hook({ location });
 
   const {
@@ -102,10 +102,10 @@ const C3MLetters_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            (O) {all?.contact?.official_contact}
-            <br />
-            (O) {all?.contact?.official_email} <br />
-            (P) {all?.contact?.personal_email}
+            (O) {all?.contact?.official_contact || "N/A"} <br />
+            (O) {all?.contact?.official_email || "N/A"} <br />
+            (P) {all?.contact?.personal_contact || "N/A"} <br />
+            (P) {all?.contact?.personal_email || "N/A"}
           </div>
         ),
       },
@@ -113,20 +113,13 @@ const C3MLetters_View = ({ location }) => {
         key: "doj",
         label: "DOJ",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.dojText}
-           
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.dojText}</div>,
       },
       {
         key: "reporting",
         label: "REPORTING TO",
         sortable: true,
-        render: (temp, all) => (
-          <div>{all?.hod?.hod_name}</div>
-        ),
+        render: (temp, all) => <div>{all?.hod?.hod_name}</div>,
       },
       {
         key: "user_id",

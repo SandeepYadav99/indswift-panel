@@ -33,7 +33,7 @@ const AppointmentLetter_View = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.newEmployee);
+  } = useSelector((state) => state.AppointmentLetter);
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
@@ -44,7 +44,11 @@ const AppointmentLetter_View = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span> <br />
+            <span className={styles.productName}>
+              <b>{obj?.name}</b>{" "}
+            </span>{" "}
+            <br />
+            <span>{obj?.emp_code}</span>
           </div>
         </div>
       );
@@ -55,8 +59,8 @@ const AppointmentLetter_View = ({ location }) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "trainee_name",
-        label: "NAPS TRAINEE NAME",
+        key: "employee_name",
+        label: "EMPLOYEE NAME",
         sortable: true,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
@@ -64,26 +68,23 @@ const AppointmentLetter_View = ({ location }) => {
         key: "grade_cadre",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => <div>{all?.emp_code}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.grade?.code}/{all?.cadre?.code}
+          </div>
+        ),
       },
       {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.location.name}<br/>{all?.department.name}/{all?.sub_department.name}</div>,
+        render: (temp, all) => <div>{all?.location.name}</div>,
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.designation?.name}</div>,
       },
       {
         key: "dept_sub_dept",
@@ -91,10 +92,8 @@ const AppointmentLetter_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
+            {all?.department?.name || "N/A"}/
+            {all?.sub_department?.name || "N/A"}
           </div>
         ),
       },
@@ -104,32 +103,33 @@ const AppointmentLetter_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.createdBy?.name}
+            (O) {all?.contact?.official_contact || "N/A"}
             <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
+            (O) {all?.contact?.official_email || "N/A"} <br />
+            (P) {all?.contact?.personal_contact || "N/A"}
+            <br />
+            (P) {all?.contact?.personal_email || "N/A"}
           </div>
         ),
       },
       {
-        key: "date_of_completion",
-        label: "DATE OF COMPLETION",
+        key: "doj",
+        label: "DOJ",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
+            {all?.dobText}
+           
           </div>
         ),
       },
       {
-        key: "reporting",
+        key: "reporting_to",
         label: "REPORTING TO",
         sortable: true,
         render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore(all?.status))}</div>
+          <div>{all?.hod?.hod_name
+          }</div>
         ),
       },
       {
@@ -184,7 +184,7 @@ const AppointmentLetter_View = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>NAPS Training Completion list</span>
+            <span className={styles.title}>Appointment Letters</span>
             <div className={styles.newLine} />
           </div>
         </div>

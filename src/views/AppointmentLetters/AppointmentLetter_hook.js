@@ -1,12 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  actionFetchNewEmployeeList,
-  actionSetPageNewEmployeeList,
-} from "../../actions/NewEmployeeList.action";
+
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
-import { serviceGetList } from "../../services/Common.service";
+import { actionFetchAppointmentLetterList, actionFilterAppointmentLetterList } from "../../actions/AppointmentLetter.action";
+
 
 const useAppointemntLetter_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
@@ -21,11 +19,11 @@ const useAppointemntLetter_Hook = () => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.newEmployee);
+  } = useSelector((state) => state?.AppointmentLetter);
 
   useEffect(() => {
     dispatch(
-      actionFetchNewEmployeeList(1, sortingData, {
+      actionFetchAppointmentLetterList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -33,24 +31,17 @@ const useAppointemntLetter_Hook = () => {
     isMountRef.current = true;
   }, []);
 
-  useEffect(() => {
-    serviceGetList(["LOCATIONS"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
-    });
-  }, []);
-  console.log("list", listData);
+
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageNewEmployeeList(type));
+    dispatch(actionFilterAppointmentLetterList(type));
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
       dispatch(
-        actionFetchNewEmployeeList(1, sortingData, {
+        actionFetchAppointmentLetterList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -79,7 +70,7 @@ const useAppointemntLetter_Hook = () => {
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(
-        actionFetchNewEmployeeList(
+        actionFetchAppointmentLetterList(
           1,
           { row, order },
           {
@@ -97,7 +88,10 @@ const useAppointemntLetter_Hook = () => {
   };
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.NEW_EMPLOYEE_DETAIL}${data?.id}`); //+data.id
+    // if (pdfUrl) {
+    //   window.open(pdfUrl?.joining_letter, "_blank")
+   
+    // }
   }, []);
 
   const configFilter = useMemo(() => {

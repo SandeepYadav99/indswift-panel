@@ -85,9 +85,7 @@ const useC3MLetters_Hook = () => {
   };
 
   const openPDFInNewTab = useCallback((pdfUrl) => {
-  console.log(pdfUrl)
-   
-    if (pdfUrl) {
+  if (pdfUrl) {
       window.open(pdfUrl?.joining_letter, "_blank")
    
     }

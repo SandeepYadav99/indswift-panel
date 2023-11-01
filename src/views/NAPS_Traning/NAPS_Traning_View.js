@@ -106,12 +106,12 @@ const NapsTraning_View = ({ location }) => {
         render: (temp, all) => (
           <div>
             
-            (O){all?.contact?.official_contact ? all?.contact?.official_contact  : "N/A"} <br/>
-            (P) {all?.contact?.personal_contact ? all?.contact?.personal_contact : "N/A"}
+            (O){all?.contact?.official_contact || "N/A"} <br/>
+            (P) {all?.contact?.personal_contact || "N/A"}
             <br />
-            (O) {all?.contact?.official_email ? all?.contact?.official_email :"N/A"} 
+            (O) {all?.contact?.official_email || "N/A"} 
             <br />
-            (P) {all?.contact?.personal_email ? all?.contact?.personal_email :"N/A"}
+            (P) {all?.contact?.personal_email || "N/A"}
           </div>
         ),
       },
