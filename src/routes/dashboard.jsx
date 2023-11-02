@@ -25,6 +25,7 @@ import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail
 import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLeaveApplication.view";
 import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
+const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 
 
 const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
@@ -517,7 +518,7 @@ const dashboardRoutes = [
     path: RouteName.EXPIRING_OFFER_LETTER,
     sidebarName: "Expiring Offer Letter",
     navbarName: "Expiring Offer Letter",
-    icon: PeopleOutlined,
+    icon: AssignmentOutlined,
     component: ExpiringOfferLetterView,
     is_sidebar: true,
     is_protect: true,
@@ -529,7 +530,7 @@ const dashboardRoutes = [
     path: RouteName.SUCCESSION_APPROVAL,
     sidebarName: "Succession Approval",
     navbarName: "Succession Approval",
-    icon: PeopleOutlined,
+    icon: AssignmentOutlined,
     component: SuccessionApproval_List,
     is_sidebar: true,
     is_protect: true,
@@ -540,9 +541,20 @@ const dashboardRoutes = [
     path: `${RouteName.SUCCESSION_APPROVAL_DETAIL}:id`,
     sidebarName: "Succession Approval",
     navbarName: "Succession Approval",
-    icon: PeopleOutlined,
+    icon: AssignmentOutlined,
     component: EmployeeInformation,
     is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    // parent: 'employeedashboard',
+  },
+  {
+    path: RouteName.SUCCESSION_PLANNER,
+    sidebarName: "Succession Planner",
+    navbarName: "Succession Planner",
+    icon: AssignmentOutlined,
+    component: SuccessionPlannerList,
+    is_sidebar: true,
     is_protect: true,
     should_regex: true,
     // parent: 'employeedashboard',
@@ -2252,7 +2264,7 @@ const dashboardRoutes = [
     path: RouteName.PENDING_BACKGROUND_VERIFICATION,
     sidebarName: "Pending Background Verification",
     navbarName: "Pending Background Verification",
-    icon: PeopleOutlined,
+    icon: AssignmentOutlined,
     component: PendingBGVerification_View,
     is_sidebar: true,
     is_protect: true,
@@ -2265,7 +2277,7 @@ const dashboardRoutes = [
     path: `${RouteName.PENDING_VERIFICATION_CREATE}:id`,
     sidebarName: "Pending Background Verification",
     navbarName: "Pending Background Verification",
-    icon: PeopleOutlined,
+    icon: AssignmentOutlined,
     component: CandidateInformation,
     is_sidebar: false,
     is_protect: true,
@@ -2278,7 +2290,7 @@ const dashboardRoutes = [
     path: `${RouteName.PENDING_VERIFICATION_UPDATE}:id`,
     sidebarName: "Pending Background Verification",
     navbarName: "Pending Background Verification",
-    icon: PeopleOutlined,
+    icon: AssignmentOutlined,
     component: BGVStatus_Update,
     is_sidebar: false,
     is_protect: true,

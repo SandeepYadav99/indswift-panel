@@ -51,7 +51,7 @@ const SuccessionApproval_List = ({}) => {
             className={classNames(styles.firstCellInfo, "openSans")}
             onClick={() => changeEmployeeRoute(obj?.employee)}
           >
-            <span ><b>{obj?.employee?.name}</b></span>
+            <span ><b>{}</b></span>
           </div>
         </div>
       );
@@ -65,19 +65,19 @@ const SuccessionApproval_List = ({}) => {
         key: "employee",
         label: "EMPLOYEE",
         sortable: true,
-        render: (value, all) => <div>{renderFirstCell(all)}</div>,
+        render: (value, all) => <div>{}</div>,
       },
       {
         key: "doj",
         label: "D.O.J",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.code}</div>,
+        render: (temp, all) => <div>{}</div>,
       },
       {
         key: "dob",
         label: "D.O.B",
         sortable: false,
-        render: (temp, all) => <div>{all?.address}</div>,
+        render: (temp, all) => <div>{}</div>,
       },
       {
         key: "designation",
@@ -85,7 +85,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.editedBy?.name} <br /> {all?.createdAtText}
+            {} <br /> {}
           </div>
         ),
       },
@@ -95,7 +95,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.editedBy?.name} <br /> {all?.createdAtText}
+           {}
           </div>
         ),
       },
@@ -105,7 +105,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.editedBy?.name}
+            {}
           </div>
         ),
       },
@@ -115,7 +115,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-           {all?.editedBy?.name}
+           {}
           </div>
         ),
       },
@@ -125,7 +125,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-          {all?.editedBy?.name}
+          {}
           </div>
         ),
       },
@@ -135,7 +135,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-           {all?.editedBy?.name}
+           {}
           </div>
         ),
       },
@@ -145,7 +145,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-           {all?.editedBy?.name}
+           {}
           </div>
         ),
       },
@@ -155,7 +155,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-          {all?.editedBy?.name}
+          {}
           </div>
         ),
       },
@@ -165,7 +165,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: true,
         render: (temp, all) => (
           <div>
-          {all?.editedBy?.name}
+          {}
           </div>
         ),
       },
@@ -175,14 +175,14 @@ const SuccessionApproval_List = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
+            {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
                onClick={() => handleToggleDetail(all)}
             >
               <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            </IconButton> */}
           </div>
         ),
       },
