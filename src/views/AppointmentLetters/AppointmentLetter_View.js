@@ -114,7 +114,7 @@ const AppointmentLetter_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.dobText}
+            {all?.dojText}
            
           </div>
         ),
