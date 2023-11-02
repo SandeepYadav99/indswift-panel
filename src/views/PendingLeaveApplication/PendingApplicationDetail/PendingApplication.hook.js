@@ -1,11 +1,14 @@
 import { useParams} from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState} from "react";
 import { serviceLeaveApprove, serviceLeaveReject} from "../../../services/Leave.service";
+import { useHistory } from "react-router-dom";
 
 const usePendingApplication = () => {
   const [open,setOpen] = useState(false)
   const [comment,setComment] = useState('');
+  const [state,setState] = useState("");
 
+  const history = useHistory();
 
   const handleOnChange =(e)=>[
     setComment(e.target.value)
@@ -13,6 +16,7 @@ const usePendingApplication = () => {
 
   const handleOpen =()=>{
     setOpen(true);
+    setState("Approve");
   }
 
 
@@ -34,11 +38,18 @@ const usePendingApplication = () => {
 
   const handleSubmit =()=>{
     setOpen(false) 
+    history.goBack();
     serviceLeaveApprove(parameterOfApproval); 
   }
 
   const handleReject =()=>{
-    serviceLeaveReject(parameterRejection);
+    setOpen(true) ;
+    setState("Reject");
+  }
+
+  const rejectApplication =()=>{
+    history.goBack();
+    serviceLeaveApprove(parameterRejection); 
   }
   return {
     id,
@@ -49,6 +60,8 @@ const usePendingApplication = () => {
     handleClose,
     handleOnChange,
     comment,
+    state,
+    rejectApplication,
   };
 };
 

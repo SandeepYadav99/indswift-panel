@@ -44,6 +44,9 @@ function useLeaveList() {
     query_data: queryData,
   } = useSelector((state) => state.employee);
 
+
+
+
   const initData = useCallback(() => {
     dispatch(
       actionFetchEmployee(1, sortingData, {
@@ -90,7 +93,6 @@ function useLeaveList() {
   //     console.log('handleNextPageClick', 'NEXT');
   // }
   const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
     dispatch(actionSetPageEmployeeRequests(type));
   }, []);
   const handleCreate = useCallback(() => {
@@ -287,39 +289,24 @@ function useLeaveList() {
   useEffect(() => [dispatch(actionLeaveList(params))], []);
 
   const handleLeaveApplicationForm = () => {
-    history.push("form");
+    history.push("/leave-application-form");
     window.location.reload();
   };
 
   const { id } = useParams();
 
-  const toggleStatusDialog = useCallback(() => {
-    setApproveDialog((e) => !e);
-  }, [approveDialog]);
-  const toggleRejectDialog = useCallback(() => {
-    setRejectDialog((e) => !e);
-  }, [rejectDialog]);
-  const toggleChangeDialog = useCallback(() => {
-    setIschangeDialog((e) => !e);
-  }, [ischangeDialog]);
 
   return {
     id,
     employeeDetail,
-    toggleStatusDialog,
     approveDialog,
-    toggleChangeDialog,
     ischangeDialog,
-    toggleRejectDialog,
     rejectDialog,
     handleLeaveApplicationForm,
     handlePageChange,
-    // handleCellClick,
     handleDataSave,
     handleFilterDataChange,
     handleSearchValueChange,
-    // handlePreviousPageClick,
-    // handleNextPageClick,
     handleRowSize,
     handleSortOrderChange,
     handleDelete,
