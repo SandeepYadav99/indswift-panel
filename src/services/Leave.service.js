@@ -1,7 +1,7 @@
 import { formDataRequest, postRequest } from "../libs/AxiosService.util";
 
 export async function serviceLeaveCreate(params) {
-  return await formDataRequest("leaves/create/abcd", params);
+  return await formDataRequest("leaves/create", params);
 }
 
 export async function serviceLeaveList(params){
@@ -21,9 +21,9 @@ export async function servicesLeaveDetailApprove(params){
 }
 
 export async function serviceLeaveApprove(params){
-  return await postRequest("leaves/review/accept/aaa",params)
+  return await postRequest("leaves/review/accept",params)
 }
 
 export async function serviceLeaveReject(params){
-  return await postRequest("leaves/review/reject/bbb",params)
+  return await postRequest("leaves/review/reject",params)
 }
