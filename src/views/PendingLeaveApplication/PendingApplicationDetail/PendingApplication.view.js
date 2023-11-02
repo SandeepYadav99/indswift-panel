@@ -23,7 +23,7 @@ const style = {
   p: 4,
 };
 
-const ApprovePopUp = ({ handleClose, open, onChange, value }) => {
+const ApprovePopUp = ({ handleClose, open, onChange, value,popUpType}) => {
   const { handleSubmit, id, rejectApplication, state } = usePendingApplication(
     {}
   );
@@ -61,7 +61,7 @@ const ApprovePopUp = ({ handleClose, open, onChange, value }) => {
             sx={{ mt: 6 }}
             className={styles.headerModal}
           >
-            Do you {state === "Approve" ? "Approve" : "Reject"} the leave
+            Do you {popUpType === "Approve" ? "Approve" : "Reject"} the leave
             application?{" "}
           </Typography>
           <CustomTextField
@@ -82,7 +82,7 @@ const ApprovePopUp = ({ handleClose, open, onChange, value }) => {
           <div className={styles.alignButtonEnd}>
             <ButtonBase
               className={"createBtn"}
-              onClick={state === "Approve" ? handleSubmit : rejectApplication}
+              onClick={popUpType === "Approve" ? handleSubmit : rejectApplication}
               disabled={checked ? false : true}
             >
               Submit
@@ -96,6 +96,7 @@ const ApprovePopUp = ({ handleClose, open, onChange, value }) => {
 
 const PendingApplication = () => {
   const [detailData, setDetailData] = useState();
+  const [popType,setPopType] = useState('');
 
   const {
     handleReject,
@@ -353,10 +354,14 @@ const PendingApplication = () => {
       </div>
       {detailData?.status === "PENDING" && (
         <div className={styles.btnContainer}>
-          <ButtonBase className={styles.rejectButton} onClick={handleReject}>
+          <ButtonBase className={styles.rejectButton} onClick={()=>{handleReject();
+          setPopType("Reject")
+          }}>
             Reject
           </ButtonBase>
-          <ButtonBase className={"createBtn"} onClick={handleOpen}>
+          <ButtonBase className={"createBtn"} onClick={()=>{handleOpen();
+            setPopType("Approve")
+          }}>
             Approve
           </ButtonBase>
         </div>
@@ -366,6 +371,7 @@ const PendingApplication = () => {
         onChange={handleOnChange}
         value={comment}
         handleClose={handleClose}
+        popUpType={popType}
       />
     </div>
   );

@@ -49,7 +49,7 @@ const usePendingApplication = () => {
 
   const rejectApplication =()=>{
     history.goBack();
-    serviceLeaveApprove(parameterRejection); 
+    serviceLeaveReject(parameterRejection); 
   }
   return {
     id,
