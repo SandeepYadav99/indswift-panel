@@ -15,7 +15,7 @@ export async function serviceDeleteExitInterview(params) {
   return await postRequest("exit/interview/delete", params);
 }
 export async function serviceGetExitInterviewDetails(params) {
-  return await postRequest("employee/claims/details", params);
+  return await postRequest("exit/interview/details", params);
 }
 export async function serviceGetExitInterview(params) {
   return await postRequest("exit/interview", params);

@@ -3,9 +3,7 @@ import styles from "./Style.module.css";
 import face from "./../../../../../assets/img/download.png";
 
 const InfoCard = ({ data }) => {
-  const removeUnderScore = (value) => {
-    return value ? value.replace(/_/g, " ") : "";
-  };
+
   console.log("data", data);
   return (
     <div className={styles.candidateInfoWrapper}>

@@ -43,6 +43,7 @@ import LoanSubmittedResponse
     from "../views/LoanManagement/LoanConfirmation/component/LoanSubmittedResponse/LoanSubmittedResponse.js";
 import ExitForm from "../views/ExitInterview/ExitForm/ExitForm.view.js";
 import ExitLogin from "../views/ExitInterview/ExitLogin/ExitLogin.js";
+import ExitDetail from "../views/ExitInterview/ExitDetail/ExitDetail.view.js";
 
 const indexRoutes = [{path: "/", component: Dashboard}];
 
@@ -79,6 +80,8 @@ const RouteComponent = () => (
         <Route path={RouteName.EXIT_LOGIN} component={ExitLogin}/>
         <Route path={RouteName.EXIT_INTERVIEW_FORM} component={ExitForm}/>
         <Route path={RouteName.EXIT_SUCCESS} component={SubmittedResponse}/>
+        <Route path={RouteName.EXIT_SUCCESS} component={SubmittedResponse}/>
+        <Route path={`${RouteName.EXIT_DETAIL}:id`} component={ExitDetail}/>
 
         {/*<Route path={'/signup'} component={Signup} />*/}
         <Route path={"/forgot/password"} component={ForgotPassword}/>
