@@ -20,7 +20,7 @@ import history from "../../../libs/history.utils";
 
 const LeaveApplicationForm = () => {
   const { employeeDetails } = useClaimIntCard({});
-  let Designation = ["G1", "G2", "G3", "G4", "G5", "G6","G0"];
+  let Designation = ["G1", "G2", "G3", "G4", "G5", "G6", "G0"];
   let gradeLevel = employeeDetails?.grade?.code;
   let FacilitationCondition = ["0.1", "0.2", "0.3"];
   let ExperienceInCompany = employeeDetails?.experience?.current;
@@ -77,6 +77,12 @@ const LeaveApplicationForm = () => {
     setLeaveType,
     daysCount,
     leaveCount,
+    CurrentMonth,
+    alphabet,
+    BdayLeaveThisYear,
+    BdayLeaveNextYear,
+    BdayLeaveThisYearAnni,
+    BdayLeaveNextYearAnni,
   } = useLeaveApplication({});
 
   return (
@@ -166,19 +172,30 @@ const LeaveApplicationForm = () => {
                 </CustomSelectField>
                 <div className={styles.leaveText}>
                   {form?.event_type === "MARRIAGE_ANNIVERSARY" ? (
-                    <p>
-                      <b>Anniversary</b>:{employeeDetails?.dom}
-                    </p>
+                    <>
+                      <p className={styles.birthdayPara}>
+                        <b>Anniversary</b>:
+                      </p>{" "}
+                      {Number(alphabet) < Number(CurrentMonth)
+                        ? BdayLeaveNextYearAnni
+                        : BdayLeaveThisYearAnni}
+                    </>
                   ) : (
-                    <p>
-                      <b>Birthday</b>:{employeeDetails?.dob}
-                    </p>
+                    <>
+                      <p className={styles.birthdayPara}>
+                        <b>Birthday</b>:
+                      </p>{" "}
+                      {Number(alphabet) < Number(CurrentMonth)
+                        ? BdayLeaveNextYear
+                        : BdayLeaveThisYear}{" "}
+                    </>
                   )}
                 </div>
                 <div className={styles.leaveText}>
-                  <p>
-                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
+                  <p className={styles.birthdayPara}>
+                    <b>Pending Leaves</b>:
                   </p>
+                  {count?.data?.pending_leave}
                 </div>
               </div>
               <File
@@ -466,11 +483,15 @@ const LeaveApplicationForm = () => {
           )}
         </div>
       </div>
-      <div className={styles.btnContainer}>
-        <ButtonBase className={"createBtn"} onClick={handleSubmit}>
-          SUBMIT
-        </ButtonBase>
-      </div>
+      {form?.type ? (
+        <div className={styles.btnContainer}>
+          <ButtonBase className={"createBtn"} onClick={handleSubmit}>
+            SUBMIT
+          </ButtonBase>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

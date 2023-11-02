@@ -14,7 +14,6 @@ export async function postRequest(url, params) {
       ...params,
     });
     if (tempRequest.status === 200) {
-      console.log(url, params, tempRequest.data);
       if (tempRequest.data.response_code === 1) {
         return {
           error: false,

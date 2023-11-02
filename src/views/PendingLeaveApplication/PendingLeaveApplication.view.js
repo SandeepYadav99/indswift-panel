@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 
 import classNames from "classnames";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
@@ -16,11 +16,13 @@ import TraineeDialog from "../EmployeeList/components/TraineePopUp copy/TraineeD
 import { IconButton } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { actionLeaveList, actionLeavesListData } from "../../actions/LeaveModule.action";
 
 const PendingLeaveApplication = () => {
+  const dispatch = useDispatch();
   const {
     handleSortOrderChange,
-    handleRowSize,
     handlePageChange,
     handleEdit,
     handleFilterDataChange,
@@ -35,8 +37,20 @@ const PendingLeaveApplication = () => {
     isTraineeDialog,
     toggleTraineeDialog,
     listData,
-    detailPageRoute,
   } = usePendingLeaveApplication({});
+
+  let LeaveParameters = {
+    index: 1,
+    row: "createdAt",
+    order: "desc",
+    query: "",
+    query_data: null,
+  };
+
+  useEffect(() => {
+    dispatch(actionLeavesListData(LeaveParameters));
+    dispatch(actionLeaveList(LeaveParameters));
+  }, []);
 
   const {
     list,
@@ -46,10 +60,6 @@ const PendingLeaveApplication = () => {
     is_fetching: isFetching,
   } = useSelector((state) => state.LeaveModule);
 
-  const { user } = useSelector((state) => state.auth);
-  const removeUnderScore = (value) => {
-    return value ? value.replace(/_/g, " ") : "";
-  };
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
@@ -75,91 +85,100 @@ const PendingLeaveApplication = () => {
         key: "type",
         label: "EMPLOYEE",
         sortable: true,
-        render: (value, all) => <div>{all?.employee?.name}</div>,
+        render: (value, all) => <div>{all?.leave?.employee?.name}</div>,
       },
       {
-        key: "date",
+        key: "grade_cadre",
         label: "GRADE/CADRE",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.grade?.code}/{all?.employee?.cadre?.name}
+            {all?.employee?.grade?.code}/{all?.leave?.employee?.cadre?.name}
           </div>
         ),
       },
       {
-        key: "status",
+        key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
+        render: (temp, all) => (
+          <div>{all?.leave?.employee?.location?.name}</div>
+        ),
       },
       {
-        key: "appliedon",
+        key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.designation?.name}</div>,
+        render: (temp, all) => (
+          <div>{all?.leave?.employee?.designation?.name}</div>
+        ),
       },
       {
-        key: "attachments",
+        key: "dept_sub_dept",
         label: "DEPT & SUB-DEPT",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department?.name}/
-            {all?.employee?.sub_department?.name}
+            {all?.leave?.employee?.department?.name}/
+            {all?.leave?.employee?.sub_department?.name}
           </div>
         ),
       },
       {
-        key: "type",
+        key: "contact",
         label: "CONTACT",
         sortable: true,
         render: (value, all) => (
           <div>
             {" "}
-            {all?.employee?.contact?.official_contact}-
-            {all?.employee?.contact?.personal_contact}
+            {all?.leave?.employee?.contact?.official_contact}-
+            {all?.leave?.employee?.contact?.personal_contact}
           </div>
         ),
       },
       {
-        key: "date",
+        key: "leave_type",
         label: "LEAVE TYPE",
         sortable: false,
         render: (temp, all) => <div>{all?.leave?.type}</div>,
       },
       {
-        key: "status",
+        key: "overrall_status",
         label: "CURRENT STATUS/ OVERALL STATUS",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.leave?.status}/{all?.status}
+            {<StatusPill status={all?.leave?.status} />}/
+            {<StatusPill status={all?.status} />}
           </div>
         ),
       },
       {
-        key: "appliedon",
+        key: "leaves_dates",
         label: "LEAVE DATES",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.leave?.startDateText}-{all?.leave?.endDateText}
+          {all?.leave?.startDateText !==
+            all?.leave?.endDateText
+              ? `${all?.leave?.startDateText}-
+          ${all?.leave?.endDateText}`
+              : `${all?.leave?.startDateText}`}
           </div>
         ),
       },
       {
-        key: "attachments",
+        key: "leave_applied_on",
         label: "APPLIED ON",
         sortable: false,
         render: (temp, all) => <div>{all?.leave?.createdAtText}</div>,
       },
       {
-        key: "attachments",
+        key: "actions",
         label: "ACTION",
         sortable: false,
         render: (temp, all) => (
-          <Link to={"list/" + all?._id}>
+          <Link to={"list" + "/" + all.id}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -171,14 +190,12 @@ const PendingLeaveApplication = () => {
         ),
       },
     ];
-  }, [renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderFirstCell, handleViewDetails, handleEdit, isCalling, list?.data,]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
-      onRowSizeChange: handleRowSize,
     };
 
     const datatable = {
@@ -195,9 +212,9 @@ const PendingLeaveApplication = () => {
     tableStructure,
     handleSortOrderChange,
     handlePageChange,
-    handleRowSize,
     data,
     currentPage,
+    list?.data,
   ]);
 
   return (

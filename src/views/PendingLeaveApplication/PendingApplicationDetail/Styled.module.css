@@ -169,4 +169,5 @@
 .closeIcon{
   display: flex;
   justify-content: flex-end !important;
+  cursor: alias !important;
 }

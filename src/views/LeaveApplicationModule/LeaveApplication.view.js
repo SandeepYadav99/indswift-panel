@@ -27,8 +27,6 @@ const LeaveApplication = ({}) => {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
@@ -52,7 +50,6 @@ const LeaveApplication = ({}) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.LeaveModule);
 
-  const { user } = useSelector((state) => state.auth);
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
@@ -84,14 +81,12 @@ const LeaveApplication = ({}) => {
         render: (value, all) => <div>{removeUnderScore(all?.type)}</div>,
       },
       {
-        key: "date",
+        key: "leave_dates",
         label: "Leave Dates",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.contact}
-            <br />
-            {`${all?.startDateText} - ${all?.endDateText}`}
+            { (all?.startDateText !== all?.endDateText) ? `${all?.startDateText} - ${all?.endDateText}`:`${all?.startDateText}`}
           </div>
         ),
       },
@@ -102,7 +97,7 @@ const LeaveApplication = ({}) => {
         render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
       },
       {
-        key: "appliedon",
+        key: "applied_on",
         label: "Applied On",
         sortable: false,
         render: (temp, all) => <div>{all?.createdAtText}</div>,
@@ -130,7 +125,6 @@ const LeaveApplication = ({}) => {
     const datatableFunctions = {
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
       onRowSizeChange: handleRowSize,
     };
 
