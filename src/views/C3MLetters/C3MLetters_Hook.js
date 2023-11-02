@@ -1,14 +1,21 @@
+
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { actionFetchC3MLetterList, actionSetPageC3MLetterList } from "../../actions/C3MLetters_action";
+import { serviceGetList } from "../../services/Common.service";
+import constants from "../../config/constants";
+import { actionFetchEmployee } from "../../actions/Employee.action";
 
 const useC3MLetters_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
+    DEPARTMENTS: [],
+    LOCATIONS: [],
   });
+  const { role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -28,6 +35,24 @@ const useC3MLetters_Hook = () => {
     isMountRef.current = true;
   }, []);
 
+  const initData = useCallback(() => {
+    dispatch(
+      actionFetchEmployee(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+     initData();
+    isMountRef.current = true;
+    serviceGetList(["LOCATIONS",  "DEPARTMENTS"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
 
   const handlePageChange = useCallback((type) => {
    
@@ -93,19 +118,23 @@ const useC3MLetters_Hook = () => {
 
   const configFilter = useMemo(() => {
     return [
+      ...(role === constants.ROLES.CORPORATE_HR
+        ? [
+            {
+              label: "Location",
+              name: "location_id",
+              type: "selectObject",
+              custom: { extract: { id: "id", title: "name" } },
+              fields: listData?.LOCATIONS,
+            },
+          ]
+        : []),
       {
-        label: "Status",
-        name: "status",
-        type: "select",
-        fields: [
-          "ACTIVE",
-          "RESIGNED",
-          "TERMINATED",
-          "RETIRED",
-          "EXPIRED",
-          "ABSCONDED",
-          "INACTIVE",
-        ],
+        label: "Department",
+        name: "department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
       },
     ];
   }, [listData]);
