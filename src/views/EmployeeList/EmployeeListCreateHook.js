@@ -258,7 +258,7 @@ function EmployeeListCreateHook({ location }) {
     GRADES: [],
     CADRES: [],
   });
-  console.log("form", form);
+
   useEffect(() => {
     serviceGetList([
       "LOCATION_DEPARTMENTS",

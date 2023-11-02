@@ -29,9 +29,9 @@ const BGVForm = () => {
               </span>
               <br />
               <div className={styles.gpas}/>
-              <span className={styles.text_}>
+              <div className={styles.text_}>
                 Choose type of verification required:
-              </span>
+              </div>
             </div>
           </div>
 

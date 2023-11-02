@@ -16,11 +16,11 @@ const AppointmentLetter_View = ({ location }) => {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleEdit,
+     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
     handleViewDetails,
-    isCalling,
+    
     configFilter,
   } = useAppointemntLetter_Hook({ location });
 
@@ -136,10 +136,10 @@ const AppointmentLetter_View = ({ location }) => {
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
-              disabled={isCalling}
-              // onClick={() => {
-              //   handleViewDetails(all);
-              // }}
+           
+              onClick={() => {
+                handleViewDetails(all?.appointment_letter);
+              }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
@@ -147,7 +147,7 @@ const AppointmentLetter_View = ({ location }) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
