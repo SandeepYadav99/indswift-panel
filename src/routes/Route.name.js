@@ -224,5 +224,6 @@ export default {
   EXIT_SUCCESS:"/exit/success",
   EXIT_INTERVIEW_LIST:"/exit/interview/list",
   EXIT_INTERVIEW_FORM:"/exit/interview/form",
+  EXIT_DETAIL:"/exit/details/",
 
 };
