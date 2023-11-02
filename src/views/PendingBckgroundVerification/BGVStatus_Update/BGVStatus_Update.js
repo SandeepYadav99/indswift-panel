@@ -257,9 +257,9 @@ const BGVStatus_Update = () => {
                 // isError={errorData?.description}
                 // errorText={errorData?.description}
                 label={"Any Remarks"}
-                value={form?.remark}
+                value={form?.action_remark}
                 onTextChange={(text) => {
-                  changeTextData(text, "remark");
+                  changeTextData(text, "action_remark");
                 }}
                 // onBlur={() => {
                 //    onBlurHandler("remark");

@@ -120,7 +120,7 @@ const useCandidateUpdate_Hook = ({}) => {
       billing_to: form?.billing_to,
       choose_action: form?.choose_action,
       action_remark: form?.action_remark,
-      remark: form?.remark,
+      // remark: form?.remark,
       status: form?.status,
       id: form?.id, // id
       is_education_verification_status: form?.is_education_verification_status,
@@ -174,7 +174,7 @@ const useCandidateUpdate_Hook = ({}) => {
       const fieldMappings = {
         billing_to: "billing_to",
         cost: "cost",
-        remark: "remark",
+        remark: "action_remark",
         is_education_verification_status: "is_education_verification_status",
         is_first_employment_verification_status: "is_first_employment_verification_status",
         is_secound_employment_verification_status: "is_secound_employment_verification_status",
@@ -182,6 +182,7 @@ const useCandidateUpdate_Hook = ({}) => {
         bgv_result: "bgv_result",
         choose_action: "choose_action",
         payment_status: "payment_status",
+        
       };
   
       if (fieldMappings.hasOwnProperty(fieldName)) {
