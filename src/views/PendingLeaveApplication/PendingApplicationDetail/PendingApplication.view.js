@@ -10,6 +10,7 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Modal from "@material-ui/core/Modal";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
+import StatusPill from "../../../components/Status/StatusPill.component";
 
 const style = {
   position: "absolute",
@@ -22,9 +23,12 @@ const style = {
   p: 4,
 };
 
-const ApprovePopUp = ({ handleClose, open, onChange, value }) => {
-  const { handleSubmit, id } = usePendingApplication({});
-  const [checked, setChecked] = useState(true);
+const ApprovePopUp = ({ handleClose, open, onChange, value,popUpType}) => {
+  const { handleSubmit, id, rejectApplication, state } = usePendingApplication(
+    {}
+  );
+  const [checked, setChecked] = useState(false);
+
   return (
     <div>
       <Modal
@@ -57,7 +61,8 @@ const ApprovePopUp = ({ handleClose, open, onChange, value }) => {
             sx={{ mt: 6 }}
             className={styles.headerModal}
           >
-            Do you approve the leave application?{" "}
+            Do you {popUpType === "Approve" ? "Approve" : "Reject"} the leave
+            application?{" "}
           </Typography>
           <CustomTextField
             label={"Add comments "}
@@ -69,14 +74,17 @@ const ApprovePopUp = ({ handleClose, open, onChange, value }) => {
           <div className={styles.marginCheckbox}>
             <input
               type="checkbox"
-              defaultChecked={checked}
               value={checked}
-              onChange={() => setChecked(true)}
+              onChange={() => setChecked(!checked)}
             />
             I approve of the information and action.
           </div>
           <div className={styles.alignButtonEnd}>
-            <ButtonBase className={"createBtn"} onClick={handleSubmit}>
+            <ButtonBase
+              className={"createBtn"}
+              onClick={popUpType === "Approve" ? handleSubmit : rejectApplication}
+              disabled={checked ? false : true}
+            >
               Submit
             </ButtonBase>
           </div>
@@ -88,6 +96,7 @@ const ApprovePopUp = ({ handleClose, open, onChange, value }) => {
 
 const PendingApplication = () => {
   const [detailData, setDetailData] = useState();
+  const [popType,setPopType] = useState('');
 
   const {
     handleReject,
@@ -161,8 +170,11 @@ const PendingApplication = () => {
               <div className={styles.marginEqual}>
                 <span className={styles.adjustFont}>Leave Dates:</span>
                 <span className={styles.textFont}>
-                  {detailData?.leave?.startDateText}-
-                  {detailData?.leave?.endDateText}
+                  {detailData?.leave?.startDateText !==
+                  detailData?.leave?.endDateText
+                    ? `${detailData?.leave?.startDateText}-
+                ${detailData?.leave?.endDateText}`
+                    : `${detailData?.leave?.startDateText}`}
                 </span>
               </div>
               <div className={styles.marginEqual}>
@@ -174,11 +186,22 @@ const PendingApplication = () => {
               <div className={styles.marginEqual}>
                 {detailData?.leave?.document ? (
                   <span className={styles.adjustFont}>
-                    <a href={detailData?.leave?.document}>View Attachment</a>
+                    <a href={detailData?.leave?.document} target="_blank">
+                      View Attachment
+                    </a>
                   </span>
                 ) : (
                   ""
                 )}
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  marginTop: "-35px",
+                  marginLeft: "64%",
+                }}
+              >
+                {<StatusPill status={detailData?.status} />}
               </div>
             </div>
           </div>
@@ -205,7 +228,9 @@ const PendingApplication = () => {
               </div>
               {detailData?.details?.leave?.document ? (
                 <span className={styles.adjustFont}>
-                  <a href={detailData?.leave?.document}>View Attachment</a>
+                  <a href={detailData?.leave?.document} target="_blank">
+                    View Attachment
+                  </a>
                 </span>
               ) : (
                 ""
@@ -221,8 +246,11 @@ const PendingApplication = () => {
               <div className={styles.marginEqual}>
                 <span className={styles.adjustFont}>Leave Dates:</span>
                 <span className={styles.textFont}>
-                  {detailData?.leave?.startDateText}-
-                  {detailData?.leave?.endDateText}
+                  {detailData?.leave?.startDateText !==
+                  detailData?.leave?.endDateText
+                    ? `${detailData?.leave?.startDateText}-
+                ${detailData?.leave?.endDateText}`
+                    : `${detailData?.leave?.startDateText}`}
                 </span>
               </div>
               <div className={styles.marginEqual}>
@@ -232,10 +260,19 @@ const PendingApplication = () => {
                 </span>
               </div>
             </div>
+            <div
+              style={{
+                position: "absolute",
+                marginTop: "-35px",
+                marginLeft: "64%",
+              }}
+            >
+              {<StatusPill status={detailData?.status} />}
+            </div>
           </div>
         ) : (
-          detailData?.leave?.type === "FACILITATION_LEAVE" ||
-          (detailData?.leave?.type === "BEREAVEMENT_LEAVE" && (
+          (detailData?.leave?.type === "FACILITATION_LEAVE" ||
+            detailData?.leave?.type === "BEREAVEMENT_LEAVE") && (
             <div className={styles.divider}>
               <div className={styles.columnOne}>
                 <div className={styles.marginEqual}>
@@ -247,18 +284,24 @@ const PendingApplication = () => {
                 <div className={styles.marginEqual}>
                   <span className={styles.adjustFont}>Leave Dates:</span>
                   <span className={styles.textFont}>
-                    {detailData?.leave?.child}
+                    {detailData?.leave?.startDateText !==
+                    detailData?.leave?.endDateText
+                      ? `${detailData?.leave?.startDateText}-
+                  ${detailData?.leave?.endDateText}`
+                      : `${detailData?.leave?.startDateText}`}{" "}
                   </span>
                 </div>
                 <div className={styles.marginEqual}>
                   <span className={styles.adjustFont}>Applied On:</span>
                   <span className={styles.textFont}>
-                    {detailData?.leave?.duration_days}
+                    {detailData?.createdAtText}
                   </span>
                 </div>
                 {detailData?.details?.leave?.document ? (
                   <span className={styles.adjustFont}>
-                    <a href={detailData?.leave?.document}>View Attachment</a>
+                    <a href={detailData?.leave?.document} target="_blank">
+                      View Attachment
+                    </a>
                   </span>
                 ) : (
                   ""
@@ -268,14 +311,13 @@ const PendingApplication = () => {
                 <div className={styles.marginEqual}>
                   <span className={styles.adjustFont}>Reason for leave:</span>
                   <span className={styles.textFont}>
-                    {detailData?.leave?.event_type}
+                    {detailData?.leave?.comment}
                   </span>
                 </div>
                 <div className={styles.marginEqual}>
                   <span className={styles.adjustFont}>No. of Days:</span>
                   <span className={styles.textFont}>
-                    {detailData?.leave?.startDateText}-
-                    {detailData?.leave?.endDateText}
+                    {detailData?.leave?.duration_days}
                   </span>
                 </div>
                 <div className={styles.marginEqual}>
@@ -285,8 +327,17 @@ const PendingApplication = () => {
                   </span>
                 </div>
               </div>
+              <div
+                style={{
+                  position: "absolute",
+                  marginTop: "-35px",
+                  marginLeft: "64%",
+                }}
+              >
+                {<StatusPill status={detailData?.status} />}
+              </div>
             </div>
-          ))
+          )
         )}
       </div>
       <div className={styles.plainPaper}>
@@ -301,19 +352,26 @@ const PendingApplication = () => {
           </div>
         </div>
       </div>
-      <div className={styles.btnContainer}>
-        <ButtonBase className={styles.rejectButton} onClick={handleReject}>
-          Reject
-        </ButtonBase>
-        <ButtonBase className={"createBtn"} onClick={handleOpen}>
-          Approve
-        </ButtonBase>
-      </div>
+      {detailData?.status === "PENDING" && (
+        <div className={styles.btnContainer}>
+          <ButtonBase className={styles.rejectButton} onClick={()=>{handleReject();
+          setPopType("Reject")
+          }}>
+            Reject
+          </ButtonBase>
+          <ButtonBase className={"createBtn"} onClick={()=>{handleOpen();
+            setPopType("Approve")
+          }}>
+            Approve
+          </ButtonBase>
+        </div>
+      )}
       <ApprovePopUp
         open={open}
         onChange={handleOnChange}
         value={comment}
         handleClose={handleClose}
+        popUpType={popType}
       />
     </div>
   );

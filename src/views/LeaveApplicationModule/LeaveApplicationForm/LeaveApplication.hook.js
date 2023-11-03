@@ -77,6 +77,7 @@ const useLeaveApplication = () => {
 
   const { count } = useSelector((state) => state.LeaveModule);
 
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     if (form?.type === "OCCASION_LEAVE") {
@@ -130,24 +131,31 @@ const useLeaveApplication = () => {
       form?.type !== "OCCASION_LEAVE"
     ) {
       errors["dayscount"] = true;
-      SnackbarUtils.error("Start Days Cannot be Greater than End Date");
+      SnackbarUtils.error("Start date cannot be greater than end date");
     } else {
       delete errors["dayscount"];
     }
-
     if (Number(daysCount) > Number(count?.data?.pending_leave)) {
-      errors["leave"] = true;
+      errors["duration_days"] = true;
       SnackbarUtils.error(
         "Applied Leave cannot be greater than Pending Leaves"
       );
     } else {
-      delete errors["leave"];
+      delete errors["duration_days"];
     }
-    if (Number(count?.data?.pending_leave) <= 0) {
-      errors["leave"] = true;
+    if (
+      Number(count?.data?.pending_leave) <= 0 &&
+      form?.type === "OCCASION_LEAVE"
+    ) {
+      errors["duration_days"] = true;
       SnackbarUtils.error("No Leaves Pending ");
-    } else {
-      delete errors["leave"];
+    }
+    if (
+      Number(count?.data?.pending_leave) < Number(form?.duration_days) &&
+      form?.type === "OCCASION_LEAVE"
+    ) {
+      errors["duration_days"] = true;
+      SnackbarUtils.error("Applied Leave cannot be greater than Pending Leaves");
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -329,10 +337,6 @@ const useLeaveApplication = () => {
     setAnniNext(BdayLeaveNextYearAnni);
   });
 
-  console.log("BdayLeaveThisYearAnni", employeeDetails?.dob, {
-    BdayLeaveNextYear,
-    BdayLeaveThisYear,
-  });
   const formatDate = (inputDate) => {
     const formattedDate = new Date(inputDate);
     const options = {
@@ -363,10 +367,12 @@ const useLeaveApplication = () => {
     }
   }, [form?.start_date, form?.end_date]);
 
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       let req = serviceLeaveCreate;
+
       const fd = new FormData();
       let reqParam =
         form?.type === "OCCASION_LEAVE"
@@ -382,16 +388,16 @@ const useLeaveApplication = () => {
       if (form?.type !== "OCCASION_LEAVE") {
         fd.append("duration", "FULL_DAY");
         fd.append("duration_days", daysCount);
-      } else if (form?.type === "OCCASION_LEAVE") {
+      } 
+      if (form?.type === "OCCASION_LEAVE") {
         if (form?.event_type === "BIRTHDAY") {
-          if (valueMonth < CurrentMonth) {
-            console.log("bdayNext");
+          if (Number(alphabet) < Number(CurrentMonth)) {
             fd.append("start_date", formatDate(bdayNext));
           } else {
             fd.append("start_date", formatDate(bdayYear));
           }
         } else {
-          if (valueMonthAnni < CurrentMonth) {
+          if (Number(alphabet) < Number(CurrentMonth)) {
             fd.append("start_date", formatDate(anniNext));
           } else {
             fd.append("start_date", formatDate(anniYear));
@@ -559,6 +565,12 @@ const useLeaveApplication = () => {
     setLeaveType,
     daysCount,
     leaveCount,
+    BdayLeaveThisYear,
+    BdayLeaveNextYear,
+    BdayLeaveNextYearAnni,
+    BdayLeaveThisYearAnni,
+    CurrentMonth,
+    alphabet,
   };
 };
 

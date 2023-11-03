@@ -103,7 +103,7 @@ const useExitInterviewList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.CLAIMS_INTERVIEW_DETAILS}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.EXIT_DETAIL}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
