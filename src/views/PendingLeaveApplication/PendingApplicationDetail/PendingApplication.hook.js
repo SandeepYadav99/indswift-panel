@@ -10,9 +10,9 @@ const usePendingApplication = () => {
 
   const history = useHistory();
 
-  const handleOnChange =(e)=>[
+  const handleOnChange =(e)=>{
     setComment(e.target.value)
-  ]
+  }
 
   const handleOpen =()=>{
     setOpen(true);
