@@ -1,9 +1,12 @@
 import styles from "./Style.module.css";
 import React from "react";
 import useSuccessionPlanner_hook from "./SuccessionPlanner_hook";
+import ThisYearSuccessionPlanner from "./component/ThisYearSuccessionPlanner/ThisYearSuccessionPlanner";
+import NextYearSuccessionPlanner from "./component/NextYearSuccessionPlanner/NextYearSuccessionPlanner";
+import NextToNextYearSuccessionPlanner from "./component/NextToNextYearSuccessionPlanner/NextToNextYearSuccessionPlanner";
 
 
-const SuccessionPlanner_list = ({ jobId }) => {
+const SuccessionPlannerList = ({ jobId }) => {
   const { handleAddCandidate, candidateEl, handleCreate, typeData, user_id ,handleCsvDownload} =
   useSuccessionPlanner_hook({
       jobId,
@@ -14,7 +17,7 @@ const SuccessionPlanner_list = ({ jobId }) => {
       <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
             <span>
-              <b>Non Travel Imprest Ledger</b>
+              <b>This Year Succession Planner</b>
             </span>
             <div className={styles.newLine2} />
           </div>
@@ -22,34 +25,37 @@ const SuccessionPlanner_list = ({ jobId }) => {
           
         </div>
         {/* <ImprestUpperTable /> */}
+        <ThisYearSuccessionPlanner/>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
             <span>
-              <b>Non Travel Imprest Ledger</b>
+              <b>Next Year Succession Planner</b>
             </span>
             <div className={styles.newLine2} />
           </div>
 
           
         </div>
+        <NextYearSuccessionPlanner/>
         {/* <OtherTable jobId={user_id} Claimtype="OTHER" /> */}
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
             <span>
-              <b>Travel Imprest Ledger</b>
+              <b>Next to Next Year Succession Planner</b>
             </span>
             <div className={styles.newLine2} />
           </div>
        
         </div>
         {/* <TravelTable jobId={user_id} Claimtype="TRAVEL" /> */}
+        <NextToNextYearSuccessionPlanner/>
       </div>
     </div>
   );
 };
 
-export default SuccessionPlanner_list;
+export default SuccessionPlannerList;

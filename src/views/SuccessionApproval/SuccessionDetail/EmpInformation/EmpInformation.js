@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import styles from "./EmpInfo.module.css";
-import { useDispatch } from "react-redux";
+
 import { useSelector } from "react-redux";
-// import { actionGetEmployeeDetails } from "../../../../actions/Employee.action";
+
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ButtonBase } from "@material-ui/core";
 import historyUtils from "../../../../libs/history.utils";
 import SuccessionDetailInfor from "./SuccessionDetails";
 import useEmpInformation from "./EmpInformationHook";
 const EmployeeInformation = ({ empId }) => {
-  console.log(empId);
-  const dispatch = useDispatch();
+ 
   useEffect(() => {
     if (empId) {
       // dispatch(actionGetEmployeeDetails(empId));

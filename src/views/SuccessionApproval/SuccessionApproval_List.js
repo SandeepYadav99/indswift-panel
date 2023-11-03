@@ -1,12 +1,8 @@
 /**
- * Created by sandeepelectrovese@gmail.com on 10/18/2023.
+ * Created by sandeepelectrovese@gmail.com on 11/01/2023.
  */
 import React, {  useCallback,  useMemo } from "react";
-import {
-  
-  IconButton,
-
-} from "@material-ui/core";
+import {IconButton} from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { InfoOutlined} from "@material-ui/icons";
@@ -16,11 +12,7 @@ import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-
-
 import StatusPill from "../../components/Status/StatusPill.component";
-// import CandidateTable from "../../../components/CandidateDataTable/CandidateTable.component";
-
 import useSuccessionApprovalHook from "./SuccessionApproval_hook";
 
 const SuccessionApproval_List = ({}) => {
@@ -28,19 +20,14 @@ const SuccessionApproval_List = ({}) => {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
     handleSideToggle,
     handleViewDetails,
-    editData,
     isSidePanel,
-    handleCreate,
     isCalling,
     configFilter,
-    warehouses,
     changeEmployeeRoute,
     handleToggleDetail
   } = useSuccessionApprovalHook({});
@@ -64,7 +51,7 @@ const SuccessionApproval_List = ({}) => {
             className={classNames(styles.firstCellInfo, "openSans")}
             onClick={() => changeEmployeeRoute(obj?.employee)}
           >
-            <span ><b>{obj?.employee?.name}</b></span>
+            <span ><b>{}</b></span>
           </div>
         </div>
       );
@@ -78,19 +65,19 @@ const SuccessionApproval_List = ({}) => {
         key: "employee",
         label: "EMPLOYEE",
         sortable: true,
-        render: (value, all) => <div>{renderFirstCell(all)}</div>,
+        render: (value, all) => <div>{}</div>,
       },
       {
         key: "doj",
         label: "D.O.J",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.code}</div>,
+        render: (temp, all) => <div>{}</div>,
       },
       {
         key: "dob",
         label: "D.O.B",
         sortable: false,
-        render: (temp, all) => <div>{all?.address}</div>,
+        render: (temp, all) => <div>{}</div>,
       },
       {
         key: "designation",
@@ -98,7 +85,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.editedBy?.name} <br /> {all?.createdAtText}
+            {} <br /> {}
           </div>
         ),
       },
@@ -108,7 +95,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.editedBy?.name} <br /> {all?.createdAtText}
+           {}
           </div>
         ),
       },
@@ -118,7 +105,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.editedBy?.name}
+            {}
           </div>
         ),
       },
@@ -128,7 +115,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-           {all?.editedBy?.name}
+           {}
           </div>
         ),
       },
@@ -138,7 +125,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-          {all?.editedBy?.name}
+          {}
           </div>
         ),
       },
@@ -148,7 +135,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-           {all?.editedBy?.name}
+           {}
           </div>
         ),
       },
@@ -158,7 +145,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-           {all?.editedBy?.name}
+           {}
           </div>
         ),
       },
@@ -168,7 +155,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-          {all?.editedBy?.name}
+          {}
           </div>
         ),
       },
@@ -178,7 +165,7 @@ const SuccessionApproval_List = ({}) => {
         sortable: true,
         render: (temp, all) => (
           <div>
-          {all?.editedBy?.name}
+          {}
           </div>
         ),
       },
@@ -188,14 +175,14 @@ const SuccessionApproval_List = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
+            {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
                onClick={() => handleToggleDetail(all)}
             >
               <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            </IconButton> */}
           </div>
         ),
       },

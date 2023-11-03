@@ -70,7 +70,7 @@ const C3MLetters_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.grade?.code}/{all?.grade?.code}
+            {all?.grade?.code}/{all?.cadre?.code}
           </div>
         ),
       },

@@ -1,15 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { actionFetchAppointmentLetterList, actionFilterAppointmentLetterList } from "../../actions/AppointmentLetter.action";
+import constants from "../../config/constants";
+import { actionFetchEmployee } from "../../actions/Employee.action";
+import { serviceGetList } from "../../services/Common.service";
 
 const useAppointemntLetter_Hook = () => {
-  const [isCalling, setIsCalling] = useState(false);
-  const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
   const [listData, setListData] = useState({
-    EMPLOYEES: [],
+    GRADES: [],
+    DEPARTMENTS: [],
+    LOCATIONS: [],
   });
+
+  const { role } = useSelector((state) => state.auth);
   const isMountRef = useRef(false);
+  
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -83,28 +89,58 @@ const useAppointemntLetter_Hook = () => {
     console.log(page);
   };
 
-  const handleViewDetails = useCallback((data) => {
-    // if (pdfUrl) {
-    //   window.open(pdfUrl?.joining_letter, "_blank")
+  const handleViewDetails = useCallback((pdfUrl) => {
+    if (pdfUrl) {
+      window.open(pdfUrl?.letter, "_blank")
    
-    // }
+    }
+  }, []);
+
+  const initData = useCallback(() => {
+    dispatch(
+      actionFetchEmployee(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    initData();
+    isMountRef.current = true;
+    serviceGetList(["LOCATIONS", "DEPARTMENTS", "GRADES"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
   }, []);
 
   const configFilter = useMemo(() => {
     return [
+      ...(role === constants.ROLES.CORPORATE_HR
+        ? [
+            {
+              label: "Location",
+              name: "location_id",
+              type: "selectObject",
+              custom: { extract: { id: "id", title: "name" } },
+              fields: listData?.LOCATIONS,
+            },
+          ]
+        : []),
       {
-        label: "Status",
-        name: "status",
-        type: "select",
-        fields: [
-          "ACTIVE",
-          "RESIGNED",
-          "TERMINATED",
-          "RETIRED",
-          "EXPIRED",
-          "ABSCONDED",
-          "INACTIVE",
-        ],
+        label: "Department",
+        name: "department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
+      },
+      {
+        label: "Grade",
+        name: "grade_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "label" } },
+        fields: listData?.GRADES,
       },
     ];
   }, [listData]);
@@ -116,8 +152,6 @@ const useAppointemntLetter_Hook = () => {
     handleRowSize,
     handleSortOrderChange,
     handleViewDetails,
-    isCalling,
-    editData,
     configFilter,
   };
 };
