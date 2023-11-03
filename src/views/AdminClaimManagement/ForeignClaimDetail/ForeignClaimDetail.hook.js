@@ -106,7 +106,7 @@ function useClaimForDetail() {
           conversion_rate: rest?.imprest_summary?.conversion_rate_usd,
         },
       ];
-      SetCurr([...FixCurrency])
+      SetCurr([...FixCurrency]);
     });
   }, [id]);
 
@@ -163,9 +163,13 @@ function useClaimForDetail() {
   const imprestINRAmount = useMemo(() => {
     if (curr?.length > 0 && imprestAmount) {
       if (employeeDetails?.imprest?.currency === "USD") {
-        return Number(imprestAmount) * Number(curr[1]?.conversion_rate);
+        return Math.round(
+          Number(imprestAmount) * Number(curr[1]?.conversion_rate)
+        );
       } else if (employeeDetails?.imprest?.currency === "EUR") {
-        return Number(imprestAmount) * Number(curr[0]?.conversion_rate);
+        return Math.round(
+          Number(imprestAmount) * Number(curr[0]?.conversion_rate)
+        );
       } else {
         return Number(imprestAmount);
       }
@@ -195,7 +199,7 @@ function useClaimForDetail() {
     if (curr?.length > 0) {
       total = Number(USDAmount) * Number(curr[1]?.conversion_rate);
     }
-    return total;
+    return Math.round(total);
   }, [USDAmount, curr, SetCurr]);
 
   const EuroAmount = useMemo(() => {
@@ -217,7 +221,7 @@ function useClaimForDetail() {
     if (curr?.length > 0) {
       total = Number(EuroAmount) * Number(curr[0]?.conversion_rate);
     }
-    return total;
+    return Math.round(total);
   }, [EuroAmount, curr, SetCurr]);
 
   const InrAmount = useMemo(() => {
@@ -239,7 +243,7 @@ function useClaimForDetail() {
   const getTotalValue = useMemo(() => {
     let total = 0;
     total = Number(InrAmount) + Number(USDtoINR) + Number(EurotoINR);
-    return total;
+    return Math.round(total);
   }, [InrAmount, USDtoINR, EurotoINR]);
 
   const getOfficeAmount = useMemo(() => {
@@ -248,7 +252,7 @@ function useClaimForDetail() {
       Number(officeAmount2 ? officeAmount2 : 0) +
       Number(officeAmount3 ? officeAmount3 : 0) +
       Number(officeAmount4 ? officeAmount4 : 0);
-    return value ? value : 0;
+    return value ? Math.round(value) : 0;
   }, [officeAmount, officeAmount2, officeAmount3, officeAmount4]);
 
   console.log(
@@ -261,10 +265,12 @@ function useClaimForDetail() {
   );
   const getRefundAmount = useMemo(() => {
     return imprestINRAmount
-      ? Number(getTotalValue) -
-          Number(getOfficeAmount) -
-          Number(imprestINRAmount)
-      : Number(getTotalValue) - Number(getOfficeAmount);
+      ? Math.round(
+          Number(getTotalValue) -
+            Number(getOfficeAmount) -
+            Number(imprestINRAmount)
+        )
+      : Math.round(Number(getTotalValue) - Number(getOfficeAmount));
   }, [
     form?.travel_planner_id,
     getTotalValue,
@@ -351,7 +357,7 @@ function useClaimForDetail() {
     EurotoINR,
     getOfficeAmount,
     refundData,
-    setRefundData
+    setRefundData,
   ]);
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
@@ -440,7 +446,7 @@ function useClaimForDetail() {
     EurotoINR,
     getOfficeAmount,
     refundData,
-    setRefundData
+    setRefundData,
   ]);
 
   const changeTextData = useCallback(
