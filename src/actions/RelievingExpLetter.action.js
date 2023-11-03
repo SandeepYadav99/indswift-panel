@@ -2,33 +2,34 @@ import store from "../store";
 import Constants from "../config/constants";
 
 
-import { serviceNapsTrningList } from "../services/Letters.service";
+import { serviceNapsTrningList } from "../services/NAPS_Traning.service";
+import { serviceRelievingExpLetterList } from "../services/Letters.service";
 
-export const FETCH_INIT = "FETCH_INIT_NAPS_TRANING";
-export const FETCHED = "FETCHED_NAPS_TRANING";
-export const FETCHED_FAIL = "FETCHED_FAIL_NAPS_TRANING";
-export const FETCHED_FILTER = "FETCHED_FILTER_NAPS_TRANING";
-export const FETCH_NEXT = "FETCH_NEXT_NAPS_TRANING";
-export const FILTER = "FILTER_NAPS_TRANING";
-export const RESET_FILTER = "RESET_FILTER_NAPS_TRANING";
-export const SET_SORTING = "SET_SORTING_NAPS_TRANING";
-export const SET_FILTER = "SET_FILTER_NAPS_TRANING";
-export const SET_PAGE = "SET_PAGE_NAPS_TRANING";
-export const CHANGE_PAGE = "CHANGE_PAGE_NAPS_TRANING";
-export const CHANGE_STATUS = "CHANGE_STATE_NAPS_TRANING";
-export const SET_SERVER_PAGE = "SET_SERVER_PAGE_NAPS_TRANING";
-export const CREATE_DATA = "CREATE_NAPS_TRANING";
-export const UPDATE_DATA = "UPDATE_NAPS_TRANING";
-export const DELETE_ITEM = "DELETE_NAPS_TRANING";
-export const SET_OTHER_DATA = "SET_OTHER_DATA_NAPS_TRANING";
+export const FETCH_INIT = "FETCH_INIT_RELIEVING_EXP_LETTER";
+export const FETCHED = "FETCHED_RELIEVING_EXP_LETTER";
+export const FETCHED_FAIL = "FETCHED_FAIL_RELIEVING_EXP_LETTER";
+export const FETCHED_FILTER = "FETCHED_FILTER_RELIEVING_EXP_LETTER";
+export const FETCH_NEXT = "FETCH_NEXT_RELIEVING_EXP_LETTER";
+export const FILTER = "FILTER_RELIEVING_EXP_LETTER";
+export const RESET_FILTER = "RESET_FILTER_RELIEVING_EXP_LETTER";
+export const SET_SORTING = "SET_SORTING_RELIEVING_EXP_LETTER";
+export const SET_FILTER = "SET_FILTER_RELIEVING_EXP_LETTER";
+export const SET_PAGE = "SET_PAGE_RELIEVING_EXP_LETTER";
+export const CHANGE_PAGE = "CHANGE_PAGE_RELIEVING_EXP_LETTER";
+export const CHANGE_STATUS = "CHANGE_STATE_RELIEVING_EXP_LETTER";
+export const SET_SERVER_PAGE = "SET_SERVER_PAGE_RELIEVING_EXP_LETTER";
+export const CREATE_DATA = "CREATE_RELIEVING_EXP_LETTER";
+export const UPDATE_DATA = "UPDATE_RELIEVING_EXP_LETTER";
+export const DELETE_ITEM = "DELETE_RELIEVING_EXP_LETTER";
+export const SET_OTHER_DATA = "SET_OTHER_DATA_RELIEVING_EXP_LETTER";
 
-export function actionFetchNapsTraningList(
+export function actionFetchRelievingExpLetterList(
   index = 1,
   sorting = {},
   filter = {},
   otherData = {}
 ) {
-  const request = serviceNapsTrningList({
+  const request = serviceRelievingExpLetterList({
     index,
     row: sorting.row,
     order: sorting.order,
@@ -73,7 +74,7 @@ export function actionCreateNewEmployeeList(data) {
   // };
 }
 
-export function actionUpdateNapsTraningList(data) {
+export function actionUpdateRelievingExpLetterList(data) {
   // const request = serviceUpdateNewEmployeeList(data);
   // return (dispatch) => {
   //   request.then((data) => {
@@ -84,13 +85,13 @@ export function actionUpdateNapsTraningList(data) {
   // };
 }
 
-export function actionChangePageNapsTraningList(page) {
+export function actionChangePageRelievingExpLetterList(page) {
   return (dispatch) => {
     dispatch({ type: CHANGE_PAGE, payload: page });
   };
 }
 
-export function actionFilterNapsTraningList(value) {
+export function actionFilterRelievingExpLetterList(value) {
   const request = null; ////serviceFetchProviderRequests(value);
   return (dispatch) => {
     dispatch({ type: FETCH_INIT, payload: null });
@@ -101,21 +102,21 @@ export function actionFilterNapsTraningList(value) {
   };
 }
 
-export function actionChangeStatusNapsTraningList(id, status) {
+export function actionChangeStatusRelievingExpLetterList(id, status) {
   return (dispatch) => {
     dispatch({ type: CHANGE_STATUS, payload: { id, status } });
   };
 }
 
-export function actionResetFilterNapsTraningList() {
+export function actionResetFilterRelievingExpLetterList() {
   return {
     type: RESET_FILTER,
     payload: null,
   };
 }
 
-export function actionSetPageNapsTraningList(page) {
-  const stateData = store.getState().napsTraning;
+export function actionSetPageRelievingExpLetterList(page) {
+  const stateData = store.getState().RelievingExpLetter;
   const currentPage = stateData.currentPage;
   const totalLength = stateData.all.length;
   const sortingData = stateData.sorting_data;
@@ -125,7 +126,7 @@ export function actionSetPageNapsTraningList(page) {
   const otherData = stateData.other_data;
   if (totalLength <= (page + 1) * Constants.DEFAULT_PAGE_VALUE) {
     store.dispatch(
-      actionFetchNapsTraningList(
+      actionFetchRelievingExpLetterList(
         serverPage + 1,
         sortingData,
         { query, query_data: queryData },
@@ -134,7 +135,7 @@ export function actionSetPageNapsTraningList(page) {
     );
   }
 
-  console.log(currentPage, totalLength);
+
   return {
     type: CHANGE_PAGE,
     payload: page,

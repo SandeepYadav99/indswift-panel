@@ -6,7 +6,7 @@ import axios from "axios";
 import Constants from "../config/constants";
 import store from "../store";
 import { actionLogoutUser } from "../actions/auth_index.action";
-import LogUtils from "./LogUtils";
+
 
 export async function postRequest(url, params) {
   try {
@@ -14,7 +14,7 @@ export async function postRequest(url, params) {
       ...params,
     });
     if (tempRequest.status === 200) {
-      console.log(url, params, tempRequest.data);
+     
       if (tempRequest.data.response_code === 1) {
         return {
           error: false,
@@ -58,7 +58,7 @@ export async function getRequest(url, params) {
       params: { ...params },
     });
     if (tempRequest.status === 200) {
-      console.log(tempRequest.data);
+      
       if (tempRequest.data.response_code === 1) {
         return {
           error: false,
@@ -101,7 +101,7 @@ export async function formDataRequest(url, formData) {
       config: { headers: { "Content-Type": "multipart/form-data" } },
     });
     if (tempRequest.status === 200) {
-      console.log(tempRequest.data);
+   
       if (tempRequest.data.response_code === 1) {
         return {
           error: false,

@@ -25,6 +25,7 @@ import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail
 import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLeaveApplication.view";
 import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
+import RelievingExpLetterDetail from "../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail";
 const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 
 
@@ -2394,6 +2395,19 @@ const dashboardRoutes = [
     icon: PeopleOutlined,
     component: RelievingExpLetter_View,
     is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL,
+    sidebarName: "Relieving & Experience Letter",
+    navbarName: "Relieving & Experience Letter",
+    icon: PeopleOutlined,
+    component: RelievingExpLetterDetail,
+    is_sidebar: false,
     is_protect: true,
     // slug: 'tp',
     // is_parent: true,

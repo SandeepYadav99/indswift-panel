@@ -3,13 +3,12 @@ import { ButtonBase } from "@material-ui/core";
 import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
-import useCandidateInformation_Hook from "./BG_CandidateInfo_Hook";
 import BGVDetails from "../BGVerificationForm/BGVForm";
 import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
-import { useParams } from "react-router";
+
 
 const CandidateInformation = () => {
-  const { id } = useParams(); 
+ 
   const urlParams = new URLSearchParams(window.location.search);
   const empCode = urlParams.get('emp_code');
   

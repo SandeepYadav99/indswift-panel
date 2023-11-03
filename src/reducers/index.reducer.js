@@ -84,6 +84,7 @@ import NAPS_TraningReducer from "./NAPS_Traning.reducer"
 import PendingBGVReducer from "./PendingBGV.reducer";
 import C3MLetterReducer from "./C3MLetter.reducer";
 import AppointmentLetterReducer from "./AppointmentLetter.reducer";
+import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -165,7 +166,8 @@ const rootReducer = combineReducers({
   OngoingLoans:OngoingLoansReducer,
   LeaveModule:LeaveReducer,
   C3MLetter:C3MLetterReducer,
-  AppointmentLetter:AppointmentLetterReducer
+  AppointmentLetter:AppointmentLetterReducer,
+  RelievingExpLetter:RelievingExpLetterReducer
   // form: formReducer,
 });
 

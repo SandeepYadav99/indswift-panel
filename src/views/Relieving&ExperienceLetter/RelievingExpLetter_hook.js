@@ -1,12 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  actionFetchNewEmployeeList,
-  actionSetPageNewEmployeeList,
-} from "../../actions/NewEmployeeList.action";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
+import { actionFetchRelievingExpLetterList, actionSetPageRelievingExpLetterList } from "../../actions/RelievingExpLetter.action";
 
 const useRelievingExpLetter_hook = () => {
   const [isCalling, setIsCalling] = useState(false);
@@ -14,6 +11,7 @@ const useRelievingExpLetter_hook = () => {
   const [listData, setListData] = useState({
     EMPLOYEES: [],
   });
+
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -21,11 +19,11 @@ const useRelievingExpLetter_hook = () => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state?.newEmployee);
+  } = useSelector((state) => state?.RelievingExpLetter);
 
   useEffect(() => {
     dispatch(
-      actionFetchNewEmployeeList(1, sortingData, {
+      actionFetchRelievingExpLetterList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -40,17 +38,17 @@ const useRelievingExpLetter_hook = () => {
       }
     });
   }, []);
-  console.log("list", listData);
+
   const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
-    dispatch(actionSetPageNewEmployeeList(type));
+   
+    dispatch(actionSetPageRelievingExpLetterList(type));
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
       dispatch(
-        actionFetchNewEmployeeList(1, sortingData, {
+        actionFetchRelievingExpLetterList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -61,7 +59,7 @@ const useRelievingExpLetter_hook = () => {
 
   const handleFilterDataChange = useCallback(
     (value) => {
-      console.log("_handleFilterDataChange", value);
+    
       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
@@ -69,7 +67,7 @@ const useRelievingExpLetter_hook = () => {
 
   const handleSearchValueChange = useCallback(
     (value) => {
-      console.log("_handleSearchValueChange", value);
+     
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -77,9 +75,9 @@ const useRelievingExpLetter_hook = () => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      console.log(`handleSortOrderChange key:${row} order: ${order}`);
+    
       dispatch(
-        actionFetchNewEmployeeList(
+        actionFetchRelievingExpLetterList(
           1,
           { row, order },
           {
