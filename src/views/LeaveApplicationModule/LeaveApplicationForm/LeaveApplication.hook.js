@@ -6,6 +6,7 @@ import { actionLeaveCount } from "../../../actions/LeaveModule.action";
 import { useDispatch, useSelector } from "react-redux";
 import useClaimIntCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
 import historyUtils from "../../../libs/history.utils";
+import WaitingComponent from '../../../components/Waiting.component';
 
 const initialForm = {
   type: "",
@@ -370,9 +371,9 @@ const useLeaveApplication = () => {
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
+      <WaitingComponent/>
       setIsSubmitting(true);
       let req = serviceLeaveCreate;
-
       const fd = new FormData();
       let reqParam =
         form?.type === "OCCASION_LEAVE"

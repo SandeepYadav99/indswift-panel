@@ -248,7 +248,12 @@
     flex-direction: column;
     height: 90%;
   }
+  .statusMarking{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
   
   
-  /* USC Create css */
+  
   

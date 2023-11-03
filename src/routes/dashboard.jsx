@@ -22,10 +22,12 @@ import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/Relievi
 import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
 import ClaimForCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view";
 import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view";
-import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLeaveApplication.view";
 import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
 import ExitInterviewList from "../views/ExitInterview/ExitInterviewList/ExitInterviewList.container";
+
+
+const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
 
 const LeaveApplicationForm = lazy(() =>
   import(
@@ -2413,7 +2415,7 @@ const dashboardRoutes = [
     sidebarName: "Pending Leave Application",
     navbarName: "Pending Leave Application",
     icon: AssignmentOutlined,
-    component: PendingLeaveApplication,
+    component: PendingLeaveApplicationList,
     is_sidebar: true,
     is_protect: true,
   },
