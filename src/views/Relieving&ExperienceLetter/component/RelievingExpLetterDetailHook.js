@@ -1,8 +1,12 @@
 import { useCallback, useEffect } from "react";
 import { useState } from "react";
-import { serviceRelievingExpLetterApprival, serviceRelievingExpLetterDetail } from "../../../services/Letters.service";
+import {
+  serviceRelievingExpLetterApprival,
+  serviceRelievingExpLetterDetail,
+} from "../../../services/Letters.service";
 import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
+import { useParams } from "react-router";
 
 const initialForm = {
   general_conduct: "",
@@ -13,16 +17,17 @@ const useRelievingExpLetterDetail = () => {
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { id } = useParams();
 
   useEffect(() => {
-    serviceRelievingExpLetterDetail({ id: "65449ac16b9e7fe71fdfcb0b" }).then(
+    serviceRelievingExpLetterDetail({ id: id }).then(
       (res) => {
         if (!res?.error) {
           setRelievingExpDetails(res?.data?.details);
         }
       }
     );
-  }, []);
+  }, [id]);
 
   const submitToApprove = useCallback(async () => {
     if (isSubmitting) {
@@ -31,10 +36,10 @@ const useRelievingExpLetterDetail = () => {
     setIsSubmitting(true);
 
     const updatedData = {
-      review_id: "",
-      reason: "Terminated",
-      general_conduct: form?.general_conduct
-  }
+      review_id: id,
+      // reason: "Terminated",
+      general_conduct: form?.general_conduct,
+    };
 
     try {
       const req = serviceRelievingExpLetterApprival(updatedData);
@@ -42,20 +47,18 @@ const useRelievingExpLetterDetail = () => {
 
       if (!res.error) {
         historyUtils.goBack();
-        // window.location.reload();
+     
       } else {
         SnackbarUtils.error(res.message);
       }
     } catch (error) {
-     
     } finally {
       setIsSubmitting(false);
     }
-  }, [form, isSubmitting, setIsSubmitting]); // EmpID
+  }, [form, isSubmitting, setIsSubmitting, id]); // EmpID
 
   const changeTextData = useCallback(
     (value, fieldName) => {
-
       const fieldMappings = {
         general_conduct: "general_conduct",
       };
@@ -68,7 +71,7 @@ const useRelievingExpLetterDetail = () => {
         removeError(fieldName);
       }
     },
-    [setForm, removeError]
+    [setForm, removeError, form]
   );
 
   const removeError = useCallback(
@@ -84,7 +87,7 @@ const useRelievingExpLetterDetail = () => {
     relievingExpDetails,
     changeTextData,
     form,
-    submitToApprove
+    submitToApprove,
   };
 };
 export default useRelievingExpLetterDetail;

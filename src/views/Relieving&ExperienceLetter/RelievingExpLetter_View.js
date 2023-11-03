@@ -1,24 +1,16 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback,  useMemo } from "react";
 import { IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-
 import StatusPill from "../../components/Status/StatusPill.component";
-import { removeUnderScore } from "../../helper/helper";
 
 import {
-  AssessmentOutlined,
-  AssignmentInd,
-  AssignmentOutlined,
-  Edit,
-  EditOutlined,
-  InfoOutlined,
+  AssignmentOutlined, 
   Send,
   Visibility,
 } from "@material-ui/icons";
@@ -35,7 +27,8 @@ const RelievingExpLetter_View = ({ location }) => {
     handleSearchValueChange,
     handleViewDetails,
     isCalling,
-    configFilter,
+    configFilter,handleRelievingExpLetter
+    
   } = useRelievingExpLetter_hook({ location });
 
   const {
@@ -130,7 +123,7 @@ const RelievingExpLetter_View = ({ location }) => {
         key: "exit_interview_status",
         label: "EXIT INTERVIEW STATUS",
         sortable: false,
-        render: (temp, all) => <div>{"-"}</div>,
+        render: (temp, all) => <div>{renderStatus(all?.exitInterviewStatus)}</div>,
       },
       {
         key: "letter_status",
@@ -148,8 +141,8 @@ const RelievingExpLetter_View = ({ location }) => {
               all?.employee?.status === "EXPIRED" ||
               all?.employee?.status === "RETIRED" ||
               all?.employee?.status === "ABSCONDED ") &&
-              all?.employee?.status === "COMPLETED") ||
-              all?.employee?.status === "N/A") &&
+              all?.exitInterviewStatus=== "COMPLETED") ||
+              all?.exitInterviewStatus === "N/A") &&
             all?.status === "PENDING" ? (
               <IconButton
                 className={"tableActionBtn"}
@@ -164,14 +157,14 @@ const RelievingExpLetter_View = ({ location }) => {
             ) : null}
 
             {(all?.employee?.status === "RESIGNED" &&
-              all?.employee?.status === "PENDING") || // Exist Emloy code
+              all?.exitInterviewStatus === "PENDING") || // Exist Emloy code
             all?.status === "PENDING" ? (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  handleViewDetails(all);
+                  // handleViewDetails(all);
                 }}
               >
                 <Send fontSize={"small"} />
@@ -183,7 +176,7 @@ const RelievingExpLetter_View = ({ location }) => {
               all?.employee?.status === "EXPIRED" ||
               all?.employee?.status === "RETIRED" ||
               all?.employee?.status === "ABSCONDED ") &&
-              all?.employee?.status === "COMPLETED") ||
+              all?.exitInterviewStatus === "COMPLETED") ||
               all?.employee?.status === "N/A") &&
             all?.status === "PENDING" ? (
               <IconButton
@@ -191,7 +184,7 @@ const RelievingExpLetter_View = ({ location }) => {
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  handleViewDetails(all);
+                  handleRelievingExpLetter(all);
                 }}
               >
                 <Visibility fontSize={"small"} />
@@ -201,7 +194,7 @@ const RelievingExpLetter_View = ({ location }) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, handleRelievingExpLetter]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

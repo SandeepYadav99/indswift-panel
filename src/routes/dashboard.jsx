@@ -2402,7 +2402,7 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
-    path: RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL,
+    path: `${RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL}:id`,
     sidebarName: "Relieving & Experience Letter",
     navbarName: "Relieving & Experience Letter",
     icon: PeopleOutlined,

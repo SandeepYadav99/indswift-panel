@@ -3,10 +3,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
-import { actionFetchRelievingExpLetterList, actionSetPageRelievingExpLetterList } from "../../actions/RelievingExpLetter.action";
+import {
+  actionFetchRelievingExpLetterList,
+  actionSetPageRelievingExpLetterList,
+} from "../../actions/RelievingExpLetter.action";
 
 const useRelievingExpLetter_hook = () => {
-  const [isCalling, setIsCalling] = useState(false);
+
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
@@ -40,7 +43,6 @@ const useRelievingExpLetter_hook = () => {
   }, []);
 
   const handlePageChange = useCallback((type) => {
-   
     dispatch(actionSetPageRelievingExpLetterList(type));
   }, []);
 
@@ -59,7 +61,6 @@ const useRelievingExpLetter_hook = () => {
 
   const handleFilterDataChange = useCallback(
     (value) => {
-    
       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
@@ -67,7 +68,6 @@ const useRelievingExpLetter_hook = () => {
 
   const handleSearchValueChange = useCallback(
     (value) => {
-     
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -75,7 +75,6 @@ const useRelievingExpLetter_hook = () => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-    
       dispatch(
         actionFetchRelievingExpLetterList(
           1,
@@ -95,7 +94,14 @@ const useRelievingExpLetter_hook = () => {
   };
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.RELIEVING_EXPERIENCE_APPROVALS_DETAILS}`); //+data.id
+    historyUtils.push(`${RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL}${data?.id}` ) //+data.id
+  }, []);
+
+  const handleRelievingExpLetter = useCallback((document) => {
+ 
+    if (document) {
+      window.open(document?.experienceLetter?.document, "_blank");
+    }
   }, []);
 
   const configFilter = useMemo(() => {
@@ -124,9 +130,10 @@ const useRelievingExpLetter_hook = () => {
     handleRowSize,
     handleSortOrderChange,
     handleViewDetails,
-    isCalling,
+ 
     editData,
     configFilter,
+    handleRelievingExpLetter,
   };
 };
 
