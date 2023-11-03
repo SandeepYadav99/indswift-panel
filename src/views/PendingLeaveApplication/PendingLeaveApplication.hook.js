@@ -19,20 +19,7 @@ import constants from "../../config/constants";
 
 function usePendingLeaveApplication() {
   const dispatch = useDispatch();
-  const [employeeDetail, setEmployeeDetail] = useState({});
-  const [approveDialog, setApproveDialog] = useState(false);
-  const [rejectDialog, setRejectDialog] = useState(false);
-  const [ischangeDialog, setIschangeDialog] = useState(false);
-  const history = useHistory();
-  const [isSidePanel, setSidePanel] = useState(false);
-  const [isCalling, setIsCalling] = useState(false);
-  const [editData, setEditData] = useState(null);
-  const [isCsvDialog, setIsCsvDialog] = useState(false);
-  const [isCPCDialog, setIsCPCDialog] = useState(false);
-  const [isExtendDialog, setIsExtendDialog] = useState(false);
-  const [isTraineeDialog, setIsTraineeDialog] = useState(false);
-  const [createDD, setCreateDD] = useState(null);
-  const { role } = useSelector((state) => state.auth);
+ 
   const [listData, setListData] = useState({
     LOCATIONS: [],
     GRADES: [],
@@ -88,34 +75,17 @@ function usePendingLeaveApplication() {
   const handlePageChange = useCallback((type) => {
     dispatch(actionSetPageEmployeeRequests(type));
   }, []);
-  const handleCreate = useCallback(() => {
-    historyUtils.push(RouteName.EMPLOYEE_CREATE); //+
-  }, []);
-  const handleDataSave = useCallback(
-    (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
-      if (type == "CREATE") {
-        dispatch(actionCreateEmployee(data));
-      } else {
-        dispatch(actionUpdateEmployee(data));
-      }
-      setSidePanel((e) => !e);
-      setEditData(null);
-    },
-    [setSidePanel, setEditData]
-  );
+ 
+
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageEmployeeRequests(1));
       dispatch(
         actionFetchEmployee(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
       );
-      // dispatch(actionFetchEmployee(1, sortingData))
     },
     [sortingData, query, queryData]
   );
@@ -130,7 +100,6 @@ function usePendingLeaveApplication() {
 
   const handleSearchValueChange = useCallback(
     (value) => {
-      console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -154,73 +123,41 @@ function usePendingLeaveApplication() {
     [query, queryData]
   );
 
- 
 
+  const ConvertHandleLeaveType =(data)=>{
+    return (data === "BEREAVEMENT_LEAVE") ? "BEREAVEMENT LEAVE":(data === "OCCASION_LEAVE") ? "OCCASION LEAVE":(data === "FACILITATION_LEAVE") ?"FACILITATION LEAVE":"PATERNITY LEAVE" ;
+  }
+ 
   const configFilter = useMemo(() => {
     return [
-      ...(role === constants.ROLES.CORPORATE_HR
-        ? [
-            {
-              label: "Location",
-              name: "location_id",
-              type: "selectObject",
-              custom: { extract: { id: "id", title: "name" } },
-              fields: listData?.LOCATIONS,
-            },
-          ]
-        : []),
       {
-        label: "Grade",
-        name: "grade_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "label" } },
-        fields: listData?.GRADES,
-      },
-      {
-        label: "Department",
-        name: "department_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.DEPARTMENTS,
-      },
-      {
-        label: "Created Date",
-        options: { maxDate: new Date() },
-        name: "createdAt",
-        type: "date",
+        label: "Status",
+        name: "claimObj.status",
+        type: "select",
+        fields: [
+          "REJECTED",
+          "PENDING",
+          "APPROVED",
+          "PROCESSED",
+          "RECRUITER_APPROVED",
+          "CORPORATE_AUDIT_2_APPROVED",
+        ],
       },
     ];
-  }, [listData, role]);
-
+  }, [listData]);
  
-
-  const handleLeaveApplicationForm = () => {
-    history.push("form");
-    window.location.reload();
-  };
 
   const { id } = useParams();
 
   return {
     id,
-    employeeDetail,
-    approveDialog,
-    ischangeDialog,
-    rejectDialog,
-    handleLeaveApplicationForm,
     handlePageChange,
-    handleDataSave,
     handleFilterDataChange,
     handleSearchValueChange,
     handleSortOrderChange, 
-    isCalling,
-    editData,
-    isSidePanel,
     configFilter,
-    handleCreate,    
-    isExtendDialog,
-    isTraineeDialog,
     listData,
+    ConvertHandleLeaveType,
   };
 }
 
