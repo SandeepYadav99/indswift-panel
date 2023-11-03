@@ -25,10 +25,8 @@ import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail
 import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLeaveApplication.view";
 import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
-const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 import ExitInterviewList from "../views/ExitInterview/ExitInterviewList/ExitInterviewList.container";
-
-
+const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
 const SuccessionApproval_List = lazy(() =>import("../views/SuccessionApproval/SuccessionApproval_List"));
 
