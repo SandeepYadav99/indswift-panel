@@ -23,10 +23,12 @@ const style = {
   p: 4,
 };
 
-const ApprovePopUp = ({ handleClose, open, onChange, value,popUpType}) => {
-  const { handleSubmit, id, rejectApplication, state } = usePendingApplication(
+const ApprovePopUp = ({ handleClose, open,  popUpType }) => {
+  const { handleSubmit, rejectApplication,handleOnChange,comment } = usePendingApplication(
     {}
   );
+
+ 
   const [checked, setChecked] = useState(false);
 
   return (
@@ -66,8 +68,8 @@ const ApprovePopUp = ({ handleClose, open, onChange, value,popUpType}) => {
           </Typography>
           <CustomTextField
             label={"Add comments "}
-            onChange={onChange}
-            value={value}
+            onChange={handleOnChange}
+            value={comment}
             multiline
             rows={3}
           />{" "}
@@ -82,7 +84,9 @@ const ApprovePopUp = ({ handleClose, open, onChange, value,popUpType}) => {
           <div className={styles.alignButtonEnd}>
             <ButtonBase
               className={"createBtn"}
-              onClick={popUpType === "Approve" ? handleSubmit : rejectApplication}
+              onClick={
+                popUpType === "Approve" ? handleSubmit : rejectApplication
+              }
               disabled={checked ? false : true}
             >
               Submit
@@ -96,13 +100,12 @@ const ApprovePopUp = ({ handleClose, open, onChange, value,popUpType}) => {
 
 const PendingApplication = () => {
   const [detailData, setDetailData] = useState();
-  const [popType,setPopType] = useState('');
+  const [popType, setPopType] = useState("");
 
   const {
     handleReject,
     open,
     handleOpen,
-    handleOnChange,
     comment,
     handleClose,
     id,
@@ -347,28 +350,46 @@ const PendingApplication = () => {
         </span>
         <div className={styles.divider}>
           <div className={styles.columnOne}>
-            <span className={styles.textFont}>{detailData?.status}</span>
-            <span className={styles.textFont}>{detailData?.comment}</span>
+            {detailData?.comments?.map((val) => {
+              return (
+                <div key={val._id}>
+                  <span className={styles.textFont}>{val.comment}</span>
+                  <br />
+                  <span className={styles.textFont}>
+                    {val?.employee?.name} | {val?.updatedAtText}
+                  </span>
+                  <br />
+                  <br />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
       {detailData?.status === "PENDING" && (
         <div className={styles.btnContainer}>
-          <ButtonBase className={styles.rejectButton} onClick={()=>{handleReject();
-          setPopType("Reject")
-          }}>
+          <ButtonBase
+            className={styles.rejectButton}
+            onClick={() => {
+              handleReject();
+              setPopType("Reject");
+            }}
+          >
             Reject
           </ButtonBase>
-          <ButtonBase className={"createBtn"} onClick={()=>{handleOpen();
-            setPopType("Approve")
-          }}>
+          <ButtonBase
+            className={"createBtn"}
+            onClick={() => {
+              handleOpen();
+              setPopType("Approve");
+            }}
+          >
             Approve
           </ButtonBase>
         </div>
       )}
       <ApprovePopUp
         open={open}
-        onChange={handleOnChange}
         value={comment}
         handleClose={handleClose}
         popUpType={popType}
