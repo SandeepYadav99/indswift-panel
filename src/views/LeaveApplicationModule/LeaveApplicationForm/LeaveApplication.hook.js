@@ -1,12 +1,14 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router-dom";
-import { serviceLeaveCreate } from "../../../services/Leave.service";
-import { actionLeaveCount } from "../../../actions/LeaveModule.action";
+import {
+  serviceLeaveCount,
+  serviceLeaveCreate,
+} from "../../../services/Leave.service";
 import { useDispatch, useSelector } from "react-redux";
-import useClaimIntCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
 import historyUtils from "../../../libs/history.utils";
 import { useMemo } from "react";
+import { serviceGetEmployeeDetails } from "../../../services/ClaimsManagement.service";
 
 const initialForm = {
   type: "",
@@ -57,6 +59,7 @@ const useLeaveApplication = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [leaveType, setLeaveType] = useState();
   const [errorData, setErrorData] = useState({});
+  const [employeeDetails, setEmployeeDetails] = useState({});
   const [daysCount, setDaysCount] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
@@ -64,7 +67,7 @@ const useLeaveApplication = () => {
   const includeRef = useRef(null);
   const [alphabet, setAlphabet] = useState();
   const [monthhook, setMonthhook] = useState();
-  const [leaveCount, setLeaveCount] = useState();
+  const [leaveCount, setLeaveCount] = useState(null);
   const [bdayYear, setBdayYear] = useState("");
   const [bdayNext, setBdayNext] = useState("");
   const [anniYear, setAnniYear] = useState("");
@@ -74,9 +77,42 @@ const useLeaveApplication = () => {
 
   const dispatch = useDispatch();
 
-  const { employeeDetails } = useClaimIntCard({});
+  const {
+    user: { emp_code, user_id },
+  } = useSelector((state) => state.auth);
 
-  const { count } = useSelector((state) => state.LeaveModule);
+  useEffect(() => {
+    if (emp_code) {
+      Promise.allSettled([serviceGetEmployeeDetails({ code: emp_code })]).then(
+        (promises) => {
+          const empDetail = promises[0]?.value?.data;
+          setEmployeeDetails(empDetail);
+        }
+      );
+    }
+  }, [emp_code]);
+  
+  useEffect(() => {
+    if (form?.type) {
+      if (form?.type === "PATERNITY_LEAVE" && form?.event_type) {
+        var req = serviceLeaveCount({
+          leave_type: form?.type,
+          event_type: form?.event_type,
+        });
+      } else {
+        req = serviceLeaveCount({ leave_type: form?.type });
+      }
+      req.then((res) => {
+        if (!res.error) {
+          setLeaveCount(res?.data?.pending_leave);
+          console.log(">>>>", res?.data?.pending_leave);
+        }
+      });
+      setLeaveCount(leaveCount);
+      MonthConvertor();
+      AnniversaryConvertor();
+    }
+  }, [form?.type, form?.event_type]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -135,7 +171,7 @@ const useLeaveApplication = () => {
     } else {
       delete errors["dayscount"];
     }
-    if (Number(daysCount) > Number(count?.data?.pending_leave)) {
+    if (Number(daysCount) > Number(leaveCount)) {
       errors["duration_days"] = true;
       SnackbarUtils.error(
         "Applied Leave cannot be greater than Pending Leaves"
@@ -143,15 +179,12 @@ const useLeaveApplication = () => {
     } else {
       delete errors["duration_days"];
     }
-    if (
-      Number(count?.data?.pending_leave) <= 0 &&
-      form?.type === "OCCASION_LEAVE"
-    ) {
+    if (Number(leaveCount) <= 0 && form?.type === "OCCASION_LEAVE") {
       errors["duration_days"] = true;
       SnackbarUtils.error("No Leaves Pending ");
     }
     if (
-      Number(count?.data?.pending_leave) < Number(form?.duration_days) &&
+      Number(leaveCount) < Number(form?.duration_days) &&
       form?.type === "OCCASION_LEAVE"
     ) {
       errors["duration_days"] = true;
@@ -376,10 +409,13 @@ const useLeaveApplication = () => {
 
     return thirtyDaysAgoDate;
   }
-  const currentDate = useMemo(() => new Date(), []); 
-  const thirtyDaysAgoDate = useMemo(() => get30DaysAgoDate(currentDate), [currentDate]);
+  const currentDate = useMemo(() => new Date(), []);
+  const thirtyDaysAgoDate = useMemo(
+    () => get30DaysAgoDate(currentDate),
+    [currentDate]
+  );
 
-  console.log(monthhook,"it is here")
+  console.log(monthhook, "it is here");
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -525,39 +561,6 @@ const useLeaveApplication = () => {
     setForm({ ...initialForm });
   }, [form]);
 
-  let eventTypeData = form?.event_type;
-
-  useEffect(() => {
-    if (form?.type === "PATERNITY_LEAVE") {
-      dispatch(
-        actionLeaveCount({
-          leave_type: "PATERNITY_LEAVE",
-          event_type: eventTypeData,
-        })
-      );
-    } else if (form?.type === "OCCASION_LEAVE") {
-      dispatch(
-        actionLeaveCount({
-          leave_type: "OCCASION_LEAVE",
-        })
-      );
-    } else if (form?.type === "BEREAVEMENT_LEAVE") {
-      dispatch(
-        actionLeaveCount({
-          leave_type: "BEREAVEMENT_LEAVE",
-        })
-      );
-    } else if (form?.type === "FACILITATION_LEAVE") {
-      dispatch(
-        actionLeaveCount({
-          leave_type: "FACILITATION_LEAVE",
-        })
-      );
-    }
-    setLeaveCount(count?.data?.pending_leave);
-    MonthConvertor();
-    AnniversaryConvertor();
-  }, [form?.type, form?.event_type]);
 
   return {
     form,
@@ -585,6 +588,7 @@ const useLeaveApplication = () => {
     alphabet,
     thirtyDaysAgoDate,
     monthhook,
+    employeeDetails
   };
 };
 

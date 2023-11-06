@@ -2409,6 +2409,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.PENDING_LEAVE_APPLICATION,
