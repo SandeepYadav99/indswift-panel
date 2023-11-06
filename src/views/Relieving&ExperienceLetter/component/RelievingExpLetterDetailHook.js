@@ -29,6 +29,26 @@ const useRelievingExpLetterDetail = () => {
     );
   }, [id]);
 
+  const checkFormValidation = useCallback(() => {
+    const errors = { ...errorData };
+    let required = [ "general_conduct"];
+    required.forEach((val) => {
+      if (
+        !form?.[val] ||
+        (Array.isArray(form?.[val]) && form?.[val].length === 0)
+      ) {
+        errors[val] = true;
+      }
+    });
+
+    Object.keys(errors).forEach((key) => {
+      if (!errors[key]) {
+        delete errors[key];
+      }
+    });
+    return errors;
+  }, [form, errorData]);
+
   const submitToApprove = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -56,6 +76,16 @@ const useRelievingExpLetterDetail = () => {
       setIsSubmitting(false);
     }
   }, [form, isSubmitting, setIsSubmitting, id]); // EmpID
+
+  const handleSubmitToApprove = useCallback(async () => {
+    const errors = checkFormValidation();
+
+    if (Object.keys(errors).length > 0) {
+      setErrorData(errors);
+    } else {
+      await submitToApprove();
+    }
+  }, [checkFormValidation, setErrorData, form, submitToApprove]);
 
   const changeTextData = useCallback(
     (value, fieldName) => {
@@ -87,7 +117,8 @@ const useRelievingExpLetterDetail = () => {
     relievingExpDetails,
     changeTextData,
     form,
-    submitToApprove,
+    handleSubmitToApprove,
+    errorData
   };
 };
 export default useRelievingExpLetterDetail;

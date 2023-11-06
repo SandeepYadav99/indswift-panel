@@ -9,7 +9,7 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import useRelievingExpLetterDetail from "./RelievingExpLetterDetailHook";
 
 function RelievingExpLetterDetail({ data, isImprest }) {
-  const { form, changeTextData, relievingExpDetails, submitToApprove } =
+  const { form, changeTextData, relievingExpDetails, handleSubmitToApprove , errorData} =
     useRelievingExpLetterDetail();
 
   return (
@@ -87,8 +87,8 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                   )}
                   <CustomSelectField
                     label={"General Conduct"}
-                    // isError={errorData?.is_education_verification_status}
-                    // errorText={errorData?.is_education_verification_status}
+                     isError={errorData?.general_conduct}
+                     errorText={errorData?.general_conduct}
                     value={form?.general_conduct}
                     handleChange={(value) => {
                       changeTextData(value, "general_conduct");
@@ -139,7 +139,7 @@ function RelievingExpLetterDetail({ data, isImprest }) {
       </div>
       <div className={styles.approveContainer}>
         <ButtonBase
-          onClick={() => submitToApprove()}
+          onClick={() => handleSubmitToApprove()}
           className={styles.approvebutton}
         >
           APPROVE & GENERATE
