@@ -248,6 +248,8 @@ const useClaimsList = ({}) => {
           "PHC",
           "LOCAL_TRAVEL",
           "RELOCATION",
+          "TRAVEL",
+          "FOREIGN_TRAVEL"
         ],
       },
     ];
