@@ -82,6 +82,7 @@ const LeaveApplicationForm = () => {
     BdayLeaveNextYear,
     BdayLeaveThisYearAnni,
     BdayLeaveNextYearAnni,
+    thirtyDaysAgoDate
   } = useLeaveApplication({});
 
   return (
@@ -249,7 +250,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={"Leave From"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "start_date");
                   }}
@@ -327,7 +328,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={"Leave From"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "start_date");
                   }}
@@ -421,7 +422,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={"Leave From"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "start_date");
                   }}
