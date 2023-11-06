@@ -7,6 +7,7 @@ import ExitRatingView from "./component/ExitRating/ExitRatingView";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import { removeUnderScore } from "../../../helper/helper";
+import SpecialExitRatingView from "./component/SpecialExitRating/SpecialExitRatingView";
 
 const rankingValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const rankingFive = [1, 2, 3, 4, 5];
@@ -638,7 +639,8 @@ function ExitForm() {
                 title="7.b. Did you feel your boss/Organisation provided you with enough freedom and space to? Allow your creativity to grow?"
               />
               <div className={styles.horizontalLine}></div>
-              <ExitRatingView
+              <SpecialExitRatingView
+              isUpper={true}
                 isError={
                   errorData?.new_job_compare_with_organisation_in_term_job_contents
                 }
@@ -736,7 +738,7 @@ function ExitForm() {
                 9. Give your view of Management towards:
               </span>
             </div>
-            <ExitRatingView
+            <SpecialExitRatingView
               handleChange={(val) => {
                 changeTextData(val, "job_function");
               }}
@@ -746,7 +748,7 @@ function ExitForm() {
               }
               title="a. Job function"
             />
-            <ExitRatingView
+            <SpecialExitRatingView
               handleChange={(val) => {
                 changeTextData(val, "people");
               }}
