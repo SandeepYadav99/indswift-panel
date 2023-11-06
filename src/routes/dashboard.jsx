@@ -2281,7 +2281,7 @@ const dashboardRoutes = [
     navbarName: "Pending Background Verification",
     icon: AssignmentOutlined,
     component: BgvAnalysisReport,
-    is_sidebar: true,
+    is_sidebar: false,
     is_protect: true,
     // slug: 'tp',
     // is_parent: true,
