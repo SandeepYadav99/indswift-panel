@@ -9,9 +9,14 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import useRelievingExpLetterDetail from "./RelievingExpLetterDetailHook";
 
 function RelievingExpLetterDetail({ data, isImprest }) {
-  const { form, changeTextData, relievingExpDetails, handleSubmitToApprove , errorData} =
-    useRelievingExpLetterDetail();
-
+  const {
+    form,
+    changeTextData,
+    relievingExpDetails,
+    handleSubmitToApprove,
+    errorData,
+  } = useRelievingExpLetterDetail();
+console.log(relievingExpDetails)
   return (
     <div>
       <div className={styles.claimListWrapper}>
@@ -73,7 +78,7 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Reason for leaving:</span>
-                    {"RESIGNED/ABSCONDED/EXPIRED/RETIRED/TERMINATED"}
+                    {relievingExpDetails?.employee?.status}
                   </div>
                   {!isImprest && data?.experience?.current && (
                     <div className={styles.key}>
@@ -85,21 +90,33 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                         : `${data.experience.current} yr`}
                     </div>
                   )}
-                  <CustomSelectField
-                    label={"General Conduct"}
-                     isError={errorData?.general_conduct}
-                     errorText={errorData?.general_conduct}
-                    value={form?.general_conduct}
-                    handleChange={(value) => {
-                      changeTextData(value, "general_conduct");
-                    }}
-                  >
-                    <MenuItem value={"ENDORSE"}>Endorse</MenuItem>
-                    <MenuItem value={"POOR"}>Poor</MenuItem>
-                    <MenuItem value={"AVERAGE"}>Average</MenuItem>
-                    <MenuItem value={"GOOD"}>Good</MenuItem>
-                    <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
-                  </CustomSelectField>
+                  {((relievingExpDetails?.experienceLetter?.status ===
+                    "APPROVED" ||
+                    relievingExpDetails?.experienceLetter?.status ===
+                      "PENDING" ||
+                    relievingExpDetails?.experienceLetter?.status ===
+                      "SITE_HR_APPROVED") &&
+                    (relievingExpDetails?.status === "APPROVED" ||
+                      relievingExpDetails?.status === "PENDING")) ||
+                  (relievingExpDetails?.experienceLetter?.status ===
+                    "SITE_HR_APPROVED" &&
+                    relievingExpDetails?.status === "PENDING") ? (
+                    <CustomSelectField
+                      label={"General Conduct"}
+                      isError={errorData?.general_conduct}
+                      errorText={errorData?.general_conduct}
+                      value={form?.general_conduct}
+                      handleChange={(value) => {
+                        changeTextData(value, "general_conduct");
+                      }}
+                    >
+                      <MenuItem value={"ENDORSE"}>Endorse</MenuItem>
+                      <MenuItem value={"POOR"}>Poor</MenuItem>
+                      <MenuItem value={"AVERAGE"}>Average</MenuItem>
+                      <MenuItem value={"GOOD"}>Good</MenuItem>
+                      <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
+                    </CustomSelectField>
+                  ) : null}
                 </div>
               </div>
               <div className={styles.vertical}></div>
@@ -137,13 +154,29 @@ function RelievingExpLetterDetail({ data, isImprest }) {
           </div>
         </div>
       </div>
+
       <div className={styles.approveContainer}>
-        <ButtonBase
-          onClick={() => handleSubmitToApprove()}
-          className={styles.approvebutton}
-        >
-          APPROVE & GENERATE
-        </ButtonBase>
+        {relievingExpDetails?.experienceLetter?.status ===
+          "PENDING" &&
+          relievingExpDetails?.status === "PENDING" && (
+            <ButtonBase
+              onClick={() => handleSubmitToApprove()}
+              className={styles.approvebutton}
+            >
+              SEND FOR APPROVAL
+            </ButtonBase>
+          )}
+
+        {relievingExpDetails?.experienceLetter?.status ===
+          "SITE_HR_APPROVED" &&
+          relievingExpDetails?.status === "PENDING" && (
+            <ButtonBase
+              onClick={() => handleSubmitToApprove()}
+              className={styles.approvebutton}
+            >
+              APPROVE AND GENERATE
+            </ButtonBase>
+          )}
       </div>
     </div>
   );

@@ -2382,7 +2382,7 @@ const dashboardRoutes = [
     navbarName: "Relieving & Experience Letter Approvals",
     icon: PeopleOutlined,
     component: LetterApprovalProces_View,
-    is_sidebar: true,
+    is_sidebar: false,
     is_protect: true,
     // slug: 'tp',
     // is_parent: true,
