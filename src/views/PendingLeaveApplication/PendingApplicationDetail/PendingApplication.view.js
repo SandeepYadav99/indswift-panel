@@ -29,8 +29,6 @@ const ApprovePopUp = ({ handleClose, open, popUpType }) => {
 
   const [checked, setChecked] = useState(false);
 
-
-
   return (
     <div>
       <Modal
@@ -112,6 +110,15 @@ const PendingApplication = () => {
     return setDetailData(response);
   }, [id]);
 
+  const transformData = (data) => {
+    return data === "PATERNITY_LEAVE"
+      ? "PATERNITY LEAVE"
+      : data === "OCCASION_LEAVE"
+      ? "OCCASION LEAVE"
+      : data === "FACILITATION_LEAVE"
+      ? "FACILITATION LEAVE"
+      : "BEREAVEMENT LEAVE";
+  };
 
   return (
     <div className={styles.container}>
@@ -130,13 +137,13 @@ const PendingApplication = () => {
         <span className={styles.headingDetails}>
           <b>Leave Detail</b>
         </span>
-        {detailData?.leave?.type === "PATERNITY LEAVE" ? (
+        {detailData?.leave?.type === "PATERNITY_LEAVE" ? (
           <div className={styles.divider}>
             <div className={styles.columnOne}>
               <div className={styles.marginEqual}>
                 <span className={styles.adjustFont}>Leave Type:</span>
                 <span className={styles.textFont}>
-                  {detailData?.leave?.type}
+                  {transformData(detailData?.leave?.type)}
                 </span>
               </div>
               <div className={styles.marginEqual}>
@@ -156,6 +163,10 @@ const PendingApplication = () => {
                 <span className={styles.textFont}>
                   {detailData?.leave?.leaveCount?.pending_leave}
                 </span>
+              </div>
+              <div className={styles.marginEqual}>
+                <span className={styles.adjustFont}>Comment:</span>
+                <span className={styles.textFont}>{detailData?.comments}</span>
               </div>
             </div>
             <div className={styles.columnOne}>
@@ -203,13 +214,13 @@ const PendingApplication = () => {
               </div>
             </div>
           </div>
-        ) : detailData?.leave?.type === "OCCASION LEAVE" ? (
+        ) : detailData?.leave?.type === "OCCASION_LEAVE" ? (
           <div className={styles.divider}>
             <div className={styles.columnOne}>
               <div className={styles.marginEqual}>
                 <span className={styles.adjustFont}>Leave Type:</span>
                 <span className={styles.textFont}>
-                  {detailData?.leave?.type}
+                {transformData(detailData?.leave?.type)}
                 </span>
               </div>
               <div className={styles.marginEqual}>
@@ -223,6 +234,10 @@ const PendingApplication = () => {
                 <span className={styles.textFont}>
                   {detailData?.leave?.createdAtText}
                 </span>
+              </div>
+              <div className={styles.marginEqual}>
+                <span className={styles.adjustFont}>Comment:</span>
+                <span className={styles.textFont}>{detailData?.comments}</span>
               </div>
               {detailData?.details?.leave?.document ? (
                 <span className={styles.adjustFont}>
@@ -269,14 +284,14 @@ const PendingApplication = () => {
             </div>
           </div>
         ) : (
-          (detailData?.leave?.type === "FACILITATION LEAVE" ||
-            detailData?.leave?.type === "BEREAVEMENT LEAVE") && (
+          (detailData?.leave?.type === "FACILITATION_LEAVE" ||
+            detailData?.leave?.type === "BEREAVEMENT_LEAVE") && (
             <div className={styles.divider}>
               <div className={styles.columnOne}>
                 <div className={styles.marginEqual}>
                   <span className={styles.adjustFont}>Leave Type:</span>
                   <span className={styles.textFont}>
-                    {detailData?.leave?.type}
+                  {transformData(detailData?.leave?.type)}
                   </span>
                 </div>
                 <div className={styles.marginEqual}>
@@ -293,6 +308,12 @@ const PendingApplication = () => {
                   <span className={styles.adjustFont}>Applied On:</span>
                   <span className={styles.textFont}>
                     {detailData?.createdAtText}
+                  </span>
+                </div>
+                <div className={styles.marginEqual}>
+                  <span className={styles.adjustFont}>Comment:</span>
+                  <span className={styles.textFont}>
+                    {detailData?.comments}
                   </span>
                 </div>
                 {detailData?.leave?.document ? (
