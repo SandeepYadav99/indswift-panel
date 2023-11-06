@@ -31,6 +31,8 @@ const ApprovePopUp = ({ handleClose, open,  popUpType }) => {
  
   const [checked, setChecked] = useState(false);
 
+
+
   return (
     <div>
       <Modal
@@ -118,6 +120,8 @@ const PendingApplication = () => {
     return setDetailData(response);
   }, [id]);
 
+    console.log(detailData?.leave?.type,"DetailData is here");
+
   return (
     <div className={styles.container}>
       <div>
@@ -135,7 +139,7 @@ const PendingApplication = () => {
         <span className={styles.headingDetails}>
           <b>Leave Detail</b>
         </span>
-        {detailData?.leave?.type === "PATERNITY_LEAVE" ? (
+        {detailData?.leave?.type === "PATERNITY LEAVE" ? (
           <div className={styles.divider}>
             <div className={styles.columnOne}>
               <div className={styles.marginEqual}>
@@ -208,7 +212,7 @@ const PendingApplication = () => {
               </div>
             </div>
           </div>
-        ) : detailData?.leave?.type === "OCCASION_LEAVE" ? (
+        ) : detailData?.leave?.type === "OCCASION LEAVE" ? (
           <div className={styles.divider}>
             <div className={styles.columnOne}>
               <div className={styles.marginEqual}>
@@ -274,8 +278,8 @@ const PendingApplication = () => {
             </div>
           </div>
         ) : (
-          (detailData?.leave?.type === "FACILITATION_LEAVE" ||
-            detailData?.leave?.type === "BEREAVEMENT_LEAVE") && (
+          (detailData?.leave?.type === "FACILITATION LEAVE" ||
+            detailData?.leave?.type === "BEREAVEMENT LEAVE") && (
             <div className={styles.divider}>
               <div className={styles.columnOne}>
                 <div className={styles.marginEqual}>
