@@ -178,7 +178,7 @@ const RelievingExpLetter_View = ({ location }) => {
               all?.employee?.status === "ABSCONDED ") &&
               all?.exitInterview?.status === "COMPLETED") ||
               all?.exitInterview?.status === "SUBMITTED" ||
-              all?.exitInterview?.status === "PENDING") &&
+              all?.exitInterview?.status === "N/A") &&
             all?.status !== "PENDING" ? (
               <IconButton
                 className={"tableActionBtn"}
