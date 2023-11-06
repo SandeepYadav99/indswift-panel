@@ -32,11 +32,9 @@ const initialForm = {
   //
 };
 
-const useCandidateUpdate_Hook = ({}) => {
+const useCandidateUpdate_Hook = () => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState(null);
-  const [isInterviewStatus, setIsInterviewStatus] = useState(-1);
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,9 +43,7 @@ const useCandidateUpdate_Hook = ({}) => {
     setIsLoading(true);
     serviceEmployeeBGVDetail({ id: id }).then((res) => {
       if (!res.error) {
-   
         const data = res?.data;
-  
         setForm({
           ...form,
           is_education_verification: data?.is_education_verification,
@@ -68,7 +64,7 @@ const useCandidateUpdate_Hook = ({}) => {
           is_secound_employment_verification_status: data?.is_secound_employment_verification_status,
           is_criminal_verification_status: data?.is_criminal_verification_status,
           bgv_result: data?.bgv_result,
-          is_criminal_verification_status:data?.is_criminal_verification_status,
+        
           payment_status:data?.payment_status,
           emp_code:data?.employeeObj?.emp_code,
           choose_action:data?.choose_action
@@ -204,9 +200,7 @@ const useCandidateUpdate_Hook = ({}) => {
 
   return {
     isLoading,
-    data,
     id,
-    isInterviewStatus,
     handleViewEditDetails,
     changeTextData,
     form,

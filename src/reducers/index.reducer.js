@@ -85,6 +85,7 @@ import PendingBGVReducer from "./PendingBGV.reducer";
 import ExitInterviewReducer from "./ExitInterview.reducer";
 import C3MLetterReducer from "./C3MLetter.reducer";
 import AppointmentLetterReducer from "./AppointmentLetter.reducer";
+import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -167,7 +168,8 @@ const rootReducer = combineReducers({
   LeaveModule:LeaveReducer,
   exit_interview:ExitInterviewReducer,
   C3MLetter:C3MLetterReducer,
-  AppointmentLetter:AppointmentLetterReducer
+  AppointmentLetter:AppointmentLetterReducer,
+  RelievingExpLetter:RelievingExpLetterReducer
   // form: formReducer,
 });
 

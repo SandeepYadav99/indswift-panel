@@ -18,7 +18,7 @@ const BGVDetailView = ({}) => {
     serviceEmployeeBGVDetail({ id: id }).then((res) => {
       if (!res.error) {
         const data = res?.data;
-        console.log(data);
+       
         setDetails({
           ...details,
           is_education_verification_status:

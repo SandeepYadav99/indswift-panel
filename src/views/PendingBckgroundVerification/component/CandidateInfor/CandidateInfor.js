@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux';
 import { actionGetEmployeeDetails } from "../../../../actions/Employee.action";
 const CandidateInfor = ({empId}) => {
-console.log(empId)
+
 const dispatch = useDispatch();
   useEffect(() => {
     if (empId) {

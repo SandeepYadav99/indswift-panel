@@ -1,6 +1,5 @@
 import React from "react";
 import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
-
 import useCandidateUpdate_Hook from "./BGVStatusUpdate_Hook";
 import { ButtonBase, MenuItem } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -11,12 +10,7 @@ import CustomTextField from "../../../components/FormFields/TextField/TextField.
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 const BGVStatus_Update = () => {
   const {
-    data,
-    isLoading,
-    id,
-    isInterviewStatus,
-    handleChangeInterviewStatus,
-    handleViewEditDetails,
+   
     form,
     changeTextData,
     errorData,
@@ -118,7 +112,7 @@ const BGVStatus_Update = () => {
                   label={"Choose Status"}
                   value={form?.is_education_verification_status}
                   handleChange={(value) => {
-                    console.log("Selected value:", value);
+                   
                     changeTextData(value, "is_education_verification_status");
                   }}
                 >

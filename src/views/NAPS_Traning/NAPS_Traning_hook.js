@@ -99,7 +99,6 @@ const useNapsTraning_Hook = () => {
     if (pdfUrl) {
       window.open(pdfUrl?.naps?.letter_pdf, "_blank");
       // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
-    } else {
     }
   }, []);
 
