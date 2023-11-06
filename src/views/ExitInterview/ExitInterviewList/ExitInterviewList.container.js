@@ -118,7 +118,7 @@ const ExitInterviewList = ({}) => {
       },
       {
         key: "status",
-        label: "EMPLOYEE STATUS",
+        label: "STATUS",
         sortable: true,
         render: (temp, all) => <div>{renderStatus(all.employee?.status)}</div>,
       },

@@ -15,8 +15,8 @@ const useExitInterviewList = ({}) => {
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     LOCATIONS: [],
-    HR: [],
-    JOB_OPENINGS: [],
+    GRADES: [],
+    DEPARTMENTS: [],
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -37,7 +37,7 @@ const useExitInterviewList = ({}) => {
   }, []);
 
   useEffect(() => {
-    serviceGetList(["LOCATIONS", "HR", "JOB_OPENINGS"]).then((res) => {
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -106,20 +106,55 @@ const useExitInterviewList = ({}) => {
     historyUtils.push(`${RouteName.EXIT_DETAIL}${data?.id}`); //+data.id
   }, []);
 
+  // const configFilter = useMemo(() => {
+  //   return [
+  //     {
+  //       label: "Status",
+  //       name: "claimObj.status",
+  //       type: "select",
+  //       fields: [
+  //         "REJECTED",
+  //         "PENDING",
+  //         "APPROVED",
+  //         "PROCESSED",
+  //         "RECRUITER_APPROVED",
+  //         "CORPORATE_AUDIT_2_APPROVED",
+  //       ],
+  //     },
+  //   ];
+  // }, [listData]);
   const configFilter = useMemo(() => {
     return [
+      // {label: 'Country', name: 'country', type: 'text'},
+      // {label: 'City', name: 'city', type: 'text'},
+
+      {
+        label: "Location",
+        name: "location_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.LOCATIONS,
+      },
+
+      {
+        label: "Grade",
+        name: "grade_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "label" } },
+        fields: listData?.GRADES,
+      },
+      {
+        label: "Department",
+        name: "department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
+      },
       {
         label: "Status",
-        name: "claimObj.status",
+        name: "status",
         type: "select",
-        fields: [
-          "REJECTED",
-          "PENDING",
-          "APPROVED",
-          "PROCESSED",
-          "RECRUITER_APPROVED",
-          "CORPORATE_AUDIT_2_APPROVED",
-        ],
+        fields: ["PENDING", "SUBMITTED"],
       },
     ];
   }, [listData]);

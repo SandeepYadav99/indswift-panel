@@ -23,12 +23,10 @@ const style = {
   p: 4,
 };
 
-const ApprovePopUp = ({ handleClose, open,  popUpType }) => {
-  const { handleSubmit, rejectApplication,handleOnChange,comment } = usePendingApplication(
-    {}
-  );
+const ApprovePopUp = ({ handleClose, open, popUpType }) => {
+  const { handleSubmit, rejectApplication, handleOnChange, comment } =
+    usePendingApplication({});
 
- 
   const [checked, setChecked] = useState(false);
 
   return (
@@ -83,7 +81,7 @@ const ApprovePopUp = ({ handleClose, open,  popUpType }) => {
           </div>
           <div className={styles.alignButtonEnd}>
             <ButtonBase
-              className={"createBtn"}
+              className={checked ? styles?.submitBtn : styles?.submitBtnFade}
               onClick={
                 popUpType === "Approve" ? handleSubmit : rejectApplication
               }
@@ -102,14 +100,8 @@ const PendingApplication = () => {
   const [detailData, setDetailData] = useState();
   const [popType, setPopType] = useState("");
 
-  const {
-    handleReject,
-    open,
-    handleOpen,
-    comment,
-    handleClose,
-    id,
-  } = usePendingApplication({});
+  const { handleReject, open, handleOpen, comment, handleClose, id } =
+    usePendingApplication({});
 
   useEffect(() => {
     const response = servicesLeaveDetailApprove({ id }).then((res) =>
@@ -300,7 +292,7 @@ const PendingApplication = () => {
                     {detailData?.createdAtText}
                   </span>
                 </div>
-                {detailData?.details?.leave?.document ? (
+                {detailData?.leave?.document ? (
                   <span className={styles.adjustFont}>
                     <a href={detailData?.leave?.document} target="_blank">
                       View Attachment
@@ -329,6 +321,16 @@ const PendingApplication = () => {
                     {detailData?.leave?.leaveCount?.pending_leave}
                   </span>
                 </div>
+                {detailData?.leave?.type === "BEREAVEMENT_LEAVE" && (
+                  <div className={styles.marginEqual}>
+                    <span className={styles.adjustFont}>
+                      Deceased Relationship:
+                    </span>
+                    <span className={styles.textFont}>
+                      {detailData?.leave?.deceased_relationship}
+                    </span>
+                  </div>
+                )}
               </div>
               <div
                 style={{

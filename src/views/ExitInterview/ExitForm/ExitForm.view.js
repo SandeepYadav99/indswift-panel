@@ -707,7 +707,7 @@ function ExitForm() {
                   >
                     <MenuItem value="NEAR">NEAR</MenuItem>
                     <MenuItem value="FAR">FAR</MenuItem>
-                    <MenuItem value="VERY_FAR">VERY_FAR</MenuItem>
+                    <MenuItem value="VERY_FAR">VERY FAR</MenuItem>
                   </CustomSelectField>
                 </div>
                 <div className={styles.commentWrap} style={{ flex: "1" }}>
@@ -834,7 +834,7 @@ function ExitForm() {
                 onClick={handleSubmit}
                 className={styles.createBtn}
               >
-                NEXT
+                Submit
               </ButtonBase>
             </div>
           </div>

@@ -37,6 +37,7 @@ const PendingLeaveApplication = () => {
     isTraineeDialog,
     toggleTraineeDialog,
     listData,
+    ConvertHandleLeaveType,
   } = usePendingLeaveApplication({});
 
   let LeaveParameters = {
@@ -60,7 +61,10 @@ const PendingLeaveApplication = () => {
     is_fetching: isFetching,
   } = useSelector((state) => state.LeaveModule);
 
-
+  useEffect(()=>{
+     if(!list?.data){
+     }
+  },[list?.data])
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -93,7 +97,7 @@ const PendingLeaveApplication = () => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.grade?.code}/{all?.leave?.employee?.cadre?.name}
+            {all?.leave?.employee?.grade?.code}/{all?.leave?.employee?.cadre?.name}
           </div>
         ),
       },
@@ -140,16 +144,16 @@ const PendingLeaveApplication = () => {
         key: "leave_type",
         label: "LEAVE TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.leave?.type}</div>,
+        render: (temp, all) => <div>{ConvertHandleLeaveType(all?.leave?.type)}</div>,
       },
       {
         key: "overrall_status",
         label: "CURRENT STATUS/ OVERALL STATUS",
         sortable: false,
         render: (temp, all) => (
-          <div>
-            {<StatusPill status={all?.leave?.status} />}/
-            {<StatusPill status={all?.status} />}
+          <div className={styles.statusMarking}>
+            <span>{<StatusPill status={all?.status} />}</span>
+            <span>{<StatusPill status={all?.leave?.status} />}</span>
           </div>
         ),
       },
@@ -226,17 +230,6 @@ const PendingLeaveApplication = () => {
             <div className={styles.newLine} />
           </div>
         </div>
-        <OnBoardDialog
-          listData={listData}
-          // candidateId={id}
-          isOpen={isExtendDialog}
-          handleToggle={toggleExtendDialog}
-        />
-        <TraineeDialog
-          listData={listData}
-          isOpen={isTraineeDialog}
-          handleToggle={toggleTraineeDialog}
-        />
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -255,12 +248,6 @@ const PendingLeaveApplication = () => {
           </div>
         </div>
       </PageBox>
-      <SidePanelComponent
-        handleToggle={handleSideToggle}
-        title={"New Candidate"}
-        open={isSidePanel}
-        side={"right"}
-      ></SidePanelComponent>
     </div>
   );
 };
