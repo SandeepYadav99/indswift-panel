@@ -127,3 +127,26 @@
   align-items: center;
   gap: 20px;
 }
+.discriptionWrap{
+  display: flex;
+  align-items: center;
+  gap:20px
+}
+.checkboxWrapper{
+  display: flex;
+  align-items: center;
+  gap:10px;
+  margin-top: 30px;
+}
+.lowerdec{
+  font-size: .75rem;
+}
+.disabledBtn{
+  background-color: #cacaca !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}

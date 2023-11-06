@@ -6,7 +6,7 @@ import { actionLeaveCount } from "../../../actions/LeaveModule.action";
 import { useDispatch, useSelector } from "react-redux";
 import useClaimIntCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
 import historyUtils from "../../../libs/history.utils";
-import WaitingComponent from '../../../components/Waiting.component';
+import { useMemo } from "react";
 
 const initialForm = {
   type: "",
@@ -77,7 +77,6 @@ const useLeaveApplication = () => {
   const { employeeDetails } = useClaimIntCard({});
 
   const { count } = useSelector((state) => state.LeaveModule);
-
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -156,7 +155,9 @@ const useLeaveApplication = () => {
       form?.type === "OCCASION_LEAVE"
     ) {
       errors["duration_days"] = true;
-      SnackbarUtils.error("Applied Leave cannot be greater than Pending Leaves");
+      SnackbarUtils.error(
+        "Applied Leave cannot be greater than Pending Leaves"
+      );
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -368,10 +369,18 @@ const useLeaveApplication = () => {
     }
   }, [form?.start_date, form?.end_date]);
 
+  function get30DaysAgoDate() {
+    const currentDate = new Date();
+    const thirtyDaysAgoDate = new Date(currentDate);
+    thirtyDaysAgoDate.setDate(currentDate.getDate() - 30);
+
+    return thirtyDaysAgoDate;
+  }
+  const currentDate = useMemo(() => new Date(), []); // Memoize the current date
+  const thirtyDaysAgoDate = useMemo(() => get30DaysAgoDate(currentDate), [currentDate]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
-      <WaitingComponent/>
       setIsSubmitting(true);
       let req = serviceLeaveCreate;
       const fd = new FormData();
@@ -389,7 +398,7 @@ const useLeaveApplication = () => {
       if (form?.type !== "OCCASION_LEAVE") {
         fd.append("duration", "FULL_DAY");
         fd.append("duration_days", daysCount);
-      } 
+      }
       if (form?.type === "OCCASION_LEAVE") {
         if (form?.event_type === "BIRTHDAY") {
           if (Number(alphabet) < Number(CurrentMonth)) {
@@ -572,6 +581,7 @@ const useLeaveApplication = () => {
     BdayLeaveThisYearAnni,
     CurrentMonth,
     alphabet,
+    thirtyDaysAgoDate
   };
 };
 

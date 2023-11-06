@@ -9,6 +9,8 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
+import { serviceResendExitForm } from "../../../services/ExitInterview.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const useExitInterviewList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -79,6 +81,18 @@ const useExitInterviewList = ({}) => {
     [queryFilter]
   );
 
+  const handleResend = useCallback((data) => {
+    LogUtils.log("resend", data);
+    serviceResendExitForm({
+      id: data?.id,
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils?.success("Resend Successfully")
+        window.location.reload();
+      }
+    });
+  }, []);
+
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
@@ -106,23 +120,6 @@ const useExitInterviewList = ({}) => {
     historyUtils.push(`${RouteName.EXIT_DETAIL}${data?.id}`); //+data.id
   }, []);
 
-  // const configFilter = useMemo(() => {
-  //   return [
-  //     {
-  //       label: "Status",
-  //       name: "claimObj.status",
-  //       type: "select",
-  //       fields: [
-  //         "REJECTED",
-  //         "PENDING",
-  //         "APPROVED",
-  //         "PROCESSED",
-  //         "RECRUITER_APPROVED",
-  //         "CORPORATE_AUDIT_2_APPROVED",
-  //       ],
-  //     },
-  //   ];
-  // }, [listData]);
   const configFilter = useMemo(() => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
@@ -168,6 +165,7 @@ const useExitInterviewList = ({}) => {
     isCalling,
     editData,
     configFilter,
+    handleResend,
   };
 };
 

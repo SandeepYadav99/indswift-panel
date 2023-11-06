@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import InfoCard from "./component/InfoCard/InfoCard";
 import UseExitForm from "./ExitForm.hook";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, Checkbox, MenuItem } from "@material-ui/core";
 import ExitRatingView from "./component/ExitRating/ExitRatingView";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
@@ -24,7 +24,8 @@ function ExitForm() {
     isSubmitted,
     declaration,
     setDeclaration,
-    employeeDetail
+    employeeDetail,
+    salary,
   } = UseExitForm({});
 
   return (
@@ -42,7 +43,7 @@ function ExitForm() {
         </div>
         <div className={styles.evaluationContainer}>
           <div className={styles.candidateInfoContainer2}>
-            <InfoCard data={employeeDetail?.employee} />
+            <InfoCard data={employeeDetail?.employee} salary={salary} />
           </div>
           <div className={styles.candidateInfoContainer2}>
             <div className={styles.rankingWrapper}>
@@ -827,12 +828,34 @@ function ExitForm() {
             </div>
           </div>
           <div className={styles.btnContainer}>
+            <div className={styles.delcarationWrapper}>
+              <div className={styles.heading}>Declaration</div>
+              <div className={styles.discriptionWrap}>
+                <div className={styles.checkboxWrapper}>
+                  <Checkbox
+                    style={{ padding: 0, marginRight: "10px" }}
+                    name={"declaration"}
+                    checked={declaration}
+                    onChange={() => setDeclaration((e) => !e)}
+                  />
+                  <div className={styles.lowerdec}>
+                    <span>
+                      I solemnly declare that all the particulars furnished in
+                      this form are true and correct to the best of my knowledge
+                      and belief.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.btnContainer}>
             <div className={styles.btnCont1}>
               <ButtonBase
-                disabled={isSubmitting}
+                disabled={!declaration ? true : false}
                 type={"button"}
                 onClick={handleSubmit}
-                className={styles.createBtn}
+                className={ !declaration || isSubmitting ? styles.disabledBtn :styles.createBtn}
               >
                 Submit
               </ButtonBase>
