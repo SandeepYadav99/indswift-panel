@@ -112,7 +112,6 @@ const PendingApplication = () => {
     return setDetailData(response);
   }, [id]);
 
-    console.log(detailData?.leave?.type,"DetailData is here");
 
   return (
     <div className={styles.container}>
