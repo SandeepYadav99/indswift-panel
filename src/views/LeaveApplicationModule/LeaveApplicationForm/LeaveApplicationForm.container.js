@@ -62,27 +62,18 @@ const LeaveApplicationForm = () => {
     form,
     changeTextData,
     onBlurHandler,
-    removeError,
     handleSubmit,
-    isLoading,
     isSubmitting,
     errorData,
-    isEdit,
-    handleDelete,
-    includeRef,
-    handleReset,
-    id,
-    leaveType,
-    setLeaveType,
     daysCount,
-    leaveCount,
     CurrentMonth,
     alphabet,
     BdayLeaveThisYear,
     BdayLeaveNextYear,
     BdayLeaveThisYearAnni,
     BdayLeaveNextYearAnni,
-    thirtyDaysAgoDate
+    thirtyDaysAgoDate,
+    monthhook,
   } = useLeaveApplication({});
 
   return (
@@ -176,7 +167,7 @@ const LeaveApplicationForm = () => {
                       <p className={styles.birthdayPara}>
                         <b>Anniversary</b>:
                       </p>{" "}
-                      {Number(alphabet) < Number(CurrentMonth)
+                      {Number(monthhook) < Number(CurrentMonth)
                         ? BdayLeaveNextYearAnni
                         : BdayLeaveThisYearAnni}
                     </>
@@ -205,7 +196,6 @@ const LeaveApplicationForm = () => {
                 name="document"
                 label="Document"
                 accept={"application/pdf,application/msword,image/*"}
-                // link={data?.slip ? data?.slip : null}
                 error={errorData?.document}
                 value={form?.document}
                 placeholder={"Add Attachment (optional)"}
@@ -260,7 +250,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={" Leave To"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "end_date");
                   }}
@@ -338,7 +328,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={" Leave To"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "end_date");
                   }}
@@ -432,7 +422,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={" Leave To"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "end_date");
                   }}
