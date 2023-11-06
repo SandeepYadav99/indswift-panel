@@ -25,6 +25,7 @@ const RelievingExpLetter_View = ({ location }) => {
     isCalling,
     configFilter,
     handleRelievingExpLetter,
+    handleSendDetails
   } = useRelievingExpLetter_hook({ location });
 
   const {
@@ -46,6 +47,7 @@ const RelievingExpLetter_View = ({ location }) => {
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>
               <b>{obj?.name}</b>
+              
             </span>{" "}
             <br />
             <span>{obj?.emp_code}</span>
@@ -56,6 +58,24 @@ const RelievingExpLetter_View = ({ location }) => {
     return null;
   }, []);
 
+  const rendercUrrentStatus = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          <div className={classNames(styles.firstCellInfo, "openSans")}>
+            <span className={styles.productName}>
+          
+              <StatusPill status={`${obj?.experienceLetter?.status}/${obj?.status}`} />
+            </span>{" "}
+            
+            
+            <span></span>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
   const tableStructure = useMemo(() => {
     return [
       {
@@ -92,8 +112,8 @@ const RelievingExpLetter_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.employee?.department?.code || "N/A"}/
-            {all?.employee?.sub_department?.code || "N/A"}
+            {all?.employee?.department?.name || "N/A"}/
+            {all?.employee?.sub_department?.name || "N/A"}
           </div>
         ),
       },
@@ -125,9 +145,9 @@ const RelievingExpLetter_View = ({ location }) => {
       },
       {
         key: "letter_status",
-        label: "LETTER STATUS",
+        label: "CURRENT STATUS/LETTER STATUS",
         sortable: false,
-        render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
+        render: (temp, all) => <div>{rendercUrrentStatus(all)}</div>,
       },
       {
         key: "user_id",
@@ -163,10 +183,9 @@ const RelievingExpLetter_View = ({ location }) => {
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  // handleViewDetails(all);
+                  //  handleSendDetails(all);
                 }}
               >
-                
                 <Send fontSize={"small"} />
               </IconButton>
             ) : null}

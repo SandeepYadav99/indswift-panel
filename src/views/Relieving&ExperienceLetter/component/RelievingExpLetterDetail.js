@@ -16,7 +16,7 @@ function RelievingExpLetterDetail({ data, isImprest }) {
     handleSubmitToApprove,
     errorData,
   } = useRelievingExpLetterDetail();
-
+console.log(relievingExpDetails)
   return (
     <div>
       <div className={styles.claimListWrapper}>
@@ -139,9 +139,8 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Worked on NAPS</span>
-                  {relievingExpDetails?.employee?.naps?.employee?.naps?.doe
-                    ? "Yes"
-                    : "N/A"}
+                  {relievingExpDetails?.employee.trainee_id ? 'Yes' : 'N/A'
+                }
                 </div>
               </div>
             </div>
