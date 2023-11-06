@@ -26,6 +26,7 @@ import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLea
 import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
 import RelievingExpLetterDetail from "../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail";
+const BgvAnalysisReport =lazy(()=>import("../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"));
 const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 
 
@@ -2267,6 +2268,19 @@ const dashboardRoutes = [
     navbarName: "Pending Background Verification",
     icon: AssignmentOutlined,
     component: PendingBGVerification_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.BGV_ANALYSI_REPOST}:id`,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: AssignmentOutlined,
+    component: BgvAnalysisReport,
     is_sidebar: true,
     is_protect: true,
     // slug: 'tp',

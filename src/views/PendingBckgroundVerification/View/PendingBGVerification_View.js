@@ -31,6 +31,7 @@ const PendingBGVerification_View = ({ location }) => {
     configFilter,
     handleBGVUpdateDetails,
     handleBGVDetails,
+    handleBgvAnalysiReport
   } = usePendingBGVerification_Hook({ location });
 
   const {
@@ -220,7 +221,7 @@ const PendingBGVerification_View = ({ location }) => {
             <ButtonBase
               className={styles.edit}
               onClick={() => {
-                // handleViewGraph();
+              handleBgvAnalysiReport();
               }}
             >
               BGV ANALYSIS REPORT

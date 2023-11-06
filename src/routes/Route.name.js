@@ -209,10 +209,13 @@ export default {
   RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
   RELIEVING_EXPERIENCE_LETTER_DETAIL:"/relieving-exp-letter/detail/",
   PENDING_BACKGROUND_VERIFICATION:"/pending-verification",
+  BGV_ANALYSI_REPOST:"/pending-verification/detail/",
+  
   PENDING_VERIFICATION_CREATE:"/verification/create/",
   PENDING_VERIFICATION_DETAIL:"/verification/detail",
   PENDING_VERIFICATION_UPDATE:"/verification/update/",
   PENDING_VERIFICATION_DETAIL:"/verification/detail/",
+
 
   LEAVE_APPLICATION_LIST_VIEW:'/leave-application/list',
   LEAVE_APPLICATION_FORM:"/leave-application/form",
