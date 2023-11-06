@@ -26,12 +26,24 @@ import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLea
 import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
 import RelievingExpLetterDetail from "../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail";
-const BgvAnalysisReport =lazy(()=>import("../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"));
-const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
+import EmployeeRecordApprovals from "../views/EmployeeRecordApprovals/EmployeeRecordApprovals";
+const BgvAnalysisReport = lazy(() =>
+  import(
+    "../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"
+  )
+);
+const SuccessionPlannerList = lazy(() =>
+  import("../views/SuccessionPlaner/SuccessionPlanner_list")
+);
 
-
-const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
-const SuccessionApproval_List = lazy(() =>import("../views/SuccessionApproval/SuccessionApproval_List"));
+const EmployeeInformation = lazy(() =>
+  import(
+    "../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"
+  )
+);
+const SuccessionApproval_List = lazy(() =>
+  import("../views/SuccessionApproval/SuccessionApproval_List")
+);
 
 const LeaveApplicationForm = lazy(() =>
   import(
@@ -1155,6 +1167,19 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     parent: "approval",
+    roles: Constants.is_development
+      ? [Roles.ADMIN, Roles.CORPORATE_HR]
+      : [Roles.CORPORATE_HR],
+  },
+  {
+    path: `${RouteName.EMPLOYEE_RECORD_APPROVALs}`,
+    sidebarName: "Employee Record ",
+    navbarName: "Employee Record",
+    icon: LocalOffer,
+    component: EmployeeRecordApprovals,
+    is_sidebar: true,
+    is_protect: true,
+    // parent: "approval",
     roles: Constants.is_development
       ? [Roles.ADMIN, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
@@ -2335,7 +2360,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "skynetLetter",
     is_parent: true,
-     roles: [Roles.CORPORATE_HR, Roles.ADMIN],
+    roles: [Roles.CORPORATE_HR, Roles.ADMIN],
   },
   {
     path: RouteName.NAPS_TRANING,
@@ -2413,7 +2438,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    //  roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL}:id`,
@@ -2426,7 +2451,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    //  roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
   {

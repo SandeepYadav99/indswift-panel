@@ -22,7 +22,7 @@ const BgvAnalysisReport = () => {
             </div>
             <div className={styles.container}>
             <div>
-              <div>
+              <div className={styles.customSelectContainer}>
                 <CustomSelectField
                   label={"Complete in "}
                   className={styles.dateContainer}

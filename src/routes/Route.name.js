@@ -74,7 +74,7 @@ export default {
   EMPLOYEE_CREATE: "/employees/create",
   EMPLOYEE_DETAIL: "/employees/details/",
   EMPLOYEE_VERSIONS: "/employee/versions",
-
+  EMPLOYEE_RECORD_APPROVALs:"/employee-record/approvals",
   NEW_EMPLOYEES:"/new/employee",
   NEW_EMPLOYEE_DETAIL: "/new/employee/details/",
 

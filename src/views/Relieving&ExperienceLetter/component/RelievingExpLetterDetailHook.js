@@ -20,18 +20,25 @@ const useRelievingExpLetterDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    serviceRelievingExpLetterDetail({ id: id }).then(
-      (res) => {
-        if (!res?.error) {
-          setRelievingExpDetails(res?.data?.details);
-        }
+    serviceRelievingExpLetterDetail({ id: id }).then((res) => {
+      if (!res?.error) {
+        setRelievingExpDetails(res?.data?.details);
       }
-    );
+    });
   }, [id]);
+
+  const isSiteHRApprovedPending =
+  relievingExpDetails?.experienceLetter?.status === "SITE_HR_APPROVED" &&
+  relievingExpDetails?.status === "PENDING";
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [ "general_conduct"];
+    let required = [];
+
+    if (isSiteHRApprovedPending) {
+      required.push("general_conduct");
+    }
+ 
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -46,8 +53,9 @@ const useRelievingExpLetterDetail = () => {
         delete errors[key];
       }
     });
+
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData, relievingExpDetails]);
 
   const submitToApprove = useCallback(async () => {
     if (isSubmitting) {
@@ -57,7 +65,7 @@ const useRelievingExpLetterDetail = () => {
 
     const updatedData = {
       review_id: id,
-      // reason: "Terminated",
+      //  reason: "Terminated",
       general_conduct: form?.general_conduct,
     };
 
@@ -67,7 +75,6 @@ const useRelievingExpLetterDetail = () => {
 
       if (!res.error) {
         historyUtils.goBack();
-     
       } else {
         SnackbarUtils.error(res.message);
       }
@@ -85,7 +92,13 @@ const useRelievingExpLetterDetail = () => {
     } else {
       await submitToApprove();
     }
-  }, [checkFormValidation, setErrorData, form, submitToApprove]);
+  }, [
+    checkFormValidation,
+    setErrorData,
+    form,
+    submitToApprove,
+    relievingExpDetails,
+  ]);
 
   const changeTextData = useCallback(
     (value, fieldName) => {
@@ -101,7 +114,7 @@ const useRelievingExpLetterDetail = () => {
         removeError(fieldName);
       }
     },
-    [setForm, removeError, form]
+    [setForm, removeError, form, relievingExpDetails]
   );
 
   const removeError = useCallback(
@@ -118,7 +131,7 @@ const useRelievingExpLetterDetail = () => {
     changeTextData,
     form,
     handleSubmitToApprove,
-    errorData
+    errorData,
   };
 };
 export default useRelievingExpLetterDetail;
