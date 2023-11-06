@@ -17,7 +17,10 @@ import { IconButton } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { actionLeaveList, actionLeavesListData } from "../../actions/LeaveModule.action";
+import {
+  actionLeaveList,
+  actionLeavesListData,
+} from "../../actions/LeaveModule.action";
 
 const PendingLeaveApplication = () => {
   const dispatch = useDispatch();
@@ -60,10 +63,20 @@ const PendingLeaveApplication = () => {
     is_fetching: isFetching,
   } = useSelector((state) => state.LeaveModule);
 
-  useEffect(()=>{
-     if(!list?.data){
-     }
-  },[list?.data])
+  useEffect(() => {
+    if (!list?.data) {
+    }
+  }, [list?.data]);
+
+  const transformData = (data) => {
+    return data === "PATERNITY_LEAVE"
+      ? "PATERNITY LEAVE"
+      : data === "OCCASION_LEAVE"
+      ? "OCCASION LEAVE"
+      : data === "FACILITATION_LEAVE"
+      ? "FACILITATION LEAVE"
+      : "BEREAVEMENT LEAVE";
+  };
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -82,6 +95,8 @@ const PendingLeaveApplication = () => {
     return null;
   }, []);
 
+
+
   const tableStructure = useMemo(() => {
     return [
       {
@@ -96,7 +111,8 @@ const PendingLeaveApplication = () => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.leave?.employee?.grade?.code}/{all?.leave?.employee?.cadre?.name}
+            {all?.leave?.employee?.grade?.code}/
+            {all?.leave?.employee?.cadre?.name}
           </div>
         ),
       },
@@ -143,7 +159,7 @@ const PendingLeaveApplication = () => {
         key: "leave_type",
         label: "LEAVE TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.leave?.type}</div>,
+        render: (temp, all) => <div>{transformData(all?.leave?.type)}</div>,
       },
       {
         key: "overrall_status",
@@ -162,8 +178,7 @@ const PendingLeaveApplication = () => {
         sortable: false,
         render: (temp, all) => (
           <div>
-          {all?.leave?.startDateText !==
-            all?.leave?.endDateText
+            {all?.leave?.startDateText !== all?.leave?.endDateText
               ? `${all?.leave?.startDateText}-
           ${all?.leave?.endDateText}`
               : `${all?.leave?.startDateText}`}
@@ -193,7 +208,7 @@ const PendingLeaveApplication = () => {
         ),
       },
     ];
-  }, [renderFirstCell, handleViewDetails, handleEdit, isCalling, list?.data,]);
+  }, [renderFirstCell, handleViewDetails, handleEdit, isCalling, list?.data]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

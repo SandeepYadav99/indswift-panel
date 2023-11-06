@@ -376,8 +376,10 @@ const useLeaveApplication = () => {
 
     return thirtyDaysAgoDate;
   }
-  const currentDate = useMemo(() => new Date(), []); // Memoize the current date
+  const currentDate = useMemo(() => new Date(), []); 
   const thirtyDaysAgoDate = useMemo(() => get30DaysAgoDate(currentDate), [currentDate]);
+
+  console.log(monthhook,"it is here")
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -407,7 +409,7 @@ const useLeaveApplication = () => {
             fd.append("start_date", formatDate(bdayYear));
           }
         } else {
-          if (Number(alphabet) < Number(CurrentMonth)) {
+          if (Number(monthhook) < Number(CurrentMonth)) {
             fd.append("start_date", formatDate(anniNext));
           } else {
             fd.append("start_date", formatDate(anniYear));
