@@ -9,6 +9,8 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
+import { serviceResendExitForm } from "../../../services/ExitInterview.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const useExitInterviewList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -78,6 +80,18 @@ const useExitInterviewList = ({}) => {
     },
     [queryFilter]
   );
+
+  const handleResend = useCallback((data) => {
+    LogUtils.log("resend", data);
+    serviceResendExitForm({
+      id: data?.id,
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils?.success("Resend Successfully")
+        window.location.reload();
+      }
+    });
+  }, []);
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
@@ -151,6 +165,7 @@ const useExitInterviewList = ({}) => {
     isCalling,
     editData,
     configFilter,
+    handleResend,
   };
 };
 

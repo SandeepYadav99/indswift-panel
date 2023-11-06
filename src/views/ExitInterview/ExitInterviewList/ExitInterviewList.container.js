@@ -2,7 +2,7 @@ import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import { InfoOutlined } from "@material-ui/icons";
+import { InfoOutlined, Telegram } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
@@ -10,6 +10,7 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import useExitInterviewList from "./ExitInterviewListHook";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import SendIcon from "@material-ui/icons/Send";
 
 const ExitInterviewList = ({}) => {
   const {
@@ -21,6 +22,7 @@ const ExitInterviewList = ({}) => {
     handleViewDetails,
     isCalling,
     configFilter,
+    handleResend,
   } = useExitInterviewList({});
 
   const {
@@ -149,16 +151,29 @@ const ExitInterviewList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            {all?.status === "PENDING" ? (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleResend(all);
+                }}
+              >
+                <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
+              </IconButton>
+            ) : (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleViewDetails(all);
+                }}
+              >
+                <InfoOutlined fontSize={"small"} />
+              </IconButton>
+            )}
           </div>
         ),
       },
