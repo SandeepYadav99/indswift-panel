@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Style.module.css";
-import { Paper, ButtonBase, MenuItem } from "@material-ui/core";
+import { Paper, ButtonBase, MenuItem, CircularProgress } from "@material-ui/core";
 import CircularPng from "../../../assets/img/circulars illustration.png";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -13,7 +13,6 @@ import useLeaveApplication from "./LeaveApplication.hook";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import { useSelector } from "react-redux";
 import useClaimIntCard from "../../../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
-import LogUtils from "../../../libs/LogUtils";
 import ClaimUpperCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimUpperCard/ClaimUpperCard";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
@@ -22,7 +21,7 @@ const LeaveApplicationForm = () => {
   const { employeeDetails } = useClaimIntCard({});
   let Designation = ["G1", "G2", "G3", "G4", "G5", "G6", "G0"];
   let gradeLevel = employeeDetails?.grade?.code;
-  let FacilitationCondition = ["0.1", "0.2", "0.3"];
+  let FacilitationCondition = ["0.1", "0.2", "0.3","0.4"];
   let ExperienceInCompany = employeeDetails?.experience?.current;
 
   function FacilitationGiven() {
@@ -83,6 +82,7 @@ const LeaveApplicationForm = () => {
     BdayLeaveNextYear,
     BdayLeaveThisYearAnni,
     BdayLeaveNextYearAnni,
+    thirtyDaysAgoDate
   } = useLeaveApplication({});
 
   return (
@@ -250,7 +250,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={"Leave From"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "start_date");
                   }}
@@ -328,7 +328,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={"Leave From"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "start_date");
                   }}
@@ -422,7 +422,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={"Leave From"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "start_date");
                   }}
@@ -485,8 +485,8 @@ const LeaveApplicationForm = () => {
       </div>
       {form?.type ? (
         <div className={styles.btnContainer}>
-          <ButtonBase className={"createBtn"} onClick={handleSubmit}>
-            SUBMIT
+          <ButtonBase className={"createBtn"} onClick={handleSubmit} disabled={isSubmitting}>
+          {isSubmitting ? <CircularProgress color="success" size="20px"/>: 'Submit'}
           </ButtonBase>
         </div>
       ) : (

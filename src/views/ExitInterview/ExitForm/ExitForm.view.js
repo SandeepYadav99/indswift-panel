@@ -2,11 +2,12 @@ import React from "react";
 import styles from "./Style.module.css";
 import InfoCard from "./component/InfoCard/InfoCard";
 import UseExitForm from "./ExitForm.hook";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, Checkbox, MenuItem } from "@material-ui/core";
 import ExitRatingView from "./component/ExitRating/ExitRatingView";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import { removeUnderScore } from "../../../helper/helper";
+import SpecialExitRatingView from "./component/SpecialExitRating/SpecialExitRatingView";
 
 const rankingValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const rankingFive = [1, 2, 3, 4, 5];
@@ -24,7 +25,8 @@ function ExitForm() {
     isSubmitted,
     declaration,
     setDeclaration,
-    employeeDetail
+    employeeDetail,
+    salary,
   } = UseExitForm({});
 
   return (
@@ -42,7 +44,7 @@ function ExitForm() {
         </div>
         <div className={styles.evaluationContainer}>
           <div className={styles.candidateInfoContainer2}>
-            <InfoCard data={employeeDetail?.employee} />
+            <InfoCard data={employeeDetail?.employee} salary={salary} />
           </div>
           <div className={styles.candidateInfoContainer2}>
             <div className={styles.rankingWrapper}>
@@ -637,7 +639,8 @@ function ExitForm() {
                 title="7.b. Did you feel your boss/Organisation provided you with enough freedom and space to? Allow your creativity to grow?"
               />
               <div className={styles.horizontalLine}></div>
-              <ExitRatingView
+              <SpecialExitRatingView
+              isUpper={true}
                 isError={
                   errorData?.new_job_compare_with_organisation_in_term_job_contents
                 }
@@ -707,7 +710,7 @@ function ExitForm() {
                   >
                     <MenuItem value="NEAR">NEAR</MenuItem>
                     <MenuItem value="FAR">FAR</MenuItem>
-                    <MenuItem value="VERY_FAR">VERY_FAR</MenuItem>
+                    <MenuItem value="VERY_FAR">VERY FAR</MenuItem>
                   </CustomSelectField>
                 </div>
                 <div className={styles.commentWrap} style={{ flex: "1" }}>
@@ -735,7 +738,7 @@ function ExitForm() {
                 9. Give your view of Management towards:
               </span>
             </div>
-            <ExitRatingView
+            <SpecialExitRatingView
               handleChange={(val) => {
                 changeTextData(val, "job_function");
               }}
@@ -745,7 +748,7 @@ function ExitForm() {
               }
               title="a. Job function"
             />
-            <ExitRatingView
+            <SpecialExitRatingView
               handleChange={(val) => {
                 changeTextData(val, "people");
               }}
@@ -827,14 +830,36 @@ function ExitForm() {
             </div>
           </div>
           <div className={styles.btnContainer}>
+            <div className={styles.delcarationWrapper}>
+              <div className={styles.heading}>Declaration</div>
+              <div className={styles.discriptionWrap}>
+                <div className={styles.checkboxWrapper}>
+                  <Checkbox
+                    style={{ padding: 0, marginRight: "10px" }}
+                    name={"declaration"}
+                    checked={declaration}
+                    onChange={() => setDeclaration((e) => !e)}
+                  />
+                  <div className={styles.lowerdec}>
+                    <span>
+                      I solemnly declare that all the particulars furnished in
+                      this form are true and correct to the best of my knowledge
+                      and belief.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.btnContainer}>
             <div className={styles.btnCont1}>
               <ButtonBase
-                disabled={isSubmitting}
+                disabled={!declaration ? true : false}
                 type={"button"}
                 onClick={handleSubmit}
-                className={styles.createBtn}
+                className={ !declaration || isSubmitting ? styles.disabledBtn :styles.createBtn}
               >
-                NEXT
+                Submit
               </ButtonBase>
             </div>
           </div>

@@ -2,7 +2,7 @@ import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import { InfoOutlined } from "@material-ui/icons";
+import { InfoOutlined, Telegram } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
@@ -10,6 +10,7 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import useExitInterviewList from "./ExitInterviewListHook";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import SendIcon from "@material-ui/icons/Send";
 
 const ExitInterviewList = ({}) => {
   const {
@@ -21,6 +22,7 @@ const ExitInterviewList = ({}) => {
     handleViewDetails,
     isCalling,
     configFilter,
+    handleResend,
   } = useExitInterviewList({});
 
   const {
@@ -77,7 +79,6 @@ const ExitInterviewList = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.captialize}>
-            {console.log("all", all)}
             {all?.employee?.grade?.code} / {all?.employee?.cadre?.code}
           </div>
         ),
@@ -87,7 +88,9 @@ const ExitInterviewList = ({}) => {
         label: "Location",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.captialize}>{all?.employee?.location?.name}</div>
+          <div className={styles.captialize}>
+            {all?.employee?.location?.name}
+          </div>
         ),
       },
       {
@@ -95,7 +98,9 @@ const ExitInterviewList = ({}) => {
         label: "Designation",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.captialize}>{all?.employee?.designation?.name}</div>
+          <div className={styles.captialize}>
+            {all?.employee?.designation?.name}
+          </div>
         ),
       },
       {
@@ -105,7 +110,8 @@ const ExitInterviewList = ({}) => {
         style: { width: "12%" },
         render: (temp, all) => (
           <div className={styles.captialize}>
-            {all?.employee?.department?.name}/{all?.employee?.sub_department?.name}
+            {all?.employee?.department?.name}/
+            {all?.employee?.sub_department?.name}
           </div>
         ),
       },
@@ -114,29 +120,60 @@ const ExitInterviewList = ({}) => {
         label: "Contact",
         sortable: false,
         style: { width: "18%" },
-        render: (temp, all) => <div>{all?.employee?.contact?.official_contact}</div>,
+        render: (temp, all) => (
+          <div>{all?.employee?.contact?.official_contact}</div>
+        ),
+      },
+      {
+        key: "submitted",
+        label: "submitted on",
+        sortable: false,
+        style: { width: "18%" },
+        render: (temp, all) => <div>{all?.submittedOnText}</div>,
+      },
+      {
+        key: "Last",
+        label: "Last working day",
+        sortable: false,
+        style: { width: "18%" },
+        render: (temp, all) => (
+          <div>{all?.employee?.resign_data?.last_working_date}</div>
+        ),
       },
       {
         key: "status",
-        label: "EMPLOYEE STATUS",
+        label: "STATUS",
         sortable: true,
-        render: (temp, all) => <div>{renderStatus(all.employee?.status)}</div>,
+        render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            {all?.status === "PENDING" ? (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleResend(all);
+                }}
+              >
+                <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
+              </IconButton>
+            ) : (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleViewDetails(all);
+                }}
+              >
+                <InfoOutlined fontSize={"small"} />
+              </IconButton>
+            )}
           </div>
         ),
       },

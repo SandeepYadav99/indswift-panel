@@ -37,9 +37,9 @@ const usePendingApplication = () => {
   }
 
   const handleSubmit =()=>{
-    setOpen(false) 
-    history.goBack();
-    serviceLeaveApprove(parameterOfApproval); 
+      setOpen(false)
+      history.goBack();
+      serviceLeaveApprove(parameterOfApproval); 
   }
 
   const handleReject =()=>{

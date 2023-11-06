@@ -8,7 +8,7 @@ import ExitRatingFeedback from "./component/ExitRatingFeedback/ExitRatingFeedbac
 import historyUtils from "../../../libs/history.utils";
 import { ButtonBase } from "@material-ui/core";
 function ExitDetail() {
-  const { employeeDetail, UpperTable, LowerTable } = useExitDetail({});
+  const { employeeDetail, UpperTable, LowerTable,salary } = useExitDetail({});
 
   console.log("employeeDetail", employeeDetail);
   return (
@@ -26,7 +26,7 @@ function ExitDetail() {
         </div>
         <div className={styles.evaluationContainer}>
           <div className={styles.candidateInfoContainer2}>
-            <InfoCard data={employeeDetail?.employee} />
+            <InfoCard data={employeeDetail?.employee} salary={salary}/>
           </div>
           <div className={styles.candidateInfoContainer2}>
             <div className={styles.rankingWrapper}>
@@ -71,11 +71,11 @@ function ExitDetail() {
             </div>
             <div className={styles.horizontalLine}></div>
             <div className={styles.rankingWrapper}>
-              <span className={styles.heading}>
+              <span className={styles.heading} >
                 3. What according to you are 3 main strengths of the Company?
               </span>
             </div>
-            <div className={styles.commentWrap}>
+            <div className={styles.commentWrap} style={{whiteSpace:"pre-line"}}>
               {employeeDetail?.strengths_of_company}
             </div>
             <div className={styles.horizontalLine}></div>
@@ -84,7 +84,7 @@ function ExitDetail() {
                 4. What according to you are 3 main weaknesses of the Company?
               </span>
             </div>
-            <div className={styles.commentWrap}>
+            <div className={styles.commentWrap} style={{whiteSpace:"pre-line"}}>
               {employeeDetail?.weaknesses_of_company}
             </div>
             <div className={styles.horizontalLine}></div>
@@ -95,7 +95,7 @@ function ExitDetail() {
                 improvements ?
               </span>
             </div>
-            <div className={styles.commentWrap}>
+            <div className={styles.commentWrap} style={{whiteSpace:"pre-line"}}>
               {employeeDetail?.suggestions_of_improvements}
             </div>
             <div className={styles.horizontalLine}></div>
@@ -211,7 +211,7 @@ function ExitDetail() {
                 this Organisation?
               </span>
             </div>
-            <div className={styles.commentWrap}>
+            <div className={styles.commentWrap} style={{whiteSpace:"pre-line"}}>
               {employeeDetail?.would_you_recommend_your_friend}
             </div>
             <div className={styles.horizontalLine}></div>
@@ -220,7 +220,7 @@ function ExitDetail() {
                 10.c. Would you like to rejoin the Organisation? Why / Why not
               </span>
             </div>
-            <div className={styles.commentWrap} style={{marginBottom:"20px"}}>
+            <div className={styles.commentWrap} style={{marginBottom:"20px",whiteSpace:"pre-line"}} >
               {employeeDetail?.would_you_rejoin_organisation}
             </div>
           </div>
