@@ -123,10 +123,6 @@ function usePendingLeaveApplication() {
     [query, queryData]
   );
 
-
-  const ConvertHandleLeaveType =(data)=>{
-    return (data === "BEREAVEMENT_LEAVE") ? "BEREAVEMENT LEAVE":(data === "OCCASION_LEAVE") ? "OCCASION LEAVE":(data === "FACILITATION_LEAVE") ?"FACILITATION LEAVE":"PATERNITY LEAVE" ;
-  }
  
   const configFilter = useMemo(() => {
     return [
@@ -157,7 +153,6 @@ function usePendingLeaveApplication() {
     handleSortOrderChange, 
     configFilter,
     listData,
-    ConvertHandleLeaveType,
   };
 }
 

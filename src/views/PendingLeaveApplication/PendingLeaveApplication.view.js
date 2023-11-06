@@ -37,7 +37,6 @@ const PendingLeaveApplication = () => {
     isTraineeDialog,
     toggleTraineeDialog,
     listData,
-    ConvertHandleLeaveType,
   } = usePendingLeaveApplication({});
 
   let LeaveParameters = {
@@ -144,7 +143,7 @@ const PendingLeaveApplication = () => {
         key: "leave_type",
         label: "LEAVE TYPE",
         sortable: false,
-        render: (temp, all) => <div>{ConvertHandleLeaveType(all?.leave?.type)}</div>,
+        render: (temp, all) => <div>{all?.leave?.type}</div>,
       },
       {
         key: "overrall_status",
