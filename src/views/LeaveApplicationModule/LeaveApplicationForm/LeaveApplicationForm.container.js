@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Style.module.css";
-import { Paper, ButtonBase, MenuItem } from "@material-ui/core";
+import { Paper, ButtonBase, MenuItem, CircularProgress } from "@material-ui/core";
 import CircularPng from "../../../assets/img/circulars illustration.png";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -484,8 +484,8 @@ const LeaveApplicationForm = () => {
       </div>
       {form?.type ? (
         <div className={styles.btnContainer}>
-          <ButtonBase className={"createBtn"} onClick={handleSubmit}>
-            SUBMIT
+          <ButtonBase className={"createBtn"} onClick={handleSubmit} disabled={isSubmitting}>
+          {isSubmitting ? <CircularProgress color="success" size="20px"/>: 'Submit'}
           </ButtonBase>
         </div>
       ) : (

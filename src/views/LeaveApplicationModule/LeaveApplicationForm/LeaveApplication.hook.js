@@ -371,7 +371,7 @@ const useLeaveApplication = () => {
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
-      <WaitingComponent/>
+      // <WaitingComponent/>
       setIsSubmitting(true);
       let req = serviceLeaveCreate;
       const fd = new FormData();
