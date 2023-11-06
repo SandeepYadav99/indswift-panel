@@ -77,7 +77,6 @@ const ExitInterviewList = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.captialize}>
-            {console.log("all", all)}
             {all?.employee?.grade?.code} / {all?.employee?.cadre?.code}
           </div>
         ),
@@ -87,7 +86,9 @@ const ExitInterviewList = ({}) => {
         label: "Location",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.captialize}>{all?.employee?.location?.name}</div>
+          <div className={styles.captialize}>
+            {all?.employee?.location?.name}
+          </div>
         ),
       },
       {
@@ -95,7 +96,9 @@ const ExitInterviewList = ({}) => {
         label: "Designation",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.captialize}>{all?.employee?.designation?.name}</div>
+          <div className={styles.captialize}>
+            {all?.employee?.designation?.name}
+          </div>
         ),
       },
       {
@@ -105,7 +108,8 @@ const ExitInterviewList = ({}) => {
         style: { width: "12%" },
         render: (temp, all) => (
           <div className={styles.captialize}>
-            {all?.employee?.department?.name}/{all?.employee?.sub_department?.name}
+            {all?.employee?.department?.name}/
+            {all?.employee?.sub_department?.name}
           </div>
         ),
       },
@@ -114,13 +118,31 @@ const ExitInterviewList = ({}) => {
         label: "Contact",
         sortable: false,
         style: { width: "18%" },
-        render: (temp, all) => <div>{all?.employee?.contact?.official_contact}</div>,
+        render: (temp, all) => (
+          <div>{all?.employee?.contact?.official_contact}</div>
+        ),
+      },
+      {
+        key: "submitted",
+        label: "submitted on",
+        sortable: false,
+        style: { width: "18%" },
+        render: (temp, all) => <div>{all?.submittedOnText}</div>,
+      },
+      {
+        key: "Last",
+        label: "Last working day",
+        sortable: false,
+        style: { width: "18%" },
+        render: (temp, all) => (
+          <div>{all?.employee?.resign_data?.last_working_date}</div>
+        ),
       },
       {
         key: "status",
         label: "STATUS",
         sortable: true,
-        render: (temp, all) => <div>{renderStatus(all.employee?.status)}</div>,
+        render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
       },
       {
         key: "user_id",

@@ -24,7 +24,8 @@ function ExitForm() {
     isSubmitted,
     declaration,
     setDeclaration,
-    employeeDetail
+    employeeDetail,
+    salary
   } = UseExitForm({});
 
   return (
@@ -42,7 +43,7 @@ function ExitForm() {
         </div>
         <div className={styles.evaluationContainer}>
           <div className={styles.candidateInfoContainer2}>
-            <InfoCard data={employeeDetail?.employee} />
+            <InfoCard data={employeeDetail?.employee} salary={salary}/>
           </div>
           <div className={styles.candidateInfoContainer2}>
             <div className={styles.rankingWrapper}>

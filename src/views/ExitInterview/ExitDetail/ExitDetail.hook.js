@@ -4,9 +4,11 @@ import { useParams } from "react-router";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useMemo } from "react";
+import { serviceGetSalaryInfo } from "../../../services/Employee.service";
 
 function useExitDetail() {
   const [employeeDetail, setEmployeeDetail] = useState({});
+  const [salary,setSalary]=useState("")
   const { id } = useParams();
   useEffect(() => {
     if (id) {
@@ -19,6 +21,21 @@ function useExitDetail() {
     }
   }, [id]);
 
+  useEffect(() => {
+    if (employeeDetail?.id) {
+      serviceGetSalaryInfo({ emp_id: employeeDetail?.employee?.id }).then(
+        (res) => {
+          if (!res.error) {
+            const tempData = res?.data;
+            if (tempData) {
+              setSalary(tempData?.net_pay ? tempData?.net_pay : 0);
+            }
+          }
+        }
+      );
+    }
+  }, [employeeDetail?.id]);
+  
   const UpperTable = useMemo(() => {
     if (employeeDetail?.id) {
       return [
@@ -107,6 +124,7 @@ function useExitDetail() {
     employeeDetail,
     UpperTable,
     LowerTable,
+    salary
   };
 }
 

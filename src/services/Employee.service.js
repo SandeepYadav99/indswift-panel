@@ -77,3 +77,6 @@ export async function serviceGetSalaryInfoInfo(params) {
 export async function serviceGetSalaryInfoInfoMonthly(params) {
     return await postRequest('candidates/salary/totals', params);
 }
+export async function serviceGetSalaryInfo(params) {
+    return await postRequest('employees/salary', params);
+}

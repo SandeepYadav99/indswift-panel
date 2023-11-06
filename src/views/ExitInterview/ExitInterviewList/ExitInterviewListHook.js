@@ -106,23 +106,6 @@ const useExitInterviewList = ({}) => {
     historyUtils.push(`${RouteName.EXIT_DETAIL}${data?.id}`); //+data.id
   }, []);
 
-  // const configFilter = useMemo(() => {
-  //   return [
-  //     {
-  //       label: "Status",
-  //       name: "claimObj.status",
-  //       type: "select",
-  //       fields: [
-  //         "REJECTED",
-  //         "PENDING",
-  //         "APPROVED",
-  //         "PROCESSED",
-  //         "RECRUITER_APPROVED",
-  //         "CORPORATE_AUDIT_2_APPROVED",
-  //       ],
-  //     },
-  //   ];
-  // }, [listData]);
   const configFilter = useMemo(() => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},

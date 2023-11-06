@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import face from "./../../../../../assets/img/download.png";
 
-const InfoCard = ({ data }) => {
+const InfoCard = ({ data ,salary}) => {
 
   console.log("data", data);
   return (
@@ -50,7 +50,7 @@ const InfoCard = ({ data }) => {
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Current Salary:</span>
-            -
+            {salary ? `₹ ${salary}` : "-"}
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Total Experience:</span>
