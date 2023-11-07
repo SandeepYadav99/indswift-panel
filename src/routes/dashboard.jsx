@@ -26,31 +26,14 @@ import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Up
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
 import RelievingExpLetterDetail from "../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail";
 import EmployeeRecordApprovals from "../views/EmployeeRecordApprovals/EmployeeRecordApprovals";
-const BgvAnalysisReport = lazy(() =>
-  import(
-    "../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"
-  )
-);
-const SuccessionPlannerList = lazy(() =>
-  import("../views/SuccessionPlaner/SuccessionPlanner_list")
-);
-
-const EmployeeInformation = lazy(() =>
-  import(
-    "../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"
-  )
-);
-const SuccessionApproval_List = lazy(() =>
-  import("../views/SuccessionApproval/SuccessionApproval_List")
-);
 import ExitInterviewList from "../views/ExitInterview/ExitInterviewList/ExitInterviewList.container";
+import FinalForm from "../views/Full&Final/FinalForm/FinalForm.view.js";
+
+
 const BgvAnalysisReport =lazy(()=>import("../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"));
 const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
 const SuccessionApproval_List = lazy(() =>import("../views/SuccessionApproval/SuccessionApproval_List"));
-import FinalForm from "../views/Full&Final/FinalForm/FinalForm.view.js";
-
-
 const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
 
 const LeaveApplicationForm = lazy(() =>
