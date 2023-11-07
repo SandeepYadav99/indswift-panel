@@ -45,7 +45,7 @@ const useLeaveList = ({}) => {
       }
     });
   }, []);
-  console.log("list", listData);
+
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPageLeaveList(type));
@@ -53,8 +53,6 @@ const useLeaveList = ({}) => {
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageLeaveListRequests(1));
       dispatch(
         actionFetchLeaveList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
@@ -113,14 +111,14 @@ const useLeaveList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.LEAVE_APPLICATION_FORM}`); //+data.id
+    historyUtils.push(`${RouteName.LEAVE_APPLICATION_FORM}`); 
   }, []);
 
   const configFilter = useMemo(() => {
     return [
       {
         label: "Status",
-        name: "claimObj.status",
+        name: "status",
         type: "select",
         fields: [
           "REJECTED",

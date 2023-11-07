@@ -45,7 +45,6 @@ const useExitInterviewList = ({}) => {
       }
     });
   }, []);
-  console.log("list", listData);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPageExitInterview(type));
@@ -53,7 +52,6 @@ const useExitInterviewList = ({}) => {
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
       // dispatch(actionSetPageExitInterviewRequests(1));
       dispatch(
         actionFetchExitInterview(1, sortingData, {
