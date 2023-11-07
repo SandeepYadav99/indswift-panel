@@ -1,46 +1,26 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
-import {
-  Button,
-  Paper,
-  Checkbox,
-  IconButton,
-  MenuItem,
-  ButtonBase,
-  Menu,
-} from "@material-ui/core";
+import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
-
+import { connect, useSelector } from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-import useLeaveList from "./LeaveApplication.hook";
 import StatusPill from "../../components/Status/StatusPill.component";
-import OnBoardDialog from "../EmployeeList/components/OnBoardPopUp/OnBoardDialog.view";
-import TraineeDialog from "../EmployeeList/components/TraineePopUp copy/TraineeDialog.view";
+import useLeaveList from "./LeaveApplication.hook";
 
 const LeaveApplication = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
-    handleSideToggle,
     handleViewDetails,
-    isSidePanel,
     isCalling,
     configFilter,
-    handleLeaveApplicationForm,
-    isExtendDialog,
-    toggleExtendDialog,
-    isTraineeDialog,
-    toggleTraineeDialog,
-    listData,
+    handleLeaveApplicationForm
   } = useLeaveList({});
 
   const {
@@ -48,18 +28,27 @@ const LeaveApplication = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.LeaveModule);
+  } = useSelector((state) => state.leave_list);
 
+  const { user } = useSelector((state) => state.auth);
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
+  const renderStatus = useCallback((status) => {
+    return (
+      <StatusPill
+        status={status}
+        style={status === "PROCESSED" && { background: "#ceece2" }}
+      />
+    );
+  }, []);
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
+            <span className={styles.productName}>{obj?.candidate?.name}</span>{" "}
             <br />
             <span className={styles.productName}>
               {obj?.employee?.emp_code}
@@ -86,7 +75,9 @@ const LeaveApplication = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            { (all?.startDateText !== all?.endDateText) ? `${all?.startDateText} - ${all?.endDateText}`:`${all?.startDateText}`}
+            {all?.startDateText !== all?.endDateText
+              ? `${all?.startDateText} - ${all?.endDateText}`
+              : `${all?.startDateText}`}
           </div>
         ),
       },
@@ -119,7 +110,7 @@ const LeaveApplication = ({}) => {
         ),
       },
     ];
-  }, [renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -131,8 +122,8 @@ const LeaveApplication = ({}) => {
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: data?.data ? data?.data : [],
-      count: data?.data?.length ? data?.data?.length : 0,
+      data: data,
+      count: allData.length,
       page: currentPage,
     };
 
@@ -157,24 +148,13 @@ const LeaveApplication = ({}) => {
           </div>
           <div className={styles.btnWrapperGap}>
             <ButtonBase
-              onClick={handleLeaveApplicationForm}
+              onClick={handleViewDetails}
               className={"createBtn"}
             >
               APPLY LEAVE
             </ButtonBase>
           </div>
         </div>
-        <OnBoardDialog
-          listData={listData}
-          // candidateId={id}
-          isOpen={isExtendDialog}
-          handleToggle={toggleExtendDialog}
-        />
-        <TraineeDialog
-          listData={listData}
-          isOpen={isTraineeDialog}
-          handleToggle={toggleTraineeDialog}
-        />
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -193,12 +173,6 @@ const LeaveApplication = ({}) => {
           </div>
         </div>
       </PageBox>
-      <SidePanelComponent
-        handleToggle={handleSideToggle}
-        title={"New Candidate"}
-        open={isSidePanel}
-        side={"right"}
-      ></SidePanelComponent>
     </div>
   );
 };

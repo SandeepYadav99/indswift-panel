@@ -4,23 +4,18 @@ import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 
 import PageBox from "../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Styled.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import usePendingLeaveApplication from "./PendingLeaveApplication.hook";
 import StatusPill from "../../components/Status/StatusPill.component";
-import OnBoardDialog from "../EmployeeList/components/OnBoardPopUp/OnBoardDialog.view";
-import TraineeDialog from "../EmployeeList/components/TraineePopUp copy/TraineeDialog.view";
 import { IconButton } from "@material-ui/core";
 import { InfoOutlined } from "@material-ui/icons";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { actionLeaveList, actionLeavesListData } from "../../actions/LeaveModule.action";
+
+import { removeUnderScore } from "../../helper/helper";
 
 const PendingLeaveApplication = () => {
-  const dispatch = useDispatch();
   const {
     handleSortOrderChange,
     handlePageChange,
@@ -32,38 +27,16 @@ const PendingLeaveApplication = () => {
     isSidePanel,
     isCalling,
     configFilter,
-    isExtendDialog,
-    toggleExtendDialog,
-    isTraineeDialog,
-    toggleTraineeDialog,
-    listData,
+    handleRowSize
   } = usePendingLeaveApplication({});
 
-  let LeaveParameters = {
-    index: 1,
-    row: "createdAt",
-    order: "desc",
-    query: "",
-    query_data: null,
-  };
-
-  useEffect(() => {
-    dispatch(actionLeavesListData(LeaveParameters));
-    dispatch(actionLeaveList(LeaveParameters));
-  }, []);
-
   const {
-    list,
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.LeaveModule);
 
-  useEffect(()=>{
-     if(!list?.data){
-     }
-  },[list?.data])
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
@@ -96,7 +69,8 @@ const PendingLeaveApplication = () => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.leave?.employee?.grade?.code}/{all?.leave?.employee?.cadre?.name}
+            {all?.leave?.employee?.grade?.code}/
+            {all?.leave?.employee?.cadre?.name}
           </div>
         ),
       },
@@ -143,7 +117,7 @@ const PendingLeaveApplication = () => {
         key: "leave_type",
         label: "LEAVE TYPE",
         sortable: false,
-        render: (temp, all) => <div>{all?.leave?.type}</div>,
+        render: (temp, all) => <div>{removeUnderScore(all?.leave?.type)}</div>,
       },
       {
         key: "overrall_status",
@@ -162,8 +136,7 @@ const PendingLeaveApplication = () => {
         sortable: false,
         render: (temp, all) => (
           <div>
-          {all?.leave?.startDateText !==
-            all?.leave?.endDateText
+            {all?.leave?.startDateText !== all?.leave?.endDateText
               ? `${all?.leave?.startDateText}-
           ${all?.leave?.endDateText}`
               : `${all?.leave?.startDateText}`}
@@ -181,31 +154,31 @@ const PendingLeaveApplication = () => {
         label: "ACTION",
         sortable: false,
         render: (temp, all) => (
-          <Link to={"list" + "/" + all.id}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-          </Link>
+          <IconButton
+            className={"tableActionBtn"}
+            color="secondary"
+            disabled={isCalling}
+            onClick={() => handleViewDetails(all)}
+          >
+            <InfoOutlined fontSize={"small"} />
+          </IconButton>
         ),
       },
     ];
-  }, [renderFirstCell, handleViewDetails, handleEdit, isCalling, list?.data,]);
+  }, [renderFirstCell, handleViewDetails, handleEdit, isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
+      onRowSizeChange: handleRowSize,
     };
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: list?.data ? list?.data : [],
-      count: list?.data?.length ? list?.data?.length : 0,
+      data: data,
+      count: allData.length,
       page: currentPage,
     };
 
@@ -215,9 +188,9 @@ const PendingLeaveApplication = () => {
     tableStructure,
     handleSortOrderChange,
     handlePageChange,
+    handleRowSize,
     data,
     currentPage,
-    list?.data,
   ]);
 
   return (

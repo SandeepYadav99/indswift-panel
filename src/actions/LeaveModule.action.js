@@ -1,23 +1,32 @@
+import store from "../store";
+import Constants from "../config/constants";
 import {
-  serviceLeaveList,
-  serviceLeaveCount,
-  serviceLeaveDataList,
+  serviceCreateLeaveModule,
+  serviceGetLeaveModule,
+  serviceUpdateLeaveModule,
+  serviceDeleteLeaveModule,
 } from "../services/Leave.service";
+import EventEmitter from "../libs/Events.utils";
 
-export const LIST_LEAVE = "LIST_LEAVE";
-export const COUNT_LEAVE = "COUNT_LEAVE";
-export const LEAVES_DATA = "LEAVES_DATA";
-export const FETCH_INIT = "FETCH_INIT";
-export const SET_FILTER = "SET_FILTER";
-export const SET_SORTING = "SET_SORTING";
-export const FETCHED = "FETCHED";
-export const SET_SERVER_PAGE = "SET_SERVER_PAGE";
-export const CHANGE_PAGE = "CHANGE_PAGE";
-export const FETCHED_FAIL = "FETCHED_FAIL";
+export const FETCH_INIT = "FETCH_INIT_LEAVE_MODULE";
+export const FETCHED = "FETCHED_LEAVE_MODULE";
+export const FETCHED_FAIL = "FETCHED_FAIL_LEAVE_MODULE";
+export const FETCHED_FILTER = "FETCHED_FILTER_LEAVE_MODULE";
+export const FETCH_NEXT = "FETCH_NEXT_LEAVE_MODULE";
+export const FILTER = "FILTER_LEAVE_MODULE";
+export const RESET_FILTER = "RESET_FILTER_LEAVE_MODULE";
+export const SET_SORTING = "SET_SORTING_LEAVE_MODULE";
+export const SET_FILTER = "SET_FILTER_LEAVE_MODULE";
+export const SET_PAGE = "SET_PAGE_LEAVE_MODULE";
+export const CHANGE_PAGE = "CHANGE_PAGE_LEAVE_MODULE";
+export const CHANGE_STATUS = "CHANGE_STATE_LEAVE_MODULE";
+export const SET_SERVER_PAGE = "SET_SERVER_PAGE_LEAVE_MODULE";
+export const CREATE_DATA = "CREATE_LEAVE_MODULE";
+export const UPDATE_DATA = "UPDATE_LEAVE_MODULE";
+export const DELETE_ITEM = "DELETE_LEAVE_MODULE";
 
-
-export function actionFetchLeave(index = 1, sorting = {}, filter = {}) {
-  const request = serviceLeaveList({
+export function actionFetchLeaveModule(index = 1, sorting = {}, filter = {}) {
+  const request = serviceGetLeaveModule({
     index,
     row: sorting.row,
     order: sorting.order,
@@ -41,29 +50,106 @@ export function actionFetchLeave(index = 1, sorting = {}, filter = {}) {
   };
 }
 
-export function actionLeaveList(data) {
-  const request = serviceLeaveList(data);
+
+export function actionCreateLeaveModule(data) {
+  const request = serviceCreateLeaveModule(data);
   return (dispatch) => {
     request.then((data) => {
-      dispatch({ type: LIST_LEAVE, payload: data });
+      if (!data.error) {
+        EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
+          error: "Saved",
+          type: "success",
+        });
+        dispatch({ type: CREATE_DATA, payload: data.data });
+      }
     });
   };
 }
 
+export function actionUpdateLeaveModule(data) {
+  const request = serviceUpdateLeaveModule(data);
+  return (dispatch) => {
+    request.then((data) => {
+      if (!data.error) {
+        dispatch({ type: UPDATE_DATA, payload: data.data });
+      }
+    });
+  };
+}
+
+export function actionDeleteLeaveModule(id) {
+  const request = serviceDeleteLeaveModule({ id: id });
+  return (dispatch) => {
+    dispatch({ type: DELETE_ITEM, payload: id });
+  };
+}
+
+export function actionChangePageLeaveModule(page) {
+  return (dispatch) => {
+    dispatch({ type: CHANGE_PAGE, payload: page });
+  };
+}
+
+export function actionFilterLeaveModule(value) {
+  const request = null; ////serviceFetchProviderRequests(value);
+  return (dispatch) => {
+    dispatch({ type: FETCH_INIT, payload: null });
+    request.then((data) => {
+      dispatch({ type: FILTER, payload: data });
+      dispatch({ type: FETCHED, payload: null }); //dispatch function
+    });
+  };
+}
 export function actionLeaveCount(data) {
-  const request = serviceLeaveCount(data);
+  const request = serviceCreateLeaveModule(data);
   return (dispatch) => {
     request.then((data) => {
-      dispatch({ type: COUNT_LEAVE, payload: data });
+      dispatch({ type: FETCHED, payload: data });
     });
   };
 }
-
-export function actionLeavesListData(data) {
-  const request = serviceLeaveDataList(data);
+export function actionLeaveList(data) {
+  const request = serviceCreateLeaveModule(data);
   return (dispatch) => {
     request.then((data) => {
-      dispatch({ type: LEAVES_DATA, payload: data });
+      dispatch({ type: FETCHED, payload: data });
     });
+  };
+}
+export function actionChangeStatusLeaveModule(id, status) {
+  return (dispatch) => {
+    dispatch({ type: CHANGE_STATUS, payload: { id, status } });
+  };
+}
+
+export function actionResetFilterLeaveModule() {
+  return {
+    type: RESET_FILTER,
+    payload: null,
+  };
+}
+
+export function actionSetPageLeaveModule(page) {
+  const stateData = store.getState().LeaveModule;
+  const currentPage = stateData.currentPage;
+  const totalLength = stateData.all.length;
+  const sortingData = stateData.sorting_data;
+  const query = stateData.query;
+  const queryData = stateData.query_data;
+  const serverPage = stateData.serverPage;
+
+  if (totalLength <= (page + 1) * Constants.DEFAULT_PAGE_VALUE) {
+    store.dispatch(
+      actionFetchLeaveModule(serverPage + 1, sortingData, {
+        query,
+        query_data: queryData,
+      })
+    );
+  }
+
+  console.log(currentPage, totalLength);
+  return {
+    type: CHANGE_PAGE,
+    payload: page,
   };
 }

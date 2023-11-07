@@ -224,6 +224,7 @@ export default {
 
   FULL_FINAL_APPLICATION:"/full-final",
   FULL_FINAL_APPROVAL:"/full-final-approval",
+  FULL_FINAL_FORM:"/full/form/",
  
   EXIT_INTERVIEW_LIST:"/exit/interview/list",
   

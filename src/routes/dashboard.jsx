@@ -30,6 +30,7 @@ const BgvAnalysisReport =lazy(()=>import("../views/PendingBckgroundVerification/
 const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
 const SuccessionApproval_List = lazy(() =>import("../views/SuccessionApproval/SuccessionApproval_List"));
+import FinalForm from "../views/Full&Final/FinalForm/FinalForm.view.js";
 
 
 const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
@@ -2462,6 +2463,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.PENDING_LEAVE_APPLICATION,
@@ -2470,6 +2472,15 @@ const dashboardRoutes = [
     icon: AssignmentOutlined,
     component: PendingLeaveApplicationList,
     is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.FULL_FINAL_FORM}:id`,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FinalForm,
+    is_sidebar: false,
     is_protect: true,
   },
   {

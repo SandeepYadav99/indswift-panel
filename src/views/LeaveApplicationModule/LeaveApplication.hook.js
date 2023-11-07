@@ -1,119 +1,81 @@
-import React, { useCallback, useState } from "react";
-import { useParams } from "react-router";
-import { useHistory } from "react-router-dom";
-import { actionLeaveList,actionFetchLeave } from "../../actions/LeaveModule.action";
 import { useDispatch, useSelector } from "react-redux";
-import { useRef,useEffect } from "react";
-import { actionCreateEmployee, actionDeleteEmployee, actionFetchEmployee, actionSetPageEmployeeRequests, actionUpdateEmployee } from "../../actions/Employee.action";
-import { serviceGetList } from "../../services/Common.service";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  actionDeleteLeaveList,
+  actionFetchLeaveList,
+  actionSetPageLeaveList,
+} from "../../actions/LeaveList.action";
 import historyUtils from "../../libs/history.utils";
+import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
-import { useMemo } from "react";
-import { serviceExportEmployees } from "../../services/Employee.service";
+import { serviceGetList } from "../../services/Common.service";
+import Constants from "../../config/constants";
 
-function useLeaveList() {
-  const dispatch = useDispatch();
-  const [employeeDetail, setEmployeeDetail] = useState({});
-  const [approveDialog, setApproveDialog] = useState(false);
-  const [rejectDialog, setRejectDialog] = useState(false);
-
-  const [ischangeDialog, setIschangeDialog] = useState(false);
-  const history = useHistory();
-  const [isSidePanel, setSidePanel] = useState(false);
+const useLeaveList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
-  const [isCsvDialog, setIsCsvDialog] = useState(false);
-  const [isCPCDialog, setIsCPCDialog] = useState(false);
-  const [isExtendDialog, setIsExtendDialog] = useState(false);
-  const [isTraineeDialog, setIsTraineeDialog] = useState(false);
-  const [createDD, setCreateDD] = useState(null);
+  const { role } = useSelector((state) => state.auth);
   const [listData, setListData] = useState({
     LOCATIONS: [],
-    GRADES: [],
-    DEPARTMENTS: [],
-    JOINING_CANDIDATES: [],
-    TRAINEE_EMPLOYEES: [],
+    HR: [],
+    JOB_OPENINGS: [],
   });
+  const dispatch = useDispatch();
   const isMountRef = useRef(false);
-  
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.employee);
-
-
-  const initData = useCallback(() => {
+  } = useSelector((state) => state.leave_list);
+  useEffect(() => {
     dispatch(
-      actionFetchEmployee(1, sortingData, {
+      actionFetchLeaveList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
     );
+    isMountRef.current = true;
   }, []);
 
-  const toggleExtendDialog = useCallback(() => {
-    setIsExtendDialog((e) => !e);
-    setCreateDD(false);
-  }, [isExtendDialog]);
-
-  const toggleTraineeDialog = useCallback(() => {
-    setIsTraineeDialog((e) => !e);
-    setCreateDD(false);
-  }, [isTraineeDialog]);
-
   useEffect(() => {
-    initData();
-    isMountRef.current = true;
-    serviceGetList([
-      "LOCATIONS",
-      "GRADES",
-      "DEPARTMENTS",
-      "JOINING_CANDIDATES",
-      "TRAINEE_EMPLOYEES",
-    ]).then((res) => {
+    serviceGetList(["LOCATIONS", "HR", "JOB_OPENINGS"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
     });
   }, []);
-
+  console.log("list", listData);
   const handlePageChange = useCallback((type) => {
-    dispatch(actionSetPageEmployeeRequests(type));
+    console.log("_handlePageChange", type);
+    dispatch(actionSetPageLeaveList(type));
   }, []);
-  const handleCreate = useCallback(() => {
-    historyUtils.push(RouteName.EMPLOYEE_CREATE); //+
-  }, []);
-  const handleDataSave = useCallback(
-    (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
-      if (type == "CREATE") {
-        dispatch(actionCreateEmployee(data));
-      } else {
-        dispatch(actionUpdateEmployee(data));
-      }
-      setSidePanel((e) => !e);
-      setEditData(null);
-    },
-    [setSidePanel, setEditData]
-  );
 
   const queryFilter = useCallback(
     (key, value) => {
+      console.log("_queryFilter", key, value);
+      // dispatch(actionSetPageLeaveListRequests(1));
       dispatch(
-        actionFetchLeave(1, sortingData, {
+        actionFetchLeaveList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
       );
-      // dispatch(actionFetchEmployee(1, sortingData))
     },
     [sortingData, query, queryData]
   );
 
+  const isShowDownloadBtn = useMemo(() => {
+    const Roles = Constants.ROLES;
+    if ([Roles.CORPORATE_HR, Roles.ACCOUNTANT].indexOf(role) >= 0) {
+      return true;
+    }
+    return false;
+  }, [role]);
+
   const handleFilterDataChange = useCallback(
     (value) => {
+      console.log("_handleFilterDataChange", value);
       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
@@ -121,6 +83,7 @@ function useLeaveList() {
 
   const handleSearchValueChange = useCallback(
     (value) => {
+      console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -128,9 +91,10 @@ function useLeaveList() {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      dispatch(actionSetPageEmployeeRequests(1));
+      console.log(`handleSortOrderChange key:${row} order: ${order}`);
+      // dispatch(actionSetPageLeaveList(1));
       dispatch(
-        actionFetchEmployee(
+        actionFetchLeaveList(
           1,
           { row, order },
           {
@@ -147,51 +111,9 @@ function useLeaveList() {
     console.log(page);
   };
 
-  const handleDelete = useCallback(
-    (id) => {
-      dispatch(actionDeleteEmployee(id));
-      setSidePanel(false);
-      setEditData(null);
-    },
-    [setEditData, setSidePanel]
-  );
-
-  const handleEdit = useCallback(
-    (data) => {
-      setEditData(data);
-      setSidePanel((e) => !e);
-    },
-    [setEditData, setSidePanel]
-  );
-
-  const handleSideToggle = useCallback(() => {
-    historyUtils.push(RouteName.EMPLOYEE_CREATE);
-  }, [setEditData, setSidePanel]);
-
-  const handleAddCandidate = useCallback(
-    (event) => {
-      setCreateDD(event.currentTarget);
-    },
-    [setCreateDD]
-  );
-  const handleClosedownloadCL = useCallback(() => {
-    setCreateDD(null);
-  }, [setCreateDD]);
-
-  const handleCandidateMenu = useCallback(
-    (type) => {
-      if (type === "NEW") {
-        historyUtils.push(RouteName.EMPLOYEE_CREATE);
-      }
-      handleClosedownloadCL();
-    },
-    [setCreateDD]
-  );
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`/employees/details/${data.emp_code}`);
-  }, []);
-  const handleViewUpdate = useCallback((data) => {
-    historyUtils.push(`${RouteName.EMPLOYEE_UPDATE}${data?.id}`);
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.LEAVE_APPLICATION_FORM}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
@@ -211,90 +133,18 @@ function useLeaveList() {
       },
     ];
   }, [listData]);
-
-  const toggleCsvDialog = useCallback(() => {
-    setIsCsvDialog((e) => !e);
-  }, [setIsCsvDialog]);
-
-  const toggleCPCDialog = useCallback(() => {
-    setIsCPCDialog((e) => !e);
-  }, [setIsCPCDialog]);
-
-  const handleCsvUpload = useCallback(() => {
-    initData();
-  }, []);
-
-  const handleCPCUpload = useCallback(() => {}, []);
-  const handleCsvDownload = useCallback(() => {
-    serviceExportEmployees({
-      query: query,
-      query_data: queryData,
-    }).then((res) => {
-      if (!res.error) {
-        const data = res.data?.response;
-        window.open(data, "_blank");
-      }
-    });
-  }, [query, queryData]);
-
-  let params = {
-    index: 1,
-    row: "createdAt",
-    order: "desc",
-    query: "",
-    query_data: null,
-  };
-
-  useEffect(() => [dispatch(actionLeaveList(params))], []);
-
-  const handleLeaveApplicationForm = () => {
-    history.push("/leave-application-form");
-    window.location.reload();
-  };
-
-  const { id } = useParams();
-
-
   return {
-    id,
-    employeeDetail,
-    approveDialog,
-    ischangeDialog,
-    rejectDialog,
-    handleLeaveApplicationForm,
     handlePageChange,
-    handleDataSave,
     handleFilterDataChange,
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
-    handleDelete,
-    handleEdit,
-    handleSideToggle,
     handleViewDetails,
-    handleViewUpdate,
     isCalling,
     editData,
-    isSidePanel,
     configFilter,
-    toggleCsvDialog,
-    isCsvDialog,
-    handleCsvUpload,
-    handleCreate,
-    isCPCDialog,
-    toggleCPCDialog,
-    handleCPCUpload,
-    handleCsvDownload,
-    handleAddCandidate,
-    createDD,
-    handleClosedownloadCL,
-    handleCandidateMenu,
-    isExtendDialog,
-    toggleExtendDialog,
-    isTraineeDialog,
-    toggleTraineeDialog,
-    listData,
+    isShowDownloadBtn,
   };
-}
+};
 
 export default useLeaveList;

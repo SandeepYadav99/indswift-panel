@@ -86,6 +86,7 @@ import ExitInterviewReducer from "./ExitInterview.reducer";
 import C3MLetterReducer from "./C3MLetter.reducer";
 import AppointmentLetterReducer from "./AppointmentLetter.reducer";
 import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
+import LeaveListReducer from "./LeaveList.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -166,10 +167,11 @@ const rootReducer = combineReducers({
   pendingBGV:PendingBGVReducer,
   OngoingLoans:OngoingLoansReducer,
   LeaveModule:LeaveReducer,
-  exit_interview:ExitInterviewReducer,
   C3MLetter:C3MLetterReducer,
   AppointmentLetter:AppointmentLetterReducer,
-  RelievingExpLetter:RelievingExpLetterReducer
+  RelievingExpLetter:RelievingExpLetterReducer,
+  exit_interview:ExitInterviewReducer,
+  leave_list:LeaveListReducer
   // form: formReducer,
 });
 
