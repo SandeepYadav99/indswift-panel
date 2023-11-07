@@ -2360,7 +2360,19 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "skynetLetter",
     is_parent: true,
-    roles: [Roles.CORPORATE_HR, Roles.ADMIN],
+    // roles: [Roles.CORPORATE_HR, Roles.ADMIN, Roles.OTHERS],
+    roles: [
+      Roles.ADMIN,
+      Roles.CORPORATE_HR,
+      Roles.ACCOUNTANT,
+      Roles.OTHERS,
+      Roles.CORPORATE_REVIEWER,
+      Roles.PMS,
+      Roles.GENERAL,
+      Roles.OLR,
+      Roles.RECRUITER,
+     
+    ],
   },
   {
     path: RouteName.NAPS_TRANING,
@@ -2437,18 +2449,19 @@ const dashboardRoutes = [
     is_protect: true,
     // slug: 'tp',
     // is_parent: true,
+    should_regex: true,
     parent: "skynetLetter",
     roles: [
       Roles.ADMIN,
       Roles.CORPORATE_HR,
       Roles.ACCOUNTANT,
+      Roles.OTHERS,
       Roles.CORPORATE_REVIEWER,
       Roles.PMS,
-      Roles.CORPORATE_REVIEWER,
       Roles.GENERAL,
       Roles.OLR,
-      Roles.OTHERS,
       Roles.RECRUITER,
+     
     ],
   },
   {

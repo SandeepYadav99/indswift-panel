@@ -132,6 +132,7 @@ const useRelievingExpLetterDetail = () => {
     form,
     handleSubmitToApprove,
     errorData,
+    isSiteHRApprovedPending
   };
 };
 export default useRelievingExpLetterDetail;

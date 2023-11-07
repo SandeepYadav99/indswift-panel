@@ -15,6 +15,7 @@ function RelievingExpLetterDetail({ data, isImprest }) {
     relievingExpDetails,
     handleSubmitToApprove,
     errorData,
+    isSiteHRApprovedPending
   } = useRelievingExpLetterDetail();
 
   return (
@@ -74,22 +75,11 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                     </span>
                     {data?.location?.name}
                   </div>
-                  <div className={styles.key}>
+                  {isSiteHRApprovedPending &&   <div className={styles.key}>
                     <span className={styles.value}>Reason for leaving:</span>
                     {relievingExpDetails?.employee?.status}
-                  </div>
-                  {!isImprest && data?.experience?.current && (
-                    <div className={styles.key}>
-                      <span className={styles.value}>
-                        Experience with Organization:
-                      </span>
-                      {data?.experience?.current > 1
-                        ? `${data?.experience?.current} yrs`
-                        : `${data.experience.current} yr`}
-                    </div>
-                  )}
-                  <br />
-                  <br />
+                  </div>}
+                
                   {relievingExpDetails?.experienceLetter?.status ===
                     "SITE_HR_APPROVED" &&
                     relievingExpDetails?.status === "PENDING" && (
