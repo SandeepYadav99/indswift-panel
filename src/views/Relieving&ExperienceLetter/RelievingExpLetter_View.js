@@ -65,7 +65,12 @@ const RelievingExpLetter_View = ({ location }) => {
             <span className={styles.productName}>
               <StatusPill
                 status={`${obj?.status}/${obj?.experienceLetter?.status}`}
-                style={obj?.status === "PENDING" && { color: "#F4881B" , border:"none"}}
+                style={
+                  obj?.status === "PENDING" && {
+                    color: "#F4881B",
+                    border: "none",
+                  }
+                }
               />
             </span>{" "}
           </div>
@@ -204,8 +209,9 @@ const RelievingExpLetter_View = ({ location }) => {
                 disabled={isCalling}
                 onClick={() => {
                   if (
-                    all?.experienceLetter?.status === "SITE_HR_APPROVED" &&
-                    all?.status === "APPROVED"
+                    all?.experienceLetter?.status === "SITE_HR_APPROVED" ||
+                    (all?.experienceLetter?.status === "PENDING" &&
+                      all?.status === "PENDING")
                   ) {
                     handleViewDetails(all);
                   } else {
@@ -216,6 +222,24 @@ const RelievingExpLetter_View = ({ location }) => {
                 <Visibility fontSize={"small"} />
               </IconButton>
             ) : null}
+
+            {/* {all?.exitInterview?.status === "PENDING"  && all?.status=== "PENDING" && <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  if (
+                    all?.experienceLetter?.status === "SITE_HR_APPROVED" &&
+                    all?.status === "APPROVED"
+                  ) {
+                    handleViewDetails(all);
+                  } else {
+                    handleRelievingExpLetter(all);
+                  }
+                }}
+              >
+                <Visibility fontSize={"small"} />
+              </IconButton>} */}
           </div>
         ),
       },
