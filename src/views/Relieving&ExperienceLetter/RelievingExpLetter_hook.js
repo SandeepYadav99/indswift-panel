@@ -9,11 +9,16 @@ import {
 } from "../../actions/RelievingExpLetter.action";
 import { serviceSendRelievingExpLetter } from "../../services/Letters.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
+import constants from "../../config/constants";
+import { actionFetchEmployee } from "../../actions/Employee.action";
 
 const useRelievingExpLetter_hook = () => {
   const [editData, setEditData] = useState(null);
+  const { role } = useSelector((state) => state.auth);
   const [listData, setListData] = useState({
-    EMPLOYEES: [],
+    LOCATIONS: [],
+    GRADES: [],
+    DEPARTMENTS: [],
   });
 
   const dispatch = useDispatch();
@@ -35,8 +40,19 @@ const useRelievingExpLetter_hook = () => {
     isMountRef.current = true;
   }, []);
 
+  const initData = useCallback(() => {
+    dispatch(
+      actionFetchEmployee(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+  }, []);
+
   useEffect(() => {
-    serviceGetList(["LOCATIONS"]).then((res) => {
+    initData();
+    isMountRef.current = true;
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -119,21 +135,29 @@ const useRelievingExpLetter_hook = () => {
   const configFilter = useMemo(() => {
     return [
       {
-        label: "Status",
-        name: "status",
-        type: "select",
-        fields: [
-          "ACTIVE",
-          "RESIGNED",
-          "TERMINATED",
-          "RETIRED",
-          "EXPIRED",
-          "ABSCONDED",
-          "INACTIVE",
-        ],
+        label: "Location",
+        name: "location",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.LOCATIONS,
+      },
+
+      {
+        label: "Grade",
+        name: "grade_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "label" } },
+        fields: listData?.GRADES,
+      },
+      {
+        label: "Department",
+        name: "department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
       },
     ];
-  }, [listData]);
+  }, [listData, role]);
 
   return {
     handlePageChange,

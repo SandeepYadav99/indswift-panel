@@ -25,7 +25,7 @@ const RelievingExpLetter_View = ({ location }) => {
     isCalling,
     configFilter,
     handleRelievingExpLetter,
-    handleSendDetails
+    handleSendDetails,
   } = useRelievingExpLetter_hook({ location });
 
   const {
@@ -47,7 +47,6 @@ const RelievingExpLetter_View = ({ location }) => {
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>
               <b>{obj?.name}</b>
-              
             </span>{" "}
             <br />
             <span>{obj?.emp_code}</span>
@@ -64,7 +63,10 @@ const RelievingExpLetter_View = ({ location }) => {
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>
-              <StatusPill status={`${obj?.experienceLetter?.status}/${obj?.status}`} />
+              <StatusPill
+                status={`${obj?.status}/${obj?.experienceLetter?.status}`}
+                style={obj?.status === "PENDING" && { color: "#F4881B" , border:"none"}}
+              />
             </span>{" "}
           </div>
         </div>
@@ -72,7 +74,7 @@ const RelievingExpLetter_View = ({ location }) => {
     }
     return null;
   }, []);
-  
+
   const tableStructure = useMemo(() => {
     return [
       {
@@ -173,7 +175,7 @@ const RelievingExpLetter_View = ({ location }) => {
             ) : null}
 
             {all?.employee?.status === "RESIGNED" &&
-            all?.exitInterview?.status === "PENDING" && 
+            all?.exitInterview?.status === "PENDING" &&
             all?.status === "PENDING" ? (
               <IconButton
                 className={"tableActionBtn"}
@@ -201,7 +203,14 @@ const RelievingExpLetter_View = ({ location }) => {
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  handleRelievingExpLetter(all);
+                  if (
+                    all?.experienceLetter?.status === "SITE_HR_APPROVED" &&
+                    all?.status === "APPROVED"
+                  ) {
+                    handleViewDetails(all);
+                  } else {
+                    handleRelievingExpLetter(all);
+                  }
                 }}
               >
                 <Visibility fontSize={"small"} />

@@ -55,7 +55,7 @@ const useRelievingExpLetterDetail = () => {
     });
 
     return errors;
-  }, [form, errorData, relievingExpDetails]);
+  }, [form, errorData, relievingExpDetails, isSiteHRApprovedPending]);
 
   const submitToApprove = useCallback(async () => {
     if (isSubmitting) {
