@@ -143,16 +143,26 @@ const PendingBGVerification_View = ({ location }) => {
       {
         key: "status",
         label: "STATUS",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
       },
       {
         key: "bgv-result",
         label: "BGV RESULT",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div>
             {all?.bgv_result ? <StatusPill status={all?.bgv_result} /> : <>-</>}
+          </div>
+        ),
+      },
+      {
+        key: "payment_status",
+        label: "PAYMENT STATUS",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.bgv_result ? <StatusPill status={all?.payment_status} /> : <>-</>}
           </div>
         ),
       },

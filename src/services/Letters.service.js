@@ -23,3 +23,7 @@ export async function serviceRelievingExpLetterDetail(params) {
 export async function serviceRelievingExpLetterApprival(params) {
     return await postRequest('experience/letter/review/accept', params);
 }
+
+export async function serviceSendRelievingExpLetter(params) {
+    return await postRequest('api/admin/exit/interview/share', params);
+}

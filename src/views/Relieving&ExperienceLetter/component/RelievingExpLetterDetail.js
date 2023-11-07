@@ -90,33 +90,27 @@ console.log(relievingExpDetails)
                         : `${data.experience.current} yr`}
                     </div>
                   )}
-                  {((relievingExpDetails?.experienceLetter?.status ===
-                    "APPROVED" ||
-                    relievingExpDetails?.experienceLetter?.status ===
-                      "PENDING" ||
-                    relievingExpDetails?.experienceLetter?.status ===
-                      "SITE_HR_APPROVED") &&
-                    (relievingExpDetails?.status === "APPROVED" ||
-                      relievingExpDetails?.status === "PENDING")) ||
-                  (relievingExpDetails?.experienceLetter?.status ===
+               
+                  {relievingExpDetails?.experienceLetter?.status ===
                     "SITE_HR_APPROVED" &&
-                    relievingExpDetails?.status === "PENDING") ? (
-                    <CustomSelectField
-                      label={"General Conduct"}
-                      isError={errorData?.general_conduct}
-                      errorText={errorData?.general_conduct}
-                      value={form?.general_conduct}
-                      handleChange={(value) => {
-                        changeTextData(value, "general_conduct");
-                      }}
-                    >
-                      <MenuItem value={"ENDORSE"}>Endorse</MenuItem>
-                      <MenuItem value={"POOR"}>Poor</MenuItem>
-                      <MenuItem value={"AVERAGE"}>Average</MenuItem>
-                      <MenuItem value={"GOOD"}>Good</MenuItem>
-                      <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
-                    </CustomSelectField>
-                  ) : null}
+                    relievingExpDetails?.status === "PENDING" && (
+                      <CustomSelectField
+                        label={"General Conduct"}
+                        isError={errorData?.general_conduct}
+                        errorText={errorData?.general_conduct}
+                        value={form?.general_conduct}
+                        handleChange={(value) => {
+                          changeTextData(value, "general_conduct");
+                        }}
+                      >
+                        <MenuItem value={"ENDORSE"}>Endorse</MenuItem>
+                        <MenuItem value={"POOR"}>Poor</MenuItem>
+                        <MenuItem value={"AVERAGE"}>Average</MenuItem>
+                        <MenuItem value={"GOOD"}>Good</MenuItem>
+                        <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
+                      </CustomSelectField>
+                    )}
+               
                 </div>
               </div>
               <div className={styles.vertical}></div>
@@ -145,9 +139,8 @@ console.log(relievingExpDetails)
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Worked on NAPS</span>
-                  {relievingExpDetails?.employee?.naps?.employee?.naps?.doe
-                    ? "Yes"
-                    : "N/A"}
+                  {relievingExpDetails?.employee.trainee_id ? 'Yes' : 'N/A'
+                }
                 </div>
               </div>
             </div>
@@ -156,8 +149,7 @@ console.log(relievingExpDetails)
       </div>
 
       <div className={styles.approveContainer}>
-        {relievingExpDetails?.experienceLetter?.status ===
-          "PENDING" &&
+        {relievingExpDetails?.experienceLetter?.status === "PENDING" &&
           relievingExpDetails?.status === "PENDING" && (
             <ButtonBase
               onClick={() => handleSubmitToApprove()}
@@ -167,8 +159,7 @@ console.log(relievingExpDetails)
             </ButtonBase>
           )}
 
-        {relievingExpDetails?.experienceLetter?.status ===
-          "SITE_HR_APPROVED" &&
+        {relievingExpDetails?.experienceLetter?.status === "SITE_HR_APPROVED" &&
           relievingExpDetails?.status === "PENDING" && (
             <ButtonBase
               onClick={() => handleSubmitToApprove()}

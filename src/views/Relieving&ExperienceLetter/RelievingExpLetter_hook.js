@@ -7,9 +7,10 @@ import {
   actionFetchRelievingExpLetterList,
   actionSetPageRelievingExpLetterList,
 } from "../../actions/RelievingExpLetter.action";
+import { serviceSendRelievingExpLetter } from "../../services/Letters.service";
+import SnackbarUtils from "../../libs/SnackbarUtils";
 
 const useRelievingExpLetter_hook = () => {
-
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
@@ -94,11 +95,22 @@ const useRelievingExpLetter_hook = () => {
   };
 
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL}${data?.id}` ) //+data.id
+    historyUtils.push(
+      `${RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL}${data?.id}`
+    ); //+data.id
+  }, []);
+
+  const handleSendDetails = useCallback((data) => {
+    serviceSendRelievingExpLetter({ id: data?.id }).then((res) => {
+      if (!res?.error) {
+        SnackbarUtils.success("Succesfully Send");
+      } else {
+        SnackbarUtils.error(res?.error);
+      }
+    });
   }, []);
 
   const handleRelievingExpLetter = useCallback((document) => {
- 
     if (document) {
       window.open(document?.experienceLetter?.document, "_blank");
     }
@@ -130,7 +142,7 @@ const useRelievingExpLetter_hook = () => {
     handleRowSize,
     handleSortOrderChange,
     handleViewDetails,
- 
+    handleSendDetails,
     editData,
     configFilter,
     handleRelievingExpLetter,
