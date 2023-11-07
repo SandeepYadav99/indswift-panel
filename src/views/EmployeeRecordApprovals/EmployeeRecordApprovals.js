@@ -23,6 +23,7 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 
 import StatusPill from "../../components/Status/StatusPill.component";
 import useEmployeeRecordApprovals from "./EmployeeRecordApprovalHook";
+import RecordDetailView from "./component/RecordDetail";
 
 // import VersionDetailView from "./component/VersionDetail.view";
 // import useEmployeeRecordApprovals from './EmployeeRecordApprovalHook';
@@ -140,7 +141,7 @@ const EmployeeRecordApprovals = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-            //   onClick={() => handleSideToggle(all)}
+               onClick={() => handleSideToggle(all)}
             >
               <Edit fontSize={"small"} />
             </IconButton>
@@ -213,7 +214,7 @@ const EmployeeRecordApprovals = ({}) => {
           open={isSidePanel}
           side={"right"}
         >
-          {/* <VersionDetailView handleClose={handleSideToggle} id={editData} isOpen={isSidePanel} /> */}
+         <RecordDetailView handleClose={handleSideToggle} id={editData} isOpen={isSidePanel} /> 
         </SidePanelComponent>
       </PageBox>
     </div>

@@ -1173,8 +1173,8 @@ const dashboardRoutes = [
   },
   {
     path: `${RouteName.EMPLOYEE_RECORD_APPROVALs}`,
-    sidebarName: "Employee Record ",
-    navbarName: "Employee Record",
+    sidebarName: "Employee Record Approval",
+    navbarName: "Employee Record Approval",
     icon: LocalOffer,
     component: EmployeeRecordApprovals,
     is_sidebar: true,
