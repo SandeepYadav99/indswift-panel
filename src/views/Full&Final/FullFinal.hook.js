@@ -284,7 +284,7 @@ function useFullFinal() {
     query_data: null,
   };
 
-  useEffect(() => [dispatch(actionLeaveList(params))], []);
+  // useEffect(() => [dispatch(actionLeaveList(params))], []);
 
   const handleLeaveApplicationForm = () => {
     history.push("form");
