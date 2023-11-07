@@ -10,6 +10,7 @@ import { removeUnderScore } from "../../../helper/helper";
 import SpecialExitRatingView from "./component/SpecialExitRating/SpecialExitRatingView";
 
 const rankingValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const rankingValuesOther = [1, 2, 3, 4, 5, 6, 7, 8, 9,10];
 const rankingFive = [1, 2, 3, 4, 5];
 const statusValue = ["VERY_GOOD", "GOOD", "AVERAGE", "POOR", "VERY_POOR"];
 function ExitForm() {
@@ -775,8 +776,8 @@ function ExitForm() {
                   changeTextData(value, "scale_of_satisfaction_level");
                 }}
               >
-                {rankingValues?.length > 0 &&
-                  rankingValues?.map((item, index) => (
+                {rankingValuesOther?.length > 0 &&
+                  rankingValuesOther?.map((item, index) => (
                     <MenuItem value={item} key={`option_${index}`}>
                       {item}
                     </MenuItem>
