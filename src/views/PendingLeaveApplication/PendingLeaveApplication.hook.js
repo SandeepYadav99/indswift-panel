@@ -143,7 +143,7 @@ const usePendingLeaveApplication = ({}) => {
         label: "Status",
         name: "leaveObj.status",
         type: "select",
-        fields: ["PENDING","REJECTED","HOD APPROVED","SITE HR APPROVED","APPROVED"],
+        fields: ["PENDING","REJECTED","HOD_APPROVED","SITE_HR_APPROVED","APPROVED"],
       },
     ];
   }, [listData]);

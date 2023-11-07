@@ -121,12 +121,7 @@ const useLeaveList = ({}) => {
         name: "status",
         type: "select",
         fields: [
-          "REJECTED",
-          "PENDING",
-          "APPROVED",
-          "PROCESSED",
-          "RECRUITER_APPROVED",
-          "CORPORATE_AUDIT_2_APPROVED",
+          "PENDING","REJECTED","HOD_APPROVED","SITE_HR_APPROVED","APPROVED"
         ],
       },
     ];
