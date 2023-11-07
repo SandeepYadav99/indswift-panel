@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import { Add, InfoOutlined, PrintOutlined } from "@material-ui/icons";
+import { Add, InfoOutlined, PrintOutlined, Visibility } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -23,6 +23,7 @@ import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 
 import StatusPill from "../../components/Status/StatusPill.component";
 import useEmployeeRecordApprovals from "./EmployeeRecordApprovalHook";
+import RecordDetailView from "./component/RecordDetail";
 
 // import VersionDetailView from "./component/VersionDetail.view";
 // import useEmployeeRecordApprovals from './EmployeeRecordApprovalHook';
@@ -140,9 +141,9 @@ const EmployeeRecordApprovals = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-            //   onClick={() => handleSideToggle(all)}
+               onClick={() => handleSideToggle(all)}
             >
-              <Edit fontSize={"small"} />
+              <Visibility fontSize={"small"} />
             </IconButton>
           </div>
         ),
@@ -213,7 +214,7 @@ const EmployeeRecordApprovals = ({}) => {
           open={isSidePanel}
           side={"right"}
         >
-          {/* <VersionDetailView handleClose={handleSideToggle} id={editData} isOpen={isSidePanel} /> */}
+         <RecordDetailView handleClose={handleSideToggle} id={editData} isOpen={isSidePanel} /> 
         </SidePanelComponent>
       </PageBox>
     </div>
