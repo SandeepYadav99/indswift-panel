@@ -139,6 +139,7 @@ function ExitDetail() {
               ratingValue={
                 employeeDetail?.new_job_compare_with_organisation_in_term_job_contents
               }
+              helper={true}
             />
             <>
               <div className={styles.rankingWrapper}>
@@ -170,7 +171,7 @@ function ExitDetail() {
                   employeeDetail?.response_to_8a
                     ?.deographic_location_of_organization
                 }
-              </div>{" "}
+              </div>{""}
               <div className={styles.rankingWrapper}>
                 <span className={styles.heading}>
                   8.b.4 You are going at how much salary growth in %?
@@ -189,11 +190,13 @@ function ExitDetail() {
             <ExitRatingFeedback
               title="a. Job function (e.g. Training & Learning opportunities, freedom to operate job satisfaction etc)"
               ratingValue={employeeDetail?.job_function}
+              des={true}
             />
             <div className={styles.horizontalLine}></div>
             <ExitRatingFeedback
               title="b. People (e.g. mutual trust & respect, encouragement, counselling empathy, mentoring etc)"
               ratingValue={employeeDetail?.people}
+              des={true}
             />
             <div className={styles.rankingWrapper}>
               <span className={styles.heading}>
