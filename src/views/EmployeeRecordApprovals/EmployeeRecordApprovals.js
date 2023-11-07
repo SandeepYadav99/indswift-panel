@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import { Add, InfoOutlined, PrintOutlined } from "@material-ui/icons";
+import { Add, InfoOutlined, PrintOutlined, Visibility } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -143,7 +143,7 @@ const EmployeeRecordApprovals = ({}) => {
               disabled={isCalling}
                onClick={() => handleSideToggle(all)}
             >
-              <Edit fontSize={"small"} />
+              <Visibility fontSize={"small"} />
             </IconButton>
           </div>
         ),
