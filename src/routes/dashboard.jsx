@@ -25,6 +25,7 @@ import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail
 import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
 import ExitInterviewList from "../views/ExitInterview/ExitInterviewList/ExitInterviewList.container";
+import FinalForm from "../views/Full&Final/FinalForm/FinalForm.view.js";
 
 
 const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
@@ -2418,6 +2419,15 @@ const dashboardRoutes = [
     icon: AssignmentOutlined,
     component: PendingLeaveApplicationList,
     is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.FULL_FINAL_FORM}:id`,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FinalForm,
+    is_sidebar: false,
     is_protect: true,
   },
   {
