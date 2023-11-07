@@ -103,7 +103,7 @@ console.log(relievingExpDetails)
                           changeTextData(value, "general_conduct");
                         }}
                       >
-                        <MenuItem value={"ENDORSE"}>Endorse</MenuItem>
+                        {/* <MenuItem value={"ENDORSE"}>Endorse</MenuItem> */}
                         <MenuItem value={"POOR"}>Poor</MenuItem>
                         <MenuItem value={"AVERAGE"}>Average</MenuItem>
                         <MenuItem value={"GOOD"}>Good</MenuItem>
@@ -139,7 +139,7 @@ console.log(relievingExpDetails)
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Worked on NAPS</span>
-                  {relievingExpDetails?.employee.trainee_id ? 'Yes' : 'N/A'
+                  {relievingExpDetails?.employee?.trainee_id ? 'Yes' : 'N/A'
                 }
                 </div>
               </div>

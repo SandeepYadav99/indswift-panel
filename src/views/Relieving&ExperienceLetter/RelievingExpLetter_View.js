@@ -64,18 +64,15 @@ const RelievingExpLetter_View = ({ location }) => {
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>
-          
               <StatusPill status={`${obj?.experienceLetter?.status}/${obj?.status}`} />
             </span>{" "}
-            
-            
-            <span></span>
           </div>
         </div>
       );
     }
     return null;
   }, []);
+  
   const tableStructure = useMemo(() => {
     return [
       {
@@ -176,7 +173,7 @@ const RelievingExpLetter_View = ({ location }) => {
             ) : null}
 
             {all?.employee?.status === "RESIGNED" &&
-            all?.exitInterview?.status === "PENDING" && // Exist Emloy code
+            all?.exitInterview?.status === "PENDING" && 
             all?.status === "PENDING" ? (
               <IconButton
                 className={"tableActionBtn"}

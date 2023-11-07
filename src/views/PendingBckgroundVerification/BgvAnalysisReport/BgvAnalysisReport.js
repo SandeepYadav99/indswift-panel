@@ -1,5 +1,5 @@
 import { ButtonBase, MenuItem } from "@material-ui/core";
-import TableView from "./component/TableView";
+import BGVAnalysisTable from "./component/BGVAnalysisTable"
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import historyUtils from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -44,7 +44,7 @@ const BgvAnalysisReport = () => {
         {/* Table is  */}
         <br />
         <br />
-        <TableView />
+        <BGVAnalysisTable />
       </div>
     </div>
   );
