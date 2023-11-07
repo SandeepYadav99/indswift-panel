@@ -1,0 +1,49 @@
+ .container {
+  padding: 40px;
+  background-color: #f6f7ff;;
+ }
+  .myTable {
+    border-collapse: collapse;
+    width: 100%; 
+    font-size: 14px;
+    color: #000;
+    margin: 20px auto ;
+  
+  }
+  .sky{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    text-align: center;
+  }
+  .logoImg{
+    text-align: center;
+  }
+  .headingText{
+    text-align: center;
+  }
+  .myTable th, .myTable td {
+    border: 1px solid black; 
+    padding: 8px;
+    text-align: center; 
+  
+  }
+  
+  .centerText{
+    text-align: center;
+    background-color: #ECF7FF;
+  }
+
+  .noBorder {
+    border: none;
+  }
+
+  .bgColor4Cols{
+    background-color: #ECF7FF;
+  }
+  .bgColorRow{
+    background-color: #ECF7FF;
+  }
+  .grayRow{
+    background-color: #ebe5e5;
+  }
