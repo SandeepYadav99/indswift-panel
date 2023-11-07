@@ -63,11 +63,12 @@ const PendingBGVerification_View = ({ location }) => {
   }, []);
 
   const button_VerificationHandler = (all) => {
-    if (all?.status === "SENT_FOR_VERIFICATION") {
+    
+    if (all?.bgv_status === "SENT_FOR_VERIFICATION") {
       if (
         all?.bgv_result === "CLEAR" ||
         all?.bgv_result === "FAILED" ||
-        all?.bgv_result === "Unable to Verify"
+        all?.bgv_result === "UNABLE_TO_VERIFY"
       ) {
         return (
           <IconButton
@@ -102,13 +103,13 @@ const PendingBGVerification_View = ({ location }) => {
         key: "name",
         label: "NAME",
         sortable: false,
-        render: (value, all) => <div>{all?.name}</div>,
+        render: (value, all) => <div>{all?.emp_name}</div>,
       },
       {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.location?.name}</div>,
+        render: (temp, all) => <div>{all?.location?.name || all?.reporting_company}</div>,
       },
       {
         key: "month",
@@ -126,13 +127,13 @@ const PendingBGVerification_View = ({ location }) => {
         key: "department",
         label: "DEPARTMENT",
         sortable: false,
-        render: (temp, all) => <div>{all?.department?.name}</div>,
+        render: (temp, all) => <div>{all?.department?.name || "-"}</div>,
       },
       {
         key: "offer_accepted",
         label: "OFFER ACCEPTED",
         sortable: false,
-        render: (temp, all) => <div>{all?.offerAcceptedDate}</div>,
+        render: (temp, all) => <div>{all?.offerAcceptedDate || "-"}</div>,
       },
       {
         key: "doj",
@@ -144,7 +145,7 @@ const PendingBGVerification_View = ({ location }) => {
         key: "status",
         label: "STATUS",
         sortable: false,
-        render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
+        render: (temp, all) => <div>{renderStatus(all?.bgv_status)}</div>,
       },
       {
         key: "bgv-result",
@@ -171,7 +172,7 @@ const PendingBGVerification_View = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {all?.status === "PENDING_VERIFICATION" && (
+            {all?.bgv_status === "PENDING_VERIFICATION" && (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
@@ -188,7 +189,7 @@ const PendingBGVerification_View = ({ location }) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, button_VerificationHandler]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
