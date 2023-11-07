@@ -30,7 +30,7 @@ import ExitInterviewList from "../views/ExitInterview/ExitInterviewList/ExitInte
 import FinalForm from "../views/Full&Final/FinalForm/FinalForm.view.js";
 
 
-const BgvAnalysisReport =lazy(()=>import("../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"));
+// const BgvAnalysisReport =lazy(()=>import("../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"));
 const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
 const SuccessionApproval_List = lazy(() =>import("../views/SuccessionApproval/SuccessionApproval_List"));
@@ -2297,19 +2297,19 @@ const dashboardRoutes = [
     // parent: "skynetLetter",
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
-  {
-    path: `${RouteName.BGV_ANALYSI_REPOST}:id`,
-    sidebarName: "Pending Background Verification",
-    navbarName: "Pending Background Verification",
-    icon: AssignmentOutlined,
-    component: BgvAnalysisReport,
-    is_sidebar: false,
-    is_protect: true,
-    // slug: 'tp',
-    // is_parent: true,
-    // parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
-  },
+  // {
+  //   path: `${RouteName.BGV_ANALYSI_REPOST}:id`,
+  //   sidebarName: "Pending Background Verification",
+  //   navbarName: "Pending Background Verification",
+  //   icon: AssignmentOutlined,
+  //   component: BgvAnalysisReport,
+  //   is_sidebar: false,
+  //   is_protect: true,
+  //   // slug: 'tp',
+  //   // is_parent: true,
+  //   // parent: "skynetLetter",
+  //   // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  // },
   {
     path: `${RouteName.PENDING_VERIFICATION_CREATE}:id`,
     sidebarName: "Pending Background Verification",
