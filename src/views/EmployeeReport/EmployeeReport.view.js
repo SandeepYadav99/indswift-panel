@@ -36,6 +36,7 @@ const EmployeeReport = ({}) => {
     data,
     all: allData,
     currentPage,
+    total,
     is_fetching: isFetching,
   } = useSelector((state) => state.employeeReport);
   const renderStatus = useCallback((status) => {
@@ -252,7 +253,7 @@ const EmployeeReport = ({}) => {
           </div>
         </div>
         <div>
-          <div className={styles.totalWrap}>Total Count : {data?.length}</div>
+          <div className={styles.totalWrap}>Total Count : {total}</div>
         </div>
         <div>
           <div>
