@@ -516,7 +516,6 @@ function useClaimForDetail() {
     approveDialog,
     toggleRejectDialog,
     rejectDialog,
-    isSubmitting,
     refundData,
     setRefundData,
   };
