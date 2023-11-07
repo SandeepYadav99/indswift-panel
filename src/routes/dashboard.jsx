@@ -2435,7 +2435,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
-    //  roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+     roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL}:id`,
