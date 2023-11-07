@@ -166,7 +166,7 @@ const PendingApplication = () => {
               </div>
               <div className={styles.marginEqual}>
                 <span className={styles.adjustFont}>Comment:</span>
-                <span className={styles.textFont}>{detailData?.comments}</span>
+                <span className={styles.textFont}>{detailData?.leave?.comment}</span>
               </div>
             </div>
             <div className={styles.columnOne}>
@@ -237,9 +237,9 @@ const PendingApplication = () => {
               </div>
               <div className={styles.marginEqual}>
                 <span className={styles.adjustFont}>Comment:</span>
-                <span className={styles.textFont}>{detailData?.comments}</span>
+                <span className={styles.textFont}>{detailData?.leave?.comment}</span>
               </div>
-              {detailData?.details?.leave?.document ? (
+              {detailData?.leave?.document ? (
                 <span className={styles.adjustFont}>
                   <a href={detailData?.leave?.document} target="_blank">
                     View Attachment
@@ -310,12 +310,14 @@ const PendingApplication = () => {
                     {detailData?.createdAtText}
                   </span>
                 </div>
+                {detailData?.leave?.type === "BEREAVEMENT_LEAVE" ? "":
                 <div className={styles.marginEqual}>
                   <span className={styles.adjustFont}>Comment:</span>
                   <span className={styles.textFont}>
-                    {detailData?.comments}
+                    {detailData?.leave?.comment}
                   </span>
                 </div>
+                    }
                 {detailData?.leave?.document ? (
                   <span className={styles.adjustFont}>
                     <a href={detailData?.leave?.document} target="_blank">
@@ -330,7 +332,8 @@ const PendingApplication = () => {
                 <div className={styles.marginEqual}>
                   <span className={styles.adjustFont}>Reason for leave:</span>
                   <span className={styles.textFont}>
-                    {detailData?.leave?.comment}
+                 { (detailData?.leave?.type === "BEREAVEMENT_LEAVE") ? `${detailData?.leave?.comment}` :
+                    `${detailData?.leave?.reason}`}
                   </span>
                 </div>
                 <div className={styles.marginEqual}>
