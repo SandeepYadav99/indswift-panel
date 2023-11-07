@@ -61,7 +61,7 @@ const PendingLeaveApplication = () => {
         key: "type",
         label: "EMPLOYEE",
         sortable: true,
-        render: (value, all) => <div>{all?.leave?.employee?.name}</div>,
+        render: (value, all) => <div style={{display:"flex",flexDirection:"column"}}><span>{all?.leave?.employee?.name}</span><span>{all?.leave?.employee?.emp_code}</span></div>,
       },
       {
         key: "grade_cadre",
