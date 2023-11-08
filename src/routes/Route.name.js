@@ -212,17 +212,26 @@ export default {
   RELIEVING_EXPERIENCE_LETTER_DETAIL:"/relieving-exp-letter/detail/",
   PENDING_BACKGROUND_VERIFICATION:"/pending-verification",
   BGV_ANALYSI_REPOST:"/pending-verification/detail/",
-  
+
   PENDING_VERIFICATION_CREATE:"/verification/create/",
   PENDING_VERIFICATION_DETAIL:"/verification/detail",
   PENDING_VERIFICATION_UPDATE:"/verification/update/",
-  PENDING_VERIFICATION_DETAIL:"/verification/detail/",
 
 
   LEAVE_APPLICATION_LIST_VIEW:'/leave-application/list',
-  LEAVE_APPLICATION_FORM:"/leave-application/form",
+  LEAVE_APPLICATION_FORM:"/leave-application-form",
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
 
-  HRESCALATIONMATRIX:"/hr/escalation"
- 
+
+  FULL_FINAL_APPLICATION:"/full-final",
+  FULL_FINAL_APPROVAL:"/full-final-approval",
+  FULL_FINAL_FORM:"/full/form/",
+
+  HRESCALATIONMATRIX:"/hr/escalation",
+  EXIT_LOGIN:"/exit/login",
+  EXIT_SUCCESS:"/exit/success",
+  EXIT_INTERVIEW_LIST:"/exit/interview/list",
+  EXIT_INTERVIEW_FORM:"/exit/interview/form",
+  EXIT_DETAIL:"/exit/details/",
+
 };

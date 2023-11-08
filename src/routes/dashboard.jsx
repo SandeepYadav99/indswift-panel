@@ -12,21 +12,8 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-const IncrementLetter =lazy(()=>import("../views/Pms/IncrementLetter/IncrementLetter.view")) ;
-const USCEditView =lazy(()=>import("../views/HR/HRSettings/components/USCEdit/USCEdit")) ;
 
-const SuccessionPlanner_list =lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list")) ;
-const LetterApprovalProces_View =lazy(()=>import("../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View")) ;
-const LetterApprovalDetail =lazy(()=>import("../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail")) ;
-const RelievingExpLetter_View =lazy(()=>import("../views/Relieving&ExperienceLetter/RelievingExpLetter_View")) ;
-const CurrencyEditView =lazy(()=>import("../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit")) ;
-const ClaimForCard =lazy(()=>import("../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view")) ;
-const ForeignClaimDetail =lazy(()=>import("../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view")) ;
 const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
-
-const BGVStatus_Update =lazy(()=>import("../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update")) ;
-
-const BGVDetailView =lazy(()=>import("../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View")) ;
 
 const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
 
@@ -46,9 +33,23 @@ const EmployeeInformation = lazy(() =>
     "../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"
   )
 );
-const SuccessionApproval_List = lazy(() =>
-  import("../views/SuccessionApproval/SuccessionApproval_List")
-);
+const IncrementLetter = lazy(()=>  import("../views/Pms/IncrementLetter/IncrementLetter.view"));
+const USCEditView = lazy(()=>  import("../views/HR/HRSettings/components/USCEdit/USCEdit"));
+const SuccessionApproval_List = lazy(()=>  import("../views/SuccessionApproval/SuccessionApproval_List"));
+const SuccessionPlanner_list = lazy(()=>  import("../views/SuccessionPlaner/SuccessionPlanner_list"));
+const LetterApprovalProces_View = lazy(()=>  import("../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View"));
+const LetterApprovalDetail = lazy(()=>  import("../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail"));
+const RelievingExpLetter_View = lazy(()=>  import("../views/Relieving&ExperienceLetter/RelievingExpLetter_View"));
+const CurrencyEditView = lazy(()=>  import("../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit"));
+const ClaimForCard = lazy(()=>  import("../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view"));
+const ForeignClaimDetail = lazy(()=>  import("../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view"));
+const BGVStatus_Update = lazy(()=>  import("../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update"));
+const BGVDetailView = lazy(()=>  import("../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View"));
+const ExitInterviewList = lazy(()=>  import("../views/ExitInterview/ExitInterviewList/ExitInterviewList.container"));
+const FinalForm = lazy(()=>  import("../views/Full&Final/FinalForm/FinalForm.view.js"));
+
+
+const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
 
 const LeaveApplicationForm = lazy(() =>
   import(
@@ -460,6 +461,12 @@ const IncrementPlanner = lazy(() =>
   import("../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view")
 );
 
+const FullFinalComponent = lazy(()=>import("../views/Full&Final/FullFinal.component"));
+
+const FullFinalApprovalJourney = lazy(()=>import("../views/Full&FinalApproval/FullFinalApproval.component"))
+
+const PendingLeaveDetailApplication = lazy(()=>import("../views/PendingLeaveApplication/PendingApplicationDetail/PendingApplication.view.js"))
+
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -578,7 +585,7 @@ const dashboardRoutes = [
     should_regex: true,
     // parent: 'employeedashboard',
   },
-  
+
   {
     path: "/employeeInduction",
     sidebarName: "Employee Induction",
@@ -2377,7 +2384,7 @@ const dashboardRoutes = [
       Roles.GENERAL,
       Roles.OLR,
       Roles.RECRUITER,
-     
+
     ],
   },
   {
@@ -2467,7 +2474,7 @@ const dashboardRoutes = [
       Roles.GENERAL,
       Roles.OLR,
       Roles.RECRUITER,
-     
+
     ],
   },
   {
@@ -2502,23 +2509,61 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
+    path: RouteName.EXIT_INTERVIEW_LIST,
+    sidebarName: "Exit Interview List",
+    navbarName: "Exit Interview List",
+    icon: PeopleOutlined,
+    component: ExitInterviewList,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
     path: RouteName.PENDING_LEAVE_APPLICATION,
     sidebarName: "Pending Leave Application",
     navbarName: "Pending Leave Application",
     icon: AssignmentOutlined,
-    component: PendingLeaveApplication,
+    component: PendingLeaveApplicationList,
     is_sidebar: true,
     is_protect: true,
   },
-  // {
-  //     path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
-  //     sidebarName: "Pending Leave Application",
-  //     navbarName: "Pending Leave Application",
-  //     icon: AssignmentOutlined,
-  //     component: PendingLeaveDetail,
-  //     is_sidebar: false,
-  //     is_protect: true,
-  // },
+  {
+    path: `${RouteName.FULL_FINAL_FORM}:id`,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FinalForm,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: RouteName.FULL_FINAL_APPLICATION,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FullFinalComponent,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: RouteName.FULL_FINAL_APPROVAL,
+    sidebarName: "Full & Final Approval",
+    navbarName: "Full & Final Approval",
+    icon: AssignmentOutlined,
+    component: FullFinalApprovalJourney,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+      path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
+      sidebarName: "Pending Leave Application",
+      navbarName: "Pending Leave Application",
+      icon: AssignmentOutlined,
+      component: PendingLeaveDetailApplication,
+      is_sidebar: false,
+      is_protect: true,
+  },
 ];
 
 export default dashboardRoutes;

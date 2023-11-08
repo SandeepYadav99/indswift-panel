@@ -1,0 +1,32 @@
+.PerformanceViewWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 1.2rem;
+}
+.titleWrapper > span{
+    font-weight: 600;
+    font-size: .875rem;
+}
+.questionWrapper > span{
+    font-size: .875rem;
+}
+.emojWrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.emojCard{
+    /* flex: 1; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+.emojCard >span{
+    font-size: .875rem;
+}
+.performanceindex{
+    font-weight: 600;
+}

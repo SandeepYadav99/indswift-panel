@@ -507,7 +507,6 @@ function useClaimForDetail() {
     USDtoINR,
     EurotoINR,
     imprestINRAmount,
-    curr,
     getOfficeAmount,
     officeAmount3,
     setOfficeAmount3,
@@ -517,7 +516,6 @@ function useClaimForDetail() {
     approveDialog,
     toggleRejectDialog,
     rejectDialog,
-    isSubmitting,
     refundData,
     setRefundData,
   };

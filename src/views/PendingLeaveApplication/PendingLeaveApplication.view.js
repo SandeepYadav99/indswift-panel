@@ -1,34 +1,24 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
-import {
-  Button,
-  Paper,
-  Checkbox,
-  IconButton,
-  MenuItem,
-  ButtonBase,
-  Menu,
-} from "@material-ui/core";
+import React, { useCallback, useMemo } from "react";
+
 import classNames from "classnames";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import PageBox from "../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Styled.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import usePendingLeaveApplication from "./PendingLeaveApplication.hook";
 import StatusPill from "../../components/Status/StatusPill.component";
-import OnBoardDialog from "../EmployeeList/components/OnBoardPopUp/OnBoardDialog.view";
-import TraineeDialog from "../EmployeeList/components/TraineePopUp copy/TraineeDialog.view";
+import { IconButton } from "@material-ui/core";
+import { InfoOutlined } from "@material-ui/icons";
+
+import { removeUnderScore } from "../../helper/helper";
 
 const PendingLeaveApplication = () => {
   const {
     handleSortOrderChange,
-    handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
@@ -37,12 +27,7 @@ const PendingLeaveApplication = () => {
     isSidePanel,
     isCalling,
     configFilter,
-    handleLeaveApplicationForm,
-    isExtendDialog,
-    toggleExtendDialog,
-    isTraineeDialog,
-    toggleTraineeDialog,
-    listData,
+    handleRowSize
   } = usePendingLeaveApplication({});
 
   const {
@@ -51,11 +36,6 @@ const PendingLeaveApplication = () => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.LeaveModule);
-
-  const { user } = useSelector((state) => state.auth);
-  const removeUnderScore = (value) => {
-    return value ? value.replace(/_/g, " ") : "";
-  };
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
@@ -81,69 +61,108 @@ const PendingLeaveApplication = () => {
         key: "type",
         label: "EMPLOYEE",
         sortable: true,
-        render: (value, all) => <div></div>,
+        render: (value, all) => <div style={{display:"flex",flexDirection:"column"}}><span>{all?.leave?.employee?.name}</span><span>{all?.leave?.employee?.emp_code}</span></div>,
       },
       {
-        key: "date",
+        key: "grade_cadre",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => <div></div>,
-      },
-      {
-        key: "status",
-        label: "LOCATION",
-        sortable: false,
-        render: (temp, all) => <div></div>,
-      },
-      {
-        key: "appliedon",
-        label: "DESIGNATION",
-        sortable: false,
-        render: (temp, all) => <div></div>,
-      },
-      {
-        key: "attachments",
-        label: "DEPT & SUB-DEPT",
-        sortable: false,
         render: (temp, all) => (
-          <div>{all?.document && <div className={styles.key}></div>}</div>
+          <div>
+            {all?.leave?.employee?.grade?.code}/
+            {all?.leave?.employee?.cadre?.name}
+          </div>
         ),
       },
       {
-        key: "type",
+        key: "location",
+        label: "LOCATION",
+        sortable: false,
+        render: (temp, all) => (
+          <div>{all?.leave?.employee?.location?.name}</div>
+        ),
+      },
+      {
+        key: "designation",
+        label: "DESIGNATION",
+        sortable: false,
+        render: (temp, all) => (
+          <div>{all?.leave?.employee?.designation?.name}</div>
+        ),
+      },
+      {
+        key: "dept_sub_dept",
+        label: "DEPT & SUB-DEPT",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.leave?.employee?.department?.name}/
+            {all?.leave?.employee?.sub_department?.name}
+          </div>
+        ),
+      },
+      {
+        key: "contact",
         label: "CONTACT",
         sortable: true,
-        render: (value, all) => <div> </div>,
+        render: (value, all) => (
+          <div>
+            {" "}
+            {all?.leave?.employee?.contact?.official_contact}-
+            {all?.leave?.employee?.contact?.personal_contact}
+          </div>
+        ),
       },
       {
-        key: "date",
+        key: "leave_type",
         label: "LEAVE TYPE",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => <div>{removeUnderScore(all?.leave?.type)}</div>,
       },
       {
-        key: "status",
+        key: "overrall_status",
         label: "CURRENT STATUS/ OVERALL STATUS",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => (
+          <div className={styles.statusMarking}>
+            <span>{<StatusPill status={all?.status} />}</span>
+            <span>{<StatusPill status={all?.leave?.status} />}</span>
+          </div>
+        ),
       },
       {
-        key: "appliedon",
+        key: "leaves_dates",
         label: "LEAVE DATES",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => (
+          <div>
+            {all?.leave?.startDateText !== all?.leave?.endDateText
+              ? `${all?.leave?.startDateText}-
+          ${all?.leave?.endDateText}`
+              : `${all?.leave?.startDateText}`}
+          </div>
+        ),
       },
       {
-        key: "attachments",
+        key: "leave_applied_on",
         label: "APPLIED ON",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => <div>{all?.leave?.createdAtText}</div>,
       },
       {
-        key: "attachments",
+        key: "actions",
         label: "ACTION",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => (
+          <IconButton
+            className={"tableActionBtn"}
+            color="secondary"
+            disabled={isCalling}
+            onClick={() => handleViewDetails(all)}
+          >
+            <InfoOutlined fontSize={"small"} />
+          </IconButton>
+        ),
       },
     ];
   }, [renderFirstCell, handleViewDetails, handleEdit, isCalling]);
@@ -152,15 +171,14 @@ const PendingLeaveApplication = () => {
     const datatableFunctions = {
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
       onRowSizeChange: handleRowSize,
     };
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: data?.data ? data?.data : [],
-      count: data?.data?.length ? data?.data?.length : 0,
+      data: data,
+      count: allData.length,
       page: currentPage,
     };
 
@@ -184,17 +202,6 @@ const PendingLeaveApplication = () => {
             <div className={styles.newLine} />
           </div>
         </div>
-        <OnBoardDialog
-          listData={listData}
-          // candidateId={id}
-          isOpen={isExtendDialog}
-          handleToggle={toggleExtendDialog}
-        />
-        <TraineeDialog
-          listData={listData}
-          isOpen={isTraineeDialog}
-          handleToggle={toggleTraineeDialog}
-        />
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -213,12 +220,6 @@ const PendingLeaveApplication = () => {
           </div>
         </div>
       </PageBox>
-      <SidePanelComponent
-        handleToggle={handleSideToggle}
-        title={"New Candidate"}
-        open={isSidePanel}
-        side={"right"}
-      ></SidePanelComponent>
     </div>
   );
 };

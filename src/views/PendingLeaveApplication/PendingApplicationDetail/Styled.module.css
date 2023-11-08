@@ -1,118 +1,192 @@
 .container {
-    display: flex;
-    flex-direction: column;
-  }
-  .profileDetail {
-    margin-top: 30px;
-    height: fit-content;
-    border-radius: 3px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-  .about {
-    display: grid;
-    grid-template-columns: 45% 55%;
-  }
-  .title {
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  
-  .newLine {
-    height: 4px;
-    width: 30px;
-    border-radius: 10px;
-    margin-left: 1px;
-    background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
-  }
-  .imageBlock {
-    display: flex;
-    gap: 10px;
-    border-right: 2px dashed gray;
-  }
-  .name {
-    display: flex;
-    flex-direction: column;
-    gap: "16px";
-    font-size: 0.8rem;
-  }
-  .otherInfo {
-    display: flex;
-    flex-direction: column;
-    gap: "16px";
-    margin-left: 40px;
-    font-size: 0.8rem;
-  }
-  .image {
-    border-radius: 24px;
-    height: 60px;
-    width: 60px;
-  }
-  .formContainer {
-    margin-top: 50px;
-    height: fit-content;
-    border-radius: 3px;
-    padding: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-  .btnContainer {
-    margin-top: 30px;
-    display: flex;
-    justify-content: end;
-  }
-  .leaveForm {
-    display: flex;
-    flex-direction: column;
-    margin-top: 5px;
-  }
-  .leaveTitle {
-    font-size: 16px;
-  }
-  
-  .radioButtonContainer {
-    display: flex;
-    flex-direction: row !important;
-    font-size: 0.7rem;
-    margin-top: 10px;
-  }
-  
-  .inputContainer {
-    display: flex;
-    flex-direction: column;
-    margin-right: 10px;
-  }
-  
-  .firstBlock {
-    display: grid;
-    grid-template-columns: 36% 36% 15% 13%;
-    gap: 3px;
-  }
-  .leaveText {
-    display: flex;
-    align-items: center;
-    font-size: 0.8rem;
-  }
-  .parentalLeaveBlock {
-    display: flex;
-    gap: 40px;
-  }
-  .formData {
-    display: flex;
-    gap: 8px;
-  }
-  .plainPaper {
-    border-radius: 10px;
-    padding: 1.2rem;
-    margin-bottom: 20px;
-    background-color: #fff;
-    box-shadow: 0px 20px 80px #00000011;
-  }
-  .heading {
-    font-size: 0.8rem;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    font-weight: 600;
-  }
-  
+  display: flex;
+  flex-direction: column;
+}
+.profileDetail {
+  margin-top: 30px;
+  height: fit-content;
+  border-radius: 3px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.about {
+  display: grid;
+  grid-template-columns: 45% 55%;
+}
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.imageBlock {
+  display: flex;
+  gap: 10px;
+  border-right: 2px dashed gray;
+}
+.name {
+  display: flex;
+  flex-direction: column;
+  gap: "16px";
+  font-size: 0.8rem;
+}
+.otherInfo {
+  display: flex;
+  flex-direction: column;
+  gap: "16px";
+  margin-left: 40px;
+  font-size: 0.8rem;
+}
+.image {
+  border-radius: 24px;
+  height: 60px;
+  width: 60px;
+}
+.formContainer {
+  margin-top: 50px;
+  height: fit-content;
+  border-radius: 3px;
+  padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.btnContainer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.leaveForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+}
+.leaveTitle {
+  font-size: 16px;
+}
+
+.radioButtonContainer {
+  display: flex;
+  flex-direction: row !important;
+  font-size: 0.7rem;
+  margin-top: 10px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.firstBlock {
+  display: grid;
+  grid-template-columns: 36% 36% 15% 13%;
+  gap: 3px;
+}
+.leaveText {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+}
+.parentalLeaveBlock {
+  display: flex;
+  gap: 40px;
+}
+.formData {
+  display: flex;
+  gap: 8px;
+}
+.plainPaper {
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0px 20px 80px #00000011;
+}
+.heading {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.divider {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-top: 20px;
+}
+.columnOne {
+  display: flex;
+  flex-direction: column;
+}
+.adjustFont{
+  font-size: 12px !important;
+  width: 150px !important;
+  font-weight: 600 !important;
+}
+.marginEqual{
+  display: flex;
+}
+.headingDetails{
+  font-size: 14px;
+}
+.textFont{
+  font-size: 12px !important;
+  color: #818181;
+  font-weight: 500;
+}
+
+.rejectButton{
+  border: 1px solid #E92828;
+  background-color: #F6F7FF;
+  color: #E92828;
+  padding: 10px;
+  padding-right: 30px;
+  padding-left: 30px;
+  border-radius: 24px;
+}
+.headerModal{
+  display: flex;
+  justify-content: center !important;
+  flex-direction: column;
+  align-items: center !important;
+  margin-bottom: 10px;
+}
+.marginCheckbox{
+  margin-top: 20px !important;
+}
+.alignButtonEnd{
+  margin-top: 10px;
+ display: flex;
+ justify-content: flex-end !important;
+}
+.closeIcon{
+  display: flex;
+  justify-content: flex-end !important;
+  cursor: alias !important;
+}
+.submitBtn{
+  background-color: #29CB97 !important;
+    color: #ffffff !important;
+    padding: 10px 20px !important;
+    font-size: 0.8rem !important;
+    border-radius: 30px !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+}
+
+.submitBtnFade{
+  background-color: #29CB97 !important;
+    color: #ffffff !important;
+    padding: 10px 20px !important;
+    font-size: 0.8rem !important;
+    border-radius: 30px !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+    opacity: 0.4 !important;
+}
