@@ -39,7 +39,7 @@ const ThisYearSuccessionPlanner = ({
     currentPage,
     isFetching,
     configFilter,
-  
+
     isSidePanel,
     handleToggleSidePannel,
     isSidePanelForm,
@@ -52,15 +52,17 @@ const ThisYearSuccessionPlanner = ({
       if (obj) {
         return (
           <div className={styles.headerContainer}>
-           
-              <div className={styles.InfoWrap}>
-                <div>{"Succession History"} </div>
-                <div className={styles.newLine}></div>
-              </div>
-       
+            <div className={styles.InfoWrap}>
+              <div>{"Succession History"} </div>
+              <div className={styles.newLine}></div>
+            </div>
+
             <div className={styles.addButton}>
               <ButtonBase
-                onClick={handleToggleSidePannelForm}
+                onClick={() => {
+                  handleToggleSidePannelForm();
+                  handleToggleSidePannel();
+                }}
                 className={"createBtn"}
               >
                 Add
@@ -75,29 +77,31 @@ const ThisYearSuccessionPlanner = ({
     [editData]
   );
 
+  const UpperDetailFormInfo = useCallback(
+    (obj) => {
+      if (obj) {
+        return (
+          <div className={styles.headerContainer}>
+            <div className={styles.InfoWrap}>
+              <div>{"Add Details"} </div>
+              <div className={styles.newLine}></div>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    },
+    [editData]
+  );
+
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
-  const renderContact = useCallback((obj) => {
-    if (obj) {
-      return (
-        <div className={styles.firstCellFlex}>
-          <div>
-            <span className={styles.productName}>{obj?.contact}</span> <br />
-            <span>{obj?.email}</span>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  }, []);
+
   const renderFirstCell = useCallback((product) => {
     if (product) {
       return (
         <div className={styles.firstCellFlex}>
-          {/*<div>*/}
-          {/*    <img src={user.image} alt=""/>*/}
-          {/*</div>*/}
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span>
               <strong></strong>
@@ -259,26 +263,9 @@ const ThisYearSuccessionPlanner = ({
 
   return (
     <div>
- 
       <div>
-      {/* <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleToggleSidePannel()
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton> */}
         <div>
           <div>
-            {/* <FilterComponent
-               is_progress={isFetching}
-              handleSearchValueChange={handleSearchValueChange}
-              handleFilterDataChange={handleFilterDataChange}
-              filterWidth={filterWidth}
-            /> */}
             <FilterComponent
               is_progress={isFetching}
               filters={configFilter}
@@ -297,6 +284,7 @@ const ThisYearSuccessionPlanner = ({
             </div>
           </div>
         </div>
+
         <SidePanelComponent
           handleToggle={handleToggleSidePannel}
           title={<UpperInfo />}
@@ -312,7 +300,8 @@ const ThisYearSuccessionPlanner = ({
 
         <SidePanelComponent
           handleToggle={handleToggleSidePannelForm}
-          // title={<UpperInfo />}
+          title={<UpperDetailFormInfo />}
+          isBack={true}
           open={isSidePanelForm}
           side={"right"}
         >

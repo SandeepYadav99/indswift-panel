@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import MenuItem from "@material-ui/core/MenuItem";
 import { actionGetJobOpeningCandidates } from "../../../../actions/JobOpeningDetail.action";
-import LogUtils from "../../../../libs/LogUtils";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 
