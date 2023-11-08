@@ -102,7 +102,7 @@ const useFullFinal = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.EXIT_DETAIL}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.FULL_FINAL_FORM}${data?.id}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
