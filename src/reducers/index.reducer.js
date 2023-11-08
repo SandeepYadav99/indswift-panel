@@ -84,6 +84,7 @@ import NAPS_TraningReducer from "./NAPS_Traning.reducer"
 import PendingBGVReducer from "./PendingBGV.reducer";
 import ExitInterviewReducer from "./ExitInterview.reducer";
 import LeaveListReducer from "./LeaveList.reducer";
+import FinalFormReducer from "./FinalForm.reducer";
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form: formReducer,
@@ -164,7 +165,8 @@ const rootReducer = combineReducers({
   OngoingLoans:OngoingLoansReducer,
   LeaveModule:LeaveReducer,
   exit_interview:ExitInterviewReducer,
-  leave_list:LeaveListReducer
+  leave_list:LeaveListReducer,
+  final_form:FinalFormReducer
   // form: formReducer,
 });
 
