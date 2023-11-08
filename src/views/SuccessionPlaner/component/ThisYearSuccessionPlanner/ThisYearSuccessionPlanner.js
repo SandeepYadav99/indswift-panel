@@ -14,6 +14,7 @@ import FilterComponent from "../../../../components/Filter/Filter.component";
 import useThisYearSuccessionPlaner from "./ThisYearSuccessionPlannerHook";
 import SidePanelComponent from "../../../../components/SidePanel/SidePanel.component";
 import SuccessionHistory from "./SuccessionHistory/SuccessionHistory";
+import SuccessionPlannerDetailform from "./SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 
 const ThisYearSuccessionPlanner = ({
   jobId,
@@ -38,10 +39,11 @@ const ThisYearSuccessionPlanner = ({
     currentPage,
     isFetching,
     configFilter,
-    // handleInterviewSidepanel,
-    // handleShortlistSidepanel,
+  
     isSidePanel,
     handleToggleSidePannel,
+    isSidePanelForm,
+    handleToggleSidePannelForm,
     isCandidatesFetching,
   } = useThisYearSuccessionPlaner({ jobId });
 
@@ -58,7 +60,7 @@ const ThisYearSuccessionPlanner = ({
        
             <div className={styles.addButton}>
               <ButtonBase
-                onClick={handleToggleSidePannel}
+                onClick={handleToggleSidePannelForm}
                 className={"createBtn"}
               >
                 Add
@@ -304,6 +306,19 @@ const ThisYearSuccessionPlanner = ({
           <SuccessionHistory
             handleToggleSidePannel={handleToggleSidePannel}
             isSidePanel={isSidePanel}
+            empId={editData}
+          />
+        </SidePanelComponent>
+
+        <SidePanelComponent
+          handleToggle={handleToggleSidePannelForm}
+          // title={<UpperInfo />}
+          open={isSidePanelForm}
+          side={"right"}
+        >
+          <SuccessionPlannerDetailform
+            handleToggleSidePannel={handleToggleSidePannelForm}
+            isSidePanel={isSidePanelForm}
             empId={editData}
           />
         </SidePanelComponent>

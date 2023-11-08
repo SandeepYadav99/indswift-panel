@@ -62,19 +62,14 @@ const RelievingExpLetter_View = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>
+            <div >
               <StatusPill
-                status={`${obj?.status}/${obj?.experienceLetter?.status}`}
-                style={{
-                  ...(obj?.status === "PENDING" && {
-                    color: "#F4881B",
-                  }),
-                  ...(obj?.experienceLetter?.status === "SITE_HR_APPROVED" && {
-                    color: "#29CB97",
-                  }),
-                }}
+                status={`${obj?.status}`}
               />
-            </span>{" "}
+            </div>{" "} <br/>
+            <div>
+              <StatusPill status={`${obj?.experienceLetter?.status}`} />
+            </div>
           </div>
         </div>
       );
