@@ -25,7 +25,7 @@ const RelievingExpLetter_View = ({ location }) => {
     isCalling,
     configFilter,
     handleRelievingExpLetter,
-    handleSendDetails,
+    handleResend,
   } = useRelievingExpLetter_hook({ location });
 
   const {
@@ -187,7 +187,7 @@ const RelievingExpLetter_View = ({ location }) => {
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  //  handleSendDetails(all);
+                  handleResend(all);
                 }}
               >
                 <Send fontSize={"small"} />

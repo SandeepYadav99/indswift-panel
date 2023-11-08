@@ -259,6 +259,16 @@ const ThisYearSuccessionPlanner = ({
     <div>
  
       <div>
+      <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleToggleSidePannel()
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
         <div>
           <div>
             {/* <FilterComponent

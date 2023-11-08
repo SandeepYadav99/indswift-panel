@@ -1,0 +1,24 @@
+
+.successContainer{
+  margin-top: 40px;
+}
+.letterInfo  {
+    margin-bottom: 10px;
+    
+  }
+  
+  .letterInfo span {
+    display: inline-block;
+    margin-right: 20px;
+
+  }
+ 
+  .letterHead  {
+   display: flex;
+   justify-content: space-between;
+
+  }
+  .buttoonforApprove{
+    display: flex;
+    justify-content: space-between;
+  }
