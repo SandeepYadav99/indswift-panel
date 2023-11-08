@@ -12,22 +12,22 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-import IncrementLetter from "../views/Pms/IncrementLetter/IncrementLetter.view";
-import USCEditView from "../views/HR/HRSettings/components/USCEdit/USCEdit";
 
-import SuccessionPlanner_list from "../views/SuccessionPlaner/SuccessionPlanner_list";
-import LetterApprovalProces_View from "../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View";
-import LetterApprovalDetail from "../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail";
-import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/RelievingExpLetter_View";
-import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
-import ClaimForCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view";
-import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view";
-import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
-import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
-import ExitInterviewList from "../views/ExitInterview/ExitInterviewList/ExitInterviewList.container";
-import FinalForm from "../views/Full&Final/FinalForm/FinalForm.view.js";
-import RelievingExpLetterDetail from "../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail";
-import EmployeeRecordApprovals from "../views/EmployeeRecordApprovals/EmployeeRecordApprovals";
+const IncrementLetter = lazy(()=>  import("../views/Pms/IncrementLetter/IncrementLetter.view"));
+const USCEditView = lazy(()=>  import("../views/HR/HRSettings/components/USCEdit/USCEdit"));
+const SuccessionApproval_List = lazy(()=>  import("../views/SuccessionApproval/SuccessionApproval_List"));
+const SuccessionPlanner_list = lazy(()=>  import("../views/SuccessionPlaner/SuccessionPlanner_list"));
+const LetterApprovalProces_View = lazy(()=>  import("../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View"));
+const LetterApprovalDetail = lazy(()=>  import("../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail"));
+const RelievingExpLetter_View = lazy(()=>  import("../views/Relieving&ExperienceLetter/RelievingExpLetter_View"));
+const CurrencyEditView = lazy(()=>  import("../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit"));
+const ClaimForCard = lazy(()=>  import("../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view"));
+const ForeignClaimDetail = lazy(()=>  import("../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view"));
+const BGVStatus_Update = lazy(()=>  import("../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update"));
+const BGVDetailView = lazy(()=>  import("../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View"));
+const ExitInterviewList = lazy(()=>  import("../views/ExitInterview/ExitInterviewList/ExitInterviewList.container"));
+const FinalForm = lazy(()=>  import("../views/Full&Final/FinalForm/FinalForm.view.js"));
+
 
 const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
 const BgvAnalysisReport = lazy(() =>
