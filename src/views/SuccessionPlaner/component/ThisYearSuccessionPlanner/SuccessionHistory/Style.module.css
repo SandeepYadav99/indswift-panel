@@ -1,6 +1,22 @@
 
 .successContainer{
-  margin-top: 40px;
+  margin-top: 80px;
+}
+.subEmploy{
+  margin-left: 50px;
+}
+.employ{
+  display: flex;
+}
+.title{
+  color: black;
+  font-weight: bold;
+}
+.empCode{
+  margin-left: 40%;
+}
+.empCode div{
+  color: black;
 }
 .letterInfo  {
     margin-bottom: 10px;
@@ -21,4 +37,12 @@
   .buttoonforApprove{
     display: flex;
     justify-content: space-between;
+  }
+  .container{
+    margin-left: 10px;
+    background-color: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    opacity: 1;
+    padding: 10px;
   }

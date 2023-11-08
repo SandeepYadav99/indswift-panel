@@ -65,12 +65,14 @@ const RelievingExpLetter_View = ({ location }) => {
             <span className={styles.productName}>
               <StatusPill
                 status={`${obj?.status}/${obj?.experienceLetter?.status}`}
-                style={
-                  obj?.status === "PENDING" && {
+                style={{
+                  ...(obj?.status === "PENDING" && {
                     color: "#F4881B",
-                    border: "none",
-                  }
-                }
+                  }),
+                  ...(obj?.experienceLetter?.status === "SITE_HR_APPROVED" && {
+                    color: "#29CB97",
+                  }),
+                }}
               />
             </span>{" "}
           </div>
