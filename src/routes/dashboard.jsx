@@ -13,20 +13,6 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 
-
-
-import LetterApprovalProces_View from "../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View";
-import LetterApprovalDetail from "../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail";
-import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/RelievingExpLetter_View";
-import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
-import ClaimForCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view";
-import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view";
-import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
-import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
-import RelievingExpLetterDetail from "../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail";
-import EmployeeRecordApprovals from "../views/EmployeeRecordApprovals/EmployeeRecordApprovals";
-import ExitInterviewList from "../views/ExitInterview/ExitInterviewList/ExitInterviewList.container";
-import FinalForm from "../views/Full&Final/FinalForm/FinalForm.view.js";
 const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
 
 const RelievingExpLetterDetail = lazy(()=>import("../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail")) ;
