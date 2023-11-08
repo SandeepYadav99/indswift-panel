@@ -1173,7 +1173,7 @@ const dashboardRoutes = [
       : [Roles.CORPORATE_HR],
   },
   {
-    path: `${RouteName.EMPLOYEE_RECORD_APPROVALs}`,
+    path: RouteName.EMPLOYEE_RECORD_APPROVALs,
     sidebarName: "Employee Record Approval",
     navbarName: "Employee Record Approval",
     icon: LocalOffer,
