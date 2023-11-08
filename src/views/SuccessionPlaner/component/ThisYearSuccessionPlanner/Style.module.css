@@ -176,12 +176,14 @@
     justify-content: space-between;
   }
 }
+.headerContainer {
+  display: flex;
+}
 .InfoWrap {
   display: flex;
   flex-direction: column;
 }
 .addButton {
-align-items: center;
-  display: flex;
-  justify-content: center;
+  margin-right: 45%;
+  display: inline-block;
 }

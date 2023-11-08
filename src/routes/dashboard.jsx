@@ -2397,7 +2397,7 @@ const dashboardRoutes = [
     is_protect: true,
     // slug: 'tp',
     parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
 
   {
@@ -2411,7 +2411,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.C3MLETTER,
@@ -2424,7 +2424,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.RELIEVING_EXPERIENCE_APPROVALS,
@@ -2437,6 +2437,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
@@ -2450,6 +2451,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {

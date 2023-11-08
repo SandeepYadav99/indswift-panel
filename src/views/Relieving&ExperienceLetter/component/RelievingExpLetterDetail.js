@@ -71,11 +71,12 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                   <div className={styles.key}>
                     <span className={styles.value}>
                       Days worked after resignation:{" "}
+                      </span>
                       {relievingExpDetails?.employee?.workingDayResignation}
-                    </span>
-                    {data?.location?.name}
+                   
+                   
                   </div>
-                  {isSiteHRApprovedPending &&   <div className={styles.key}>
+                  {!isSiteHRApprovedPending  &&   <div className={styles.key}>
                     <span className={styles.value}>Reason for leaving:</span>
                     {relievingExpDetails?.employee?.status}
                   </div>}
@@ -145,15 +146,7 @@ function RelievingExpLetterDetail({ data, isImprest }) {
               SEND FOR APPROVAL
             </ButtonBase>
           )}
-        {/* {relievingExpDetails?.experienceLetter?.status === "SITE_HR_APPROVED" &&
-          relievingExpDetails?.status === "APPROVED" && (
-            <ButtonBase
-              onClick={() => handleSubmitToApprove()}
-              className={styles.approvebutton}
-            >
-              SEND FOR APPROVAL
-            </ButtonBase>
-          )} */}
+      
         {relievingExpDetails?.experienceLetter?.status === "SITE_HR_APPROVED" &&
           relievingExpDetails?.status === "PENDING" && (
             <ButtonBase

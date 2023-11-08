@@ -49,13 +49,13 @@ const ThisYearSuccessionPlanner = ({
     (obj) => {
       if (obj) {
         return (
-          <div>
-            <div className={styles.InfoWrap}>
-              <div>
+          <div className={styles.headerContainer}>
+           
+              <div className={styles.InfoWrap}>
                 <div>{"Succession History"} </div>
                 <div className={styles.newLine}></div>
               </div>
-            </div>
+       
             <div className={styles.addButton}>
               <ButtonBase
                 onClick={handleToggleSidePannel}
