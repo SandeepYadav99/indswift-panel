@@ -2,14 +2,17 @@ import React from "react";
 import styles from "./Style.module.css";
 import InfoCard from "./component/InfoCard/InfoCard";
 import UseExitForm from "./ExitForm.hook";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, Checkbox, MenuItem } from "@material-ui/core";
 import ExitRatingView from "./component/ExitRating/ExitRatingView";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
+import { removeUnderScore } from "../../../helper/helper";
+import SpecialExitRatingView from "./component/SpecialExitRating/SpecialExitRatingView";
 
 const rankingValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const rankingValuesOther = [1, 2, 3, 4, 5, 6, 7, 8, 9,10];
 const rankingFive = [1, 2, 3, 4, 5];
-
+const statusValue = ["VERY_GOOD", "GOOD", "AVERAGE", "POOR", "VERY_POOR"];
 function ExitForm() {
   const {
     form,
@@ -23,8 +26,10 @@ function ExitForm() {
     isSubmitted,
     declaration,
     setDeclaration,
+    employeeDetail,
+    salary,
   } = UseExitForm({});
-  const data = {};
+
   return (
     <div className={styles.evaluationFormWrapper}>
       <div>
@@ -40,7 +45,7 @@ function ExitForm() {
         </div>
         <div className={styles.evaluationContainer}>
           <div className={styles.candidateInfoContainer2}>
-            <InfoCard data={data} />
+            <InfoCard data={employeeDetail?.employee} salary={salary} />
           </div>
           <div className={styles.candidateInfoContainer2}>
             <div className={styles.rankingWrapper}>
@@ -344,10 +349,168 @@ function ExitForm() {
                       changeTextData(value, "salary_perks_status");
                     }}
                   >
+                    {statusValue?.length > 0 &&
+                      statusValue?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {removeUnderScore(item)}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle2}>Growth and Development</div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.growth_development_rank}
+                    errorText={errorData?.growth_development_rank}
+                    label={"Choose Rank"}
+                    value={form?.growth_development_rank}
+                    handleChange={(value) => {
+                      changeTextData(value, "growth_development_rank");
+                    }}
+                  >
                     {rankingFive?.length > 0 &&
                       rankingFive?.map((item, index) => (
                         <MenuItem value={item} key={`option_${index}`}>
                           {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.growth_development_status}
+                    errorText={errorData?.growth_development_status}
+                    label={"Status of Parameter in ISLL"}
+                    value={form?.growth_development_status}
+                    handleChange={(value) => {
+                      changeTextData(value, "growth_development_status");
+                    }}
+                  >
+                    {statusValue?.length > 0 &&
+                      statusValue?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {removeUnderScore(item)}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle2}>Working condition</div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.working_condition_rank}
+                    errorText={errorData?.working_condition_rank}
+                    label={"Choose Rank"}
+                    value={form?.working_condition_rank}
+                    handleChange={(value) => {
+                      changeTextData(value, "working_condition_rank");
+                    }}
+                  >
+                    {rankingFive?.length > 0 &&
+                      rankingFive?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.working_condition_status}
+                    errorText={errorData?.working_condition_status}
+                    label={"Status of Parameter in ISLL"}
+                    value={form?.working_condition_status}
+                    handleChange={(value) => {
+                      changeTextData(value, "working_condition_status");
+                    }}
+                  >
+                    {statusValue?.length > 0 &&
+                      statusValue?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {removeUnderScore(item)}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle2}>
+                  Job related responsibilities
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.job_responsibilities_rank}
+                    errorText={errorData?.job_responsibilities_rank}
+                    label={"Choose Rank"}
+                    value={form?.job_responsibilities_rank}
+                    handleChange={(value) => {
+                      changeTextData(value, "job_responsibilities_rank");
+                    }}
+                  >
+                    {rankingFive?.length > 0 &&
+                      rankingFive?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.job_responsibilities_status}
+                    errorText={errorData?.job_responsibilities_status}
+                    label={"Status of Parameter in ISLL"}
+                    value={form?.job_responsibilities_status}
+                    handleChange={(value) => {
+                      changeTextData(value, "job_responsibilities_status");
+                    }}
+                  >
+                    {statusValue?.length > 0 &&
+                      statusValue?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {removeUnderScore(item)}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+              </div>
+              <div className={styles.first}>
+                <div className={styles.headtitle2}>Working culture</div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.working_culture_rank}
+                    errorText={errorData?.working_culture_rank}
+                    label={"Choose Rank"}
+                    value={form?.working_culture_rank}
+                    handleChange={(value) => {
+                      changeTextData(value, "working_culture_rank");
+                    }}
+                  >
+                    {rankingFive?.length > 0 &&
+                      rankingFive?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {item}
+                        </MenuItem>
+                      ))}
+                  </CustomSelectField>
+                </div>
+                <div className={styles.rank}>
+                  <CustomSelectField
+                    isError={errorData?.working_culture_status}
+                    errorText={errorData?.working_culture_status}
+                    label={"Status of Parameter in ISLL"}
+                    value={form?.working_culture_status}
+                    handleChange={(value) => {
+                      changeTextData(value, "working_culture_status");
+                    }}
+                  >
+                    {statusValue?.length > 0 &&
+                      statusValue?.map((item, index) => (
+                        <MenuItem value={item} key={`option_${index}`}>
+                          {removeUnderScore(item)}
                         </MenuItem>
                       ))}
                   </CustomSelectField>
@@ -477,7 +640,8 @@ function ExitForm() {
                 title="7.b. Did you feel your boss/Organisation provided you with enough freedom and space to? Allow your creativity to grow?"
               />
               <div className={styles.horizontalLine}></div>
-              <ExitRatingView
+              <SpecialExitRatingView
+              isUpper={true}
                 isError={
                   errorData?.new_job_compare_with_organisation_in_term_job_contents
                 }
@@ -491,16 +655,212 @@ function ExitForm() {
               />
               <div className={styles.horizontalLine}></div>
             </>
+            <>
+              <div className={styles.rankingWrapper}>
+                <span className={styles.heading}>
+                  8.b. In response to 8a, please elucidate the brief details:
+                </span>
+              </div>
+              <div className={styles.commentWrap}>
+                <CustomTextField
+                  isError={errorData?.organization}
+                  errorText={errorData?.organization}
+                  label={"Organization where you are going"}
+                  value={form?.organization}
+                  onTextChange={(text) => {
+                    changeTextData(text, "organization");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("organization");
+                  }}
+                  // multiline
+                  // rows={3}
+                />
+              </div>
+              <div className={styles.commentWrap}>
+                <CustomTextField
+                  isError={errorData?.area_of_organization}
+                  errorText={errorData?.area_of_organization}
+                  label={
+                    "Area of operation of Organization where you are going"
+                  }
+                  value={form?.area_of_organization}
+                  onTextChange={(text) => {
+                    changeTextData(text, "area_of_organization");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("area_of_organization");
+                  }}
+                  // multiline
+                  // rows={3}
+                />
+              </div>
+              <div className={styles.lo}>
+                <div className={styles.commentWrap} style={{ flex: "1" }}>
+                  <CustomSelectField
+                    isError={errorData?.deographic_location_of_organization}
+                    errorText={errorData?.deographic_location_of_organization}
+                    label={"Geographic Location of your new organization"}
+                    value={form?.deographic_location_of_organization}
+                    handleChange={(value) => {
+                      changeTextData(
+                        value,
+                        "deographic_location_of_organization"
+                      );
+                    }}
+                  >
+                    <MenuItem value="NEAR">NEAR</MenuItem>
+                    <MenuItem value="FAR">FAR</MenuItem>
+                    <MenuItem value="VERY_FAR">VERY FAR</MenuItem>
+                  </CustomSelectField>
+                </div>
+                <div className={styles.commentWrap} style={{ flex: "1" }}>
+                  <CustomTextField
+                    type="number"
+                    isError={errorData?.how_much_salary_growth}
+                    errorText={errorData?.how_much_salary_growth}
+                    label={"You are going at how much salary growth in %"}
+                    value={form?.how_much_salary_growth}
+                    onTextChange={(text) => {
+                      changeTextData(text, "how_much_salary_growth");
+                    }}
+                    onBlur={() => {
+                      onBlurHandler("how_much_salary_growth");
+                    }}
+                    // multiline
+                    // rows={3}
+                  />
+                </div>
+              </div>
+            </>
+            <div className={styles.horizontalLine}></div>
+            <div className={styles.rankingWrapper}>
+              <span className={styles.heading}>
+                9. Give your view of Management towards:
+              </span>
+            </div>
+            <SpecialExitRatingView
+              handleChange={(val) => {
+                changeTextData(val, "job_function");
+              }}
+              isError={errorData?.job_function}
+              question={
+                "e.g. Training & Learning opportunities, freedom to operate job satisfaction etc"
+              }
+              title="a. Job function"
+            />
+            <SpecialExitRatingView
+              handleChange={(val) => {
+                changeTextData(val, "people");
+              }}
+              isError={errorData?.people}
+              question={
+                "e.g. mutual trust & respect, encouragement, counselling empathy, mentoring etc"
+              }
+              title="b. People"
+            />
+            <div className={styles.horizontalLine}></div>
+            <div className={styles.rankingWrapper}>
+              <span className={styles.heading}>
+                10.a. On a scale of (1-10) please rate your satisfaction level
+                during your tenure/experience with the Organisation?
+              </span>
+            </div>
+            <div className={styles.commentWrap}>
+              <CustomSelectField
+                isError={errorData?.scale_of_satisfaction_level}
+                errorText={errorData?.scale_of_satisfaction_level}
+                label={"Choose Rating"}
+                value={form?.scale_of_satisfaction_level}
+                handleChange={(value) => {
+                  changeTextData(value, "scale_of_satisfaction_level");
+                }}
+              >
+                {rankingValuesOther?.length > 0 &&
+                  rankingValuesOther?.map((item, index) => (
+                    <MenuItem value={item} key={`option_${index}`}>
+                      {item}
+                    </MenuItem>
+                  ))}
+              </CustomSelectField>
+            </div>
+            <div className={styles.horizontalLine}></div>
+            <div className={styles.rankingWrapper}>
+              <span className={styles.heading}>
+                10.b. Would you like to recommend your friends/relatives to join
+                this Organisation?
+              </span>
+            </div>
+            <div className={styles.commentWrap}>
+              <CustomTextField
+                isError={errorData?.would_you_recommend_your_friend}
+                errorText={errorData?.would_you_recommend_your_friend}
+                label={"Please describe your reason"}
+                value={form?.would_you_recommend_your_friend}
+                onTextChange={(text) => {
+                  changeTextData(text, "would_you_recommend_your_friend");
+                }}
+                onBlur={() => {
+                  onBlurHandler("would_you_recommend_your_friend");
+                }}
+                multiline
+                rows={3}
+              />
+            </div>
+            <div className={styles.horizontalLine}></div>
+            <div className={styles.rankingWrapper}>
+              <span className={styles.heading}>
+                10.c. Would you like to rejoin the Organisation? Why / Why not
+              </span>
+            </div>
+            <div className={styles.commentWrap}>
+              <CustomTextField
+                isError={errorData?.would_you_rejoin_organisation}
+                errorText={errorData?.would_you_rejoin_organisation}
+                label={"Please describe your reason"}
+                value={form?.would_you_rejoin_organisation}
+                onTextChange={(text) => {
+                  changeTextData(text, "would_you_rejoin_organisation");
+                }}
+                onBlur={() => {
+                  onBlurHandler("would_you_rejoin_organisation");
+                }}
+                multiline
+                rows={3}
+              />
+            </div>
+          </div>
+          <div className={styles.btnContainer}>
+            <div className={styles.delcarationWrapper}>
+              <div className={styles.heading}>Declaration</div>
+              <div className={styles.discriptionWrap}>
+                <div className={styles.checkboxWrapper}>
+                  <Checkbox
+                    style={{ padding: 0, marginRight: "10px" }}
+                    name={"declaration"}
+                    checked={declaration}
+                    onChange={() => setDeclaration((e) => !e)}
+                  />
+                  <div className={styles.lowerdec}>
+                    <span>
+                      I solemnly declare that all the particulars furnished in
+                      this form are true and correct to the best of my knowledge
+                      and belief.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className={styles.btnContainer}>
             <div className={styles.btnCont1}>
               <ButtonBase
-                disabled={isSubmitting}
+                disabled={!declaration ? true : false}
                 type={"button"}
                 onClick={handleSubmit}
-                className={styles.createBtn}
+                className={ !declaration || isSubmitting ? styles.disabledBtn :styles.createBtn}
               >
-                NEXT
+                Submit
               </ButtonBase>
             </div>
           </div>

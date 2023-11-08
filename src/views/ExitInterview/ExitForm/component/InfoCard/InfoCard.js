@@ -2,10 +2,9 @@ import React from "react";
 import styles from "./Style.module.css";
 import face from "./../../../../../assets/img/download.png";
 
-const InfoCard = ({ data }) => {
-  const removeUnderScore = (value) => {
-    return value ? value.replace(/_/g, " ") : "";
-  };
+const InfoCard = ({ data ,salary}) => {
+
+  console.log("data", data);
   return (
     <div className={styles.candidateInfoWrapper}>
       <div className={styles.leftField}>
@@ -19,24 +18,20 @@ const InfoCard = ({ data }) => {
           <div className={styles.desWrapper}>
             <div className={styles.key}>
               <span className={styles.value}>Name:</span>
-              gdfgd
+              {data?.name}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>Designation on Joining:</span>
-              gdfgd
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Salary on Joining:</span>
-              gdfgd
-            </div>{" "}
-            <div className={styles.key}>
               <span className={styles.value}>Reporting To:</span>
-              gdfgd
+              {data?.hod?.hod_name}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Experience with US:</span>
-              gdfgd
+              {data?.experience?.current}
             </div>
+            <div className={styles.key}>
+              <span className={styles.value}>Experience Before Joining:</span>
+              {data?.experience?.before}
+            </div>{" "}
           </div>
         </div>
       </div>
@@ -47,23 +42,19 @@ const InfoCard = ({ data }) => {
         <div className={styles.desWrapper}>
           <div className={styles.key}>
             <span className={styles.value}>Department:</span>
-            gdfgd
+            {data?.department?.name}
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Present Designation:</span>
-            gdfgd
+            {data?.designation?.name}
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Current Salary:</span>
-            gdfgd
-          </div>{" "}
-          <div className={styles.key}>
-            <span className={styles.value}>Experience Before Joining:</span>
-            gdfgd
+            {salary ? `₹ ${salary}` : "-"}
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Total Experience:</span>
-            gdfgd
+            {data?.experience?.total}
           </div>
         </div>
       </div>

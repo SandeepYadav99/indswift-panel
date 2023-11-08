@@ -1,11 +1,14 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router-dom";
-import { serviceLeaveCreate } from "../../../services/Leave.service";
-import { actionLeaveCount } from "../../../actions/LeaveModule.action";
+import {
+  serviceLeaveCount,
+  serviceLeaveCreate,
+} from "../../../services/Leave.service";
 import { useDispatch, useSelector } from "react-redux";
-import useClaimIntCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
 import historyUtils from "../../../libs/history.utils";
+import { useMemo } from "react";
+import { serviceGetEmployeeDetails } from "../../../services/ClaimsManagement.service";
 
 const initialForm = {
   type: "",
@@ -56,6 +59,7 @@ const useLeaveApplication = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [leaveType, setLeaveType] = useState();
   const [errorData, setErrorData] = useState({});
+  const [employeeDetails, setEmployeeDetails] = useState({});
   const [daysCount, setDaysCount] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
@@ -63,7 +67,7 @@ const useLeaveApplication = () => {
   const includeRef = useRef(null);
   const [alphabet, setAlphabet] = useState();
   const [monthhook, setMonthhook] = useState();
-  const [leaveCount, setLeaveCount] = useState();
+  const [leaveCount, setLeaveCount] = useState(null);
   const [bdayYear, setBdayYear] = useState("");
   const [bdayNext, setBdayNext] = useState("");
   const [anniYear, setAnniYear] = useState("");
@@ -73,9 +77,42 @@ const useLeaveApplication = () => {
 
   const dispatch = useDispatch();
 
-  const { employeeDetails } = useClaimIntCard({});
+  const {
+    user: { emp_code, user_id },
+  } = useSelector((state) => state.auth);
 
-  const { count } = useSelector((state) => state.LeaveModule);
+  useEffect(() => {
+    if (emp_code) {
+      Promise.allSettled([serviceGetEmployeeDetails({ code: emp_code })]).then(
+        (promises) => {
+          const empDetail = promises[0]?.value?.data;
+          setEmployeeDetails(empDetail);
+        }
+      );
+    }
+  }, [emp_code]);
+  
+  useEffect(() => {
+    if (form?.type) {
+      if (form?.type === "PATERNITY_LEAVE" && form?.event_type) {
+        var req = serviceLeaveCount({
+          leave_type: form?.type,
+          event_type: form?.event_type,
+        });
+      } else {
+        req = serviceLeaveCount({ leave_type: form?.type });
+      }
+      req.then((res) => {
+        if (!res.error) {
+          setLeaveCount(res?.data?.pending_leave);
+          console.log(">>>>", res?.data?.pending_leave);
+        }
+      });
+      setLeaveCount(leaveCount);
+      MonthConvertor();
+      AnniversaryConvertor();
+    }
+  }, [form?.type, form?.event_type]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -130,24 +167,30 @@ const useLeaveApplication = () => {
       form?.type !== "OCCASION_LEAVE"
     ) {
       errors["dayscount"] = true;
-      SnackbarUtils.error("Start Days Cannot be Greater than End Date");
+      SnackbarUtils.error("Start date cannot be greater than end date");
     } else {
       delete errors["dayscount"];
     }
-
-    if (Number(daysCount) > Number(count?.data?.pending_leave)) {
-      errors["leave"] = true;
+    if (Number(daysCount) > Number(leaveCount)) {
+      errors["duration_days"] = true;
       SnackbarUtils.error(
         "Applied Leave cannot be greater than Pending Leaves"
       );
     } else {
-      delete errors["leave"];
+      delete errors["duration_days"];
     }
-    if (Number(count?.data?.pending_leave) <= 0) {
-      errors["leave"] = true;
+    if (Number(leaveCount) <= 0 && form?.type === "OCCASION_LEAVE") {
+      errors["duration_days"] = true;
       SnackbarUtils.error("No Leaves Pending ");
-    } else {
-      delete errors["leave"];
+    }
+    if (
+      Number(leaveCount) < Number(form?.duration_days) &&
+      form?.type === "OCCASION_LEAVE"
+    ) {
+      errors["duration_days"] = true;
+      SnackbarUtils.error(
+        "Applied Leave cannot be greater than Pending Leaves"
+      );
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -329,10 +372,6 @@ const useLeaveApplication = () => {
     setAnniNext(BdayLeaveNextYearAnni);
   });
 
-  console.log("BdayLeaveThisYearAnni", employeeDetails?.dob, {
-    BdayLeaveNextYear,
-    BdayLeaveThisYear,
-  });
   const formatDate = (inputDate) => {
     const formattedDate = new Date(inputDate);
     const options = {
@@ -363,6 +402,21 @@ const useLeaveApplication = () => {
     }
   }, [form?.start_date, form?.end_date]);
 
+  function get30DaysAgoDate() {
+    const currentDate = new Date();
+    const thirtyDaysAgoDate = new Date(currentDate);
+    thirtyDaysAgoDate.setDate(currentDate.getDate() - 30);
+
+    return thirtyDaysAgoDate;
+  }
+  const currentDate = useMemo(() => new Date(), []);
+  const thirtyDaysAgoDate = useMemo(
+    () => get30DaysAgoDate(currentDate),
+    [currentDate]
+  );
+
+  console.log(monthhook, "it is here");
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
@@ -382,16 +436,16 @@ const useLeaveApplication = () => {
       if (form?.type !== "OCCASION_LEAVE") {
         fd.append("duration", "FULL_DAY");
         fd.append("duration_days", daysCount);
-      } else if (form?.type === "OCCASION_LEAVE") {
+      }
+      if (form?.type === "OCCASION_LEAVE") {
         if (form?.event_type === "BIRTHDAY") {
-          if (valueMonth < CurrentMonth) {
-            console.log("bdayNext");
+          if (Number(alphabet) < Number(CurrentMonth)) {
             fd.append("start_date", formatDate(bdayNext));
           } else {
             fd.append("start_date", formatDate(bdayYear));
           }
         } else {
-          if (valueMonthAnni < CurrentMonth) {
+          if (Number(monthhook) < Number(CurrentMonth)) {
             fd.append("start_date", formatDate(anniNext));
           } else {
             fd.append("start_date", formatDate(anniYear));
@@ -507,39 +561,6 @@ const useLeaveApplication = () => {
     setForm({ ...initialForm });
   }, [form]);
 
-  let eventTypeData = form?.event_type;
-
-  useEffect(() => {
-    if (form?.type === "PATERNITY_LEAVE") {
-      dispatch(
-        actionLeaveCount({
-          leave_type: "PATERNITY_LEAVE",
-          event_type: eventTypeData,
-        })
-      );
-    } else if (form?.type === "OCCASION_LEAVE") {
-      dispatch(
-        actionLeaveCount({
-          leave_type: "OCCASION_LEAVE",
-        })
-      );
-    } else if (form?.type === "BEREAVEMENT_LEAVE") {
-      dispatch(
-        actionLeaveCount({
-          leave_type: "BEREAVEMENT_LEAVE",
-        })
-      );
-    } else if (form?.type === "FACILITATION_LEAVE") {
-      dispatch(
-        actionLeaveCount({
-          leave_type: "FACILITATION_LEAVE",
-        })
-      );
-    }
-    setLeaveCount(count?.data?.pending_leave);
-    MonthConvertor();
-    AnniversaryConvertor();
-  }, [form?.type, form?.event_type]);
 
   return {
     form,
@@ -559,6 +580,15 @@ const useLeaveApplication = () => {
     setLeaveType,
     daysCount,
     leaveCount,
+    BdayLeaveThisYear,
+    BdayLeaveNextYear,
+    BdayLeaveNextYearAnni,
+    BdayLeaveThisYearAnni,
+    CurrentMonth,
+    alphabet,
+    thirtyDaysAgoDate,
+    monthhook,
+    employeeDetails
   };
 };
 

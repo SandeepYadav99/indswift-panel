@@ -22,10 +22,13 @@ import RelievingExpLetter_View from "../views/Relieving&ExperienceLetter/Relievi
 import CurrencyEditView from "../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit";
 import ClaimForCard from "../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view";
 import ForeignClaimDetail from "../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view";
-import PendingLeaveApplication from "../views/PendingLeaveApplication/PendingLeaveApplication.view";
 import BGVStatus_Update from "../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update";
 import BGVDetailView from "../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View";
 import ExitInterviewList from "../views/ExitInterview/ExitInterviewList/ExitInterviewList.container";
+import FinalForm from "../views/Full&Final/FinalForm/FinalForm.view.js";
+
+
+const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
 
 const LeaveApplicationForm = lazy(() =>
   import(
@@ -436,6 +439,12 @@ const ImprestDetail = lazy(() =>
 const IncrementPlanner = lazy(() =>
   import("../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view")
 );
+
+const FullFinalComponent = lazy(()=>import("../views/Full&Final/FullFinal.component"));
+
+const FullFinalApprovalJourney = lazy(()=>import("../views/Full&FinalApproval/FullFinalApproval.component"))
+
+const PendingLeaveDetailApplication = lazy(()=>import("../views/PendingLeaveApplication/PendingApplicationDetail/PendingApplication.view.js"))
 
 const Roles = Constants.ROLES;
 
@@ -2388,51 +2397,79 @@ const dashboardRoutes = [
   //   // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   // },
   // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
-  // {
-  //   path: RouteName.LEAVE_APPLICATION_LIST_VIEW,
-  //   sidebarName: "My Leave Application",
-  //   navbarName: "My Leave Application",
-  //   icon: AssignmentOutlined,
-  //   component: LeaveApplication,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  // },
-  // {
-  //   path: RouteName.LEAVE_APPLICATION_FORM,
-  //   sidebarName: "My Leave Application",
-  //   navbarName: "My Leave Application",
-  //   component: LeaveApplicationForm,
-  //   is_sidebar: false,
-  //   is_protect: true,
-  // },
-  // {
-  //   path: RouteName.EXIT_INTERVIEW_LIST,
-  //   sidebarName: "Exit Interview List",
-  //   navbarName: "Exit Interview List",
-  //   icon: PeopleOutlined,
-  //   component: ExitInterviewList,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  //   should_regex: true,
-  // },
-  // {
-  //   path: RouteName.PENDING_LEAVE_APPLICATION,
-  //   sidebarName: "Pending Leave Application",
-  //   navbarName: "Pending Leave Application",
-  //   icon: AssignmentOutlined,
-  //   component: PendingLeaveApplication,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  // },
-  // {
-  //     path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
-  //     sidebarName: "Pending Leave Application",
-  //     navbarName: "Pending Leave Application",
-  //     icon: AssignmentOutlined,
-  //     component: PendingLeaveDetail,
-  //     is_sidebar: false,
-  //     is_protect: true,
-  // },
+  {
+    path: RouteName.LEAVE_APPLICATION_LIST_VIEW,
+    sidebarName: "My Leave Application",
+    navbarName: "My Leave Application",
+    icon: AssignmentOutlined,
+    component: LeaveApplication,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: RouteName.LEAVE_APPLICATION_FORM,
+    sidebarName: "My Leave Application",
+    navbarName: "My Leave Application",
+    component: LeaveApplicationForm,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: RouteName.EXIT_INTERVIEW_LIST,
+    sidebarName: "Exit Interview List",
+    navbarName: "Exit Interview List",
+    icon: PeopleOutlined,
+    component: ExitInterviewList,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.PENDING_LEAVE_APPLICATION,
+    sidebarName: "Pending Leave Application",
+    navbarName: "Pending Leave Application",
+    icon: AssignmentOutlined,
+    component: PendingLeaveApplicationList,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.FULL_FINAL_FORM}:id`,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FinalForm,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: RouteName.FULL_FINAL_APPLICATION,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FullFinalComponent,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: RouteName.FULL_FINAL_APPROVAL,
+    sidebarName: "Full & Final Approval",
+    navbarName: "Full & Final Approval",
+    icon: AssignmentOutlined,
+    component: FullFinalApprovalJourney,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+      path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
+      sidebarName: "Pending Leave Application",
+      navbarName: "Pending Leave Application",
+      icon: AssignmentOutlined,
+      component: PendingLeaveDetailApplication,
+      is_sidebar: false,
+      is_protect: true,
+  },
 ];
 
 export default dashboardRoutes;

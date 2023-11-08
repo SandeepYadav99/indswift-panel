@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styles from "./Style.module.css";
-import { Paper, ButtonBase, MenuItem } from "@material-ui/core";
+import {
+  Paper,
+  ButtonBase,
+  MenuItem,
+  CircularProgress,
+} from "@material-ui/core";
 import CircularPng from "../../../assets/img/circulars illustration.png";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -12,17 +17,33 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import useLeaveApplication from "./LeaveApplication.hook";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import { useSelector } from "react-redux";
-import useClaimIntCard from "../../../views/ClaimsManagement/ClaimsDetail/components/ClaimIntCard/ClaimIntCard.hook";
-import LogUtils from "../../../libs/LogUtils";
 import ClaimUpperCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimUpperCard/ClaimUpperCard";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
 
 const LeaveApplicationForm = () => {
-  const { employeeDetails } = useClaimIntCard({});
-  let Designation = ["G1", "G2", "G3", "G4", "G5", "G6","G0"];
+  const {
+    form,
+    changeTextData,
+    onBlurHandler,
+    handleSubmit,
+    isSubmitting,
+    errorData,
+    daysCount,
+    CurrentMonth,
+    alphabet,
+    BdayLeaveThisYear,
+    BdayLeaveNextYear,
+    BdayLeaveThisYearAnni,
+    BdayLeaveNextYearAnni,
+    thirtyDaysAgoDate,
+    monthhook,
+    leaveCount,
+    employeeDetails,
+  } = useLeaveApplication({});
+  let Designation = ["G1", "G2", "G3", "G4", "G5", "G6", "G0"];
   let gradeLevel = employeeDetails?.grade?.code;
-  let FacilitationCondition = ["0.1", "0.2", "0.3"];
+  let FacilitationCondition = ["0.1", "0.2", "0.3", "0.4"];
   let ExperienceInCompany = employeeDetails?.experience?.current;
 
   function FacilitationGiven() {
@@ -57,28 +78,7 @@ const LeaveApplicationForm = () => {
     }
   }
 
-  const { count } = useSelector((state) => state.LeaveModule);
-
-  const {
-    form,
-    changeTextData,
-    onBlurHandler,
-    removeError,
-    handleSubmit,
-    isLoading,
-    isSubmitting,
-    errorData,
-    isEdit,
-    handleDelete,
-    includeRef,
-    handleReset,
-    id,
-    leaveType,
-    setLeaveType,
-    daysCount,
-    leaveCount,
-  } = useLeaveApplication({});
-
+  console.log("leaveCount", leaveCount);
   return (
     <div className={styles.container}>
       <div>
@@ -166,19 +166,30 @@ const LeaveApplicationForm = () => {
                 </CustomSelectField>
                 <div className={styles.leaveText}>
                   {form?.event_type === "MARRIAGE_ANNIVERSARY" ? (
-                    <p>
-                      <b>Anniversary</b>:{employeeDetails?.dom}
-                    </p>
+                    <>
+                      <p className={styles.birthdayPara}>
+                        <b>Anniversary</b>:
+                      </p>{" "}
+                      {Number(monthhook) < Number(CurrentMonth)
+                        ? BdayLeaveNextYearAnni
+                        : BdayLeaveThisYearAnni}
+                    </>
                   ) : (
-                    <p>
-                      <b>Birthday</b>:{employeeDetails?.dob}
-                    </p>
+                    <>
+                      <p className={styles.birthdayPara}>
+                        <b>Birthday</b>:
+                      </p>{" "}
+                      {Number(alphabet) < Number(CurrentMonth)
+                        ? BdayLeaveNextYear
+                        : BdayLeaveThisYear}{" "}
+                    </>
                   )}
                 </div>
                 <div className={styles.leaveText}>
-                  <p>
-                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
+                  <p className={styles.birthdayPara}>
+                    <b>Pending Leaves</b>:
                   </p>
+                  {leaveCount}
                 </div>
               </div>
               <File
@@ -188,7 +199,6 @@ const LeaveApplicationForm = () => {
                 name="document"
                 label="Document"
                 accept={"application/pdf,application/msword,image/*"}
-                // link={data?.slip ? data?.slip : null}
                 error={errorData?.document}
                 value={form?.document}
                 placeholder={"Add Attachment (optional)"}
@@ -233,7 +243,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={"Leave From"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "start_date");
                   }}
@@ -243,7 +253,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={" Leave To"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "end_date");
                   }}
@@ -257,7 +267,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
+                    <b>Pending Leaves</b>:{leaveCount}
                   </p>
                 </div>
               </div>
@@ -311,7 +321,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={"Leave From"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "start_date");
                   }}
@@ -321,7 +331,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={" Leave To"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "end_date");
                   }}
@@ -335,7 +345,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
+                    <b>Pending Leaves</b>:{leaveCount}
                   </p>
                 </div>
               </div>
@@ -405,7 +415,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={"Leave From"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "start_date");
                   }}
@@ -415,7 +425,7 @@ const LeaveApplicationForm = () => {
                 <CustomDatePicker
                   clearable
                   label={" Leave To"}
-                  minDate={new Date()}
+                  minDate={thirtyDaysAgoDate}
                   onChange={(date) => {
                     changeTextData(date, "end_date");
                   }}
@@ -429,7 +439,7 @@ const LeaveApplicationForm = () => {
                 </div>
                 <div className={styles.leaveText}>
                   <p>
-                    <b>Pending Leaves</b>:{count?.data?.pending_leave}
+                    <b>Pending Leaves</b>:{leaveCount}
                   </p>
                 </div>
               </div>
@@ -466,11 +476,23 @@ const LeaveApplicationForm = () => {
           )}
         </div>
       </div>
-      <div className={styles.btnContainer}>
-        <ButtonBase className={"createBtn"} onClick={handleSubmit}>
-          SUBMIT
-        </ButtonBase>
-      </div>
+      {form?.type ? (
+        <div className={styles.btnContainer}>
+          <ButtonBase
+            className={"createBtn"}
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <CircularProgress color="success" size="20px" />
+            ) : (
+              "Submit"
+            )}
+          </ButtonBase>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
