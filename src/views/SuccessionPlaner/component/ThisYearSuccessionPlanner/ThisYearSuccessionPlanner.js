@@ -259,7 +259,7 @@ const ThisYearSuccessionPlanner = ({
     <div>
  
       <div>
-      <IconButton
+      {/* <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -268,7 +268,7 @@ const ThisYearSuccessionPlanner = ({
               }}
             >
               <Edit fontSize={"small"} />
-            </IconButton>
+            </IconButton> */}
         <div>
           <div>
             {/* <FilterComponent
