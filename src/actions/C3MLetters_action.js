@@ -2,7 +2,7 @@ import store from "../store";
 import Constants from "../config/constants";
 
 
-import { serviceC3MLetterList } from "../services/C3MLetters.service";
+import { serviceC3MLetterList } from "../services/Letters.service";
 
 export const FETCH_INIT = "FETCH_INIT_C3MLetters";
 export const FETCHED = "FETCHED_C3MLetters";
@@ -134,7 +134,7 @@ export function actionSetPageC3MLetterList(page) {
     );
   }
 
-  console.log(currentPage, totalLength);
+ 
   return {
     type: CHANGE_PAGE,
     payload: page,

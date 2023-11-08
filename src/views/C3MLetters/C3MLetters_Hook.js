@@ -1,14 +1,21 @@
+
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { actionFetchC3MLetterList, actionSetPageC3MLetterList } from "../../actions/C3MLetters_action";
+import { serviceGetList } from "../../services/Common.service";
+import constants from "../../config/constants";
+import { actionFetchEmployee } from "../../actions/Employee.action";
 
 const useC3MLetters_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
+    DEPARTMENTS: [],
+    LOCATIONS: [],
   });
+  const { role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -28,16 +35,27 @@ const useC3MLetters_Hook = () => {
     isMountRef.current = true;
   }, []);
 
-  // useEffect(() => {
-  //   serviceGetList(["LOCATIONS"]).then((res) => {
-  //     if (!res.error) {
-  //       setListData(res.data);
-  //     }
-  //   });
-  // }, []);
-  console.log("list", listData);
+  const initData = useCallback(() => {
+    dispatch(
+      actionFetchEmployee(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+     initData();
+    isMountRef.current = true;
+    serviceGetList(["LOCATIONS",  "DEPARTMENTS"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
+
   const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
+   
     dispatch(actionSetPageC3MLetterList(type));
   }, []);
 
@@ -56,7 +74,7 @@ const useC3MLetters_Hook = () => {
 
   const handleFilterDataChange = useCallback(
     (value) => {
-      console.log("_handleFilterDataChange", value);
+    
       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
@@ -64,7 +82,7 @@ const useC3MLetters_Hook = () => {
 
   const handleSearchValueChange = useCallback(
     (value) => {
-      console.log("_handleSearchValueChange", value);
+    
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -92,29 +110,31 @@ const useC3MLetters_Hook = () => {
   };
 
   const openPDFInNewTab = useCallback((pdfUrl) => {
-  console.log(pdfUrl)
-    // const newWindow = window.open('', '_blank');
-    if (pdfUrl) {
+  if (pdfUrl) {
       window.open(pdfUrl?.joining_letter, "_blank")
-      // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
+   
     }
   }, []);
 
   const configFilter = useMemo(() => {
     return [
+      ...(role === constants.ROLES.CORPORATE_HR
+        ? [
+            {
+              label: "Location",
+              name: "location_id",
+              type: "selectObject",
+              custom: { extract: { id: "id", title: "name" } },
+              fields: listData?.LOCATIONS,
+            },
+          ]
+        : []),
       {
-        label: "Status",
-        name: "status",
-        type: "select",
-        fields: [
-          "ACTIVE",
-          "RESIGNED",
-          "TERMINATED",
-          "RETIRED",
-          "EXPIRED",
-          "ABSCONDED",
-          "INACTIVE",
-        ],
+        label: "Department",
+        name: "department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
       },
     ];
   }, [listData]);

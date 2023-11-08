@@ -1,0 +1,26 @@
+ 
+  .myTable {
+    border-collapse: collapse;
+    width: 100%; 
+    font-size: 14px;
+    color: #000;
+  
+  }
+  
+  .myTable th, .myTable td {
+    border: 1px solid black; 
+    padding: 8px;
+    text-align: left; 
+  
+  }
+  
+  .noBorder {
+    border: none;
+  }
+
+  .bgColor4Cols{
+    background-color: #ECF7FF;
+  }
+  .bgColorRow{
+    background-color: #ECF7FF;
+  }

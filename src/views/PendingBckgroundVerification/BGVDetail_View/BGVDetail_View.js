@@ -4,9 +4,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../../libs/history.utils";
 import styles from "./Style.module.css";
 import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
-
 import StatusPill from "../../../components/Status/StatusPill.component";
-
 import { serviceEmployeeBGVDetail } from "../../../services/PendingBGVerification.service";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
@@ -14,15 +12,13 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 const BGVDetailView = ({}) => {
   const [details, setDetails] = useState([]);
   const { id } = useParams();
- console.log(details?.emp_code
-  )
-
+ 
   useEffect(() => {
     //  setIsLoading(true);
     serviceEmployeeBGVDetail({ id: id }).then((res) => {
       if (!res.error) {
         const data = res?.data;
-        console.log(data);
+       
         setDetails({
           ...details,
           is_education_verification_status:

@@ -1,0 +1,124 @@
+.evaluationFormWrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: #fbfbfb 0% 0% no-repeat padding-box;
+  }
+  .evaluationContainer {
+    margin-top: 40px;
+    gap: 20px;
+    /* width: 70%; */
+    /* background-color: yellow; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .logoImg {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .sky {
+    height: 90px;
+    width: 100px;
+  }
+  .loginSignupText {
+    text-align: left;
+  }
+  .headingText {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: black;
+    font-size: 2rem;
+    margin-bottom: 2px;
+    /*font-family: CircularStd-Bold;*/
+  }
+  .evaluationContainer2 {
+    gap: 20px;
+    /* width: 70%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .candidateInfoContainer {
+    width: 80%;
+    padding: 20px;
+    padding-bottom: 2%;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .candidateInfoContainer2 {
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.8rem;
+  }
+  .rankingWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+    gap: 10px;
+  }
+  .heading {
+    font-weight: 600;
+  }
+  .headingDes {
+    font-size: 0.8rem;
+  }
+  .horizontalLine {
+    border-bottom: 2px solid #ebedf4;
+    margin: 20px 0;
+    /*margin-top: 15px;*/
+  }
+  .btnContainer {
+    width: 80%;
+    padding: 20px 0;
+    border-radius: 10px;
+  }
+  .btnCont1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .createBtn {
+    background-color: #29cb97 !important;
+    color: #ffffff !important;
+    padding: 12px 35px !important;
+    font-size: 0.8rem !important;
+    border-radius: 30px !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+  }
+  .first {
+    padding: 0.5rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .headtitle {
+    font-weight: 600;
+    flex: 2;
+  }
+  .headtitle2 {
+    font-weight: 600;
+    flex: 1;
+  }
+  .rank {
+    flex: 1;
+  }
+  .commentWrap{
+    padding: .2rem 1.2rem;
+  }

@@ -43,13 +43,12 @@ const usePendingBGVerification_Hook = () => {
   // }, []);
   console.log("list", listData);
   const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
+
     dispatch(actionSetPagePendingBGVList(type));
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
       dispatch(
         actionFetchPendingBGVList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
@@ -97,17 +96,11 @@ const usePendingBGVerification_Hook = () => {
     console.log(page);
   };
 
-  // const openPDFInNewTab = useCallback((pdfUrl) => {
-  //   const newWindow = window.open("", "_blank");
-  //   if (newWindow) {
-  //     window.open(pdfUrl, "_blank");
-  //     // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
-  //   }
-  // }, []);
-
   const handleViewDetails = useCallback((data) => {
-    console.log(data?.emp_code)
-    historyUtils.push(`${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}`,);
+    console.log(data?.emp_code);
+    historyUtils.push(
+      `${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}`
+    );
   }, []);
 
   const handleBGVUpdateDetails = useCallback((data) => {
@@ -116,6 +109,10 @@ const usePendingBGVerification_Hook = () => {
 
   const handleBGVDetails = useCallback((data) => {
     historyUtils.push(`${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}`);
+  }, []);
+
+  const handleBgvAnalysiReport = useCallback((data) => {
+    historyUtils.push(`${RouteName.BGV_ANALYSI_REPOST}${data?.id}`);
   }, []);
 
   const configFilter = useMemo(() => {
@@ -149,6 +146,7 @@ const usePendingBGVerification_Hook = () => {
     configFilter,
     handleViewDetails,
     handleBGVDetails,
+    handleBgvAnalysiReport,
   };
 };
 

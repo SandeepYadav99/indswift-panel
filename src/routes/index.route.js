@@ -45,6 +45,7 @@ import ExitForm from "../views/ExitInterview/ExitForm/ExitForm.view.js";
 import ExitLogin from "../views/ExitInterview/ExitLogin/ExitLogin.js";
 import ExitDetail from "../views/ExitInterview/ExitDetail/ExitDetail.view.js";
 import ExitResponse from "../views/ExitInterview/ExitResponse/ExitResponse.js";
+import HREscalationMatrixView from "../views/HREscalationMatrixView/HREscalationMatrixView.js";
 
 const indexRoutes = [{path: "/", component: Dashboard}];
 
@@ -82,6 +83,7 @@ const RouteComponent = () => (
         <Route path={RouteName.EXIT_INTERVIEW_FORM} component={ExitForm}/>
         <Route path={RouteName.EXIT_SUCCESS} component={ExitResponse}/>
         <Route path={`${RouteName.EXIT_DETAIL}:id`} component={ExitDetail}/>
+        <Route path={RouteName.HRESCALATIONMATRIX} component={HREscalationMatrixView}/>
 
         {/*<Route path={'/signup'} component={Signup} />*/}
         <Route path={"/forgot/password"} component={ForgotPassword}/>

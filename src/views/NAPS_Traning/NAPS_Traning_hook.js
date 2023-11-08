@@ -7,13 +7,19 @@ import {
   actionFetchNapsTraningList,
   actionSetPageNapsTraningList,
 } from "../../actions/NAPS_Traning.action";
+import constants from "../../config/constants";
+import { serviceGetList } from "../../services/Common.service";
+import { actionFetchEmployee } from "../../actions/Employee.action";
 
 const useNapsTraning_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
+    DEPARTMENTS: [],
+    LOCATIONS: [],
   });
+  const { role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -33,13 +39,6 @@ const useNapsTraning_Hook = () => {
     isMountRef.current = true;
   }, []);
 
-  // useEffect(() => {
-  //   serviceGetList(["LOCATIONS"]).then((res) => {
-  //     if (!res.error) {
-  //       setListData(res.data);
-  //     }
-  //   });
-  // }, []);
   console.log("list", listData);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
@@ -96,30 +95,51 @@ const useNapsTraning_Hook = () => {
     console.log(page);
   };
 
-  const openPDFInNewTab = useCallback((pdfUrl) => {
+  const handleNapsCertificatePage = useCallback((pdfUrl) => {
     if (pdfUrl) {
-      window.open(pdfUrl?.joining_letter, "_blank");
+      window.open(pdfUrl?.naps?.letter_pdf, "_blank");
       // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
-    } else {
-     
     }
+  }, []);
+
+  const initData = useCallback(() => {
+    dispatch(
+      actionFetchEmployee(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    initData();
+    isMountRef.current = true;
+    serviceGetList(["LOCATIONS", "DEPARTMENTS"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
   }, []);
 
   const configFilter = useMemo(() => {
     return [
+      ...(role === constants.ROLES.CORPORATE_HR
+        ? [
+            {
+              label: "Location",
+              name: "location_id",
+              type: "selectObject",
+              custom: { extract: { id: "id", title: "name" } },
+              fields: listData?.LOCATIONS,
+            },
+          ]
+        : []),
       {
-        label: "Status",
-        name: "status",
-        type: "select",
-        fields: [
-          "ACTIVE",
-          "RESIGNED",
-          "TERMINATED",
-          "RETIRED",
-          "EXPIRED",
-          "ABSCONDED",
-          "INACTIVE",
-        ],
+        label: "Department",
+        name: "department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
       },
     ];
   }, [listData]);
@@ -130,7 +150,7 @@ const useNapsTraning_Hook = () => {
     handleSearchValueChange,
     handleRowSize,
     handleSortOrderChange,
-    openPDFInNewTab,
+    handleNapsCertificatePage,
     isCalling,
     editData,
     configFilter,

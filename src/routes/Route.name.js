@@ -74,7 +74,7 @@ export default {
   EMPLOYEE_CREATE: "/employees/create",
   EMPLOYEE_DETAIL: "/employees/details/",
   EMPLOYEE_VERSIONS: "/employee/versions",
-
+  EMPLOYEE_RECORD_APPROVALs:"/employee-record/approvals",
   NEW_EMPLOYEES:"/new/employee",
   NEW_EMPLOYEE_DETAIL: "/new/employee/details/",
 
@@ -197,24 +197,31 @@ export default {
   CANDIDATE_STATUS_GLOSSARY:"/candidate/status",
   SUCCESSION_PLANING:"/succession-planing",
   SUCCESSION_APPROVAL:"/succession-approval",
+  SUCCESSION_APPROVAL_DETAIL:"/succession-approval/detail/",
+
+  SUCCESSION_PLANNER:"/succession-planner",
   EXPIRING_OFFER_LETTER:"/expiring-offer-letter",
 
   C3MLETTER:"/c3m-letter",
   NAPS_TRANING:"/naps_traning",
-  APPOINTMENT_LETTER:"/appointment_letter",
+  APPOINTMENT_LETTER:"/appointment-letter",
   RELIEVING_EXPERIENCE_APPROVALS:"/relieving-experience-approval",
   RELIEVING_EXPERIENCE_APPROVALS_DETAILS:"/relieving-experience-approval/details",
   RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
+  RELIEVING_EXPERIENCE_LETTER_DETAIL:"/relieving-exp-letter/detail/",
   PENDING_BACKGROUND_VERIFICATION:"/pending-verification",
+  BGV_ANALYSI_REPOST:"/pending-verification/detail/",
+
   PENDING_VERIFICATION_CREATE:"/verification/create/",
   PENDING_VERIFICATION_DETAIL:"/verification/detail",
   PENDING_VERIFICATION_UPDATE:"/verification/update/",
+
 
   LEAVE_APPLICATION_LIST_VIEW:'/leave-application/list',
   LEAVE_APPLICATION_FORM:"/leave-application-form",
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
 
-
+  HRESCALATIONMATRIX:"/hr/escalation",
   FULL_FINAL_APPLICATION:"/full-final",
   FULL_FINAL_APPROVAL:"/full-final-approval",
   FULL_FINAL_FORM:"/full/form/",
