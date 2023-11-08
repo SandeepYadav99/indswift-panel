@@ -15,8 +15,9 @@ function RelievingExpLetterDetail({ data, isImprest }) {
     relievingExpDetails,
     handleSubmitToApprove,
     errorData,
+    isSiteHRApprovedPending
   } = useRelievingExpLetterDetail();
-console.log(relievingExpDetails)
+
   return (
     <div>
       <div className={styles.claimListWrapper}>
@@ -61,10 +62,7 @@ console.log(relievingExpDetails)
                     <span className={styles.value}>Department:</span>
                     {relievingExpDetails?.employee?.department?.name}
                   </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>P.F A/C No.:</span>
-                    {/* {relievingExpDetails?.employee?.identity_date?.uan_no}  */}
-                  </div>
+
                   <div className={styles.key}>
                     <span className={styles.value}>ESI Number:</span>
                     {relievingExpDetails?.employee?.identity_date?.esi_no ||
@@ -72,25 +70,17 @@ console.log(relievingExpDetails)
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>
-                      Days worked after resignation:
-                    </span>
-                    {data?.location?.name}
+                      Days worked after resignation:{" "}
+                      </span>
+                      {relievingExpDetails?.employee?.workingDayResignation}
+                   
+                   
                   </div>
-                  <div className={styles.key}>
+                  {!isSiteHRApprovedPending  &&   <div className={styles.key}>
                     <span className={styles.value}>Reason for leaving:</span>
                     {relievingExpDetails?.employee?.status}
-                  </div>
-                  {!isImprest && data?.experience?.current && (
-                    <div className={styles.key}>
-                      <span className={styles.value}>
-                        Experience with Organization:
-                      </span>
-                      {data?.experience?.current > 1
-                        ? `${data?.experience?.current} yrs`
-                        : `${data.experience.current} yr`}
-                    </div>
-                  )}
-               
+                  </div>}
+                
                   {relievingExpDetails?.experienceLetter?.status ===
                     "SITE_HR_APPROVED" &&
                     relievingExpDetails?.status === "PENDING" && (
@@ -110,7 +100,6 @@ console.log(relievingExpDetails)
                         <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
                       </CustomSelectField>
                     )}
-               
                 </div>
               </div>
               <div className={styles.vertical}></div>
@@ -139,8 +128,7 @@ console.log(relievingExpDetails)
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Worked on NAPS</span>
-                  {relievingExpDetails?.employee?.trainee_id ? 'Yes' : 'N/A'
-                }
+                  {relievingExpDetails?.employee?.trainee_id ? "Yes" : "N/A"}
                 </div>
               </div>
             </div>
@@ -158,7 +146,7 @@ console.log(relievingExpDetails)
               SEND FOR APPROVAL
             </ButtonBase>
           )}
-
+      
         {relievingExpDetails?.experienceLetter?.status === "SITE_HR_APPROVED" &&
           relievingExpDetails?.status === "PENDING" && (
             <ButtonBase

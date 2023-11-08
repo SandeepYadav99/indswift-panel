@@ -5,8 +5,10 @@ import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ButtonBase } from "@material-ui/core";
 import FinalUpperCard from "./component/FinalUpperCard/FinalUpperCard";
+import useFinalForm from "./FinalForm.hook";
 
 function FinalForm() {
+  const { employeeDetail } = useFinalForm({});
   const emp = {};
   return (
     <div>
@@ -22,11 +24,11 @@ function FinalForm() {
         </div>
       </div>
       <div className={styles.plainPaper}>
-        <FinalUpperCard data={emp} />
+        <FinalUpperCard data={employeeDetail?.employee} />
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 1 : CTC of Employee</div>
-        <FinalSalaryTable data={emp} />
+        <FinalSalaryTable data={employeeDetail?.salary} />
       </div>
     </div>
   );
