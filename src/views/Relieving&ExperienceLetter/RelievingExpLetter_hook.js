@@ -11,6 +11,7 @@ import { serviceSendRelievingExpLetter } from "../../services/Letters.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import constants from "../../config/constants";
 import { actionFetchEmployee } from "../../actions/Employee.action";
+import { serviceResendExitForm } from "../../services/ExitInterview.service";
 
 const useRelievingExpLetter_hook = () => {
   const [editData, setEditData] = useState(null);
@@ -132,11 +133,23 @@ const useRelievingExpLetter_hook = () => {
     }
   }, []);
 
+  const handleResend = useCallback((data) => {
+    
+    serviceResendExitForm({
+      id: data?.id,
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils?.success("Resend Successfully")
+        window.location.reload();
+      }
+    });
+  }, []);
+
   const configFilter = useMemo(() => {
     return [
       {
         label: "Location",
-        name: "location",
+        name: "location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
@@ -170,6 +183,7 @@ const useRelievingExpLetter_hook = () => {
     editData,
     configFilter,
     handleRelievingExpLetter,
+    handleResend
   };
 };
 

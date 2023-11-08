@@ -80,6 +80,7 @@ export default {
   STATUS: {
     PENDING_VERIFICATION:"pending",
     PENDING_PENDING:"pending",
+ 
     PENDING: "pending",
     WAITING: "waiting",
     ACCEPTED: "warning",
