@@ -22,13 +22,13 @@ const RelievingExpLetter_View =lazy(()=>import("../views/Relieving&ExperienceLet
 const CurrencyEditView =lazy(()=>import("../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit")) ;
 const ClaimForCard =lazy(()=>import("../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view")) ;
 const ForeignClaimDetail =lazy(()=>import("../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view")) ;
-const PendingLeaveApplication  =lazy(()=>("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
+const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
 
 const BGVStatus_Update =lazy(()=>import("../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update")) ;
 
 const BGVDetailView =lazy(()=>import("../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View")) ;
 
-const EmployeeRecordApprovals =lazy(()=>("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
+const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
 
 const RelievingExpLetterDetail = lazy(()=>import("../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail")) ;
 
@@ -578,6 +578,7 @@ const dashboardRoutes = [
     should_regex: true,
     // parent: 'employeedashboard',
   },
+  
   {
     path: "/employeeInduction",
     sidebarName: "Employee Induction",
@@ -1177,7 +1178,7 @@ const dashboardRoutes = [
       : [Roles.CORPORATE_HR],
   },
   {
-    path: `${RouteName.EMPLOYEE_RECORD_APPROVALs}`,
+    path: RouteName.EMPLOYEE_RECORD_APPROVALs,
     sidebarName: "Employee Record Approval",
     navbarName: "Employee Record Approval",
     icon: LocalOffer,

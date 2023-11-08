@@ -198,7 +198,9 @@ export default {
   SUCCESSION_APPROVAL:"/succession-approval",
   SUCCESSION_APPROVAL_DETAIL:"/succession-approval/detail/",
 
-  SUCCESSION_PLANNER:"/succession-planner",
+  SUCCESSION_PLANNER:"/succession/planner",
+  SUCCESSION_PLANNER_DETAIL_FORM:"/succession/detail/form",
+  SUCCESSION_HISTORY:"/succession/history",
   EXPIRING_OFFER_LETTER:"/expiring-offer-letter",
 
   C3MLETTER:"/c3m-letter",

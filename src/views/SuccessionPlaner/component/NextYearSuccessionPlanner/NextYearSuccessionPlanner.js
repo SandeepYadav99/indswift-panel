@@ -84,13 +84,13 @@ const NextYearSuccessionPlanner = ({
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{"Nmae"}</div>,
       },
       {
         key: "doj",
         label: "D.O.J",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{"Name"}</div>,
       },
       {
         key: "dob",
