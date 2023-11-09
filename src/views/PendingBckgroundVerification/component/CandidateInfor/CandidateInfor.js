@@ -1,13 +1,25 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import styles from "./CandidateInfor.module.css"
-const CandidateInfor = ({data}) => {
-  console.log(data)
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux';
+import { actionGetEmployeeDetails } from "../../../../actions/Employee.action";
+const CandidateInfor = ({empId}) => {
+
+const dispatch = useDispatch();
+  useEffect(() => {
+    if (empId) {
+      dispatch(actionGetEmployeeDetails(empId));
+    }
+  }, [empId]);
+
+  const { employeeData } = useSelector((state) => state.employee);
+
   return (
     <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
             <div className={styles.heading}>
-              Candidate Information - <span>{data?.code}</span>
+              Candidate Information - <span>{employeeData?.code}</span>
             </div>
           </div>
 
@@ -15,20 +27,20 @@ const CandidateInfor = ({data}) => {
             <div className={styles.left}>
               <div className={styles.key}>
                 <span className={styles.value}>Name:</span>
-                {data?.name}
+                {employeeData?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Month:</span>
-                {data?.verificatioMonth}
+                {employeeData?.verificationText}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Location:</span>
-                {data?.sub_department?.name}
+                {employeeData?.location?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Offer Accepted:</span>
-                {data?.designation?.name}{" "}
-                {data?.designation_note && <>({data?.designation_note})</>}
+                {employeeData?.designation?.name}{" "}
+                {employeeData?.designation_note && <>({employeeData?.designation_note})</>}
               </div>
             </div>
 
@@ -36,28 +48,29 @@ const CandidateInfor = ({data}) => {
             <div className={styles.right}>
               {/* <div className={styles.key}>
                 <span className={styles.value}>PRC:</span>
-                {data?.code}
+                {employeeData?.code}
               </div> */}
               <div className={styles.key}>
                 <span className={styles.value}>Designation:</span>
-                {/* {valencyChange(data?.vacancy_type)} */}
+                {/* {valencyChange(employeeData?.vacancy_type)} */}
+                {employeeData?.designation?.name ? employeeData?.designation?.name :"NA"}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Department:</span>
-                {data?.replacing_person?.code
-                  ? data?.replacing_person?.code
+                {employeeData?.department?.name
+                  ? employeeData?.department?.name
                   : "NA"}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Offer Date:</span>
-                {data?.replacing_person?.name
-                  ? data?.replacing_person?.name
+                {employeeData?.replacing_person?.name
+                  ? employeeData?.replacing_person?.name
                   : "NA"}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>DOJ:</span>
-                {data?.replacing_person?.total_experience
-                  ? `${data?.replacing_person?.total_experience} yrs`
+                {employeeData?.doj
+                  ? `${employeeData?.doj}`
                   : "NA"}
               </div>
             </div>

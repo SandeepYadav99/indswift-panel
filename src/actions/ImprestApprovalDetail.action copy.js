@@ -17,6 +17,7 @@ export function actionGetImprestInterviewers(openingId,type,index=1) {
     }
 }
 
+
 export function actionGetJobOpeningVacancies(openingId,type,index=1) {
     const request = serviceGetImprestApprovalTable({ employee_id: openingId ,imprest_type:type,index:index});
     return (dispatch) => {

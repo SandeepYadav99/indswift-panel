@@ -82,6 +82,10 @@ import LeaveReducer from './LeaveModule.reducer';
 import ExpirOfferLetterReducer from "./ExpirOfferLetter.reducer";
 import NAPS_TraningReducer from "./NAPS_Traning.reducer"
 import PendingBGVReducer from "./PendingBGV.reducer";
+import C3MLetterReducer from "./C3MLetter.reducer";
+import AppointmentLetterReducer from "./AppointmentLetter.reducer";
+import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
+
 import ExitInterviewReducer from "./ExitInterview.reducer";
 import LeaveListReducer from "./LeaveList.reducer";
 import FinalFormReducer from "./FinalForm.reducer";
@@ -166,7 +170,10 @@ const rootReducer = combineReducers({
   LeaveModule:LeaveReducer,
   exit_interview:ExitInterviewReducer,
   leave_list:LeaveListReducer,
-  final_form:FinalFormReducer
+  final_form:FinalFormReducer,
+  C3MLetter:C3MLetterReducer,
+  AppointmentLetter:AppointmentLetterReducer,
+  RelievingExpLetter:RelievingExpLetterReducer
   // form: formReducer,
 });
 

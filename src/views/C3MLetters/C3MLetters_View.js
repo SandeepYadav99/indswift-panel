@@ -12,7 +12,7 @@ import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
 import { removeUnderScore } from "../../helper/helper";
 import useC3MLetters_Hook from "./C3MLetters_Hook";
-import { Edit, EditOutlined, InfoOutlined } from "@material-ui/icons";
+import { InfoOutlined } from "@material-ui/icons";
 
 const C3MLetters_View = ({ location }) => {
   const {
@@ -25,6 +25,7 @@ const C3MLetters_View = ({ location }) => {
     handleViewDetails,
     isCalling,
     configFilter,
+    openPDFInNewTab,
   } = useC3MLetters_Hook({ location });
 
   const {
@@ -32,7 +33,7 @@ const C3MLetters_View = ({ location }) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.newEmployee);
+  } = useSelector((state) => state.C3MLetter);
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
@@ -43,7 +44,11 @@ const C3MLetters_View = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span> <br />
+            <span className={styles.productName}>
+              <b>{obj?.name} </b>
+            </span>{" "}
+            <br />
+            <span>{obj?.emp_code}</span>
           </div>
         </div>
       );
@@ -57,32 +62,29 @@ const C3MLetters_View = ({ location }) => {
         key: "employee_name",
         label: "EMPLOYEE NAME",
         sortable: true,
-        render: (value, all) => <div>{renderFirstCell(all)}</div>,
+        render: (value, all) => <div> {renderFirstCell(all)}</div>,
       },
       {
         key: "grade_cadre",
         label: "GRADE/CADRE",
         sortable: false,
-        render: (temp, all) => <div>{all?.emp_code}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.grade?.code}/{all?.cadre?.code}
+          </div>
+        ),
       },
       {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.location.name}<br/>{all?.department.name}/{all?.sub_department.name}</div>,
+        render: (temp, all) => <div>{all?.location.name}</div>,
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.designation?.name}</div>,
       },
       {
         key: "dept_sub_dept",
@@ -90,10 +92,7 @@ const C3MLetters_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
+            {all?.department?.name} /{all?.sub_department?.name}
           </div>
         ),
       },
@@ -103,10 +102,10 @@ const C3MLetters_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
+            (O) {all?.contact?.official_contact || "N/A"} <br />
+            (O) {all?.contact?.official_email || "N/A"} <br />
+            (P) {all?.contact?.personal_contact || "N/A"} <br />
+            (P) {all?.contact?.personal_email || "N/A"}
           </div>
         ),
       },
@@ -114,22 +113,13 @@ const C3MLetters_View = ({ location }) => {
         key: "doj",
         label: "DOJ",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.createdBy?.name}
-            <br />
-            {all?.createdBy?.code} <br />
-            {all?.createdAtText}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.dojText}</div>,
       },
       {
         key: "reporting",
         label: "REPORTING TO",
         sortable: true,
-        render: (temp, all) => (
-          <div>{renderStatus(removeUnderScore(all?.status))}</div>
-        ),
+        render: (temp, all) => <div>{all?.hod?.hod_name}</div>,
       },
       {
         key: "user_id",
@@ -140,9 +130,9 @@ const C3MLetters_View = ({ location }) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              // onClick={() => {
-              //   handleViewDetails(all);
-              // }}
+              onClick={() => {
+                openPDFInNewTab(all);
+              }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>

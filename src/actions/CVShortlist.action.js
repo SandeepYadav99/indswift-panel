@@ -52,6 +52,7 @@ export function actionFetchCVShortlist(
   };
 }
 
+
 export function actionUpdateCVShortlist(reviewId, type,reason,note) {
   const request = serviceUpdateCVShortlistRequest({ review_id: reviewId, type: type ,reason:reason,note:note});
   return (dispatch) => {

@@ -169,3 +169,18 @@
     text-transform: uppercase !important;
     font-weight: 600 !important;
   }
+  .gaps {
+    padding: 10px;
+  }
+  .text_{
+    font-size: 0.8rem;
+    margin-top: 25px;
+    font-weight: 600;
+  }
+  .bgv_verification{
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-weight: 600;
+
+  }
