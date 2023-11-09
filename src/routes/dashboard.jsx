@@ -1216,7 +1216,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    roles: [Roles.ADMIN],
+    roles: [Roles.ADMIN,Roles.CORPORATE_HR],
   },
   {
     path: "/manpower",
@@ -2434,7 +2434,7 @@ const dashboardRoutes = [
     navbarName: "Relieving & Experience Letter Approvals",
     icon: PeopleOutlined,
     component: LetterApprovalProces_View,
-    is_sidebar: false,
+    is_sidebar: true,
     is_protect: true,
     // slug: 'tp',
     // is_parent: true,
