@@ -5,6 +5,7 @@
     padding-bottom: 30px;
 }
 
+
 .newLine{
     height: 4px;
     width: 30px;
@@ -59,7 +60,7 @@
 
 .left{
     flex: 1.4;
-    
+
 }
 .left221{
     flex: 1.4;

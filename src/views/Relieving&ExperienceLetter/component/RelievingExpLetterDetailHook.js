@@ -12,6 +12,7 @@ const initialForm = {
   general_conduct: "",
 };
 
+
 const useRelievingExpLetterDetail = () => {
   const [relievingExpDetails, setRelievingExpDetails] = useState({});
   const [form, setForm] = useState({ ...initialForm });
@@ -38,7 +39,7 @@ const useRelievingExpLetterDetail = () => {
     if (isSiteHRApprovedPending) {
       required.push("general_conduct");
     }
- 
+
     required.forEach((val) => {
       if (
         !form?.[val] ||
