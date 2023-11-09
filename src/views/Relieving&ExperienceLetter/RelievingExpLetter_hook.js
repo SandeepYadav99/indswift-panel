@@ -136,7 +136,7 @@ const useRelievingExpLetter_hook = () => {
   const handleResend = useCallback((data) => {
     
     serviceResendExitForm({
-      id: data?.id,
+      id: data?.exitInterview?.id,
     }).then((res) => {
       if (!res.error) {
         SnackbarUtils?.success("Resend Successfully")
@@ -157,14 +157,14 @@ const useRelievingExpLetter_hook = () => {
 
       {
         label: "Grade",
-        name: "grade_id",
+        name: "employeesObj.grade_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "label" } },
         fields: listData?.GRADES,
       },
       {
         label: "Department",
-        name: "department_id",
+        name: "employeesObj.department_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,

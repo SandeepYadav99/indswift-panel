@@ -38,6 +38,7 @@
   }
   .firstCellInfo {
     margin-left: 10px;
+  
   }
   
   .headerFlex {
@@ -47,6 +48,10 @@
   }
   .productName {
     text-transform: capitalize;
+    display: flex;
+    flex-direction: column;
+   
+    
   }
   .productCat {
     text-transform: capitalize;
