@@ -5,6 +5,7 @@ import historyUtils from "../../../libs/history.utils";
 import { ButtonBase, MenuItem } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
+
 function LetterApprovalDetail({ data, isImprest }) {
   return (
     <div>
@@ -82,7 +83,7 @@ function LetterApprovalDetail({ data, isImprest }) {
                     // }}
                   >
                     <MenuItem value={"MARRAIGE"}>Good</MenuItem>
-                   
+
                   </CustomSelectField>
                 </div>
               </div>

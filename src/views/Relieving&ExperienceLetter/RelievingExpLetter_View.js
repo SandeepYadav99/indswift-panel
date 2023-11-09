@@ -8,9 +8,7 @@ import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
-
 import { AssignmentOutlined, Send, Visibility } from "@material-ui/icons";
-
 import useRelievingExpLetter_hook from "./RelievingExpLetter_hook";
 
 const RelievingExpLetter_View = ({ location }) => {
