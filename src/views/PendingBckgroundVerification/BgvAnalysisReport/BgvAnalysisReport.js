@@ -1,5 +1,5 @@
 import { ButtonBase, MenuItem } from "@material-ui/core";
-import BGVAnalysisTable from "./component/BGVAnalysisTable"
+import BGVAnalysisTable from "./component/BGVAnalysisTable";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import historyUtils from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -21,28 +21,23 @@ const BgvAnalysisReport = () => {
               <div className={styles.newLine} />
             </div>
             <div className={styles.container}>
-            <div>
-              <div className={styles.customSelectContainer}>
-                <CustomSelectField
-                  label={"Complete in "}
-                  className={styles.dateContainer}
-                  handleChange={(value) => {
-                    // changeTextData(value, "payment_complete");
-                  }}
-                >
-                  <MenuItem value="2023-09-08">2023-09-08</MenuItem>
-                  {/* <MenuItem value="esix">ESIX </MenuItem> */}
-                </CustomSelectField>
-              </div>
+           <div className={styles.customSelectContainer}>
+                  <CustomSelectField
+                    label={"Complete in "}
+                    className={styles.dateContainer}
+                    handleChange={(value) => {
+                      // changeTextData(value, "payment_complete");
+                    }}
+                  >
+                    <MenuItem value="2023-09-08">2023-09-08</MenuItem>
+                    {/* <MenuItem value="esix">ESIX </MenuItem> */}
+                  </CustomSelectField>
+                </div>
+           
             </div>
           </div>
-          </div>
-
-         
         </div>
 
-        {/* Table is  */}
-        <br />
         <br />
         <BGVAnalysisTable />
       </div>
