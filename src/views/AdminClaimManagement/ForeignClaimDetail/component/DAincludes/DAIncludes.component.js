@@ -72,6 +72,9 @@ const DAIncludeForm = (
           }
         });
       }
+      if(val?.da_amount == 0 && val?.da_amount !== ""){
+        delete err['da_amount']
+      }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
