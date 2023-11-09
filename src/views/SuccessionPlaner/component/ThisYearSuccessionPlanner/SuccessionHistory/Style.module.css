@@ -46,3 +46,14 @@
     opacity: 1;
     padding: 10px;
   }
+  .avator{
+    display: flex;
+    justify-content: space-between;
+    margin: 2%;
+    align-items: center;
+  }
+  .image{
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+  }

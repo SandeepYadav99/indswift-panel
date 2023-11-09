@@ -15,7 +15,7 @@ function RelievingExpLetterDetail({ data, isImprest }) {
     relievingExpDetails,
     handleSubmitToApprove,
     errorData,
-    isSiteHRApprovedPending
+    isSiteHRApprovedPending,
   } = useRelievingExpLetterDetail();
 
   return (
@@ -71,16 +71,14 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                   <div className={styles.key}>
                     <span className={styles.value}>
                       Days worked after resignation:{" "}
-                      </span>
-                      {relievingExpDetails?.employee?.workingDayResignation}
-                   
-                   
+                    </span>
+                    {relievingExpDetails?.employee?.workingDayResignation}
                   </div>
-                  {!isSiteHRApprovedPending  &&   <div className={styles.key}>
+                  <div className={styles.key}>
                     <span className={styles.value}>Reason for leaving:</span>
                     {relievingExpDetails?.employee?.status}
-                  </div>}
-                
+                  </div>
+
                   {relievingExpDetails?.experienceLetter?.status ===
                     "SITE_HR_APPROVED" &&
                     relievingExpDetails?.status === "PENDING" && (
@@ -93,7 +91,7 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                           changeTextData(value, "general_conduct");
                         }}
                       >
-                        {/* <MenuItem value={"ENDORSE"}>Endorse</MenuItem> */}
+                        <MenuItem value={"ENDORSE"}>Can't Endorse</MenuItem>
                         <MenuItem value={"POOR"}>Poor</MenuItem>
                         <MenuItem value={"AVERAGE"}>Average</MenuItem>
                         <MenuItem value={"GOOD"}>Good</MenuItem>
@@ -146,7 +144,7 @@ function RelievingExpLetterDetail({ data, isImprest }) {
               SEND FOR APPROVAL
             </ButtonBase>
           )}
-      
+
         {relievingExpDetails?.experienceLetter?.status === "SITE_HR_APPROVED" &&
           relievingExpDetails?.status === "PENDING" && (
             <ButtonBase
