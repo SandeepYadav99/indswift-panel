@@ -62,9 +62,9 @@ const PendingBGVerification_View = ({ location }) => {
     return null;
   }, []);
 
-  const button_VerificationHandler = (all) => {
+  const button_VerificationHandler = useCallback((all) => {
     
-    if (all?.bgv_status === "SENT_FOR_VERIFICATION") {
+    if (all?.bgv_status === "INCOMPLETE") {
       if (
         all?.bgv_result === "CLEAR" ||
         all?.bgv_result === "FAILED" ||
@@ -96,7 +96,8 @@ const PendingBGVerification_View = ({ location }) => {
         </IconButton>
       );
     }
-  };
+  },[handleBGVDetails, handleBGVUpdateDetails]);
+  
   const tableStructure = useMemo(() => {
     return [
       {
@@ -163,7 +164,7 @@ const PendingBGVerification_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.bgv_result ? <StatusPill status={all?.payment_status} /> : <>-</>}
+            {all?.payment_status ? <StatusPill status={all?.payment_status} /> : <>-</>}
           </div>
         ),
       },
@@ -172,7 +173,7 @@ const PendingBGVerification_View = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {all?.bgv_status === "PENDING_VERIFICATION" && (
+            {all?.bgv_status === "PENDING" && (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
