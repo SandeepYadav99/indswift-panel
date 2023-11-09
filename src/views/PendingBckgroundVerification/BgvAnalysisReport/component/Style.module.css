@@ -3,7 +3,8 @@
     width: 100%;
     font-size: 14px;
     color: #000;
-   
+    overflow-x: auto; 
+    display: block;
   }
   
   .myTable th,
@@ -13,11 +14,10 @@
     text-align: left;
   }
   
-
-  @media  (min-width: 768px) {
+  @media  (min-width: 1068px) {
     .myTable {
-      max-width: 100%;
-      overflow-x: auto;
+      display: table;
+      overflow-x: inherit;
     }
   }
 
