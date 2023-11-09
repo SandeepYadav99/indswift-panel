@@ -1,15 +1,15 @@
 import { ButtonBase, MenuItem } from "@material-ui/core";
-import BGVAnalysisTable from "./component/BGVAnalysisTable"
+import BGVAnalysisTable from "./component/BGVAnalysisTable";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import historyUtils from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import styles from "./Style.module.css";
-
+import PageBox from "../../../components/PageBox/PageBox.component";
 const BgvAnalysisReport = () => {
   return (
     <div>
-      <div className={styles.plainPaper}>
-        <div className={styles.rightAlignContainer}>
+      <PageBox>
+     
           <div className={styles.headerContainer}>
             <div>
               <ButtonBase onClick={() => historyUtils.goBack()}>
@@ -20,12 +20,11 @@ const BgvAnalysisReport = () => {
               </ButtonBase>
               <div className={styles.newLine} />
             </div>
-            <div className={styles.container}>
-            <div>
+      
               <div className={styles.customSelectContainer}>
                 <CustomSelectField
                   label={"Complete in "}
-                  className={styles.dateContainer}
+               
                   handleChange={(value) => {
                     // changeTextData(value, "payment_complete");
                   }}
@@ -34,18 +33,13 @@ const BgvAnalysisReport = () => {
                   {/* <MenuItem value="esix">ESIX </MenuItem> */}
                 </CustomSelectField>
               </div>
-            </div>
-          </div>
-          </div>
-
          
-        </div>
-
-        {/* Table is  */}
+          </div>
+      
         <br />
         <br />
         <BGVAnalysisTable />
-      </div>
+      </PageBox>
     </div>
   );
 };
