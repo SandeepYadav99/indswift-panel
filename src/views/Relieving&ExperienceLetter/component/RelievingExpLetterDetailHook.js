@@ -12,7 +12,6 @@ const initialForm = {
   general_conduct: "",
 };
 
-
 const useRelievingExpLetterDetail = () => {
   const [relievingExpDetails, setRelievingExpDetails] = useState({});
   const [form, setForm] = useState({ ...initialForm });
