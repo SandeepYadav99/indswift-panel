@@ -172,7 +172,7 @@ const PendingBGVerification_View = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {all?.bgv_status === "PENDING_VERIFICATION" && (
+            {all?.bgv_status === "PENDING" && (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
