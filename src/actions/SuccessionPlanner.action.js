@@ -41,25 +41,26 @@ export function actionFetchSuccessionPlaner(
       dispatch({ type: SET_FILTER, payload: filter });
       dispatch({ type: SET_SORTING, payload: sorting });
 
-       if (!data.error) {
-      //   let payloadData = null;
-      //   let source = null;
+      if (!data.error) {
+        //   let payloadData = null;
+        //   let source = null;
 
-      //   if (data.data.year) {
-      //     payloadData = data.data.year;
-      //     source = "year";
-      //   } else if (data.data.next_year) {
-      //     payloadData = data.data.next_year;
-      //     source = "next_year";
-      //   } else if (data.data.next_next_year) {
-      //     payloadData = data.data.next_next_year;
-      //     source = "next_next_year";
-      //   }
-    
+        //   if (data.data.year) {
+        //     payloadData = data.data.year;
+        //     source = "year";
+        //   } else if (data.data.next_year) {
+        //     payloadData = data.data.next_year;
+        //     source = "next_year";
+        //   } else if (data.data.next_next_year) {
+        //     payloadData = data.data.next_next_year;
+        //     source = "next_next_year";
+        //   }
 
-
-dispatch({ type: FETCHED, payload: { data: data.data.year, page: index , source:"year"} });
-         dispatch({ type: SET_SERVER_PAGE, payload: index });
+        dispatch({
+          type: FETCHED,
+          payload: { data: data.data.year, page: index, source: "year" },
+        });
+        dispatch({ type: SET_SERVER_PAGE, payload: index });
         if (index == 1) {
           dispatch({ type: CHANGE_PAGE, payload: index - 1 });
         }
