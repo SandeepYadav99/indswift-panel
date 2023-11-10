@@ -12,7 +12,6 @@ import SnackbarUtils from "../../libs/SnackbarUtils";
 import constants from "../../config/constants";
 import { actionFetchEmployee } from "../../actions/Employee.action";
 import { serviceResendExitForm } from "../../services/ExitInterview.service";
-
 const useRelievingExpLetter_hook = () => {
   const [editData, setEditData] = useState(null);
   const { role } = useSelector((state) => state.auth);
@@ -21,7 +20,6 @@ const useRelievingExpLetter_hook = () => {
     GRADES: [],
     DEPARTMENTS: [],
   });
-
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -134,7 +132,7 @@ const useRelievingExpLetter_hook = () => {
   }, []);
 
   const handleResend = useCallback((data) => {
-    
+
     serviceResendExitForm({
       id: data?.exitInterview?.id,
     }).then((res) => {

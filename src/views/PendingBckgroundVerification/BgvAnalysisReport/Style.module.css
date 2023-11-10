@@ -194,12 +194,10 @@
   align-items: center;
 }
 .headerContainer {
-
-  /* justify-content: space-between; */
-  align-items: center;
-  flex-direction: row;
-  
-  
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 20%;
+ 
 }
 .headerContainer .title {
   font-size: 0.8rem;
@@ -209,10 +207,7 @@
   
 }
 .dateContainer {
-  width: 30%;
-  display: flex;
-  justify-content: end;
-  align-items: end;
+
 }
 
 .rightAlignContainer {
@@ -222,8 +217,7 @@
   height: 100%;
 }
 .customSelectContainer{
-  /* align-self: flex-end;
-  margin-top: 20px; */
+  margin-right: 30%;
 }
 /* .content {
   display: flex;
