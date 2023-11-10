@@ -4,29 +4,49 @@ import useSuccessionPlanner_hook from "./SuccessionPlanner_hook";
 import ThisYearSuccessionPlanner from "./component/ThisYearSuccessionPlanner/ThisYearSuccessionPlanner";
 import NextYearSuccessionPlanner from "./component/NextYearSuccessionPlanner/NextYearSuccessionPlanner";
 import NextToNextYearSuccessionPlanner from "./component/NextToNextYearSuccessionPlanner/NextToNextYearSuccessionPlanner";
-
+import { useSelector } from "react-redux";
 
 const SuccessionPlannerList = ({ jobId }) => {
-  const { handleAddCandidate, candidateEl, handleCreate, typeData, user_id ,handleCsvDownload} =
-  useSuccessionPlanner_hook({
-      jobId,
-    });
+  const {
+    handleAddCandidate,
+    candidateEl,
+    handleCreate,
+    typeData,
+    user_id,
+    handleCsvDownload,
+  } = useSuccessionPlanner_hook({
+    jobId,
+  });
+
+  const {
+    data,
+    all: allData,
+    currentPage,
+    is_fetching: isFetching,
+    source,
+  } = useSelector((state) => state.successionPlaner);
+console.log(data, source)
   return (
     <div>
       <div className={styles.plainPaper}>
-      <div className={styles.headingWrap}>
+        <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
             <span>
               <b>This Year Succession Planner</b>
             </span>
             <div className={styles.newLine2} />
           </div>
-
-          
         </div>
-        {/* <ImprestUpperTable /> */}
-        <ThisYearSuccessionPlanner/>
+
+        <ThisYearSuccessionPlanner
+          data={data}
+          all={allData}
+          currentPage={currentPage}
+          isFetching={isFetching}
+          source={source}
+        />
       </div>
+
       <div className={styles.plainPaper}>
         <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
@@ -35,11 +55,14 @@ const SuccessionPlannerList = ({ jobId }) => {
             </span>
             <div className={styles.newLine2} />
           </div>
-
-          
         </div>
-        <NextYearSuccessionPlanner/>
-        {/* <OtherTable jobId={user_id} Claimtype="OTHER" /> */}
+        <NextYearSuccessionPlanner
+          data={data}
+          all={allData}
+          currentPage={currentPage}
+          isFetching={isFetching}
+          source={source}
+        />
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.headingWrap}>
@@ -49,10 +72,14 @@ const SuccessionPlannerList = ({ jobId }) => {
             </span>
             <div className={styles.newLine2} />
           </div>
-       
         </div>
-        {/* <TravelTable jobId={user_id} Claimtype="TRAVEL" /> */}
-        <NextToNextYearSuccessionPlanner/>
+        <NextToNextYearSuccessionPlanner
+          data={data}
+          all={allData}
+          currentPage={currentPage}
+          isFetching={isFetching}
+          source="next_next_year"
+        />
       </div>
     </div>
   );

@@ -15,14 +15,15 @@ import useThisYearSuccessionPlaner from "./ThisYearSuccessionPlannerHook";
 import SidePanelComponent from "../../../../components/SidePanel/SidePanel.component";
 import SuccessionHistory from "./SuccessionHistory/SuccessionHistory";
 import SuccessionPlannerDetailform from "./SuccessionPlannerDetailform/SuccessionPlannerDetailform";
+import { useSelector } from "react-redux";
 
 const ThisYearSuccessionPlanner = ({
   jobId,
-  filterWidth,
-  handleCandidateMen,
-  handleInterviewSidepanel,
-  handleShortlistSidepanel,
-  status,
+  data,
+  all: allData,
+  isFetching: isFetching,
+  currentPage,
+  source,
 }) => {
   const {
     handleSortOrderChange,
@@ -34,12 +35,7 @@ const ThisYearSuccessionPlanner = ({
     handleViewDetails,
     editData,
     isCalling,
-    currentData,
-    data,
-    currentPage,
-    isFetching,
     configFilter,
-
     isSidePanel,
     handleToggleSidePannel,
     isSidePanelForm,
@@ -120,68 +116,70 @@ const ThisYearSuccessionPlanner = ({
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{all?.candidate?.name}</div>,
+        render: (temp, all) => <div>{all?.name}</div>,
       },
       {
         key: "doj",
         label: "D.O.J",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.doj}</div>,
       },
       {
         key: "dob",
         label: "D.O.B",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.dobText}</div>,
         //  candidate?.applied_date
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.designation?.name}</div>,
       },
       {
         key: "department",
         label: "DEPARTMENT",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.department?.name}</div>,
       },
       {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.location?.name}</div>,
       },
       {
         key: "age",
         label: "AGE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.age}</div>,
       },
       {
         key: "date_of_retirment",
         label: "DATE OF RETIREMENT",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => (
+          <div>{all?.resign_data?.resign_effective_date}</div>
+        ),
       },
       {
         key: "annual_salary",
         label: "ANNUAL SALARY",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.annual_salary}</div>,
       },
       {
         key: "succession_cost_wrt_emp",
         label: "SUCCESSION'S COST WRT EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.succession_wrt}</div>,
       },
       {
         key: "nature_of_succession",
         label: "NATURE OF SUCCESSION",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.nature_of_succession}</div>,
       },
       {
         key: "revert_by_date",
@@ -193,7 +191,7 @@ const ThisYearSuccessionPlanner = ({
         key: "succession_status",
         label: "SUCCESSION STATUS",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.succession_status}</div>,
       },
       {
         key: "action_key",
@@ -230,36 +228,29 @@ const ThisYearSuccessionPlanner = ({
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
-      // onCellClick: this.handleCellClick,
-      // onCellDoubleClick: this.handleCellDoubleClick,
-      // onFilterValueChange: this._handleSearchValueChange.bind(this),
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
       onRowSizeChange: handleRowSize,
     };
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: currentData,
-      count: data.length,
-      page: currentPage - 1,
-      rowsPerPage: 10,
-      allRowSelected: false,
-      showSelection: false,
+      data: data,
+      count: allData.length,
+      page: currentPage,
     };
 
     return { datatableFunctions, datatable };
   }, [
+    allData,
     tableStructure,
     handleSortOrderChange,
     handlePageChange,
     handleRowSize,
-    currentPage,
-    currentData,
     data,
-  ]); // allData, data, currentPage
+    currentPage,
+  ]);
 
   return (
     <div>

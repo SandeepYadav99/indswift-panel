@@ -13,15 +13,16 @@ import PageBox from "../../../../components/PageBox/PageBox.component";
 import FilterComponent from "../../../../components/Filter/Filter.component";
 
 import useNextYearSuccessionPlanner from "./NextYearSuccessionPlannerHook";
+import { useSelector } from "react-redux";
 
 
 const NextYearSuccessionPlanner = ({
   jobId,
-  filterWidth,
-  handleCandidateMen,
-  handleInterviewSidepanel,
-  handleShortlistSidepanel,
-  status,
+  data,
+  all:allData,
+  isFetching: isFetching,
+  currentPage,
+  source
 }) => {
   const {
     handleSortOrderChange,
@@ -33,10 +34,7 @@ const NextYearSuccessionPlanner = ({
     handleViewDetails,
     editData,
     isCalling,
-    currentData,
-    data,
-    currentPage,
-    isFetching,
+  
     configFilter,
     handleSideToggle,
     isSidePanel,
@@ -45,7 +43,8 @@ const NextYearSuccessionPlanner = ({
 
     isCandidatesFetching
   } = useNextYearSuccessionPlanner({ jobId });
-
+  
+  
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
@@ -87,7 +86,7 @@ const NextYearSuccessionPlanner = ({
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{"Nmae"}</div>,
+        render: (temp, all) => <div>{all?.name}</div>,
       },
       {
         key: "doj",
@@ -196,36 +195,29 @@ const NextYearSuccessionPlanner = ({
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
-      // onCellClick: this.handleCellClick,
-      // onCellDoubleClick: this.handleCellDoubleClick,
-      // onFilterValueChange: this._handleSearchValueChange.bind(this),
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
       onRowSizeChange: handleRowSize,
     };
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: currentData,
-      count: data.length,
-      page: currentPage - 1,
-      rowsPerPage: 10,
-      allRowSelected: false,
-      showSelection: false,
+      data: data,
+      count: allData.length,
+      page: currentPage,
     };
 
     return { datatableFunctions, datatable };
   }, [
+    allData,
     tableStructure,
     handleSortOrderChange,
     handlePageChange,
     handleRowSize,
-    currentPage,
-    currentData,
     data,
-  ]); // allData, data, currentPage
+    currentPage,
+  ]);
 
   return (
     <div>
