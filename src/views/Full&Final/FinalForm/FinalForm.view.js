@@ -17,16 +17,12 @@ function FinalForm() {
     employeeDetail,
     form,
     errorData,
-    listData,
     changeTextData,
     onBlurHandler,
     removeError,
     handleSubmit,
-    ChildenRef,
-    empFlag,
-    toggleConfirmDialog,
-    isDialog,
     submitToServer,
+    empFlag
   } = useFinalForm({});
   const emp = {};
   return (
@@ -49,7 +45,7 @@ function FinalForm() {
             <CustomDatePicker
               clearable
               label={"Planned Date of Separation"}
-              maxDate={new Date()}
+              // maxDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "pds");
               }}
@@ -62,7 +58,7 @@ function FinalForm() {
               disabled={true}
               clearable
               label={"Actual DOL"}
-              maxDate={new Date()}
+              // maxDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "dol");
               }}
@@ -86,6 +82,7 @@ function FinalForm() {
               onBlur={() => {
                 onBlurHandler("notice_period");
               }}
+              InputLabelProps={{ shrink: true }}
             />
           </div>
           <div className={styles.editBtnWrap}>
@@ -2342,6 +2339,17 @@ function FinalForm() {
             />
           </div>
         </div>
+        <div className={"plainPaper"}>
+        <div className={"headerFlex wrapper"}>
+          <ButtonBase
+            type={"button"}
+            className={styles.createBtn}
+            onClick={handleSubmit}
+          >
+            SEND FOR APPROVAL
+          </ButtonBase>
+        </div>
+      </div>
       </div>
     </div>
   );
