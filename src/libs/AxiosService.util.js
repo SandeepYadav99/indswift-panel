@@ -57,10 +57,7 @@ export async function getRequest(url, params) {
       params: { ...params },
     });
     if (tempRequest.status === 200) {
-<<<<<<< HEAD
-=======
 
->>>>>>> 0e5bb8ca23303994da4f859a40f60e1a5f258aec
       if (tempRequest.data.response_code === 1) {
         return {
           error: false,
