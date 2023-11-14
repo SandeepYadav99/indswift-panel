@@ -15,7 +15,7 @@ const BgvAnalysisReport = () => {
               <ButtonBase onClick={() => historyUtils.goBack()}>
                 <ArrowBackIosIcon fontSize={"small"} />{" "}
                 <span className={styles.title}>
-                  Pending Background Verification List
+                Background Verification Analysis
                 </span>
               </ButtonBase>
               <div className={styles.newLine} />

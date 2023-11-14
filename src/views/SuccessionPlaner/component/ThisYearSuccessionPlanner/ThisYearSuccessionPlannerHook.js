@@ -1,20 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { actionGetJobOpeningCandidates } from "../../../../actions/JobOpeningDetail.action";
+import React, { useCallback, useEffect, useMemo, useState , useRef} from "react";
+
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
+import { actionFetchSuccessionPlaner, actionSetPageSuccessionPlaner } from "../../../../actions/SuccessionPlanner.action";
 
 const totalShow = 10;
 const useThisYearSuccessionPlaner = ({ jobId }) => {
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState([]);
+
+
   const [isSidePanel, setSidePanel] = useState(false);
   const [isSidePanelForm, setSidePanelForm] = useState(false);
-  const [currentData, setCurrentData] = useState([]);
-  const { isCandidatesFetching, candidates } = useSelector(
-    (state) => state.job_opening_detail
-  );
+ 
+  const isMountRef = useRef(false);
+
+  const {
+    sorting_data: sortingData,
+     is_fetching: isFetching,
+    query,
+    query_data: queryData,
+  } = useSelector((state) => state?.successionPlaner);
+
   const [listData, setListData] = useState({
     LOCATIONS: [],
     HR: [],
@@ -22,57 +29,23 @@ const useThisYearSuccessionPlaner = ({ jobId }) => {
   });
 
   useEffect(() => {
-    dispatch(actionGetJobOpeningCandidates(jobId));
+    dispatch(
+      actionFetchSuccessionPlaner(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+    isMountRef.current = true;
   }, []);
 
-  useEffect(() => {
-    setData(candidates);
-  }, [candidates]);
+  
+ 
 
-  useEffect(() => {
-    _processData();
-  }, [data, currentPage]);
+  const handlePageChange = useCallback((type) => {
 
-  const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data?.candidate_id}`); //+data.id
+    dispatch(actionSetPageSuccessionPlaner(type));
   }, []);
-
-  const _processData = useCallback(() => {
-    const from = currentPage * totalShow - totalShow;
-    let to = currentPage * totalShow;
-    // all.filter((val, index) => {
-    //     if (index >= (((currentPage) * totalShow) - totalShow) && index < (((currentPage) * totalShow))) {
-    //         return val;
-    //     }
-    // });
-    if (from <= data.length) {
-      to = to <= data.length ? to : data.length;
-      setCurrentData(data.slice(from, to));
-    }
-  }, [setCurrentData, currentPage, data, totalShow]);
-
-  const handlePageChange = useCallback(
-    (type) => {
-      if (Math.ceil(data.length / totalShow) >= type + 1) {
-        setCurrentPage(type + 1);
-        _processData();
-      }
-    },
-    [_processData, setCurrentPage, data]
-  );
-
-  const handlePreviousPageClick = () => {
-    console.log("handlePreviousPageClick", "PREV");
-  };
-
-  const handleNextPageClick = () => {
-    console.log("handleNextPageClick", "NEXT");
-  };
-
-  const handleSortOrderChange = (row, order) => {
-    console.log(`handleSortOrderChange key:${row} order: ${order}`);
-  };
-
+  
   const handleRowSize = (page) => {
     console.log(page);
   };
@@ -93,21 +66,8 @@ const useThisYearSuccessionPlaner = ({ jobId }) => {
     (value) => {
       console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
-      if (value) {
-        const tempData = candidates.filter((val) => {
-          if (
-            val?.candidate?.name?.match(new RegExp(value, "ig")) ||
-            val?.candidate?.email?.match(new RegExp(value, "ig"))
-          ) {
-            return val;
-          }
-        });
-        setData(tempData);
-      } else {
-        setData(candidates);
-      }
     },
-    [queryFilter, _processData, data, setData, candidates]
+    [queryFilter]
   );
 
   const _handleDateChange = (date) => {
@@ -142,6 +102,18 @@ const useThisYearSuccessionPlaner = ({ jobId }) => {
     },
     [setSidePanelForm] // setEditData
   );
+
+  const handlePreviousPageClick = () => {
+    console.log("handlePreviousPageClick", "PREV");
+  };
+
+  const handleNextPageClick = () => {
+    console.log("handleNextPageClick", "NEXT");
+  };
+
+  const handleSortOrderChange = (row, order) => {
+    console.log(`handleSortOrderChange key:${row} order: ${order}`);
+  };
 
   const configFilter = useMemo(() => {
     return [
@@ -193,11 +165,8 @@ const useThisYearSuccessionPlaner = ({ jobId }) => {
     // handleNextPageClick,
     handleRowSize,
     handleSortOrderChange,
-    isCandidatesFetching,
-    currentData,
-    data: candidates,
-    currentPage,
-    handleViewDetails,
+   
+  
     handleEdit,
     configFilter,
     handleToggleSidePannel,

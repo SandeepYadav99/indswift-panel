@@ -170,7 +170,7 @@ const useCandidateUpdate_Hook = () => {
       const fieldMappings = {
         billing_to: "billing_to",
         cost: "cost",
-        remark: "action_remark",
+        action_remark: "action_remark",
         is_education_verification_status: "is_education_verification_status",
         is_first_employment_verification_status: "is_first_employment_verification_status",
         is_secound_employment_verification_status: "is_secound_employment_verification_status",
