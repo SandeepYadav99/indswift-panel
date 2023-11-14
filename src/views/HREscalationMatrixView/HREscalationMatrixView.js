@@ -6,7 +6,8 @@ const HREscalationMatrixView = () => {
       <div className={styles.logoImg}>
         <img
           src={require("../../assets/img/login logo@2x.png")}
-          className={styles.sky}
+       
+          height={80}
           alt=""
         />
       </div>

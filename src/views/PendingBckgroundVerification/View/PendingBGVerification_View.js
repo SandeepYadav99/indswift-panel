@@ -84,7 +84,7 @@ const PendingBGVerification_View = ({ location }) => {
 
   const button_VerificationHandler = useCallback(
     (all) => {
-      if (
+      const isValidBgvStatus =
         (all?.bgv_status === "INCOMPLETE" ||
           all?.bgv_status === "COMPLETED" ||
           all?.bgv_status === "PENDING") &&
@@ -95,39 +95,35 @@ const PendingBGVerification_View = ({ location }) => {
           all?.bgv_result === "UNABLE_TO_VERIFY") &&
         (all?.payment_status === "IN_PROCESS" ||
           all?.payment_status === "PENDING" ||
-          all?.payment_status !== "")
-      ) {
-        if (
-          (all?.bgv_status === "PENDING" || all?.bgv_status === "COMPLETED") &&
-          (all?.bgv_result === "CLEAR" || all?.bgv_result === "FAILED") &&
-          all?.payment_status === "CLEAR"
-        ) {
-          return (
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              // disabled={isCalling}
-              onClick={() => {
-                handleBGVDetails(all);
-              }}
-            >
-              <VisibilityOutlined fontSize={"small"} />
-            </IconButton>
-          );
-        }
+          all?.payment_status !== "");
+
+      const isShowBgvDetails =
+        isValidBgvStatus &&
+        (all?.bgv_status === "PENDING" || all?.bgv_status === "COMPLETED") &&
+        (all?.bgv_result === "CLEAR" || all?.bgv_result === "FAILED") &&
+        all?.payment_status === "CLEAR";
+
+      if (isValidBgvStatus) {
         return (
           <IconButton
             className={"tableActionBtn"}
             color="secondary"
-            // disabled={isCalling}
             onClick={() => {
-              handleBGVUpdateDetails(all);
+              isShowBgvDetails
+                ? handleBGVDetails(all)
+                : handleBGVUpdateDetails(all);
             }}
           >
-            <AssignmentOutlined fontSize={"small"} />
+            {isShowBgvDetails ? (
+              <VisibilityOutlined fontSize={"small"} />
+            ) : (
+              <AssignmentOutlined fontSize={"small"} />
+            )}
           </IconButton>
         );
       }
+
+      return null;
     },
     [handleBGVDetails, handleBGVUpdateDetails]
   );
@@ -138,7 +134,7 @@ const PendingBGVerification_View = ({ location }) => {
         key: "name",
         label: "NAME",
         sortable: false,
-        render: (value, all) => <div>{all?.emp_name}</div>,
+        render: (value, all) => <div><b>{all?.emp_name}</b> <br/> {all?.emp_code}</div>,
       },
       {
         key: "location",

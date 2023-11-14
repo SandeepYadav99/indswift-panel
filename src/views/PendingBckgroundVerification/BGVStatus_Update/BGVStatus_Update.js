@@ -8,6 +8,7 @@ import historyUtils from "../../../libs/history.utils";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
+import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 const BGVStatus_Update = () => {
   const { form, changeTextData, errorData, handleSubmit } =
     useCandidateUpdate_Hook({});
@@ -297,18 +298,18 @@ const BGVStatus_Update = () => {
                 <span className={styles.right_gaps}> {form?.billing_to}</span>
               </span>
               <div className={styles.gaps}></div>
-              <CustomSelectField
-                isError={errorData?.payment_complete}
-                errorText={errorData?.payment_complete}
-                label={"Complete in "}
-                value={form?.payment_complete}
-                handleChange={(value) => {
-                  changeTextData(value, "payment_complete");
-                }}
-              >
-                <MenuItem value="2023-09-08">2023-09-08</MenuItem>
-                {/* <MenuItem value="esix">ESIX </MenuItem> */}
-              </CustomSelectField>
+            
+                  <CustomDatePicker
+                      clearable
+                      label={"Complete in "}
+                      maxDate={new Date()}
+                      onChange={(value) => {
+                        changeTextData(value, "payment_complete");
+                      }}
+                      value={form?.payment_complete}
+                      isError={errorData?.payment_complete}
+                      errorText={errorData?.payment_complete}
+                 />
             </div>
           </div>
         </div>

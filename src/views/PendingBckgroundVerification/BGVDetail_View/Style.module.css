@@ -53,6 +53,7 @@
 .mainFlex {
   /* display: flex; */
   /*align-items: center;*/
+  text-align: justify;
 }
 .left {
   /*margin-right: 30px;*/
@@ -77,11 +78,10 @@
   display: flex;
   justify-content: space-between;
   margin: 0px 20rem 0px 0px;
+ 
+ 
 }
-.backgroundStatus > span {
-  font-size: 14px;
-  /* font-weight: 600 !important; */
-}
+
 .gaps {
   padding: 10px;
 }
@@ -91,4 +91,22 @@
 }
 .gapBetweenFields {
   margin-right: 10px;
+}
+
+.getfiledSpace{
+  display: flex;
+
+}
+.titleFiledSpace{
+  font-size: 14px;
+  color: #161616;
+
+ 
+}
+.titleFiledSpacePil{
+  margin-left: 30px;
+ 
+}
+.titleFiledSpacePil1{
+  margin-left: 10px;
 }
