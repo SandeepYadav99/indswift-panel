@@ -9,11 +9,17 @@ import {
 } from "../../actions/RelievingExpLetter.action";
 import { serviceSendRelievingExpLetter } from "../../services/Letters.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
+import constants from "../../config/constants";
+import { actionFetchEmployee } from "../../actions/Employee.action";
+import { serviceResendExitForm } from "../../services/ExitInterview.service";
 
 const useRelievingExpLetter_hook = () => {
   const [editData, setEditData] = useState(null);
+  const { role } = useSelector((state) => state.auth);
   const [listData, setListData] = useState({
-    EMPLOYEES: [],
+    LOCATIONS: [],
+    GRADES: [],
+    DEPARTMENTS: [],
   });
 
   const dispatch = useDispatch();
@@ -35,8 +41,19 @@ const useRelievingExpLetter_hook = () => {
     isMountRef.current = true;
   }, []);
 
+  const initData = useCallback(() => {
+    dispatch(
+      actionFetchEmployee(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+  }, []);
+
   useEffect(() => {
-    serviceGetList(["LOCATIONS"]).then((res) => {
+    initData();
+    isMountRef.current = true;
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -116,24 +133,44 @@ const useRelievingExpLetter_hook = () => {
     }
   }, []);
 
+  const handleResend = useCallback((data) => {
+    
+    serviceResendExitForm({
+      id: data?.exitInterview?.id,
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils?.success("Resend Successfully")
+        window.location.reload();
+      }
+    });
+  }, []);
+
   const configFilter = useMemo(() => {
     return [
       {
-        label: "Status",
-        name: "status",
-        type: "select",
-        fields: [
-          "ACTIVE",
-          "RESIGNED",
-          "TERMINATED",
-          "RETIRED",
-          "EXPIRED",
-          "ABSCONDED",
-          "INACTIVE",
-        ],
+        label: "Location",
+        name: "location_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.LOCATIONS,
+      },
+
+      {
+        label: "Grade",
+        name: "employeesObj.grade_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "label" } },
+        fields: listData?.GRADES,
+      },
+      {
+        label: "Department",
+        name: "employeesObj.department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
       },
     ];
-  }, [listData]);
+  }, [listData, role]);
 
   return {
     handlePageChange,
@@ -146,6 +183,7 @@ const useRelievingExpLetter_hook = () => {
     editData,
     configFilter,
     handleRelievingExpLetter,
+    handleResend
   };
 };
 

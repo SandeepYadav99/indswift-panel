@@ -14,7 +14,6 @@ export async function postRequest(url, params) {
       ...params,
     });
     if (tempRequest.status === 200) {
-
       if (tempRequest.data.response_code === 1) {
         return {
           error: false,
@@ -58,7 +57,6 @@ export async function getRequest(url, params) {
       params: { ...params },
     });
     if (tempRequest.status === 200) {
-      console.log(tempRequest.data);
       if (tempRequest.data.response_code === 1) {
         return {
           error: false,

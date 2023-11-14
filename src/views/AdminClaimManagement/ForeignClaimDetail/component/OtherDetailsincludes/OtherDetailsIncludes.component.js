@@ -63,13 +63,16 @@ const OtherDetailsIncludeForm = (
             }
           });
       }
-
+      
       if (!hasValues) {
         for (const key in err) {
           if (err.hasOwnProperty(key)) {
             delete err[key];
           }
         }
+      }
+      if(val?.amount == 0 && val?.amount !== ""){
+        delete err['amount']
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;

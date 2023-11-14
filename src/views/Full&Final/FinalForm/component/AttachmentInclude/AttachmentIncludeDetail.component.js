@@ -7,18 +7,18 @@ import React, {
   useMemo,
 } from "react";
 import styles from "./style.module.css";
+import { ButtonBase } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
+import AttachmentIncludeDetailFields from "./AttachmentIncludeDetailFields.component";
 import LogUtils from "../../../../../libs/LogUtils";
-import EnterincludesDetailFields from "./EnterincludesDetailFields.component";
 
 const TEMP_OBJ = {
-  amount: "",
+  file_name: "",
+  attachment_documents: null,
 };
 
-const EnterincludesDetailForm = (
-  { data, errorData: errorForm, grade,changeAmount,setOfficeAmount3 },
-  ref
-) => {
+const AttachmentIncludeDetailForm = ({ data, errorData: errorForm }, ref) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
   const [variants, setVariants] = useState([]);
@@ -34,11 +34,6 @@ const EnterincludesDetailForm = (
       return fields;
     },
     setData(data) {
-      for (const item of data) {
-        if (item?.amount === null) {
-          item.amount = 0;
-        }
-      }
       setFields([...data]);
     },
   }));
@@ -52,15 +47,16 @@ const EnterincludesDetailForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["amount"];
-      required.forEach((key) => {
-        if (!val[key] && val[key] !== 0) {
-          err[key] = true;
-        }
-      });
-      if(val?.amount == 0 && val?.amount !== ""){
-        delete err['amount']
+      const required = ["file_name", "attachment_documents"];
+
+      {
+        required.forEach((key) => {
+          if (!val[key]) {
+            err[key] = true;
+          }
+        });
       }
+
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
@@ -75,6 +71,10 @@ const EnterincludesDetailForm = (
       setFields({ ...data });
     }
   }, [data]);
+
+  const isValid = () => {
+    return validateData();
+  };
 
   const removeErrors = useCallback(
     (index, key) => {
@@ -133,7 +133,7 @@ const EnterincludesDetailForm = (
       });
       return (
         <div>
-          <EnterincludesDetailFields
+          <AttachmentIncludeDetailFields
             variants={tempFilters}
             validateData={validateData}
             errors={index in errorData ? errorData[index] : null}
@@ -142,9 +142,7 @@ const EnterincludesDetailForm = (
             data={val}
             index={index}
             onBlur={onBlur}
-            grade={grade}
           />
-          {fields?.length !== index + 1 && <div className={styles.verti}></div>}
         </div>
       );
     });
@@ -157,47 +155,22 @@ const EnterincludesDetailForm = (
     onBlur,
     fields,
   ]);
-
-  const sum = fields.reduce((acc, curr) => {
-    const value = curr["amount"];
-    if (value !== "") {
-      return acc + parseFloat(value);
-    } else {
-      return acc;
-    }
-  }, 0);
-
-  const getOfficeAmount = useMemo(() => {
-    const officeBookings = fields?.filter(
-      (booking) => booking.booking_by !== "SELF" && booking.amount !== ""
-    );
-    const sum = officeBookings?.reduce(
-      (total, booking) => total + parseFloat(booking?.amount),
-      0
-    );
-    return sum;
-  }, [fields]);
-
-  useEffect(() => {
-    changeAmount(sum, "entertainment_expenses_amount");
-  }, [sum]);
-
-  useEffect(() => {
-    if (sum) {
-      setOfficeAmount3(getOfficeAmount);
-    }
-  }, [fields]);
-
   return (
     <>
       {renderFields}
-      <div className={styles.totalWrap}>
-        <div className={styles.inner}>
-          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
-        </div>
+      <div className={styles.btnWrapper}>
+        <ButtonBase
+          className={styles.addition}
+          label={"+"}
+          onClick={() => {
+            handlePress("ADDITION", 0);
+          }}
+        >
+          <Add fontSize={"small"} /> <span>Add More</span>
+        </ButtonBase>
       </div>
     </>
   );
 };
 
-export default forwardRef(EnterincludesDetailForm);
+export default forwardRef(AttachmentIncludeDetailForm);

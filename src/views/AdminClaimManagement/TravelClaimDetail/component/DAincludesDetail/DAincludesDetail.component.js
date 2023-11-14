@@ -60,12 +60,17 @@ const DAincludesDetailForm = (
           err[key] = true;
         }
       });
-
+      if(val?.ie_amount == 0 && val?.ie_amount !== ""){
+        delete err['ie_amount']
+      }
+      if(val?.da_amount == 0 && val?.da_amount !== ""){
+        delete err['da_amount']
+      }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
     });
-
+    
     console.log("othererroros", errors);
     setErrorData(errors);
     return !(Object.keys(errors).length > 0);

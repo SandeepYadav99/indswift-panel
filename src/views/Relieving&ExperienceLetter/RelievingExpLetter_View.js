@@ -25,7 +25,7 @@ const RelievingExpLetter_View = ({ location }) => {
     isCalling,
     configFilter,
     handleRelievingExpLetter,
-    handleSendDetails
+    handleResend,
   } = useRelievingExpLetter_hook({ location });
 
   const {
@@ -47,7 +47,6 @@ const RelievingExpLetter_View = ({ location }) => {
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>
               <b>{obj?.name}</b>
-              
             </span>{" "}
             <br />
             <span>{obj?.emp_code}</span>
@@ -63,16 +62,21 @@ const RelievingExpLetter_View = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>
-              <StatusPill status={`${obj?.experienceLetter?.status}/${obj?.status}`} />
-            </span>{" "}
+            <div >
+              <StatusPill
+                status={`${obj?.status}`}
+              />
+            </div>{" "} <br/>
+            <div>
+              <StatusPill status={`${obj?.experienceLetter?.status}`} />
+            </div>
           </div>
         </div>
       );
     }
     return null;
   }, []);
-  
+
   const tableStructure = useMemo(() => {
     return [
       {
@@ -173,14 +177,14 @@ const RelievingExpLetter_View = ({ location }) => {
             ) : null}
 
             {all?.employee?.status === "RESIGNED" &&
-            all?.exitInterview?.status === "PENDING" && 
+            all?.exitInterview?.status === "PENDING" &&
             all?.status === "PENDING" ? (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  //  handleSendDetails(all);
+                  handleResend(all);
                 }}
               >
                 <Send fontSize={"small"} />
@@ -201,12 +205,38 @@ const RelievingExpLetter_View = ({ location }) => {
                 color="secondary"
                 disabled={isCalling}
                 onClick={() => {
-                  handleRelievingExpLetter(all);
+                  if (
+                    all?.experienceLetter?.status === "SITE_HR_APPROVED" ||
+                    (all?.experienceLetter?.status === "PENDING" &&
+                      all?.status === "PENDING")
+                  ) {
+                    handleViewDetails(all);
+                  } else {
+                    handleRelievingExpLetter(all);
+                  }
                 }}
               >
                 <Visibility fontSize={"small"} />
               </IconButton>
             ) : null}
+
+            {/* {all?.exitInterview?.status === "PENDING"  && all?.status=== "PENDING" && <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  if (
+                    all?.experienceLetter?.status === "SITE_HR_APPROVED" &&
+                    all?.status === "APPROVED"
+                  ) {
+                    handleViewDetails(all);
+                  } else {
+                    handleRelievingExpLetter(all);
+                  }
+                }}
+              >
+                <Visibility fontSize={"small"} />
+              </IconButton>} */}
           </div>
         ),
       },

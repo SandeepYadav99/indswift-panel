@@ -7,6 +7,7 @@ import { serviceExportEmployeeImprestReport, serviceGetImprestType } from "../..
 
 const useSuccessionPlanner_hook = ({ jobId }) => {
   const [candidateEl, setCandidateEl] = useState(null);
+
   const [typeData, setTypeData] = useState({});
   const {
     user: { user_id },

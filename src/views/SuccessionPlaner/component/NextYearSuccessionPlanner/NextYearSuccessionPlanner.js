@@ -9,10 +9,11 @@ import styles from "./Style.module.css";
 import classNames from "classnames";
 import { Add, CachedOutlined, Edit, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
-
+import PageBox from "../../../../components/PageBox/PageBox.component";
 import FilterComponent from "../../../../components/Filter/Filter.component";
 
 import useNextYearSuccessionPlanner from "./NextYearSuccessionPlannerHook";
+
 
 const NextYearSuccessionPlanner = ({
   jobId,
@@ -37,6 +38,8 @@ const NextYearSuccessionPlanner = ({
     currentPage,
     isFetching,
     configFilter,
+    handleSideToggle,
+    isSidePanel,
     // handleInterviewSidepanel,
     // handleShortlistSidepanel,
 
@@ -84,13 +87,13 @@ const NextYearSuccessionPlanner = ({
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{"Nmae"}</div>,
       },
       {
         key: "doj",
         label: "D.O.J",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{"Name"}</div>,
       },
       {
         key: "dob",
@@ -226,8 +229,9 @@ const NextYearSuccessionPlanner = ({
 
   return (
     <div>
-      <div>
+      <PageBox>
         <div>
+     
           <div >
             {/* <FilterComponent
                is_progress={isFetching}
@@ -253,7 +257,8 @@ const NextYearSuccessionPlanner = ({
             </div>
           </div>
         </div>
-      </div>
+      
+      </PageBox>
     </div>
   );
 };

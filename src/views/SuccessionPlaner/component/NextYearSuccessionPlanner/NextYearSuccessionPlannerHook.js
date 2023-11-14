@@ -11,6 +11,7 @@ const useNextYearSuccessionPlanner = ({jobId}) => {
     const dispatch = useDispatch();
     const [currentPage,setCurrentPage] = useState(1);
     const [data, setData] = useState([]);
+    const [isSidePanel, setSidePanel] = useState(false);
     const [currentData,setCurrentData] = useState([]);
     const {isCandidatesFetching, candidates } = useSelector(state => state.job_opening_detail);
     const [listData, setListData] = useState({
@@ -108,6 +109,14 @@ const useNextYearSuccessionPlanner = ({jobId}) => {
         const batchId = e.target.value;
     }
 
+    const handleSideToggle = useCallback(
+        (data) => {
+          setSidePanel((e) => !e);
+         
+        },
+        [ setSidePanel]
+      );
+
     const handleEdit = useCallback((all) => {
         historyUtils.push(`${RouteName.CANDIDATES_UPDATE}${all.candidate_id}`, {
             isEdit: true,
@@ -169,7 +178,9 @@ const useNextYearSuccessionPlanner = ({jobId}) => {
         currentPage,
         handleViewDetails,
         handleEdit,
-        configFilter
+        configFilter,
+        handleSideToggle,
+        isSidePanel
     }
 
 }

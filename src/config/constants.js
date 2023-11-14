@@ -76,9 +76,11 @@ export default {
     OVERALL_HOD_REVIEW_PENDING: "OVERALL_HOD_REVIEW_PENDING",
     OVERALL_HOD_SUBMITTED: "OVERALL_HOD_SUBMITTED",
   },
+
   STATUS: {
     PENDING_VERIFICATION:"pending",
-    
+    PENDING_PENDING:"pending",
+ 
     PENDING: "pending",
     WAITING: "waiting",
     ACCEPTED: "warning",
