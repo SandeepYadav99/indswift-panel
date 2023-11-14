@@ -1,49 +1,30 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
-import {
-  Button,
-  Paper,
-  Checkbox,
-  IconButton,
-  MenuItem,
-  ButtonBase,
-  Menu,
-} from "@material-ui/core";
+import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
-
+import { connect, useSelector } from "react-redux";
+import { InfoOutlined, Telegram } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
-import styles from "./Styled.module.css";
+import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-import useFullFinalApproval from "./FullFinalApproval.hook";
 import StatusPill from "../../components/Status/StatusPill.component";
-import OnBoardDialog from "../EmployeeList/components/OnBoardPopUp/OnBoardDialog.view";
-import TraineeDialog from "../EmployeeList/components/TraineePopUp copy/TraineeDialog.view";
-import { InfoOutlined } from "@material-ui/icons";
+import SendIcon from "@material-ui/icons/Send";
+import useFullFinalApproval from "./FullFinalApproval.hook";
+import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 
 const FullFinalApproval = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
-    handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
-    handleSideToggle,
     handleViewDetails,
-    isSidePanel,
+    handleViewForm,
     isCalling,
     configFilter,
-    handleLeaveApplicationForm,
-    isExtendDialog,
-    toggleExtendDialog,
-    isTraineeDialog,
-    toggleTraineeDialog,
-    listData,
+    handleResend,
   } = useFullFinalApproval({});
 
   const {
@@ -51,19 +32,25 @@ const FullFinalApproval = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.LeaveModule);
+  } = useSelector((state) => state.final_form_approval);
 
-  const { user } = useSelector((state) => state.auth);
-  const removeUnderScore = (value) => {
-    return value ? value.replace(/_/g, " ") : "";
-  };
+  const renderStatus = useCallback((status) => {
+    return (
+      <StatusPill
+        status={status}
+        style={status === "PROCESSED" && { background: "#ceece2" }}
+      />
+    );
+  }, []);
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
+            <span className={styles.productName}>
+              <strong>{obj?.employee?.name}</strong>
+            </span>
             <br />
             <span className={styles.productName}>
               {obj?.employee?.emp_code}
@@ -79,100 +66,124 @@ const FullFinalApproval = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "employee",
+        key: "name",
         label: "EMPLOYEE",
-        sortable: true,
-        render: (value, all) => <div>{removeUnderScore(all?.type)}</div>,
+        sortable: false,
+        render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
-        key: "grades",
-        label: "GRADE/CADRE",
+        key: "grade",
+        label: "Grade/Cadre",
         sortable: false,
         render: (temp, all) => (
-          <div>
-            {all?.contact}
-            <br />
-            {`${all?.startDateText} - ${all?.endDateText}`}
+          <div className={styles.captialize}>
+            {all?.employee?.grade?.code} / {all?.employee?.cadre?.code}
           </div>
         ),
       },
       {
         key: "location",
-        label: "LOCATION",
+        label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
+        render: (temp, all) => (
+          <div className={styles.captialize}>
+            {all?.employee?.location?.name}
+          </div>
+        ),
       },
       {
         key: "designation",
-        label: "DESIGNATION",
+        label: "Designation",
         sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText}</div>,
+        render: (temp, all) => (
+          <div className={styles.captialize}>
+            {all?.employee?.designation?.name}
+          </div>
+        ),
       },
       {
         key: "dept",
-        label: "DEPT & SUB-DEPT",
+        label: "Dept & Sub Dept.",
         sortable: false,
+        style: { width: "12%" },
         render: (temp, all) => (
-          <div>
-            {all?.contact}
-            <br />
-            {`${all?.startDateText} - ${all?.endDateText}`}
+          <div className={styles.captialize}>
+            {all?.employee?.department?.name}/
+            {all?.employee?.sub_department?.name}
           </div>
         ),
       },
       {
         key: "contact",
-        label: "CONTACT",
+        label: "Contact",
         sortable: false,
-        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
+        style: { width: "18%" },
+        render: (temp, all) => (
+          <div>{all?.employee?.contact?.official_contact}</div>
+        ),
       },
       {
-        key: "employee-status",
+        key: "Last",
+        label: "Last working day",
+        sortable: false,
+        style: { width: "18%" },
+        render: (temp, all) => (
+          <div>{all?.employee?.resign_data?.last_working_date}</div>
+        ),
+      },
+      {
+        key: "status",
         label: "EMPLOYEE STATUS",
         sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText}</div>,
+        render: (temp, all) => <div>{renderStatus(all?.employee?.status)}</div>,
       },
       {
-        key: "current_status",
-        label: "CURRENT STATUS/ OVERALL STATUS",
-        sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText}</div>,
-      },
-      {
-        key: "action",
-        label: "ACTION",
-        sortable: false,
+        key: "user_id",
+        label: "Action",
         render: (temp, all) => (
-          <a
-            href="javascript:void(0);"
-            target="_blank"
-          >
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-          </a>
+          <div>
+            {all?.is_submitted ? (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleViewDetails(all);
+                }}
+              >
+                {/* <InfoOutlined fontSize={"small"} /> */}
+                <RemoveRedEyeOutlinedIcon fontSize={"small"} />
+              </IconButton>
+            ) : (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleViewForm(all);
+                }}
+              >
+                <InfoOutlined fontSize={"small"} />
+              </IconButton>
+            )}
+          </div>
         ),
       },
     ];
-  }, [renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
       onRowSizeChange: handleRowSize,
     };
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
-      data: data?.data ? [] : [],
-      count: data?.data?.length ? [] : [],
+      data: data,
+      count: allData.length,
       page: currentPage,
     };
 
@@ -196,17 +207,6 @@ const FullFinalApproval = ({}) => {
             <div className={styles.newLine} />
           </div>
         </div>
-        <OnBoardDialog
-          listData={listData}
-          // candidateId={id}
-          isOpen={isExtendDialog}
-          handleToggle={toggleExtendDialog}
-        />
-        <TraineeDialog
-          listData={listData}
-          isOpen={isTraineeDialog}
-          handleToggle={toggleTraineeDialog}
-        />
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -225,14 +225,9 @@ const FullFinalApproval = ({}) => {
           </div>
         </div>
       </PageBox>
-      <SidePanelComponent
-        handleToggle={handleSideToggle}
-        title={"New Candidate"}
-        open={isSidePanel}
-        side={"right"}
-      ></SidePanelComponent>
     </div>
   );
 };
 
 export default FullFinalApproval;
+
