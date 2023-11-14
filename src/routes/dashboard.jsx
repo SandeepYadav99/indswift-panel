@@ -12,6 +12,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
 
 const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
 
@@ -2536,6 +2537,15 @@ const dashboardRoutes = [
     navbarName: "Full & Final Form",
     icon: AssignmentOutlined,
     component: FinalForm,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.FULL_FINAL_DETAIL}:id`,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FinalDetail,
     is_sidebar: false,
     is_protect: true,
   },

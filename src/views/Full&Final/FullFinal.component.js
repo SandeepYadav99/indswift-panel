@@ -11,6 +11,7 @@ import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
 import SendIcon from "@material-ui/icons/Send";
 import useFullFinal from "./FullFinal.hook";
+import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 
 const FullFinal = ({}) => {
   const {
@@ -20,6 +21,7 @@ const FullFinal = ({}) => {
     handleFilterDataChange,
     handleSearchValueChange,
     handleViewDetails,
+    handleViewForm,
     isCalling,
     configFilter,
     handleResend,
@@ -121,13 +123,6 @@ const FullFinal = ({}) => {
         ),
       },
       {
-        key: "submitted",
-        label: "submitted on",
-        sortable: false,
-        style: { width: "18%" },
-        render: (temp, all) => <div>{all?.submittedOnText}</div>,
-      },
-      {
         key: "Last",
         label: "Last working day",
         sortable: false,
@@ -154,7 +149,7 @@ const FullFinal = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {all?.status === "PENDING" ? (
+            {all?.is_submitted ? (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
@@ -163,10 +158,20 @@ const FullFinal = ({}) => {
                   handleViewDetails(all);
                 }}
               >
-                <InfoOutlined fontSize={"small"} />
+                {/* <InfoOutlined fontSize={"small"} /> */}
+                <RemoveRedEyeOutlinedIcon fontSize={"small"} />
               </IconButton>
             ) : (
-              <></>
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleViewForm(all);
+                }}
+              >
+                <InfoOutlined fontSize={"small"} />
+              </IconButton>
             )}
           </div>
         ),

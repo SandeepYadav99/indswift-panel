@@ -1668,7 +1668,7 @@ function FinalForm() {
               type="number"
               isError={errorData?.it_asset_recovery}
               errorText={errorData?.it_asset_recovery}
-              label={"IT Asset Recoevry"}
+              label={"IT Asset Recovery:"}
               value={form?.it_asset_recovery}
               onTextChange={(text) => {
                 changeTextData(text, "it_asset_recovery");

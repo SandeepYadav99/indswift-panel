@@ -102,9 +102,13 @@ const useFullFinal = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.FULL_FINAL_FORM}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.FULL_FINAL_DETAIL}${data?.id}`); //+data.id
   }, []);
 
+  const handleViewForm = useCallback((data) => {
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.FULL_FINAL_FORM}${data?.id}`); //+data.id
+  }, []);
   const configFilter = useMemo(() => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
@@ -150,6 +154,7 @@ const useFullFinal = ({}) => {
     isCalling,
     editData,
     configFilter,
+    handleViewForm
   };
 };
 
