@@ -22,7 +22,7 @@ const NextYearSuccessionPlanner = ({
   all:allData,
   isFetching: isFetching,
   currentPage,
-  source
+  
 }) => {
   const {
     handleSortOrderChange,
@@ -92,62 +92,64 @@ const NextYearSuccessionPlanner = ({
         key: "doj",
         label: "D.O.J",
         sortable: false,
-        render: (temp, all) => <div>{"Name"}</div>,
+        render: (temp, all) => <div>{all?.doj}</div>,
       },
       {
         key: "dob",
         label: "D.O.B",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.dobText}</div>,
         //  candidate?.applied_date
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.designation?.name}</div>,
       },
       {
         key: "department",
         label: "DEPARTMENT",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.department?.name}</div>,
       },
       {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.location?.name}</div>,
       },
       {
         key: "age",
         label: "AGE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.age}</div>,
       },
       {
         key: "date_of_retirment",
         label: "DATE OF RETIREMENT",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => (
+          <div>{all?.resign_data?.resign_effective_date}</div>
+        ),
       },
       {
         key: "annual_salary",
         label: "ANNUAL SALARY",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.annual_salary}</div>,
       },
       {
         key: "succession_cost_wrt_emp",
         label: "SUCCESSION'S COST WRT EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.succession_wrt}</div>,
       },
       {
         key: "nature_of_succession",
         label: "NATURE OF SUCCESSION",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.nature_of_succession}</div>,
       },
       {
         key: "revert_by_date",
@@ -159,7 +161,7 @@ const NextYearSuccessionPlanner = ({
         key: "succession_status",
         label: "SUCCESSION STATUS",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.succession_status}</div>,
       },
       {
         key: "action_key",
@@ -170,9 +172,10 @@ const NextYearSuccessionPlanner = ({
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
-              disabled={isCalling}
+              // disabled={isCalling}
               onClick={() => {
-                handleViewDetails(all);
+                // handleViewDetails(all);
+                // handleToggleSidePannel();
               }}
             >
               <InfoOutlined fontSize={"small"} />

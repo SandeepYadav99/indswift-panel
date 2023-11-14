@@ -23,7 +23,7 @@ const ThisYearSuccessionPlanner = ({
   all: allData,
   isFetching: isFetching,
   currentPage,
-  source,
+  configFilter,
 }) => {
   const {
     handleSortOrderChange,
@@ -35,7 +35,7 @@ const ThisYearSuccessionPlanner = ({
     handleViewDetails,
     editData,
     isCalling,
-    configFilter,
+    // configFilter,
     isSidePanel,
     handleToggleSidePannel,
     isSidePanelForm,
