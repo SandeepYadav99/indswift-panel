@@ -14,8 +14,6 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
 
-const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
-
 const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
 
 const RelievingExpLetterDetail = lazy(()=>import("../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail")) ;
@@ -26,7 +24,7 @@ const BgvAnalysisReport = lazy(() =>
   )
 );
 
-
+const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
 const IncrementLetter = lazy(()=>  import("../views/Pms/IncrementLetter/IncrementLetter.view"));
 const USCEditView = lazy(()=>  import("../views/HR/HRSettings/components/USCEdit/USCEdit"));
 const SuccessionPlanner_list = lazy(()=>  import("../views/SuccessionPlaner/SuccessionPlanner_list"));
@@ -45,7 +43,6 @@ const FinalForm = lazy(()=>  import("../views/Full&Final/FinalForm/FinalForm.vie
 // const BgvAnalysisReport =lazy(()=>import("../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"));
 const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
-const SuccessionApproval_List = lazy(() =>import("../views/SuccessionApproval/SuccessionApproval_List"));
 const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
 
 const LeaveApplicationForm = lazy(() =>
@@ -2310,19 +2307,19 @@ const dashboardRoutes = [
     // parent: "skynetLetter",
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
-  // {
-  //   path: `${RouteName.BGV_ANALYSI_REPOST}:id`,
-  //   sidebarName: "Pending Background Verification",
-  //   navbarName: "Pending Background Verification",
-  //   icon: AssignmentOutlined,
-  //   component: BgvAnalysisReport,
-  //   is_sidebar: false,
-  //   is_protect: true,
-  //   // slug: 'tp',
-  //   // is_parent: true,
-  //   // parent: "skynetLetter",
-  //   // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
-  // },
+  {
+    path: `${RouteName.BGV_ANALYSI_REPOST}:id`,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: AssignmentOutlined,
+    component: BgvAnalysisReport,
+    is_sidebar: false,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
   {
     path: `${RouteName.PENDING_VERIFICATION_CREATE}:id`,
     sidebarName: "Pending Background Verification",

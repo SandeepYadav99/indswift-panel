@@ -238,9 +238,9 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "choose_action");
                 }}
               >
-                <MenuItem value="ISL">Isl</MenuItem>
-                <MenuItem value="ISLL">Isll </MenuItem>
-                <MenuItem value="ESIX">Esix</MenuItem>
+                <MenuItem value="TERMINATED">Terminated</MenuItem>
+                <MenuItem value="ALLOWED_TO_WORK">Allowed to work </MenuItem>
+                <MenuItem value="NA">N/A</MenuItem>
               </CustomSelectField>
             </div>
           </div>
@@ -330,7 +330,8 @@ const BGVStatus_Update = () => {
               fontSize: "13px",
             }}
           >
-            Any Remarks added while sending BGV form will be shown here
+            {form?.remark}
+        
           </p>
         </div>
       </div>
