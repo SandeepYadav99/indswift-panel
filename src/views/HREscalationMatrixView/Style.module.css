@@ -6,8 +6,9 @@
     border-collapse: collapse;
     width: 100%; 
     font-size: 14px;
-    color: #000;
+    color: #161616;
     margin: 20px auto ;
+    
   
   }
   .sky{
@@ -22,7 +23,14 @@
   .headingText{
     text-align: center;
   }
-  .myTable th, .myTable td {
+  .myTable td {
+    border: 1px solid black; 
+    padding: 8px 30px;
+    text-align: justify; 
+  
+  
+  }
+  .myTable th {
     border: 1px solid black; 
     padding: 8px;
     text-align: center; 
@@ -42,7 +50,10 @@
     background-color: #ECF7FF;
   }
   .bgColorRow{
-    background-color: #ECF7FF;
+    background-color: #F7F7F7;
+  }
+  .bgColorRow > td{
+    font-weight: bold;
   }
   .grayRow{
     background-color: #ebe5e5;

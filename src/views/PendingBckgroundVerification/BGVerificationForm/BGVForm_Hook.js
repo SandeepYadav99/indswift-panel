@@ -88,7 +88,7 @@ const useBGVForm_Hook = ({}) => {
       return;
     }
     if (selectedCheckboxes < 2) {
-      SnackbarUtils.error("At least two checkboxes are required.");
+      SnackbarUtils.error("Please select at least two verification options");
       return;
     }
     setIsSubmitting(true);

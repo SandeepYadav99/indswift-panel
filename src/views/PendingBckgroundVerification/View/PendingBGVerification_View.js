@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import { ButtonBase, IconButton } from "@material-ui/core";
+import { ButtonBase, IconButton, colors } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 
@@ -41,12 +41,20 @@ const PendingBGVerification_View = ({ location }) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.pendingBGV);
 
-  const renderStatus = useCallback((status) => {
+  const removeUnderScore = (value) => {
+    return value ? value.replace(/_/g, " ") : "";
+  };
+
+  const renderBGVStatus = useCallback((status) => {
     if (status === "PENDING" || "CLEAR" || "FAILED") {
       return <StatusPill status={status} />;
     } else {
       return <></>;
     }
+  }, []);
+
+  const renderBgvResult = useCallback((status) => {
+    return <StatusPill status={status} style={getBgvStatusStyle(status)} />;
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
@@ -61,6 +69,18 @@ const PendingBGVerification_View = ({ location }) => {
     }
     return null;
   }, []);
+
+  const getBgvStatusStyle = (bgvResult) => {
+    if (bgvResult === "IN PROCESS") {
+      return { color: "#F4881B", borderColor: "#F4881B" };
+    } else if (bgvResult === "UNABLE TO VERIFY") {
+      return { color: "#7467F0", border: "none", textAlign: "justify" };
+    } else if (bgvResult === "FAILED") {
+      return { color: "#E92828", borderColor: "#E92828" };
+    }
+
+    return {};
+  };
 
   const button_VerificationHandler = useCallback(
     (all) => {
@@ -147,10 +167,24 @@ const PendingBGVerification_View = ({ location }) => {
         render: (temp, all) => <div>{all?.department?.name || "-"}</div>,
       },
       {
+        key: "offer_date",
+        label: "OFFER DATE",
+        sortable: false,
+        render: (temp, all) => (
+          <div>{all?.offerDate !== "Invalid date" ? all?.offerDate : "-"}</div>
+        ),
+      },
+      {
         key: "offer_accepted",
         label: "OFFER ACCEPTED",
         sortable: false,
-        render: (temp, all) => <div>{all?.offerAcceptedDate || "-"}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.offerAcceptedDate !== "Invalid date"
+              ? all?.offerAcceptedDate
+              : "-"}
+          </div>
+        ),
       },
       {
         key: "doj",
@@ -162,7 +196,7 @@ const PendingBGVerification_View = ({ location }) => {
         key: "status",
         label: "STATUS",
         sortable: false,
-        render: (temp, all) => <div>{renderStatus(all?.bgv_status)}</div>,
+        render: (temp, all) => <div>{renderBGVStatus(all?.bgv_status)}</div>,
       },
       {
         key: "bgv-result",
@@ -170,7 +204,11 @@ const PendingBGVerification_View = ({ location }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.bgv_result ? <StatusPill status={all?.bgv_result} /> : <>-</>}
+            {all?.bgv_result ? (
+              renderBgvResult(removeUnderScore(all?.bgv_result))
+            ) : (
+              <>-</>
+            )}
           </div>
         ),
       },
@@ -181,7 +219,14 @@ const PendingBGVerification_View = ({ location }) => {
         render: (temp, all) => (
           <div>
             {all?.payment_status ? (
-              <StatusPill status={all?.payment_status} />
+              <StatusPill
+                status={removeUnderScore(all?.payment_status)}
+                style={
+                  all?.payment_status === "IN_PROCESS"
+                    ? { color: "#F4881B", border: "none" }
+                    : {}
+                }
+              />
             ) : (
               <>-</>
             )}
@@ -216,12 +261,13 @@ const PendingBGVerification_View = ({ location }) => {
       },
     ];
   }, [
-    renderStatus,
+    renderBGVStatus,
     renderFirstCell,
     handleViewDetails,
     handleEdit,
     isCalling,
     button_VerificationHandler,
+    renderBgvResult,
   ]);
 
   const tableData = useMemo(() => {
@@ -282,7 +328,7 @@ const PendingBGVerification_View = ({ location }) => {
           />
           <div>
             <br />
-            <div style={{ width: "100%" }}>
+            <div>
               <DataTables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}

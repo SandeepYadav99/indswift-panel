@@ -126,7 +126,7 @@ const BGVDetailView = ({}) => {
           <h3>Payment Details</h3>
           <div className={styles.mainFlex}>
             <div className={styles.backgroundStatus}>
-              <span><b>Cost: </b>{details?.cost}</span>
+              <span><b>Cost: </b>₹ {details?.cost}</span>
               <span><b>Billing To: </b>{details?.billing_to}</span>
             </div>
             <div className={styles.gaps} />

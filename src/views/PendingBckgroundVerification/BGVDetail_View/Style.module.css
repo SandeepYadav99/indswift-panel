@@ -85,3 +85,10 @@
 .gaps {
   padding: 10px;
 }
+.fieldContainer {
+  display: flex;
+  align-items: center;
+}
+.gapBetweenFields {
+  margin-right: 10px;
+}
