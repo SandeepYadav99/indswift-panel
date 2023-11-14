@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { serviceGetSuccessionPlanerList } from "../../services/SuccessionPlanner.service";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchSuccessionPlaner } from "../../actions/SuccessionPlanner.action";
 
@@ -24,6 +23,7 @@ const useSuccessionPlanner_hook = ({ jobId }) => {
     isMountRef.current = true;
   }, []);
 
+  
   return {};
 };
 

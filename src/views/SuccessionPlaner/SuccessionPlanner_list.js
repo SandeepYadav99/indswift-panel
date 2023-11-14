@@ -19,13 +19,17 @@ const SuccessionPlannerList = ({ jobId }) => {
   });
 
   const {
-    data,
-    all: allData,
+    year,
+    nextYear,
+    allNextNextYear,
+    allThisYear: allThisYearData,
+    allNextYear:allNextYearData,
+    allNextNextYear:allNextNextYearData,
     currentPage,
-    is_fetching: isFetching,
-    source,
+    is_fetching: isFetching, 
   } = useSelector((state) => state.successionPlaner);
-console.log(data, source)
+  
+
   return (
     <div>
       <div className={styles.plainPaper}>
@@ -37,14 +41,15 @@ console.log(data, source)
             <div className={styles.newLine2} />
           </div>
         </div>
-
-        <ThisYearSuccessionPlanner
-          data={data}
-          all={allData}
-          currentPage={currentPage}
-          isFetching={isFetching}
-          source={source}
-        />
+     
+          <ThisYearSuccessionPlanner
+            data={year}
+            all={allThisYearData}
+            currentPage={currentPage}
+            isFetching={isFetching}
+           
+          />
+    
       </div>
 
       <div className={styles.plainPaper}>
@@ -57,11 +62,11 @@ console.log(data, source)
           </div>
         </div>
         <NextYearSuccessionPlanner
-          data={data}
-          all={allData}
+          data={nextYear}
+          all={allNextYearData}
           currentPage={currentPage}
           isFetching={isFetching}
-          source={source}
+       
         />
       </div>
       <div className={styles.plainPaper}>
@@ -74,11 +79,11 @@ console.log(data, source)
           </div>
         </div>
         <NextToNextYearSuccessionPlanner
-          data={data}
-          all={allData}
+          data={allNextNextYear}
+          all={allNextNextYearData}
           currentPage={currentPage}
           isFetching={isFetching}
-          source="next_next_year"
+        
         />
       </div>
     </div>
