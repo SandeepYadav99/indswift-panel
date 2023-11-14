@@ -5,7 +5,7 @@
 .outerFlex {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding-bottom: 30px;
 }
 
@@ -209,4 +209,33 @@
   color: #818181;
   font-weight: 500;
   margin-bottom: 7px;
+}
+.btnWrapper {
+  width: 20%;
+  background-color: #ffffff;
+}
+.PdfBtnWrapper {
+  background: #ffffff;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  padding: 1.2rem 0;
+}
+.approvedWrapper {
+  background: #ffffff;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 10px;
+  padding: 1.2rem 0;
+}
+.edit {
+  color: #e92828 !important;
+  border: 2px solid #e92828 !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
 }

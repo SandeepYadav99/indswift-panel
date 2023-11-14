@@ -17,6 +17,12 @@ export async function serviceDeleteFinalFormApproval(params) {
 export async function serviceGetFinalFormApprovalDetails(params) {
   return await postRequest("ff/review/details", params);
 }
+export async function serviceGetFinalFormApprove(params) {
+  return await postRequest("ff/review/accept", params);
+}
+export async function serviceGetFinalFormReject(params) {
+  return await postRequest("ff/review/reject", params);
+}
 export async function serviceGetFormDebounceDetails(params) {
   return await postRequest("ff/review/totals", params);
 }
