@@ -236,6 +236,16 @@ const useClaimsList = ({}) => {
         ],
       },
       {
+        label: "Own Status",
+        name: "status",
+        type: "select",
+        fields: [
+          "REJECTED",
+          "PENDING",
+          "APPROVED",
+        ],
+      },
+      {
         label: "Claim Type",
         name: "claimObj.claim_type",
         type: "select",
