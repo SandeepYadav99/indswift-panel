@@ -11,22 +11,21 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import { Delete, Edit } from "@material-ui/icons";
 import File from "../../../components/FileComponent/FileComponent.component";
+import constants from "../../../config/constants";
+import AttachmentIncludeDetailForm from "./component/AttachmentInclude/AttachmentIncludeDetail.component";
 
 function FinalForm() {
   const {
     employeeDetail,
     form,
     errorData,
-    listData,
     changeTextData,
     onBlurHandler,
     removeError,
     handleSubmit,
-    ChildenRef,
-    empFlag,
-    toggleConfirmDialog,
-    isDialog,
     submitToServer,
+    empFlag,
+    ChildenRef,
   } = useFinalForm({});
   const emp = {};
   return (
@@ -49,7 +48,7 @@ function FinalForm() {
             <CustomDatePicker
               clearable
               label={"Planned Date of Separation"}
-              maxDate={new Date()}
+              // maxDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "pds");
               }}
@@ -62,7 +61,7 @@ function FinalForm() {
               disabled={true}
               clearable
               label={"Actual DOL"}
-              maxDate={new Date()}
+              // maxDate={new Date()}
               onChange={(date) => {
                 changeTextData(date, "dol");
               }}
@@ -86,6 +85,7 @@ function FinalForm() {
               onBlur={() => {
                 onBlurHandler("notice_period");
               }}
+              InputLabelProps={{ shrink: true }}
             />
           </div>
           <div className={styles.editBtnWrap}>
@@ -188,25 +188,26 @@ function FinalForm() {
               }}
               multiline
               rows={3}
+              InputLabelProps={{ shrink: true }}
             />
           </div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <span className={styles.heading}>Shortfall of Notice Period:</span>
-            {form?.shortfall_notice_period}
+            <span className={styles.teck}>{form?.shortfall_notice_period}</span>
           </div>
           <div className={"formGroup"}>
             {" "}
             <span className={styles.heading}>Permitted Leaves on Notice:</span>
-            {form?.notice_leave_permitted}
+            <span className={styles.teck}>{form?.notice_leave_permitted}</span>
           </div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             {" "}
             <span className={styles.heading}>Applicable Shortfall:</span>
-            {form?.shortfall_applicable}
+            <span className={styles.teck}>{form?.shortfall_applicable}</span>
           </div>
           <div className={"formGroup"}>
             {" "}
@@ -214,11 +215,11 @@ function FinalForm() {
               {" "}
               Leaves to be added in Shortfall:
             </span>
-            {form?.shortfall_leaves_added}
+            <span className={styles.teck}>{form?.shortfall_leaves_added}</span>
           </div>
         </div>
       </div>
-      {/* <div className={styles.plainPaper}>
+      <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 1 : CTC of Employee</div>
         <FinalSalaryTable data={employeeDetail?.salary} />
         <div className={"formFlex"}>
@@ -239,7 +240,7 @@ function FinalForm() {
             />
           </div>
         </div>
-      </div> */}
+      </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 2 : Dues to be Paid</div>
         <div className={styles.heading}>Payroll 1</div>
@@ -255,8 +256,13 @@ function FinalForm() {
                 changeTextData(value, "payroll_one_month");
               }}
             >
-              <MenuItem value={"YES"}>Yes</MenuItem>
-              <MenuItem value={"NO"}>No</MenuItem>
+              {constants.MONTHS?.map((item, index) => (
+                <MenuItem key={`Month_${index}`} value={item?.toUpperCase()}>
+                  {item?.toUpperCase()}
+                </MenuItem>
+              ))}
+              {/* <MenuItem value={"YES"}>Yes</MenuItem>
+              <MenuItem value={"NO"}>No</MenuItem> */}
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
@@ -302,8 +308,8 @@ function FinalForm() {
                 changeTextData(value, "payroll_one_status");
               }}
             >
-              <MenuItem value={"YES"}>Yes</MenuItem>
-              <MenuItem value={"NO"}>No</MenuItem>
+              <MenuItem value={"PAID"}>PAID</MenuItem>
+              <MenuItem value={"PENDING"}>PENDING</MenuItem>
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
@@ -338,8 +344,11 @@ function FinalForm() {
                 changeTextData(value, "payroll_two_month");
               }}
             >
-              <MenuItem value={"YES"}>Yes</MenuItem>
-              <MenuItem value={"NO"}>No</MenuItem>
+              {constants.MONTHS?.map((item, index) => (
+                <MenuItem key={`Month_2${index}`} value={item?.toUpperCase()}>
+                  {item?.toUpperCase()}
+                </MenuItem>
+              ))}
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
@@ -385,8 +394,8 @@ function FinalForm() {
                 changeTextData(value, "payroll_two_status");
               }}
             >
-              <MenuItem value={"YES"}>Yes</MenuItem>
-              <MenuItem value={"NO"}>No</MenuItem>
+              <MenuItem value={"PAID"}>PAID</MenuItem>
+              <MenuItem value={"PENDING"}>PENDING</MenuItem>
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
@@ -421,8 +430,11 @@ function FinalForm() {
                 changeTextData(value, "payroll_three_month");
               }}
             >
-              <MenuItem value={"YES"}>Yes</MenuItem>
-              <MenuItem value={"NO"}>No</MenuItem>
+              {constants.MONTHS?.map((item, index) => (
+                <MenuItem key={`Month_3${index}`} value={item?.toUpperCase()}>
+                  {item?.toUpperCase()}
+                </MenuItem>
+              ))}
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
@@ -468,8 +480,8 @@ function FinalForm() {
                 changeTextData(value, "payroll_three_status");
               }}
             >
-              <MenuItem value={"YES"}>Yes</MenuItem>
-              <MenuItem value={"NO"}>No</MenuItem>
+              <MenuItem value={"PAID"}>PAID</MenuItem>
+              <MenuItem value={"PENDING"}>PENDING</MenuItem>
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
@@ -985,7 +997,6 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
               isError={errorData?.el_balance_comment}
               errorText={errorData?.el_balance_comment}
               label={"Comments"}
@@ -1061,7 +1072,6 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
               isError={errorData?.el_currnet_service_year_comment}
               errorText={errorData?.el_currnet_service_year_comment}
               label={"Comments"}
@@ -1109,7 +1119,6 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
               isError={errorData?.fel_comment}
               errorText={errorData?.fel_comment}
               label={"Comments"}
@@ -1181,7 +1190,6 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
               isError={errorData?.rbl_comment}
               errorText={errorData?.rbl_comment}
               label={"Comments"}
@@ -1214,16 +1222,15 @@ function FinalForm() {
 
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
-              isError={errorData?.rbl_comment}
-              errorText={errorData?.rbl_comment}
+              isError={errorData?.nfh_comment}
+              errorText={errorData?.nfh_comment}
               label={"Comments"}
-              value={form?.rbl_comment}
+              value={form?.nfh_comment}
               onTextChange={(text) => {
-                changeTextData(text, "rbl_comment");
+                changeTextData(text, "nfh_comment");
               }}
               onBlur={() => {
-                onBlurHandler("rbl_comment");
+                onBlurHandler("nfh_comment");
               }}
             />
           </div>
@@ -1371,7 +1378,6 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
               isError={errorData?.mobile_device_recovery_comment}
               errorText={errorData?.mobile_device_recovery_comment}
               label={"Comments"}
@@ -1463,7 +1469,6 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
               isError={errorData?.notice_period_recovery_comment}
               errorText={errorData?.notice_period_recovery_comment}
               label={"Comments"}
@@ -1522,7 +1527,6 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
               isError={errorData?.bgv_recovery_comment}
               errorText={errorData?.bgv_recovery_comment}
               label={"Comments"}
@@ -1583,7 +1587,6 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
               isError={errorData?.relocation_recovery_comment}
               errorText={errorData?.relocation_recovery_comment}
               label={"Comments"}
@@ -1768,7 +1771,6 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
               isError={errorData?.imprest_recovery_comment}
               errorText={errorData?.imprest_recovery_comment}
               label={"Comments"}
@@ -2142,7 +2144,6 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              type={"number"}
               isError={errorData?.gratuity_uphold_comment}
               errorText={errorData?.gratuity_uphold_comment}
               label={"Comments"}
@@ -2340,6 +2341,21 @@ function FinalForm() {
                 onBlurHandler("superannuation_uphold_comment");
               }}
             />
+          </div>
+        </div>
+        <div className={"plainPaper"}>
+          <div className={styles.heading}>Attachments</div>
+          <AttachmentIncludeDetailForm ref={ChildenRef} />
+        </div>
+        <div className={"plainPaper"}>
+          <div className={"headerFlex wrapper"}>
+            <ButtonBase
+              type={"button"}
+              className={styles.createBtn}
+              onClick={handleSubmit}
+            >
+              SEND FOR APPROVAL
+            </ButtonBase>
           </div>
         </div>
       </div>

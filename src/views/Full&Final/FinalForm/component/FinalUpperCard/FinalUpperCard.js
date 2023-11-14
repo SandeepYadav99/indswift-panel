@@ -31,22 +31,21 @@ function FinalUpperCard({ data }) {
               {data?.location?.name}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>F&F Case Number:</span>
-              {data?.location?.name}
+              <span className={styles.value}>F&F Case Number:</span>-
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>DOB:</span>
-              {data?.location?.name}
+              {data?.dob}
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>
                 Service Years with Org (round):
               </span>
-              {data?.location?.name}
+              {data?.experience?.current}
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>Date of Resignation:</span>
-              {data?.location?.name}
+              {data?.expected_dor_text}
             </div>
           </div>
         </div>
@@ -66,22 +65,21 @@ function FinalUpperCard({ data }) {
           </div>
           <div className={styles.key}>
             <span className={styles.value}>DOJ:</span>
-            {data?.department?.name}
+            {data?.dojText}
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Age on Separation Date:</span>
-            {data?.department?.name}
+            {data?.resign_data?.separated_date}
           </div>{" "}
           <div className={styles.key}>
-            <span className={styles.value}>Separation By Virtue of:</span>
-            {data?.department?.name}
+            <span className={styles.value}>Separation By Virtue of:</span>-
           </div>{" "}
-          <div className={styles.key}>
+          {/* <div className={styles.key}>
             <span className={styles.value}>
               Leaves to be added in Shortfall:
             </span>
             {data?.department?.name}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
