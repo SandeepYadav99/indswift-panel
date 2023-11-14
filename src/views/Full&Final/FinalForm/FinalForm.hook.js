@@ -21,6 +21,7 @@ import debounce from "lodash.debounce";
 import {
   serviceGetFinalFormDetails,
   serviceGetFormDebounceDetails,
+  serviceSubmitFFForm,
 } from "../../../services/FinalForm.service";
 
 const SALARY_KEYS = [
@@ -109,7 +110,7 @@ const BOOLEAN_KEYS = [
   "is_relocation_recovery_manual",
   "is_imprest_recovery_manual",
   "is_gratuity_uphold_manual",
-  "is_served_for_manual"
+  "is_served_for_manual",
 ];
 
 function useFinalForm() {
@@ -129,17 +130,17 @@ function useFinalForm() {
     payroll_one_paid_days: "",
     payroll_one_value: "",
     payroll_one_status: "",
-    payroll_one_salary_slip: "",
+    payroll_one_salary_slip: null,
     payroll_two_month: "",
     payroll_two_paid_days: "",
     payroll_two_value: "",
     payroll_two_status: "",
-    payroll_two_salary_slip: "",
+    payroll_two_salary_slip: null,
     payroll_three_month: "",
     payroll_three_paid_days: "",
     payroll_three_value: "",
     payroll_three_status: "",
-    payroll_three_salary_slip: "",
+    payroll_three_salary_slip: null,
     statutory_bonus: "",
     statutory_bonus_comment: "",
     gratuity: "",
@@ -190,7 +191,7 @@ function useFinalForm() {
     pf_comment: "",
     esi: "",
     esi_comment: "",
-    is_served_for_manual:"",
+    is_served_for_manual: "NO",
     labour_welfare_fund: "",
     labour_welfare_fund_comment: "",
     mobile_device_recovery: "",
@@ -266,6 +267,8 @@ function useFinalForm() {
     ...BOOLEAN_KEYS,
   ]);
   const [employeeDetail, setEmployeeDetail] = useState({});
+  const ChildenRef = useRef(null);
+
   const checkSalaryInfoDebouncer = useMemo(() => {
     return debounce((e) => {
       checkForSalaryInfo(e);
@@ -288,8 +291,6 @@ function useFinalForm() {
       "notice_leave_availed",
       "shortfall_remarks",
       "shortfall_notice_period",
-      // "shortfall_applicable",
-      // "shortfall_leaves_added",
       "notice_leave_permitted",
       "salary_remark",
       "payroll_one_month",
@@ -479,7 +480,7 @@ function useFinalForm() {
         }
       }
       console.log("bool", booleanData);
-      setForm({ ...data, ...booleanData });
+      setForm({ ...form, ...data, ...booleanData });
     });
   };
   console.log("form", form);
@@ -510,67 +511,70 @@ function useFinalForm() {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      const vehicleObj = {};
-      // const fd = new FormData();
-      // Object.keys(form).forEach((key) => {
-      //   LogUtils.log("key", key);
-      //   if (
-      //     [
-      //       "hod_id",
-      //       "pms_reviewer_id",
-      //       "designation_id",
-      //       "job_role_id",
-      //       "associate",
-      //     ].indexOf(key) >= 0 &&
-      //     form[key]
-      //   ) {
-      //     fd.append(key, form[key]?.id);
-      //   } else if (key === "is_transport_facility") {
-      //     fd.append("is_transport_facility", form[key] === "availed");
-      //   } else if (BOOLEAN_KEYS.includes(key)) {
-      //     fd.append(key, form[key] === "YES");
-      //   } else if (["variant", "rc_number"].includes(key)) {
-      //     vehicleObj[key] = form[key];
-      //   } else if (form[key]) {
-      //     fd.append(key, form[key]);
-      //   }
-      // });
-      // if (vehicleObj) {
-      //   fd.append("vehicle", JSON.stringify(vehicleObj));
-      // }
-      // if (remotePath?.length > 0) {
-      //   fd.append("remote_image_path", remotePath);
-      // }
-      // fd.append("children", JSON.stringify(ChildenRef.current.getData()));
-      // fd.append("nominee", JSON.stringify([]));
-      // candidateId && fd.append("candidate_id", candidateId);
-      // traineeId && fd.append("trainee_id", traineeId);
-      // serviceCreateEmployees(fd).then((res) => {
-      //   if (!res.error) {
-      //     historyUtils.push("/employees");
-      //   } else {
-      //     SnackbarUtils.error(res?.message);
-      //   }
-      //   setIsSubmitting(false);
-      // });
+      const fd = new FormData();
+      Object.keys(form).forEach((key) => {
+        if (
+          [
+            "payroll_one_salary_slip",
+            "payroll_two_salary_slip",
+            "payroll_three_salary_slip",
+          ].indexOf(key) < 0 &&
+          form[key]
+        ) {
+          LogUtils.log("key", key);
+          if (BOOLEAN_KEYS.includes(key)) {
+            fd.append(key, form[key] === "YES");
+          } else {
+            fd.append(key, form[key]);
+          }
+        }
+      });
+      fd.append("id", id);
+      if (form?.payroll_one_salary_slip) {
+        fd.append("payroll_one_salary_slip", form?.payroll_one_salary_slip);
+      }
+      if (form?.payroll_two_salary_slip) {
+        fd.append("payroll_two_salary_slip", form?.payroll_two_salary_slip);
+      }
+      if (form?.payroll_three_salary_slip) {
+        fd.append("payroll_three_salary_slip", form?.payroll_three_salary_slip);
+      }
+      const AttachData = ChildenRef.current.getData();
+      AttachData.forEach((val) => {
+        if (val?.attachment_documents) {
+          fd.append("attachment_documents", val?.attachment_documents);
+        }
+      });
+      fd.append("attachments", JSON.stringify(AttachData));
+      serviceSubmitFFForm(fd).then((res) => {
+        if (!res.error) {
+          historyUtils.goBack();
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
     }
-  }, [form, isSubmitting, setIsSubmitting]);
+  }, [form, isSubmitting, setIsSubmitting, employeeDetail, id]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    // const isIncludesValid = ChildenRef.current.isValid();
+    const isIncludesValid = ChildenRef.current.isValid();
 
     LogUtils.log("errors==>", { errors, form });
-    // if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
-    //   setErrorData(errors);
-    //   return true;
-    // }
-    if (Object.keys(errors)?.length > 0 ) {
+    if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
       setErrorData(errors);
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, submitToServer]);
+  }, [
+    checkFormValidation,
+    setErrorData,
+    form,
+    submitToServer,
+    employeeDetail,
+    id,
+  ]);
   return {
     employeeDetail,
     form,
@@ -580,6 +584,7 @@ function useFinalForm() {
     removeError,
     handleSubmit,
     submitToServer,
+    ChildenRef,
   };
 }
 

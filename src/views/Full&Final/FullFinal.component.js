@@ -138,25 +138,36 @@ const FullFinal = ({}) => {
       },
       {
         key: "status",
-        label: "STATUS",
-        sortable: true,
+        label: "EMPLOYEE STATUS",
+        sortable: false,
+        render: (temp, all) => <div>{renderStatus(all?.employee?.status)}</div>,
+      },
+      {
+        key: "ff",
+        label: "F&F STATUS",
+        sortable: false,
         render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
       },
+
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            {all?.status === "PENDING" ? (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleViewDetails(all);
+                }}
+              >
+                <InfoOutlined fontSize={"small"} />
+              </IconButton>
+            ) : (
+              <></>
+            )}
           </div>
         ),
       },

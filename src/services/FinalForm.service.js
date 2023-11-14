@@ -23,3 +23,6 @@ export async function serviceGetFormDebounceDetails(params) {
 export async function serviceGetFinalForm(params) {
   return await postRequest("ff", params);
 }
+export async function serviceSubmitFFForm(params) {
+  return await formDataRequest("ff/submit/form", params);
+}
