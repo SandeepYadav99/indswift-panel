@@ -1,16 +1,15 @@
 import React from "react";
-import useFinalDetail from "./FinalDetail.hook";
+import useFullDetail from "./FullDetail.hook";
 import styles from "./Style.module.css";
 import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ButtonBase, IconButton, MenuItem } from "@material-ui/core";
-import FinalUpperCard from "../FinalForm/component/FinalUpperCard/FinalUpperCard";
-import FinalSalaryTable from "../FinalForm/component/SalaryTable/FinalSalaryTable";
-import StatusPill from "../../../components/Status/StatusPill.component";
-import PayData from "./compoent/PayData/PayData";
+import PayData from "../../Full&Final/FinalDetail/compoent/PayData/PayData";
+import FinalUpperCard from "../../Full&Final/FinalForm/component/FinalUpperCard/FinalUpperCard";
+import FinalSalaryTable from "../../Full&Final/FinalForm/component/SalaryTable/FinalSalaryTable";
 
-function FinalDetail() {
-  const { employeeDetail } = useFinalDetail({});
+function FullDetail() {
+  const { employeeDetail } = useFullDetail({});
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -27,16 +26,16 @@ function FinalDetail() {
       <div className={styles.plainPaper}>
         <FinalUpperCard
           data={employeeDetail?.employee}
-          otherData={employeeDetail}
+          otherData={employeeDetail?.fullAndFinal}
         />
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 1 : CTC of Employee</div>
         <FinalSalaryTable data={employeeDetail?.salary} />
       </div>
-      <PayData employeeDetail={employeeDetail} />
+      <PayData employeeDetail={employeeDetail?.fullAndFinal} />
     </div>
   );
 }
 
-export default FinalDetail;
+export default FullDetail;

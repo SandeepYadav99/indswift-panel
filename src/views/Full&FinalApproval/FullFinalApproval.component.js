@@ -1,15 +1,13 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { ButtonBase, IconButton, Menu } from "@material-ui/core";
+import React, { useCallback, useEffect, useMemo } from "react";
+import {IconButton } from "@material-ui/core";
 import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
-import { InfoOutlined, Telegram } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
-import SendIcon from "@material-ui/icons/Send";
 import useFullFinalApproval from "./FullFinalApproval.hook";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 
@@ -142,30 +140,16 @@ const FullFinalApproval = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {all?.is_submitted ? (
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  handleViewDetails(all);
-                }}
-              >
-                {/* <InfoOutlined fontSize={"small"} /> */}
-                <RemoveRedEyeOutlinedIcon fontSize={"small"} />
-              </IconButton>
-            ) : (
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  handleViewForm(all);
-                }}
-              >
-                <InfoOutlined fontSize={"small"} />
-              </IconButton>
-            )}
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
+            >
+              <RemoveRedEyeOutlinedIcon fontSize={"small"} />
+            </IconButton>
           </div>
         ),
       },

@@ -13,6 +13,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
+import FullDetail from "../views/Full&FinalApproval/FullDetail/FullDetail.js";
 
 const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
 
@@ -2546,6 +2547,15 @@ const dashboardRoutes = [
     navbarName: "Full & Final Form",
     icon: AssignmentOutlined,
     component: FinalDetail,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.FULL_FINAL_DETAIL_APPROVAL}:id`,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FullDetail,
     is_sidebar: false,
     is_protect: true,
   },
