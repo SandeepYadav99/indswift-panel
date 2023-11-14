@@ -24,7 +24,7 @@ function FinalDetail() {
         </div>
       </div>
       <div className={styles.plainPaper}>
-        <FinalUpperCard data={employeeDetail?.employee} />
+        <FinalUpperCard data={employeeDetail?.employee} otherData={employeeDetail}/>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 1 : CTC of Employee</div>
