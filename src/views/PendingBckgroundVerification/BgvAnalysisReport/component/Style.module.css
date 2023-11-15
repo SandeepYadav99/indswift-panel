@@ -22,13 +22,13 @@
     
   }
   
-  @media  (min-width: 1068px) {
+  @media  (max-width: 500px) {
     .myTable {
       display: table;
       overflow-x: inherit;
     }
   }
-
+ 
   .noBorder {
     border: none;
   }

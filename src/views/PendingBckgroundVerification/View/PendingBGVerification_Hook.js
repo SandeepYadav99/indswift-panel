@@ -49,7 +49,7 @@ const usePendingBGVerification_Hook = () => {
   //     }
   //   });
   // }, []);
-  console.log("list", listData);
+ 
   const handlePageChange = useCallback((type) => {
     dispatch(actionSetPagePendingBGVList(type));
   }, []);
@@ -137,7 +137,7 @@ const usePendingBGVerification_Hook = () => {
           SnackbarUtils.error(res?.message);
         }
       })
-      .catch((error) => {});
+     
   }, []);
 
   const initData = useCallback(() => {

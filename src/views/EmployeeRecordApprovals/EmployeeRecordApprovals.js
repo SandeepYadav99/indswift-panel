@@ -54,7 +54,7 @@ const EmployeeRecordApprovals = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.employee_versions);
+  } = useSelector((state) => state.employeRecordApproval);
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
