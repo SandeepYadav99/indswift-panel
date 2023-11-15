@@ -53,7 +53,7 @@ function FullDetail() {
         <FinalSalaryTable data={employeeDetail?.salary} />
       </div>
       <PayData employeeDetail={employeeDetail?.fullAndFinal} />
-      {/* {employeeDetail?.panelist_status === "PENDING" && ( */}
+      {employeeDetail?.status === "PENDING" && (
         <div
           className={
             employeeDetail?.status === "APPROVED"
@@ -61,17 +61,11 @@ function FullDetail() {
               : styles.PdfBtnWrapper
           }
         >
-          {/* {employeeDetail?.status !== "APPROVED" &&
-            employeeDetail?.status !== "ACCOUNTS_APPROVED" && ( */}
-              <div className={styles.editBtn2}>
-                <ButtonBase
-                  className={styles.edit}
-                  onClick={toggleRejectDialog}
-                >
-                  REJECT
-                </ButtonBase>
-              </div>
-            {/* )} */}
+          <div className={styles.editBtn2}>
+            <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
+              REJECT
+            </ButtonBase>
+          </div>
 
           <div className={styles.btnApproveWrapper}>
             <div>
@@ -80,15 +74,12 @@ function FullDetail() {
                 className={styles.createBtn}
                 onClick={toggleStatusDialog}
               >
-                {employeeDetail?.status !== "APPROVED" &&
-                employeeDetail?.status !== "ACCOUNTS_APPROVED"
-                  ? "APPROVE"
-                  : "PROCESS"}
+                APPROVE
               </ButtonBase>
             </div>
           </div>
         </div>
-      {/* )} */}
+      )}
     </div>
   );
 }
