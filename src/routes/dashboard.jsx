@@ -2315,7 +2315,7 @@ const dashboardRoutes = [
      roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
-    path: `${RouteName.BGV_ANALYSI_REPOST}:id`,
+    path: `${RouteName.BGV_ANALYSI_REPOST}`,
     sidebarName: "Pending Background Verification",
     navbarName: "Pending Background Verification",
     icon: AssignmentOutlined,

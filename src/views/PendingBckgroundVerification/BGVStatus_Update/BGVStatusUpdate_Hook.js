@@ -80,6 +80,7 @@ const useCandidateUpdate_Hook = () => {
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["cost", "billing_to"];
+    
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -104,6 +105,7 @@ const useCandidateUpdate_Hook = () => {
       return;
     }
     setIsSubmitting(true);
+  
     const updatedData = {
       employee_id: id,
       is_education_verification: form?.is_education_verification,
@@ -181,12 +183,14 @@ const useCandidateUpdate_Hook = () => {
         payment_complete:"payment_complete"
         
       };
-  
+
       if (fieldMappings.hasOwnProperty(fieldName)) {
+       
         setForm((prevForm) => ({
           ...prevForm,
           [fieldMappings[fieldName]]: value,
         }));
+      
         removeError(fieldName);
       }
     },

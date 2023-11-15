@@ -211,7 +211,7 @@ export default {
   RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
   RELIEVING_EXPERIENCE_LETTER_DETAIL:"/relieving-exp-letter/detail/",
   PENDING_BACKGROUND_VERIFICATION:"/pending/verification",
-  BGV_ANALYSI_REPOST:"/pending-verification/detail/",
+  BGV_ANALYSI_REPOST:"/pending/verification/analysis/report",
 
   PENDING_VERIFICATION_CREATE:"/verification/create/",
   PENDING_VERIFICATION_DETAIL:"/verification/detail",

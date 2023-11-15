@@ -2,13 +2,11 @@ import React, { useCallback, useMemo } from "react";
 import { ButtonBase, IconButton, colors } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
-
 import StatusPill from "../../../components/Status/StatusPill.component";
 
 import {
@@ -31,7 +29,8 @@ const PendingBGVerification_View = ({ location }) => {
     configFilter,
     handleBGVUpdateDetails,
     handleBGVDetails,
-    handleBgvAnalysiReport,
+    handleBgvAnalysisReport,
+    handleBgvReportDownload,
   } = usePendingBGVerification_Hook({ location });
 
   const {
@@ -134,7 +133,11 @@ const PendingBGVerification_View = ({ location }) => {
         key: "name",
         label: "NAME",
         sortable: false,
-        render: (value, all) => <div><b>{all?.emp_name}</b> <br/> {all?.emp_code}</div>,
+        render: (value, all) => (
+          <div>
+            <b>{all?.emp_name}</b> <br /> {all?.emp_code}
+          </div>
+        ),
       },
       {
         key: "location",
@@ -305,9 +308,17 @@ const PendingBGVerification_View = ({ location }) => {
 
           <div className={styles.rightFlex}>
             <ButtonBase
+              className={styles.download}
+              onClick={() => {
+                handleBgvReportDownload();
+              }}
+            >
+              DOWNLOAD
+            </ButtonBase>
+            <ButtonBase
               className={styles.edit}
               onClick={() => {
-                handleBgvAnalysiReport();
+                handleBgvAnalysisReport();
               }}
             >
               BGV ANALYSIS REPORT

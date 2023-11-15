@@ -10,6 +10,8 @@ import RouteName from "../../../routes/Route.name";
 import constants from "../../../config/constants";
 import { actionFetchEmployee } from "../../../actions/Employee.action";
 import { serviceGetList } from "../../../services/Common.service";
+import { serviceBGVDownload } from "../../../services/PendingBGVerification.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const usePendingBGVerification_Hook = () => {
   const [isCalling] = useState(false);
@@ -49,7 +51,6 @@ const usePendingBGVerification_Hook = () => {
   // }, []);
   console.log("list", listData);
   const handlePageChange = useCallback((type) => {
-
     dispatch(actionSetPagePendingBGVList(type));
   }, []);
 
@@ -117,8 +118,26 @@ const usePendingBGVerification_Hook = () => {
     historyUtils.push(`${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}`);
   }, []);
 
-  const handleBgvAnalysiReport = useCallback((data) => {
-    historyUtils.push(`${RouteName.BGV_ANALYSI_REPOST}${data?.id}`);
+  const handleBgvAnalysisReport = useCallback((data) => {
+    historyUtils.push(`${RouteName.BGV_ANALYSI_REPOST}`);
+  }, []);
+
+  const handleBgvReportDownload = useCallback((data) => {
+    serviceBGVDownload({
+      index: 1,
+      order: null,
+      query: "",
+      query_data: null,
+      row: null,
+    })
+      .then((res) => {
+        if (!res?.error) {
+          SnackbarUtils.success(res?.message);
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      })
+      .catch((error) => {});
   }, []);
 
   const initData = useCallback(() => {
@@ -175,7 +194,8 @@ const usePendingBGVerification_Hook = () => {
     configFilter,
     handleViewDetails,
     handleBGVDetails,
-    handleBgvAnalysiReport,
+    handleBgvAnalysisReport,
+    handleBgvReportDownload,
   };
 };
 
