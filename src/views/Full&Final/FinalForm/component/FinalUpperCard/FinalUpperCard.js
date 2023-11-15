@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Style.module.css";
 import image from "../../../../../assets/img/download.png";
 
-function FinalUpperCard({ data }) {
+function FinalUpperCard({ data, otherData }) {
   return (
     <div className={styles.newContainer}>
       <div className={styles.editFlex}>
@@ -47,6 +47,32 @@ function FinalUpperCard({ data }) {
               <span className={styles.value}>Date of Resignation:</span>
               {data?.expected_dor_text}
             </div>
+            {otherData?.id && (
+              <>
+                <div className={styles.key}>
+                  <span className={styles.value}>
+                    Permitted Leaves on Notice:
+                  </span>
+                  {otherData?.notice_leave_permitted}
+                </div>
+                <div className={styles.key}>
+                  <span className={styles.value}>Applicable Shortfall:</span>
+                  {otherData?.shortfall_applicable}
+                </div>{" "}
+                <div className={styles.key}>
+                  <span className={styles.value}>Actual DOL:</span>
+                  {otherData?.dol}
+                </div>{" "}
+                <div className={styles.key}>
+                  <span className={styles.value}>Served For:</span>
+                  {otherData?.served_for}
+                </div>
+                <div className={styles.key}>
+                  <span className={styles.value}>Remarks about shortfall:</span>
+                  -
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className={styles.vertical}></div>
@@ -74,12 +100,38 @@ function FinalUpperCard({ data }) {
           <div className={styles.key}>
             <span className={styles.value}>Separation By Virtue of:</span>-
           </div>{" "}
-          {/* <div className={styles.key}>
-            <span className={styles.value}>
-              Leaves to be added in Shortfall:
-            </span>
-            {data?.department?.name}
-          </div> */}
+          {otherData?.id && (
+            <>
+              <div className={styles.key}>
+                <span className={styles.value}>
+                  Shortfall of Notice Period:
+                </span>
+                {otherData?.shortfall_notice_period}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>
+                  Leaves to be added in Shortfall:
+                </span>
+                {otherData?.shortfall_notice_period}
+              </div>{" "}
+              <div className={styles.key}>
+                <span className={styles.value}>
+                  Planned Date of Separation:
+                </span>
+                {otherData?.pds}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Notice Period in Days:</span>
+                {otherData?.notice_period}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>
+                  Leaves Availed on Notice/LOP:
+                </span>
+                {otherData?.notice_leave_availed}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -16,7 +16,9 @@
     font-size: 14px;
     font-weight: 500;
 }
-
+.wrap{
+    width: 80%;
+}
 .subText {
     margin:20px 0px;
     font-weight: 400;

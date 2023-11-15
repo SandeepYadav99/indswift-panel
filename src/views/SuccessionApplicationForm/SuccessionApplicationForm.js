@@ -29,7 +29,7 @@ function SuccessionApplicationForm() {
           />
         </div>
         <div className={styles.loginSignupText}>
-          <h1 className={styles.headingText}>Exit Interview</h1>
+          <h1 className={styles.headingText}>Employee Succession Form</h1>
           <div className={styles.newLine} />
           <p className={styles.newLinetitle}>
             Enter your Employee Code and the OTP that you have received on your
@@ -40,30 +40,30 @@ function SuccessionApplicationForm() {
         <div>
           <div>
             <CustomTextField
-              isError={errorData?.emp_code}
-              errorText={errorData?.emp_code}
-              label={"Employee Code"}
-              value={form?.emp_code}
+              isError={errorData?.email}
+              errorText={errorData?.email}
+              label={"Email"}
+              value={form?.email}
               onTextChange={(text) => {
-                changeTextData(text, "emp_code");
+                changeTextData(text, "email");
               }}
               onBlur={() => {
-                onBlurHandler("emp_code");
+                onBlurHandler("email");
               }}
             />
           </div>
           <br />
           <div>
             <CustomTextField
-              isError={errorData?.code}
-              errorText={errorData?.code}
+              isError={errorData?.otp}
+              errorText={errorData?.otp}
               label={"OTP"}
-              value={form?.code}
+              value={form?.otp}
               onTextChange={(text) => {
-                changeTextData(text, "code");
+                changeTextData(text, "otp");
               }}
               onBlur={() => {
-                onBlurHandler("code");
+                onBlurHandler("otp");
               }}
             />
           </div>
