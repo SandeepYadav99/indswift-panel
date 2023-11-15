@@ -176,7 +176,7 @@ const rootReducer = combineReducers({
   C3MLetter:C3MLetterReducer,
   AppointmentLetter:AppointmentLetterReducer,
   RelievingExpLetter:RelievingExpLetterReducer,
-  successionPlaner: SuccessionPlanerReducer,
+  // successionPlaner: SuccessionPlanerReducer,
   // form: formReducer,
 });
 
