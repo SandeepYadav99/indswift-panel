@@ -89,11 +89,7 @@ import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
 
 import LeaveListReducer from "./LeaveList.reducer";
 import FinalFormReducer from "./FinalForm.reducer";
-<<<<<<< HEAD
-import SuccessionPlanerReducer from "./SuccessionPlaner.reducer";
-=======
 import FinalFormApprovalReducer from "./FinalFormApproval.reducer";
->>>>>>> development
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form: formReducer,
