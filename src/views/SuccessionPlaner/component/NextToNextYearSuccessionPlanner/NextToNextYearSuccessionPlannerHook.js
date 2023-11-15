@@ -22,14 +22,6 @@ const useNextToNextYearSuccessionPlanner = ({ jobId }) => {
   });
 
   useEffect(() => {
-    dispatch(actionGetJobOpeningCandidates(jobId));
-  }, []);
-
-  useEffect(() => {
-    setData(candidates);
-  }, [candidates]);
-
-  useEffect(() => {
     _processData();
   }, [data, currentPage]);
 
