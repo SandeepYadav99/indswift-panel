@@ -225,6 +225,8 @@ export default {
 
   FULL_FINAL_APPLICATION:"/full-final",
   FULL_FINAL_APPROVAL:"/full-final-approval",
+  FULL_FINAL_DETAIL_APPROVAL:"/full-final/detail/",
+
   FULL_FINAL_FORM:"/full/form/",
   FULL_FINAL_DETAIL:"/full/detail/",
 
