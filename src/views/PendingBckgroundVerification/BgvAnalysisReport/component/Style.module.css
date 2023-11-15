@@ -1,19 +1,26 @@
- 
   .myTable {
     border-collapse: collapse;
-    width: 100%; 
+    width: 100%;
     font-size: 14px;
     color: #000;
-  
+    overflow-x: auto; 
+    display: block;
   }
   
-  .myTable th, .myTable td {
-    border: 1px solid black; 
+  .myTable th,
+  .myTable td {
+    border: 1px solid black;
     padding: 8px;
-    text-align: left; 
-  
+    text-align: left;
   }
   
+  @media  (min-width: 1068px) {
+    .myTable {
+      display: table;
+      overflow-x: inherit;
+    }
+  }
+
   .noBorder {
     border: none;
   }
@@ -24,3 +31,4 @@
   .bgColorRow{
     background-color: #ECF7FF;
   }
+  

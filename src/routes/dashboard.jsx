@@ -540,6 +540,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'employeedashboard',
+    roles:[Roles.CORPORATE_HR, Roles.ADMIN]
   },
   {
     path: RouteName.EXPIRING_OFFER_LETTER,
@@ -2312,7 +2313,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     // parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.BGV_ANALYSI_REPOST}:id`,

@@ -78,9 +78,9 @@ import EmployeeLoanListReducer from "./EmployeeLoanList.reducer";
 import LoanListReducer from "./LoanList.reducer";
 import NewEmployeeListReducer from "./NewEmployeeList.reducer";
 import OngoingLoansReducer from "./OngoingLoans.reducer";
-import LeaveReducer from './LeaveModule.reducer';
+import LeaveReducer from "./LeaveModule.reducer";
 import ExpirOfferLetterReducer from "./ExpirOfferLetter.reducer";
-import NAPS_TraningReducer from "./NAPS_Traning.reducer"
+import NAPS_TraningReducer from "./NAPS_Traning.reducer";
 import PendingBGVReducer from "./PendingBGV.reducer";
 import C3MLetterReducer from "./C3MLetter.reducer";
 import AppointmentLetterReducer from "./AppointmentLetter.reducer";
@@ -89,6 +89,7 @@ import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
 import ExitInterviewReducer from "./ExitInterview.reducer";
 import LeaveListReducer from "./LeaveList.reducer";
 import FinalFormReducer from "./FinalForm.reducer";
+import SuccessionPlanerReducer from "./SuccessionPlaner.reducer";
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form: formReducer,
@@ -122,8 +123,8 @@ const rootReducer = combineReducers({
   grade: GradeReducer,
   cadre: CadreReducer,
   candidate: CandidateReducer,
-  claims:ClaimsReducer,
-  emp_claimList:EmployeeClaimListReducer,
+  claims: ClaimsReducer,
+  emp_claimList: EmployeeClaimListReducer,
   interviewSchedule: InterviewScheduleReducer,
   annual: AnnualReducer,
   manpower: ManpowerReducer,
@@ -136,44 +137,45 @@ const rootReducer = combineReducers({
   cvShortlist: CVShortlistReducer,
   employeeDashboard: EmployeeDashboard,
   employee_versions: EmployeeVersions,
-  review_olr:ReviewOLRReducer,
-  pmsBatch:PmsBatchReducer,
-  pmsReview:PmsReviewReducer,
-  pmsPlanner:PmsPlannerReducer,
-  pmsPending:PmsPendingReducer,
-  budget_pending:BudgetPendingReducer,
-  pmsPendingReview:PmsPendingReviewReducer,
+  review_olr: ReviewOLRReducer,
+  pmsBatch: PmsBatchReducer,
+  pmsReview: PmsReviewReducer,
+  pmsPlanner: PmsPlannerReducer,
+  pmsPending: PmsPendingReducer,
+  budget_pending: BudgetPendingReducer,
+  pmsPendingReview: PmsPendingReviewReducer,
   employeeReport: EmployeeReportReducer,
-  interview_claims:InterviewClaimsReducer,
-  PmsNormalize:PmsNormalizeReducer,
-  travel:TravelReducer,
-  travelAuth:TravelAuthReducer,
-  pmsHodBatches:PmsHodReducer,
-  pmsHodMyReviews:PmsHodReviewReducer,
-  imprest:ImprestReducer,
-  claimsReport:ClaimsReportReducer,
-  claimCarReport:ClaimCarReportReducer,
+  interview_claims: InterviewClaimsReducer,
+  PmsNormalize: PmsNormalizeReducer,
+  travel: TravelReducer,
+  travelAuth: TravelAuthReducer,
+  pmsHodBatches: PmsHodReducer,
+  pmsHodMyReviews: PmsHodReviewReducer,
+  imprest: ImprestReducer,
+  claimsReport: ClaimsReportReducer,
+  claimCarReport: ClaimCarReportReducer,
   pmsSiteReview: PmsSiteReviewReducer,
-  pmsSiteMyReviews:PMSSitePendingReviewReducer,
-  employeeImprest:EmployeeImprestReducer,
-  imprestApproval:ImprestApprovalReducer,
-  imprest_detail:ImprestApprovalDetailReducer,
+  pmsSiteMyReviews: PMSSitePendingReviewReducer,
+  employeeImprest: EmployeeImprestReducer,
+  imprestApproval: ImprestApprovalReducer,
+  imprest_detail: ImprestApprovalDetailReducer,
   pmsOverallHodBatches: PmsOverallHodReducer,
   pmsOverallHodMyReviews: PmsOverallHodReviewReducer,
-  emp_loanList:EmployeeLoanListReducer,
-  loanList:LoanListReducer,
-  newEmployee:NewEmployeeListReducer,
-  expirOfferLetter:ExpirOfferLetterReducer,
-  napsTraning:NAPS_TraningReducer,
-  pendingBGV:PendingBGVReducer,
-  OngoingLoans:OngoingLoansReducer,
-  LeaveModule:LeaveReducer,
-  exit_interview:ExitInterviewReducer,
-  leave_list:LeaveListReducer,
-  final_form:FinalFormReducer,
-  C3MLetter:C3MLetterReducer,
-  AppointmentLetter:AppointmentLetterReducer,
-  RelievingExpLetter:RelievingExpLetterReducer
+  emp_loanList: EmployeeLoanListReducer,
+  loanList: LoanListReducer,
+  newEmployee: NewEmployeeListReducer,
+  expirOfferLetter: ExpirOfferLetterReducer,
+  napsTraning: NAPS_TraningReducer,
+  pendingBGV: PendingBGVReducer,
+  OngoingLoans: OngoingLoansReducer,
+  LeaveModule: LeaveReducer,
+  exit_interview: ExitInterviewReducer,
+  leave_list: LeaveListReducer,
+  final_form: FinalFormReducer,
+  C3MLetter: C3MLetterReducer,
+  AppointmentLetter: AppointmentLetterReducer,
+  RelievingExpLetter: RelievingExpLetterReducer,
+  successionPlaner: SuccessionPlanerReducer,
   // form: formReducer,
 });
 

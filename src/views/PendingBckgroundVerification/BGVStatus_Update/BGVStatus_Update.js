@@ -8,14 +8,10 @@ import historyUtils from "../../../libs/history.utils";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
+import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 const BGVStatus_Update = () => {
-  const {
-   
-    form,
-    changeTextData,
-    errorData,
-    handleSubmit,
-  } = useCandidateUpdate_Hook({});
+  const { form, changeTextData, errorData, handleSubmit } =
+    useCandidateUpdate_Hook({});
 
   return (
     <div>
@@ -32,10 +28,12 @@ const BGVStatus_Update = () => {
       </div>
       <CandidateInfor empId={form?.emp_code} />
       <div className={styles.plainPaper}>
-        <div >
-          <div className={styles.required_action}>Background Verification Status </div>
-         <div className={styles.gaps}/>
-          <span >Update Verification Status</span>
+        <div>
+          <div className={styles.required_action}>
+            Background Verification Status{" "}
+          </div>
+          <div className={styles.gaps} />
+          <span>Update Verification Status</span>
         </div>
         <div className={styles.newContainer}>
           <div className={styles.mainFlex}>
@@ -112,7 +110,6 @@ const BGVStatus_Update = () => {
                   label={"Choose Status"}
                   value={form?.is_education_verification_status}
                   handleChange={(value) => {
-                   
                     changeTextData(value, "is_education_verification_status");
                   }}
                 >
@@ -207,9 +204,10 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "bgv_result");
                 }}
               >
-                <MenuItem value="IN_PROCESS">In_Process</MenuItem>
-                <MenuItem value="CLEAR">Clear </MenuItem>
                 <MenuItem value="PENDING">Pending </MenuItem>
+                <MenuItem value="FAILED">Failed </MenuItem>
+                <MenuItem value="CLEAR">Clear </MenuItem>
+                <MenuItem value="IN_PROCESS">In Process</MenuItem>
               </CustomSelectField>
             </div>
           </div>
@@ -222,9 +220,8 @@ const BGVStatus_Update = () => {
       </div>
 
       <div className={styles.plainPaper}>
-      <div >
+        <div>
           <div className={styles.required_action}>Required Action Details </div>
-        
         </div>
         <div className={styles.newContainer}>
           <div className={"formFlex"}>
@@ -238,9 +235,9 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "choose_action");
                 }}
               >
-                <MenuItem value="ISL">Isl</MenuItem>
-                <MenuItem value="ISLL">Isll </MenuItem>
-                <MenuItem value="ESIX">Esix</MenuItem>
+                <MenuItem value="TERMINATED">Terminated</MenuItem>
+                <MenuItem value="ALLOWED_TO_WORK">Allowed to work </MenuItem>
+                <MenuItem value="NA">N/A</MenuItem>
               </CustomSelectField>
             </div>
           </div>
@@ -277,7 +274,8 @@ const BGVStatus_Update = () => {
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <span>
-                <b>Cost: </b><span className={styles.right_gaps}>{form?.cost}</span>    
+                <b>Cost: </b>
+                <span className={styles.right_gaps}>₹ {form?.cost}</span>
                 <div className={styles.gaps}></div>
               </span>
               <CustomSelectField
@@ -289,28 +287,29 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "payment_status");
                 }}
               >
-                <MenuItem value="IN_PROCESS">In-Process</MenuItem>
+                <MenuItem value="IN_PROCESS">In Process</MenuItem>
                 <MenuItem value="CLEAR">Clear </MenuItem>
                 <MenuItem value="PENDING">Pending </MenuItem>
               </CustomSelectField>
             </div>
             <div className={"formGroup"}>
               <span>
-                <b>Billing To:</b>{" "}<span className={styles.right_gaps}> {form?.billing_to}</span>       
+                <b>Billing To:</b>{" "}
+                <span className={styles.right_gaps}> {form?.billing_to}</span>
               </span>
               <div className={styles.gaps}></div>
-              <CustomSelectField
-                isError={errorData?.payment_complete}
-                errorText={errorData?.payment_complete}
-                label={"Complete in "}
-                value={form?.payment_complete}
-                handleChange={(value) => {
-                  changeTextData(value, "payment_complete");
-                }}
-              >
-                <MenuItem value="2023-09-08">2023-09-08</MenuItem>
-                {/* <MenuItem value="esix">ESIX </MenuItem> */}
-              </CustomSelectField>
+            
+                  <CustomDatePicker
+                      clearable
+                      label={"Complete in "}
+                      maxDate={new Date()}
+                      onChange={(value) => {
+                        changeTextData(value, "payment_complete");
+                      }}
+                      value={form?.payment_complete}
+                      isError={errorData?.payment_complete}
+                      errorText={errorData?.payment_complete}
+                 />
             </div>
           </div>
         </div>
@@ -330,7 +329,7 @@ const BGVStatus_Update = () => {
               fontSize: "13px",
             }}
           >
-            Any Remarks added while sending BGV form will be shown here
+            {form?.remark}
           </p>
         </div>
       </div>

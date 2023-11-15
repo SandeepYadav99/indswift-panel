@@ -38,7 +38,7 @@ const useRelievingExpLetterDetail = () => {
     if (isSiteHRApprovedPending) {
       required.push("general_conduct");
     }
- 
+
     required.forEach((val) => {
       if (
         !form?.[val] ||

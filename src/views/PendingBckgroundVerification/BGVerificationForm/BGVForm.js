@@ -153,9 +153,9 @@ const BGVForm = () => {
                   changeTextData(value, "billing_to");
                 }}
               >
-                <MenuItem value="isl">ISL</MenuItem>
-                <MenuItem value="isll">ISLL </MenuItem>
-                <MenuItem value="esix">ESIX </MenuItem>
+                <MenuItem value="ISL">Isl</MenuItem>
+                <MenuItem value="ISLL">Isll</MenuItem>
+                <MenuItem value="ESIX">Esix </MenuItem>
               </CustomSelectField>
             </div>
           </div>
