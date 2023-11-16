@@ -1409,15 +1409,15 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.car_maintenance_recovery}
-              errorText={errorData?.car_maintenance_recovery}
+              isError={errorData?.car_maintenance_recovery_comment}
+              errorText={errorData?.car_maintenance_recovery_comment}
               label={"Comments"}
-              value={form?.car_maintenance_recovery}
+              value={form?.car_maintenance_recovery_comment}
               onTextChange={(text) => {
-                changeTextData(text, "car_maintenance_recovery");
+                changeTextData(text, "car_maintenance_recovery_comment");
               }}
               onBlur={() => {
-                onBlurHandler("car_maintenance_recovery");
+                onBlurHandler("car_maintenance_recovery_comment");
               }}
             />
           </div>
