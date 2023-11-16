@@ -237,6 +237,7 @@ export default {
   EXIT_INTERVIEW_FORM:"/exit/interview/form",
   EXIT_DETAIL:"/exit/details/",
 
-  SUCCESSION_FORM:"/succession/form"
+  SUCCESSION_FORM:"/succession/form",
+  SUCCESSION_FORM_INNER:"/succession/details"
 
 };

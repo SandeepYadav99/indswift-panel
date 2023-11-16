@@ -570,17 +570,17 @@ const dashboardRoutes = [
     should_regex: true,
     // parent: 'employeedashboard',
   },
-  // {
-  //   path: RouteName.SUCCESSION_PLANNER,
-  //   sidebarName: "Succession Planner",
-  //   navbarName: "Succession Planner",
-  //   icon: AssignmentOutlined,
-  //   component: SuccessionPlannerList,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  //   should_regex: true,
-  //   // parent: 'employeedashboard',
-  // },
+  {
+    path: RouteName.SUCCESSION_PLANNER,
+    sidebarName: "Succession Planner",
+    navbarName: "Succession Planner",
+    icon: AssignmentOutlined,
+    component: SuccessionPlannerList,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    // parent: 'employeedashboard',
+  },
 
   {
     path: "/employeeInduction",

@@ -8,18 +8,16 @@ import {
   SET_FILTER,
   SET_PAGE,
   CHANGE_PAGE,
+  CHANGE_PAGE_NEXT,
+  CHANGE_PAGE_NEXT_NEXT,
   CHANGE_STATUS,
   SET_SERVER_PAGE,
-  CREATE_DATA,
-  UPDATE_DATA,
-  DELETE_ITEM,
   FETCHED_YEAR,
-  FETCHED_NEXT_YEAR,
-  FETCHED_NEXT_NEXT_YEAR,
 } from "../actions/SuccessionPlanner.action";
 import constants from "../config/constants";
 
 function mapPresetPRequest(all, pageId) {
+  // console.log("after", all, pageId);
   return all?.filter((val, index) => {
     if (
       index >= (pageId + 1) * constants.PAGE_VALUE - constants.PAGE_VALUE &&
@@ -79,19 +77,9 @@ export default function (
       } else {
         newNextNextYear = [...state.allNextNextYear, ...nextNextYear_];
       }
-      const tableDataThisYear = mapPresetPRequest(
-        newThisYear,
-        state.currentPage
-      );
-      const tableDataNextYear = mapPresetPRequest(
-        newNextYear,
-        state.currentPage
-      );
-      const tableDataNextNextYear = mapPresetPRequest(
-        newNextNextYear,
-        state.currentPage
-      );
-
+      const tableDataThisYear = mapPresetPRequest(newThisYear, state.currentPage);
+      const tableDataNextYear = mapPresetPRequest(newNextYear, state.currentPage);
+       const tableDataNextNextYear = mapPresetPRequest(newNextNextYear, state.currentPage);
       return {
         ...state,
         allThisYear: newThisYear,
@@ -107,99 +95,33 @@ export default function (
     case SET_SORTING: {
       return { ...state, sorting_data: action.payload };
     }
-    case CHANGE_STATUS: {
-      if (action.payload) {
-        const prevState = state.all;
-        prevState.forEach((val) => {
-          if (val.id == action.payload.id) {
-            val.status =
-              action.payload.status == "SUSPEND" ? "SUSPEND" : "ACTIVE";
-            return true;
-          }
-        });
-        // const newState = state.all.map((val) => {
-        //     if (val.id == action.payload.id) {
-        //         return { ...val, status: action.payload.status == 'SUSPEND' ? 'SUSPEND' : 'ACTIVE' };
-        //     } return { ...val };
-        // });
-        const tableData = mapPresetPRequest(prevState, state.currentPage);
-        return { ...state, all: prevState, data: tableData };
-      }
-      return state;
-    }
-    case CREATE_DATA: {
-      if (action.payload) {
-        const prevState = state.all;
-        prevState.unshift(action.payload);
-        const tableData = mapPresetPRequest(prevState, state.currentPage);
-        return { ...state, all: prevState, data: tableData };
-      }
-      return state;
-    }
-    case UPDATE_DATA: {
-      if (action.payload) {
-        const prevState = state.all;
-        let tIndex = null;
-        prevState.some((val, index) => {
-          if (val.id == action.payload.id) {
-            tIndex = index;
-            return true;
-          }
-        });
-        // const newState = state.all.map((val) => {
-        //     if (val.id == action.payload.id) {
-        //         return { ...val, status: action.payload.status == 'SUSPEND' ? 'SUSPEND' : 'ACTIVE' };
-        //     } return { ...val };
-        // });
-        if (tIndex != null) {
-          prevState[tIndex] = action.payload;
-        }
-        const tableData = mapPresetPRequest(prevState, state.currentPage);
-        return { ...state, all: prevState, data: tableData };
-      }
-      return state;
-    }
 
-    case DELETE_ITEM: {
-      if (action.payload) {
-        let tempIndex = null;
-        const prevState = state.all;
-        const id = action.payload;
-
-        prevState.some((val, index) => {
-          if (val.id == id) {
-            tempIndex = index;
-            return true;
-          }
-        });
-
-        if (tempIndex != null) {
-          prevState.splice(tempIndex, 1);
-        }
-        const tableData = mapPresetPRequest(prevState, state.currentPage);
-        return { ...state, all: prevState, data: tableData };
-      }
-      return state;
-    }
-    // case NEX: {
-    //     const tableData = mapPresetPRequest(state.all, state.currentPage + 1);
-    //     return { ...state, data: tableData, currentPage: (state.currentPage + 1) };
-    // }
-    // case PREV_PREQUESTS: {
-    //     const tableData = mapPresetPRequest(state.all, state.currentPage - 1);
-    //     return { ...state, data: tableData, currentPage: (state.currentPage - 1) };
-    // }
     case CHANGE_PAGE: {
       const tempPage = action.payload;
-      const tableData = mapPresetPRequest(state.all, tempPage);
-      return { ...state, data: tableData, currentPage: tempPage };
+      const tableData = mapPresetPRequest(state.allThisYear, tempPage);
+      return { ...state, year: tableData, currentPage: tempPage };
+    }
+    case CHANGE_PAGE_NEXT: {
+      const tempPage = action.payload;
+      const tableData = mapPresetPRequest(state.allNextYear, tempPage);
+      return { ...state, nextYear: tableData, currentPage: tempPage };
+    }
+    case CHANGE_PAGE_NEXT_NEXT: {
+      const tempPage = action.payload;
+      const tableData = mapPresetPRequest(state.allNextNextYear, tempPage);
+      console.log("table", tableData);
+      return { ...state, nextNextYear: tableData, currentPage: tempPage };
     }
     case FETCH_NEXT: {
-      const newAll = state.all.concat(action.payload);
-      return { ...state, all: newAll, serverPage: state.serverPage + 1 };
+      const newAll = state.allThisYear.concat(action.payload);
+      return {
+        ...state,
+        allThisYear: newAll,
+        serverPage: state.serverPage + 1,
+      };
     }
     case FILTER: {
-      return { ...state, data: action.payload };
+      return { ...state, year: action.payload };
     }
     case SET_FILTER: {
       return {
@@ -209,8 +131,8 @@ export default function (
       };
     }
     case RESET_FILTER: {
-      const tableData = mapPresetPRequest(state.all, state.currentPage);
-      return { ...state, data: tableData };
+      const tableData = mapPresetPRequest(state.allThisYear, state.currentPage);
+      return { ...state, year: tableData };
     }
     case SET_PAGE: {
       return { ...state, currentPage: action.payload };

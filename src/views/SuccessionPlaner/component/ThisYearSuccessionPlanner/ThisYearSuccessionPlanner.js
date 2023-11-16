@@ -7,7 +7,7 @@ import DataTables from "../../../../Datatables/Datatable.table";
 import Constants from "../../../../config/constants";
 import styles from "./Style.module.css";
 import classNames from "classnames";
-import { Add, CachedOutlined, Edit, InfoOutlined } from "@material-ui/icons";
+import { Add, Edit, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
 
 import FilterComponent from "../../../../components/Filter/Filter.component";
@@ -17,14 +17,7 @@ import SuccessionHistory from "./SuccessionHistory/SuccessionHistory";
 import SuccessionPlannerDetailform from "./SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 import { useSelector } from "react-redux";
 
-const ThisYearSuccessionPlanner = ({
-  jobId,
-  data,
-  all: allData,
-  isFetching: isFetching,
-  currentPage,
-  configFilter,
-}) => {
+const ThisYearSuccessionPlanner = ({listData}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -35,13 +28,20 @@ const ThisYearSuccessionPlanner = ({
     handleViewDetails,
     editData,
     isCalling,
-    // configFilter,
+    configFilter,
     isSidePanel,
     handleToggleSidePannel,
     isSidePanelForm,
     handleToggleSidePannelForm,
     isCandidatesFetching,
-  } = useThisYearSuccessionPlaner({ jobId });
+  } = useThisYearSuccessionPlaner({listData});
+
+  const {
+    year: data,
+    allThisYear: allData,
+    currentPage,
+    is_fetching: isFetching,
+  } = useSelector((state) => state.successionPlaner);
 
   const UpperInfo = useCallback(
     (obj) => {
@@ -235,6 +235,7 @@ const ThisYearSuccessionPlanner = ({
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
+      rowsPerPage: 10,
       columns: tableStructure,
       data: data,
       count: allData.length,

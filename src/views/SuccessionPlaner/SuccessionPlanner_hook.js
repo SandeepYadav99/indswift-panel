@@ -1,11 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchSuccessionPlaner } from "../../actions/SuccessionPlanner.action";
+import { serviceGetList } from "../../services/Common.service";
 
 const useSuccessionPlanner_hook = ({ jobId }) => {
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
-
+  const [listData, setListData] = useState({
+    LOCATIONS: [],
+    GRADES: [],
+    DEPARTMENTS: [],
+  });
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -23,8 +28,15 @@ const useSuccessionPlanner_hook = ({ jobId }) => {
     isMountRef.current = true;
   }, []);
 
-  
-  return {};
+  useEffect(() => {
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
+
+  return { listData };
 };
 
 export default useSuccessionPlanner_hook;
