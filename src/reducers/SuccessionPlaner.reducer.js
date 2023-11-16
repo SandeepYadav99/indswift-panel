@@ -8,6 +8,8 @@ import {
   SET_FILTER,
   SET_PAGE,
   CHANGE_PAGE,
+  CHANGE_PAGE_NEXT,
+  CHANGE_PAGE_NEXT_NEXT,
   CHANGE_STATUS,
   SET_SERVER_PAGE,
   FETCHED_YEAR,
@@ -15,7 +17,7 @@ import {
 import constants from "../config/constants";
 
 function mapPresetPRequest(all, pageId) {
-  console.log('after',all,pageId)
+  // console.log("after", all, pageId);
   return all?.filter((val, index) => {
     if (
       index >= (pageId + 1) * constants.PAGE_VALUE - constants.PAGE_VALUE &&
@@ -28,11 +30,11 @@ function mapPresetPRequest(all, pageId) {
 
 const initialState = {
   allThisYear: [],
-  allNextYear:[],
-  allNextNextYear:[],
+  allNextYear: [],
+  allNextNextYear: [],
   year: [],
   nextYear: [],
-  nextNextYear:[],
+  nextNextYear: [],
   currentPage: 0,
   serverPage: 0,
   query: null, // search text data
@@ -61,48 +63,71 @@ export default function (
       } else {
         newThisYear = [...state.allThisYear, ...thisYear];
       }
-      // 2 
-      let newNextYear =[];
-      if(page=== 1){
-        newNextYear=[...nextYear]
-      }else{
-        newNextYear =[...state.allNextYear, ...nextYear]
+      // 2
+      let newNextYear = [];
+      if (page === 1) {
+        newNextYear = [...nextYear];
+      } else {
+        newNextYear = [...state.allNextYear, ...nextYear];
       }
-// 3
-      let newNextNextYear =[];
-      if(page=== 1){
-        newNextNextYear=[...nextNextYear_]
-      }else{
-        newNextNextYear =[...state.allNextNextYear, ...nextNextYear_]
+      // 3
+      let newNextNextYear = [];
+      if (page === 1) {
+        newNextNextYear = [...nextNextYear_];
+      } else {
+        newNextNextYear = [...state.allNextNextYear, ...nextNextYear_];
       }
-      const tableDataThisYear = mapPresetPRequest(newThisYear, state.currentPage);
-      const tableDataNextYear = mapPresetPRequest(newNextYear, state.currentPage);
-       const tableDataNextNextYear = mapPresetPRequest(newNextNextYear, state.currentPage);
+      const tableDataThisYear = mapPresetPRequest(
+        newThisYear,
+        state.currentPage
+      );
+      const tableDataNextYear = mapPresetPRequest(
+        newNextYear,
+        state.currentPage
+      );
+      const tableDataNextNextYear = mapPresetPRequest(
+        newNextNextYear,
+        state.currentPage
+      );
       return {
         ...state,
         allThisYear: newThisYear,
-        allNextYear:newNextYear,
-        allNextNextYear:newNextNextYear,
+        allNextYear: newNextYear,
+        allNextNextYear: newNextNextYear,
         year: tableDataThisYear,
         nextYear: tableDataNextYear,
         nextNextYear: tableDataNextNextYear,
         is_fetching: false,
-       
       }; // { ...state , all: newAll, data: tableData, serverPage: 1, currentPage: 1 };
     }
 
     case SET_SORTING: {
       return { ...state, sorting_data: action.payload };
     }
-    
+
     case CHANGE_PAGE: {
       const tempPage = action.payload;
       const tableData = mapPresetPRequest(state.allThisYear, tempPage);
       return { ...state, year: tableData, currentPage: tempPage };
     }
+    case CHANGE_PAGE_NEXT: {
+      const tempPage = action.payload;
+      const tableData = mapPresetPRequest(state.allNextYear, tempPage);
+      return { ...state, nextYear: tableData, currentPage: tempPage };
+    }
+    case CHANGE_PAGE_NEXT_NEXT: {
+      const tempPage = action.payload;
+      const tableData = mapPresetPRequest(state.allNextNextYear, tempPage);
+      console.log("table", tableData);
+      return { ...state, nextNextYear: tableData, currentPage: tempPage };
+    }
     case FETCH_NEXT: {
       const newAll = state.allThisYear.concat(action.payload);
-      return { ...state, allThisYear: newAll, serverPage: state.serverPage + 1 };
+      return {
+        ...state,
+        allThisYear: newAll,
+        serverPage: state.serverPage + 1,
+      };
     }
     case FILTER: {
       return { ...state, year: action.payload };

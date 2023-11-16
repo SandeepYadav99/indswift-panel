@@ -7,10 +7,9 @@ import NextToNextYearSuccessionPlanner from "./component/NextToNextYearSuccessio
 import { useSelector } from "react-redux";
 
 const SuccessionPlannerList = ({ jobId }) => {
-  const { candidateEl, handleCreate, typeData, user_id, handleCsvDownload } =
-    useSuccessionPlanner_hook({
-      jobId,
-    });
+  const { listData } = useSuccessionPlanner_hook({
+    jobId,
+  });
 
   return (
     <div>
@@ -24,7 +23,7 @@ const SuccessionPlannerList = ({ jobId }) => {
           </div>
         </div>
 
-        <ThisYearSuccessionPlanner />
+        <ThisYearSuccessionPlanner listData={listData}/>
       </div>
 
       <div className={styles.plainPaper}>
@@ -36,12 +35,7 @@ const SuccessionPlannerList = ({ jobId }) => {
             <div className={styles.newLine2} />
           </div>
         </div>
-        {/* <NextYearSuccessionPlanner
-          // data={nextYear}
-          // all={allNextYearData}
-          // currentPage={currentPage}
-          // isFetching={isFetching}
-        /> */}
+        <NextYearSuccessionPlanner listData={listData}/>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.headingWrap}>
@@ -52,12 +46,7 @@ const SuccessionPlannerList = ({ jobId }) => {
             <div className={styles.newLine2} />
           </div>
         </div>
-        {/* <NextToNextYearSuccessionPlanner
-          // data={allNextNextYear}
-          // all={allNextNextYearData}
-          // currentPage={currentPage}
-          // isFetching={isFetching}
-        /> */}
+        <NextToNextYearSuccessionPlanner listData={listData}/>
       </div>
     </div>
   );

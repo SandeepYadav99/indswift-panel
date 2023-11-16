@@ -9,17 +9,12 @@ import {
 import { serviceGetList } from "../../../../services/Common.service";
 import { useEffect } from "react";
 
-const useThisYearSuccessionPlaner = ({ jobId }) => {
+const useThisYearSuccessionPlaner = ({ jobId ,listData}) => {
   const dispatch = useDispatch();
   const [isSidePanel, setSidePanel] = useState(false);
   const [isSidePanelForm, setSidePanelForm] = useState(false);
   const isMountRef = useRef(false);
-
-  const [listData, setListData] = useState({
-    LOCATIONS: [],
-    GRADES: [],
-    DEPARTMENTS: [],
-  });
+  
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -34,13 +29,7 @@ const useThisYearSuccessionPlaner = ({ jobId }) => {
   const handleRowSize = (page) => {
     console.log(page);
   };
-  useEffect(() => {
-    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
-    });
-  }, []);
+
   const queryFilter = useCallback(
     (key, value) => {
       // dispatch(actionSetPageFinalFormRequests(1));

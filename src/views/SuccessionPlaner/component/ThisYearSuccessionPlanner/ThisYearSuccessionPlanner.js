@@ -17,7 +17,7 @@ import SuccessionHistory from "./SuccessionHistory/SuccessionHistory";
 import SuccessionPlannerDetailform from "./SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 import { useSelector } from "react-redux";
 
-const ThisYearSuccessionPlanner = () => {
+const ThisYearSuccessionPlanner = ({listData}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -34,7 +34,7 @@ const ThisYearSuccessionPlanner = () => {
     isSidePanelForm,
     handleToggleSidePannelForm,
     isCandidatesFetching,
-  } = useThisYearSuccessionPlaner({});
+  } = useThisYearSuccessionPlaner({listData});
 
   const {
     year: data,

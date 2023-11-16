@@ -7,21 +7,16 @@ import DataTables from "../../../../Datatables/Datatable.table";
 import Constants from "../../../../config/constants";
 import styles from "./Style.module.css";
 import classNames from "classnames";
-import { Add, CachedOutlined, Edit, InfoOutlined } from "@material-ui/icons";
+import { Add, Edit, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
-
 import FilterComponent from "../../../../components/Filter/Filter.component";
-
+import SidePanelComponent from "../../../../components/SidePanel/SidePanel.component";
+import { useSelector } from "react-redux";
 import useNextToNextYearSuccessionPlanner from "./NextToNextYearSuccessionPlannerHook";
+import SuccessionHistory from "../ThisYearSuccessionPlanner/SuccessionHistory/SuccessionHistory";
+import SuccessionPlannerDetailform from "../ThisYearSuccessionPlanner/SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 
-const NextToNextYearSuccessionPlanner = ({
-  jobId,
-  data,
-  all:allData,
-  isFetching: isFetching,
-  currentPage,
-  source
-}) => {
+const NextToNextYearSuccessionPlanner = ({listData}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -32,37 +27,77 @@ const NextToNextYearSuccessionPlanner = ({
     handleViewDetails,
     editData,
     isCalling,
-  
     configFilter,
-    // handleInterviewSidepanel,
-    // handleShortlistSidepanel,
+    isSidePanel,
+    handleToggleSidePannel,
+    isSidePanelForm,
+    handleToggleSidePannelForm,
+    isCandidatesFetching,
+  } = useNextToNextYearSuccessionPlanner({listData});
 
-    isCandidatesFetching
-  } = useNextToNextYearSuccessionPlanner({ jobId });
+  const {
+    nextNextYear: data,
+    allNextNextYear: allData,
+    currentPage,
+    is_fetching: isFetching,
+  } = useSelector((state) => state.next_next_year);
+
+  console.log({data,allData})
+  const UpperInfo = useCallback(
+    (obj) => {
+      if (obj) {
+        return (
+          <div className={styles.headerContainer}>
+            <div className={styles.InfoWrap}>
+              <div>{"Succession History"} </div>
+              <div className={styles.newLine}></div>
+            </div>
+
+            <div className={styles.addButton}>
+              <ButtonBase
+                onClick={() => {
+                  handleToggleSidePannelForm();
+                  handleToggleSidePannel();
+                }}
+                className={"createBtn"}
+              >
+                Add
+                <Add fontSize={"small"} className={"plusIcon"}></Add>
+              </ButtonBase>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    },
+    [editData]
+  );
+
+  const UpperDetailFormInfo = useCallback(
+    (obj) => {
+      if (obj) {
+        return (
+          <div className={styles.headerContainer}>
+            <div className={styles.InfoWrap}>
+              <div>{"Add Details"} </div>
+              <div className={styles.newLine}></div>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    },
+    [editData]
+  );
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
-  const renderContact = useCallback((obj) => {
-    if (obj) {
-      return (
-        <div className={styles.firstCellFlex}>
-          <div>
-            <span className={styles.productName}>{obj?.contact}</span> <br />
-            <span>{obj?.email}</span>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  }, []);
+
   const renderFirstCell = useCallback((product) => {
     if (product) {
       return (
         <div className={styles.firstCellFlex}>
-          {/*<div>*/}
-          {/*    <img src={user.image} alt=""/>*/}
-          {/*</div>*/}
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span>
               <strong></strong>
@@ -170,7 +205,7 @@ const NextToNextYearSuccessionPlanner = ({
               // disabled={isCalling}
               onClick={() => {
                 // handleViewDetails(all);
-                // handleToggleSidePannel();
+                handleToggleSidePannel();
               }}
             >
               <InfoOutlined fontSize={"small"} />
@@ -200,6 +235,7 @@ const NextToNextYearSuccessionPlanner = ({
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
+      rowsPerPage: 10,
       columns: tableStructure,
       data: data,
       count: allData.length,
@@ -221,19 +257,13 @@ const NextToNextYearSuccessionPlanner = ({
     <div>
       <div>
         <div>
-          <div >
-            {/* <FilterComponent
-               is_progress={isFetching}
+          <div>
+            <FilterComponent
+              is_progress={isFetching}
+              filters={configFilter}
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}
-              filterWidth={filterWidth}
-            /> */}
-              <FilterComponent
-            is_progress={isFetching}
-            filters={configFilter}
-            handleSearchValueChange={handleSearchValueChange}
-            handleFilterDataChange={handleFilterDataChange}
-          />
+            />
           </div>
 
           <div>
@@ -246,6 +276,33 @@ const NextToNextYearSuccessionPlanner = ({
             </div>
           </div>
         </div>
+
+        <SidePanelComponent
+          handleToggle={handleToggleSidePannel}
+          title={<UpperInfo />}
+          open={isSidePanel}
+          side={"right"}
+        >
+          <SuccessionHistory
+            handleToggleSidePannel={handleToggleSidePannel}
+            isSidePanel={isSidePanel}
+            empId={editData}
+          />
+        </SidePanelComponent>
+
+        <SidePanelComponent
+          handleToggle={handleToggleSidePannelForm}
+          title={<UpperDetailFormInfo />}
+          isBack={true}
+          open={isSidePanelForm}
+          side={"right"}
+        >
+          <SuccessionPlannerDetailform
+            handleToggleSidePannel={handleToggleSidePannelForm}
+            isSidePanel={isSidePanelForm}
+            empId={editData}
+          />
+        </SidePanelComponent>
       </div>
     </div>
   );

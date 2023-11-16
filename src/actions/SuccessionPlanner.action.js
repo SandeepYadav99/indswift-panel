@@ -18,6 +18,8 @@ export const SET_SORTING = "SET_SORTING_SUCCESSION_PLANER";
 export const SET_FILTER = "SET_FILTER_SUCCESSION_PLANER";
 export const SET_PAGE = "SET_PAGE_SUCCESSION_PLANER";
 export const CHANGE_PAGE = "CHANGE_PAGE_SUCCESSION_PLANER";
+export const CHANGE_PAGE_NEXT = "CHANGE_PAGE_SUCCESSION_PLANER_NEXT";
+export const CHANGE_PAGE_NEXT_NEXT = "CHANGE_PAGE_SUCCESSION_PLANER_NEXT_NEXT";
 export const CHANGE_STATUS = "CHANGE_STATE_SUCCESSION_PLANER";
 export const SET_SERVER_PAGE = "SET_SERVER_PAGE_SUCCESSION_PLANER";
 export const CREATE_DATA = "CREATE_SUCCESSION_PLANER";
@@ -42,7 +44,7 @@ export function actionFetchSuccessionPlaner(
       dispatch({ type: SET_SORTING, payload: sorting });
 
       if (!data.error) {
-        console.log("data",data)
+        // console.log("data",data)
         const year = data?.data?.year;
         const next_Year = data?.data?.next_year;
         const next_next_year = data?.data?.next_next_year;
@@ -85,9 +87,57 @@ export function actionSetPageSuccessionPlaner(page) {
     );
   }
 
-  console.log(currentPage, totalLength);
+  console.log("current",currentPage, totalLength);
   return {
     type: CHANGE_PAGE,
+    payload: page,
+  };
+}
+export function actionSetPageNextYear(page) {
+  const stateData = store.getState().next_year;
+  const currentPage = stateData?.currentPage;
+  const totalLength = stateData?.allNextYear?.length;
+  const sortingData = stateData.sorting_data;
+  const query = stateData.query;
+  const queryData = stateData.query_data;
+  const serverPage = stateData.serverPage;
+  
+  if (totalLength <= (page + 1) * constants.PAGE_VALUE) {
+    store.dispatch(
+      actionFetchSuccessionPlaner(serverPage + 1, sortingData, {
+        query,
+        query_data: queryData,
+      })
+    );
+  }
+
+  console.log("next",currentPage, totalLength);
+  return {
+    type: CHANGE_PAGE_NEXT,
+    payload: page,
+  };
+}
+export function actionSetPageNextNextYear(page) {
+  const stateData = store.getState().next_next_year;
+  const currentPage = stateData?.currentPage;
+  const totalLength = stateData?.allNextNextYear?.length;
+  const sortingData = stateData.sorting_data;
+  const query = stateData.query;
+  const queryData = stateData.query_data;
+  const serverPage = stateData.serverPage;
+  
+  if (totalLength <= (page + 1) * constants.PAGE_VALUE) {
+    store.dispatch(
+      actionFetchSuccessionPlaner(serverPage + 1, sortingData, {
+        query,
+        query_data: queryData,
+      })
+    );
+  }
+
+  console.log("next_next",currentPage, totalLength);
+  return {
+    type: CHANGE_PAGE_NEXT_NEXT,
     payload: page,
   };
 }
