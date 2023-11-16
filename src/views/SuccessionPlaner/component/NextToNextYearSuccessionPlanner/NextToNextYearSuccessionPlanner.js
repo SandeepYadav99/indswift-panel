@@ -16,7 +16,7 @@ import useNextToNextYearSuccessionPlanner from "./NextToNextYearSuccessionPlanne
 import SuccessionHistory from "../ThisYearSuccessionPlanner/SuccessionHistory/SuccessionHistory";
 import SuccessionPlannerDetailform from "../ThisYearSuccessionPlanner/SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 
-const NextToNextYearSuccessionPlanner = ({listData}) => {
+const NextToNextYearSuccessionPlanner = ({ listData }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -33,7 +33,7 @@ const NextToNextYearSuccessionPlanner = ({listData}) => {
     isSidePanelForm,
     handleToggleSidePannelForm,
     isCandidatesFetching,
-  } = useNextToNextYearSuccessionPlanner({listData});
+  } = useNextToNextYearSuccessionPlanner({ listData });
 
   const {
     nextNextYear: data,
@@ -42,7 +42,7 @@ const NextToNextYearSuccessionPlanner = ({listData}) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.next_next_year);
 
-  console.log({data,allData})
+  console.log({ data, allData });
   const UpperInfo = useCallback(
     (obj) => {
       if (obj) {
@@ -116,7 +116,12 @@ const NextToNextYearSuccessionPlanner = ({listData}) => {
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{all?.name}</div>,
+        render: (temp, all) => (
+          <div>
+            {console.log("all", all)}
+            {all?.name}
+          </div>
+        ),
       },
       {
         key: "doj",
@@ -159,15 +164,17 @@ const NextToNextYearSuccessionPlanner = ({listData}) => {
         key: "date_of_retirment",
         label: "DATE OF RETIREMENT",
         sortable: false,
-        render: (temp, all) => (
-          <div>{all?.resign_data?.resign_effective_date}</div>
-        ),
+        render: (temp, all) => <div>{all?.expected_dor_text}</div>,
       },
       {
         key: "annual_salary",
         label: "ANNUAL SALARY",
         sortable: false,
-        render: (temp, all) => <div>{all?.annual_salary}</div>,
+        render: (temp, all) => (
+          <div style={{ whiteSpace: "nowrap" }}>
+            {all?.annual_salary && `₹ ${all?.annual_salary}`}
+          </div>
+        ),
       },
       {
         key: "succession_cost_wrt_emp",
@@ -188,6 +195,26 @@ const NextToNextYearSuccessionPlanner = ({listData}) => {
         render: (temp, all) => <div>{}</div>,
       },
       {
+        key: "application",
+        label: "application STATUS",
+        sortable: false,
+        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
+      },
+      {
+        key: "Extension",
+        label: "Extension STATUS",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.extension_status ? (
+              <StatusPill status={all?.extension_status} />
+            ) : (
+              "NA"
+            )}
+          </div>
+        ),
+      },
+      {
         key: "succession_status",
         label: "SUCCESSION STATUS",
         sortable: false,
@@ -198,7 +225,7 @@ const NextToNextYearSuccessionPlanner = ({listData}) => {
         label: "Action",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.btnWrap}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"

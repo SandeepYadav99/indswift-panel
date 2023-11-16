@@ -19,7 +19,11 @@
   background-color: white;
   box-shadow: 0 0 8px rgb(0 0 0 / 15%);
 }
-
+.btnWrap{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 .caseFlex {
   display: flex;
   align-items: center;
