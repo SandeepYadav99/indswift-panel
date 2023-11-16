@@ -119,4 +119,16 @@
     padding: 10px 40px !important;
     border-radius: 30px !important;
     font-weight: 600 !important;
+    
+  }
+  .download{
+    color: #29CB97 !important;
+    border: 2px solid #29CB97 !important;
+    padding: 10px 40px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+    margin-right: 10px;
+  }
+  .rightFlex {
+    gap: 2%;
   }

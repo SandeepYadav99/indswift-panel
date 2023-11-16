@@ -7,14 +7,22 @@ import {
 } from "../../../actions/PendingBGVerification.action";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import constants from "../../../config/constants";
+import { actionFetchEmployee } from "../../../actions/Employee.action";
+import { serviceGetList } from "../../../services/Common.service";
+import { serviceBGVDownload } from "../../../services/PendingBGVerification.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const usePendingBGVerification_Hook = () => {
   const [isCalling] = useState(false);
   const [editData] = useState(null);
-
-  const [listData] = useState({
+  const { role } = useSelector((state) => state.auth);
+  const [listData, setListData] = useState({
     EMPLOYEES: [],
+    DEPARTMENTS: [],
+    LOCATIONS: [],
   });
+
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -41,9 +49,8 @@ const usePendingBGVerification_Hook = () => {
   //     }
   //   });
   // }, []);
-  console.log("list", listData);
+ 
   const handlePageChange = useCallback((type) => {
-
     dispatch(actionSetPagePendingBGVList(type));
   }, []);
 
@@ -111,25 +118,66 @@ const usePendingBGVerification_Hook = () => {
     historyUtils.push(`${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}`);
   }, []);
 
-  const handleBgvAnalysiReport = useCallback((data) => {
-    historyUtils.push(`${RouteName.BGV_ANALYSI_REPOST}${data?.id}`);
+  const handleBgvAnalysisReport = useCallback((data) => {
+    historyUtils.push(`${RouteName.BGV_ANALYSI_REPOST}`);
+  }, []);
+
+  const handleBgvReportDownload = useCallback((data) => {
+    serviceBGVDownload({
+      index: 1,
+      order: null,
+      query: "",
+      query_data: null,
+      row: null,
+    })
+      .then((res) => {
+        if (!res?.error) {
+          SnackbarUtils.success(res?.message);
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      })
+     
+  }, []);
+
+  const initData = useCallback(() => {
+    dispatch(
+      actionFetchEmployee(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    initData();
+    isMountRef.current = true;
+    serviceGetList(["LOCATIONS", "DEPARTMENTS"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
   }, []);
 
   const configFilter = useMemo(() => {
     return [
+      ...(role === constants.ROLES.CORPORATE_HR
+        ? [
+            {
+              label: "Location",
+              name: "location_id",
+              type: "selectObject",
+              custom: { extract: { id: "id", title: "name" } },
+              fields: listData?.LOCATIONS,
+            },
+          ]
+        : []),
       {
-        label: "Status",
-        name: "status",
-        type: "select",
-        fields: [
-          "ACTIVE",
-          "RESIGNED",
-          "TERMINATED",
-          "RETIRED",
-          "EXPIRED",
-          "ABSCONDED",
-          "INACTIVE",
-        ],
+        label: "Department",
+        name: "department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
       },
     ];
   }, [listData]);
@@ -146,7 +194,8 @@ const usePendingBGVerification_Hook = () => {
     configFilter,
     handleViewDetails,
     handleBGVDetails,
-    handleBgvAnalysiReport,
+    handleBgvAnalysisReport,
+    handleBgvReportDownload,
   };
 };
 

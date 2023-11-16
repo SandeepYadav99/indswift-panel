@@ -30,14 +30,13 @@ function mapPresetPRequest(all, pageId) {
   });
 }
 
-
 const initialState = {
   allThisYear: [],
-  allNextYear:[],
-  allNextNextYear:[],
+  allNextYear: [],
+  allNextNextYear: [],
   year: [],
   nextYear: [],
-  nextNextYear:[],
+  nextNextYear: [],
   currentPage: 0,
   serverPage: 0,
   query: null, // search text data
@@ -66,33 +65,42 @@ export default function (
       } else {
         newThisYear = [...state.allThisYear, ...thisYear];
       }
-      // 2 
-      let newNextYear =[];
-      if(page=== 1){
-        newNextYear=[...nextYear]
-      }else{
-        newNextYear =[...state.allNextYear, ...nextYear]
+      // 2
+      let newNextYear = [];
+      if (page === 1) {
+        newNextYear = [...nextYear];
+      } else {
+        newNextYear = [...state.allNextYear, ...nextYear];
       }
-// 3
-      let newNextNextYear =[];
-      if(page=== 1){
-        newNextNextYear=[...nextNextYear_]
-      }else{
-        newNextNextYear =[...state.allNextNextYear, ...nextNextYear_]
+      // 3
+      let newNextNextYear = [];
+      if (page === 1) {
+        newNextNextYear = [...nextNextYear_];
+      } else {
+        newNextNextYear = [...state.allNextNextYear, ...nextNextYear_];
       }
-      const tableDataThisYear = mapPresetPRequest(newThisYear, state.currentPage);
-      const tableDataNextYear = mapPresetPRequest(newNextYear, state.currentPage);
-       const tableDataNextNextYear = mapPresetPRequest(newNextNextYear, state.currentPage);
+      const tableDataThisYear = mapPresetPRequest(
+        newThisYear,
+        state.currentPage
+      );
+      const tableDataNextYear = mapPresetPRequest(
+        newNextYear,
+        state.currentPage
+      );
+      const tableDataNextNextYear = mapPresetPRequest(
+        newNextNextYear,
+        state.currentPage
+      );
+
       return {
         ...state,
         allThisYear: newThisYear,
-        allNextYear:newNextYear,
-        allNextNextYear:newNextNextYear,
+        allNextYear: newNextYear,
+        allNextNextYear: newNextNextYear,
         year: tableDataThisYear,
         nextYear: tableDataNextYear,
         nextNextYear: tableDataNextNextYear,
         is_fetching: false,
-       
       }; // { ...state , all: newAll, data: tableData, serverPage: 1, currentPage: 1 };
     }
 

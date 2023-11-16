@@ -90,6 +90,8 @@ import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
 import LeaveListReducer from "./LeaveList.reducer";
 import FinalFormReducer from "./FinalForm.reducer";
 import FinalFormApprovalReducer from "./FinalFormApproval.reducer";
+import SuccessionPlanerReducer from "./SuccessionPlaner.reducer";
+import EmpRecordApprovalReducer from "./EmpRecordApproval.reducer";
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form: formReducer,
@@ -176,7 +178,8 @@ const rootReducer = combineReducers({
   C3MLetter:C3MLetterReducer,
   AppointmentLetter:AppointmentLetterReducer,
   RelievingExpLetter:RelievingExpLetterReducer,
-  // successionPlaner: SuccessionPlanerReducer,
+  successionPlaner: SuccessionPlanerReducer,
+  employeRecordApproval:EmpRecordApprovalReducer
   // form: formReducer,
 });
 

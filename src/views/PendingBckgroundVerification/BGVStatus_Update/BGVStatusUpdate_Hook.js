@@ -26,7 +26,7 @@ const initialForm = {
   is_first_employment_verification_status: "",
   is_secound_employment_verification_status: "",
   is_criminal_verification_status: "",
-  payment_complete: "2023-09-08",
+  payment_complete: "",
   payment_status:"",
   emp_code:""
   //
@@ -64,7 +64,7 @@ const useCandidateUpdate_Hook = () => {
           is_secound_employment_verification_status: data?.is_secound_employment_verification_status,
           is_criminal_verification_status: data?.is_criminal_verification_status,
           bgv_result: data?.bgv_result,
-        
+          payment_complete: data?.payment_complete,
           payment_status:data?.payment_status,
           emp_code:data?.employeeObj?.emp_code,
           choose_action:data?.choose_action
@@ -80,6 +80,7 @@ const useCandidateUpdate_Hook = () => {
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["cost", "billing_to"];
+    
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -104,6 +105,7 @@ const useCandidateUpdate_Hook = () => {
       return;
     }
     setIsSubmitting(true);
+  
     const updatedData = {
       employee_id: id,
       is_education_verification: form?.is_education_verification,
@@ -125,7 +127,7 @@ const useCandidateUpdate_Hook = () => {
       is_secound_employment_verification_status:
         form?.is_secound_employment_verification_status,
         is_criminal_verification_status:form?.is_criminal_verification_status,
-      payment_complete: "",
+      payment_complete: form?.payment_complete,
       payment_status:form?.payment_status,
     };
 
@@ -178,14 +180,17 @@ const useCandidateUpdate_Hook = () => {
         bgv_result: "bgv_result",
         choose_action: "choose_action",
         payment_status: "payment_status",
+        payment_complete:"payment_complete"
         
       };
-  
+
       if (fieldMappings.hasOwnProperty(fieldName)) {
+       
         setForm((prevForm) => ({
           ...prevForm,
           [fieldMappings[fieldName]]: value,
         }));
+      
         removeError(fieldName);
       }
     },

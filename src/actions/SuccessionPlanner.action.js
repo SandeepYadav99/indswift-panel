@@ -42,13 +42,18 @@ export function actionFetchSuccessionPlaner(
       dispatch({ type: SET_SORTING, payload: sorting });
 
       if (!data.error) {
-       const year = data?.data?.year;
-         const next_Year = data?.data?.next_year;
-         const next_next_year = data?.data?.next_next_year;
-        // console.log(yearData, nextYearData, nextNextYearData);
+        const year = data?.data?.year;
+        const next_Year = data?.data?.next_year;
+        const next_next_year = data?.data?.next_next_year;
+    
         dispatch({
           type: FETCHED_YEAR,
-          payload: { year: year, next_year:next_Year,next_next_year:next_next_year, page: index },
+          payload: {
+            year: year,
+            next_year: next_Year,
+            next_next_year: next_next_year,
+            page: index,
+          },
         });
 
         dispatch({ type: SET_SERVER_PAGE, payload: index });
