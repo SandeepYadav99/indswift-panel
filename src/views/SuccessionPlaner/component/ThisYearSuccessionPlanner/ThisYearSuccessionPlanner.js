@@ -34,6 +34,7 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
     isSidePanelForm,
     handleToggleSidePannelForm,
     isCandidatesFetching,
+    empId
   } = useThisYearSuccessionPlaner({ listData });
 
   const {
@@ -53,7 +54,7 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
               <div className={styles.newLine}></div>
             </div>
 
-            <div className={styles.addButton}>
+            {/* <div className={styles.addButton}>
               <ButtonBase
                 onClick={() => {
                   handleToggleSidePannelForm();
@@ -64,7 +65,7 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
                 Add
                 <Add fontSize={"small"} className={"plusIcon"}></Add>
               </ButtonBase>
-            </div>
+            </div> */}
           </div>
         );
       }
@@ -118,7 +119,6 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {console.log("all", all)}
             {all?.name}
           </div>
         ),
@@ -232,7 +232,7 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
               // disabled={isCalling}
               onClick={() => {
                 // handleViewDetails(all);
-                handleToggleSidePannel();
+                handleToggleSidePannel(all);
               }}
             >
               <InfoOutlined fontSize={"small"} />
@@ -313,7 +313,7 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
           <SuccessionHistory
             handleToggleSidePannel={handleToggleSidePannel}
             isSidePanel={isSidePanel}
-            empId={editData}
+            empId={empId}
           />
         </SidePanelComponent>
 
