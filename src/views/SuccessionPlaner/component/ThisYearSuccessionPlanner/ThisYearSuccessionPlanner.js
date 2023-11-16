@@ -17,7 +17,7 @@ import SuccessionHistory from "./SuccessionHistory/SuccessionHistory";
 import SuccessionPlannerDetailform from "./SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 import { useSelector } from "react-redux";
 
-const ThisYearSuccessionPlanner = ({listData}) => {
+const ThisYearSuccessionPlanner = ({ listData }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -34,7 +34,8 @@ const ThisYearSuccessionPlanner = ({listData}) => {
     isSidePanelForm,
     handleToggleSidePannelForm,
     isCandidatesFetching,
-  } = useThisYearSuccessionPlaner({listData});
+    empId
+  } = useThisYearSuccessionPlaner({ listData });
 
   const {
     year: data,
@@ -53,7 +54,7 @@ const ThisYearSuccessionPlanner = ({listData}) => {
               <div className={styles.newLine}></div>
             </div>
 
-            <div className={styles.addButton}>
+            {/* <div className={styles.addButton}>
               <ButtonBase
                 onClick={() => {
                   handleToggleSidePannelForm();
@@ -64,7 +65,7 @@ const ThisYearSuccessionPlanner = ({listData}) => {
                 Add
                 <Add fontSize={"small"} className={"plusIcon"}></Add>
               </ButtonBase>
-            </div>
+            </div> */}
           </div>
         );
       }
@@ -116,7 +117,11 @@ const ThisYearSuccessionPlanner = ({listData}) => {
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{all?.name}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.name}
+          </div>
+        ),
       },
       {
         key: "doj",
@@ -159,15 +164,17 @@ const ThisYearSuccessionPlanner = ({listData}) => {
         key: "date_of_retirment",
         label: "DATE OF RETIREMENT",
         sortable: false,
-        render: (temp, all) => (
-          <div>{all?.resign_data?.resign_effective_date}</div>
-        ),
+        render: (temp, all) => <div>{all?.expected_dor_text}</div>,
       },
       {
         key: "annual_salary",
         label: "ANNUAL SALARY",
         sortable: false,
-        render: (temp, all) => <div>{all?.annual_salary}</div>,
+        render: (temp, all) => (
+          <div style={{ whiteSpace: "nowrap" }}>
+            {all?.annual_salary && `₹ ${all?.annual_salary}`}
+          </div>
+        ),
       },
       {
         key: "succession_cost_wrt_emp",
@@ -188,6 +195,26 @@ const ThisYearSuccessionPlanner = ({listData}) => {
         render: (temp, all) => <div>{}</div>,
       },
       {
+        key: "application",
+        label: "application STATUS",
+        sortable: false,
+        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
+      },
+      {
+        key: "Extension",
+        label: "Extension STATUS",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.extension_status ? (
+              <StatusPill status={all?.extension_status} />
+            ) : (
+              "NA"
+            )}
+          </div>
+        ),
+      },
+      {
         key: "succession_status",
         label: "SUCCESSION STATUS",
         sortable: false,
@@ -198,14 +225,14 @@ const ThisYearSuccessionPlanner = ({listData}) => {
         label: "Action",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.btnWrap}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
               // disabled={isCalling}
               onClick={() => {
                 // handleViewDetails(all);
-                handleToggleSidePannel();
+                handleToggleSidePannel(all);
               }}
             >
               <InfoOutlined fontSize={"small"} />
@@ -286,7 +313,7 @@ const ThisYearSuccessionPlanner = ({listData}) => {
           <SuccessionHistory
             handleToggleSidePannel={handleToggleSidePannel}
             isSidePanel={isSidePanel}
-            empId={editData}
+            empId={empId}
           />
         </SidePanelComponent>
 

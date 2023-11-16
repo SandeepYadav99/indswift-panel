@@ -1,18 +1,15 @@
-/**
- * Created by sandeepelectrovese@gmail.com on 11/01/2023.
- */
-import React, {  useCallback,  useMemo } from "react";
-import {IconButton} from "@material-ui/core";
+import React, { Component, useCallback, useEffect, useMemo } from "react";
+import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { InfoOutlined} from "@material-ui/icons";
+import { connect, useSelector } from "react-redux";
+import { InfoOutlined, Telegram } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
+import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import useSuccessionApprovalHook from "./SuccessionApproval_hook";
 
 const SuccessionApproval_List = ({}) => {
@@ -20,16 +17,13 @@ const SuccessionApproval_List = ({}) => {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
-    handleSideToggle,
     handleViewDetails,
-    isSidePanel,
+    handleViewForm,
     isCalling,
     configFilter,
-    changeEmployeeRoute,
-    handleToggleDetail
+    handleResend,
   } = useSuccessionApprovalHook({});
 
   const {
@@ -37,21 +31,30 @@ const SuccessionApproval_List = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.employee_versions);
+  } = useSelector((state) => state.succession_approval);
 
   const renderStatus = useCallback((status) => {
-    return <StatusPill status={status} />;
+    return (
+      <StatusPill
+        status={status}
+        style={status === "PROCESSED" && { background: "#ceece2" }}
+      />
+    );
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
-          <div
-            className={classNames(styles.firstCellInfo, "openSans")}
-            onClick={() => changeEmployeeRoute(obj?.employee)}
-          >
-            <span ><b>{}</b></span>
+          <div className={classNames(styles.firstCellInfo, "openSans")}>
+            <span className={styles.productName}>
+              <strong>{obj?.employee?.name}</strong>
+            </span>
+            <br />
+            <span className={styles.productName}>
+              {obj?.employee?.emp_code}
+            </span>{" "}
+            <br />
           </div>
         </div>
       );
@@ -187,7 +190,7 @@ const SuccessionApproval_List = ({}) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -224,7 +227,6 @@ const SuccessionApproval_List = ({}) => {
             <div className={styles.newLine} />
           </div>
         </div>
-
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -242,17 +244,11 @@ const SuccessionApproval_List = ({}) => {
             </div>
           </div>
         </div>
-        <SidePanelComponent
-          handleToggle={handleSideToggle}
-          title={"Profile Change Details"}
-          open={isSidePanel}
-          side={"right"}
-        >
-          {/* <VersionDetailView handleClose={handleSideToggle} id={editData} isOpen={isSidePanel} /> */}
-        </SidePanelComponent>
       </PageBox>
     </div>
   );
 };
 
 export default SuccessionApproval_List;
+
+
