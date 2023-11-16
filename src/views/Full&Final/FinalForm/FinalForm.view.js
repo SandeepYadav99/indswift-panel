@@ -1486,18 +1486,18 @@ function FinalForm() {
           <div className={"formGroup"}>
             <CustomTextField
               disabled={
-                empFlag || form?.is_bgv_recovery_manual === "NO" ? true : false
+                empFlag || form?.is_bgv_manual === "NO" ? true : false
               }
               type={"number"}
-              isError={errorData?.bgv_recovery}
-              errorText={errorData?.bgv_recovery}
+              isError={errorData?.bgv}
+              errorText={errorData?.bgv}
               label={"BGV Recovery"}
-              value={form?.bgv_recovery}
+              value={form?.bgv}
               onTextChange={(text) => {
-                changeTextData(text, "bgv_recovery");
+                changeTextData(text, "bgv");
               }}
               onBlur={() => {
-                onBlurHandler("bgv_recovery");
+                onBlurHandler("bgv");
               }}
             />
           </div>
@@ -1507,7 +1507,7 @@ function FinalForm() {
               color="secondary"
               disabled={empFlag ? true : false}
               onClick={() => {
-                changeTextData("YES", "is_bgv_recovery_manual");
+                changeTextData("YES", "is_bgv_manual");
               }}
             >
               <Edit fontSize={"small"} />
@@ -1519,7 +1519,7 @@ function FinalForm() {
               color="secondary"
               disabled={empFlag ? true : false}
               onClick={() => {
-                changeTextData("NO", "is_bgv_recovery_manual");
+                changeTextData("NO", "is_bgv_manual");
               }}
             >
               <Delete fontSize={"small"} />
@@ -1527,15 +1527,15 @@ function FinalForm() {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.bgv_recovery_comment}
-              errorText={errorData?.bgv_recovery_comment}
+              isError={errorData?.bgv_comment}
+              errorText={errorData?.bgv_comment}
               label={"Comments"}
-              value={form?.bgv_recovery_comment}
+              value={form?.bgv_comment}
               onTextChange={(text) => {
-                changeTextData(text, "bgv_recovery_comment");
+                changeTextData(text, "bgv_comment");
               }}
               onBlur={() => {
-                onBlurHandler("bgv_recovery_comment");
+                onBlurHandler("bgv_comment");
               }}
             />
           </div>
