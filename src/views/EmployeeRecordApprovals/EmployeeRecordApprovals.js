@@ -90,15 +90,21 @@ const EmployeeRecordApprovals = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{all?.employee?.code}</div>,
       },
-      // {
-      //     key: 'address',
-      //     label: 'Address',
-      //     sortable: false,
-      //     render: (temp, all) => <div>{all?.address}</div>,
-      // },
       {
-        key: "createdAt",
-        label: "Changed By",
+          key: 'location',
+          label: 'Location',
+          sortable: false,
+          render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
+      },
+      {
+        key: 'updated_by',
+        label: 'UPDATED BY',
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.updatedAtText}</div>,
+    },
+      {
+        key: "type",
+        label: "Type",
         sortable: false,
         render: (temp, all) => (
           <div>
@@ -117,8 +123,8 @@ const EmployeeRecordApprovals = ({}) => {
         ),
       },
       {
-        key: "approvedAt",
-        label: "Approved By",
+        key: "verified_by",
+        label: "VERIFIED BY",
         sortable: true,
         render: (temp, all) => (
           <div>
@@ -186,7 +192,7 @@ const EmployeeRecordApprovals = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Employee Profile Changes</span>
+            <span className={styles.title}>Employee Record Approvals</span>
             <div className={styles.newLine} />
           </div>
         </div>

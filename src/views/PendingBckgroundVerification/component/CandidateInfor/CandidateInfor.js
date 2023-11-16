@@ -45,7 +45,7 @@ const CandidateInfor = ({ empId }) => {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Offer Accepted:</span>
-              {employeeData?.designation?.name}{" "}
+              {employeeData?.offerAcceptedDate || "N/A"}{" "}
             </div>
           </div>
 
@@ -66,8 +66,8 @@ const CandidateInfor = ({ empId }) => {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Offer Date:</span>
-              {employeeData?.replacing_person?.name
-                ? employeeData?.replacing_person?.name
+              {employeeData?.offerDate
+                ? employeeData?.offerDate
                 : "NA"}
             </div>
             <div className={styles.key}>

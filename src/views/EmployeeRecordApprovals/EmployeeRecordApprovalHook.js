@@ -13,6 +13,7 @@ const useEmployeeRecordApprovals = ({}) => {
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const [employees, setEmployees] = useState([]);
+
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -35,19 +36,21 @@ const useEmployeeRecordApprovals = ({}) => {
     }, [])
 
   useEffect(() => {
+
     dispatch(
       actionFetchEmployeRecordApprovalList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
     );
+
     isMountRef.current = true;
   }, []);
 
  
   const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
     dispatch(actionSetPageEmployeRecordApprovalList(type));
+
   }, []);
 
   const handleDataSave = useCallback(
@@ -55,29 +58,30 @@ const useEmployeeRecordApprovals = ({}) => {
       setSidePanel((e) => !e);
       setEditData(null);
     },
+
     [setSidePanel, setEditData]
   );
+
   const changeEmployeeRoute = useCallback((data) => {
     historyUtils.push(`/employees/details/${data?.code}`);
 }, []);
+
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageEmployeeVersionRequests(1));
-      dispatch(
+ dispatch(
         actionFetchEmployeRecordApprovalList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
       );
-      // dispatch(actionFetchEmployeeVersion(1, sortingData))
+      
     },
+
     [sortingData, query, queryData]
   );
 
   const handleFilterDataChange = useCallback(
-    (value) => {
-      console.log("_handleFilterDataChange", value);
+    (value) => {   
       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
@@ -85,7 +89,6 @@ const useEmployeeRecordApprovals = ({}) => {
 
   const handleSearchValueChange = useCallback(
     (value) => {
-      console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -93,8 +96,6 @@ const useEmployeeRecordApprovals = ({}) => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      // dispatch(actionSetPageEmployeeVersion(1));
       dispatch(
         actionFetchEmployeRecordApprovalList(
           1,
@@ -110,7 +111,7 @@ const useEmployeeRecordApprovals = ({}) => {
   );
 
   const handleRowSize = (page) => {
-    console.log(page);
+
   };
 
   const handleDelete = useCallback(
@@ -118,6 +119,7 @@ const useEmployeeRecordApprovals = ({}) => {
       setSidePanel(false);
       setEditData(null);
     },
+
     [setEditData, setSidePanel]
   );
 
@@ -126,6 +128,7 @@ const useEmployeeRecordApprovals = ({}) => {
       setEditData(data);
       setSidePanel((e) => !e);
     },
+
     [setEditData, setSidePanel]
   );
 
@@ -136,6 +139,7 @@ const useEmployeeRecordApprovals = ({}) => {
         setEditData(data?.id);
       }
     },
+
     [setEditData, setSidePanel]
   );
 

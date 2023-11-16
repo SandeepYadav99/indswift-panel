@@ -1,27 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  serviceCreateEmployeeRecord,
-  serviceUpdateEmployeeRecord,
-} from "../../../../../../../services/EmployeeRecords.services";
+import { useCallback, useEffect, useState } from "react";
+
+import { serviceUpdateEmployeeRecord } from "../../../../../../../services/EmployeeRecords.services";
 import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
-// import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
 
 const useEmployeeEditForm = ({ closeSidePanel, data }) => {
-  const { employeeData } = useSelector((state) => state.employee);
-  const initialForm = {
-    title: "",
-    date_of_issue: "",
-    document: "",
-    letter_head_no: "",
-    star_type: "",
-    record_type: Formtype,
-    employee_id: employeeData?.id,
-    letter_type: "",
-    description: "",
-    id: "",
-  };
-
   const recordFields = {
     title: "",
     date_of_issue: "",
@@ -45,7 +27,7 @@ const useEmployeeEditForm = ({ closeSidePanel, data }) => {
     id: "",
   };
 
-  const [form, setForm] = useState({letter_type:"",star_type:""});
+  const [form, setForm] = useState({ letter_type: "", star_type: "" });
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [Formtype, setFormType] = useState("");
@@ -77,8 +59,6 @@ const useEmployeeEditForm = ({ closeSidePanel, data }) => {
       }
     }
   }, [data]);
-
-  console.log("data", { data, form });
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -114,25 +94,38 @@ const useEmployeeEditForm = ({ closeSidePanel, data }) => {
       setIsSubmitting(true);
       let req = serviceUpdateEmployeeRecord;
       const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        if (
-          key !== "star_type" &&
-          key !== "letter_type" &&
-          key !== "description"
-        ) {
-          fd.append(key, form[key]);
-        }
-      });
+      if (form?.document) {
+        fd?.append("document", form?.document);
+      }
+      if (form?.record_type) {
+        fd.append("record_type", form?.record_type);
+      }
+      if (form?.employee_id) {
+        fd.append("employee_id", form?.employee_id);
+      }
+      const updatedNewValues = {
+        title: form?.title,
+        date_of_issue: form?.date_of_issue,
+        star_type: form?.star_type,
+        letter_head_no: form?.letter_head_no,
+        description: form?.description,
+        letter_type: form?.letter_type,
+      };
+
+      fd.append("new_values", JSON.stringify(updatedNewValues));
+
       if (Formtype === "RECORD") {
         fd.append("letter_type", form?.letter_type);
       } else {
         fd.append("star_type", form?.star_type);
-        fd.append("description", form?.description);
       }
+
+      fd.append("employee_record_id", data?.id);
+
       req(fd).then((res) => {
         if (!res.error) {
-            closeSidePanel();
-            window.location.reload();
+          closeSidePanel();
+          window.location.reload();
         } else {
           SnackbarUtils.error(res?.message);
         }
