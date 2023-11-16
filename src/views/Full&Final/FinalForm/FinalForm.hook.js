@@ -111,6 +111,7 @@ const BOOLEAN_KEYS = [
   "is_imprest_recovery_manual",
   "is_gratuity_uphold_manual",
   "is_served_for_manual",
+  "is_mobile_device_recovery_manual"
 ];
 
 function useFinalForm() {
@@ -176,6 +177,7 @@ function useFinalForm() {
     el_currnet_service_year: "",
     el_currnet_service_year_value: "",
     is_el_currnet_service_year_manual: "NO",
+    is_mobile_device_recovery_manual:"NO",
     el_currnet_service_year_comment: "",
     fel: "",
     fel_value: "",
