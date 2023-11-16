@@ -7,28 +7,10 @@ import NextToNextYearSuccessionPlanner from "./component/NextToNextYearSuccessio
 import { useSelector } from "react-redux";
 
 const SuccessionPlannerList = ({ jobId }) => {
-  const {
-    handleAddCandidate,
-    candidateEl,
-    handleCreate,
-    typeData,
-    user_id,
-    handleCsvDownload,
-  } = useSuccessionPlanner_hook({
-    jobId,
-  });
-
-  const {
-    year,
-    nextYear,
-    allNextNextYear,
-    allThisYear: allThisYearData,
-    allNextYear:allNextYearData,
-    allNextNextYear:allNextNextYearData,
-    currentPage,
-    is_fetching: isFetching, 
-  } = useSelector((state) => state.successionPlaner);
-  
+  const { candidateEl, handleCreate, typeData, user_id, handleCsvDownload } =
+    useSuccessionPlanner_hook({
+      jobId,
+    });
 
   return (
     <div>
@@ -36,20 +18,13 @@ const SuccessionPlannerList = ({ jobId }) => {
         <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
             <span>
-              <b>This Year Succession Planner</b>
+              <b>Within This Year Succession Planner</b>
             </span>
             <div className={styles.newLine2} />
           </div>
         </div>
-     
-          <ThisYearSuccessionPlanner
-            data={year}
-            all={allThisYearData}
-            currentPage={currentPage}
-            isFetching={isFetching}
-           
-          />
-    
+
+        <ThisYearSuccessionPlanner />
       </div>
 
       <div className={styles.plainPaper}>
@@ -61,13 +36,12 @@ const SuccessionPlannerList = ({ jobId }) => {
             <div className={styles.newLine2} />
           </div>
         </div>
-        <NextYearSuccessionPlanner
-          data={nextYear}
-          all={allNextYearData}
-          currentPage={currentPage}
-          isFetching={isFetching}
-       
-        />
+        {/* <NextYearSuccessionPlanner
+          // data={nextYear}
+          // all={allNextYearData}
+          // currentPage={currentPage}
+          // isFetching={isFetching}
+        /> */}
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.headingWrap}>
@@ -78,13 +52,12 @@ const SuccessionPlannerList = ({ jobId }) => {
             <div className={styles.newLine2} />
           </div>
         </div>
-        <NextToNextYearSuccessionPlanner
-          data={allNextNextYear}
-          all={allNextNextYearData}
-          currentPage={currentPage}
-          isFetching={isFetching}
-        
-        />
+        {/* <NextToNextYearSuccessionPlanner
+          // data={allNextNextYear}
+          // all={allNextNextYearData}
+          // currentPage={currentPage}
+          // isFetching={isFetching}
+        /> */}
       </div>
     </div>
   );

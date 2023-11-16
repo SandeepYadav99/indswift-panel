@@ -42,13 +42,18 @@ export function actionFetchSuccessionPlaner(
       dispatch({ type: SET_SORTING, payload: sorting });
 
       if (!data.error) {
-       const year = data?.data?.year;
-         const next_Year = data?.data?.next_year;
-         const next_next_year = data?.data?.next_next_year;
-        // console.log(yearData, nextYearData, nextNextYearData);
+        console.log("data",data)
+        const year = data?.data?.year;
+        const next_Year = data?.data?.next_year;
+        const next_next_year = data?.data?.next_next_year;
         dispatch({
           type: FETCHED_YEAR,
-          payload: { year: year, next_year:next_Year,next_next_year:next_next_year, page: index },
+          payload: {
+            year: year,
+            next_year: next_Year,
+            next_next_year: next_next_year,
+            page: index,
+          },
         });
 
         dispatch({ type: SET_SERVER_PAGE, payload: index });
@@ -62,78 +67,15 @@ export function actionFetchSuccessionPlaner(
   };
 }
 
-export function actionCreateSuccessionPlaner(data) {
-  // const request = serviceCreateSuccessionPlaner(data);
-  // return (dispatch) => {
-  //   request.then((data) => {
-  //     if (!data.error) {
-  //       EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-  //         error: "Saved",
-  //         type: "success",
-  //       });
-  //       dispatch({ type: CREATE_DATA, payload: data.data });
-  //     }
-  //   });
-  // };
-}
-
-export function actionUpdateSuccessionPlaner(data) {
-  // const request = serviceUpdateSuccessionPlaner(data);
-  // return (dispatch) => {
-  //   request.then((data) => {
-  //     if (!data.error) {
-  //       dispatch({ type: UPDATE_DATA, payload: data.data });
-  //     }
-  //   });
-  // };
-}
-
-export function actionDeleteSuccessionPlaner(id) {
-  // const request = serviceDeleteSuccessionPlaner({ id: id });
-  // return (dispatch) => {
-  //   dispatch({ type: DELETE_ITEM, payload: id });
-  // };
-}
-
-export function actionChangePageSuccessionPlaner(page) {
-  return (dispatch) => {
-    dispatch({ type: CHANGE_PAGE, payload: page });
-  };
-}
-
-export function actionFilterSuccessionPlaner(value) {
-  const request = null; ////serviceFetchProviderRequests(value);
-  return (dispatch) => {
-    dispatch({ type: FETCH_INIT, payload: null });
-    request.then((data) => {
-      // dispatch({ type: FILTER, payload: data });
-      // dispatch({ type: FETCHED, payload: null }); //dispatch function
-    });
-  };
-}
-
-export function actionChangeStatusSuccessionPlaner(id, status) {
-  return (dispatch) => {
-    dispatch({ type: CHANGE_STATUS, payload: { id, status } });
-  };
-}
-
-export function actionResetFilterSuccessionPlaner() {
-  return {
-    type: RESET_FILTER,
-    payload: null,
-  };
-}
-
 export function actionSetPageSuccessionPlaner(page) {
   const stateData = store.getState().successionPlaner;
-  const currentPage = stateData.currentPage;
-  const totalLength = stateData.all.length;
+  const currentPage = stateData?.currentPage;
+  const totalLength = stateData?.allThisYear?.length;
   const sortingData = stateData.sorting_data;
   const query = stateData.query;
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;
-
+  
   if (totalLength <= (page + 1) * constants.PAGE_VALUE) {
     store.dispatch(
       actionFetchSuccessionPlaner(serverPage + 1, sortingData, {

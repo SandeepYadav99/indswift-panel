@@ -1,19 +1,14 @@
-import { useDispatch } from "react-redux";
-import  {
-  useCallback,
-
-  useMemo,
-  useState,
-  useRef,
-} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useMemo, useState, useRef } from "react";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 import {
-
+  actionFetchSuccessionPlaner,
   actionSetPageSuccessionPlaner,
 } from "../../../../actions/SuccessionPlanner.action";
+import { serviceGetList } from "../../../../services/Common.service";
+import { useEffect } from "react";
 
-const totalShow = 10;
 const useThisYearSuccessionPlaner = ({ jobId }) => {
   const dispatch = useDispatch();
   const [isSidePanel, setSidePanel] = useState(false);
@@ -22,9 +17,15 @@ const useThisYearSuccessionPlaner = ({ jobId }) => {
 
   const [listData, setListData] = useState({
     LOCATIONS: [],
-    HR: [],
-    JOB_OPENINGS: [],
+    GRADES: [],
+    DEPARTMENTS: [],
   });
+  const {
+    sorting_data: sortingData,
+    is_fetching: isFetching,
+    query,
+    query_data: queryData,
+  } = useSelector((state) => state.successionPlaner);
 
   const handlePageChange = useCallback((type) => {
     dispatch(actionSetPageSuccessionPlaner(type));
@@ -33,10 +34,25 @@ const useThisYearSuccessionPlaner = ({ jobId }) => {
   const handleRowSize = (page) => {
     console.log(page);
   };
-
-  const queryFilter = useCallback((key, value) => {
-    console.log("_queryFilter", key, value);
+  useEffect(() => {
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
   }, []);
+  const queryFilter = useCallback(
+    (key, value) => {
+      // dispatch(actionSetPageFinalFormRequests(1));
+      dispatch(
+        actionFetchSuccessionPlaner(1, sortingData, {
+          query: key == "SEARCH_TEXT" ? value : query,
+          query_data: key == "FILTER_DATA" ? value : queryData,
+        })
+      );
+    },
+    [sortingData, query, queryData]
+  );
 
   const handleFilterDataChange = useCallback(
     (value) => {
@@ -54,7 +70,24 @@ const useThisYearSuccessionPlaner = ({ jobId }) => {
     [queryFilter]
   );
 
- 
+  const handleSortOrderChange = useCallback(
+    (row, order) => {
+      console.log(`handleSortOrderChange key:${row} order: ${order}`);
+      // dispatch(actionSetPageFinalForm(1));
+      dispatch(
+        actionFetchSuccessionPlaner(
+          1,
+          { row, order },
+          {
+            query: query,
+            query_data: queryData,
+          }
+        )
+      );
+    },
+    [query, queryData]
+  );
+
   const handleEdit = useCallback((all) => {
     historyUtils.push(`${RouteName.CANDIDATES_UPDATE}${all.candidate_id}`, {
       isEdit: true,
@@ -76,29 +109,51 @@ const useThisYearSuccessionPlaner = ({ jobId }) => {
     },
     [setSidePanelForm] // setEditData
   );
+  const configFilter = useMemo(() => {
+    return [
 
-  const handleSortOrderChange = (row, order) => {
-    console.log(`handleSortOrderChange key:${row} order: ${order}`);
-  };
+      {
+        label: "Location",
+        name: "employeesObj.location_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.LOCATIONS,
+      },
 
-  
-
+      {
+        label: "Grade",
+        name: "employeesObj.grade_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "label" } },
+        fields: listData?.GRADES,
+      },
+      {
+        label: "Department",
+        name: "employeesObj.department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
+      },
+      {
+        label: "Status",
+        name: "status",
+        type: "select",
+        fields: ["PENDING", "SUBMITTED"],
+      },
+    ];
+  }, [listData]);
   return {
     handlePageChange,
-    // handleCellClick,
     handleFilterDataChange,
     handleSearchValueChange,
-    // handlePreviousPageClick,
-    // handleNextPageClick,
     handleRowSize,
     handleSortOrderChange,
-
     handleEdit,
-   
     handleToggleSidePannel,
     isSidePanel,
     isSidePanelForm,
     handleToggleSidePannelForm,
+    configFilter
   };
 };
 
