@@ -30,7 +30,7 @@ const SALARY_KEYS = [
   "notice_period",
   "served_for",
   "notice_leave_availed",
-  "shortfall_remarks",
+  // "shortfall_remarks",
   "shortfall_notice_period",
   "shortfall_applicable",
   "shortfall_leaves_added",
