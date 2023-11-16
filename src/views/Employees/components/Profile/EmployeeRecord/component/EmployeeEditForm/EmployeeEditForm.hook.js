@@ -94,15 +94,11 @@ const useEmployeeEditForm = ({ closeSidePanel, data }) => {
       setIsSubmitting(true);
       let req = serviceUpdateEmployeeRecord;
       const fd = new FormData();
-      if (form?.document) {
-        fd?.append("document", form?.document);
-      }
-      if (form?.record_type) {
-        fd.append("record_type", form?.record_type);
-      }
-      if (form?.employee_id) {
-        fd.append("employee_id", form?.employee_id);
-      }
+
+      fd.append("document", form?.document || "");
+      fd.append("record_type", form?.record_type || "");
+      fd.append("employee_id", form?.employee_id || "");
+      
       const updatedNewValues = {
         title: form?.title,
         date_of_issue: form?.date_of_issue,

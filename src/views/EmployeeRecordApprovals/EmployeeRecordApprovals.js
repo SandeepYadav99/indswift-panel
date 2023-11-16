@@ -56,6 +56,7 @@ const EmployeeRecordApprovals = ({}) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.employeRecordApproval);
 
+
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
@@ -88,7 +89,7 @@ const EmployeeRecordApprovals = ({}) => {
         key: "emp.emp_code",
         label: "Employee id",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.code}</div>,
+        render: (temp, all) => <div>{all?.employee?.emp_code}</div>,
       },
       {
           key: 'location',
@@ -100,7 +101,7 @@ const EmployeeRecordApprovals = ({}) => {
         key: 'updated_by',
         label: 'UPDATED BY',
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.updatedAtText}</div>,
+        render: (temp, all) => <div>{all?.editedBy?.name} <br/>{all?.createdAtText}</div>,
     },
       {
         key: "type",
@@ -108,7 +109,7 @@ const EmployeeRecordApprovals = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.editedBy?.name} <br /> {all?.createdAtText}
+            {all?.record_type} 
           </div>
         ),
       },

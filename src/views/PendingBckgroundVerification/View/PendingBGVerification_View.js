@@ -110,7 +110,7 @@ const PendingBGVerification_View = ({ location }) => {
             onClick={() => {
               isShowBgvDetails
                 ? handleBGVDetails(all)
-                : handleBGVUpdateDetails(all);
+                : handleBGVDetails(all)
             }}
           >
             {isShowBgvDetails ? (
@@ -201,6 +201,7 @@ const PendingBGVerification_View = ({ location }) => {
         key: "bgv-result",
         label: "BGV RESULT",
         sortable: false,
+        
         render: (temp, all) => (
           <div>
             {all?.bgv_result ? (
@@ -296,8 +297,8 @@ const PendingBGVerification_View = ({ location }) => {
   ]);
 
   return (
-    <div>
-      <PageBox>
+    <div  >
+      <PageBox >
         <div className={styles.headerContainer}>
           <div>
             <span className={styles.title}>
@@ -333,15 +334,15 @@ const PendingBGVerification_View = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div>
+        
+           
+            <div  >
               <DataTables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
+          
         </div>
       </PageBox>
     </div>

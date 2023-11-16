@@ -42,14 +42,6 @@ const usePendingBGVerification_Hook = () => {
     isMountRef.current = true;
   }, []);
 
-  // useEffect(() => {
-  //   serviceGetList(["LOCATIONS"]).then((res) => {
-  //     if (!res.error) {
-  //       setListData(res.data);
-  //     }
-  //   });
-  // }, []);
- 
   const handlePageChange = useCallback((type) => {
     dispatch(actionSetPagePendingBGVList(type));
   }, []);
@@ -104,7 +96,7 @@ const usePendingBGVerification_Hook = () => {
   };
 
   const handleViewDetails = useCallback((data) => {
-    console.log(data?.emp_code);
+   
     historyUtils.push(
       `${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}`
     );

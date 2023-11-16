@@ -127,7 +127,7 @@ const BGVDetailView = ({}) => {
             <div className={styles.gaps} />
             <div className={styles.backgroundStatus}>
               <span>
-                <b>Remarks: </b> {details?.remark}
+                <b>Remarks: </b> {details?.action_remark}
               </span>
             </div>
           </div>

@@ -27,7 +27,7 @@ function EmployeeRecordTable({ empId }) {
     employId,
     setEmployId
   } = useEmployeeList({ empId });
-console.log(selectedEmp)
+
   const renderCreateForm = useMemo(() => {
     return <EmployeeView closeSidePanel={handleSideToggle} Formtype={type} employee_record_id={employId}/>;
   }, [type, employId]);

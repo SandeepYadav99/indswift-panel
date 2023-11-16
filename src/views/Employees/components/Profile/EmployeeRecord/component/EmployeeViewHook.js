@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import historyUtils from "../../../../../../libs/history.utils";
+import { useCallback, useState } from "react";
+
 import { useSelector } from "react-redux";
 import { serviceCreateEmployeeRecord } from "../../../../../../services/EmployeeRecords.services";
 import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
@@ -8,12 +8,9 @@ const useEmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
   const { employeeData } = useSelector((state) => state.employee);
 
   const initialForm = {
-  
     document: "",
-    
     record_type: Formtype,
     employee_id: employeeData?.id,
- 
     new_values: {
       title: "",
       date_of_issue: "",
@@ -60,23 +57,13 @@ const useEmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      
       let req = serviceCreateEmployeeRecord;
-     
       const fd = new FormData();
 
-      if(form?.document){
-
-        fd?.append("document", form?.document)
-      }
-      if(form?.record_type){
-
-        fd.append("record_type", form?.record_type)
-      }
-      if(form?.employee_id){
-
-        fd.append("employee_id", form?.employee_id)
-      }
+      fd.append("document", form?.document || "");
+      fd.append("record_type", form?.record_type || "");
+      fd.append("employee_id", form?.employee_id || "");
+      
       const updatedNewValues ={
         title: form?.new_values?.title,
         date_of_issue: form?.new_values?.date_of_issue,
