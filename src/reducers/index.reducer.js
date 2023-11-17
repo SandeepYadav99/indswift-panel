@@ -88,10 +88,10 @@ import LeaveListReducer from "./LeaveList.reducer";
 import FinalFormReducer from "./FinalForm.reducer";
 import AppointmentLetterReducer from "./AppointmentLetter.reducer";
 import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
-
-import SuccessionPlanerReducer from "./SuccessionPlaner.reducer";
 import FinalFormApprovalReducer from "./FinalFormApproval.reducer";
+import EmpRecordApprovalReducer from "./EmpRecordApproval.reducer";
 import SuccessionAReducer from "./SuccessionA.reducer";
+import SuccessionPlanerReducer from "./SuccessionPlaner.reducer";
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form: formReducer,
@@ -178,6 +178,7 @@ const rootReducer = combineReducers({
   C3MLetter: C3MLetterReducer,
   AppointmentLetter: AppointmentLetterReducer,
   successionPlaner: SuccessionPlanerReducer,
+  employeRecordApproval:EmpRecordApprovalReducer,
   next_year: SuccessionPlanerReducer,
   next_next_year:SuccessionPlanerReducer,
   final_form_approval: FinalFormApprovalReducer,

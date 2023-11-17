@@ -44,10 +44,10 @@ export function actionFetchSuccessionPlaner(
       dispatch({ type: SET_SORTING, payload: sorting });
 
       if (!data.error) {
-        // console.log("data",data)
         const year = data?.data?.year;
         const next_Year = data?.data?.next_year;
         const next_next_year = data?.data?.next_next_year;
+
         dispatch({
           type: FETCHED_YEAR,
           payload: {
@@ -77,7 +77,7 @@ export function actionSetPageSuccessionPlaner(page) {
   const query = stateData.query;
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;
-  
+
   if (totalLength <= (page + 1) * constants.PAGE_VALUE) {
     store.dispatch(
       actionFetchSuccessionPlaner(serverPage + 1, sortingData, {
@@ -101,7 +101,7 @@ export function actionSetPageNextYear(page) {
   const query = stateData.query;
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;
-  
+
   if (totalLength <= (page + 1) * constants.PAGE_VALUE) {
     store.dispatch(
       actionFetchSuccessionPlaner(serverPage + 1, sortingData, {
@@ -125,7 +125,7 @@ export function actionSetPageNextNextYear(page) {
   const query = stateData.query;
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;
-  
+
   if (totalLength <= (page + 1) * constants.PAGE_VALUE) {
     store.dispatch(
       actionFetchSuccessionPlaner(serverPage + 1, sortingData, {

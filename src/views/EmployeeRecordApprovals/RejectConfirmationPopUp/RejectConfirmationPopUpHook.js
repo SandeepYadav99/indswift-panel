@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useState } from "react";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import { serviceEmployeeRecordApprovalApprove } from "../../../services/EmpeRecordApproval.service";
+import { serviceEmployeeRecordApprovalReject } from "../../../services/EmpeRecordApproval.service";
 
-const useApprovalConfirmationHook = ({
+const useRejectConfirmationPopUpHook = ({
   offerId,
   handleToggle,
   handleClose,
@@ -14,7 +14,7 @@ const useApprovalConfirmationHook = ({
     (val) => {
       if (!isSubmitting) {
         setIsSubmitting(true);
-        let req = serviceEmployeeRecordApprovalApprove;
+        let req = serviceEmployeeRecordApprovalReject;
 
         req({ id: offerId }).then((res) => {
           if (!res.error) {
@@ -38,4 +38,4 @@ const useApprovalConfirmationHook = ({
   };
 };
 
-export default useApprovalConfirmationHook;
+export default useRejectConfirmationPopUpHook;

@@ -77,18 +77,9 @@ export default function (
       } else {
         newNextNextYear = [...state.allNextNextYear, ...nextNextYear_];
       }
-      const tableDataThisYear = mapPresetPRequest(
-        newThisYear,
-        state.currentPage
-      );
-      const tableDataNextYear = mapPresetPRequest(
-        newNextYear,
-        state.currentPage
-      );
-      const tableDataNextNextYear = mapPresetPRequest(
-        newNextNextYear,
-        state.currentPage
-      );
+      const tableDataThisYear = mapPresetPRequest(newThisYear, state.currentPage);
+      const tableDataNextYear = mapPresetPRequest(newNextYear, state.currentPage);
+       const tableDataNextNextYear = mapPresetPRequest(newNextNextYear, state.currentPage);
       return {
         ...state,
         allThisYear: newThisYear,

@@ -54,7 +54,8 @@ const EmployeeRecordApprovals = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.employee_versions);
+  } = useSelector((state) => state.employeRecordApproval);
+
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
@@ -88,21 +89,27 @@ const EmployeeRecordApprovals = ({}) => {
         key: "emp.emp_code",
         label: "Employee id",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.code}</div>,
+        render: (temp, all) => <div>{all?.employee?.emp_code}</div>,
       },
-      // {
-      //     key: 'address',
-      //     label: 'Address',
-      //     sortable: false,
-      //     render: (temp, all) => <div>{all?.address}</div>,
-      // },
       {
-        key: "createdAt",
-        label: "Changed By",
+          key: 'location',
+          label: 'Location',
+          sortable: false,
+          render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
+      },
+      {
+        key: 'updated_by',
+        label: 'UPDATED BY',
+        sortable: false,
+        render: (temp, all) => <div>{all?.editedBy?.name} <br/>{all?.createdAtText}</div>,
+    },
+      {
+        key: "type",
+        label: "Type",
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.editedBy?.name} <br /> {all?.createdAtText}
+            {all?.record_type} 
           </div>
         ),
       },
@@ -117,8 +124,8 @@ const EmployeeRecordApprovals = ({}) => {
         ),
       },
       {
-        key: "approvedAt",
-        label: "Approved By",
+        key: "verified_by",
+        label: "VERIFIED BY",
         sortable: true,
         render: (temp, all) => (
           <div>
@@ -186,7 +193,7 @@ const EmployeeRecordApprovals = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Employee Profile Changes</span>
+            <span className={styles.title}>Employee Record Approvals</span>
             <div className={styles.newLine} />
           </div>
         </div>

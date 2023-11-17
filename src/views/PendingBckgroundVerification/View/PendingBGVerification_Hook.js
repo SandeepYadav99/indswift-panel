@@ -10,6 +10,8 @@ import RouteName from "../../../routes/Route.name";
 import constants from "../../../config/constants";
 import { actionFetchEmployee } from "../../../actions/Employee.action";
 import { serviceGetList } from "../../../services/Common.service";
+import { serviceBGVDownload } from "../../../services/PendingBGVerification.service";
+import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const usePendingBGVerification_Hook = () => {
   const [isCalling] = useState(false);
@@ -19,6 +21,7 @@ const usePendingBGVerification_Hook = () => {
     EMPLOYEES: [],
     DEPARTMENTS: [],
     LOCATIONS: [],
+    bgv_status: [],
   });
 
   const dispatch = useDispatch();
@@ -40,16 +43,7 @@ const usePendingBGVerification_Hook = () => {
     isMountRef.current = true;
   }, []);
 
-  // useEffect(() => {
-  //   serviceGetList(["LOCATIONS"]).then((res) => {
-  //     if (!res.error) {
-  //       setListData(res.data);
-  //     }
-  //   });
-  // }, []);
-  console.log("list", listData);
   const handlePageChange = useCallback((type) => {
-
     dispatch(actionSetPagePendingBGVList(type));
   }, []);
 
@@ -103,22 +97,42 @@ const usePendingBGVerification_Hook = () => {
   };
 
   const handleViewDetails = useCallback((data) => {
-    console.log(data?.emp_code);
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}`
+      `${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
   }, []);
 
   const handleBGVUpdateDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}`);
+    historyUtils.push(
+      `${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+    );
   }, []);
 
   const handleBGVDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}`);
+    historyUtils.push(
+      `${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+    );
   }, []);
 
-  const handleBgvAnalysiReport = useCallback((data) => {
-    historyUtils.push(`${RouteName.BGV_ANALYSI_REPOST}${data?.id}`);
+  const handleBgvAnalysisReport = useCallback((data) => {
+    historyUtils.push(`${RouteName.BGV_ANALYSI_REPOST}`);
+  }, []);
+
+  const handleBgvReportDownload = useCallback((data) => {
+    serviceBGVDownload({
+      index: 1,
+      order: null,
+      query: "",
+      query_data: null,
+      row: null,
+    }).then((res) => {
+      if (!res?.error) {
+        const data = res.data;
+        window.open(data, "_blank");
+      } else {
+        SnackbarUtils.error(res?.message);
+      }
+    });
   }, []);
 
   const initData = useCallback(() => {
@@ -133,7 +147,7 @@ const usePendingBGVerification_Hook = () => {
   useEffect(() => {
     initData();
     isMountRef.current = true;
-    serviceGetList(["LOCATIONS", "DEPARTMENTS"]).then((res) => {
+    serviceGetList(["LOCATIONS", "DEPARTMENTS", "bgv_status"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -160,6 +174,13 @@ const usePendingBGVerification_Hook = () => {
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,
       },
+
+      {
+        label: "Bgv Status",
+        name: "bgv_status",
+        type: "select",
+        fields: ["FAILED", "PENDING", "CLEAR", "INPROCESS"],
+      },
     ];
   }, [listData]);
 
@@ -175,7 +196,8 @@ const usePendingBGVerification_Hook = () => {
     configFilter,
     handleViewDetails,
     handleBGVDetails,
-    handleBgvAnalysiReport,
+    handleBgvAnalysisReport,
+    handleBgvReportDownload,
   };
 };
 

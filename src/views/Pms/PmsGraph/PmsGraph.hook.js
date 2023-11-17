@@ -6,7 +6,7 @@ import {
 } from "../../../services/PmsNormalize.service";
 
 function usePmsGraphHook() {
-  const [graphLoc, setGraphLoc] = useState('ALL');
+  const [graphLoc, setGraphLoc] = useState("ALL");
   const [fyYear, setFyYear] = useState("");
   const [batch, setBatch] = useState("");
   const [graphData, setGraphData] = useState({});
@@ -21,7 +21,7 @@ function usePmsGraphHook() {
       serviceGetPmsNormalizeGraphData({
         batch: batch,
         year: fyYear,
-        location_id: graphLoc === 'ALL' ? '' : graphLoc,
+        location_id: graphLoc === "ALL" ? "" : graphLoc,
       }),
       serviceGetPmsNormalizeTableData({
         batch: batch,
@@ -30,7 +30,7 @@ function usePmsGraphHook() {
     ]).then((promises) => {
       const graphDatas = promises[0]?.value?.data;
       const graphtableData = promises[1]?.value?.data;
-      graphDatas?.grades?.sort((a, b) => (a?.code < b?.code) ? 1 : -1)
+      graphDatas?.grades?.sort((a, b) => (a?.code < b?.code ? 1 : -1));
       setGraphData(graphDatas);
       setTableData(graphtableData);
       if (graphDatas?.grades?.length > 0) {

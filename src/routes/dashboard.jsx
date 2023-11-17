@@ -15,8 +15,6 @@ import Constants from "../config/constants";
 import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
 import FullDetail from "../views/Full&FinalApproval/FullDetail/FullDetail.js";
 
-const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
-
 const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
 
 const RelievingExpLetterDetail = lazy(()=>import("../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail")) ;
@@ -26,18 +24,10 @@ const BgvAnalysisReport = lazy(() =>
     "../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"
   )
 );
-const SuccessionPlannerList = lazy(() =>
-  import("../views/SuccessionPlaner/SuccessionPlanner_list")
-);
 
-const EmployeeInformation = lazy(() =>
-  import(
-    "../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"
-  )
-);
+const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
 const IncrementLetter = lazy(()=>  import("../views/Pms/IncrementLetter/IncrementLetter.view"));
 const USCEditView = lazy(()=>  import("../views/HR/HRSettings/components/USCEdit/USCEdit"));
-const SuccessionApproval_List = lazy(()=>  import("../views/SuccessionApproval/SuccessionApproval_List"));
 const SuccessionPlanner_list = lazy(()=>  import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 const LetterApprovalProces_View = lazy(()=>  import("../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View"));
 const LetterApprovalDetail = lazy(()=>  import("../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail"));
@@ -51,6 +41,9 @@ const ExitInterviewList = lazy(()=>  import("../views/ExitInterview/ExitIntervie
 const FinalForm = lazy(()=>  import("../views/Full&Final/FinalForm/FinalForm.view.js"));
 
 
+// const BgvAnalysisReport =lazy(()=>import("../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"));
+const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
+const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
 const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
 
 const LeaveApplicationForm = lazy(() =>
@@ -1182,19 +1175,20 @@ const dashboardRoutes = [
       ? [Roles.ADMIN, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
   },
-  // {
-  //   path: RouteName.EMPLOYEE_RECORD_APPROVALs,
-  //   sidebarName: "Employee Record Approval",
-  //   navbarName: "Employee Record Approval",
-  //   icon: LocalOffer,
-  //   component: EmployeeRecordApprovals,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  //   // parent: "approval",
-  //   roles: Constants.is_development
-  //     ? [Roles.ADMIN, Roles.CORPORATE_HR]
-  //     : [Roles.CORPORATE_HR],
-  // },
+
+  {
+    path: RouteName.EMPLOYEE_RECORD_APPROVALs,
+    sidebarName: "Employee Record Approval",
+    navbarName: "Employee Record Approval",
+    icon: LocalOffer,
+    component: EmployeeRecordApprovals,
+    is_sidebar: true,
+    is_protect: true,
+    parent: "approval",
+    roles: Constants.is_development
+      ? [Roles.ADMIN, Roles.CORPORATE_HR]
+      : [Roles.CORPORATE_HR],
+  },
   {
     path: `${RouteName.NEW_EMPLOYEE_DETAIL}:id`,
     sidebarName: "Employee Details",
@@ -2325,7 +2319,7 @@ const dashboardRoutes = [
      roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
-    path: `${RouteName.BGV_ANALYSI_REPOST}:id`,
+    path: `${RouteName.BGV_ANALYSI_REPOST}`,
     sidebarName: "Pending Background Verification",
     navbarName: "Pending Background Verification",
     icon: AssignmentOutlined,
