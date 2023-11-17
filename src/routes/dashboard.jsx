@@ -551,7 +551,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'employeedashboard',
-    parent: "approval",
+    
     roles: [Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
@@ -1195,7 +1195,7 @@ const dashboardRoutes = [
     component: EmployeeRecordApprovals,
     is_sidebar: true,
     is_protect: true,
-    // parent: "approval",
+    parent: "approval",
     roles: Constants.is_development
       ? [Roles.ADMIN, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
