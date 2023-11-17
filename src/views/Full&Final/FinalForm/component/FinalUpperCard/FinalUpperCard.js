@@ -32,8 +32,8 @@ function FinalUpperCard({ data, otherData }) {
               {data?.location?.name}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>F&F Case Number:</span>-
-            </div>{" "}
+              <span className={styles.value}>F&F Case Number:</span>{otherData?.code}
+            </div>
             <div className={styles.key}>
               <span className={styles.value}>DOB:</span>
               {data?.dob}
