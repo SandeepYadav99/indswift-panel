@@ -44,18 +44,23 @@ const PendingBGVerification_View = ({ location }) => {
     return value ? value.replace(/_/g, " ") : "";
   };
 
+  const getBgvStatusStyle = (bgvResult) => {
+    if (bgvResult === "IN PROCESS") {
+      return { color: "#F4881B", borderColor: "#F4881B" };
+    } else if (bgvResult === "UNABLE TO VERIFY") {
+      return { color: "#7467F0", border: "none", textAlign: "justify" };
+    } else if (bgvResult === "FAILED") {
+      return { color: "#E92828", borderColor: "#E92828" };
+    } else if (bgvResult === "INCOMPLETE") {
+      return { color: "#E92828", borderColor: "#E92828" };
+    }
+
+    return {};
+  };
+
   const renderBGVStatus = useCallback((status) => {
     if (status === "PENDING" || "CLEAR" || "FAILED") {
-      return (
-        <StatusPill
-          status={status}
-          style={
-            status === "INCOMPLETE"
-              ? { color: "#E92828", borderColor: "#E92828" }
-              : ""
-          }
-        />
-      );
+      return <StatusPill status={status} style={getBgvStatusStyle(status)} />;
     } else {
       return <></>;
     }
@@ -77,18 +82,6 @@ const PendingBGVerification_View = ({ location }) => {
     }
     return null;
   }, []);
-
-  const getBgvStatusStyle = (bgvResult) => {
-    if (bgvResult === "IN PROCESS") {
-      return { color: "#F4881B", borderColor: "#F4881B" };
-    } else if (bgvResult === "UNABLE TO VERIFY") {
-      return { color: "#7467F0", border: "none", textAlign: "justify" };
-    } else if (bgvResult === "FAILED") {
-      return { color: "#E92828", borderColor: "#E92828" };
-    }
-
-    return {};
-  };
 
   const button_VerificationHandler = useCallback(
     (all) => {
@@ -234,11 +227,7 @@ const PendingBGVerification_View = ({ location }) => {
             {all?.payment_status ? (
               <StatusPill
                 status={removeUnderScore(all?.payment_status)}
-                style={
-                  all?.payment_status === "IN_PROCESS"
-                    ? { color: "#F4881B", borderColor: "#F4881B" }
-                    : {}
-                }
+                style={getBgvStatusStyle(removeUnderScore(all?.payment_status))}
               />
             ) : (
               <>-</>
@@ -281,6 +270,7 @@ const PendingBGVerification_View = ({ location }) => {
     isCalling,
     button_VerificationHandler,
     renderBgvResult,
+    getBgvStatusStyle
   ]);
 
   const tableData = useMemo(() => {

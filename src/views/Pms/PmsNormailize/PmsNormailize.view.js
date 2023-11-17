@@ -23,6 +23,7 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import usePmsNormailize from "./PmsNormailize.hook";
+import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 
 const PmsNormailize = ({ location }) => {
   const {
@@ -43,6 +44,14 @@ const PmsNormailize = ({ location }) => {
     handleViewGraph,
     role,
     handleCsvDownload,
+    listData,
+    fyYear,
+    graphLoc,
+    setGraphLoc,
+
+    setFyYear,
+    batch,
+    setBatch
   } = usePmsNormailize({ location });
 
   const {
@@ -52,6 +61,37 @@ const PmsNormailize = ({ location }) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.PmsNormalize);
 
+  const renderStartDate = useMemo(() => {
+    return (
+      <CustomSelectField
+        label={"Financial Year"}
+         value={fyYear}
+        handleChange={(value) => {
+           setFyYear(value);
+          //   sessionStorage.setItem("fyYear", value);
+        }}
+      >
+        <MenuItem value={"2023"}>2023</MenuItem>
+      </CustomSelectField>
+    );
+  }, [fyYear]);//fyYear
+
+  const renderEndDate = useMemo(() => {
+    return (
+      <CustomSelectField
+        label={"Batch"}
+         value={batch}
+        
+        handleChange={(value) => {
+           setBatch(value);
+          //   sessionStorage.setItem("end", value);
+        }}
+      >
+        <MenuItem value={"APMS"}>APMS</MenuItem>
+        <MenuItem value={"DTY"}>DTY</MenuItem>
+      </CustomSelectField>
+    );
+  }, [batch]);// batch
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
@@ -215,7 +255,10 @@ const PmsNormailize = ({ location }) => {
             <span className={styles.title}>Normalized Employee Records</span>
             <div className={styles.newLine} />
           </div>
+          <div className={styles.down}>{renderStartDate}</div>
+              <div className={styles.down}>{renderEndDate}</div>
           <div className={styles.rightFlex}>
+         
             {role === Constants.ROLES.CORPORATE_HR && (
               <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
                 Download

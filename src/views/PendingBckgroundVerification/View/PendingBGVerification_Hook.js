@@ -21,7 +21,7 @@ const usePendingBGVerification_Hook = () => {
     EMPLOYEES: [],
     DEPARTMENTS: [],
     LOCATIONS: [],
-    BGV_STATUS:[]
+    bgv_status: [],
   });
 
   const dispatch = useDispatch();
@@ -127,7 +127,6 @@ const usePendingBGVerification_Hook = () => {
       row: null,
     }).then((res) => {
       if (!res?.error) {
-      
         const data = res.data;
         window.open(data, "_blank");
       } else {
@@ -148,7 +147,7 @@ const usePendingBGVerification_Hook = () => {
   useEffect(() => {
     initData();
     isMountRef.current = true;
-    serviceGetList(["LOCATIONS", "DEPARTMENTS", "BGV_STATUS"]).then((res) => {
+    serviceGetList(["LOCATIONS", "DEPARTMENTS", "bgv_status"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -175,16 +174,16 @@ const usePendingBGVerification_Hook = () => {
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,
       },
+
       {
-        label: "BGV status",
-        name: "bgv_status_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.BGV_STATUS,
+        label: "Bgv Status",
+        name: "bgv_status",
+        type: "select",
+        fields: ["FAILED", "PENDING", "CLEAR", "INPROCESS"],
       },
     ];
   }, [listData]);
-console.log(listData)
+
   return {
     handlePageChange,
     handleFilterDataChange,

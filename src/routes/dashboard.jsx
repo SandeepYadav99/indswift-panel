@@ -546,6 +546,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'employeedashboard',
+    parent: "approval",
     roles: [Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   // {
@@ -1180,6 +1181,7 @@ const dashboardRoutes = [
       ? [Roles.ADMIN, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
   },
+  
   {
     path: RouteName.EMPLOYEE_RECORD_APPROVALs,
     sidebarName: "Employee Record Approval",
