@@ -100,7 +100,7 @@ const useSuccessionApprovalHook = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.FULL_FINAL_DETAIL}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.SUCCESSION_APPROVAL_DETAIL}${data?.id}`); //+data.id
   }, []);
 
   const handleViewForm = useCallback((data) => {

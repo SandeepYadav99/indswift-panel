@@ -1,8 +1,19 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { serviceGetApprovalDetail } from "../../../../services/SuccessionA.service";
+import { useParams } from "react-router";
 
 const useEmpInformation = () => {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [isOpenRejectionDialog, setIsOpenRejectionDialog] = useState(false);
+  const [employeeDetail, setEmployeeDetail] = useState({});
+  const { id } = useParams();
+  useEffect(() => {
+    let req = serviceGetApprovalDetail({ review_id: id });
+    req.then((data) => {
+      setEmployeeDetail(data?.data);
+    });
+  }, [id]);
+  console.log("employeeDetail", employeeDetail);
 
   const toggleIsOpenDialog = useCallback(
     (data) => {
@@ -25,6 +36,8 @@ const useEmpInformation = () => {
     isOpenDialog,
     toggleIsOpenRejectionDialog,
     isOpenRejectionDialog,
+    id,
+    employeeDetail,
   };
 };
 

@@ -68,107 +68,76 @@ const SuccessionApproval_List = ({}) => {
         key: "employee",
         label: "EMPLOYEE",
         sortable: true,
-        render: (value, all) => <div>{}</div>,
+        render: (value, all) => (
+          <div>
+            {all?.employee?.name}
+          </div>
+        ),
       },
       {
         key: "doj",
         label: "D.O.J",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.employee?.doj}</div>,
       },
       {
         key: "dob",
         label: "D.O.B",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.employee?.dob}</div>,
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {} <br /> {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.designation}</div>,
       },
       {
         key: "department",
         label: "DEPARTMENT",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-           {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.department}</div>,
       },
       {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.location}</div>,
       },
       {
         key: "age",
         label: "AGE",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-           {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.age}</div>,
       },
       {
         key: "date of retirment",
         label: "DATE OF RETIRMENT",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-          {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.application?.retirement_date}</div>,
       },
       {
         key: "annual salary",
         label: "ANNUAL SALARY",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-           {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.application?.ctc}</div>,
       },
       {
-        key: "succession_const",
-        label: " SUCCESSION'S COST WRT EMPLOYEE",
+        key: "nature",
+        label: "NATURE OF ASSOCIATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-           {}
-          </div>
-        ),
+        render: (temp, all) => <div>{}</div>,
       },
-      {
-        key: "succession_const",
-        label: " SUCCESSION'S COST WRT EMPLOYEE",
-        sortable: false,
-        render: (temp, all) => (
-          <div>
-          {}
-          </div>
-        ),
-      },
+
       {
         key: "current_status",
         label: "CURRENT STATUR/OVERALL STATUS",
         sortable: true,
         render: (temp, all) => (
           <div>
-          {}
+            {<StatusPill status={all?.status} />} <br />
+            <br />
+            <StatusPill status={all?.application?.status} />
           </div>
         ),
       },
@@ -178,14 +147,14 @@ const SuccessionApproval_List = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {/* <IconButton
+            <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-               onClick={() => handleToggleDetail(all)}
+               onClick={() => handleViewDetails(all)}
             >
               <InfoOutlined fontSize={"small"} />
-            </IconButton> */}
+            </IconButton>
           </div>
         ),
       },
