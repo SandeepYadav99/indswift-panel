@@ -7,8 +7,8 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ButtonBase, MenuItem } from "@material-ui/core";
 import historyUtils from "../../../../libs/history.utils";
 import useEmpInformation from "./EmpInformationHook";
-import ApprovalPopup from "../component/ApprovalPopup/ApprovalPopup";
-import RejectionPopup from "../component/RejectionPopup/RejectionPopup";
+// import ApprovalPopup from "../component/ApprovalPopup/ApprovalPopup";
+// import RejectionPopup from "../component/RejectionPopup/RejectionPopup";
 import UpperCard from "../component/UpperCard/UpperCard";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
@@ -190,7 +190,7 @@ const EmployeeInformation = ({ empId }) => {
         )}
       </div>
 
-      <ApprovalPopup
+      {/* <ApprovalPopup
         // candidateId={ids}
         isOpen={isOpenDialog}
         handleToggle={toggleIsOpenDialog}
@@ -210,7 +210,7 @@ const EmployeeInformation = ({ empId }) => {
         handleSubmit={handleSubmit}
         errorData={errorData}
         isSubmitting={isSubmitting}
-      />
+      /> */}
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Comments/Notes</div>
