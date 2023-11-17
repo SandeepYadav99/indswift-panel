@@ -36,12 +36,10 @@ const usePmsNormailize = ({ location }) => {
   const { role } = useSelector((state) => state.auth);
 
   useEffect(() => {
-  
     dispatch(
       actionFetchPmsNormalize(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
-    
       })
     );
     isMountRef.current = true;
@@ -218,7 +216,6 @@ const usePmsNormailize = ({ location }) => {
     role,
     handleCsvDownload,
     listData,
-  
   };
 };
 

@@ -64,13 +64,11 @@ const useEmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
       fd.append("employee_id", form?.employee_id || "");
 
       if (Formtype === "RECORD") {
-        fd.append("letter_type", form?.letter_type);
+       
         const updatedNewValues = {
           title: form?.new_values?.title,
           date_of_issue: form?.new_values?.date_of_issue,
-
           letter_head_no: form?.new_values?.letter_head_no,
-
           letter_type: form?.new_values?.letter_type,
         };
         fd.append("new_values", JSON.stringify(updatedNewValues));
