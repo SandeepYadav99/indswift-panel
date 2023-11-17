@@ -24,7 +24,7 @@ const useEmpInformation = () => {
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [listData, setListData] = useState({
-    EMPLOYEES: [],
+    EMPLOYEE_SALARY: [],
   });
   const { id } = useParams();
   useEffect(() => {
@@ -35,7 +35,7 @@ const useEmpInformation = () => {
   }, [id]);
   console.log("employeeDetail", employeeDetail);
   useEffect(() => {
-    serviceGetList(["EMPLOYEES"]).then((res) => {
+    serviceGetList(["EMPLOYEE_SALARY"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
