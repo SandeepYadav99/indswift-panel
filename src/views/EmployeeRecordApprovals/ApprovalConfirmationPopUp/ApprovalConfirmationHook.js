@@ -1,26 +1,27 @@
 import { useCallback } from "react";
-import {  useState } from "react";
+import { useState } from "react";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { serviceEmployeeRecordApprovalApprove } from "../../../services/EmpeRecordApproval.service";
 
-const useApprovalConfirmationHook = ({ offerId , handleToggle, handleClose}) => {
- const [isSubmitting, setIsSubmitting] = useState(false);
+const useApprovalConfirmationHook = ({
+  offerId,
+  handleToggle,
+  handleClose,
+}) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
- const handleSubmit = useCallback(
+  const handleSubmit = useCallback(
     (val) => {
       if (!isSubmitting) {
         setIsSubmitting(true);
         let req = serviceEmployeeRecordApprovalApprove;
 
         req({ id: offerId }).then((res) => {
-
           if (!res.error) {
-
-            handleToggle()
-            handleClose()
-            window.location.reload()
+            handleToggle();
+            handleClose();
+            window.location.reload();
           } else {
-
             SnackbarUtils.error(res?.message);
           }
 
@@ -31,7 +32,6 @@ const useApprovalConfirmationHook = ({ offerId , handleToggle, handleClose}) => 
 
     [isSubmitting, setIsSubmitting, offerId]
   );
-
 
   return {
     handleSubmit,
