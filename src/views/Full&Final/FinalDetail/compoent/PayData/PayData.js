@@ -382,8 +382,8 @@ function PayData({ employeeDetail }) {
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>BGV Recovery:</span>
-              {employeeDetail?.bgv_recovery &&
-                `₹ ${employeeDetail?.bgv_recovery}`}
+              {employeeDetail?.bgv &&
+                `₹ ${employeeDetail?.bgv}`}
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>
@@ -492,7 +492,7 @@ function PayData({ employeeDetail }) {
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>BGV Recovery Comment:</span>
-              {employeeDetail?.bgv_recovery_comment}{" "}
+              {employeeDetail?.bgv_comment}{" "}
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>
