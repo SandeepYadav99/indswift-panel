@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import {IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
@@ -61,7 +61,9 @@ const FullFinalApproval = ({}) => {
     }
     return null;
   }, []);
-
+  const removeUnderScore = (value) => {
+    return value ? value.replace(/_/g, " ") : "";
+  };
   const tableStructure = useMemo(() => {
     return [
       {
@@ -121,6 +123,7 @@ const FullFinalApproval = ({}) => {
           <div>{all?.employee?.contact?.official_contact}</div>
         ),
       },
+
       {
         key: "Last",
         label: "Last working day",
@@ -128,6 +131,18 @@ const FullFinalApproval = ({}) => {
         style: { width: "18%" },
         render: (temp, all) => (
           <div>{all?.employee?.resign_data?.last_working_date}</div>
+        ),
+      },
+      {
+        key: "status",
+        label: "Current status/Overall status",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {renderStatus(removeUnderScore(all?.status))}
+            <br /> <br />
+            {renderStatus(removeUnderScore(all?.fullAndFinal?.status))}
+          </div>
         ),
       },
       {
@@ -149,7 +164,7 @@ const FullFinalApproval = ({}) => {
                 handleViewDetails(all);
               }}
             >
-             <InfoOutlined fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} />
             </IconButton>
           </div>
         ),
@@ -215,4 +230,3 @@ const FullFinalApproval = ({}) => {
 };
 
 export default FullFinalApproval;
-
