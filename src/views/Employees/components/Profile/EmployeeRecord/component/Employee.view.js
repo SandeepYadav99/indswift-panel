@@ -7,7 +7,7 @@ import CustomDatePicker from "../../../../../../components/FormFields/DatePicker
 import CustomTextField from "../../../../../../components/FormFields/TextField/TextField.component";
 import File from "../../../../../../components/FileComponent/FileComponent.component";
 
-const EmployeeView = ({ closeSidePanel, Formtype }) => {
+const EmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
   const {
     form,
     changeTextData,
@@ -15,8 +15,8 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
     handleSubmit,
     onBlurHandler,
     isSubmitting,
-  } = useEmployeeView({ closeSidePanel, Formtype });
-
+  } = useEmployeeView({ closeSidePanel, Formtype, employee_record_id });
+console.log(employee_record_id)
   return (
     <div>
       <div className={"formFlex"}>
@@ -26,7 +26,7 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
             errorText={errorData?.title}
             name="title"
             label={Formtype === "RECORD" ? "Letter Title" : "Title"}
-            value={form?.title}
+            value={form?.new_values?.title}
             onTextChange={(text) => {
               changeTextData(text, "title");
             }}
@@ -45,7 +45,7 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
               errorText={errorData?.letter_type}
               name="letter_type"
               label={"Type Of Letter"}
-              value={form?.letter_type}
+              value={form?.new_values?.letter_type}
               handleChange={(value) => {
                 changeTextData(value, "letter_type");
               }}
@@ -61,7 +61,7 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
               errorText={errorData?.star_type}
               name="star_type"
               label={"Star Type"}
-              value={form?.star_type}
+              value={form?.new_values?.star_type}
               handleChange={(value) => {
                 changeTextData(value, "star_type");
               }}
@@ -84,7 +84,7 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
             onChange={(date) => {
               changeTextData(date, "date_of_issue");
             }}
-            value={form?.date_of_issue}
+            value={form?.new_values?.date_of_issue}
             isError={errorData?.date_of_issue}
           />
         </div>
@@ -121,7 +121,7 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
               Formtype === "RECORD" ? "Letter Head No" : "LH No. (optional)"
             }
             name="letter_head_no"
-            value={form?.letter_head_no}
+            value={form?.new_values?.letter_head_no}
             onTextChange={(text) => {
               changeTextData(text, "letter_head_no");
             }}
@@ -139,7 +139,7 @@ const EmployeeView = ({ closeSidePanel, Formtype }) => {
             errorText={errorData?.description}
             label={'Description'}
             name="description"
-            value={form?.description}
+            value={form?.new_values?.description}
             onTextChange={(text) => {
               changeTextData(text, "description");
             }}

@@ -46,6 +46,24 @@ const BGVDetailView = ({}) => {
     });
   }, [id]);
 
+  const removeUnderScore = (value) => {
+    return value ? value.replace(/_/g, " ") : "";
+  };
+
+  const getBgvStatusStyle = (bgvResult) => {
+    if (bgvResult === "IN PROCESS") {
+      return { color: "#F4881B", borderColor: "#F4881B" };
+    } else if (bgvResult === "UNABLE TO VERIFY") {
+      return { color: "#7467F0", border: "none", textAlign: "justify" };
+    } else if (bgvResult === "FAILED") {
+      return { color: "#E92828", borderColor: "#E92828" };
+    } else if (bgvResult === "INCOMPLETE") {
+      return { color: "#E92828", borderColor: "#E92828" };
+    }
+
+    return {};
+  };
+
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -70,6 +88,11 @@ const BGVDetailView = ({}) => {
                 <div className={styles.titleFiledSpacePil}>
                   <StatusPill
                     status={details?.is_education_verification_status}
+                    style={getBgvStatusStyle(
+                      removeUnderScore(
+                        details?.is_education_verification_status
+                      )
+                    )}
                   />
                 </div>
               </div>
@@ -78,6 +101,11 @@ const BGVDetailView = ({}) => {
                 <div className={styles.titleFiledSpacePil}>
                   <StatusPill
                     status={details?.is_secound_employment_verification_status}
+                    style={getBgvStatusStyle(
+                      removeUnderScore(
+                        details?.is_secound_employment_verification_status
+                      )
+                    )}
                   />
                 </div>
               </div>
@@ -89,6 +117,11 @@ const BGVDetailView = ({}) => {
                 <div className={styles.titleFiledSpacePil}>
                   <StatusPill
                     status={details?.is_first_employment_verification_status}
+                    style={getBgvStatusStyle(
+                      removeUnderScore(
+                        details?.is_first_employment_verification_status
+                      )
+                    )}
                   />
                 </div>
               </div>
@@ -97,6 +130,9 @@ const BGVDetailView = ({}) => {
                 <div className={styles.titleFiledSpacePil}>
                   <StatusPill
                     status={details?.is_criminal_verification_status}
+                    style={getBgvStatusStyle(
+                      removeUnderScore(details?.is_criminal_verification_status)
+                    )}
                   />
                 </div>
               </div>
@@ -105,10 +141,10 @@ const BGVDetailView = ({}) => {
           <div className={styles.gaps} />
           <div className={styles.requiredFooter}>
             <div className={styles.topText}>
-              <b>BGV Status: {details?.bgv_status}</b>
+              <b>BGV Status: {removeUnderScore(details?.bgv_status)}</b>
             </div>
             <div className={styles.topText}>
-              <b>BGV Result: {details?.bgv_result}</b>
+              <b>BGV Result: {removeUnderScore(details?.bgv_result)}</b>
             </div>
           </div>
         </div>
@@ -127,7 +163,7 @@ const BGVDetailView = ({}) => {
             <div className={styles.gaps} />
             <div className={styles.backgroundStatus}>
               <span>
-                <b>Remarks: </b> {details?.remark}
+                <b>Remarks: </b> {details?.action_remark}
               </span>
             </div>
           </div>

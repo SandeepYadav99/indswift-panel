@@ -13,31 +13,40 @@ function EmployeeRecordList({}) {
   const [data, setData] = useState([]);
   const [type, setType] = useState("");
   const location = useLocation();
-  const {role} = useSelector(state => state.auth);
-  
+  const { role } = useSelector((state) => state.auth);
+  const [employId, setEmployId] = useState(null);
+
   useEffect(() => {
     serviceGetEmployeeRecord({
+
       employee_id: employeeData.id,
     }).then((res) => {
+
       if (!res?.error) {
+
         setData(res?.data);
       }
     });
+
   }, [employeeData]);
 
   const handleSideToggle = useCallback(
     (type) => {
+
       setSidePanel((e) => !e);
       setType(type);
       setCreateDD(null);
     },
+
     [setSidePanel, setCreateDD, setType]
   );
 
   useEffect(() => {
     if (!isEditPanel) {
+
       setSelectEmp({});
     }
+
   }, [isEditPanel]);
 
   const handleEditToggle = useCallback(
@@ -45,6 +54,7 @@ function EmployeeRecordList({}) {
       setSelectEmp(data);
       setIsEditPanel((e) => !e);
     },
+
     [setIsEditPanel, selectedEmp]
   );
 
@@ -52,11 +62,13 @@ function EmployeeRecordList({}) {
     (event) => {
       setCreateDD(event.currentTarget);
     },
+
     [setCreateDD]
   );
 
   const handleClosedownloadCL = useCallback(() => {
     setCreateDD(null);
+    
   }, [setCreateDD]);
 
   return {
@@ -72,7 +84,9 @@ function EmployeeRecordList({}) {
     isEditPanel,
     selectedEmp,
     setSelectEmp,
-    role
+    role,
+    employId,
+    setEmployId,
   };
 }
 

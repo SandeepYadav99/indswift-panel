@@ -46,7 +46,16 @@ const PendingBGVerification_View = ({ location }) => {
 
   const renderBGVStatus = useCallback((status) => {
     if (status === "PENDING" || "CLEAR" || "FAILED") {
-      return <StatusPill status={status} />;
+      return (
+        <StatusPill
+          status={status}
+          style={
+            status === "INCOMPLETE"
+              ? { color: "#E92828", borderColor: "#E92828" }
+              : ""
+          }
+        />
+      );
     } else {
       return <></>;
     }
@@ -110,7 +119,7 @@ const PendingBGVerification_View = ({ location }) => {
             onClick={() => {
               isShowBgvDetails
                 ? handleBGVDetails(all)
-                : handleBGVUpdateDetails(all);
+                : handleBGVUpdateDetails(all); // handleBGVUpdateDetails(all)
             }}
           >
             {isShowBgvDetails ? (
@@ -134,9 +143,9 @@ const PendingBGVerification_View = ({ location }) => {
         label: "NAME",
         sortable: false,
         render: (value, all) => (
-          <div>
+          <>
             <b>{all?.emp_name}</b> <br /> {all?.emp_code}
-          </div>
+          </>
         ),
       },
       {
@@ -144,33 +153,33 @@ const PendingBGVerification_View = ({ location }) => {
         label: "LOCATION",
         sortable: false,
         render: (temp, all) => (
-          <div>{all?.location?.name || all?.reporting_company}</div>
+          <>{all?.location?.name || all?.reporting_company}</>
         ),
       },
       {
         key: "month",
         label: "MONTH",
         sortable: false,
-        render: (temp, all) => <div>{all?.verificationText}</div>,
+        render: (temp, all) => <>{all?.verificationText}</>,
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.designation?.name}</div>,
+        render: (temp, all) => <>{all?.designation?.name}</>,
       },
       {
         key: "department",
         label: "DEPARTMENT",
         sortable: false,
-        render: (temp, all) => <div>{all?.department?.name || "-"}</div>,
+        render: (temp, all) => <>{all?.department?.name || "-"}</>,
       },
       {
         key: "offer_date",
         label: "OFFER DATE",
         sortable: false,
         render: (temp, all) => (
-          <div>{all?.offerDate !== "Invalid date" ? all?.offerDate : "-"}</div>
+          <>{all?.offerDate !== "Invalid date" ? all?.offerDate : "-"}</>
         ),
       },
       {
@@ -178,31 +187,36 @@ const PendingBGVerification_View = ({ location }) => {
         label: "OFFER ACCEPTED",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <>
             {all?.offerAcceptedDate !== "Invalid date"
               ? all?.offerAcceptedDate
               : "-"}
-          </div>
+          </>
         ),
       },
       {
         key: "doj",
         label: "DOJ",
         sortable: false,
-        render: (temp, all) => <div>{all?.dojText}</div>,
+        render: (temp, all) => <>{all?.dojText}</>,
       },
       {
         key: "status",
         label: "STATUS",
         sortable: false,
-        render: (temp, all) => <div>{renderBGVStatus(all?.bgv_status)}</div>,
+        render: (temp, all) => (
+          <div style={{ width: "8rem" }}>
+            {renderBGVStatus(all?.bgv_status)}
+          </div>
+        ),
       },
       {
         key: "bgv-result",
         label: "BGV RESULT",
         sortable: false,
+
         render: (temp, all) => (
-          <div>
+          <div style={{ width: "8rem" }}>
             {all?.bgv_result ? (
               renderBgvResult(removeUnderScore(all?.bgv_result))
             ) : (
@@ -216,13 +230,13 @@ const PendingBGVerification_View = ({ location }) => {
         label: "PAYMENT STATUS",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div style={{ width: "8rem" }}>
             {all?.payment_status ? (
               <StatusPill
                 status={removeUnderScore(all?.payment_status)}
                 style={
                   all?.payment_status === "IN_PROCESS"
-                    ? { color: "#F4881B", border: "none" }
+                    ? { color: "#F4881B", borderColor: "#F4881B" }
                     : {}
                 }
               />
@@ -236,7 +250,7 @@ const PendingBGVerification_View = ({ location }) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             {all?.bgv_status === "PENDING" &&
               (all?.bgv_result === "PENDING" ||
                 all?.bgv_result !== "" ||
@@ -333,14 +347,12 @@ const PendingBGVerification_View = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
+
+          <div style={{ width: "100%" }}>
+            <DataTables
+              {...tableData.datatable}
+              {...tableData.datatableFunctions}
+            />
           </div>
         </div>
       </PageBox>

@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useParams, useLocation } from "react-router";
 import  { useCallback, useEffect, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
@@ -33,12 +33,12 @@ const initialForm = {
 };
 
 const useCandidateUpdate_Hook = () => {
-  const { id } = useParams();
+  const { id} = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+ 
   useEffect(() => {
     setIsLoading(true);
     serviceEmployeeBGVDetail({ id: id }).then((res) => {
@@ -210,6 +210,7 @@ const useCandidateUpdate_Hook = () => {
     changeTextData,
     form,
     handleSubmit,
+
   };
 };
 

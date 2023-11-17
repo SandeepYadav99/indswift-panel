@@ -3,16 +3,20 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
-import {serviceGetList} from "../../services/Common.service";
-import { actionFetchEmployeRecordApprovalList, actionSetPageEmployeRecordApprovalList } from "../../actions/EmpRecordApproval.action";
+import { serviceGetList } from "../../services/Common.service";
+import {
+  actionFetchEmployeRecordApprovalList,
+  actionSetPageEmployeRecordApprovalList,
+} from "../../actions/EmpRecordApproval.action";
 
 const useEmployeeRecordApprovals = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
-  const [isCalling, setIsCalling] = useState(false);
+  const [isCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const [employees, setEmployees] = useState([]);
+
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -26,13 +30,14 @@ const useEmployeeRecordApprovals = ({}) => {
     { id: "REJECTED", name: "REJECTED" },
   ];
 
-    useEffect(() => {
-        serviceGetList(['EMPLOYEES']).then((res) => {
-            if (!res.error) {
-                setEmployees(res?.data?.EMPLOYEES);
-            }
-        });
-    }, [])
+  useEffect(() => {
+    serviceGetList(["EMPLOYEES"]).then((res) => {
+      if (!res.error) {
+        setEmployees(res?.data?.EMPLOYEES);
+      }
+    });
+
+  }, []);
 
   useEffect(() => {
     dispatch(
@@ -41,13 +46,13 @@ const useEmployeeRecordApprovals = ({}) => {
         query_data: isMountRef.current ? queryData : null,
       })
     );
+
     isMountRef.current = true;
   }, []);
 
- 
   const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
     dispatch(actionSetPageEmployeRecordApprovalList(type));
+
   }, []);
 
   const handleDataSave = useCallback(
@@ -55,46 +60,46 @@ const useEmployeeRecordApprovals = ({}) => {
       setSidePanel((e) => !e);
       setEditData(null);
     },
+
     [setSidePanel, setEditData]
   );
+
   const changeEmployeeRoute = useCallback((data) => {
-    historyUtils.push(`/employees/details/${data?.code}`);
-}, []);
+    historyUtils.push(`/employees/details/${data?.emp_code}`);
+
+  }, []);
+
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageEmployeeVersionRequests(1));
       dispatch(
         actionFetchEmployeRecordApprovalList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
       );
-      // dispatch(actionFetchEmployeeVersion(1, sortingData))
     },
+
     [sortingData, query, queryData]
   );
 
   const handleFilterDataChange = useCallback(
     (value) => {
-      console.log("_handleFilterDataChange", value);
       queryFilter("FILTER_DATA", value);
     },
+
     [queryFilter]
   );
 
   const handleSearchValueChange = useCallback(
     (value) => {
-      console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
     },
+
     [queryFilter]
   );
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      // dispatch(actionSetPageEmployeeVersion(1));
       dispatch(
         actionFetchEmployeRecordApprovalList(
           1,
@@ -106,18 +111,18 @@ const useEmployeeRecordApprovals = ({}) => {
         )
       );
     },
+    
     [query, queryData]
   );
 
-  const handleRowSize = (page) => {
-    console.log(page);
-  };
+  const handleRowSize = (page) => {};
 
   const handleDelete = useCallback(
     (id) => {
       setSidePanel(false);
       setEditData(null);
     },
+
     [setEditData, setSidePanel]
   );
 
@@ -126,6 +131,7 @@ const useEmployeeRecordApprovals = ({}) => {
       setEditData(data);
       setSidePanel((e) => !e);
     },
+
     [setEditData, setSidePanel]
   );
 
@@ -136,6 +142,7 @@ const useEmployeeRecordApprovals = ({}) => {
         setEditData(data?.id);
       }
     },
+
     [setEditData, setSidePanel]
   );
 
@@ -149,7 +156,6 @@ const useEmployeeRecordApprovals = ({}) => {
 
   const configFilter = useMemo(() => {
     return [
-      
       {
         label: "Status",
         name: "status",
@@ -157,8 +163,14 @@ const useEmployeeRecordApprovals = ({}) => {
         custom: { extract: { id: "id", title: "name" } },
         fields: status,
       },
-    
-        {label: 'Changed By', name: 'edited_by', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: employees},
+
+      {
+        label: "Changed By",
+        name: "edited_by",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: employees,
+      },
     ];
   }, [employees]);
 
@@ -181,7 +193,7 @@ const useEmployeeRecordApprovals = ({}) => {
     isSidePanel,
     configFilter,
     handleCreate,
-    changeEmployeeRoute
+    changeEmployeeRoute,
   };
 };
 
