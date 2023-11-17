@@ -3,8 +3,16 @@ import styles from "./CandidateInfor.module.css";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { actionGetEmployeeDetails } from "../../../../actions/Employee.action";
+import { useLocation } from "react-router";
 const CandidateInfor = ({ empId }) => {
   const dispatch = useDispatch();
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const offerDate = queryParams.get('offerDate') !== 'Invalid date' ? queryParams.get('offerDate') : 'N/A';
+  const offerAcceptedDate = queryParams.get('offerAcceptedDate') !== 'Invalid date' ? queryParams.get('offerAcceptedDate') : 'N/A';
+  
+
+
   useEffect(() => {
     if (empId) {
       dispatch(actionGetEmployeeDetails(empId));
@@ -45,7 +53,7 @@ const CandidateInfor = ({ empId }) => {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Offer Accepted:</span>
-              {employeeData?.offerAcceptedDate || "N/A"}{" "}
+              {offerAcceptedDate || "N/A"}{" "}
             </div>
           </div>
 
@@ -66,8 +74,8 @@ const CandidateInfor = ({ empId }) => {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Offer Date:</span>
-              {employeeData?.offerDate
-                ? employeeData?.offerDate
+              {offerDate
+                ? offerDate
                 : "NA"}
             </div>
             <div className={styles.key}>

@@ -21,6 +21,7 @@ const usePendingBGVerification_Hook = () => {
     EMPLOYEES: [],
     DEPARTMENTS: [],
     LOCATIONS: [],
+    BGV_STATUS:[]
   });
 
   const dispatch = useDispatch();
@@ -96,18 +97,21 @@ const usePendingBGVerification_Hook = () => {
   };
 
   const handleViewDetails = useCallback((data) => {
-   
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}`
+      `${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
   }, []);
 
   const handleBGVUpdateDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}`);
+    historyUtils.push(
+      `${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}?offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+    );
   }, []);
 
   const handleBGVDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}`);
+    historyUtils.push(
+      `${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}?offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+    );
   }, []);
 
   const handleBgvAnalysisReport = useCallback((data) => {
@@ -121,15 +125,15 @@ const usePendingBGVerification_Hook = () => {
       query: "",
       query_data: null,
       row: null,
-    })
-      .then((res) => {
-        if (!res?.error) {
-          SnackbarUtils.success(res?.message);
-        } else {
-          SnackbarUtils.error(res?.message);
-        }
-      })
-     
+    }).then((res) => {
+      if (!res?.error) {
+      
+        const data = res.data;
+        window.open(data, "_blank");
+      } else {
+        SnackbarUtils.error(res?.message);
+      }
+    });
   }, []);
 
   const initData = useCallback(() => {
@@ -144,7 +148,7 @@ const usePendingBGVerification_Hook = () => {
   useEffect(() => {
     initData();
     isMountRef.current = true;
-    serviceGetList(["LOCATIONS", "DEPARTMENTS"]).then((res) => {
+    serviceGetList(["LOCATIONS", "DEPARTMENTS", "BGV_STATUS"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -171,9 +175,16 @@ const usePendingBGVerification_Hook = () => {
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,
       },
+      {
+        label: "BGV status",
+        name: "bgv_status_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.BGV_STATUS,
+      },
     ];
   }, [listData]);
-
+console.log(listData)
   return {
     handlePageChange,
     handleFilterDataChange,
