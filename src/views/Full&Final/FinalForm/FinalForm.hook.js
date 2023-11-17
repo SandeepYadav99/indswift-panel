@@ -23,6 +23,7 @@ import {
   serviceGetFormDebounceDetails,
   serviceSubmitFFForm,
 } from "../../../services/FinalForm.service";
+import { number_Keys } from "../../../helper/helper";
 
 const SALARY_KEYS = [
   "pds",
@@ -507,8 +508,13 @@ function useFinalForm() {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-
-      t[fieldName] = text;
+      if (number_Keys.includes(fieldName)) {
+        if (text >= 0) {
+          t[fieldName] = text;
+        }
+      } else {
+        t[fieldName] = text;
+      }
 
       setForm(t);
       shouldRemoveError && removeError(fieldName);
