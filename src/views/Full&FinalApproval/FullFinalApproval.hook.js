@@ -141,11 +141,9 @@ const useFullFinalApproval = ({}) => {
         name: "status",
         type: "select",
         fields: [
-          "PENDING",
-          "REJECTED",
           "CORPORATE_AUDIT_2_APPROVED",
+          "TAXATION_APPROVED",
           "CORPORATE_HR_APPROVED",
-          "TAX_APPROVED",
           "CAO_APPROVED",
           "PROCESSED",
         ],

@@ -264,11 +264,11 @@ function PayData({ employeeDetail }) {
               <span className={styles.value}>
                 EL Balance (Opening-Consumed):
               </span>
-              {employeeDetail?.el_balance_uphold}
+              {employeeDetail?.el_balance}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Comments:</span>
-              {employeeDetail?.el_balance_uphold_comment}
+              {employeeDetail?.el_balance_comment}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>EL of Current Service Year:</span>
@@ -280,21 +280,21 @@ function PayData({ employeeDetail }) {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>FEL (Freezed Earned Leave):</span>
-              {employeeDetail?.fel_uphold}
+              {employeeDetail?.fel}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Comments:</span>
-              {employeeDetail?.fel_uphold_comment}
+              {employeeDetail?.fel_comment}
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>
                 RBL (Retirement Bank Leave) :
               </span>
-              {employeeDetail?.rbl_uphold}
+              {employeeDetail?.rbl}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Comments:</span>
-              {employeeDetail?.rbl_uphold_comment}
+              {employeeDetail?.rbl_comment}
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>NFH or OT Payout Value:</span>
@@ -382,8 +382,8 @@ function PayData({ employeeDetail }) {
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>BGV Recovery:</span>
-              {employeeDetail?.bgv_recovery &&
-                `₹ ${employeeDetail?.bgv_recovery}`}
+              {employeeDetail?.bgv &&
+                `₹ ${employeeDetail?.bgv}`}
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>
@@ -492,7 +492,7 @@ function PayData({ employeeDetail }) {
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>BGV Recovery Comment:</span>
-              {employeeDetail?.bgv_recovery_comment}{" "}
+              {employeeDetail?.bgv_comment}{" "}
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>

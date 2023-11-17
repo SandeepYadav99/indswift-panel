@@ -32,8 +32,8 @@ function FinalUpperCard({ data, otherData }) {
               {data?.location?.name}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>F&F Case Number:</span>-
-            </div>{" "}
+              <span className={styles.value}>F&F Case Number:</span>{otherData?.code}
+            </div>
             <div className={styles.key}>
               <span className={styles.value}>DOB:</span>
               {data?.dob}
@@ -62,7 +62,7 @@ function FinalUpperCard({ data, otherData }) {
                 </div>{" "}
                 <div className={styles.key}>
                   <span className={styles.value}>Actual DOL:</span>
-                  {otherData?.dol}
+                  {otherData?.dolText}
                 </div>{" "}
                 <div className={styles.key}>
                   <span className={styles.value}>Served For:</span>
@@ -70,7 +70,7 @@ function FinalUpperCard({ data, otherData }) {
                 </div>
                 <div className={styles.key}>
                   <span className={styles.value}>Remarks about shortfall:</span>
-                  -
+                  {otherData?.shortfall_remarks}
                 </div>
               </>
             )}
@@ -120,7 +120,7 @@ function FinalUpperCard({ data, otherData }) {
                 <span className={styles.value}>
                   Planned Date of Separation:
                 </span>
-                {otherData?.pds}
+                {otherData?.pdsText}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Notice Period in Days:</span>
