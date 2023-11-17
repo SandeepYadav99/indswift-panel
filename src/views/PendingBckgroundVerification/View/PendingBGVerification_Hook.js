@@ -104,13 +104,13 @@ const usePendingBGVerification_Hook = () => {
 
   const handleBGVUpdateDetails = useCallback((data) => {
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}?offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+      `${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
   }, []);
 
   const handleBGVDetails = useCallback((data) => {
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}?offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+      `${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
   }, []);
 

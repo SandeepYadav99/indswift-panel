@@ -17,8 +17,7 @@ import { serviceExportPmsNormalization } from "../../../services/PmsNormalize.se
 const usePmsNormailize = ({ location }) => {
   const batchID = location?.state?.batch_id;
   const [isCalling, setIsCalling] = useState(false);
-  const [fyYear, setFyYear] = useState("");
-  const [batch, setBatch] = useState("");
+
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
@@ -37,19 +36,14 @@ const usePmsNormailize = ({ location }) => {
   const { role } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const payload = {
-      batch: batch ? batch : '',
-      year: fyYear ? fyYear : '',
-    };
     dispatch(
       actionFetchPmsNormalize(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
-       ...payload
       })
     );
     isMountRef.current = true;
-  }, [batch, fyYear]);
+  }, []);
 
   useEffect(() => {
     serviceGetList(["PMS_EMPLOYEES"]).then((res) => {
@@ -168,6 +162,19 @@ const usePmsNormailize = ({ location }) => {
         type: "select",
         fields: ["NORMALIZATION_DONE", "HOD_REVIEWED", "HOD_REVIEW_PENDING"],
       },
+      // {
+      //   label: "Financial Year",
+      //   name: "year",
+      //   // value:2023,
+      //   type: "select",
+      //   fields: [2023],
+      // },
+      {
+        label: "Batch",
+        name: "batch",
+        type: "select",
+        fields: ["APMS", "DTY"],
+      },
     ];
   }, [listData]);
 
@@ -209,11 +216,6 @@ const usePmsNormailize = ({ location }) => {
     role,
     handleCsvDownload,
     listData,
-    fyYear,
-    batch,
-    setBatch,
-
-    setFyYear,
   };
 };
 
