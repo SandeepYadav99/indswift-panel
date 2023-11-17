@@ -179,7 +179,7 @@ const rootReducer = combineReducers({
   AppointmentLetter: AppointmentLetterReducer,
   RelievingExpLetter: RelievingExpLetterReducer,
   successionPlaner: SuccessionPlanerReducer,
-  // employeRecordApproval:EmpRecordApprovalReducer
+  employeRecordApproval:EmpRecordApprovalReducer,
   next_year: SuccessionPlanerReducer,
   next_next_year:SuccessionPlanerReducer,
   final_form_approval: FinalFormApprovalReducer,
