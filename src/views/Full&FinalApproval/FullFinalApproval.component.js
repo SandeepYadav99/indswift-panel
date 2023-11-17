@@ -10,6 +10,7 @@ import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
 import useFullFinalApproval from "./FullFinalApproval.hook";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
+import { InfoOutlined } from "@material-ui/icons";
 
 const FullFinalApproval = ({}) => {
   const {
@@ -148,7 +149,7 @@ const FullFinalApproval = ({}) => {
                 handleViewDetails(all);
               }}
             >
-              <RemoveRedEyeOutlinedIcon fontSize={"small"} />
+             <InfoOutlined fontSize={"small"} />
             </IconButton>
           </div>
         ),

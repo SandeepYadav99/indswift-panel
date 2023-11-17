@@ -22,6 +22,10 @@
   align-items: center;
   justify-content: center;
 }
+.redField {
+  color: #e92828;
+  font-weight: bold;
+}
 .teck{
   margin-left: 15px;
   font-size: .8rem;
