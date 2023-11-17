@@ -26,3 +26,6 @@ export async function serviceGetSuccessionA(params) {
 export async function serviceGetApprovalDetail(params) {
   return await formDataRequest("employee/succession/review/detail", params);
 }
+export async function serviceGetApprovalSubmit(params) {
+  return await formDataRequest("employee/succession/panelist/submit", params);
+}

@@ -1,15 +1,11 @@
 import React from "react";
-import {
-  ButtonBase,
-} from "@material-ui/core";
+import { ButtonBase } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
-
-import useRejectionPopup from "./RejectionPopup.hook";
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -34,16 +30,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const RejectionPopup = ({ isOpen, handleToggle, candidateId }) => {
+const RejectionPopup = ({
+  isOpen,
+  handleToggle,
+  candidateId,
+  form,
+  changeTextData,
+  onBlurHandler,
+  handleSubmit,
+  errorData,
+  isSubmitting,
+}) => {
   const classes = useStyles();
-  const {
-    changeTextData,
-    errorData,
-    form,
-    handleSubmit,
-    onBlurHandler,
-
-  } = useRejectionPopup({ isOpen, handleToggle, candidateId });
 
   return (
     <div>
@@ -70,25 +68,25 @@ const RejectionPopup = ({ isOpen, handleToggle, candidateId }) => {
             </ButtonBase>
           </div>
           <div className={styles.headingWrapper}>
-            <div className={styles.heading}>Mark Vacancy Inactive</div>
+            <div className={styles.heading}>Confirm Action</div>
             <div className={styles.newLine}></div>
             <div className={styles.des}>
-            Please describe your reason for making the vacancy as inactive.
+              Please specify the reason for rejecting the succession
             </div>
           </div>
 
           <div className={styles.fieldWrapper}>
             <div>
               <CustomTextField
-                isError={errorData?.reason}
-                errorText={errorData?.reason}
-                label={"Add your reason"}
-                value={form?.reason}
+                isError={errorData?.comment}
+                errorText={errorData?.comment}
+                label={"Add your comment"}
+                value={form?.comment}
                 onTextChange={(text) => {
-                  changeTextData(text, "reason");
+                  changeTextData(text, "comment");
                 }}
                 onBlur={() => {
-                  onBlurHandler("reason");
+                  onBlurHandler("comment");
                 }}
                 multiline
                 rows={3}
@@ -98,13 +96,8 @@ const RejectionPopup = ({ isOpen, handleToggle, candidateId }) => {
 
           <div className={styles.printFlex}>
             <ButtonBase
-              onClick={handleSubmit}
-              // className={
-              //   declaration ? styles.createBtn : styles.disabledCreatebtn
-              // }
-              className={
-               styles.createBtn
-              }
+              onClick={() => handleSubmit("REJECTED")}
+              className={styles.createBtn}
             >
               CONFIRM
             </ButtonBase>
