@@ -164,12 +164,13 @@ const usePmsNormailize = ({ location }) => {
         type: "select",
         fields: ["NORMALIZATION_DONE", "HOD_REVIEWED", "HOD_REVIEW_PENDING"],
       },
-      {
-        label: "Financial Year",
-        name: "financial_year",
-        type: "select",
-        fields: ["2023"],
-      },
+      // {
+      //   label: "Financial Year",
+      //   name: "year",
+      //   // value:2023,
+      //   type: "select",
+      //   fields: [2023],
+      // },
       {
         label: "Batch",
         name: "batch",
