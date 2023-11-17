@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { serviceCreateEmployeeRecord } from "../../../../../../services/EmployeeRecords.services";
 import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
 
-const useEmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
+const useEmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
   const { employeeData } = useSelector((state) => state.employee);
 
   const initialForm = {
@@ -23,7 +23,6 @@ const useEmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -53,7 +52,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
     });
     return errors;
   }, [form, errorData]);
-
+  console.log(Formtype);
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
@@ -63,24 +62,29 @@ const useEmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
       fd.append("document", form?.document || "");
       fd.append("record_type", form?.record_type || "");
       fd.append("employee_id", form?.employee_id || "");
-      
-      const updatedNewValues ={
-        title: form?.new_values?.title,
-        date_of_issue: form?.new_values?.date_of_issue,
-        star_type: form?.new_values?.star_type,
-        letter_head_no: form?.new_values?.letter_head_no,
-        description: form?.new_values?.description,
-        letter_type: form?.new_values?.letter_type,
-      }
-      if (form?.new_values) {
-        fd.append('new_values', JSON.stringify(updatedNewValues));
-      }
+
       if (Formtype === "RECORD") {
         fd.append("letter_type", form?.letter_type);
+        const updatedNewValues = {
+          title: form?.new_values?.title,
+          date_of_issue: form?.new_values?.date_of_issue,
+
+          letter_head_no: form?.new_values?.letter_head_no,
+
+          letter_type: form?.new_values?.letter_type,
+        };
+        fd.append("new_values", JSON.stringify(updatedNewValues));
       } else {
-        fd.append("star_type", form?.star_type);
-        // fd.append("description",form?.description)
+        const updatedNewValues = {
+          title: form?.new_values?.title,
+          date_of_issue: form?.new_values?.date_of_issue,
+          star_type: form?.new_values?.star_type,
+          letter_head_no: form?.new_values?.letter_head_no,
+          description: form?.new_values?.description,
+        };
+        fd.append("new_values", JSON.stringify(updatedNewValues));
       }
+
       req(fd).then((res) => {
         if (!res.error) {
           closeSidePanel();
@@ -119,10 +123,10 @@ const useEmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
-      console.log(text, fieldName)
+      console.log(text, fieldName);
       const t = { ...form };
-    
-      t.new_values[fieldName]=text
+
+      t.new_values[fieldName] = text;
       t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
@@ -145,7 +149,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
     removeError,
     handleSubmit,
     errorData,
-    isSubmitting
+    isSubmitting,
   };
 };
 
