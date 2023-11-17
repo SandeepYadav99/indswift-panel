@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Style.module.css";
 import image from "../../../../../assets/img/download.png";
+import StatusPill from "../../../../../components/Status/StatusPill.component";
 
 function FinalUpperCard({ data, otherData }) {
   return (
@@ -45,7 +46,7 @@ function FinalUpperCard({ data, otherData }) {
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>Date of Resignation:</span>
-              {data?.expected_dor_text}
+              {data?.resign_data?.resign_effective_date}
             </div>
             {otherData?.id && (
               <>
@@ -95,10 +96,11 @@ function FinalUpperCard({ data, otherData }) {
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Age on Separation Date:</span>
-            {data?.resign_data?.separated_date}
+            {data?.age}
           </div>{" "}
           <div className={styles.key}>
-            <span className={styles.value}>Separation By Virtue of:</span>-
+            <span className={styles.value}>Separation By Virtue of:</span>
+            <StatusPill status={data?.status} />
           </div>{" "}
           {otherData?.id && (
             <>

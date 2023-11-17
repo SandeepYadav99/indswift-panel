@@ -164,11 +164,11 @@ const EmployeeInformation = ({ empId }) => {
                 autoCompleteProps={{
                   freeSolo: false,
                   getOptionLabel: (option) => {
-                    return option?.label;
+                    return option?.name;
                   },
                 }}
-                dataset={listData?.EMPLOYEES}
-                datasetKey={"label"}
+                dataset={listData?.EMPLOYEE_SALARY}
+                datasetKey={"name"}
                 onTextChange={(text, value) => {
                   changeTextData(text, "replacing_employee_id");
                 }}

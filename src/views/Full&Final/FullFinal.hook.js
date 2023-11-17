@@ -140,7 +140,15 @@ const useFullFinal = ({}) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["PENDING", "SUBMITTED"],
+        fields: [
+          "PENDING",
+          "REJECTED",
+          "CORPORATE_AUDIT_2_APPROVED",
+          "CORPORATE_HR_APPROVED",
+          "TAX_APPROVED",
+          "CAO_APPROVED",
+          "PROCESSED",
+        ],
       },
     ];
   }, [listData]);
@@ -154,7 +162,7 @@ const useFullFinal = ({}) => {
     isCalling,
     editData,
     configFilter,
-    handleViewForm
+    handleViewForm,
   };
 };
 

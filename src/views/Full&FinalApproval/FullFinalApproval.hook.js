@@ -140,7 +140,15 @@ const useFullFinalApproval = ({}) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["PENDING", "SUBMITTED"],
+        fields: [
+          "PENDING",
+          "REJECTED",
+          "CORPORATE_AUDIT_2_APPROVED",
+          "CORPORATE_HR_APPROVED",
+          "TAX_APPROVED",
+          "CAO_APPROVED",
+          "PROCESSED",
+        ],
       },
     ];
   }, [listData]);
@@ -154,9 +162,8 @@ const useFullFinalApproval = ({}) => {
     isCalling,
     editData,
     configFilter,
-    handleViewForm
+    handleViewForm,
   };
 };
 
 export default useFullFinalApproval;
-

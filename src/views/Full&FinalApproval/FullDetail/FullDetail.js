@@ -53,6 +53,24 @@ function FullDetail() {
         <FinalSalaryTable data={employeeDetail?.salary} />
       </div>
       <PayData employeeDetail={employeeDetail?.fullAndFinal} />
+
+      <div className={styles.plainPaper}>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>Comments/Notes</div>
+          <div className={styles.commentContainer}>
+            {employeeDetail?.comments &&
+              employeeDetail?.comments?.map((item) => (
+                <div className={styles.commentwrap}>
+                  <div>{item.comment}</div>
+                  <div className={styles.commentDate}>
+                    {`${item?.employee?.name} | ${item?.updatedAtText}`}
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+      
       {employeeDetail?.status === "PENDING" && (
         <div
           className={

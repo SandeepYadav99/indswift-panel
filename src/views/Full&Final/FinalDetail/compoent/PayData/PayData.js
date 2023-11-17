@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Style.module.css";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
+import TotalSum from "../../../../EmployeeEdit/components/TotalSum/TotalSum";
 
 function PayData({ employeeDetail }) {
   return (
@@ -139,6 +140,11 @@ function PayData({ employeeDetail }) {
                 <span className={styles.value}>Declared PLI:</span>
                 {employeeDetail?.declared_pli &&
                   `₹ ${employeeDetail?.declared_pli}`}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Un-Declared PLI:</span>
+                {employeeDetail?.un_declared_pli &&
+                  `₹ ${employeeDetail?.un_declared_pli}`}
               </div>{" "}
               <div className={styles.key}>
                 <span className={styles.value}>Professional Upgradation:</span>
@@ -199,6 +205,10 @@ function PayData({ employeeDetail }) {
               <div className={styles.key}>
                 <span className={styles.value}>Declared PLI Comments:</span>
                 {employeeDetail?.declared_pli_comment}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Un-Declared PLI Comments:</span>
+                {employeeDetail?.un_declared_pli_comment}
               </div>{" "}
               <div className={styles.key}>
                 <span className={styles.value}>
@@ -302,8 +312,8 @@ function PayData({ employeeDetail }) {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Value:</span>
-              {employeeDetail?.el_currnet_service_year_uphold &&
-                `₹ ${employeeDetail?.el_currnet_service_year_uphold}`}
+              {employeeDetail?.el_currnet_service_year_value &&
+                `₹ ${employeeDetail?.el_currnet_service_year_value}`}
             </div>
             <div className={styles.key}>
               <span className={styles.value}></span>
@@ -328,234 +338,16 @@ function PayData({ employeeDetail }) {
             </div>
           </div>
         </div>
-      </div>
-      <div className={styles.plainPaper}>
-        <div className={styles.heading}>Part 3 : Dues to be Recovered</div>
-        <div className={styles.mainFlex}>
-          <div className={styles.left}>
-            <div className={styles.key}>
-              <span className={styles.value}>Employee PF:</span>
-              {employeeDetail?.pf && `₹ ${employeeDetail?.pf}`}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Employee ESI:</span>
-              {employeeDetail?.esi && `₹ ${employeeDetail?.esi}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Labour Welfare Fund:</span>
-              {employeeDetail?.labour_welfare_fund &&
-                `₹ ${employeeDetail?.labour_welfare_fund}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Mobile Device Recovery:</span>
-              {employeeDetail?.mobile_device_recovery &&
-                `₹ ${employeeDetail?.mobile_device_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Car Maint:</span>
-              {employeeDetail?.car_maintenance_recovery &&
-                `₹ ${employeeDetail?.car_maintenance_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Notice Period Recovery :</span>
-              {employeeDetail?.notice_period_recovery &&
-                `₹ ${employeeDetail?.notice_period_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>BGV Recovery:</span>
-              {employeeDetail?.bgv_recovery &&
-                `₹ ${employeeDetail?.bgv_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Relocation Recovery / Paid Notice:
-              </span>
-              {employeeDetail?.relocation_recovery &&
-                `₹ ${employeeDetail?.relocation_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Transportation Deduction:</span>
-              {employeeDetail?.transportation_deduction &&
-                `₹ ${employeeDetail?.transportation_deduction}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Safety Gadget Recovery:</span>
-              {employeeDetail?.safety_gadget_recovery &&
-                `₹ ${employeeDetail?.safety_gadget_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>IT Asset Recovery:</span>
-              {employeeDetail?.it_asset_recovery &&
-                `₹ ${employeeDetail?.it_asset_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Canteen Recovery:</span>
-              {employeeDetail?.canteen_recovery &&
-                `₹ ${employeeDetail?.canteen_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Imprest Recovery:</span>
-              {employeeDetail?.imprest_recovery &&
-                `₹ ${employeeDetail?.imprest_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Petro Card Recovery:</span>
-              {employeeDetail?.petro_card_recovery &&
-                `₹ ${employeeDetail?.petro_card_recovery}`}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Smart Card Recovery:</span>
-              {employeeDetail?.smart_card_recovery &&
-                `₹ ${employeeDetail?.smart_card_recovery}`}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Loan Final Recovery:</span>
-              {employeeDetail?.loan_final_recovery &&
-                `₹ ${employeeDetail?.loan_final_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Advance Salary Recovery:</span>
-              {employeeDetail?.adv_salary_recovery &&
-                `₹ ${employeeDetail?.adv_salary_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>I-Card Recovery:</span>
-              {employeeDetail?.i_card_recovery &&
-                `₹ ${employeeDetail?.i_card_recovery}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Any Other Recovery:</span>
-              {employeeDetail?.other_recovery &&
-                `₹ ${employeeDetail?.other_recovery}`}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>TDS:</span>
-              {employeeDetail?.tds && `₹ ${employeeDetail?.tds}`}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Professional Tax:</span>
-              {employeeDetail?.professional_tax &&
-                `₹ ${employeeDetail?.professional_tax}`}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Car Status:</span>
-              {employeeDetail?.car_status && `₹ ${employeeDetail?.car_status}`}
-            </div>
-          </div>
-          <div className={styles.right}>
-            <div className={styles.key}>
-              <span className={styles.value}>Employee PF Comments :</span>
-              {employeeDetail?.pf_comment}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Employee ESI Comments :</span>
-              {employeeDetail?.esi_comment}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Labour Welfare Fund Comments :
-              </span>
-              {employeeDetail?.labour_welfare_fund_comment}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Mobile Device Recovery Comments :
-              </span>
-              {employeeDetail?.mobile_device_recovery_comment}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Car Maint Comments :</span>
-              {employeeDetail?.car_maintenance_recovery_comment}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Notice Period Recovery Comments :
-              </span>
-              {employeeDetail?.notice_period_recovery_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>BGV Recovery Comments :</span>
-              {employeeDetail?.bgv_recovery_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Relocation Recovery / Paid Notice: Comments{" "}
-              </span>
-              {employeeDetail?.relocation_recovery_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Transportation Deduction Comments :
-              </span>
-              {employeeDetail?.transportation_deduction_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Safety Gadget Recovery Comments :
-              </span>
-              {employeeDetail?.safety_gadget_recovery_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>IT Asset Recovery Comments :</span>
-              {employeeDetail?.it_asset_recovery_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Canteen Recovery Comments :</span>
-              {employeeDetail?.canteen_recovery_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Imprest Recovery Comments :</span>
-              {employeeDetail?.imprest_recovery_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Petro Card Recovery Comments :
-              </span>
-              {employeeDetail?.petro_card_recovery_comment}{" "}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Smart Card Recovery Comments :
-              </span>
-              {employeeDetail?.smart_card_recovery_comment}{" "}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Loan Final Recovery Comments :
-              </span>
-              {employeeDetail?.loan_final_recovery_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Advance Salary Recovery Comments :
-              </span>
-              {employeeDetail?.adv_salary_recovery_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>I-Card Recovery Comments :</span>
-              {employeeDetail?.i_card_recovery_comment}{" "}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>
-                Any Other Recovery Comments :
-              </span>
-              {employeeDetail?.other_recovery_comment}{" "}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>TDS Comments :</span>
-              {employeeDetail?.tds_comment}
-            </div>
-            <div className={styles.key}>
-              <span className={styles.value}>Professional Tax Comments :</span>
-              {employeeDetail?.professional_tax_comment}
-            </div>{" "}
-            <div className={styles.key}>
-              <span className={styles.value}>Car Status Comments :</span>
-              {employeeDetail?.car_status_comment}
-            </div>
-          </div>
+        <div className={"formFlex"}>
+          <TotalSum
+            firstName="Total Dues to be Paid : "
+            firstAmount={
+              employeeDetail?.total_dues ? `₹ ${employeeDetail?.total_dues}` : 0
+            }
+          />
         </div>
       </div>
+
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 3 : Dues to be Recovered</div>
         <div className={styles.mainFlex}>
@@ -772,6 +564,16 @@ function PayData({ employeeDetail }) {
             </div>
           </div>
         </div>
+        <div className={"formFlex"}>
+          <TotalSum
+            firstName="Total Dues to be Recovered :"
+            reduceAmount={
+              employeeDetail?.total_recovery
+                ? `₹ ${employeeDetail?.total_recovery}`
+                : 0
+            }
+          />
+        </div>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 4 : Uphold Dues</div>
@@ -859,6 +661,31 @@ function PayData({ employeeDetail }) {
               <span className={styles.value}>Supperannuation Comments:</span>
               {employeeDetail?.superannuation_uphold_comment}
             </div>{" "}
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <TotalSum
+            firstName="Total Upload Dues :"
+            reduceAmount={
+              employeeDetail?.total_uphold_dues
+                ? `₹ ${employeeDetail?.total_uphold_dues}`
+                : 0
+            }
+          />
+        </div>
+      </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>Attachments</div>
+          <div className={"formFlex"}>
+            <TotalSum
+              firstName="Total Payable :"
+              firstAmount={
+                employeeDetail?.net_payable
+                  ? `₹ ${employeeDetail?.net_payable}`
+                  : 0
+              }
+            />
           </div>
         </div>
       </div>

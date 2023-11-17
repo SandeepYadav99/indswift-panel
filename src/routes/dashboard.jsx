@@ -2534,6 +2534,7 @@ const dashboardRoutes = [
     component: FinalForm,
     is_sidebar: false,
     is_protect: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL}:id`,
@@ -2543,6 +2544,7 @@ const dashboardRoutes = [
     component: FinalDetail,
     is_sidebar: false,
     is_protect: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL_APPROVAL}:id`,
@@ -2552,6 +2554,7 @@ const dashboardRoutes = [
     component: FullDetail,
     is_sidebar: false,
     is_protect: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.FULL_FINAL_APPLICATION,
@@ -2561,6 +2564,7 @@ const dashboardRoutes = [
     component: FullFinalComponent,
     is_sidebar: true,
     is_protect: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.FULL_FINAL_APPROVAL,
@@ -2570,6 +2574,7 @@ const dashboardRoutes = [
     component: FullFinalApprovalJourney,
     is_sidebar: true,
     is_protect: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
       path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
