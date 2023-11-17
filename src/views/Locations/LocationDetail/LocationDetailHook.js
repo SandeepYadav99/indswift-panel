@@ -45,6 +45,14 @@ const initialForm = {
       employee_id: "",
     },
     {
+      panelist_role: "TAXATION",
+      employee_id: "",
+    },
+    {
+      panelist_role: "CAO",
+      employee_id: "",
+    },
+    {
       panelist_role: "CORPORATE_ACCOUNTANT",
       employee_id: "",
     },

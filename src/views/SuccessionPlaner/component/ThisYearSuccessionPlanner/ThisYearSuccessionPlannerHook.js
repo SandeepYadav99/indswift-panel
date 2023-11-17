@@ -9,12 +9,12 @@ import {
 import { serviceGetList } from "../../../../services/Common.service";
 import { useEffect } from "react";
 
-const useThisYearSuccessionPlaner = ({ jobId ,listData}) => {
+const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
   const dispatch = useDispatch();
   const [isSidePanel, setSidePanel] = useState(false);
   const [isSidePanelForm, setSidePanelForm] = useState(false);
   const isMountRef = useRef(false);
-  
+  const [empId, setEmpId] = useState("");
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -86,7 +86,11 @@ const useThisYearSuccessionPlaner = ({ jobId ,listData}) => {
   const handleToggleSidePannel = useCallback(
     (data) => {
       setSidePanel((e) => !e);
-      //   setEditData(data?.id);
+      if (data?.id) {
+        setEmpId(data?.id);
+      } else {
+        setEmpId("");
+      }
     },
     [setSidePanel] // setEditData
   );
@@ -100,7 +104,6 @@ const useThisYearSuccessionPlaner = ({ jobId ,listData}) => {
   );
   const configFilter = useMemo(() => {
     return [
-
       {
         label: "Location",
         name: "employeesObj.location_id",
@@ -142,7 +145,8 @@ const useThisYearSuccessionPlaner = ({ jobId ,listData}) => {
     isSidePanel,
     isSidePanelForm,
     handleToggleSidePannelForm,
-    configFilter
+    configFilter,
+    empId
   };
 };
 
