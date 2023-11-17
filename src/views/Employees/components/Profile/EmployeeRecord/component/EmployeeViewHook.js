@@ -64,7 +64,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
       fd.append("employee_id", form?.employee_id || "");
 
       if (Formtype === "RECORD") {
-       
+        
         const updatedNewValues = {
           title: form?.new_values?.title,
           date_of_issue: form?.new_values?.date_of_issue,
