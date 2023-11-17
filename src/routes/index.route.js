@@ -46,6 +46,7 @@ import ExitDetail from "../views/ExitInterview/ExitDetail/ExitDetail.view.js";
 import ExitResponse from "../views/ExitInterview/ExitResponse/ExitResponse.js";
 import SuccessionApplicationForm from "../views/SuccessionApplicationForm/SuccessionApplicationForm.js";
 import HREscalationMatrixView from "../views/HREscalationMatrixView/HREscalationMatrixView.js";
+import SuccessionForm from "../views/SuccessionApplicationForm/SuccessionDetail/SuccessionDetail.view.js";
 
 const indexRoutes = [{path: "/", component: Dashboard}];
 
@@ -82,6 +83,7 @@ const RouteComponent = () => (
         <Route path={RouteName.EXIT_LOGIN} component={ExitLogin}/>
         <Route path={RouteName.SUCCESSION_FORM} component={SuccessionApplicationForm}/>
         <Route path={RouteName.EXIT_INTERVIEW_FORM} component={ExitForm}/>
+        <Route path={RouteName.SUCCESSION_FORM_INNER} component={SuccessionForm}/>
         <Route path={RouteName.EXIT_SUCCESS} component={ExitResponse}/>
         <Route path={`${RouteName.EXIT_DETAIL}:id`} component={ExitDetail}/>
         <Route path={RouteName.HRESCALATIONMATRIX} component={HREscalationMatrixView}/>

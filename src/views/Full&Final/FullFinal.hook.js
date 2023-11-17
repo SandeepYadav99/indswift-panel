@@ -102,9 +102,13 @@ const useFullFinal = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.FULL_FINAL_FORM}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.FULL_FINAL_DETAIL}${data?.id}`); //+data.id
   }, []);
 
+  const handleViewForm = useCallback((data) => {
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.FULL_FINAL_FORM}${data?.id}`); //+data.id
+  }, []);
   const configFilter = useMemo(() => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
@@ -136,7 +140,13 @@ const useFullFinal = ({}) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: ["PENDING", "SUBMITTED"],
+        fields: [
+          "CORPORATE_AUDIT_2_APPROVED",
+          "TAXATION_APPROVED",
+          "CORPORATE_HR_APPROVED",
+          "CAO_APPROVED",
+          "PROCESSED",
+        ],
       },
     ];
   }, [listData]);
@@ -150,6 +160,7 @@ const useFullFinal = ({}) => {
     isCalling,
     editData,
     configFilter,
+    handleViewForm,
   };
 };
 

@@ -211,7 +211,7 @@ export default {
   RELIEVING_EXPERIENCE_APPROVALS_DETAILS:"/relieving-experience-approval/details",
   RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
   RELIEVING_EXPERIENCE_LETTER_DETAIL:"/relieving-exp-letter/detail/",
-  PENDING_BACKGROUND_VERIFICATION:"/pending-verification",
+  PENDING_BACKGROUND_VERIFICATION:"/pending/verification",
   BGV_ANALYSI_REPOST:"/pending-verification/detail/",
 
   PENDING_VERIFICATION_CREATE:"/verification/create/",
@@ -226,7 +226,10 @@ export default {
   HRESCALATIONMATRIX:"/hr/escalation",
   FULL_FINAL_APPLICATION:"/full-final",
   FULL_FINAL_APPROVAL:"/full-final-approval",
+  FULL_FINAL_DETAIL_APPROVAL:"/full-final/detail/",
+
   FULL_FINAL_FORM:"/full/form/",
+  FULL_FINAL_DETAIL:"/full/detail/",
 
   EXIT_LOGIN:"/exit/login",
   EXIT_SUCCESS:"/exit/success",
@@ -234,6 +237,7 @@ export default {
   EXIT_INTERVIEW_FORM:"/exit/interview/form",
   EXIT_DETAIL:"/exit/details/",
 
-  SUCCESSION_FORM:"/succession/form"
+  SUCCESSION_FORM:"/succession/form",
+  SUCCESSION_FORM_INNER:"/succession/details"
 
 };

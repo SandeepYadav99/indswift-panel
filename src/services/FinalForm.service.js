@@ -17,6 +17,12 @@ export async function serviceDeleteFinalForm(params) {
 export async function serviceGetFinalFormDetails(params) {
   return await postRequest("ff/details", params);
 }
+export async function serviceGetFormDebounceDetails(params) {
+  return await postRequest("ff/totals", params);
+}
 export async function serviceGetFinalForm(params) {
   return await postRequest("ff", params);
+}
+export async function serviceSubmitFFForm(params) {
+  return await formDataRequest("ff/submit/form", params);
 }

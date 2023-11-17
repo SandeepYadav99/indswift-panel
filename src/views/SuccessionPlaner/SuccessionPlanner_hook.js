@@ -1,58 +1,42 @@
-import { useEffect, useState } from "react";
-import { useCallback } from "react";
-import historyUtils from "../../libs/history.utils";
-import RouteName from "../../routes/Route.name";
-import { useSelector } from "react-redux";
-import { serviceExportEmployeeImprestReport, serviceGetImprestType } from "../../services/ImprestApproval.service";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionFetchSuccessionPlaner } from "../../actions/SuccessionPlanner.action";
+import { serviceGetList } from "../../services/Common.service";
 
 const useSuccessionPlanner_hook = ({ jobId }) => {
-  const [candidateEl, setCandidateEl] = useState(null);
-
-  const [typeData, setTypeData] = useState({});
+  const dispatch = useDispatch();
+  const isMountRef = useRef(false);
+  const [listData, setListData] = useState({
+    LOCATIONS: [],
+    GRADES: [],
+    DEPARTMENTS: [],
+  });
   const {
-    user: { user_id },
-  } = useSelector((state) => state.auth);
-  console.log("role", user_id);
-  const handleAddCandidate = useCallback(
-    (event) => {
-      setCandidateEl(event.currentTarget);
-    },
-    [setCandidateEl]
-  );
+    sorting_data: sortingData,
+    is_fetching: isFetching,
+    query,
+    query_data: queryData,
+  } = useSelector((state) => state?.successionPlaner);
+
   useEffect(() => {
-    if (user_id) {
-      let req = serviceGetImprestType({
-        employee_id: user_id,
-      });
-      req.then((data) => {
-        setTypeData(data?.data);
-      });
-    }
-  }, [user_id]);
-  const handleCreate = useCallback(() => {
-    historyUtils.push(`${RouteName.CLAIMS_IMPREST_CREATE}`);
+    dispatch(
+      actionFetchSuccessionPlaner(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+    isMountRef.current = true;
   }, []);
 
-  const handleCsvDownload = useCallback((type) => {
-    serviceExportEmployeeImprestReport({
-      employee_id: user_id,
-      imprest_type: type,
-    }).then(res => {
+  useEffect(() => {
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
       if (!res.error) {
-        const data = res.data;
-        window.open(data, "_blank");
+        setListData(res.data);
       }
-    })
-  }, [user_id]);
+    });
+  }, []);
 
-  return {
-    handleAddCandidate,
-    candidateEl,
-    handleCreate,
-    typeData,
-    user_id,
-    handleCsvDownload
-  };
+  return { listData };
 };
 
 export default useSuccessionPlanner_hook;

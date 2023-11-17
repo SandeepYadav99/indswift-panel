@@ -1,12 +1,8 @@
 import store from "../store";
 import Constants from "../config/constants";
 import {
-  serviceCreateFinalForm,
   serviceGetFinalForm,
-  serviceUpdateFinalForm,
-  serviceDeleteFinalForm,
 } from "../services/FinalForm.service";
-import EventEmitter from "../libs/Events.utils";
 
 export const FETCH_INIT = "FETCH_INIT_FINAL_FORM";
 export const FETCHED = "FETCHED_FINAL_FORM";
@@ -50,68 +46,6 @@ export function actionFetchFinalForm(index = 1, sorting = {}, filter = {}) {
   };
 }
 
-export function actionCreateFinalForm(data) {
-  const request = serviceCreateFinalForm(data);
-  return (dispatch) => {
-    request.then((data) => {
-      if (!data.error) {
-        EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-          error: "Saved",
-          type: "success",
-        });
-        dispatch({ type: CREATE_DATA, payload: data.data });
-      }
-    });
-  };
-}
-
-export function actionUpdateFinalForm(data) {
-  const request = serviceUpdateFinalForm(data);
-  return (dispatch) => {
-    request.then((data) => {
-      if (!data.error) {
-        dispatch({ type: UPDATE_DATA, payload: data.data });
-      }
-    });
-  };
-}
-
-export function actionDeleteFinalForm(id) {
-  const request = serviceDeleteFinalForm({ id: id });
-  return (dispatch) => {
-    dispatch({ type: DELETE_ITEM, payload: id });
-  };
-}
-
-export function actionChangePageFinalForm(page) {
-  return (dispatch) => {
-    dispatch({ type: CHANGE_PAGE, payload: page });
-  };
-}
-
-export function actionFilterFinalForm(value) {
-  const request = null; ////serviceFetchProviderRequests(value);
-  return (dispatch) => {
-    dispatch({ type: FETCH_INIT, payload: null });
-    request.then((data) => {
-      dispatch({ type: FILTER, payload: data });
-      dispatch({ type: FETCHED, payload: null }); //dispatch function
-    });
-  };
-}
-
-export function actionChangeStatusFinalForm(id, status) {
-  return (dispatch) => {
-    dispatch({ type: CHANGE_STATUS, payload: { id, status } });
-  };
-}
-
-export function actionResetFilterFinalForm() {
-  return {
-    type: RESET_FILTER,
-    payload: null,
-  };
-}
 
 export function actionSetPageFinalForm(page) {
   const stateData = store.getState().final_form;
@@ -121,8 +55,8 @@ export function actionSetPageFinalForm(page) {
   const query = stateData.query;
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;
-
-  if (totalLength <= (page + 1) * Constants.DEFAULT_PAGE_VALUE) {
+  
+  if (totalLength <= (page + 1) * Constants.PAGE_VALUE) {
     store.dispatch(
       actionFetchFinalForm(serverPage + 1, sortingData, {
         query,

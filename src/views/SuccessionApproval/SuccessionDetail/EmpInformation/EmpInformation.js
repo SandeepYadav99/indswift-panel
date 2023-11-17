@@ -4,29 +4,30 @@ import styles from "./EmpInfo.module.css";
 import { useSelector } from "react-redux";
 
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { ButtonBase } from "@material-ui/core";
+import { ButtonBase, MenuItem } from "@material-ui/core";
 import historyUtils from "../../../../libs/history.utils";
-import SuccessionDetailInfor from "./SuccessionDetails";
 import useEmpInformation from "./EmpInformationHook";
+// import ApprovalPopup from "../component/ApprovalPopup/ApprovalPopup";
+// import RejectionPopup from "../component/RejectionPopup/RejectionPopup";
+import UpperCard from "../component/UpperCard/UpperCard";
+import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
+import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
+import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 const EmployeeInformation = ({ empId }) => {
- 
-  useEffect(() => {
-    if (empId) {
-      // dispatch(actionGetEmployeeDetails(empId));
-    }
-  }, [empId]);
-
-  const { employeeData } = useSelector((state) => state.employee);
   const {
-   
-    
- 
     toggleIsOpenDialog,
-
+    employeeDetail,
     isOpenDialog,
     toggleIsOpenRejectionDialog,
-    isOpenRejectionDialog
-  
+    isOpenRejectionDialog,
+    form,
+    changeTextData,
+    onBlurHandler,
+    handleSubmit,
+    errorData,
+    isSubmitting,
+    isSubmitted,
+    listData,
   } = useEmpInformation();
   return (
     <div>
@@ -35,100 +36,223 @@ const EmployeeInformation = ({ empId }) => {
           <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span>
-              <b>Background Verification Form</b>
+              <b>Succession Details</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
         </div>
       </div>
+      <UpperCard employeeDetail={employeeDetail} />
 
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
             <div className={styles.heading}>
-              Candidate Information - <span>{employeeData?.code}</span>
+              Succession Details <span>{employeeDetail?.code}</span>
             </div>
           </div>
 
           <div className={styles.mainFlex}>
             <div className={styles.left}>
               <div className={styles.key}>
+                <span className={styles.value}>Succession:</span>
+                {employeeDetail?.name}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>Replacing Person Details</span>
+                {employeeDetail?.verificationText}
+              </div>
+              <div className={styles.key}>
                 <span className={styles.value}>Name:</span>
-                {employeeData?.name}
+                {employeeDetail?.location?.name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Employee ID:</span>
-                {employeeData?.verificationText}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Location:</span>
-                {employeeData?.location?.name}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>D.O.B:</span>
-                {employeeData?.designation?.name}{" "}
-                {employeeData?.designation_note && (
-                  <>({employeeData?.designation_note})</>
+                {employeeDetail?.designation?.name}{" "}
+                {employeeDetail?.designation_note && (
+                  <>({employeeDetail?.designation_note})</>
                 )}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Age:</span>
-                {employeeData?.location?.name}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Nature of Association:</span>
-                {employeeData?.location?.name}
               </div>
             </div>
 
             <div className={styles.vertical}></div>
             <div className={styles.right}>
-              {/* <div className={styles.key}>
-                <span className={styles.value}>PRC:</span>
-                {employeeData?.code}
-              </div> */}
               <div className={styles.key}>
-                <span className={styles.value}>Designation:</span>
-                {/* {valencyChange(employeeData?.vacancy_type)} */}
-                {employeeData?.designation?.name
-                  ? employeeData?.designation?.name
+                <span className={styles.value}>Nature of Succession:</span>
+                {/* {valencyChange(employeeDetail?.vacancy_type)} */}
+                {employeeDetail?.designation?.name
+                  ? employeeDetail?.designation?.name
                   : "NA"}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Grade/Level:</span>
-                {employeeData?.department?.name
-                  ? employeeData?.department?.name
+                <span className={styles.value}>Salary:</span>
+                {employeeDetail?.department?.name
+                  ? employeeDetail?.department?.name
                   : "NA"}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Department:</span>
-                {employeeData?.replacing_person?.name
-                  ? employeeData?.replacing_person?.name
+                <span className={styles.value}>
+                  Succession's Cost WRT employee:
+                </span>
+                {employeeDetail?.replacing_person?.name
+                  ? employeeDetail?.replacing_person?.name
                   : "NA"}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Date of Retirement:</span>
-                {employeeData?.doj ? `${employeeData?.doj}` : "NA"}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>D.O.J:</span>
-                {employeeData?.doj ? `${employeeData?.doj}` : "NA"}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Annual Salary:</span>
-                {employeeData?.doj ? `${employeeData?.doj}` : "NA"}
               </div>
             </div>
           </div>
         </div>
+
+        <div className={styles.hrline} />
+        <div>
+          <div className={styles.key}>
+            <span className={styles.value_submission}>Date of Submission:</span>
+            {employeeDetail?.application?.employee_form?.submittedAtText}
+          </div>
+          <div className={styles.key}>
+            <span className={styles.value_submission}>Reason:</span>
+            {employeeDetail?.application?.employee_form?.reason}
+          </div>
+          {employeeDetail?.application?.employee_form?.document && (
+            <div className={styles.key}>
+              <a
+                href={employeeDetail?.application?.employee_form?.document}
+                target="_blank"
+              >
+                <div className={styles.hyperlinkText}>
+                  View Fitness Certificate
+                </div>
+              </a>
+            </div>
+          )}
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.type}
+              errorText={errorData?.type}
+              label={"Succession"}
+              value={form?.type}
+              handleChange={(value) => {
+                changeTextData(value, "type");
+              }}
+            >
+              <MenuItem value="IN_PLACE">In place</MenuItem>
+              <MenuItem value="NOT_IN_PLACE">Not in place</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
+            {form?.type === "IN_PLACE" && (
+              <CustomSelectField
+                isError={errorData?.succession}
+                errorText={errorData?.succession}
+                label={"Nature of Succession"}
+                value={form?.succession}
+                handleChange={(value) => {
+                  changeTextData(value, "succession");
+                }}
+              >
+                <MenuItem value="REPLACEMENT_INTERNAL">Internal</MenuItem>
+                <MenuItem value="REPLACEMENT_EXTERNAL">External</MenuItem>
+              </CustomSelectField>
+            )}
+          </div>
+        </div>
+        {form?.succession === "REPLACEMENT_INTERNAL" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomAutoComplete
+                autoCompleteProps={{
+                  freeSolo: false,
+                  getOptionLabel: (option) => {
+                    return option?.name;
+                  },
+                }}
+                dataset={listData?.EMPLOYEE_SALARY}
+                datasetKey={"name"}
+                onTextChange={(text, value) => {
+                  changeTextData(text, "replacing_employee_id");
+                }}
+                variant={"outlined"}
+                label={"Replacing Employee"}
+                name={"replacing_employee_id"}
+                isError={errorData?.replacing_employee_id}
+                value={form?.replacing_employee_id}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                disabled={true}
+                label={"Replacing Person Current Salary"}
+                value={form?.replacing_employee_ctc}
+              />
+            </div>
+          </div>
+        )}
       </div>
-      
-      {/* Succession Details Information */}
-      <SuccessionDetailInfor 
-      isOpenDialog={isOpenDialog}
-       toggleIsOpenDialog={toggleIsOpenDialog}
-       isOpenRejectionDialog={isOpenRejectionDialog}
-       toggleIsOpenRejectionDialog={toggleIsOpenRejectionDialog}/>
+
+      {/* <ApprovalPopup
+        // candidateId={ids}
+        isOpen={isOpenDialog}
+        handleToggle={toggleIsOpenDialog}
+        form={form}
+        changeTextData={changeTextData}
+        onBlurHandler={onBlurHandler}
+        handleSubmit={handleSubmit}
+        errorData={errorData}
+        isSubmitting={isSubmitting}
+      />
+      <RejectionPopup
+        isOpen={isOpenRejectionDialog}
+        handleToggle={toggleIsOpenRejectionDialog}
+        form={form}
+        changeTextData={changeTextData}
+        onBlurHandler={onBlurHandler}
+        handleSubmit={handleSubmit}
+        errorData={errorData}
+        isSubmitting={isSubmitting}
+      /> */}
+      <div className={styles.plainPaper}>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>Comments/Notes</div>
+          <div className={styles.commentContainer}>
+            {employeeDetail?.application?.comments &&
+              employeeDetail?.application?.comments?.map((item) => (
+                <div className={styles.commentwrap}>
+                  <div>{item.comment}</div>
+                  <div className={styles.commentDate}>
+                    <strong>{`${item?.actioned_by?.name} | ${item?.actionedAt}`}</strong>
+                  </div>
+                  <div>({item?.panelist_role})</div>
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+      <div className={styles.plainPaper_footer}>
+        <div className={styles.newContainer}>
+          <div>
+            <div className={styles.rightFlex}>
+              <ButtonBase
+                className={styles.edit}
+                onClick={() => {
+                  // handleViewGraph();
+                  toggleIsOpenRejectionDialog();
+                }}
+              >
+                REJECT
+              </ButtonBase>
+              <ButtonBase
+                className={styles.approve}
+                onClick={() => {
+                  toggleIsOpenDialog();
+                }}
+              >
+                APPROVE
+              </ButtonBase>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -12,23 +12,20 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-const ExitInterviewList = lazy(()=>  import("../views/ExitInterview/ExitInterviewList/ExitInterviewList.container"));
-const FinalForm = lazy(()=>  import("../views/Full&Final/FinalForm/FinalForm.view.js"));
-const IncrementLetter =lazy(()=>import("../views/Pms/IncrementLetter/IncrementLetter.view")) ;
-const USCEditView =lazy(()=>import("../views/HR/HRSettings/components/USCEdit/USCEdit")) ;
-const SuccessionPlanner_list =lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list")) ;
-const LetterApprovalProces_View =lazy(()=>import("../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View")) ;
-const LetterApprovalDetail =lazy(()=>import("../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail")) ;
-const RelievingExpLetter_View =lazy(()=>import("../views/Relieving&ExperienceLetter/RelievingExpLetter_View")) ;
-const CurrencyEditView =lazy(()=>import("../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit")) ;
-const ClaimForCard =lazy(()=>import("../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view")) ;
-const ForeignClaimDetail =lazy(()=>import("../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view")) ;
-const PendingLeaveApplication  =lazy(()=>("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
-const BGVStatus_Update =lazy(()=>import("../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update")) ;
-const BGVDetailView =lazy(()=>import("../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View")) ;
-const EmployeeRecordApprovals =lazy(()=>("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
+import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
+import FullDetail from "../views/Full&FinalApproval/FullDetail/FullDetail.js";
+
+const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
+
+const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
+
 const RelievingExpLetterDetail = lazy(()=>import("../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail")) ;
-const BgvAnalysisReport = lazy(() => import("../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"));
+
+const BgvAnalysisReport = lazy(() =>
+  import(
+    "../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"
+  )
+);
 const SuccessionPlannerList = lazy(() =>
   import("../views/SuccessionPlaner/SuccessionPlanner_list")
 );
@@ -38,9 +35,20 @@ const EmployeeInformation = lazy(() =>
     "../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"
   )
 );
-const SuccessionApproval_List = lazy(() =>
-  import("../views/SuccessionApproval/SuccessionApproval_List")
-);
+const IncrementLetter = lazy(()=>  import("../views/Pms/IncrementLetter/IncrementLetter.view"));
+const USCEditView = lazy(()=>  import("../views/HR/HRSettings/components/USCEdit/USCEdit"));
+const SuccessionApproval_List = lazy(()=>  import("../views/SuccessionApproval/SuccessionApproval_List"));
+const SuccessionPlanner_list = lazy(()=>  import("../views/SuccessionPlaner/SuccessionPlanner_list"));
+const LetterApprovalProces_View = lazy(()=>  import("../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View"));
+const LetterApprovalDetail = lazy(()=>  import("../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail"));
+const RelievingExpLetter_View = lazy(()=>  import("../views/Relieving&ExperienceLetter/RelievingExpLetter_View"));
+const CurrencyEditView = lazy(()=>  import("../views/HR/HRSettings/components/CurrencyEdit/CurrencyEdit"));
+const ClaimForCard = lazy(()=>  import("../views/ClaimsManagement/ClaimsDetail/components/ClaimForeignCard/ClaimForCard.view"));
+const ForeignClaimDetail = lazy(()=>  import("../views/AdminClaimManagement/ForeignClaimDetail/ForeignClaimDetail.view"));
+const BGVStatus_Update = lazy(()=>  import("../views/PendingBckgroundVerification/BGVStatus_Update/BGVStatus_Update"));
+const BGVDetailView = lazy(()=>  import("../views/PendingBckgroundVerification/BGVDetail_View/BGVDetail_View"));
+const ExitInterviewList = lazy(()=>  import("../views/ExitInterview/ExitInterviewList/ExitInterviewList.container"));
+const FinalForm = lazy(()=>  import("../views/Full&Final/FinalForm/FinalForm.view.js"));
 
 
 const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
@@ -529,6 +537,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'employeedashboard',
+    roles:[Roles.CORPORATE_HR, Roles.ADMIN]
   },
   {
     path: RouteName.EXPIRING_OFFER_LETTER,
@@ -540,7 +549,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'employeedashboard',
-    roles: [Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.RECRUITER, Roles.CORPORATE_HR,Roles.ADMIN],
   },
   // {
   //   path: RouteName.SUCCESSION_APPROVAL,
@@ -2302,19 +2311,19 @@ const dashboardRoutes = [
     // parent: 'tp',
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
-  // {
-  //   path: RouteName.PENDING_BACKGROUND_VERIFICATION,
-  //   sidebarName: "Pending Background Verification",
-  //   navbarName: "Pending Background Verification",
-  //   icon: AssignmentOutlined,
-  //   component: PendingBGVerification_View,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  //   // slug: 'tp',
-  //   // is_parent: true,
-  //   // parent: "skynetLetter",
-  //   // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
-  // },
+  {
+    path: RouteName.PENDING_BACKGROUND_VERIFICATION,
+    sidebarName: "Pending Background Verification",
+    navbarName: "Pending Background Verification",
+    icon: AssignmentOutlined,
+    component: PendingBGVerification_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    // parent: "skynetLetter",
+     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
   {
     path: `${RouteName.BGV_ANALYSI_REPOST}:id`,
     sidebarName: "Pending Background Verification",
@@ -2540,25 +2549,48 @@ const dashboardRoutes = [
     component: FinalForm,
     is_sidebar: false,
     is_protect: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
-  // {
-  //   path: RouteName.FULL_FINAL_APPLICATION,
-  //   sidebarName: "Full & Final Form",
-  //   navbarName: "Full & Final Form",
-  //   icon: AssignmentOutlined,
-  //   component: FullFinalComponent,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  // },
-  // {
-  //   path: RouteName.FULL_FINAL_APPROVAL,
-  //   sidebarName: "Full & Final Approval",
-  //   navbarName: "Full & Final Approval",
-  //   icon: AssignmentOutlined,
-  //   component: FullFinalApprovalJourney,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  // },
+  {
+    path: `${RouteName.FULL_FINAL_DETAIL}:id`,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FinalDetail,
+    is_sidebar: false,
+    is_protect: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
+    path: `${RouteName.FULL_FINAL_DETAIL_APPROVAL}:id`,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FullDetail,
+    is_sidebar: false,
+    is_protect: true,
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.FULL_FINAL_APPLICATION,
+    sidebarName: "Full & Final Form",
+    navbarName: "Full & Final Form",
+    icon: AssignmentOutlined,
+    component: FullFinalComponent,
+    is_sidebar: true,
+    is_protect: true,
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.FULL_FINAL_APPROVAL,
+    sidebarName: "Full & Final Approval",
+    navbarName: "Full & Final Approval",
+    icon: AssignmentOutlined,
+    component: FullFinalApprovalJourney,
+    is_sidebar: true,
+    is_protect: true,
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
   {
       path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
       sidebarName: "Pending Leave Application",

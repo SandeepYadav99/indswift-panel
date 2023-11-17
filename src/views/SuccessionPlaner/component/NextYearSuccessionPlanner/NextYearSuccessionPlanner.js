@@ -7,22 +7,17 @@ import DataTables from "../../../../Datatables/Datatable.table";
 import Constants from "../../../../config/constants";
 import styles from "./Style.module.css";
 import classNames from "classnames";
-import { Add, CachedOutlined, Edit, InfoOutlined } from "@material-ui/icons";
+import { Add, Edit, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
-import PageBox from "../../../../components/PageBox/PageBox.component";
+
 import FilterComponent from "../../../../components/Filter/Filter.component";
-
+import SidePanelComponent from "../../../../components/SidePanel/SidePanel.component";
+import { useSelector } from "react-redux";
 import useNextYearSuccessionPlanner from "./NextYearSuccessionPlannerHook";
+import SuccessionHistory from "../ThisYearSuccessionPlanner/SuccessionHistory/SuccessionHistory";
+import SuccessionPlannerDetailform from "../ThisYearSuccessionPlanner/SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 
-
-const NextYearSuccessionPlanner = ({
-  jobId,
-  filterWidth,
-  handleCandidateMen,
-  handleInterviewSidepanel,
-  handleShortlistSidepanel,
-  status,
-}) => {
+const NextYearSuccessionPlanner = ({listData}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -33,42 +28,76 @@ const NextYearSuccessionPlanner = ({
     handleViewDetails,
     editData,
     isCalling,
-    currentData,
-    data,
-    currentPage,
-    isFetching,
     configFilter,
-    handleSideToggle,
     isSidePanel,
-    // handleInterviewSidepanel,
-    // handleShortlistSidepanel,
+    handleToggleSidePannel,
+    isSidePanelForm,
+    handleToggleSidePannelForm,
+    isCandidatesFetching,
+  } = useNextYearSuccessionPlanner({listData});
 
-    isCandidatesFetching
-  } = useNextYearSuccessionPlanner({ jobId });
+  const {
+    nextYear: data,
+    allNextYear: allData,
+    currentPage,
+    is_fetching: isFetching,
+  } = useSelector((state) => state.next_year);
+
+  const UpperInfo = useCallback(
+    (obj) => {
+      if (obj) {
+        return (
+          <div className={styles.headerContainer}>
+            <div className={styles.InfoWrap}>
+              <div>{"Succession History"} </div>
+              <div className={styles.newLine}></div>
+            </div>
+
+            <div className={styles.addButton}>
+              <ButtonBase
+                onClick={() => {
+                  handleToggleSidePannelForm();
+                  handleToggleSidePannel();
+                }}
+                className={"createBtn"}
+              >
+                Add
+                <Add fontSize={"small"} className={"plusIcon"}></Add>
+              </ButtonBase>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    },
+    [editData]
+  );
+
+  const UpperDetailFormInfo = useCallback(
+    (obj) => {
+      if (obj) {
+        return (
+          <div className={styles.headerContainer}>
+            <div className={styles.InfoWrap}>
+              <div>{"Add Details"} </div>
+              <div className={styles.newLine}></div>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    },
+    [editData]
+  );
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
-  const renderContact = useCallback((obj) => {
-    if (obj) {
-      return (
-        <div className={styles.firstCellFlex}>
-          <div>
-            <span className={styles.productName}>{obj?.contact}</span> <br />
-            <span>{obj?.email}</span>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  }, []);
+
   const renderFirstCell = useCallback((product) => {
     if (product) {
       return (
         <div className={styles.firstCellFlex}>
-          {/*<div>*/}
-          {/*    <img src={user.image} alt=""/>*/}
-          {/*</div>*/}
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span>
               <strong></strong>
@@ -87,68 +116,77 @@ const NextYearSuccessionPlanner = ({
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{"Nmae"}</div>,
+        render: (temp, all) => (
+          <div>
+            {console.log("all", all)}
+            {all?.name}
+          </div>
+        ),
       },
       {
         key: "doj",
         label: "D.O.J",
         sortable: false,
-        render: (temp, all) => <div>{"Name"}</div>,
+        render: (temp, all) => <div>{all?.doj}</div>,
       },
       {
         key: "dob",
         label: "D.O.B",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.dobText}</div>,
         //  candidate?.applied_date
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.designation?.name}</div>,
       },
       {
         key: "department",
         label: "DEPARTMENT",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.department?.name}</div>,
       },
       {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.location?.name}</div>,
       },
       {
         key: "age",
         label: "AGE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.age}</div>,
       },
       {
         key: "date_of_retirment",
         label: "DATE OF RETIREMENT",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.expected_dor_text}</div>,
       },
       {
         key: "annual_salary",
         label: "ANNUAL SALARY",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => (
+          <div style={{ whiteSpace: "nowrap" }}>
+            {all?.annual_salary && `₹ ${all?.annual_salary}`}
+          </div>
+        ),
       },
       {
         key: "succession_cost_wrt_emp",
         label: "SUCCESSION'S COST WRT EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.succession_wrt}</div>,
       },
       {
         key: "nature_of_succession",
         label: "NATURE OF SUCCESSION",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.nature_of_succession}</div>,
       },
       {
         key: "revert_by_date",
@@ -157,23 +195,44 @@ const NextYearSuccessionPlanner = ({
         render: (temp, all) => <div>{}</div>,
       },
       {
+        key: "application",
+        label: "application STATUS",
+        sortable: false,
+        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
+      },
+      {
+        key: "Extension",
+        label: "Extension STATUS",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.extension_status ? (
+              <StatusPill status={all?.extension_status} />
+            ) : (
+              "NA"
+            )}
+          </div>
+        ),
+      },
+      {
         key: "succession_status",
         label: "SUCCESSION STATUS",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.succession_status}</div>,
       },
       {
         key: "action_key",
         label: "Action",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.btnWrap}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
-              disabled={isCalling}
+              // disabled={isCalling}
               onClick={() => {
-                handleViewDetails(all);
+                // handleViewDetails(all);
+                handleToggleSidePannel();
               }}
             >
               <InfoOutlined fontSize={"small"} />
@@ -196,55 +255,42 @@ const NextYearSuccessionPlanner = ({
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
-      // onCellClick: this.handleCellClick,
-      // onCellDoubleClick: this.handleCellDoubleClick,
-      // onFilterValueChange: this._handleSearchValueChange.bind(this),
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
       onRowSizeChange: handleRowSize,
     };
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
-      columns: tableStructure,
-      data: currentData,
-      count: data.length,
-      page: currentPage - 1,
       rowsPerPage: 10,
-      allRowSelected: false,
-      showSelection: false,
+      columns: tableStructure,
+      data: data,
+      count: allData.length,
+      page: currentPage,
     };
 
     return { datatableFunctions, datatable };
   }, [
+    allData,
     tableStructure,
     handleSortOrderChange,
     handlePageChange,
     handleRowSize,
-    currentPage,
-    currentData,
     data,
-  ]); // allData, data, currentPage
+    currentPage,
+  ]);
 
   return (
     <div>
-      <PageBox>
+      <div>
         <div>
-     
-          <div >
-            {/* <FilterComponent
-               is_progress={isFetching}
+          <div>
+            <FilterComponent
+              is_progress={isFetching}
+              filters={configFilter}
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}
-              filterWidth={filterWidth}
-            /> */}
-              <FilterComponent
-            is_progress={isFetching}
-            filters={configFilter}
-            handleSearchValueChange={handleSearchValueChange}
-            handleFilterDataChange={handleFilterDataChange}
-          />
+            />
           </div>
 
           <div>
@@ -257,8 +303,34 @@ const NextYearSuccessionPlanner = ({
             </div>
           </div>
         </div>
-      
-      </PageBox>
+
+        <SidePanelComponent
+          handleToggle={handleToggleSidePannel}
+          title={<UpperInfo />}
+          open={isSidePanel}
+          side={"right"}
+        >
+          <SuccessionHistory
+            handleToggleSidePannel={handleToggleSidePannel}
+            isSidePanel={isSidePanel}
+            empId={editData}
+          />
+        </SidePanelComponent>
+
+        <SidePanelComponent
+          handleToggle={handleToggleSidePannelForm}
+          title={<UpperDetailFormInfo />}
+          isBack={true}
+          open={isSidePanelForm}
+          side={"right"}
+        >
+          <SuccessionPlannerDetailform
+            handleToggleSidePannel={handleToggleSidePannelForm}
+            isSidePanel={isSidePanelForm}
+            empId={editData}
+          />
+        </SidePanelComponent>
+      </div>
     </div>
   );
 };

@@ -3,11 +3,11 @@ import { useCallback, useState } from "react";
 import historyUtils from "../../libs/history.utils";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import RouteName from "../../routes/Route.name";
-import { serviceExitInterviewLogin } from "../../services/ExitInterview.service";
+import { serviceSuccessionLogin } from "../../services/Success.service";
 
 const initialForm = {
-  emp_code: "",
-  code: "",
+  email: "",
+  otp: "",
 };
 
 const useSuccessionApplicationFormHook = ({}) => {
@@ -17,16 +17,16 @@ const useSuccessionApplicationFormHook = ({}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["emp_code", "code"];
+    let required = ["email", "otp"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
         (Array.isArray(form?.[val]) && form?.[val].length === 0)
       ) {
         errors[val] = true;
-      } else if (form?.code.length < 4) {
-        errors.code = "Please Enter 4 digit OTP";
-      } else if (["code"].indexOf(val) < 0) {
+      } else if (form?.otp.length < 4) {
+        errors.otp = "Please Enter 4 digit OTP";
+      } else if (["otp"].indexOf(val) < 0) {
         delete errors[val];
       }
     });
@@ -41,11 +41,12 @@ const useSuccessionApplicationFormHook = ({}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      serviceExitInterviewLogin({ ...form }).then((res) => {
+      serviceSuccessionLogin({ ...form }).then((res) => {
         if (!res.error) {
           const data = res?.data;
           sessionStorage.setItem("CANDIDATE_ID", data?.id);
-          historyUtils.push(RouteName.EXIT_INTERVIEW_FORM);
+          sessionStorage.setItem("EMP_id", data?.emp_code);
+          historyUtils.push(RouteName.SUCCESSION_FORM_INNER);
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -76,7 +77,7 @@ const useSuccessionApplicationFormHook = ({}) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "code") {
+      if (fieldName === "otp") {
         if (text.toString()?.length <= 4) {
           t[fieldName] = text;
         }
