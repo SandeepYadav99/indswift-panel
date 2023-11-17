@@ -214,7 +214,7 @@ export default {
   BGV_ANALYSI_REPOST:"/pending/verification/analysis/report",
 
   PENDING_VERIFICATION_CREATE:"/verification/create/",
-  PENDING_VERIFICATION_DETAIL:"/verification/detail",
+  PENDING_VERIFICATION_DETAIL:"/verification/detail/",
   PENDING_VERIFICATION_UPDATE:"/verification/update/",
 
 

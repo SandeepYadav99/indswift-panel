@@ -38,6 +38,7 @@ const BGVDetailView = ({}) => {
           choose_action: data?.choose_action,
           remark: data?.remark,
           emp_code: data?.employeeObj?.emp_code,
+          action_remark:data?.action_remark
         });
       } else {
         SnackbarUtils.error(res.message);
@@ -157,7 +158,7 @@ const BGVDetailView = ({}) => {
             <div className={styles.backgroundStatus}>
               <span>
                 {" "}
-                <b>Action Choosen: {"  "} </b> {details?.choose_action}{" "}
+                <b>Action Choosen: {"  "} </b> {removeUnderScore(details?.choose_action)}{" "}
               </span>
             </div>
             <div className={styles.gaps} />
