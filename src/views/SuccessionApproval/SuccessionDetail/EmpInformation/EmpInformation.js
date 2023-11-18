@@ -7,8 +7,8 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ButtonBase, MenuItem } from "@material-ui/core";
 import historyUtils from "../../../../libs/history.utils";
 import useEmpInformation from "./EmpInformationHook";
-// import ApprovalPopup from "../component/ApprovalPopup/ApprovalPopup";
-// import RejectionPopup from "../component/RejectionPopup/RejectionPopup";
+import ApprovalPopup from "../component/ApprovalPopup/ApprovalPopup";
+import RejectionPopup from "../component/RejectionPopup/RejectionPopup";
 import UpperCard from "../component/UpperCard/UpperCard";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
@@ -28,6 +28,7 @@ const EmployeeInformation = ({ empId }) => {
     isSubmitting,
     isSubmitted,
     listData,
+    salaryCost,
   } = useEmpInformation();
   return (
     <div>
@@ -47,62 +48,61 @@ const EmployeeInformation = ({ empId }) => {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
-            <div className={styles.heading}>
-              Succession Details <span>{employeeDetail?.code}</span>
-            </div>
+            <div className={styles.heading}>Succession Details</div>
           </div>
+          {employeeDetail?.status !== "PENDING" && (
+            <>
+              <div className={styles.mainFlex}>
+                <div className={styles.left}>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Succession:</span>
+                    {employeeDetail?.name}
+                  </div>
+                  <div className={styles.key}>
+                    <span className={styles.value}>
+                      Replacing Person Details
+                    </span>
+                    {/* {employeeDetail?.replacing_employee_name} */}
+                  </div>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Name:</span>
+                    {employeeDetail?.replacing_employee_name}
+                  </div>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Employee ID:</span>
+                    {employeeDetail?.replacing_employee_code}{" "}
+                  </div>
+                </div>
 
-          <div className={styles.mainFlex}>
-            <div className={styles.left}>
-              <div className={styles.key}>
-                <span className={styles.value}>Succession:</span>
-                {employeeDetail?.name}
+                <div className={styles.vertical}></div>
+                <div className={styles.right}>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Nature of Succession:</span>
+                    {/* {valencyChange(employeeDetail?.vacancy_type)} */}
+                    {employeeDetail?.saj_status}
+                  </div>
+                  <div className={styles.key}>
+                    <span className={styles.value}></span>
+                  </div>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Salary:</span>
+                    {employeeDetail?.replacing_employee_ctc
+                      ? `₹ ${employeeDetail?.replacing_employee_ctc}`
+                      : "-"}
+                  </div>
+                  <div className={styles.key}>
+                    <span className={styles.value}>
+                      Succession's Cost WRT employee:
+                    </span>
+                    {employeeDetail?.cost_wrt ? employeeDetail?.cost_wrt : "-"}
+                  </div>
+                </div>
               </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Replacing Person Details</span>
-                {employeeDetail?.verificationText}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Name:</span>
-                {employeeDetail?.location?.name}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Employee ID:</span>
-                {employeeDetail?.designation?.name}{" "}
-                {employeeDetail?.designation_note && (
-                  <>({employeeDetail?.designation_note})</>
-                )}
-              </div>
-            </div>
-
-            <div className={styles.vertical}></div>
-            <div className={styles.right}>
-              <div className={styles.key}>
-                <span className={styles.value}>Nature of Succession:</span>
-                {/* {valencyChange(employeeDetail?.vacancy_type)} */}
-                {employeeDetail?.designation?.name
-                  ? employeeDetail?.designation?.name
-                  : "NA"}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>Salary:</span>
-                {employeeDetail?.department?.name
-                  ? employeeDetail?.department?.name
-                  : "NA"}
-              </div>
-              <div className={styles.key}>
-                <span className={styles.value}>
-                  Succession's Cost WRT employee:
-                </span>
-                {employeeDetail?.replacing_person?.name
-                  ? employeeDetail?.replacing_person?.name
-                  : "NA"}
-              </div>
-            </div>
-          </div>
+              <div className={styles.hrline} />
+            </>
+          )}
         </div>
 
-        <div className={styles.hrline} />
         <div>
           <div className={styles.key}>
             <span className={styles.value_submission}>Date of Submission:</span>
@@ -125,72 +125,87 @@ const EmployeeInformation = ({ empId }) => {
             </div>
           )}
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomSelectField
-              isError={errorData?.type}
-              errorText={errorData?.type}
-              label={"Succession"}
-              value={form?.type}
-              handleChange={(value) => {
-                changeTextData(value, "type");
-              }}
-            >
-              <MenuItem value="IN_PLACE">In place</MenuItem>
-              <MenuItem value="NOT_IN_PLACE">Not in place</MenuItem>
-            </CustomSelectField>
-          </div>
-          <div className={"formGroup"}>
-            {form?.type === "IN_PLACE" && (
-              <CustomSelectField
-                isError={errorData?.succession}
-                errorText={errorData?.succession}
-                label={"Nature of Succession"}
-                value={form?.succession}
-                handleChange={(value) => {
-                  changeTextData(value, "succession");
-                }}
-              >
-                <MenuItem value="REPLACEMENT_INTERNAL">Internal</MenuItem>
-                <MenuItem value="REPLACEMENT_EXTERNAL">External</MenuItem>
-              </CustomSelectField>
+
+        {employeeDetail?.application?.status === "EMPLOYEE_SUBMITTED" && (
+          <>
+            {" "}
+            <div className={"formFlex"}>
+              <div className={"formGroup"}>
+                <CustomSelectField
+                  isError={errorData?.type}
+                  errorText={errorData?.type}
+                  label={"Succession"}
+                  value={form?.type}
+                  handleChange={(value) => {
+                    changeTextData(value, "type");
+                  }}
+                >
+                  <MenuItem value="IN_PLACE">In place</MenuItem>
+                  <MenuItem value="NOT_IN_PLACE">Not in place</MenuItem>
+                </CustomSelectField>
+              </div>
+              <div className={"formGroup"}>
+                {form?.type === "IN_PLACE" && (
+                  <CustomSelectField
+                    isError={errorData?.succession}
+                    errorText={errorData?.succession}
+                    label={"Nature of Succession"}
+                    value={form?.succession}
+                    handleChange={(value) => {
+                      changeTextData(value, "succession");
+                    }}
+                  >
+                    <MenuItem value="REPLACEMENT_INTERNAL">Internal</MenuItem>
+                    <MenuItem value="REPLACEMENT_EXTERNAL">External</MenuItem>
+                  </CustomSelectField>
+                )}
+              </div>
+            </div>
+            {form?.succession === "REPLACEMENT_INTERNAL" && (
+              <>
+                <div className={"formFlex"}>
+                  <div className={"formGroup"}>
+                    <CustomAutoComplete
+                      autoCompleteProps={{
+                        freeSolo: false,
+                        getOptionLabel: (option) => {
+                          return option?.name;
+                        },
+                      }}
+                      dataset={listData?.EMPLOYEE_SALARY}
+                      datasetKey={"name"}
+                      onTextChange={(text, value) => {
+                        changeTextData(text, "replacing_employee_id");
+                      }}
+                      variant={"outlined"}
+                      label={"Replacing Employee"}
+                      name={"replacing_employee_id"}
+                      isError={errorData?.replacing_employee_id}
+                      value={form?.replacing_employee_id}
+                    />
+                  </div>
+                  <div className={"formGroup"}>
+                    <CustomTextField
+                      disabled={true}
+                      label={"Replacing Person Current Salary"}
+                      value={form?.replacing_employee_id?.ctc}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  </div>
+                </div>
+                <div className={styles.costWrap}>
+                  Succession's Cost WRT employee:{" "}
+                  <span className={styles.cust}>
+                    {salaryCost && `${salaryCost} %`}
+                  </span>
+                </div>
+              </>
             )}
-          </div>
-        </div>
-        {form?.succession === "REPLACEMENT_INTERNAL" && (
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <CustomAutoComplete
-                autoCompleteProps={{
-                  freeSolo: false,
-                  getOptionLabel: (option) => {
-                    return option?.name;
-                  },
-                }}
-                dataset={listData?.EMPLOYEE_SALARY}
-                datasetKey={"name"}
-                onTextChange={(text, value) => {
-                  changeTextData(text, "replacing_employee_id");
-                }}
-                variant={"outlined"}
-                label={"Replacing Employee"}
-                name={"replacing_employee_id"}
-                isError={errorData?.replacing_employee_id}
-                value={form?.replacing_employee_id}
-              />
-            </div>
-            <div className={"formGroup"}>
-              <CustomTextField
-                disabled={true}
-                label={"Replacing Person Current Salary"}
-                value={form?.replacing_employee_ctc}
-              />
-            </div>
-          </div>
+          </>
         )}
       </div>
 
-      {/* <ApprovalPopup
+      <ApprovalPopup
         // candidateId={ids}
         isOpen={isOpenDialog}
         handleToggle={toggleIsOpenDialog}
@@ -210,7 +225,7 @@ const EmployeeInformation = ({ empId }) => {
         handleSubmit={handleSubmit}
         errorData={errorData}
         isSubmitting={isSubmitting}
-      /> */}
+      />
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Comments/Notes</div>
@@ -228,31 +243,33 @@ const EmployeeInformation = ({ empId }) => {
           </div>
         </div>
       </div>
-      <div className={styles.plainPaper_footer}>
-        <div className={styles.newContainer}>
-          <div>
-            <div className={styles.rightFlex}>
-              <ButtonBase
-                className={styles.edit}
-                onClick={() => {
-                  // handleViewGraph();
-                  toggleIsOpenRejectionDialog();
-                }}
-              >
-                REJECT
-              </ButtonBase>
-              <ButtonBase
-                className={styles.approve}
-                onClick={() => {
-                  toggleIsOpenDialog();
-                }}
-              >
-                APPROVE
-              </ButtonBase>
+      {employeeDetail?.status === "PENDING" && (
+        <div className={styles.plainPaper_footer}>
+          <div className={styles.newContainer}>
+            <div>
+              <div className={styles.rightFlex}>
+                <ButtonBase
+                  className={styles.edit}
+                  onClick={() => {
+                    // handleViewGraph();
+                    toggleIsOpenRejectionDialog();
+                  }}
+                >
+                  REJECT
+                </ButtonBase>
+                <ButtonBase
+                  className={styles.approve}
+                  onClick={() => {
+                    toggleIsOpenDialog();
+                  }}
+                >
+                  APPROVE
+                </ButtonBase>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -46,7 +46,7 @@ function UpperCard({employeeDetail}) {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Grade/Level:</span>
-              {employeeDetail?.application?.employee?.grade?.name}/
+              {employeeDetail?.application?.employee?.grade?.code}/
               {employeeDetail?.application?.employee?.cadre?.name}
             </div>
             <div className={styles.key}>

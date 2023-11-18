@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../libs/history.utils";
 import { serviceGetList } from "../../../../services/Common.service";
+import { useMemo } from "react";
 
 const initialForm = {
   replacing_employee_id: "",
@@ -72,6 +73,19 @@ const useEmpInformation = () => {
     [removeError, form, setForm]
   );
 
+  const salaryCost = useMemo(() => {
+    const x = employeeDetail?.application?.ctc
+      ? employeeDetail?.application?.ctc
+      : 1;
+    const y = form?.replacing_employee_id?.ctc
+      ? Number(form?.replacing_employee_id?.ctc)
+      : 1;
+    console.log("salaryCost", x, y, (y - x) / x);
+
+    return Math.round((y - x) / x);
+  }, [employeeDetail, form?.replacing_employee_id]);
+
+  console.log("salaryCost", salaryCost);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["type", "comment"];
@@ -114,8 +128,8 @@ const useEmpInformation = () => {
           replacing_employee_name: form?.replacing_employee_id?.name
             ? form?.replacing_employee_id?.name
             : "",
-          replacing_employee_code: form?.replacing_employee_id?.code
-            ? form?.replacing_employee_id?.code
+          replacing_employee_code: form?.replacing_employee_id?.emp_code
+            ? form?.replacing_employee_id?.emp_code
             : "",
           replacing_employee_ctc: form?.replacing_employee_id?.ctc
             ? form?.replacing_employee_id?.ctc
@@ -125,6 +139,11 @@ const useEmpInformation = () => {
             : "",
           action: status,
         };
+        const checkForm =
+          employeeDetail?.application?.status === "EMPLOYEE_SUBMITTED";
+        if (checkForm) {
+          updatedFd.cost_wrt = salaryCost;
+        }
         console.log("status", status);
         serviceGetApprovalSubmit({
           review_id: id,
@@ -140,20 +159,32 @@ const useEmpInformation = () => {
         });
       }
     },
-    [form, isSubmitting, setIsSubmitting]
+    [form, isSubmitting, setIsSubmitting, salaryCost]
   );
 
   const handleSubmit = useCallback(
     (status) => {
-      const errors = checkFormValidation();
-      console.log("===?", form, errors);
-      if (Object.keys(errors).length > 0) {
-        setErrorData(errors);
-        return true;
+      const checkForm =
+        employeeDetail?.application?.status === "EMPLOYEE_SUBMITTED";
+      console.log("checkForm", checkForm);
+      if (checkForm) {
+        const errors = checkFormValidation();
+        console.log("===?", form, errors);
+        if (Object.keys(errors).length > 0) {
+          setErrorData(errors);
+          return true;
+        }
       }
       submitToServer(status);
     },
-    [checkFormValidation, setErrorData, form, submitToServer]
+    [
+      checkFormValidation,
+      setErrorData,
+      form,
+      submitToServer,
+      salaryCost,
+      employeeDetail,
+    ]
   );
 
   const onBlurHandler = useCallback(
@@ -194,6 +225,7 @@ const useEmpInformation = () => {
     errorData,
     isSubmitting,
     listData,
+    salaryCost,
   };
 };
 
