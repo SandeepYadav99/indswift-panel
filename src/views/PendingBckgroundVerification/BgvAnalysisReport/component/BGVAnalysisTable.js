@@ -26,7 +26,7 @@ const TableView = ({ tableDatas }) => {
         <tbody>
           <tr className={styles.bgColorRow}>
             <td>Month</td>
-            <td>No. of Classes</td>
+            <td>No. of Cases</td>
             <td>Completed</td>
             <td>In-Complete</td>
             <td>Total</td>
@@ -56,9 +56,7 @@ const TableView = ({ tableDatas }) => {
                   {/* BGV REULT LIST */}
                   <td>{groupedData[date]?.bgv_result?.CLEAR}</td>
                   <td>{groupedData[date]?.bgv_result?.FAILED || 0}</td>
-                  <td>
-                    {groupedData[date]?.bgv_result?.IN_PROCESS || 0}
-                  </td>
+                  <td>{groupedData[date]?.bgv_result?.IN_PROCESS || 0}</td>
                   <td>{groupedData[date]?.bgv_result?.PENDING || 0}</td>
                   <td>{groupedData[date]?.count}</td>
                   {/* BGV PAYMENT STATUS */}

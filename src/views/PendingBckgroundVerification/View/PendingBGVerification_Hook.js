@@ -10,13 +10,17 @@ import RouteName from "../../../routes/Route.name";
 import constants from "../../../config/constants";
 import { actionFetchEmployee } from "../../../actions/Employee.action";
 import { serviceGetList } from "../../../services/Common.service";
-import { serviceBGVDownload } from "../../../services/PendingBGVerification.service";
+import {
+  serviceBGVDownload,
+  serviceBgvStatusFilter,
+} from "../../../services/PendingBGVerification.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const usePendingBGVerification_Hook = () => {
   const [isCalling] = useState(false);
   const [editData] = useState(null);
   const { role } = useSelector((state) => state.auth);
+  const [locationId, setLocationId] = useState("");
   const [listData, setListData] = useState({
     EMPLOYEES: [],
     DEPARTMENTS: [],
@@ -154,6 +158,23 @@ const usePendingBGVerification_Hook = () => {
     });
   }, []);
 
+  useEffect(() => {
+    isMountRef.current = true;
+    serviceBgvStatusFilter({
+      location_id: locationId,
+      bgv_status: listData?.bgv_status,
+      index: 1,
+      order: null,
+      query: "",
+      query_data: null,
+      row: null,
+    }).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, [locationId]);
+
   const configFilter = useMemo(() => {
     return [
       ...(role === constants.ROLES.CORPORATE_HR
@@ -179,11 +200,11 @@ const usePendingBGVerification_Hook = () => {
         label: "Bgv Status",
         name: "bgv_status",
         type: "select",
-        fields: ["FAILED", "PENDING", "CLEAR", "INPROCESS"],
+        fields: ["FAILED", "PENDING", "CLEAR", "INPROCESS", "COMPLETED"],
       },
     ];
   }, [listData]);
-
+  console.log(listData);
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -198,6 +219,7 @@ const usePendingBGVerification_Hook = () => {
     handleBGVDetails,
     handleBgvAnalysisReport,
     handleBgvReportDownload,
+    setLocationId
   };
 };
 

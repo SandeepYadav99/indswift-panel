@@ -1,4 +1,4 @@
-import { useParams, useLocation } from "react-router";
+import { useParams } from "react-router";
 import { useCallback, useEffect, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
