@@ -29,10 +29,13 @@ const useEmpInformation = () => {
   });
   const { id } = useParams();
   useEffect(() => {
-    let req = serviceGetApprovalDetail({ review_id: id });
-    req.then((data) => {
-      setEmployeeDetail(data?.data);
-    });
+    if (id) {
+      console.log("id",id)
+      let req = serviceGetApprovalDetail({ review_id: id });
+      req.then((data) => {
+        setEmployeeDetail(data?.data);
+      });
+    }
   }, [id]);
   console.log("employeeDetail", employeeDetail);
   useEffect(() => {
@@ -123,27 +126,27 @@ const useEmpInformation = () => {
     (status) => {
       if (!isSubmitting) {
         setIsSubmitting(true);
-        const updatedFd = {
-          ...form,
-          replacing_employee_name: form?.replacing_employee_id?.name
+        let rep = {};
+        if (form?.replacing_employee_id) {
+          rep.replacing_employee_name = form?.replacing_employee_id?.name
             ? form?.replacing_employee_id?.name
-            : "",
-          replacing_employee_code: form?.replacing_employee_id?.emp_code
+            : "";
+          rep.replacing_employee_code = form?.replacing_employee_id?.emp_code
             ? form?.replacing_employee_id?.emp_code
-            : "",
-          replacing_employee_ctc: form?.replacing_employee_id?.ctc
+            : "";
+          rep.replacing_employee_ctc = form?.replacing_employee_id?.ctc
             ? form?.replacing_employee_id?.ctc
-            : "",
-          replacing_employee_id: form?.replacing_employee_id?.id
+            : "";
+          rep.replacing_employee_id = form?.replacing_employee_id?.id
             ? form?.replacing_employee_id?.id
-            : "",
+            : "";
+          rep.cost_wrt = salaryCost;
+        }
+        const updatedFd = {
+          comment: form.comment,
+          ...rep,
           action: status,
         };
-        const checkForm =
-          employeeDetail?.application?.status === "EMPLOYEE_SUBMITTED";
-        if (checkForm) {
-          updatedFd.cost_wrt = salaryCost;
-        }
         console.log("status", status);
         serviceGetApprovalSubmit({
           review_id: id,

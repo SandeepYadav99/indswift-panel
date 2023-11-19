@@ -50,7 +50,8 @@ const EmployeeInformation = ({ empId }) => {
           <div className={styles.editFlex}>
             <div className={styles.heading}>Succession Details</div>
           </div>
-          {employeeDetail?.status !== "PENDING" && (
+          {(employeeDetail?.status !== "PENDING" ||
+            employeeDetail?.application?.status !== "EMPLOYEE_SUBMITTED") && (
             <>
               <div className={styles.mainFlex}>
                 <div className={styles.left}>
@@ -66,11 +67,11 @@ const EmployeeInformation = ({ empId }) => {
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Name:</span>
-                    {employeeDetail?.replacing_employee_name}
+                    {employeeDetail?.application?.replacing_employee_name}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Employee ID:</span>
-                    {employeeDetail?.replacing_employee_code}{" "}
+                    {employeeDetail?.application?.replacing_employee_code}{" "}
                   </div>
                 </div>
 
@@ -78,23 +79,24 @@ const EmployeeInformation = ({ empId }) => {
                 <div className={styles.right}>
                   <div className={styles.key}>
                     <span className={styles.value}>Nature of Succession:</span>
-                    {/* {valencyChange(employeeDetail?.vacancy_type)} */}
-                    {employeeDetail?.saj_status}
+                    {employeeDetail?.application?.saj_status}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}></span>
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Salary:</span>
-                    {employeeDetail?.replacing_employee_ctc
-                      ? `₹ ${employeeDetail?.replacing_employee_ctc}`
+                    {employeeDetail?.application?.replacing_employee_ctc
+                      ? `₹ ${employeeDetail?.application?.replacing_employee_ctc}`
                       : "-"}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>
                       Succession's Cost WRT employee:
                     </span>
-                    {employeeDetail?.cost_wrt ? employeeDetail?.cost_wrt : "-"}
+                    {employeeDetail?.application?.cost_wrt
+                      ? employeeDetail?.application?.cost_wrt
+                      : "-"}
                   </div>
                 </div>
               </div>
