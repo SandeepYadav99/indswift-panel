@@ -70,7 +70,11 @@
   margin-bottom: 7px;
   margin-right: 15px;
 }
-
+.application{
+  font-size: .8rem;
+  font-weight: 500;
+  margin-left: 20px;
+}
 .value {
   font-weight: 600;
   width: 200px;

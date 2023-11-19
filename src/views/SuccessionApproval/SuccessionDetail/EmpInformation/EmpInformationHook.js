@@ -30,7 +30,6 @@ const useEmpInformation = () => {
   const { id } = useParams();
   useEffect(() => {
     if (id) {
-      console.log("id",id)
       let req = serviceGetApprovalDetail({ review_id: id });
       req.then((data) => {
         setEmployeeDetail(data?.data);
@@ -122,6 +121,28 @@ const useEmpInformation = () => {
     return errors;
   }, [form, errorData]);
 
+  const checkFormValidationHR = useCallback(() => {
+    const errors = { ...errorData };
+    let required = ["type", "comment"];
+    required.forEach((val) => {
+      if (
+        !form?.[val] ||
+        (Array.isArray(form?.[val]) && form?.[val].length === 0)
+      ) {
+        errors[val] = true;
+      } else if ([].indexOf(val) < 0) {
+        delete errors[val];
+      }
+    });
+
+    Object.keys(errors).forEach((key) => {
+      if (!errors[key]) {
+        delete errors[key];
+      }
+    });
+    return errors;
+  }, [form, errorData]);
+
   const submitToServer = useCallback(
     (status) => {
       if (!isSubmitting) {
@@ -142,9 +163,16 @@ const useEmpInformation = () => {
             : "";
           rep.cost_wrt = salaryCost;
         }
+        let hrData = {};
+        if (employeeDetail?.application?.status === "CEO_APPROVED") {
+          hrData.extension_start_date = form?.extension_start_date;
+          hrData.pending_dues = form?.pending_dues;
+          hrData.notes = form?.notes;
+        }
         const updatedFd = {
           comment: form.comment,
           ...rep,
+          ...hrData,
           action: status,
         };
         console.log("status", status);
@@ -167,10 +195,9 @@ const useEmpInformation = () => {
 
   const handleSubmit = useCallback(
     (status) => {
-      const checkForm =
-        employeeDetail?.application?.status === "EMPLOYEE_SUBMITTED";
+      const checkForm = employeeDetail?.application?.status;
       console.log("checkForm", checkForm);
-      if (checkForm) {
+      if (checkForm === "EMPLOYEE_SUBMITTED") {
         const errors = checkFormValidation();
         console.log("===?", form, errors);
         if (Object.keys(errors).length > 0) {

@@ -13,6 +13,7 @@ import UpperCard from "../component/UpperCard/UpperCard";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
+import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 const EmployeeInformation = ({ empId }) => {
   const {
     toggleIsOpenDialog,
@@ -114,6 +115,19 @@ const EmployeeInformation = ({ empId }) => {
             <span className={styles.value_submission}>Reason:</span>
             {employeeDetail?.application?.employee_form?.reason}
           </div>
+          {employeeDetail?.application?.status === "CORPORATE_SUBMITTED" && (
+            <>
+              <div className={styles.key}>
+                <span className={styles.value_submission}>Pending Dues:</span>
+                {employeeDetail?.application?.pending_dues}
+              </div>{" "}
+              <div className={styles.key}>
+                <span className={styles.value_submission}>Notes:</span>
+                {employeeDetail?.application?.notes}
+              </div>
+            </>
+          )}
+          <></>
           {employeeDetail?.application?.employee_form?.document && (
             <div className={styles.key}>
               <a
@@ -205,6 +219,61 @@ const EmployeeInformation = ({ empId }) => {
             )}
           </>
         )}
+        {employeeDetail?.application?.status === "CEO_APPROVED" &&
+          employeeDetail?.status === "PENDING" && (
+            <>
+              <div className={"formFlex"} style={{ alignItems: "center" }}>
+                <div className="formGroup1">
+                  <CustomDatePicker
+                    clearable
+                    label={"Extension/Retainer Start Date"}
+                    maxDate={new Date()}
+                    onChange={(date) => {
+                      changeTextData(date, "extension_start_date");
+                    }}
+                    value={form?.extension_start_date}
+                    isError={errorData?.extension_start_date}
+                  />
+                </div>
+                <div className={"formGroup"}>
+                  Extension/Retainer End Date:
+                  <span className={styles.application}>
+                    {employeeDetail?.application?.extensionStartAt}
+                  </span>
+                </div>
+              </div>
+              <div className={"formGroup"}>
+                <CustomTextField
+                  isError={errorData?.pending_dues}
+                  errorText={errorData?.pending_dues}
+                  label={"Pending Dues"}
+                  value={form?.pending_dues}
+                  onTextChange={(text) => {
+                    changeTextData(text, "pending_dues");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("pending_dues");
+                  }}
+                />
+              </div>
+              <div className={"formGroup"}>
+                <CustomTextField
+                  isError={errorData?.notes}
+                  errorText={errorData?.notes}
+                  label={"Notes (if any)"}
+                  value={form?.notes}
+                  onTextChange={(text) => {
+                    changeTextData(text, "notes");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("notes");
+                  }}
+                  multiline
+                  rows={2}
+                />
+              </div>
+            </>
+          )}
       </div>
 
       <ApprovalPopup
