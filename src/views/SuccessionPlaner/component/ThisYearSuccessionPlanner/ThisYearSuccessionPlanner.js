@@ -16,6 +16,8 @@ import SidePanelComponent from "../../../../components/SidePanel/SidePanel.compo
 import SuccessionHistory from "./SuccessionHistory/SuccessionHistory";
 import SuccessionPlannerDetailform from "./SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 import { useSelector } from "react-redux";
+import SendIcon from "@material-ui/icons/Send";
+import SendPopup from "./SendDialog/SendDialog.view";
 
 const ThisYearSuccessionPlanner = ({ listData }) => {
   const {
@@ -34,7 +36,10 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
     isSidePanelForm,
     handleToggleSidePannelForm,
     isCandidatesFetching,
-    empId
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
   } = useThisYearSuccessionPlaner({ listData });
 
   const {
@@ -117,11 +122,7 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.name}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.name}</div>,
       },
       {
         key: "doj",
@@ -242,10 +243,10 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                handleEdit(all);
+                handleToggleSend(all);
               }}
             >
-              <Edit fontSize={"small"} />
+              <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
             </IconButton>
           </div>
         ),
@@ -303,7 +304,12 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
             </div>
           </div>
         </div>
-
+        <SendPopup
+          isOpen={isSend}
+          handleToggle={handleToggleSend}
+          handleSubmit={handleResend}
+          empId={empId}
+        />
         <SidePanelComponent
           handleToggle={handleToggleSidePannel}
           title={<UpperInfo />}

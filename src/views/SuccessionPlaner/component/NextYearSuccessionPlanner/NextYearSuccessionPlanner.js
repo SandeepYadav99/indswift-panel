@@ -16,8 +16,10 @@ import { useSelector } from "react-redux";
 import useNextYearSuccessionPlanner from "./NextYearSuccessionPlannerHook";
 import SuccessionHistory from "../ThisYearSuccessionPlanner/SuccessionHistory/SuccessionHistory";
 import SuccessionPlannerDetailform from "../ThisYearSuccessionPlanner/SuccessionPlannerDetailform/SuccessionPlannerDetailform";
+import SendPopup from "../ThisYearSuccessionPlanner/SendDialog/SendDialog.view";
+import SendIcon from "@material-ui/icons/Send";
 
-const NextYearSuccessionPlanner = ({listData}) => {
+const NextYearSuccessionPlanner = ({ listData }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -34,7 +36,11 @@ const NextYearSuccessionPlanner = ({listData}) => {
     isSidePanelForm,
     handleToggleSidePannelForm,
     isCandidatesFetching,
-  } = useNextYearSuccessionPlanner({listData});
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
+  } = useNextYearSuccessionPlanner({ listData });
 
   const {
     nextYear: data,
@@ -242,10 +248,10 @@ const NextYearSuccessionPlanner = ({listData}) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                handleEdit(all);
+                handleToggleSend(all);
               }}
             >
-              <Edit fontSize={"small"} />
+              <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
             </IconButton>
           </div>
         ),
@@ -303,7 +309,12 @@ const NextYearSuccessionPlanner = ({listData}) => {
             </div>
           </div>
         </div>
-
+        <SendPopup
+          isOpen={isSend}
+          handleToggle={handleToggleSend}
+          handleSubmit={handleResend}
+          empId={empId}
+        />
         <SidePanelComponent
           handleToggle={handleToggleSidePannel}
           title={<UpperInfo />}
