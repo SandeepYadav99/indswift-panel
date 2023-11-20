@@ -45,12 +45,12 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
   } = useThisYearSuccessionPlaner({ listData });
 
   const {
-    year: data,
-    allThisYear: allData,
+    data,
+    all: allData,
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.successionPlaner);
-
+  
   const UpperInfo = useCallback(
     (obj) => {
       if (obj) {
@@ -59,20 +59,7 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
             <div className={styles.InfoWrap}>
               <div>{"Succession History"} </div>
               <div className={styles.newLine}></div>
-            </div>
-
-            {/* <div className={styles.addButton}>
-              <ButtonBase
-                onClick={() => {
-                  handleToggleSidePannelForm();
-                  handleToggleSidePannel();
-                }}
-                className={"createBtn"}
-              >
-                Add
-                <Add fontSize={"small"} className={"plusIcon"}></Add>
-              </ButtonBase>
-            </div> */}
+            </div> 
           </div>
         );
       }

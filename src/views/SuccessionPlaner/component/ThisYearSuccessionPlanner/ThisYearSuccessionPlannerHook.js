@@ -27,9 +27,19 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
   } = useSelector((state) => state.successionPlaner);
 
   const handlePageChange = useCallback((type) => {
-    dispatch(actionSetPageSuccessionPlaner(type));
+    dispatch(actionSetPageSuccessionPlaner(type, 0));
   }, []);
 
+  useEffect(() => {
+    dispatch(
+      actionFetchSuccessionPlaner(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+        year: 0,
+      })
+    );
+    isMountRef.current = true;
+  }, []);
   const handleRowSize = (page) => {
     console.log(page);
   };
@@ -41,6 +51,7 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
         actionFetchSuccessionPlaner(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+          year: 0,
         })
       );
     },
@@ -74,6 +85,7 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
           {
             query: query,
             query_data: queryData,
+            year: 0,
           }
         )
       );
@@ -122,7 +134,7 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
     return [
       {
         label: "Location",
-        name: "employeesObj.location_id",
+        name: "location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
@@ -130,14 +142,14 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
 
       {
         label: "Grade",
-        name: "employeesObj.grade_id",
+        name: "grade_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "label" } },
         fields: listData?.GRADES,
       },
       {
         label: "Department",
-        name: "employeesObj.department_id",
+        name: "department_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,

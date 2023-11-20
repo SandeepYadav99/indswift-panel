@@ -38,8 +38,8 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
   } = useNextToNextYearSuccessionPlanner({ listData });
 
   const {
-    nextNextYear: data,
-    allNextNextYear: allData,
+    data,
+    all: allData,
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.next_next_year);

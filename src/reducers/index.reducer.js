@@ -92,6 +92,8 @@ import FinalFormReducer from "./FinalForm.reducer";
 import FinalFormApprovalReducer from "./FinalFormApproval.reducer";
 import EmpRecordApprovalReducer from "./EmpRecordApproval.reducer";
 import SuccessionAReducer from "./SuccessionA.reducer";
+import NextSuccessionPlanerReducer from "./NextSuccessionPlaner.reducer";
+import AfterNextSuccessionPlanerReducer from "./AfterNextSuccessionPlaner.reducer";
 import SuccessionPlanerReducer from "./SuccessionPlaner.reducer";
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -179,9 +181,8 @@ const rootReducer = combineReducers({
   AppointmentLetter: AppointmentLetterReducer,
   RelievingExpLetter: RelievingExpLetterReducer,
   successionPlaner: SuccessionPlanerReducer,
-  employeRecordApproval:EmpRecordApprovalReducer,
-  next_year: SuccessionPlanerReducer,
-  next_next_year:SuccessionPlanerReducer,
+  next_year: NextSuccessionPlanerReducer,
+  next_next_year:AfterNextSuccessionPlanerReducer,
   final_form_approval: FinalFormApprovalReducer,
   succession_approval:SuccessionAReducer
   // form: formReducer,
