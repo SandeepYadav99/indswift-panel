@@ -16,7 +16,8 @@ const EmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
     onBlurHandler,
     isSubmitting,
   } = useEmployeeView({ closeSidePanel, Formtype, employee_record_id });
-console.log(employee_record_id)
+
+  
   return (
     <div>
       <div className={"formFlex"}>

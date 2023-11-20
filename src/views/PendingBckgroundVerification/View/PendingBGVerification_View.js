@@ -31,6 +31,7 @@ const PendingBGVerification_View = ({ location }) => {
     handleBGVDetails,
     handleBgvAnalysisReport,
     handleBgvReportDownload,
+    setLocationId
   } = usePendingBGVerification_Hook({ location });
 
   const {
@@ -45,7 +46,7 @@ const PendingBGVerification_View = ({ location }) => {
   };
 
   const getBgvStatusStyle = (bgvResult) => {
-    if (bgvResult === "IN PROCESS") {
+    if (bgvResult === "INPROCESS") {
       return { color: "#F4881B", borderColor: "#F4881B" };
     } else if (bgvResult === "UNABLE TO VERIFY") {
       return { color: "#7467F0", border: "none", textAlign: "justify" };
@@ -92,9 +93,9 @@ const PendingBGVerification_View = ({ location }) => {
         (all?.bgv_result === "PENDING" ||
           all?.bgv_result === "CLEAR" ||
           all?.bgv_result === "FAILED" ||
-          all?.bgv_result === "IN_PROCESS" ||
+          all?.bgv_result === "INPROCESS" ||
           all?.bgv_result === "UNABLE_TO_VERIFY") &&
-        (all?.payment_status === "IN_PROCESS" ||
+        (all?.payment_status === "INPROCESS" ||
           all?.payment_status === "PENDING" ||
           all?.payment_status !== "");
 
@@ -243,7 +244,7 @@ const PendingBGVerification_View = ({ location }) => {
             {all?.bgv_status === "PENDING" &&
               (all?.bgv_result === "PENDING" ||
                 all?.bgv_result !== "" ||
-                all?.bgv_result === "IN_PROCESS") &&
+                all?.bgv_result === "INPROCESS") &&
               all?.payment_status === "PENDING" && (
                 <IconButton
                   className={"tableActionBtn"}

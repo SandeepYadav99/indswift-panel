@@ -36,23 +36,29 @@ const useEmployeeEditForm = ({ closeSidePanel, data }) => {
   useEffect(() => {
     if (data) {
       const editData = data;
+      
       if (data?.star_type) {
         const pmsData = { document: "" };
+
         Object.keys({ ...editData }).forEach((key) => {
+
           if (key in PmsFields && key !== "document") {
             pmsData[key] = editData[key];
           }
         });
+
         setImg(data?.document);
         setFormType("STAR");
         setForm({ ...form, ...pmsData, record_type: "STAR" });
       } else {
         const recordData = { document: "" };
+
         Object.keys({ ...editData }).forEach((key) => {
           if (key in recordFields && key !== "document") {
             recordData[key] = editData[key];
           }
         });
+
         setImg(data?.document);
         setFormType("RECORD");
         setForm({ ...form, ...recordData, record_type: "RECORD" });
@@ -98,7 +104,7 @@ const useEmployeeEditForm = ({ closeSidePanel, data }) => {
       fd.append("document", form?.document || "");
       fd.append("record_type", form?.record_type || "");
       fd.append("employee_id", form?.employee_id || "");
-      
+
       const updatedNewValues = {
         title: form?.title,
         date_of_issue: form?.date_of_issue,

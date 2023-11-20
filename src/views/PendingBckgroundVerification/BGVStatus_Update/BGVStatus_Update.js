@@ -207,7 +207,7 @@ const BGVStatus_Update = () => {
                 <MenuItem value="PENDING">Pending </MenuItem>
                 <MenuItem value="FAILED">Failed </MenuItem>
                 <MenuItem value="CLEAR">Clear </MenuItem>
-                <MenuItem value="IN_PROCESS">In Process</MenuItem>
+                <MenuItem value="INPROCESS">In Process</MenuItem>
               </CustomSelectField>
             </div>
           </div>
@@ -287,7 +287,7 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "payment_status");
                 }}
               >
-                <MenuItem value="IN_PROCESS">In Process</MenuItem>
+                <MenuItem value="INPROCESS">In Process</MenuItem>
                 <MenuItem value="CLEAR">Clear </MenuItem>
                 <MenuItem value="PENDING">Pending </MenuItem>
               </CustomSelectField>
