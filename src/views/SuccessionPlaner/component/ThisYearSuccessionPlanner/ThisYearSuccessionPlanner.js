@@ -255,16 +255,18 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleToggleSend(all);
-              }}
-            >
-              <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
-            </IconButton>
+            {!all?.is_succession_form_sent && (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleToggleSend(all);
+                }}
+              >
+                <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
+              </IconButton>
+            )}
           </div>
         ),
       },

@@ -255,6 +255,7 @@ const NextYearSuccessionPlanner = ({ listData }) => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
+            {!all?.is_succession_form_sent && (
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -265,6 +266,7 @@ const NextYearSuccessionPlanner = ({ listData }) => {
             >
               <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
             </IconButton>
+            )}
           </div>
         ),
       },

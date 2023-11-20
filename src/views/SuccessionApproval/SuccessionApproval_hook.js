@@ -127,10 +127,36 @@ const useSuccessionApprovalHook = ({}) => {
         fields: listData?.DEPARTMENTS,
       },
       {
-        label: "Status",
+        label: "Own Status",
         name: "status",
         type: "select",
-        fields: ["PENDING", "SUBMITTED"],
+        fields: [
+          "ACCEPTED",
+          "APPROVED",
+          "REJECTED",
+          "WAITING",
+          "PENDING",
+          "AUTO_REJECTED",
+        ],
+      },
+      {
+        label: "Overall Status",
+        name: "application.status",
+        type: "select",
+        fields: [
+          "PENDING",
+          "EMPLOYEE_PENDING",
+          "EXPIRED",
+          "EMPLOYEE_SUBMITTED",
+          "EMPLOYEE_REJECTED",
+          "HOD_REJECTED",
+          "HOD_APPROVED",
+          "CEO_APPROVED",
+          "CEO_REJECTED",
+          "CORPORATE_SUBMITTED",
+          "MD_APPROVED",
+          "MD_REJECTED",
+        ],
       },
     ];
   }, [listData]);
