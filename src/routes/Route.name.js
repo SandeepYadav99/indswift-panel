@@ -238,6 +238,7 @@ export default {
   EXIT_DETAIL:"/exit/details/",
 
   SUCCESSION_FORM:"/succession/form",
-  SUCCESSION_FORM_INNER:"/succession/details"
+  SUCCESSION_FORM_INNER:"/succession/details",
+  SUCCESSION_SUCCESS:"/succession/success"
 
 };
