@@ -14,6 +14,7 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
 import FullDetail from "../views/Full&FinalApproval/FullDetail/FullDetail.js";
+import SuccessionApproval_List from "../views/SuccessionApproval/SuccessionApproval_List.js";
 
 const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
 
