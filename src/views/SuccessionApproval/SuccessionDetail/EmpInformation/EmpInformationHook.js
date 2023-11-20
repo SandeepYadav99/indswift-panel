@@ -7,11 +7,12 @@ import { useParams } from "react-router";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../libs/history.utils";
 import { serviceGetList } from "../../../../services/Common.service";
+import { useMemo } from "react";
 
 const initialForm = {
   replacing_employee_id: "",
-  type: "",
   succession: "",
+  nature: "",
   comment: "",
 };
 const useEmpInformation = () => {
@@ -28,10 +29,18 @@ const useEmpInformation = () => {
   });
   const { id } = useParams();
   useEffect(() => {
-    let req = serviceGetApprovalDetail({ review_id: id });
-    req.then((data) => {
-      setEmployeeDetail(data?.data);
-    });
+    if (id) {
+      let req = serviceGetApprovalDetail({ review_id: id });
+      req.then((data) => {
+        setEmployeeDetail(data?.data);
+        if (data?.data?.saj_status !== "PENDING") {
+          setForm({
+            ...form,
+            succession: data?.data?.saj_status,
+          });
+        }
+      });
+    }
   }, [id]);
   console.log("employeeDetail", employeeDetail);
   useEffect(() => {
@@ -51,15 +60,15 @@ const useEmpInformation = () => {
   );
 
   useEffect(() => {
-    if (form?.type === "NOT_IN_PLACE") {
-      setForm({ ...form, succession: "", replacing_employee_id: "" });
-    }
-  }, [form?.type]);
-  useEffect(() => {
-    if (form?.succession === "REPLACEMENT_EXTERNAL") {
-      setForm({ ...form, replacing_employee_id: "" });
+    if (form?.succession === "NOT_IN_PLACE") {
+      setForm({ ...form, nature: "", replacing_employee_id: "" });
     }
   }, [form?.succession]);
+  useEffect(() => {
+    if (form?.nature === "REPLACEMENT_EXTERNAL") {
+      setForm({ ...form, replacing_employee_id: "" });
+    }
+  }, [form?.nature]);
   console.log("form", form);
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -72,13 +81,26 @@ const useEmpInformation = () => {
     [removeError, form, setForm]
   );
 
+  const salaryCost = useMemo(() => {
+    const x = employeeDetail?.application?.ctc
+      ? employeeDetail?.application?.ctc
+      : 1;
+    const y = form?.replacing_employee_id?.ctc
+      ? Number(form?.replacing_employee_id?.ctc)
+      : 1;
+    console.log("salaryCost", x, y, (y - x) / x);
+
+    return Math.round((y - x) / x);
+  }, [employeeDetail, form?.replacing_employee_id]);
+
+  console.log("salaryCost", salaryCost);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["type", "comment"];
-    if (form?.type === "IN_PLACE") {
-      required.push("succession");
+    let required = ["succession"];
+    if (form?.succession === "IN_PLACE") {
+      required.push("nature");
     }
-    if (form?.succession === "REPLACEMENT_INTERNAL") {
+    if (form?.nature === "REPLACEMENT_INTERNAL") {
       required.push("replacing_employee_id");
     }
     required.forEach((val) => {
@@ -91,12 +113,34 @@ const useEmpInformation = () => {
         delete errors[val];
       }
     });
-    if (form?.type === "NOT_IN_PLACE") {
-      delete errors["succession"];
+    if (form?.succession === "NOT_IN_PLACE") {
+      delete errors["nature"];
     }
-    if (form?.succession === "REPLACEMENT_EXTERNAL") {
+    if (form?.nature === "REPLACEMENT_EXTERNAL") {
       delete errors["replacing_employee_id"];
     }
+    Object.keys(errors).forEach((key) => {
+      if (!errors[key]) {
+        delete errors[key];
+      }
+    });
+    return errors;
+  }, [form, errorData]);
+
+  const checkFormValidationHR = useCallback(() => {
+    const errors = { ...errorData };
+    let required = ["succession"];
+    required.forEach((val) => {
+      if (
+        !form?.[val] ||
+        (Array.isArray(form?.[val]) && form?.[val].length === 0)
+      ) {
+        errors[val] = true;
+      } else if ([].indexOf(val) < 0) {
+        delete errors[val];
+      }
+    });
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -109,20 +153,35 @@ const useEmpInformation = () => {
     (status) => {
       if (!isSubmitting) {
         setIsSubmitting(true);
+        let rep = {};
+        if (form?.succession) {
+          rep.succession = form?.succession;
+          if (form?.replacing_employee_id) {
+            rep.replacing_employee_name = form?.replacing_employee_id?.name
+              ? form?.replacing_employee_id?.name
+              : "";
+            rep.replacing_employee_code = form?.replacing_employee_id?.emp_code
+              ? form?.replacing_employee_id?.emp_code
+              : "";
+            rep.replacing_employee_ctc = form?.replacing_employee_id?.ctc
+              ? form?.replacing_employee_id?.ctc
+              : "";
+            rep.replacing_employee_id = form?.replacing_employee_id?.id
+              ? form?.replacing_employee_id?.id
+              : "";
+            rep.cost_wrt = salaryCost;
+          }
+        }
+        let hrData = {};
+        if (employeeDetail?.application?.status === "CEO_APPROVED") {
+          hrData.extension_start_date = form?.extension_start_date;
+          hrData.pending_dues = form?.pending_dues;
+          hrData.notes = form?.notes;
+        }
         const updatedFd = {
-          ...form,
-          replacing_employee_name: form?.replacing_employee_id?.name
-            ? form?.replacing_employee_id?.name
-            : "",
-          replacing_employee_code: form?.replacing_employee_id?.code
-            ? form?.replacing_employee_id?.code
-            : "",
-          replacing_employee_ctc: form?.replacing_employee_id?.ctc
-            ? form?.replacing_employee_id?.ctc
-            : "",
-          replacing_employee_id: form?.replacing_employee_id?.id
-            ? form?.replacing_employee_id?.id
-            : "",
+          comment: form.comment,
+          ...rep,
+          ...hrData,
           action: status,
         };
         console.log("status", status);
@@ -131,7 +190,7 @@ const useEmpInformation = () => {
           ...updatedFd,
         }).then((res) => {
           if (!res.error) {
-            SnackbarUtils.success("Raised Successfully");
+            SnackbarUtils.success(`${status} Successfully`);
             historyUtils.goBack();
           } else {
             SnackbarUtils.error(res?.message);
@@ -140,20 +199,31 @@ const useEmpInformation = () => {
         });
       }
     },
-    [form, isSubmitting, setIsSubmitting]
+    [form, isSubmitting, setIsSubmitting, salaryCost]
   );
 
   const handleSubmit = useCallback(
     (status) => {
-      const errors = checkFormValidation();
-      console.log("===?", form, errors);
-      if (Object.keys(errors).length > 0) {
-        setErrorData(errors);
-        return true;
+      const checkForm = employeeDetail?.application?.status;
+      console.log("checkForm", checkForm);
+      if (checkForm === "EMPLOYEE_SUBMITTED") {
+        const errors = checkFormValidation();
+        console.log("===?", form, errors);
+        if (Object.keys(errors).length > 0) {
+          setErrorData(errors);
+          return true;
+        }
       }
       submitToServer(status);
     },
-    [checkFormValidation, setErrorData, form, submitToServer]
+    [
+      checkFormValidation,
+      setErrorData,
+      form,
+      submitToServer,
+      salaryCost,
+      employeeDetail,
+    ]
   );
 
   const onBlurHandler = useCallback(
@@ -194,6 +264,7 @@ const useEmpInformation = () => {
     errorData,
     isSubmitting,
     listData,
+    salaryCost,
   };
 };
 

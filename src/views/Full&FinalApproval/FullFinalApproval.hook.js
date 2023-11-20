@@ -138,7 +138,7 @@ const useFullFinalApproval = ({}) => {
       },
       {
         label: "Status",
-        name: "status",
+        name: "fullAndFinalObj.status",
         type: "select",
         fields: [
           "CORPORATE_AUDIT_2_APPROVED",

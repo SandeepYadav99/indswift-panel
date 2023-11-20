@@ -6,3 +6,6 @@ export async function serviceGetSuccessionPlanerList(params) {
 export async function serviceGetSuccessionPlanerHistory(params) {
     return await postRequest('employee/succession/succession/history', params);
 }
+export async function serviceGetSuccessionPlanerSend(params) {
+    return await postRequest('employee/succession/send/form', params);
+}

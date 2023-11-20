@@ -119,14 +119,6 @@ const useSuccessionApprovalHook = ({}) => {
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
-
-      {
-        label: "Grade",
-        name: "employeesObj.grade_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "label" } },
-        fields: listData?.GRADES,
-      },
       {
         label: "Department",
         name: "employeesObj.department_id",
@@ -135,10 +127,36 @@ const useSuccessionApprovalHook = ({}) => {
         fields: listData?.DEPARTMENTS,
       },
       {
-        label: "Status",
+        label: "Own Status",
         name: "status",
         type: "select",
-        fields: ["PENDING", "SUBMITTED"],
+        fields: [
+          "ACCEPTED",
+          "APPROVED",
+          "REJECTED",
+          "WAITING",
+          "PENDING",
+          "AUTO_REJECTED",
+        ],
+      },
+      {
+        label: "Overall Status",
+        name: "application.status",
+        type: "select",
+        fields: [
+          "PENDING",
+          "EMPLOYEE_PENDING",
+          "EXPIRED",
+          "EMPLOYEE_SUBMITTED",
+          "EMPLOYEE_REJECTED",
+          "HOD_REJECTED",
+          "HOD_APPROVED",
+          "CEO_APPROVED",
+          "CEO_REJECTED",
+          "CORPORATE_SUBMITTED",
+          "MD_APPROVED",
+          "MD_REJECTED",
+        ],
       },
     ];
   }, [listData]);

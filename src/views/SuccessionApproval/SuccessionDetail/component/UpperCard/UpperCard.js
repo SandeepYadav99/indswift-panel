@@ -31,8 +31,8 @@ function UpperCard({employeeDetail}) {
               {employeeDetail?.application?.employee?.age}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>Nature of Association:</span>-
-              {/* {employeeDetail?.application?.employee?.location?.name} */}
+              <span className={styles.value}>Nature of Association:</span>
+              {employeeDetail?.application?.extension_status}
             </div>
           </div>
 
@@ -46,7 +46,7 @@ function UpperCard({employeeDetail}) {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Grade/Level:</span>
-              {employeeDetail?.application?.employee?.grade?.name}/
+              {employeeDetail?.application?.employee?.grade?.code}/
               {employeeDetail?.application?.employee?.cadre?.name}
             </div>
             <div className={styles.key}>

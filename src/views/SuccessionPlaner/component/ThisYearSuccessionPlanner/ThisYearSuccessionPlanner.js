@@ -16,6 +16,10 @@ import SidePanelComponent from "../../../../components/SidePanel/SidePanel.compo
 import SuccessionHistory from "./SuccessionHistory/SuccessionHistory";
 import SuccessionPlannerDetailform from "./SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 import { useSelector } from "react-redux";
+import SendIcon from "@material-ui/icons/Send";
+import SendPopup from "./SendDialog/SendDialog.view";
+import RouteName from "../../../../routes/Route.name";
+import historyUtils from "../../../../libs/history.utils";
 
 const ThisYearSuccessionPlanner = ({ listData }) => {
   const {
@@ -34,7 +38,10 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
     isSidePanelForm,
     handleToggleSidePannelForm,
     isCandidatesFetching,
-    empId
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
   } = useThisYearSuccessionPlaner({ listData });
 
   const {
@@ -111,6 +118,10 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
     return null;
   }, []);
 
+  const handleViewEmployee = useCallback((data) => {
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data}`);
+  }, []);
+
   const tableStructure = useMemo(() => {
     return [
       {
@@ -119,7 +130,14 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.name}
+            <div
+              onClick={() => handleViewEmployee(all?.emp_code)}
+              className={styles.hyperlinkText}
+            >
+              {all?.name}
+            </div>
+            <br />
+            <div>{all?.emp_code}</div>
           </div>
         ),
       },
@@ -237,16 +255,18 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleEdit(all);
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
+            {!all?.is_succession_form_sent && (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleToggleSend(all);
+                }}
+              >
+                <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
+              </IconButton>
+            )}
           </div>
         ),
       },
@@ -303,7 +323,12 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
             </div>
           </div>
         </div>
-
+        <SendPopup
+          isOpen={isSend}
+          handleToggle={handleToggleSend}
+          handleSubmit={handleResend}
+          empId={empId}
+        />
         <SidePanelComponent
           handleToggle={handleToggleSidePannel}
           title={<UpperInfo />}

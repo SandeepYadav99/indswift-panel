@@ -8,12 +8,17 @@ import {
 } from "../../../../actions/SuccessionPlanner.action";
 import { serviceGetList } from "../../../../services/Common.service";
 import { useEffect } from "react";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
+import { serviceGetSuccessionPlanerSend } from "../../../../services/SuccessionPlanner.service";
+import LogUtils from "../../../../libs/LogUtils";
 
 const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
   const dispatch = useDispatch();
   const [isSidePanel, setSidePanel] = useState(false);
   const [isSidePanelForm, setSidePanelForm] = useState(false);
   const isMountRef = useRef(false);
+  const [isSend, setIsSend] = useState(false);
+  const [empId, setEmpId] = useState("");
 
   const {
     sorting_data: sortingData,
@@ -90,7 +95,18 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
     },
     [setSidePanel] // setEditData
   );
-
+  const handleToggleSend = useCallback(
+    (data) => {
+      setIsSend((e) => !e);
+      console.log("Data", data);
+      if (data?.id) {
+        setEmpId(data?.id);
+      } else {
+        setEmpId("");
+      }
+    },
+    [setIsSend] // setEditData
+  );
   const handleToggleSidePannelForm = useCallback(
     (data) => {
       setSidePanelForm((e) => !e);
@@ -131,6 +147,18 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
       },
     ];
   }, [listData]);
+  const handleResend = useCallback((data) => {
+    LogUtils.log("resend", data);
+    serviceGetSuccessionPlanerSend({
+      employee_id: data,
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils?.success("Send Successfully");
+        setIsSend(false);
+        // window.location.reload();
+      }
+    });
+  }, []);
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -142,7 +170,11 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
     isSidePanel,
     isSidePanelForm,
     handleToggleSidePannelForm,
-    configFilter
+    configFilter,
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
   };
 };
 
