@@ -3,19 +3,18 @@ import { useCallback, useMemo, useState, useRef } from "react";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 import {
-  actionFetchSuccessionPlaner,
-  actionSetPageNextNextYear,
-} from "../../../../actions/SuccessionPlanner.action";
-import { serviceGetList } from "../../../../services/Common.service";
+  actionFetchAfterSuccessionPlaner,
+  actionSetPageAfterSuccessionPlaner,
+} from "../../../../actions/AfterNextSuccessionPlanner.action";
 import { useEffect } from "react";
 
-const useNextToNextYearSuccessionPlanner = ({listData}) => {
+const useNextToNextYearSuccessionPlanner = ({ listData }) => {
   const dispatch = useDispatch();
   const [isSidePanel, setSidePanel] = useState(false);
   const [isSidePanelForm, setSidePanelForm] = useState(false);
   const isMountRef = useRef(false);
-
   
+
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -24,7 +23,18 @@ const useNextToNextYearSuccessionPlanner = ({listData}) => {
   } = useSelector((state) => state.next_next_year);
 
   const handlePageChange = useCallback((type) => {
-    dispatch(actionSetPageNextNextYear(type));
+    dispatch(actionSetPageAfterSuccessionPlaner(type, 2));
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      actionFetchAfterSuccessionPlaner(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+        year: 2,
+      })
+    );
+    isMountRef.current = true;
   }, []);
 
   const handleRowSize = (page) => {
@@ -35,9 +45,10 @@ const useNextToNextYearSuccessionPlanner = ({listData}) => {
     (key, value) => {
       // dispatch(actionSetPageFinalFormRequests(1));
       dispatch(
-        actionFetchSuccessionPlaner(1, sortingData, {
+        actionFetchAfterSuccessionPlaner(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+          year: 2,
         })
       );
     },
@@ -65,12 +76,13 @@ const useNextToNextYearSuccessionPlanner = ({listData}) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       // dispatch(actionSetPageFinalForm(1));
       dispatch(
-        actionFetchSuccessionPlaner(
+        actionFetchAfterSuccessionPlaner(
           1,
           { row, order },
           {
             query: query,
             query_data: queryData,
+            year: 2,
           }
         )
       );

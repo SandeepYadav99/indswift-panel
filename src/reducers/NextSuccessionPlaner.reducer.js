@@ -13,7 +13,7 @@ import {
   CREATE_DATA,
   UPDATE_DATA,
   DELETE_ITEM,
-} from "../actions/SuccessionPlanner.action";
+} from "../actions/NextSuccessionPlanner.action";
 import Constants from "../config/constants";
 
 function mapPresetPRequest(all, pageId) {

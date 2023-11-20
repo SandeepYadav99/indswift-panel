@@ -3,10 +3,9 @@ import { useCallback, useMemo, useState, useRef } from "react";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 import {
-  actionFetchSuccessionPlaner,
-  actionSetPageNextYear,
-} from "../../../../actions/SuccessionPlanner.action";
-import { serviceGetList } from "../../../../services/Common.service";
+  actionFetchNextSuccessionPlaner,
+  actionSetPageNextSuccessionPlaner,
+} from "../../../../actions/NextSuccessionPlanner.action";
 import { useEffect } from "react";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import { serviceGetSuccessionPlanerSend } from "../../../../services/SuccessionPlanner.service";
@@ -28,7 +27,18 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
   } = useSelector((state) => state.next_year);
 
   const handlePageChange = useCallback((type) => {
-    dispatch(actionSetPageNextYear(type));
+    dispatch(actionSetPageNextSuccessionPlaner(type, 1));
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      actionFetchNextSuccessionPlaner(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+        year: 1,
+      })
+    );
+    isMountRef.current = true;
   }, []);
 
   const handleRowSize = (page) => {
@@ -39,9 +49,10 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
     (key, value) => {
       // dispatch(actionSetPageFinalFormRequests(1));
       dispatch(
-        actionFetchSuccessionPlaner(1, sortingData, {
+        actionFetchNextSuccessionPlaner(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+          year: 1,
         })
       );
     },
@@ -69,12 +80,13 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       // dispatch(actionSetPageFinalForm(1));
       dispatch(
-        actionFetchSuccessionPlaner(
+        actionFetchNextSuccessionPlaner(
           1,
           { row, order },
           {
             query: query,
             query_data: queryData,
+            year: 1,
           }
         )
       );
@@ -116,10 +128,9 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
   );
   const configFilter = useMemo(() => {
     return [
-
       {
         label: "Location",
-        name: "employeesObj.location_id",
+        name: "location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
@@ -127,26 +138,59 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
 
       {
         label: "Grade",
-        name: "employeesObj.grade_id",
+        name: "grade_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "label" } },
         fields: listData?.GRADES,
       },
       {
         label: "Department",
-        name: "employeesObj.department_id",
+        name: "department_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,
       },
       {
-        label: "Status",
+        label: "Succession status",
+        name: "saj_status",
+        type: "select",
+        fields: [
+          "NOT_IN_PLACE",
+          "REPLACEMENT_EXTERNAL",
+          "PLACED",
+          "REPLACEMENT_INTERNAL",
+          "REJECTED",
+          "PENDING",
+        ],
+      },
+      {
+        label: "Entension Status",
+        name: "extension_status",
+        type: "select",
+        fields: ["RETIRE", "EXTENSION", "RETENTION", "PENDING"],
+      },
+      {
+        label: "Application status",
         name: "status",
         type: "select",
-        fields: ["PENDING", "SUBMITTED"],
+        fields: [
+          "PENDING",
+          "EMPLOYEE_PENDING",
+          "EXPIRED",
+          "EMPLOYEE_SUBMITTED",
+          "EMPLOYEE_REJECTED",
+          "HOD_REJECTED",
+          "HOD_APPROVED",
+          "CEO_APPROVED",
+          "CEO_REJECTED",
+          "CORPORATE_SUBMITTED",
+          "MD_APPROVED",
+          "MD_REJECTED",
+        ],
       },
     ];
   }, [listData]);
+  
   const handleResend = useCallback((data) => {
     LogUtils.log("resend", data);
     serviceGetSuccessionPlanerSend({

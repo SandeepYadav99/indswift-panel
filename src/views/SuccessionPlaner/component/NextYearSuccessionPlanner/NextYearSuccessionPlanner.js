@@ -1,6 +1,3 @@
-/**
- * Created by sandeep.electrovese@gmail.com on 11/02/2020.
- */
 import React, { Component, useCallback, useMemo } from "react";
 import { Button, ButtonBase, IconButton, withStyles } from "@material-ui/core";
 import DataTables from "../../../../Datatables/Datatable.table";
@@ -45,8 +42,8 @@ const NextYearSuccessionPlanner = ({ listData }) => {
   } = useNextYearSuccessionPlanner({ listData });
 
   const {
-    nextYear: data,
-    allNextYear: allData,
+    data,
+    all: allData,
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.next_year);
