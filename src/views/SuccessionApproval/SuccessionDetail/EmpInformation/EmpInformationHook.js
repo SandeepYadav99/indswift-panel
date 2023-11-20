@@ -11,8 +11,8 @@ import { useMemo } from "react";
 
 const initialForm = {
   replacing_employee_id: "",
-  type: "",
   succession: "",
+  nature: "",
   comment: "",
 };
 const useEmpInformation = () => {
@@ -33,6 +33,12 @@ const useEmpInformation = () => {
       let req = serviceGetApprovalDetail({ review_id: id });
       req.then((data) => {
         setEmployeeDetail(data?.data);
+        if (data?.data?.saj_status !== "PENDING") {
+          setForm({
+            ...form,
+            succession: data?.data?.saj_status,
+          });
+        }
       });
     }
   }, [id]);
@@ -54,15 +60,15 @@ const useEmpInformation = () => {
   );
 
   useEffect(() => {
-    if (form?.type === "NOT_IN_PLACE") {
-      setForm({ ...form, succession: "", replacing_employee_id: "" });
-    }
-  }, [form?.type]);
-  useEffect(() => {
-    if (form?.succession === "REPLACEMENT_EXTERNAL") {
-      setForm({ ...form, replacing_employee_id: "" });
+    if (form?.succession === "NOT_IN_PLACE") {
+      setForm({ ...form, nature: "", replacing_employee_id: "" });
     }
   }, [form?.succession]);
+  useEffect(() => {
+    if (form?.nature === "REPLACEMENT_EXTERNAL") {
+      setForm({ ...form, replacing_employee_id: "" });
+    }
+  }, [form?.nature]);
   console.log("form", form);
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -90,11 +96,11 @@ const useEmpInformation = () => {
   console.log("salaryCost", salaryCost);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["type", "comment"];
-    if (form?.type === "IN_PLACE") {
-      required.push("succession");
+    let required = ["succession"];
+    if (form?.succession === "IN_PLACE") {
+      required.push("nature");
     }
-    if (form?.succession === "REPLACEMENT_INTERNAL") {
+    if (form?.nature === "REPLACEMENT_INTERNAL") {
       required.push("replacing_employee_id");
     }
     required.forEach((val) => {
@@ -107,10 +113,10 @@ const useEmpInformation = () => {
         delete errors[val];
       }
     });
-    if (form?.type === "NOT_IN_PLACE") {
-      delete errors["succession"];
+    if (form?.succession === "NOT_IN_PLACE") {
+      delete errors["nature"];
     }
-    if (form?.succession === "REPLACEMENT_EXTERNAL") {
+    if (form?.nature === "REPLACEMENT_EXTERNAL") {
       delete errors["replacing_employee_id"];
     }
     Object.keys(errors).forEach((key) => {
@@ -123,7 +129,7 @@ const useEmpInformation = () => {
 
   const checkFormValidationHR = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["type", "comment"];
+    let required = ["succession", "comment"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -148,20 +154,23 @@ const useEmpInformation = () => {
       if (!isSubmitting) {
         setIsSubmitting(true);
         let rep = {};
-        if (form?.replacing_employee_id) {
-          rep.replacing_employee_name = form?.replacing_employee_id?.name
-            ? form?.replacing_employee_id?.name
-            : "";
-          rep.replacing_employee_code = form?.replacing_employee_id?.emp_code
-            ? form?.replacing_employee_id?.emp_code
-            : "";
-          rep.replacing_employee_ctc = form?.replacing_employee_id?.ctc
-            ? form?.replacing_employee_id?.ctc
-            : "";
-          rep.replacing_employee_id = form?.replacing_employee_id?.id
-            ? form?.replacing_employee_id?.id
-            : "";
-          rep.cost_wrt = salaryCost;
+        if (form?.succession) {
+          rep.succession = form?.succession;
+          if (form?.replacing_employee_id) {
+            rep.replacing_employee_name = form?.replacing_employee_id?.name
+              ? form?.replacing_employee_id?.name
+              : "";
+            rep.replacing_employee_code = form?.replacing_employee_id?.emp_code
+              ? form?.replacing_employee_id?.emp_code
+              : "";
+            rep.replacing_employee_ctc = form?.replacing_employee_id?.ctc
+              ? form?.replacing_employee_id?.ctc
+              : "";
+            rep.replacing_employee_id = form?.replacing_employee_id?.id
+              ? form?.replacing_employee_id?.id
+              : "";
+            rep.cost_wrt = salaryCost;
+          }
         }
         let hrData = {};
         if (employeeDetail?.application?.status === "CEO_APPROVED") {

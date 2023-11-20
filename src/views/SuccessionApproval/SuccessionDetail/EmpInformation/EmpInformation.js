@@ -148,12 +148,13 @@ const EmployeeInformation = ({ empId }) => {
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomSelectField
-                  isError={errorData?.type}
-                  errorText={errorData?.type}
+                  disabled={employeeDetail?.saj_status !== "PENDING"}
+                  isError={errorData?.succession}
+                  errorText={errorData?.succession}
                   label={"Succession"}
-                  value={form?.type}
+                  value={form?.succession}
                   handleChange={(value) => {
-                    changeTextData(value, "type");
+                    changeTextData(value, "succession");
                   }}
                 >
                   <MenuItem value="IN_PLACE">In place</MenuItem>
@@ -161,14 +162,14 @@ const EmployeeInformation = ({ empId }) => {
                 </CustomSelectField>
               </div>
               <div className={"formGroup"}>
-                {form?.type === "IN_PLACE" && (
+                {form?.succession === "IN_PLACE" && (
                   <CustomSelectField
-                    isError={errorData?.succession}
-                    errorText={errorData?.succession}
+                    isError={errorData?.nature}
+                    errorText={errorData?.nature}
                     label={"Nature of Succession"}
-                    value={form?.succession}
+                    value={form?.nature}
                     handleChange={(value) => {
-                      changeTextData(value, "succession");
+                      changeTextData(value, "nature");
                     }}
                   >
                     <MenuItem value="REPLACEMENT_INTERNAL">Internal</MenuItem>
@@ -177,7 +178,7 @@ const EmployeeInformation = ({ empId }) => {
                 )}
               </div>
             </div>
-            {form?.succession === "REPLACEMENT_INTERNAL" && (
+            {form?.nature === "REPLACEMENT_INTERNAL" && (
               <>
                 <div className={"formFlex"}>
                   <div className={"formGroup"}>
