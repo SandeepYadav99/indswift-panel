@@ -8,149 +8,161 @@ import {
   SET_FILTER,
   SET_PAGE,
   CHANGE_PAGE,
-  CHANGE_PAGE_NEXT,
-  CHANGE_PAGE_NEXT_NEXT,
   CHANGE_STATUS,
   SET_SERVER_PAGE,
-  FETCHED_YEAR,
-} from "../actions/SuccessionPlanner.action";
-import constants from "../config/constants";
+  CREATE_DATA,
+  UPDATE_DATA,
+  DELETE_ITEM
+} from '../actions/SuccessionPlanner.action';
+import Constants from '../config/constants';
 
 function mapPresetPRequest(all, pageId) {
-  // console.log("after", all, pageId);
-  return all?.filter((val, index) => {
-    if (
-      index >= (pageId + 1) * constants.PAGE_VALUE - constants.PAGE_VALUE &&
-      index < (pageId + 1) * constants.PAGE_VALUE
-    ) {
-      return val;
-    }
+  return all.filter((val, index) => {
+      if (index >= (((pageId + 1) * Constants.PAGE_VALUE) - Constants.PAGE_VALUE) && index < (((pageId + 1) * Constants.DEFAULT_PAGE_VALUE))) {
+          return val;
+      }
   });
 }
 
 const initialState = {
-  allThisYear: [],
-  allNextYear: [],
-  allNextNextYear: [],
-  year: [],
-  nextYear: [],
-  nextNextYear: [],
+  all: [],
+  data: [],
   currentPage: 0,
   serverPage: 0,
   query: null, // search text data
   query_data: null, // popover filter data change
-  sorting_data: { row: null, order: null },
-  is_fetching: false,
+  sorting_data: {row: null, order: null},
+  is_fetching: false
 };
 
-export default function (
-  state = JSON.parse(JSON.stringify(initialState)),
-  action
-) {
+export default function (state = JSON.parse(JSON.stringify(initialState)), action) {
   switch (action.type) {
-    case FETCH_INIT: {
-      return { ...state, is_fetching: true };
-    }
-    case FETCHED_YEAR: {
-      const thisYear = action.payload.year;
-      const nextYear = action.payload.next_year;
-      const nextNextYear_ = action.payload.next_next_year;
-
-      const page = action.payload.page;
-      let newThisYear = [];
-      if (page == 1) {
-        newThisYear = [...thisYear];
-      } else {
-        newThisYear = [...state.allThisYear, ...thisYear];
+      case FETCH_INIT: {
+          return {...state, is_fetching: true};
       }
-      // 2
-      let newNextYear = [];
-      if (page === 1) {
-        newNextYear = [...nextYear];
-      } else {
-        newNextYear = [...state.allNextYear, ...nextYear];
+      case FETCHED: {
+          const newData = (action.payload).data;
+          const page = action.payload.page;
+          let newAll = [];
+          if (page == 1) {
+              newAll = [...newData];
+          } else {
+              newAll = [...state.all, ...newData];
+          }
+          const tableData = mapPresetPRequest(newAll, state.currentPage);
+          return {...state, all: newAll, data: tableData, is_fetching: false}; // { ...state , all: newAll, data: tableData, serverPage: 1, currentPage: 1 };
       }
-      // 3
-      let newNextNextYear = [];
-      if (page === 1) {
-        newNextNextYear = [...nextNextYear_];
-      } else {
-        newNextNextYear = [...state.allNextNextYear, ...nextNextYear_];
+      case SET_SORTING: {
+          return {...state, sorting_data: action.payload};
       }
-      const tableDataThisYear = mapPresetPRequest(
-        newThisYear,
-        state.currentPage
-      );
-      const tableDataNextYear = mapPresetPRequest(
-        newNextYear,
-        state.currentPage
-      );
-      const tableDataNextNextYear = mapPresetPRequest(
-        newNextNextYear,
-        state.currentPage
-      );
-      return {
-        ...state,
-        allThisYear: newThisYear,
-        allNextYear: newNextYear,
-        allNextNextYear: newNextNextYear,
-        year: tableDataThisYear,
-        nextYear: tableDataNextYear,
-        nextNextYear: tableDataNextNextYear,
-        is_fetching: false,
-      }; // { ...state , all: newAll, data: tableData, serverPage: 1, currentPage: 1 };
-    }
+      case CHANGE_STATUS: {
+          if (action.payload) {
+              const prevState = state.all;
+              prevState.forEach((val) => {
+                  if (val.id == action.payload.id) {
+                      val.status = action.payload.status == 'SUSPEND' ? 'SUSPEND' : 'ACTIVE';
+                      return true;
+                  }
+              });
+              // const newState = state.all.map((val) => {
+              //     if (val.id == action.payload.id) {
+              //         return { ...val, status: action.payload.status == 'SUSPEND' ? 'SUSPEND' : 'ACTIVE' };
+              //     } return { ...val };
+              // });
+              const tableData = mapPresetPRequest(prevState, state.currentPage);
+              return {...state, all: prevState, data: tableData};
+          }
+          return state;
+      }
+      case CREATE_DATA: {
+          if (action.payload) {
+              const prevState = state.all;
+              prevState.unshift(action.payload);
+              const tableData = mapPresetPRequest(prevState, state.currentPage);
+              return {...state, all: prevState, data: tableData};
+          }
+          return state;
+      }
+      case UPDATE_DATA: {
+          if (action.payload) {
+              const prevState = state.all;
+              let tIndex = null;
+              prevState.some((val, index) => {
+                  if (val.id == action.payload.id) {
+                      tIndex = index;
+                      return true;
+                  }
+              });
+              // const newState = state.all.map((val) => {
+              //     if (val.id == action.payload.id) {
+              //         return { ...val, status: action.payload.status == 'SUSPEND' ? 'SUSPEND' : 'ACTIVE' };
+              //     } return { ...val };
+              // });
+              if (tIndex != null) {
+                  prevState[tIndex] = action.payload;
+              }
+              const tableData = mapPresetPRequest(prevState, state.currentPage);
+              return {...state, all: prevState, data: tableData};
+          }
+          return state;
+      }
 
-    case SET_SORTING: {
-      return { ...state, sorting_data: action.payload };
-    }
+      case DELETE_ITEM: {
+          if (action.payload) {
+              let tempIndex = null;
+              const prevState = state.all;
+              const id = action.payload;
 
-    case CHANGE_PAGE: {
-      const tempPage = action.payload;
-      const tableData = mapPresetPRequest(state.allThisYear, tempPage);
-      return { ...state, year: tableData, currentPage: tempPage };
-    }
-    case CHANGE_PAGE_NEXT: {
-      const tempPage = action.payload;
-      const tableData = mapPresetPRequest(state.allNextYear, tempPage);
-      return { ...state, nextYear: tableData, currentPage: tempPage };
-    }
-    case CHANGE_PAGE_NEXT_NEXT: {
-      const tempPage = action.payload;
-      const tableData = mapPresetPRequest(state.allNextNextYear, tempPage);
-      console.log("table", tableData);
-      return { ...state, nextNextYear: tableData, currentPage: tempPage };
-    }
-    case FETCH_NEXT: {
-      const newAll = state.allThisYear.concat(action.payload);
-      return {
-        ...state,
-        allThisYear: newAll,
-        serverPage: state.serverPage + 1,
-      };
-    }
-    case FILTER: {
-      return { ...state, year: action.payload };
-    }
-    case SET_FILTER: {
-      return {
-        ...state,
-        query: action.payload.query,
-        query_data: action.payload.query_data,
-      };
-    }
-    case RESET_FILTER: {
-      const tableData = mapPresetPRequest(state.allThisYear, state.currentPage);
-      return { ...state, year: tableData };
-    }
-    case SET_PAGE: {
-      return { ...state, currentPage: action.payload };
-    }
-    case SET_SERVER_PAGE: {
-      return { ...state, serverPage: action.payload };
-    }
-    default: {
-      return state;
-    }
+              prevState.some((val, index) => {
+                  if (val.id == id) {
+                      tempIndex = (index);
+                      return true;
+                  }
+              });
+
+              if (tempIndex != null) {
+                  prevState.splice(tempIndex, 1);
+              }
+              const tableData = mapPresetPRequest(prevState, state.currentPage);
+              return {...state, all: prevState, data: tableData};
+          }
+          return state;
+      }
+      // case NEX: {
+      //     const tableData = mapPresetPRequest(state.all, state.currentPage + 1);
+      //     return { ...state, data: tableData, currentPage: (state.currentPage + 1) };
+      // }
+      // case PREV_PREQUESTS: {
+      //     const tableData = mapPresetPRequest(state.all, state.currentPage - 1);
+      //     return { ...state, data: tableData, currentPage: (state.currentPage - 1) };
+      // }
+      case CHANGE_PAGE: {
+          const tempPage = action.payload;
+          const tableData = mapPresetPRequest(state.all, tempPage);
+          return {...state, data: tableData, currentPage: tempPage};
+      }
+      case FETCH_NEXT: {
+          const newAll = state.all.concat(action.payload);
+          return {...state, all: newAll, serverPage: (state.serverPage + 1)};
+      }
+      case FILTER: {
+          return {...state, data: action.payload};
+      }
+      case SET_FILTER: {
+          return {...state, query: action.payload.query, query_data: action.payload.query_data};
+      }
+      case RESET_FILTER: {
+          const tableData = mapPresetPRequest(state.all, state.currentPage);
+          return {...state, data: tableData};
+      }
+      case SET_PAGE: {
+          return {...state, currentPage: action.payload};
+      }
+      case SET_SERVER_PAGE: {
+          return {...state, serverPage: action.payload};
+      }
+      default: {
+          return state;
+      }
   }
 }
