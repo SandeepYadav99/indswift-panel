@@ -129,7 +129,7 @@ const useEmpInformation = () => {
 
   const checkFormValidationHR = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["succession", "comment"];
+    let required = ["succession"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -190,7 +190,7 @@ const useEmpInformation = () => {
           ...updatedFd,
         }).then((res) => {
           if (!res.error) {
-            SnackbarUtils.success("Raised Successfully");
+            SnackbarUtils.success(`${status} Successfully`);
             historyUtils.goBack();
           } else {
             SnackbarUtils.error(res?.message);

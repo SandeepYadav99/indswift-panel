@@ -15,6 +15,8 @@ import { useSelector } from "react-redux";
 import useNextToNextYearSuccessionPlanner from "./NextToNextYearSuccessionPlannerHook";
 import SuccessionHistory from "../ThisYearSuccessionPlanner/SuccessionHistory/SuccessionHistory";
 import SuccessionPlannerDetailform from "../ThisYearSuccessionPlanner/SuccessionPlannerDetailform/SuccessionPlannerDetailform";
+import historyUtils from "../../../../libs/history.utils";
+import RouteName from "../../../../routes/Route.name";
 
 const NextToNextYearSuccessionPlanner = ({ listData }) => {
   const {
@@ -110,6 +112,10 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
     return null;
   }, []);
 
+  const handleViewEmployee = useCallback((data) => {
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data}`);
+  }, []);
+
   const tableStructure = useMemo(() => {
     return [
       {
@@ -118,8 +124,14 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {console.log("all", all)}
-            {all?.name}
+            <div
+              onClick={() => handleViewEmployee(all?.emp_code)}
+              className={styles.hyperlinkText}
+            >
+              {all?.name}
+            </div>
+            <br />
+            <div>{all?.emp_code}</div>
           </div>
         ),
       },

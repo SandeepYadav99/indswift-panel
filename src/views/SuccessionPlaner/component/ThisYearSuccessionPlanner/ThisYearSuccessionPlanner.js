@@ -18,6 +18,8 @@ import SuccessionPlannerDetailform from "./SuccessionPlannerDetailform/Successio
 import { useSelector } from "react-redux";
 import SendIcon from "@material-ui/icons/Send";
 import SendPopup from "./SendDialog/SendDialog.view";
+import RouteName from "../../../../routes/Route.name";
+import historyUtils from "../../../../libs/history.utils";
 
 const ThisYearSuccessionPlanner = ({ listData }) => {
   const {
@@ -116,13 +118,28 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
     return null;
   }, []);
 
+  const handleViewEmployee = useCallback((data) => {
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data}`);
+  }, []);
+
   const tableStructure = useMemo(() => {
     return [
       {
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{all?.name}</div>,
+        render: (temp, all) => (
+          <div>
+            <div
+              onClick={() => handleViewEmployee(all?.emp_code)}
+              className={styles.hyperlinkText}
+            >
+              {all?.name}
+            </div>
+            <br />
+            <div>{all?.emp_code}</div>
+          </div>
+        ),
       },
       {
         key: "doj",

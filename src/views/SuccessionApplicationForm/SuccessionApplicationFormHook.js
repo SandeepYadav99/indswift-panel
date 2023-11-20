@@ -4,6 +4,7 @@ import historyUtils from "../../libs/history.utils";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import RouteName from "../../routes/Route.name";
 import { serviceSuccessionLogin } from "../../services/Success.service";
+import { isEmail } from "../../libs/RegexUtils";
 
 const initialForm = {
   email: "",
@@ -30,6 +31,9 @@ const useSuccessionApplicationFormHook = ({}) => {
         delete errors[val];
       }
     });
+    if (form?.email && !isEmail(form?.email)) {
+      errors["email"] = true;
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];

@@ -71,6 +71,8 @@ const SuccessionApproval_List = ({}) => {
         render: (value, all) => (
           <div>
             {all?.employee?.name}
+            <br/>
+            {all?.employee?.emp_code}
           </div>
         ),
       },

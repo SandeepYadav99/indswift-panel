@@ -18,6 +18,8 @@ import SuccessionHistory from "../ThisYearSuccessionPlanner/SuccessionHistory/Su
 import SuccessionPlannerDetailform from "../ThisYearSuccessionPlanner/SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 import SendPopup from "../ThisYearSuccessionPlanner/SendDialog/SendDialog.view";
 import SendIcon from "@material-ui/icons/Send";
+import historyUtils from "../../../../libs/history.utils";
+import RouteName from "../../../../routes/Route.name";
 
 const NextYearSuccessionPlanner = ({ listData }) => {
   const {
@@ -116,6 +118,10 @@ const NextYearSuccessionPlanner = ({ listData }) => {
     return null;
   }, []);
 
+  const handleViewEmployee = useCallback((data) => {
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data}`);
+  }, []);
+
   const tableStructure = useMemo(() => {
     return [
       {
@@ -124,8 +130,14 @@ const NextYearSuccessionPlanner = ({ listData }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {console.log("all", all)}
-            {all?.name}
+            <div
+              onClick={() => handleViewEmployee(all?.emp_code)}
+              className={styles.hyperlinkText}
+            >
+              {all?.name}
+            </div>
+            <br />
+            <div>{all?.emp_code}</div>
           </div>
         ),
       },
