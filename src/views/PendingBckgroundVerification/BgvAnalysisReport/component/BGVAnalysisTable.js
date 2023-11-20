@@ -79,12 +79,14 @@ const TableView = ({ tableDatas }) => {
 
             <td>{tableDatas?.bgvResultClear}</td>
             <td>{tableDatas?.bgvResultFailed}</td>
-            <td>{tableDatas?.bgvResultUnableVerify || 0}</td>
+            <td>{tableDatas?.bgvResultInprocess || 0}</td> 
+            {/* required to update */}
             <td>{tableDatas?.bgvResultPending || 0}</td>
+
             <td>{tableDatas?.totalCount}</td>
             <td>{tableDatas?.paymentClear || 0}</td>
             <td>{tableDatas?.paymentPENDING || 0}</td>
-            <td>{tableDatas?.paymentInprogress || 0}</td>
+            <td>{tableDatas?.paymentInprocess || 0}</td>
             <td>{tableDatas?.totalCount}</td>
           </tr>
           <tr className={styles.totalCols}>
@@ -96,12 +98,13 @@ const TableView = ({ tableDatas }) => {
 
             <td>{tableDatas?.bgvResultClearPercent}</td>
             <td>{tableDatas?.bgvResultFailedPercent}</td>
-            <td>{tableDatas?.bgvResultUnableVerifyPercent || 0}</td>
+            <td>{tableDatas?.bgvResultInprocessPercent || 0}</td>
+              {/* required to update */}
             <td>{tableDatas?.bgvResultPendingPercent || 0}</td>
             <td>{}</td>
             <td>{tableDatas?.paymentClearPercent || 0}</td>
             <td>{tableDatas?.paymentPENDINGPercent || 0}</td>
-            <td>{tableDatas?.paymentInprogressPercent || 0}</td>
+            <td>{tableDatas?.paymentInprocessPercent || 0}</td>
             <td>{}</td>
           </tr>
         </tbody>
