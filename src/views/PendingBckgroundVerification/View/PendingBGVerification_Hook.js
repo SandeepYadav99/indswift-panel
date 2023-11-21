@@ -183,7 +183,7 @@ const usePendingBGVerification_Hook = () => {
 
       {
         label: "Bgv Status",
-        name: "verificationData.bgv_status",
+        name: "employeeVerificationObj.bgv_result",
         type: "select",
         fields: ["FAILED", "PENDING", "CLEAR", "INPROCESS"],
       },
