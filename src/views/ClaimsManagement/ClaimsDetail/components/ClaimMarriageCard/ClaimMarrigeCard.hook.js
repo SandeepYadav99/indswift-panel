@@ -32,6 +32,14 @@ const useClaimMarrigeCard = ({}) => {
     user: { emp_code },
   } = useSelector((state) => state.auth);
 
+  const today = new Date();
+
+  const thirtyDaysLater = useMemo(() => {
+    const result = new Date(today);
+    result.setDate(today.getDate() + 30);
+    return result;
+  }, [today]);
+
   useEffect(() => {
     if (emp_code) {
       let dataValues = serviceGetEmployeeDetails({ code: emp_code });
@@ -168,6 +176,7 @@ const useClaimMarrigeCard = ({}) => {
     setDeclaration,
     employeeDetails,
     claimInfo,
+    thirtyDaysLater
   };
 };
 
