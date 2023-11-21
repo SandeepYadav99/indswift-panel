@@ -12,7 +12,7 @@ import { actionFetchEmployee } from "../../../actions/Employee.action";
 import { serviceGetList } from "../../../services/Common.service";
 import {
   serviceBGVDownload,
-  serviceBgvStatusFilter,
+  
 } from "../../../services/PendingBGVerification.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 
@@ -158,22 +158,7 @@ const usePendingBGVerification_Hook = () => {
     });
   }, []);
 
-  useEffect(() => {
-    isMountRef.current = true;
-    serviceBgvStatusFilter({
-      location_id: locationId,
-      bgv_status: listData?.bgv_status,
-      index: 1,
-      order: null,
-      query: "",
-      query_data: null,
-      row: null,
-    }).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
-    });
-  }, [locationId]);
+ 
 
   const configFilter = useMemo(() => {
     return [
@@ -198,13 +183,13 @@ const usePendingBGVerification_Hook = () => {
 
       {
         label: "Bgv Status",
-        name: "bgv_status",
+        name: "employeeVerificationObj.bgv_result",
         type: "select",
-        fields: ["FAILED", "PENDING", "CLEAR", "INPROCESS", "COMPLETED"],
+        fields: ["FAILED", "PENDING", "CLEAR", "INPROCESS"],
       },
     ];
   }, [listData]);
-  console.log(listData);
+  
   return {
     handlePageChange,
     handleFilterDataChange,
