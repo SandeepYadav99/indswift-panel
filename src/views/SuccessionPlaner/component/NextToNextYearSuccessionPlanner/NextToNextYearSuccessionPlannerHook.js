@@ -7,12 +7,16 @@ import {
   actionSetPageAfterSuccessionPlaner,
 } from "../../../../actions/AfterNextSuccessionPlanner.action";
 import { useEffect } from "react";
+import { serviceGetSuccessionPlanerSend } from "../../../../services/SuccessionPlanner.service";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
 const useNextToNextYearSuccessionPlanner = ({ listData }) => {
   const dispatch = useDispatch();
   const [isSidePanel, setSidePanel] = useState(false);
   const [isSidePanelForm, setSidePanelForm] = useState(false);
   const isMountRef = useRef(false);
+  const [empId, setEmpId] = useState("");
+  const [isSend, setIsSend] = useState(false);
   
 
   const {
@@ -62,7 +66,30 @@ const useNextToNextYearSuccessionPlanner = ({ listData }) => {
     },
     [queryFilter]
   );
-
+  const handleToggleSend = useCallback(
+    (data) => {
+      setIsSend((e) => !e);
+      console.log("Data", data);
+      if (data?.id) {
+        setEmpId(data?.id);
+      } else {
+        setEmpId("");
+      }
+    },
+    [setIsSend] // setEditData
+  );
+  const handleResend = useCallback((data) => {
+    // LogUtils.log("resend", data);
+    serviceGetSuccessionPlanerSend({
+      employee_id: data,
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils?.success("Send Successfully");
+        setIsSend(false);
+        // window.location.reload();
+      }
+    });
+  }, []);
   const handleSearchValueChange = useCallback(
     (value) => {
       console.log("_handleSearchValueChange", value);
@@ -155,6 +182,10 @@ const useNextToNextYearSuccessionPlanner = ({ listData }) => {
     isSidePanelForm,
     handleToggleSidePannelForm,
     configFilter,
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
   };
 };
 
