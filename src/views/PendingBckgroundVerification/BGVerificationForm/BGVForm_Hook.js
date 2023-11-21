@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 
-import { serviceEmployeeBGVCreate } from "../../../services/PendingBGVerification.service";
+import {  serviceEmployeeBGVUpdate } from "../../../services/PendingBGVerification.service";
 
 const useBGVForm_Hook = ({}) => {
   const initialForm = {
@@ -94,7 +94,8 @@ const useBGVForm_Hook = ({}) => {
     setIsSubmitting(true);
 
     const updatedData = {
-      employee_id: id,
+      // employee_id: id,
+      id: id,
       is_education_verification: form?.is_education_verification,
       is_first_employment_verification: form?.is_first_employment_verification,
       is_secound_employment_verification:
@@ -106,7 +107,7 @@ const useBGVForm_Hook = ({}) => {
     };
 
     try {
-      let req = serviceEmployeeBGVCreate(updatedData);
+      let req = serviceEmployeeBGVUpdate(updatedData);
       let res = await req;
 
       // const req = empId ? serviceUpdatePolicyList(formData) : serviceCreatePolicyList(formData);

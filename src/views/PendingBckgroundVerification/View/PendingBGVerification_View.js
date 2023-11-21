@@ -86,10 +86,11 @@ const PendingBGVerification_View = ({ location }) => {
 
   const button_VerificationHandler = useCallback(
     (all) => {
+      // all?.bgv_status === "PENDING"  // if required to add than we add
       const isValidBgvStatus =
         (all?.bgv_status === "INCOMPLETE" ||
-          all?.bgv_status === "COMPLETED" ||
-          all?.bgv_status === "PENDING") &&
+          all?.bgv_status === "COMPLETED" 
+          ) &&
         (all?.bgv_result === "PENDING" ||
           all?.bgv_result === "CLEAR" ||
           all?.bgv_result === "FAILED" ||
@@ -254,7 +255,7 @@ const PendingBGVerification_View = ({ location }) => {
                     handleViewDetails(all);
                   }}
                 >
-                  <InfoOutlined fontSize={"small"} />
+                  <InfoOutlined fontSize={"small"} />  
                 </IconButton>
               )}
 

@@ -109,7 +109,7 @@ const useCandidateUpdate_Hook = () => {
     setIsSubmitting(true);
 
     const updatedData = {
-      employee_id: id,
+      // employee_id: id,
       is_education_verification: form?.is_education_verification,
       is_first_employment_verification: form?.is_first_employment_verification,
       is_secound_employment_verification:
