@@ -50,7 +50,7 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.successionPlaner);
-  
+
   const UpperInfo = useCallback(
     (obj) => {
       if (obj) {
@@ -59,7 +59,7 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
             <div className={styles.InfoWrap}>
               <div>{"Succession History"} </div>
               <div className={styles.newLine}></div>
-            </div> 
+            </div>
           </div>
         );
       }
@@ -191,19 +191,21 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
         key: "nature_of_succession",
         label: "NATURE OF SUCCESSION",
         sortable: false,
-        render: (temp, all) => <div>{all?.nature_of_succession}</div>,
+        render: (temp, all) => <div><StatusPill status={all?.nature_of_succession} /></div>,
       },
       {
         key: "revert_by_date",
         label: "REVERT BY DATE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.last_submission_date}</div>,
       },
       {
         key: "application",
         label: "application STATUS",
         sortable: false,
-        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
+        render: (temp, all) => (
+          <div>{<StatusPill status={all?.application_status} />}</div>
+        ),
       },
       {
         key: "Extension",
@@ -223,7 +225,9 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
         key: "succession_status",
         label: "SUCCESSION STATUS",
         sortable: false,
-        render: (temp, all) => <div>{all?.succession_status}</div>,
+        render: (temp, all) => (
+          <div>{<StatusPill status={all?.succession_status} />}</div>
+        ),
       },
       {
         key: "action_key",
