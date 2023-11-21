@@ -57,6 +57,10 @@ const initialForm = {
       employee_id: "",
     },
     {
+      panelist_role: "CEO",
+      employee_id: "",
+    },
+    {
       panelist_role: "ACCOUNTANT",
       employee_id: "",
     },

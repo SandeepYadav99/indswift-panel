@@ -31,6 +31,9 @@ const EmployeeInformation = ({ empId }) => {
     listData,
     salaryCost,
   } = useEmpInformation();
+  const removeUnderScore = (value) => {
+    return value ? value.replace(/_/g, " ") : "";
+  };
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -58,7 +61,7 @@ const EmployeeInformation = ({ empId }) => {
                 <div className={styles.left}>
                   <div className={styles.key}>
                     <span className={styles.value}>Succession:</span>
-                    {employeeDetail?.name}
+                    {removeUnderScore(employeeDetail?.saj_status)}
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>
@@ -95,8 +98,8 @@ const EmployeeInformation = ({ empId }) => {
                     <span className={styles.value}>
                       Succession's Cost WRT employee:
                     </span>
-                    {employeeDetail?.application?.cost_wrt
-                      ? employeeDetail?.application?.cost_wrt
+                    {employeeDetail?.application?.wrt
+                      ? `${employeeDetail?.application?.wrt} %`
                       : "-"}
                   </div>
                 </div>
@@ -164,21 +167,21 @@ const EmployeeInformation = ({ empId }) => {
               <div className={"formGroup"}>
                 {form?.succession === "IN_PLACE" && (
                   <CustomSelectField
-                    isError={errorData?.nature}
-                    errorText={errorData?.nature}
+                    isError={errorData?.nature_of_succession}
+                    errorText={errorData?.nature_of_succession}
                     label={"Nature of Succession"}
-                    value={form?.nature}
+                    value={form?.nature_of_succession}
                     handleChange={(value) => {
-                      changeTextData(value, "nature");
+                      changeTextData(value, "nature_of_succession");
                     }}
                   >
-                    <MenuItem value="REPLACEMENT_INTERNAL">Internal</MenuItem>
-                    <MenuItem value="REPLACEMENT_EXTERNAL">External</MenuItem>
+                    <MenuItem value="INTERNAL">Internal</MenuItem>
+                    <MenuItem value="EXTERNAL">External</MenuItem>
                   </CustomSelectField>
                 )}
               </div>
             </div>
-            {form?.nature === "REPLACEMENT_INTERNAL" && (
+            {form?.nature_of_succession === "INTERNAL" && (
               <>
                 <div className={"formFlex"}>
                   <div className={"formGroup"}>
