@@ -214,11 +214,10 @@ const useStyles = {
     },
     paper: {
         width: '100%',
-        // marginBottom: theme.spacing(2),
     },
     table: {
-        // minWidth: 750,
-        fontSize: '10px'
+        fontSize: '10px',
+        whiteSpace: 'nowrap',
     },
     tableWrapper: {
         overflowX: 'auto',

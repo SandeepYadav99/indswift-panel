@@ -89,7 +89,22 @@
   grid-template-columns: 30% 30% 18% 18%;
   gap: 6px;
 }
-.birthdayPara{
+@media only screen and (max-width: 1196px) {
+  .firstBlock {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 6px;
+  }
+}
+@media only screen and (max-width:768px) {
+  .firstBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+.birthdayPara {
   margin-right: 10px;
 }
 .leaveText {
