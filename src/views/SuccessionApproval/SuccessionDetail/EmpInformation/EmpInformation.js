@@ -47,7 +47,12 @@ const EmployeeInformation = ({ empId }) => {
           <div className={styles.newLine} />
         </div>
       </div>
-      <UpperCard employeeDetail={employeeDetail} />
+      <UpperCard
+        employeeDetail={employeeDetail}
+        form={form}
+        changeTextData={changeTextData}
+        isCOR={employeeDetail?.application?.status === "CORPORATE_SUBMITTED"}
+      />
 
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
@@ -61,48 +66,81 @@ const EmployeeInformation = ({ empId }) => {
                 <div className={styles.left}>
                   <div className={styles.key}>
                     <span className={styles.value}>Succession:</span>
-                    {removeUnderScore(employeeDetail?.saj_status)}
+                    {removeUnderScore(employeeDetail?.application?.saj_status)}
                   </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>
-                      Replacing Person Details
-                    </span>
-                    {/* {employeeDetail?.replacing_employee_name} */}
-                  </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Name:</span>
-                    {employeeDetail?.application?.replacing_employee_name}
-                  </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Employee ID:</span>
-                    {employeeDetail?.application?.replacing_employee_code}{" "}
-                  </div>
+                  {employeeDetail?.application?.status ===
+                    "CORPORATE_SUBMITTED" && (
+                    <>
+                      <div className={styles.key}>
+                        <span className={styles.value}>
+                          Employee Continuing With Company:
+                        </span>
+                        -
+                        {/* {removeUnderScore(
+                        employeeDetail?.application?.succession
+                      )} */}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Last Working Date:</span>
+                        -
+                        {/* {removeUnderScore(
+                        employeeDetail?.application?.succession
+                      )} */}
+                      </div>
+                    </>
+                  )}
+
+                  {employeeDetail?.application?.succession === "IN_PLACE" && (
+                    <>
+                      <div className={styles.key}>
+                        <span className={styles.value}>
+                          Replacing Person Details
+                        </span>
+                        {/* {employeeDetail?.replacing_employee_name} */}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Name:</span>
+                        {employeeDetail?.application?.replacing_employee_name}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Employee ID:</span>
+                        {
+                          employeeDetail?.application?.replacing_employee_code
+                        }{" "}
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className={styles.vertical}></div>
-                <div className={styles.right}>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Nature of Succession:</span>
-                    {employeeDetail?.application?.saj_status}
+
+                {employeeDetail?.application?.succession === "IN_PLACE" && (
+                  <div className={styles.right}>
+                    <div className={styles.key}>
+                      <span className={styles.value}>
+                        Nature of Succession:
+                      </span>
+                      {employeeDetail?.application?.nature_of_succession}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}></span>
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>Salary:</span>
+                      {employeeDetail?.application?.replacing_employee_ctc
+                        ? `₹ ${employeeDetail?.application?.replacing_employee_ctc}`
+                        : "-"}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>
+                        Succession's Cost WRT employee:
+                      </span>
+                      {employeeDetail?.application?.wrt
+                        ? `${employeeDetail?.application?.wrt} %`
+                        : "-"}
+                    </div>
                   </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}></span>
-                  </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Salary:</span>
-                    {employeeDetail?.application?.replacing_employee_ctc
-                      ? `₹ ${employeeDetail?.application?.replacing_employee_ctc}`
-                      : "-"}
-                  </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>
-                      Succession's Cost WRT employee:
-                    </span>
-                    {employeeDetail?.application?.wrt
-                      ? `${employeeDetail?.application?.wrt} %`
-                      : "-"}
-                  </div>
-                </div>
+                )}
               </div>
               <div className={styles.hrline} />
             </>
@@ -193,7 +231,7 @@ const EmployeeInformation = ({ empId }) => {
                         },
                       }}
                       dataset={listData?.EMPLOYEE_SALARY}
-                      datasetKey={"name"}
+                      datasetKey={"label"}
                       onTextChange={(text, value) => {
                         changeTextData(text, "replacing_employee_id");
                       }}
@@ -228,26 +266,77 @@ const EmployeeInformation = ({ empId }) => {
             <>
               <div className={"formFlex"} style={{ alignItems: "center" }}>
                 <div className="formGroup1">
-                  <CustomDatePicker
-                    clearable
-                    label={"Extension/Retainer Start Date"}
-                    maxDate={new Date()}
-                    onChange={(date) => {
-                      changeTextData(date, "extension_start_date");
-                    }}
-                    value={form?.extension_start_date}
-                    isError={errorData?.extension_start_date}
-                  />
+                  {employeeDetail?.application?.saj_status ===
+                  "NOT_IN_PLACE" ? (
+                    <CustomDatePicker
+                      clearable
+                      label={"Extension/Retainer Start Date"}
+                      // maxDate={new Date()}
+                      onChange={(date) => {
+                        changeTextData(date, "extension_start_date");
+                      }}
+                      value={form?.extension_start_date}
+                      isError={errorData?.extension_start_date}
+                    />
+                  ) : (
+                    <CustomDatePicker
+                      clearable
+                      label={"Last Working Date"}
+                      // maxDate={new Date()}
+                      onChange={(date) => {
+                        changeTextData(date, "last_working_date");
+                      }}
+                      value={form?.last_working_date}
+                      isError={errorData?.last_working_date}
+                    />
+                  )}
                 </div>
-                <div className={"formGroup"}>
-                  Extension/Retainer End Date:
-                  <span className={styles.application}>
-                    {employeeDetail?.application?.extensionStartAt}
-                  </span>
-                </div>
+                {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" && (
+                  <div className={"formGroup"}>
+                    Extension/Retainer End Date:
+                    <span className={styles.application}>
+                      {employeeDetail?.application?.extensionEndAt}
+                    </span>
+                  </div>
+                )}
               </div>
+              {employeeDetail?.application?.nature_of_succession ===
+                "EXTERNAL" && (
+                <div className={"formFlex"}>
+                  <div className={"formGroup"}>
+                    <CustomTextField
+                      isError={errorData?.replacing_employee_name}
+                      errorText={errorData?.replacing_employee_name}
+                      label={"Replacing Person"}
+                      value={form?.replacing_employee_name}
+                      onTextChange={(text) => {
+                        changeTextData(text, "replacing_employee_name");
+                      }}
+                      onBlur={() => {
+                        onBlurHandler("replacing_employee_name");
+                      }}
+                    />
+                  </div>
+                  <div className={"formGroup"}>
+                    <CustomTextField
+                      isError={errorData?.replacing_employee_ctc}
+                      errorText={errorData?.replacing_employee_ctc}
+                      label={"Replacing Person Salary"}
+                      value={form?.replacing_employee_ctc}
+                      onTextChange={(text) => {
+                        changeTextData(text, "replacing_employee_ctc");
+                      }}
+                      onBlur={() => {
+                        onBlurHandler("replacing_employee_ctc");
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+
               <div className={"formGroup"}>
                 <CustomTextField
+                  type="number"
                   isError={errorData?.pending_dues}
                   errorText={errorData?.pending_dues}
                   label={"Pending Dues"}

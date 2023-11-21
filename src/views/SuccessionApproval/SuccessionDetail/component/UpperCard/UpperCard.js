@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Style.module.css";
-function UpperCard({employeeDetail}) {
+import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
+import { MenuItem } from "@material-ui/core";
+function UpperCard({ employeeDetail, form, changeTextData, isCOR }) {
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -31,8 +33,26 @@ function UpperCard({employeeDetail}) {
               {employeeDetail?.application?.employee?.age}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>Nature of Association:</span>
-              {employeeDetail?.application?.extension_status}
+              {isCOR && employeeDetail?.status === "PENDING" ? (
+                <div className={styles.dor}>
+                  <span className={styles.value}>Nature of Association:</span>
+                  <CustomSelectField
+                    label={"Nature of Association"}
+                    value={form?.extension_status}
+                    handleChange={(value) => {
+                      changeTextData(value, "extension_status");
+                    }}
+                  >
+                    <MenuItem value="EXTENSION">EXTENSION</MenuItem>
+                    <MenuItem value="RETENTION">RETENTION</MenuItem>
+                  </CustomSelectField>
+                </div>
+              ) : (
+                <div className={styles.key}>
+                  <span className={styles.value}>Nature of Association:</span>
+                  {employeeDetail?.application?.extension_status}
+                </div>
+              )}
             </div>
           </div>
 
