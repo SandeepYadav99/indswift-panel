@@ -34,6 +34,56 @@
     /*align-items: center;*/
 }
 
+@media only screen and (max-width:768px){
+    .mainFlex{
+        display: flex;
+        flex-direction: column;
+    }  
+    .left221{
+        display: flex;
+        flex-direction: column !important; 
+    }
+    .imageContainer{
+        display: flex;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    .claimimg{
+        height: 200px;
+        width: 200px !important;
+    }
+    .nameData{
+        display: none;
+    }
+    .left{
+        display: flex;
+        justify-content: space-between;
+    }
+    .value{
+        font-weight: 600;
+        width: 100px !important;
+        color: black;
+        display: inline-block;   
+     }
+     .nameHigher{
+        display: block !important;
+    }
+    .verticalLine {
+        border-left: 1px dashed #B8C5D3;
+        max-height: 100px;
+        flex: 0.3;
+    }
+}
+@media only screen and (max-width:640px) {
+    .claimimg{
+        height: 120px;
+        width: 120px !important;
+    }
+}
+.nameHigher{
+    display: none;
+}
+
 .vertical {
     border-left: 1px dashed #B8C5D3;
     max-height: 100px;

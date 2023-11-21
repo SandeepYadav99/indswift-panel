@@ -12,7 +12,7 @@ import { useMemo } from "react";
 const initialForm = {
   replacing_employee_id: "",
   succession: "",
-  nature: "",
+  nature_of_succession: "",
   comment: "",
 };
 const useEmpInformation = () => {
@@ -61,14 +61,14 @@ const useEmpInformation = () => {
 
   useEffect(() => {
     if (form?.succession === "NOT_IN_PLACE") {
-      setForm({ ...form, nature: "", replacing_employee_id: "" });
+      setForm({ ...form, nature_of_succession: "", replacing_employee_id: "" });
     }
   }, [form?.succession]);
   useEffect(() => {
-    if (form?.nature === "REPLACEMENT_EXTERNAL") {
+    if (form?.nature_of_succession === "EXTERNAL") {
       setForm({ ...form, replacing_employee_id: "" });
     }
-  }, [form?.nature]);
+  }, [form?.nature_of_succession]);
   console.log("form", form);
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -98,9 +98,9 @@ const useEmpInformation = () => {
     const errors = { ...errorData };
     let required = ["succession"];
     if (form?.succession === "IN_PLACE") {
-      required.push("nature");
+      required.push("nature_of_succession");
     }
-    if (form?.nature === "REPLACEMENT_INTERNAL") {
+    if (form?.nature_of_succession === "INTERNAL") {
       required.push("replacing_employee_id");
     }
     required.forEach((val) => {
@@ -114,9 +114,9 @@ const useEmpInformation = () => {
       }
     });
     if (form?.succession === "NOT_IN_PLACE") {
-      delete errors["nature"];
+      delete errors["nature_of_succession"];
     }
-    if (form?.nature === "REPLACEMENT_EXTERNAL") {
+    if (form?.nature_of_succession === "EXTERNAL") {
       delete errors["replacing_employee_id"];
     }
     Object.keys(errors).forEach((key) => {
@@ -156,12 +156,13 @@ const useEmpInformation = () => {
         let rep = {};
         if (form?.succession) {
           rep.succession = form?.succession;
+          rep.nature_of_succession = form?.nature_of_succession;
           if (form?.replacing_employee_id) {
             rep.replacing_employee_name = form?.replacing_employee_id?.name
               ? form?.replacing_employee_id?.name
               : "";
-            rep.replacing_employee_code = form?.replacing_employee_id?.emp_code
-              ? form?.replacing_employee_id?.emp_code
+            rep.replacing_employee_code = form?.replacing_employee_id?.code
+              ? form?.replacing_employee_id?.code
               : "";
             rep.replacing_employee_ctc = form?.replacing_employee_id?.ctc
               ? form?.replacing_employee_id?.ctc
@@ -169,7 +170,7 @@ const useEmpInformation = () => {
             rep.replacing_employee_id = form?.replacing_employee_id?.id
               ? form?.replacing_employee_id?.id
               : "";
-            rep.cost_wrt = salaryCost;
+            // rep.cost_wrt = salaryCost;
           }
         }
         let hrData = {};
@@ -201,7 +202,7 @@ const useEmpInformation = () => {
     },
     [form, isSubmitting, setIsSubmitting, salaryCost]
   );
-
+console.log("form",form)
   const handleSubmit = useCallback(
     (status) => {
       const checkForm = employeeDetail?.application?.status;
