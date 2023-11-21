@@ -46,7 +46,8 @@ const ExpireOffer_PopUp = ({ isOpen, handleToggle, candidateId }) => {
       serviceMarkExpired({ letter_id: candidateId }).then((res) => {
         if (!res?.error) {
           handleToggle();
-          SnackbarUtils.success("Offer letter not sent")
+          // historyUtils.goBack()
+          SnackbarUtils.success("Offer Letter Expired Successfully")
         }else{
           SnackbarUtils.error("Offer letter not found")
         }

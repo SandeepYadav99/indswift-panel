@@ -1,16 +1,17 @@
-import React, { Component, useCallback, useMemo } from "react";
-import { Button, ButtonBase, IconButton, withStyles } from "@material-ui/core";
+import React, { useCallback, useMemo } from "react";
+import {  IconButton} from "@material-ui/core";
 import DataTables from "../../../../../Datatables/Datatable.table";
 import styles from "./Style.module.css";
 import classNames from "classnames";
-import { Add, CachedOutlined, Edit, InfoOutlined } from "@material-ui/icons";
+import {
+  Chat,
+  Clear,
+  InfoOutlined,
+} from "@material-ui/icons";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import FilterComponent from "../../../../../components/Filter/Filter.component";
 import useVacancyList from "./VacanciesTableHook";
-import constants from "../../../../../config/constants";
 import Constants from "../../../../../config/constants";
-import CommentIcon from "../../../../../assets/img/ic_comment.png";
-import rejectPng from "../../../../../assets/img/ic_reject@2x.png";
 import InactivePopUp from "../Component/InactivePopUp";
 import DetailsDialog from "../Component/ReasonDetail_Dilog/VacanciesDetailDialog";
 
@@ -23,12 +24,10 @@ function VacanciesTable({ jobId }) {
     handleFilterDataChange,
     handleSearchValueChange,
     handleViewDetails,
-    editData,
     isCalling,
     data,
     currentData,
     currentPage,
-    isVacanciesFetching,
     toggleRejectDialog,
     rejectDialog,
     toggleIsOpenDialog,
@@ -42,6 +41,7 @@ function VacanciesTable({ jobId }) {
       return <StatusPill status={status} />;
     }
   }, []);
+
   const renderFirstCell = useCallback((product) => {
     if (product) {
       return (
@@ -86,7 +86,7 @@ function VacanciesTable({ jobId }) {
         key: "appliedDateText",
         label: "Date Added",
         sortable: false,
-        render: (temp, all) => <div>{all?.createdAtText}</div>,
+        render: (temp, all) => <div> {all?.createdAtText}</div>,
       },
       {
         key: "status",
@@ -112,49 +112,54 @@ function VacanciesTable({ jobId }) {
         sortable: false,
         render: (temp, all) => (
           <div style={{ display: "flex" }}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
+            {(all?.status === "HIRING" || all?.status === "HIRED") &&
+              all?.type === "RAP" && (
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => handleViewDetails(all)}
+                >
+                  <InfoOutlined fontSize={"small"} />
+                </IconButton>
+              )}
 
-            {all?.status === "HIRING" && all?.type === "ADDITIONAL_REQUIREMENT" ? (
-              <IconButton
-                className={"tableActionBtnError"}
-                color="error"
-                style={{ padding: "1px" }}
-                disabled={isCalling}
-                onClick={() => {
-                  toggleRejectDialog(all);
-                }}
-              >
-                <img
-                  src={rejectPng}
-                  className={styles.rejct}
-                  style={{ width: "1.5rem" }}
-                />
-                <div className={styles.subText}> Mark Inactive</div>
-              </IconButton>
-            ) : (
-              <img
-                src={CommentIcon}
-                alt="comment"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  toggleIsOpenDialog(all);
-                }}
-              />
-            )}
+            {all?.status === "HIRING" &&
+              all?.type === "ADDITIONAL_REQUIREMENT" && (
+                <IconButton
+                  className={"tableActionBtnError"}
+                  color="error"
+                  style={{ padding: "1px" }}
+                  disabled={isCalling}
+                  onClick={() => toggleRejectDialog(all)}
+                >
+                  <Clear fontSize="small" />
+                  <div className={styles.subText}> Mark Inactive</div>
+                </IconButton>
+              )}
+
+            {all?.status === "INACTIVE" &&
+              all?.type === "ADDITIONAL_REQUIREMENT" && (
+                <IconButton
+                  className={"tableActionBtnError"}
+                  color="error"
+                  onClick={() => toggleIsOpenDialog(all)}
+                >
+                  <Chat fontSize="small" />
+                </IconButton>
+              )}
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [
+    renderStatus,
+    renderFirstCell,
+    handleViewDetails,
+    handleEdit,
+    isCalling,
+    ids,
+  ]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -208,6 +213,7 @@ function VacanciesTable({ jobId }) {
         </div>
       </div>
       <InactivePopUp
+        jobId={jobId}
         candidateId={ids}
         isOpen={rejectDialog}
         handleToggle={toggleRejectDialog}

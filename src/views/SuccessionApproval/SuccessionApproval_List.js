@@ -1,286 +1,225 @@
-// /**
-//  * Created by sandeepelectrovese@gmail.com on 10/18/2023.
-//  */
-// import React, {  useCallback,  useMemo } from "react";
-// import {
-  
-//   IconButton,
+import React, { Component, useCallback, useEffect, useMemo } from "react";
+import { ButtonBase, IconButton, Menu } from "@material-ui/core";
+import classNames from "classnames";
+import { connect, useSelector } from "react-redux";
+import { InfoOutlined, Telegram } from "@material-ui/icons";
+import PageBox from "../../components/PageBox/PageBox.component";
+import styles from "./Style.module.css";
+import DataTables from "../../Datatables/Datatable.table";
+import Constants from "../../config/constants";
+import FilterComponent from "../../components/Filter/Filter.component";
+import StatusPill from "../../components/Status/StatusPill.component";
+import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
+import useSuccessionApprovalHook from "./SuccessionApproval_hook";
 
-// } from "@material-ui/core";
-// import classNames from "classnames";
-// import { useSelector } from "react-redux";
-// import { InfoOutlined} from "@material-ui/icons";
-// import PageBox from "../../components/PageBox/PageBox.component";
-// import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
-// import styles from "./Style.module.css";
-// import DataTables from "../../Datatables/Datatable.table";
-// import Constants from "../../config/constants";
-// import FilterComponent from "../../components/Filter/Filter.component";
+const SuccessionApproval_List = ({}) => {
+  const {
+    handleSortOrderChange,
+    handleRowSize,
+    handlePageChange,
+    handleFilterDataChange,
+    handleSearchValueChange,
+    handleViewDetails,
+    handleViewForm,
+    isCalling,
+    configFilter,
+    handleResend,
+  } = useSuccessionApprovalHook({});
 
+  const {
+    data,
+    all: allData,
+    currentPage,
+    is_fetching: isFetching,
+  } = useSelector((state) => state.succession_approval);
 
-// import StatusPill from "../../components/Status/StatusPill.component";
-// // import CandidateTable from "../../../components/CandidateDataTable/CandidateTable.component";
+  const renderStatus = useCallback((status) => {
+    return (
+      <StatusPill
+        status={status}
+        style={status === "PROCESSED" && { background: "#ceece2" }}
+      />
+    );
+  }, []);
 
-// import useSuccessionApprovalHook from "./SuccessionApproval_hook";
+  const renderFirstCell = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          <div className={classNames(styles.firstCellInfo, "openSans")}>
+            <span className={styles.productName}>
+              <strong>{obj?.employee?.name}</strong>
+            </span>
+            <br />
+            <span className={styles.productName}>
+              {obj?.employee?.emp_code}
+            </span>{" "}
+            <br />
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
 
-// const SuccessionApproval_List = ({}) => {
-//   const {
-//     handleSortOrderChange,
-//     handleRowSize,
-//     handlePageChange,
-//     handleDataSave,
-//     handleDelete,
-//     handleEdit,
-//     handleFilterDataChange,
-//     handleSearchValueChange,
-//     handleSideToggle,
-//     handleViewDetails,
-//     editData,
-//     isSidePanel,
-//     handleCreate,
-//     isCalling,
-//     configFilter,
-//     warehouses,
-//     changeEmployeeRoute,
-//   } = useSuccessionApprovalHook({});
+  const tableStructure = useMemo(() => {
+    return [
+      {
+        key: "employee",
+        label: "EMPLOYEE",
+        sortable: true,
+        render: (value, all) => (
+          <div>
+            {all?.employee?.name}
+            <br />
+            {all?.employee?.emp_code}
+          </div>
+        ),
+      },
+      {
+        key: "doj",
+        label: "D.O.J",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.doj}</div>,
+      },
+      {
+        key: "dob",
+        label: "D.O.B",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.dob}</div>,
+      },
+      {
+        key: "designation",
+        label: "DESIGNATION",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.designation}</div>,
+      },
+      {
+        key: "department",
+        label: "DEPARTMENT",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.department}</div>,
+      },
+      {
+        key: "location",
+        label: "LOCATION",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.location}</div>,
+      },
+      {
+        key: "age",
+        label: "AGE",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.age}</div>,
+      },
+      {
+        key: "date of retirment",
+        label: "DATE OF Retirement",
+        sortable: false,
+        render: (temp, all) => <div>{all?.expectedDorText}</div>,
+      },
+      {
+        key: "annual salary",
+        label: "ANNUAL SALARY",
+        sortable: false,
+        render: (temp, all) => (
+          <div>{all?.application?.ctc && `₹ ${all?.application?.ctc}`}</div>
+        ),
+      },
+      {
+        key: "nature",
+        label: "NATURE OF ASSOCIATION",
+        sortable: false,
+        render: (temp, all) => <div>{all?.application?.extension_status}</div>,
+      },
 
-//   const {
-//     data,
-//     all: allData,
-//     currentPage,
-//     is_fetching: isFetching,
-//   } = useSelector((state) => state.employee_versions);
+      {
+        key: "current_status",
+        label: "CURRENT STATUR/OVERALL STATUS",
+        sortable: true,
+        render: (temp, all) => (
+          <div>
+            {<StatusPill status={all?.status} />} <br />
+            <br />
+            <StatusPill status={all?.application?.status} />
+          </div>
+        ),
+      },
 
-//   const renderStatus = useCallback((status) => {
-//     return <StatusPill status={status} />;
-//   }, []);
+      {
+        key: "user_id",
+        label: "Action",
+        render: (temp, all) => (
+          <div>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => handleViewDetails(all)}
+            >
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
+          </div>
+        ),
+      },
+    ];
+  }, [renderStatus, renderFirstCell, handleViewDetails, isCalling]);
 
-//   const renderFirstCell = useCallback((obj) => {
-//     if (obj) {
-//       return (
-//         <div className={styles.firstCellFlex}>
-//           <div
-//             className={classNames(styles.firstCellInfo, "openSans")}
-//             onClick={() => changeEmployeeRoute(obj?.employee)}
-//           >
-//             <span className={styles.productName}>{obj?.employee?.name}</span>
-//           </div>
-//         </div>
-//       );
-//     }
-//     return null;
-//   }, []);
+  const tableData = useMemo(() => {
+    const datatableFunctions = {
+      onSortOrderChange: handleSortOrderChange,
+      onPageChange: handlePageChange,
+      onRowSizeChange: handleRowSize,
+    };
 
-//   const tableStructure = useMemo(() => {
-//     return [
-//       {
-//         key: "employee",
-//         label: "EMPLOYEE",
-//         sortable: true,
-//         render: (value, all) => <div>{renderFirstCell(all)}</div>,
-//       },
-//       {
-//         key: "doj",
-//         label: "D.O.J",
-//         sortable: false,
-//         render: (temp, all) => <div>{all?.employee?.code}</div>,
-//       },
-//       {
-//         key: "dob",
-//         label: "D.O.B",
-//         sortable: false,
-//         render: (temp, all) => <div>{all?.address}</div>,
-//       },
-//       {
-//         key: "designation",
-//         label: "DESIGNATION",
-//         sortable: false,
-//         render: (temp, all) => (
-//           <div>
-//             {all?.editedBy?.name} <br /> {all?.createdAtText}
-//           </div>
-//         ),
-//       },
-//       {
-//         key: "department",
-//         label: "DEPARTMENT",
-//         sortable: false,
-//         render: (temp, all) => (
-//           <div>
-//             <StatusPill status={all?.status} />{" "}
-//           </div>
-//         ),
-//       },
-//       {
-//         key: "location",
-//         label: "LOCATION",
-//         sortable: false,
-//         render: (temp, all) => (
-//           <div>
-//             <StatusPill status={all?.status} />{" "}
-//           </div>
-//         ),
-//       },
-//       {
-//         key: "age",
-//         label: "AGE",
-//         sortable: false,
-//         render: (temp, all) => (
-//           <div>
-//             <StatusPill status={all?.status} />{" "}
-//           </div>
-//         ),
-//       },
-//       {
-//         key: "date of retirment",
-//         label: "DATE OF RETIRMENT",
-//         sortable: false,
-//         render: (temp, all) => (
-//           <div>
-//             <StatusPill status={all?.status} />{" "}
-//           </div>
-//         ),
-//       },
-//       {
-//         key: "annual salary",
-//         label: "ANNUAL SALARY",
-//         sortable: false,
-//         render: (temp, all) => (
-//           <div>
-//             <StatusPill status={all?.status} />{" "}
-//           </div>
-//         ),
-//       },
-//       {
-//         key: "succession_const",
-//         label: " SUCCESSION'S COST WRT EMPLOYEE",
-//         sortable: false,
-//         render: (temp, all) => (
-//           <div>
-//             <StatusPill status={all?.status} />{" "}
-//           </div>
-//         ),
-//       },
-//       {
-//         key: "succession_const",
-//         label: " SUCCESSION'S COST WRT EMPLOYEE",
-//         sortable: false,
-//         render: (temp, all) => (
-//           <div>
-//             <StatusPill status={all?.status} />{" "}
-//           </div>
-//         ),
-//       },
-//       {
-//         key: "current_status",
-//         label: "CURRENT STATUR/OVERALL STATUS",
-//         sortable: true,
-//         render: (temp, all) => (
-//           <div>
-//             {all?.verifiedAt ? (
-//               <div>
-//                 {all?.verifiedBy?.name} <br /> {all?.verifiedAtText}{" "}
-//               </div>
-//             ) : (
-//               "-"
-//             )}
-//           </div>
-//         ),
-//       },
+    const datatable = {
+      ...Constants.DATATABLE_PROPERTIES,
+      columns: tableStructure,
+      data: data,
+      count: allData.length,
+      page: currentPage,
+    };
 
-//       {
-//         key: "user_id",
-//         label: "Action",
-//         render: (temp, all) => (
-//           <div>
-//             <IconButton
-//               className={"tableActionBtn"}
-//               color="secondary"
-//               disabled={isCalling}
-//             //   onClick={() => handleSideToggle(all)}
-//             >
-//               <InfoOutlined fontSize={"small"} />
-//             </IconButton>
-//           </div>
-//         ),
-//       },
-//     ];
-//   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+    return { datatableFunctions, datatable };
+  }, [
+    allData,
+    tableStructure,
+    handleSortOrderChange,
+    handlePageChange,
+    handleRowSize,
+    data,
+    currentPage,
+  ]);
 
-//   const tableData = useMemo(() => {
-//     const datatableFunctions = {
-//       onSortOrderChange: handleSortOrderChange,
-//       onPageChange: handlePageChange,
-//       onRowSizeChange: handleRowSize,
-//     };
-
-//     const datatable = {
-//       ...Constants.DATATABLE_PROPERTIES,
-//       columns: tableStructure,
-//       data: data,
-//       count: allData.length,
-//       page: currentPage,
-//     };
-
-//     return { datatableFunctions, datatable };
-//   }, [
-//     allData,
-//     tableStructure,
-//     handleSortOrderChange,
-//     handlePageChange,
-//     handleRowSize,
-//     data,
-//     currentPage,
-//   ]);
-
-//   return (
-//     <div>
-//       <PageBox>
-//         <div className={styles.headerContainer}>
-//           <div>
-//             <span className={styles.title}>Successions Approval</span>
-//             <div className={styles.newLine} />
-//           </div>
-//         </div>
-
-//         <div>
-//           <FilterComponent
-//             is_progress={isFetching}
-//             filters={configFilter}
-//             handleSearchValueChange={handleSearchValueChange}
-//             handleFilterDataChange={handleFilterDataChange}
-//           />
-//           <div>
-//             <br />
-//             <div style={{ width: "100%" }}>
-//               <DataTables
-//                 {...tableData.datatable}
-//                 {...tableData.datatableFunctions}
-//               />
-//             </div>
-//           </div>
-//         </div>
-//         <SidePanelComponent
-//           handleToggle={handleSideToggle}
-//           title={"Profile Change Details"}
-//           open={isSidePanel}
-//           side={"right"}
-//         >
-//           {/* <VersionDetailView handleClose={handleSideToggle} id={editData} isOpen={isSidePanel} /> */}
-//         </SidePanelComponent>
-//       </PageBox>
-//     </div>
-//   );
-// };
-
-// export default SuccessionApproval_List;
-
-import React from 'react'
-
-const SuccessionApproval_List = () => {
   return (
-    <div>Succession Approval</div>
-  )
-}
+    <div>
+      <PageBox>
+        <div className={styles.headerContainer}>
+          <div>
+            <span className={styles.title}>Successions Approval</span>
+            <div className={styles.newLine} />
+          </div>
+        </div>
+        <div>
+          <FilterComponent
+            is_progress={isFetching}
+            filters={configFilter}
+            handleSearchValueChange={handleSearchValueChange}
+            handleFilterDataChange={handleFilterDataChange}
+          />
+          <div>
+            <br />
+            <div style={{ width: "100%" }}>
+              <DataTables
+                {...tableData.datatable}
+                {...tableData.datatableFunctions}
+              />
+            </div>
+          </div>
+        </div>
+      </PageBox>
+    </div>
+  );
+};
 
-export default SuccessionApproval_List
+export default SuccessionApproval_List;

@@ -1,6 +1,5 @@
 import React from "react";
 import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
-
 import useCandidateUpdate_Hook from "./BGVStatusUpdate_Hook";
 import { ButtonBase, MenuItem } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -9,19 +8,10 @@ import historyUtils from "../../../libs/history.utils";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
+import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 const BGVStatus_Update = () => {
-  const {
-    data,
-    isLoading,
-    id,
-    isInterviewStatus,
-    handleChangeInterviewStatus,
-    handleViewEditDetails,
-    form,
-    changeTextData,
-    errorData,
-    handleSubmit,
-  } = useCandidateUpdate_Hook({});
+  const { form, changeTextData, errorData, handleSubmit } =
+    useCandidateUpdate_Hook({});
 
   return (
     <div>
@@ -36,80 +26,90 @@ const BGVStatus_Update = () => {
           <div className={styles.newLine} />
         </div>
       </div>
-      <CandidateInfor data={form} />
+      <CandidateInfor empId={form?.emp_code} />
       <div className={styles.plainPaper}>
+        <div>
+          <div className={styles.required_action}>
+            Background Verification Status{" "}
+          </div>
+          <div className={styles.gaps} />
+          <span>Update Verification Status</span>
+        </div>
         <div className={styles.newContainer}>
           <div className={styles.mainFlex}>
             <div className={styles.left}>
               <div>
                 <div className={"formGroup"}>
-                  {form?.is_education_verification ? (
-                    <CustomCheckbox
-                      color={"primary"}
-                     
-                      label={"Education"}
-                      disabled={form?.is_education_verification}
-                      checked={form?.is_education_verification}
-                    />
-                  ) : null}
+                  <CustomCheckbox
+                    color={"primary"}
+                    label={"Education"}
+                    disabled={
+                      form?.is_education_verification
+                        ? form?.is_education_verification
+                        : !form?.is_education_verification
+                    }
+                    checked={form?.is_education_verification}
+                  />
                 </div>
               </div>
               <div>
                 <div className={"formGroup"}>
-                  {form?.is_first_employment_verification ? (
-                    <CustomCheckbox
-                      color={"primary"}
-                    
-                      disabled={form?.is_first_employment_verification}
-                      label={"1st Employment"}
-                      checked={form?.is_first_employment_verification}
-                    />
-                  ) : null}
+                  <CustomCheckbox
+                    color={"primary"}
+                    disabled={
+                      form?.is_first_employment_verification
+                        ? form?.is_first_employment_verification
+                        : !form?.is_first_employment_verification
+                    }
+                    label={"1st Employment"}
+                    checked={form?.is_first_employment_verification}
+                  />
                 </div>
               </div>
               <div>
                 <div className={"formGroup"}>
-                  {form.is_secound_employment_verification ? ( 
-                    <div>
-                      <div className={"formGroup"}>
-                        <CustomCheckbox
-                          color={"primary"}
-                       
-                          disabled={form?.is_secound_employment_verification}
-                          label={"2nd Employment"}
-                          checked={form?.is_secound_employment_verification}
-                        />
-                      </div>
+                  <div>
+                    <div className={"formGroup"}>
+                      <CustomCheckbox
+                        color={"primary"}
+                        disabled={
+                          form?.is_secound_employment_verification
+                            ? form?.is_secound_employment_verification
+                            : !form?.is_secound_employment_verification
+                        }
+                        label={"2nd Employment"}
+                        checked={form?.is_secound_employment_verification}
+                      />
                     </div>
-                  ) : null}
+                  </div>
                 </div>
               </div>
               <div>
                 <div className={"formGroup"}>
-                  {form?.is_criminal_verification ? (
-                    <CustomCheckbox
-                      color={"primary"}
-                     
-                      disabled={form?.is_criminal_verification}
-                      label={"Criminal"}
-                      checked={form?.is_criminal_verification}
-                    />
-                  ) : null}
+                  <CustomCheckbox
+                    color={"primary"}
+                    disabled={
+                      form?.is_criminal_verification
+                        ? form?.is_criminal_verification
+                        : !form?.is_criminal_verification
+                    }
+                    label={"Criminal"}
+                    checked={form?.is_criminal_verification}
+                  />
                 </div>
               </div>
             </div>
           </div>
 
           <div className={"formFlex"}>
-            {form?.is_education_verification && (
-              <div className={"formGroup"}>
+            <div className={"formGroup"}>
+              {form?.is_education_verification && (
                 <CustomSelectField
                   isError={errorData?.is_education_verification_status}
                   errorText={errorData?.is_education_verification_status}
                   label={"Choose Status"}
                   value={form?.is_education_verification_status}
                   handleChange={(value) => {
-                    console.log("Selected value:", value);
                     changeTextData(value, "is_education_verification_status");
                   }}
                 >
@@ -118,32 +118,35 @@ const BGVStatus_Update = () => {
                   <MenuItem value="UNABLE_TO_VERIFY">Unable to Verify</MenuItem>
                   <MenuItem value="PENDING">Pending</MenuItem>
                 </CustomSelectField>
-              </div>
-            )}
-            {form?.is_first_employment_verification && (
-              <div className={"formGroup"}>
+              )}
+            </div>
+
+            <div className={"formGroup"}>
+              {form?.is_first_employment_verification && (
                 <CustomSelectField
                   isError={errorData?.is_first_employment_verification_status}
                   errorText={errorData?.is_first_employment_verification_status}
                   label={"Choose Status"}
                   value={form?.is_first_employment_verification_status}
                   handleChange={(value) => {
-                    console.log(value)
+                    console.log(value);
                     changeTextData(
                       value.toUpperCase(),
                       "is_first_employment_verification_status"
                     );
                   }}
                 >
-                    <MenuItem value="CLEAR">Clear</MenuItem>
+                  <MenuItem value="CLEAR">Clear</MenuItem>
                   <MenuItem value="FAILED">Failed </MenuItem>
-                  <MenuItem value="UNABLE_TO_VERIFY">Unable To Verify </MenuItem>
+                  <MenuItem value="UNABLE_TO_VERIFY">
+                    Unable To Verify{" "}
+                  </MenuItem>
                   <MenuItem value="PENDING">Pending</MenuItem>
                 </CustomSelectField>
-              </div>
-            )}
-            {form?.is_secound_employment_verification && (
-              <div className={"formGroup"}>
+              )}
+            </div>
+            <div className={"formGroup"}>
+              {form?.is_secound_employment_verification && (
                 <CustomSelectField
                   isError={errorData?.is_secound_employment_verification_status}
                   errorText={
@@ -158,15 +161,17 @@ const BGVStatus_Update = () => {
                     );
                   }}
                 >
-                      <MenuItem value="CLEAR">Clear</MenuItem>
+                  <MenuItem value="CLEAR">Clear</MenuItem>
                   <MenuItem value="FAILED">Failed </MenuItem>
-                  <MenuItem value="UNABLE_TO_VERIFY">Unable To Verify </MenuItem>
+                  <MenuItem value="UNABLE_TO_VERIFY">
+                    Unable To Verify{" "}
+                  </MenuItem>
                   <MenuItem value="PENDING">Pending</MenuItem>
                 </CustomSelectField>
-              </div>
-            )}
-            {form?.is_criminal_verification && (
-              <div className={"formGroup"}>
+              )}
+            </div>
+            <div className={"formGroup"}>
+              {form?.is_criminal_verification && (
                 <CustomSelectField
                   isError={errorData?.is_criminal_verification_status}
                   errorText={errorData?.is_criminal_verification_status}
@@ -176,15 +181,17 @@ const BGVStatus_Update = () => {
                     changeTextData(value, "is_criminal_verification_status");
                   }}
                 >
-                    <MenuItem value="CLEAR">Clear</MenuItem>
+                  <MenuItem value="CLEAR">Clear</MenuItem>
                   <MenuItem value="FAILED">Failed </MenuItem>
-                  <MenuItem value="UNABLE_TO_VERIFY">Unable To Verify </MenuItem>
+                  <MenuItem value="UNABLE_TO_VERIFY">
+                    Unable To Verify{" "}
+                  </MenuItem>
                   <MenuItem value="PENDING">Pending</MenuItem>
                   {/* <MenuItem value="terminated">Terminated</MenuItem>
                 <MenuItem value="allowed_to_work">Allowed To Work </MenuItem> */}
                 </CustomSelectField>
-              </div>
-            )}
+              )}
+            </div>
           </div>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -197,21 +204,25 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "bgv_result");
                 }}
               >
-                <MenuItem value="IN_PROCESS">In_Process</MenuItem>
-                <MenuItem value="CLEAR">Clear </MenuItem>
                 <MenuItem value="PENDING">Pending </MenuItem>
+                <MenuItem value="FAILED">Failed </MenuItem>
+                <MenuItem value="CLEAR">Clear </MenuItem>
+                <MenuItem value="IN_PROCESS">In Process</MenuItem>
               </CustomSelectField>
             </div>
           </div>
           <div className={styles.requiredFooter}>
             <div className={styles.topText}>
-              <b>BGV Status:  {form?.bgv_status}</b>
+              <b>BGV Status: {form?.bgv_status}</b>
             </div>
           </div>
         </div>
       </div>
 
       <div className={styles.plainPaper}>
+        <div>
+          <div className={styles.required_action}>Required Action Details </div>
+        </div>
         <div className={styles.newContainer}>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -224,9 +235,9 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "choose_action");
                 }}
               >
-                <MenuItem value="ISL">Isl</MenuItem>
-                <MenuItem value="ISLL">Isll </MenuItem>
-                <MenuItem value="ESIX">Esix</MenuItem>
+                <MenuItem value="TERMINATED">Terminated</MenuItem>
+                <MenuItem value="ALLOWED_TO_WORK">Allowed to work </MenuItem>
+                <MenuItem value="NA">N/A</MenuItem>
               </CustomSelectField>
             </div>
           </div>
@@ -237,9 +248,9 @@ const BGVStatus_Update = () => {
                 // isError={errorData?.description}
                 // errorText={errorData?.description}
                 label={"Any Remarks"}
-                value={form?.remark}
+                value={form?.action_remark}
                 onTextChange={(text) => {
-                  changeTextData(text, "remark");
+                  changeTextData(text, "action_remark");
                 }}
                 // onBlur={() => {
                 //    onBlurHandler("remark");
@@ -263,38 +274,42 @@ const BGVStatus_Update = () => {
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <span>
-                <b>Cost:   {form?.cost}</b>{" "}
+                <b>Cost: </b>
+                <span className={styles.right_gaps}>₹ {form?.cost}</span>
+                <div className={styles.gaps}></div>
               </span>
               <CustomSelectField
                 isError={errorData?.payment_status}
                 errorText={errorData?.payment_status}
-                label={"Choose Action "}
+                label={"Payment Status "}
                 value={form?.payment_status}
                 handleChange={(value) => {
                   changeTextData(value, "payment_status");
                 }}
               >
-                <MenuItem value="IN_PROCESS">In-Process</MenuItem>
+                <MenuItem value="IN_PROCESS">In Process</MenuItem>
                 <MenuItem value="CLEAR">Clear </MenuItem>
                 <MenuItem value="PENDING">Pending </MenuItem>
               </CustomSelectField>
             </div>
             <div className={"formGroup"}>
               <span>
-                <b>Billing To:  {form?.billing_to}</b>{" "}
+                <b>Billing To:</b>{" "}
+                <span className={styles.right_gaps}> {form?.billing_to}</span>
               </span>
-              <CustomSelectField
-                isError={errorData?.payment_complete}
-                errorText={errorData?.payment_complete}
-                label={"Choose Action "}
-                value={form?.payment_complete}
-                handleChange={(value) => {
-                  changeTextData(value, "payment_complete");
-                }}
-              >
-                <MenuItem value="2023-09-08">2023-09-08</MenuItem>
-                {/* <MenuItem value="esix">ESIX </MenuItem> */}
-              </CustomSelectField>
+              <div className={styles.gaps}></div>
+            
+                  <CustomDatePicker
+                      clearable
+                      label={"Complete in "}
+                      maxDate={new Date()}
+                      onChange={(value) => {
+                        changeTextData(value, "payment_complete");
+                      }}
+                      value={form?.payment_complete}
+                      isError={errorData?.payment_complete}
+                      errorText={errorData?.payment_complete}
+                 />
             </div>
           </div>
         </div>
@@ -314,7 +329,7 @@ const BGVStatus_Update = () => {
               fontSize: "13px",
             }}
           >
-            Any Remarks added while sending BGV form will be shown here
+            {form?.remark}
           </p>
         </div>
       </div>

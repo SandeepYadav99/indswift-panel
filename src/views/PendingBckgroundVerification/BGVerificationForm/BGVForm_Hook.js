@@ -1,13 +1,10 @@
 import { useParams } from "react-router";
-import  { useCallback,  useState } from "react";
+import { useCallback, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
 
-import {
-  serviceEmployeeBGVCreate,
- 
-} from "../../../services/PendingBGVerification.service";
+import { serviceEmployeeBGVCreate } from "../../../services/PendingBGVerification.service";
 
 const useBGVForm_Hook = ({}) => {
   const initialForm = {
@@ -21,6 +18,7 @@ const useBGVForm_Hook = ({}) => {
   };
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { id } = useParams();
+
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [isInterviewStatus, setIsInterviewStatus] = useState(-1);
@@ -41,6 +39,9 @@ const useBGVForm_Hook = ({}) => {
     let cost = 0;
 
     switch (selectedCheckboxes.length) {
+      case 1:
+        cost = 1;
+        break;
       case 2:
         cost = 500;
         break;
@@ -59,7 +60,6 @@ const useBGVForm_Hook = ({}) => {
   const toggleCostEdit = useCallback(() => {
     setIsCostEdit(!isCostEdit);
   }, [isCostEdit]);
-
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -88,7 +88,7 @@ const useBGVForm_Hook = ({}) => {
       return;
     }
     if (selectedCheckboxes < 2) {
-      SnackbarUtils.error("At least two checkboxes are required.");
+      SnackbarUtils.error("Please select at least two verification options");
       return;
     }
     setIsSubmitting(true);

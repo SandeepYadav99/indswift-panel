@@ -74,7 +74,7 @@ export default {
   EMPLOYEE_CREATE: "/employees/create",
   EMPLOYEE_DETAIL: "/employees/details/",
   EMPLOYEE_VERSIONS: "/employee/versions",
-
+  EMPLOYEE_RECORD_APPROVALs:"/employee-record/approvals",
   NEW_EMPLOYEES:"/new/employee",
   NEW_EMPLOYEE_DETAIL: "/new/employee/details/",
 
@@ -196,19 +196,27 @@ export default {
   CANDIDATE_STATUS_GLOSSARY:"/candidate/status",
   SUCCESSION_PLANING:"/succession-planing",
   SUCCESSION_APPROVAL:"/succession-approval",
+  SUCCESSION_APPROVAL_DETAIL:"/succession-approval/detail/",
+
+  SUCCESSION_PLANNER:"/succession/planner",
+  SUCCESSION_PLANNER_DETAIL_FORM:"/succession/detail/form",
+  SUCCESSION_HISTORY:"/succession/history",
   EXPIRING_OFFER_LETTER:"/expiring-offer-letter",
 
-  C3MLETTER:"/c3mletter",
+  C3MLETTER:"/c3m-letter",
   NAPS_TRANING:"/naps_traning",
-  APPOINTMENT_LETTER:"/appointment_letter",
+  APPOINTMENT_LETTER:"/appointment-letter",
   RELIEVING_EXPERIENCE_APPROVALS:"/relieving-experience-approval",
   RELIEVING_EXPERIENCE_APPROVALS_DETAILS:"/relieving-experience-approval/details",
   RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
-  PENDING_BACKGROUND_VERIFICATION:"/pending-verification",
+  RELIEVING_EXPERIENCE_LETTER_DETAIL:"/relieving-exp-letter/detail/",
+  PENDING_BACKGROUND_VERIFICATION:"/pending/verification",
+  BGV_ANALYSI_REPOST:"/pending-verification/detail/",
+
   PENDING_VERIFICATION_CREATE:"/verification/create/",
   PENDING_VERIFICATION_DETAIL:"/verification/detail",
   PENDING_VERIFICATION_UPDATE:"/verification/update/",
-  PENDING_VERIFICATION_DETAIL:"/verification/detail/",
+
 
   LEAVE_APPLICATION_LIST_VIEW:'/leave-application/list',
   LEAVE_APPLICATION_FORM:"/leave-application-form",
@@ -217,14 +225,20 @@ export default {
 
   FULL_FINAL_APPLICATION:"/full-final",
   FULL_FINAL_APPROVAL:"/full-final-approval",
+  FULL_FINAL_DETAIL_APPROVAL:"/full-final/detail/",
+
   FULL_FINAL_FORM:"/full/form/",
- 
-  EXIT_INTERVIEW_LIST:"/exit/interview/list",
-  
+  FULL_FINAL_DETAIL:"/full/detail/",
+
+  HRESCALATIONMATRIX:"/hr/escalation",
   EXIT_LOGIN:"/exit/login",
   EXIT_SUCCESS:"/exit/success",
   EXIT_INTERVIEW_LIST:"/exit/interview/list",
   EXIT_INTERVIEW_FORM:"/exit/interview/form",
   EXIT_DETAIL:"/exit/details/",
+
+  SUCCESSION_FORM:"/succession/form",
+  SUCCESSION_FORM_INNER:"/succession/details",
+  SUCCESSION_SUCCESS:"/succession/success"
 
 };

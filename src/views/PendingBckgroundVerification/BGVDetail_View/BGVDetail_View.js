@@ -4,9 +4,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../../libs/history.utils";
 import styles from "./Style.module.css";
 import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
-
 import StatusPill from "../../../components/Status/StatusPill.component";
-
 import { serviceEmployeeBGVDetail } from "../../../services/PendingBGVerification.service";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
@@ -14,14 +12,13 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 const BGVDetailView = ({}) => {
   const [details, setDetails] = useState([]);
   const { id } = useParams();
- 
 
   useEffect(() => {
     //  setIsLoading(true);
     serviceEmployeeBGVDetail({ id: id }).then((res) => {
       if (!res.error) {
         const data = res?.data;
-        console.log(data);
+
         setDetails({
           ...details,
           is_education_verification_status:
@@ -40,6 +37,7 @@ const BGVDetailView = ({}) => {
           cost: data?.cost,
           choose_action: data?.choose_action,
           remark: data?.remark,
+          emp_code: data?.employeeObj?.emp_code,
         });
       } else {
         SnackbarUtils.error(res.message);
@@ -61,37 +59,47 @@ const BGVDetailView = ({}) => {
           <div className={styles.newLine} />
         </div>
       </div>
-      <CandidateInfor data={{}} />
+      <CandidateInfor empId={details?.emp_code} />
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <h3>Background Verification Status</h3>
           <div className={styles.mainFlex}>
             <div className={styles.backgroundStatus}>
-              <span>
-                Education:{" "}
-                <StatusPill
-                  status={details?.is_education_verification_status}
-                />
-              </span>
-              <span>
-                2nd Employment:
-                <StatusPill
-                  status={details?.is_secound_employment_verification_status}
-                />
-              </span>
+              <div className={styles.getfiledSpace}>
+                <div className={styles.titleFiledSpace}>Education: </div>
+                <div className={styles.titleFiledSpacePil}>
+                  <StatusPill
+                    status={details?.is_education_verification_status}
+                  />
+                </div>
+              </div>
+              <div className={styles.getfiledSpace}>
+                <div className={styles.titleFiledSpace}>2nd Employment:</div>
+                <div className={styles.titleFiledSpacePil}>
+                  <StatusPill
+                    status={details?.is_secound_employment_verification_status}
+                  />
+                </div>
+              </div>
             </div>
             <div className={styles.gaps} />
             <div className={styles.backgroundStatus}>
-              <span>
-                1st Employment:
-                <StatusPill
-                  status={details?.is_first_employment_verification_status}
-                />
-              </span>
-              <span>
-                Criminal:
-                <StatusPill status={details?.is_criminal_verification_status} />
-              </span>
+              <div className={styles.getfiledSpace}>
+                <div className={styles.titleFiledSpace}>1st Employment:</div>
+                <div className={styles.titleFiledSpacePil}>
+                  <StatusPill
+                    status={details?.is_first_employment_verification_status}
+                  />
+                </div>
+              </div>
+              <div className={styles.getfiledSpace}>
+                <div className={styles.titleFiledSpace}>Criminal:</div>
+                <div className={styles.titleFiledSpacePil}>
+                  <StatusPill
+                    status={details?.is_criminal_verification_status}
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className={styles.gaps} />
@@ -111,11 +119,16 @@ const BGVDetailView = ({}) => {
           <h3>Required Action Details</h3>
           <div className={styles.mainFlex}>
             <div className={styles.backgroundStatus}>
-              <span>Action Choosen:   <b>{details?.choose_action}</b>  </span>
+              <span>
+                {" "}
+                <b>Action Choosen: {"  "} </b> {details?.choose_action}{" "}
+              </span>
             </div>
             <div className={styles.gaps} />
             <div className={styles.backgroundStatus}>
-              <span>Remarks: <b>{details?.remark}</b></span>
+              <span>
+                <b>Remarks: </b> {details?.remark}
+              </span>
             </div>
           </div>
           <div className={styles.gaps} />
@@ -127,13 +140,41 @@ const BGVDetailView = ({}) => {
           <h3>Payment Details</h3>
           <div className={styles.mainFlex}>
             <div className={styles.backgroundStatus}>
-              <span>Cost: <b>{details?.cost}</b></span>
-              <span>Billing To: <b>{details?.billing_to}</b></span>
+              <div className={styles.getfiledSpace}>
+                <div className={styles.titleFiledSpace}>
+                  <b>Cost: </b>
+                </div>
+                <div className={styles.titleFiledSpacePil1}>
+                  ₹ {details?.cost}
+                </div>
+              </div>
+              <div className={styles.getfiledSpace}>
+                <div className={styles.titleFiledSpace}>
+                  <b>Billing To: </b>
+                </div>
+                <div className={styles.titleFiledSpacePil1}>
+                  {details?.billing_to}
+                </div>
+              </div>
             </div>
             <div className={styles.gaps} />
             <div className={styles.backgroundStatus}>
-              <span>Payment Status: <b>{details?.payment_status}</b></span>
-              <span>Completed In: <b>{details?.paymentCompleteText}</b></span>
+              <div className={styles.getfiledSpace}>
+                <div className={styles.titleFiledSpace}>
+                  <b>Payment Status: </b>
+                </div>
+                <div className={styles.titleFiledSpacePil1}>
+                  {details?.payment_status}
+                </div>
+              </div>
+              <div className={styles.getfiledSpace}>
+                <div className={styles.titleFiledSpace}>
+                  <b>Completed In: </b>
+                </div>
+                <div className={styles.titleFiledSpacePil1}>
+                  {details?.paymentCompleteText}
+                </div>
+              </div>
             </div>
           </div>
           <div className={styles.gaps} />
@@ -154,7 +195,7 @@ const BGVDetailView = ({}) => {
               fontSize: "13px",
             }}
           >
-            Any Remarks added while sending BGV form will be shown here
+            {details?.remark}
           </p>
         </div>
       </div>

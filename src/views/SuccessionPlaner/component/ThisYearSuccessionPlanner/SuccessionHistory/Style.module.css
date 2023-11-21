@@ -1,0 +1,59 @@
+
+.successContainer{
+  margin-top: 80px;
+}
+.subEmploy{
+  margin-left: 50px;
+}
+.employ{
+  display: flex;
+}
+.title{
+  color: black;
+  font-weight: bold;
+}
+.empCode{
+  margin-left: 40%;
+}
+.empCode div{
+  color: black;
+}
+.letterInfo  {
+    margin-bottom: 10px;
+    
+  }
+  
+  .letterInfo span {
+    display: inline-block;
+    margin-right: 20px;
+
+  }
+ 
+  .letterHead  {
+   display: flex;
+   justify-content: space-between;
+
+  }
+  .buttoonforApprove{
+    display: flex;
+    justify-content: space-between;
+  }
+  .container{
+    margin-left: 10px;
+    background-color: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    opacity: 1;
+    padding: 10px;
+  }
+  .avator{
+    display: flex;
+    justify-content: space-between;
+    margin: 2%;
+    align-items: center;
+  }
+  .image{
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+  }

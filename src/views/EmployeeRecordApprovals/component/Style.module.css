@@ -1,0 +1,67 @@
+.flex {
+    display: flex;
+    align-items: center;
+}
+.panelCont {
+    margin-top: 40px;
+    padding: 0px 15px;
+}
+
+.image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.infoLabel {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.titleText {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.infoContainer {
+    padding: 15px !important;
+}
+
+.rejectBtn {
+    margin-right: 20px !important;
+    border-color: red !important;
+    color: red !important;
+    /* background: red !important; */
+}
+
+.tableFlex {
+    justify-content: space-between;
+}
+.tableText {
+    flex: 1;
+    font-size: 0.8rem;
+    margin: 5px 0px
+}
+
+.letterInfo  {
+    margin-bottom: 10px;
+    
+  }
+  
+  .letterInfo span {
+    display: inline-block;
+    margin-right: 20px;
+
+  }
+ 
+  .letterHead  {
+   display: flex;
+   justify-content: space-between;
+
+  }
+  .buttoonforApprove{
+    display: flex;
+    justify-content: space-between;
+  }

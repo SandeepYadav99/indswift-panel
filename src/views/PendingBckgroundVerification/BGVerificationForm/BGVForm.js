@@ -1,10 +1,8 @@
 import styles from "./Style.module.css";
 import { ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import {  EditOutlined } from "@material-ui/icons";
-
+import { EditOutlined } from "@material-ui/icons";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
-
 import useBGVForm_Hook from "./BGVForm_Hook";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 
@@ -23,10 +21,16 @@ const BGVForm = () => {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
-            <div className={styles.heading}>
-              Background Verification Details
+            <div>
+              <span className={styles.bgv_verification}>
+                Background Verification Details{" "}
+              </span>
+              <br />
+              <div className={styles.gpas}/>
+              <div className={styles.text_}>
+                Choose type of verification required:
+              </div>
             </div>
-            {/* <div>Choose type of verification required:</div> */}
           </div>
 
           <div className={styles.mainFlex}>
@@ -149,9 +153,9 @@ const BGVForm = () => {
                   changeTextData(value, "billing_to");
                 }}
               >
-                <MenuItem value="isl">ISL</MenuItem>
-                <MenuItem value="isll">ISLL </MenuItem>
-                <MenuItem value="esix">ESIX </MenuItem>
+                <MenuItem value="ISL">Isl</MenuItem>
+                <MenuItem value="ISLL">Isll</MenuItem>
+                <MenuItem value="ESIX">Esix </MenuItem>
               </CustomSelectField>
             </div>
           </div>

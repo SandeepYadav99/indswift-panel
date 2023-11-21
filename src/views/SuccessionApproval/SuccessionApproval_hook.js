@@ -1,43 +1,33 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionFetchEmployeeVersion,
-  actionSetPageEmployeeVersion,
-} from "../../actions/EmployeeEditVersions.action";
+  actionFetchSuccessionA,
+  actionSetPageSuccessionA,
+} from "../../actions/SuccessionA.action";
 import historyUtils from "../../libs/history.utils";
+import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
-import {serviceGetList} from "../../services/Common.service";
+import { serviceGetList } from "../../services/Common.service";
 
 const useSuccessionApprovalHook = ({}) => {
-  const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [listData, setListData] = useState({
+    LOCATIONS: [],
+    GRADES: [],
+    DEPARTMENTS: [],
+  });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
-  const [employees, setEmployees] = useState([]);
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.employee_versions);
-  const status = [
-    { id: "APPROVED", name: "APPROVED" },
-    { id: "PENDING", name: "PENDING" },
-    { id: "REJECTED", name: "REJECTED" },
-  ];
-
-    useEffect(() => {
-        serviceGetList(['EMPLOYEES']).then((res) => {
-            if (!res.error) {
-                setEmployees(res?.data?.EMPLOYEES);
-            }
-        });
-    }, [])
-
+  } = useSelector((state) => state.succession_approval);
   useEffect(() => {
     dispatch(
-      actionFetchEmployeeVersion(1, sortingData, {
+      actionFetchSuccessionA(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -45,43 +35,27 @@ const useSuccessionApprovalHook = ({}) => {
     isMountRef.current = true;
   }, []);
 
-  // const handleCellClick = (rowIndex, columnIndex, row, column) => {
-  //     console.log(`handleCellClick rowIndex: ${rowIndex} columnIndex: ${columnIndex}`);
-  // }
-  // const handlePreviousPageClick = () => {
-  //     console.log('handlePreviousPageClick', 'PREV');
-  // }
-  //
-  // const handleNextPageClick = () => {
-  //     console.log('handleNextPageClick', 'NEXT');
-  // }
-
+  useEffect(() => {
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
   const handlePageChange = useCallback((type) => {
-    // console.log("_handlePageChange", type);
-    dispatch(actionSetPageEmployeeVersion(type));
+    console.log("_handlePageChange", type);
+    dispatch(actionSetPageSuccessionA(type));
   }, []);
 
-  const handleDataSave = useCallback(
-    (data, type) => {
-      setSidePanel((e) => !e);
-      setEditData(null);
-    },
-    [setSidePanel, setEditData]
-  );
-  const changeEmployeeRoute = useCallback((data) => {
-    historyUtils.push(`/employees/details/${data?.code}`);
-}, []);
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageEmployeeVersionRequests(1));
+      // dispatch(actionSetPageSuccessionARequests(1));
       dispatch(
-        actionFetchEmployeeVersion(1, sortingData, {
+        actionFetchSuccessionA(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
       );
-      // dispatch(actionFetchEmployeeVersion(1, sortingData))
     },
     [sortingData, query, queryData]
   );
@@ -105,9 +79,9 @@ const useSuccessionApprovalHook = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageEmployeeVersion(1));
+      // dispatch(actionSetPageSuccessionA(1));
       dispatch(
-        actionFetchEmployeeVersion(
+        actionFetchSuccessionA(
           1,
           { row, order },
           {
@@ -124,81 +98,79 @@ const useSuccessionApprovalHook = ({}) => {
     console.log(page);
   };
 
-  const handleDelete = useCallback(
-    (id) => {
-      setSidePanel(false);
-      setEditData(null);
-    },
-    [setEditData, setSidePanel]
-  );
-
-  const handleEdit = useCallback(
-    (data) => {
-      setEditData(data);
-      setSidePanel((e) => !e);
-    },
-    [setEditData, setSidePanel]
-  );
-
-  const handleSideToggle = useCallback(
-    (data) => {
-      setSidePanel((e) => !e);
-      if (data) {
-        setEditData(data?.id);
-      }
-    },
-    [setEditData, setSidePanel]
-  );
-
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(RouteName.LOCATIONS_DETAILS + data.id); //+data.id
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.SUCCESSION_APPROVAL_DETAIL}${data?.id}`); //+data.id
   }, []);
 
-  const handleCreate = useCallback(() => {
-    historyUtils.push(RouteName.LOCATIONS_CREATE);
+  const handleViewForm = useCallback((data) => {
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.FULL_FINAL_FORM}${data?.id}`); //+data.id
   }, []);
-
   const configFilter = useMemo(() => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
       // {label: 'City', name: 'city', type: 'text'},
+
       {
-        label: "Status",
-        name: "status",
+        label: "Location",
+        name: "employeesObj.location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
-        fields: status,
+        fields: listData?.LOCATIONS,
       },
-      // {
-      //   label: "Created Date",
-      //   options: { maxDate: new Date() },
-      //   name: "createdAt",
-      //   type: "date",
-      // },
-        {label: 'Changed By', name: 'edited_by', type: 'selectObject', custom: { extract: { id: 'id', title: 'name' } } , fields: employees},
+      {
+        label: "Department",
+        name: "employeesObj.department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
+      },
+      {
+        label: "Own Status",
+        name: "status",
+        type: "select",
+        fields: [
+          "ACCEPTED",
+          "APPROVED",
+          "REJECTED",
+          "WAITING",
+          "PENDING",
+          "AUTO_REJECTED",
+        ],
+      },
+      {
+        label: "Overall Status",
+        name: "application.status",
+        type: "select",
+        fields: [
+          "PENDING",
+          "EMPLOYEE_PENDING",
+          "EXPIRED",
+          "EMPLOYEE_SUBMITTED",
+          "EMPLOYEE_REJECTED",
+          "HOD_REJECTED",
+          "HOD_APPROVED",
+          "CEO_APPROVED",
+          "CEO_REJECTED",
+          "CORPORATE_SUBMITTED",
+          "MD_APPROVED",
+          "MD_REJECTED",
+        ],
+      },
     ];
-  }, [employees]);
-
+  }, [listData]);
   return {
     handlePageChange,
-    // handleCellClick,
-    handleDataSave,
     handleFilterDataChange,
     handleSearchValueChange,
-    // handlePreviousPageClick,
-    // handleNextPageClick,
     handleRowSize,
     handleSortOrderChange,
-    handleDelete,
-    handleEdit,
-    handleSideToggle,
     handleViewDetails,
     isCalling,
     editData,
-    isSidePanel,
     configFilter,
-    handleCreate,
-    changeEmployeeRoute
+    handleViewForm,
   };
 };
 

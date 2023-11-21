@@ -2,7 +2,7 @@ import store from "../store";
 import Constants from "../config/constants";
 
 
-import { serviceNapsTrningList } from "../services/NAPS_Traning.service";
+import { serviceNapsTrningList } from "../services/Letters.service";
 
 export const FETCH_INIT = "FETCH_INIT_NAPS_TRANING";
 export const FETCHED = "FETCHED_NAPS_TRANING";

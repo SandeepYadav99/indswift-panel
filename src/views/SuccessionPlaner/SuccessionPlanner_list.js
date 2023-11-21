@@ -1,55 +1,55 @@
 import styles from "./Style.module.css";
 import React from "react";
 import useSuccessionPlanner_hook from "./SuccessionPlanner_hook";
+import ThisYearSuccessionPlanner from "./component/ThisYearSuccessionPlanner/ThisYearSuccessionPlanner";
+import NextYearSuccessionPlanner from "./component/NextYearSuccessionPlanner/NextYearSuccessionPlanner";
+import NextToNextYearSuccessionPlanner from "./component/NextToNextYearSuccessionPlanner/NextToNextYearSuccessionPlanner";
+import { useSelector } from "react-redux";
 
+const SuccessionPlannerList = ({ jobId }) => {
+  const { listData } = useSuccessionPlanner_hook({
+    jobId,
+  });
 
-const SuccessionPlanner_list = ({ jobId }) => {
-  const { handleAddCandidate, candidateEl, handleCreate, typeData, user_id ,handleCsvDownload} =
-  useSuccessionPlanner_hook({
-      jobId,
-    });
   return (
     <div>
       <div className={styles.plainPaper}>
-      <div className={styles.headingWrap}>
+        <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
             <span>
-              <b>Non Travel Imprest Ledger</b>
+              <b>Within This Year Succession Planner</b>
             </span>
             <div className={styles.newLine2} />
           </div>
-
-          
         </div>
-        {/* <ImprestUpperTable /> */}
+
+        <ThisYearSuccessionPlanner listData={listData}/>
+      </div>
+
+      <div className={styles.plainPaper}>
+        <div className={styles.headingWrap}>
+          <div className={styles.newLineWrap}>
+            <span>
+              <b>Next Year Succession Planner</b>
+            </span>
+            <div className={styles.newLine2} />
+          </div>
+        </div>
+        <NextYearSuccessionPlanner listData={listData}/>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
             <span>
-              <b>Non Travel Imprest Ledger</b>
+              <b>Next to Next Year Succession Planner</b>
             </span>
             <div className={styles.newLine2} />
           </div>
-
-          
         </div>
-        {/* <OtherTable jobId={user_id} Claimtype="OTHER" /> */}
-      </div>
-      <div className={styles.plainPaper}>
-        <div className={styles.headingWrap}>
-          <div className={styles.newLineWrap}>
-            <span>
-              <b>Travel Imprest Ledger</b>
-            </span>
-            <div className={styles.newLine2} />
-          </div>
-       
-        </div>
-        {/* <TravelTable jobId={user_id} Claimtype="TRAVEL" /> */}
+        <NextToNextYearSuccessionPlanner listData={listData}/>
       </div>
     </div>
   );
 };
 
-export default SuccessionPlanner_list;
+export default SuccessionPlannerList;

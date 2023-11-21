@@ -7,14 +7,20 @@ import {
 } from "../../../actions/PendingBGVerification.action";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import constants from "../../../config/constants";
+import { actionFetchEmployee } from "../../../actions/Employee.action";
+import { serviceGetList } from "../../../services/Common.service";
 
 const usePendingBGVerification_Hook = () => {
   const [isCalling] = useState(false);
   const [editData] = useState(null);
-
-  const [listData] = useState({
+  const { role } = useSelector((state) => state.auth);
+  const [listData, setListData] = useState({
     EMPLOYEES: [],
+    DEPARTMENTS: [],
+    LOCATIONS: [],
   });
+
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
   const {
@@ -43,13 +49,12 @@ const usePendingBGVerification_Hook = () => {
   // }, []);
   console.log("list", listData);
   const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
+
     dispatch(actionSetPagePendingBGVList(type));
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
       dispatch(
         actionFetchPendingBGVList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
@@ -97,16 +102,11 @@ const usePendingBGVerification_Hook = () => {
     console.log(page);
   };
 
-  // const openPDFInNewTab = useCallback((pdfUrl) => {
-  //   const newWindow = window.open("", "_blank");
-  //   if (newWindow) {
-  //     window.open(pdfUrl, "_blank");
-  //     // ReactDOM.render(<a href={pdfUrl} target="_blank"/>, newWindow.document.body);
-  //   }
-  // }, []);
-
   const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}`);
+    console.log(data?.emp_code);
+    historyUtils.push(
+      `${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}`
+    );
   }, []);
 
   const handleBGVUpdateDetails = useCallback((data) => {
@@ -117,21 +117,48 @@ const usePendingBGVerification_Hook = () => {
     historyUtils.push(`${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}`);
   }, []);
 
+  const handleBgvAnalysiReport = useCallback((data) => {
+    historyUtils.push(`${RouteName.BGV_ANALYSI_REPOST}${data?.id}`);
+  }, []);
+
+  const initData = useCallback(() => {
+    dispatch(
+      actionFetchEmployee(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    initData();
+    isMountRef.current = true;
+    serviceGetList(["LOCATIONS", "DEPARTMENTS"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
+
   const configFilter = useMemo(() => {
     return [
+      ...(role === constants.ROLES.CORPORATE_HR
+        ? [
+            {
+              label: "Location",
+              name: "location_id",
+              type: "selectObject",
+              custom: { extract: { id: "id", title: "name" } },
+              fields: listData?.LOCATIONS,
+            },
+          ]
+        : []),
       {
-        label: "Status",
-        name: "status",
-        type: "select",
-        fields: [
-          "ACTIVE",
-          "RESIGNED",
-          "TERMINATED",
-          "RETIRED",
-          "EXPIRED",
-          "ABSCONDED",
-          "INACTIVE",
-        ],
+        label: "Department",
+        name: "department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
       },
     ];
   }, [listData]);
@@ -148,6 +175,7 @@ const usePendingBGVerification_Hook = () => {
     configFilter,
     handleViewDetails,
     handleBGVDetails,
+    handleBgvAnalysiReport,
   };
 };
 
