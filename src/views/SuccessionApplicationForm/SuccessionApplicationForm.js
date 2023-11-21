@@ -40,15 +40,15 @@ function SuccessionApplicationForm() {
         <div>
           <div>
             <CustomTextField
-              isError={errorData?.email}
-              errorText={errorData?.email}
-              label={"Email"}
-              value={form?.email}
+              isError={errorData?.code}
+              errorText={errorData?.code}
+              label={"Employee Code"}
+              value={form?.code}
               onTextChange={(text) => {
-                changeTextData(text, "email");
+                changeTextData(text, "code");
               }}
               onBlur={() => {
-                onBlurHandler("email");
+                onBlurHandler("code");
               }}
             />
           </div>

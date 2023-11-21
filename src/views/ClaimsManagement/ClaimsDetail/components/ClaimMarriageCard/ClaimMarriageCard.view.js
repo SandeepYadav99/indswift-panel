@@ -34,6 +34,7 @@ function ClaimMarriageCard() {
     employeeDetails,
     claimInfo,
     billAmount,
+    thirtyDaysLater
   } = useClaimMarrigeCard({});
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -83,7 +84,7 @@ function ClaimMarriageCard() {
               <CustomDatePicker
                 clearable
                 label={"Date of Marrige"}
-                maxDate={new Date()}
+                maxDate={thirtyDaysLater}
                 onChange={(date) => {
                   changeTextData(date, "dom");
                 }}
