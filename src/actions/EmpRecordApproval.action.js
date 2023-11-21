@@ -115,13 +115,14 @@ export function actionResetFilterEmployeRecordApprovalList() {
 
 export function actionSetPageEmployeRecordApprovalList(page) {
   const stateData = store.getState().employeRecordApproval;
-  const currentPage = stateData.currentPage;
-  const totalLength = stateData.all.length;
-  const sortingData = stateData.sorting_data;
-  const query = stateData.query;
-  const queryData = stateData.query_data;
-  const serverPage = stateData.serverPage;
-  const otherData = stateData.other_data;
+  const currentPage = stateData?.currentPage;
+  const totalLength = stateData?.all?.length;
+  const sortingData = stateData?.sorting_data;
+ 
+  const query = stateData?.query;
+  const queryData = stateData?.query_data;
+  const serverPage = stateData?.serverPage;
+  const otherData = stateData?.other_data;
   if (totalLength <= (page + 1) * Constants.DEFAULT_PAGE_VALUE) {
     store.dispatch(
       actionFetchEmployeRecordApprovalList(

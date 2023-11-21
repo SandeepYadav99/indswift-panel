@@ -1,40 +1,28 @@
 /**
  * Created by sandeepelectrovese@gmail.com on 11/6/2023.
  */
-import React, { Component, useCallback, useEffect, useMemo } from "react";
-import {
-  Button,
-  Paper,
-  Checkbox,
-  IconButton,
-  MenuItem,
-  ButtonBase,
-} from "@material-ui/core";
+import React, { useCallback, useMemo } from "react";
+import { IconButton } from "@material-ui/core";
 import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
-import { Add, InfoOutlined, PrintOutlined, Visibility } from "@material-ui/icons";
+import { useSelector } from "react-redux";
+import { Visibility } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 
 import StatusPill from "../../components/Status/StatusPill.component";
 import useEmployeeRecordApprovals from "./EmployeeRecordApprovalHook";
 import RecordDetailView from "./component/RecordDetail";
-
-// import VersionDetailView from "./component/VersionDetail.view";
-// import useEmployeeRecordApprovals from './EmployeeRecordApprovalHook';
 
 const EmployeeRecordApprovals = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleDataSave,
-    handleDelete,
+
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
@@ -42,20 +30,19 @@ const EmployeeRecordApprovals = ({}) => {
     handleViewDetails,
     editData,
     isSidePanel,
-    handleCreate,
+
     isCalling,
     configFilter,
-    warehouses,
+
     changeEmployeeRoute,
-  } = useEmployeeRecordApprovals({});
+  } = useEmployeeRecordApprovals();
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.employeRecordApproval);
-
+  } = useSelector((state) => state?.employeRecordApproval);
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
@@ -92,26 +79,27 @@ const EmployeeRecordApprovals = ({}) => {
         render: (temp, all) => <div>{all?.employee?.emp_code}</div>,
       },
       {
-          key: 'location',
-          label: 'Location',
-          sortable: false,
-          render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
+        key: "location",
+        label: "Location",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
       },
       {
-        key: 'updated_by',
-        label: 'UPDATED BY',
+        key: "updated_by",
+        label: "UPDATED BY",
         sortable: false,
-        render: (temp, all) => <div>{all?.editedBy?.name} <br/>{all?.createdAtText}</div>,
-    },
+        render: (temp, all) => (
+          <div>
+            {all?.editedBy?.name} <br />
+            {all?.createdAtText}
+          </div>
+        ),
+      },
       {
         key: "type",
         label: "Type",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.record_type} 
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.record_type}</div>,
       },
       {
         key: "status",
@@ -148,7 +136,7 @@ const EmployeeRecordApprovals = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-               onClick={() => handleSideToggle(all)}
+              onClick={() => handleSideToggle(all)}
             >
               <Visibility fontSize={"small"} />
             </IconButton>
@@ -160,12 +148,10 @@ const EmployeeRecordApprovals = ({}) => {
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
-      // onCellClick: this.handleCellClick,
-      // onCellDoubleClick: this.handleCellDoubleClick,
-      // onFilterValueChange: this._handleSearchValueChange.bind(this),
+     
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
+   
       onRowSizeChange: handleRowSize,
     };
 
@@ -221,7 +207,11 @@ const EmployeeRecordApprovals = ({}) => {
           open={isSidePanel}
           side={"right"}
         >
-         <RecordDetailView handleClose={handleSideToggle} id={editData} isOpen={isSidePanel} /> 
+          <RecordDetailView
+            handleClose={handleSideToggle}
+            id={editData}
+            isOpen={isSidePanel}
+          />
         </SidePanelComponent>
       </PageBox>
     </div>
