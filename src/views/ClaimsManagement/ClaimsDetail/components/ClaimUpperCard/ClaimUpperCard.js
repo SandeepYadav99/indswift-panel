@@ -44,20 +44,20 @@ function ClaimUpperCard({ data, isLoc, isLoan }) {
             <div className={styles.nameHigher}>
               <div className={styles.key}>
                 <span className={styles.value}>Name:</span>
-                {data?.name}
+                <span>{data?.name}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Employee ID:</span>
-                {data?.emp_code}
+                <span>{data?.emp_code}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Location:</span>
-                {data?.location?.name}
+                <span>{data?.location?.name}</span>
               </div>
               {(isLoc || isLoan) && (
                 <div className={styles.key}>
                   <span className={styles.value}>Date of Joining:</span>
-                  {data?.dojText}
+                  <span>{data?.dojText}</span>
                 </div>
               )}
             </div>
@@ -65,22 +65,22 @@ function ClaimUpperCard({ data, isLoc, isLoan }) {
             <div>
               <div className={styles.key}>
                 <span className={styles.value}>Designation:</span>
-                {data?.designation?.name}
+                <span>{data?.designation?.name}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Grade/Cadre:</span>
-                {`${data?.grade?.code} / ${data?.cadre?.code}`}
+                <span>{`${data?.grade?.code} / ${data?.cadre?.code}`}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Department:</span>
-                {data?.department?.name}
+                <span>{data?.department?.name}</span>
               </div>
               {isLoan && (
                 <div className={styles.key}>
                   <span className={styles.value}>
                     Experience with Organization:
                   </span>
-                  {data?.experience?.current}
+                  <span> {data?.experience?.current}</span>
                 </div>
               )}
             </div>
