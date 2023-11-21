@@ -139,8 +139,9 @@ function CandidateOLR({ location }) {
             <DataTables {...tableData.datatable} />
           </div>
         </div>
-      )}
-      {/* {role === "CORPORATE_HR" && (
+     )} 
+   
+      {role === "CORPORATE_HR" && (
         <div className={styles.chkwrapp}>
           <Checkbox
             disabled={false}
@@ -155,9 +156,9 @@ function CandidateOLR({ location }) {
             Hide Replacing Experience Detail
           </span>
         </div>
-      )} */}
+       )} 
 
-      {isReview && !isRecruiter && (
+     {/* {isReview && !isRecruiter && (  */}
         <div className={styles.btnReviewWrapper}>
           <div className={styles.isReviewBtnContainer}>
             <ButtonBase
@@ -169,7 +170,7 @@ function CandidateOLR({ location }) {
             </ButtonBase>
             <ButtonBase
               type={"button"}
-              onClick={handleApproveReview}
+              onClick={()=>handleApproveReview()}
               className={styles.createBtn}
               disabled={isSubmitting}
             >
@@ -177,7 +178,7 @@ function CandidateOLR({ location }) {
             </ButtonBase>
           </div>
         </div>
-      )}
+      {/* )}   */}
 
       {isApproval && (
         <div className={styles.btnCont1}>

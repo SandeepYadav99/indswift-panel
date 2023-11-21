@@ -1891,13 +1891,13 @@ const dashboardRoutes = [
     component: CandidateOLR,
     is_sidebar: false,
     is_protect: true,
-    roles: [
-      Roles.ADMIN,
-      Roles.RECRUITER,
-      Roles.CORPORATE_HR,
-      Roles.OLR,
-      Roles.GENERAL,
-    ],
+    // roles: [
+    //   Roles.ADMIN,
+    //   Roles.RECRUITER,
+    //   Roles.CORPORATE_HR,
+    //   Roles.OLR,
+    //   Roles.GENERAL,
+    // ],
   },
   {
     path: RouteName.CANDIDATES_CREATE,
