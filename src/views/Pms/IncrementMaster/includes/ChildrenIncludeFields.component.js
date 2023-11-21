@@ -44,19 +44,35 @@ const ChildrenIncludeFields = ({
   currency,
   listWarehouse,
 }) => {
-  const handleChange = (e) => {
-    const name = e?.target?.name;
-    const value = e?.target?.value;
-    // if (name === "dob") {
-    //   changeData(index,{['dob'] : value})
-    // } else {
-      changeData(index, { [name]: value });
-    // }
-  };
-const changeTextData=(value,key)=>{
-  changeData(index, { [key]: value });
+//   const handleChange = (e) => {
+//     const name = e?.target?.name;
+//     const value = e?.target?.value;
+//     // if (name === "dob") {
+//     //   changeData(index,{['dob'] : value})
+//     // } else {
+//       changeData(index, { [name]: value });
+//     // }
+//   };
+// const changeTextData=(value,key)=>{
+//   changeData(index, { [key]: value });
 
-}
+// }
+
+
+const handleChange = (e) => {
+  const name = e?.target?.name;
+  const value = e?.target?.value;
+  changeData(index, { [name]: value });
+};
+
+const handleInputChange = (e, fieldName) => {
+  let value = e.target.value;
+
+  // Check if the entered value is greater than or equal to zero
+  if (parseFloat(value) >= 0 || value === "") {
+    handleChange({ target: { name: fieldName, value } });
+  }
+};
   return (
     <div>
       <div className={styles.flexContainer}>
@@ -67,7 +83,7 @@ const changeTextData=(value,key)=>{
           <div className={styles.flex1}>
             <TextField
               error={errors?.min}
-              onChange={handleChange}
+              onChange={(e) => handleInputChange(e, "min")}
               value={data?.min}
               fullWidth={true}
               name={"min"}
@@ -75,6 +91,7 @@ const changeTextData=(value,key)=>{
               variant={"outlined"}
               label={"Min"}
               type={'number'}
+             
             />
           </div>
           <div className={styles.flex1}>
@@ -88,19 +105,21 @@ const changeTextData=(value,key)=>{
               variant={"outlined"}
               label={"Max"}
               type={'number'}
+             
             />
           </div>
           <div className={styles.flex1}>
           <TextField
               error={errors?.percentage}
               onChange={handleChange}
-              value={data?.percentage}
+              value={ data?.percentage }
               fullWidth={true}
               name={"percentage"}
               margin={"dense"}
               variant={"outlined"}
               label={"Percentage"}
               type={'number'}
+              
             />
           </div>
           <div className={styles.flex1}>
