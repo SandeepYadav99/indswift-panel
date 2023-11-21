@@ -193,7 +193,7 @@ const EmployeeInformation = ({ empId }) => {
                         },
                       }}
                       dataset={listData?.EMPLOYEE_SALARY}
-                      datasetKey={"name"}
+                      datasetKey={"label"}
                       onTextChange={(text, value) => {
                         changeTextData(text, "replacing_employee_id");
                       }}
