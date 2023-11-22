@@ -1,7 +1,10 @@
 import React, { useCallback } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import { serviceDetailsCLaim, serviceGetClaimsDetails } from "../../../services/Claims.service";
+import {
+  serviceDetailsCLaim,
+  serviceGetClaimsDetails,
+} from "../../../services/Claims.service";
 import { useState } from "react";
 
 function useClaimListDetail() {
@@ -35,7 +38,7 @@ function useClaimListDetail() {
     toggleChangeDialog,
     ischangeDialog,
     toggleRejectDialog,
-    rejectDialog
+    rejectDialog,
   };
 }
 

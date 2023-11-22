@@ -57,7 +57,7 @@ export function actionFetchEmployeRecordApprovalList(
   };
 }
 
-export function actionCreateNewEmployeeList(data) {
+export function actionCreateEmployeRecordApprovalList(data) {
   // const request = serviceCreateNewEmployeeList(data);
   // return (dispatch) => {
   //   request.then((data) => {
@@ -117,7 +117,7 @@ export function actionSetPageEmployeRecordApprovalList(page) {
   const stateData = store.getState().employeRecordApproval;
   const currentPage = stateData?.currentPage;
   const totalLength = stateData?.all?.length;
-  const sortingData = stateData?.sorting_data;
+  const sortingData = stateData.sorting_data;
  
   const query = stateData?.query;
   const queryData = stateData?.query_data;
@@ -140,3 +140,4 @@ export function actionSetPageEmployeRecordApprovalList(page) {
     payload: page,
   };
 }
+
