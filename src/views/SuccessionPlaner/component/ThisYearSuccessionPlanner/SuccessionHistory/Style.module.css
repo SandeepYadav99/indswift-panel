@@ -1,59 +1,85 @@
-
-.successContainer{
+.successContainer {
   margin-top: 80px;
 }
-.subEmploy{
+.subEmploy {
   margin-left: 50px;
 }
-.employ{
+.employ {
   display: flex;
+  margin: 5px 10px;
+  gap: 20px;
 }
-.title{
+.title {
   color: black;
   font-weight: bold;
 }
-.empCode{
+.empCode {
   margin-left: 40%;
 }
-.empCode div{
+.empCode div {
   color: black;
 }
-.letterInfo  {
-    margin-bottom: 10px;
-    
-  }
-  
-  .letterInfo span {
-    display: inline-block;
-    margin-right: 20px;
+.letterInfo {
+  margin-bottom: 10px;
+}
+.newContainer {
+  font-size: 0.7rem;
+}
+.commentWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.commentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.7rem;
+}
+.commentDate {
+  font-weight: 600;
+}
+.nofount{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin-top: 40px;
+}
+.commentwrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.letterInfo span {
+  display: inline-block;
+  margin-right: 20px;
+}
 
-  }
- 
-  .letterHead  {
-   display: flex;
-   justify-content: space-between;
-
-  }
-  .buttoonforApprove{
-    display: flex;
-    justify-content: space-between;
-  }
-  .container{
-    margin-left: 10px;
-    background-color: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 6px #00000029;
-    border-radius: 10px;
-    opacity: 1;
-    padding: 10px;
-  }
-  .avator{
-    display: flex;
-    justify-content: space-between;
-    margin: 2%;
-    align-items: center;
-  }
-  .image{
-    width: 50%;
-    height: 50%;
-    border-radius: 50%;
-  }
+.letterHead {
+  display: flex;
+  justify-content: space-between;
+}
+.buttoonforApprove {
+  display: flex;
+  justify-content: space-between;
+}
+.container {
+  margin-left: 10px;
+  background-color: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  opacity: 1;
+  padding: 10px;
+}
+.avator {
+  display: flex;
+  justify-content: space-between;
+  margin: 2%;
+  align-items: center;
+}
+.image {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+}

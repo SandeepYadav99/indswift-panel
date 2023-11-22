@@ -60,19 +60,6 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
               <div>{"Succession History"} </div>
               <div className={styles.newLine}></div>
             </div>
-
-            <div className={styles.addButton}>
-              <ButtonBase
-                onClick={() => {
-                  handleToggleSidePannelForm();
-                  handleToggleSidePannel();
-                }}
-                className={"createBtn"}
-              >
-                Add
-                <Add fontSize={"small"} className={"plusIcon"}></Add>
-              </ButtonBase>
-            </div>
           </div>
         );
       }
@@ -254,7 +241,7 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
               // disabled={isCalling}
               onClick={() => {
                 // handleViewDetails(all);
-                handleToggleSidePannel();
+                handleToggleSidePannel(all);
               }}
             >
               <InfoOutlined fontSize={"small"} />
@@ -342,7 +329,7 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
           <SuccessionHistory
             handleToggleSidePannel={handleToggleSidePannel}
             isSidePanel={isSidePanel}
-            empId={editData}
+            empId={empId}
           />
         </SidePanelComponent>
 

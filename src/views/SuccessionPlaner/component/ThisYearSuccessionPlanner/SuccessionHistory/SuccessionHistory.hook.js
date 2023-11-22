@@ -7,8 +7,8 @@ import { useState } from "react";
 function useSuccessionHistory({ handleToggleSidePannel, isSidePanel, empId }) {
   const [employeeDetails, setEmployeeDetails] = useState([]);
   useEffect(() => {
-    if (empId) {
-      serviceGetSuccessionPlanerHistory({ employee_id: empId }).then((res) => {
+    if (empId?.id) {
+      serviceGetSuccessionPlanerHistory({ employee_id: empId?.id }).then((res) => {
         if (!res.error) {
           const data = res?.data;
           setEmployeeDetails(data);
@@ -17,7 +17,7 @@ function useSuccessionHistory({ handleToggleSidePannel, isSidePanel, empId }) {
         }
       });
     }
-  }, [empId]);
+  }, [empId?.id]);
   return {
     employeeDetails,
   };

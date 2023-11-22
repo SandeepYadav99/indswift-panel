@@ -30,6 +30,7 @@ const EmployeeInformation = ({ empId }) => {
     isSubmitted,
     listData,
     salaryCost,
+    HODApprovalStatus,
   } = useEmpInformation();
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -261,112 +262,110 @@ const EmployeeInformation = ({ empId }) => {
             )}
           </>
         )}
-        {employeeDetail?.application?.status === "CEO_APPROVED" &&
-          employeeDetail?.status === "PENDING" && (
-            <>
-              <div className={"formFlex"} style={{ alignItems: "center" }}>
-                <div className="formGroup1">
-                  {employeeDetail?.application?.saj_status ===
-                  "NOT_IN_PLACE" ? (
-                    <CustomDatePicker
-                      clearable
-                      label={"Extension/Retainer Start Date"}
-                      // maxDate={new Date()}
-                      onChange={(date) => {
-                        changeTextData(date, "extension_start_date");
-                      }}
-                      value={form?.extension_start_date}
-                      isError={errorData?.extension_start_date}
-                    />
-                  ) : (
-                    <CustomDatePicker
-                      clearable
-                      label={"Last Working Date"}
-                      // maxDate={new Date()}
-                      onChange={(date) => {
-                        changeTextData(date, "last_working_date");
-                      }}
-                      value={form?.last_working_date}
-                      isError={errorData?.last_working_date}
-                    />
-                  )}
-                </div>
-                {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" && (
-                  <div className={"formGroup"}>
-                    Extension/Retainer End Date:
-                    <span className={styles.application}>
-                      {employeeDetail?.application?.extensionEndAt}
-                    </span>
-                  </div>
+        {HODApprovalStatus && employeeDetail?.status === "PENDING" && (
+          <>
+            <div className={"formFlex"} style={{ alignItems: "center" }}>
+              <div className="formGroup1">
+                {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" ? (
+                  <CustomDatePicker
+                    clearable
+                    label={"Extension/Retainer Start Date"}
+                    // maxDate={new Date()}
+                    onChange={(date) => {
+                      changeTextData(date, "extension_start_date");
+                    }}
+                    value={form?.extension_start_date}
+                    isError={errorData?.extension_start_date}
+                  />
+                ) : (
+                  <CustomDatePicker
+                    clearable
+                    label={"Last Working Date"}
+                    // maxDate={new Date()}
+                    onChange={(date) => {
+                      changeTextData(date, "last_working_date");
+                    }}
+                    value={form?.last_working_date}
+                    isError={errorData?.last_working_date}
+                  />
                 )}
               </div>
-              {employeeDetail?.application?.nature_of_succession ===
-                "EXTERNAL" && (
-                <div className={"formFlex"}>
-                  <div className={"formGroup"}>
-                    <CustomTextField
-                      isError={errorData?.replacing_employee_name}
-                      errorText={errorData?.replacing_employee_name}
-                      label={"Replacing Person"}
-                      value={form?.replacing_employee_name}
-                      onTextChange={(text) => {
-                        changeTextData(text, "replacing_employee_name");
-                      }}
-                      onBlur={() => {
-                        onBlurHandler("replacing_employee_name");
-                      }}
-                    />
-                  </div>
-                  <div className={"formGroup"}>
-                    <CustomTextField
-                      isError={errorData?.replacing_employee_ctc}
-                      errorText={errorData?.replacing_employee_ctc}
-                      label={"Replacing Person Salary"}
-                      value={form?.replacing_employee_ctc}
-                      onTextChange={(text) => {
-                        changeTextData(text, "replacing_employee_ctc");
-                      }}
-                      onBlur={() => {
-                        onBlurHandler("replacing_employee_ctc");
-                      }}
-                    />
-                  </div>
+              {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" && (
+                <div className={"formGroup"}>
+                  Extension/Retainer End Date:
+                  <span className={styles.application}>
+                    {employeeDetail?.application?.extensionEndAt}
+                  </span>
                 </div>
               )}
+            </div>
+            {employeeDetail?.application?.nature_of_succession ===
+              "EXTERNAL" && (
+              <div className={"formFlex"}>
+                <div className={"formGroup"}>
+                  <CustomTextField
+                    isError={errorData?.replacing_employee_name}
+                    errorText={errorData?.replacing_employee_name}
+                    label={"Replacing Person"}
+                    value={form?.replacing_employee_name}
+                    onTextChange={(text) => {
+                      changeTextData(text, "replacing_employee_name");
+                    }}
+                    onBlur={() => {
+                      onBlurHandler("replacing_employee_name");
+                    }}
+                  />
+                </div>
+                <div className={"formGroup"}>
+                  <CustomTextField
+                    isError={errorData?.replacing_employee_ctc}
+                    errorText={errorData?.replacing_employee_ctc}
+                    label={"Replacing Person Salary"}
+                    value={form?.replacing_employee_ctc}
+                    onTextChange={(text) => {
+                      changeTextData(text, "replacing_employee_ctc");
+                    }}
+                    onBlur={() => {
+                      onBlurHandler("replacing_employee_ctc");
+                    }}
+                  />
+                </div>
+              </div>
+            )}
 
-              <div className={"formGroup"}>
-                <CustomTextField
-                  type="number"
-                  isError={errorData?.pending_dues}
-                  errorText={errorData?.pending_dues}
-                  label={"Pending Dues"}
-                  value={form?.pending_dues}
-                  onTextChange={(text) => {
-                    changeTextData(text, "pending_dues");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("pending_dues");
-                  }}
-                />
-              </div>
-              <div className={"formGroup"}>
-                <CustomTextField
-                  isError={errorData?.notes}
-                  errorText={errorData?.notes}
-                  label={"Notes (if any)"}
-                  value={form?.notes}
-                  onTextChange={(text) => {
-                    changeTextData(text, "notes");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("notes");
-                  }}
-                  multiline
-                  rows={2}
-                />
-              </div>
-            </>
-          )}
+            <div className={"formGroup"}>
+              <CustomTextField
+                type="number"
+                isError={errorData?.pending_dues}
+                errorText={errorData?.pending_dues}
+                label={"Pending Dues"}
+                value={form?.pending_dues}
+                onTextChange={(text) => {
+                  changeTextData(text, "pending_dues");
+                }}
+                onBlur={() => {
+                  onBlurHandler("pending_dues");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.notes}
+                errorText={errorData?.notes}
+                label={"Notes (if any)"}
+                value={form?.notes}
+                onTextChange={(text) => {
+                  changeTextData(text, "notes");
+                }}
+                onBlur={() => {
+                  onBlurHandler("notes");
+                }}
+                multiline
+                rows={2}
+              />
+            </div>
+          </>
+        )}
       </div>
 
       <ApprovalPopup
