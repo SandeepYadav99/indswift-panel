@@ -103,12 +103,12 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
     (data) => {
       setSidePanel((e) => !e);
       if (data?.id) {
-        setEmpId(data?.id);
+        setEmpId(data);
       } else {
         setEmpId("");
       }
     },
-    [setSidePanel] // setEditData
+    [setSidePanel,empId] // setEditData
   );
 
   const handleToggleSend = useCallback(
@@ -138,14 +138,6 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
-      },
-
-      {
-        label: "Grade",
-        name: "grade_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "label" } },
-        fields: listData?.GRADES,
       },
       {
         label: "Department",
