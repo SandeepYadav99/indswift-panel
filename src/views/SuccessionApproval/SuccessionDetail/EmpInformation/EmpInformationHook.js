@@ -17,7 +17,7 @@ const initialForm = {
   last_working_date: "",
   notes: "",
   pending_dues: "",
-  extension_status:""
+  extension_status: "",
 };
 const useEmpInformation = () => {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
@@ -37,13 +37,17 @@ const useEmpInformation = () => {
       let req = serviceGetApprovalDetail({ review_id: id });
       req.then((data) => {
         setEmployeeDetail(data?.data);
-        // if (data?.data?.saj_status !== "PENDING") {
+        if (data?.data?.saj_status !== "PENDING") {
           setForm({
             ...form,
-            extension_status:data?.data?.application?.extension_status,
-            // succession: data?.data?.saj_status,
+            succession: data?.data?.saj_status,
           });
-        // }
+        } else {
+          setForm({
+            ...form,
+            extension_status: data?.data?.application?.extension_status,
+          });
+        }
       });
     }
   }, [id]);
@@ -145,7 +149,7 @@ const useEmpInformation = () => {
       required.push("replacing_employee_ctc", "replacing_employee_name");
     }
     if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE") {
-      required.push("extension_start_date");
+      required.push("extension_start_date","extension_end_date");
     }
     required.forEach((val) => {
       if (
@@ -166,6 +170,27 @@ const useEmpInformation = () => {
     return errors;
   }, [form, errorData, employeeDetail]);
 
+  const HODApprovalStatus = useMemo(() => {
+    const status = employeeDetail?.application?.status;
+    const grade = ["G4", "G5", "G6", "G7", "G8"];
+    console.log(
+      "grade",
+      status,
+      status === "CEO_APPROVED",
+      status === "HOD_APPROVED",
+      grade.includes(employeeDetail?.application?.employee?.grade?.code)
+    );
+    if (
+      status === "CEO_APPROVED" ||
+      (status === "HOD_APPROVED" &&
+        grade.includes(employeeDetail?.application?.employee?.grade?.code))
+    ) {
+      return true;
+    }
+    return false;
+  }, [employeeDetail]);
+
+  console.log("HODApprovalStatus", HODApprovalStatus);
   const submitToServer = useCallback(
     (status) => {
       if (!isSubmitting) {
@@ -191,7 +216,7 @@ const useEmpInformation = () => {
           }
         }
         let hrData = {};
-        if (employeeDetail?.application?.status === "CEO_APPROVED") {
+        if (HODApprovalStatus) {
           hrData.last_working_date = form?.last_working_date;
           hrData.pending_dues = form?.pending_dues;
           hrData.notes = form?.notes;
@@ -201,8 +226,9 @@ const useEmpInformation = () => {
             hrData.replacing_employee_name = form?.replacing_employee_name;
             hrData.replacing_employee_ctc = form?.replacing_employee_ctc;
           }
-          if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE"){
-            hrData.extension_end_date = form?.extension_end_date
+          if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE") {
+            hrData.extension_end_date = form?.extension_end_date;
+            hrData.extension_start_date = form?.extension_start_date
           }
         }
 
@@ -211,7 +237,7 @@ const useEmpInformation = () => {
           ...rep,
           ...hrData,
           action: status,
-          extension_status:form?.extension_status
+          extension_status: form?.extension_status,
         };
         console.log("status", status);
         serviceGetApprovalSubmit({
@@ -243,7 +269,7 @@ const useEmpInformation = () => {
           return true;
         }
       }
-      if (checkForm === "CEO_APPROVED") {
+      if (HODApprovalStatus) {
         const errors = checkFormValidationHR();
         console.log("===?", form, errors);
         if (Object.keys(errors).length > 0) {
@@ -303,6 +329,7 @@ const useEmpInformation = () => {
     isSubmitting,
     listData,
     salaryCost,
+    HODApprovalStatus,
   };
 };
 

@@ -73,6 +73,10 @@ const initialForm = {
       employee_id: "",
     },
     {
+      panelist_role: "CASHIER",
+      employee_id: "",
+    },
+    {
       panelist_role: "SITE_CASHIER",
       employee_id: "",
     },
