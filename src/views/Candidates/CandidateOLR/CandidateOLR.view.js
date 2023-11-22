@@ -158,7 +158,7 @@ function CandidateOLR({ location }) {
         </div>
        )} 
 
-     {/* {isReview && !isRecruiter && (  */}
+     {isReview && !isRecruiter && ( 
         <div className={styles.btnReviewWrapper}>
           <div className={styles.isReviewBtnContainer}>
             <ButtonBase
@@ -178,7 +178,7 @@ function CandidateOLR({ location }) {
             </ButtonBase>
           </div>
         </div>
-      {/* )}   */}
+     )}   
 
       {isApproval && (
         <div className={styles.btnCont1}>
