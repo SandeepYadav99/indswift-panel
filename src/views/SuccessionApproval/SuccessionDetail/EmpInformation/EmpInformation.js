@@ -31,9 +31,18 @@ const EmployeeInformation = ({ empId }) => {
     listData,
     salaryCost,
     HODApprovalStatus,
+    salaryCostInternal,
   } = useEmpInformation();
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
+  };
+  const calculateRetentionCTC = (extensionStatus, ctc) => {
+    let retentionCtc = ctc;
+    if (extensionStatus === "RETENTION") {
+      const percCtc = ((ctc * 30) / 100).toFixed(2);
+      retentionCtc = Math.ceil(ctc - percCtc);
+    }
+    return retentionCtc;
   };
   return (
     <div>
@@ -76,17 +85,24 @@ const EmployeeInformation = ({ empId }) => {
                         <span className={styles.value}>
                           Employee Continuing With Company:
                         </span>
-                        -
-                        {/* {removeUnderScore(
-                        employeeDetail?.application?.succession
-                      )} */}
+                        {employeeDetail?.application?.is_continuing
+                          ? "Yes"
+                          : "No"}
                       </div>
                       <div className={styles.key}>
-                        <span className={styles.value}>Last Working Date:</span>
-                        -
-                        {/* {removeUnderScore(
-                        employeeDetail?.application?.succession
-                      )} */}
+                        <span className={styles.value}>Extension Dates:</span>
+                        {employeeDetail?.application?.extensionStartAt} -{" "}
+                        {employeeDetail?.application?.extensionEndAt}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>
+                          Post Extension/Retention CTC:
+                        </span>
+
+                        {calculateRetentionCTC(
+                          form?.extension_status,
+                          employeeDetail?.application?.retention_ctc
+                        )}
                       </div>
                     </>
                   )}
@@ -266,32 +282,32 @@ const EmployeeInformation = ({ empId }) => {
           <>
             <div className={"formFlex"} style={{ alignItems: "center" }}>
               {/* {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" ? ( */}
-                <>
-                  <div className="formGroup1">
-                    <CustomDatePicker
-                      clearable
-                      label={"Extension/Retainer Start Date"}
-                      // maxDate={new Date()}
-                      onChange={(date) => {
-                        changeTextData(date, "extension_start_date");
-                      }}
-                      value={form?.extension_start_date}
-                      isError={errorData?.extension_start_date}
-                    />
-                  </div>
-                  <div className="formGroup1">
-                    <CustomDatePicker
-                      clearable
-                      label={"Extension/Retainer End Date"}
-                      // maxDate={new Date()}
-                      onChange={(date) => {
-                        changeTextData(date, "extension_end_date");
-                      }}
-                      value={form?.extension_end_date}
-                      isError={errorData?.extension_end_date}
-                    />
-                  </div>
-                </>
+              <>
+                <div className="formGroup1">
+                  <CustomDatePicker
+                    clearable
+                    label={"Extension/Retainer Start Date"}
+                    // maxDate={new Date()}
+                    onChange={(date) => {
+                      changeTextData(date, "extension_start_date");
+                    }}
+                    value={form?.extension_start_date}
+                    isError={errorData?.extension_start_date}
+                  />
+                </div>
+                <div className="formGroup1">
+                  <CustomDatePicker
+                    clearable
+                    label={"Extension/Retainer End Date"}
+                    // maxDate={new Date()}
+                    onChange={(date) => {
+                      changeTextData(date, "extension_end_date");
+                    }}
+                    value={form?.extension_end_date}
+                    isError={errorData?.extension_end_date}
+                  />
+                </div>
+              </>
               {/* ) : (
                 <div className="formGroup1">
                   <CustomDatePicker
@@ -309,34 +325,42 @@ const EmployeeInformation = ({ empId }) => {
             </div>
             {employeeDetail?.application?.nature_of_succession ===
               "EXTERNAL" && (
-              <div className={"formFlex"}>
-                <div className={"formGroup"}>
-                  <CustomTextField
-                    isError={errorData?.replacing_employee_name}
-                    errorText={errorData?.replacing_employee_name}
-                    label={"Replacing Person"}
-                    value={form?.replacing_employee_name}
-                    onTextChange={(text) => {
-                      changeTextData(text, "replacing_employee_name");
-                    }}
-                    onBlur={() => {
-                      onBlurHandler("replacing_employee_name");
-                    }}
-                  />
+              <div>
+                <div className={"formFlex"}>
+                  <div className={"formGroup"}>
+                    <CustomTextField
+                      isError={errorData?.replacing_employee_name}
+                      errorText={errorData?.replacing_employee_name}
+                      label={"Replacing Person"}
+                      value={form?.replacing_employee_name}
+                      onTextChange={(text) => {
+                        changeTextData(text, "replacing_employee_name");
+                      }}
+                      onBlur={() => {
+                        onBlurHandler("replacing_employee_name");
+                      }}
+                    />
+                  </div>
+                  <div className={"formGroup"}>
+                    <CustomTextField
+                      isError={errorData?.replacing_employee_ctc}
+                      errorText={errorData?.replacing_employee_ctc}
+                      label={"Replacing Person Salary"}
+                      value={form?.replacing_employee_ctc}
+                      onTextChange={(text) => {
+                        changeTextData(text, "replacing_employee_ctc");
+                      }}
+                      onBlur={() => {
+                        onBlurHandler("replacing_employee_ctc");
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className={"formGroup"}>
-                  <CustomTextField
-                    isError={errorData?.replacing_employee_ctc}
-                    errorText={errorData?.replacing_employee_ctc}
-                    label={"Replacing Person Salary"}
-                    value={form?.replacing_employee_ctc}
-                    onTextChange={(text) => {
-                      changeTextData(text, "replacing_employee_ctc");
-                    }}
-                    onBlur={() => {
-                      onBlurHandler("replacing_employee_ctc");
-                    }}
-                  />
+                <div className={styles.costWrap}>
+                  Succession's Cost WRT employee:{" "}
+                  <span className={styles.cust}>
+                    {salaryCostInternal && `${salaryCostInternal} %`}
+                  </span>
                 </div>
               </div>
             )}
