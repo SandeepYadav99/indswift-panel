@@ -49,7 +49,7 @@ const InfoCardUpper = ({ data }) => {
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Grade/Level:</span>
-            {data?.grade?.name}/{data?.cadre?.name}
+            {data?.grade?.code}/{data?.cadre?.code}
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Designation:</span>
