@@ -10,10 +10,7 @@ import RouteName from "../../../routes/Route.name";
 import constants from "../../../config/constants";
 import { actionFetchEmployee } from "../../../actions/Employee.action";
 import { serviceGetList } from "../../../services/Common.service";
-import {
-  serviceBGVDownload,
-  
-} from "../../../services/PendingBGVerification.service";
+import { serviceBGVDownload } from "../../../services/PendingBGVerification.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const usePendingBGVerification_Hook = () => {
@@ -101,7 +98,7 @@ const usePendingBGVerification_Hook = () => {
   };
 
   const handleViewDetails = useCallback((data) => {
-    console.log(data)
+    console.log(data);
     historyUtils.push(
       `${RouteName.PENDING_VERIFICATION_CREATE}${data?._id}?emp_code=${data?.employeeObj?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
@@ -159,8 +156,6 @@ const usePendingBGVerification_Hook = () => {
     });
   }, []);
 
- 
-
   const configFilter = useMemo(() => {
     return [
       ...(role === constants.ROLES.CORPORATE_HR
@@ -190,7 +185,7 @@ const usePendingBGVerification_Hook = () => {
       },
     ];
   }, [listData]);
-  
+
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -205,7 +200,7 @@ const usePendingBGVerification_Hook = () => {
     handleBGVDetails,
     handleBgvAnalysisReport,
     handleBgvReportDownload,
-    setLocationId
+    setLocationId,
   };
 };
 
