@@ -79,12 +79,15 @@ const useEmpInformation = () => {
     }
   }, [form?.nature_of_succession]);
 
-  // useEffect(() => {
-  //   if (form?.extension_start_date) {
-  //     const startDate = 
-  //     setForm({ ...form, extension_end_date: "" });
-  //   }
-  // }, [form?.extension_start_date]);
+  useEffect(() => {
+    if (form?.extension_start_date) {
+      var extensionStartDate = new Date(form?.extension_start_date);
+      var oneYearAfter = new Date(extensionStartDate);
+      oneYearAfter.setFullYear(extensionStartDate.getFullYear() + 1);
+      setForm({ ...form, extension_end_date: oneYearAfter });
+    }
+  }, [form?.extension_start_date]);
+
   console.log("form", form);
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -95,7 +98,7 @@ const useEmpInformation = () => {
       //     t[fieldName] = text;
       //   }
       // } else {
-        t[fieldName] = text;
+      t[fieldName] = text;
       // }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
@@ -115,6 +118,17 @@ const useEmpInformation = () => {
     return Math.round((y - x) / x);
   }, [employeeDetail, form?.replacing_employee_id]);
 
+  const salaryCostInternal = useMemo(() => {
+    const x = employeeDetail?.application?.ctc
+      ? employeeDetail?.application?.ctc
+      : 1;
+    const y = form?.replacing_employee_ctc
+      ? Number(form?.replacing_employee_ctc)
+      : 1;
+    console.log("salaryCostInternal", x, y, (y - x) / x);
+
+    return Math.round((y - x) / x);
+  }, [employeeDetail, form?.replacing_employee_ctc]);
   console.log("salaryCost", salaryCost);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -336,6 +350,7 @@ const useEmpInformation = () => {
     listData,
     salaryCost,
     HODApprovalStatus,
+    salaryCostInternal,
   };
 };
 
