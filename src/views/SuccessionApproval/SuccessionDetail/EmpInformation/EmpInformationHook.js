@@ -14,7 +14,7 @@ const initialForm = {
   succession: "",
   nature_of_succession: "",
   comment: "",
-  last_working_date: "",
+  // last_working_date: "",
   notes: "",
   pending_dues: "",
   extension_status: "",
@@ -78,18 +78,25 @@ const useEmpInformation = () => {
       setForm({ ...form, replacing_employee_id: "" });
     }
   }, [form?.nature_of_succession]);
+
+  // useEffect(() => {
+  //   if (form?.extension_start_date) {
+  //     const startDate = 
+  //     setForm({ ...form, extension_end_date: "" });
+  //   }
+  // }, [form?.extension_start_date]);
   console.log("form", form);
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "pending_dues") {
-        if (text >= 0) {
-          t[fieldName] = text;
-        }
-      } else {
+      // if (fieldName === "pending_dues") {
+      //   if (text >= 0) {
+      //     t[fieldName] = text;
+      //   }
+      // } else {
         t[fieldName] = text;
-      }
+      // }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
@@ -144,12 +151,13 @@ const useEmpInformation = () => {
 
   const checkFormValidationHR = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["pending_dues"];
+    let required = [
+      "pending_dues",
+      "extension_start_date",
+      "extension_end_date",
+    ];
     if (employeeDetail?.application?.nature_of_succession === "EXTERNAL") {
       required.push("replacing_employee_ctc", "replacing_employee_name");
-    }
-    if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE") {
-      required.push("extension_start_date","extension_end_date");
     }
     required.forEach((val) => {
       if (
@@ -217,18 +225,16 @@ const useEmpInformation = () => {
         }
         let hrData = {};
         if (HODApprovalStatus) {
-          hrData.last_working_date = form?.last_working_date;
+          // hrData.last_working_date = form?.last_working_date;
           hrData.pending_dues = form?.pending_dues;
           hrData.notes = form?.notes;
+          hrData.extension_end_date = form?.extension_end_date;
+          hrData.extension_start_date = form?.extension_start_date;
           if (
             employeeDetail?.application?.nature_of_succession === "EXTERNAL"
           ) {
             hrData.replacing_employee_name = form?.replacing_employee_name;
             hrData.replacing_employee_ctc = form?.replacing_employee_ctc;
-          }
-          if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE") {
-            hrData.extension_end_date = form?.extension_end_date;
-            hrData.extension_start_date = form?.extension_start_date
           }
         }
 

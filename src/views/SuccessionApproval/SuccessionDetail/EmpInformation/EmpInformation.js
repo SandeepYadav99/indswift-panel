@@ -265,7 +265,7 @@ const EmployeeInformation = ({ empId }) => {
         {HODApprovalStatus && employeeDetail?.status === "PENDING" && (
           <>
             <div className={"formFlex"} style={{ alignItems: "center" }}>
-              {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" ? (
+              {/* {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" ? ( */}
                 <>
                   <div className="formGroup1">
                     <CustomDatePicker
@@ -292,7 +292,7 @@ const EmployeeInformation = ({ empId }) => {
                     />
                   </div>
                 </>
-              ) : (
+              {/* ) : (
                 <div className="formGroup1">
                   <CustomDatePicker
                     clearable
@@ -305,7 +305,7 @@ const EmployeeInformation = ({ empId }) => {
                     isError={errorData?.last_working_date}
                   />
                 </div>
-              )}
+              )} */}
             </div>
             {employeeDetail?.application?.nature_of_succession ===
               "EXTERNAL" && (
