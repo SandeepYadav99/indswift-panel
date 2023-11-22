@@ -156,7 +156,7 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
       },
       {
         label: "Succession status",
-        name: "saj_status",
+        name: "successionApp.saj_status",
         type: "select",
         fields: [
           "NOT_IN_PLACE",
@@ -168,14 +168,14 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
         ],
       },
       {
-        label: "Entension Status",
-        name: "extension_status",
+        label: "Extension Status",
+        name: "successionApp.extension_status",
         type: "select",
         fields: ["RETIRE", "EXTENSION", "RETENTION", "PENDING"],
       },
       {
         label: "Application status",
-        name: "status",
+        name: "successionApp.status",
         type: "select",
         fields: [
           "PENDING",

@@ -14,6 +14,10 @@ const initialForm = {
   succession: "",
   nature_of_succession: "",
   comment: "",
+  last_working_date: "",
+  notes: "",
+  pending_dues: "",
+  extension_status:""
 };
 const useEmpInformation = () => {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
@@ -33,12 +37,13 @@ const useEmpInformation = () => {
       let req = serviceGetApprovalDetail({ review_id: id });
       req.then((data) => {
         setEmployeeDetail(data?.data);
-        if (data?.data?.saj_status !== "PENDING") {
+        // if (data?.data?.saj_status !== "PENDING") {
           setForm({
             ...form,
-            succession: data?.data?.saj_status,
+            extension_status:data?.data?.application?.extension_status,
+            // succession: data?.data?.saj_status,
           });
-        }
+        // }
       });
     }
   }, [id]);
@@ -74,7 +79,13 @@ const useEmpInformation = () => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      t[fieldName] = text;
+      if (fieldName === "pending_dues") {
+        if (text >= 0) {
+          t[fieldName] = text;
+        }
+      } else {
+        t[fieldName] = text;
+      }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
@@ -129,7 +140,13 @@ const useEmpInformation = () => {
 
   const checkFormValidationHR = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["succession"];
+    let required = ["pending_dues"];
+    if (employeeDetail?.application?.nature_of_succession === "EXTERNAL") {
+      required.push("replacing_employee_ctc", "replacing_employee_name");
+    }
+    if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE") {
+      required.push("extension_start_date");
+    }
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -147,7 +164,7 @@ const useEmpInformation = () => {
       }
     });
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData, employeeDetail]);
 
   const submitToServer = useCallback(
     (status) => {
@@ -175,15 +192,26 @@ const useEmpInformation = () => {
         }
         let hrData = {};
         if (employeeDetail?.application?.status === "CEO_APPROVED") {
-          hrData.extension_start_date = form?.extension_start_date;
+          hrData.last_working_date = form?.last_working_date;
           hrData.pending_dues = form?.pending_dues;
           hrData.notes = form?.notes;
+          if (
+            employeeDetail?.application?.nature_of_succession === "EXTERNAL"
+          ) {
+            hrData.replacing_employee_name = form?.replacing_employee_name;
+            hrData.replacing_employee_ctc = form?.replacing_employee_ctc;
+          }
+          if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE"){
+            hrData.extension_end_date = form?.extension_end_date
+          }
         }
+
         const updatedFd = {
           comment: form.comment,
           ...rep,
           ...hrData,
           action: status,
+          extension_status:form?.extension_status
         };
         console.log("status", status);
         serviceGetApprovalSubmit({
@@ -202,7 +230,7 @@ const useEmpInformation = () => {
     },
     [form, isSubmitting, setIsSubmitting, salaryCost]
   );
-console.log("form",form)
+  console.log("form", form);
   const handleSubmit = useCallback(
     (status) => {
       const checkForm = employeeDetail?.application?.status;
@@ -215,10 +243,19 @@ console.log("form",form)
           return true;
         }
       }
+      if (checkForm === "CEO_APPROVED") {
+        const errors = checkFormValidationHR();
+        console.log("===?", form, errors);
+        if (Object.keys(errors).length > 0) {
+          setErrorData(errors);
+          return true;
+        }
+      }
       submitToServer(status);
     },
     [
       checkFormValidation,
+      checkFormValidationHR,
       setErrorData,
       form,
       submitToServer,

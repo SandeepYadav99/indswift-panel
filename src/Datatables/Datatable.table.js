@@ -233,6 +233,7 @@ const useStyles = {
         top: 20,
         width: 1,
     },
+
 };
 
 class EnhancedTable extends React.Component {
