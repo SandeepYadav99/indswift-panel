@@ -67,7 +67,7 @@ const EmployeeInformation = ({ empId }) => {
                 <div className={styles.left}>
                   <div className={styles.key}>
                     <span className={styles.value}>Succession:</span>
-                    {removeUnderScore(employeeDetail?.application?.saj_status)}
+                    {removeUnderScore(employeeDetail?.application?.succession)}
                   </div>
                   {employeeDetail?.application?.status ===
                     "CORPORATE_SUBMITTED" && (
@@ -228,7 +228,7 @@ const EmployeeInformation = ({ empId }) => {
                       autoCompleteProps={{
                         freeSolo: false,
                         getOptionLabel: (option) => {
-                          return option?.name;
+                          return option?.label;
                         },
                       }}
                       dataset={listData?.EMPLOYEE_SALARY}
@@ -265,19 +265,35 @@ const EmployeeInformation = ({ empId }) => {
         {HODApprovalStatus && employeeDetail?.status === "PENDING" && (
           <>
             <div className={"formFlex"} style={{ alignItems: "center" }}>
-              <div className="formGroup1">
-                {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" ? (
-                  <CustomDatePicker
-                    clearable
-                    label={"Extension/Retainer Start Date"}
-                    // maxDate={new Date()}
-                    onChange={(date) => {
-                      changeTextData(date, "extension_start_date");
-                    }}
-                    value={form?.extension_start_date}
-                    isError={errorData?.extension_start_date}
-                  />
-                ) : (
+              {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" ? (
+                <>
+                  <div className="formGroup1">
+                    <CustomDatePicker
+                      clearable
+                      label={"Extension/Retainer Start Date"}
+                      // maxDate={new Date()}
+                      onChange={(date) => {
+                        changeTextData(date, "extension_start_date");
+                      }}
+                      value={form?.extension_start_date}
+                      isError={errorData?.extension_start_date}
+                    />
+                  </div>
+                  <div className="formGroup1">
+                    <CustomDatePicker
+                      clearable
+                      label={"Extension/Retainer End Date"}
+                      // maxDate={new Date()}
+                      onChange={(date) => {
+                        changeTextData(date, "extension_end_date");
+                      }}
+                      value={form?.extension_end_date}
+                      isError={errorData?.extension_end_date}
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className="formGroup1">
                   <CustomDatePicker
                     clearable
                     label={"Last Working Date"}
@@ -288,14 +304,6 @@ const EmployeeInformation = ({ empId }) => {
                     value={form?.last_working_date}
                     isError={errorData?.last_working_date}
                   />
-                )}
-              </div>
-              {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" && (
-                <div className={"formGroup"}>
-                  Extension/Retainer End Date:
-                  <span className={styles.application}>
-                    {employeeDetail?.application?.extensionEndAt}
-                  </span>
                 </div>
               )}
             </div>

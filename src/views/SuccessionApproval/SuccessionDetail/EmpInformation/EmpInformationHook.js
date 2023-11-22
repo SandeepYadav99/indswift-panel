@@ -37,13 +37,17 @@ const useEmpInformation = () => {
       let req = serviceGetApprovalDetail({ review_id: id });
       req.then((data) => {
         setEmployeeDetail(data?.data);
-        // if (data?.data?.saj_status !== "PENDING") {
-        setForm({
-          ...form,
-          extension_status: data?.data?.application?.extension_status,
-          // succession: data?.data?.saj_status,
-        });
-        // }
+        if (data?.data?.saj_status !== "PENDING") {
+          setForm({
+            ...form,
+            succession: data?.data?.saj_status,
+          });
+        } else {
+          setForm({
+            ...form,
+            extension_status: data?.data?.application?.extension_status,
+          });
+        }
       });
     }
   }, [id]);
@@ -145,7 +149,7 @@ const useEmpInformation = () => {
       required.push("replacing_employee_ctc", "replacing_employee_name");
     }
     if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE") {
-      required.push("extension_start_date");
+      required.push("extension_start_date","extension_end_date");
     }
     required.forEach((val) => {
       if (
@@ -172,9 +176,9 @@ const useEmpInformation = () => {
     console.log(
       "grade",
       status,
-      status === "CEO_APPROVED" ,
-        status === "HOD_APPROVED",
-        grade.includes(employeeDetail?.application?.employee?.grade?.code)
+      status === "CEO_APPROVED",
+      status === "HOD_APPROVED",
+      grade.includes(employeeDetail?.application?.employee?.grade?.code)
     );
     if (
       status === "CEO_APPROVED" ||
@@ -224,6 +228,7 @@ const useEmpInformation = () => {
           }
           if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE") {
             hrData.extension_end_date = form?.extension_end_date;
+            hrData.extension_start_date = form?.extension_start_date
           }
         }
 
@@ -324,7 +329,7 @@ const useEmpInformation = () => {
     isSubmitting,
     listData,
     salaryCost,
-    HODApprovalStatus
+    HODApprovalStatus,
   };
 };
 
