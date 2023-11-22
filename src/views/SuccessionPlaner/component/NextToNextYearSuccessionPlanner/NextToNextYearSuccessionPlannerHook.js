@@ -17,7 +17,6 @@ const useNextToNextYearSuccessionPlanner = ({ listData }) => {
   const isMountRef = useRef(false);
   const [empId, setEmpId] = useState("");
   const [isSend, setIsSend] = useState(false);
-  
 
   const {
     sorting_data: sortingData,
@@ -66,18 +65,7 @@ const useNextToNextYearSuccessionPlanner = ({ listData }) => {
     },
     [queryFilter]
   );
-  const handleToggleSend = useCallback(
-    (data) => {
-      setIsSend((e) => !e);
-      console.log("Data", data);
-      if (data?.id) {
-        setEmpId(data?.id);
-      } else {
-        setEmpId("");
-      }
-    },
-    [setIsSend] // setEditData
-  );
+
   const handleResend = useCallback((data) => {
     // LogUtils.log("resend", data);
     serviceGetSuccessionPlanerSend({
@@ -122,15 +110,29 @@ const useNextToNextYearSuccessionPlanner = ({ listData }) => {
       isEdit: true,
     });
   }, []);
-
   const handleToggleSidePannel = useCallback(
     (data) => {
       setSidePanel((e) => !e);
-      //   setEditData(data?.id);
+      if (data?.id) {
+        setEmpId(data);
+      } else {
+        setEmpId("");
+      }
     },
-    [setSidePanel] // setEditData
+    [setSidePanel, empId] // setEditData
   );
-
+  const handleToggleSend = useCallback(
+    (data) => {
+      setIsSend((e) => !e);
+      console.log("Data", data);
+      if (data?.id) {
+        setEmpId(data?.id);
+      } else {
+        setEmpId("");
+      }
+    },
+    [setIsSend] // setEditData
+  );
   const handleToggleSidePannelForm = useCallback(
     (data) => {
       setSidePanelForm((e) => !e);
@@ -142,22 +144,14 @@ const useNextToNextYearSuccessionPlanner = ({ listData }) => {
     return [
       {
         label: "Location",
-        name: "employeesObj.location_id",
+        name: "location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
-
-      {
-        label: "Grade",
-        name: "employeesObj.grade_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "label" } },
-        fields: listData?.GRADES,
-      },
       {
         label: "Department",
-        name: "employeesObj.department_id",
+        name: "department_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,
