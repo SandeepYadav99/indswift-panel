@@ -163,7 +163,7 @@ const usePendingBGVerification_Hook = () => {
         ? [
             {
               label: "Location",
-              name: "location_id",
+              name: "location._id",
               type: "selectObject",
               custom: { extract: { id: "id", title: "name" } },
               fields: listData?.LOCATIONS,
@@ -172,7 +172,7 @@ const usePendingBGVerification_Hook = () => {
         : []),
       {
         label: "Department",
-        name: "department_id",
+        name: "department._id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,

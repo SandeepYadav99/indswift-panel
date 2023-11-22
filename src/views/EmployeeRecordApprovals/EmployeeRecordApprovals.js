@@ -159,7 +159,7 @@ const EmployeeRecordApprovals = ({}) => {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
       data: data,
-      count: allData.length,
+      count: allData?.length,
       page: currentPage,
     };
 
