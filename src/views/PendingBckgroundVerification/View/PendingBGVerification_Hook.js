@@ -101,20 +101,21 @@ const usePendingBGVerification_Hook = () => {
   };
 
   const handleViewDetails = useCallback((data) => {
+    console.log(data)
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+      `${RouteName.PENDING_VERIFICATION_CREATE}${data?._id}?emp_code=${data?.employeeObj?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
   }, []);
 
   const handleBGVUpdateDetails = useCallback((data) => {
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+      `${RouteName.PENDING_VERIFICATION_UPDATE}${data?.emp_id}?emp_code=${data?.employeeObj?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
   }, []);
 
   const handleBGVDetails = useCallback((data) => {
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+      `${RouteName.PENDING_VERIFICATION_DETAIL}${data?.emp_id}?emp_code=${data?.employeeObj?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
   }, []);
 

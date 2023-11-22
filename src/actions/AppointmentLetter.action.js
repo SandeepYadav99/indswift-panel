@@ -116,7 +116,7 @@ export function actionSetPageAppointmentLetterList(page) {
   const stateData = store.getState().AppointmentLetter;
   const currentPage = stateData.currentPage;
   const totalLength = stateData.all.length;
-  const sortingData = stateData.sorting_data;
+  const sortingData = stateData?.sorting_data;
   const query = stateData.query;
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;

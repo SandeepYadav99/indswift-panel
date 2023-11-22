@@ -9,7 +9,7 @@ import {
   actionSetPageEmployeRecordApprovalList,
 } from "../../actions/EmpRecordApproval.action";
 
-const useEmployeeRecordApprovals = ({}) => {
+const useEmployeeRecordApprovals = () => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -22,7 +22,7 @@ const useEmployeeRecordApprovals = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.employeRecordApproval);
+  } = useSelector((state) => state?.employeRecordApproval);
 
   const status = [
     { id: "APPROVED", name: "APPROVED" },
@@ -176,12 +176,11 @@ const useEmployeeRecordApprovals = ({}) => {
 
   return {
     handlePageChange,
-    // handleCellClick,
+  
     handleDataSave,
     handleFilterDataChange,
     handleSearchValueChange,
-    // handlePreviousPageClick,
-    // handleNextPageClick,
+ 
     handleRowSize,
     handleSortOrderChange,
     handleDelete,
