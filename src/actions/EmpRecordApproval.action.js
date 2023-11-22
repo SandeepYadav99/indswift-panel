@@ -58,29 +58,11 @@ export function actionFetchEmployeRecordApprovalList(
 }
 
 export function actionCreateEmployeRecordApprovalList(data) {
-  // const request = serviceCreateNewEmployeeList(data);
-  // return (dispatch) => {
-  //   request.then((data) => {
-  //     if (!data.error) {
-  //       EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-  //         error: "Saved",
-  //         type: "success",
-  //       });
-  //       dispatch({ type: CREATE_DATA, payload: data.data });
-  //     }
-  //   });
-  // };
+ 
 }
 
 export function actionUpdateEmployeRecordApprovalList(data) {
-  // const request = serviceUpdateNewEmployeeList(data);
-  // return (dispatch) => {
-  //   request.then((data) => {
-  //     if (!data.error) {
-  //       dispatch({ type: UPDATE_DATA, payload: data.data });
-  //     }
-  //   });
-  // };
+
 }
 
 export function actionChangePageEmployeRecordApprovalList(page) {
@@ -117,7 +99,7 @@ export function actionSetPageEmployeRecordApprovalList(page) {
   const stateData = store.getState().employeRecordApproval;
   const currentPage = stateData?.currentPage;
   const totalLength = stateData?.all?.length;
-  const sortingData = stateData.sorting_data;
+  const sortingData = stateData?.sorting_data;
  
   const query = stateData?.query;
   const queryData = stateData?.query_data;
