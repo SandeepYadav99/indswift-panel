@@ -257,7 +257,8 @@ const useStyles = (theme) => ({
     overflowX: "auto",
   },
   card: {
-    margin: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 });
 
