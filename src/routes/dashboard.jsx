@@ -24,8 +24,15 @@ const BgvAnalysisReport = lazy(() =>
     "../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"
   )
 );
+const SuccessionPlannerList = lazy(() =>
+  import("../views/SuccessionPlaner/SuccessionPlanner_list")
+);
 
-const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
+const EmployeeInformation = lazy(() =>
+  import(
+    "../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"
+  )
+);
 const IncrementLetter = lazy(()=>  import("../views/Pms/IncrementLetter/IncrementLetter.view"));
 const USCEditView = lazy(()=>  import("../views/HR/HRSettings/components/USCEdit/USCEdit"));
 const SuccessionPlanner_list = lazy(()=>  import("../views/SuccessionPlaner/SuccessionPlanner_list"));
