@@ -42,9 +42,9 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   </span>
                 </p>
                 <p>
-                  Last Working Date:{" "}
+                  Extension Dates:{" "}
                   <b>
-                    {item?.lastWorkingDate ? item?.lastWorkingDate : "-"}
+                    {item?.extensionStartAt ? item?.extensionStartAt : "N/A"} - {item?.extensionEndAt ? item?.extensionEndAt : "N/A"}
                   </b>
                 </p>
                 <p>
