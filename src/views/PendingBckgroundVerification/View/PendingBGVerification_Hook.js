@@ -14,9 +14,11 @@ import { serviceBGVDownload } from "../../../services/PendingBGVerification.serv
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const usePendingBGVerification_Hook = () => {
+  
   const [isCalling] = useState(false);
   const [editData] = useState(null);
   const { role } = useSelector((state) => state.auth);
+  const [locationId, setLocationId] = useState("");
   const [listData, setListData] = useState({
     EMPLOYEES: [],
     DEPARTMENTS: [],
@@ -97,20 +99,21 @@ const usePendingBGVerification_Hook = () => {
   };
 
   const handleViewDetails = useCallback((data) => {
+    console.log(data);
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_CREATE}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+      `${RouteName.PENDING_VERIFICATION_CREATE}${data?._id}?emp_code=${data?.employeeObj?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
   }, []);
 
   const handleBGVUpdateDetails = useCallback((data) => {
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_UPDATE}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+      `${RouteName.PENDING_VERIFICATION_UPDATE}${data?.emp_id}?emp_code=${data?.employeeObj?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
   }, []);
 
   const handleBGVDetails = useCallback((data) => {
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_DETAIL}${data?.id}?emp_code=${data?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+      `${RouteName.PENDING_VERIFICATION_DETAIL}${data?.emp_id}?emp_code=${data?.employeeObj?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
     );
   }, []);
 
@@ -160,7 +163,7 @@ const usePendingBGVerification_Hook = () => {
         ? [
             {
               label: "Location",
-              name: "location_id",
+              name: "location._id",
               type: "selectObject",
               custom: { extract: { id: "id", title: "name" } },
               fields: listData?.LOCATIONS,
@@ -169,7 +172,7 @@ const usePendingBGVerification_Hook = () => {
         : []),
       {
         label: "Department",
-        name: "department_id",
+        name: "department._id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,
@@ -177,7 +180,7 @@ const usePendingBGVerification_Hook = () => {
 
       {
         label: "Bgv Status",
-        name: "bgv_status",
+        name: "bgv_result",
         type: "select",
         fields: ["FAILED", "PENDING", "CLEAR", "INPROCESS"],
       },
@@ -198,6 +201,7 @@ const usePendingBGVerification_Hook = () => {
     handleBGVDetails,
     handleBgvAnalysisReport,
     handleBgvReportDownload,
+    setLocationId,
   };
 };
 

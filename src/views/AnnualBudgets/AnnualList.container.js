@@ -422,7 +422,11 @@ const AnnualList = ({}) => {
             POSTED : {sanction?.posted && `${sanction?.posted} `} | VACANCY :
             {sanction?.vacancies && ` ${sanction?.vacancies} `} | EXPENSES :
             {sanction?.expense_budget !== undefined &&
-              `  ${sanction?.expense_budget}`}
+              `  ${sanction?.expense_budget}`}{" "}
+            | ESTIMATED SPENT :{" "}
+            {sanction?.estimated_spent && `${sanction?.estimated_spent}`} |
+            DIFFERENCE :{" "}
+            {sanction?.estimatedDiff && `${sanction?.estimatedDiff}`}
           </div>
           <div>
             <br />

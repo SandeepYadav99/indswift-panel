@@ -45,7 +45,7 @@ export function actionFetchEmployeRecordApprovalList(
         dispatch({ type: SET_OTHER_DATA, payload: {} });
       }
       if (!data.error) {
-        dispatch({ type: FETCHED, payload: { data: data.data, page: index } });
+        dispatch({ type: FETCHED, payload: { data: data?.data, page: index } });
         dispatch({ type: SET_SERVER_PAGE, payload: index });
         if (index == 1) {
           dispatch({ type: CHANGE_PAGE, payload: index - 1 });
@@ -57,30 +57,12 @@ export function actionFetchEmployeRecordApprovalList(
   };
 }
 
-export function actionCreateNewEmployeeList(data) {
-  // const request = serviceCreateNewEmployeeList(data);
-  // return (dispatch) => {
-  //   request.then((data) => {
-  //     if (!data.error) {
-  //       EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-  //         error: "Saved",
-  //         type: "success",
-  //       });
-  //       dispatch({ type: CREATE_DATA, payload: data.data });
-  //     }
-  //   });
-  // };
+export function actionCreateEmployeRecordApprovalList(data) {
+ 
 }
 
 export function actionUpdateEmployeRecordApprovalList(data) {
-  // const request = serviceUpdateNewEmployeeList(data);
-  // return (dispatch) => {
-  //   request.then((data) => {
-  //     if (!data.error) {
-  //       dispatch({ type: UPDATE_DATA, payload: data.data });
-  //     }
-  //   });
-  // };
+
 }
 
 export function actionChangePageEmployeRecordApprovalList(page) {
@@ -115,13 +97,14 @@ export function actionResetFilterEmployeRecordApprovalList() {
 
 export function actionSetPageEmployeRecordApprovalList(page) {
   const stateData = store.getState().employeRecordApproval;
-  const currentPage = stateData.currentPage;
-  const totalLength = stateData.all.length;
-  const sortingData = stateData.sorting_data;
-  const query = stateData.query;
-  const queryData = stateData.query_data;
-  const serverPage = stateData.serverPage;
-  const otherData = stateData.other_data;
+  const currentPage = stateData?.currentPage;
+  const totalLength = stateData?.all?.length;
+  const sortingData = stateData?.sorting_data;
+ 
+  const query = stateData?.query;
+  const queryData = stateData?.query_data;
+  const serverPage = stateData?.serverPage;
+  const otherData = stateData?.other_data;
   if (totalLength <= (page + 1) * Constants.DEFAULT_PAGE_VALUE) {
     store.dispatch(
       actionFetchEmployeRecordApprovalList(
@@ -139,3 +122,4 @@ export function actionSetPageEmployeRecordApprovalList(page) {
     payload: page,
   };
 }
+

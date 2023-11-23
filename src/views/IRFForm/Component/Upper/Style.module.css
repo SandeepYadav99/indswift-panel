@@ -1,33 +1,28 @@
 .ProfileUpperWrapper {
   width: 100%;
-  /* background-color: red; */
-  /* border-bottom: 2px solid #ebedf4; */
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
 }
-.ProfileUpperinfoWrap {
-  padding-top: 10px;
-}
-.edit {
-  color: #29cb97 !important;
-  border: 2px solid #29cb97 !important;
-  /* padding: 10px 40px !important; */
-  border-radius: 30px !important;
-  font-weight: 600 !important;
-}
+
 .profileimg {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
 }
-.labelWrapper {
-  padding: 10px 40px;
-  cursor: pointer;
-}
+
 .applicationImage {
   border-radius: 10px;
-  width: 130px;
-  aspect-ratio: 1/1;
+  width: 100%; 
+  max-width: 130px; 
   /* height: auto; */
+  aspect-ratio: 1/1;
+}
+
+@media screen and (min-width: 560px) {
+  .ProfileUpperWrapper {
+    flex-direction: row;
+  }
 }

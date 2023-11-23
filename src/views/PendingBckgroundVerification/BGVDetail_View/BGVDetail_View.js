@@ -38,7 +38,7 @@ const BGVDetailView = ({}) => {
           choose_action: data?.choose_action,
           remark: data?.remark,
           emp_code: data?.employeeObj?.emp_code,
-          action_remark:data?.action_remark
+          action_remark: data?.action_remark,
         });
       } else {
         SnackbarUtils.error(res.message);
@@ -52,14 +52,15 @@ const BGVDetailView = ({}) => {
   };
 
   const getBgvStatusStyle = (bgvResult) => {
+   
     if (bgvResult === "IN PROCESS") {
-      return { color: "#F4881B", borderColor: "#F4881B" };
+      return {color: "#F4881B", borderColor: "#F4881B" };
     } else if (bgvResult === "UNABLE TO VERIFY") {
-      return { color: "#7467F0", border: "none", textAlign: "justify" };
+      return {color: "#7467F0", border: "none", textAlign: "justify" };
     } else if (bgvResult === "FAILED") {
-      return { color: "#E92828", borderColor: "#E92828" };
+      return {color: "#E92828", borderColor: "#E92828" };
     } else if (bgvResult === "INCOMPLETE") {
-      return { color: "#E92828", borderColor: "#E92828" };
+      return {color: "#E92828", borderColor: "#E92828" };
     }
 
     return {};
@@ -87,27 +88,33 @@ const BGVDetailView = ({}) => {
               <div className={styles.getfiledSpace}>
                 <div className={styles.titleFiledSpace}>Education: </div>
                 <div className={styles.titleFiledSpacePil}>
+                  {details?.is_education_verification_status ? 
                   <StatusPill
-                    status={details?.is_education_verification_status}
+                    status={removeUnderScore(
+                      details?.is_education_verification_status
+                    )}
                     style={getBgvStatusStyle(
                       removeUnderScore(
                         details?.is_education_verification_status
                       )
                     )}
-                  />
+                  /> : "-" }
                 </div>
               </div>
               <div className={styles.getfiledSpace}>
                 <div className={styles.titleFiledSpace}>2nd Employment:</div>
                 <div className={styles.titleFiledSpacePil}>
+                  { details?.is_secound_employment_verification_status ? 
                   <StatusPill
-                    status={details?.is_secound_employment_verification_status}
+                    status={removeUnderScore(
+                      details?.is_secound_employment_verification_status
+                    )}
                     style={getBgvStatusStyle(
                       removeUnderScore(
                         details?.is_secound_employment_verification_status
                       )
                     )}
-                  />
+                  /> : "-" }
                 </div>
               </div>
             </div>
@@ -116,25 +123,31 @@ const BGVDetailView = ({}) => {
               <div className={styles.getfiledSpace}>
                 <div className={styles.titleFiledSpace}>1st Employment:</div>
                 <div className={styles.titleFiledSpacePil}>
+                  {details?.is_first_employment_verification_status ? 
                   <StatusPill
-                    status={details?.is_first_employment_verification_status}
+                    status={removeUnderScore(
+                      details?.is_first_employment_verification_status
+                    )}
                     style={getBgvStatusStyle(
                       removeUnderScore(
                         details?.is_first_employment_verification_status
                       )
                     )}
-                  />
+                  /> : "-" }
                 </div>
               </div>
               <div className={styles.getfiledSpace}>
                 <div className={styles.titleFiledSpace}>Criminal:</div>
                 <div className={styles.titleFiledSpacePil}>
+                  {details?.is_criminal_verification_status ?
                   <StatusPill
-                    status={details?.is_criminal_verification_status}
+                    status={removeUnderScore(
+                      details?.is_criminal_verification_status
+                    )}
                     style={getBgvStatusStyle(
                       removeUnderScore(details?.is_criminal_verification_status)
                     )}
-                  />
+                  /> : "-"}
                 </div>
               </div>
             </div>
@@ -158,7 +171,8 @@ const BGVDetailView = ({}) => {
             <div className={styles.backgroundStatus}>
               <span>
                 {" "}
-                <b>Action Choosen: {"  "} </b> {removeUnderScore(details?.choose_action)}{" "}
+                <b>Action Choosen: {"  "} </b>{" "}
+                {removeUnderScore(details?.choose_action)}{" "}
               </span>
             </div>
             <div className={styles.gaps} />

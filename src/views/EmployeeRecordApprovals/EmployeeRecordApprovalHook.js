@@ -4,12 +4,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
-import {
-  actionFetchEmployeRecordApprovalList,
-  actionSetPageEmployeRecordApprovalList,
-} from "../../actions/EmpRecordApproval.action";
+import { actionFetchEmployeRecordApprovalList, actionSetPageEmployeRecordApprovalList } from "../../actions/EmpRecordApproval.action";
 
-const useEmployeeRecordApprovals = ({}) => {
+
+const useEmployeeRecordApprovals = () => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -19,10 +17,10 @@ const useEmployeeRecordApprovals = ({}) => {
 
   const {
     sorting_data: sortingData,
-    is_fetching: isFetching,
+    // is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.employeRecordApproval);
+  } = useSelector((state) => state?.employeRecordApproval || {});
 
   const status = [
     { id: "APPROVED", name: "APPROVED" },
@@ -176,12 +174,11 @@ const useEmployeeRecordApprovals = ({}) => {
 
   return {
     handlePageChange,
-    // handleCellClick,
+  
     handleDataSave,
     handleFilterDataChange,
     handleSearchValueChange,
-    // handlePreviousPageClick,
-    // handleNextPageClick,
+ 
     handleRowSize,
     handleSortOrderChange,
     handleDelete,

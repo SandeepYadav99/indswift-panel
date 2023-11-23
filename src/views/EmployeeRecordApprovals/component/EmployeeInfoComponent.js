@@ -13,7 +13,7 @@ const EmployeeInfoComponent = ({ empInfoList }) => {
         </div>
         <div className={styles.infoLabel}>{empInfoList?.emp_code}</div>
         <div className={styles.infoLabel}>
-          {empInfoList?.location?.name}, {empInfoList?.location?.code}
+          {empInfoList?.location?.name}, {empInfoList?.department?.name}, {empInfoList?.sub_department?.name}
         </div>
       </div>
     </div>

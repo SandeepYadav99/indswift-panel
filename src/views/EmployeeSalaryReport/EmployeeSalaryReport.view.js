@@ -682,7 +682,7 @@ const EmployeeSalaryReport = ({ location }) => {
           <div>
             <FilterComponent
               is_progress={isCalling}
-              filters={configFilter}
+              filters={[]}
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}
             />
