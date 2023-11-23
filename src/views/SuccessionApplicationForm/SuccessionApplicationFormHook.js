@@ -6,7 +6,7 @@ import RouteName from "../../routes/Route.name";
 import { serviceSuccessionLogin } from "../../services/Success.service";
 
 const initialForm = {
-  email: "",
+  code: "",
   otp: "",
 };
 
@@ -17,7 +17,7 @@ const useSuccessionApplicationFormHook = ({}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["email", "otp"];
+    let required = ["code", "otp"];
     required.forEach((val) => {
       if (
         !form?.[val] ||

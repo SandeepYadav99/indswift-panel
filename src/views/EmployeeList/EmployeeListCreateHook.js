@@ -26,6 +26,7 @@ import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import debounce from "lodash.debounce";
+import { useSelector } from "react-redux";
 
 const SALARY_KEYS = [
   "basic_salary",
@@ -97,6 +98,7 @@ const BOOLEAN_KEYS = [
   "is_em_pf",
   "is_deduction_vpf",
   "is_car_component_manual",
+  "is_basic_salary_manual",
   "is_em_esi",
 ];
 
@@ -222,6 +224,7 @@ function EmployeeListCreateHook({ location }) {
     is_em_pf: "NO",
     is_deduction_vpf: "NO",
     is_car_component_manual: "NO",
+    is_basic_salary_manual:"NO",
     is_em_esi: "NO",
     deduction_vpf_pct: 0,
     gross_component: 0,
@@ -258,7 +261,7 @@ function EmployeeListCreateHook({ location }) {
     GRADES: [],
     CADRES: [],
   });
-
+  const {role} = useSelector(state => state.auth);
   useEffect(() => {
     serviceGetList([
       "LOCATION_DEPARTMENTS",

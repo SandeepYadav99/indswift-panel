@@ -3,6 +3,7 @@ import styles from "./Style.module.css";
 import face from "../../../../assets/img/download.png";
 
 const InfoCardUpper = ({ data }) => {
+  console.log("data",data)
   return (
     <div className={styles.candidateInfoWrapper}>
       <div className={styles.leftField}>
@@ -11,7 +12,7 @@ const InfoCardUpper = ({ data }) => {
         </div>
         <div className={styles.imageDesWrapper}>
           <div>
-            <img className={styles.candidateImg} src={face} />
+            <img className={styles.candidateImg} src={data?.image} alt="image"/>
           </div>
           <div className={styles.desWrapper}>
             <div className={styles.key}>
@@ -48,7 +49,7 @@ const InfoCardUpper = ({ data }) => {
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Grade/Level:</span>
-            {data?.grade?.name}/{data?.cadre?.name}
+            {data?.grade?.code}/{data?.cadre?.code}
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Designation:</span>
@@ -56,7 +57,7 @@ const InfoCardUpper = ({ data }) => {
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Date of Retirement:</span>
-            {data?.dor}
+            {data?.expected_dor_text}
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>D.O.J:</span>

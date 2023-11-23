@@ -77,7 +77,11 @@ function useClaimForCard() {
       const Currency = promises[2]?.value?.data;
       setEmployeeDetails(empDetail);
       setEmployees(listData?.CLAIM_TAP);
-      SetCurr(Currency);
+      var newOrderArray = ["EUR", "USD"];
+      var newArray = newOrderArray.map((currency) => {
+        return Currency.find((item) => item.currency === currency);
+      });
+      SetCurr(newArray);
     });
   }, []);
 

@@ -98,7 +98,7 @@ const useSuccessionForm = () => {
       req(fd).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Placed Successfully");
-          historyUtils.push(RouteName.EXIT_SUCCESS);
+          historyUtils.push(RouteName.SUCCESSION_SUCCESS);
         } else {
           SnackbarUtils.error(res?.message);
         }

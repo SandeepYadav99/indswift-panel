@@ -71,6 +71,8 @@ const SuccessionApproval_List = ({}) => {
         render: (value, all) => (
           <div>
             {all?.employee?.name}
+            <br />
+            {all?.employee?.emp_code}
           </div>
         ),
       },
@@ -112,21 +114,23 @@ const SuccessionApproval_List = ({}) => {
       },
       {
         key: "date of retirment",
-        label: "DATE OF RETIRMENT",
+        label: "DATE OF Retirement",
         sortable: false,
-        render: (temp, all) => <div>{all?.application?.retirement_date}</div>,
+        render: (temp, all) => <div>{all?.expectedDorText}</div>,
       },
       {
         key: "annual salary",
         label: "ANNUAL SALARY",
         sortable: false,
-        render: (temp, all) => <div>{all?.application?.ctc}</div>,
+        render: (temp, all) => (
+          <div>{all?.application?.ctc && `₹ ${all?.application?.ctc}`}</div>
+        ),
       },
       {
         key: "nature",
         label: "NATURE OF ASSOCIATION",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.application?.extension_status}</div>,
       },
 
       {
@@ -151,7 +155,7 @@ const SuccessionApproval_List = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-               onClick={() => handleViewDetails(all)}
+              onClick={() => handleViewDetails(all)}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
@@ -219,5 +223,3 @@ const SuccessionApproval_List = ({}) => {
 };
 
 export default SuccessionApproval_List;
-
-

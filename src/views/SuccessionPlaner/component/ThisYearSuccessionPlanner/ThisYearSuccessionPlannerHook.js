@@ -8,10 +8,14 @@ import {
 } from "../../../../actions/SuccessionPlanner.action";
 import { serviceGetList } from "../../../../services/Common.service";
 import { useEffect } from "react";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
+import { serviceGetSuccessionPlanerSend } from "../../../../services/SuccessionPlanner.service";
+import LogUtils from "../../../../libs/LogUtils";
 
 const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
   const dispatch = useDispatch();
   const [isSidePanel, setSidePanel] = useState(false);
+  const [isSend, setIsSend] = useState(false);
   const [isSidePanelForm, setSidePanelForm] = useState(false);
   const isMountRef = useRef(false);
   const [empId, setEmpId] = useState("");
@@ -23,9 +27,19 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
   } = useSelector((state) => state.successionPlaner);
 
   const handlePageChange = useCallback((type) => {
-    dispatch(actionSetPageSuccessionPlaner(type));
+    dispatch(actionSetPageSuccessionPlaner(type, 0));
   }, []);
 
+  useEffect(() => {
+    dispatch(
+      actionFetchSuccessionPlaner(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+        year: 0,
+      })
+    );
+    isMountRef.current = true;
+  }, []);
   const handleRowSize = (page) => {
     console.log(page);
   };
@@ -37,6 +51,7 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
         actionFetchSuccessionPlaner(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+          year: 0,
         })
       );
     },
@@ -70,6 +85,7 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
           {
             query: query,
             query_data: queryData,
+            year: 0,
           }
         )
       );
@@ -87,14 +103,26 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
     (data) => {
       setSidePanel((e) => !e);
       if (data?.id) {
+        setEmpId(data);
+      } else {
+        setEmpId("");
+      }
+    },
+    [setSidePanel,empId] // setEditData
+  );
+
+  const handleToggleSend = useCallback(
+    (data) => {
+      setIsSend((e) => !e);
+      console.log("Data", data);
+      if (data?.id) {
         setEmpId(data?.id);
       } else {
         setEmpId("");
       }
     },
-    [setSidePanel] // setEditData
+    [setIsSend] // setEditData
   );
-
   const handleToggleSidePannelForm = useCallback(
     (data) => {
       setSidePanelForm((e) => !e);
@@ -106,34 +134,72 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
     return [
       {
         label: "Location",
-        name: "employeesObj.location_id",
+        name: "location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
-
-      {
-        label: "Grade",
-        name: "employeesObj.grade_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "label" } },
-        fields: listData?.GRADES,
-      },
       {
         label: "Department",
-        name: "employeesObj.department_id",
+        name: "department_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,
       },
       {
-        label: "Status",
-        name: "status",
+        label: "Succession status",
+        name: "successionApp.saj_status",
         type: "select",
-        fields: ["PENDING", "SUBMITTED"],
+        fields: [
+          "NOT_IN_PLACE",
+          "REPLACEMENT_EXTERNAL",
+          "PLACED",
+          "REPLACEMENT_INTERNAL",
+          "REJECTED",
+          "PENDING",
+        ],
+      },
+      {
+        label: "Extension Status",
+        name: "successionApp.extension_status",
+        type: "select",
+        fields: ["RETIRE", "EXTENSION", "RETENTION", "PENDING"],
+      },
+      {
+        label: "Application status",
+        name: "successionApp.status",
+        type: "select",
+        fields: [
+          "PENDING",
+          "EMPLOYEE_PENDING",
+          "EXPIRED",
+          "EMPLOYEE_SUBMITTED",
+          "EMPLOYEE_REJECTED",
+          "HOD_REJECTED",
+          "HOD_APPROVED",
+          "CEO_APPROVED",
+          "CEO_REJECTED",
+          "CORPORATE_SUBMITTED",
+          "MD_APPROVED",
+          "MD_REJECTED",
+        ],
       },
     ];
   }, [listData]);
+
+  const handleResend = useCallback((data) => {
+    LogUtils.log("resend", data);
+    serviceGetSuccessionPlanerSend({
+      employee_id: data,
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils?.success("Send Successfully");
+        setIsSend(false);
+        // window.location.reload();
+      }
+    });
+  }, []);
+
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -146,7 +212,10 @@ const useThisYearSuccessionPlaner = ({ jobId, listData }) => {
     isSidePanelForm,
     handleToggleSidePannelForm,
     configFilter,
-    empId
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
   };
 };
 

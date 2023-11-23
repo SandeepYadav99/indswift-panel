@@ -51,6 +51,7 @@ const EmployeeListCreate = ({ location }) => {
     toggleConfirmDialog,
     isDialog,
     submitToServer,
+    role
   } = EmployeeListCreateHook({ location });
   const getSumValue = (...numbers) => {
     return numbers
@@ -1133,8 +1134,8 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={true}
               type={"number"}
+              disabled={form?.is_basic_salary_manual === "NO" ? true : false}
               isError={errorData?.basic_salary}
               errorText={errorData?.basic_salary}
               label={"Basic"}
@@ -1146,6 +1147,30 @@ const EmployeeListCreate = ({ location }) => {
                 onBlurHandler("basic_salary");
               }}
             />
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              disabled={role !== "CORPORATE_HR"}
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("YES", "is_basic_salary_manual");
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
+          </div>
+          <div className={styles.editBtnWrap}>
+            <IconButton
+              disabled={role !== "CORPORATE_HR"}
+              className={"tableActionBtn"}
+              color="secondary"
+              onClick={() => {
+                changeTextData("NO", "is_basic_salary_manual");
+              }}
+            >
+              <Delete fontSize={"small"} />
+            </IconButton>
           </div>
           <div className={"formGroup"}>
             <CustomTextField
@@ -1723,7 +1748,9 @@ const EmployeeListCreate = ({ location }) => {
 
           <div className={"formGroup"}>
             <CustomTextField
-             disabled={empFlag || form?.is_em_esi_manual === "NO" ? true : false}
+              disabled={
+                empFlag || form?.is_em_esi_manual === "NO" ? true : false
+              }
               // disabled={true}
               type={"number"}
               isError={errorData?.em_esi}
@@ -1761,7 +1788,7 @@ const EmployeeListCreate = ({ location }) => {
             >
               <Delete fontSize={"small"} />
             </IconButton>
-            </div>
+          </div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -1782,7 +1809,9 @@ const EmployeeListCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-             disabled={empFlag || form?.is_em_pf_manual === "NO" ? true : false}
+              disabled={
+                empFlag || form?.is_em_pf_manual === "NO" ? true : false
+              }
               // disabled={true}
               type={"number"}
               isError={errorData?.em_pf}
@@ -1839,7 +1868,9 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-             disabled={empFlag || form?.is_er_pf_manual === "NO" ? true : false}
+              disabled={
+                empFlag || form?.is_er_pf_manual === "NO" ? true : false
+              }
               // disabled={true}
               type={"number"}
               isError={errorData?.er_pf}
@@ -1880,7 +1911,9 @@ const EmployeeListCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-             disabled={empFlag || form?.is_er_esi_manual === "NO" ? true : false}
+              disabled={
+                empFlag || form?.is_er_esi_manual === "NO" ? true : false
+              }
               type={"number"}
               isError={errorData?.er_esi}
               errorText={errorData?.er_esi}
@@ -1954,7 +1987,9 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-             disabled={empFlag || form?.is_gratuity_manual === "NO" ? true : false}
+              disabled={
+                empFlag || form?.is_gratuity_manual === "NO" ? true : false
+              }
               type={"number"}
               isError={errorData?.gratuity}
               errorText={errorData?.gratuity}
@@ -2081,7 +2116,13 @@ const EmployeeListCreate = ({ location }) => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-             disabled={(form?.vehicle_maintenance || form?.fuel) || (empFlag || form?.is_two_car_maintenance_manual === "NO" ? true : false) }
+              disabled={
+                form?.vehicle_maintenance ||
+                form?.fuel ||
+                (empFlag || form?.is_two_car_maintenance_manual === "NO"
+                  ? true
+                  : false)
+              }
               type={"number"}
               isError={errorData?.two_car_maintenance}
               errorText={errorData?.two_car_maintenance}
@@ -2099,7 +2140,7 @@ const EmployeeListCreate = ({ location }) => {
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
-              disabled={empFlag ? true : false }
+              disabled={empFlag ? true : false}
               onClick={() => {
                 changeTextData("YES", "is_two_car_maintenance_manual");
               }}
@@ -2121,8 +2162,12 @@ const EmployeeListCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-             disabled={(form?.vehicle_maintenance || form?.fuel) || (empFlag || form?.is_two_fuel_manual === "NO" ? true : false) }
-            //  disabled={empFlag || form?.is_two_fuel_manual === "NO" ? true : false}
+              disabled={
+                form?.vehicle_maintenance ||
+                form?.fuel ||
+                (empFlag || form?.is_two_fuel_manual === "NO" ? true : false)
+              }
+              //  disabled={empFlag || form?.is_two_fuel_manual === "NO" ? true : false}
               type={"number"}
               isError={errorData?.two_fuel}
               errorText={errorData?.two_fuel}

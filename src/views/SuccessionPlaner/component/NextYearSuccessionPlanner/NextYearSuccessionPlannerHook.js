@@ -3,17 +3,21 @@ import { useCallback, useMemo, useState, useRef } from "react";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 import {
-  actionFetchSuccessionPlaner,
-  actionSetPageNextYear,
-} from "../../../../actions/SuccessionPlanner.action";
-import { serviceGetList } from "../../../../services/Common.service";
+  actionFetchNextSuccessionPlaner,
+  actionSetPageNextSuccessionPlaner,
+} from "../../../../actions/NextSuccessionPlanner.action";
 import { useEffect } from "react";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
+import { serviceGetSuccessionPlanerSend } from "../../../../services/SuccessionPlanner.service";
+import LogUtils from "../../../../libs/LogUtils";
 
 const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
   const dispatch = useDispatch();
   const [isSidePanel, setSidePanel] = useState(false);
   const [isSidePanelForm, setSidePanelForm] = useState(false);
   const isMountRef = useRef(false);
+  const [isSend, setIsSend] = useState(false);
+  const [empId, setEmpId] = useState("");
 
   const {
     sorting_data: sortingData,
@@ -23,7 +27,18 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
   } = useSelector((state) => state.next_year);
 
   const handlePageChange = useCallback((type) => {
-    dispatch(actionSetPageNextYear(type));
+    dispatch(actionSetPageNextSuccessionPlaner(type, 1));
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      actionFetchNextSuccessionPlaner(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+        year: 1,
+      })
+    );
+    isMountRef.current = true;
   }, []);
 
   const handleRowSize = (page) => {
@@ -34,9 +49,10 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
     (key, value) => {
       // dispatch(actionSetPageFinalFormRequests(1));
       dispatch(
-        actionFetchSuccessionPlaner(1, sortingData, {
+        actionFetchNextSuccessionPlaner(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+          year: 1,
         })
       );
     },
@@ -64,12 +80,13 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       // dispatch(actionSetPageFinalForm(1));
       dispatch(
-        actionFetchSuccessionPlaner(
+        actionFetchNextSuccessionPlaner(
           1,
           { row, order },
           {
             query: query,
             query_data: queryData,
+            year: 1,
           }
         )
       );
@@ -86,11 +103,26 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
   const handleToggleSidePannel = useCallback(
     (data) => {
       setSidePanel((e) => !e);
-      //   setEditData(data?.id);
+      if (data?.id) {
+        setEmpId(data);
+      } else {
+        setEmpId("");
+      }
     },
-    [setSidePanel] // setEditData
+    [setSidePanel,empId] // setEditData
   );
-
+  const handleToggleSend = useCallback(
+    (data) => {
+      setIsSend((e) => !e);
+      console.log("Data", data);
+      if (data?.id) {
+        setEmpId(data?.id);
+      } else {
+        setEmpId("");
+      }
+    },
+    [setIsSend] // setEditData
+  );
   const handleToggleSidePannelForm = useCallback(
     (data) => {
       setSidePanelForm((e) => !e);
@@ -100,37 +132,73 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
   );
   const configFilter = useMemo(() => {
     return [
-
       {
         label: "Location",
-        name: "employeesObj.location_id",
+        name: "location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
-
-      {
-        label: "Grade",
-        name: "employeesObj.grade_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "label" } },
-        fields: listData?.GRADES,
-      },
       {
         label: "Department",
-        name: "employeesObj.department_id",
+        name: "department_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,
       },
       {
-        label: "Status",
-        name: "status",
+        label: "Succession status",
+        name: "successionApp.saj_status",
         type: "select",
-        fields: ["PENDING", "SUBMITTED"],
+        fields: [
+          "NOT_IN_PLACE",
+          "REPLACEMENT_EXTERNAL",
+          "PLACED",
+          "REPLACEMENT_INTERNAL",
+          "REJECTED",
+          "PENDING",
+        ],
+      },
+      {
+        label: "Extension Status",
+        name: "successionApp.extension_status",
+        type: "select",
+        fields: ["RETIRE", "EXTENSION", "RETENTION", "PENDING"],
+      },
+      {
+        label: "Application status",
+        name: "successionApp.status",
+        type: "select",
+        fields: [
+          "PENDING",
+          "EMPLOYEE_PENDING",
+          "EXPIRED",
+          "EMPLOYEE_SUBMITTED",
+          "EMPLOYEE_REJECTED",
+          "HOD_REJECTED",
+          "HOD_APPROVED",
+          "CEO_APPROVED",
+          "CEO_REJECTED",
+          "CORPORATE_SUBMITTED",
+          "MD_APPROVED",
+          "MD_REJECTED",
+        ],
       },
     ];
   }, [listData]);
+  
+  const handleResend = useCallback((data) => {
+    LogUtils.log("resend", data);
+    serviceGetSuccessionPlanerSend({
+      employee_id: data,
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils?.success("Send Successfully");
+        setIsSend(false);
+        // window.location.reload();
+      }
+    });
+  }, []);
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -142,7 +210,11 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
     isSidePanel,
     isSidePanelForm,
     handleToggleSidePannelForm,
-    configFilter
+    configFilter,
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
   };
 };
 

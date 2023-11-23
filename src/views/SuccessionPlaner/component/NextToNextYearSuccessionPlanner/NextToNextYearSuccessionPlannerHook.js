@@ -3,19 +3,21 @@ import { useCallback, useMemo, useState, useRef } from "react";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 import {
-  actionFetchSuccessionPlaner,
-  actionSetPageNextNextYear,
-} from "../../../../actions/SuccessionPlanner.action";
-import { serviceGetList } from "../../../../services/Common.service";
+  actionFetchAfterSuccessionPlaner,
+  actionSetPageAfterSuccessionPlaner,
+} from "../../../../actions/AfterNextSuccessionPlanner.action";
 import { useEffect } from "react";
+import { serviceGetSuccessionPlanerSend } from "../../../../services/SuccessionPlanner.service";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
-const useNextToNextYearSuccessionPlanner = ({listData}) => {
+const useNextToNextYearSuccessionPlanner = ({ listData }) => {
   const dispatch = useDispatch();
   const [isSidePanel, setSidePanel] = useState(false);
   const [isSidePanelForm, setSidePanelForm] = useState(false);
   const isMountRef = useRef(false);
+  const [empId, setEmpId] = useState("");
+  const [isSend, setIsSend] = useState(false);
 
-  
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -24,7 +26,18 @@ const useNextToNextYearSuccessionPlanner = ({listData}) => {
   } = useSelector((state) => state.next_next_year);
 
   const handlePageChange = useCallback((type) => {
-    dispatch(actionSetPageNextNextYear(type));
+    dispatch(actionSetPageAfterSuccessionPlaner(type, 2));
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      actionFetchAfterSuccessionPlaner(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+        year: 2,
+      })
+    );
+    isMountRef.current = true;
   }, []);
 
   const handleRowSize = (page) => {
@@ -35,9 +48,10 @@ const useNextToNextYearSuccessionPlanner = ({listData}) => {
     (key, value) => {
       // dispatch(actionSetPageFinalFormRequests(1));
       dispatch(
-        actionFetchSuccessionPlaner(1, sortingData, {
+        actionFetchAfterSuccessionPlaner(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
+          year: 2,
         })
       );
     },
@@ -52,6 +66,18 @@ const useNextToNextYearSuccessionPlanner = ({listData}) => {
     [queryFilter]
   );
 
+  const handleResend = useCallback((data) => {
+    // LogUtils.log("resend", data);
+    serviceGetSuccessionPlanerSend({
+      employee_id: data,
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils?.success("Send Successfully");
+        setIsSend(false);
+        // window.location.reload();
+      }
+    });
+  }, []);
   const handleSearchValueChange = useCallback(
     (value) => {
       console.log("_handleSearchValueChange", value);
@@ -65,12 +91,13 @@ const useNextToNextYearSuccessionPlanner = ({listData}) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
       // dispatch(actionSetPageFinalForm(1));
       dispatch(
-        actionFetchSuccessionPlaner(
+        actionFetchAfterSuccessionPlaner(
           1,
           { row, order },
           {
             query: query,
             query_data: queryData,
+            year: 2,
           }
         )
       );
@@ -83,15 +110,29 @@ const useNextToNextYearSuccessionPlanner = ({listData}) => {
       isEdit: true,
     });
   }, []);
-
   const handleToggleSidePannel = useCallback(
     (data) => {
       setSidePanel((e) => !e);
-      //   setEditData(data?.id);
+      if (data?.id) {
+        setEmpId(data);
+      } else {
+        setEmpId("");
+      }
     },
-    [setSidePanel] // setEditData
+    [setSidePanel, empId] // setEditData
   );
-
+  const handleToggleSend = useCallback(
+    (data) => {
+      setIsSend((e) => !e);
+      console.log("Data", data);
+      if (data?.id) {
+        setEmpId(data?.id);
+      } else {
+        setEmpId("");
+      }
+    },
+    [setIsSend] // setEditData
+  );
   const handleToggleSidePannelForm = useCallback(
     (data) => {
       setSidePanelForm((e) => !e);
@@ -103,31 +144,55 @@ const useNextToNextYearSuccessionPlanner = ({listData}) => {
     return [
       {
         label: "Location",
-        name: "employeesObj.location_id",
+        name: "location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
-
-      {
-        label: "Grade",
-        name: "employeesObj.grade_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "label" } },
-        fields: listData?.GRADES,
-      },
       {
         label: "Department",
-        name: "employeesObj.department_id",
+        name: "department_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.DEPARTMENTS,
       },
       {
-        label: "Status",
-        name: "status",
+        label: "Succession status",
+        name: "successionApp.saj_status",
         type: "select",
-        fields: ["PENDING", "SUBMITTED"],
+        fields: [
+          "NOT_IN_PLACE",
+          "REPLACEMENT_EXTERNAL",
+          "PLACED",
+          "REPLACEMENT_INTERNAL",
+          "REJECTED",
+          "PENDING",
+        ],
+      },
+      {
+        label: "Extension Status",
+        name: "successionApp.extension_status",
+        type: "select",
+        fields: ["RETIRE", "EXTENSION", "RETENTION", "PENDING"],
+      },
+      {
+        label: "Application status",
+        name: "successionApp.status",
+        type: "select",
+        fields: [
+          "PENDING",
+          "EMPLOYEE_PENDING",
+          "EXPIRED",
+          "EMPLOYEE_SUBMITTED",
+          "EMPLOYEE_REJECTED",
+          "HOD_REJECTED",
+          "HOD_APPROVED",
+          "CEO_APPROVED",
+          "CEO_REJECTED",
+          "CORPORATE_SUBMITTED",
+          "MD_APPROVED",
+          "MD_REJECTED",
+        ],
       },
     ];
   }, [listData]);
@@ -143,6 +208,10 @@ const useNextToNextYearSuccessionPlanner = ({listData}) => {
     isSidePanelForm,
     handleToggleSidePannelForm,
     configFilter,
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
   };
 };
 
