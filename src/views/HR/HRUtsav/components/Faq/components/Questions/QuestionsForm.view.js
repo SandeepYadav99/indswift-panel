@@ -578,10 +578,10 @@ class QuestionsFormView extends Component {
                         <span className={styles.bookmarkHeading}>Images Note:</span>
                         <span>Bookmarked Images will show on Employees Dashboard Event Section</span>
                     </div>
-                    <div className={'formFlex'}>
+                    <div className={'formFlex'} style={{marginLeft:"15%"}}>
                         <div className={'formGroup'}>
                             <Field
-                                max_size={10 * 1024 * 1024 }
+                                max_size={10 *1024 * 1024 }
                                 type={['jpg', 'png', 'pdf', 'jpeg']}
                                 error_text={'Max Size 5MB and valid files are jpg, png, jpeg'}
                                 fullWidth={true}
@@ -589,8 +589,10 @@ class QuestionsFormView extends Component {
                                 show_image={true}
                                 component={renderFileField}
                                 label="Cover Image"
+                                bannerLabel="Upload Cover Image"
+                                // default_image={"../../../../../../../assets/img/profile.png"}
+                        
                             />
-                            
                         </div>
                     </div>
 
