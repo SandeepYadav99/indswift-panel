@@ -581,15 +581,16 @@ class QuestionsFormView extends Component {
                     <div className={'formFlex'}>
                         <div className={'formGroup'}>
                             <Field
-                                max_size={1024 * 1024 * 5}
+                                max_size={10 * 1024 * 1024 }
                                 type={['jpg', 'png', 'pdf', 'jpeg']}
                                 error_text={'Max Size 5MB and valid files are jpg, png, jpeg'}
                                 fullWidth={true}
                                 name="cover_image"
-                                show_image
+                                show_image={true}
                                 component={renderFileField}
                                 label="Cover Image"
                             />
+                            
                         </div>
                     </div>
 
