@@ -14,7 +14,7 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 
 const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
-
+const PmsMaster = lazy(()=>import("../views/PmsMaster/PmsMasterView.js"))
 const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
 
 const RelievingExpLetterDetail = lazy(()=>import("../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail")) ;
@@ -1155,6 +1155,18 @@ const dashboardRoutes = [
     navbarName: "Designation",
     icon: PeopleOutlined,
     component: DesignationList,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    parent: "masters",
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.PMS_MASTER,
+    sidebarName: "PMS Master",
+    navbarName: "PMS Master",
+    icon: PeopleOutlined,
+    component: PmsMaster,
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
