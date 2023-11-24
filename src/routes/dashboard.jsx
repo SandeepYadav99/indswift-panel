@@ -16,6 +16,7 @@ import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
 import FullDetail from "../views/Full&FinalApproval/FullDetail/FullDetail.js";
 import SuccessionApproval_List from "../views/SuccessionApproval/SuccessionApproval_List.js";
 
+const PmsMaster = lazy(()=>import("../views/PmsMaster/PmsMasterView.js"))
 const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
 
 const RelievingExpLetterDetail = lazy(()=>import("../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail")) ;
@@ -1158,6 +1159,18 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
+    path: RouteName.PMS_MASTER,
+    sidebarName: "PMS Master",
+    navbarName: "PMS Master",
+    icon: PeopleOutlined,
+    component: PmsMaster,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    parent: "masters",
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
     path: RouteName.NEW_EMPLOYEES,
     sidebarName: "New Employee Request",
     navbarName: "New Employee Request",
@@ -1182,7 +1195,7 @@ const dashboardRoutes = [
       ? [Roles.ADMIN, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
   },
-  
+
   {
     path: RouteName.EMPLOYEE_RECORD_APPROVALs,
     sidebarName: "Employee Record Approval",
@@ -1521,7 +1534,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CASHIER],
   },
   {
     path: `${RouteName.EMPLOYEES_IMPREST_DETAILS}:id`,

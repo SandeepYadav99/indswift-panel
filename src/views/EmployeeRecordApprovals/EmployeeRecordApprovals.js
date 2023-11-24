@@ -17,12 +17,11 @@ import StatusPill from "../../components/Status/StatusPill.component";
 import useEmployeeRecordApprovals from "./EmployeeRecordApprovalHook";
 import RecordDetailView from "./component/RecordDetail";
 
-const EmployeeRecordApprovals = ({}) => {
+const EmployeeRecordApprovals = () => {
   const {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
@@ -30,10 +29,8 @@ const EmployeeRecordApprovals = ({}) => {
     handleViewDetails,
     editData,
     isSidePanel,
-
     isCalling,
     configFilter,
-
     changeEmployeeRoute,
   } = useEmployeeRecordApprovals();
 
@@ -203,7 +200,7 @@ const EmployeeRecordApprovals = ({}) => {
         </div>
         <SidePanelComponent
           handleToggle={handleSideToggle}
-          title={"Profile Change Details"}
+          title={" Employee Record Approval"}
           open={isSidePanel}
           side={"right"}
         >

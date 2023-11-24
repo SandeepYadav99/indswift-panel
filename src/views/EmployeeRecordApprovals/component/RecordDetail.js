@@ -12,14 +12,13 @@ import RejectConfirmationPopUp from "../RejectConfirmationPopUp/RejectConfirmati
 
 const useStyle = makeStyles(MuiStyle);
 const RecordDetailView = ({ id, isOpen, handleClose }) => {
-  const {   
+  const {
     data,
     isRejectPopUp,
     toggleRejectDialog,
     isSubmitting,
     toggleApprovalDialog,
     isApprovalPopUp,
-
   } = useRecordDetail({ id, isOpen, handleClose });
 
   const classes = useStyle();
@@ -35,23 +34,25 @@ const RecordDetailView = ({ id, isOpen, handleClose }) => {
         <label className={styles.infoLabel1}>New</label>
         <NewView newValues={data?.new_values} />
       </div>
-
-      <div className={styles.buttoonforApprove}>
-        <ButtonBase
-          disabled={isSubmitting}
-          className={csx(classes.btnBorder, styles.rejectBtn)}
-          onClick={toggleRejectDialog}
-        >
-          Reject
-        </ButtonBase>
-        <ButtonBase
-          disabled={isSubmitting}
-          onClick={toggleApprovalDialog}
-          className={classes.btnBorder}
-        >
-          Approve
-        </ButtonBase>
-      </div>
+   
+      {data?.status === "PENDING" && (
+        <div className={styles.buttoonforApprove}>
+          <ButtonBase
+            disabled={isSubmitting}
+            className={csx(classes.btnBorder, styles.rejectBtn)}
+            onClick={toggleRejectDialog}
+          >
+            Reject
+          </ButtonBase>
+          <ButtonBase
+            disabled={isSubmitting}
+            onClick={toggleApprovalDialog}
+            className={classes.btnBorder}
+          >
+            Approve
+          </ButtonBase>
+        </div>
+      )}
 
       <ApprovalConfirmationPopUp
         offerId={id}
