@@ -14,7 +14,7 @@ const initialForm = {
   succession: "",
   nature_of_succession: "",
   comment: "",
-  last_working_date: "",
+  // last_working_date: "",
   notes: "",
   pending_dues: "",
   extension_status: "",
@@ -37,13 +37,17 @@ const useEmpInformation = () => {
       let req = serviceGetApprovalDetail({ review_id: id });
       req.then((data) => {
         setEmployeeDetail(data?.data);
-        // if (data?.data?.saj_status !== "PENDING") {
-        setForm({
-          ...form,
-          extension_status: data?.data?.application?.extension_status,
-          // succession: data?.data?.saj_status,
-        });
-        // }
+        if (data?.data?.saj_status !== "PENDING") {
+          setForm({
+            ...form,
+            succession: data?.data?.saj_status,
+          });
+        } else {
+          setForm({
+            ...form,
+            extension_status: data?.data?.application?.extension_status,
+          });
+        }
       });
     }
   }, [id]);
@@ -74,18 +78,28 @@ const useEmpInformation = () => {
       setForm({ ...form, replacing_employee_id: "" });
     }
   }, [form?.nature_of_succession]);
+
+  useEffect(() => {
+    if (form?.extension_start_date) {
+      var extensionStartDate = new Date(form?.extension_start_date);
+      var oneYearAfter = new Date(extensionStartDate);
+      oneYearAfter.setFullYear(extensionStartDate.getFullYear() + 1);
+      setForm({ ...form, extension_end_date: oneYearAfter });
+    }
+  }, [form?.extension_start_date]);
+
   console.log("form", form);
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "pending_dues") {
-        if (text >= 0) {
-          t[fieldName] = text;
-        }
-      } else {
-        t[fieldName] = text;
-      }
+      // if (fieldName === "pending_dues") {
+      //   if (text >= 0) {
+      //     t[fieldName] = text;
+      //   }
+      // } else {
+      t[fieldName] = text;
+      // }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
@@ -104,6 +118,17 @@ const useEmpInformation = () => {
     return Math.round((y - x) / x);
   }, [employeeDetail, form?.replacing_employee_id]);
 
+  const salaryCostInternal = useMemo(() => {
+    const x = employeeDetail?.application?.ctc
+      ? employeeDetail?.application?.ctc
+      : 1;
+    const y = form?.replacing_employee_ctc
+      ? Number(form?.replacing_employee_ctc)
+      : 1;
+    console.log("salaryCostInternal", x, y, (y - x) / x);
+
+    return Math.round((y - x) / x);
+  }, [employeeDetail, form?.replacing_employee_ctc]);
   console.log("salaryCost", salaryCost);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -140,12 +165,13 @@ const useEmpInformation = () => {
 
   const checkFormValidationHR = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["pending_dues"];
+    let required = [
+      "pending_dues",
+      "extension_start_date",
+      "extension_end_date",
+    ];
     if (employeeDetail?.application?.nature_of_succession === "EXTERNAL") {
       required.push("replacing_employee_ctc", "replacing_employee_name");
-    }
-    if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE") {
-      required.push("extension_start_date");
     }
     required.forEach((val) => {
       if (
@@ -172,9 +198,9 @@ const useEmpInformation = () => {
     console.log(
       "grade",
       status,
-      status === "CEO_APPROVED" ,
-        status === "HOD_APPROVED",
-        grade.includes(employeeDetail?.application?.employee?.grade?.code)
+      status === "CEO_APPROVED",
+      status === "HOD_APPROVED",
+      grade.includes(employeeDetail?.application?.employee?.grade?.code)
     );
     if (
       status === "CEO_APPROVED" ||
@@ -213,17 +239,16 @@ const useEmpInformation = () => {
         }
         let hrData = {};
         if (HODApprovalStatus) {
-          hrData.last_working_date = form?.last_working_date;
+          // hrData.last_working_date = form?.last_working_date;
           hrData.pending_dues = form?.pending_dues;
           hrData.notes = form?.notes;
+          hrData.extension_end_date = form?.extension_end_date;
+          hrData.extension_start_date = form?.extension_start_date;
           if (
             employeeDetail?.application?.nature_of_succession === "EXTERNAL"
           ) {
             hrData.replacing_employee_name = form?.replacing_employee_name;
             hrData.replacing_employee_ctc = form?.replacing_employee_ctc;
-          }
-          if (employeeDetail?.application?.saj_status === "NOT_IN_PLACE") {
-            hrData.extension_end_date = form?.extension_end_date;
           }
         }
 
@@ -324,7 +349,8 @@ const useEmpInformation = () => {
     isSubmitting,
     listData,
     salaryCost,
-    HODApprovalStatus
+    HODApprovalStatus,
+    salaryCostInternal,
   };
 };
 

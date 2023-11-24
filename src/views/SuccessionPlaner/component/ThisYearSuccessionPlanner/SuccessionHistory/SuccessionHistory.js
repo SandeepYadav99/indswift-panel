@@ -38,20 +38,20 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   Employee Continuing With Company:{" "}
                   <b> {item?.is_continuing ? "Yes" : "No"}</b>
                   <span style={{ marginLeft: "30%" }}>
-                    {<StatusPill status={item?.saj_status} />}
+                    {<StatusPill status={item?.succession} />}
                   </span>
                 </p>
                 <p>
-                  Last Working Date:{" "}
+                  Extension Dates:{" "}
                   <b>
-                    {item?.last_working_date ? item?.last_working_date : "-"}
+                    {item?.extensionStartAt ? item?.extensionStartAt : "N/A"} - {item?.extensionEndAt ? item?.extensionEndAt : "N/A"}
                   </b>
                 </p>
                 <p>
                   Annual Salary: <b>{item?.ctc ? `₹ ${item?.ctc}` : "-"}</b>
                 </p>
                 <p>
-                  Type of Succession: <b>-</b>
+                  Type of Succession: <b>{item?.nature_of_succession}</b>
                   <a
                     href={item?.employee_form?.document}
                     style={{ marginLeft: "30%" }}

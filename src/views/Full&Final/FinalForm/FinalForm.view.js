@@ -162,7 +162,7 @@ function FinalForm() {
               type={"number"}
               isError={errorData?.notice_leave_availed}
               errorText={errorData?.notice_leave_availed}
-              label={"Leaves Availed on Notice/LOP"}
+              label={"Access Leaves Availed on Notice Period + LOP"}
               value={form?.notice_leave_availed}
               onTextChange={(text) => {
                 changeTextData(text, "notice_leave_availed");
@@ -286,7 +286,7 @@ function FinalForm() {
               type={"number"}
               isError={errorData?.payroll_one_value}
               errorText={errorData?.payroll_one_value}
-              label={"Value"}
+              label={"Net Payable Value"}
               value={form?.payroll_one_value}
               onTextChange={(text) => {
                 changeTextData(text, "payroll_one_value");
@@ -372,7 +372,7 @@ function FinalForm() {
               type={"number"}
               isError={errorData?.payroll_two_value}
               errorText={errorData?.payroll_two_value}
-              label={"Value"}
+              label={"Net Payable Value"}
               value={form?.payroll_two_value}
               onTextChange={(text) => {
                 changeTextData(text, "payroll_two_value");
@@ -458,7 +458,7 @@ function FinalForm() {
               type={"number"}
               isError={errorData?.payroll_three_value}
               errorText={errorData?.payroll_three_value}
-              label={"Value"}
+              label={" Gross Value"}
               value={form?.payroll_three_value}
               onTextChange={(text) => {
                 changeTextData(text, "payroll_three_value");
@@ -2358,7 +2358,7 @@ function FinalForm() {
         </div>
         <div className={"formFlex"}>
           <TotalSum
-            firstName="Total Upload Dues :"
+            firstName="Total Uphold Dues :"
             reduceAmount={
               form?.total_uphold_dues ? `₹ ${form?.total_uphold_dues}` : 0
             }
