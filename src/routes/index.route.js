@@ -39,14 +39,13 @@ import PmsOverallHodForm from "../views/Pms/OverallHOD/PMSOverallHodForm/PmsOver
 import AwardSheetView from "../views/PmsIncrements/AwardSheet/AwardSheet.view";
 import GuarantorLogin from "../views/LoanManagement/GuarantorLogin/GuarantorLogin.js";
 import LoanConfirmation from "../views/LoanManagement/LoanConfirmation/LoanConfirmation.view.js";
-import LoanSubmittedResponse
-    from "../views/LoanManagement/LoanConfirmation/component/LoanSubmittedResponse/LoanSubmittedResponse.js";
-import HREscalationMatrixView from "../views/HREscalationMatrixView/HREscalationMatrixView.js";
+import LoanSubmittedResponse from "../views/LoanManagement/LoanConfirmation/component/LoanSubmittedResponse/LoanSubmittedResponse.js";
 import ExitForm from "../views/ExitInterview/ExitForm/ExitForm.view.js";
 import ExitLogin from "../views/ExitInterview/ExitLogin/ExitLogin.js";
 import ExitDetail from "../views/ExitInterview/ExitDetail/ExitDetail.view.js";
 import ExitResponse from "../views/ExitInterview/ExitResponse/ExitResponse.js";
 import SuccessionApplicationForm from "../views/SuccessionApplicationForm/SuccessionApplicationForm.js";
+import HREscalationMatrixView from "../views/HREscalationMatrixView/HREscalationMatrixView.js";
 import SuccessionForm from "../views/SuccessionApplicationForm/SuccessionDetail/SuccessionDetail.view.js";
 import ExitResponseSub from "../views/SuccessionApplicationForm/ExitResponse/ExitResponse.js";
 

@@ -27,9 +27,9 @@ const BgvAnalysisReport = lazy(() =>
   )
 );
 
-const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
 const IncrementLetter = lazy(()=>  import("../views/Pms/IncrementLetter/IncrementLetter.view"));
 const USCEditView = lazy(()=>  import("../views/HR/HRSettings/components/USCEdit/USCEdit"));
+const SuccessionApproval_List = lazy(()=>  import("../views/SuccessionApproval/SuccessionApproval_List"));
 const SuccessionPlanner_list = lazy(()=>  import("../views/SuccessionPlaner/SuccessionPlanner_list"));
 const LetterApprovalProces_View = lazy(()=>  import("../views/Relving&ExpernsLetterAprvl/LetterApprovalProces_View"));
 const LetterApprovalDetail = lazy(()=>  import("../views/Relving&ExpernsLetterAprvl/component/LetterApprovalDetail"));
@@ -62,11 +62,7 @@ const CandidateInformation = lazy(() =>
     "../views/PendingBckgroundVerification/BGCandidateInformation/BG_CndidateInfo"
   )
 );
-const PendingBGVerification_View = lazy(() =>
-  import(
-    "../views/PendingBckgroundVerification/View/PendingBGVerification_View"
-  )
-);
+const PendingBGVerification_View = lazy(() => import("../views/PendingBckgroundVerification/View/PendingBGVerification_View"));
 const CandidateStatusGlossary_List = lazy(() =>
   import("../views/CandidateStatusGlossary/CandidateStatusGlossary_List")
 );
@@ -1239,7 +1235,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    roles: [Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.CORPORATE_HR],
   },
   {
     path: "/manpower",
@@ -1462,6 +1458,19 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
+    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.FOREIGN_HR_CLAIMS_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: ForeignClaimDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    roles: [Roles.CORPORATE_HR],
     // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
@@ -2389,13 +2398,13 @@ const dashboardRoutes = [
     roles: [
       Roles.ADMIN,
       Roles.CORPORATE_HR,
-      Roles.ACCOUNTANT,
-      Roles.OTHERS,
-      Roles.CORPORATE_REVIEWER,
-      Roles.PMS,
-      Roles.GENERAL,
-      Roles.OLR,
-      Roles.RECRUITER,
+      // Roles.ACCOUNTANT,
+      // Roles.OTHERS,
+      // Roles.CORPORATE_REVIEWER,
+      // Roles.PMS,
+      // Roles.GENERAL,
+      // Roles.OLR,
+      // Roles.RECRUITER,
 
     ],
   },

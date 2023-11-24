@@ -7,7 +7,6 @@ import styles from "./style.module.css";
 import UpperClaimInfo from "../ClaimListDetail/Component/UpperClaimInfo/UpperClaimInfo";
 import { getCurrency } from "../../../helper/helper";
 import RejectDialog from "../ClaimListDetail/Component/RejectPopUp/RejectDialog.view";
-import ApproveDialog from "../TravelClaimDetail/component/ApproveDialog/ApproveDialog.view";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import LodgingIncludeForm from "./component/Lodgingincludes/LodgingIncludes.component";
@@ -15,6 +14,7 @@ import ExpenseIncludeForm from "./component/Expenseincludes/ExpenseIncludes.comp
 import DAIncludeForm from "./component/DAincludes/DAIncludes.component";
 import OtherDetailsIncludeForm from "./component/OtherDetailsincludes/OtherDetailsIncludes.component";
 import OtherIncludeForm from "./component/Otherincludes/OtherIncludes.component";
+import ApproveDialog from "../TravelClaimDetail/component/ApproveDialog/ApproveDialog.view";
 
 function ForeignClaimDetail() {
   const {

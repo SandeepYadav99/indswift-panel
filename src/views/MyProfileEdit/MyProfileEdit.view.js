@@ -142,6 +142,7 @@ const MyProfileEditView = ({}) => {
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomDatePicker
+                  disabled={true}
                   clearable
                   label={"Date of Birth"}
                   maxDate={new Date()}

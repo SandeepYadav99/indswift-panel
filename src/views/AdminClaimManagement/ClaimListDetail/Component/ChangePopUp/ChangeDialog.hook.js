@@ -117,7 +117,8 @@ const useChangeDialogHook = ({
         if (!res.error) {
           SnackbarUtils.success("Request Placed Successfully");
           handleToggle();
-          historyUtils.push(RouteName.CLAIMS_LIST);
+          historyUtils.goBack()
+          // historyUtils.push(RouteName.CLAIMS_LIST);
         } else {
           SnackbarUtils.error(res?.message);
         }

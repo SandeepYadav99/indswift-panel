@@ -183,6 +183,7 @@ const LodgingIncludeFields = ({
                 <MenuItem value="UKRAINE">UKRAINE</MenuItem>
                 <MenuItem value="UK">UK</MenuItem>
                 <MenuItem value="TURKEY">TURKEY</MenuItem>
+                <MenuItem value="EUROPE">EUROPE</MenuItem>
                 <MenuItem value="OTHERS">OTHERS</MenuItem>
               </CustomSelectField>
             </div>
