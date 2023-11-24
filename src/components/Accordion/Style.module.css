@@ -44,6 +44,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  background-color: #EBF9FF;
 }
 
 .innerPanel {
@@ -62,6 +63,7 @@
   flex: 1;
   font-size: 0.8rem;
   position: relative;
+  font-weight: bold;
 }
 
 /*.title::after {*/

@@ -663,6 +663,7 @@ class QuestionsFormView extends Component {
               />
             </div>
           </div>
+            <div className={styles.cover_title}><b>Cover Image Tip:</b> Recommended Size for cover image is <b> 800 x 400 px</b></div>
 
           <div className={"formFlex"}>
             <div className={"formGroup"}>

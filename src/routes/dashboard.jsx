@@ -1160,7 +1160,7 @@ const dashboardRoutes = [
     navbarName: "PMS Master",
     icon: PeopleOutlined,
     component: PmsMaster,
-    is_sidebar: true,
+    is_sidebar: false,
     is_protect: true,
     should_regex: true,
     parent: "masters",
