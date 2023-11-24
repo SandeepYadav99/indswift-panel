@@ -239,6 +239,8 @@ export default {
 
   SUCCESSION_FORM:"/succession/form",
   SUCCESSION_FORM_INNER:"/succession/details",
-  SUCCESSION_SUCCESS:"/succession/success"
+  SUCCESSION_SUCCESS:"/succession/success",
+
+  PMS_MASTER:"/pms/master"
 
 };

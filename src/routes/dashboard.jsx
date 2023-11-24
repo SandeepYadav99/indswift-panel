@@ -12,6 +12,9 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+
+const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
+const PmsMaster = lazy(()=>import("../views/PmsMaster/PmsMasterView.js"))
 import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
 import FullDetail from "../views/Full&FinalApproval/FullDetail/FullDetail.js";
 
@@ -1153,6 +1156,18 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
   {
+    path: RouteName.PMS_MASTER,
+    sidebarName: "PMS Master",
+    navbarName: "PMS Master",
+    icon: PeopleOutlined,
+    component: PmsMaster,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "masters",
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
     path: RouteName.NEW_EMPLOYEES,
     sidebarName: "New Employee Request",
     navbarName: "New Employee Request",
@@ -1529,7 +1544,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CASHIER],
   },
   {
     path: `${RouteName.EMPLOYEES_IMPREST_DETAILS}:id`,
