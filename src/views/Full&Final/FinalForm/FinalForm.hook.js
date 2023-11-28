@@ -290,7 +290,17 @@ function useFinalForm() {
   useEffect(() => {
     let req = serviceGetFinalFormDetails({ id: id });
     req.then((data) => {
-      setEmployeeDetail(data?.data?.details);
+      const res = data?.data?.details;
+      setEmployeeDetail(res);
+      const { attachments } = res;
+      const fd = {};
+      Object.keys({ ...res }).forEach((key) => {
+        if (key in initialForm && key !== "image") {
+          fd[key] = res[key];
+        }
+      });
+      ChildenRef?.current?.setData(attachments);
+      setForm({ ...form, ...fd });
     });
   }, [id]);
   const checkFormValidation = useCallback(() => {
@@ -533,54 +543,61 @@ function useFinalForm() {
     },
     [changeTextData]
   );
-  const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-      setIsSubmitting(true);
-      const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        if (
-          [
-            "payroll_one_salary_slip",
-            "payroll_two_salary_slip",
-            "payroll_three_salary_slip",
-          ].indexOf(key) < 0 &&
-          form[key]
-        ) {
-          LogUtils.log("key", key);
-          if (BOOLEAN_KEYS.includes(key)) {
-            fd.append(key, form[key] === "YES");
-          } else {
-            fd.append(key, form[key]);
+  const submitToServer = useCallback(
+    (draft) => {
+      if (!isSubmitting) {
+        setIsSubmitting(true);
+        const fd = new FormData();
+        Object.keys(form).forEach((key) => {
+          if (
+            [
+              "payroll_one_salary_slip",
+              "payroll_two_salary_slip",
+              "payroll_three_salary_slip",
+            ].indexOf(key) < 0 &&
+            form[key]
+          ) {
+            LogUtils.log("key", key);
+            if (BOOLEAN_KEYS.includes(key)) {
+              fd.append(key, form[key] === "YES");
+            } else {
+              fd.append(key, form[key]);
+            }
           }
+        });
+        fd.append("id", id);
+        if (form?.payroll_one_salary_slip) {
+          fd.append("payroll_one_salary_slip", form?.payroll_one_salary_slip);
         }
-      });
-      fd.append("id", id);
-      if (form?.payroll_one_salary_slip) {
-        fd.append("payroll_one_salary_slip", form?.payroll_one_salary_slip);
-      }
-      if (form?.payroll_two_salary_slip) {
-        fd.append("payroll_two_salary_slip", form?.payroll_two_salary_slip);
-      }
-      if (form?.payroll_three_salary_slip) {
-        fd.append("payroll_three_salary_slip", form?.payroll_three_salary_slip);
-      }
-      const AttachData = ChildenRef.current.getData();
-      AttachData.forEach((val) => {
-        if (val?.attachment_documents) {
-          fd.append("attachment_documents", val?.attachment_documents);
+        if (form?.payroll_two_salary_slip) {
+          fd.append("payroll_two_salary_slip", form?.payroll_two_salary_slip);
         }
-      });
-      fd.append("attachments", JSON.stringify(AttachData));
-      serviceSubmitFFForm(fd).then((res) => {
-        if (!res.error) {
-          historyUtils.goBack();
-        } else {
-          SnackbarUtils.error(res?.message);
+        if (form?.payroll_three_salary_slip) {
+          fd.append(
+            "payroll_three_salary_slip",
+            form?.payroll_three_salary_slip
+          );
         }
-        setIsSubmitting(false);
-      });
-    }
-  }, [form, isSubmitting, setIsSubmitting, employeeDetail, id]);
+        fd.append("is_drafted", draft ? true : false);
+        const AttachData = ChildenRef.current.getData();
+        AttachData.forEach((val) => {
+          if (val?.attachment_documents) {
+            fd.append("attachment_documents", val?.attachment_documents);
+          }
+        });
+        fd.append("attachments", JSON.stringify(AttachData));
+        serviceSubmitFFForm(fd).then((res) => {
+          if (!res.error) {
+            historyUtils.goBack();
+          } else {
+            SnackbarUtils.error(res?.message);
+          }
+          setIsSubmitting(false);
+        });
+      }
+    },
+    [form, isSubmitting, setIsSubmitting, employeeDetail, id]
+  );
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();

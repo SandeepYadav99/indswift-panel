@@ -122,7 +122,8 @@ const EmployeeInformation = ({ empId }) => {
                       <div className={styles.key}>
                         <span className={styles.value}>Employee ID:</span>
                         {
-                          employeeDetail?.application?.replacing_employee_code
+                          employeeDetail?.application?.replacing_employee_code ? employeeDetail?.application?.replacing_employee_code : 
+                          "N/A"
                         }{" "}
                       </div>
                     </>
