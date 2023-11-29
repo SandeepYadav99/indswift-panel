@@ -12,13 +12,13 @@
   margin-left: 20px;
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
-.costWrap{
-  font-size: .8rem;
+.costWrap {
+  font-size: 0.8rem;
   font-weight: 600;
   margin-left: 10px;
 }
-.cust{
-  font-size: .8rem;
+.cust {
+  font-size: 0.8rem;
   font-weight: 600;
   margin-left: 10px;
   color: #818181;
@@ -70,8 +70,16 @@
   margin-bottom: 7px;
   margin-right: 15px;
 }
-.application{
-  font-size: .8rem;
+.commentDate {
+  font-weight: 600;
+}
+.commentwrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.application {
+  font-size: 0.8rem;
   font-weight: 500;
   margin-left: 20px;
 }
