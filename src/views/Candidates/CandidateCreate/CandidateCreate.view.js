@@ -52,11 +52,11 @@ const CandidateCreateView = ({ location }) => {
     selectedJobId,
     jobDetails,
     isReoccuring,
-      editData,
-      isEditEnabled,
-      isDialog,
-      toggleConfirmDialog,
-      candidatedata
+    editData,
+    isEditEnabled,
+    isDialog,
+    toggleConfirmDialog,
+    candidatedata,
   } = useCandidateDetail({ location });
   const classes = useStyles();
 
@@ -77,7 +77,7 @@ const CandidateCreateView = ({ location }) => {
         isOpen={isDialog}
         handleClose={toggleConfirmDialog}
         candidatedata={candidatedata}
-        />
+      />
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
@@ -99,11 +99,10 @@ const CandidateCreateView = ({ location }) => {
               }}
             />
           </div>
-
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-          <CustomTextField
+            <CustomTextField
               isError={errorData?.contact}
               errorText={errorData?.contact}
               label={"Contact"}
@@ -123,7 +122,7 @@ const CandidateCreateView = ({ location }) => {
             />
           </div>
           <div className={"formGroup"}>
-          <CustomTextField
+            <CustomTextField
               isError={errorData?.father_name}
               errorText={errorData?.father_name}
               label={"Father Name"}
@@ -140,7 +139,7 @@ const CandidateCreateView = ({ location }) => {
 
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-          <CustomSelectField
+            <CustomSelectField
               isError={errorData?.source}
               errorText={errorData?.source}
               label={"Source"}
@@ -157,8 +156,8 @@ const CandidateCreateView = ({ location }) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
-          <CustomTextField
-            type="number"
+            <CustomTextField
+              type="number"
               isError={errorData?.experience}
               errorText={errorData?.experience}
               label={"Candidate Experience"}
@@ -359,14 +358,16 @@ const CandidateCreateView = ({ location }) => {
         </div>
       </div>
 
-      {!isEditEnabled && (<div className={"plainPaper"}>
-        <div className={"headerFlex"}>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>Official Information</div>
-          </h4>
+      {!isEditEnabled && (
+        <div className={"plainPaper"}>
+          <div className={"headerFlex"}>
+            <h4 className={"infoTitle"}>
+              <div className={"heading"}>Official Information</div>
+            </h4>
+          </div>
+          <OfficialInfo isStatic={selectedJobId} details={jobDetails} />
         </div>
-        <OfficialInfo isStatic={selectedJobId} details={jobDetails} />
-      </div>)}
+      )}
 
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
@@ -374,7 +375,7 @@ const CandidateCreateView = ({ location }) => {
             <div className={"heading"}>Qualification Information</div>
           </h4>
         </div>
-        <IncludeForm ref={qualificationRef} isReoccuring={isReoccuring}/>
+        <IncludeForm ref={qualificationRef} isReoccuring={isReoccuring} />
       </div>
 
       <div className={"plainPaper"}>
@@ -401,10 +402,14 @@ const CandidateCreateView = ({ location }) => {
                        Save & Align Interview
                    </ButtonBase> */}
         <ButtonBase
-          disabled={isSubmitting}
+          disabled={candidatedata?.length > 0}
           type={"button"}
           onClick={handleSubmit}
-          className={styles.createBtn}
+          className={
+            candidatedata?.length > 0
+              ? styles.disabledCreatebtn
+              : styles.createBtn
+          }
         >
           Save Profile
         </ButtonBase>

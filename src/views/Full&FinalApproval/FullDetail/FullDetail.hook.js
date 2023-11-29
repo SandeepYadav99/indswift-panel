@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useParams } from "react-router";
 import { serviceGetFinalFormApprovalDetails } from "../../../services/FinalFormApproval.service";
 import { useCallback } from "react";
+import historyUtils from "../../../libs/history.utils";
+import RouteName from "../../../routes/Route.name";
 
 function useFullDetail() {
   const [employeeDetail, setEmployeeDetail] = useState({});
@@ -24,13 +26,19 @@ function useFullDetail() {
       setEmployeeDetail(data?.data?.details);
     });
   }, [id]);
+
+  const EditForm = useCallback(() => {
+    historyUtils.push(RouteName.FULL_FINAL_FORM + employeeDetail?.full_and_final_id); //+data.id
+  }, [employeeDetail]);
+
   return {
     employeeDetail,
     toggleStatusDialog,
     approveDialog,
     toggleRejectDialog,
     rejectDialog,
-    id
+    id,
+    EditForm,
   };
 }
 

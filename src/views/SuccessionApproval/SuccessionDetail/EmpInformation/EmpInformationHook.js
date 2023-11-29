@@ -8,6 +8,7 @@ import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../libs/history.utils";
 import { serviceGetList } from "../../../../services/Common.service";
 import { useMemo } from "react";
+import { serviceGetSuccessionPlanerHistory } from "../../../../services/SuccessionPlanner.service";
 
 const initialForm = {
   replacing_employee_id: "",
@@ -23,6 +24,7 @@ const useEmpInformation = () => {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [isOpenRejectionDialog, setIsOpenRejectionDialog] = useState(false);
   const [employeeDetail, setEmployeeDetail] = useState({});
+  const [historyData, setHistoryData] = useState([]);
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -51,7 +53,24 @@ const useEmpInformation = () => {
       });
     }
   }, [id]);
-  console.log("employeeDetail", employeeDetail);
+
+  console.log("employeeDetail?.employee?.id", employeeDetail);
+  useEffect(() => {
+    if (employeeDetail?.application?.employee?.id) {
+      serviceGetSuccessionPlanerHistory({
+        employee_id: employeeDetail?.application?.employee?.id,
+      }).then((res) => {
+        if (!res.error) {
+          const data = res?.data;
+          setHistoryData(data);
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
+    }
+  }, [employeeDetail?.application?.employee?.id]);
+
+  console.log("employeeDetail", historyData);
   useEffect(() => {
     serviceGetList(["EMPLOYEE_SALARY"]).then((res) => {
       if (!res.error) {
@@ -351,7 +370,8 @@ const useEmpInformation = () => {
     salaryCost,
     HODApprovalStatus,
     salaryCostInternal,
-    submitToServer
+    submitToServer,
+    historyData
   };
 };
 

@@ -18,6 +18,7 @@ function FullDetail() {
     toggleRejectDialog,
     rejectDialog,
     id,
+    EditForm,
   } = useFullDetail({});
   return (
     <div>
@@ -70,7 +71,7 @@ function FullDetail() {
           </div>
         </div>
       </div>
-      
+
       {employeeDetail?.status === "PENDING" && (
         <div
           className={
@@ -86,6 +87,11 @@ function FullDetail() {
           </div>
 
           <div className={styles.btnApproveWrapper}>
+            <div>
+              <ButtonBase className={styles.editChange} onClick={EditForm}>
+                CHANGE AND APPROVE
+              </ButtonBase>
+            </div>
             <div>
               <ButtonBase
                 // disabled={isSubmitting}
