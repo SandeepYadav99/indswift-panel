@@ -153,7 +153,13 @@
   border-radius: 30px !important;
   font-weight: 600 !important;
 }
-
+.editChange{
+  color: #29cb97 !important;
+  border: 2px solid #29cb97 !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+}
 .editFlex {
   display: flex;
   justify-content: space-between;
@@ -164,7 +170,11 @@
   display: flex;
   justify-content: flex-end;
 }
-
+.btnApproveWrapper{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
 .btnCont {
   display: flex;
   justify-content: flex-end;
