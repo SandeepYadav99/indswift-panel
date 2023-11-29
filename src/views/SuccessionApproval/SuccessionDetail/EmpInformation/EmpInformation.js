@@ -32,6 +32,7 @@ const EmployeeInformation = ({ empId }) => {
     salaryCost,
     HODApprovalStatus,
     salaryCostInternal,
+    submitToServer
   } = useEmpInformation();
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -418,7 +419,7 @@ const EmployeeInformation = ({ empId }) => {
         form={form}
         changeTextData={changeTextData}
         onBlurHandler={onBlurHandler}
-        handleSubmit={handleSubmit}
+        handleSubmit={submitToServer}
         errorData={errorData}
         isSubmitting={isSubmitting}
       />

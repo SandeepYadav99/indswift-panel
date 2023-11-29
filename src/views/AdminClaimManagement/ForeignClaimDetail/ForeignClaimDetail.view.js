@@ -5,7 +5,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
 import styles from "./style.module.css";
 import UpperClaimInfo from "../ClaimListDetail/Component/UpperClaimInfo/UpperClaimInfo";
-import { getCurrency } from "../../../helper/helper";
+import { getCurrency, removeUnderScore } from "../../../helper/helper";
 import RejectDialog from "../ClaimListDetail/Component/RejectPopUp/RejectDialog.view";
 import ApproveDialog from "../TravelClaimDetail/component/ApproveDialog/ApproveDialog.view";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -400,10 +400,27 @@ function ForeignClaimDetail() {
             {employeeDetails?.comments &&
               employeeDetails?.comments?.map((item) => (
                 <div className={styles.commentwrap}>
-                  <div>{item.comment}</div>
-                  <div className={styles.commentDate}>
-                    {`${item?.employee?.name} | ${item?.updatedAtText}`}
+                  <div style={{ marginTop: "10px", marginBottom: "10px" }}>
+                    <span style={{ fontWeight: "600" }}>
+                      {removeUnderScore(item?.panelist_role)}
+                    </span>
+                    <span style={{ marginLeft: "10px" }}>
+                      {
+                        <StatusPill
+                          status={item?.status}
+                          style={{ border: "none" }}
+                        />
+                      }
+                    </span>
                   </div>
+                  {item?.status !== "WAITING" && item?.status !== "PENDING" && (
+                    <>
+                      <div>{item?.comment}</div>
+                      <div className={styles.commentDate}>
+                        {`${item?.employee?.name} (${item?.employee?.code}) | ${item?.updatedAtText}`}
+                      </div>
+                    </>
+                  )}
                 </div>
               ))}
           </div>

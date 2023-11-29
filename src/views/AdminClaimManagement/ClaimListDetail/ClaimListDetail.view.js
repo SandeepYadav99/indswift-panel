@@ -9,6 +9,8 @@ import useClaimListDetail from "./ClaimListDetail.hook";
 import ApproveDialog from "./Component/ApprovePopUp/ApproveDialog.view";
 import ChangeDialog from "./Component/ChangePopUp/ChangeDialog.view";
 import RejectDialog from "./Component/RejectPopUp/RejectDialog.view";
+import StatusPill from "../../../components/Status/StatusPill.component";
+import { removeUnderScore } from "../../../helper/helper";
 function ClaimListDetail() {
   const {
     id,
@@ -146,7 +148,7 @@ function ClaimListDetail() {
                           </div>
                           <div className={styles.key}>
                             <span className={styles.value}>Payment Mode:</span>
-                            {item?.payment_mode ? item?.payment_mode : '-'}
+                            {item?.payment_mode ? item?.payment_mode : "-"}
                           </div>
                           {item?.document && (
                             <div className={styles.key}>
@@ -169,19 +171,18 @@ function ClaimListDetail() {
                             {item?.details}
                           </div>
                           {item?.payment_proof && (
-                          <div className={styles.key}>
-                            <a href={item?.payment_proof} target="_blank">
-                              <div className={styles.hyperlinkText}>
-                                View Payment Proof
-                              </div>
-                            </a>
-                          </div>
-                        )}
+                            <div className={styles.key}>
+                              <a href={item?.payment_proof} target="_blank">
+                                <div className={styles.hyperlinkText}>
+                                  View Payment Proof
+                                </div>
+                              </a>
+                            </div>
+                          )}
                         </div>
                       </div>
-                      {employeeDetail?.relocation_expense_details?.length !== index + 1 && (
-                        <div className={styles.verti}></div>
-                      )}
+                      {employeeDetail?.relocation_expense_details?.length !==
+                        index + 1 && <div className={styles.verti}></div>}
                     </div>
                   )
                 )}
@@ -268,10 +269,27 @@ function ClaimListDetail() {
             {employeeDetail?.comments &&
               employeeDetail?.comments?.map((item) => (
                 <div className={styles.commentwrap}>
-                  <div>{item.comment}</div>
-                  <div className={styles.commentDate}>
-                    {`${item?.employee?.name} | ${item?.updatedAtText}`}
+                  <div style={{ marginTop: "10px", marginBottom: "10px" }}>
+                    <span style={{ fontWeight: "600" }}>
+                      {removeUnderScore(item?.panelist_role)}
+                    </span>
+                    <span style={{ marginLeft: "10px" }}>
+                      {
+                        <StatusPill
+                          status={item?.status}
+                          style={{ border: "none" }}
+                        />
+                      }
+                    </span>
                   </div>
+                  {item?.status !== "WAITING" && item?.status !== "PENDING" && (
+                    <>
+                      <div>{item?.comment}</div>
+                      <div className={styles.commentDate}>
+                        {`${item?.employee?.name} (${item?.employee?.code}) | ${item?.updatedAtText}`}
+                      </div>
+                    </>
+                  )}
                 </div>
               ))}
           </div>

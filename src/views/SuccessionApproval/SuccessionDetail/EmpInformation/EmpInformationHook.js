@@ -351,6 +351,7 @@ const useEmpInformation = () => {
     salaryCost,
     HODApprovalStatus,
     salaryCostInternal,
+    submitToServer
   };
 };
 
