@@ -2366,33 +2366,42 @@ function FinalForm() {
         </div>
       </div>
 
+      <div className={"plainPaper"}>
+        <div className={styles.heading}>Part 5 : Net Payable</div>
+        <div className={"formFlex"}>
+          <TotalSum
+            firstName="Total Payable :"
+            firstAmount={form?.net_payable ? `₹ ${form?.net_payable}` : 0}
+          />
+        </div>
+      </div>
+      <div className={"plainPaper"}>
+        <div className={styles.heading}>Attachments</div>
+        <AttachmentIncludeDetailForm ref={ChildenRef} />
+      </div>
+      <div className={"plainPaper"}>
+        <div className={styles.btnWrap}> 
+        <div className={"headerFlex wrapper"}>
+          <ButtonBase
+            type={"button"}
+            className={styles.createBtn}
+            onClick={()=>submitToServer("draft")}
+          >
+            Save As Draft
+          </ButtonBase>
+        </div>
+        <div className={"headerFlex wrapper"}>
+          <ButtonBase
+            type={"button"}
+            className={styles.createBtn}
+            onClick={handleSubmit}
+          >
+            SEND FOR APPROVAL
+          </ButtonBase>
+        </div>
+        </div>
       
-        <div className={"plainPaper"}>
-          <div className={styles.heading}>Part 5 : Net Payable</div>
-          <div className={"formFlex"}>
-            <TotalSum
-              firstName="Total Payable :"
-              firstAmount={
-                form?.net_payable ? `₹ ${form?.net_payable}` : 0
-              }
-            />
-          </div>
-        </div>
-        <div className={"plainPaper"}>
-          <div className={styles.heading}>Attachments</div>
-          <AttachmentIncludeDetailForm ref={ChildenRef} />
-        </div>
-        <div className={"plainPaper"}>
-          <div className={"headerFlex wrapper"}>
-            <ButtonBase
-              type={"button"}
-              className={styles.createBtn}
-              onClick={handleSubmit}
-            >
-              SEND FOR APPROVAL
-            </ButtonBase>
-          </div>
-        </div>
+      </div>
     </div>
   );
 }
