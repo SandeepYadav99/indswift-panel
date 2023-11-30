@@ -155,6 +155,7 @@ const TravelDetailsIncludeForm = (
         const index = fields.findIndex((val) => val?.sku?.sku === variant?.sku);
         return index < 0;
       });
+      
       return (
         <div>
           <TravelDetailsIncludeFields

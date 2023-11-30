@@ -8,11 +8,14 @@ import CustomSelectField from "../../../../components/FormFields/SelectField/Sel
 
 const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
   const handleChange = (e, fieldName) => {
+  
+
     if (fieldName) {
       changeData(index, { [fieldName]: e });
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
+   
       if (name === "from" || name === "to") {
         if (value?.length <= 40) {
           changeData(index, { [name]: value });
@@ -23,7 +26,7 @@ const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
         }
       } else {
         changeData(index, { [name]: value });
-      }
+      } 
     }
   };
   return (

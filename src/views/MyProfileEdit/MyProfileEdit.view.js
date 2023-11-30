@@ -602,7 +602,7 @@ const MyProfileEditView = ({}) => {
           <ButtonBase
             type={"button"}
             className={styles.createBtn}
-            onClick={() => setIsOpen(true)}
+             onClick={() => setIsOpen(true)}
             // onClick={handleSubmit}
           >
             UPDATE

@@ -19,6 +19,7 @@ const ValancyField = ({ type, title }, ref) => {
     isChanged,
     setEnableField,
   } = useValancyField({ type }, ref);
+  
   useImperativeHandle(ref, () => ({
     isValid() {
       return isFormValid();
@@ -26,6 +27,7 @@ const ValancyField = ({ type, title }, ref) => {
     resetData() {
       handleReset();
     },
+
     setData(data) {
       const values = {};
       Object.keys(data).forEach(key => {
