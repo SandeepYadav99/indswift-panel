@@ -37,7 +37,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ApproveDialog = ({ isOpen, handleToggle, candidateId, isInterview }) => {
+const ApproveDialog = ({
+  isOpen,
+  handleToggle,
+  candidateId,
+  isInterview,
+  handleUpdateApi,
+  isEdit,
+}) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -51,7 +58,14 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId, isInterview }) => {
     isSubmitting,
     setDeclaration,
     declaration,
-  } = useApproveDialogHook({ isOpen, handleToggle, candidateId, isInterview });
+  } = useApproveDialogHook({
+    isOpen,
+    handleToggle,
+    candidateId,
+    isInterview,
+    handleUpdateApi,
+    isEdit,
+  });
 
   return (
     <div>
@@ -123,7 +137,7 @@ const ApproveDialog = ({ isOpen, handleToggle, candidateId, isInterview }) => {
           </div>
           <div className={styles.printFlex}>
             <ButtonBase
-              onClick={handleSubmit}
+              onClick={isEdit ? handleUpdateApi : handleSubmit}
               disabled={!declaration ? true : false}
               className={
                 declaration ? styles.createBtn : styles.disabledCreatebtn

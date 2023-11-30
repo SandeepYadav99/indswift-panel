@@ -22,8 +22,10 @@ import {
   serviceGetFinalFormDetails,
   serviceGetFormDebounceDetails,
   serviceSubmitFFForm,
+  serviceUpdateFFForm,
 } from "../../../services/FinalForm.service";
 import { number_Keys } from "../../../helper/helper";
+import { serviceGetFinalFormApprove } from "../../../services/FinalFormApproval.service";
 
 const SALARY_KEYS = [
   "pds",
@@ -121,7 +123,7 @@ const BOOLEAN_KEYS = [
   "is_mobile_device_recovery_manual",
 ];
 
-function useFinalForm() {
+function useFinalForm({ location }) {
   const initialForm = {
     pds: "",
     dol: "",
@@ -280,7 +282,18 @@ function useFinalForm() {
   ]);
   const [employeeDetail, setEmployeeDetail] = useState({});
   const ChildenRef = useRef(null);
+  const [approveDialog, setApproveDialog] = useState(false);
+  const [rejectDialog, setRejectDialog] = useState(false);
 
+  const toggleStatusDialog = useCallback(() => {
+    setApproveDialog((e) => !e);
+  }, [approveDialog]);
+
+  const toggleRejectDialog = useCallback(() => {
+    setRejectDialog((e) => !e);
+  }, [rejectDialog]);
+
+  const isEdit = location?.state?.isEdit;
   const checkSalaryInfoDebouncer = useMemo(() => {
     return debounce((e) => {
       checkForSalaryInfo(e);
@@ -586,9 +599,19 @@ function useFinalForm() {
           }
         });
         fd.append("attachments", JSON.stringify(AttachData));
-        serviceSubmitFFForm(fd).then((res) => {
+        let req;
+        if (isEdit) {
+          req = serviceUpdateFFForm(fd);
+        } else {
+          req = serviceSubmitFFForm(fd);
+        }
+        req.then((res) => {
           if (!res.error) {
-            historyUtils.goBack();
+            if (isEdit) {
+              submitToServerApprove();
+            } else {
+              historyUtils.goBack();
+            }
           } else {
             SnackbarUtils.error(res?.message);
           }
@@ -598,6 +621,25 @@ function useFinalForm() {
     },
     [form, isSubmitting, setIsSubmitting, employeeDetail, id]
   );
+
+  const submitToServerApprove = useCallback(() => {
+    if (!isSubmitting) {
+      const comment = sessionStorage.getItem("comments");
+      setIsSubmitting(true);
+      serviceGetFinalFormApprove({
+        review_id: location?.state?.review_id,
+        comment: comment,
+      }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils.success("Request Approved");
+          historyUtils.goBack();
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+        setIsSubmitting(false);
+      });
+    }
+  }, [form, isSubmitting, setIsSubmitting]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -627,6 +669,12 @@ function useFinalForm() {
     handleSubmit,
     submitToServer,
     ChildenRef,
+    isEdit,
+    toggleStatusDialog,
+    approveDialog,
+    toggleRejectDialog,
+    rejectDialog,
+    id,
   };
 }
 

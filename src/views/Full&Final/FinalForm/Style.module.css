@@ -32,6 +32,19 @@
   color: #e92828;
   font-weight: bold;
 }
+.edit {
+  color: #e92828 !important;
+  border: 2px solid #e92828 !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+}
+.approvedWrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
 .teck{
   margin-left: 15px;
   font-size: .8rem;

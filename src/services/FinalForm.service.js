@@ -26,3 +26,6 @@ export async function serviceGetFinalForm(params) {
 export async function serviceSubmitFFForm(params) {
   return await formDataRequest("ff/submit/form", params);
 }
+export async function serviceUpdateFFForm(params) {
+  return await formDataRequest("ff/update/form", params);
+}

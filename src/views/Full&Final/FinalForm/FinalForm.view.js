@@ -14,8 +14,10 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import constants from "../../../config/constants";
 import AttachmentIncludeDetailForm from "./component/AttachmentInclude/AttachmentIncludeDetail.component";
 import TotalSum from "../../EmployeeEdit/components/TotalSum/TotalSum";
+import ApproveDialog from "../../Full&FinalApproval/FullDetail/component/ApprovePopUp/ApproveDialog.view";
+import RejectDialog from "../../Full&FinalApproval/FullDetail/component/RejectPopUp/RejectDialog.view";
 
-function FinalForm() {
+function FinalForm({ location }) {
   const {
     employeeDetail,
     form,
@@ -27,7 +29,13 @@ function FinalForm() {
     submitToServer,
     empFlag,
     ChildenRef,
-  } = useFinalForm({});
+    isEdit,
+    toggleStatusDialog,
+    approveDialog,
+    toggleRejectDialog,
+    rejectDialog,
+    id
+  } = useFinalForm({ location });
   const emp = {};
   return (
     <div>
@@ -2379,28 +2387,61 @@ function FinalForm() {
         <div className={styles.heading}>Attachments</div>
         <AttachmentIncludeDetailForm ref={ChildenRef} />
       </div>
+      <ApproveDialog
+        candidateId={id}
+        isOpen={approveDialog}
+        handleToggle={toggleStatusDialog}
+        handleUpdateApi={handleSubmit}
+        isEdit={true}
+      />
+      <RejectDialog
+        candidateId={id}
+        isOpen={rejectDialog}
+        handleToggle={toggleRejectDialog}
+      />
       <div className={"plainPaper"}>
-        <div className={styles.btnWrap}> 
-        <div className={"headerFlex wrapper"}>
-          <ButtonBase
-            type={"button"}
-            className={styles.createBtn}
-            onClick={()=>submitToServer("draft")}
-          >
-            Save As Draft
-          </ButtonBase>
-        </div>
-        <div className={"headerFlex wrapper"}>
-          <ButtonBase
-            type={"button"}
-            className={styles.createBtn}
-            onClick={handleSubmit}
-          >
-            SEND FOR APPROVAL
-          </ButtonBase>
-        </div>
-        </div>
-      
+        {isEdit ? (
+          <div className={styles.approvedWrapper}>
+            <div className={styles.editBtn2}>
+              <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
+                REJECT
+              </ButtonBase>
+            </div>
+
+            <div className={styles.btnApproveWrapper}>
+              <div>
+                <ButtonBase
+                  // disabled={isSubmitting}
+                  className={styles.createBtn}
+                  onClick={toggleStatusDialog}
+                >
+                  APPROVE
+                </ButtonBase>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.btnWrap}>
+            <div className={"headerFlex wrapper"}>
+              <ButtonBase
+                type={"button"}
+                className={styles.createBtn}
+                onClick={() => submitToServer("draft")}
+              >
+                Save As Draft
+              </ButtonBase>
+            </div>
+            <div className={"headerFlex wrapper"}>
+              <ButtonBase
+                type={"button"}
+                className={styles.createBtn}
+                onClick={handleSubmit}
+              >
+                SEND FOR APPROVAL
+              </ButtonBase>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
