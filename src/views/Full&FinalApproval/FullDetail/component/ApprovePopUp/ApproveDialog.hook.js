@@ -9,7 +9,13 @@ import { serviceGetFinalFormApprove } from "../../../../../services/FinalFormApp
 const initialForm = {
   comment: "",
 };
-const useApproveDialogHook = ({ isOpen, handleToggle, candidateId }) => {
+const useApproveDialogHook = ({
+  isOpen,
+  handleToggle,
+  candidateId,
+  handleUpdateApi,
+  isEdit,
+}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -45,6 +51,7 @@ const useApproveDialogHook = ({ isOpen, handleToggle, candidateId }) => {
       let shouldRemoveError = true;
       const t = { ...form };
       t[fieldName] = text;
+      sessionStorage.setItem("comments",text)
       setForm(t);
       shouldRemoveError && removeError(fieldName);
       setIsVerified(false);

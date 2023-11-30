@@ -87,11 +87,15 @@ function FullDetail() {
           </div>
 
           <div className={styles.btnApproveWrapper}>
-            <div>
-              <ButtonBase className={styles.editChange} onClick={EditForm}>
-                CHANGE AND APPROVE
-              </ButtonBase>
-            </div>
+            {(employeeDetail?.fullAndFinal?.status === "PENDING" ||
+              employeeDetail?.fullAndFinal?.status ===
+                "CORPORATE_AUDIT_2_APPROVED") && (
+              <div>
+                <ButtonBase className={styles.editChange} onClick={EditForm}>
+                  CHANGE AND APPROVE
+                </ButtonBase>
+              </div>
+            )}
             <div>
               <ButtonBase
                 // disabled={isSubmitting}

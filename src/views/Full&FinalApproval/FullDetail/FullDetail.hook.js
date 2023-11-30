@@ -28,7 +28,10 @@ function useFullDetail() {
   }, [id]);
 
   const EditForm = useCallback(() => {
-    historyUtils.push(RouteName.FULL_FINAL_FORM + employeeDetail?.full_and_final_id); //+data.id
+    historyUtils.push(
+      RouteName.FULL_FINAL_FORM + employeeDetail?.full_and_final_id,
+      { isEdit: true }
+    ); //+data.id
   }, [employeeDetail]);
 
   return {
