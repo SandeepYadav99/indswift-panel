@@ -30,7 +30,7 @@ function useFullDetail() {
   const EditForm = useCallback(() => {
     historyUtils.push(
       RouteName.FULL_FINAL_FORM + employeeDetail?.full_and_final_id,
-      { isEdit: true }
+      { isEdit: true , review_id:id}
     ); //+data.id
   }, [employeeDetail]);
 

@@ -294,7 +294,6 @@ function useFinalForm({ location }) {
   }, [rejectDialog]);
 
   const isEdit = location?.state?.isEdit;
-
   const checkSalaryInfoDebouncer = useMemo(() => {
     return debounce((e) => {
       checkForSalaryInfo(e);
@@ -628,7 +627,7 @@ function useFinalForm({ location }) {
       const comment = sessionStorage.getItem("comments");
       setIsSubmitting(true);
       serviceGetFinalFormApprove({
-        review_id: id,
+        review_id: location?.state?.review_id,
         comment: comment,
       }).then((res) => {
         if (!res.error) {
