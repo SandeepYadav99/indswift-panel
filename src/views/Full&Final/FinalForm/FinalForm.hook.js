@@ -22,8 +22,10 @@ import {
   serviceGetFinalFormDetails,
   serviceGetFormDebounceDetails,
   serviceSubmitFFForm,
+  serviceUpdateFFForm,
 } from "../../../services/FinalForm.service";
 import { number_Keys } from "../../../helper/helper";
+import { serviceGetFinalFormApprove } from "../../../services/FinalFormApproval.service";
 
 const SALARY_KEYS = [
   "pds",
@@ -121,12 +123,13 @@ const BOOLEAN_KEYS = [
   "is_mobile_device_recovery_manual",
 ];
 
-function useFinalForm() {
+function useFinalForm({ location }) {
   const initialForm = {
     pds: "",
     dol: "",
     is_notice_period_manual: "NO",
     served_for: "",
+    notice_period:"",
     notice_leave_availed: "",
     shortfall_remarks: "",
     shortfall_notice_period: "",
@@ -280,7 +283,18 @@ function useFinalForm() {
   ]);
   const [employeeDetail, setEmployeeDetail] = useState({});
   const ChildenRef = useRef(null);
+  const [approveDialog, setApproveDialog] = useState(false);
+  const [rejectDialog, setRejectDialog] = useState(false);
 
+  const toggleStatusDialog = useCallback(() => {
+    setApproveDialog((e) => !e);
+  }, [approveDialog]);
+
+  const toggleRejectDialog = useCallback(() => {
+    setRejectDialog((e) => !e);
+  }, [rejectDialog]);
+
+  const isEdit = location?.state?.isEdit;
   const checkSalaryInfoDebouncer = useMemo(() => {
     return debounce((e) => {
       checkForSalaryInfo(e);
@@ -290,7 +304,17 @@ function useFinalForm() {
   useEffect(() => {
     let req = serviceGetFinalFormDetails({ id: id });
     req.then((data) => {
-      setEmployeeDetail(data?.data?.details);
+      const res = data?.data?.details;
+      setEmployeeDetail(res);
+      const { attachments } = res;
+      const fd = {};
+      Object.keys({ ...res }).forEach((key) => {
+        if (key in initialForm && key !== "image") {
+          fd[key] = res[key];
+        }
+      });
+      ChildenRef?.current?.setData(attachments);
+      setForm({ ...form, ...fd });
     });
   }, [id]);
   const checkFormValidation = useCallback(() => {
@@ -533,46 +557,82 @@ function useFinalForm() {
     },
     [changeTextData]
   );
-  const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-      setIsSubmitting(true);
-      const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        if (
-          [
-            "payroll_one_salary_slip",
-            "payroll_two_salary_slip",
-            "payroll_three_salary_slip",
-          ].indexOf(key) < 0 &&
-          form[key]
-        ) {
-          LogUtils.log("key", key);
-          if (BOOLEAN_KEYS.includes(key)) {
-            fd.append(key, form[key] === "YES");
-          } else {
-            fd.append(key, form[key]);
+  const submitToServer = useCallback(
+    (draft) => {
+      if (!isSubmitting) {
+        setIsSubmitting(true);
+        const fd = new FormData();
+        Object.keys(form).forEach((key) => {
+          if (
+            [
+              "payroll_one_salary_slip",
+              "payroll_two_salary_slip",
+              "payroll_three_salary_slip",
+            ].indexOf(key) < 0 &&
+            form[key]
+          ) {
+            LogUtils.log("key", key);
+            if (BOOLEAN_KEYS.includes(key)) {
+              fd.append(key, form[key] === "YES");
+            } else {
+              fd.append(key, form[key]);
+            }
           }
+        });
+        fd.append("id", id);
+        if (form?.payroll_one_salary_slip) {
+          fd.append("payroll_one_salary_slip", form?.payroll_one_salary_slip);
         }
-      });
-      fd.append("id", id);
-      if (form?.payroll_one_salary_slip) {
-        fd.append("payroll_one_salary_slip", form?.payroll_one_salary_slip);
-      }
-      if (form?.payroll_two_salary_slip) {
-        fd.append("payroll_two_salary_slip", form?.payroll_two_salary_slip);
-      }
-      if (form?.payroll_three_salary_slip) {
-        fd.append("payroll_three_salary_slip", form?.payroll_three_salary_slip);
-      }
-      const AttachData = ChildenRef.current.getData();
-      AttachData.forEach((val) => {
-        if (val?.attachment_documents) {
-          fd.append("attachment_documents", val?.attachment_documents);
+        if (form?.payroll_two_salary_slip) {
+          fd.append("payroll_two_salary_slip", form?.payroll_two_salary_slip);
         }
-      });
-      fd.append("attachments", JSON.stringify(AttachData));
-      serviceSubmitFFForm(fd).then((res) => {
+        if (form?.payroll_three_salary_slip) {
+          fd.append(
+            "payroll_three_salary_slip",
+            form?.payroll_three_salary_slip
+          );
+        }
+        fd.append("is_drafted", draft ? true : false);
+        const AttachData = ChildenRef.current.getData();
+        AttachData.forEach((val) => {
+          if (val?.attachment_documents) {
+            fd.append("attachment_documents", val?.attachment_documents);
+          }
+        });
+        fd.append("attachments", JSON.stringify(AttachData));
+        let req;
+        if (isEdit) {
+          req = serviceUpdateFFForm(fd);
+        } else {
+          req = serviceSubmitFFForm(fd);
+        }
+        req.then((res) => {
+          if (!res.error) {
+            if (isEdit) {
+              submitToServerApprove();
+            } else {
+              historyUtils.goBack();
+            }
+          } else {
+            SnackbarUtils.error(res?.message);
+          }
+          setIsSubmitting(false);
+        });
+      }
+    },
+    [form, isSubmitting, setIsSubmitting, employeeDetail, id]
+  );
+
+  const submitToServerApprove = useCallback(() => {
+    if (!isSubmitting) {
+      const comment = sessionStorage.getItem("comments");
+      setIsSubmitting(true);
+      serviceGetFinalFormApprove({
+        review_id: location?.state?.review_id,
+        comment: comment,
+      }).then((res) => {
         if (!res.error) {
+          SnackbarUtils.success("Request Approved");
           historyUtils.goBack();
         } else {
           SnackbarUtils.error(res?.message);
@@ -580,7 +640,7 @@ function useFinalForm() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, employeeDetail, id]);
+  }, [form, isSubmitting, setIsSubmitting]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -610,6 +670,12 @@ function useFinalForm() {
     handleSubmit,
     submitToServer,
     ChildenRef,
+    isEdit,
+    toggleStatusDialog,
+    approveDialog,
+    toggleRejectDialog,
+    rejectDialog,
+    id,
   };
 }
 

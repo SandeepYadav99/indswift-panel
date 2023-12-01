@@ -44,7 +44,8 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                 <p>
                   Extension Dates:{" "}
                   <b>
-                    {item?.extensionStartAt ? item?.extensionStartAt : "N/A"} - {item?.extensionEndAt ? item?.extensionEndAt : "N/A"}
+                    {item?.extensionStartAt ? item?.extensionStartAt : "N/A"} -{" "}
+                    {item?.extensionEndAt ? item?.extensionEndAt : "N/A"}
                   </b>
                 </p>
                 <p>
@@ -52,13 +53,15 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                 </p>
                 <p>
                   Type of Succession: <b>{item?.nature_of_succession}</b>
-                  <a
-                    href={item?.employee_form?.document}
-                    style={{ marginLeft: "30%" }}
-                    target="_blank"
-                  >
-                    View certificate
-                  </a>
+                  {item?.employee_form?.document && (
+                    <a
+                      href={item?.employee_form?.document}
+                      style={{ marginLeft: "30%" }}
+                      target="_blank"
+                    >
+                      View certificate
+                    </a>
+                  )}
                 </p>
                 <p>
                   Replacing Person:{" "}

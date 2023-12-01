@@ -14,6 +14,7 @@ import CustomSelectField from "../../../../components/FormFields/SelectField/Sel
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
+import StatusPill from "../../../../components/Status/StatusPill.component";
 const EmployeeInformation = ({ empId }) => {
   const {
     toggleIsOpenDialog,
@@ -32,6 +33,8 @@ const EmployeeInformation = ({ empId }) => {
     salaryCost,
     HODApprovalStatus,
     salaryCostInternal,
+    historyData,
+    submitToServer,
   } = useEmpInformation();
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -121,9 +124,9 @@ const EmployeeInformation = ({ empId }) => {
                       </div>
                       <div className={styles.key}>
                         <span className={styles.value}>Employee ID:</span>
-                        {
-                          employeeDetail?.application?.replacing_employee_code
-                        }{" "}
+                        {employeeDetail?.application?.replacing_employee_code
+                          ? employeeDetail?.application?.replacing_employee_code
+                          : "N/A"}{" "}
                       </div>
                     </>
                   )}
@@ -399,6 +402,102 @@ const EmployeeInformation = ({ empId }) => {
           </>
         )}
       </div>
+      {historyData?.length > 0 && (
+        <div className={styles.plainPaper}>
+          <div className={styles.newContainer}>
+            <div className={styles.editFlex}>
+              <div className={styles.heading}>Employee History</div>
+            </div>
+            {historyData?.map((item, index) => (
+              <div key={`History_${index}`}>
+                <div className={styles.mainFlex}>
+                  <div className={styles.left}>
+                    <div className={styles.key}>
+                      <span className={styles.value}>
+                        Employee Continuing With Company:
+                      </span>
+                      {item?.is_continuing ? "Yes" : "No"}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>Extension Dates:</span>
+                      {item?.extensionStartAt} - {item?.extensionEndAt}
+                    </div>
+
+                    <div className={styles.key}>
+                      <span className={styles.value}>Replacing Place:</span>
+                      {item?.replacing_employee_name}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>
+                        Succession's Cost WRT employee:
+                      </span>
+                      {item?.wrt ? `${item?.wrt} %` : "-"}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>Note:</span>
+                      {item?.notes ? item?.notes : "-"}{" "}
+                    </div>
+                  </div>
+
+                  <div className={styles.vertical}></div>
+
+                  <div className={styles.right}>
+                    <div className={styles.key}>
+                      <span className={styles.value}>
+                        <StatusPill status={removeUnderScore(item?.status)} />
+                      </span>
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>
+                        Nature of Succession:
+                      </span>
+                      {item.nature_of_succession}
+                    </div>
+
+                    <div className={styles.key}>
+                      <a
+                        href={item?.employee_form?.document}
+                        style={{ marginLeft: "30%" }}
+                        target="_blank"
+                      >
+                        View certificate
+                      </a>
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>Salary:</span>
+                      {item?.ctc ? `₹ ${item?.ctc}` : "-"}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>Pending Dues:</span>
+                      {item?.pending_dues
+                        ? item?.pending_dues
+                        : "Nothing Pending"}
+                    </div>
+                  </div>
+                </div>
+                {item?.comments && (
+                  <div className={styles.newContainer}>
+                    <div className={styles.heading}>Comments</div>
+                    <div className={styles.commentContainer}>
+                      {item?.comments?.map((items) => (
+                        <div className={styles.commentwrap}>
+                          <div>{items.comment}</div>
+                          <div className={styles.commentDate}>
+                            {`${items?.actioned_by?.name} | ${items?.actionedAt}`}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {historyData?.length !== index + 1 && (
+                  <div className={styles.hrline}></div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <ApprovalPopup
         // candidateId={ids}
@@ -417,7 +516,7 @@ const EmployeeInformation = ({ empId }) => {
         form={form}
         changeTextData={changeTextData}
         onBlurHandler={onBlurHandler}
-        handleSubmit={handleSubmit}
+        handleSubmit={submitToServer}
         errorData={errorData}
         isSubmitting={isSubmitting}
       />

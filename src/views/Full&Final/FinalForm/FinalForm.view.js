@@ -14,8 +14,10 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import constants from "../../../config/constants";
 import AttachmentIncludeDetailForm from "./component/AttachmentInclude/AttachmentIncludeDetail.component";
 import TotalSum from "../../EmployeeEdit/components/TotalSum/TotalSum";
+import ApproveDialog from "../../Full&FinalApproval/FullDetail/component/ApprovePopUp/ApproveDialog.view";
+import RejectDialog from "../../Full&FinalApproval/FullDetail/component/RejectPopUp/RejectDialog.view";
 
-function FinalForm() {
+function FinalForm({ location }) {
   const {
     employeeDetail,
     form,
@@ -27,7 +29,13 @@ function FinalForm() {
     submitToServer,
     empFlag,
     ChildenRef,
-  } = useFinalForm({});
+    isEdit,
+    toggleStatusDialog,
+    approveDialog,
+    toggleRejectDialog,
+    rejectDialog,
+    id
+  } = useFinalForm({ location });
   const emp = {};
   return (
     <div>
@@ -2111,13 +2119,9 @@ function FinalForm() {
           </div>
         </div>
         <div className={"formFlex"}>
+         
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={
-                empFlag || form?.is_gratuity_uphold_manual === "NO"
-                  ? true
-                  : false
-              }
               type={"number"}
               isError={errorData?.gratuity_uphold}
               errorText={errorData?.gratuity_uphold}
@@ -2131,7 +2135,7 @@ function FinalForm() {
               // }}
             />
           </div>
-          <div className={styles.editBtnWrap}>
+          {/* <div className={styles.editBtnWrap}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -2154,7 +2158,7 @@ function FinalForm() {
             >
               <Delete fontSize={"small"} />
             </IconButton>
-          </div>
+          </div> */}
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.gratuity_uphold_comment}
@@ -2366,33 +2370,75 @@ function FinalForm() {
         </div>
       </div>
 
-      
-        <div className={"plainPaper"}>
-          <div className={styles.heading}>Part 5 : Net Payable</div>
-          <div className={"formFlex"}>
-            <TotalSum
-              firstName="Total Payable :"
-              firstAmount={
-                form?.net_payable ? `₹ ${form?.net_payable}` : 0
-              }
-            />
+      <div className={"plainPaper"}>
+        <div className={styles.heading}>Part 5 : Net Payable</div>
+        <div className={"formFlex"}>
+          <TotalSum
+            firstName="Total Payable :"
+            firstAmount={form?.net_payable ? `₹ ${form?.net_payable}` : 0}
+          />
+        </div>
+      </div>
+      <div className={"plainPaper"}>
+        <div className={styles.heading}>Attachments</div>
+        <AttachmentIncludeDetailForm ref={ChildenRef} />
+      </div>
+      <ApproveDialog
+        candidateId={id}
+        isOpen={approveDialog}
+        handleToggle={toggleStatusDialog}
+        handleUpdateApi={handleSubmit}
+        isEdit={true}
+      />
+      <RejectDialog
+        candidateId={id}
+        isOpen={rejectDialog}
+        handleToggle={toggleRejectDialog}
+      />
+      <div className={"plainPaper"}>
+        {isEdit ? (
+          <div className={styles.approvedWrapper}>
+            <div className={styles.editBtn2}>
+              <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
+                REJECT
+              </ButtonBase>
+            </div>
+
+            <div className={styles.btnApproveWrapper}>
+              <div>
+                <ButtonBase
+                  // disabled={isSubmitting}
+                  className={styles.createBtn}
+                  onClick={toggleStatusDialog}
+                >
+                  APPROVE
+                </ButtonBase>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className={"plainPaper"}>
-          <div className={styles.heading}>Attachments</div>
-          <AttachmentIncludeDetailForm ref={ChildenRef} />
-        </div>
-        <div className={"plainPaper"}>
-          <div className={"headerFlex wrapper"}>
-            <ButtonBase
-              type={"button"}
-              className={styles.createBtn}
-              onClick={handleSubmit}
-            >
-              SEND FOR APPROVAL
-            </ButtonBase>
+        ) : (
+          <div className={styles.btnWrap}>
+            <div className={"headerFlex wrapper"}>
+              <ButtonBase
+                type={"button"}
+                className={styles.createBtn}
+                onClick={() => submitToServer("draft")}
+              >
+                Save As Draft
+              </ButtonBase>
+            </div>
+            <div className={"headerFlex wrapper"}>
+              <ButtonBase
+                type={"button"}
+                className={styles.createBtn}
+                onClick={handleSubmit}
+              >
+                SEND FOR APPROVAL
+              </ButtonBase>
+            </div>
           </div>
-        </div>
+        )}
+      </div>
     </div>
   );
 }
