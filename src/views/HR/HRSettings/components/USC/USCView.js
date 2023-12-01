@@ -29,6 +29,7 @@ function USCView() {
     onBlurHandler,
     handleSubmit,
     toggleStatusDialog,
+    isSubmitting
   } = useUSCHook({});
 
   const tableStructure = useMemo(() => {
@@ -114,6 +115,8 @@ function USCView() {
         changeTextData={changeTextData}
         onBlurHandler={onBlurHandler}
         handleSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
+        
       />
       <PageBox>
         <div className={styles.headerContainer}>

@@ -740,7 +740,8 @@ function EmployeeListCreateHook() {
     isLoading,
     toggleStatusDialog,
     isUpdateDialog,
-    SalaryField
+    SalaryField,
+    isSubmitting
   };
 }
 

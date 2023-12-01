@@ -22,6 +22,7 @@ const useUpdatePRCDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const [IsReoccuring, setIsReoccuring] = useState(false);
   const [employeeList, setEmployeeList] = useState([]);
   const codeDebouncer = useDebounce(form?.code, 500);
+  const [isPRCDetailFetched, setIsPRCDetailFetched] = useState(false);
 
   const checkCodeValidation = useCallback(() => {
     serviceGetCandidatePRCList({ code: form?.code }).then((res) => {
@@ -30,11 +31,14 @@ const useUpdatePRCDialogHook = ({ isOpen, handleToggle, candidateId }) => {
       if (!res.error) {
         delete ed["code"];
         setForm({ ...form, ...dataValue });
+        setIsPRCDetailFetched(true)
       } else {
         ed["code"] = "Job Id does not Exist";
         setForm({
           code: form?.code,
+         
         });
+        
       }
       setErrorData(ed);
     });
@@ -134,6 +138,7 @@ const useUpdatePRCDialogHook = ({ isOpen, handleToggle, candidateId }) => {
     IsReoccuring,
     jobs,
     employeeList,
+    isPRCDetailFetched
   };
 };
 

@@ -32,6 +32,7 @@ function UseIrfFrom() {
     }
     submitToServer();
   }, [submitToServer, setIsChecked, isChecked, data, setData]);
+  
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);

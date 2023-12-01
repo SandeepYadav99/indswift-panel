@@ -56,7 +56,8 @@ const EmployeeListCreate = ({}) => {
       isLoading,
       toggleStatusDialog,
       isUpdateDialog,
-      SalaryField
+      SalaryField,
+      isSubmitting
   } = useEmployeeEditHook({});
 
   const image = useMemo(() => {
@@ -117,6 +118,8 @@ const EmployeeListCreate = ({}) => {
           changeTextData={changeTextData}
           onBlurHandler={onBlurHandler}
           handleSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+          
         />
           <div className={styles.imageContainer}>
             {image}
