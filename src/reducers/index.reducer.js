@@ -184,7 +184,7 @@ const rootReducer = combineReducers({
   next_next_year:AfterNextSuccessionPlanerReducer,
   employeRecordApproval:EmpRecordApprovalReducer,
   final_form_approval: FinalFormApprovalReducer,
-  succession_approval:SuccessionAReducer
+  succession_approval:SuccessionAReducer,
   // form: formReducer,
 });
 
