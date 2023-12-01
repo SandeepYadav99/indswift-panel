@@ -31,7 +31,7 @@ const PendingBGVerification_View = ({ location }) => {
     handleBGVDetails,
     handleBgvAnalysisReport,
     handleBgvReportDownload,
-    setLocationId
+    setLocationId,
   } = usePendingBGVerification_Hook({ location });
 
   const {
@@ -88,9 +88,7 @@ const PendingBGVerification_View = ({ location }) => {
     (all) => {
       // all?.bgv_status === "PENDING"  // if required to add than we add
       const isValidBgvStatus =
-        (all?.bgv_status === "INCOMPLETE" ||
-          all?.bgv_status === "COMPLETED" 
-          ) &&
+        (all?.bgv_status === "INCOMPLETE" || all?.bgv_status === "COMPLETED") &&
         (all?.bgv_result === "PENDING" ||
           all?.bgv_result === "CLEAR" ||
           all?.bgv_result === "FAILED" ||
@@ -107,19 +105,21 @@ const PendingBGVerification_View = ({ location }) => {
         all?.payment_status === "CLEAR";
 
       if (isValidBgvStatus) {
+        // isValidBgvStatus true than icon <VisibilityOutlined fontSize={"small"} />.
         return (
           <IconButton
             className={"tableActionBtn"}
             color="secondary"
             onClick={() => {
-              // If isShowBgvDetails is true, handle details, otherwise handle update details
+              // If isShowBgvDetails is true, it renders the "details" icon (handleBGVDetails(all)
+
               isShowBgvDetails
                 ? handleBGVDetails(all)
                 : handleBGVUpdateDetails(all); // handleBGVUpdateDetails(all)
             }}
           >
             {isShowBgvDetails ? (
-              // Show the details icon if isShowBgvDetails is true, otherwise show update details icon
+              // If isShowBgvDetails is true, it renders the "details" icon (<VisibilityOutlined fontSize={"small"} />
               <VisibilityOutlined fontSize={"small"} />
             ) : (
               <AssignmentOutlined fontSize={"small"} />
@@ -257,7 +257,7 @@ const PendingBGVerification_View = ({ location }) => {
                     handleViewDetails(all);
                   }}
                 >
-                  <InfoOutlined fontSize={"small"} />  
+                  <InfoOutlined fontSize={"small"} />
                 </IconButton>
               )}
 
@@ -274,7 +274,7 @@ const PendingBGVerification_View = ({ location }) => {
     isCalling,
     button_VerificationHandler,
     renderBgvResult,
-    getBgvStatusStyle
+    getBgvStatusStyle,
   ]);
 
   const tableData = useMemo(() => {
