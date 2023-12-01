@@ -5,11 +5,15 @@ import CustomDatePicker from "../../../../components/FormFields/DatePicker/Custo
 import { useEffect } from "react";
 import File from "../../../../components/FileComponent/FileComponent.component";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
 const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
   const handleChange = (e, fieldName) => {
+ 
+  if (fieldName === "payment_proof") {
   
-
+   
+  }
     if (fieldName) {
       changeData(index, { [fieldName]: e });
     } else {
@@ -26,7 +30,7 @@ const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
         }
       } else {
         changeData(index, { [name]: value });
-      } 
+      }
     }
   };
   return (

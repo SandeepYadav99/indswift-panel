@@ -112,12 +112,14 @@ const PendingBGVerification_View = ({ location }) => {
             className={"tableActionBtn"}
             color="secondary"
             onClick={() => {
+              // If isShowBgvDetails is true, handle details, otherwise handle update details
               isShowBgvDetails
                 ? handleBGVDetails(all)
                 : handleBGVUpdateDetails(all); // handleBGVUpdateDetails(all)
             }}
           >
             {isShowBgvDetails ? (
+              // Show the details icon if isShowBgvDetails is true, otherwise show update details icon
               <VisibilityOutlined fontSize={"small"} />
             ) : (
               <AssignmentOutlined fontSize={"small"} />
