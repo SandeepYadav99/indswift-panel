@@ -2119,13 +2119,9 @@ function FinalForm({ location }) {
           </div>
         </div>
         <div className={"formFlex"}>
+         
           <div className={"formGroup"}>
             <CustomTextField
-              disabled={
-                empFlag || form?.is_gratuity_uphold_manual === "NO"
-                  ? true
-                  : false
-              }
               type={"number"}
               isError={errorData?.gratuity_uphold}
               errorText={errorData?.gratuity_uphold}
@@ -2139,7 +2135,7 @@ function FinalForm({ location }) {
               // }}
             />
           </div>
-          <div className={styles.editBtnWrap}>
+          {/* <div className={styles.editBtnWrap}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -2162,7 +2158,7 @@ function FinalForm({ location }) {
             >
               <Delete fontSize={"small"} />
             </IconButton>
-          </div>
+          </div> */}
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.gratuity_uphold_comment}

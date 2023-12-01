@@ -129,6 +129,7 @@ function useFinalForm({ location }) {
     dol: "",
     is_notice_period_manual: "NO",
     served_for: "",
+    notice_period:"",
     notice_leave_availed: "",
     shortfall_remarks: "",
     shortfall_notice_period: "",
