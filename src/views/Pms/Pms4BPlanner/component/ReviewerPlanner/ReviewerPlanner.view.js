@@ -9,42 +9,66 @@ import Constants from "../../../../../config/constants";
 import PlannerItem from "./PlannerItem";
 import WaitingComponent from "../../../../../components/Waiting.component";
 
-const ReviewerPlanner = ({ selectedUser, reviewId, togglePanel, canEdit, isOpen }) => {
-  const { toggleEmployeeDialog, isEmployeeDialog,
-      listData,
-      handleDialogSelect,
-      planner,
-      handleAddClick,
-      selectedType,
-      handleDeleteClick,
-      PLANNER_INDEX,
-      errors,
-      handleSubmit,
-      isSubmitting,
-      isLoading
-  } = useReviewerPlanner({selectedUser, reviewId, togglePanel, isOpen});
+const ReviewerPlanner = ({
+  selectedUser,
+  reviewId,
+  togglePanel,
+  canEdit,
+  isOpen,
+}) => {
+  const {
+    toggleEmployeeDialog,
+    isEmployeeDialog,
+    listData,
+    handleDialogSelect,
+    planner,
+    handleAddClick,
+    selectedType,
+    handleDeleteClick,
+    PLANNER_INDEX,
+    errors,
+    handleSubmit,
+    isSubmitting,
+    isLoading,
+  } = useReviewerPlanner({ selectedUser, reviewId, togglePanel, isOpen });
 
   if (isLoading) {
-      return (<WaitingComponent />);
+    return <WaitingComponent />;
   }
 
   return (
     <div className={styles.detailWrap}>
-        {Object.keys(Constants.PLANNER_TYPES).map(key => {
-            return (<PlannerItem reviewId={reviewId} canEdit={canEdit} errors={errors} indexes={PLANNER_INDEX} handleDelete={handleDeleteClick} handleAdd={handleAddClick} index={key} data={planner} type={key} />)
-        })}
+      {Object.keys(Constants.PLANNER_TYPES).map((key) => {
+        return (
+          <PlannerItem
+            reviewId={reviewId}
+            canEdit={canEdit}
+            errors={errors}
+            indexes={PLANNER_INDEX}
+            handleDelete={handleDeleteClick}
+            handleAdd={handleAddClick}
+            index={key}
+            data={planner}
+            type={key}
+          />
+        );
+      })}
       <div className={styles.btnWrap}>
-          {canEdit && (<ButtonBase
+        {canEdit && (
+          <ButtonBase
             disabled={isSubmitting}
-          aria-haspopup="true"
+            aria-haspopup="true"
             onClick={handleSubmit}
-          className={"createBtn"}
-        >
-          SAVE PANEL
-        </ButtonBase>)}
-          {!canEdit && (
-              <div>Avg Rating: {selectedUser?.type_four_bars_rating?.percentage}</div>
-          )}
+            className={"createBtn"}
+          >
+            SAVE PANEL
+          </ButtonBase>
+        )}
+        {!canEdit && (
+          <div>
+            Avg Rating: {selectedUser?.type_four_bars_rating?.percentage}
+          </div>
+        )}
       </div>
       <EmployeeDialog
         isOpen={isEmployeeDialog}
@@ -55,6 +79,6 @@ const ReviewerPlanner = ({ selectedUser, reviewId, togglePanel, canEdit, isOpen 
       />
     </div>
   );
-}
+};
 
 export default ReviewerPlanner;

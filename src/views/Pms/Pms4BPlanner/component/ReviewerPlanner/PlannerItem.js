@@ -35,8 +35,9 @@ const ProfileView = ({ isSelf, isError, data, handleDelete, type, dtIndex, canEd
                         }} className={styles.removeBtn}>Remove</ButtonBase>
                     </div>
                 )}
+               
                 {!canEdit && (
-                    <div className={styles.buttonWrapper}>
+                    <div className={styles.buttonWrapper} style={{marginRight:"40px"}}>
                         <div><StatusPill status={removeUnderScore(data?.status)} />
                         </div>
                         
