@@ -2332,7 +2332,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     // parent: "skynetLetter",
-     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+     roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.RECRUITER],
   },
   {
     path: `${RouteName.BGV_ANALYSI_REPOST}`,
@@ -2559,7 +2559,7 @@ const dashboardRoutes = [
     component: FinalForm,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.OTHERS],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL}:id`,
