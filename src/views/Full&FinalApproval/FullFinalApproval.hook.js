@@ -10,6 +10,7 @@ import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
+import { serviceGetFinalFormExport } from "../../services/FinalFormApproval.service";
 
 const useFullFinalApproval = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -35,6 +36,15 @@ const useFullFinalApproval = ({}) => {
       })
     );
     isMountRef.current = true;
+  }, []);
+
+  const handleBankSheetDownload = useCallback(() => {
+    serviceGetFinalFormExport({}).then((res) => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -161,6 +171,7 @@ const useFullFinalApproval = ({}) => {
     editData,
     configFilter,
     handleViewForm,
+    handleBankSheetDownload
   };
 };
 

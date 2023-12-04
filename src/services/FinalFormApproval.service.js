@@ -29,3 +29,6 @@ export async function serviceGetFormDebounceDetails(params) {
 export async function serviceGetFinalFormApproval(params) {
   return await postRequest("ff/review", params);
 }
+export async function serviceGetFinalFormExport(params) {
+  return await postRequest("ff/export/bank/transfer", params);
+}

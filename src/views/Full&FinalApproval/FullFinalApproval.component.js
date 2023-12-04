@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { IconButton } from "@material-ui/core";
+import { ButtonBase, IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
@@ -24,6 +24,7 @@ const FullFinalApproval = ({}) => {
     isCalling,
     configFilter,
     handleResend,
+    handleBankSheetDownload,
   } = useFullFinalApproval({});
 
   const {
@@ -32,7 +33,7 @@ const FullFinalApproval = ({}) => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.final_form_approval);
-
+  const { user } = useSelector((state) => state.auth);
   const renderStatus = useCallback((status) => {
     return (
       <StatusPill
@@ -206,6 +207,17 @@ const FullFinalApproval = ({}) => {
             <span className={styles.title}>Full & Final Pending Approval</span>
             <div className={styles.newLine} />
           </div>
+          {(user?.role === "CORPORATE_HR" || user?.role === "ACCOUNTANT") && (
+            <ButtonBase
+              // aria-owns={downloadCL ? "downloadCL" : undefined}
+              aria-haspopup="true"
+              // onClick={handleAddCandidate}
+              onClick={handleBankSheetDownload}
+              className={"createBtn"}
+            >
+              Bank Transfer Sheet
+            </ButtonBase>
+          )}
         </div>
         <div>
           <FilterComponent
