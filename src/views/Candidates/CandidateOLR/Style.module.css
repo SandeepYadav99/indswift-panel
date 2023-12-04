@@ -18,6 +18,20 @@
   background-color: #fff;
   box-shadow: 0px 20px 80px #00000011;
 }
+.commentDate{
+  font-weight: 600;
+}
+.commentContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.commentwrap{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: .8rem;
+}
 .heading{
   font-size: 0.8rem;
   margin-top: 5px;

@@ -16,6 +16,7 @@ function CandidateOLRHook({location}) {
   const isApproval = location?.state?.isApproval;
   const [isApprovalPopUp, setIsApprovalPopUp] = useState(false);
   const [isRejectPopUp, setIsRejectPopUp] = useState(false);
+  const [isCheckPopUp, setIsCheckPopUp] = useState(false);
   const [panelList,setPanelList]=useState([])
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState(null);
@@ -58,7 +59,11 @@ function CandidateOLRHook({location}) {
   const toggleRejectDialog = useCallback(() => {
     setIsRejectPopUp((e) => !e);
   }, [isRejectPopUp]);
-  
+
+  const toggleCheckDialog = useCallback(() => {
+    setIsCheckPopUp((e) => !e);
+  }, [isCheckPopUp]);
+
   const handleApproveReview = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
@@ -90,7 +95,10 @@ function CandidateOLRHook({location}) {
     isRecruiter,
     isChecked,
     handleCheckboxChange,
-    role
+    role,
+    toggleCheckDialog,
+    isCheckPopUp
+    
   };
 }
 

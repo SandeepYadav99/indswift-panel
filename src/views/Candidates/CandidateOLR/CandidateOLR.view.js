@@ -1,5 +1,5 @@
 import { ButtonBase, Checkbox } from "@material-ui/core";
-import React, { useCallback, useMemo,useEffect } from "react";
+import React, { useCallback, useMemo, useEffect } from "react";
 import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../../libs/history.utils";
@@ -11,8 +11,10 @@ import CandidateOLRHook from "./CandidateOLR.hook";
 import RejectOLRDialog from "./components/RejectOLRPopUp/RejectOLRDialog.view";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import CheckOLRDialog from "./components/CheckOLRPopUP/CheckOLRDialog.view";
+import StatusPill from "../../../components/Status/StatusPill.component";
 
 function CandidateOLR({ location }) {
   const {
@@ -34,31 +36,33 @@ function CandidateOLR({ location }) {
     isRecruiter,
     isChecked,
     role,
+    toggleCheckDialog,
+    isCheckPopUp,
     handleCheckboxChange,
   } = CandidateOLRHook({ location });
 
   useEffect(() => {
     const handleKeyPress = async (event) => {
-      if (event.ctrlKey && event.key === 'p') {
-        event.preventDefault(); 
+      if (event.ctrlKey && event.key === "p") {
+        event.preventDefault();
 
-        const content = document.getElementById('content-to-print');
+        const content = document.getElementById("content-to-print");
 
         const canvas = await html2canvas(content);
 
-        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdf = new jsPDF("p", "mm", "a4");
 
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
+        pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 210, 297);
 
         pdf.autoPrint();
-        window.open(pdf.output('bloburl'), '_blank');
+        window.open(pdf.output("bloburl"), "_blank");
       }
     };
 
-    window.addEventListener('keydown', handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyPress);
+      window.removeEventListener("keydown", handleKeyPress);
     };
   }, []);
 
@@ -127,11 +131,43 @@ function CandidateOLR({ location }) {
       <ReplacementDetails data={data} />
       <SalaryDetails data={data} />
       <div className={styles.plainPaper}>
-        <div className={styles.heading}>Corporate HR Comments</div>
+        <div className={styles.newContainer}>
+          <div className={styles.heading}>Comments/Notes</div>
+          <div className={styles.commentContainer}>
+            {data?.reviews &&
+              data?.reviews?.map((item) => (
+                <div className={styles.commentwrap}>
+                  {item?.status !== "WAITING" && item?.status !== "PENDING" && (
+                    <>
+                      <div style={{ marginTop: "10px", marginBottom: "10px" }}>
+                        <span style={{ marginLeft: "10px" }}>
+                          {
+                            <StatusPill
+                              status={item?.status}
+                              style={{ border: "none" }}
+                            />
+                          }
+                        </span>
+                      </div>
+                      <>
+                        <div>{item?.note}</div>
+                        <div className={styles.commentDate}>
+                          {`${item?.employee?.name} (${item?.employee?.code}) | ${item?.updatedAtText}`}
+                        </div>
+                      </>
+                    </>
+                  )}
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+      {/* <div className={styles.plainPaper}>
+        <div className={styles.heading}>Corporate HR Comments </div>
         <span className={styles.spanWrapper}>
           <span style={{ textTransform: "capitalize" }}>{data?.comment}</span>
         </span>
-      </div>
+      </div> */}
       {isReview && (
         <div className={styles.plainPaper}>
           <div className={styles.heading}>Approval Authority</div>
@@ -170,7 +206,7 @@ function CandidateOLR({ location }) {
             </ButtonBase>
             <ButtonBase
               type={"button"}
-              onClick={()=>handleApproveReview()}
+              onClick={toggleCheckDialog}
               className={styles.createBtn}
               disabled={isSubmitting}
             >
@@ -201,6 +237,12 @@ function CandidateOLR({ location }) {
         reviewId={reviewId}
         isOpen={isRejectPopUp}
         handleToggle={toggleRejectDialog}
+      />
+      <CheckOLRDialog
+        reviewId={reviewId}
+        isOpen={isCheckPopUp}
+        handleToggle={toggleCheckDialog}
+        isChecked={isChecked}
       />
     </div>
   );
