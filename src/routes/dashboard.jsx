@@ -499,7 +499,7 @@ const dashboardRoutes = [
     icon: DashboardOutlined,
     component: NewDashboard,
     is_sidebar: true,
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.EMPLOYEES,
@@ -510,7 +510,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     // should_regex: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: "null",
@@ -532,7 +532,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'employeedashboard',
-    roles:[Roles.CORPORATE_HR, Roles.ADMIN]
+    roles:[Roles.CORPORATE_HR, Roles.ADMIN,Roles.HR]
   },
   {
     path: RouteName.EXPIRING_OFFER_LETTER,
@@ -544,7 +544,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'employeedashboard',
-    roles: [Roles.RECRUITER, Roles.CORPORATE_HR,Roles.ADMIN],
+    roles: [Roles.RECRUITER, Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR],
   },
   {
     path: RouteName.SUCCESSION_APPROVAL,
@@ -577,7 +577,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
-    roles: [Roles.CORPORATE_HR,Roles.ADMIN],
+    roles: [Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR],
     // parent: 'employeedashboard',
   },
 
@@ -644,7 +644,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "employee_pm",
     is_parent: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.GENERAL],
   },
   {
     path: "/employee/performance",
@@ -667,7 +667,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "employee_pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.GENERAL],
   },
   {
     path: `${RouteName.PERFORMANCE_PENDING_REVIEW}`,
@@ -679,7 +679,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "employee_pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.GENERAL],
   },
 
   {
@@ -692,7 +692,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "employee_pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.GENERAL],
   },
   {
     path: `${RouteName.PERFORMANCE_HOD_REVIEW}`,
@@ -704,7 +704,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "employee_pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.GENERAL],
   },
   {
     path: `${RouteName.PERFORMANCE_OVERALL_HOD_REVIEW}`,
@@ -716,7 +716,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "employee_pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.GENERAL],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.GENERAL],
   },
   {
     path: "/employee/learning",
@@ -737,7 +737,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "tm",
     is_parent: true,
-    roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
   },
   {
     path: "/tm/review",
@@ -749,7 +749,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CV_SHORTLIST_LIST}:id`,
@@ -761,7 +761,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.INTERVIEW_SCHEDULE,
@@ -773,7 +773,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.REVIEW_OLR,
@@ -785,7 +785,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: "null",
@@ -858,7 +858,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "recruitment",
     is_parent: true,
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
 
   {
@@ -871,7 +871,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "recruitment",
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.JOB_OPENINGS,
@@ -883,7 +883,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "recruitment",
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.CANDIDATE_STATUS_GLOSSARY,
@@ -905,7 +905,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "pm",
     is_parent: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.PERFORMANCE_BATCH}`,
@@ -917,7 +917,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.PERFORMANCE_REVIEW}`,
@@ -929,7 +929,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.PMS_PLANNER}`,
@@ -941,7 +941,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.PMS_SITE_PLANNER}`,
@@ -953,7 +953,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.PERFORMANCE_HOD}`,
@@ -965,7 +965,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.PERFORMANCE_OVERALL_HOD}`,
@@ -977,7 +977,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "pm",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.INCREMENT_MASTER}`,
@@ -1116,7 +1116,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "masters",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.DEPARTMENTS,
@@ -1128,7 +1128,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "masters",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.GRADES,
@@ -1140,7 +1140,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "masters",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.DESIGNATION,
@@ -1152,7 +1152,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "masters",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.PMS_MASTER,
@@ -1188,7 +1188,7 @@ const dashboardRoutes = [
     is_protect: true,
     parent: "approval",
     roles: Constants.is_development
-      ? [Roles.ADMIN, Roles.CORPORATE_HR]
+      ? [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
   },
 
@@ -1202,7 +1202,7 @@ const dashboardRoutes = [
     is_protect: true,
     parent: "approval",
     roles: Constants.is_development
-      ? [Roles.ADMIN, Roles.CORPORATE_HR]
+      ? [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
   },
   {
@@ -1213,7 +1213,7 @@ const dashboardRoutes = [
     component: NewEmployeeDetails,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: "null",
@@ -1223,7 +1223,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "budget",
     is_parent: true,
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: "/annual",
@@ -1247,7 +1247,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: "/budget/pending",
@@ -1259,7 +1259,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.JOB_ROLES,
@@ -1270,7 +1270,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.JOB_ROLES_CREATE,
@@ -1289,7 +1289,7 @@ const dashboardRoutes = [
     component: JobRoleCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.JOB_ROLES_DETAILS}:id`,
@@ -1300,7 +1300,7 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     onlyShow: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.EMPLOYEE_CREATE,
@@ -1311,7 +1311,7 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     // should_regex: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.EMPLOYEE_UPDATE}:id`,
@@ -1320,7 +1320,7 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     // should_regex: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.EMPLOYEE_DETAIL}:id`,
@@ -1330,7 +1330,7 @@ const dashboardRoutes = [
     component: EmployeeTab,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
 
   {
@@ -1350,7 +1350,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "cm",
     is_parent: true,
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
 
   {
@@ -1363,7 +1363,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.CLAIMS_HR_LIST}`,
@@ -1422,7 +1422,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.CLAIMS_HR_DETAILS}:id`,
@@ -1446,7 +1446,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.FOREIGN_CLAIMS_DETAILS}:id`,
@@ -1495,7 +1495,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.CLAIMS_IMPREST_DETAILS}:id`,
@@ -1507,7 +1507,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.IMPREST_APPROVAL}`,
@@ -1519,7 +1519,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.IMPREST_APPROVAL_DETAILS}:id`,
@@ -1531,7 +1531,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.EMPLOYEES_IMPREST}`,
@@ -1543,7 +1543,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CASHIER],
+    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.HR, Roles.CASHIER],
   },
   {
     path: `${RouteName.EMPLOYEES_IMPREST_DETAILS}:id`,
@@ -1555,7 +1555,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CASHIER],
+    roles: [Roles.ADMIN, Roles.HR,  Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CASHIER],
   },
   {
     path: `${RouteName.CLAIMS_IMPREST_CREATE}`,
@@ -1567,7 +1567,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.CLAIMS_INTERVIEW}`,
@@ -1579,7 +1579,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.CLAIMS_INTERVIEW_DETAILS}:id`,
@@ -1591,7 +1591,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.CLAIMS_MARRIGE}`,
@@ -1603,7 +1603,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CLAIMS_MOBILE}`,
@@ -1615,7 +1615,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CLAIMS_CAR}`,
@@ -1627,7 +1627,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CLAIMS_TRAVEL}`,
@@ -1639,7 +1639,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CLAIMS_INT}`,
@@ -1651,7 +1651,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CLAIMS_CURR}`,
@@ -1663,7 +1663,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CLAIMS_LOC}`,
@@ -1675,7 +1675,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CLAIMS_HEALTH}`,
@@ -1687,7 +1687,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CLAIMS_LOAN}`,
@@ -1699,7 +1699,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.EMPLOYEE_LOAN_DETAILS}:id`,
@@ -1711,7 +1711,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN, Roles.GENERAL, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
   },
   {
     path: "null",
@@ -1721,7 +1721,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "imp",
     is_parent: true,
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: "null",
@@ -1731,7 +1731,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "reports",
     is_parent: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.EMPLOYEE_REPORT}`,
@@ -1771,7 +1771,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "Hr",
     is_parent: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.HR_POLICIES,
@@ -1807,7 +1807,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "Hr",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.HR_USC_UPDATE}:id`,
@@ -1819,7 +1819,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "Hr",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CURRENCY_UPDATE}:id`,
@@ -1831,7 +1831,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "Hr",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: "/hr/knowledge",
@@ -1843,7 +1843,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "Hr",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: "/hr/announcement",
@@ -1855,7 +1855,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "Hr",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: "/hr/utsav",
@@ -1867,7 +1867,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "Hr",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   // {
   //     path: 'null',
@@ -1886,7 +1886,7 @@ const dashboardRoutes = [
     component: CandidateDetails,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.GENERAL, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CANDIDATES_INFO}:id`,
@@ -1895,7 +1895,7 @@ const dashboardRoutes = [
     component: CandidateInfo,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CANDIDATES_OFFER}`,
@@ -1904,7 +1904,7 @@ const dashboardRoutes = [
     component: CandidateOfferLetter,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CANDIDATES_OFFER_DETAILS}:id`,
@@ -1913,13 +1913,13 @@ const dashboardRoutes = [
     component: CandidateOLR,
     is_sidebar: false,
     is_protect: true,
-    // roles: [
-    //   Roles.ADMIN,
-    //   Roles.RECRUITER,
-    //   Roles.CORPORATE_HR,
-    //   Roles.OLR,
-    //   Roles.GENERAL,
-    // ],
+    roles: [
+      Roles.ADMIN,Roles.HR,
+      Roles.RECRUITER,
+      Roles.CORPORATE_HR,
+      Roles.OLR,
+      Roles.GENERAL,
+    ],
   },
   {
     path: RouteName.CANDIDATES_CREATE,
@@ -1929,7 +1929,7 @@ const dashboardRoutes = [
     component: CandidateCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CANDIDATES_UPDATE}:id`,
@@ -1939,7 +1939,7 @@ const dashboardRoutes = [
     component: CandidateCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
 
   {
@@ -1964,7 +1964,7 @@ const dashboardRoutes = [
     component: LocationDetail,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
 
   {
@@ -1975,7 +1975,7 @@ const dashboardRoutes = [
     component: DepartmentDetail,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.DEPARTMENT_CREATE,
@@ -2013,7 +2013,7 @@ const dashboardRoutes = [
     component: SubDepartmentList,
     is_sidebar: false,
     should_regex: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
 
   {
@@ -2022,7 +2022,7 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     roles: Constants.is_development
-      ? [Roles.CORPORATE_HR, Roles.ADMIN]
+      ? [Roles.CORPORATE_HR, Roles.ADMIN,Roles.HR]
       : [Roles.CORPORATE_HR],
   },
   {
@@ -2031,7 +2031,7 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     roles: Constants.is_development
-      ? [Roles.CORPORATE_HR, Roles.ADMIN]
+      ? [Roles.CORPORATE_HR, Roles.ADMIN,Roles.HR]
       : [Roles.CORPORATE_HR],
   },
   {
@@ -2040,7 +2040,7 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     roles: Constants.is_development
-      ? [Roles.CORPORATE_HR, Roles.ADMIN]
+      ? [Roles.CORPORATE_HR, Roles.ADMIN,Roles.HR]
       : [Roles.CORPORATE_HR],
   },
   {
@@ -2069,14 +2069,14 @@ const dashboardRoutes = [
     component: CadreDetails,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.CADRES}:code`,
     component: CadreList,
     is_sidebar: false,
     should_regex: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
 
   {
@@ -2087,7 +2087,7 @@ const dashboardRoutes = [
     component: JobOpeningCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.JOB_OPENINGS_UPDATE}:id`,
@@ -2097,7 +2097,7 @@ const dashboardRoutes = [
     component: JobOpeningUpdateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.JOB_OPENINGS_DETAILS}:id`,
@@ -2107,7 +2107,7 @@ const dashboardRoutes = [
     component: JobOpeningDetail,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
 
   {
@@ -2115,35 +2115,35 @@ const dashboardRoutes = [
     component: HRAnnouncementCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.HR_ANNOUNCEMENT_UPDATE}:id`,
     component: HRAnnouncementCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.HR_KNOWLEDGE_CREATE,
     component: HRKnowledgeCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.HR_KNOWLEDGE_UPDATE}:id`,
     component: HRKnowledgeCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.HR_POLICIES_CREATE,
     component: HRCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
 
   {
@@ -2151,21 +2151,21 @@ const dashboardRoutes = [
     component: HRCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.HR_CIRCULARS_CREATE,
     component: CircularCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.HR_CIRCULARS_UPDATE}:id`,
     component: CircularCreateView,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
 
   {
@@ -2176,7 +2176,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "tp",
     is_parent: true,
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
 
   {
@@ -2189,7 +2189,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tp",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.TRAVEL_PLANNER_CREATE}`,
@@ -2201,7 +2201,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tp",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.TRAVEL_PLANNER_DETAILS}:id`,
@@ -2213,7 +2213,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tp",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
 
   {
@@ -2226,7 +2226,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tp",
-    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.TRAVEL_AUTHEN_DETAILS}:id`,
@@ -2238,7 +2238,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tp",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: RouteName.ADMIN_LOAN_LIST,
@@ -2259,7 +2259,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'tp',
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
 
   {
@@ -2272,7 +2272,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'tp',
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.ADMIN_LOAN_PROCESS_DETAIL}:id`,
@@ -2284,7 +2284,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'tp',
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.ADMIN_LOAN_RECOVERY}`,
@@ -2296,7 +2296,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'tp',
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
 
   {
@@ -2319,7 +2319,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'tp',
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: RouteName.PENDING_BACKGROUND_VERIFICATION,
@@ -2332,7 +2332,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     // parent: "skynetLetter",
-     roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.RECRUITER],
+     roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.RECRUITER, Roles.HR,],
   },
   {
     path: `${RouteName.BGV_ANALYSI_REPOST}`,
@@ -2345,7 +2345,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     // parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.PENDING_VERIFICATION_CREATE}:id`,
@@ -2358,7 +2358,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     // parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.PENDING_VERIFICATION_UPDATE}:id`,
@@ -2371,7 +2371,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     // parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.PENDING_VERIFICATION_DETAIL}:id`,
@@ -2384,7 +2384,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     // parent: "skynetLetter",
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: "null",
@@ -2394,9 +2394,9 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "skynetLetter",
     is_parent: true,
-    // roles: [Roles.CORPORATE_HR, Roles.ADMIN, Roles.OTHERS],
+    // roles: [Roles.CORPORATE_HR, Roles.ADMIN,Roles.HR, Roles.OTHERS],
     roles: [
-      Roles.ADMIN,
+      Roles.ADMIN,Roles.HR,
       Roles.CORPORATE_HR,
       // Roles.ACCOUNTANT,
       // Roles.OTHERS,
@@ -2418,7 +2418,7 @@ const dashboardRoutes = [
     is_protect: true,
     // slug: 'tp',
     parent: "skynetLetter",
-     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
 
   {
@@ -2432,7 +2432,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
-     roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.C3MLETTER,
@@ -2445,7 +2445,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.RELIEVING_EXPERIENCE_APPROVALS,
@@ -2458,8 +2458,8 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: RouteName.RELIEVING_EXPERIENCE_APPROVALS_DETAILS,
@@ -2472,8 +2472,8 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
     path: RouteName.RELIEVING_EXPERIENCE_LETTER,
@@ -2488,7 +2488,7 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "skynetLetter",
     roles: [
-      Roles.ADMIN,
+      Roles.ADMIN,Roles.HR,
       Roles.CORPORATE_HR,
       Roles.ACCOUNTANT,
       Roles.OTHERS,
@@ -2511,7 +2511,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     parent: "skynetLetter",
-    //  roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    //  roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
   {
@@ -2540,7 +2540,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.PENDING_LEAVE_APPLICATION,
@@ -2559,7 +2559,7 @@ const dashboardRoutes = [
     component: FinalForm,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.OTHERS],
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.OTHERS, Roles.HR],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL}:id`,
@@ -2569,7 +2569,7 @@ const dashboardRoutes = [
     component: FinalDetail,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL_APPROVAL}:id`,
@@ -2579,7 +2579,7 @@ const dashboardRoutes = [
     component: FullDetail,
     is_sidebar: false,
     is_protect: true,
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.FULL_FINAL_APPLICATION,
@@ -2589,7 +2589,7 @@ const dashboardRoutes = [
     component: FullFinalComponent,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.FULL_FINAL_APPROVAL,
@@ -2599,7 +2599,7 @@ const dashboardRoutes = [
     component: FullFinalApprovalJourney,
     is_sidebar: true,
     is_protect: true,
-    // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
       path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,

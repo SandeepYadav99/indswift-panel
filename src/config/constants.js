@@ -80,7 +80,7 @@ export default {
   STATUS: {
     PENDING_VERIFICATION:"pending",
     PENDING_PENDING:"pending",
- 
+
     PENDING: "pending",
     WAITING: "waiting",
     ACCEPTED: "warning",
@@ -434,7 +434,8 @@ export default {
     ACCOUNTANT: "ACCOUNTANT",
     CORPORATE_REVIEWER: "CORPORATE_REVIEWER",
     PMS: "PMS",
-    CASHIER:"CASHIER"
+    CASHIER:"CASHIER",
+    HR:"HR"
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,
