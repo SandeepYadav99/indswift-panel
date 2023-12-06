@@ -34,6 +34,7 @@ const LodgingIncludeForm = (
     setCurrency,
     setOfficeAmount,
     curr,
+    statusCheck
   },
   ref
 ) => {
@@ -158,6 +159,7 @@ const LodgingIncludeForm = (
             index={index}
             onBlur={onBlur}
             CoPass={CoPass}
+            statusCheck={statusCheck}
           />
           {fields?.length !== index + 1 && <div className={styles.verti}></div>}
         </div>

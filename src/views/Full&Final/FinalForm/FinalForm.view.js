@@ -67,7 +67,7 @@ function FinalForm({ location }) {
           </div>
           <div className={"formGroup"}>
             <CustomDatePicker
-              disabled={true}
+              // disabled={true}
               clearable
               label={"Actual DOL"}
               // maxDate={new Date()}
@@ -337,6 +337,7 @@ function FinalForm({ location }) {
                   changeTextData(file, "payroll_one_salary_slip");
                 }
               }}
+              link={typeof(form?.payroll_one_salary_slip) === "string" ?  form?.payroll_one_salary_slip : null}
             />
           </div>
         </div>
@@ -423,6 +424,7 @@ function FinalForm({ location }) {
                   changeTextData(file, "payroll_two_salary_slip");
                 }
               }}
+              link={typeof(form?.payroll_two_salary_slip) === "string" ?  form?.payroll_two_salary_slip : null}
             />
           </div>
         </div>
@@ -509,6 +511,7 @@ function FinalForm({ location }) {
                   changeTextData(file, "payroll_three_salary_slip");
                 }
               }}
+              link={typeof(form?.payroll_three_salary_slip) === "string" ?  form?.payroll_three_salary_slip : null}
             />
           </div>
         </div>
