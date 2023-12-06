@@ -43,6 +43,7 @@ const SALARY_KEYS = [
   "payroll_two_paid_days",
   "payroll_two_value",
   "payroll_three_paid_days",
+  "payroll_three_month",
   "payroll_three_value",
   "statutory_bonus",
   "gratuity",
@@ -499,6 +500,7 @@ function useFinalForm({ location }) {
             "payroll_one_status",
             "payroll_two_status",
             "payroll_three_status",
+            "payroll_three_month"
           ].includes(key)
         ) {
           filteredForm[key] = data[key];
