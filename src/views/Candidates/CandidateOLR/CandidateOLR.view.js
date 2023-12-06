@@ -131,8 +131,14 @@ function CandidateOLR({ location }) {
       <ReplacementDetails data={data} />
       <SalaryDetails data={data} />
       <div className={styles.plainPaper}>
+        <div className={styles.heading}>Recruiter Comments </div>
+        <span className={styles.spanWrapper}>
+          <span style={{ textTransform: "capitalize" }}>{data?.comment}</span>
+        </span>
+      </div>
+      <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-          <div className={styles.heading}>Comments/Notes</div>
+          <div className={styles.heading}>Reviewer Comments</div>
           <div className={styles.commentContainer}>
             {data?.reviews &&
               data?.reviews?.map((item) => (
@@ -162,12 +168,7 @@ function CandidateOLR({ location }) {
           </div>
         </div>
       </div>
-      {/* <div className={styles.plainPaper}>
-        <div className={styles.heading}>Corporate HR Comments </div>
-        <span className={styles.spanWrapper}>
-          <span style={{ textTransform: "capitalize" }}>{data?.comment}</span>
-        </span>
-      </div> */}
+    
       {isReview && (
         <div className={styles.plainPaper}>
           <div className={styles.heading}>Approval Authority</div>
