@@ -4,7 +4,7 @@ import styles from "./style.module.css";
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import { getCurrency } from "../../../../../helper/helper";
 
-const LodgingIncludeFields = ({ index, changeData, data, errors }) => {
+const LodgingIncludeFields = ({ index, changeData, data, errors ,statusCheck}) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
       changeData(index, { [fieldName]: e });
@@ -79,6 +79,7 @@ const LodgingIncludeFields = ({ index, changeData, data, errors }) => {
                 </span>
                 <span className={styles.value}>
                   <TextField
+                    disabled={!statusCheck}
                     error={errors?.amount}
                     onChange={handleChange}
                     value={data?.amount}

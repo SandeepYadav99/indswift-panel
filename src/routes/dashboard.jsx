@@ -586,7 +586,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
-    roles: [Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR],
+    roles: [Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR,Roles.MD],
     // parent: 'employeedashboard',
   },
 
