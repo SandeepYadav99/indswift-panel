@@ -32,6 +32,7 @@ const DAIncludeForm = (
     endDate,
     CoPass,
     isCP,
+    statusCheck
   },
   ref
 ) => {
@@ -168,6 +169,7 @@ const DAIncludeForm = (
             endDate={endDate}
             CoPass={CoPass}
             isCP={isCP}
+            statusCheck={statusCheck}
           />
           {fields?.length !== index + 1 && <div className={styles.verti}></div>}
         </div>

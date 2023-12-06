@@ -465,6 +465,7 @@ function FinalForm({ location }) {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
+              disabled={true}
               type={"number"}
               isError={errorData?.payroll_three_value}
               errorText={errorData?.payroll_three_value}

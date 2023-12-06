@@ -103,7 +103,7 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   <b>
                     {item?.pending_dues
                       ? item?.pending_dues
-                      : "Nothing Pending"}
+                      : "-"}
                   </b>
                 </p>
                 <p>

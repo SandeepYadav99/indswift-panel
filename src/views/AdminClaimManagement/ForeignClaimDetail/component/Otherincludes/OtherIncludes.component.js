@@ -20,7 +20,7 @@ const TEMP_OBJ = {
 };
 
 const OtherIncludeForm = (
-  { data, errorData: errorForm, grade, changeAmount, startDate, endDate ,setOfficeAmount4,curr},
+  { data, errorData: errorForm, grade, changeAmount, startDate, endDate ,setOfficeAmount4,curr,statusCheck},
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -170,6 +170,7 @@ const OtherIncludeForm = (
             grade={grade}
             startDate={startDate}
             endDate={endDate}
+            statusCheck={statusCheck}
           />
         </div>
       );
