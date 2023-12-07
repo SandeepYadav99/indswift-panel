@@ -63,7 +63,7 @@ const LeaveApplicationForm = () => {
   }
 
   function renderOccasion() {
-    if (!Designation.includes(gradeLevel) || ExperienceInCompany < 1.0) {
+    if (!Designation.includes(gradeLevel)) {
       return true;
     } else {
       return false;
