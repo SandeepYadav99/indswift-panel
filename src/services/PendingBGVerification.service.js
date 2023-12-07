@@ -23,7 +23,9 @@ export async function serviceEmloyeeBGVTable(params) {
 export async function serviceBGVDownload(params) {
   return await postRequest("employee/verification/export/report", params);
 }
-
+export async function serviceBGVDownloadAll(params) {
+  return await postRequest("employee/verification/export/report/all", params);
+}
 export async function serviceBgvStatusFilter(params){
   return await postRequest("employee/verification/filter/status", params)
 }

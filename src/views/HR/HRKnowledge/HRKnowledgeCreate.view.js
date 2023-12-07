@@ -127,7 +127,7 @@ const HRKnowledgeCreateView = ({}) => {
               }}
               // id="tags-standard"
               options={listData?.EMPLOYEES}
-              getOptionLabel={(option) => option.name}
+              getOptionLabel={(option) => option?.label}
               defaultValue={form?.submitted_by}
               renderInput={(params) => (
                 <TextField

@@ -1,14 +1,12 @@
-import { ButtonBase, Checkbox, MenuItem } from "@material-ui/core";
+import { ButtonBase, Checkbox } from "@material-ui/core";
 import { useStyles } from "@material-ui/pickers/views/Calendar/SlideTransition";
-import React, { useCallback, useState } from "react";
-import { useRef } from "react";
+import React from "react";
+
 import CustomToggle from "../../../components/FormFields/CustomToggle";
-import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
-import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import { isNum } from "../../../libs/RegexUtils";
+
 import EmployeeIncludeForm from "../components/EmployementHistory/EmployeeIncludes.component";
 import SalaryDetail from "../components/SalaryDetails/SalaryDetails";
-import useEmployeeFormDetail from "./EmployementHistoryHook";
+
 import styles from "../Style.module.css";
 import AdditionalForm from "../components/AdditionalForm/AdditionalForm";
 import useEmploymentHistory from "./EmployementHistoryHook";
@@ -62,12 +60,12 @@ function EmploymentHistory({ isDisabled}) {
               </div>
               }
             </div>
-            <div style={{ display: isFresher ? 'none' : 'block' }}>
+            <div style={{ display: isFresher ? 'none' : 'block' }} className={styles.signContainerExp} >
               <EmployeeIncludeForm ref={refEmpHistory} isDisabled={isDisabled}/>
             </div>
           </div>
         </div>
-        <div className={styles.signContainer}>
+        <div className={styles.signContainer} style={{ display: isFresher ? 'none' : 'block' }}>
           <SalaryDetail isDisabled={isDisabled} ref={refSalary} />
         </div>
         <AdditionalForm ref={refAdditional} isDisabled={isDisabled}/>

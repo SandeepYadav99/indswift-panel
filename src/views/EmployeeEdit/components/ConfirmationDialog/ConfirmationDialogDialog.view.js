@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import {
   Button,
   ButtonBase,
+  CircularProgress,
   IconButton,
   InputAdornment,
   MenuItem,
@@ -46,11 +47,10 @@ const ConfirmationDialog = ({
   errorData,
   changeTextData,
   onBlurHandler,
-  handleSubmit
-
+  handleSubmit,
+  isSubmitting,
 }) => {
   const classes = useStyles();
- 
 
   return (
     <div>
@@ -118,10 +118,14 @@ const ConfirmationDialog = ({
           <div className={styles.printFlex}>
             <ButtonBase
               onClick={handleSubmit}
-              // disabled={isSubmitting}
+              disabled={isSubmitting}
               className={"createBtnreset"}
             >
-              Submit
+              {isSubmitting ? (
+                <CircularProgress color="success" size="20px" />
+              ) : (
+                "Submit"
+              )}
             </ButtonBase>
           </div>
         </div>

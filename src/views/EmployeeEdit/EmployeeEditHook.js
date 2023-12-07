@@ -745,7 +745,8 @@ function EmployeeListCreateHook() {
     toggleStatusDialog,
     isUpdateDialog,
     SalaryField,
-    role
+    role,
+    isSubmitting
   };
 }
 
