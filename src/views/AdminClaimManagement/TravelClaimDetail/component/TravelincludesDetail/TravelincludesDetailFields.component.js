@@ -9,6 +9,7 @@ const TravelincludesDetailFields = ({
   handlePress,
   data,
   errors,
+  statusCheck
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
@@ -64,6 +65,7 @@ const TravelincludesDetailFields = ({
                 <span className={styles.value}>
                   {" "}
                   <TextField
+                    disabled={!statusCheck}
                     error={errors?.amount}
                     onChange={handleChange}
                     value={data?.amount}

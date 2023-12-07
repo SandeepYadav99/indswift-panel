@@ -16,7 +16,7 @@ const TEMP_OBJ = {
 };
 
 const TravelincludesDetailForm = (
-  { data, errorData: errorForm, grade, changeAmount, setOfficeAmount2 },
+  { data, errorData: errorForm, grade, changeAmount, setOfficeAmount2,statusCheck },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -138,6 +138,7 @@ const TravelincludesDetailForm = (
             index={index}
             onBlur={onBlur}
             grade={grade}
+            statusCheck={statusCheck}
           />
           {fields?.length !== index + 1 && <div className={styles.verti}></div>}
         </div>

@@ -413,19 +413,21 @@ function ForeignClaimDetail() {
             {employeeDetails?.comments &&
               employeeDetails?.comments?.map((item) => (
                 <div className={styles.commentwrap}>
-                  <div style={{ marginTop: "10px", marginBottom: "10px" }}>
-                    <span style={{ fontWeight: "600" }}>
-                      {removeUnderScore(item?.panelist_role)}
-                    </span>
-                    <span style={{ marginLeft: "10px" }}>
-                      {
-                        <StatusPill
-                          status={item?.status}
-                          style={{ border: "none" }}
-                        />
-                      }
-                    </span>
-                  </div>
+                 {(item?.status || item?.panelist_role) && (
+                    <div style={{ marginTop: "5px", marginBottom: "5px" }}>
+                      <span style={{ fontWeight: "600" }}>
+                        {removeUnderScore(item?.panelist_role)}
+                      </span>
+                      <span style={{ marginLeft: "10px" }}>
+                        {
+                          <StatusPill
+                            status={item?.status}
+                            style={{ border: "none" }}
+                          />
+                        }
+                      </span>
+                    </div>
+                  )}
                   {item?.status !== "WAITING" && item?.status !== "PENDING" && (
                     <>
                       <div>{item?.comment}</div>
