@@ -18,7 +18,7 @@ const TEMP_OBJ = {
 };
 
 const DAincludesDetailForm = (
-  { data, errorData: errorForm, grade, changeAmount },
+  { data, errorData: errorForm, grade, changeAmount ,statusCheck},
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -149,6 +149,7 @@ const DAincludesDetailForm = (
             index={index}
             onBlur={onBlur}
             grade={grade}
+            statusCheck={statusCheck}
           />
           {fields?.length !== index + 1 && <div className={styles.verti}></div>}
         </div>

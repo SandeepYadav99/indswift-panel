@@ -30,6 +30,7 @@ const ExpenseIncludeForm = (
     CoPass,
     setOfficeAmount2,
     curr,
+    statusCheck
   },
   ref
 ) => {
@@ -160,6 +161,7 @@ const ExpenseIncludeForm = (
             startDate={startDate}
             endDate={endDate}
             CoPass={CoPass}
+            statusCheck={statusCheck}
           />
           {fields?.length !== index + 1 && <div className={styles.verti}></div>}
 

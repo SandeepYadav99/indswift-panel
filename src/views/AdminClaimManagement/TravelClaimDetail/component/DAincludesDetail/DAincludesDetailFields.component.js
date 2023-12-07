@@ -9,6 +9,7 @@ const DAincludesDetailFields = ({
   handlePress,
   data,
   errors,
+  statusCheck
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
@@ -90,6 +91,7 @@ const DAincludesDetailFields = ({
             <span className={styles.valueField}>
               {" "}
               <TextField
+                disabled={!statusCheck}
                 error={errors?.da_pct}
                 onChange={handleChange}
                 value={data?.da_pct}
@@ -104,6 +106,7 @@ const DAincludesDetailFields = ({
             <span className={styles.valueField}>
               {" "}
               <TextField
+                disabled={!statusCheck}
                 error={errors?.da_amount}
                 onChange={handleChange}
                 value={data?.da_amount}
@@ -118,6 +121,7 @@ const DAincludesDetailFields = ({
             <span className={styles.valueField}>
               {" "}
               <TextField
+                disabled={!statusCheck}
                 error={errors?.ie_amount}
                 onChange={handleChange}
                 value={data?.ie_amount}

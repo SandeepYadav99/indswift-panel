@@ -8,6 +8,7 @@ const OtherincludesDetailFields = ({
   handlePress,
   data,
   errors,
+  statusCheck
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
@@ -49,6 +50,7 @@ const OtherincludesDetailFields = ({
               <div className={styles.key}>
                 <span className={styles.value}>
                   <TextField
+                    disabled={!statusCheck}
                     error={errors?.amount}
                     onChange={handleChange}
                     value={data?.amount}

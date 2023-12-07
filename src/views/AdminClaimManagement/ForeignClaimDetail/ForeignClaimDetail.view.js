@@ -15,6 +15,7 @@ import DAIncludeForm from "./component/DAincludes/DAIncludes.component";
 import OtherDetailsIncludeForm from "./component/OtherDetailsincludes/OtherDetailsIncludes.component";
 import OtherIncludeForm from "./component/Otherincludes/OtherIncludes.component";
 import ApproveDialog from "../TravelClaimDetail/component/ApproveDialog/ApproveDialog.view";
+import { useMemo } from "react";
 
 function ForeignClaimDetail() {
   const {
@@ -66,6 +67,14 @@ function ForeignClaimDetail() {
     setRefundData,
     onBlurHandler,
   } = useClaimForDetail({});
+
+  const statusCheck=useMemo(()=>{
+    if(employeeDetails){
+      return employeeDetails?.panelist_status === "PENDING"
+    }
+  },[employeeDetails])
+
+  console.log("statusCheck",statusCheck)
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -143,6 +152,7 @@ function ForeignClaimDetail() {
             changeAmount={changeAmount}
             setOfficeAmount={setOfficeAmount}
             curr={curr}
+            statusCheck={statusCheck}
           />
         </div>
       </div>
@@ -155,6 +165,7 @@ function ForeignClaimDetail() {
             changeAmount={changeAmount}
             setOfficeAmount2={setOfficeAmount2}
             curr={curr}
+            statusCheck={statusCheck}
           />
         </div>
       </div>
@@ -162,7 +173,7 @@ function ForeignClaimDetail() {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Part C: DA & IE Expenses</div>
-          <DAIncludeForm ref={daRef} changeAmount={changeAmount} />
+          <DAIncludeForm ref={daRef} changeAmount={changeAmount} statusCheck={statusCheck}/>
         </div>
       </div>
       <div className={styles.plainPaper}>
@@ -173,6 +184,7 @@ function ForeignClaimDetail() {
             changeAmount={changeAmount}
             setOfficeAmount3={setOfficeAmount3}
             curr={curr}
+            statusCheck={statusCheck}
           />
         </div>
       </div>
@@ -184,6 +196,7 @@ function ForeignClaimDetail() {
             changeAmount={changeAmount}
             setOfficeAmount4={setOfficeAmount4}
             curr={curr}
+            statusCheck={statusCheck}
           />
         </div>
       </div>
@@ -383,6 +396,7 @@ function ForeignClaimDetail() {
           </div>
           <div className={styles.inner32}>
             <CustomTextField
+              disabled={!statusCheck}
               type="number"
               label={"Final Amount"}
               value={refundData}
@@ -400,19 +414,21 @@ function ForeignClaimDetail() {
             {employeeDetails?.comments &&
               employeeDetails?.comments?.map((item) => (
                 <div className={styles.commentwrap}>
-                  <div style={{ marginTop: "10px", marginBottom: "10px" }}>
-                    <span style={{ fontWeight: "600" }}>
-                      {removeUnderScore(item?.panelist_role)}
-                    </span>
-                    <span style={{ marginLeft: "10px" }}>
-                      {
-                        <StatusPill
-                          status={item?.status}
-                          style={{ border: "none" }}
-                        />
-                      }
-                    </span>
-                  </div>
+                 {(item?.status || item?.panelist_role) && (
+                    <div style={{ marginTop: "5px", marginBottom: "5px" }}>
+                      <span style={{ fontWeight: "600" }}>
+                        {removeUnderScore(item?.panelist_role)}
+                      </span>
+                      <span style={{ marginLeft: "10px" }}>
+                        {
+                          <StatusPill
+                            status={item?.status}
+                            style={{ border: "none" }}
+                          />
+                        }
+                      </span>
+                    </div>
+                  )}
                   {item?.status !== "WAITING" && item?.status !== "PENDING" && (
                     <>
                       <div>{item?.comment}</div>

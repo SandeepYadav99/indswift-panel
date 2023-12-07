@@ -41,6 +41,15 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                     {<StatusPill status={item?.succession} />}
                   </span>
                 </p>
+                <p>Intimated for Exit:
+                <b style={{marginLeft:"10px"}}>{item?.is_intimated_for_exit ? "Yes" : "No"}</b>
+                </p>
+                <p>Applied for R/E : 
+                <b style={{marginLeft:"10px"}}>{item?.is_applied_for_re ? "Yes" : "No"}</b>
+                </p>
+                <p>Medical Condition : 
+                <b style={{marginLeft:"10px"}}>{item?.medical_condition ? item?.medical_condition: "-"}</b>
+                </p>
                 <p>
                   Extension Dates:{" "}
                   <b>
@@ -94,8 +103,11 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   <b>
                     {item?.pending_dues
                       ? item?.pending_dues
-                      : "Nothing Pending"}
+                      : "-"}
                   </b>
+                </p>
+                <p>
+                Decision from MD Office: <b>{item?.extension_status ? item?.extension_status : "-"}</b>
                 </p>
                 <p>
                   Notes: <b>{item?.notes ? item?.notes : "-"}</b>

@@ -434,8 +434,9 @@ export default {
     ACCOUNTANT: "ACCOUNTANT",
     CORPORATE_REVIEWER: "CORPORATE_REVIEWER",
     PMS: "PMS",
+    HR:"HR",
+    MD:"MD",
     CASHIER:"CASHIER",
-    HR:"HR"
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,
