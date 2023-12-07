@@ -15,6 +15,7 @@ import OtherincludesDetailForm from "./component/OtherincludesDetail/Otherinclud
 import ApproveDialog from "./component/ApproveDialog/ApproveDialog.view";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
+import { useMemo } from "react";
 
 function TravelClaimListDetail() {
   const {
@@ -53,6 +54,12 @@ function TravelClaimListDetail() {
     setOfficeAmount3,
     setOfficeAmount4,
   } = useTravelClaimListDetail({});
+  
+  const statusCheck=useMemo(()=>{
+    if(employeeDetail){
+      return employeeDetail?.panelist_status === "PENDING"
+    }
+  },[employeeDetail])
 
   return (
     <div className={styles.claimListWrapper}>
@@ -130,6 +137,7 @@ function TravelClaimListDetail() {
             ref={lodgeRef}
             changeAmount={changeAmount}
             setOfficeAmount={setOfficeAmount}
+            statusCheck={statusCheck}
           />
         </div>
       </div>
@@ -141,6 +149,7 @@ function TravelClaimListDetail() {
             ref={travelRef}
             changeAmount={changeAmount}
             setOfficeAmount2={setOfficeAmount2}
+            statusCheck={statusCheck}
           />
         </div>
       </div>
@@ -148,7 +157,9 @@ function TravelClaimListDetail() {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Part C: DA & IE Expenses</div>
-          <DAincludesDetailForm ref={daRef} changeAmount={changeAmount} />
+          <DAincludesDetailForm ref={daRef} changeAmount={changeAmount} 
+            statusCheck={statusCheck}
+          />
         </div>
       </div>
       <div className={styles.plainPaper}>
@@ -158,6 +169,7 @@ function TravelClaimListDetail() {
             ref={enterRef}
             changeAmount={changeAmount}
             setOfficeAmount3={setOfficeAmount3}
+            statusCheck={statusCheck}
           />
         </div>
       </div>
@@ -168,6 +180,7 @@ function TravelClaimListDetail() {
             ref={otherRef}
             changeAmount={changeAmount}
             setOfficeAmount4={setOfficeAmount4}
+            statusCheck={statusCheck}
           />
         </div>
       </div>
@@ -276,19 +289,21 @@ function TravelClaimListDetail() {
             {employeeDetail?.comments &&
               employeeDetail?.comments?.map((item) => (
                 <div className={styles.commentwrap}>
-                  <div style={{ marginTop: "10px", marginBottom: "10px" }}>
-                    <span style={{ fontWeight: "600" }}>
-                      {removeUnderScore(item?.panelist_role)}
-                    </span>
-                    <span style={{ marginLeft: "10px" }}>
-                      {
-                        <StatusPill
-                          status={item?.status}
-                          style={{ border: "none" }}
-                        />
-                      }
-                    </span>
-                  </div>
+                  {(item?.status || item?.panelist_role) && (
+                    <div style={{ marginTop: "5px", marginBottom: "5px" }}>
+                      <span style={{ fontWeight: "600" }}>
+                        {removeUnderScore(item?.panelist_role)}
+                      </span>
+                      <span style={{ marginLeft: "10px" }}>
+                        {
+                          <StatusPill
+                            status={item?.status}
+                            style={{ border: "none" }}
+                          />
+                        }
+                      </span>
+                    </div>
+                  )}
                   {item?.status !== "WAITING" && item?.status !== "PENDING" && (
                     <>
                       <div>{item?.comment}</div>

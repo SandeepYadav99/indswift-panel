@@ -77,7 +77,11 @@ const ClaimsList = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
+            <span className={styles.productName}>
+              {obj?.employee?.name?.length > 15
+                ? `${obj?.employee?.name?.substring(0, 15)}....`
+                : obj?.employee?.name}
+            </span>{" "}
             <br />
             <span className={styles.productName}>
               {obj?.employee?.emp_code}
@@ -138,8 +142,8 @@ const ClaimsList = ({ location }) => {
         label: "DEPT & SUB-DEPT",
         sortable: false,
         render: (temp, all) => (
-          <div>
-            {all?.employee?.department} / {all?.employee?.sub_department}
+          <div style={{ whiteSpace: "nowrap" }}>
+            {all?.employee?.department} <br /> / {all?.employee?.sub_department}
           </div>
         ),
       },
