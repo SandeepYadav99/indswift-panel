@@ -158,7 +158,8 @@ const RelievingExpLetter_View = ({ location }) => {
               all?.employee?.status === "TERMINATED" ||
               all?.employee?.status === "EXPIRED" ||
               all?.employee?.status === "RETIRED" ||
-              all?.employee?.status === "ABSCONDED ") &&
+              all?.employee?.status === "ABSCONDED" ||
+              all?.employee?.status === "INACTIVE") &&
               all?.exitInterview?.status === "COMPLETED") ||
               all?.exitInterview?.status === "SUBMITTED" ||
               all?.exitInterview?.status === "N/A") &&
@@ -175,7 +176,7 @@ const RelievingExpLetter_View = ({ location }) => {
               </IconButton>
             ) : null}
 
-            {all?.employee?.status === "RESIGNED" &&
+            {(all?.employee?.status === "RESIGNED" || all?.employee?.status === "INACTIVE") &&
             all?.exitInterview?.status === "PENDING" &&
             all?.status === "PENDING" ? (
               <IconButton
