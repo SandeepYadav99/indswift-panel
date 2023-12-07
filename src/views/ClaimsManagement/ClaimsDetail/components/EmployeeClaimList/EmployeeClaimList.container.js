@@ -150,24 +150,24 @@ const EmployeeClaimList = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{all?.fy_year}</div>,
       },
-      {
-        key: "user_id",
-        label: "Action",
-        render: (temp, all) => (
-          <div>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>
-          </div>
-        ),
-      },
+      // {
+      //   key: "user_id",
+      //   label: "Action",
+      //   render: (temp, all) => (
+      //     <div>
+      //       <IconButton
+      //         className={"tableActionBtn"}
+      //         color="secondary"
+      //         disabled={isCalling}
+      //         onClick={() => {
+      //           handleViewDetails(all);
+      //         }}
+      //       >
+      //         <InfoOutlined fontSize={"small"} />
+      //       </IconButton>
+      //     </div>
+      //   ),
+      // },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling,handleViewDetails]);
 
