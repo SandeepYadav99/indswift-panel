@@ -129,6 +129,12 @@ const RelievingExpLetter_View = ({ location }) => {
         ),
       },
       {
+        key: "last",
+        label: "Last working Day",
+        sortable: false,
+        render: (temp, all) => <div>{all?.employee?.resign_data?.last_working_date ? all?.employee?.resign_data?.last_working_date : "-"}</div>,
+      },
+      {
         key: "employee_status",
         label: "EMPLOYEE STATUS",
         sortable: false,
