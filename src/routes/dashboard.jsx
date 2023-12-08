@@ -749,7 +749,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: `${RouteName.CV_SHORTLIST_LIST}:id`,
@@ -761,7 +761,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: RouteName.INTERVIEW_SCHEDULE,
@@ -773,7 +773,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: RouteName.REVIEW_OLR,
@@ -895,7 +895,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "recruitment",
-    // roles: [Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: "null",
@@ -1904,7 +1904,7 @@ const dashboardRoutes = [
     component: CandidateOfferLetter,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD,],
   },
   {
     path: `${RouteName.CANDIDATES_OFFER_DETAILS}:id`,
@@ -1919,6 +1919,7 @@ const dashboardRoutes = [
       Roles.CORPORATE_HR,
       Roles.OLR,
       Roles.GENERAL,
+      Roles.MD
     ],
   },
   {
