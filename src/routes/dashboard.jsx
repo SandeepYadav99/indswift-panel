@@ -785,7 +785,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: "null",
