@@ -80,6 +80,7 @@
 .buttonWrapper {
   display: flex;
   align-items: center;
+  
 }
 .errorCont{
     margin-left: 10px;

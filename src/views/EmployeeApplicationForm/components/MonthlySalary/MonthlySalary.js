@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { Button, ButtonBase, IconButton, MenuItem } from "@material-ui/core";
+import {  ButtonBase,} from "@material-ui/core";
 import LogUtils from "../../../../libs/LogUtils";
 import {
   RemoveCircleOutline as RemoveIcon,
@@ -16,6 +16,7 @@ import {
 import { useParams } from "react-router";
 import styles from "../../Style.module.css";
 import IncludSalaryField from "./MonthlySalaryField";
+
 const TEMP_OBJ = {
   ctc: "",
   in_hand: "",
@@ -29,11 +30,7 @@ const MonthlySalary = (
     currency,
     listWarehouse,
     errorData: errorForm,
-    form,
-    changeTextData,
-    updateInventory,
-    vendorId,
-    SalaryTagType,
+   
     firstfield,
     Secondfield,
     thirdfield,
@@ -177,8 +174,10 @@ const MonthlySalary = (
         const index = fields.findIndex((val) => val?.sku?.sku === variant?.sku);
         return index < 0;
       });
+
       return (
         <div>
+  
           <IncludSalaryField
             isDisabled={isDisabled}
             variants={tempFilters}

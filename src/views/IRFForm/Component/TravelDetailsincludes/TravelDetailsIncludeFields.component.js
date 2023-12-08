@@ -5,14 +5,27 @@ import CustomDatePicker from "../../../../components/FormFields/DatePicker/Custo
 import { useEffect } from "react";
 import File from "../../../../components/FileComponent/FileComponent.component";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
 const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
   const handleChange = (e, fieldName) => {
+ 
+    if (fieldName === "payment_proof") {
+      // Uncomment the following code to check file size
+      if (e.size > 5 * 1024 * 1024) {
+        SnackbarUtils.error("File size exceeds the limit of 5MB");
+        // Optionally, you can reset the input or take any other action to handle the error.
+        // For example:
+        // changeData(index, { payment_proof: null });
+        return;
+      }
+    }
     if (fieldName) {
       changeData(index, { [fieldName]: e });
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
+   
       if (name === "from" || name === "to") {
         if (value?.length <= 40) {
           changeData(index, { [name]: value });
@@ -119,7 +132,7 @@ const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
         >
           <div className={styles.flex1}>
             <File
-              max_size={5 * 1024 * 1024}
+              max_size={5 * 1024 * 1024 }
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="proof"

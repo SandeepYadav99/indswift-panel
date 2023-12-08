@@ -10,7 +10,7 @@ import RouteName from "../../../routes/Route.name";
 import constants from "../../../config/constants";
 import { actionFetchEmployee } from "../../../actions/Employee.action";
 import { serviceGetList } from "../../../services/Common.service";
-import { serviceBGVDownload } from "../../../services/PendingBGVerification.service";
+import { serviceBGVDownload, serviceBGVDownloadAll } from "../../../services/PendingBGVerification.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 const usePendingBGVerification_Hook = () => {
@@ -138,6 +138,22 @@ const usePendingBGVerification_Hook = () => {
     });
   }, []);
 
+  const handleBgvReportDownloadAll = useCallback((data) => {
+    serviceBGVDownloadAll({
+      index: 1,
+      order: null,
+      query: "",
+      query_data: null,
+      row: null,
+    }).then((res) => {
+      if (!res?.error) {
+        const data = res.data;
+        window.open(data, "_blank");
+      } else {
+        SnackbarUtils.error(res?.message);
+      }
+    });
+  }, []);
   const initData = useCallback(() => {
     dispatch(
       actionFetchEmployee(1, sortingData, {
@@ -202,6 +218,7 @@ const usePendingBGVerification_Hook = () => {
     handleBgvAnalysisReport,
     handleBgvReportDownload,
     setLocationId,
+    handleBgvReportDownloadAll
   };
 };
 

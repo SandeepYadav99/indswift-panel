@@ -46,6 +46,7 @@ const MyProfileEditView = ({}) => {
     refGg,
     setIsOpen,
     toggleDialog,
+    submitToServer
   } = useMyProfileEdit({});
   const refQuarterly = null;
   const image = useMemo(() => {
@@ -89,7 +90,7 @@ const MyProfileEditView = ({}) => {
         </div>
       </div>
       <DisclaimerDialog
-        handleSubmit={handleSubmit}
+        handleSubmit={submitToServer}
         isOpen={isOpen}
         handleToggle={toggleDialog}
       />
@@ -603,8 +604,8 @@ const MyProfileEditView = ({}) => {
           <ButtonBase
             type={"button"}
             className={styles.createBtn}
-            onClick={() => setIsOpen(true)}
-            // onClick={handleSubmit}
+             //onClick={() => setIsOpen(true)}
+             onClick={handleSubmit}
           >
             UPDATE
           </ButtonBase>
