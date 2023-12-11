@@ -2560,7 +2560,7 @@ const dashboardRoutes = [
     component: FinalForm,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.OTHERS, Roles.HR],
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.OTHERS, Roles.HR,Roles.RECRUITER],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL}:id`,
