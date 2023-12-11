@@ -31,6 +31,7 @@ const PendingBGVerification_View = ({ location }) => {
     handleBGVDetails,
     handleBgvAnalysisReport,
     handleBgvReportDownload,
+    handleBgvReportDownloadAll,
     setLocationId,
   } = usePendingBGVerification_Hook({ location });
 
@@ -315,13 +316,21 @@ const PendingBGVerification_View = ({ location }) => {
           </div>
 
           <div className={styles.rightFlex}>
+          <ButtonBase
+              className={styles.download}
+              onClick={() => {
+                handleBgvReportDownloadAll();
+              }}
+            >
+              DOWNLOAD
+            </ButtonBase>
             <ButtonBase
               className={styles.download}
               onClick={() => {
                 handleBgvReportDownload();
               }}
             >
-              DOWNLOAD
+              PAYMENTS RECORD
             </ButtonBase>
             <ButtonBase
               className={styles.edit}
