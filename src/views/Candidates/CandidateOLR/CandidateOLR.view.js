@@ -168,7 +168,7 @@ function CandidateOLR({ location }) {
           </div>
         </div>
       </div>
-    
+
       {isReview && (
         <div className={styles.plainPaper}>
           <div className={styles.heading}>Approval Authority</div>

@@ -241,10 +241,10 @@ const PmsPlanner = ({}) => {
     console.log(selectedStatus)
     return <div className={styles.headerWrap}>
       <div>Review Planner</div>
-{/*       
+    
       {
         selectedStatus && <div><StatusPill status={removeUnderScore(selectedStatus)} /></div>
-      } */}
+      } 
     </div>
   }
   return (
