@@ -76,7 +76,6 @@ const initialForm = {
   mother_name: "",
   spouse_name: "",
   spouse_dob: "",
-  higher_education:"",
   permanent_address: "",
   current_address: "",
   pan_no: "",
