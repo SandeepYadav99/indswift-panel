@@ -11,7 +11,7 @@ const TableView = ({ tableDatas }) => {
             <th colSpan="2" style={{ border: "none" }}>
               {" "}
             </th>
-            <th colSpan="3" className={styles.bgColor4Cols}>
+            <th colSpan="4" className={styles.bgColor4Cols}>
               BGV STATUS
             </th>
             <th colSpan="5" className={styles.bgColor4Cols}>
@@ -27,6 +27,7 @@ const TableView = ({ tableDatas }) => {
           <tr className={styles.bgColorRow}>
             <td>Month</td>
             <td>No. of Cases</td>
+            <td>Pending</td>
             <td>Completed</td>
             <td>In-Complete</td>
             <td>Total</td>
@@ -50,19 +51,20 @@ const TableView = ({ tableDatas }) => {
                   <td>{date}</td>
                   {/* BGV STATUS list */}
                   <td>{groupedData[date]?.count}</td>
+                  <td>{groupedData[date]?.bgv_status?.PENDING || 0}</td>
                   <td>{groupedData[date]?.bgv_status?.COMPLETED || 0}</td>
                   <td>{groupedData[date]?.bgv_status?.INCOMPLETE}</td>
                   <td>{groupedData[date]?.count}</td>
                   {/* BGV REULT LIST */}
                   <td>{groupedData[date]?.bgv_result?.CLEAR}</td>
                   <td>{groupedData[date]?.bgv_result?.FAILED || 0}</td>
-                  <td>{groupedData[date]?.bgv_result?.IN_PROCESS || 0}</td>
+                  <td>{groupedData[date]?.bgv_result?.INPROCESS || 0}</td>
                   <td>{groupedData[date]?.bgv_result?.PENDING || 0}</td>
                   <td>{groupedData[date]?.count}</td>
                   {/* BGV PAYMENT STATUS */}
                   <td>{groupedData[date]?.payment_status?.CLEAR}</td>
                   <td>{groupedData[date]?.payment_status?.PENDING || 0}</td>
-                  <td>{groupedData[date]?.payment_status?.IN_PROCESS || 0}</td>
+                  <td>{groupedData[date]?.payment_status?.INPROGRESS || 0}</td>
                   <td>{groupedData[date]?.count}</td>
 
                   {/* Total filed  */}
@@ -73,6 +75,8 @@ const TableView = ({ tableDatas }) => {
           <tr className={styles.totalCols}>
             <td>Total</td>
             <td>{tableDatas?.totalCount}</td>
+            <td>{tableDatas?.bgvStatusPending}</td> 
+            {/* need to add key 78 */}
             <td>{tableDatas?.bgvStatusComplete}</td>
             <td>{tableDatas?.bgvStatusInComplete}</td>
             <td>{tableDatas?.totalCount}</td>
@@ -92,6 +96,8 @@ const TableView = ({ tableDatas }) => {
           <tr className={styles.totalCols}>
             <td style={{ border: "none", backgroundColor: "#FFFFFF" }}></td>
             <td style={{ border: "none", backgroundColor: "#FFFFFF" }}></td>
+            <td>{tableDatas?.bgvStatusPendingPercent}</td> 
+            {/* Need to add key 99 */}
             <td>{tableDatas?.bgvStatusCompletePercent}</td>
             <td>{tableDatas?.bgvStatusInCompletePercent}</td>
             <td>{}</td>
