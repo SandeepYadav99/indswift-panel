@@ -20,7 +20,7 @@ const TEMP_OBJ = {
 };
 
 const OtherIncludeForm = (
-  { data, errorData: errorForm, grade, changeAmount, startDate, endDate ,setOfficeAmount4,curr},
+  { data, errorData: errorForm, grade, changeAmount, startDate, endDate ,setOfficeAmount4,curr,statusCheck},
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -78,6 +78,9 @@ const OtherIncludeForm = (
             delete err[key];
           }
         }
+      }
+      if(val?.amount == 0 && val?.amount !== ""){
+        delete err['amount']
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
@@ -167,6 +170,7 @@ const OtherIncludeForm = (
             grade={grade}
             startDate={startDate}
             endDate={endDate}
+            statusCheck={statusCheck}
           />
         </div>
       );

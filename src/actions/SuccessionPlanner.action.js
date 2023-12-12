@@ -5,12 +5,8 @@ import { serviceGetSuccessionPlanerList } from "../services/SuccessionPlanner.se
 
 export const FETCH_INIT = "FETCH_INIT_SUCCESSION_PLANER";
 export const FETCHED = "FETCHED_SUCCESSION_PLANER";
-export const FETCHED_YEAR = "FETCHED_SUCCESSION_PLANER";
-export const FETCHED_NEXT_YEAR = "FETCHED_SUCCESSION_PLANER";
-export const FETCHED_NEXT_NEXT_YEAR = "FETCHED_SUCCESSION_PLANER";
 export const FETCHED_FAIL = "FETCHED_FAIL_SUCCESSION_PLANER";
 export const FETCHED_FILTER = "FETCHED_FILTER_SUCCESSION_PLANER";
-
 export const FETCH_NEXT = "FETCH_NEXT_SUCCESSION_PLANER";
 export const FILTER = "FILTER_SUCCESSION_PLANER";
 export const RESET_FILTER = "RESET_FILTER_SUCCESSION_PLANER";
@@ -40,22 +36,8 @@ export function actionFetchSuccessionPlaner(
     request.then((data) => {
       dispatch({ type: SET_FILTER, payload: filter });
       dispatch({ type: SET_SORTING, payload: sorting });
-
       if (!data.error) {
-        const year = data?.data?.year;
-        const next_Year = data?.data?.next_year;
-        const next_next_year = data?.data?.next_next_year;
-    
-        dispatch({
-          type: FETCHED_YEAR,
-          payload: {
-            year: year,
-            next_year: next_Year,
-            next_next_year: next_next_year,
-            page: index,
-          },
-        });
-
+        dispatch({ type: FETCHED, payload: { data: data.data, page: index } });
         dispatch({ type: SET_SERVER_PAGE, payload: index });
         if (index == 1) {
           dispatch({ type: CHANGE_PAGE, payload: index - 1 });
@@ -67,70 +49,7 @@ export function actionFetchSuccessionPlaner(
   };
 }
 
-export function actionCreateSuccessionPlaner(data) {
-  // const request = serviceCreateSuccessionPlaner(data);
-  // return (dispatch) => {
-  //   request.then((data) => {
-  //     if (!data.error) {
-  //       EventEmitter.dispatch(EventEmitter.THROW_ERROR, {
-  //         error: "Saved",
-  //         type: "success",
-  //       });
-  //       dispatch({ type: CREATE_DATA, payload: data.data });
-  //     }
-  //   });
-  // };
-}
-
-export function actionUpdateSuccessionPlaner(data) {
-  // const request = serviceUpdateSuccessionPlaner(data);
-  // return (dispatch) => {
-  //   request.then((data) => {
-  //     if (!data.error) {
-  //       dispatch({ type: UPDATE_DATA, payload: data.data });
-  //     }
-  //   });
-  // };
-}
-
-export function actionDeleteSuccessionPlaner(id) {
-  // const request = serviceDeleteSuccessionPlaner({ id: id });
-  // return (dispatch) => {
-  //   dispatch({ type: DELETE_ITEM, payload: id });
-  // };
-}
-
-export function actionChangePageSuccessionPlaner(page) {
-  return (dispatch) => {
-    dispatch({ type: CHANGE_PAGE, payload: page });
-  };
-}
-
-export function actionFilterSuccessionPlaner(value) {
-  const request = null; ////serviceFetchProviderRequests(value);
-  return (dispatch) => {
-    dispatch({ type: FETCH_INIT, payload: null });
-    request.then((data) => {
-      // dispatch({ type: FILTER, payload: data });
-      // dispatch({ type: FETCHED, payload: null }); //dispatch function
-    });
-  };
-}
-
-export function actionChangeStatusSuccessionPlaner(id, status) {
-  return (dispatch) => {
-    dispatch({ type: CHANGE_STATUS, payload: { id, status } });
-  };
-}
-
-export function actionResetFilterSuccessionPlaner() {
-  return {
-    type: RESET_FILTER,
-    payload: null,
-  };
-}
-
-export function actionSetPageSuccessionPlaner(page) {
+export function actionSetPageSuccessionPlaner(page,year) {
   const stateData = store.getState().successionPlaner;
   const currentPage = stateData.currentPage;
   const totalLength = stateData.all.length;
@@ -138,12 +57,13 @@ export function actionSetPageSuccessionPlaner(page) {
   const query = stateData.query;
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;
-
+  
   if (totalLength <= (page + 1) * constants.PAGE_VALUE) {
     store.dispatch(
       actionFetchSuccessionPlaner(serverPage + 1, sortingData, {
         query,
         query_data: queryData,
+        year:year
       })
     );
   }

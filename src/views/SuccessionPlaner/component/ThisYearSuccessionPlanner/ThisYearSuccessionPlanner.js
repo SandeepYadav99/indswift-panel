@@ -7,7 +7,7 @@ import DataTables from "../../../../Datatables/Datatable.table";
 import Constants from "../../../../config/constants";
 import styles from "./Style.module.css";
 import classNames from "classnames";
-import { Add, CachedOutlined, Edit, InfoOutlined } from "@material-ui/icons";
+import { Add, Edit, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
 
 import FilterComponent from "../../../../components/Filter/Filter.component";
@@ -16,15 +16,12 @@ import SidePanelComponent from "../../../../components/SidePanel/SidePanel.compo
 import SuccessionHistory from "./SuccessionHistory/SuccessionHistory";
 import SuccessionPlannerDetailform from "./SuccessionPlannerDetailform/SuccessionPlannerDetailform";
 import { useSelector } from "react-redux";
+import SendIcon from "@material-ui/icons/Send";
+import SendPopup from "./SendDialog/SendDialog.view";
+import RouteName from "../../../../routes/Route.name";
+import historyUtils from "../../../../libs/history.utils";
 
-const ThisYearSuccessionPlanner = ({
-  jobId,
-  data,
-  all: allData,
-  isFetching: isFetching,
-  currentPage,
-  configFilter,
-}) => {
+const ThisYearSuccessionPlanner = ({ listData }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -35,13 +32,24 @@ const ThisYearSuccessionPlanner = ({
     handleViewDetails,
     editData,
     isCalling,
-    // configFilter,
+    configFilter,
     isSidePanel,
     handleToggleSidePannel,
     isSidePanelForm,
     handleToggleSidePannelForm,
     isCandidatesFetching,
-  } = useThisYearSuccessionPlaner({ jobId });
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
+  } = useThisYearSuccessionPlaner({ listData });
+
+  const {
+    data,
+    all: allData,
+    currentPage,
+    is_fetching: isFetching,
+  } = useSelector((state) => state.successionPlaner);
 
   const UpperInfo = useCallback(
     (obj) => {
@@ -51,19 +59,6 @@ const ThisYearSuccessionPlanner = ({
             <div className={styles.InfoWrap}>
               <div>{"Succession History"} </div>
               <div className={styles.newLine}></div>
-            </div>
-
-            <div className={styles.addButton}>
-              <ButtonBase
-                onClick={() => {
-                  handleToggleSidePannelForm();
-                  handleToggleSidePannel();
-                }}
-                className={"createBtn"}
-              >
-                Add
-                <Add fontSize={"small"} className={"plusIcon"}></Add>
-              </ButtonBase>
             </div>
           </div>
         );
@@ -110,13 +105,28 @@ const ThisYearSuccessionPlanner = ({
     return null;
   }, []);
 
+  const handleViewEmployee = useCallback((data) => {
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data}`);
+  }, []);
+
   const tableStructure = useMemo(() => {
     return [
       {
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{all?.name}</div>,
+        render: (temp, all) => (
+          <div>
+            <div
+              onClick={() => handleViewEmployee(all?.emp_code)}
+              className={styles.hyperlinkText}
+            >
+              {all?.name}
+            </div>
+            <br />
+            <div>{all?.emp_code}</div>
+          </div>
+        ),
       },
       {
         key: "doj",
@@ -159,15 +169,17 @@ const ThisYearSuccessionPlanner = ({
         key: "date_of_retirment",
         label: "DATE OF RETIREMENT",
         sortable: false,
-        render: (temp, all) => (
-          <div>{all?.resign_data?.resign_effective_date}</div>
-        ),
+        render: (temp, all) => <div>{all?.expected_dor_text}</div>,
       },
       {
         key: "annual_salary",
         label: "ANNUAL SALARY",
         sortable: false,
-        render: (temp, all) => <div>{all?.annual_salary}</div>,
+        render: (temp, all) => (
+          <div style={{ whiteSpace: "nowrap" }}>
+            {all?.annual_salary && `₹ ${all?.annual_salary}`}
+          </div>
+        ),
       },
       {
         key: "succession_cost_wrt_emp",
@@ -179,47 +191,73 @@ const ThisYearSuccessionPlanner = ({
         key: "nature_of_succession",
         label: "NATURE OF SUCCESSION",
         sortable: false,
-        render: (temp, all) => <div>{all?.nature_of_succession}</div>,
+        render: (temp, all) => <div><StatusPill status={all?.nature_of_succession} /></div>,
       },
       {
         key: "revert_by_date",
         label: "REVERT BY DATE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.last_submission_date}</div>,
+      },
+      {
+        key: "application",
+        label: "application STATUS",
+        sortable: false,
+        render: (temp, all) => (
+          <div>{<StatusPill status={all?.application_status} />}</div>
+        ),
+      },
+      {
+        key: "Extension",
+        label: "Extension STATUS",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.extension_status ? (
+              <StatusPill status={all?.extension_status} />
+            ) : (
+              "NA"
+            )}
+          </div>
+        ),
       },
       {
         key: "succession_status",
         label: "SUCCESSION STATUS",
         sortable: false,
-        render: (temp, all) => <div>{all?.succession_status}</div>,
+        render: (temp, all) => (
+          <div>{<StatusPill status={all?.succession_status} />}</div>
+        ),
       },
       {
         key: "action_key",
         label: "Action",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.btnWrap}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
               // disabled={isCalling}
               onClick={() => {
                 // handleViewDetails(all);
-                handleToggleSidePannel();
+                handleToggleSidePannel(all);
               }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleEdit(all);
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
+            {!all?.is_succession_form_sent && (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleToggleSend(all);
+                }}
+              >
+                <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
+              </IconButton>
+            )}
           </div>
         ),
       },
@@ -235,6 +273,7 @@ const ThisYearSuccessionPlanner = ({
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
+      rowsPerPage: 10,
       columns: tableStructure,
       data: data,
       count: allData.length,
@@ -275,7 +314,12 @@ const ThisYearSuccessionPlanner = ({
             </div>
           </div>
         </div>
-
+        <SendPopup
+          isOpen={isSend}
+          handleToggle={handleToggleSend}
+          handleSubmit={handleResend}
+          empId={empId}
+        />
         <SidePanelComponent
           handleToggle={handleToggleSidePannel}
           title={<UpperInfo />}
@@ -285,7 +329,7 @@ const ThisYearSuccessionPlanner = ({
           <SuccessionHistory
             handleToggleSidePannel={handleToggleSidePannel}
             isSidePanel={isSidePanel}
-            empId={editData}
+            empId={empId}
           />
         </SidePanelComponent>
 

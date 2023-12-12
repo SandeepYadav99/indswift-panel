@@ -19,7 +19,16 @@
   background-color: white;
   box-shadow: 0 0 8px rgb(0 0 0 / 15%);
 }
-
+.hyperlinkText{
+  color: #2896E9;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+.btnWrap{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 .caseFlex {
   display: flex;
   align-items: center;

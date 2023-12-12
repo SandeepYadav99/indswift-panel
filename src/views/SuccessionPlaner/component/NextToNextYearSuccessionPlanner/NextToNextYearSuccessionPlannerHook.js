@@ -1,77 +1,62 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import MenuItem from "@material-ui/core/MenuItem";
-import { actionGetJobOpeningCandidates } from "../../../../actions/JobOpeningDetail.action";
-import LogUtils from "../../../../libs/LogUtils";
+import { useCallback, useMemo, useState, useRef } from "react";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
+import {
+  actionFetchAfterSuccessionPlaner,
+  actionSetPageAfterSuccessionPlaner,
+} from "../../../../actions/AfterNextSuccessionPlanner.action";
+import { useEffect } from "react";
+import { serviceGetSuccessionPlanerSend } from "../../../../services/SuccessionPlanner.service";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
-const totalShow = 10;
-const useNextToNextYearSuccessionPlanner = ({ jobId }) => {
+const useNextToNextYearSuccessionPlanner = ({ listData }) => {
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState([]);
-  const [currentData, setCurrentData] = useState([]);
-  const { isCandidatesFetching, candidates } = useSelector(
-    (state) => state.job_opening_detail
-  );
-  const [listData, setListData] = useState({
-    LOCATIONS: [],
-    HR: [],
-    JOB_OPENINGS: [],
-  });
+  const [isSidePanel, setSidePanel] = useState(false);
+  const [isSidePanelForm, setSidePanelForm] = useState(false);
+  const isMountRef = useRef(false);
+  const [empId, setEmpId] = useState("");
+  const [isSend, setIsSend] = useState(false);
 
-  useEffect(() => {
-    dispatch(actionGetJobOpeningCandidates(jobId));
+  const {
+    sorting_data: sortingData,
+    is_fetching: isFetching,
+    query,
+    query_data: queryData,
+  } = useSelector((state) => state.next_next_year);
+
+  const handlePageChange = useCallback((type) => {
+    dispatch(actionSetPageAfterSuccessionPlaner(type, 2));
   }, []);
 
   useEffect(() => {
-    setData(candidates);
-  }, [candidates]);
-
-  useEffect(() => {
-    _processData();
-  }, [data, currentPage]);
-
-  const handleViewDetails = useCallback((data) => {
-    historyUtils.push(`${RouteName.CANDIDATES_DETAILS}${data?.candidate_id}`); //+data.id
+    dispatch(
+      actionFetchAfterSuccessionPlaner(1, sortingData, {
+        query: isMountRef.current ? query : null,
+        query_data: isMountRef.current ? queryData : null,
+        year: 2,
+      })
+    );
+    isMountRef.current = true;
   }, []);
-
-  const _processData = useCallback(() => {
-    const from = currentPage * totalShow - totalShow;
-    let to = currentPage * totalShow;
-    // all.filter((val, index) => {
-    //     if (index >= (((currentPage) * totalShow) - totalShow) && index < (((currentPage) * totalShow))) {
-    //         return val;
-    //     }
-    // });
-    if (from <= data.length) {
-      to = to <= data.length ? to : data.length;
-      setCurrentData(data.slice(from, to));
-    }
-  }, [setCurrentData, currentPage, data, totalShow]);
-
-  const handlePageChange = useCallback(
-    (type) => {
-      if (Math.ceil(data.length / totalShow) >= type + 1) {
-        setCurrentPage(type + 1);
-        _processData();
-      }
-    },
-    [_processData, setCurrentPage, data]
-  );
-
-  const handleSortOrderChange = (row, order) => {
-    console.log(`handleSortOrderChange key:${row} order: ${order}`);
-  };
 
   const handleRowSize = (page) => {
     console.log(page);
   };
 
-  const queryFilter = useCallback((key, value) => {
-    console.log("_queryFilter", key, value);
-  }, []);
+  const queryFilter = useCallback(
+    (key, value) => {
+      // dispatch(actionSetPageFinalFormRequests(1));
+      dispatch(
+        actionFetchAfterSuccessionPlaner(1, sortingData, {
+          query: key == "SEARCH_TEXT" ? value : query,
+          query_data: key == "FILTER_DATA" ? value : queryData,
+          year: 2,
+        })
+      );
+    },
+    [sortingData, query, queryData]
+  );
 
   const handleFilterDataChange = useCallback(
     (value) => {
@@ -81,25 +66,43 @@ const useNextToNextYearSuccessionPlanner = ({ jobId }) => {
     [queryFilter]
   );
 
+  const handleResend = useCallback((data) => {
+    // LogUtils.log("resend", data);
+    serviceGetSuccessionPlanerSend({
+      employee_id: data,
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils?.success("Send Successfully");
+        setIsSend(false);
+        // window.location.reload();
+      }
+    });
+  }, []);
   const handleSearchValueChange = useCallback(
     (value) => {
       console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
-      if (value) {
-        const tempData = candidates.filter((val) => {
-          if (
-            val?.candidate?.name?.match(new RegExp(value, "ig")) ||
-            val?.candidate?.email?.match(new RegExp(value, "ig"))
-          ) {
-            return val;
-          }
-        });
-        setData(tempData);
-      } else {
-        setData(candidates);
-      }
     },
-    [queryFilter, _processData, data, setData, candidates]
+    [queryFilter]
+  );
+
+  const handleSortOrderChange = useCallback(
+    (row, order) => {
+      console.log(`handleSortOrderChange key:${row} order: ${order}`);
+      // dispatch(actionSetPageFinalForm(1));
+      dispatch(
+        actionFetchAfterSuccessionPlaner(
+          1,
+          { row, order },
+          {
+            query: query,
+            query_data: queryData,
+            year: 2,
+          }
+        )
+      );
+    },
+    [query, queryData]
   );
 
   const handleEdit = useCallback((all) => {
@@ -107,63 +110,108 @@ const useNextToNextYearSuccessionPlanner = ({ jobId }) => {
       isEdit: true,
     });
   }, []);
+  const handleToggleSidePannel = useCallback(
+    (data) => {
+      setSidePanel((e) => !e);
+      if (data?.id) {
+        setEmpId(data);
+      } else {
+        setEmpId("");
+      }
+    },
+    [setSidePanel, empId] // setEditData
+  );
+  const handleToggleSend = useCallback(
+    (data) => {
+      setIsSend((e) => !e);
+      console.log("Data", data);
+      if (data?.id) {
+        setEmpId(data?.id);
+      } else {
+        setEmpId("");
+      }
+    },
+    [setIsSend] // setEditData
+  );
+  const handleToggleSidePannelForm = useCallback(
+    (data) => {
+      setSidePanelForm((e) => !e);
+      //   setEditData(data?.id);
+    },
+    [setSidePanelForm] // setEditData
+  );
   const configFilter = useMemo(() => {
     return [
       {
         label: "Location",
-        name: "employeesObj.location_id",
+        name: "location_id",
         type: "selectObject",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
       {
-        label: "Status",
-        name: "claimObj.status",
+        label: "Department",
+        name: "department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
+      },
+      {
+        label: "Succession status",
+        name: "successionApp.saj_status",
         type: "select",
         fields: [
+          "NOT_IN_PLACE",
+          "REPLACEMENT_EXTERNAL",
+          "PLACED",
+          "REPLACEMENT_INTERNAL",
           "REJECTED",
           "PENDING",
-          "APPROVED",
-          "PROCESSED",
-          "HOD_APPROVED",
-          "SITE_HR_APPROVED",
-          "CORPORATE_AUDIT_1_APPROVED",
-          "CORPORATE_AUDIT_2_APPROVED",
-          "ACCOUNTS_APPROVED",
         ],
       },
       {
-        label: "Claim Type",
-        name: "claimObj.claim_type",
+        label: "Extension Status",
+        name: "successionApp.extension_status",
+        type: "select",
+        fields: ["RETIRE", "EXTENSION", "RETENTION", "PENDING"],
+      },
+      {
+        label: "Application status",
+        name: "successionApp.status",
         type: "select",
         fields: [
-          "MARRAIGE",
-          "CAR",
-          "MOBILE",
-          "PHC",
-          "LOCAL_TRAVEL",
-          "RELOCATION",
+          "PENDING",
+          "EMPLOYEE_PENDING",
+          "EXPIRED",
+          "EMPLOYEE_SUBMITTED",
+          "EMPLOYEE_REJECTED",
+          "HOD_REJECTED",
+          "HOD_APPROVED",
+          "CEO_APPROVED",
+          "CEO_REJECTED",
+          "CORPORATE_SUBMITTED",
+          "MD_APPROVED",
+          "MD_REJECTED",
         ],
       },
     ];
   }, [listData]);
-
   return {
     handlePageChange,
-    // handleCellClick,
     handleFilterDataChange,
     handleSearchValueChange,
-    // handlePreviousPageClick,
-    // handleNextPageClick,
     handleRowSize,
     handleSortOrderChange,
-    isCandidatesFetching,
-    currentData,
-    data: candidates,
-    currentPage,
-    handleViewDetails,
     handleEdit,
+    handleToggleSidePannel,
+    isSidePanel,
+    isSidePanelForm,
+    handleToggleSidePannelForm,
     configFilter,
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
   };
 };
 

@@ -45,7 +45,19 @@ const initialForm = {
       employee_id: "",
     },
     {
+      panelist_role: "TAXATION",
+      employee_id: "",
+    },
+    {
+      panelist_role: "CAO",
+      employee_id: "",
+    },
+    {
       panelist_role: "CORPORATE_ACCOUNTANT",
+      employee_id: "",
+    },
+    {
+      panelist_role: "CEO",
       employee_id: "",
     },
     {
@@ -58,6 +70,10 @@ const initialForm = {
     },
     {
       panelist_role: "CORPORATE_FINANCE",
+      employee_id: "",
+    },
+    {
+      panelist_role: "CASHIER",
       employee_id: "",
     },
     {

@@ -32,6 +32,7 @@ const DAIncludeForm = (
     endDate,
     CoPass,
     isCP,
+    statusCheck
   },
   ref
 ) => {
@@ -71,6 +72,9 @@ const DAIncludeForm = (
             err[key] = true;
           }
         });
+      }
+      if(val?.da_amount == 0 && val?.da_amount !== ""){
+        delete err['da_amount']
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
@@ -165,6 +169,7 @@ const DAIncludeForm = (
             endDate={endDate}
             CoPass={CoPass}
             isCP={isCP}
+            statusCheck={statusCheck}
           />
           {fields?.length !== index + 1 && <div className={styles.verti}></div>}
         </div>

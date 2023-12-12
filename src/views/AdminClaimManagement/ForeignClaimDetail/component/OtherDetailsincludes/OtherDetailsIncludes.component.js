@@ -20,7 +20,7 @@ const TEMP_OBJ = {
 };
 
 const OtherDetailsIncludeForm = (
-  { data, errorData: errorForm, grade, changeAmount,setOfficeAmount3,curr },
+  { data, errorData: errorForm, grade, changeAmount,setOfficeAmount3,curr,statusCheck },
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -63,13 +63,16 @@ const OtherDetailsIncludeForm = (
             }
           });
       }
-
+      
       if (!hasValues) {
         for (const key in err) {
           if (err.hasOwnProperty(key)) {
             delete err[key];
           }
         }
+      }
+      if(val?.amount == 0 && val?.amount !== ""){
+        delete err['amount']
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
@@ -153,6 +156,7 @@ const OtherDetailsIncludeForm = (
             index={index}
             onBlur={onBlur}
             grade={grade}
+            statusCheck={statusCheck}
           />
         </div>
       );

@@ -29,7 +29,7 @@ function SuccessionApplicationForm() {
           />
         </div>
         <div className={styles.loginSignupText}>
-          <h1 className={styles.headingText}>Exit Interview</h1>
+          <h1 className={styles.headingText}>Employee Succession Form</h1>
           <div className={styles.newLine} />
           <p className={styles.newLinetitle}>
             Enter your Employee Code and the OTP that you have received on your
@@ -40,30 +40,30 @@ function SuccessionApplicationForm() {
         <div>
           <div>
             <CustomTextField
-              isError={errorData?.emp_code}
-              errorText={errorData?.emp_code}
-              label={"Employee Code"}
-              value={form?.emp_code}
-              onTextChange={(text) => {
-                changeTextData(text, "emp_code");
-              }}
-              onBlur={() => {
-                onBlurHandler("emp_code");
-              }}
-            />
-          </div>
-          <br />
-          <div>
-            <CustomTextField
               isError={errorData?.code}
               errorText={errorData?.code}
-              label={"OTP"}
+              label={"Employee Code"}
               value={form?.code}
               onTextChange={(text) => {
                 changeTextData(text, "code");
               }}
               onBlur={() => {
                 onBlurHandler("code");
+              }}
+            />
+          </div>
+          <br />
+          <div>
+            <CustomTextField
+              isError={errorData?.otp}
+              errorText={errorData?.otp}
+              label={"OTP"}
+              value={form?.otp}
+              onTextChange={(text) => {
+                changeTextData(text, "otp");
+              }}
+              onBlur={() => {
+                onBlurHandler("otp");
               }}
             />
           </div>

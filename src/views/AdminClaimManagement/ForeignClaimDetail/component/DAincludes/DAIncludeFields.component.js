@@ -32,6 +32,7 @@ const DAIncludeFields = ({
   endDate,
   checkDays,
   isCP,
+  statusCheck
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
@@ -168,6 +169,7 @@ const DAIncludeFields = ({
             <span className={styles.valueField}>
               {" "}
               <TextField
+                disabled={!statusCheck}
                 error={errors?.da_pct}
                 onChange={handleChange}
                 value={data?.da_pct}
@@ -182,6 +184,7 @@ const DAIncludeFields = ({
             <span className={styles.valueField}>
               {" "}
               <TextField
+                disabled={!statusCheck}
                 error={errors?.da_amount}
                 onChange={handleChange}
                 value={data?.da_amount}
@@ -196,7 +199,7 @@ const DAIncludeFields = ({
             <span className={styles.valueField}>
               {" "}
               <TextField
-                disabled={isCP || index > 1 || checkDays < 5 ? true : false}
+                disabled={!statusCheck || isCP || index > 1 || checkDays < 5 ? true : false}
                 error={errors?.ie_amount}
                 onChange={handleChange}
                 value={data?.ie_amount}

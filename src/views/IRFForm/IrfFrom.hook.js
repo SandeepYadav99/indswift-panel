@@ -8,6 +8,7 @@ import {
   serviceGetIrfDetails,
   serviceUpdateIrfForm,
 } from "../../services/Irf.service";
+import useIRFSession from "./Component/IRFSessionHook";
 
 function UseIrfFrom() {
   const [isChecked, setIsChecked] = React.useState(false);
@@ -17,6 +18,7 @@ function UseIrfFrom() {
   const travelRef = useRef(null);
   const otherRef = useRef(null);
   const storedValue = sessionStorage.getItem("CANDIDATE_IRF_ID");
+  const { candidateId } = useIRFSession();
   useEffect(() => {
     if (storedValue) {
       let req = serviceGetIrfDetails({ candidate_id: storedValue });
@@ -57,6 +59,7 @@ function UseIrfFrom() {
       let req = serviceUpdateIrfForm;
       req(fd).then((res) => {
         if (!res.error) {
+          sessionStorage.removeItem("CANDIDATE_IRF_ID");
           historyUtils.push(RouteName.EAF_SUCCESS);
           // historyUtils.goBack();
         } else {

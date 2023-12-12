@@ -90,7 +90,12 @@ import ExitInterviewReducer from "./ExitInterview.reducer";
 import LeaveListReducer from "./LeaveList.reducer";
 import FinalFormReducer from "./FinalForm.reducer";
 import SuccessionPlanerReducer from "./SuccessionPlaner.reducer";
+import FinalFormApprovalReducer from "./FinalFormApproval.reducer";
+import SuccessionAReducer from "./SuccessionA.reducer";
+import NextSuccessionPlanerReducer from "./NextSuccessionPlaner.reducer";
+import AfterNextSuccessionPlanerReducer from "./AfterNextSuccessionPlaner.reducer";
 import EmpRecordApprovalReducer from "./EmpRecordApproval.reducer";
+
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form: formReducer,
@@ -177,6 +182,10 @@ const rootReducer = combineReducers({
   AppointmentLetter: AppointmentLetterReducer,
   RelievingExpLetter: RelievingExpLetterReducer,
   successionPlaner: SuccessionPlanerReducer,
+  next_year: NextSuccessionPlanerReducer,
+  next_next_year:AfterNextSuccessionPlanerReducer,
+  final_form_approval: FinalFormApprovalReducer,
+  succession_approval:SuccessionAReducer,
   employeRecordApproval:EmpRecordApprovalReducer
   // form: formReducer,
 });

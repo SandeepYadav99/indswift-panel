@@ -19,6 +19,7 @@ import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import {serviceEditEmployeeVersion} from "../../services/EmployeeEdit.service";
 import debounce from 'lodash.debounce';
+import { useSelector } from "react-redux";
 
 const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allowance', 'special_allowance', 'earning_one', 'pug', 'helper', 'food_coupons', 'gift_coupons', 'lta', 'super_annuation', 'nps', 'vehicle_maintenance', 'vehicle_emi', 'fuel', 'vpf', 'earning_two', 'gross', 'earning_three_pli', 'er_pf', 'er_esi', 'er_lwf', 'earning_four', 'gratuity', 'insurance', 'driver_incentive', 'perf_bonus', 'annual_bonus', 'two_car_maintenance', 'two_fuel', 'earning_five', 'monthly_ctc', 'em_pf', 'em_esi', 'em_lwf', 'total_deduction', 'total_pf', 'retention_allowance', 'car_component', 'incremental_gross_salary', 'earning2_vpf', 'deduction_vpf','stability_incentive','deduction_vpf_pct','gross_component','nps_part_e','deputation_allowance'];
 
@@ -43,6 +44,7 @@ const BOOLEAN_KEYS = [
   "is_em_pf",
   "is_deduction_vpf",
   "is_car_component_manual",
+  "is_basic_salary_manual",
   "is_em_esi"
 ];
 
@@ -166,6 +168,7 @@ const initialForm = {
   is_em_pf: "NO",
   is_deduction_vpf: "NO",
   is_car_component_manual:"NO",
+  is_basic_salary_manual:"NO",
   is_em_esi:"NO",
   deduction_vpf_pct: 0,
   gross_component:0,
@@ -191,6 +194,7 @@ function EmployeeListCreateHook() {
     ...SALARY_KEYS,
     ...BOOLEAN_KEYS,
   ]);
+  const {role} = useSelector(state => state.auth);
 
   const [listData, setListData] = useState({
     LOCATION_DEPARTMENTS: [],
@@ -265,7 +269,7 @@ function EmployeeListCreateHook() {
       setForm({...form,effective_date:"",salary_notes:""})
     }
   },[isUpdateDialog])
-  
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     const required = [
@@ -608,7 +612,7 @@ function EmployeeListCreateHook() {
               old_value: oldtrans ? oldtrans : false,
             });
           }else if ([...salaryInfo].includes(key)){
-            
+
           } else {
             changedData.push({
               is_json: false,
@@ -675,7 +679,7 @@ function EmployeeListCreateHook() {
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form]);
-  
+
   const filteredDepartments = useMemo(() => {
     const locations = listData?.LOCATION_DEPARTMENTS;
     const index = locations?.findIndex((l) => l.id === form?.location_id);
@@ -741,6 +745,7 @@ function EmployeeListCreateHook() {
     toggleStatusDialog,
     isUpdateDialog,
     SalaryField,
+    role,
     isSubmitting
   };
 }
@@ -748,4 +753,4 @@ function EmployeeListCreateHook() {
 export default EmployeeListCreateHook;
 
 
-//USC edit 
+//USC edit

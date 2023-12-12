@@ -1,18 +1,15 @@
-/**
- * Created by sandeepelectrovese@gmail.com on 11/01/2023.
- */
-import React, {  useCallback,  useMemo } from "react";
-import {IconButton} from "@material-ui/core";
+import React, { Component, useCallback, useEffect, useMemo } from "react";
+import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { InfoOutlined} from "@material-ui/icons";
+import { connect, useSelector } from "react-redux";
+import { InfoOutlined, Telegram } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
+import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import useSuccessionApprovalHook from "./SuccessionApproval_hook";
 
 const SuccessionApproval_List = ({}) => {
@@ -20,16 +17,13 @@ const SuccessionApproval_List = ({}) => {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
-    handleSideToggle,
     handleViewDetails,
-    isSidePanel,
+    handleViewForm,
     isCalling,
     configFilter,
-    changeEmployeeRoute,
-    handleToggleDetail
+    handleResend,
   } = useSuccessionApprovalHook({});
 
   const {
@@ -37,21 +31,30 @@ const SuccessionApproval_List = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.employee_versions);
+  } = useSelector((state) => state.succession_approval);
 
   const renderStatus = useCallback((status) => {
-    return <StatusPill status={status} />;
+    return (
+      <StatusPill
+        status={status}
+        style={status === "PROCESSED" && { background: "#ceece2" }}
+      />
+    );
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
-          <div
-            className={classNames(styles.firstCellInfo, "openSans")}
-            onClick={() => changeEmployeeRoute(obj?.employee)}
-          >
-            <span ><b>{}</b></span>
+          <div className={classNames(styles.firstCellInfo, "openSans")}>
+            <span className={styles.productName}>
+              <strong>{obj?.employee?.name}</strong>
+            </span>
+            <br />
+            <span className={styles.productName}>
+              {obj?.employee?.emp_code}
+            </span>{" "}
+            <br />
           </div>
         </div>
       );
@@ -65,107 +68,80 @@ const SuccessionApproval_List = ({}) => {
         key: "employee",
         label: "EMPLOYEE",
         sortable: true,
-        render: (value, all) => <div>{}</div>,
+        render: (value, all) => (
+          <div>
+            {all?.employee?.name}
+            <br />
+            {all?.employee?.emp_code}
+          </div>
+        ),
       },
       {
         key: "doj",
         label: "D.O.J",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.employee?.doj}</div>,
       },
       {
         key: "dob",
         label: "D.O.B",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.employee?.dob}</div>,
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {} <br /> {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.designation}</div>,
       },
       {
         key: "department",
         label: "DEPARTMENT",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-           {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.department}</div>,
       },
       {
         key: "location",
         label: "LOCATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.location}</div>,
       },
       {
         key: "age",
         label: "AGE",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-           {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.employee?.age}</div>,
       },
       {
         key: "date of retirment",
-        label: "DATE OF RETIRMENT",
+        label: "DATE OF Retirement",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-          {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.expectedDorText}</div>,
       },
       {
         key: "annual salary",
         label: "ANNUAL SALARY",
         sortable: false,
         render: (temp, all) => (
-          <div>
-           {}
-          </div>
+          <div>{all?.application?.ctc && `₹ ${all?.application?.ctc}`}</div>
         ),
       },
       {
-        key: "succession_const",
-        label: " SUCCESSION'S COST WRT EMPLOYEE",
+        key: "nature",
+        label: "NATURE OF ASSOCIATION",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-           {}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.application?.extension_status}</div>,
       },
-      {
-        key: "succession_const",
-        label: " SUCCESSION'S COST WRT EMPLOYEE",
-        sortable: false,
-        render: (temp, all) => (
-          <div>
-          {}
-          </div>
-        ),
-      },
+
       {
         key: "current_status",
         label: "CURRENT STATUR/OVERALL STATUS",
         sortable: true,
         render: (temp, all) => (
           <div>
-          {}
+            {<StatusPill status={all?.status} />} <br />
+            <br />
+            <StatusPill status={all?.application?.status} />
           </div>
         ),
       },
@@ -175,19 +151,19 @@ const SuccessionApproval_List = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {/* <IconButton
+            <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-               onClick={() => handleToggleDetail(all)}
+              onClick={() => handleViewDetails(all)}
             >
               <InfoOutlined fontSize={"small"} />
-            </IconButton> */}
+            </IconButton>
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -224,7 +200,6 @@ const SuccessionApproval_List = ({}) => {
             <div className={styles.newLine} />
           </div>
         </div>
-
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -242,14 +217,6 @@ const SuccessionApproval_List = ({}) => {
             </div>
           </div>
         </div>
-        <SidePanelComponent
-          handleToggle={handleSideToggle}
-          title={"Profile Change Details"}
-          open={isSidePanel}
-          side={"right"}
-        >
-          {/* <VersionDetailView handleClose={handleSideToggle} id={editData} isOpen={isSidePanel} /> */}
-        </SidePanelComponent>
       </PageBox>
     </div>
   );

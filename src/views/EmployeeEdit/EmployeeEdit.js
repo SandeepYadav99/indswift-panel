@@ -57,7 +57,8 @@ const EmployeeListCreate = ({}) => {
       toggleStatusDialog,
       isUpdateDialog,
       SalaryField,
-      isSubmitting
+      isSubmitting,
+      role
   } = useEmployeeEditHook({});
 
   const image = useMemo(() => {
@@ -119,7 +120,7 @@ const EmployeeListCreate = ({}) => {
           onBlurHandler={onBlurHandler}
           handleSubmit={handleSubmit}
           isSubmitting={isSubmitting}
-          
+
         />
           <div className={styles.imageContainer}>
             {image}
@@ -501,7 +502,7 @@ const EmployeeListCreate = ({}) => {
               value={form?.designation_id}
             />
           </div>
-          
+
           </div>
           <div className={"formFlex"}>
                <div className={"formGroup"}>
@@ -845,7 +846,7 @@ const EmployeeListCreate = ({}) => {
             </CustomSelectField>
           </div>
           {
-              form?.mother_state === "EXPIRED" ? 
+              form?.mother_state === "EXPIRED" ?
               <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
@@ -861,7 +862,7 @@ const EmployeeListCreate = ({}) => {
               <div className={"formGroup"}>
               </div>
           }
-         
+
         </div>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -1122,7 +1123,7 @@ const EmployeeListCreate = ({}) => {
             </h4>
           </div>
           <div className={"formFlex"}>
-            <div className={"formGroup"}>
+            {/* <div className={"formGroup"}>
                 <CustomTextField
                   disabled={true}
                   type={"number"}
@@ -1137,7 +1138,47 @@ const EmployeeListCreate = ({}) => {
                     onBlurHandler("basic_salary");
                   }}
               />
+            </div> */}
+            <div className={"formGroup"}>
+              <CustomTextField
+                  type={"number"}
+                  disabled={form?.is_basic_salary_manual === "NO"? true : false}
+                  isError={errorData?.basic_salary}
+                  errorText={errorData?.basic_salary}
+                  label={"Basic"}
+                  value={form?.basic_salary}
+                  onTextChange={(text) => {
+                    changeTextData(text, "basic_salary");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("basic_salary");
+                  }}
+              />
             </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                disabled={role !=="CORPORATE_HR"}
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("YES", "is_basic_salary_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                disabled={role !=="CORPORATE_HR"}
+                className={"tableActionBtn"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("NO", "is_basic_salary_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
+              </div>
             <div className={"formGroup"}>
               <CustomTextField
                   disabled={true}
@@ -2140,7 +2181,7 @@ const EmployeeListCreate = ({}) => {
               }}
             />
           </div>
-        </div> 
+        </div>
           <div className={"formFlex"}>
               <TotalSum
                   firstName="Total Earnings 5 :  "

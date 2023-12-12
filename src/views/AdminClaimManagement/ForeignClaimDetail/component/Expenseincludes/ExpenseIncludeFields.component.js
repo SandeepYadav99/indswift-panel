@@ -29,6 +29,7 @@ const ExpenseIncludeFields = ({
   grade,
   startDate,
   endDate,
+  statusCheck
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
@@ -49,7 +50,6 @@ const ExpenseIncludeFields = ({
       }
     }
   };
-
   return (
     <div>
       <div className={styles.commentContainer}>
@@ -105,6 +105,7 @@ const ExpenseIncludeFields = ({
                 <span className={styles.value}>
                   {" "}
                   <TextField
+                    disabled={!statusCheck}
                     error={errors?.amount}
                     onChange={handleChange}
                     value={data?.amount}

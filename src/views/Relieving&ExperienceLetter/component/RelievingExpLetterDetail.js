@@ -91,7 +91,7 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                           changeTextData(value, "general_conduct");
                         }}
                       >
-                        <MenuItem value={"ENDORSE"}>Can't Endorse</MenuItem>
+                        <MenuItem value={"CAN'T_ENDORSE"}>Can't Endorse</MenuItem>
                         <MenuItem value={"POOR"}>Poor</MenuItem>
                         <MenuItem value={"AVERAGE"}>Average</MenuItem>
                         <MenuItem value={"GOOD"}>Good</MenuItem>

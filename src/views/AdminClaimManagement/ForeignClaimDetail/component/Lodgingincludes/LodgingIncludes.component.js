@@ -34,6 +34,7 @@ const LodgingIncludeForm = (
     setCurrency,
     setOfficeAmount,
     curr,
+    statusCheck
   },
   ref
 ) => {
@@ -67,6 +68,9 @@ const LodgingIncludeForm = (
             err[key] = true;
           }
         });
+      }
+      if(val?.amount == 0 && val?.amount !== ""){
+        delete err['amount']
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
@@ -155,6 +159,7 @@ const LodgingIncludeForm = (
             index={index}
             onBlur={onBlur}
             CoPass={CoPass}
+            statusCheck={statusCheck}
           />
           {fields?.length !== index + 1 && <div className={styles.verti}></div>}
         </div>

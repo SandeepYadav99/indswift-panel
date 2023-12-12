@@ -23,6 +23,7 @@ const OtherIncludeFields = ({
   errors,
   startDate,
   endDate,
+  statusCheck
 }) => {
   const handleChange = (e, fieldName) => {
     if (fieldName) {
@@ -86,6 +87,7 @@ const OtherIncludeFields = ({
                 
                 <span className={styles.value}>
                   <TextField
+                    disabled={!statusCheck}
                     error={errors?.amount}
                     onChange={handleChange}
                     value={data?.amount}

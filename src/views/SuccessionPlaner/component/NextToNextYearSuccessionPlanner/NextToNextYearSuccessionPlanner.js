@@ -7,21 +7,20 @@ import DataTables from "../../../../Datatables/Datatable.table";
 import Constants from "../../../../config/constants";
 import styles from "./Style.module.css";
 import classNames from "classnames";
-import { Add, CachedOutlined, Edit, InfoOutlined } from "@material-ui/icons";
+import { Add, Edit, InfoOutlined } from "@material-ui/icons";
 import StatusPill from "../../../../components/Status/StatusPill.component";
-
 import FilterComponent from "../../../../components/Filter/Filter.component";
-
+import SidePanelComponent from "../../../../components/SidePanel/SidePanel.component";
+import { useSelector } from "react-redux";
 import useNextToNextYearSuccessionPlanner from "./NextToNextYearSuccessionPlannerHook";
+import SuccessionHistory from "../ThisYearSuccessionPlanner/SuccessionHistory/SuccessionHistory";
+import SuccessionPlannerDetailform from "../ThisYearSuccessionPlanner/SuccessionPlannerDetailform/SuccessionPlannerDetailform";
+import historyUtils from "../../../../libs/history.utils";
+import RouteName from "../../../../routes/Route.name";
+import SendIcon from "@material-ui/icons/Send";
+import SendPopup from "../ThisYearSuccessionPlanner/SendDialog/SendDialog.view";
 
-const NextToNextYearSuccessionPlanner = ({
-  jobId,
-  data,
-  all:allData,
-  isFetching: isFetching,
-  currentPage,
-  source
-}) => {
+const NextToNextYearSuccessionPlanner = ({ listData }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -32,37 +31,68 @@ const NextToNextYearSuccessionPlanner = ({
     handleViewDetails,
     editData,
     isCalling,
-  
     configFilter,
-    // handleInterviewSidepanel,
-    // handleShortlistSidepanel,
+    isSidePanel,
+    handleToggleSidePannel,
+    isSidePanelForm,
+    handleToggleSidePannelForm,
+    isCandidatesFetching,
+    empId,
+    handleToggleSend,
+    isSend,
+    handleResend,
+  } = useNextToNextYearSuccessionPlanner({ listData });
 
-    isCandidatesFetching
-  } = useNextToNextYearSuccessionPlanner({ jobId });
+  const {
+    data,
+    all: allData,
+    currentPage,
+    is_fetching: isFetching,
+  } = useSelector((state) => state.next_next_year);
+
+  console.log({ data, allData });
+  const UpperInfo = useCallback(
+    (obj) => {
+      if (obj) {
+        return (
+          <div className={styles.headerContainer}>
+            <div className={styles.InfoWrap}>
+              <div>{"Succession History"} </div>
+              <div className={styles.newLine}></div>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    },
+    [editData]
+  );
+
+  const UpperDetailFormInfo = useCallback(
+    (obj) => {
+      if (obj) {
+        return (
+          <div className={styles.headerContainer}>
+            <div className={styles.InfoWrap}>
+              <div>{"Add Details"} </div>
+              <div className={styles.newLine}></div>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    },
+    [editData]
+  );
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
-  const renderContact = useCallback((obj) => {
-    if (obj) {
-      return (
-        <div className={styles.firstCellFlex}>
-          <div>
-            <span className={styles.productName}>{obj?.contact}</span> <br />
-            <span>{obj?.email}</span>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  }, []);
+
   const renderFirstCell = useCallback((product) => {
     if (product) {
       return (
         <div className={styles.firstCellFlex}>
-          {/*<div>*/}
-          {/*    <img src={user.image} alt=""/>*/}
-          {/*</div>*/}
           <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span>
               <strong></strong>
@@ -75,13 +105,28 @@ const NextToNextYearSuccessionPlanner = ({
     return null;
   }, []);
 
+  const handleViewEmployee = useCallback((data) => {
+    historyUtils.push(`${RouteName.EMPLOYEE_DETAIL}${data}`);
+  }, []);
+
   const tableStructure = useMemo(() => {
     return [
       {
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
-        render: (temp, all) => <div>{all?.name}</div>,
+        render: (temp, all) => (
+          <div>
+            <div
+              onClick={() => handleViewEmployee(all?.emp_code)}
+              className={styles.hyperlinkText}
+            >
+              {all?.name}
+            </div>
+            <br />
+            <div>{all?.emp_code}</div>
+          </div>
+        ),
       },
       {
         key: "doj",
@@ -124,15 +169,17 @@ const NextToNextYearSuccessionPlanner = ({
         key: "date_of_retirment",
         label: "DATE OF RETIREMENT",
         sortable: false,
-        render: (temp, all) => (
-          <div>{all?.resign_data?.resign_effective_date}</div>
-        ),
+        render: (temp, all) => <div>{all?.expected_dor_text}</div>,
       },
       {
         key: "annual_salary",
         label: "ANNUAL SALARY",
         sortable: false,
-        render: (temp, all) => <div>{all?.annual_salary}</div>,
+        render: (temp, all) => (
+          <div style={{ whiteSpace: "nowrap" }}>
+            {all?.annual_salary && `₹ ${all?.annual_salary}`}
+          </div>
+        ),
       },
       {
         key: "succession_cost_wrt_emp",
@@ -144,47 +191,73 @@ const NextToNextYearSuccessionPlanner = ({
         key: "nature_of_succession",
         label: "NATURE OF SUCCESSION",
         sortable: false,
-        render: (temp, all) => <div>{all?.nature_of_succession}</div>,
+        render: (temp, all) => <div><StatusPill status={all?.nature_of_succession} /></div>,
       },
       {
         key: "revert_by_date",
         label: "REVERT BY DATE",
         sortable: false,
-        render: (temp, all) => <div>{}</div>,
+        render: (temp, all) => <div>{all?.last_submission_date}</div>,
+      },
+      {
+        key: "application",
+        label: "application STATUS",
+        sortable: false,
+        render: (temp, all) => (
+          <div>{<StatusPill status={all?.application_status} />}</div>
+        ),
+      },
+      {
+        key: "Extension",
+        label: "Extension STATUS",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+            {all?.extension_status ? (
+              <StatusPill status={all?.extension_status} />
+            ) : (
+              "NA"
+            )}
+          </div>
+        ),
       },
       {
         key: "succession_status",
         label: "SUCCESSION STATUS",
         sortable: false,
-        render: (temp, all) => <div>{all?.succession_status}</div>,
+        render: (temp, all) => (
+          <div>{<StatusPill status={all?.succession_status} />}</div>
+        ),
       },
       {
         key: "action_key",
         label: "Action",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.btnWrap}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
               // disabled={isCalling}
               onClick={() => {
                 // handleViewDetails(all);
-                // handleToggleSidePannel();
+                handleToggleSidePannel(all);
               }}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleEdit(all);
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
+            {!all?.is_succession_form_sent && (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  handleToggleSend(all);
+                }}
+              >
+                <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
+              </IconButton>
+            )}
           </div>
         ),
       },
@@ -200,6 +273,7 @@ const NextToNextYearSuccessionPlanner = ({
 
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
+      rowsPerPage: 10,
       columns: tableStructure,
       data: data,
       count: allData.length,
@@ -221,19 +295,13 @@ const NextToNextYearSuccessionPlanner = ({
     <div>
       <div>
         <div>
-          <div >
-            {/* <FilterComponent
-               is_progress={isFetching}
+          <div>
+            <FilterComponent
+              is_progress={isFetching}
+              filters={configFilter}
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}
-              filterWidth={filterWidth}
-            /> */}
-              <FilterComponent
-            is_progress={isFetching}
-            filters={configFilter}
-            handleSearchValueChange={handleSearchValueChange}
-            handleFilterDataChange={handleFilterDataChange}
-          />
+            />
           </div>
 
           <div>
@@ -246,6 +314,38 @@ const NextToNextYearSuccessionPlanner = ({
             </div>
           </div>
         </div>
+        <SendPopup
+          isOpen={isSend}
+          handleToggle={handleToggleSend}
+          handleSubmit={handleResend}
+          // empId={empId}
+        />
+        <SidePanelComponent
+          handleToggle={handleToggleSidePannel}
+          title={<UpperInfo />}
+          open={isSidePanel}
+          side={"right"}
+        >
+          <SuccessionHistory
+            handleToggleSidePannel={handleToggleSidePannel}
+            isSidePanel={isSidePanel}
+            empId={empId}
+          />
+        </SidePanelComponent>
+
+        <SidePanelComponent
+          handleToggle={handleToggleSidePannelForm}
+          title={<UpperDetailFormInfo />}
+          isBack={true}
+          open={isSidePanelForm}
+          side={"right"}
+        >
+          <SuccessionPlannerDetailform
+            handleToggleSidePannel={handleToggleSidePannelForm}
+            isSidePanel={isSidePanelForm}
+            empId={editData}
+          />
+        </SidePanelComponent>
       </div>
     </div>
   );

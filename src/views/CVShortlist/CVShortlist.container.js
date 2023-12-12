@@ -13,6 +13,7 @@ import FilterComponent from "../../components/Filter/Filter.component";
 import useCVShortlist from "./CVShortlistHook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import RejectDialog from "./component/RejectPopUp/RejectDialog.view";
+import AcceptDialog from "./component/ApproveDialog/ApproveDialog.view"
 import history from "../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
@@ -31,7 +32,9 @@ const CVShortlist = ({}) => {
     toggleRejectDialog,
     handleUpdate,
     candidatePage,
-    dataValue
+    dataValue,
+    toggleApproveDialog,
+      isApprovePopUp
   } = useCVShortlist({});
 
   const {
@@ -130,7 +133,8 @@ const CVShortlist = ({}) => {
                   color="secondary"
                   disabled={isCalling}
                   onClick={() => {
-                    handleUpdate(all, "ACCEPT");
+                    toggleApproveDialog(all)
+                    // handleUpdate(all, "ACCEPT");
                   }}
                 >
                   <span className={styles.subText}>Accept</span>
@@ -192,6 +196,11 @@ const CVShortlist = ({}) => {
         <RejectDialog
           isOpen={isRejectPopUp}
           handleToggle={toggleRejectDialog}
+          dataValue={dataValue}
+        />
+        <AcceptDialog
+          isOpen={isApprovePopUp}
+          handleToggle={toggleApproveDialog}
           dataValue={dataValue}
         />
         <div>

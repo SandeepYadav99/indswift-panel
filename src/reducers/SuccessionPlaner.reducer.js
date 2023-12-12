@@ -13,17 +13,14 @@ import {
   CREATE_DATA,
   UPDATE_DATA,
   DELETE_ITEM,
-  FETCHED_YEAR,
-  FETCHED_NEXT_YEAR,
-  FETCHED_NEXT_NEXT_YEAR,
 } from "../actions/SuccessionPlanner.action";
-import constants from "../config/constants";
+import Constants from "../config/constants";
 
 function mapPresetPRequest(all, pageId) {
-  return all?.filter((val, index) => {
+  return all.filter((val, index) => {
     if (
-      index >= (pageId + 1) * constants.PAGE_VALUE - constants.PAGE_VALUE &&
-      index < (pageId + 1) * constants.PAGE_VALUE
+      index >= (pageId + 1) * Constants.PAGE_VALUE - Constants.PAGE_VALUE &&
+      index < (pageId + 1) * Constants.PAGE_VALUE
     ) {
       return val;
     }
@@ -31,12 +28,8 @@ function mapPresetPRequest(all, pageId) {
 }
 
 const initialState = {
-  allThisYear: [],
-  allNextYear: [],
-  allNextNextYear: [],
-  year: [],
-  nextYear: [],
-  nextNextYear: [],
+  all: [],
+  data: [],
   currentPage: 0,
   serverPage: 0,
   query: null, // search text data
@@ -53,57 +46,18 @@ export default function (
     case FETCH_INIT: {
       return { ...state, is_fetching: true };
     }
-    case FETCHED_YEAR: {
-      const thisYear = action.payload.year;
-      const nextYear = action.payload.next_year;
-      const nextNextYear_ = action.payload.next_next_year;
-
+    case FETCHED: {
+      const newData = action.payload.data;
       const page = action.payload.page;
-      let newThisYear = [];
+      let newAll = [];
       if (page == 1) {
-        newThisYear = [...thisYear];
+        newAll = [...newData];
       } else {
-        newThisYear = [...state.allThisYear, ...thisYear];
+        newAll = [...state.all, ...newData];
       }
-      // 2
-      let newNextYear = [];
-      if (page === 1) {
-        newNextYear = [...nextYear];
-      } else {
-        newNextYear = [...state.allNextYear, ...nextYear];
-      }
-      // 3
-      let newNextNextYear = [];
-      if (page === 1) {
-        newNextNextYear = [...nextNextYear_];
-      } else {
-        newNextNextYear = [...state.allNextNextYear, ...nextNextYear_];
-      }
-      const tableDataThisYear = mapPresetPRequest(
-        newThisYear,
-        state.currentPage
-      );
-      const tableDataNextYear = mapPresetPRequest(
-        newNextYear,
-        state.currentPage
-      );
-      const tableDataNextNextYear = mapPresetPRequest(
-        newNextNextYear,
-        state.currentPage
-      );
-
-      return {
-        ...state,
-        allThisYear: newThisYear,
-        allNextYear: newNextYear,
-        allNextNextYear: newNextNextYear,
-        year: tableDataThisYear,
-        nextYear: tableDataNextYear,
-        nextNextYear: tableDataNextNextYear,
-        is_fetching: false,
-      }; // { ...state , all: newAll, data: tableData, serverPage: 1, currentPage: 1 };
+      const tableData = mapPresetPRequest(newAll, state.currentPage);
+      return { ...state, all: newAll, data: tableData, is_fetching: false }; // { ...state , all: newAll, data: tableData, serverPage: 1, currentPage: 1 };
     }
-
     case SET_SORTING: {
       return { ...state, sorting_data: action.payload };
     }
@@ -117,11 +71,7 @@ export default function (
             return true;
           }
         });
-        // const newState = state.all.map((val) => {
-        //     if (val.id == action.payload.id) {
-        //         return { ...val, status: action.payload.status == 'SUSPEND' ? 'SUSPEND' : 'ACTIVE' };
-        //     } return { ...val };
-        // });
+
         const tableData = mapPresetPRequest(prevState, state.currentPage);
         return { ...state, all: prevState, data: tableData };
       }
@@ -146,11 +96,6 @@ export default function (
             return true;
           }
         });
-        // const newState = state.all.map((val) => {
-        //     if (val.id == action.payload.id) {
-        //         return { ...val, status: action.payload.status == 'SUSPEND' ? 'SUSPEND' : 'ACTIVE' };
-        //     } return { ...val };
-        // });
         if (tIndex != null) {
           prevState[tIndex] = action.payload;
         }
@@ -181,14 +126,7 @@ export default function (
       }
       return state;
     }
-    // case NEX: {
-    //     const tableData = mapPresetPRequest(state.all, state.currentPage + 1);
-    //     return { ...state, data: tableData, currentPage: (state.currentPage + 1) };
-    // }
-    // case PREV_PREQUESTS: {
-    //     const tableData = mapPresetPRequest(state.all, state.currentPage - 1);
-    //     return { ...state, data: tableData, currentPage: (state.currentPage - 1) };
-    // }
+
     case CHANGE_PAGE: {
       const tempPage = action.payload;
       const tableData = mapPresetPRequest(state.all, tempPage);

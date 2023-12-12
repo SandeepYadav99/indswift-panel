@@ -16,7 +16,7 @@ const TEMP_OBJ = {
 };
 
 const EnterincludesDetailForm = (
-  { data, errorData: errorForm, grade,changeAmount,setOfficeAmount3 },
+  { data, errorData: errorForm, grade,changeAmount,setOfficeAmount3 ,statusCheck},
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -58,7 +58,9 @@ const EnterincludesDetailForm = (
           err[key] = true;
         }
       });
-
+      if(val?.amount == 0 && val?.amount !== ""){
+        delete err['amount']
+      }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;
       }
@@ -141,6 +143,7 @@ const EnterincludesDetailForm = (
             index={index}
             onBlur={onBlur}
             grade={grade}
+            statusCheck={statusCheck}
           />
           {fields?.length !== index + 1 && <div className={styles.verti}></div>}
         </div>
