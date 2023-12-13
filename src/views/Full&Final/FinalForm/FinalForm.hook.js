@@ -652,6 +652,7 @@ function useFinalForm({ location }) {
     LogUtils.log("errors==>", { errors, form });
     if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
       setErrorData(errors);
+      SnackbarUtils.error("Form Incomplete")
       return true;
     }
     submitToServer();
