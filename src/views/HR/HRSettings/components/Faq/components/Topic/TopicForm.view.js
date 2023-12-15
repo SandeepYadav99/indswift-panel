@@ -229,7 +229,7 @@ class Faq extends Component {
                 <br/>
                 <br/>
                 <form onSubmit={handleSubmit(this._handleSubmit)}>
-                    <div className={'formFlex'}>
+                    <div className={'formFlex'} >
                         <div className={'formGroup'}>
                             <Field
                                 fullWidth={true}
@@ -240,7 +240,7 @@ class Faq extends Component {
                                 rows="1"
                                 margin={'dense'}
                                 normalize={descNormalize}
-                                label="Facility Name"/>
+                                label="Facility Name" />
                         </div>
                     </div>
 

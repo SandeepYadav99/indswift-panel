@@ -207,7 +207,7 @@ const BGVStatus_Update = () => {
                 <MenuItem value="PENDING">Pending </MenuItem>
                 <MenuItem value="FAILED">Failed </MenuItem>
                 <MenuItem value="CLEAR">Clear </MenuItem>
-                <MenuItem value="IN_PROCESS">In Process</MenuItem>
+                <MenuItem value="INPROCESS">In Process</MenuItem>
               </CustomSelectField>
             </div>
           </div>
@@ -287,7 +287,7 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "payment_status");
                 }}
               >
-                <MenuItem value="IN_PROCESS">In Process</MenuItem>
+                <MenuItem value="INPROCESS">In Process</MenuItem>
                 <MenuItem value="CLEAR">Clear </MenuItem>
                 <MenuItem value="PENDING">Pending </MenuItem>
               </CustomSelectField>
@@ -298,18 +298,21 @@ const BGVStatus_Update = () => {
                 <span className={styles.right_gaps}> {form?.billing_to}</span>
               </span>
               <div className={styles.gaps}></div>
-            
-                  <CustomDatePicker
-                      clearable
-                      label={"Complete in "}
-                      maxDate={new Date()}
-                      onChange={(value) => {
-                        changeTextData(value, "payment_complete");
-                      }}
-                      value={form?.payment_complete}
-                      isError={errorData?.payment_complete}
-                      errorText={errorData?.payment_complete}
-                 />
+
+              <CustomDatePicker
+                clearable
+                label={"Complete in "}
+                maxDate={new Date()}
+                onChange={(value) => {
+                 
+                  changeTextData(value, "payment_complete");
+                }}
+                views={["month","year"]}
+                  format={"MM-yyyy"}
+                value={form?.payment_complete}
+                isError={errorData?.payment_complete}
+                errorText={errorData?.payment_complete}
+              />
             </div>
           </div>
         </div>

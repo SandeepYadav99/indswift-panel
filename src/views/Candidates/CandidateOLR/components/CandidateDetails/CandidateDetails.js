@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Style.module.css";
 function CandidateDetails({ data }) {
+  console.log(data);
   const Quallength = data?.candidate?.qualifications?.length - 1;
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -34,9 +35,7 @@ function CandidateDetails({ data }) {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Grade:</span>
-              <span className={styles.valueWrap}>
-                {data?.grade?.code}
-              </span>
+              <span className={styles.valueWrap}>{data?.grade?.code}</span>
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Qualification:</span>
@@ -51,16 +50,18 @@ function CandidateDetails({ data }) {
           </div>
           <div className={styles.vertical}></div>
           <div className={styles.right}>
-            <div className={styles.key}>
-              <span className={styles.value}>Experience:</span>
-              {data?.candidate?.experience !== undefined && (
-                <span className={styles.valueWrap}>
-                  {data?.candidate?.experience > 1
-                    ? `${data?.candidate?.experience} years`
-                    : `${data?.candidate?.experience} year`}
-                </span>
-              )}
-            </div>
+            {data?.is_experience_hide !== true && (
+              <div className={styles.key}>
+                <span className={styles.value}>Experience:</span>
+                {data?.candidate?.experience !== undefined && (
+                  <span className={styles.valueWrap}>
+                    {data?.candidate?.experience > 1
+                      ? `${data?.candidate?.experience} years`
+                      : `${data?.candidate?.experience} year`}
+                  </span>
+                )}
+              </div>
+            )}
             <div className={styles.key}>
               <span className={styles.value}>Source of Hiring:</span>
               <span className={styles.valueWrap}>

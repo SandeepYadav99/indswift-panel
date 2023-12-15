@@ -23,18 +23,22 @@ function EmployeeRecordTable({ empId }) {
     isEditPanel,
     selectedEmp,
     setSelectEmp,
-    role
+    role,
+    employId,
+    setEmployId
   } = useEmployeeList({ empId });
 
   const renderCreateForm = useMemo(() => {
-    return <EmployeeView closeSidePanel={handleSideToggle} Formtype={type} />;
-  }, [type]);
+    return <EmployeeView closeSidePanel={handleSideToggle} Formtype={type} employee_record_id={employId}/>;
+  }, [type, employId]);
 
   const listArr = useMemo(() => {
     return data?.map((item) => {
+      const employeeId = item?.id; 
+      setEmployId(employeeId);
       return <EmployeeList data={item} handleEditToggle={handleEditToggle} role={role}/>;
     });
-  }, [data,role]);
+  }, [data,role, setEmployId]);
 
   const renderEditForm = useMemo(() => {
     return (

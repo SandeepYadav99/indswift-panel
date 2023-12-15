@@ -74,7 +74,7 @@ export default {
   EMPLOYEE_CREATE: "/employees/create",
   EMPLOYEE_DETAIL: "/employees/details/",
   EMPLOYEE_VERSIONS: "/employee/versions",
-  EMPLOYEE_RECORD_APPROVALs:"/employee-record/approvals",
+  EMPLOYEE_RECORD_APPROVALs:"/employee/record/approvals",
   NEW_EMPLOYEES:"/new/employee",
   NEW_EMPLOYEE_DETAIL: "/new/employee/details/",
 
@@ -211,10 +211,10 @@ export default {
   RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
   RELIEVING_EXPERIENCE_LETTER_DETAIL:"/relieving-exp-letter/detail/",
   PENDING_BACKGROUND_VERIFICATION:"/pending/verification",
-  BGV_ANALYSI_REPOST:"/pending-verification/detail/",
+  BGV_ANALYSI_REPOST:"/pending/verification/analysis/report",
 
   PENDING_VERIFICATION_CREATE:"/verification/create/",
-  PENDING_VERIFICATION_DETAIL:"/verification/detail",
+  PENDING_VERIFICATION_DETAIL:"/verification/detail/",
   PENDING_VERIFICATION_UPDATE:"/verification/update/",
 
 
@@ -239,6 +239,8 @@ export default {
 
   SUCCESSION_FORM:"/succession/form",
   SUCCESSION_FORM_INNER:"/succession/details",
-  SUCCESSION_SUCCESS:"/succession/success"
+  SUCCESSION_SUCCESS:"/succession/success",
+
+  PMS_MASTER:"/pms/master"
 
 };

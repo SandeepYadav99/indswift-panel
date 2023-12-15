@@ -1,9 +1,7 @@
-import { ButtonBase, MenuItem, TextField } from "@material-ui/core";
+import { ButtonBase,  TextField } from "@material-ui/core";
 
-import React, { useEffect, useState, useCallback, useMemo } from "react";
-import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
-import LogUtils from "../../../../libs/LogUtils";
-import { isNum } from "../../../../libs/RegexUtils";
+import React, {  useState, useCallback } from "react";
+
 import styles from "../../Style.module.css";
 
 const IncludSalaryField = ({
@@ -13,10 +11,7 @@ const IncludSalaryField = ({
   handlePress,
   data,
   errors,
-  firstfield,
-  Secondfield,
-  thirdfield,
-  forthfield,
+  
   isDisabled
 }) => {
   const [isProductDialog, setIsProductDialog] = useState(false);
@@ -39,8 +34,8 @@ const IncludSalaryField = ({
     <div className={styles.flexContainer}>
       <div className={styles.qualificationFormCont}>
         <div className={styles.firstRow}>
-          <div className={styles.flex1}>
-            <TextField
+          <div className={styles.flex1} style={{ display: index !== 0 ? 'none' : 'block' }}>
+             <TextField
                 disabled={isDisabled ? true : false}
                 error={errors?.ctc}
                 onChange={handleChange}
@@ -52,8 +47,9 @@ const IncludSalaryField = ({
                 label={'CTC (per month)'}
                 type={'number'}
             />
+           
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.flex1} style={{ display: index !== 0 ? 'none' : 'block' }}>
             <TextField
                 disabled={isDisabled ? true : false}
                 error={errors?.in_hand}

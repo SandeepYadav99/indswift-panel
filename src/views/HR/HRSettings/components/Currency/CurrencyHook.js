@@ -138,6 +138,7 @@ function useCurrencyHook() {
     handleSubmit,
     isUpdateDialog,
     toggleStatusDialog,
+    isSubmitting
   };
 }
 

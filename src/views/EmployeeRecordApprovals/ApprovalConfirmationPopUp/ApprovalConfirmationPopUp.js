@@ -37,10 +37,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ApprovalConfirmationPopUp = ({ isOpen, handleToggle, offerId }) => {
+const ApprovalConfirmationPopUp = ({ isOpen, handleToggle, offerId , handleClose}) => {
   const classes = useStyles();
 
-  const { panelists ,handleSubmit } = useApprovalConfirmationHook({ offerId });
+  const { handleSubmit } = useApprovalConfirmationHook({ offerId ,handleToggle, handleClose});
   return (
     <div>
       <Dialog
@@ -72,31 +72,7 @@ const ApprovalConfirmationPopUp = ({ isOpen, handleToggle, offerId }) => {
             </span>
             <br/>
           </div>
-          {/*</DialogTitle>*/}
-          <div className={styles.fieldWrapper}>
-            {
-              panelists?.map((item,index)=> (
-                <div className={styles.mappedCard} key={`Approval_index_${index}`}>
-              <div className={styles.imageNameContainer}>
-                <div className={styles.imageContainer}>
-                  <img
-                    src={ item?.image ?  item?.image : DefaultImg }
-                  />
-                </div>
-                <div className={styles.nameContainer}>
-                  <span>{item?.name}</span>
-                  <div className={styles.date}>{item?.designation?.name}</div>
-                </div>
-              </div>
-              <div className={styles.SummaryViewstar}>
-                <div className={styles.buttonWrapper}>
-                <div className={styles.date}>{item?.department?.name}</div>
-                </div>
-              </div>
-            </div>
-              ) )
-            }
-          </div>
+      
           <div className={styles.btnCont1}>
           
             <ButtonBase

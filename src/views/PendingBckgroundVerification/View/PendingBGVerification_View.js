@@ -2,13 +2,11 @@ import React, { useCallback, useMemo } from "react";
 import { ButtonBase, IconButton, colors } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
-
 import StatusPill from "../../../components/Status/StatusPill.component";
 
 import {
@@ -31,7 +29,10 @@ const PendingBGVerification_View = ({ location }) => {
     configFilter,
     handleBGVUpdateDetails,
     handleBGVDetails,
-    handleBgvAnalysiReport,
+    handleBgvAnalysisReport,
+    handleBgvReportDownload,
+    handleBgvReportDownloadAll,
+    setLocationId,
   } = usePendingBGVerification_Hook({ location });
 
   const {
@@ -45,9 +46,23 @@ const PendingBGVerification_View = ({ location }) => {
     return value ? value.replace(/_/g, " ") : "";
   };
 
+  const getBgvStatusStyle = (bgvResult) => {
+    if (bgvResult === "INPROCESS") {
+      return { color: "#F4881B", borderColor: "#F4881B" };
+    } else if (bgvResult === "UNABLE TO VERIFY") {
+      return { color: "#7467F0", border: "none", textAlign: "justify" };
+    } else if (bgvResult === "FAILED") {
+      return { color: "#E92828", borderColor: "#E92828" };
+    } else if (bgvResult === "INCOMPLETE") {
+      return { color: "#E92828", borderColor: "#E92828" };
+    }
+
+    return {};
+  };
+
   const renderBGVStatus = useCallback((status) => {
     if (status === "PENDING" || "CLEAR" || "FAILED") {
-      return <StatusPill status={status} />;
+      return <StatusPill status={status} style={getBgvStatusStyle(status)} />;
     } else {
       return <></>;
     }
@@ -70,30 +85,17 @@ const PendingBGVerification_View = ({ location }) => {
     return null;
   }, []);
 
-  const getBgvStatusStyle = (bgvResult) => {
-    if (bgvResult === "IN PROCESS") {
-      return { color: "#F4881B", borderColor: "#F4881B" };
-    } else if (bgvResult === "UNABLE TO VERIFY") {
-      return { color: "#7467F0", border: "none", textAlign: "justify" };
-    } else if (bgvResult === "FAILED") {
-      return { color: "#E92828", borderColor: "#E92828" };
-    }
-
-    return {};
-  };
-
   const button_VerificationHandler = useCallback(
     (all) => {
+      // all?.bgv_status === "PENDING"  // if required to add than we add
       const isValidBgvStatus =
-        (all?.bgv_status === "INCOMPLETE" ||
-          all?.bgv_status === "COMPLETED" ||
-          all?.bgv_status === "PENDING") &&
+        (all?.bgv_status === "INCOMPLETE" || all?.bgv_status === "COMPLETED") &&
         (all?.bgv_result === "PENDING" ||
           all?.bgv_result === "CLEAR" ||
           all?.bgv_result === "FAILED" ||
-          all?.bgv_result === "IN_PROCESS" ||
+          all?.bgv_result === "INPROCESS" ||
           all?.bgv_result === "UNABLE_TO_VERIFY") &&
-        (all?.payment_status === "IN_PROCESS" ||
+        (all?.payment_status === "INPROCESS" ||
           all?.payment_status === "PENDING" ||
           all?.payment_status !== "");
 
@@ -104,17 +106,21 @@ const PendingBGVerification_View = ({ location }) => {
         all?.payment_status === "CLEAR";
 
       if (isValidBgvStatus) {
+        // isValidBgvStatus true than icon <VisibilityOutlined fontSize={"small"} />.
         return (
           <IconButton
             className={"tableActionBtn"}
             color="secondary"
             onClick={() => {
+              // If isShowBgvDetails is true, it renders the "details" icon (handleBGVDetails(all)
+
               isShowBgvDetails
                 ? handleBGVDetails(all)
-                : handleBGVUpdateDetails(all);
+                : handleBGVUpdateDetails(all); // handleBGVUpdateDetails(all)
             }}
           >
             {isShowBgvDetails ? (
+              // If isShowBgvDetails is true, it renders the "details" icon (<VisibilityOutlined fontSize={"small"} />
               <VisibilityOutlined fontSize={"small"} />
             ) : (
               <AssignmentOutlined fontSize={"small"} />
@@ -134,40 +140,44 @@ const PendingBGVerification_View = ({ location }) => {
         key: "name",
         label: "NAME",
         sortable: false,
-        render: (value, all) => <div><b>{all?.emp_name}</b> <br/> {all?.emp_code}</div>,
+        render: (value, all) => (
+          <>
+            <b>{all?.emp_name}</b> <br /> {all?.emp_code}
+          </>
+        ),
       },
       {
         key: "location",
         label: "LOCATION",
         sortable: false,
         render: (temp, all) => (
-          <div>{all?.location?.name || all?.reporting_company}</div>
+          <>{all?.location?.name || all?.reporting_company}</>
         ),
       },
       {
         key: "month",
         label: "MONTH",
         sortable: false,
-        render: (temp, all) => <div>{all?.verificationText}</div>,
+        render: (temp, all) => <>{all?.verificationText}</>,
       },
       {
         key: "designation",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.designation?.name}</div>,
+        render: (temp, all) => <>{all?.designation?.name}</>,
       },
       {
         key: "department",
         label: "DEPARTMENT",
         sortable: false,
-        render: (temp, all) => <div>{all?.department?.name || "-"}</div>,
+        render: (temp, all) => <>{all?.department?.name || "-"}</>,
       },
       {
         key: "offer_date",
         label: "OFFER DATE",
         sortable: false,
         render: (temp, all) => (
-          <div>{all?.offerDate !== "Invalid date" ? all?.offerDate : "-"}</div>
+          <>{all?.offerDate !== "Invalid date" ? all?.offerDate : "-"}</>
         ),
       },
       {
@@ -175,31 +185,36 @@ const PendingBGVerification_View = ({ location }) => {
         label: "OFFER ACCEPTED",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <>
             {all?.offerAcceptedDate !== "Invalid date"
               ? all?.offerAcceptedDate
               : "-"}
-          </div>
+          </>
         ),
       },
       {
         key: "doj",
         label: "DOJ",
         sortable: false,
-        render: (temp, all) => <div>{all?.dojText}</div>,
+        render: (temp, all) => <>{all?.dojText}</>,
       },
       {
         key: "status",
         label: "STATUS",
         sortable: false,
-        render: (temp, all) => <div>{renderBGVStatus(all?.bgv_status)}</div>,
+        render: (temp, all) => (
+          <div style={{ width: "8rem" }}>
+            {renderBGVStatus(all?.bgv_status)}
+          </div>
+        ),
       },
       {
         key: "bgv-result",
         label: "BGV RESULT",
         sortable: false,
+
         render: (temp, all) => (
-          <div>
+          <div style={{ width: "8rem" }}>
             {all?.bgv_result ? (
               renderBgvResult(removeUnderScore(all?.bgv_result))
             ) : (
@@ -213,15 +228,11 @@ const PendingBGVerification_View = ({ location }) => {
         label: "PAYMENT STATUS",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div style={{ width: "8rem" }}>
             {all?.payment_status ? (
               <StatusPill
                 status={removeUnderScore(all?.payment_status)}
-                style={
-                  all?.payment_status === "IN_PROCESS"
-                    ? { color: "#F4881B", border: "none" }
-                    : {}
-                }
+                style={getBgvStatusStyle(removeUnderScore(all?.payment_status))}
               />
             ) : (
               <>-</>
@@ -233,11 +244,11 @@ const PendingBGVerification_View = ({ location }) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             {all?.bgv_status === "PENDING" &&
               (all?.bgv_result === "PENDING" ||
                 all?.bgv_result !== "" ||
-                all?.bgv_result === "IN_PROCESS") &&
+                all?.bgv_result === "INPROCESS") &&
               all?.payment_status === "PENDING" && (
                 <IconButton
                   className={"tableActionBtn"}
@@ -264,6 +275,7 @@ const PendingBGVerification_View = ({ location }) => {
     isCalling,
     button_VerificationHandler,
     renderBgvResult,
+    getBgvStatusStyle,
   ]);
 
   const tableData = useMemo(() => {
@@ -304,10 +316,26 @@ const PendingBGVerification_View = ({ location }) => {
           </div>
 
           <div className={styles.rightFlex}>
+          <ButtonBase
+              className={styles.download}
+              onClick={() => {
+                handleBgvReportDownloadAll();
+              }}
+            >
+              DOWNLOAD
+            </ButtonBase>
+            <ButtonBase
+              className={styles.download}
+              onClick={() => {
+                handleBgvReportDownload();
+              }}
+            >
+              PAYMENTS RECORD
+            </ButtonBase>
             <ButtonBase
               className={styles.edit}
               onClick={() => {
-                handleBgvAnalysiReport();
+                handleBgvAnalysisReport();
               }}
             >
               BGV ANALYSIS REPORT
@@ -322,14 +350,12 @@ const PendingBGVerification_View = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
+
+          <div style={{ width: "100%" }}>
+            <DataTables
+              {...tableData.datatable}
+              {...tableData.datatableFunctions}
+            />
           </div>
         </div>
       </PageBox>

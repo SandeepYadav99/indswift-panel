@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import  { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
@@ -27,8 +27,8 @@ const initialForm = {
   is_secound_employment_verification_status: "",
   is_criminal_verification_status: "",
   payment_complete: "",
-  payment_status:"",
-  emp_code:""
+  payment_status: "",
+  emp_code: "",
   //
 };
 
@@ -60,15 +60,17 @@ const useCandidateUpdate_Hook = () => {
           bgv_status: data?.bgv_status,
           is_education_verification_status:
             data?.is_education_verification_status,
-          is_first_employment_verification_status:data?.is_first_employment_verification_status,
-          is_secound_employment_verification_status: data?.is_secound_employment_verification_status,
-          is_criminal_verification_status: data?.is_criminal_verification_status,
+          is_first_employment_verification_status:
+            data?.is_first_employment_verification_status,
+          is_secound_employment_verification_status:
+            data?.is_secound_employment_verification_status,
+          is_criminal_verification_status:
+            data?.is_criminal_verification_status,
           bgv_result: data?.bgv_result,
           payment_complete: data?.payment_complete,
-          payment_status:data?.payment_status,
-          emp_code:data?.employeeObj?.emp_code,
-          choose_action:data?.choose_action
-       
+          payment_status: data?.payment_status,
+          emp_code: data?.employeeObj?.emp_code,
+          choose_action: data?.choose_action,
         });
       } else {
         SnackbarUtils.error(res.message);
@@ -80,6 +82,7 @@ const useCandidateUpdate_Hook = () => {
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["cost", "billing_to"];
+
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -104,8 +107,9 @@ const useCandidateUpdate_Hook = () => {
       return;
     }
     setIsSubmitting(true);
+
     const updatedData = {
-      employee_id: id,
+      // employee_id: id,
       is_education_verification: form?.is_education_verification,
       is_first_employment_verification: form?.is_first_employment_verification,
       is_secound_employment_verification:
@@ -119,14 +123,34 @@ const useCandidateUpdate_Hook = () => {
       // remark: form?.remark,
       status: form?.status,
       id: form?.id, // id
-      is_education_verification_status: form?.is_education_verification_status,
-      is_first_employment_verification_status:
-        form?.is_first_employment_verification_status,
-      is_secound_employment_verification_status:
-        form?.is_secound_employment_verification_status,
-        is_criminal_verification_status:form?.is_criminal_verification_status,
+
+      ...(form?.is_education_verification
+        ? {
+            is_education_verification_status:
+              form?.is_education_verification_status,
+          }
+        : {}),
+      ...(form?.is_first_employment_verification
+        ? {
+            is_first_employment_verification_status:
+              form?.is_first_employment_verification_status,
+          }
+        : {}),
+      ...(form?.is_secound_employment_verification
+        ? {
+            is_secound_employment_verification_status:
+              form?.is_secound_employment_verification_status,
+          }
+        : {}),
+      ...(form?.is_criminal_verification
+        ? {
+            is_criminal_verification_status:
+              form?.is_criminal_verification_status,
+          }
+        : {}),
+
       payment_complete: form?.payment_complete,
-      payment_status:form?.payment_status,
+      payment_status: form?.payment_status,
     };
 
     try {
@@ -154,7 +178,7 @@ const useCandidateUpdate_Hook = () => {
     } else {
       await submitToServer();
     }
-  }, [checkFormValidation, setErrorData, form, submitToServer]);
+  }, [checkFormValidation, setErrorData, form, submitToServer, id]);
 
   const removeError = useCallback(
     (title) => {
@@ -172,28 +196,28 @@ const useCandidateUpdate_Hook = () => {
         cost: "cost",
         action_remark: "action_remark",
         is_education_verification_status: "is_education_verification_status",
-        is_first_employment_verification_status: "is_first_employment_verification_status",
-        is_secound_employment_verification_status: "is_secound_employment_verification_status",
+        is_first_employment_verification_status:
+          "is_first_employment_verification_status",
+        is_secound_employment_verification_status:
+          "is_secound_employment_verification_status",
         is_criminal_verification_status: "is_criminal_verification_status",
         bgv_result: "bgv_result",
         choose_action: "choose_action",
         payment_status: "payment_status",
-        payment_complete:"payment_complete"
-        
+        payment_complete: "payment_complete",
       };
-  
+
       if (fieldMappings.hasOwnProperty(fieldName)) {
         setForm((prevForm) => ({
           ...prevForm,
           [fieldMappings[fieldName]]: value,
         }));
+
         removeError(fieldName);
       }
     },
-    [setForm, removeError]
+    [setForm, removeError, id]
   );
-  
-  
 
   const handleViewEditDetails = useCallback((data) => {
     historyUtils.push(RouteName.JOB_OPENINGS_UPDATE + data.id);

@@ -1,5 +1,11 @@
 import React from "react";
-import { Button, ButtonBase, IconButton, InputAdornment, MenuItem } from "@material-ui/core";
+import {
+  Button,
+  ButtonBase,
+  IconButton,
+  InputAdornment,
+  MenuItem,
+} from "@material-ui/core";
 import { Close, Search, Visibility } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
@@ -40,6 +46,7 @@ const UpdatePRCDialog = ({ isOpen, handleToggle, candidateId }) => {
     handleSubmit,
     isSubmitting,
     onBlurHandler,
+    isPRCDetailFetched,
   } = useUpdatePRCDialogHook({ isOpen, handleToggle, candidateId });
   return (
     <div>
@@ -123,16 +130,17 @@ const UpdatePRCDialog = ({ isOpen, handleToggle, candidateId }) => {
               </div>
             </div>
           )}
-
-          <div className={styles.printFlex}>
-            <ButtonBase
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              className={"createBtnreset"}
-            >
-              Update
-            </ButtonBase>
-          </div>
+          {isPRCDetailFetched && (
+            <div className={styles.printFlex}>
+              <ButtonBase
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className={"createBtnreset"}
+              >
+                Update
+              </ButtonBase>
+            </div>
+          )}
         </div>
       </Dialog>
     </div>
