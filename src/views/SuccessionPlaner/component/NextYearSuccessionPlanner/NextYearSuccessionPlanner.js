@@ -184,12 +184,12 @@ const NextYearSuccessionPlanner = ({ listData }) => {
         sortable: false,
         render: (temp, all) => <div>{all?.succession_wrt}</div>,
       },
-      {
-        key: "nature_of_succession",
-        label: "NATURE OF SUCCESSION",
-        sortable: false,
-        render: (temp, all) => <div><StatusPill status={all?.nature_of_succession} /></div>,
-      },
+      // {
+      //   key: "nature_of_succession",
+      //   label: "NATURE OF SUCCESSION",
+      //   sortable: false,
+      //   render: (temp, all) => <div><StatusPill status={all?.nature_of_succession} /></div>,
+      // },
       {
         key: "revert_by_date",
         label: "REVERT BY DATE",
@@ -210,22 +210,22 @@ const NextYearSuccessionPlanner = ({ listData }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.extension_status ? (
+            {(all?.application_status === "MD_APPROVED" || all?.application_status === "MD_REJECTED") ? (
               <StatusPill status={all?.extension_status} />
             ) : (
-              "NA"
+              <StatusPill status="PENDING" />
             )}
           </div>
         ),
       },
-      {
-        key: "succession_status",
-        label: "SUCCESSION STATUS",
-        sortable: false,
-        render: (temp, all) => (
-          <div>{<StatusPill status={all?.succession_status} />}</div>
-        ),
-      },
+      // {
+      //   key: "succession_status",
+      //   label: "SUCCESSION STATUS",
+      //   sortable: false,
+      //   render: (temp, all) => (
+      //     <div>{<StatusPill status={all?.succession_status} />}</div>
+      //   ),
+      // },
       {
         key: "action_key",
         label: "Action",

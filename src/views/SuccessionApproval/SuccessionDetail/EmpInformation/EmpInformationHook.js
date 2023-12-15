@@ -54,19 +54,25 @@ const useEmpInformation = () => {
     }
   }, [id]);
 
-  console.log("employeeDetail?.employee?.id", employeeDetail);
   useEffect(() => {
     if (employeeDetail?.application?.employee?.id) {
-      serviceGetSuccessionPlanerHistory({
-        employee_id: employeeDetail?.application?.employee?.id,
-      }).then((res) => {
-        if (!res.error) {
-          const data = res?.data;
-          setHistoryData(data);
-        } else {
-          SnackbarUtils.error(res?.message);
-        }
-      });
+      if (
+        employeeDetail?.status === "MD_APPROVED" ||
+        employeeDetail?.status === "MD_REJECTED"
+      ) {
+        serviceGetSuccessionPlanerHistory({
+          employee_id: employeeDetail?.application?.employee?.id,
+        }).then((res) => {
+          if (!res.error) {
+            const data = res?.data;
+            setHistoryData(data);
+          } else {
+            SnackbarUtils.error(res?.message);
+          }
+        });
+      } else {
+        setHistoryData([]);
+      }
     }
   }, [employeeDetail?.application?.employee?.id]);
 
@@ -371,7 +377,7 @@ const useEmpInformation = () => {
     HODApprovalStatus,
     salaryCostInternal,
     submitToServer,
-    historyData
+    historyData,
   };
 };
 
