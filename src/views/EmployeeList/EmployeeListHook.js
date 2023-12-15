@@ -22,6 +22,7 @@ const useEmployeeList = ({}) => {
   const [isCPCDialog, setIsCPCDialog] = useState(false);
   const [isExtendDialog, setIsExtendDialog] = useState(false);
   const [isTraineeDialog, setIsTraineeDialog] = useState(false);
+  const [isRetiredDialog, setIsRetiredDialog] = useState(false);
   const [createDD, setCreateDD] = useState(null);
   const dispatch = useDispatch();
   const { role } = useSelector((state) => state.auth);
@@ -30,7 +31,8 @@ const useEmployeeList = ({}) => {
     GRADES: [],
     DEPARTMENTS: [],
     JOINING_CANDIDATES:[],
-    TRAINEE_EMPLOYEES:[]
+    TRAINEE_EMPLOYEES:[],
+    RETIRED_EMPLOYEES:[]
   });
   const isMountRef = useRef(false);
   const {
@@ -61,10 +63,16 @@ const useEmployeeList = ({}) => {
 
   }, [isTraineeDialog]);
 
+  const toggleRetiredDialog = useCallback(() => {
+    setIsRetiredDialog((e) => !e);
+    setCreateDD(false)
+
+  }, [isRetiredDialog]);
+
   useEffect(() => {
     initData();
     isMountRef.current = true;
-    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS","JOINING_CANDIDATES","TRAINEE_EMPLOYEES"]).then((res) => {
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS","JOINING_CANDIDATES","TRAINEE_EMPLOYEES","RETIRED_EMPLOYEES"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -303,6 +311,8 @@ const useEmployeeList = ({}) => {
     toggleExtendDialog,
     isTraineeDialog,
     toggleTraineeDialog,
+    isRetiredDialog,
+    toggleRetiredDialog,
     listData
   };
 };

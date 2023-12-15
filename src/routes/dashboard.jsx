@@ -12,8 +12,10 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
-import FullDetail from "../views/Full&FinalApproval/FullDetail/FullDetail.js";
+const  FinalDetail = lazy(()=> import ("../views/Full&Final/FinalDetail/FinalDetail.view.js"));
+const  FullDetail = lazy(()=> import ("../views/Full&FinalApproval/FullDetail/FullDetail.js"));
+const  EmpClaimDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpClaimDetail/EmpClaimDetail.view.js"));
+
 const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
 
 const PmsMaster = lazy(()=>import("../views/PmsMaster/PmsMasterView.js"))
@@ -1418,6 +1420,18 @@ const dashboardRoutes = [
     navbarName: "Claims List",
     icon: PeopleOutlined,
     component: ClaimListDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.EMPLOYEE_CLAIMS_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: EmpClaimDetail,
     is_sidebar: false,
     is_protect: true,
     should_regex: true,
