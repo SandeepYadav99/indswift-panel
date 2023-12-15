@@ -14,8 +14,8 @@ import RouteName from "./Route.name";
 import Constants from "../config/constants";
 import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
 import FullDetail from "../views/Full&FinalApproval/FullDetail/FullDetail.js";
-
 const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
+
 const PmsMaster = lazy(()=>import("../views/PmsMaster/PmsMasterView.js"))
 const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
 
@@ -26,15 +26,7 @@ const BgvAnalysisReport = lazy(() =>
     "../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"
   )
 );
-const SuccessionPlannerList = lazy(() =>
-  import("../views/SuccessionPlaner/SuccessionPlanner_list")
-);
 
-const EmployeeInformation = lazy(() =>
-  import(
-    "../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"
-  )
-);
 const IncrementLetter = lazy(()=>  import("../views/Pms/IncrementLetter/IncrementLetter.view"));
 const USCEditView = lazy(()=>  import("../views/HR/HRSettings/components/USCEdit/USCEdit"));
 const SuccessionApproval_List = lazy(()=>  import("../views/SuccessionApproval/SuccessionApproval_List"));
@@ -51,6 +43,9 @@ const ExitInterviewList = lazy(()=>  import("../views/ExitInterview/ExitIntervie
 const FinalForm = lazy(()=>  import("../views/Full&Final/FinalForm/FinalForm.view.js"));
 
 
+// const BgvAnalysisReport =lazy(()=>import("../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"));
+const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
+const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
 const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
 
 const LeaveApplicationForm = lazy(() =>
@@ -67,11 +62,7 @@ const CandidateInformation = lazy(() =>
     "../views/PendingBckgroundVerification/BGCandidateInformation/BG_CndidateInfo"
   )
 );
-const PendingBGVerification_View = lazy(() =>
-  import(
-    "../views/PendingBckgroundVerification/View/PendingBGVerification_View"
-  )
-);
+const PendingBGVerification_View = lazy(() => import("../views/PendingBckgroundVerification/View/PendingBGVerification_View"));
 const CandidateStatusGlossary_List = lazy(() =>
   import("../views/CandidateStatusGlossary/CandidateStatusGlossary_List")
 );
@@ -758,7 +749,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: `${RouteName.CV_SHORTLIST_LIST}:id`,
@@ -770,7 +761,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: RouteName.INTERVIEW_SCHEDULE,
@@ -782,7 +773,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: RouteName.REVIEW_OLR,
@@ -794,7 +785,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: "null",
@@ -904,7 +895,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "recruitment",
-    // roles: [Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: "null",
@@ -1244,7 +1235,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    roles: [Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR,Roles.CORPORATE_HR],
   },
   {
     path: "/manpower",
@@ -1467,7 +1458,20 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.FOREIGN_HR_CLAIMS_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: ForeignClaimDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    roles: [Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.TRAVEL_HR_CLAIMS_DETAILS}:id`,
@@ -1539,7 +1543,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CASHIER, Roles.HR],
+    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.HR, Roles.CASHIER],
   },
   {
     path: `${RouteName.EMPLOYEES_IMPREST_DETAILS}:id`,
@@ -1551,7 +1555,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN, Roles.HR,  Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CASHIER],
   },
   {
     path: `${RouteName.CLAIMS_IMPREST_CREATE}`,
@@ -1900,7 +1904,7 @@ const dashboardRoutes = [
     component: CandidateOfferLetter,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD,],
   },
   {
     path: `${RouteName.CANDIDATES_OFFER_DETAILS}:id`,
@@ -1915,6 +1919,7 @@ const dashboardRoutes = [
       Roles.CORPORATE_HR,
       Roles.OLR,
       Roles.GENERAL,
+      Roles.MD
     ],
   },
   {
@@ -2328,7 +2333,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     // parent: "skynetLetter",
-     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+     roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.RECRUITER, Roles.HR,],
   },
   {
     path: `${RouteName.BGV_ANALYSI_REPOST}`,
@@ -2394,13 +2399,13 @@ const dashboardRoutes = [
     roles: [
       Roles.ADMIN,Roles.HR,
       Roles.CORPORATE_HR,
-      Roles.ACCOUNTANT,
-      Roles.OTHERS,
-      Roles.CORPORATE_REVIEWER,
-      Roles.PMS,
-      Roles.GENERAL,
-      Roles.OLR,
-      Roles.RECRUITER,
+      // Roles.ACCOUNTANT,
+      // Roles.OTHERS,
+      // Roles.CORPORATE_REVIEWER,
+      // Roles.PMS,
+      // Roles.GENERAL,
+      // Roles.OLR,
+      // Roles.RECRUITER,
 
     ],
   },
@@ -2555,7 +2560,7 @@ const dashboardRoutes = [
     component: FinalForm,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.OTHERS, Roles.HR,Roles.RECRUITER,Roles.ACCOUNTANT],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL}:id`,

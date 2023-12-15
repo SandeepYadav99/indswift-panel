@@ -73,6 +73,9 @@ const useEmployeeReport = ({}) => {
 
   const resetData = useCallback(
     (sort = {}, updateQuery = {}) => {
+      console.log("other",{start_date: startDate,
+        end_date: endDate,
+        type: type,})
       dispatch(
         actionFetchEmployeeReport(
           1,
@@ -109,11 +112,17 @@ const useEmployeeReport = ({}) => {
       resetData();
     }
   }, [type, setStartDate, endDate, endDate, setEndDate]);
-  
-  const handlePageChange = useCallback((type) => {
-    console.log("_handlePageChange", type);
-    dispatch(actionSetPageEmployeeReportRequests(type));
-  }, []);
+
+  const handlePageChange = useCallback((type2) => {
+    console.log("_handlePageChange", type2);
+    dispatch(
+      actionSetPageEmployeeReportRequests(type2, {
+        start_date: startDate,
+        end_date: endDate,
+        type: type,
+      })
+    );
+  }, [endDate,endDate,type]);
 
   const queryFilter = useCallback(
     (key, value) => {

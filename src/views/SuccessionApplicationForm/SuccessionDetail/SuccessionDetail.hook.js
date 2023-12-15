@@ -34,7 +34,7 @@ const useSuccessionForm = () => {
   );
   useEffect(() => {
     if (emp_id) {
-      serviceSuccessionDetail({ code: emp_id }).then((res) => {
+      serviceSuccessionDetail({ code: emp_id, check_location: false }).then((res) => {
         if (!res.error) {
           const tempData = res?.data;
           setEmployeeDetail(tempData);

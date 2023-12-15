@@ -436,7 +436,7 @@ export default {
     PMS: "PMS",
     CASHIER:"CASHIER",
     HR:"HR",
-    MD:"MD"
+    MD:"MD",
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,

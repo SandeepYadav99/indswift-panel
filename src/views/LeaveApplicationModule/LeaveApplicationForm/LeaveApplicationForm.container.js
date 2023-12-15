@@ -78,7 +78,6 @@ const LeaveApplicationForm = () => {
     }
   }
 
-  console.log("leaveCount", leaveCount);
   return (
     <div className={styles.container}>
       <div>
@@ -96,7 +95,7 @@ const LeaveApplicationForm = () => {
         <div className={styles.heading}>Employee Information</div>
         <div className={styles.leaveForm}>
           <div className={styles.heading}>Type of Leave</div>
-          <FormControl>
+          <FormControl  className={styles.btnRadio}>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               aria-label="option"
@@ -201,7 +200,7 @@ const LeaveApplicationForm = () => {
                 accept={"application/pdf,application/msword,image/*"}
                 error={errorData?.document}
                 value={form?.document}
-                placeholder={"Add Attachment (optional)"}
+                placeholder={<p className={styles.attachment}>Add Attachment (optional)</p>}
                 onChange={(file) => {
                   if (file) {
                     changeTextData(file, "document");
@@ -279,7 +278,7 @@ const LeaveApplicationForm = () => {
                 label="Attachments"
                 accept={"application/pdf,application/msword,image/*"}
                 value={form?.document}
-                placeholder={`Add Attachments (optional)`}
+                placeholder={<p className={styles.attachment}>Add Attachment (optional)</p>}
                 onChange={(file) => {
                   if (file) {
                     changeTextData(file, "document");
@@ -357,7 +356,7 @@ const LeaveApplicationForm = () => {
                 label="Attachments"
                 accept={"application/pdf,application/msword,image/*"}
                 value={form?.document}
-                placeholder={`Add Attachments (optional)`}
+                placeholder={<p className={styles.attachment}>Add Attachment (optional)</p>}
                 onChange={(file) => {
                   if (file) {
                     changeTextData(file, "document");
@@ -451,7 +450,7 @@ const LeaveApplicationForm = () => {
                 label="Attachments"
                 accept={"application/pdf,application/msword,image/*"}
                 value={form?.document}
-                placeholder={`Add Attachments (optional)`}
+                placeholder={<p className={styles.attachment}>Add Attachment (optional)</p>}
                 onChange={(file) => {
                   if (file) {
                     changeTextData(file, "document");

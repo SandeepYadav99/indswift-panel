@@ -57,8 +57,8 @@ const EmployeeListCreate = ({}) => {
       toggleStatusDialog,
       isUpdateDialog,
       SalaryField,
-      isSubmitting,
-      role
+      role,
+      isSubmitting
   } = useEmployeeEditHook({});
 
   const image = useMemo(() => {

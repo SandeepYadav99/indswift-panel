@@ -82,19 +82,19 @@ import LeaveReducer from "./LeaveModule.reducer";
 import ExpirOfferLetterReducer from "./ExpirOfferLetter.reducer";
 import NAPS_TraningReducer from "./NAPS_Traning.reducer";
 import PendingBGVReducer from "./PendingBGV.reducer";
-import C3MLetterReducer from "./C3MLetter.reducer";
-import AppointmentLetterReducer from "./AppointmentLetter.reducer";
-import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
-
 import ExitInterviewReducer from "./ExitInterview.reducer";
+import C3MLetterReducer from "./C3MLetter.reducer";
 import LeaveListReducer from "./LeaveList.reducer";
 import FinalFormReducer from "./FinalForm.reducer";
+import AppointmentLetterReducer from "./AppointmentLetter.reducer";
+import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
 import SuccessionPlanerReducer from "./SuccessionPlaner.reducer";
 import FinalFormApprovalReducer from "./FinalFormApproval.reducer";
+import EmpRecordApprovalReducer from "./EmpRecordApproval.reducer";
 import SuccessionAReducer from "./SuccessionA.reducer";
 import NextSuccessionPlanerReducer from "./NextSuccessionPlaner.reducer";
 import AfterNextSuccessionPlanerReducer from "./AfterNextSuccessionPlaner.reducer";
-import EmpRecordApprovalReducer from "./EmpRecordApproval.reducer";
+
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -167,6 +167,10 @@ const rootReducer = combineReducers({
   imprest_detail: ImprestApprovalDetailReducer,
   pmsOverallHodBatches: PmsOverallHodReducer,
   pmsOverallHodMyReviews: PmsOverallHodReviewReducer,
+  RelievingExpLetter:RelievingExpLetterReducer,
+  exit_interview:ExitInterviewReducer,
+  leave_list:LeaveListReducer,
+  final_form:FinalFormReducer,
   emp_loanList: EmployeeLoanListReducer,
   loanList: LoanListReducer,
   newEmployee: NewEmployeeListReducer,
@@ -175,18 +179,14 @@ const rootReducer = combineReducers({
   pendingBGV: PendingBGVReducer,
   OngoingLoans: OngoingLoansReducer,
   LeaveModule: LeaveReducer,
-  exit_interview: ExitInterviewReducer,
-  leave_list: LeaveListReducer,
-  final_form: FinalFormReducer,
   C3MLetter: C3MLetterReducer,
   AppointmentLetter: AppointmentLetterReducer,
-  RelievingExpLetter: RelievingExpLetterReducer,
   successionPlaner: SuccessionPlanerReducer,
   next_year: NextSuccessionPlanerReducer,
   next_next_year:AfterNextSuccessionPlanerReducer,
+  employeRecordApproval:EmpRecordApprovalReducer,
   final_form_approval: FinalFormApprovalReducer,
   succession_approval:SuccessionAReducer,
-  employeRecordApproval:EmpRecordApprovalReducer
   // form: formReducer,
 });
 

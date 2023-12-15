@@ -142,7 +142,7 @@ const PendingBGVerification_View = ({ location }) => {
         sortable: false,
         render: (value, all) => (
           <>
-            <b>{all?.emp_name}</b> <br /> {all?.emp_code}
+            <b>{all?.emp_name}</b> <br /> <b>{all?.employeeObj?.emp_code}</b>
           </>
         ),
       },
@@ -200,7 +200,7 @@ const PendingBGVerification_View = ({ location }) => {
       },
       {
         key: "status",
-        label: "STATUS",
+        label: "BGV STATUS",
         sortable: false,
         render: (temp, all) => (
           <div style={{ width: "8rem" }}>

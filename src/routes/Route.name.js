@@ -109,6 +109,7 @@ export default {
   CLAIMS_HR_DETAILS:'/cm/hr/details/',
   TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',
   FOREIGN_CLAIMS_DETAILS:'/cm/foreign/details/',
+  FOREIGN_HR_CLAIMS_DETAILS:'/cm/hr/foreign/details/',
   TRAVEL_HR_CLAIMS_DETAILS:'/cm/hr/travel/details/',
   CLAIMS_HR_LIST:'/cm/hr/claims' ,
 
@@ -222,7 +223,7 @@ export default {
   LEAVE_APPLICATION_FORM:"/leave-application-form",
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
 
-
+  HRESCALATIONMATRIX:"/hr/escalation",
   FULL_FINAL_APPLICATION:"/full-final",
   FULL_FINAL_APPROVAL:"/full-final-approval",
   FULL_FINAL_DETAIL_APPROVAL:"/full-final/detail/",
@@ -230,7 +231,6 @@ export default {
   FULL_FINAL_FORM:"/full/form/",
   FULL_FINAL_DETAIL:"/full/detail/",
 
-  HRESCALATIONMATRIX:"/hr/escalation",
   EXIT_LOGIN:"/exit/login",
   EXIT_SUCCESS:"/exit/success",
   EXIT_INTERVIEW_LIST:"/exit/interview/list",
