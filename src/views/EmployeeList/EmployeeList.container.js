@@ -17,6 +17,7 @@ import UploadCsvDialog from "./components/UploadCsv/UploadCsvDialog.view";
 import CPCDialogView from "./components/CPCDialog/CPCDialog.view";
 import OnBoardDialog from "./components/OnBoardPopUp/OnBoardDialog.view";
 import TraineeDialog from "./components/TraineePopUp copy/TraineeDialog.view";
+import RetiredDialog from "./components/RetiredPopUp/RetiredDialog.view";
 
 const EmployeeList = ({}) => {
   const {
@@ -51,6 +52,8 @@ const EmployeeList = ({}) => {
     toggleExtendDialog,
     isTraineeDialog,
     toggleTraineeDialog,
+    isRetiredDialog,
+    toggleRetiredDialog,
     listData
   } = useEmployeeList({});
 
@@ -313,6 +316,13 @@ const EmployeeList = ({}) => {
               >
                 NAPS Trainee
               </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  toggleRetiredDialog();
+                }}
+              >
+                Retired
+              </MenuItem>
             </Menu>
           </div>
           </div>
@@ -327,6 +337,11 @@ const EmployeeList = ({}) => {
         listData={listData}
         isOpen={isTraineeDialog}
         handleToggle={toggleTraineeDialog}/>
+        
+        <RetiredDialog
+        listData={listData}
+        isOpen={isRetiredDialog}
+        handleToggle={toggleRetiredDialog}/>
         <div>
           <FilterComponent
             is_progress={isFetching}

@@ -249,6 +249,7 @@ function EmployeeListCreateHook({ location }) {
   const candidateId = location?.state?.empId;
   const empFlag = location?.state?.isOnboard;
   const traineeId = location?.state?.traineeId;
+  const retiredId = location?.state?.retiredId
   const [listData, setListData] = useState({
     LOCATION_DEPARTMENTS: [],
     EMPLOYEES: [],
@@ -289,12 +290,14 @@ function EmployeeListCreateHook({ location }) {
   );
 
   useEffect(() => {
-    if (listData?.EMPLOYEES?.length > 0 && (candidateId || traineeId)) {
+    if (listData?.EMPLOYEES?.length > 0 && (candidateId || traineeId || retiredId)) {
       let req;
       if (candidateId) {
         req = serviceGetEmployeeConversionInfo({ candidate_id: candidateId });
       } else if (traineeId) {
         req = serviceGetEmployeeEditInfo({ emp_id: traineeId });
+      }else if(retiredId){
+        req = serviceGetEmployeeEditInfo({ emp_id: retiredId });
       }
       req.then((res) => {
         const empData = res?.data;
@@ -333,7 +336,11 @@ function EmployeeListCreateHook({ location }) {
             if (key in initialForm && key !== "image") {
               if (key === "state") {
                 data[key] = empData[key].toUpperCase();
-              } else {
+              }else if (BOOLEAN_KEYS?.includes(key)){
+                data[key] = empData[key] ? "YES" : "NO";
+              } else if (key === "is_transport_facility"){
+                data[key] = empData[key] ? "availed" : "notavailed"
+              }else {
                 data[key] = empData[key];
               }
             }
@@ -385,7 +392,7 @@ function EmployeeListCreateHook({ location }) {
         }
       });
     }
-  }, [candidateId, traineeId, listData]);
+  }, [candidateId, traineeId, listData,retiredId]);
 
   const checkSalaryInfoDebouncer = useMemo(() => {
     return debounce((e) => {
@@ -681,6 +688,7 @@ function EmployeeListCreateHook({ location }) {
       fd.append("nominee", JSON.stringify([]));
       candidateId && fd.append("candidate_id", candidateId);
       traineeId && fd.append("trainee_id", traineeId);
+      retiredId && fd.append("retired_emp_id", retiredId);
       serviceCreateEmployees(fd).then((res) => {
         if (!res.error) {
           historyUtils.push("/employees");
@@ -690,7 +698,7 @@ function EmployeeListCreateHook({ location }) {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, candidateId, traineeId]);
+  }, [form, isSubmitting, setIsSubmitting, candidateId, traineeId,retiredId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
