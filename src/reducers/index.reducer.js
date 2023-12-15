@@ -88,12 +88,14 @@ import LeaveListReducer from "./LeaveList.reducer";
 import FinalFormReducer from "./FinalForm.reducer";
 import AppointmentLetterReducer from "./AppointmentLetter.reducer";
 import RelievingExpLetterReducer from "./RelievingExpLetter.reducer";
+import SuccessionPlanerReducer from "./SuccessionPlaner.reducer";
 import FinalFormApprovalReducer from "./FinalFormApproval.reducer";
 import EmpRecordApprovalReducer from "./EmpRecordApproval.reducer";
 import SuccessionAReducer from "./SuccessionA.reducer";
-import SuccessionPlanerReducer from "./SuccessionPlaner.reducer";
 import NextSuccessionPlanerReducer from "./NextSuccessionPlaner.reducer";
 import AfterNextSuccessionPlanerReducer from "./AfterNextSuccessionPlaner.reducer";
+
+
 const rootReducer = combineReducers({
   state: (state = {}) => state,
   form: formReducer,

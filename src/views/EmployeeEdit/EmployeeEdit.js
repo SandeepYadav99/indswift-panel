@@ -120,7 +120,7 @@ const EmployeeListCreate = ({}) => {
           onBlurHandler={onBlurHandler}
           handleSubmit={handleSubmit}
           isSubmitting={isSubmitting}
-          
+
         />
           <div className={styles.imageContainer}>
             {image}
@@ -502,7 +502,7 @@ const EmployeeListCreate = ({}) => {
               value={form?.designation_id}
             />
           </div>
-          
+
           </div>
           <div className={"formFlex"}>
                <div className={"formGroup"}>
@@ -846,7 +846,7 @@ const EmployeeListCreate = ({}) => {
             </CustomSelectField>
           </div>
           {
-              form?.mother_state === "EXPIRED" ? 
+              form?.mother_state === "EXPIRED" ?
               <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
@@ -862,7 +862,7 @@ const EmployeeListCreate = ({}) => {
               <div className={"formGroup"}>
               </div>
           }
-         
+
         </div>
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -2181,7 +2181,7 @@ const EmployeeListCreate = ({}) => {
               }}
             />
           </div>
-        </div> 
+        </div>
           <div className={"formFlex"}>
               <TotalSum
                   firstName="Total Earnings 5 :  "

@@ -168,7 +168,7 @@ function CandidateOLR({ location }) {
           </div>
         </div>
       </div>
-    
+
       {isReview && (
         <div className={styles.plainPaper}>
           <div className={styles.heading}>Approval Authority</div>
@@ -176,8 +176,8 @@ function CandidateOLR({ location }) {
             <DataTables {...tableData.datatable} />
           </div>
         </div>
-     )} 
-   
+     )}
+
       {role === "CORPORATE_HR" && (
         <div className={styles.chkwrapp}>
           <Checkbox
@@ -193,9 +193,9 @@ function CandidateOLR({ location }) {
             Hide Replacing Experience Detail
           </span>
         </div>
-       )} 
+       )}
 
-     {isReview && !isRecruiter && ( 
+     {isReview && !isRecruiter && (
         <div className={styles.btnReviewWrapper}>
           <div className={styles.isReviewBtnContainer}>
             <ButtonBase
@@ -215,7 +215,7 @@ function CandidateOLR({ location }) {
             </ButtonBase>
           </div>
         </div>
-     )}   
+     )}
 
       {isApproval && (
         <div className={styles.btnCont1}>

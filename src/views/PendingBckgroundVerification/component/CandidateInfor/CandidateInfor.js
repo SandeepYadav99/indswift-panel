@@ -15,7 +15,7 @@ const CandidateInfor = ({ empId }) => {
 
   useEffect(() => {
     if (empId) {
-      dispatch(actionGetEmployeeDetails(empId));
+      dispatch(actionGetEmployeeDetails(empId,{check_location:false}));
     }
   }, [empId]);
 

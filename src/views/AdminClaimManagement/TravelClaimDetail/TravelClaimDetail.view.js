@@ -272,6 +272,7 @@ function TravelClaimListDetail() {
           </div>
           <div className={styles.inner32}>
             <CustomTextField
+             disabled={!statusCheck}
               type="number"
               label={"Final Amount"}
               value={refundData}

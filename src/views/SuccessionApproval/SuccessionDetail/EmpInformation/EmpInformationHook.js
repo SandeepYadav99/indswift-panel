@@ -54,7 +54,6 @@ const useEmpInformation = () => {
     }
   }, [id]);
 
-  console.log("employeeDetail?.employee?.id", employeeDetail);
   useEffect(() => {
     if (employeeDetail?.application?.employee?.id) {
       serviceGetSuccessionPlanerHistory({
@@ -62,7 +61,16 @@ const useEmpInformation = () => {
       }).then((res) => {
         if (!res.error) {
           const data = res?.data;
-          setHistoryData(data);
+          const filteredData =
+            data?.length > 0
+              ? data?.filter(
+                  (item) =>
+                    item?.status === "MD_APPROVED" ||
+                    item?.status === "MD_REJECTED"
+                )
+              : [];
+          console.log("historyData", { data, filteredData });
+          setHistoryData(filteredData);
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -371,7 +379,7 @@ const useEmpInformation = () => {
     HODApprovalStatus,
     salaryCostInternal,
     submitToServer,
-    historyData
+    historyData,
   };
 };
 

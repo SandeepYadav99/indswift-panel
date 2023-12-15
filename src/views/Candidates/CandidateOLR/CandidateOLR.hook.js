@@ -21,7 +21,7 @@ function CandidateOLRHook({location}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [data, setData] = useState(null);
   const [isChecked, setIsChecked] = React.useState(false);
-  
+
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
@@ -67,12 +67,12 @@ function CandidateOLRHook({location}) {
   const handleApproveReview = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-    
+
       serviceReviewOLRApprove({review_id: reviewId,'is_experience_hide':isChecked}).then((res) => {
         if (!res.error) {
           SnackbarUtils.success('Offer Letter Approved Successfully');
           historyUtils.goBack();
-          
+
         }
         setIsSubmitting(false);
       });
@@ -98,7 +98,7 @@ function CandidateOLRHook({location}) {
     role,
     toggleCheckDialog,
     isCheckPopUp
-    
+
   };
 }
 

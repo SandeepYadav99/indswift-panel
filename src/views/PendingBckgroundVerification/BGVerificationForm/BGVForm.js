@@ -155,7 +155,7 @@ const BGVForm = () => {
               >
                 <MenuItem value="ISL">ISL</MenuItem>
                 <MenuItem value="ISLL">ISLL</MenuItem>
-                <MenuItem value="ESIX">ESIX </MenuItem>
+                <MenuItem value="ESIX">ESSIX </MenuItem>
               </CustomSelectField>
             </div>
           </div>

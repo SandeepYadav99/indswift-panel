@@ -12,8 +12,11 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-import FinalDetail from "../views/Full&Final/FinalDetail/FinalDetail.view.js";
-import FullDetail from "../views/Full&FinalApproval/FullDetail/FullDetail.js";
+const  FinalDetail = lazy(()=> import ("../views/Full&Final/FinalDetail/FinalDetail.view.js"));
+const  FullDetail = lazy(()=> import ("../views/Full&FinalApproval/FullDetail/FullDetail.js"));
+const  EmpClaimDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpClaimDetail/EmpClaimDetail.view.js"));
+
+const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
 
 const PmsMaster = lazy(()=>import("../views/PmsMaster/PmsMasterView.js"))
 const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
@@ -748,7 +751,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: `${RouteName.CV_SHORTLIST_LIST}:id`,
@@ -760,7 +763,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: RouteName.INTERVIEW_SCHEDULE,
@@ -772,7 +775,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: RouteName.REVIEW_OLR,
@@ -784,7 +787,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: "null",
@@ -894,7 +897,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "recruitment",
-    // roles: [Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: "null",
@@ -1234,7 +1237,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    roles: [Roles.ADMIN,Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR,Roles.CORPORATE_HR],
   },
   {
     path: "/manpower",
@@ -1424,6 +1427,18 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
+    path: `${RouteName.EMPLOYEE_CLAIMS_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: EmpClaimDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
+  {
     path: `${RouteName.CLAIMS_HR_DETAILS}:id`,
     sidebarName: "Claims List",
     navbarName: "Claims List",
@@ -1457,7 +1472,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.FOREIGN_HR_CLAIMS_DETAILS}:id`,
@@ -1542,7 +1557,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    roles: [Roles.ADMIN,,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CASHIER],
+    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.HR, Roles.CASHIER],
   },
   {
     path: `${RouteName.EMPLOYEES_IMPREST_DETAILS}:id`,
@@ -1554,7 +1569,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN, Roles.HR,  Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CASHIER],
   },
   {
     path: `${RouteName.CLAIMS_IMPREST_CREATE}`,
@@ -1903,7 +1918,7 @@ const dashboardRoutes = [
     component: CandidateOfferLetter,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD,],
   },
   {
     path: `${RouteName.CANDIDATES_OFFER_DETAILS}:id`,
@@ -1918,6 +1933,7 @@ const dashboardRoutes = [
       Roles.CORPORATE_HR,
       Roles.OLR,
       Roles.GENERAL,
+      Roles.MD
     ],
   },
   {
@@ -2331,7 +2347,7 @@ const dashboardRoutes = [
     // slug: 'tp',
     // is_parent: true,
     // parent: "skynetLetter",
-     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+     roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.RECRUITER, Roles.HR,],
   },
   {
     path: `${RouteName.BGV_ANALYSI_REPOST}`,
@@ -2558,7 +2574,7 @@ const dashboardRoutes = [
     component: FinalForm,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.OTHERS, Roles.HR,Roles.RECRUITER,Roles.ACCOUNTANT],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL}:id`,

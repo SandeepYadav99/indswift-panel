@@ -22,6 +22,12 @@
 .newContainer{
     font-size: 0.7rem;
 }
+.Wrap{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 10px;
+}
 .requiredFooter{
     background:  #F5F7FB 0% 0% no-repeat padding-box;
     padding: 2px;
