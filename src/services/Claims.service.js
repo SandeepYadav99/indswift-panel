@@ -34,4 +34,7 @@ export async function serviceExportClaimList(params) {
 export async function serviceExportBankSheetList(params) {
     return await postRequest('employee/claims/export/bank/transfer', params);
 }
+export async function serviceEmployeeClaimDetails(params) {
+    return await postRequest('employee/claims/details', params);
+}
 

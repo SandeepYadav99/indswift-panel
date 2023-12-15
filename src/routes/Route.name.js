@@ -112,6 +112,8 @@ export default {
   TRAVEL_HR_CLAIMS_DETAILS:'/cm/hr/travel/details/',
   CLAIMS_HR_LIST:'/cm/hr/claims' ,
 
+  EMPLOYEE_CLAIMS_DETAILS:"/employee/claim/detail/",
+
   CLAIMS_MARRIGE:'/employee/claim/marriage',
   CLAIMS_MOBILE:'/employee/claim/mobile',
   CLAIMS_CAR:'/employee/claim/car',
