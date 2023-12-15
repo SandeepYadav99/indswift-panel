@@ -1,7 +1,7 @@
 import React from "react";
 import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
 import useCandidateUpdate_Hook from "./BGVStatusUpdate_Hook";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import styles from "./Style.module.css";
 import historyUtils from "../../../libs/history.utils";
@@ -9,8 +9,9 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
+import { EditOutlined } from "@material-ui/icons";
 const BGVStatus_Update = () => {
-  const { form, changeTextData, errorData, handleSubmit } =
+  const { form, changeTextData, errorData, handleSubmit,isEdit,setIsEdit } =
     useCandidateUpdate_Hook({});
 
   return (
@@ -273,11 +274,38 @@ const BGVStatus_Update = () => {
 
           <div className={"formFlex"}>
             <div className={"formGroup"}>
-              <span>
+              <span style={{visibility:"hidden"}}>
                 <b>Cost: </b>
                 <span className={styles.right_gaps}>₹ {form?.cost}</span>
+
                 <div className={styles.gaps}></div>
               </span>
+              <div className={styles.Wrap}>
+              <div style={{flex:"1"}}>
+              <CustomTextField
+                  isError={errorData?.cost}
+                  errorText={errorData?.cost}
+                  label={"Cost"}
+                  type={"number"}
+                  value={form?.cost}
+                  disabled={!isEdit}
+                  onTextChange={(text) => {
+                    changeTextData(text, "cost");
+                  }}
+                />
+              </div>
+              <div>
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  // disabled={isCalling}
+                  onClick={()=>setIsEdit(true)}
+                  // onMouseDown={toggleCostEdit}
+                >
+                  <EditOutlined fontSize={"small"} />
+                </IconButton>
+              </div>
+              </div>
               <CustomSelectField
                 isError={errorData?.payment_status}
                 errorText={errorData?.payment_status}

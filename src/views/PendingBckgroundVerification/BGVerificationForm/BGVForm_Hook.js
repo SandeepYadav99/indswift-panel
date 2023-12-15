@@ -102,6 +102,7 @@ const useBGVForm_Hook = ({}) => {
         form?.is_secound_employment_verification,
       is_criminal_verification: form?.is_criminal_verification,
       cost: form?.cost,
+      initial_cost:form?.cost,
       billing_to: form?.billing_to,
       remark: form?.remark,
     };
