@@ -56,23 +56,25 @@ const useEmpInformation = () => {
 
   useEffect(() => {
     if (employeeDetail?.application?.employee?.id) {
-      if (
-        employeeDetail?.status === "MD_APPROVED" ||
-        employeeDetail?.status === "MD_REJECTED"
-      ) {
-        serviceGetSuccessionPlanerHistory({
-          employee_id: employeeDetail?.application?.employee?.id,
-        }).then((res) => {
-          if (!res.error) {
-            const data = res?.data;
-            setHistoryData(data);
-          } else {
-            SnackbarUtils.error(res?.message);
-          }
-        });
-      } else {
-        setHistoryData([]);
-      }
+      serviceGetSuccessionPlanerHistory({
+        employee_id: employeeDetail?.application?.employee?.id,
+      }).then((res) => {
+        if (!res.error) {
+          const data = res?.data;
+          const filteredData =
+            data?.length > 0
+              ? data?.filter(
+                  (item) =>
+                    item?.status === "MD_APPROVED" ||
+                    item?.status === "MD_REJECTED"
+                )
+              : [];
+          console.log("historyData", { data, filteredData });
+          setHistoryData(filteredData);
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
     }
   }, [employeeDetail?.application?.employee?.id]);
 
