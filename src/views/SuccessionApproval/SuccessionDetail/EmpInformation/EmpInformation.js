@@ -66,7 +66,26 @@ const EmployeeInformation = ({ empId }) => {
         changeTextData={changeTextData}
         isCOR={employeeDetail?.application?.status === "CORPORATE_SUBMITTED"}
       />
-
+      {employeeDetail?.application?.status === "EMPLOYEE_SUBMITTED" && (
+        <div className={styles.GeneralInfoWrapeer}>
+          <div>
+            <span className={styles.title}>General Information</span>
+            <div className={styles.newLine} />
+          </div>
+          <div className={styles.infoContainer}>
+            <p className={styles.infoDetails}>
+              1. If you do not have a replacement planned for this person, on date
+              of your recommendation, then select not in place.
+              <br />
+              2. If you have a replacement planned then select IN PLACE, further to
+              which if the replacement is internal to the organisation select
+              internal and give the name of the employee, if the replacement is
+              externally hired then select external. HR will add the detail of
+              hiring.
+            </p>
+          </div>
+        </div>
+      )}
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
