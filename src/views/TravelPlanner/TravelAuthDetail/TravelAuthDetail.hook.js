@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams ,useLocation} from "react-router";
 import { useState } from "react";
 import {
   serviceApproveTravelAuth,
@@ -29,10 +29,13 @@ function useTravelAuthDetail() {
   const travelRef = useRef(null);
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
+  const location = useLocation();
+  const url = location?.pathname;
 
   const ValidUser = useMemo(() => {
-    return user?.user_id !== "63d9267d3d18b8ce6e9b7002";
-  }, [user]);
+    return user?.user_id === "63d9267d3d18b8ce6e9b7002" && url?.includes("/spec/travel/auth/details");
+  }, [user,url]);
+  
   useEffect(() => {
     let req = serviceGetTravelAuthDetails({ id: id });
     req.then((data) => {

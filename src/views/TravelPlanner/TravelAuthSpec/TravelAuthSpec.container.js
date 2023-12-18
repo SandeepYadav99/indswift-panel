@@ -1,20 +1,12 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
 import {
-  Button,
-  Paper,
   Checkbox,
   IconButton,
-  MenuItem,
-  ButtonBase,
-  Menu,
 } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
 import {
-  Add,
-  CloudDownload,
   InfoOutlined,
-  PrintOutlined,
 } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
@@ -22,9 +14,9 @@ import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import useTravelAuth from "./TravelAuthHook";
+import useTravelAuthSpec from "./TravelAuthSpecHook";
 
-const TravelAuth = ({ location }) => {
+const TravelAuthSpec = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -39,14 +31,14 @@ const TravelAuth = ({ location }) => {
     handleCsvDownload,
     handleViewSpecDetails,
     ValidUser
-  } = useTravelAuth({});
+  } = useTravelAuthSpec({});
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.travelAuth);
+  } = useSelector((state) => state.travelAuthSpec);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -250,28 +242,6 @@ const TravelAuth = ({ location }) => {
             <span className={styles.title}>Travel Authorization & Planner</span>
             <div className={styles.newLine} />
           </div>
-          <div className={styles.btnWrap}>
-            {
-              ValidUser &&   <div className={styles.rightFlex}>
-              <ButtonBase
-                className={styles.download}
-                onClick={handleViewSpecDetails}
-              >
-                View Travel Authorization
-              </ButtonBase>
-            </div>
-            }
-        
-          <div className={styles.rightFlex}>
-              <ButtonBase
-                className={styles.download}
-                onClick={handleCsvDownload}
-              >
-                DOWNLOAD
-              </ButtonBase>
-            </div>
-          </div>
-          
         </div>
 
         <div>
@@ -296,4 +266,4 @@ const TravelAuth = ({ location }) => {
   );
 };
 
-export default TravelAuth;
+export default TravelAuthSpec;

@@ -12,6 +12,8 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+
+const TravelAuthSpec = lazy (()=> import ("../views/TravelPlanner/TravelAuthSpec/TravelAuthSpec.container.js"));
 const  FinalDetail = lazy(()=> import ("../views/Full&Final/FinalDetail/FinalDetail.view.js"));
 const  FullDetail = lazy(()=> import ("../views/Full&FinalApproval/FullDetail/FullDetail.js"));
 const  EmpClaimDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpClaimDetail/EmpClaimDetail.view.js"));
@@ -2244,7 +2246,31 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
+    path: `${RouteName.TRAVEL_AUTHEN_SPEC}`,
+    sidebarName: "Travel Authorization",
+    navbarName: "Travel Authorization",
+    icon: PeopleOutlined,
+    component: TravelAuthSpec,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "tp",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+  },
+  {
     path: `${RouteName.TRAVEL_AUTHEN_DETAILS}:id`,
+    sidebarName: "Interview Claims List",
+    navbarName: "Interview Claims List",
+    icon: PeopleOutlined,
+    component: TravelAuthDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "tp",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.TRAVEL_AUTHEN_DETAILS_SPEC}:id`,
     sidebarName: "Interview Claims List",
     navbarName: "Interview Claims List",
     icon: PeopleOutlined,

@@ -378,7 +378,7 @@ function TravelAuthDetail() {
           </div>
         </div>
       )}
-      {employeeDetail?.status === "PENDING" && ValidUser && (
+      {employeeDetail?.status === "PENDING" && !ValidUser && (
         <div
           className={
             employeeDetail?.status === "APPROVED"
