@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   serviceGetLocationDetails,
-  serviceGetLocationOlr,
   serviceLocationClaimDepartments,
   serviceLocationClaimUpdate,
   serviceLocationDepartmentUpdate,
-  serviceLocationOlrUpdate,
   serviceLocationRoleUpdate,
 } from "../../../services/Location.service";
 import { useParams } from "react-router";
@@ -101,52 +99,18 @@ const initialForm = {
   ],
 };
 
-const roles = [
-  {
-    name: "SITE HR",
-    id: "SITE_HR",
-  },
-  {
-    name: "Recruiter",
-    id: "RECRUITER",
-  },
-];
-
-const OlrFields = {
-  data: [
-    {
-      panelist_role: "CORPORATE_HR",
-      employee_id: "",
-      min_salary: 0,
-      max_salary: 0,
-    },
-    {
-      panelist_role: "EXECUTIVE",
-      employee_id: "",
-      min_salary: 0,
-      max_salary: 0,
-    },
-    {
-      panelist_role: "EXECUTIVE",
-      employee_id: "",
-      min_salary: 0,
-      max_salary: 0,
-    },
-    {
-      panelist_role: "EXECUTIVE",
-      employee_id: "",
-      min_salary: 0,
-      max_salary: 0,
-    },
-  ],
-};
-
+const roles=[{
+  name:'SITE HR',
+  id:'SITE_HR',
+},
+{
+  name:'Recruiter',
+  id:'RECRUITER',
+}]
 const useLocationDetail = ({}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
-  const [olrForm, setOlrForm] = useState({ ...OlrFields });
   const [errorData, setErrorData] = useState({});
-  const [errorDataOlr, setErrorDataOlr] = useState({});
   const [data, setData] = useState(null);
   const [isHeadDialog, setIsHeadDialog] = useState(false);
   const [isDetails, setIsDetails] = useState(false);
@@ -154,54 +118,22 @@ const useLocationDetail = ({}) => {
   const [employees, setEmployees] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [subdepartments, setSubDepartments] = useState([]);
-  const [locations, setLocations] = useState(roles);
+  const [locations,setLocations]=useState(roles)
   const [isUpdating, setIsUpdating] = useState(false);
-  const includerefLoc = useRef(null);
+  const includerefLoc=useRef(null)
   const includeRef = useRef(null);
   const { id } = useParams();
 
   useEffect(() => {
-    serviceGetList(["EMPLOYEES", "DEPARTMENTS", "SUB_DEPARTMENTS"]).then(
-      (res) => {
-        if (!res.error) {
-          setEmployees(res?.data?.EMPLOYEES);
-          setDepartments(res?.data?.DEPARTMENTS);
-          setSubDepartments(res?.data?.SUB_DEPARTMENTS);
-        }
+    serviceGetList(["EMPLOYEES", "DEPARTMENTS","SUB_DEPARTMENTS"]).then((res) => {
+      if (!res.error) {
+        setEmployees(res?.data?.EMPLOYEES);
+        setDepartments(res?.data?.DEPARTMENTS);
+        setSubDepartments(res?.data?.SUB_DEPARTMENTS)
       }
-    );
+    });
   }, []);
 
-  useEffect(() => {
-    if (id) {
-      serviceGetLocationOlr({ location_id: id }).then((res) => {
-        if (!res.error) {
-          const data = res?.data;
-          const newArray = [];
-          OlrFields?.data.forEach((item) => {
-            const foundItem = data.find(
-              (element) => element?.panelist_role === item?.panelist_role
-            );
-            if (foundItem) {
-              newArray.push({
-                panelist_role: foundItem?.panelist_role,
-                employee_id: foundItem?.employee,
-                max_salary: foundItem?.max_salary,
-                min_salary: foundItem?.min_salary,
-              });
-            } else {
-              newArray.push(item);
-            }
-          });
-          if (data?.length) {
-            setOlrForm({
-              data: newArray,
-            });
-          }
-        }
-      });
-    }
-  }, [id]);
   const toggleHeadDialog = useCallback(
     (data) => {
       setIsHeadDialog((e) => !e);
@@ -260,80 +192,33 @@ const useLocationDetail = ({}) => {
     setErrorData(errors);
     return !(Object.keys(errors).length > 0);
   };
-  const validateDataOlr = (index, type) => {
-    const errorsOlr = {};
-    olrForm?.data?.forEach((val, index) => {
-      const err =
-        index in errorDataOlr
-          ? JSON.parse(JSON.stringify(errorDataOlr[index]))
-          : {};
-      const required = ["employee_id"];
-      required.forEach((key) => {
-        if (!val[key]) {
-          err[key] = true;
-        }
-      });
-      if (Object.keys(err).length > 0) {
-        errorsOlr[index] = err;
-      }
-    });
-    setErrorDataOlr(errorsOlr);
-    return !(Object.keys(errorsOlr).length > 0);
-  };
 
   const removeErrors = useCallback(
-    (index, key, type) => {
-      if (type === "olr") {
-        const errors = JSON.parse(JSON.stringify(errorDataOlr));
-        if (errors[index] != undefined) {
-          if (Array.isArray(key)) {
-            key.forEach((k) => {
-              delete errors[index][k];
-            });
-          } else {
-            delete errors[index][key];
-          }
-          setErrorDataOlr(errors);
-        }
-      } else {
-        const errors = JSON.parse(JSON.stringify(errorData));
-        if (errors[index] != undefined) {
-          if (Array.isArray(key)) {
-            key.forEach((k) => {
-              delete errors[index][k];
-            });
-          } else {
-            delete errors[index][key];
-          }
-          setErrorData(errors);
-        }
-      }
-    },
-    [setErrorData, errorData, errorDataOlr, setErrorDataOlr]
-  );
-  const changeTextData = useCallback(
-    (text, fieldName, index, type) => {
-      if (type === "olr") {
-        const newDataOlr = [...olrForm.data];
-        if (fieldName === "min_salary" || fieldName === "max_salary") {
-          if (text >= 0) {
-            newDataOlr[index][fieldName] = text;
-          }
+    (index, key) => {
+      const errors = JSON.parse(JSON.stringify(errorData));
+      if (errors[index] != undefined) {
+        if (Array.isArray(key)) {
+          key.forEach((k) => {
+            delete errors[index][k];
+          });
         } else {
-          newDataOlr[index][fieldName] = text;
+          delete errors[index][key];
         }
-        setOlrForm({ data: newDataOlr });
-        const errArr = ["employee_id", "min_salary", "max_salary"];
-        removeErrors(index, errArr, "olr");
-      } else {
-        const newData = [...form.data];
-        newData[index][fieldName] = text;
-        setForm({ data: newData });
-        const errArr = ["employee_id"];
-        removeErrors(index, errArr);
+        setErrorData(errors);
       }
     },
-    [removeErrors, form, setForm, olrForm, setOlrForm]
+    [setErrorData, errorData]
+  );
+
+  const changeTextData = useCallback(
+    (text, fieldName, index) => {
+      const newData = [...form.data];
+      newData[index][fieldName] = text;
+      setForm({ data: newData });
+      const errArr = ["employee_id"];
+      removeErrors(index, errArr);
+    },
+    [removeErrors, form, setForm]
   );
   const onBlurHandler = useCallback(
     (type) => {
@@ -365,6 +250,8 @@ const useLocationDetail = ({}) => {
           setForm({
             data: newArray,
           });
+        } else {
+          form({ ...initialForm });
         }
       }
     });
@@ -372,43 +259,30 @@ const useLocationDetail = ({}) => {
   const handleUpdateClick = useCallback(() => {
     if (includeRef.current) {
       const isValid = includeRef.current.isValid();
-      let validRole = includerefLoc.current
-        ? includerefLoc.current.isValid()
-        : true;
+      let validRole = includerefLoc.current ? includerefLoc.current.isValid() : true;
       const errors = validateData();
-      const errorsOlr = validateDataOlr();
-      if (isValid && !isUpdating && errors && validRole && errorsOlr) {
+      if (isValid && !isUpdating && errors && validRole) {
         setIsUpdating(true);
         const data = includeRef.current.getData();
-        const dataRole = includerefLoc.current.getData();
+        const dataRole=includerefLoc.current.getData();
         const reqData = data?.map((val) => {
-          const subDepartmentIds = val?.sub_department_ids?.map(
-            (subDepartment) => subDepartment?.id
-          );
+          const subDepartmentIds = val?.sub_department_ids?.map(subDepartment => subDepartment?.id);
           return {
             department_id: val?.department_id,
             employee_id: val?.employee?.id,
-            sub_department_ids: subDepartmentIds,
+            sub_department_ids:subDepartmentIds
           };
         });
-        const reqRoleData = dataRole?.map((val) => {
+        const reqRoleData=dataRole?.map((val)=>{
           return {
-            role: val?.department_id,
-            employee_id: val?.employee?.id,
-          };
-        });
+            role:val?.department_id,
+            employee_id:val?.employee?.id
+          }
+        })
         const masterData = form?.data?.map((val) => {
           return {
             panelist_role: val?.panelist_role,
             employee_id: val?.employee_id?.id,
-          };
-        });
-        const OlrData = olrForm?.data?.map((val) => {
-          return {
-            panelist_role: val?.panelist_role,
-            employee_id: val?.employee_id?.id,
-            min_salary: val?.min_salary,
-            max_salary: val?.max_salary,
           };
         });
         Promise.allSettled([
@@ -424,11 +298,7 @@ const useLocationDetail = ({}) => {
             location_id: id,
             data: reqRoleData,
           }),
-          serviceLocationOlrUpdate({
-            location_id: id,
-            data: OlrData,
-          }),
-          //
+          // 
         ]).then((promises) => {
           const department = promises[0]?.value;
           const claim = promises[1]?.value;
@@ -444,7 +314,7 @@ const useLocationDetail = ({}) => {
         setIsUpdating(false);
       }
     }
-  }, [id, isUpdating, setIsUpdating, , olrForm, form]);
+  }, [id, isUpdating, setIsUpdating, form]);
 
   const handleEditBtn = useCallback(() => {
     historyUtils.push(RouteName.LOCATIONS_UPDATE + id);
@@ -474,8 +344,6 @@ const useLocationDetail = ({}) => {
     errorData,
     changeTextData,
     onBlurHandler,
-    olrForm,
-    errorDataOlr,
   };
 };
 
