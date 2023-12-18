@@ -404,7 +404,7 @@ const EnhancedTable = (props) => {
                   }}
                 >
                   <div style={{ fontSize: "12px", fontWeight: "600" ,height:"40px",display:"flex",justifyContent: "center" }}>
-                    {val?.label  !== "Attachments" ? val?.label :""}
+                    {val?.label}
                   </div>
                 </div>
               );
