@@ -91,15 +91,15 @@ const IncrementMasterCreateView = ({ }) => {
                  <div className={styles.yearFlex}>
               <div className={styles.down}>{renderStartDate}</div>
               <div className={styles.down}>{renderEndDate}</div>
-              <div className={styles.rightFlex}>
+              {/* <div className={styles.rightFlex}>
                 <ButtonBase
                   aria-haspopup="true"
                   onClick={() => initialApiCall()}
                   className={"createBtn"}
                 >
                   Update
-                </ButtonBase>
-              </div>
+                </ButtonBase> */}
+              {/* </div> */}
             </div>
                 <div className={'formFlex'}>
                     <div className={"formGroup"}>
