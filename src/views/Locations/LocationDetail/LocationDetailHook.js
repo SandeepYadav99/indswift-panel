@@ -101,14 +101,16 @@ const initialForm = {
   ],
 };
 
-const roles=[{
-  name:'SITE HR',
-  id:'SITE_HR',
-},
-{
-  name:'Recruiter',
-  id:'RECRUITER',
-}]
+const roles = [
+  {
+    name: "SITE HR",
+    id: "SITE_HR",
+  },
+  {
+    name: "Recruiter",
+    id: "RECRUITER",
+  },
+];
 
 const OlrFields = {
   data: [
@@ -170,6 +172,36 @@ const useLocationDetail = ({}) => {
     );
   }, []);
 
+  useEffect(() => {
+    if (id) {
+      serviceGetLocationOlr({ location_id: id }).then((res) => {
+        if (!res.error) {
+          const data = res?.data;
+          const newArray = [];
+          OlrFields?.data.forEach((item) => {
+            const foundItem = data.find(
+              (element) => element?.panelist_role === item?.panelist_role
+            );
+            if (foundItem) {
+              newArray.push({
+                panelist_role: foundItem?.panelist_role,
+                employee_id: foundItem?.employee,
+                max_salary: foundItem?.max_salary,
+                min_salary: foundItem?.min_salary,
+              });
+            } else {
+              newArray.push(item);
+            }
+          });
+          if (data?.length) {
+            setOlrForm({
+              data: newArray,
+            });
+          }
+        }
+      });
+    }
+  }, [id]);
   const toggleHeadDialog = useCallback(
     (data) => {
       setIsHeadDialog((e) => !e);
@@ -232,7 +264,9 @@ const useLocationDetail = ({}) => {
     const errorsOlr = {};
     olrForm?.data?.forEach((val, index) => {
       const err =
-        index in errorDataOlr ? JSON.parse(JSON.stringify(errorDataOlr[index])) : {};
+        index in errorDataOlr
+          ? JSON.parse(JSON.stringify(errorDataOlr[index]))
+          : {};
       const required = ["employee_id"];
       required.forEach((key) => {
         if (!val[key]) {
@@ -281,7 +315,13 @@ const useLocationDetail = ({}) => {
     (text, fieldName, index, type) => {
       if (type === "olr") {
         const newDataOlr = [...olrForm.data];
-        newDataOlr[index][fieldName] = text;
+        if (fieldName === "min_salary" || fieldName === "max_salary") {
+          if (text >= 0) {
+            newDataOlr[index][fieldName] = text;
+          }
+        } else {
+          newDataOlr[index][fieldName] = text;
+        }
         setOlrForm({ data: newDataOlr });
         const errArr = ["employee_id", "min_salary", "max_salary"];
         removeErrors(index, errArr, "olr");
@@ -293,7 +333,7 @@ const useLocationDetail = ({}) => {
         removeErrors(index, errArr);
       }
     },
-    [removeErrors, form, setForm,olrForm,setOlrForm]
+    [removeErrors, form, setForm, olrForm, setOlrForm]
   );
   const onBlurHandler = useCallback(
     (type) => {
@@ -325,8 +365,6 @@ const useLocationDetail = ({}) => {
           setForm({
             data: newArray,
           });
-        } else {
-          form({ ...initialForm });
         }
       }
     });
@@ -338,7 +376,7 @@ const useLocationDetail = ({}) => {
         ? includerefLoc.current.isValid()
         : true;
       const errors = validateData();
-      const errorsOlr=validateDataOlr();
+      const errorsOlr = validateDataOlr();
       if (isValid && !isUpdating && errors && validRole && errorsOlr) {
         setIsUpdating(true);
         const data = includeRef.current.getData();
@@ -369,8 +407,8 @@ const useLocationDetail = ({}) => {
           return {
             panelist_role: val?.panelist_role,
             employee_id: val?.employee_id?.id,
-            min_salary:val?.min_salary,
-            max_salary:val?.max_salary
+            min_salary: val?.min_salary,
+            max_salary: val?.max_salary,
           };
         });
         Promise.allSettled([
@@ -388,8 +426,8 @@ const useLocationDetail = ({}) => {
           }),
           serviceLocationOlrUpdate({
             location_id: id,
-            data:OlrData
-          })
+            data: OlrData,
+          }),
           //
         ]).then((promises) => {
           const department = promises[0]?.value;
@@ -406,7 +444,7 @@ const useLocationDetail = ({}) => {
         setIsUpdating(false);
       }
     }
-  }, [id, isUpdating, setIsUpdating, ,olrForm,form]);
+  }, [id, isUpdating, setIsUpdating, , olrForm, form]);
 
   const handleEditBtn = useCallback(() => {
     historyUtils.push(RouteName.LOCATIONS_UPDATE + id);
@@ -437,7 +475,7 @@ const useLocationDetail = ({}) => {
     changeTextData,
     onBlurHandler,
     olrForm,
-    errorDataOlr
+    errorDataOlr,
   };
 };
 
