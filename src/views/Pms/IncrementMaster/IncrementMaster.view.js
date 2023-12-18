@@ -46,7 +46,7 @@ const IncrementMasterCreateView = ({ }) => {
             <MenuItem value={"2023"}>2023</MenuItem>
           </CustomSelectField>
         );
-      }, [fyYear]);
+      }, [fyYear, setFyYear]);
 
       const renderEndDate = useMemo(() => {
         return (
@@ -62,10 +62,12 @@ const IncrementMasterCreateView = ({ }) => {
             <MenuItem value={"DTY"}>DTY</MenuItem>
           </CustomSelectField>
         );
-      }, [batch]);
+      }, [batch, setBatch]);
+
     // if (isLoading) {
     //     return <WaitingComponent />
     // }
+
 
     return (
         <div>
@@ -91,15 +93,16 @@ const IncrementMasterCreateView = ({ }) => {
                  <div className={styles.yearFlex}>
               <div className={styles.down}>{renderStartDate}</div>
               <div className={styles.down}>{renderEndDate}</div>
-              {/* <div className={styles.rightFlex}>
-                <ButtonBase
-                  aria-haspopup="true"
-                  onClick={() => initialApiCall()}
-                  className={"createBtn"}
-                >
-                  Update
-                </ButtonBase> */}
-              {/* </div> */}
+              <div className={styles.rightFlex}>
+                {/*<ButtonBase*/}
+                {/*  aria-haspopup="true"*/}
+                {/*  onClick={() => initialApiCall()}*/}
+                {/*  className={"createBtn"}*/}
+                {/*>*/}
+                {/*  Update*/}
+                {/*</ButtonBase> */}
+                  {isLoading && (<WaitingComponent />)}
+               </div>
             </div>
                 <div className={'formFlex'}>
                     <div className={"formGroup"}>
