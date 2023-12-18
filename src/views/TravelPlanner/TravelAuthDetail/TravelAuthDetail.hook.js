@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import {
 } from "../../../services/TravelAuth.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
+import { useSelector } from "react-redux";
 
 const initialForm = {
   exception_approved: "",
@@ -26,9 +27,12 @@ function useTravelAuthDetail() {
   const [enableType, setEnableType] = useState(true);
   const [CheckexceptionRejected, setCheckexceptionRejected] = useState(null);
   const travelRef = useRef(null);
-
+  const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
 
+  const ValidUser = useMemo(() => {
+    return user?.user_id !== "63d9267d3d18b8ce6e9b7002";
+  }, [user]);
   useEffect(() => {
     let req = serviceGetTravelAuthDetails({ id: id });
     req.then((data) => {
@@ -191,6 +195,7 @@ function useTravelAuthDetail() {
     enableType,
     TypeEnabledStatus,
     CheckexceptionRejected,
+    ValidUser
   };
 }
 

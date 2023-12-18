@@ -431,17 +431,20 @@ const EmployeeInformation = ({ empId }) => {
               <div key={`History_${index}`}>
                 <div className={styles.mainFlex}>
                   <div className={styles.left}>
-                    <div className={styles.key}>
+                    {/* <div className={styles.key}>
                       <span className={styles.value}>
                         Employee Continuing With Company:
                       </span>
                       {item?.is_continuing ? "Yes" : "No"}
-                    </div>
+                    </div> */}
                     <div className={styles.key}>
-                      <span className={styles.value}>Extension Dates:</span>
+                      <span className={styles.value}>Extension/Retention Dates:</span>
                       {item?.extensionStartAt} - {item?.extensionEndAt}
                     </div>
-
+                    <div className={styles.key}>
+                      <span className={styles.value}>Succession Status:</span>
+                      {item?.nature_of_succession}
+                    </div>
                     <div className={styles.key}>
                       <span className={styles.value}>Replacing Place:</span>
                       {item?.replacing_employee_name}
@@ -470,9 +473,14 @@ const EmployeeInformation = ({ empId }) => {
                       <span className={styles.value}>
                         Nature of Succession:
                       </span>
-                      {item.nature_of_succession}
+                      {item.extension_status}
                     </div>
-
+                    <div className={styles.key}>
+                      <span className={styles.value}>
+                      Medical Condition :
+                      </span>
+                      {item?.medical_condition ? item?.medical_condition : "-"}
+                    </div>
                     <div className={styles.key}>
                       <a
                         href={item?.employee_form?.document}

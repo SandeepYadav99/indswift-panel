@@ -31,6 +31,7 @@ function TravelAuthDetail() {
     enableType,
     TypeEnabledStatus,
     CheckexceptionRejected,
+    ValidUser
   } = useTravelAuthDetail({});
   console.log("employeeDetail", employeeDetail?.travelPlanner?.voucherDetails);
   return (
@@ -377,7 +378,7 @@ function TravelAuthDetail() {
           </div>
         </div>
       )}
-      {employeeDetail?.status === "PENDING" && (
+      {employeeDetail?.status === "PENDING" && ValidUser && (
         <div
           className={
             employeeDetail?.status === "APPROVED"
