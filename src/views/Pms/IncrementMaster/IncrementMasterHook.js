@@ -11,7 +11,7 @@ import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import {useParams} from "react-router";
 import Constants from "../../../config/constants";
-import { serviceGetList } from "../../../services/Common.service";
+import {serviceGetList} from "../../../services/Common.service";
 import {serviceGetPmsIncrements, servicePmsUpdateIncrements} from "../../../services/AppSettings.service";
 
 const initialForm = {
@@ -29,14 +29,15 @@ const useDepartmentDetail = ({}) => {
     const [form, setForm] = useState({...initialForm});
     const [isEdit, setIsEdit] = useState(false);
     // const codeDebouncer = useDebounce(form?.code, 500);
-    const { id } = useParams();
-    const [listData,setListData]=useState();
+    const {id} = useParams();
+    const [listData, setListData] = useState({ GRADES: [] });
     const slabOneRef = useRef(null);
     const slabTwoRef = useRef(null);
-    const [editData , setEditData] = useState([]);
+    const [editData, setEditData] = useState([]);
+    const isMounted = useRef(false);
 
     const getListFromGradeIds = useCallback((ids, grades) => {
-        return grades.filter(grade => ids.indexOf(grade?.id) >=0 );
+        return grades.filter(grade => ids.indexOf(grade?.id) >= 0);
     }, []);
 
     useEffect(() => {
@@ -50,43 +51,66 @@ const useDepartmentDetail = ({}) => {
         }
     }, [isLoading]);
 
-    const initialApiCall=()=>{
-        if(fyYear && batch){
+    const initiateListData = () => {
         serviceGetList(["GRADES"]).then((res) => {
             if (!res.error) {
-                const listData = res.data?.GRADES;
-              setListData(res.data);
-              const tForm = {...form};
-                serviceGetPmsIncrements({batch: batch,
-                    year: fyYear}).then((res) => {
-                    if (!res.error) {
-                        setEditData(res.data);
-                        res.data.forEach((incr) => {
-                            const grades = getListFromGradeIds(incr.grade_ids, listData);
-                            if (incr.slab === 'SLAB_ONE') {
-                                tForm['grade_ids_one'] = grades;
-                            } else {
-                                tForm['grade_ids_two'] = grades;
-                            }
-                            setForm(tForm);
-                            setTimeout(() => {
-                                setIsLoading(false);
-                            }, 0);
-
-                        });
-                    }
-                });
+                setListData(res.data);
             }
         });
     }
+
+
+
+    const initialApiCall = () => {
+        if (fyYear && batch) {
+            setIsLoading(true);
+            const tForm = JSON.parse(JSON.stringify(form));
+            serviceGetPmsIncrements({
+                batch: batch,
+                year: fyYear
+            }).then((res) => {
+                if (!res.error) {
+                    setEditData(res.data);
+                    res.data.forEach((incr) => {
+                        LogUtils.log("GRADES", listData?.GRADES);
+                        const grades = getListFromGradeIds(incr.grade_ids, listData?.GRADES);
+                        LogUtils.log('grades', grades);
+                        if (incr.slab === 'SLAB_ONE') {
+                            tForm['grade_ids_one'] = grades;
+                        } else {
+                            tForm['grade_ids_two'] = grades;
+                        }
+                        setForm(tForm);
+                        setTimeout(() => {
+                            setIsLoading(false);
+                        }, 1000);
+
+                    });
+                }
+            });
+        }
     }
+
     useEffect(() => {
-        initialApiCall()
-    }, [fyYear,batch]);
+        if (isMounted.current) {
+            initialApiCall()
+        }
+    }, [fyYear, batch]);
+
+    useEffect(() => {
+        initiateListData();
+    }, []);
+
+    useEffect(() => {
+        if(!isMounted.current && listData?.GRADES.length > 0) {
+            initialApiCall();
+            isMounted.current = true;
+        }
+    }, [listData]);
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
-        let required = ['grade_ids_one','grade_ids_two'];
+        let required = ['grade_ids_one', 'grade_ids_two'];
         required.forEach(val => {
             if (!form?.[val] || (Array.isArray(form?.[val]) && form?.[val].length === 0)) {
                 errors[val] = true;
@@ -131,7 +155,7 @@ const useDepartmentDetail = ({}) => {
                 setIsSubmitting(false);
             });
         }
-    }, [form, isSubmitting, setIsSubmitting, id,batch,fyYear]);
+    }, [form, isSubmitting, setIsSubmitting, id, batch, fyYear]);
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
@@ -149,7 +173,7 @@ const useDepartmentDetail = ({}) => {
         checkFormValidation,
         setErrorData,
         form,
-        batch,fyYear
+        batch, fyYear
     ]);
 
     const removeError = useCallback(
@@ -162,23 +186,23 @@ const useDepartmentDetail = ({}) => {
     );
 
     const changeTextData = useCallback((text, fieldName) => {
-            let shouldRemoveError = true;
-            const t = {...form};
-            if (fieldName === 'name') {
-                if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
-                    t[fieldName] = text;
-                }
-            } else if (fieldName === 'code') {
-                if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
-                    t[fieldName] = text.toUpperCase();
-                }
-                shouldRemoveError = false;
-            } else {
+        let shouldRemoveError = true;
+        const t = JSON.parse(JSON.stringify(form));
+        if (fieldName === 'name') {
+            if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
                 t[fieldName] = text;
             }
-            setForm(t);
-            shouldRemoveError && removeError(fieldName);
-        }, [removeError, form, setForm]);
+        } else if (fieldName === 'code') {
+            if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
+                t[fieldName] = text.toUpperCase();
+            }
+            shouldRemoveError = false;
+        } else {
+            t[fieldName] = text;
+        }
+        setForm(t);
+        shouldRemoveError && removeError(fieldName);
+    }, [removeError, form, setForm]);
 
     // const onBlurHandler = useCallback(
     //     type => {
@@ -213,7 +237,7 @@ const useDepartmentDetail = ({}) => {
         slabOneRef,
         slabTwoRef,
         fyYear,
-        setFyYear, 
+        setFyYear,
         batch,
         setBatch,
         initialApiCall
