@@ -22,6 +22,8 @@ const initialForm = {
 
 const useDepartmentDetail = ({}) => {
     const [isLoading, setIsLoading] = useState(true);
+    const [fyYear, setFyYear] = useState("2023");
+    const [batch, setBatch] = useState("APMS");
     const [errorData, setErrorData] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({...initialForm});
@@ -48,13 +50,15 @@ const useDepartmentDetail = ({}) => {
         }
     }, [isLoading]);
 
-    useEffect(() => {
+    const initialApiCall=()=>{
+        if(fyYear && batch){
         serviceGetList(["GRADES"]).then((res) => {
             if (!res.error) {
                 const listData = res.data?.GRADES;
               setListData(res.data);
               const tForm = {...form};
-                serviceGetPmsIncrements({}).then((res) => {
+                serviceGetPmsIncrements({batch: batch,
+                    year: fyYear}).then((res) => {
                     if (!res.error) {
                         setEditData(res.data);
                         res.data.forEach((incr) => {
@@ -74,7 +78,11 @@ const useDepartmentDetail = ({}) => {
                 });
             }
         });
-    }, []);
+    }
+    }
+    useEffect(() => {
+        initialApiCall()
+    }, [fyYear,batch]);
 
     const checkFormValidation = useCallback(() => {
         const errors = {...errorData};
@@ -110,7 +118,9 @@ const useDepartmentDetail = ({}) => {
                 },
             ];
             servicePmsUpdateIncrements({
-                data: data
+                data: data,
+                batch: batch,
+                year: fyYear
             }).then((res) => {
                 if (!res.error) {
                     // historyUtils.goBack();
@@ -121,7 +131,7 @@ const useDepartmentDetail = ({}) => {
                 setIsSubmitting(false);
             });
         }
-    }, [form, isSubmitting, setIsSubmitting, id]);
+    }, [form, isSubmitting, setIsSubmitting, id,batch,fyYear]);
 
     const handleSubmit = useCallback(async () => {
         const errors = checkFormValidation();
@@ -138,7 +148,8 @@ const useDepartmentDetail = ({}) => {
     }, [
         checkFormValidation,
         setErrorData,
-        form
+        form,
+        batch,fyYear
     ]);
 
     const removeError = useCallback(
@@ -200,7 +211,12 @@ const useDepartmentDetail = ({}) => {
         id,
         listData,
         slabOneRef,
-        slabTwoRef
+        slabTwoRef,
+        fyYear,
+        setFyYear, 
+        batch,
+        setBatch,
+        initialApiCall
     };
 };
 
