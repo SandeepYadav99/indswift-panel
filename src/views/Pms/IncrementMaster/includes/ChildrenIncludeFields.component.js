@@ -112,6 +112,7 @@ const ChildrenIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
+                InputLabelProps={{ shrink: data?.percentage ? true: false  }}
               error={errors?.percentage}
               onChange={(e) => handleInputChange(e, "percentage")}
               value={data?.percentage}
