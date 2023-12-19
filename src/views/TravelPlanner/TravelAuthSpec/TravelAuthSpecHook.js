@@ -1,16 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionFetchTravelAuth,
-  actionSetPageTravelAuth,
-} from "../../../actions/TravelAuth.action";
+  actionFetchTravelAuthSpec,
+  actionSetPageTravelAuthSpec,
+} from "../../../actions/TravelAuthSpec.action";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-import { serviceTravelAuthRepord } from "../../../services/TravelAuth.service";
 
-const useTravelAuth = ({}) => {
+const useTravelAuthSpec = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -21,25 +20,36 @@ const useTravelAuth = ({}) => {
   });
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  
+  const ValidUser = useMemo(() => {
+    return user?.user_id === "63d9267d3d18b8ce6e9b7002";
+  }, [user]);
+
+  useEffect(()=>{
+    if(user?.user_id !== "63d9267d3d18b8ce6e9b7002"){
+      historyUtils.goBack()
+    }
+  },[user])
+
   const isMountRef = useRef(false);
   const {
-    sorting_data: sortingData,
+    // sorting_data: sortingData ,
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.travelAuth);
+  } = useSelector((state) => state.travelAuthSpec);
+  console.log("sortingData",sortingData,useSelector((state) => state.travelAuth))
+const sortingData = {}
   useEffect(() => {
     dispatch(
-      actionFetchTravelAuth(1, sortingData, {
+      actionFetchTravelAuthSpec(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
     );
     isMountRef.current = true;
   }, []);
-  const ValidUser = useMemo(() => {
-    return user?.user_id === "63d9267d3d18b8ce6e9b7002";
-  }, [user]);
+  
   useEffect(() => {
     serviceGetList(["LOCATIONS", "HR", "JOB_OPENINGS"]).then((res) => {
       if (!res.error) {
@@ -50,15 +60,15 @@ const useTravelAuth = ({}) => {
   console.log("list", listData);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageTravelAuth(type));
+    dispatch(actionSetPageTravelAuthSpec(type));
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageTravelAuthRequests(1));
+      // dispatch(actionSetPageTravelAuthSpecRequests(1));
       dispatch(
-        actionFetchTravelAuth(1, sortingData, {
+        actionFetchTravelAuthSpec(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -86,9 +96,9 @@ const useTravelAuth = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      // dispatch(actionSetPageTravelAuth(1));
+      // dispatch(actionSetPageTravelAuthSpec(1));
       dispatch(
-        actionFetchTravelAuth(
+        actionFetchTravelAuthSpec(
           1,
           { row, order },
           {
@@ -119,22 +129,10 @@ const useTravelAuth = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.TRAVEL_AUTHEN_DETAILS}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.TRAVEL_AUTHEN_DETAILS_SPEC}${data?.id}`); //+data.id
   }, []);
 
-  const handleViewSpecDetails = useCallback((data) => {
-    LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.TRAVEL_AUTHEN_SPEC}`); //+data.id
-  }, []);
   
-  const handleCsvDownload = useCallback(() => {
-    serviceTravelAuthRepord().then(res => {
-      if (!res.error) {
-        const data = res.data?.response;
-        window.open(data, "_blank");
-      }
-    })
-  }, []);
 
   const configFilter = useMemo(() => {
     return [
@@ -167,10 +165,8 @@ const useTravelAuth = ({}) => {
     isCalling,
     configFilter,
     handleEdit,
-    handleCsvDownload,
-    handleViewSpecDetails,
     ValidUser
   };
 };
 
-export default useTravelAuth;
+export default useTravelAuthSpec;

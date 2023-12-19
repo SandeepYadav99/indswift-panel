@@ -151,6 +151,8 @@ export default {
   TRAVEL_PLANNER_DETAILS:'/travel/plan/details/',
   TRAVEL_AUTHEN:'/travel/auth',
   TRAVEL_AUTHEN_DETAILS: '/travel/auth/details/',
+  TRAVEL_AUTHEN_SPEC:'/spec/travel/auth',
+  TRAVEL_AUTHEN_DETAILS_SPEC: '/spec/travel/auth/details/',
 
 
   PERFORMANCE_BATCH:'/pm/batch',

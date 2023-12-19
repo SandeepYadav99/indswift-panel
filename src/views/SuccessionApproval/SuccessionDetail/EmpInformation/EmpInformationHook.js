@@ -69,7 +69,6 @@ const useEmpInformation = () => {
                     item?.status === "MD_REJECTED"
                 )
               : [];
-          console.log("historyData", { data, filteredData });
           setHistoryData(filteredData);
         } else {
           SnackbarUtils.error(res?.message);
