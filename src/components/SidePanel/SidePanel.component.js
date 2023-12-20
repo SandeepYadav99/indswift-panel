@@ -110,11 +110,13 @@ class SidePanelComponent extends Component {
 
   render() {
     const { theme } = this.props;
+    const isHidden = window.innerWidth <= 768;
     const tempStyle = {
-      width:
-        this.state.delta == 0 || !this.props.open
-          ? "calc(45vw)"
-          : window.innerWidth - this.state.delta,
+      width: isHidden
+      ? "0px" 
+      : this.state.delta === 0 || !this.props.open
+      ? "calc(45vw)"
+      : window.innerWidth - this.state.delta,
       height: "100%",
       backgroundColor: theme.palette.bgColor.main,
       color: theme.palette.textColor,
@@ -122,9 +124,9 @@ class SidePanelComponent extends Component {
       position: "fixed",
       zIndex: "3",
     };
-    if (this.props.side == "left") {
-      tempStyle["left"] = this.props.open ? "0px" : "calc(-45vw)";
-    } else {
+    if (this.props.side === "left") {
+      tempStyle["left"] = this.props.open ? "0px" : isHidden ? "-45vw" : "0px";
+    }  else {
       tempStyle["right"] = this.props.open ? "0px" : "calc(-45vw)";
     }
     return (

@@ -36,7 +36,7 @@ class CustomListItem extends React.Component {
     }
 
     _renderLinks() {
-
+         
     }
 
     _renderNavLink(prop, nested) {
@@ -150,7 +150,6 @@ class CustomLink extends React.Component {
 }
 
 const Sidebar = ({...props}) => {
-    // verifies if routeName is the one active (in browser input)
     function activeRoute(routeName, otherData) {
         if (!otherData.should_regex) {
             return routeName == props.location.pathname;
@@ -160,6 +159,7 @@ const Sidebar = ({...props}) => {
     }
 
     const {classes, color, logo, image, logoText, routes} = props;
+
     var brand = (
         <div className={classes.logo}>
             <div className={classes.logoImage}>
@@ -174,7 +174,6 @@ const Sidebar = ({...props}) => {
             <Hidden mdUp>
                 <Drawer
                     variant="permanent"
-                    // anchor="right"
                     open={props.open}
                     className={clsx(classes.drawer, {
                         [classes.drawerOpen]: props.open,
@@ -207,7 +206,6 @@ const Sidebar = ({...props}) => {
             </Hidden>
             <Hidden smDown>
                 <Drawer
-                    // anchor="left"
                     variant="permanent"
                     open={props.open}
                     className={clsx(classes.drawer, {
