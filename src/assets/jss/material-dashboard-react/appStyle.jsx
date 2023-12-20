@@ -26,13 +26,13 @@ const appStyle = theme => ({
 		overflowScrolling: 'touch',
 	},
 	appBar: {
-		width: `calc(100% - ${0}px)`,
-		marginLeft: 0,
+		width: `calc(100% - ${50}px)`,
+		marginLeft: 45,
 		[theme.breakpoints.down("xs")]: {
 		marginLeft:0,
 		  width: `calc(100% - ${0}px)`
 		},
-		
+
 		// transition: theme.transitions.create(['margin', 'width'], {
 		//     easing: theme.transitions.easing.sharp,
 		//     duration: theme.transitions.duration.leavingScreen,

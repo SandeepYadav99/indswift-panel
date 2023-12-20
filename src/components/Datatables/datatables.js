@@ -19,7 +19,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { Card, CardContent, Divider } from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 import StatusPill from "../Status/StatusPill.component";
 
 const createData = (name, calories, fat, carbs, protein) => {
@@ -257,8 +257,7 @@ const useStyles = (theme) => ({
     overflowX: "auto",
   },
   card: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    margin: theme.spacing(2),
   },
 });
 
@@ -382,110 +381,86 @@ const EnhancedTable = (props) => {
   };
 
   const renderListItems = (val) => {
-    const { columns, data } = props;
-    return (
+
+    return  (
       <>
         <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
+          key={val.id}
+          style={{ display: "flex", flexDirection: "column", gap: "20px" }}
         >
-          <div style={{width:"60%"}}>
-            {columns?.map((val) => {
-              return (
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: "5px",
-                    borderBottom: "1px solid #00000011",
-                    alignItems: "center",
-                  }}
-                >
-                  <div style={{ fontSize: "12px", fontWeight: "600" ,height:"40px",display:"flex",justifyContent: "center" }}>
-                    {val?.label}
-                  </div>
-                </div>
-              );
-            })}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "1px solid #00000011",
+              padding: "5px",
+            }}
+          >
+            <span style={{ fontSize: "12px", fontWeight: "600" }}>
+              LEAVE TYPE
+            </span>{" "}
+            <span style={{ fontSize: "12px", color: "#919BB0" }}>
+              {" "}
+              {OccasionRender(val?.type)}
+            </span>
           </div>
           <div
-          style={{width: "40%"}}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "1px solid #00000011",
+              padding: "5px",
+            }}
           >
-            {renderTableBodyMobile()}
+            <span style={{ fontSize: "12px", fontWeight: "600" }}>
+              LEAVE DATES
+            </span>{" "}
+            <span style={{ fontSize: "12px", color: "#919BB0" }}>
+              {val?.startDateText}-{val?.endDateText}
+            </span>
           </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "1px solid #00000011",
+              padding: "5px",
+            }}
+          >
+            <span style={{ fontSize: "12px", fontWeight: "600" }}>STATUS</span>{" "}
+            <span style={{ fontSize: "12px", color: "#919BB0" }}>
+              {" "}
+              {<StatusPill status={val?.status} />}
+            </span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "1px solid #00000011",
+              padding: "5px",
+            }}
+          >
+            <span style={{ fontSize: "12px", fontWeight: "600" }}>
+              APPLIED ON
+            </span>{" "}
+            <span style={{ fontSize: "12px", color: "#919BB0" }}>
+              {" "}
+              {val?.createdAtText}
+            </span>
+          </div>
+          {val?.document ? (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <a href={val?.document} target="_blank">
+                View Attachment
+              </a>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </>
     );
-  };
-
-  const renderTableBodyMobile = () => {
-    const { data, classes } = props;
-    const { rowsPerPage, page, order, orderBy, selected, dense } = { ...props };
-    const emptyRows =
-      rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-    const isSelected = (name) => selected && selected.indexOf(name) !== -1;
-
-    if (data.length > 0) {
-      return data.map((row, index) => {
-        const isItemSelected = isSelected(row.name);
-        const labelId = `enhanced-table-checkbox-${index}`;
-
-        return (
-          <div
-            hover
-            onClick={(event) => {}}
-            role="checkbox"
-            aria-checked={isItemSelected}
-            tabIndex={-1}
-            key={row.id + "" + Math.random()}
-            selected={isItemSelected}
-          >
-            {renderTableCellsMobile(row, index)}
-          </div>
-        );
-      });
-    } else {
-      return (
-        <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-          <TableCell
-            colSpan={props.columns.length}
-            classes={{ root: classes.centerText }}
-          >
-            <img
-              src={require("../../assets/img/ic_search_empty@2x.png")}
-              height={140}
-              style={{ marginTop: "25px" }}
-            />
-            <div>
-              <b>No Results Found</b>
-            </div>
-            <div style={{ fontSize: "0.7rem", fontWeight: "500" }}>
-              No matching entries available in our record
-            </div>
-          </TableCell>
-        </TableRow>
-      );
-    }
-  };
-
-  const renderTableCellsMobile = (row, indexPr) => {
-    return props.columns.map((val, index) => (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          padding: "5px",
-          fontSize: "12px",
-          borderBottom: "1px solid #00000011",
-          alignItems: "flex-end",
-          height:"40px",
-        }}
-      >
-        {val.render(row[val.key], row, indexPr)}
-      </div>
-    ));
   };
 
   const renderTableBody = () => {
