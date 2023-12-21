@@ -124,6 +124,7 @@
 }
 .newLine{
     height: 4px;
+    margin-left: 20px !important;
     width: 30px;
     border-radius: 10px;
     margin-left: 1px;

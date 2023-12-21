@@ -1,5 +1,6 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
 import {
+  ButtonBase,
   Checkbox,
   IconButton,
 } from "@material-ui/core";
@@ -15,6 +16,8 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import useTravelAuthSpec from "./TravelAuthSpecHook";
+import history from "../../../libs/history.utils";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const TravelAuthSpec = ({}) => {
   const {
@@ -238,10 +241,15 @@ const TravelAuthSpec = ({}) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
-          <div>
-            <span className={styles.title}>Travel Authorization & Planner</span>
-            <div className={styles.newLine} />
-          </div>
+        <div>
+          <ButtonBase onClick={() => history.goBack()}>
+            <ArrowBackIosIcon fontSize={"small"} />{" "}
+            <span className={"capitalize"}>
+              <b>            <span className={styles.title}>View Travel Authorization & Planner</span></b>
+            </span>
+          </ButtonBase>
+          <div className={styles.newLine} />
+        </div>
         </div>
 
         <div>
