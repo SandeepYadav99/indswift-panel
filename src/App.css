@@ -1017,6 +1017,40 @@ font-size: medium;
 .CandidateInfoWrappers .MuiInputLabel-outlined.MuiInputLabel-shrink{
     color: rgba(0, 0, 0, 0.70) !important;
 }
+.dtMobCard {
+
+}
+
+.dtMobCell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 8px;
+    border-bottom: 2px solid #f6f7fe;
+}
+.dtMobCard .dtMobCell:last-child {
+    border-bottom: 0px;
+}
+.dtMobCellValue {
+    display: flex;
+    font-size: 12px;
+    align-items: flex-end;
+}
+
+.dtMobCellLabel {
+    font-size: 12px;
+    font-weight: 600;
+    max-width: 50%;
+}
+
+.dTMobilePagination {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background: white;
+    width: 100vw;
+
+}
 
 @media (max-width: 767px) {
     .iconTabsEvents{

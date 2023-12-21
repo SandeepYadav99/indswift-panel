@@ -32,7 +32,7 @@ const appStyle = theme => ({
 		marginLeft:0,
 		  width: `calc(100% - ${0}px)`
 		},
-		
+
 		// transition: theme.transitions.create(['margin', 'width'], {
 		//     easing: theme.transitions.easing.sharp,
 		//     duration: theme.transitions.duration.leavingScreen,
@@ -69,6 +69,9 @@ const appStyle = theme => ({
 	content: {
 		// marginTop: '70px',
 		padding: '30px 15px',
+		[theme.breakpoints.down("xs")]: {
+			padding: '30px 0px',
+		},
 		minHeight: 'calc(100% - 123px)',
 	},
 	container,
