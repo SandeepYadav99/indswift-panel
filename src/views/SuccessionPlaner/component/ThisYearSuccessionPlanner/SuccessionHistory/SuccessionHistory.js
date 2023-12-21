@@ -78,7 +78,7 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                 </p>
                 <p>
                   Succession Status: <b>{item?.nature_of_succession}</b>
-                
+
                 </p>
                 <p>
                   Replacing Person:{" "}
@@ -122,8 +122,7 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                 <p>
                   Decision from MD Office:{" "}
                   {/* <b>{item?.extension_status ? item?.extension_status : "-"}</b> */}
-                  {item?.status === "MD_APPROVED" ||
-                  item?.status === "MD_REJECTED" ? (
+                  {( ["MD_APPROVED", "MD_REJECTED", "CORPORATE_HR_REJECTED", "HOD_REJECTED"].indexOf(item?.status) >= 0) ? (
                     <b>{item?.extension_status}</b>
                   ) : (
                     <b>"PENDING" </b>

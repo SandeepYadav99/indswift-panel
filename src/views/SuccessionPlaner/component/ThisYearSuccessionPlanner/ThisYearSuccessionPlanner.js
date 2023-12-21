@@ -213,7 +213,7 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {(all?.application_status === "MD_APPROVED" || all?.application_status === "MD_REJECTED") ? (
+            {( ["MD_APPROVED", "MD_REJECTED", "CORPORATE_HR_REJECTED", "HOD_REJECTED"].indexOf(all?.application_status) >= 0) ? (
               <StatusPill status={all?.extension_status} />
             ) : (
               <StatusPill status="PENDING" />

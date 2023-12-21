@@ -32,7 +32,7 @@ const appStyle = theme => ({
 		marginLeft:0,
 		  width: `calc(100% - ${0}px)`
 		},
-		
+
 		// transition: theme.transitions.create(['margin', 'width'], {
 		//     easing: theme.transitions.easing.sharp,
 		//     duration: theme.transitions.duration.leavingScreen,
