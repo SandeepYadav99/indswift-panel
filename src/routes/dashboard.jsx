@@ -1465,6 +1465,18 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
+    path: `${RouteName.EMPLOYEE_TRAVEL_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: TravelClaimListDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
+  {
     path: `${RouteName.FOREIGN_CLAIMS_DETAILS}:id`,
     sidebarName: "Claims List",
     navbarName: "Claims List",
