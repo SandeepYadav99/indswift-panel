@@ -65,7 +65,8 @@ function useProcessDetail() {
         if(previous_loan_history){
           travelRef.current?.setData(previous_loan_history);
         }
-        setTableData([...budget_positioning]);
+        const filteredData = budget_positioning?.length > 0 ?  budget_positioning?.filter((item)=>item?.key !== "% Outstanding of issued") : [];
+        setTableData([...filteredData]);
         setForm({
           ...form,
           ...eligibility_calculations,
