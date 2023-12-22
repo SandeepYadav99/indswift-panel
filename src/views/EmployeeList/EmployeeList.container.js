@@ -350,6 +350,7 @@ const EmployeeList = ({}) => {
             handleFilterDataChange={handleFilterDataChange}
           />
         </div>
+
       </PageBox>
       <div style={{ width: "100%" }}>
         <DataTables
