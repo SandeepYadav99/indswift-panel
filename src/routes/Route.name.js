@@ -114,6 +114,7 @@ export default {
   CLAIMS_HR_LIST:'/cm/hr/claims' ,
 
   EMPLOYEE_CLAIMS_DETAILS:"/employee/claim/detail/",
+  EMPLOYEE_TRAVEL_DETAILS:"/employee/travel/details/",
 
   CLAIMS_MARRIGE:'/employee/claim/marriage',
   CLAIMS_MOBILE:'/employee/claim/mobile',
@@ -151,6 +152,8 @@ export default {
   TRAVEL_PLANNER_DETAILS:'/travel/plan/details/',
   TRAVEL_AUTHEN:'/travel/auth',
   TRAVEL_AUTHEN_DETAILS: '/travel/auth/details/',
+  TRAVEL_AUTHEN_SPEC:'/spec/travel/auth',
+  TRAVEL_AUTHEN_DETAILS_SPEC: '/spec/travel/auth/details/',
 
 
   PERFORMANCE_BATCH:'/pm/batch',

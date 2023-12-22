@@ -9,6 +9,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import { Autocomplete } from "@material-ui/lab";
 import ChildrenIncludeForm from "./includes/ChildrenIncludes.component";
+import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 
 import classNames from "classnames";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
@@ -26,13 +27,47 @@ const useStyles = makeStyles((theme) => ({
 
 
 const IncrementMasterCreateView = ({ }) => {
-    const { form, errorData, isSubmitting, isLoading,
+    const { form, errorData, isSubmitting, isLoading,  fyYear,
+        setFyYear, batch,
+        setBatch,
+        initialApiCall,
          handleSubmit, removeError, onBlurHandler, changeTextData, isEdit, handleDelete, handleReset, id, listData,slabOneRef,slabTwoRef } = useIncrementMasterHook({});
     const classes = useStyles();
+    const renderStartDate = useMemo(() => {
+        return (
+          <CustomSelectField
+            label={"Financial Year"}
+            value={fyYear}
+            handleChange={(value) => {
+              setFyYear(value);
+              //   sessionStorage.setItem("fyYear", value);
+            }}
+          >
+            <MenuItem value={"2023"}>2023</MenuItem>
+          </CustomSelectField>
+        );
+      }, [fyYear, setFyYear]);
 
-    if (isLoading) {
-        return <WaitingComponent />
-    }
+      const renderEndDate = useMemo(() => {
+        return (
+          <CustomSelectField
+            label={"Batch"}
+            value={batch}
+            handleChange={(value) => {
+              setBatch(value);
+              //   sessionStorage.setItem("end", value);
+            }}
+          >
+            <MenuItem value={"APMS"}>APMS</MenuItem>
+            <MenuItem value={"DTY"}>DTY</MenuItem>
+          </CustomSelectField>
+        );
+      }, [batch, setBatch]);
+
+    // if (isLoading) {
+    //     return <WaitingComponent />
+    // }
+
 
     return (
         <div>
@@ -55,7 +90,20 @@ const IncrementMasterCreateView = ({ }) => {
                 {/*</Tooltip>
                     </h4>
                 </div> */}
-
+                 <div className={styles.yearFlex}>
+              <div className={styles.down}>{renderStartDate}</div>
+              <div className={styles.down}>{renderEndDate}</div>
+              <div className={styles.rightFlex}>
+                {/*<ButtonBase*/}
+                {/*  aria-haspopup="true"*/}
+                {/*  onClick={() => initialApiCall()}*/}
+                {/*  className={"createBtn"}*/}
+                {/*>*/}
+                {/*  Update*/}
+                {/*</ButtonBase> */}
+                  {isLoading && (<WaitingComponent />)}
+               </div>
+            </div>
                 <div className={'formFlex'}>
                     <div className={"formGroup"}>
                         <span style={{ font: 'normal normal bold 14px/18px Montserrat' }}>Slab 1: Grades</span>

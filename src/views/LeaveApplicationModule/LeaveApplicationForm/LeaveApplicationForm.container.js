@@ -43,11 +43,11 @@ const LeaveApplicationForm = () => {
   } = useLeaveApplication({});
   let Designation = ["G1", "G2", "G3", "G4", "G5", "G6", "G0"];
   let gradeLevel = employeeDetails?.grade?.code;
-  let FacilitationCondition = ["0.1", "0.2", "0.3", "0.4"];
-  let ExperienceInCompany = employeeDetails?.experience?.current;
+  let FacilitationCondition = ["0.0","0.1", "0.2", "0.3", "0.4"];
+  let ExperienceInCompany = employeeDetails?.experience?.current ?  Number(employeeDetails?.experience?.current) : 0;
 
   function FacilitationGiven() {
-    if (FacilitationCondition.includes(ExperienceInCompany)) {
+    if (ExperienceInCompany <= .4) {
       return false;
     } else {
       return true;
@@ -55,7 +55,7 @@ const LeaveApplicationForm = () => {
   }
 
   function BearvementLeave() {
-    if (ExperienceInCompany < "1.0") {
+    if (ExperienceInCompany < 1) {
       return true;
     } else {
       return false;

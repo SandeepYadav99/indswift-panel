@@ -47,28 +47,28 @@ const ChildrenIncludeFields = ({
 
     if (parseFloat(value) >= 0 || value === "") {
       if (fieldName === "min" && data?.max !== undefined) {
-        if (parseFloat(value) >= parseFloat(data?.max)) {
-          changeData(index, {
-            errors: { ...errors, min: SnackbarUtils.error("Min value must be less than Max value") },
-          });
-        } else {
-          changeData(index, { errors: { ...errors, min: undefined } });
+        // if (parseFloat(value) >= parseFloat(data?.max)) {
+        //   changeData(index, {
+        //     errors: { ...errors, min: SnackbarUtils.error("Min value must be less than Max value") },
+        //   });
+        // } else {
+        //   changeData(index, { errors: { ...errors, min: undefined } });
 
           handleChange({ target: { name: fieldName, value } });
-        }
+        // }
       } else if (fieldName === "max" && data?.min !== undefined) {
-        if (parseFloat(value) <= parseFloat(data?.min)) {
-          changeData(index, {
-            errors: {
-              ...errors,
-              max: SnackbarUtils.error("Max value must be greater than Min value"),
-            },
-          });
-        } else {
-          changeData(index, { errors: { ...errors, max: undefined } });
+        // if (parseFloat(value) <= parseFloat(data?.min)) {
+        //   changeData(index, {
+        //     errors: {
+        //       ...errors,
+        //       max: SnackbarUtils.error("Max value must be greater than Min value"),
+        //     },
+        //   });
+        // } else {
+        //   changeData(index, { errors: { ...errors, max: undefined } });
 
           handleChange({ target: { name: fieldName, value } });
-        }
+        // }
       } else {
         changeData(index, {
           errors: { ...errors, min: undefined, max: undefined },
@@ -112,6 +112,7 @@ const ChildrenIncludeFields = ({
           </div>
           <div className={styles.flex1}>
             <TextField
+                InputLabelProps={{ shrink: data?.percentage ? true: false  }}
               error={errors?.percentage}
               onChange={(e) => handleInputChange(e, "percentage")}
               value={data?.percentage}
