@@ -277,11 +277,10 @@ const EnhancedTable = (props) => {
     const [order, setOrder] = useState("asc");
     const [orderBy, setOrderBy] = useState("calories");
     const [selected, setSelected] = useState([]);
-    const [page, setPage] = useState(0);
     const [dense, setDense] = useState(false);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
     const {classes} = {...props};
 
+    const {columns, data, page, rowsPerPageOptions, rowsPerPage, count, allRowSelected,hidePagination, showSelection} = props;
     const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
     const handleResize = () => {
@@ -459,6 +458,8 @@ const EnhancedTable = (props) => {
             rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
         const isSelected = (name) => selected && selected.indexOf(name) !== -1;
 
+
+
         if (data.length > 0) {
             return data.map((row, index) => {
                 const isItemSelected = isSelected(row.name);
@@ -522,9 +523,9 @@ const EnhancedTable = (props) => {
                             onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
                             rowCount={rows.length}
-                            columns={props.columns}
-                            allRowSelected={props.allRowSelected}
-                            showSelection={props.showSelection}
+                            columns={columns}
+                            allRowSelected={allRowSelected}
+                            showSelection={showSelection}
                         />
                         <TableBody>{renderTableBody()}</TableBody>
                     </Table>
