@@ -88,7 +88,7 @@ const sidebarStyle = theme => ({
     // // display:'none',
     // },
     [theme.breakpoints.up('sm')]: {
-      width: '0px',
+      width: '50px',
     },
   },
   logoLink: {

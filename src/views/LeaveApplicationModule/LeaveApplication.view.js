@@ -1,10 +1,4 @@
-import React, {
-  Component,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { Component, useCallback, useEffect, useMemo,useState } from "react";
 import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
@@ -191,7 +185,7 @@ const LeaveApplication = ({}) => {
           </div>
         </div>
       </PageBox>
-      {innerWidth < 769 &&  (
+      {innerWidth < 769 && (
         <DataTables
           {...tableData.datatable}
           {...tableData.datatableFunctions}
