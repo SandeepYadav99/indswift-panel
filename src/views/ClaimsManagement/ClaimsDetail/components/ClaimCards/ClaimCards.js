@@ -9,7 +9,7 @@ function ClaimCards({ title, subtitle, handleClick, enableBtn ,isLoan}) {
         <div className={styles.title}>{title}</div>
         <div>{subtitle}</div>
       </div>
-      <div>
+      <div className={styles.btnWrap}>
         {enableBtn && (
           <ButtonBase
             type={"button"}

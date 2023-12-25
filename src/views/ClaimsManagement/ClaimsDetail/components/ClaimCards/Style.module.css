@@ -27,3 +27,19 @@
     text-transform: uppercase !important;
     font-weight: 600 !important;
 }
+@media (max-width:767px){
+    .claimCardWrapper{
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+    .titleWrapper{
+        width: 100%;
+    }
+    .btnWrap{
+        width: 100%;
+    }
+    .createBtn{
+        width: 100%;
+    }
+}
