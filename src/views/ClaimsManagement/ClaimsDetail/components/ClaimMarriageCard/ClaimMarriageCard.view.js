@@ -69,6 +69,7 @@ function ClaimMarriageCard() {
                 changeTextData(value, "marraige_of");
               }}
               row
+              className={styles.radioWrap}
             >
               <FormControlLabel value="Self" control={<Radio />} label="Self" />
               <FormControlLabel
@@ -79,8 +80,8 @@ function ClaimMarriageCard() {
               <FormControlLabel value="Son" control={<Radio />} label="Son" />
             </RadioGroup>
           </FormControl>
-          <div className={styles.formWrapper21}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomDatePicker
                 clearable
                 label={"Date of Marrige"}
@@ -92,7 +93,7 @@ function ClaimMarriageCard() {
                 isError={errorData?.dom}
               />
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <File
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -112,8 +113,8 @@ function ClaimMarriageCard() {
               />
             </div>
           </div>
-          <div className={styles.formWrapperSingle}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomTextField
                 InputLabelProps={{ shrink: true }}
                 disabled={true}

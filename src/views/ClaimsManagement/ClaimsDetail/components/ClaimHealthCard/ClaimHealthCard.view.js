@@ -53,8 +53,8 @@ function ClaimHealthCard() {
         <ClaimInfo idCards={claimInfo} />
 
         <div className={styles.formSelectWrapper}>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-          <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomDatePicker
                 clearable
                 label={"PHC Conducted on"}
@@ -66,8 +66,8 @@ function ClaimHealthCard() {
                 isError={errorData?.phc_date}
               />
             </div>
-            
-            <div className="formGroup1">
+
+            <div className={styles.formGrp}>
               <CustomTextField
                 isError={errorData?.phc_centre}
                 errorText={errorData?.phc_centre}
@@ -81,11 +81,10 @@ function ClaimHealthCard() {
                 }}
               />
             </div>
-            
           </div>
 
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className="formGroup1">
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomTextField
                 isError={errorData?.list}
                 errorText={errorData?.list}
@@ -102,8 +101,8 @@ function ClaimHealthCard() {
               />
             </div>
           </div>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <File
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -111,7 +110,9 @@ function ClaimHealthCard() {
                 name="prcreport"
                 label="Upload PHC Report"
                 accept={"application/pdf,application/msword,image/*"}
-                link={editData?.medical_report ? editData?.medical_report : null}
+                link={
+                  editData?.medical_report ? editData?.medical_report : null
+                }
                 error={errorData?.medical_report}
                 value={form?.medical_report}
                 placeholder={"Upload PHC Report"}
@@ -122,7 +123,7 @@ function ClaimHealthCard() {
                 }}
               />
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <CustomTextField
                 type="number"
                 isError={errorData?.bill_amount}
@@ -139,8 +140,8 @@ function ClaimHealthCard() {
             </div>
           </div>
 
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <File
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -159,7 +160,7 @@ function ClaimHealthCard() {
                 }}
               />
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <CustomSelectField
                 isError={errorData?.payment_mode}
                 errorText={errorData?.payment_mode}
@@ -177,11 +178,8 @@ function ClaimHealthCard() {
               </CustomSelectField>
             </div>
           </div>
-          <div
-            className={"formFlex"}
-            style={{ alignItems: "center", width: "50%" }}
-          >
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <File
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -200,6 +198,7 @@ function ClaimHealthCard() {
                 }}
               />
             </div>
+            <div className={styles.formGrp}></div>
           </div>
         </div>
       </div>
@@ -235,7 +234,7 @@ function ClaimHealthCard() {
       <div className={styles.btnCont}>
         <ButtonBase
           type={"button"}
-          disabled={!declaration || isLoading ?  true : false}
+          disabled={!declaration || isLoading ? true : false}
           className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >
