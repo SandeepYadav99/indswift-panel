@@ -152,7 +152,7 @@ class CustomLink extends React.Component {
 
 const Sidebar = ({...props}) => {
     const [data, setData] = useState([])
-
+    const [parentRoute,setParentRoute]=useState([])
     // verifies if routeName is the one active (in browser input)
     function activeRoute(routeName, otherData) {
         if (!otherData.should_regex) {
@@ -166,22 +166,36 @@ const Sidebar = ({...props}) => {
 
     useEffect(() => {
         setData(routes)
+        const filteredRoute = routes?.filter((item)=> item?.is_parent);
+        setParentRoute(filteredRoute)
     }, [routes])
 
-    const handleSearchValueChange = useCallback((value) => {
-        if (value) {
+    const handleSearchValueChange = useCallback(
+        (value) => {
+          if (value) {
             const tempData = routes?.filter((val) => {
-                if (
-                    val?.sidebarName?.match(new RegExp(value, 'ig'))
-                ) {
-                    return val;
-                }
+              if (
+                val?.sidebarName?.match(new RegExp(value, "ig")) &&
+                !val?.is_parent &&
+                val?.is_sidebar
+              ) {
+                return val;
+              }
             });
-            setData(tempData);
-        } else {
+            const parentValues = tempData
+              ?.filter((item) => item?.parent)
+              .map((item) => item?.parent);
+            const filteredParentRoute = parentRoute?.filter((item) =>
+              parentValues?.includes(item?.slug)
+            );
+            console.log("tempData", { tempData, parentRoute, filteredParentRoute });
+            setData([...tempData, ...filteredParentRoute]);
+          } else {
             setData(routes);
-        }
-    }, [routes, setData,]);
+          }
+        },
+        [routes, setData, parentRoute]
+      );
 
     var brand = (
         <div className={classes.logo}>
@@ -216,9 +230,14 @@ const Sidebar = ({...props}) => {
                     }}
                 >
                     {brand}
+                    <FilterComponent
+                        filters={[]}
+                        handleSearchValueChange={handleSearchValueChange}
+                        // handleFilterDataChange={handleFilterDataChange}
+                    />
                     <div className={classes.sidebarWrapper}>
                         {/*<HeaderLinks />*/}
-                        <CustomLink routes={routes} classes={classes} color={color} activeRoute={activeRoute}/>
+                        <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>
                     </div>
                     {image !== undefined ? (
                         <div
