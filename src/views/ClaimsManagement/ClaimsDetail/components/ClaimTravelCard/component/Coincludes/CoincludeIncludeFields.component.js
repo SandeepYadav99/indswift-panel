@@ -19,8 +19,8 @@ const CoIncludeFields = ({
     [changeData, index]
   );
   return (
-    <div className={styles.flexContainer}>
-        <div className={styles.flex1}>
+    <div className={styles.formWrp}>
+        <div className={styles.formGrp}>
           <CustomAutoComplete
             autoCompleteProps={{
               freeSolo: false,
@@ -37,7 +37,6 @@ const CoIncludeFields = ({
             isError={errors?.co_passengers}
             value={data?.co_passengers}
           />
-          
       </div>
       <div className={styles.btnWrap}>
             <ButtonBase

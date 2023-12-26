@@ -74,6 +74,7 @@ const OtherDetailsIncludeFields = ({
             value={data?.type}
             onChange={(e) => handleChange(e, "type")}
             row
+            className={styles.radioWrap}
           >
             <FormControlLabel
               value="Parking"
@@ -81,13 +82,13 @@ const OtherDetailsIncludeFields = ({
               label="Parking"
             />
             <FormControlLabel
-              style={{ marginLeft: "20px" }}
+              // style={{ marginLeft: "20px" }}
               value="Toll"
               control={<Radio />}
               label="Toll"
             />
             <FormControlLabel
-              style={{ marginLeft: "20px" }}
+              // style={{ marginLeft: "20px" }}
               value="Other"
               control={<Radio />}
               label="Other"
@@ -139,8 +140,8 @@ const OtherDetailsIncludeFields = ({
           </div>
         </div>
 
-        <div className={styles.firstRow221}>
-          <div className={styles.flex122}>
+        <div className={styles.formWrp}>
+        <div className={styles.formGrp}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -160,7 +161,7 @@ const OtherDetailsIncludeFields = ({
               }}
             />
           </div>
-          <div className={"textCenter"}>
+          <div className={styles.BtnWrap}>
             <ButtonBase
               className={styles.removeBtn}
               // label={this.props.index == 0 ? "+" : '-'}

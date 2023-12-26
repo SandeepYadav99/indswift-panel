@@ -20,7 +20,15 @@
     background-color: #fff;
     box-shadow: 0 0 8px rgb(0 0 0 / 15%);
 }
-
+.formGrp{
+    flex: 1;
+    padding: 7px 10px
+  }
+  .formWrp{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 .countryField{
     flex: 0.5;
 }
@@ -152,3 +160,22 @@
 .radioWrapper{
     margin-bottom: 10px;
 }
+@media (max-width:767px){
+    .formWrp {
+        display: flex;
+        flex-direction: column;
+    }
+    .formGrp{
+        width: 100%;
+        padding: 7px 0;
+    }
+    .BtnWrap{
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .radioWrap{
+      display: flex;
+      flex-direction: column;
+    }
+  }
