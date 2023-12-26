@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {NavLink} from "react-router-dom";
 import cx from "classnames";
@@ -18,6 +18,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import sidebarStyle from "../../assets/jss/material-dashboard-react/sidebarStyle.jsx";
+import FilterComponent from "../Filter/Filter.component.js";
 
 
 class CustomListItem extends React.Component {
@@ -150,6 +151,7 @@ class CustomLink extends React.Component {
 }
 
 const Sidebar = ({...props}) => {
+    const [data,setData] = useState([])
     // verifies if routeName is the one active (in browser input)
     function activeRoute(routeName, otherData) {
         if (!otherData.should_regex) {
@@ -160,6 +162,25 @@ const Sidebar = ({...props}) => {
     }
 
     const {classes, color, logo, image, logoText, routes} = props;
+
+    useEffect(()=>{
+        setData(routes)
+    },[])
+
+    const handleSearchValueChange = (value) => {
+        if (value) {
+          const tempData = routes?.filter((val) => {
+            if (
+              val?.sidebarName?.match(new RegExp(value, 'ig')) 
+            ) {
+              return val;
+            }
+          });
+          setData(tempData);
+        } else {
+          setData(routes);
+        }
+      };
     var brand = (
         <div className={classes.logo}>
             <div className={classes.logoImage}>
@@ -223,8 +244,13 @@ const Sidebar = ({...props}) => {
                     }}
                 >
                     {brand}
+                    <FilterComponent
+                      filters={[]}
+                      handleSearchValueChange={handleSearchValueChange}
+                     // handleFilterDataChange={handleFilterDataChange}
+          />
                     <div className={classes.sidebarWrapper}>
-                        <CustomLink routes={routes} classes={classes} color={color} activeRoute={activeRoute}/>
+                        <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>
                     </div>
                 </Drawer>
             </Hidden>
