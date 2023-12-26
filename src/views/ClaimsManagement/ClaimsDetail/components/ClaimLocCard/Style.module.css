@@ -16,7 +16,15 @@
   margin-left: 20px;
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
-
+.formGrp{
+  flex: 1;
+  padding: 7px 10px
+}
+.formWrp{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .plainPaper {
   border-radius: 10px;
   padding: 1.2rem;
@@ -201,4 +209,17 @@
 .chkwrapp {
   display: flex;
   align-items: center;
+}
+@media (max-width:767px){
+  .formWrp {
+      display: flex;
+      flex-direction: column;
+  }
+  .formGrp{
+      width: 100%;
+      padding: 7px 0;
+  }
+  .radioWrap{
+    flex-direction: column;
+  }
 }
