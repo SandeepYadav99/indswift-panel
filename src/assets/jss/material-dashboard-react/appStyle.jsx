@@ -26,8 +26,8 @@ const appStyle = theme => ({
 		overflowScrolling: 'touch',
 	},
 	appBar: {
-		width: `calc(100% - ${50}px)`,
-		marginLeft: 45,
+		width: `100%`,
+		// marginLeft: 45,
 		[theme.breakpoints.down("sm")]: {
 		marginLeft:0,
 		  width: `calc(100% - ${0}px)`
