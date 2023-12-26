@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {NavLink} from "react-router-dom";
 import cx from "classnames";
@@ -72,8 +72,8 @@ class CustomListItem extends React.Component {
     }
 
 
-    _renderNestedLinks(slug, nested=false) {
-        const { routes } = this.props;
+    _renderNestedLinks(slug, nested = false) {
+        const {routes} = this.props;
         const links = [];
         routes.forEach((val, index) => {
             if (val.parent == slug && val.is_sidebar) {
@@ -111,7 +111,7 @@ class CustomListItem extends React.Component {
                             className={classes.itemText + whiteFontClasses}
                             disableTypography={true}
                         />
-                        {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                        {this.state.open ? <ExpandLess/> : <ExpandMore/>}
                     </ListItem>
                     <Collapse in={this.state.open} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
@@ -151,36 +151,38 @@ class CustomLink extends React.Component {
 }
 
 const Sidebar = ({...props}) => {
-    const [data,setData] = useState([])
+    const [data, setData] = useState([])
+
     // verifies if routeName is the one active (in browser input)
     function activeRoute(routeName, otherData) {
         if (!otherData.should_regex) {
             return routeName == props.location.pathname;
         }
-        return routeName == props.location.pathname || props.location.pathname.indexOf(routeName) > -1 ? true : false ;
+        return routeName == props.location.pathname || props.location.pathname.indexOf(routeName) > -1 ? true : false;
         // return props.location.pathname.indexOf(routeName) > -1 ? true : false;
     }
 
     const {classes, color, logo, image, logoText, routes} = props;
 
-    useEffect(()=>{
+    useEffect(() => {
         setData(routes)
-    },[])
+    }, [routes])
 
-    const handleSearchValueChange = (value) => {
+    const handleSearchValueChange = useCallback((value) => {
         if (value) {
-          const tempData = routes?.filter((val) => {
-            if (
-              val?.sidebarName?.match(new RegExp(value, 'ig')) 
-            ) {
-              return val;
-            }
-          });
-          setData(tempData);
+            const tempData = routes?.filter((val) => {
+                if (
+                    val?.sidebarName?.match(new RegExp(value, 'ig'))
+                ) {
+                    return val;
+                }
+            });
+            setData(tempData);
         } else {
-          setData(routes);
+            setData(routes);
         }
-      };
+    }, [routes, setData,]);
+
     var brand = (
         <div className={classes.logo}>
             <div className={classes.logoImage}>
@@ -245,10 +247,10 @@ const Sidebar = ({...props}) => {
                 >
                     {brand}
                     <FilterComponent
-                      filters={[]}
-                      handleSearchValueChange={handleSearchValueChange}
-                     // handleFilterDataChange={handleFilterDataChange}
-          />
+                        filters={[]}
+                        handleSearchValueChange={handleSearchValueChange}
+                        // handleFilterDataChange={handleFilterDataChange}
+                    />
                     <div className={classes.sidebarWrapper}>
                         <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>
                     </div>
