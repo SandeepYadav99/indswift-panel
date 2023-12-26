@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import styles from "./Style.module.css";
+import styles from "./dashboard.module.css";
 import LocationCard from "./components/LocationCard/LocationCard.view";
 import PendingOfferTable from "./components/WarehouseTables/PendingOfferTable.component";
 import InterviewsTable from "./components/WarehouseTables/InterviewsTable.component";
@@ -118,7 +118,6 @@ const NewDashboard = () => {
               <div className={styles.imgBox}>
                 <img
                   src={require("../../assets/img/ic_prc_active.png")}
-                  height={50}
                 />
               </div>
               <div>
@@ -137,7 +136,6 @@ const NewDashboard = () => {
                       ? require("../../assets/img/ic_decrease.png")
                       : require("../../assets/img/ic_increase.png")
                   }
-                  height={50}
                 />
               </div>
               <div>
