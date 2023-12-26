@@ -240,4 +240,7 @@ color: white;
   .btnUpper {
   display: none;
   }
+  .disclaimerContainer{
+    display: none !important;
+  }
 }
