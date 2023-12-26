@@ -29,6 +29,7 @@ const PendingOfferTable = () => {
   const OlrPage = useCallback(() => {
     historyUtils.push(`${RouteName.REVIEW_OLR}`);
   }, []);
+  
   const _renderListData = () => {
     const tableRows = [];
     if (data) {

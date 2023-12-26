@@ -28,7 +28,7 @@ const appStyle = theme => ({
 	appBar: {
 		width: `calc(100% - ${50}px)`,
 		marginLeft: 45,
-		[theme.breakpoints.down("xs")]: {
+		[theme.breakpoints.down("sm")]: {
 		marginLeft:0,
 		  width: `calc(100% - ${0}px)`
 		},
