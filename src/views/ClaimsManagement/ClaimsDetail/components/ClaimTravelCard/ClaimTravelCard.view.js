@@ -66,8 +66,8 @@ function ClaimTravelCard() {
         <ClaimInfo idCards={claimInfo} isLocal={true} />
 
         <div className={styles.formSelectWrapper}>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomSelectField
                 isError={errorData?.rem_month}
                 errorText={errorData?.rem_month}
@@ -83,8 +83,8 @@ function ClaimTravelCard() {
               </CustomSelectField>
             </div>
           </div>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <File
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -103,7 +103,7 @@ function ClaimTravelCard() {
                 }}
               />
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <File
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}

@@ -48,14 +48,14 @@ export function actionFetchSuccessionA(index = 1, sorting = {}, filter = {}) {
 
 
 export function actionSetPageSuccessionA(page) {
-  const stateData = store.getState().final_form;
+  const stateData = store.getState().succession_approval;
   const currentPage = stateData.currentPage;
   const totalLength = stateData.all.length;
   const sortingData = stateData.sorting_data;
   const query = stateData.query;
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;
-  
+
   if (totalLength <= (page + 1) * Constants.PAGE_VALUE) {
     store.dispatch(
       actionFetchSuccessionA(serverPage + 1, sortingData, {

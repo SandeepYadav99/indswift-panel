@@ -335,7 +335,7 @@ function ClaimForCard() {
           </div>
         </div>
         <div className={styles.totalWrap}>
-          <div className={styles.inner}>
+          <div className={styles.inner21}>
             Amount to be Refunded:{" "}
             <span>{getRefundAmount ? `₹ ${getRefundAmount}` : 0}</span>
           </div>

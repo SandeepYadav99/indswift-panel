@@ -68,11 +68,11 @@ function ClaimLocCard() {
         </div>
 
         <div className={styles.formSelectWrapper}>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className={"formGroup"}></div>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}></div>
           </div>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <div className={styles.radioWrapper}>
                 <div className={styles.radioheading}>Claim Type:</div>
                 <RadioGroup
@@ -81,6 +81,7 @@ function ClaimLocCard() {
                   value={form?.relocation_type}
                   onChange={(e) => changeTextData(e.target.value, "relocation_type")}
                   row
+                  className={styles.radioWrap}
                 >
                   
                   <FormControlLabel
@@ -97,7 +98,7 @@ function ClaimLocCard() {
                 </RadioGroup>
               </div>
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <CustomDatePicker
                 disabled={form?.relocation_type !== 'TRANSFER_CASE'}
                 clearable

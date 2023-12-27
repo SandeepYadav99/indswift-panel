@@ -22,9 +22,8 @@ const DetailsIncludeFields = ({
 
   return (
     <div>
-      <div className={styles.firstRow}>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+      <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.documents_label}
               onChange={handleChange}
@@ -36,7 +35,7 @@ const DetailsIncludeFields = ({
               label={"Document Name"}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -54,7 +53,7 @@ const DetailsIncludeFields = ({
               }}
             />
           </div>
-          <div className={"textCenter"}>
+          <div className={styles.btnWrap}>
             <ButtonBase
               className={styles.removeBtn}
               onClick={() => {
@@ -66,7 +65,6 @@ const DetailsIncludeFields = ({
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

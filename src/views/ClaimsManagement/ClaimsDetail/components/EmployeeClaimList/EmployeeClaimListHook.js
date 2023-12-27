@@ -114,13 +114,13 @@ const useEmployeeClaimList = ({}) => {
   );
 
   const handleViewDetails = useCallback((data) => {
-    if (data?.claim?.claim_type === "TRAVEL") {
-      historyUtils.push(`${RouteName.TRAVEL_CLAIMS_DETAILS}${data?.id}`); //+data.id
-    } else if (data?.claim?.claim_type === "FOREIGN_TRAVEL") {
-      historyUtils.push(`${RouteName.FOREIGN_CLAIMS_DETAILS}${data?.id}`); //+data.id
-    } else {
-      historyUtils.push(`${RouteName.EMPLOYEE_CLAIMS_DETAILS}${data?.id}`); //+data.id
-    }
+    // if (data?.claim_type === "TRAVEL") {
+    //   historyUtils.push(`${RouteName.EMPLOYEE_TRAVEL_DETAILS}${data?.id}`); //+data.id
+    // } else if (data?.claim_type === "FOREIGN_TRAVEL") {
+    //   historyUtils.push(`${RouteName.FOREIGN_CLAIMS_DETAILS}${data?.id}`); //+data.id
+    // } else {
+    //   historyUtils.push(`${RouteName.EMPLOYEE_CLAIMS_DETAILS}${data?.id}`); //+data.id
+    // }
   }, []);
 
   const handleCreate = useCallback(() => {

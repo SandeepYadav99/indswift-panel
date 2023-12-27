@@ -42,8 +42,8 @@ const LocOtherDetailsIncludeFields = ({
   return (
     <div>
       <div className={styles.flexContainer}>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomDatePicker
               maxDate={new Date()}
               clearable
@@ -53,7 +53,7 @@ const LocOtherDetailsIncludeFields = ({
               isError={errors?.bill_date}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.bill_no}
               onChange={handleChange}
@@ -65,7 +65,7 @@ const LocOtherDetailsIncludeFields = ({
               label={"Bill No."}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.amount}
               onChange={handleChange}
@@ -78,8 +78,8 @@ const LocOtherDetailsIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex12}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.details}
               onChange={handleChange}
@@ -91,7 +91,7 @@ const LocOtherDetailsIncludeFields = ({
               label={"Description"}
             />
           </div>
-          <div className={styles.flex13}>
+          <div className={styles.formGrp}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -111,8 +111,8 @@ const LocOtherDetailsIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex12}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.payment_mode}
               errorText={errors?.payment_mode}
@@ -129,7 +129,7 @@ const LocOtherDetailsIncludeFields = ({
               <MenuItem value="Bank Transfer">Bank Transfer</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex13}>
+          <div className={styles.formGrp}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -151,7 +151,7 @@ const LocOtherDetailsIncludeFields = ({
         </div>
 
         <div className={styles.firstRow221}>
-          <div className={"textCenter"}>
+        <div className={styles.btnWrap}>
             <ButtonBase
               className={styles.removeBtn}
               // label={this.props.index == 0 ? "+" : '-'}

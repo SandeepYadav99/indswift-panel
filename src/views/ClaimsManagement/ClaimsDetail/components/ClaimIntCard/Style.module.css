@@ -249,3 +249,12 @@
   flex-wrap: wrap;
   gap: 80px;
 }
+@media (max-width:767px){
+  .AutoWrap{
+    gap:20px;
+  }
+  .lowerWrapImprest{
+    flex-direction: column;
+    gap: 15px;
+  }
+}
