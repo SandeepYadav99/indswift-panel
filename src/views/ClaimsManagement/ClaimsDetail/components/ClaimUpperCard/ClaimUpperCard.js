@@ -62,7 +62,7 @@ function ClaimUpperCard({ data, isLoc, isLoan }) {
               )}
             </div>
             <div className={styles.verticalLine}></div>
-            <div>
+            <div className={styles.leftPartMarginMobile}>
               <div className={styles.key}>
                 <span className={styles.value}>Designation:</span>
                 <span>{data?.designation?.name}</span>
