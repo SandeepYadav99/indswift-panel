@@ -33,7 +33,7 @@
   gap: 5px;
   /* justify-content: flex-start; */
 }
-@media (max-width: 767px) {
+@media (max-width: 769px) {
   .tableComponentField{
     flex: 1;
   }
@@ -42,5 +42,28 @@
   }
   .grossSalaryWrapper{
     gap: 5px;
+  }
+  .tableWrapper {
+    display: flex;
+    padding: 1.2rem;
+    border-bottom: 2px solid #ebedf4;
+    opacity: 1;
+    font-size: 0.6rem;
+    font-weight: 600;
+  }
+  .grossSalaryWrapper {
+    display: flex;
+    font-size: 0.6rem;
+    padding: 5px 0;
+    flex-wrap: wrap;
+  }
+  .tableComponentField{
+    font-size: 0.6rem;
+  }
+  .salaryWrapper{
+    font-size: 0.6rem;
+  }
+  .salaryHeading{
+    font-size: 0.8rem;
   }
 }

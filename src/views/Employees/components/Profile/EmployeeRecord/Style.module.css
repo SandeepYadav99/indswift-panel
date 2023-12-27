@@ -171,8 +171,8 @@
 }
 
 .tableComponentField {
-  /* background: red; */
   flex: 4;
+  flex-wrap: wrap;
 }
 
 .tableAnnualField {
@@ -223,11 +223,7 @@
   border-top-left-radius: 10px;
   background: #e92828 0% 0% no-repeat padding-box;
 }
-.grossSalaryWrapper {
-  display: flex;
-  font-size: 0.875rem;
-  align-items: center;
-}
+
 
 .grossSalaryGreenWrapper {
   display: flex;
@@ -308,6 +304,7 @@
 
 .grossSalaryWrapper {
   display: flex;
+  flex-wrap: wrap !important;
   font-size: 0.875rem;
   padding: 5px 0;
 }
@@ -338,4 +335,35 @@
 }
 .heading {
   font-weight: 600;
+}
+.responsiveView{
+  display: none;
+}
+
+@media only screen and (max-width:769px){
+  .title {
+    font-size: 0.6rem;
+    font-weight: 600;
+  }
+  .grossSalaryWrapper{
+    display: none;
+    flex-direction: column !important;
+  }
+  .btnClass{
+    display: none; 
+  }
+  .responsiveView{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .topContainerHeader{
+    display: flex;
+    justify-content: space-between;
+  }
+  .dateFieldMobile{
+    display: grid;
+    justify-content: flex-start !important;
+  }
 }

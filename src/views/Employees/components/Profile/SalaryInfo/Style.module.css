@@ -167,5 +167,8 @@
     align-items: flex-start;
     gap: 5px
   }
+  .salaryHeading{
+    font-size: 0.86rem;
+  }
    
 }
