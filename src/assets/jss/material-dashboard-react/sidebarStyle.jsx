@@ -131,6 +131,11 @@ const sidebarStyle = theme => ({
   newText: {
     marginLeft: '10px'
   },
+  notext:{
+    marginTop:"30px",
+    marginLeft: '20px',
+    fontWeight:"500"
+  },
   background: {
     position: "absolute",
     zIndex: "1",

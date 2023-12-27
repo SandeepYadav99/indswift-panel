@@ -237,7 +237,10 @@ const Sidebar = ({...props}) => {
                     />
                     <div className={classes.sidebarWrapper}>
                         {/*<HeaderLinks />*/}
-                        <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>
+                        {
+                            data?.length > 0 ?  <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>
+                            : <p className={classes.notext}>No Match Found ...</p>
+                        }
                     </div>
                     {image !== undefined ? (
                         <div
@@ -271,7 +274,10 @@ const Sidebar = ({...props}) => {
                         // handleFilterDataChange={handleFilterDataChange}
                     />
                     <div className={classes.sidebarWrapper}>
-                        <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>
+                        {
+                            data?.length > 0 ? <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>  
+                            : <p className={classes.notext}>No Match Found ...</p>
+                        }    
                     </div>
                 </Drawer>
             </Hidden>
