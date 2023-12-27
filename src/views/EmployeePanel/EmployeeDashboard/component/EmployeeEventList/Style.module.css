@@ -126,3 +126,17 @@
     padding-left: 0;
   }
 }
+
+@media only screen and (max-width:1200px){
+  .paperBackground {
+    padding: 10px 12px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: white !important;
+    height: fit-content !important;
+    /* height: 85vh; */
+    overflow: auto;
+    /* max-height: 510px;
+    min-height: 510px; */
+  }
+}

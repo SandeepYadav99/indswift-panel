@@ -217,4 +217,11 @@
     .signContainer{
         margin: 0%;
     }
+    .headingText {
+        text-align: center;
+        color: black;
+        font-size: 1.4rem;
+        margin-bottom: 2px;
+    }
+    
 }

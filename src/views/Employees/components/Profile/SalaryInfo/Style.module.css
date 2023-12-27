@@ -146,6 +146,12 @@
   color: #818181;
   font-weight: 500;
 }
+.innerWidthHide{
+  display: block;
+}
+.informationIcon{
+  display: none;
+}
 @media (max-width: 767px) {
   .grossWrapper {
     padding: 1.2rem 0.25rem;
@@ -167,5 +173,58 @@
     align-items: flex-start;
     gap: 5px
   }
-   
+  .salaryHeading{
+    font-size: 0.86rem;
+  }
+  .innerWidthHide{
+    display: none;
+  }
+  .informationIcon{
+    display: block;
+    position: absolute;
+    margin-left: 80% !important;
+  }
+  .pageWrap{
+    display: flex;
+    justify-content: flex-start !important;
+    align-items: center;
+    flex-direction: column;
+  }
+  .alignTitleMobile{
+    display: flex;
+    justify-content: flex-start !important;
+  }
+}
+.GeneralInfoWrapeer {
+  padding: 1.2rem;
+  border-radius: 10px;
+  background: #e9f7fd 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+}
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.infoDetails {
+  font-size: 0.875rem;
+  margin-bottom: 0;
+}
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.infoStrong {
+  font-size: 0.875rem;
+}
+.containerFlexCrossButton{
+  display: flex;
+  justify-content: space-between;
 }

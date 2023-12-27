@@ -37,7 +37,7 @@ const ProfileView = ({ data, isNew }) => {
           <NomineeDetails nominee={data?.nominees} />
         </div>
       </div>
-      {!isNew && <ProfileDisclaimer />}
+      {!isNew && <div className={styles.disclaimerContainer}><ProfileDisclaimer /></div>}
     </div>
   );
 };

@@ -133,6 +133,11 @@
   .attachment {
     font-size: 14px !important;
   }
+  .parentalLeaveBlock{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+  }
 }
 @media only screen and (max-width: 540px) {
   .attachment {
