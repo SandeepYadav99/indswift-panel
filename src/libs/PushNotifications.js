@@ -2,30 +2,32 @@
  * Created by charnjeetelectrovese@gmail.com on 2/21/2020.
  */
 
-import firebase from 'firebase/app';
-import 'firebase/messaging';
+import firebase, {initializeApp} from 'firebase/app';
+import {getToken, getMessaging, onMessage} from 'firebase/messaging';
 // import {serviceCaptureFcmInformation} from "../services/Common.service";
+
+const firebaseApp = initializeApp({
+    apiKey: "AIzaSyBt96a6qVAq_TRaXx-ckdac8aVLoNZXwDQ",
+    authDomain: "getatour-308ae.firebaseapp.com",
+    databaseURL: "https://getatour-308ae.firebaseio.com",
+    projectId: "getatour-308ae",
+    storageBucket: "getatour-308ae.appspot.com",
+    messagingSenderId: "1015129279552",
+    appId: "1:1015129279552:web:807a6cf546a6ae2978e3a5",
+    measurementId: "G-8XH7MBF1C5"
+});
+const messaging = getMessaging(firebaseApp);
 
 export const initializeFirebase = () => {
     if ('serviceWorker' in navigator)  {
-    firebase.initializeApp({
-        apiKey: "AIzaSyBt96a6qVAq_TRaXx-ckdac8aVLoNZXwDQ",
-        authDomain: "getatour-308ae.firebaseapp.com",
-        databaseURL: "https://getatour-308ae.firebaseio.com",
-        projectId: "getatour-308ae",
-        storageBucket: "getatour-308ae.appspot.com",
-        messagingSenderId: "1015129279552",
-        appId: "1:1015129279552:web:807a6cf546a6ae2978e3a5",
-        measurementId: "G-8XH7MBF1C5"
-    });
-    const messaging = firebase.messaging();
 
-        messaging.onMessage((payload) => {
-            console.log('Message received. ', payload);
-            // [START_EXCLUDE]
-            // Update the UI to include the received message.
-            // [END_EXCLUDE]
-        });
+
+        // messaging.onMessage((payload) => {
+        //     console.log('Message received. ', payload);
+        //     // [START_EXCLUDE]
+        //     // Update the UI to include the received message.
+        //     // [END_EXCLUDE]
+        // });
     }
 //     if ('serviceWorker' in navigator) {
 //         window.addEventListener('load', async () => {
@@ -64,4 +66,29 @@ export const askForPermissioToReceiveNotifications = async () => {
     } catch (error) {
         console.error('error @ askForPermissioToReceiveNotifications', error);
     }
+}
+
+export const getToken = () => {
+    return getToken(messaging, {vapidKey: 'GENERATED_MESSAGING_KEY'}).then((currentToken) => {
+        if (currentToken) {
+            console.log('current token for client: ', currentToken);
+            // Track the token -> client mapping, by sending to backend server
+            // show on the UI that permission is secured
+        } else {
+            console.log('No registration token available. Request permission to generate one.');
+            // shows on the UI that permission is required
+        }
+    }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+        // catch error while creating client token
+    });
+}
+
+
+export const onMessageListener = () => {
+   return new Promise((resolve) => {
+        onMessage(messaging, (payload) => {
+            resolve(payload);
+        });
+    });
 }

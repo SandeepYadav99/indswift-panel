@@ -40,6 +40,23 @@ ReactDOM.render(
     document.getElementById('root'),
 );
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.addEventListener("message", (message) => {
+        /*
+        data:
+    firebaseMessaging:
+    payload:
+    collapse_key: "do_not_collapse"
+    from: "1015129279552"
+    notification:
+    body: "dsd"
+    title: "Working Good"
+         */
+
+        console.log('messageSend', message)
+    });
+}
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
