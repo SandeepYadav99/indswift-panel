@@ -127,3 +127,7 @@
     flex-wrap: wrap;
     gap: 10px;
 }
+.divAlignDes{
+    display: flex;
+    justify-content: flex-end !important;
+}
