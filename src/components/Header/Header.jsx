@@ -19,13 +19,11 @@ import cx from "classnames";
 import headerStyle from "../../assets/jss/material-dashboard-react/headerStyle.jsx";
 import {actionLogoutUser} from "../../actions/auth_index.action";
 import { actionChangeTheme } from '../../actions/AppSettings.action';
-
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Popover from '@material-ui/core/Popover';
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
-// import HeaderLinks from "./HeaderLinks";
 
 class Header extends React.Component {
     constructor(props) {

@@ -69,9 +69,10 @@
 @media (max-width: 767px) {
   .imageWrapper{
     display: flex;
+    justify-content: center !important;
   }
   .imageWrapper > img{
-    width: 140px;
+    width: 120px !important;
     aspect-ratio: 1/1;
   }
 }

@@ -29,6 +29,7 @@ function AnnouncementInfo() {
                 ? selectedImage()
                 : require("../../../../../assets/img/cert.png")
             }
+            className={styles.componentData}
           />
         </div>
       )}
