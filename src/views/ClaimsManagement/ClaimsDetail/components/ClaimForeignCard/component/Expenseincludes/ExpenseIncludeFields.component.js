@@ -53,8 +53,8 @@ const ExpenseIncludeFields = ({
     <div>
       <div className={styles.heading}>Travel Type</div>
       <div className={styles.flexContainer}>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.currency}
               errorText={errors?.currency}
@@ -69,11 +69,11 @@ const ExpenseIncludeFields = ({
               <MenuItem value="INR">INR</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex1}></div>
-          <div className={styles.flex1}></div>
+          <div className={styles.formGrpHide}></div>
+          <div className={styles.formGrpHide}></div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomDatePicker
               disabled={!startDate ? true : false}
               clearable
@@ -86,7 +86,7 @@ const ExpenseIncludeFields = ({
             />
           </div>
 
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.from}
               onChange={handleChange}
@@ -98,7 +98,7 @@ const ExpenseIncludeFields = ({
               label={"Travel From"}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.to}
               onChange={handleChange}
@@ -111,8 +111,8 @@ const ExpenseIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.mode}
               errorText={errors?.mode}
@@ -130,7 +130,7 @@ const ExpenseIncludeFields = ({
               ))}
             </CustomSelectField>
           </div>
-          <div className={styles.flex155}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.details}
               onChange={handleChange}
@@ -145,8 +145,8 @@ const ExpenseIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.booking_by}
               errorText={errors?.booking_by}
@@ -163,7 +163,7 @@ const ExpenseIncludeFields = ({
               </MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.payment_by}
               errorText={errors?.payment_by}
@@ -178,7 +178,7 @@ const ExpenseIncludeFields = ({
               <MenuItem value="OTHER">OTHER</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               type="number"
               error={errors?.total_kms}
@@ -192,8 +192,8 @@ const ExpenseIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -212,7 +212,7 @@ const ExpenseIncludeFields = ({
               }}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -232,7 +232,7 @@ const ExpenseIncludeFields = ({
             />
           </div>
 
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               disabled={
                 data?.mode === "OWN_CAR" || data?.mode === "TWO_WHEELER"
@@ -248,20 +248,9 @@ const ExpenseIncludeFields = ({
               label={"Expense Amount"}
             />
           </div>
-          <div className={"textCenter"}>
-            <ButtonBase
-              className={styles.removeBtn}
-              // label={this.props.index == 0 ? "+" : '-'}
-              onClick={() => {
-                handlePress(index == 0 ? "-" : "-", index);
-              }}
-            >
-              {index == 0 ? "Remove" : "Remove"}
-            </ButtonBase>
-          </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.payment_made_by}
               onChange={handleChange}
@@ -277,8 +266,19 @@ const ExpenseIncludeFields = ({
               applied to reach at above currency.
             </div>
           </div>
-          <div className={styles.flex1}></div>
-          {/* <div className={styles.flex1}></div> */}
+          <div className={styles.formGrp}></div>
+          {/* <div className={styles.formGrp}></div> */}
+        </div>
+        <div className={styles.btnWrap}>
+          <ButtonBase
+            className={styles.removeBtn}
+            // label={this.props.index == 0 ? "+" : '-'}
+            onClick={() => {
+              handlePress(index == 0 ? "-" : "-", index);
+            }}
+          >
+            {index == 0 ? "Remove" : "Remove"}
+          </ButtonBase>
         </div>
       </div>
     </div>
