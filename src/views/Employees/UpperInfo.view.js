@@ -54,13 +54,7 @@ const UpperInfo = ({
 
       <div className={styles.blueBackground}>
         <div className={styles.iconPositionResponsive}>
-          <IconButton
-            className={"tableActionBtn"}
-            color="primary"
-            onClick={handleOpen}
-          >
-            <InfoOutlined fontSize={"small"} style={{ color: "white" }} />
-          </IconButton>
+          <InfoOutlined fontSize={"small"} style={{ color: "white" }} onClick={handleOpen} />
         </div>
 
         {

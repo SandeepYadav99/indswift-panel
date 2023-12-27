@@ -181,6 +181,7 @@
         display: block;
         position: absolute;
         margin-left: 80%;
+        margin-top: 10px;
     }
 
     .profileContainer {
