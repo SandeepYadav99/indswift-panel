@@ -12,6 +12,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+const EmpTravelDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpTravelDetail/EmpTravelDetail.view.js"));
 
 const TravelAuthSpec = lazy (()=> import ("../views/TravelPlanner/TravelAuthSpec/TravelAuthSpec.container.js"));
 const  FinalDetail = lazy(()=> import ("../views/Full&Final/FinalDetail/FinalDetail.view.js"));
@@ -1517,7 +1518,7 @@ const dashboardRoutes = [
     sidebarName: "Claims List",
     navbarName: "Claims List",
     icon: PeopleOutlined,
-    component: TravelClaimListDetail,
+    component: EmpTravelDetail,
     is_sidebar: false,
     is_protect: true,
     should_regex: true,
