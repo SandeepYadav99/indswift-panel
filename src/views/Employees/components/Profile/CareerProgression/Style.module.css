@@ -97,3 +97,13 @@
     width: calc(100vw - 100px);
   }
 }
+
+@media only screen and (max-width:1024px) {
+  .horizontalLine{
+    display: none !important;
+  }
+  .chartWrapper{
+    width: calc(100vw - 300px);
+  }
+}
+

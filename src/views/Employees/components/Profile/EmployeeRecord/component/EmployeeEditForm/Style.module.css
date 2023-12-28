@@ -341,3 +341,10 @@
 .heading {
   font-weight: 600;
 }
+
+@media only screen and (max-width:769px) {
+  .editformWrapper{
+    display: flex;
+    flex-direction: column !important;
+  }
+}

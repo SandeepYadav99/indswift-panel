@@ -1,6 +1,6 @@
 import React from "react";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
-import styles from "./Style.module.css";
+import styles from "./EmployeeList.module.css";
 import { IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 
@@ -68,21 +68,41 @@ function EmployeeList({ className, data, handleEditToggle, role }) {
               Letter Head Number:{" "}
               {data?.letter_head_no ? data?.letter_head_no : "-"}
             </div>
-            <div className={styles.dateFieldMobile}>
-              <strong>{data?.dateOfIssueText}</strong>
-              <br />
-              <a
-                href={data?.document}
-                target={"_blank"}
-                className={styles.letterLink}
-              >
-                View Letter
-              </a>
+            <br />
+            <br />
+            <div style={{display:'flex',justifyContent:"space-between"}}>
+              <div className={styles.dateFieldMobile}>
+                <strong>{data?.dateOfIssueText}</strong>
+                <a
+                  href={data?.document}
+                  target={"_blank"}
+                  className={styles.letterLink}
+                >
+                  View Letter
+                </a>
+              </div>
+              <div>
+                {
+                  role === 'CORPORATE_HR' && <div >
+                    <IconButton
+                      className={styles.btnClass}
+                      color="secondary"
+                      onClick={() => {
+                        handleEditToggle(data);
+                      }}
+                    >
+                      <Edit fontSize={"small"} />
+                    </IconButton>
+                    <span></span>
+                  </div>
+                }
+              </div>
             </div>
+
           </div>
         </div>
       </div>
-      <div>
+      <div className={styles.hideEditIcon}>
         {
           role === 'CORPORATE_HR' && <div className={styles.iconWrap}>
             <IconButton
