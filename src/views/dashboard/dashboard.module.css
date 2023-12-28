@@ -332,6 +332,9 @@
     display: flex;
     width: 100% !important;
 }
+.sliderLocation{
+    display: none ;
+}
 
 @media(max-width:1150px) {
     .rhsInterview {
@@ -397,4 +400,18 @@
         border-radius: 10px;
         margin-right: 25px;
     }
+    .sliderLocation{
+        display: block !important;
+    }
+    .newFlex{
+        display: none !important;
+    }
+    .rpWrap{
+        display: none !important;
+    }
+    .activeWrapper{
+        display: flex;
+        flex-direction: column !important;
+    }
 }
+

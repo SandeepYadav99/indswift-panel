@@ -6,12 +6,14 @@ import InterviewsTable from "./components/WarehouseTables/InterviewsTable.compon
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetDashboard } from "../../actions/Dashboard.action";
 import { serviceGetInterviewStatus } from "../../services/Dashboard.service";
-import { useState,useCallback } from "react";
+import { useState, useCallback } from "react";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
+import GenericSlider from "../EmployeePanel/EmployeeDashboard/component/Members/GenricSlider";
 
 const NewDashboard = () => {
   const [data, setData] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
   const [rpdata, setRpdata] = useState();
   const dispatch = useDispatch();
   const { tiles } = useSelector((state) => state.dashboard);
@@ -26,7 +28,21 @@ const NewDashboard = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-  
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const _renderTopCards = () => {
     return (
       <div className={styles.dashboardFlex}>
@@ -102,17 +118,29 @@ const NewDashboard = () => {
     });
   }, [tiles?.locationData]);
 
+  const sliderForLocation = useMemo(() => {
+    return (
+      <GenericSlider sliderSettings={{ slidesToShow:1, className: 'myCustomClass' }}>
+        {tiles?.locationData?.map((val) => {
+          return (
+            <LocationCard data={val} />
+          );
+        })}
+      </GenericSlider>
+    );
+  }, [tiles?.locationData]);
+
   const changeRPRoute = useCallback((data) => {
     historyUtils.push(`${RouteName.JOB_OPENINGS_DETAILS}${data}`);
   }, []);
-  
+
   return (
     <div>
       {_renderTopCards()}
-
       <div className={styles.newFlex}>{locationData}</div>
+      <div className={styles.sliderLocation}>{sliderForLocation}</div>
       <div className={styles.tableFlex212}>
-        <div className={styles.dashboardFlex} style={{ width: "100%",display:'flex', flexWrap:"wrap" }}>
+        <div className={styles.dashboardFlex} style={{ width: "100%", display: 'flex', flexWrap: "wrap" }}>
           <div className={styles.plainPaper221}>
             <div className={styles.activeWrapper}>
               <div className={styles.imgBox}>
@@ -180,11 +208,11 @@ const NewDashboard = () => {
           </div>
         </div>
         <div className={styles.rpWrap}>
-          {tiles?.rp_stats?.length > 0  && tiles?.rp_stats?.map((item) => (
+        {tiles?.rp_stats?.length > 0 && tiles?.rp_stats?.map((item) => (
             <div className={styles.plainPaper222}>
               <div className={styles.deptWrapp}>
-              <div className={styles.rpLink} onClick={()=>changeRPRoute(item?.job_id)}>{item?.job_code}</div>
-              <div style={{marginBottom:'10px'}}>({item?.location}/{item?.department})</div>
+                <div className={styles.rpLink} onClick={() => changeRPRoute(item?.job_id)}>{item?.job_code}</div>
+                <div style={{ marginBottom: '10px' }}>({item?.location}/{item?.department})</div>
               </div>
               <div className={styles.rpLowerWrap}>
                 <div className={styles.activeWrapper}>
