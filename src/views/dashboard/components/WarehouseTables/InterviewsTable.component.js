@@ -75,9 +75,16 @@ const InterviewsTable = () => {
 
   return (
     <div className={classes.bgWhite}>
-      <div className={classes.upperFlex}>
-        <div className={styles.titles}>Upcoming Joinings</div>
-        <div className={styles.newLine} />
+        <div className={styles.upperFlexData}>
+        <div>
+          <div className={styles.titles}>Upcoming Joinings</div>
+          <div className={styles.newLine} />
+        </div>
+        <div className={styles.responsiveBtn}>
+          <ButtonBase className={"viewBtn"} onClick={() => OlrPage()}>
+            View All
+          </ButtonBase>
+        </div>
       </div>
       <div>
         <TableContainer className={classes.container}>
@@ -96,10 +103,12 @@ const InterviewsTable = () => {
           </Table>
         </TableContainer>
       </div>
-      <div className={"txtCenter"}>
-        <ButtonBase className={"viewBtn"} onClick={() => OlrPage()}>
-          View All
-        </ButtonBase>
+      <div className={styles.responsiveBtn2}>
+        <div className={"txtCenter"}>
+          <ButtonBase className={"viewBtn"} onClick={() => OlrPage()}>
+            View All
+          </ButtonBase>
+        </div>
       </div>
     </div>
   );

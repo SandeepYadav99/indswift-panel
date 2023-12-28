@@ -26,32 +26,21 @@ const LocationCard = ({data}) => {
 
                 <div className={styles.mainFlex}>
                     <div>
-                        <div className={styles.empImg}><img src={require("../../../../assets/img/ic_employees@2x.png")} height={20}/> </div>
+                        <div className={styles.empImg}><img src={require("../../../../assets/img/ic_employees@2x.png")} height={20} className={styles.imageHeight}/> </div>
                         <div>
                             <div className={styles.title}>No. Of Employees</div>
                             <div className={styles.value}>{data?.employees}</div>
                         </div>
                     </div>
 
-                    <div style={{marginLeft:'40px'}}>
-                        <div className={styles.empImg}><img src={require("../../../../assets/img/ic_vacancy@2x.png")} height={20}/> </div>
+                    <div className={styles.rightPartContainer}>
+                        <div className={styles.empImg}><img src={require("../../../../assets/img/ic_vacancy@2x.png")} height={20} className={styles.imageHeight}/> </div>
                         <div>
                             <div className={styles.title}>No. Of Vacancy</div>
                             <div className={styles.value}>{data?.vacancies}</div>
                         </div>
                     </div>
                 </div>
-
-                {/* <div>
-                    <div className={styles.txt}>Vacancy Rate</div>
-                    <div className={styles.barFlex}>
-                        <div className={styles.bar}>
-                            <BorderLinearProgress variant="determinate" value={50} />
-                        </div>
-                        <div className={styles.per}>50 %</div>
-                    </div>
-                </div> */}
-
             </div>
         </div>
     )
