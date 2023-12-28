@@ -26,6 +26,12 @@
 .responsiveBtn{
     display: none !important;
  }
+ .desktopTable{
+    display: block !important;
+}
+.moileTable{
+    display: none ;
+}
 
 @media only screen and (max-width:769px) {
     .responsiveBtn{
@@ -34,4 +40,25 @@
     .responsiveBtn2{
         display: none !important;
     }
+    .desktopTable{
+        display: none !important;
+    }
+    .moileTable{
+        display: block ;
+    }    
+    .hyperlinkText{
+        font-size: 12px;
+    }
 }
+.textAdjust{
+    font-size: 12px;
+}
+@media only screen and (max-width:414px){
+    .textAdjust{
+        font-size: 10px;
+    }
+    .hyperlinkText{
+        font-size: 10px;
+    }
+}
+
