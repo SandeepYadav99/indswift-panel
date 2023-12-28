@@ -346,7 +346,7 @@
     font-weight: 600;
   }
   .grossSalaryWrapper{
-    display: none;
+    display: flex;
     flex-direction: column !important;
   }
   .btnClass{

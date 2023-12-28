@@ -1,12 +1,12 @@
-import React, {Component, useCallback, useEffect, useMemo} from 'react';
-import {Button, Paper, Checkbox, IconButton, MenuItem, ButtonBase} from '@material-ui/core';
+import React, { Component, useCallback, useEffect, useMemo } from 'react';
+import { Button, Paper, Checkbox, IconButton, MenuItem, ButtonBase } from '@material-ui/core';
 import classNames from 'classnames';
-import {connect, useSelector} from 'react-redux';
-import {Add, AssignmentOutlined, InfoOutlined, OpenInNew, PeopleOutlined, PrintOutlined} from '@material-ui/icons';
+import { connect, useSelector } from 'react-redux';
+import { Add, AssignmentOutlined, InfoOutlined, OpenInNew, PeopleOutlined, PrintOutlined } from '@material-ui/icons';
 import PageBox from '../../components/PageBox/PageBox.component';
 import SidePanelComponent from '../../components/SidePanel/SidePanel.component';
 import styles from './Style.module.css';
-import DataTables from '../../Datatables/Datatable.table';
+import DataTables from '../../components/Datatables/datatables';
 import Constants from '../../config/constants';
 import FilterComponent from '../../components/Filter/Filter.component';
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from '@material-ui/icons';
@@ -14,20 +14,19 @@ import useInterviewSchedule from "./InterviewScheduleHook";
 import StatusPill from '../../components/Status/StatusPill.component';
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
-// import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-// import CreateView from './Candidate.view';
 
-const InterviewSchedule = ({location}) => {
 
-    const { handleSortOrderChange , handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
-        handleFilterDataChange, handleSearchValueChange,  handleSideToggle, handleViewDetails, editData, isSidePanel,changeRoute
-        ,isCalling, configFilter, warehouses} = useInterviewSchedule({});
+const InterviewSchedule = ({ location }) => {
 
-    const {data, all: allData, currentPage, is_fetching: isFetching} = useSelector(state => state.interviewSchedule);
+    const { handleSortOrderChange, handleRowSize, handlePageChange, handleDataSave, handleDelete, handleEdit,
+        handleFilterDataChange, handleSearchValueChange, handleSideToggle, handleViewDetails, editData, isSidePanel, changeRoute
+        , isCalling, configFilter, warehouses } = useInterviewSchedule({});
 
-    const removeUnderScore=(value)=>{
-        return value ? value.replace(/_/, " "): ""
-      }
+    const { data, all: allData, currentPage, is_fetching: isFetching } = useSelector(state => state.interviewSchedule);
+
+    const removeUnderScore = (value) => {
+        return value ? value.replace(/_/, " ") : ""
+    }
     const renderStatus = useCallback((status) => {
         return <StatusPill status={status} />
     }, []);
@@ -37,7 +36,7 @@ const InterviewSchedule = ({location}) => {
             return (
                 <div className={styles.firstCellFlex}>
                     <div className={classNames(styles.firstCellInfo, 'openSans')}>
-                        <span className={styles.productName}>{obj?.candidate?.name}</span> <br/>
+                        <span className={styles.productName}>{obj?.candidate?.name}</span> <br />
                     </div>
                 </div>
             );
@@ -46,7 +45,7 @@ const InterviewSchedule = ({location}) => {
     const renderPRCCell = useCallback((obj) => {
         if (obj) {
             return (
-                <div className={styles.hyperlinkText} onClick={()=>changeRoute(obj)} >
+                <div className={styles.hyperlinkText} onClick={() => changeRoute(obj)} >
                     <div>{obj?.job?.code}</div>
                 </div>
             );
@@ -54,29 +53,21 @@ const InterviewSchedule = ({location}) => {
     }, []);
     const renderLink = useCallback((obj) => {
         if (obj) {
-            if (obj?.link ==="Not Applicable"){
+            if (obj?.link === "Not Applicable") {
                 return <div>{obj?.link}</div>
             }
-            else if(obj?.link === ""){
+            else if (obj?.link === "") {
                 return ""
             }
-            else{
-            return (
-                <div className={styles.hyperlinkText} >
-                    <a href={obj?.link} target='_blank'>Link</a>
-                </div>
-            );
+            else {
+                return (
+                    <div className={styles.hyperlinkText} >
+                        <a href={obj?.link} target='_blank'>Link</a>
+                    </div>
+                );
             }
         } return null;
     }, []);
-
-    // const renderCreateForm = useMemo(() => {
-    //     return (<CreateView
-    //         handleDataSave={handleDataSave}
-    //         data={editData}
-    //         warehouse={warehouses}
-    //         handleDelete={handleDelete}/>);
-    // }, [handleDataSave, editData, warehouses, handleDelete]);
 
     const tableStructure = useMemo(() => {
         return [
@@ -96,7 +87,7 @@ const InterviewSchedule = ({location}) => {
                 key: 'department',
                 label: 'Designation/Department',
                 sortable: false,
-                render: (temp, all) => <div>{all?.job?.designation}/{all?.job?.department}</div>,
+                render: (temp, all) => <div className={styles.divAlignDes}>{all?.job?.designation}/{all?.job?.department}</div>,
             },
             {
                 key: 'date',
@@ -126,30 +117,25 @@ const InterviewSchedule = ({location}) => {
                 key: 'user_id',
                 label: 'Action',
                 render: (temp, all) => (<div className={styles.btnWrapContainer}>
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {handleViewDetails(all)}}>
-                        <PeopleOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>View Profile</span>
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={() => { handleViewDetails(all) }}>
+                        <PeopleOutlined fontSize={'small'} className={styles.openIcon} /> <span className={styles.subText}>View Profile</span>
                     </IconButton >
-                    {all.can_feedback && (<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling}  onClick={() => {
+                    {all.can_feedback && (<IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={() => {
                         historyUtils.push(`${RouteName.CANDIDATE_FEEDBACK}${all?.id}`)
                     }}>
-                        <AssignmentOutlined fontSize={'small'} className={styles.openIcon}/> <span className={styles.subText}>Record Feedback</span>
+                        <AssignmentOutlined fontSize={'small'} className={styles.openIcon} /> <span className={styles.subText}>Record Feedback</span>
                     </IconButton >)}
 
                 </div>),
             },
-
-
         ];
     }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
 
     const tableData = useMemo(() => {
         const datatableFunctions = {
-            // onCellClick: this.handleCellClick,
-            // onCellDoubleClick: this.handleCellDoubleClick,
-            // onFilterValueChange: this._handleSearchValueChange.bind(this),
+
             onSortOrderChange: handleSortOrderChange,
             onPageChange: handlePageChange,
-            // onRowSelection: this.handleRowSelection,
             onRowSizeChange: handleRowSize,
         };
 
@@ -165,43 +151,42 @@ const InterviewSchedule = ({location}) => {
     }, [allData, tableStructure, handleSortOrderChange, handlePageChange, handleRowSize, data, currentPage]);
 
 
-        return (
-            <div>
-                <PageBox>
-                    <div className={styles.headerContainer}>
-                        <div>
-                            <span className={styles.title}>Interview Schedule List</span>
-                            <div className={styles.newLine}/>
-                        </div>
-                        <div>
-                            {/*<ButtonBase onClick={handleSideToggle} className={'createBtn'}>*/}
-                            {/*    CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>*/}
-                            {/*</ButtonBase>*/}
-                        </div>
-                    </div>
-
+    return (
+        <div>
+            <PageBox>
+                <div className={styles.headerContainer}>
                     <div>
-                        <FilterComponent
-                            is_progress={isFetching}
-                            filters={configFilter}
-                            handleSearchValueChange={handleSearchValueChange}
-                            handleFilterDataChange={handleFilterDataChange}
-                        />
-                        <div>
-                            <br/>
-                            <div style={{width: '100%'}}>
-                                <DataTables
-                                    {...tableData.datatable}
-                                    {...tableData.datatableFunctions}
-                                />
-                            </div>
-                        </div>
+                        <span className={styles.title}>Interview Schedule List</span>
+                        <div className={styles.newLine} />
                     </div>
+                    <div>
+                        {/*<ButtonBase onClick={handleSideToggle} className={'createBtn'}>*/}
+                        {/*    CREATE <Add fontSize={"small"} className={'plusIcon'}></Add>*/}
+                        {/*</ButtonBase>*/}
+                    </div>
+                </div>
 
-                </PageBox>
-
+                <div>
+                    <FilterComponent
+                        is_progress={isFetching}
+                        filters={configFilter}
+                        handleSearchValueChange={handleSearchValueChange}
+                        handleFilterDataChange={handleFilterDataChange}
+                    />
+                    <div>
+                        <br />
+                    </div>
+                </div>
+            </PageBox>
+            <div style={{ width: '100%' }}>
+                <DataTables
+                    {...tableData.datatable}
+                    {...tableData.datatableFunctions}
+                />
             </div>
-        )
+
+        </div>
+    )
 }
 
 

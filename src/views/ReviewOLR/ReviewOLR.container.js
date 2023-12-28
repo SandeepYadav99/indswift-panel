@@ -18,7 +18,7 @@ import {
 } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
+import DataTables from "../../components/Datatables/datatables.js";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
@@ -88,14 +88,14 @@ const ReviewOLR = ({ location }) => {
     if (obj) {
       return (
         <div>
-            {
-                obj?.replacing_person?.name ? <div
-                className={styles.hyperlinkText}
-                onClick={() => changeEmployeeRoute(obj?.replacing_person)}
-              >
-                {obj?.replacing_person?.name}
-              </div> : <div>N/A</div>
-            }
+          {
+            obj?.replacing_person?.name ? <div
+              className={styles.hyperlinkText}
+              onClick={() => changeEmployeeRoute(obj?.replacing_person)}
+            >
+              {obj?.replacing_person?.name}
+            </div> : <div>N/A</div>
+          }
 
           <br />
           {obj?.replacing_person?.code}
@@ -156,9 +156,9 @@ const ReviewOLR = ({ location }) => {
         label: "Candidate STATUS",
         sortable: true,
         render: (temp, all) => (
-            <div>
-              <StatusPill status={removeUnderScore(all?.candidate?.status)} />
-            </div>
+          <div>
+            <StatusPill status={removeUnderScore(all?.candidate?.status)} />
+          </div>
         ),
       },
       {
@@ -166,9 +166,9 @@ const ReviewOLR = ({ location }) => {
         label: "Joining Date",
         sortable: true,
         render: (temp, all) => (
-            <div>
-              {all?.offer?.joining_date}
-            </div>
+          <div>
+            {all?.offer?.joining_date}
+          </div>
         ),
       },
       {
@@ -266,15 +266,15 @@ const ReviewOLR = ({ location }) => {
           />
           <div>
             <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
           </div>
         </div>
       </PageBox>
+      <div style={{ width: "100%" }}>
+        <DataTables
+          {...tableData.datatable}
+          {...tableData.datatableFunctions}
+        />
+      </div>
     </div>
   );
 };
