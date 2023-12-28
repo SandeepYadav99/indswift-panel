@@ -127,7 +127,6 @@ const EmployeeTab = () => {
             data={employeeData}
             isResetDialog={isResetDialog}
             handleToggle={toggleResetDialog}
-            // isStatusDialog={isStatusDialog}
             handleStatusToggle={toggleStatusDialog}
           />
         </div>
