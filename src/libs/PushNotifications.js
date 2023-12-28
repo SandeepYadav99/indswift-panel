@@ -2,20 +2,21 @@
  * Created by charnjeetelectrovese@gmail.com on 2/21/2020.
  */
 
-import firebase, {initializeApp} from 'firebase/app';
+import {initializeApp} from 'firebase/app';
 import {getToken, getMessaging, onMessage} from 'firebase/messaging';
 // import {serviceCaptureFcmInformation} from "../services/Common.service";
 
-const firebaseApp = initializeApp({
-    apiKey: "AIzaSyBt96a6qVAq_TRaXx-ckdac8aVLoNZXwDQ",
-    authDomain: "getatour-308ae.firebaseapp.com",
-    databaseURL: "https://getatour-308ae.firebaseio.com",
-    projectId: "getatour-308ae",
-    storageBucket: "getatour-308ae.appspot.com",
-    messagingSenderId: "1015129279552",
-    appId: "1:1015129279552:web:807a6cf546a6ae2978e3a5",
-    measurementId: "G-8XH7MBF1C5"
-});
+const firebaseConfig = {
+    apiKey: "AIzaSyCW0rRVKNYUCrBX2PHammwCyyFdRAjDlmg",
+    authDomain: "skynet-erp.firebaseapp.com",
+    projectId: "skynet-erp",
+    storageBucket: "skynet-erp.appspot.com",
+    messagingSenderId: "131266789479",
+    appId: "1:131266789479:web:d55a348ad55b4c7ba554c2",
+    measurementId: "G-66J09VX6XX"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
 
 export const initializeFirebase = () => {
@@ -54,22 +55,22 @@ export const initializeFirebase = () => {
 }
 
 export const askForPermissioToReceiveNotifications = async () => {
-    try {
-        if (firebase.messaging.isSupported()) {
-            const messaging = firebase.messaging();
-            await messaging.requestPermission();
-            const token = await messaging.getToken();
-            console.log('token do:', token);
-            // serviceCaptureFcmInformation({ gcm_id: token, device_os: 'WEB', os_version: 'WEB', app_version: 1, device_id: 'WEB' })
-            return token;
-        }
-    } catch (error) {
-        console.error('error @ askForPermissioToReceiveNotifications', error);
-    }
+    // try {
+    //     if (messaging.isSupported()) {
+    //         const messaging = firebase.messaging();
+    //         await messaging.requestPermission();
+    //         const token = await messaging.getToken();
+    //         console.log('token do:', token);
+    //         // serviceCaptureFcmInformation({ gcm_id: token, device_os: 'WEB', os_version: 'WEB', app_version: 1, device_id: 'WEB' })
+    //         return token;
+    //     }
+    // } catch (error) {
+    //     console.error('error @ askForPermissioToReceiveNotifications', error);
+    // }
 }
 
-export const getToken = () => {
-    return getToken(messaging, {vapidKey: 'GENERATED_MESSAGING_KEY'}).then((currentToken) => {
+export const getTokenFcm = () => {
+    return getToken(messaging, {vapidKey: 'BOgFQDCb65uFZMu704IcZuDl0RvxP6libE_tCRSNyMtOXRSgvc-93VwCzirpGi3TxPpPd4z3oTk9sSLDPR09OXA'}).then((currentToken) => {
         if (currentToken) {
             console.log('current token for client: ', currentToken);
             // Track the token -> client mapping, by sending to backend server

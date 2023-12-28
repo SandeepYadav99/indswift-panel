@@ -13,7 +13,7 @@ import DashboardSnackbar from '../../components/Snackbar.component';
 import {makeStyles} from "@material-ui/styles";
 import EventEmitter from "../../libs/Events.utils";
 import Constants from "../../config/constants";
-import {askForPermissioToReceiveNotifications, initializeFirebase} from '../../libs/PushNotifications';
+import {getTokenFcm, initializeFirebase} from '../../libs/PushNotifications';
 const useStyles = makeStyles(appStyle);
 
 const Dashboard = ({title, ...props}) => {
@@ -29,7 +29,7 @@ const Dashboard = ({title, ...props}) => {
         window.addEventListener('resize', handleResize);
         EventEmitter.subscribe(EventEmitter.MOVE_TO_TOP, moveToTop);
         initializeFirebase();
-        askForPermissioToReceiveNotifications();
+        getTokenFcm();
         return () => {
             EventEmitter.unsubscribe(EventEmitter.MOVE_TO_TOP);
             window.removeEventListener('resize', handleResize);
