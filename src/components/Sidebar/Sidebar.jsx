@@ -12,11 +12,12 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    Collapse
+    Collapse,
+    IconButton
 } from "@material-ui/core";
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
+import CloseIcon from '@material-ui/icons/Close';
 import sidebarStyle from "../../assets/jss/material-dashboard-react/sidebarStyle.jsx";
 import FilterComponent from "../Filter/Filter.component.js";
 
@@ -162,7 +163,7 @@ const Sidebar = ({...props}) => {
         // return props.location.pathname.indexOf(routeName) > -1 ? true : false;
     }
 
-    const {classes, color, logo, image, logoText, routes} = props;
+    const {classes, color, logo, image, logoText, routes,toggleSideBar} = props;
 
     useEffect(() => {
         setData(routes)
@@ -206,6 +207,21 @@ const Sidebar = ({...props}) => {
             {logoText}
         </div>
     );
+    var brandMobile = (
+        <div className={classes.logo}>
+            <div className={classes.logoImageMobile}>
+                <div>
+                <img src={logo} alt="logo" className={classes.img}/>
+                </div>
+                <div className={classes.newText}>SkyNet</div>
+                <IconButton key="close" aria-label="close" color="inherit" onClick={toggleSideBar}>
+                <CloseIcon className={classes.icon} style={{color:"#919BB0"}}/>
+            </IconButton>
+            </div>
+           
+        </div>
+    );
+    console.log("props.open",logoText)
     return (
         <div>
             <Hidden mdUp>
@@ -214,13 +230,13 @@ const Sidebar = ({...props}) => {
                     // anchor="right"
                     open={props.open}
                     className={clsx(classes.drawer, {
-                        [classes.drawerOpen]: props.open,
+                        [classes.drawerOpenMob]: props.open,
                         [classes.drawerClose]: !props.open,
                     })}
                     classes={{
                         // paper: classes.drawerPaper
                         paper: clsx({
-                            [classes.drawerOpen]: props.open,
+                            [classes.drawerOpenMob]: props.open,
                             [classes.drawerClose]: !props.open,
                         }),
                     }}
@@ -229,13 +245,16 @@ const Sidebar = ({...props}) => {
                         keepMounted: true // Better open performance on mobile.
                     }}
                 >
-                    {brand}
+                    {brandMobile}
+                    <div className={classes.filterWrap}>
                     <FilterComponent
                         filters={[]}
                         handleSearchValueChange={handleSearchValueChange}
                         // handleFilterDataChange={handleFilterDataChange}
                     />
-                    <div className={classes.sidebarWrapper}>
+                    </div>
+                    
+                    <div className={classes.sidebarWrapperMobile}>
                         {/*<HeaderLinks />*/}
                         {
                             data?.length > 0 ?  <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>
