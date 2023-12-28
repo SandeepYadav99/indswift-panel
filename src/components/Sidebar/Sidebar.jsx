@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {NavLink} from "react-router-dom";
 import cx from "classnames";
@@ -12,12 +12,14 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    Collapse
+    Collapse,
+    IconButton
 } from "@material-ui/core";
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
+import CloseIcon from '@material-ui/icons/Close';
 import sidebarStyle from "../../assets/jss/material-dashboard-react/sidebarStyle.jsx";
+import FilterComponent from "../Filter/Filter.component.js";
 
 
 class CustomListItem extends React.Component {
@@ -71,8 +73,8 @@ class CustomListItem extends React.Component {
     }
 
 
-    _renderNestedLinks(slug, nested=false) {
-        const { routes } = this.props;
+    _renderNestedLinks(slug, nested = false) {
+        const {routes} = this.props;
         const links = [];
         routes.forEach((val, index) => {
             if (val.parent == slug && val.is_sidebar) {
@@ -110,7 +112,7 @@ class CustomListItem extends React.Component {
                             className={classes.itemText + whiteFontClasses}
                             disableTypography={true}
                         />
-                        {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                        {this.state.open ? <ExpandLess/> : <ExpandMore/>}
                     </ListItem>
                     <Collapse in={this.state.open} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
@@ -150,16 +152,52 @@ class CustomLink extends React.Component {
 }
 
 const Sidebar = ({...props}) => {
+    const [data, setData] = useState([])
+    const [parentRoute,setParentRoute]=useState([])
     // verifies if routeName is the one active (in browser input)
     function activeRoute(routeName, otherData) {
         if (!otherData.should_regex) {
             return routeName == props.location.pathname;
         }
-        return routeName == props.location.pathname || props.location.pathname.indexOf(routeName) > -1 ? true : false ;
+        return routeName == props.location.pathname || props.location.pathname.indexOf(routeName) > -1 ? true : false;
         // return props.location.pathname.indexOf(routeName) > -1 ? true : false;
     }
 
-    const {classes, color, logo, image, logoText, routes} = props;
+    const {classes, color, logo, image, logoText, routes,toggleSideBar} = props;
+
+    useEffect(() => {
+        setData(routes)
+        const filteredRoute = routes?.filter((item)=> item?.is_parent);
+        setParentRoute(filteredRoute)
+    }, [routes])
+
+    const handleSearchValueChange = useCallback(
+        (value) => {
+          if (value) {
+            const tempData = routes?.filter((val) => {
+              if (
+                val?.sidebarName?.match(new RegExp(value, "ig")) &&
+                !val?.is_parent &&
+                val?.is_sidebar
+              ) {
+                return val;
+              }
+            });
+            const parentValues = tempData
+              ?.filter((item) => item?.parent)
+              .map((item) => item?.parent);
+            const filteredParentRoute = parentRoute?.filter((item) =>
+              parentValues?.includes(item?.slug)
+            );
+            console.log("tempData", { tempData, parentRoute, filteredParentRoute });
+            setData([...tempData, ...filteredParentRoute]);
+          } else {
+            setData(routes);
+          }
+        },
+        [routes, setData, parentRoute]
+      );
+
     var brand = (
         <div className={classes.logo}>
             <div className={classes.logoImage}>
@@ -169,6 +207,21 @@ const Sidebar = ({...props}) => {
             {logoText}
         </div>
     );
+    var brandMobile = (
+        <div className={classes.logo}>
+            <div className={classes.logoImageMobile}>
+                <div>
+                <img src={logo} alt="logo" className={classes.img}/>
+                </div>
+                <div className={classes.newText}>SkyNet</div>
+                <IconButton key="close" aria-label="close" color="inherit" onClick={toggleSideBar}>
+                <CloseIcon className={classes.icon} style={{color:"#919BB0"}}/>
+            </IconButton>
+            </div>
+           
+        </div>
+    );
+    console.log("props.open",logoText)
     return (
         <div>
             <Hidden mdUp>
@@ -177,13 +230,13 @@ const Sidebar = ({...props}) => {
                     // anchor="right"
                     open={props.open}
                     className={clsx(classes.drawer, {
-                        [classes.drawerOpen]: props.open,
+                        [classes.drawerOpenMob]: props.open,
                         [classes.drawerClose]: !props.open,
                     })}
                     classes={{
                         // paper: classes.drawerPaper
                         paper: clsx({
-                            [classes.drawerOpen]: props.open,
+                            [classes.drawerOpenMob]: props.open,
                             [classes.drawerClose]: !props.open,
                         }),
                     }}
@@ -192,10 +245,21 @@ const Sidebar = ({...props}) => {
                         keepMounted: true // Better open performance on mobile.
                     }}
                 >
-                    {brand}
-                    <div className={classes.sidebarWrapper}>
+                    {brandMobile}
+                    <div className={classes.filterWrap}>
+                    <FilterComponent
+                        filters={[]}
+                        handleSearchValueChange={handleSearchValueChange}
+                        // handleFilterDataChange={handleFilterDataChange}
+                    />
+                    </div>
+                    
+                    <div className={classes.sidebarWrapperMobile}>
                         {/*<HeaderLinks />*/}
-                        <CustomLink routes={routes} classes={classes} color={color} activeRoute={activeRoute}/>
+                        {
+                            data?.length > 0 ?  <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>
+                            : <p className={classes.notext}>No Match Found ...</p>
+                        }
                     </div>
                     {image !== undefined ? (
                         <div
@@ -223,8 +287,16 @@ const Sidebar = ({...props}) => {
                     }}
                 >
                     {brand}
+                    <FilterComponent
+                        filters={[]}
+                        handleSearchValueChange={handleSearchValueChange}
+                        // handleFilterDataChange={handleFilterDataChange}
+                    />
                     <div className={classes.sidebarWrapper}>
-                        <CustomLink routes={routes} classes={classes} color={color} activeRoute={activeRoute}/>
+                        {
+                            data?.length > 0 ? <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>  
+                            : <p className={classes.notext}>No Match Found ...</p>
+                        }    
                     </div>
                 </Drawer>
             </Hidden>

@@ -75,6 +75,13 @@ const sidebarStyle = theme => ({
         duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  drawerOpenMob: {
+    width: "100vw",
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
   drawerClose: {
     transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -117,6 +124,18 @@ const sidebarStyle = theme => ({
     marginRight: "15px",
     textAlign: 'center'
   },
+  logoImageMobile: {
+    // width: "30px",
+    color: '#2896E9',
+    fontSize: '1.4rem',
+    fontWeight: '600',
+    display: "flex",
+    justifyContent:"space-between",
+    maxHeight: "30px",
+    marginLeft: "25px",
+    marginRight: "15px",
+    textAlign: 'center'
+  },
   img: {
     left: "7px",
     height: "42px",
@@ -130,6 +149,11 @@ const sidebarStyle = theme => ({
     },
   newText: {
     marginLeft: '10px'
+  },
+  notext:{
+    marginTop:"30px",
+    marginLeft: '20px',
+    fontWeight:"500"
   },
   background: {
     position: "absolute",
@@ -264,6 +288,18 @@ const sidebarStyle = theme => ({
     width: "210px",
     zIndex: "4",
     overflowScrolling: 'touch'
+  },
+  sidebarWrapperMobile:{
+    position: "relative",
+    height: "calc(100vh - 75px)",
+    overflow: "auto",
+    width: "100vw",
+    zIndex: "4",
+    overflowScrolling: 'touch'
+  },
+  filterWrap:{
+    padding:"0 20px",
+    width:"calc(100vw- 40px)"
   }
 });
 

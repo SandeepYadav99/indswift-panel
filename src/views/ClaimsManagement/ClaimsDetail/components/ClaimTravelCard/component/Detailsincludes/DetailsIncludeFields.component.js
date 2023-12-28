@@ -97,6 +97,7 @@ const DetailsIncludeFields = ({
             value={data?.type}
             onChange={(e) => handleChange(e, "type")}
             row
+            className={styles.radioWrap}
           >
             <FormControlLabel
               value="Interlocation"
@@ -104,15 +105,15 @@ const DetailsIncludeFields = ({
               label="Interlocation"
             />
             <FormControlLabel
-              style={{ marginLeft: "20px" }}
+              // style={{ marginLeft: "20px" }}
               value="Other"
               control={<Radio />}
               label="Other"
             />
           </RadioGroup>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomDatePicker
               disabled={!month ? true : false}
               clearable
@@ -124,7 +125,7 @@ const DetailsIncludeFields = ({
               isError={errors?.travel_date}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             {data?.type === "Interlocation" ? (
               <CustomSelectField
                 isError={errors?.from}
@@ -155,7 +156,7 @@ const DetailsIncludeFields = ({
             )}
           </div>
 
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             {data?.type === "Interlocation" ? (
               <CustomSelectField
                 isError={errors?.to}
@@ -186,8 +187,8 @@ const DetailsIncludeFields = ({
             )}
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.mode}
               errorText={errors?.mode}
@@ -206,7 +207,7 @@ const DetailsIncludeFields = ({
                   ))}
             </CustomSelectField>
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               type="number"
               disabled={data?.type === "Interlocation"}
@@ -220,7 +221,7 @@ const DetailsIncludeFields = ({
               label={"Total Kilometer"}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -240,8 +241,8 @@ const DetailsIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow221}>
-          <div className={styles.flex122}>
+        <div className={styles.formWrp}>
+        <div className={styles.formGrp}>
             <TextField
               type="number"
               disabled={
@@ -257,7 +258,7 @@ const DetailsIncludeFields = ({
               label={"Expense Value"}
             />
           </div>
-          <div className={"textCenter"}>
+          <div className={styles.BtnWrap}>
             <ButtonBase
               className={styles.removeBtn}
               // label={this.props.index == 0 ? "+" : '-'}

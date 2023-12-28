@@ -126,8 +126,8 @@ const DAIncludeFields = ({
     <div>
       <div className={styles.heading}>Travel Type</div>
       <div className={styles.flexContainer}>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               disabled={isCP}
               isError={errors?.currency}
@@ -143,11 +143,11 @@ const DAIncludeFields = ({
               <MenuItem value="INR">INR</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex1}></div>
-          <div className={styles.flex1}></div>
+          <div className={styles.formGrpHide}></div>
+          <div className={styles.formGrpHide}></div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.stay_at}
               errorText={errors?.stay_at}
@@ -163,7 +163,7 @@ const DAIncludeFields = ({
               <MenuItem value="N/A">N/A</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <CustomDatePicker
               disabled={!startDate ? true : false}
               clearable
@@ -175,7 +175,7 @@ const DAIncludeFields = ({
               isError={errors?.date}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <TimePicker
                 margin="dense"
@@ -202,7 +202,7 @@ const DAIncludeFields = ({
               />
             </MuiPickersUtilsProvider>
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <TimePicker
                 margin="dense"
@@ -230,8 +230,8 @@ const DAIncludeFields = ({
             </MuiPickersUtilsProvider>
           </div>
         </div>
-        <div className={styles.firstRow} style={{ marginTop: "15px" }}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp} style={{ marginTop: "15px" }}>
+          <div className={styles.formGrp}>
             <TextField
               disabled={true}
               type="number"
@@ -245,7 +245,7 @@ const DAIncludeFields = ({
               label={"Duration in Hours"}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               // disabled={true}
               type="number"
@@ -259,7 +259,7 @@ const DAIncludeFields = ({
               label={"% of DA"}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               disabled={true}
               type="number"
@@ -275,8 +275,8 @@ const DAIncludeFields = ({
           </div>
         </div>
         <div className={styles.firstRow221}></div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <TextField
               type="number"
               error={errors?.da_amount}
@@ -289,7 +289,7 @@ const DAIncludeFields = ({
               label={"DA Claimed Amount"}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               disabled={true}
               type="number"
@@ -303,7 +303,7 @@ const DAIncludeFields = ({
               label={"IE Entitlement/Day"}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               disabled={isCP || index > 1 || checkDays < 5 ? true : false}
               type="number"
@@ -317,7 +317,7 @@ const DAIncludeFields = ({
               label={"IE Claimed Amount"}
             />
           </div>
-          <div className={"textCenter"}>
+          <div className={styles.btnWrap}>
             <ButtonBase
               className={styles.removeBtn}
               // label={this.props.index == 0 ? "+" : '-'}

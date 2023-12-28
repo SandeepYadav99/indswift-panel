@@ -43,8 +43,8 @@ const OtherIncludeFields = ({
   return (
     <div>
       <div className={styles.flexContainer}>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomDatePicker
               // disabled={!startDate ? true : false}
               clearable
@@ -56,7 +56,7 @@ const OtherIncludeFields = ({
               isError={errors?.date}
             />
           </div>
-          <div className={styles.flex12}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.details}
               onChange={handleChange}
@@ -69,8 +69,8 @@ const OtherIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.amount}
               onChange={handleChange}
@@ -82,7 +82,7 @@ const OtherIncludeFields = ({
               label={"Amount"}
             />
           </div>
-          <div className={styles.flex12}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.reason}
               onChange={handleChange}
@@ -95,8 +95,8 @@ const OtherIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.booking_by}
               errorText={errors?.booking_by}
@@ -113,7 +113,7 @@ const OtherIncludeFields = ({
               </MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex12}>
+          <div className={styles.formGrp}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -134,8 +134,8 @@ const OtherIncludeFields = ({
           </div>
         </div>
 
-        <div className={styles.firstRow221}>
-          <div className={"textCenter"}>
+        <div className={styles.formGrp}>
+        <div className={styles.btnWrap}>
             <ButtonBase
               className={styles.removeBtn}
               // label={this.props.index == 0 ? "+" : '-'}
