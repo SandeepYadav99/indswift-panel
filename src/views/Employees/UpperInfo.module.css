@@ -106,6 +106,9 @@
     position: relative;
     bottom: 10px;
 }
+.upperCardWidthData{
+    width: 70%;
+}
 
 .iconPositionResponsive {
     display: none;
@@ -166,7 +169,7 @@
 .containerDataValue {
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 @media (max-width: 1520px) {
@@ -275,6 +278,9 @@
 
     .imageContainer {
         border-radius: 100%;
+    }
+    .upperCardWidthData{
+         width: 100% !important;
     }
 }
 
