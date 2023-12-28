@@ -94,6 +94,7 @@ const Dashboard = ({title, ...props}) => {
                 logoText={title}
                 logo={logo}
                 handleDrawerToggle={handleDrawerToggle}
+                toggleSideBar={handleHeaderClick}
                 open={drawerOpen}
                 color="blue"
                 {...props}
