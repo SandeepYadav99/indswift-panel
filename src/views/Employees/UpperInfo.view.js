@@ -65,7 +65,7 @@ const UpperInfo = ({
             <img src={data?.image} height={100} className={styles.imageContainer} />
           </div>
           <div className={styles.containerDataValue}>
-            <div style={{ display: "flex", marginTop: "10px" }}>
+            <div style={{ display: "flex", marginTop: "10px"}} className={styles.upperCardWidthData}>
               <div className={styles.profileInfo}>
                 <div className={styles.nameCap}>{data?.name?.toLowerCase()}</div>
                 <div>{data?.designation?.name}</div>
