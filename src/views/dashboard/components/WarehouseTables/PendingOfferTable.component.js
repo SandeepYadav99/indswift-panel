@@ -106,7 +106,7 @@ const PendingOfferTable = () => {
             }}
           >
             <span className={styles.textAdjust}>DATE</span>
-            <span className={styles.textAdjust}>{val?.joining_date}</span>
+            <span className={styles.textAdjust}>{val?.createdAt}</span>
           </TableRow>
         </>
       );
