@@ -72,70 +72,74 @@ const RejectOLRDialog = ({ isOpen, handleToggle, reviewId }) => {
             </ButtonBase>
           </div>
           {/*</DialogTitle>*/}
-          <div className={styles.checkBoxWrapper}>
-            <div className={styles.checkBox}>
-              <input
-                type="checkbox"
-                name={"notifyTeam"}
-                value={"notifyTeam"}
-                onClick={() => {
-                  changeTextData(
-                    !form?.is_incorrect_info,
-                    "is_incorrect_info"
-                  );
-                }}
-                id="incorrect"
-                checked={form?.is_incorrect_info}
-              />
-              <label htmlFor="incorrect">Incorrect Candidate Information</label>
-              <br />
+          <div className={styles.addSpaceCheckBox}>
+            <div className={styles.checkBoxWrapper}>
+              <div className={styles.checkBox}>
+                <input
+                  type="checkbox"
+                  name={"notifyTeam"}
+                  value={"notifyTeam"}
+                  onClick={() => {
+                    changeTextData(
+                      !form?.is_incorrect_info,
+                      "is_incorrect_info"
+                    );
+                  }}
+                  id="incorrect"
+                  checked={form?.is_incorrect_info}
+                />
+                <label htmlFor="incorrect">
+                  Incorrect Candidate Information
+                </label>
+                <br />
+              </div>
+              <div className={styles.checkBox}>
+                <input
+                  type="checkbox"
+                  name={"notifyTeam"}
+                  value={"notifyTeam"}
+                  onClick={() => {
+                    changeTextData(!form?.is_joining, "is_joining");
+                  }}
+                  id="joining"
+                  checked={form?.is_joining}
+                />
+                <label htmlFor="joining">Need changes in joining details</label>
+                <br />
+              </div>
             </div>
-            <div className={styles.checkBox}>
-              <input
-                type="checkbox"
-                name={"notifyTeam"}
-                value={"notifyTeam"}
-                onClick={() => {
-                  changeTextData(!form?.is_joining, "is_joining");
-                }}
-                id="joining"
-                checked={form?.is_joining}
-              />
-              <label htmlFor="joining">Need changes in joining details</label>
-              <br />
-            </div>
-          </div>
-          <div className={styles.checkBoxWrapper}>
-            <div className={styles.checkBox}>
-              <input
-                type="checkbox"
-                name={"notifyTeam"}
-                value={"notifyTeam"}
-                onClick={() => {
-                  changeTextData(!form?.is_layout, "is_layout");
-                }}
-                id="layout"
-                checked={form?.is_layout}
-              />
-              <label htmlFor="layout">Layout is not correct</label>
-              <br />
-            </div>
-            <div className={styles.checkBox}>
-              <input
-                type="checkbox"
-                name={"notifyTeam"}
-                value={"notifyTeam"}
-                onClick={() => {
-                  changeTextData(
-                    !form?.is_underqualified,
-                    "is_underqualified"
-                  );
-                }}
-                id="underQualified"
-                checked={form?.is_underqualified}
-              />
-              <label htmlFor="underQualified">Underqualified</label>
-              <br />
+            <div className={styles.checkBoxWrapper}>
+              <div className={styles.checkBox}>
+                <input
+                  type="checkbox"
+                  name={"notifyTeam"}
+                  value={"notifyTeam"}
+                  onClick={() => {
+                    changeTextData(!form?.is_layout, "is_layout");
+                  }}
+                  id="layout"
+                  checked={form?.is_layout}
+                />
+                <label htmlFor="layout">Layout is not correct</label>
+                <br />
+              </div>
+              <div className={styles.checkBox}>
+                <input
+                  type="checkbox"
+                  name={"notifyTeam"}
+                  value={"notifyTeam"}
+                  onClick={() => {
+                    changeTextData(
+                      !form?.is_underqualified,
+                      "is_underqualified"
+                    );
+                  }}
+                  id="underQualified"
+                  checked={form?.is_underqualified}
+                />
+                <label htmlFor="underQualified">Underqualified</label>
+                <br />
+              </div>
             </div>
           </div>
           <div className={styles.fieldWrapper}>

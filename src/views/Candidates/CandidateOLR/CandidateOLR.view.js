@@ -112,6 +112,7 @@ function CandidateOLR({ location }) {
     return { datatable };
   }, [tableStructure, panelList]);
   return (
+    <>
     <div className={"container"} id="content-to-print">
       <div className={styles.outerFlex}>
         <div>
@@ -176,59 +177,7 @@ function CandidateOLR({ location }) {
             <DataTables {...tableData.datatable} />
           </div>
         </div>
-     )}
-
-      {role === "CORPORATE_HR" && (
-        <div className={styles.chkwrapp}>
-          <Checkbox
-            disabled={false}
-            onChange={handleCheckboxChange}
-            checked={isChecked}
-            value="secondary"
-            color="primary"
-            size="small"
-            inputProps={{ "aria-label": "secondary checkbox" }}
-          />
-          <span className={styles.spanchk}>
-            Hide Replacing Experience Detail
-          </span>
-        </div>
-       )}
-
-     {isReview && !isRecruiter && (
-        <div className={styles.btnReviewWrapper}>
-          <div className={styles.isReviewBtnContainer}>
-            <ButtonBase
-              type={"button"}
-              onClick={toggleRejectDialog}
-              className={styles.RejectBtn}
-            >
-              Reject
-            </ButtonBase>
-            <ButtonBase
-              type={"button"}
-              onClick={toggleCheckDialog}
-              className={styles.createBtn}
-              disabled={isSubmitting}
-            >
-              Approve
-            </ButtonBase>
-          </div>
-        </div>
-     )}
-
-      {isApproval && (
-        <div className={styles.btnCont1}>
-          <ButtonBase
-            type={"button"}
-            onClick={toggleApprovalDialog}
-            className={styles.createBtn}
-          >
-            SHARE FOR APPROVAL
-          </ButtonBase>
-        </div>
       )}
-
       <ApprovalDialog
         offerId={id}
         isOpen={isApprovalPopUp}
@@ -246,6 +195,59 @@ function CandidateOLR({ location }) {
         isChecked={isChecked}
       />
     </div>
+          <div className={styles.btnContainerCheckBox}>
+          {role === "CORPORATE_HR" && (
+            <div className={styles.chkwrapp}>
+              <Checkbox
+                disabled={false}
+                onChange={handleCheckboxChange}
+                checked={isChecked}
+                value="secondary"
+                color="primary"
+                size="small"
+                inputProps={{ "aria-label": "secondary checkbox" }}
+              />
+              <span className={styles.spanchk}>
+                Hide Replacing Experience Detail
+              </span>
+            </div>
+          )}
+  
+          {isReview && !isRecruiter && (
+            <div className={styles.btnReviewWrapper}>
+              <div className={styles.isReviewBtnContainer}>
+                <ButtonBase
+                  type={"button"}
+                  onClick={toggleRejectDialog}
+                  className={styles.RejectBtn}
+                >
+                  Reject
+                </ButtonBase>
+                <ButtonBase
+                  type={"button"}
+                  onClick={toggleCheckDialog}
+                  className={styles.createBtn}
+                  disabled={isSubmitting}
+                >
+                  Approve
+                </ButtonBase>
+              </div>
+            </div>
+          )}
+  
+          {isApproval && (
+            <div className={styles.btnCont1}>
+              <ButtonBase
+                type={"button"}
+                onClick={toggleApprovalDialog}
+                className={styles.createBtn}
+              >
+                SHARE FOR APPROVAL
+              </ButtonBase>
+            </div>
+          )}
+        </div>
+        </>
   );
 }
 
