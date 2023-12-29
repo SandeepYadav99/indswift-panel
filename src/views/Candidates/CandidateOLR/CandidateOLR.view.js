@@ -9,7 +9,7 @@ import SalaryDetails from "./components/SalaryDetails/SalaryDetails";
 import ApprovalDialog from "./components/ApprovalPopUp/ApprovalDialog.view";
 import CandidateOLRHook from "./CandidateOLR.hook";
 import RejectOLRDialog from "./components/RejectOLRPopUp/RejectOLRDialog.view";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables";
 import Constants from "../../../config/constants";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";

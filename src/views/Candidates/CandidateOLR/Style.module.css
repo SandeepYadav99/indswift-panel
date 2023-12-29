@@ -95,3 +95,10 @@
   display: flex;
   align-items: center;
 }
+
+@media only screen and (max-width:769px) {
+  .spanchk{
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+}
