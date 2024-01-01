@@ -146,6 +146,7 @@ const EmployeeTab = () => {
               onChange={handleChange}
               indicatorColor="primary"
               textColor="primary"
+              style={{overflowX:"scroll"}}
             >
               <Tab className={"iconTabs"} label="Profile" />
               <Tab className={"iconTabs"} label="Salary Info" />

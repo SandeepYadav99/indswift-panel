@@ -130,4 +130,11 @@
       margin-left: 0;
     }
   }
+
+  @media only screen and (max-width:769px) {
+    .profileContainer{
+      display: flex;
+      flex-direction: column !important;
+    }
+  }
   
