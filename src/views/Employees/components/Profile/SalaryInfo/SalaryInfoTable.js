@@ -103,11 +103,13 @@ function SalaryInfoTable({ Empid, isPending }) {
       {open && <PopupComponent />}
 
       <div className={styles.pageWrap}>
-        <div>
-          <span className={styles.title}>
-            Universal Salary Structuring & Calculator
-          </span>
-          <div className={styles.newLine} />
+        <div className={styles.wrappedValue}>
+          <div>
+            <span className={styles.title}>
+              Universal Salary Structuring & Calculator
+            </span>
+            <div className={styles.newLine} />
+          </div>
         </div>
         <div className={styles.pageWrapM}>
           <IconButton onClick={handlePreviousPage} disabled={currentPage === 1}>
@@ -145,7 +147,7 @@ function SalaryInfoTable({ Empid, isPending }) {
       </div>
       <div className={styles.salaryTableContainer}>
         <div className={styles.tableWrapper}>
-          <div className={styles.tableComponentField}>component</div>
+          <div className={styles.tableComponentField}>Component</div>
           <div className={styles.salaryWrapper2}>
             <div className={styles.tableAnnualField}>Annual</div>
             <div className={styles.tableMonthlyField}>Monthly</div>

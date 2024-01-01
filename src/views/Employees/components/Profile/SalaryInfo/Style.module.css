@@ -227,5 +227,17 @@
     display: flex;
     justify-content: flex-start ;
   }
+  .upperWrap{
+    display: flex;
+    flex-direction: row;
+    font-size: .8rem;
+    gap:20px;
+    flex-wrap: wrap !important;
+  }
+  .wrappedValue{
+    display: flex;
+    justify-content: space-between !important;
+    width: 100%;
+  }
 }
 
