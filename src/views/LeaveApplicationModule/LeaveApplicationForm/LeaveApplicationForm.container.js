@@ -92,7 +92,7 @@ const LeaveApplicationForm = () => {
       <br />
       <ClaimUpperCard data={employeeDetails} />
       <div className={styles.plainPaper}>
-        <div className={styles.heading}>Employee Information</div>
+        <div className={styles.heading}>Leave Detail</div>
         <div className={styles.leaveForm}>
           <div className={styles.heading}>Type of Leave</div>
           <FormControl  className={styles.btnRadio}>
