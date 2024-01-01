@@ -247,10 +247,9 @@
 }
 
 @media only screen and (max-width:769px) {
-  .headerContainer{
-    display: flex;
-    flex-direction: column;
-  }
+   #btnHideResponsive{
+    display: none !important;
+   }
 }
 
 /* USC Create css */
