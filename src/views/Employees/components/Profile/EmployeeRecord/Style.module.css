@@ -366,4 +366,7 @@
     display: grid;
     justify-content: flex-start !important;
   }
+  .editData{
+    font-size: 0.785rem !important;
+  }
 }

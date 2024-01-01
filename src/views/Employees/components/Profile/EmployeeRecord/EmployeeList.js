@@ -91,7 +91,7 @@ function EmployeeList({ className, data, handleEditToggle, role }) {
                         handleEditToggle(data);
                       }}
                     >
-                      <Edit fontSize={"small"} /><b>Edit</b>
+                      <Edit fontSize={"small"} /><b >Edit</b>
                     </IconButton>
                     <span></span>
                   </div>

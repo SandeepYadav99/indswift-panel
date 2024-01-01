@@ -79,6 +79,10 @@ const Header = (props) => {
         setAnchorEl(null);
     }
 
+    const handlePushNotification =()=>{
+        historyUtils.push(RouteName.NOTIFICATION);
+    }
+
     const { classes, color, themeType, userData } = props;
 
     return (
@@ -116,7 +120,7 @@ const Header = (props) => {
                     <img src={userData?.image} height={30} width={30} style={{ borderRadius: "50%" }} alt="user avatar" />
                 </div>
                 <div className={styles.imageTag}>
-                    <img src={notificationIcon} alt="default Img" onClick={() => { }} />
+                    <img src={notificationIcon} alt="default Img" onClick={() => handlePushNotification()} />
                 </div>
                 <div>
                     <Button
