@@ -18,12 +18,48 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function(payload) {
     console.log('Received background message ', payload);
+    const notificationTitle = payload.data.title;
+    const notificationOptions = { body: payload.data.body, data: payload.data };
+    console.log('payload', payload.data);
+    self.registration.showNotification(notificationTitle, notificationOptions);
+});
 
-    const notificationTitle = payload.notification.title;
-    const notificationOptions = {
-        body: payload.notification.body,
-    };
+// self.addEventListener("push", function(event) {
+//     var title = event.data.json().notification.title;
+//     var body = event.data.json().notification.body;
+//     var icon = "/assets/img/logo.png";
+//     var click_action =
+//         "http://localhost:4200/#/jobs/notification/" +
+//         event.data.json().data.job_no;
+//     event.waitUntil(
+//         self.registration.showNotification(title, {
+//             body: body,
+//             icon: icon,
+//             data: {
+//                 click_action
+//             }
+//         })
+//     );
+// });
 
-    self.registration.showNotification(notificationTitle,
-        notificationOptions);
+self.addEventListener('notificationclick', function(event) {
+    console.log('notificationclick', event.notification);
+    var redirect_url = event.notification.data.click_action;
+    event.notification.close();
+    event.waitUntil(clients.matchAll({
+                type: "window",
+                // includeUncontrolled: true,
+            }).then(function(clientList) {
+                console.log('clientList', clientList);
+                for (var i = 0; i < clientList.length; i++) {
+                    var client = clientList[i];
+                    if (client.url === "/" && "focus" in client) {
+                        return client.focus();
+                    }
+                }
+                if (clients.openWindow) {
+                    return clients.openWindow(redirect_url);
+                }
+            })
+    );
 });

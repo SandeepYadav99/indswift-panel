@@ -70,19 +70,24 @@ export const askForPermissioToReceiveNotifications = async () => {
 }
 
 export const getTokenFcm = () => {
-    return getToken(messaging, {vapidKey: 'BOgFQDCb65uFZMu704IcZuDl0RvxP6libE_tCRSNyMtOXRSgvc-93VwCzirpGi3TxPpPd4z3oTk9sSLDPR09OXA'}).then((currentToken) => {
-        if (currentToken) {
-            console.log('current token for client: ', currentToken);
-            // Track the token -> client mapping, by sending to backend server
-            // show on the UI that permission is secured
-        } else {
-            console.log('No registration token available. Request permission to generate one.');
-            // shows on the UI that permission is required
-        }
-    }).catch((err) => {
-        console.log('An error occurred while retrieving token. ', err);
-        // catch error while creating client token
-    });
+    return new Promise((res, rej) => {
+        getToken(messaging, {vapidKey: 'BOgFQDCb65uFZMu704IcZuDl0RvxP6libE_tCRSNyMtOXRSgvc-93VwCzirpGi3TxPpPd4z3oTk9sSLDPR09OXA'}).then((currentToken) => {
+            if (currentToken) {
+                console.log('current token for client: ', currentToken);
+                res(currentToken);
+                // Track the token -> client mapping, by sending to backend server
+                // show on the UI that permission is secured
+            } else {
+                console.log('No registration token available. Request permission to generate one.');
+                res(null);
+                // shows on the UI that permission is required
+            }
+        }).catch((err) => {
+            console.log('An error occurred while retrieving token. ', err);
+            res(null);
+            // catch error while creating client token
+        });
+    })
 }
 
 

@@ -15,6 +15,10 @@ export async function serviceGetVendorsList() {
     return await getRequest('/vendors/list');
 }
 
+export async function serviceCaptureInfo(params) {
+    return await postRequest('capture/info', params);
+}
+
 export async function serviceGetList(list, otherParams = {}) {
     return await postRequest('list', { list: list, ...otherParams });
 }

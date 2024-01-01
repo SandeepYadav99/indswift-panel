@@ -12,6 +12,7 @@ import {setAuthorizationToken, setAxiosTimezone} from './libs/set_auth_token.uti
 import store from './store';
 import {AUTH_USER} from "./actions/auth_index.action";
 import {actionChangeTheme, actionGetAppSettings} from "./actions/AppSettings.action";
+import SnackbarUtils from "./libs/SnackbarUtils";
 
 setAxiosTimezone();
 if (localStorage.theme && false) {
@@ -53,7 +54,8 @@ if ('serviceWorker' in navigator) {
     title: "Working Good"
          */
 
-        console.log('messageSend', message)
+        console.log('messageSend', message);
+        SnackbarUtils.success(message?.data?.data?.title);
     });
 }
 
