@@ -54,8 +54,8 @@ if ('serviceWorker' in navigator) {
     title: "Working Good"
          */
 
-        console.log('messageSend', message);
-        SnackbarUtils.info(message?.data?.data?.title, message?.data?.data?.NEXT_SCREEN);
+        // console.log('messageSend', message);
+        // SnackbarUtils.info(message?.data?.data?.title, message?.data?.data?.NEXT_SCREEN);
     });
 }
 
