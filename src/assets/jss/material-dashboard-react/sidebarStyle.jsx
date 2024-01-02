@@ -133,7 +133,7 @@ const sidebarStyle = theme => ({
     justifyContent:"space-between",
     maxHeight: "30px",
     marginLeft: "25px",
-    marginRight: "15px",
+    // marginRight: "15px",
     textAlign: 'center'
   },
   img: {
