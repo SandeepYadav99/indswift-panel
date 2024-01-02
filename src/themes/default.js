@@ -98,6 +98,15 @@ export default {
         background: {
             default: "#F6F7FF",
             light: "#F3F5FF"
+        },
+        white: {
+            main: bgcolors,
+            light: tinycolor(bgcolors)
+                .lighten(lightenRate)
+                .toHexString(),
+            dark: tinycolor(bgcolors)
+                .darken(darkenRate)
+                .toHexString()
         }
     },
     customShadows: {

@@ -12,6 +12,7 @@ import {setAuthorizationToken, setAxiosTimezone} from './libs/set_auth_token.uti
 import store from './store';
 import {AUTH_USER} from "./actions/auth_index.action";
 import {actionChangeTheme, actionGetAppSettings} from "./actions/AppSettings.action";
+import SnackbarUtils from "./libs/SnackbarUtils";
 
 setAxiosTimezone();
 if (localStorage.theme && false) {
@@ -39,6 +40,24 @@ ReactDOM.render(
   </Provider>,
     document.getElementById('root'),
 );
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.addEventListener("message", (message) => {
+        /*
+        data:
+    firebaseMessaging:
+    payload:
+    collapse_key: "do_not_collapse"
+    from: "1015129279552"
+    notification:
+    body: "dsd"
+    title: "Working Good"
+         */
+
+        // console.log('messageSend', message);
+        // SnackbarUtils.info(message?.data?.data?.title, message?.data?.data?.NEXT_SCREEN);
+    });
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
