@@ -1,11 +1,26 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Skynet Indswiftlabs",
+  "name": "Skynet Indswiftlabs",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "launcher-16.jpg",
+      "sizes": "16x16",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "launcher-24.jpg",
+      "sizes": "24x24",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "launcher-32.jpg",
+      "sizes": "32x32",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "launcher-64.jpg",
+      "sizes": "64x64",
+      "type": "image/jpeg"
     }
   ],
   "start_url": ".",

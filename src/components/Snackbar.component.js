@@ -15,6 +15,8 @@ import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import {Button, Snackbar} from "@material-ui/core";
 import EventEmitter from "../libs/Events.utils";
+import historyUtils from "../libs/history.utils";
+import LogUtils from "../libs/LogUtils";
 
 const variantIcon = {
     success: CheckCircleIcon,
@@ -47,6 +49,9 @@ const useStyles1 = makeStyles(theme => ({
         opacity: 0.9,
         marginRight: theme.spacing(1),
     },
+    bgColor: {
+        color: theme.palette.white.light
+    },
     message: {
         display: 'flex',
         alignItems: 'center',
@@ -61,14 +66,21 @@ function MySnackbarContentWrapper(props) {
     const action = useMemo(() => {
         if (props?.link) {
             return (
-                <Button onClick={() => { window.location.href = props.link }} color="background" size="small">
+                <Button onClick={() => {
+                    const link = props.link;
+                    const url = new URL(link);
+                    if (url) {
+                        historyUtils.push(url.pathname);
+                        onClose();
+                    }
+                }} color="bgColor" className={classes.bgColor} size="small">
                     Open
                 </Button>
             );
         } else {
             return null;
         }
-    }, [props.link]);
+    }, [props.link, onClose]);
 
     return (
         <SnackbarContent
