@@ -134,13 +134,7 @@ const EmployeeVersionList = ({}) => {
                             handleFilterDataChange={handleFilterDataChange}
                         />
                         <div>
-                            <br/>
-                            <div style={{width: '100%'}}>
-                                <DataTables
-                                    {...tableData.datatable}
-                                    {...tableData.datatableFunctions}
-                                />
-                            </div>
+                           
                         </div>
                     </div>
                     <SidePanelComponent
@@ -152,6 +146,12 @@ const EmployeeVersionList = ({}) => {
                         <VersionDetailView handleClose={handleSideToggle} id={editData} isOpen={isSidePanel} />
                     </SidePanelComponent>
                 </PageBox>
+                <div style={{width: '100%'}}>
+                                <DataTables
+                                    {...tableData.datatable}
+                                    {...tableData.datatableFunctions}
+                                />
+                            </div>
             </div>
         )
 }
