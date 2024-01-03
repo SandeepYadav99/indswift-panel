@@ -55,7 +55,7 @@ if ('serviceWorker' in navigator) {
          */
 
         // console.log('messageSend', message);
-        // SnackbarUtils.info(message?.data?.data?.title, message?.data?.data?.NEXT_SCREEN);
+        SnackbarUtils.info(message?.data?.data?.title, message?.data?.data?.NEXT_SCREEN);
     });
 }
 
