@@ -52,7 +52,7 @@ const NewDashboard = () => {
               <div className={styles.imgBox}>
                 <img
                   src={require("../../assets/img/ic_total locations@2x.png")}
-                  height={50}
+                  height={30}
                 />
               </div>
               <div>
@@ -67,7 +67,7 @@ const NewDashboard = () => {
               <div className={styles.imgBox}>
                 <img
                   src={require("../../assets/img/ic_total employees@2x.png")}
-                  height={50}
+                  height={30}
                 />
               </div>
               <div>
@@ -82,7 +82,7 @@ const NewDashboard = () => {
             <div className={styles.imgBox}>
               <img
                 src={require("../../assets/img/ic_total interviews@2x.png")}
-                height={50}
+                height={30}
               />
             </div>
             <div>
@@ -146,6 +146,7 @@ const NewDashboard = () => {
               <div className={styles.imgBox}>
                 <img
                   src={require("../../assets/img/ic_prc_active.png")}
+                  height={30}
                 />
               </div>
               <div>
@@ -164,6 +165,7 @@ const NewDashboard = () => {
                       ? require("../../assets/img/ic_decrease.png")
                       : require("../../assets/img/ic_increase.png")
                   }
+                  height={30}
                 />
               </div>
               <div>
@@ -177,7 +179,7 @@ const NewDashboard = () => {
               <div className={styles.imgBox}>
                 <img
                   src={require("../../assets/img/ic_prc_closed.png")}
-                  height={50}
+                  height={30}
                 />
               </div>
               <div>
@@ -193,7 +195,7 @@ const NewDashboard = () => {
               <div className={styles.imgBox}>
                 <img
                   src={require("../../assets/img/ic_prc_inactive.png")}
-                  height={50}
+                  height={30}
                 />
               </div>
               <div>
@@ -219,7 +221,7 @@ const NewDashboard = () => {
                   <div className={styles.imgBox}>
                     <img
                       src={require("../../assets/img/ic_vacancy_count.png")}
-                      height={50}
+                      height={30}
                     />
                   </div>
                   <div>
@@ -236,7 +238,7 @@ const NewDashboard = () => {
                           ? require("../../assets/img/ic_decrease.png")
                           : require("../../assets/img/ic_increase.png")
                       }
-                      height={50}
+                      height={30}
                     />
                   </div>
                   <div>
