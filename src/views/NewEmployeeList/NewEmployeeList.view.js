@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import useNewEmployeeList from "./NewEmployeeList.hook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import { removeUnderScore } from "../../helper/helper";
+import Datatables from "../../components/Datatables/datatables";
 
 const NewEmployeeList = ({ location }) => {
   const {
@@ -155,17 +155,16 @@ const NewEmployeeList = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
+          <div> 
+           </div>
+        </div>
+      </PageBox>
+      <div style={{ width: "100%" }}>
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
-        </div>
-      </PageBox>
     </div>
   );
 };
