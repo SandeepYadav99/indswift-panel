@@ -41,19 +41,21 @@ function TravelView({ data }) {
                 {data?.details}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Details of Travel Medium:</span>
-                {data?.details}
+                <span className={styles.value}>Currency : </span>
+                {getCurrency(data?.currency)}
+                {/* {data?.amount} */}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Expense Amount : </span>
-                {getCurrency("INR")}
+                {getCurrency(data?.currency)}
                 {data?.amount}
               </div>
+              
             </div>
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>Booking By:</span>
-                {removeUnderScore(data?.booking_by)}
+                {data?.booking_by}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Travel To:</span>
@@ -63,7 +65,10 @@ function TravelView({ data }) {
                 <span className={styles.value}>No of KMs:</span>
                 {data?.total_kms && `${data?.total_kms} Km`}
               </div>
-
+              <div className={styles.key}>
+                <span className={styles.value}>Choose the currency of payment:</span>
+                {data?.payment_made_by ? data?.payment_made_by : "-"}
+              </div>
               {data?.payment_proof && (
                 <div className={styles.key}>
                   <a href={data?.payment_proof} target="_blank">
