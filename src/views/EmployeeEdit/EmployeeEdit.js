@@ -125,7 +125,7 @@ const EmployeeListCreate = ({}) => {
           <div className={styles.imageContainer}>
             {image}
             <div className={styles.nameWrapper}>
-              <div className={"formFlex"}>
+              <div className={"formFlex"} id={styles.mobileResponsiveData}>
                 <div className={"formGroup"}>
                   <CustomTextField
                       isError={errorData?.name}
@@ -157,7 +157,7 @@ const EmployeeListCreate = ({}) => {
                   />
                 </div>
               </div>
-              <div className={"formFlex"}>
+              <div className={"formFlex"} id={styles.mobileResponsiveData}>
                 <div className={"formGroup"}>
                   <CustomDatePicker
                       clearable
@@ -187,7 +187,7 @@ const EmployeeListCreate = ({}) => {
               </div>
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomSelectField
                   isError={errorData?.state}
@@ -228,7 +228,7 @@ const EmployeeListCreate = ({}) => {
                 </CustomSelectField>
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   isError={errorData?.aadhar_no}
@@ -259,7 +259,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
@@ -290,7 +290,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"} style={{width:'50%'}}>
+          <div className={"formFlex"} style={{width:'50%'}} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   isError={errorData?.higher_education}
@@ -314,7 +314,7 @@ const EmployeeListCreate = ({}) => {
             </h4>
           </div>
 
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomSelectField
                   isError={errorData?.location_id}
@@ -354,7 +354,7 @@ const EmployeeListCreate = ({}) => {
               </CustomSelectField>
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomSelectField
                   isError={errorData?.sub_department_id}
@@ -388,7 +388,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomSelectField
                   isError={errorData?.grade_id}
@@ -428,7 +428,7 @@ const EmployeeListCreate = ({}) => {
               </CustomSelectField>
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   inputProps={{ disabled: true }}
@@ -465,7 +465,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomAutoComplete
                   autoCompleteProps={{
@@ -504,7 +504,7 @@ const EmployeeListCreate = ({}) => {
           </div>
 
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
                <div className={"formGroup"}>
                  <CustomSelectField
                    isError={errorData?.is_transport_facility}
@@ -534,7 +534,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.rc_number}
@@ -562,7 +562,7 @@ const EmployeeListCreate = ({}) => {
             </h4>
           </div>
 
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   isError={errorData?.official_contact}
@@ -597,7 +597,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   isError={errorData?.personal_contact}
@@ -633,7 +633,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   isError={errorData?.permanent_address}
@@ -688,7 +688,7 @@ const EmployeeListCreate = ({}) => {
             </h4>
           </div>
 
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   isError={errorData?.bank_name}
@@ -718,7 +718,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   isError={errorData?.ifsc}
@@ -743,7 +743,7 @@ const EmployeeListCreate = ({}) => {
             </h4>
           </div>
 
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.father_name}
@@ -771,7 +771,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.father_state}
@@ -802,7 +802,7 @@ const EmployeeListCreate = ({}) => {
           ) : <div className={"formGroup"}></div>}
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.mother_name}
@@ -830,7 +830,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.mother_state}
@@ -864,7 +864,7 @@ const EmployeeListCreate = ({}) => {
           }
 
         </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomSelectField
                   isError={errorData?.martial_status}
@@ -895,7 +895,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   isError={errorData?.spouse_name}
@@ -925,7 +925,7 @@ const EmployeeListCreate = ({}) => {
               </CustomSelectField>
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomDatePicker
                   clearable
@@ -958,7 +958,7 @@ const EmployeeListCreate = ({}) => {
             </h4>
           </div>
 
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   isError={errorData?.previous_organisation}
@@ -997,7 +997,7 @@ const EmployeeListCreate = ({}) => {
             </h4>
           </div>
 
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
                 <CustomAutoComplete
                     autoCompleteProps={{
@@ -1032,7 +1032,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomDatePicker
                   clearable
@@ -1054,7 +1054,7 @@ const EmployeeListCreate = ({}) => {
               <div className={"heading"}>Employee Monthly Salary Details</div>
             </h4>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
@@ -1071,6 +1071,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
             <div className={"formGroup"}>
+            <div style={{ display: "flex" }}>
               <CustomTextField
                   type={"number"}
                   disabled={form?.is_car_component_manual === "NO"? true : false}
@@ -1085,7 +1086,6 @@ const EmployeeListCreate = ({}) => {
                     onBlurHandler("car_component");
                   }}
               />
-            </div>
             <div className={styles.editBtnWrap}>
               <IconButton
                 className={"tableActionBtn"}
@@ -1107,6 +1107,8 @@ const EmployeeListCreate = ({}) => {
               >
                 <Delete fontSize={"small"} />
               </IconButton>
+            </div>
+            </div>
             </div>
           </div>
           <div className={"formFlex"}>
@@ -1140,6 +1142,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div> */}
             <div className={"formGroup"}>
+            <div style={{ display: "flex" }}>
               <CustomTextField
                   type={"number"}
                   disabled={form?.is_basic_salary_manual === "NO"? true : false}
@@ -1154,7 +1157,6 @@ const EmployeeListCreate = ({}) => {
                     onBlurHandler("basic_salary");
                   }}
               />
-            </div>
             <div className={styles.editBtnWrap}>
               <IconButton
                 disabled={role !=="CORPORATE_HR"}
@@ -1179,6 +1181,8 @@ const EmployeeListCreate = ({}) => {
                 <Delete fontSize={"small"} />
               </IconButton>
               </div>
+              </div>
+              </div>
             <div className={"formGroup"}>
               <CustomTextField
                   disabled={true}
@@ -1196,7 +1200,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   disabled={true}
@@ -1230,7 +1234,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <TotalSum
                 firstName="Total Earnings 1: "
                 firstAmount={getSumValue(
@@ -1243,7 +1247,7 @@ const EmployeeListCreate = ({}) => {
               <div className={"heading"}>Part B - Earnings 2</div>
             </h4>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.is_pug}
@@ -1259,6 +1263,7 @@ const EmployeeListCreate = ({}) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
+          <div style={{ display: "flex" }}>
             <CustomTextField
               disabled={form?.is_pug_manual === "NO"? true : false}
               type={"number"}
@@ -1273,7 +1278,6 @@ const EmployeeListCreate = ({}) => {
                 onBlurHandler("pug");
               }}
             />
-          </div>
           {/* {form?.is_pug_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
@@ -1297,9 +1301,11 @@ const EmployeeListCreate = ({}) => {
                 <Delete fontSize={"small"} />
               </IconButton>
             </div>
+            </div>
+            </div>
           {/* )} */}
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.is_helper}
@@ -1315,6 +1321,8 @@ const EmployeeListCreate = ({}) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
+          <div style={{ display: "flex" }}>
+
             <CustomTextField
               disabled={form?.is_helper_manual === "NO"? true : false}
               type={"number"}
@@ -1329,7 +1337,6 @@ const EmployeeListCreate = ({}) => {
                 onBlurHandler("helper");
               }}
             />
-          </div>
           {/* {form?.is_helper_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
@@ -1353,9 +1360,11 @@ const EmployeeListCreate = ({}) => {
                 <Delete fontSize={"small"} />
               </IconButton>
             </div>
+            </div>
+            </div>
           {/* )} */}
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.is_food_coupons}
@@ -1371,6 +1380,7 @@ const EmployeeListCreate = ({}) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
+          <div style={{ display: "flex" }}>
             <CustomTextField
               disabled={form?.is_food_coupons_manual === "NO" ? true : false}
               type={"number"}
@@ -1385,7 +1395,6 @@ const EmployeeListCreate = ({}) => {
                 onBlurHandler("food_coupons");
               }}
             />
-          </div>
           {/* {form?.is_food_coupons_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
@@ -1409,9 +1418,11 @@ const EmployeeListCreate = ({}) => {
                 <Delete fontSize={"small"} />
               </IconButton>
             </div>
+            </div>
+            </div>
           {/* )} */}
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.is_gift_coupons}
@@ -1443,7 +1454,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.is_lta}
@@ -1475,7 +1486,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.is_super_annuation}
@@ -1508,7 +1519,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.is_nps}
@@ -1540,7 +1551,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.is_em_pf}
@@ -1572,7 +1583,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -1604,7 +1615,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -1637,7 +1648,7 @@ const EmployeeListCreate = ({}) => {
               <div className={"heading"}>Part C - Earning 3</div>
             </h4>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
@@ -1666,7 +1677,7 @@ const EmployeeListCreate = ({}) => {
               <div className={"heading"}>Part D - Deduction 1</div>
             </h4>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.is_deduction_vpf}
@@ -1714,7 +1725,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
         <div className={"formGroup"}>
           <CustomSelectField
               isError={errorData?.is_em_esi}
@@ -1730,6 +1741,7 @@ const EmployeeListCreate = ({}) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
+          <div style={{ display: "flex" }}>
             <CustomTextField
               // disabled={true}
              disabled={form?.is_em_esi_manual === "NO" ? true : false}
@@ -1745,7 +1757,6 @@ const EmployeeListCreate = ({}) => {
                 onBlurHandler("em_esi");
               }}
             />
-          </div>
           <div className={styles.editBtnWrap}>
             <IconButton
               className={"tableActionBtn"}
@@ -1768,8 +1779,10 @@ const EmployeeListCreate = ({}) => {
               <Delete fontSize={"small"} />
             </IconButton>
             </div>
+          </div> 
+          </div> 
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
         <div className={"formGroup"}>
             <CustomTextField
               disabled={true}
@@ -1787,6 +1800,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
           <div className={"formGroup"}>
+          <div style={{ display: "flex" }}>
             <CustomTextField
              disabled={form?.is_em_pf_manual === "NO" ? true : false}
               type={"number"}
@@ -1801,7 +1815,6 @@ const EmployeeListCreate = ({}) => {
                 onBlurHandler("em_pf");
               }}
             />
-          </div>
           <div className={styles.editBtnWrap}>
             <IconButton
               className={"tableActionBtn"}
@@ -1824,8 +1837,10 @@ const EmployeeListCreate = ({}) => {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
+          </div>
         </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
               <TotalSum
                   customClass={styles.redField}
                   firstName="Total Deduction 1:  "
@@ -1841,7 +1856,8 @@ const EmployeeListCreate = ({}) => {
               </div>
             </h4>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.wrapperValueData}>
+          <div style={{ display: "flex" }}>
             <div className={"formGroup"}>
               <CustomTextField
                   disabled={form?.is_er_pf_manual === "NO" ? true : false}
@@ -1880,8 +1896,10 @@ const EmployeeListCreate = ({}) => {
             >
               <Delete fontSize={"small"} />
             </IconButton>
+            </div>
           </div>
             <div className={"formGroup"}>
+            <div style={{ display: "flex" }}>
               <CustomTextField
                    disabled={form?.is_er_esi_manual === "NO" ? true : false}
                   type={"number"}
@@ -1896,7 +1914,6 @@ const EmployeeListCreate = ({}) => {
                     onBlurHandler("er_esi");
                   }}
               />
-            </div>
             <div className={styles.editBtnWrap}>
             <IconButton
               className={"tableActionBtn"}
@@ -1918,9 +1935,11 @@ const EmployeeListCreate = ({}) => {
             >
               <Delete fontSize={"small"} />
             </IconButton>
+            </div>
           </div>
           </div>
-          <div className={"formFlex"}>
+          </div>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
@@ -1938,7 +1957,7 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={"formGroup"}></div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
               <TotalSum
                   firstName="Total Earnings 4 :"
                   firstAmount={getSumValue(form?.earning_four)}
@@ -1951,7 +1970,8 @@ const EmployeeListCreate = ({}) => {
               </div>
             </h4>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
+          <div style={{ display: "flex" }}>
             <div className={"formGroup"}>
               <CustomTextField
                   disabled={form?.is_gratuity_manual === "NO" ? true : false}
@@ -1990,6 +2010,7 @@ const EmployeeListCreate = ({}) => {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
@@ -2006,7 +2027,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
@@ -2038,7 +2059,7 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
@@ -2071,7 +2092,8 @@ const EmployeeListCreate = ({}) => {
               />
             </div>
           </div>{" "}
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
+          <div style={{ display: "flex" }}>
             <div className={"formGroup"}>
               <CustomTextField
                   type={"number"}
@@ -2109,8 +2131,10 @@ const EmployeeListCreate = ({}) => {
             >
               <Delete fontSize={"small"} />
             </IconButton>
+            </div>
           </div>
             <div className={"formGroup"}>
+            <div style={{ display: "flex" }}>
               <CustomTextField
                   disabled={(form?.vehicle_maintenance || form?.fuel) || (form?.is_two_fuel_manual === "NO" ? true : false) }
                   // disabled={form?.is_two_fuel_manual === "NO" ? true : false}
@@ -2126,7 +2150,6 @@ const EmployeeListCreate = ({}) => {
                     onBlurHandler("two_fuel");
                   }}
               />
-            </div>
             <div className={styles.editBtnWrap}>
             <IconButton
               className={"tableActionBtn"}
@@ -2148,9 +2171,11 @@ const EmployeeListCreate = ({}) => {
             >
               <Delete fontSize={"small"} />
             </IconButton>
+            </div>
+            </div>
           </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -2182,7 +2207,7 @@ const EmployeeListCreate = ({}) => {
             />
           </div>
         </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
               <TotalSum
                   firstName="Total Earnings 5 :  "
                   firstAmount={getSumValue(
@@ -2192,7 +2217,7 @@ const EmployeeListCreate = ({}) => {
           </div>
         </div>
         <div className={"plainPaper"}>
-          <div className={"headerFlex wrapper"}>
+          <div className={"headerFlex wrapper"} id={styles.wrapperValueData}>
             <div className={"infoTitle inner"}>
               <div className="info_Status">
                 <h4 className={"heading_stats"}>Status</h4>

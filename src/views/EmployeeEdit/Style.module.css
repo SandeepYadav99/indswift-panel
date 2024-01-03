@@ -1,46 +1,55 @@
 .mainContainer {
     padding: 10px;
 }
+
 .headerContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .headerContainer .title {
     font-size: 0.8rem;
     font-weight: 600;
 }
+
 .bottomLine {
     opacity: 0.4;
     color: grey;
     margin-bottom: 5px;
 }
+
 .headerContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .firstCellFlex {
     display: flex;
     align-items: center;
 }
-.editBtnWrap{
+
+.editBtnWrap {
     display: flex;
     padding: 10px 0;
     align-items: center;
     justify-content: center;
-  }
+}
+
 .firstCellFlex .driverImgCont {
     width: 40px;
     height: 40px;
     /*border: 3px solid;*/
     /*border-radius: 50%;*/
 }
+
 .firstCellFlex img {
     width: 40px;
     height: 40px;
     /*border-radius: 50%;*/
 }
+
 .firstCellInfo {
     margin-left: 10px;
 }
@@ -50,9 +59,11 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .productName {
     text-transform: capitalize;
 }
+
 .productCat {
     text-transform: capitalize;
     font-size: 12px;
@@ -63,7 +74,7 @@
     margin-left: 10px;
 }
 
-.infoTitle{
+.infoTitle {
     margin-bottom: 15px;
     padding-bottom: 5px;
     margin-left: 15px;
@@ -74,11 +85,11 @@
     align-items: center;
 }
 
-.heading{
+.heading {
     margin-right: 5px;
 }
 
-.featured{
+.featured {
     font-size: 12px;
     padding: 3px 10px;
     border-radius: 20px;
@@ -87,31 +98,32 @@
     color: rgb(250, 139, 12);
 }
 
-.industry{
+.industry {
     font-size: 0.7rem;
     font-weight: 600;
 }
 
-.userForm{
+.userForm {
     margin: 0 30%;
 }
 
-.paperBackground{
+.paperBackground {
     box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
     background-color: white;
 }
 
-.lhs{
+.lhs {
     flex: 0.5;
 }
 
-.newLine{
+.newLine {
     height: 4px;
     width: 30px;
     border-radius: 10px;
     margin-left: 1px;
-    background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
+    background-image: linear-gradient(265deg, #7467F0, #2896E9) !important;
 }
+
 .captialize {
     text-transform: capitalize;
 }
@@ -125,32 +137,34 @@
     display: flex;
     justify-content: flex-end;
 }
-.formContainer{
+
+.formContainer {
     flex: 1;
 }
 
-.imgField{
-    margin-left: 10px;
-}
-.nameField{
+.imgField {
     margin-left: 10px;
 }
 
-.outerFlex{
+.nameField {
+    margin-left: 10px;
+}
+
+.outerFlex {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-bottom: 30px;
 }
 
-.resetBtn{
+.resetBtn {
     background: #F7A728 !important;
     padding: 20px 50px !important;
     color: white !important;
     border-radius: 5px !important;
 }
 
-.enter{
+.enter {
     font-size: 0.8rem;
     margin-left: 10px;
     font-weight: 600;
@@ -158,7 +172,7 @@
     display: block;
 }
 
-.createBtn{
+.createBtn {
     background-color: #29CB97 !important;
     color: #ffffff !important;
     padding: 12px 35px !important;
@@ -168,22 +182,25 @@
     font-weight: 600 !important;
 }
 
-.newLines{
+.newLines {
     height: 4px;
     width: 30px;
     border-radius: 10px;
     margin-left: 20px;
-    background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
+    background-image: linear-gradient(265deg, #7467F0, #2896E9) !important;
 }
-.imageContainer{
+
+.imageContainer {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 }
-.nameWrapper{
-    flex:1;
+
+.nameWrapper {
+    flex: 1;
 }
-.checkBox{
+
+.checkBox {
     display: flex;
     justify-content: flex-end;
     font-size: 0.6rem;
@@ -191,6 +208,7 @@
     color: #2896E9;
     font-weight: 500;
 }
+
 .createBtn {
     background-color: #29cb97 !important;
     color: #ffffff !important;
@@ -199,7 +217,28 @@
     border-radius: 30px !important;
     text-transform: uppercase !important;
     font-weight: 600 !important;
-  }
+}
+
+@media only screen and (max-width:769px) {
+    .imageContainer {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    #mobileResponsiveData {
+        display: flex;
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+    .nameWrapper{
+        width: 100% !important;
+    }
+    #wrapperValueData{
+        display: flex;
+        flex-direction: column;
+        justify-content: center !important;
+       }
+}
 
 
-  /* USC edit css */
+/* USC edit css */
