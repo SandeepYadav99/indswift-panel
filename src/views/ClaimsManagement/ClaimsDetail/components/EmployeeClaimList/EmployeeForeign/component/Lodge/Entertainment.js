@@ -30,7 +30,7 @@ function EntertainmentView({ data }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Expense Amount : </span>
-                {getCurrency("INR")}
+                {getCurrency(data?.currency)}
                 {data?.amount}
               </div>
             </div>
