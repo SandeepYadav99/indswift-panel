@@ -76,7 +76,7 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                   </div>
                   <div className={styles.key}>
                     <span className={styles.value}>Reason for leaving:</span>
-                    {relievingExpDetails?.employee?.status}
+                    {relievingExpDetails?.experienceLetter?.reason}
                   </div>
 
                   {relievingExpDetails?.experienceLetter?.status ===
