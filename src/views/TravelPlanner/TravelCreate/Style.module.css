@@ -292,3 +292,10 @@
   flex: 1;
   color: #161616;
 }
+
+@media only screen and (max-width:769px){
+  #mobileResponsive{
+       display: flex;
+       flex-direction: column !important;
+  }
+}

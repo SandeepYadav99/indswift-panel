@@ -17,7 +17,7 @@ function TravelUpperCard({ data, isImprest }) {
               src={data?.image ? data?.image : image}
             />
           </div>
-          <div style={{display:"flex"}}>
+          <div  className={styles.infoCardUpper}>
             <div className={styles.left221}>
               <div>
                 <div className={styles.key}>
