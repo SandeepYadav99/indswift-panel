@@ -120,7 +120,7 @@ const NewDashboard = () => {
 
   const sliderForLocation = useMemo(() => {
     return (
-      <GenericSlider sliderSettings={{ slidesToShow:1, className: 'myCustomClass' }}>
+      <GenericSlider sliderSettings={{ slidesToShow:1, className: 'myCustomClass', speed: 3000  }}>
         {tiles?.locationData?.map((val) => {
           return (
             <LocationCard data={val} />

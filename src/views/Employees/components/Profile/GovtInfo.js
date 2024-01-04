@@ -22,7 +22,7 @@ const GovtInfo = ({ idCards }) => {
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>ESI Number:</span>
-                {idCards?.esi_no}
+                {idCards?.esi_no ? idCards?.esi_no :"-"}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>UAN Number:</span>
