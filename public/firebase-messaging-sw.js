@@ -21,7 +21,7 @@ messaging.onBackgroundMessage(function(payload) {
     const notificationTitle = payload.data.title;
     const notificationOptions = { body: payload.data.body, data: payload.data };
     console.log('payload', payload.data);
-    // self.registration.showNotification(notificationTitle, notificationOptions);
+    self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
 // self.addEventListener("push", function(event) {
