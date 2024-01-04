@@ -216,7 +216,7 @@
     .profileInfo {
         margin: 0;
         padding-top: 10px;
-        text-align: center;
+        text-align: start;
     }
 
     .vertical {
