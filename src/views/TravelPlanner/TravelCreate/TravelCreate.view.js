@@ -63,7 +63,7 @@ function TravelCreate() {
           <span className={styles.heading}>
             <b>Travel Planner</b>
           </span>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsive}>
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
@@ -89,16 +89,17 @@ function TravelCreate() {
               />
             </div>
           </div>
-          <div className={"formFlex"} style={{ paddingBottom: "0" }}>
+          <div className={"formFlex"} style={{ paddingBottom: "0" }} id={styles.mobileResponsive}>
             <div className={"formGroup"} style={{ paddingBottom: "0" }}>
               <div className={styles.radioWrapper}>
-                <div className={styles.radioheading}>Type of Tour:</div>
+                <div className={styles.radioheading} id={styles.mobileResponsive}>Type of Tour:</div>
                 <RadioGroup
                   aria-label="option"
                   name="tour_type"
                   value={form?.tour_type}
                   onChange={(e) => changeTextData(e.target.value, "tour_type")}
                   row
+                  
                 >
                   <FormControlLabel
                     value="DOMESTIC"
@@ -106,7 +107,6 @@ function TravelCreate() {
                     label="Domestic Travel"
                   />
                   <FormControlLabel
-                    style={{ marginLeft: "20px" }}
                     value="FOREIGN"
                     control={<Radio />}
                     label="Foreign Travel"
@@ -117,6 +117,7 @@ function TravelCreate() {
             <div
               className={"formGroup"}
               style={{ marginTop: "10px", paddingBottom: "0" }}
+              id={styles.mobileResponsive}
             >
               <div className={styles.radioWrapper}>
                 <div className={styles.radioheading}>Nature of Tour:</div>
@@ -128,6 +129,7 @@ function TravelCreate() {
                     changeTextData(e.target.value, "tour_nature")
                   }
                   row
+                  id={styles.mobileResponsive}
                 >
                   <FormControlLabel
                     value="FUNCTIONAL"
@@ -135,13 +137,11 @@ function TravelCreate() {
                     label="Functional"
                   />
                   <FormControlLabel
-                    style={{ marginLeft: "20px" }}
                     value="OPERATIONAL"
                     control={<Radio />}
                     label="Operational"
                   />
                   <FormControlLabel
-                    style={{ marginLeft: "20px" }}
                     value="BUSINESS"
                     control={<Radio />}
                     label="Business"
@@ -391,6 +391,7 @@ function TravelCreate() {
               <div className={styles.formWrap}>
                 <div className={styles.wrap}>
                   <CustomTextField
+                  className={styles.wrap}
                     isError={errorData?.imprest_comment}
                     errorText={errorData?.imprest_comment}
                     label={"Comment"}
