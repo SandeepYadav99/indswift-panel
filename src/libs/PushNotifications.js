@@ -4,6 +4,7 @@
 
 import {initializeApp} from 'firebase/app';
 import {getToken, getMessaging, onMessage} from 'firebase/messaging';
+import LogUtils from "./LogUtils";
 // import {serviceCaptureFcmInformation} from "../services/Common.service";
 
 const firebaseConfig = {
@@ -73,17 +74,17 @@ export const getTokenFcm = () => {
     return new Promise((res, rej) => {
         getToken(messaging, {vapidKey: 'BOgFQDCb65uFZMu704IcZuDl0RvxP6libE_tCRSNyMtOXRSgvc-93VwCzirpGi3TxPpPd4z3oTk9sSLDPR09OXA'}).then((currentToken) => {
             if (currentToken) {
-                console.log('current token for client: ', currentToken);
+                LogUtils.log(`current token for client: ${currentToken}`);
                 res(currentToken);
                 // Track the token -> client mapping, by sending to backend server
                 // show on the UI that permission is secured
             } else {
-                console.log('No registration token available. Request permission to generate one.');
+                LogUtils.log('No registration token available. Request permission to generate one.');
                 res(null);
                 // shows on the UI that permission is required
             }
         }).catch((err) => {
-            console.log('An error occurred while retrieving token. ', err);
+            LogUtils.log(`An error occurred while retrieving token. ${err}` );
             res(null);
             // catch error while creating client token
         });
