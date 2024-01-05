@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { Button, IconButton } from "@material-ui/core";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables.js";
 import Constants from "../../../config/constants";
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -133,8 +133,8 @@ function EmployeeCircular() {
               <div className={styles.newLine} />
             </div>
           </div>
-
-          <div>
+        </PageBox>
+        <div>
             <div>
               <br />
               <div style={{ width: "100%" }}>
@@ -145,7 +145,6 @@ function EmployeeCircular() {
               </div>
             </div>
           </div>
-        </PageBox>
       </div>
     </div>
   );
