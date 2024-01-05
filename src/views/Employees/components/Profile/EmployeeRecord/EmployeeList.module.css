@@ -318,7 +318,7 @@
   
   .letterLink {
     color: #02cfff;
-    text-decoration: underline;
+    text-decoration: underline !important;
     font-size: 0.7rem;
     cursor: pointer;
   }
