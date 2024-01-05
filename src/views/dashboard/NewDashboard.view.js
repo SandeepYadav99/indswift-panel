@@ -143,7 +143,7 @@ const NewDashboard = () => {
         <div className={styles.dashboardFlex} style={{ width: "100%", display: 'flex', flexWrap: "wrap" }}>
           <div className={styles.plainPaper221}>
             <div className={styles.activeWrapper}>
-              <div className={styles.imgBox}>
+              <div className={styles.imgBox} id={styles.activeMobilePadding}>
                 <img
                   src={require("../../assets/img/ic_prc_active.png")}
                   height={30}
@@ -218,7 +218,7 @@ const NewDashboard = () => {
               </div>
               <div className={styles.rpLowerWrap}>
                 <div className={styles.activeWrapper}>
-                  <div className={styles.imgBox}>
+                  <div className={styles.imgBox} id={styles.activeMobilePadding}>
                     <img
                       src={require("../../assets/img/ic_vacancy_count.png")}
                       height={30}

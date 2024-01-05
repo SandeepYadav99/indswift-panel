@@ -69,6 +69,7 @@ const PendingOfferTable = () => {
               justifyContent: "space-between",
               borderBottom: "2px solid whitesmoke",
               alignItems: "center",
+              gap:"10px",
             }}
           >
             <span className={styles.textAdjust}>OFFER LETTER NO.</span>
@@ -80,9 +81,9 @@ const PendingOfferTable = () => {
               justifyContent: "space-between",
               borderBottom: "2px solid whitesmoke",
               alignItems: "center",
+              gap:"10px",
             }}
           >
-            {" "}
             <span className={styles.textAdjust}>POSITION</span>
             <span className={styles.textAdjust}>{val?.position}</span>
           </TableRow>
@@ -92,6 +93,7 @@ const PendingOfferTable = () => {
               justifyContent: "space-between",
               borderBottom: "2px solid whitesmoke",
               alignItems: "center",
+              gap:"10px",
             }}
           >
             <span className={styles.textAdjust}>NAME</span>
@@ -103,6 +105,7 @@ const PendingOfferTable = () => {
               justifyContent: "space-between",
               borderBottom: "2px solid whitesmoke",
               alignItems: "center",
+              gap:"10px",
             }}
           >
             <span className={styles.textAdjust}>DATE</span>
