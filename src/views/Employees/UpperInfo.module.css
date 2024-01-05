@@ -278,6 +278,8 @@
 
     .imageContainer {
         border-radius: 100%;
+        height: 100px !important;
+        width: 100px !important;
     }
     .upperCardWidthData{
          width: 100% !important;
