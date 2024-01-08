@@ -218,7 +218,7 @@ function EmpTravelDetail() {
             </span>
           </div>
           <div className={styles.headingWrap}>
-            Self Borne Expense::
+            Self Borne Expense :
             <span>₹ {employeeDetail?.self_expense}</span>
           </div>
           <div className={styles.headingWrap}>
@@ -263,7 +263,7 @@ function EmpTravelDetail() {
                       <span style={{ marginLeft: "10px" }}>
                         {
                           <StatusPill
-                            status={item?.status}
+                            status={removeUnderScore(item?.status)}
                             style={{ border: "none" }}
                           />
                         }

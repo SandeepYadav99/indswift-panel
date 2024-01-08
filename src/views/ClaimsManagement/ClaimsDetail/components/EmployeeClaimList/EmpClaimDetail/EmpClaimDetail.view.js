@@ -248,7 +248,7 @@ function EmpClaimDetail() {
                       <span style={{ marginLeft: "10px" }}>
                         {
                           <StatusPill
-                            status={item?.status}
+                            status={removeUnderScore(item?.status)}
                             style={{ border: "none" }}
                           />
                         }

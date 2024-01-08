@@ -304,4 +304,23 @@
   .headingWrap{
     margin: 0;
   }
+  .totalWrap{
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+    gap: 5px;
+    height: 60px;
+    justify-content: center;
+  }
+  .inner{
+    margin-left: 10px;
+  }
+  .totalWrap2{
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+    gap: 5px;
+    height: 60px;
+    justify-content: center;
+  }
 }
