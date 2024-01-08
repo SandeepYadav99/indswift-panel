@@ -76,7 +76,6 @@ function EmpForeignDetail() {
             {employeeDetail?.lodging_expenses?.map((item, index) => (
               <LodgingView data={item} key={`lodge_${index}`} />
             ))}
-            <div className={styles.totalWrap}>
               <div className={styles.totalWrap}>
                 <div className={styles.inner}>
                   Total USD Used:{" "}
@@ -106,7 +105,6 @@ function EmpForeignDetail() {
                   </span>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       )}
@@ -117,7 +115,6 @@ function EmpForeignDetail() {
             {employeeDetail?.travel_expenses?.map((item, index) => (
               <TravelView data={item} key={`travel_${index}`} />
             ))}
-            <div className={styles.totalWrap}>
               <div className={styles.totalWrap}>
                 <div className={styles.inner}>
                   Total USD Used:{" "}
@@ -147,7 +144,6 @@ function EmpForeignDetail() {
                   </span>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       )}
@@ -158,7 +154,6 @@ function EmpForeignDetail() {
             {employeeDetail?.da_ie_expenses?.map((item, index) => (
               <DaView data={item} key={`da_${index}`} />
             ))}
-            <div className={styles.totalWrap}>
               <div className={styles.totalWrap}>
                 <div className={styles.inner}>
                   Total USD Used:{" "}
@@ -188,7 +183,6 @@ function EmpForeignDetail() {
                   </span>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       )}
@@ -199,7 +193,6 @@ function EmpForeignDetail() {
             {employeeDetail?.entertainment_expenses?.map((item, index) => (
               <EntertainmentView data={item} key={`entertainment_${index}`} />
             ))}
-            <div className={styles.totalWrap}>
               <div className={styles.totalWrap}>
                 <div className={styles.inner}>
                   Total USD Used:{" "}
@@ -229,7 +222,6 @@ function EmpForeignDetail() {
                   </span>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       )}
@@ -240,7 +232,6 @@ function EmpForeignDetail() {
             {employeeDetail?.tap_other_expenses?.map((item, index) => (
               <OtherView data={item} key={`other_${index}`} />
             ))}
-            <div className={styles.totalWrap}>
               <div className={styles.totalWrap}>
                 <div className={styles.inner}>
                   Total USD Used:{" "}
@@ -271,7 +262,6 @@ function EmpForeignDetail() {
                 </div>
               </div>
             </div>
-          </div>
         </div>
       )}
       <div className={styles.plainPaper}>
@@ -500,7 +490,7 @@ function EmpForeignDetail() {
                       <span style={{ marginLeft: "10px" }}>
                         {
                           <StatusPill
-                            status={item?.status}
+                            status={removeUnderScore(item?.status)}
                             style={{ border: "none" }}
                           />
                         }
