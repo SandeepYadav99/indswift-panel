@@ -125,7 +125,7 @@ const PendingLeaveApplication = () => {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.statusMarking}>
-            <span>{<StatusPill status={all?.status} />}</span>
+             <span className={styles.marginGap}>{<StatusPill status={all?.status} />}</span>
             <span>{<StatusPill status={all?.leave?.status} />}</span>
           </div>
         ),
