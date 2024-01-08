@@ -129,7 +129,7 @@ function ClaimDetailInfo({ idCards }) {
                 <span className={styles.value}>Payment Mode :</span>
                 {idCards?.payment_mode ? idCards?.payment_mode : "-"}
               </div>
-              <div className={styles.key} style={{ display: "flex" }}>
+              <div className={styles.key}>
                 <span className={styles.value}>Payment Proof :</span>
                 {idCards?.payment_proof ? (
                   <a href={idCards?.payment_proof} target="_blank">
@@ -287,7 +287,7 @@ function ClaimDetailInfo({ idCards }) {
                 <span className={styles.value}>Payment Mode :</span>
                 {idCards?.payment_mode ? idCards?.payment_mode : "-"}
               </div>
-              <div className={styles.key} style={{ display: "flex" }}>
+              <div className={styles.key}>
                 <span className={styles.value}>Payment Proof :</span>
                 {idCards?.payment_proof ? (
                   <a href={idCards?.payment_proof} target="_blank">
