@@ -30,14 +30,14 @@ const ApprovePopUp = ({ handleClose, open, popUpType }) => {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div>
+    <div style={{width:"90vw"}}>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} className={styles.popUpContainerData}>
           <Typography
             id="modal-modal-title"
             variant="p"
