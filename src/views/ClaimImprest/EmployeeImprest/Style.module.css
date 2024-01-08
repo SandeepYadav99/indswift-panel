@@ -1,25 +1,30 @@
 .mainContainer {
     padding: 10px;
 }
+
 .headerContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .headerContainer .title {
     font-size: 1rem;
     font-weight: 600;
 }
+
 .bottomLine {
     opacity: 0.4;
     color: grey;
     margin-bottom: 5px;
 }
+
 .headerContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .firstCellFlex {
     display: flex;
     align-items: center;
@@ -31,11 +36,13 @@
     /*border: 3px solid;*/
     border-radius: 50%;
 }
+
 .firstCellFlex img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
+
 .firstCellInfo {
     margin-left: 10px;
 }
@@ -45,9 +52,11 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .productName {
     text-transform: capitalize;
 }
+
 .productCat {
     text-transform: capitalize;
     font-size: 12px;
@@ -58,7 +67,7 @@
     margin-left: 10px;
 }
 
-.infoTitle{
+.infoTitle {
     margin-bottom: 15px;
     padding-bottom: 5px;
     margin-left: 15px;
@@ -69,11 +78,11 @@
     align-items: center;
 }
 
-.heading{
+.heading {
     margin-right: 5px;
 }
 
-.featured{
+.featured {
     font-size: 12px;
     padding: 3px 10px;
     border-radius: 20px;
@@ -82,31 +91,31 @@
     color: rgb(250, 139, 12);
 }
 
-.industry{
+.industry {
     font-size: 0.7rem;
     font-weight: 600;
 }
 
-.userForm{
+.userForm {
     margin: 0 30%;
 }
 
-.paperBackground{
+.paperBackground {
     box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
     background-color: white;
 }
 
-.lhs{
+.lhs {
     flex: 0.5;
     margin-left: 10px;
 }
 
-.flex{
+.flex {
     display: flex;
     align-items: center;
 }
 
-.dispatchBtn{
+.dispatchBtn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,62 +127,62 @@
     margin-top: 20px;
 }
 
-.awbs{
+.awbs {
     font-size: 0.8rem;
     margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
 }
 
-.awbs>div{
+.awbs>div {
     flex: 1;
 }
 
-.value{
+.value {
     font-weight: 600;
 }
 
-.yearFlex{
+.yearFlex {
     display: flex;
     padding-top: 20px;
     gap: 25px;
 }
 
-.down{
+.down {
     flex: 0.2;
 }
 
-.newLine{
+.newLine {
     height: 4px;
     width: 30px;
     border-radius: 10px;
     margin-left: 1px;
-    background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
+    background-image: linear-gradient(265deg, #7467F0, #2896E9) !important;
 }
 
-.download{
-    border: 2px solid #29cb97!important;
-    border-radius: 30px!important;
-    color: #29cb97!important;
-    font-size: .8rem!important;
-    font-weight: 600!important;
-    padding: 7px 50px!important;
-    text-transform: uppercase!important;
+.download {
+    border: 2px solid #29cb97 !important;
+    border-radius: 30px !important;
+    color: #29cb97 !important;
+    font-size: .8rem !important;
+    font-weight: 600 !important;
+    padding: 7px 50px !important;
+    text-transform: uppercase !important;
     height: 40px !important;
 }
 
-.rightFlex{
+.rightFlex {
     display: flex;
     align-items: center;
 }
 
-.drop{
+.drop {
     width: 250px;
     margin-left: 30px;
 }
 
 
-.createBtn{
+.createBtn {
     background-color: #29CB97 !important;
     color: #ffffff !important;
     padding: 12px 35px !important;
@@ -183,7 +192,7 @@
     font-weight: 600 !important;
 }
 
-.upperInfo{
+.upperInfo {
     margin-top: 30px;
     margin-left: 15px;
     margin-right: 15px;
@@ -193,7 +202,7 @@
     font-size: 0.8rem;
 }
 
-.loc{
+.loc {
     margin-left: 15px;
     margin-right: 15px;
     font-weight: 600;
@@ -202,13 +211,13 @@
     margin-bottom: 10px;
 }
 
-.hr{
+.hr {
     font-size: 0.875rem;
     margin-left: 15px;
     margin-right: 15px;
 }
 
-.plainPaper{
+.plainPaper {
     border-radius: 5px;
     padding: 0.4rem 1.2rem;
     margin-bottom: 20px;
@@ -217,27 +226,27 @@
     margin-left: 15px;
 }
 
-.approved{
+.approved {
     font-size: 0.7rem;
     font-weight: 600;
 }
 
-.topFlex{
+.topFlex {
     display: flex;
     justify-content: space-between;
 }
 
-.newInfo{
+.newInfo {
     font-size: 0.7rem;
 }
 
-.key{
+.key {
     width: 140px;
     font-weight: 500;
     display: inline-block;
 }
 
-.btmFlex{
+.btmFlex {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -245,7 +254,19 @@
     margin-top: 15px;
 }
 
-.user{
+.user {
     display: flex;
     align-items: center;
+}
+
+@media only screen and (max-width:769px) {
+    .yearFlex {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .headerContainer .title {
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
 }

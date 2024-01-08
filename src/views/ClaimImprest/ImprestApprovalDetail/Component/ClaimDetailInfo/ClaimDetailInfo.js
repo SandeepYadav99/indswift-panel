@@ -54,7 +54,9 @@ function ClaimDetailInfo({ idCards }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Status:</span>
+                <div className={styles.statusContainerData}>
                 {idCards?.imprest?.travelPlanner?.status ? <StatusPill status={removeUnderScore(idCards?.imprest?.travelPlanner?.status)}/> : 'N/A'}
+                </div>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Max Entitled:</span>

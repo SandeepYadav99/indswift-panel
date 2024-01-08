@@ -98,7 +98,7 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
             </div>
           </div>
           <div className={styles.headingBe}>Credit to Employee Balance</div>
-          <div className={styles.formWrap}>
+          <div className={styles.formWrap} id={styles.resposnsiveForm}>
             <div className={styles.formWrapInner}>
               <CustomSelectField
                 isError={errorData?.currency}
@@ -114,7 +114,7 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
                 <MenuItem value="EUR">€</MenuItem>
               </CustomSelectField>
             </div>
-            <div className={"formGroup1"}>
+            <div className={"formGroup1"} id={styles.dropDownResponsive}>
               <CustomTextField
                 type="number"
                 isError={errorData?.credit_amount}
@@ -128,7 +128,7 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
             </div>
           </div>
           <div className={styles.headingBe}>Debit from Employee Balance</div>
-          <div className={styles.formWrap}>
+          <div className={styles.formWrap} id={styles.resposnsiveForm}>
             <div className={styles.formWrapInner}>
               <CustomSelectField
                 isError={errorData?.currency}
@@ -144,7 +144,7 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
                 <MenuItem value="EUR">€</MenuItem>
               </CustomSelectField>
             </div>
-            <div className={"formGroup1"}>
+            <div className={"formGroup1"} id={styles.dropDownResponsive}>
               <CustomTextField
                 type="number"
                 isError={errorData?.debit_amount}
@@ -157,7 +157,7 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
               />
             </div>
           </div>
-          <div className={styles.formWrap}>
+          <div className={styles.formWrap} id={styles.resposnsiveForm}>
             <div className={styles.formWrapInner}>
               <CustomTextField
                 isError={errorData?.voucher_no}
@@ -169,7 +169,7 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
                 }}
               />
             </div>
-            <div className={"formGroup1"}>
+            <div className={"formGroup1"} id={styles.dropDownResponsive}>
               <CustomDatePicker
                 clearable
                 label={"Date"}
@@ -182,7 +182,7 @@ const AccountDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) =
               />
             </div>
           </div>
-          <div className={styles.formWrap}>
+          <div className={styles.formWrap} id={styles.resposnsiveForm}>
             <CustomTextField
               isError={errorData?.description}
               errorText={errorData?.description}

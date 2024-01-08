@@ -253,6 +253,12 @@
     flex-direction: column;
     gap: 10px;
   }
+
+  @media only screen and (max-width:769px) {
+    .marginGap{
+      margin-bottom: 5px;
+    }
+  }
   
   
   

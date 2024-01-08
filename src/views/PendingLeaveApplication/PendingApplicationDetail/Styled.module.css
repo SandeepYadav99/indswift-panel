@@ -190,3 +190,35 @@
     font-weight: 600 !important;
     opacity: 0.4 !important;
 }
+.detailStatusIcon{
+  position: absolute;
+  margin-top: -35px;
+  margin-left: 64% !important;
+}
+
+@media only screen and (max-width:769px) {
+  .marginEqual{
+    display: flex;
+    flex-direction: column !important;
+  }
+ 
+}
+
+@media only screen and (max-width:396px) {
+  .adjustFont{
+   font-size: 11px !important;
+  }
+  .marginEqual{
+    font-size: 11px !important;
+  }
+  .textFont{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 11px !important;
+  }
+  .detailStatusIcon{
+    position: absolute !important;
+    margin-top: -35px !important;
+    margin-left: 60% !important;
+  }
+}

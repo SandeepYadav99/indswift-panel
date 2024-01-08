@@ -34,7 +34,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ReturnEmpDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id}) => {
+const ReturnEmpDialog = ({
+  isOpen,
+  handleToggle,
+  candidateId,
+  listData,
+  emp_id,
+}) => {
   const classes = useStyles();
   const {
     changeTextData,
@@ -49,7 +55,7 @@ const ReturnEmpDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id})
     handleToggle,
     candidateId,
     listData,
-    emp_id
+    emp_id,
   });
   return (
     <div>
@@ -88,8 +94,8 @@ const ReturnEmpDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id})
                   freeSolo: false,
                   getOptionLabel: (option) => option?.label,
                 }}
-                disabled={emp_id ? true :false}
-                disabledList={emp_id ? true :false}
+                disabled={emp_id ? true : false}
+                disabledList={emp_id ? true : false}
                 dataset={listData?.EMPLOYEES}
                 datasetKey={"label"}
                 onTextChange={(text) => {
@@ -105,7 +111,7 @@ const ReturnEmpDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id})
           </div>
 
           <div className={styles.headingBe}>Debit from Employee Balance</div>
-          <div className={styles.formWrap}>
+          <div className={styles.formWrap} id={styles.resposnsiveForm}>
             <div className={styles.formWrapInner}>
               <CustomSelectField
                 isError={errorData?.currency}
@@ -121,7 +127,7 @@ const ReturnEmpDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id})
                 <MenuItem value="EUR">€</MenuItem>
               </CustomSelectField>
             </div>
-            <div className={"formGroup1"}>
+            <div className={"formGroup1"} id={styles.dropDownResponsive}>
               <CustomTextField
                 type="number"
                 isError={errorData?.debit_amount}
@@ -134,7 +140,7 @@ const ReturnEmpDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id})
               />
             </div>
           </div>
-          <div className={styles.formWrap}>
+          <div className={styles.formWrap} id={styles.resposnsiveForm}>
             <div className={styles.formWrapInner}>
               <CustomTextField
                 isError={errorData?.voucher_no}
@@ -146,7 +152,7 @@ const ReturnEmpDialog = ({ isOpen, handleToggle, candidateId, listData ,emp_id})
                 }}
               />
             </div>
-            <div className={"formGroup1"}>
+            <div className={"formGroup1"} id={styles.dropDownResponsive}>
               <CustomDatePicker
                 clearable
                 label={"Date"}

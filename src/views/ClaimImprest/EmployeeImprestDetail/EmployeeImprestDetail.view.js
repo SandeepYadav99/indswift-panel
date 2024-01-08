@@ -99,7 +99,9 @@ function EmployeeImprestDetail() {
                   }
                 />
               </div>
-              <div>
+            </div>
+          <div className={styles.dataContainer}>  
+            <div>
                 <div className={styles.key}>
                   <span className={styles.value}>Name:</span>
                   {employeeDetail?.employee?.name}
@@ -113,7 +115,6 @@ function EmployeeImprestDetail() {
                   {employeeDetail?.employee?.location?.name}
                 </div>
               </div>
-            </div>
             <div className={styles.vertical}></div>
             <div className={styles.left}>
               <div className={styles.key}>
@@ -130,6 +131,7 @@ function EmployeeImprestDetail() {
                 {employeeDetail?.employee?.department?.name}
               </div>
             </div>
+            </div>  
           </div>
         </div>
       </div>
