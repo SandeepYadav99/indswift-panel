@@ -257,7 +257,7 @@ const EmployeeList = ({}) => {
           </div>
           <div className={styles.btnWrapperGap}>
 
-            <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
+            <ButtonBase onClick={handleCsvDownload} className={"createBtn"} id={styles.btnHideResponsive}>
               Download
               <CloudDownload
                   fontSize={"small"}
@@ -265,14 +265,14 @@ const EmployeeList = ({}) => {
               ></CloudDownload>
             </ButtonBase>
 
-            <ButtonBase onClick={toggleCsvDialog} className={"createBtn"}>
+            <ButtonBase onClick={toggleCsvDialog} className={"createBtn"} id={styles.btnHideResponsive}>
               Upload
               <CloudUpload
                 fontSize={"small"}
                 className={"plusIcon"}
               ></CloudUpload>
             </ButtonBase>
-            <ButtonBase onClick={toggleCPCDialog} className={"createBtn"}>
+            <ButtonBase onClick={toggleCPCDialog} className={"createBtn"} id={styles.btnHideResponsive}>
               Upload CPC
               <CloudUpload
                   fontSize={"small"}

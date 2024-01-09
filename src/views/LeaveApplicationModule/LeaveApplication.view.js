@@ -8,7 +8,7 @@ import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
 import useLeaveList from "./LeaveApplication.hook";
-import DataTables from "../../components/Datatables/datatables";
+import Datatables from "../../components/Datatables/datatables";
 
 const LeaveApplication = ({}) => {
   const {
@@ -173,24 +173,14 @@ const LeaveApplication = ({}) => {
             handleFilterDataChange={handleFilterDataChange}
           />
           <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              {innerWidth > 769 && (
-                <DataTables
-                  {...tableData.datatable}
-                  {...tableData.datatableFunctions}
-                />
-              )}
-            </div>
+      
           </div>
         </div>
       </PageBox>
-      {innerWidth < 769 && (
-        <DataTables
+        <Datatables
           {...tableData.datatable}
           {...tableData.datatableFunctions}
         />
-      )}
     </div>
   );
 };

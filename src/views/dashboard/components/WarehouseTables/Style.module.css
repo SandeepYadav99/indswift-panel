@@ -1,18 +1,64 @@
-.newLine{
+.newLine {
     height: 3px;
     width: 30px;
     border-radius: 10px;
     margin-left: 1px;
-    background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
+    background-image: linear-gradient(265deg, #7467F0, #2896E9) !important;
 }
 
-.titles{
+.titles {
     font-weight: 600;
     font-size: 0.8rem;
     margin-bottom: 5px;
 }
-.hyperlinkText{
+
+.hyperlinkText {
     color: #2896E9;
     text-decoration-line: underline;
     cursor: pointer;
-  }
+}
+
+.upperFlexData {
+    display: flex !important;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.responsiveBtn{
+    display: none !important;
+ }
+ .desktopTable{
+    display: block !important;
+}
+.moileTable{
+    display: none ;
+}
+
+@media only screen and (max-width:769px) {
+    .responsiveBtn{
+       display: block !important;
+    }
+    .responsiveBtn2{
+        display: none !important;
+    }
+    .desktopTable{
+        display: none !important;
+    }
+    .moileTable{
+        display: block ;
+    }    
+    .hyperlinkText{
+        font-size: 12px;
+    }
+}
+.textAdjust{
+    font-size: 12px;
+}
+@media only screen and (max-width:414px){
+    .textAdjust{
+        font-size: 10px;
+    }
+    .hyperlinkText{
+        font-size: 10px;
+    }
+}
+

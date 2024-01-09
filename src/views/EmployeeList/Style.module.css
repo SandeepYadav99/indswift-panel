@@ -182,6 +182,7 @@
 }
 .nameWrapper {
   flex: 1;
+  width: 100%;
 }
 .checkBox {
   display: flex;
@@ -246,5 +247,23 @@
   height: 90%;
 }
 
+@media only screen and (max-width:769px) {
+   #btnHideResponsive{
+    display: none !important;
+   }
+   .imageContainer{
+    display: flex;
+    flex-direction: column !important;
+   }
+   #mobileResponsiveData{
+    display: flex;
+    flex-direction: column !important;
+   }
+   #wrapperValueData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+   }
+}
 
 /* USC Create css */

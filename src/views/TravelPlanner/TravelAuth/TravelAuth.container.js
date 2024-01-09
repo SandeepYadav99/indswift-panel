@@ -18,7 +18,7 @@ import {
 } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables.js";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -281,7 +281,10 @@ const TravelAuth = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
+        
+        </div>
+      </PageBox>
+      <div>
             <br />
             <div style={{ width: "100%" }}>
               <DataTables
@@ -290,8 +293,6 @@ const TravelAuth = ({ location }) => {
               />
             </div>
           </div>
-        </div>
-      </PageBox>
     </div>
   );
 };

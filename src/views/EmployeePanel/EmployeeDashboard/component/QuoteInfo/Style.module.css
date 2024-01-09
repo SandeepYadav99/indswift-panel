@@ -64,3 +64,12 @@
     padding-left: .8rem;
     padding-right: .4rem;  }
 }
+
+@media only screen and (max-width:1200px) {
+  .contactUpper {
+    font-size: 1rem;
+    font-weight: 600;
+    max-width: 400px;
+    margin: 0;
+  }
+}

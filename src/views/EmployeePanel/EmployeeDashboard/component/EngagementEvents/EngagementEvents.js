@@ -37,7 +37,7 @@ function EngagementEvents() {
         {isTilesCalling ? (
           <WaitingComponent />
         ) : (
-          <GenricSlider sliderSettings={{ slidesToShow: isMobile ? 2 : 3 ,className:'myCustomClass'}}>
+          <GenricSlider sliderSettings={{ slidesToShow: isMobile ? 1: 1 ,className:'myCustomClass'}}>
             {tiles?.utsavImages.map((item,index) => {
               return (
                 <div className={styles.imgWrapper} key={`Engagement_${index}`}>

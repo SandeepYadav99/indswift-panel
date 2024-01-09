@@ -459,6 +459,8 @@ const IncrementPlanner = lazy(() =>
   import("../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view")
 );
 
+const NotificationData = lazy(()=>import("../views/Notification/Notification.component.js"))
+
 const FullFinalComponent = lazy(()=>import("../views/Full&Final/FullFinal.component"));
 
 const FullFinalApprovalJourney = lazy(()=>import("../views/Full&FinalApproval/FullFinalApproval.component"))
@@ -2745,6 +2747,14 @@ const dashboardRoutes = [
       is_sidebar: false,
       is_protect: true,
   },
+  {
+    path: `${RouteName.NOTIFICATION}`,
+    icon: AssignmentOutlined,
+    component: NotificationData,
+    is_sidebar: false,
+    is_protect: true,
+},
+  
 ];
 
 export default dashboardRoutes;

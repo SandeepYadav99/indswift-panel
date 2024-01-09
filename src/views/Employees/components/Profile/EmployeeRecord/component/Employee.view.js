@@ -78,7 +78,7 @@ const EmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
         </div>
         <div className={"formGroup2"}>
           <CustomDatePicker
-            clearable
+            cleara
             name="date_of_issue"
             label={"Date Of issue"}
             maxDate={new Date()}

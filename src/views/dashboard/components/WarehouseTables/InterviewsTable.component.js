@@ -52,7 +52,9 @@ const InterviewsTable = () => {
             </TableCell>
             <TableCell className="pl-3 fw-normal">{val?.location}</TableCell>
             <TableCell className="pl-3 fw-normal">
-                {`${val?.designation ? val?.designation : ""} / ${val?.department ? val?.department : ''}`}
+              {`${val?.designation ? val?.designation : ""} / ${
+                val?.department ? val?.department : ""
+              }`}
               {/* {`${val?.designation !=='undefined'  && val?.designation}/${val?.department && val?.department}`} */}
             </TableCell>
             <TableCell className="pl-3 fw-normal">
@@ -73,35 +75,146 @@ const InterviewsTable = () => {
     }
   };
 
+  const _renderListDataMobile = (val) => {
+    const tableRows = [];
+    if (val) {
+      tableRows.push(
+        <>
+          <TableRow
+            key={val.id}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "2px solid whitesmoke",
+              alignItems:"center",
+            }}
+          >
+            <span className={styles.textAdjust}>NAME</span>
+            <span
+              className={styles.hyperlinkText}
+              onClick={() => changeEmployeeRoute(val?.candidate)}
+            >
+              {val?.candidate?.name}
+            </span>
+          </TableRow>
+          <TableRow
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "2px solid whitesmoke",
+              alignItems:"center",
+            }}
+          >
+            {" "}
+            <span className={styles.textAdjust}>LOCATION</span>
+            <span className={styles.textAdjust}>{val?.location}</span>
+          </TableRow>
+          <TableRow
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "2px solid whitesmoke",
+              alignItems:"center",
+            }}
+          >
+            <span className={styles.textAdjust}> DESIGNATION/DEPARTMENT</span>
+            <span className={styles.textAdjust}>{`${
+              val?.designation ? val?.designation : ""
+            } / ${val?.department ? val?.department : ""}`}</span>
+          </TableRow>
+          <TableRow
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "2px solid whitesmoke",
+              alignItems:"center",
+            }}
+          >
+            <span className={styles.textAdjust}>JOINING DATE</span>
+            <span className={styles.textAdjust}>{val?.joining_date}</span>
+          </TableRow>
+        </>
+      );
+      return tableRows;
+    } else {
+      return (
+        <TableRow>
+          <TableCell colSpan={6} className={classes.textCenter}>
+            No Details Found
+          </TableCell>
+        </TableRow>
+      );
+    }
+  };
+
   return (
-    <div className={classes.bgWhite}>
-      <div className={classes.upperFlex}>
-        <div className={styles.titles}>Upcoming Joinings</div>
-        <div className={styles.newLine} />
+    <>
+      <div className={classes.bgWhite}>
+        <div className={styles.upperFlexData}>
+          <div>
+            <div className={styles.titles}>Upcoming Joinings</div>
+            <div className={styles.newLine} />
+          </div>
+          <div className={styles.responsiveBtn}>
+            <ButtonBase className={"viewBtn"} onClick={() => OlrPage()}>
+              View All
+            </ButtonBase>
+          </div>
+        </div>
+        <div className={styles.desktopTable}>
+          <TableContainer className={classes.container}>
+            <Table stickyHeader className="mb-0">
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classes.row}>NAME</TableCell>
+                  <TableCell className={classes.row}>LOACTION</TableCell>
+                  <TableCell className={classes.row}>
+                    DESIGNATION/DEPARTMENT
+                  </TableCell>
+                  <TableCell className={classes.row}>JOINING DATE</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{_renderListData()}</TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+
+        <div className={styles.responsiveBtn2}>
+          <div className={"txtCenter"}>
+            <ButtonBase className={"viewBtn"} onClick={() => OlrPage()}>
+              View All
+            </ButtonBase>
+          </div>
+        </div>
+        <div className={styles.moileTable}>
+        {data?.map((val) => {
+          return (
+            <TableContainer className={styles.container} key={val?.id}>
+              <Table
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <TableBody
+                  style={{
+                    width: "100%",
+                    background: "#F7F7F7",
+                    marginBottom: "10px",
+                    marginTop: "10px",
+                    padding: "10px",
+                    borderRadius: "12px",
+                    boxShadow: "0 0 8px rgb(0 0 0 / 15%)",
+                  }}
+                >
+                  {" "}
+                  {_renderListDataMobile(val)}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          );
+        })}
       </div>
-      <div>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader className="mb-0">
-            <TableHead>
-              <TableRow>
-                <TableCell className={classes.row}>name</TableCell>
-                <TableCell className={classes.row}>location</TableCell>
-                <TableCell className={classes.row}>
-                  DESIGNATION/DEPARTMENT
-                </TableCell>
-                <TableCell className={classes.row}>JOINING DATE</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>{_renderListData()}</TableBody>
-          </Table>
-        </TableContainer>
       </div>
-      <div className={"txtCenter"}>
-        <ButtonBase className={"viewBtn"} onClick={() => OlrPage()}>
-          View All
-        </ButtonBase>
-      </div>
-    </div>
+     
+    </>
   );
 };
 

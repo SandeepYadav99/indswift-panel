@@ -19,6 +19,7 @@
     display: block;
     position: relative;
     width: 100%;
+    height: 100%;
     /*padding: 40px;*/
     color: #fff;
     box-sizing: border-box;
@@ -79,7 +80,6 @@
     color: black;
     font-size: 1.7rem;
     margin-bottom: 2px;
-    /*font-family: CircularStd-Bold;*/
 }
 
 
@@ -197,7 +197,7 @@
 }
 
 .sky{
-    height: 150px;
+    height: 190px;
 }
 
 .centerLine{
@@ -237,4 +237,21 @@
     .signContainer{
         margin: 0%;
     }
+    .headingText {
+        text-align: center;
+         color: black;
+         font-size: 1.5rem;
+         margin-bottom: 2px;
+     }
+     
 }
+
+@media only screen and (max-width:640px){
+    .headingText {
+        text-align: center;
+         color: black;
+         font-size: 1.3rem;
+         margin-bottom: 2px;
+     }
+}
+

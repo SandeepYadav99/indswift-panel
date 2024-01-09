@@ -32,3 +32,34 @@ font-size: 1rem;
     flex-direction: column;
     gap: 10px;
 }
+
+
+@media only screen and (max-width:769px) {
+    .headingWrapper > span{
+        font-weight: 600;
+        font-size: 14px;
+    }
+    .desWrapper > span{
+        font-size: 14px;
+    }
+    .candidateInfoWrapper{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .desWrapper >  a {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width:640px) {
+    .headingWrapper > span{
+        font-weight: 600;
+        font-size: 12px;
+    }
+    .desWrapper > span{
+        font-size: 12px;
+    }
+    .desWrapper >  a {
+        font-size: 12px;
+    }
+}

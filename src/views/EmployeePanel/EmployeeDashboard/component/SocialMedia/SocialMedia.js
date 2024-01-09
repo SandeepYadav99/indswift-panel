@@ -42,10 +42,13 @@ function SocialMedia() {
   };
   return (
     <div className={styles.socialMediaWrapper}>
-      <div className={styles.socialMediaHeading}>
-        <span className={styles.title}>We are Social!</span>
-        <div className={styles.newLine} />
+      <div className={styles.socialMediaDataValue}>
+        <div className={styles.socialMediaHeading}>
+          <span className={styles.title}>We are Social!</span>
+          <div className={styles.newLine} />
+        </div>
       </div>
+      <div className={styles.socialMediaCont2}>
       <div
         className={styles.logoWrapper}
         onMouseEnter={handleHoverfacebook}
@@ -148,6 +151,7 @@ function SocialMedia() {
             }
           />
         </Link>
+      </div>
       </div>
     </div>
   );

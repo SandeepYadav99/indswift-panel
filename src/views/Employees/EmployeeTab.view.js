@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -18,7 +18,7 @@ import CareerProgression from "./components/Profile/CareerProgression/CareerProg
 import ResetPasswordDialog from "./components/ResetPasswordPopUp/ResetPasswordDialog.view";
 import UpdateStatusDialog from "./components/UpdateStatusPopUp/UpdateStatusDialog.view";
 import EmployeeRecord from "./components/Profile/EmployeeRecord/EmployeeRecord";
-import {useParams} from "react-router";
+import { useParams } from "react-router";
 import EmployeeClaim from "../EmployeePanel/EmployeeClaim/EmployeeClaim.container";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -123,11 +123,10 @@ const EmployeeTab = () => {
         <br />
         <div>
           <UpperInfo
-              isAdmin={isAdmin}
+            isAdmin={isAdmin}
             data={employeeData}
             isResetDialog={isResetDialog}
             handleToggle={toggleResetDialog}
-            // isStatusDialog={isStatusDialog}
             handleStatusToggle={toggleStatusDialog}
           />
         </div>
@@ -141,12 +140,14 @@ const EmployeeTab = () => {
           handleToggle={toggleStatusDialog}
         />
         <div>
-          <AppBar position="static" className={styles.backgroundColor}>
+          <AppBar position="static" className={styles.backgroundColor} >
             <Tabs
               value={value}
               onChange={handleChange}
               indicatorColor="primary"
               textColor="primary"
+              variant={"scrollable"}
+              scrollButtons={"auto" } 
             >
               <Tab className={"iconTabs"} label="Profile" />
               <Tab className={"iconTabs"} label="Salary Info" />
@@ -154,8 +155,8 @@ const EmployeeTab = () => {
                 className={"iconTabs"}
                 label="Career Progression Chart (CPC)"
               />
-               <Tab className={"iconTabs"} label="Employee Records" />
-               <Tab className={"iconTabs"} label="Job Description & Key Result Area" style={{whiteSpace:'nowrap'}}/>
+              <Tab className={"iconTabs"} label="Employee Records" />
+              <Tab className={"iconTabs"} label="Job Description & Key Result Area" style={{ whiteSpace: 'nowrap' }} />
             </Tabs>
           </AppBar>
 
@@ -170,10 +171,10 @@ const EmployeeTab = () => {
               <CareerProgression />
             </TabPanel>
             <TabPanel value={value} index={3} dir={"ltr"}>
-               <EmployeeRecord empId={id} />
+              <EmployeeRecord empId={id} />
             </TabPanel>
             <TabPanel value={value} index={4} dir={"ltr"}>
-               <EmployeeClaim  />
+              <EmployeeClaim />
             </TabPanel>
           </div>
         </div>

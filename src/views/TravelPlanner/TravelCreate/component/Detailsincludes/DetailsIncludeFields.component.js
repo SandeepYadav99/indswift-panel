@@ -109,7 +109,7 @@ const DetailsIncludeFields = ({
               margin={"dense"}
               variant={"outlined"}
               label={
-                "Details of Travel Medium (Train No, Flight No, Bus Type etc)"
+                <span className={styles.textDetailPage}>Details of Travel Medium (Train No, Flight No. etc)</span>
               }
             />
           </div>
@@ -135,7 +135,7 @@ const DetailsIncludeFields = ({
               />
             </div>
           </div>
-          <div className={"textCenter"}>
+          <div className={"textCenter"} id={styles.btnResponsive}>
             <ButtonBase
               className={styles.removeBtn}
               // label={this.props.index == 0 ? "+" : '-'}

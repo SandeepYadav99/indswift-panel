@@ -1,0 +1,10 @@
+.imageTag{
+    display: none !important;
+}
+
+@media only screen and (max-width:769px) {
+    .imageTag{
+        display: block !important;
+        margin-left: 14px !important;
+    }
+}

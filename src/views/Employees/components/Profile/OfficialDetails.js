@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styles from "./Style.module.css";
 
 const OfficialDetails = ({ data }) => {
@@ -59,9 +59,9 @@ const OfficialDetails = ({ data }) => {
             </div>
             <div className={styles.vertical}></div>
             <div className={styles.right}>
-            <div className={styles.key}>
+              <div className={styles.key}>
                 <span className={styles.value}>DOS:</span>
-                <span className={styles.valueWrap}>{data?.resign_data?.separated_date}</span>
+                <span className={styles.valueWrap}>{data?.resign_data?.separated_date ? data?.resign_data?.separated_date : "-"}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Grade:</span>

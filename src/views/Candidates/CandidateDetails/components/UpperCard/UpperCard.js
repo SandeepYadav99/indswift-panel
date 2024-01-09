@@ -39,49 +39,51 @@ const UpperCard = ({
   };
   const handlePRCPopUp = () => {
     handleToggleExtendPage();
-  
+
   };
   return (
     <div>
       <div className={styles.blueBackground}>
         <div className={styles.innerContainer}>
           <div>
-            <img src={data?.image ? data?.image : DefaultImg} height={70} alt=""/>
+            <img src={data?.image ? data?.image : DefaultImg} height={70} alt="" />
           </div>
-          <div className={styles.profileInfo}>
-            <div className={styles.name}>{data?.name}</div>
-            <div>{data?.email}</div>
-            <div>{data?.contact}</div>
-            <a target="_blank" href={data?.resume}>
-              {" "}
-              <span>View Resume</span>
-            </a>
-          </div>
-          <div className={styles.vertical}></div>
-          <div className={styles.rightInfo}>
-            <div>
-              <span className={styles.location}>Referred by:</span>{" "}
-              {data?.referred_obj?.name}
-              {data?.referred_obj?.code && data?.referred_obj?.code !== "N/A"
-                ? ` (${data?.referred_obj?.code})`
-                : ""}
+          <div className={styles.sub_conitainer}>
+            <div className={styles.profileInfo}>
+              <div className={styles.name}>{data?.name}</div>
+              <div>{data?.email}</div>
+              <div>{data?.contact}</div>
+              <a target="_blank" href={data?.resume}>
+                {" "}
+                <span>View Resume</span>
+              </a>
             </div>
-            <div>
-              <span className={styles.location}>Date of Application:</span>
-              {data?.appliedDateText}
-            </div>
-            <div>
-              <span className={styles.location}>Updated On:</span>{" "}
-              {splitDate(data?.updatedAtText)}
+            <div className={styles.vertical}></div>
+            <div className={styles.rightInfo}>
+              <div>
+                <span className={styles.location}>Referred by:</span>{" "}
+                {data?.referred_obj?.name}
+                {data?.referred_obj?.code && data?.referred_obj?.code !== "N/A"
+                  ? ` (${data?.referred_obj?.code})`
+                  : ""}
+              </div>
+              <div>
+                <span className={styles.location}>Date of Application:</span>
+                {data?.appliedDateText}
+              </div>
+              <div>
+                <span className={styles.location}>Updated On:</span>{" "}
+                {splitDate(data?.updatedAtText)}
+              </div>
             </div>
           </div>
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
               {data?.status !== Constants.JOB_CANDIDATE_STATUS.DROPPED &&
-              isRecruiter &&
-              data?.is_selected &&
-              !data?.is_offer_letter_sent &&
-              data?.status !== "SHORTLISTED" ? (
+                isRecruiter &&
+                data?.is_selected &&
+                !data?.is_offer_letter_sent &&
+                data?.status !== "SHORTLISTED" ? (
                 <ActionButton
                   onClick={() => handlePRCPopUp()}
                   className={styles.actionButtonTranspent}
@@ -95,7 +97,7 @@ const UpperCard = ({
               <div className={styles.statusWrapInner}>
                 <StatusPill
                   status={removeUnderScore(data?.status)}
-                  // style={{ color: "#fff", borderColor: "#fff" }}
+                // style={{ color: "#fff", borderColor: "#fff" }}
                 />
               </div>
             </div>
@@ -135,6 +137,47 @@ const UpperCard = ({
                 </div>
               )}
             </div>
+          </div>
+          <div className={styles.btnWrapMobile}>
+          <div className={styles.btnResponsiveData}>
+              <div>
+                <ActionButton
+                  onClick={handleStatusToggle}
+                  className={styles.actionButtonTranspent}
+                >
+                  <InfoOutlined fontSize={"small"} />
+                  <span style={{ marginLeft: "2px" }}>Update Status</span>
+                </ActionButton>
+              </div>
+              {checkPrc && (
+                <div className={styles.btnUpper}>
+                  <ActionButton
+                    onClick={handleToggle}
+                    className={styles.actionButtonTranspent}
+                  >
+                    <Edit fontSize={"small"} />
+                    <span style={{ marginLeft: "2px" }}>Update PRC</span>
+                  </ActionButton>
+                </div>
+              )}
+              </div>
+              <div className={styles.btnWrapValueRes}>
+               {data?.status !== Constants.JOB_CANDIDATE_STATUS.DROPPED &&
+                isRecruiter &&
+                data?.is_selected &&
+                !data?.is_offer_letter_sent &&
+                data?.status !== "SHORTLISTED" ? (
+                <ActionButton
+                  onClick={() => handlePRCPopUp()}
+                  className={styles.actionButtonTranspent}
+                >
+                  <InfoOutlined fontSize={"small"} />
+                  <span style={{ marginLeft: "5px" }}>Extend Offer</span>
+                </ActionButton>
+              ) : (
+                <div />
+              )}
+              </div>
           </div>
         </div>
       </div>

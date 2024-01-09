@@ -59,8 +59,6 @@ function PerformanceShortlistView({ title, question, handleChange, type }) {
       </div>
       <div>
         <CustomTextField
-          // isError={errorData?.note}
-          // errorText={errorData?.note}
           label={"Please write related Comments"}
           value={note}
           onTextChange={(text) => {
