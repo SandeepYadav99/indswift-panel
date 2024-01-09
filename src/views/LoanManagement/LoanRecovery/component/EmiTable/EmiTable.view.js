@@ -146,8 +146,8 @@ function GraphTable({ data, title }) {
                       gap: "10px",
                     }}
                   >
-                    <span className={styles.textAdjust}>SR_No</span>
-                    <span className={styles.textAdjust}>{val?.SR_No}</span>
+                    <span className={styles.textAdjust}>SR No</span>
+                    <span className={styles.textAdjust1}>{val?.SR_No}</span>
                   </TableRow>
                   <TableRow
                     style={{
@@ -159,7 +159,7 @@ function GraphTable({ data, title }) {
                     }}
                   >
                     <span className={styles.textAdjust}>LOAN AMOUNT</span>
-                    <span className={styles.textAdjust}>{val?.amountRemaining}</span>
+                    <span className={styles.textAdjust1}>{val?.amountRemaining}</span>
                   </TableRow>
                   <TableRow
                     style={{
@@ -171,7 +171,7 @@ function GraphTable({ data, title }) {
                     }}
                   >
                     <span className={styles.textAdjust}>EMI</span>
-                    <span className={styles.textAdjust}> {val?.EMI}</span>
+                    <span className={styles.textAdjust1}> {val?.EMI}</span>
                   </TableRow>
                   <TableRow
                     style={{
@@ -183,7 +183,7 @@ function GraphTable({ data, title }) {
                     }}
                   >
                     <span className={styles.textAdjust}>INTEREST</span>
-                    <span className={styles.textAdjust}>{val?.Interest}%</span>
+                    <span className={styles.textAdjust1}>{val?.Interest}%</span>
                   </TableRow>
                   <TableRow
                     style={{
@@ -195,7 +195,7 @@ function GraphTable({ data, title }) {
                     }}
                   >
                     <span className={styles.textAdjust}>PRINCIPAL</span>
-                    <span className={styles.textAdjust}>{val?.Principal}</span>
+                    <span className={styles.textAdjust1}>{val?.Principal}</span>
                   </TableRow>
                   <TableRow
                     style={{
@@ -207,7 +207,7 @@ function GraphTable({ data, title }) {
                     }}
                   >
                     <span className={styles.textAdjust}>OUTSTATION</span>
-                    <span className={styles.textAdjust}>{val?.Outstation}</span>
+                    <span className={styles.textAdjust1}>{val?.Outstation}</span>
                   </TableRow>
                   <TableRow
                     style={{
@@ -219,7 +219,7 @@ function GraphTable({ data, title }) {
                     }}
                   >
                     <span className={styles.textAdjust}>DATE</span>
-                    <span className={styles.textAdjust}>{val?.loanSubmissionDate}</span>
+                    <span className={styles.textAdjust1}>{val?.loanSubmissionDate}</span>
                   </TableRow>
                 </div>
               )
@@ -245,7 +245,7 @@ function GraphTable({ data, title }) {
                     }}
                   >
                     <span className={styles.textAdjust}>TOTAL LOAN AMOUNT</span>
-                    <span className={styles.textAdjust}>{data[datalen-1]?.amountRemaining}</span>
+                    <span className={styles.textAdjust1}>{data[datalen-1]?.amountRemaining}</span>
                   </TableRow>
                   <TableRow
                     style={{
@@ -258,7 +258,7 @@ function GraphTable({ data, title }) {
                     }}
                   >
                     <span className={styles.textAdjust}>TOTAL EMI</span>
-                    <span className={styles.textAdjust}>{data[datalen-1]?.EMI}</span>
+                    <span className={styles.textAdjust1}>{data[datalen-1]?.EMI}</span>
                   </TableRow>
                   <TableRow
                     style={{
@@ -271,7 +271,7 @@ function GraphTable({ data, title }) {
                     }}
                   >
                     <span className={styles.textAdjust}>TOTAL INTEREST</span>
-                    <span className={styles.textAdjust}>{data[datalen-1]?.Interest} </span>
+                    <span className={styles.textAdjust1}>{data[datalen-1]?.Interest} </span>
                   </TableRow>
                   <TableRow
                     style={{
@@ -284,7 +284,7 @@ function GraphTable({ data, title }) {
                     }}
                   >
                     <span className={styles.textAdjust}>TOTAL PRINCIPAL</span>
-                    <span className={styles.textAdjust}>{data[datalen-1]?.Principal}</span>
+                    <span className={styles.textAdjust1}>{data[datalen-1]?.Principal}</span>
                   </TableRow>
                 </div>
         </>
