@@ -141,6 +141,7 @@
 
 .down{
     flex: 0.2;
+    z-index: 0;
 }
 
 .newLine{
@@ -248,4 +249,10 @@
 .user{
     display: flex;
     align-items: center;
+}
+@media (max-width:767px){
+.yearFlex{
+    flex-direction: column;
+    gap: 10px;
+}
 }

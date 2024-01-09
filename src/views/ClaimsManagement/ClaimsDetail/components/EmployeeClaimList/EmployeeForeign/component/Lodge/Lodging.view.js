@@ -1,5 +1,5 @@
 import React from "react";
-import { getCurrency, removeUnderScore } from "../../../../../../../../helper/helper";
+import { getCurrency } from "../../../../../../../../helper/helper";
 import styles from "./Style.module.css";
 function LodgingView({ data }) {
   return (
@@ -14,11 +14,11 @@ function LodgingView({ data }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Booking By :</span>
-                {removeUnderScore(data?.booking_by)}
+                {data?.booking_by}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>City:</span>
-                {data?.city}
+                <span className={styles.value}>Specify Country:</span>
+                {data?.country_name}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Hotel Name :</span>
@@ -30,7 +30,7 @@ function LodgingView({ data }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Total Max Entitlement:</span>
-                {getCurrency("INR")}
+                {getCurrency(data?.currency)}
                 {data?.max_entitlement}
               </div>
               {data?.payment_proof && (
@@ -43,8 +43,13 @@ function LodgingView({ data }) {
                 </div>
               )}
               <div className={styles.key}>
+                <span className={styles.value}> Currency : </span>
+                {getCurrency(data?.currency)}
+              </div>
+
+              <div className={styles.key}>
                 <span className={styles.value}>Expense Amount : </span>
-                {getCurrency("INR")}
+                {getCurrency(data?.currency)}
                 {data?.amount}
               </div>
             </div>
@@ -54,8 +59,8 @@ function LodgingView({ data }) {
                 {data?.checkOutDateText}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>City Cluster:</span>
-                {data?.city_cluster}
+                <span className={styles.value}>Country Chosen:</span>
+                {data?.country}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Stay at:</span>
@@ -77,7 +82,7 @@ function LodgingView({ data }) {
                 <span className={styles.value}>Per Day Entitlement:</span>
                 {data?.per_day_entitlement ? (
                   <>
-                    {getCurrency("INR")}
+                    {getCurrency(data?.currency)}
                     {data?.per_day_entitlement}
                   </>
                 ) : (
@@ -85,8 +90,20 @@ function LodgingView({ data }) {
                 )}
               </div>
               <div className={styles.key}>
+                <span className={styles.value}>Over Expenditure:</span>
+                {data?.over_expenditure
+                  ? `${getCurrency(data?.currency)} ${data?.over_expenditure} `
+                  : 0}
+              </div>
+              <div className={styles.key}>
                 <span className={styles.value}>Payment Made By:</span>
                 {data?.payment_by}
+              </div>
+              <div className={styles.key}>
+                <span className={styles.value}>
+                  Choose the currency of payment:
+                </span>
+                {data?.payment_made_by ? data?.payment_made_by : "-"}
               </div>
 
               {data?.voucher && (

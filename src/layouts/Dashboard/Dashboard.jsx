@@ -48,7 +48,7 @@ const Dashboard = ({title, ...props}) => {
 
     const handleResize =  useCallback((e) => {
         if (window.innerWidth < 767) {
-            setDrawerOpen(false);
+            // setDrawerOpen(false);
         } else {
             setDrawerOpen(true);
         }

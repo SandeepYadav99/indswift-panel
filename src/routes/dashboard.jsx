@@ -13,7 +13,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 const EmpTravelDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpTravelDetail/EmpTravelDetail.view.js"));
-
+const EmpForeignDetail = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmployeeForeign/EmpForeignDetail.view.js"));
 const TravelAuthSpec = lazy (()=> import ("../views/TravelPlanner/TravelAuthSpec/TravelAuthSpec.container.js"));
 const  FinalDetail = lazy(()=> import ("../views/Full&Final/FinalDetail/FinalDetail.view.js"));
 const  FullDetail = lazy(()=> import ("../views/Full&FinalApproval/FullDetail/FullDetail.js"));
@@ -1521,6 +1521,18 @@ const dashboardRoutes = [
     navbarName: "Claims List",
     icon: PeopleOutlined,
     component: EmpTravelDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.EMPLOYEE_FOREIGN_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: EmpForeignDetail,
     is_sidebar: false,
     is_protect: true,
     should_regex: true,

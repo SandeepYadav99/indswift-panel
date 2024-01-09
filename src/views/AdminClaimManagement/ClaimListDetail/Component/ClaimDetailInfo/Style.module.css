@@ -167,3 +167,12 @@
     font-weight: 500;
     margin-bottom: 7px;
 }
+@media (max-width: 767px) {
+.prcReportWrap{
+    flex-direction: column;
+    align-items: flex-start;
+}
+.value{
+    width: 150px;
+}
+}

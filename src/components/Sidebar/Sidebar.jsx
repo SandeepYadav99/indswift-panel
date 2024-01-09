@@ -42,7 +42,8 @@ class CustomListItem extends React.Component {
     }
 
     _renderNavLink(prop, nested) {
-        const {classes, color, key, activeRoute} = this.props;
+        const {classes, color, key, activeRoute,toggleSideBar} = this.props;
+        
         const listItemClasses = cx({
             [" " + classes[color]]: activeRoute(prop.path, prop),
             [" " + classes['nested']]: nested
@@ -56,6 +57,7 @@ class CustomListItem extends React.Component {
                 className={classes.item}
                 activeClassName="active"
                 target={prop?.is_external ? '_blank' : '_self'}
+                onClick={toggleSideBar}
                 // key={key}
             >
                 <ListItem button className={classes.itemLink + listItemClasses}>
@@ -132,11 +134,11 @@ class CustomLink extends React.Component {
     }
 
     _renderLinks() {
-        const {routes, classes, color, activeRoute} = this.props;
+        const {routes, classes, color, activeRoute,toggleSideBar} = this.props;
         const links = [];
         routes.forEach((prop, key) => {
             links.push(<CustomListItem routes={routes} key={key} prop={prop} classes={classes} activeRoute={activeRoute}
-                                       color={color}/>);
+                                       color={color}   toggleSideBar={toggleSideBar}/>);
         });
         return links;
     }
@@ -257,7 +259,7 @@ const Sidebar = ({...props}) => {
                     <div className={classes.sidebarWrapperMobile}>
                         {/*<HeaderLinks />*/}
                         {
-                            data?.length > 0 ?  <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute}/>
+                            data?.length > 0 ?  <CustomLink routes={data} classes={classes} color={color} activeRoute={activeRoute} toggleSideBar={toggleSideBar}/>
                             : <p className={classes.notext}>No Match Found ...</p>
                         }
                     </div>

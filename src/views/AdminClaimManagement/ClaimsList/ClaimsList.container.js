@@ -19,12 +19,12 @@ import {
 import PageBox from "../../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import CreateView from "./ClaimsList.view";
 import useClaimsList from "./ClaimsListHook";
+import Datatables from "../../../components/Datatables/datatables";
 
 const ClaimsList = ({ location }) => {
   const {
@@ -343,17 +343,14 @@ const ClaimsList = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
+        </div>
+      </PageBox>
+      <div style={{ width: "100%" }}>
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
-        </div>
-      </PageBox>
       <SidePanelComponent
         handleToggle={handleSideToggle}
         title={"New Candidate"}

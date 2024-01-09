@@ -21,6 +21,11 @@
   width: 20%;
   background-color: #ffffff;
 }
+.shared {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .PdfBtnWrapper {
   background: #ffffff;
   width: 100%;
@@ -91,54 +96,60 @@
   background-color: #fff;
   box-shadow: 0px 20px 80px #00000011;
 }
-.newContainer{
+.newContainer {
   font-size: 0.7rem;
 }
-.commentWrap{
+.commentWrap {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.commentContainer{
+.commentContainer {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  font-size: .7rem;
+  font-size: 0.7rem;
 }
-.commentDate{
+.commentDate {
   font-weight: 600;
 }
-.commentwrap{
+.commentwrap {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-.hyperlinkText{
-  color: #2896E9;
+.hyperlinkText {
+  color: #2896e9;
   text-decoration-line: underline;
   cursor: pointer;
 }
-.heading221{
+.heading221 {
   font-size: 0.8rem;
   font-weight: 600;
 }
-.mainFlex{
+.mainFlex {
   display: flex;
   /*align-items: center;*/
 }
 
 .vertical {
-  border-left: 1px dashed #B8C5D3;
+  border-left: 1px dashed #b8c5d3;
   max-height: 100px;
   flex: 0.3;
 }
 
-.key{
+.key {
   color: #818181;
   font-weight: 500;
   margin-bottom: 7px;
 }
-.key221{
+.keyShared {
+  color: #818181;
+  font-weight: 500;
+  margin-bottom: 7px;
+  display: flex;
+}
+.key221 {
   margin-top: 15px;
   display: flex;
   gap: 20px;
@@ -147,51 +158,51 @@
   font-weight: 500;
   margin-bottom: 7px;
 }
-.value{
+.value {
   font-weight: 600;
   width: 180px;
   color: black;
   display: inline-block;
 }
 
-.newContainer{
+.newContainer {
   font-size: 0.7rem;
 }
 
-.left{
+.left {
   flex: 1.4;
 }
 
-.right{
+.right {
   flex: 1;
 }
 
-.horizontal{
-  border-bottom: 1px dashed #B8C5D3;
+.horizontal {
+  border-bottom: 1px dashed #b8c5d3;
   margin-top: 15px;
   margin-bottom: 22px;
 }
 
-.posted{
+.posted {
   font-size: 0.7rem;
   margin-left: 10px;
 }
-.statusContainer{
+.statusContainer {
   display: flex;
   justify-content: space-between;
 }
-.editBtn{
+.editBtn {
   display: flex;
   justify-content: flex-end;
 }
 
-.editFlex{
+.editFlex {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.statusFlex{
+.statusFlex {
   display: flex;
   justify-content: flex-end;
 }
@@ -201,25 +212,25 @@
   justify-content: flex-end;
 }
 
-.detailFlex{
+.detailFlex {
   display: flex;
 }
 
-.info{
+.info {
   margin-left: 10px;
 }
-.formDetailWrapper{
+.formDetailWrapper {
   margin-top: 20px;
 }
-.prcReportWrap{
+.prcReportWrap {
   margin-top: 10px;
   display: flex;
-  border-top: 1px solid #B8C5D3;
+  border-top: 1px solid #b8c5d3;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.list{
+.list {
   color: #818181;
 }
 .totalWrap {
@@ -231,40 +242,20 @@
   align-items: center;
   justify-content: flex-start;
   font-weight: 600;
-  font-size: .8rem;
+  font-size: 0.8rem;
   margin-top: 5px;
-
 }
-.inner{
-margin-left: 20px;
+.inner {
+  margin-left: 20px;
 }
-.inner > span{
+.inner > span {
   margin-left: 10px;
-  color: #2896E9;
+  color: #2896e9;
 }
-.otherWrap{
+.otherWrap {
   margin: 10px 0;
 }
-.verti{
-  border: 1px solid #B8C5D3;
-  margin:10px 0;
-}
-@media (max-width: 767px) {
-.PdfBtnWrapper{
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-}
-.btnApproveWrapper{
-  flex-direction: column-reverse;
-  align-items: flex-start;
-  margin-left: 15px;
-  gap: 10px;
-}
-.value{
-  width: 170px;
-}
-.lowerApp{
-  width: 100%;
-}
+.verti {
+  border: 1px solid #b8c5d3;
+  margin: 10px 0;
 }

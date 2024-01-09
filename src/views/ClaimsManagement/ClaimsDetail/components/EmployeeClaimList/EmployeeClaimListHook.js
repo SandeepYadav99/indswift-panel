@@ -117,7 +117,7 @@ const useEmployeeClaimList = ({}) => {
     if (data?.claim_type === "TRAVEL") {
       historyUtils.push(`${RouteName.EMPLOYEE_TRAVEL_DETAILS}${data?.id}`); //+data.id
     } else if (data?.claim_type === "FOREIGN_TRAVEL") {
-      historyUtils.push(`${RouteName.FOREIGN_CLAIMS_DETAILS}${data?.id}`); //+data.id
+      historyUtils.push(`${RouteName.EMPLOYEE_FOREIGN_DETAILS}${data?.id}`); //+data.id
     } else {
       historyUtils.push(`${RouteName.EMPLOYEE_CLAIMS_DETAILS}${data?.id}`); //+data.id
     }

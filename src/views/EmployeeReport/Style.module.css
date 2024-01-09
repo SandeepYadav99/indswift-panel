@@ -141,6 +141,7 @@
 
 .down{
     flex: 0.2;
+    z-index: 0;
 }
 
 .newLine{
@@ -178,6 +179,7 @@
 
 .drop{
     width: 250px;
+    z-index: 0;
 }
 
 .totalWrap{

@@ -6,13 +6,13 @@ import { Add, Edit, InfoOutlined, PrintOutlined } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import StatusPill from "../../components/Status/StatusPill.component";
 import LogUtils from "../../libs/LogUtils";
 import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
 import useClaimsReport from "./ClaimsReport.hook";
 import FilterComponent from "../../components/Filter/Filter.component";
+import Datatables from "../../components/Datatables/datatables";
 
 const ClaimsReport = ({}) => {
   const {
@@ -220,7 +220,7 @@ const ClaimsReport = ({}) => {
           <div className={styles.down}>{renderDropDownType}</div>
         </div>
 
-        <div style={{ marginTop: "30px" }}>
+        <div>
           <div>
           <FilterComponent
               is_progress={isFetching}
@@ -228,16 +228,15 @@ const ClaimsReport = ({}) => {
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}
             />
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
+          </div>
+        </div>
+      </PageBox>
+      <div style={{ width: "100%" }}>
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
-        </div>
-      </PageBox>
     </div>
   );
 };

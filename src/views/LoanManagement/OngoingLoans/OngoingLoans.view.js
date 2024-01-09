@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 import { InfoOutlined } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import useOngoingLoans from "./OngoingLoans.hook";
+import Datatables from "../../../components/Datatables/datatables";
 
 const OngoingLoans = () => {
   const {
@@ -230,17 +230,14 @@ const OngoingLoans = () => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
+        </div>
+      </PageBox>
+      <div style={{ width: "100%" }}>
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
-        </div>
-      </PageBox>
     </div>
   );
 };
