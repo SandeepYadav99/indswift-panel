@@ -153,4 +153,17 @@
     padding: 0px;
     min-height: 40px;
   }
-  
+  @media (max-width:767px){
+    .labelhead{
+      font-size: 0.7rem;
+      padding: 10px 5px;
+      white-space: wrap;
+      font-weight: 500;
+    }
+    .label {
+      font-size: 0.7rem;
+      padding: 10px 5px;
+      white-space: wrap;
+      font-weight: 500;
+    }
+  }

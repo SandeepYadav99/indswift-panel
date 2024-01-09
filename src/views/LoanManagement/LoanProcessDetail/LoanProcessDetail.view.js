@@ -197,6 +197,7 @@ function LoanProcessDetail() {
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Previous Loan History</div>
         <LoanHistoryIncludeForm experience={experience} ref={travelRef} />
+        <div className={"formGroup"}>
         <CustomTextField
           type="number"
           isError={errorData?.previous_year_loan_comment}
@@ -209,6 +210,7 @@ function LoanProcessDetail() {
           multiline
           rows={3}
         />
+        </div>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Eligibility Calculations</div>
@@ -248,7 +250,7 @@ function LoanProcessDetail() {
             </div>
           </div>
           <div>
-            <div className={"formFlex"}>
+            <div className={styles.formFlex}>
               <div className={"formGroup"}>
                 <CustomTextField
                   type="number"
@@ -291,7 +293,7 @@ function LoanProcessDetail() {
                 />
               </div>
             </div>
-            <div className={"formFlex"}>
+            <div className={styles.formFlex}>
               <div className={"formGroup"}>
                 <CustomTextField
                   type={"number"}
@@ -338,7 +340,7 @@ function LoanProcessDetail() {
                 />
               </div>
             </div>
-            <div className={"formFlex"}>
+            <div className={styles.formFlex}>
               <div className={"formGroup"}>
                 <CustomSelectField
                   isError={errorData?.posible_recovery_loan}
@@ -375,7 +377,7 @@ function LoanProcessDetail() {
             </div>
           </div>
           <div>
-            <div className={"formFlex"}>
+            <div className={styles.formFlex}>
               <div className={"formGroup"}>
                 <CustomDatePicker
                   clearable
@@ -479,7 +481,7 @@ function LoanProcessDetail() {
         </div>
       </div>
       <div className={styles.btnApproveWrapper}>
-        <div>
+        <div className={styles.BtnWrap}>
           <ButtonBase
             // disabled={isSubmitting}
             className={styles.createBtn}
