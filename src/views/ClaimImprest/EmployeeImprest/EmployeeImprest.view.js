@@ -6,7 +6,7 @@ import { Add, Edit, InfoOutlined, PrintOutlined } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables";
 import Constants from "../../../config/constants";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import LogUtils from "../../../libs/LogUtils";
@@ -249,15 +249,16 @@ const EmployeeImprest = ({}) => {
               handleFilterDataChange={handleFilterDataChange}
             />
             <br />
-            <div style={{ width: "100%" }}>
+          
+          </div>
+        </div>
+      </PageBox>
+      <div style={{ width: "100%" }}>
               <DataTables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
-        </div>
-      </PageBox>
     </div>
   );
 };

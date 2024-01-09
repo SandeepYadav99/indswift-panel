@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import styles from "./Style.module.css";
 import { useSelector } from "react-redux";
-import WaitingComponent  from "../../../../../components/Waiting.component";
+import WaitingComponent from "../../../../../components/Waiting.component";
 import historyUtils from "../../../../../libs/history.utils";
 import RouteName from "../../../../../routes/Route.name";
 
@@ -61,9 +61,14 @@ function RecentUpdate() {
 
   return (
     <div className={styles.RecentUpdateContainer}>
-      <div>
-        <span className={styles.title}>Recent Circular & Policies</span>
-        <div className={styles.newLine} />
+      <div className={styles.containerData}>
+        <div>
+          <span className={styles.title}>Recent Circular & Policies </span>
+          <div className={styles.newLine} />
+        </div>
+        <div className={styles.buttonColorView}>
+          View All
+        </div>
       </div>
       {/* <div className={styles.scrollRecentUpdate}> */}
       {listItems}

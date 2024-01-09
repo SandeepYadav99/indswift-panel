@@ -72,7 +72,7 @@ function EmployeeList({ className, data, handleEditToggle, role }) {
             <br />
             <div style={{display:'flex',justifyContent:"space-between"}}>
               <div className={styles.dateFieldMobile}>
-                <strong>{data?.dateOfIssueText}</strong>
+                <strong className={styles.historyDes}>{data?.dateOfIssueText}</strong>
                 <a
                   href={data?.document}
                   target={"_blank"}

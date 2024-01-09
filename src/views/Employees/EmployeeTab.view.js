@@ -139,7 +139,7 @@ const EmployeeTab = () => {
           isOpen={isUpdateDialog}
           handleToggle={toggleStatusDialog}
         />
-        <div>
+        <div className={styles.tabViewMobile}>
           <AppBar position="static" className={styles.backgroundColor} >
             <Tabs
               value={value}

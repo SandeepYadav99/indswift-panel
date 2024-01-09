@@ -440,7 +440,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    margin-right: 25px;
+    margin-right: 5px;
   }
   .imgBox2 {
     height: 40px;
@@ -452,12 +452,20 @@
     margin-right: 25px;
   }
   .number {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
   }
   .num {
     font-size: 1.2rem !important;
   }
   .subText {
     font-size: 0.6rem !important;
+  }
+  #activeMobilePadding{
+    padding-right:5px ;
+    padding-left:5px ;
+  }
+  .prcStatus {
+    font-weight: 600;
+    font-size: 0.7rem;
   }
 }

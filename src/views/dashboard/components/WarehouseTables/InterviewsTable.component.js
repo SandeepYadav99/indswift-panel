@@ -87,6 +87,7 @@ const InterviewsTable = () => {
               justifyContent: "space-between",
               borderBottom: "2px solid whitesmoke",
               alignItems:"center",
+              gap:"10px",
             }}
           >
             <span className={styles.textAdjust}>NAME</span>
@@ -103,9 +104,9 @@ const InterviewsTable = () => {
               justifyContent: "space-between",
               borderBottom: "2px solid whitesmoke",
               alignItems:"center",
+              gap:"10px",
             }}
           >
-            {" "}
             <span className={styles.textAdjust}>LOCATION</span>
             <span className={styles.textAdjust}>{val?.location}</span>
           </TableRow>
@@ -115,6 +116,7 @@ const InterviewsTable = () => {
               justifyContent: "space-between",
               borderBottom: "2px solid whitesmoke",
               alignItems:"center",
+              gap:"10px",
             }}
           >
             <span className={styles.textAdjust}> DESIGNATION/DEPARTMENT</span>
@@ -128,6 +130,7 @@ const InterviewsTable = () => {
               justifyContent: "space-between",
               borderBottom: "2px solid whitesmoke",
               alignItems:"center",
+              gap:"10px",
             }}
           >
             <span className={styles.textAdjust}>JOINING DATE</span>

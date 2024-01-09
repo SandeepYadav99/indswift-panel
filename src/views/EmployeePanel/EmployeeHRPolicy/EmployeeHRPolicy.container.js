@@ -9,7 +9,7 @@ import {Button, ButtonBase, IconButton} from "@material-ui/core";
 
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables.js";
 import Constants from "../../../config/constants";
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -142,8 +142,9 @@ function EmployeeHRPolicy() {
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}
             />
-            <div>
-              <br />
+          </div>
+        </PageBox>
+        <div>
               <div style={{ width: "100%" }}>
                 <DataTables
                   {...tableData.datatable}
@@ -151,8 +152,6 @@ function EmployeeHRPolicy() {
                 />
               </div>
             </div>
-          </div>
-        </PageBox>
       </div>
     </div>
   );

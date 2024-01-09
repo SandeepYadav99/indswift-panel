@@ -318,7 +318,7 @@
   
   .letterLink {
     color: #02cfff;
-    text-decoration: underline;
+    text-decoration: underline !important;
     font-size: 0.7rem;
     cursor: pointer;
   }
@@ -343,7 +343,7 @@
   
   @media only screen and (max-width:769px){
     .title {
-      font-size: 0.785rem;
+      font-size: 0.8rem;
       font-weight: 600;
     }
     .grossSalaryWrapper{

@@ -52,3 +52,12 @@
   border-bottom: 2px solid #ebedf4;
   margin-top: 15px;
 }
+.containerData{
+   display: flex;
+   justify-content: space-between !important;
+}
+.buttonColorView{
+  font-size: 12px;
+  color: blue !important;
+  font-weight: 600;
+}

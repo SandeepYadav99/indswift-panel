@@ -141,3 +141,14 @@
   border: none;
 
 }
+.mobileContainer{
+  display: none !important;
+}
+@media only screen and (max-width:769px){
+  .desktopContainer{
+    display: none !important;
+  }
+  .mobileContainer{
+    display: block !important;
+  }
+}

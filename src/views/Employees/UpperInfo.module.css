@@ -216,7 +216,7 @@
     .profileInfo {
         margin: 0;
         padding-top: 10px;
-        text-align: center;
+        text-align: start;
     }
 
     .vertical {
@@ -278,6 +278,8 @@
 
     .imageContainer {
         border-radius: 100%;
+        height: 100px !important;
+        width: 100px !important;
     }
     .upperCardWidthData{
          width: 100% !important;

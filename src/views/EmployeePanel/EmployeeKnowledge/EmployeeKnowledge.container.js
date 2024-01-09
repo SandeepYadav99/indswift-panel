@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { Button, IconButton } from "@material-ui/core";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables.js";
 import Constants from "../../../config/constants";
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -52,12 +52,6 @@ function EmployeeKnowledge() {
         label: "Name",
         sortable: false,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
-      },
-      {
-        key: "",
-        label: "",
-        sortable: false,
-        render: (value, all) => <div>{<></>}</div>,
       },
       {
         key: "user_id",
@@ -131,8 +125,8 @@ function EmployeeKnowledge() {
               <div className={styles.newLine} />
             </div>
           </div>
-
-          <div>
+        </PageBox>
+        <div>
             <div>
               <br />
               <div style={{ width: "100%" }}>
@@ -143,7 +137,6 @@ function EmployeeKnowledge() {
               </div>
             </div>
           </div>
-        </PageBox>
       </div>
     </div>
   );

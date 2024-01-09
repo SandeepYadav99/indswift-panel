@@ -10,7 +10,7 @@ import {
 } from "@material-ui/icons";
 import PageBox from "../../../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../../../Datatables/Datatable.table";
+import DataTables from "../../../../../components/Datatables/datatables.js";
 import FilterComponent from "../../../../../components/Filter/Filter.component";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import historyUtils from "../../../../../libs/history.utils";
@@ -181,7 +181,10 @@ const ImprestUpperTable = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
+         
+        </div>
+      </PageBox>
+      <div>
             <br />
             <div style={{ width: "100%" }}>
               <DataTables
@@ -190,8 +193,6 @@ const ImprestUpperTable = ({ location }) => {
               />
             </div>
           </div>
-        </div>
-      </PageBox>
     </div>
   );
 };
