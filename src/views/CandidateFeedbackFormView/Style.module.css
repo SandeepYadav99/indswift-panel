@@ -83,3 +83,10 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
+
+@media only screen and (max-width:769px) {
+  .btnContainer{
+    display: flex;
+    justify-content: center;
+  }
+}

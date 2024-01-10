@@ -75,11 +75,11 @@
 }
 
 .isReviewBtnContainer {
-  width: 30%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 30px;
+  position: relative;
 }
 
 .firstFieldWrapper {
@@ -121,6 +121,14 @@
 
   .btnContainerCheckBox {
     padding-bottom: 40px;
+    position:  relative !important;
+    z-index: -100000;
+  }
+
+  .panelListImg {
+    width: 40px;
+    aspect-ratio: 1/1;
+    border-radius: 100% !important;
   }
 
 }
@@ -130,5 +138,6 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    position:  relative !important;
   }
 }

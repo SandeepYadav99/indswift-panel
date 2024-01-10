@@ -71,7 +71,7 @@ function CandidateOLR({ location }) {
       return (
         <div className={styles.firstCellFlex}>
           <div className={styles.firstFieldWrapper}>
-            <img className={styles.panelListImg} src={obj?.image} />
+            <img className={styles.panelListImg} src={obj?.image}  />
             <span>{obj?.name}</span>
             <br />
           </div>

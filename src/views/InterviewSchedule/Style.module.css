@@ -131,3 +131,10 @@
     display: flex;
     justify-content: flex-end !important;
 }
+
+@media only screen and (max-width:769px){
+    .divAlignDes{
+        display: flex;
+        padding-left: 10px !important;
+    }
+}

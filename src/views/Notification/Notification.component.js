@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState,useEffect} from "react";
 import styles from "./Notification.module.css";
 import {
     ButtonBase,
 } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../libs/history.utils";
+import { serviceGetNotifications } from "../../services/Notification.services";
 
 const Notification = () => {
+    const [notifications,setNotifications] = useState([]);
+
+    useEffect(()=>{
+        const response = serviceGetNotifications();
+        setNotifications(response?.data)
+    },[notifications?.length])
+
+
+    console.log(notifications,"notifications is here where are you ?")
 
     return (
         <div className={styles.container}>
@@ -20,6 +30,7 @@ const Notification = () => {
                 <div className={styles.newLine} />
             </div>
             <br />
+
             <div className={styles.downFlex}>
                 <div className={styles.cardData}>
                     <div className={styles.titleData}>Notification 3</div>
