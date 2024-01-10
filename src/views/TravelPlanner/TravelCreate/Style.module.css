@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
 }
-
 .outerFlex {
   display: flex;
   align-items: center;
@@ -32,34 +31,28 @@
   margin-bottom: 20px;
   font-weight: 600;
 }
-
-.spanchk {
+.spanchk{
   font-size: 0.8rem;
   font-weight: 500;
 }
-
-.formWrap {
+.formWrap{
   display: flex;
   align-items: center;
   width: 25%;
   padding-left: 10px;
 }
-
-.formWrapInner {
+.formWrapInner{
   width: 30%;
 }
-
-.chkwrapp {
+.chkwrapp{
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
-.kk {
+.kk{
   font-weight: 600;
   font-size: 0.8rem;
 }
-
 .mainFlex {
   display: flex;
   /*align-items: center;*/
@@ -138,7 +131,6 @@
   display: flex;
   justify-content: flex-end;
 }
-
 .createBtn {
   background-color: #29cb97 !important;
   color: #ffffff !important;
@@ -156,18 +148,15 @@
 .info {
   margin-left: 10px;
 }
-
 .formDetailWrapper {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
   font-size: 0.875rem;
 }
-
 .formSelectWrapper {
   margin-top: 15px;
 }
-
 .createBtn {
   background-color: #29cb97 !important;
   color: #ffffff !important;
@@ -177,7 +166,6 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
-
 .disabledCreatebtn {
   background-color: #bec0bf !important;
   color: #ffffff !important;
@@ -187,28 +175,23 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
-
 .cleckboxWrapper {
   display: flex;
   font-size: 0.75rem;
 }
-
 .checkBox {
   display: flex;
   align-items: flex-start;
   gap: 5px;
   color: #161616;
 }
-
-.checkBox>input {
+.checkBox > input {
   cursor: pointer;
 }
-
 .heading {
   font-size: 0.875rem;
   padding-left: 0.7rem;
 }
-
 .plainPaper {
   border-radius: 10px;
   padding: 1.2rem;
@@ -217,101 +200,84 @@
   box-shadow: 0px 20px 80px #00000011;
   font-size: 0.7rem;
 }
-
 .heading {
   font-size: 0.8rem;
   margin-top: 5px;
   margin-bottom: 20px;
   font-weight: 600;
 }
-
 .radioheading {
   font-size: 0.875rem;
   font-weight: 600;
 }
-
 .checkWrapper {
   display: flex;
   flex-direction: column;
 }
-
 .editFlex {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .spanchk {
   font-size: 0.8rem;
   font-weight: 500;
 }
-
 .chkwrapp {
   display: flex;
   align-items: center;
 }
-
-.checkBoxWrap {
+.checkBoxWrap{
   display: flex;
   align-items: center;
   font-size: .8rem;
   gap: 10px;
   font-weight: 500;
 }
-
-.lower {
+.lower{
   display: flex;
   align-items: center;
   font-size: .8rem;
   font-weight: 600;
   padding-left: 38px;
 }
-
-.formWrap2 {
+.formWrap2{
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   padding-left: 10px;
 }
-
-.formWrapInner {
+.formWrapInner{
   width: 120px;
 }
-
-.maxWrap {
+.maxWrap{
   flex: 1;
 }
-
-.wrap {
+.wrap{
   width: 330px;
 }
-
-.amountWrap {
+.amountWrap{
   padding: 7px 10px;
   /* min-width: 150px; */
-  width: 200px;
+  width:200px;
 }
-
-.tapWrap {
+.tapWrap{
   display: flex;
   width: 25%;
   min-width: 350px;
 }
-
-.formCurr {
+.formCurr{
   /* width: 25%; */
   flex: 1;
   display: flex;
   align-items: center
 }
-
-.entitledVa {
+.entitledVa{
   display: flex;
   margin-left: 30px;
   font-weight: 600;
   flex-direction: column;
 }
-
 .valuesV {
   color: #818181;
   white-space: nowrap;
@@ -319,42 +285,17 @@
   align-items: center;
 
 }
-
-.flex1 {
+.flex1{
   flex: 1;
 }
-
-.flex12 {
+.flex12{
   flex: 1;
   color: #161616;
 }
 
-@media only screen and (max-width:769px) {
-  #mobileResponsive {
-    display: flex;
-    flex-direction: column !important;
-  }
-
-  .formCurr {
-    display: flex;
-    flex-direction: column !important;
-  }
-
-  .formWrapInner {
-    width: 80vw;
-  }
-
-  .amountWrap {
-    width: 100%;
-  }
-
-  .wrap {
-    width: 80vw;
-  }
-
-  .formWrap {
-    display: flex;
-    flex-direction: column !important;
-    width: 80vw;
+@media only screen and (max-width:769px){
+  #mobileResponsive{
+       display: flex;
+       flex-direction: column !important;
   }
 }
