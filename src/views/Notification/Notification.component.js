@@ -16,8 +16,6 @@ const Notification = () => {
     },[notifications?.length])
 
 
-    console.log(notifications,"notifications is here where are you ?")
-
     return (
         <div className={styles.container}>
             <div>
