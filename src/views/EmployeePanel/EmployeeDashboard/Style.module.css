@@ -53,6 +53,13 @@
   flex: 1;
 }
 
+.desktopView{
+  display: block;
+}
+.memberMobile{
+  display: none !important;
+}
+
 @media (max-width: 1200px) {
   .RecentUpdateLowerCard {
     flex-direction: column;
@@ -69,9 +76,15 @@
   .secondRow {
     flex-direction: column;
   }
+  .desktopView{
+    display: none !important;
+  }
+  .memberMobile{
+    display: block !important;
+  }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 769px) {
   .EmployeeDashboardFlex {
     flex-direction: column;
   }
@@ -83,4 +96,6 @@
   .secondRow {
     flex-direction: column;
   }
+
+  
 }
