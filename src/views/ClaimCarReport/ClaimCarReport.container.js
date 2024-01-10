@@ -1,30 +1,16 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
 import {
-  Button,
-  Paper,
-  Checkbox,
-  IconButton,
-  MenuItem,
   ButtonBase,
-  Menu,
 } from "@material-ui/core";
 import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
-import {
-  Add,
-  CloudDownload,
-  InfoOutlined,
-  PrintOutlined,
-} from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
-import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-import CreateView from "./ClaimCarReport.view";
 import StatusPill from "../../components/Status/StatusPill.component";
 import useClaimCarReport from "./ClaimsListHook";
+import Datatables from "../../components/Datatables/datatables";
 
 const ClaimCarReport = ({ location }) => {
   const {
@@ -201,18 +187,14 @@ const ClaimCarReport = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
+        </div>
+      </PageBox>
+      <div style={{ width: "100%" }}>
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
-        </div>
-      </PageBox>
-      
     </div>
   );
 };

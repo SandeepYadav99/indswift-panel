@@ -257,7 +257,7 @@ function TravelClaimListDetail() {
             <span>{getTotalValue ? ` ₹ ${getTotalValue}` : 0}</span>
           </div>
           <div className={styles.headingWrap}>
-            Self Borne Expense::
+            Self Borne Expense :
             <span>₹ {Number(getTotalValue) - Number(getOfficeAmount)}</span>
           </div>
           <div className={styles.headingWrap}>
