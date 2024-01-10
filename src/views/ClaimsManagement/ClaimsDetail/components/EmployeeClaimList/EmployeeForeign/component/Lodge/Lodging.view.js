@@ -1,5 +1,5 @@
 import React from "react";
-import { getCurrency } from "../../../../../../../../helper/helper";
+import { getCurrency, removeUnderScore } from "../../../../../../../../helper/helper";
 import styles from "./Style.module.css";
 function LodgingView({ data }) {
   return (
@@ -14,7 +14,7 @@ function LodgingView({ data }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Booking By :</span>
-                {data?.booking_by}
+                {removeUnderScore(data?.booking_by)}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Specify Country:</span>
