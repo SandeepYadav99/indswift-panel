@@ -263,3 +263,10 @@
   border: 1px solid #b8c5d3;
   margin: 10px 0;
 }
+@media (max-width: 767px) {
+  .key21{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  }

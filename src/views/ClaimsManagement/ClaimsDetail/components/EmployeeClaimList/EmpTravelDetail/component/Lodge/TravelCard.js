@@ -41,10 +41,6 @@ function TravelView({ data }) {
                 {data?.details}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Details of Travel Medium:</span>
-                {data?.details}
-              </div>
-              <div className={styles.key}>
                 <span className={styles.value}>Expense Amount : </span>
                 {getCurrency("INR")}
                 {data?.amount}

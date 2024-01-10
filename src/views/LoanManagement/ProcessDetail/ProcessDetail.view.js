@@ -172,6 +172,7 @@ function ProcessDetail() {
           ref={travelRef}
           isDetail={true}
         />
+        <div className={"formGroup"}>
         <CustomTextField
           type="number"
           disabled={true}
@@ -181,6 +182,7 @@ function ProcessDetail() {
           rows={3}
           InputLabelProps={{ shrink: true }}
         />
+        </div>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Eligibility Calculations</div>
@@ -220,7 +222,7 @@ function ProcessDetail() {
             </div>
           </div>
           <div>
-            <div className={"formFlex"}>
+            <div className={styles.formFlex}>
               <div className={"formGroup"}>
                 <CustomTextField
                   type="number"
@@ -260,7 +262,7 @@ function ProcessDetail() {
                 />
               </div>
             </div>
-            <div className={"formFlex"}>
+            <div className={styles.formFlex}>
               <div className={"formGroup"}>
                 <CustomTextField
                   disabled={true}
@@ -310,7 +312,7 @@ function ProcessDetail() {
                 />
               </div>
             </div>
-            <div className={"formFlex"}>
+            <div className={styles.formFlex}>
               <div className={"formGroup"}>
                 <CustomSelectField
                   disabled={true}
@@ -348,7 +350,7 @@ function ProcessDetail() {
             </div>
           </div>
           <div>
-            <div className={"formFlex"}>
+            <div className={styles.formFlex}>
               <div className={"formGroup"}>
                 <CustomDatePicker
                   disabled={true}
