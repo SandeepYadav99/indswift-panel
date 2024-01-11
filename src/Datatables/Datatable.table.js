@@ -279,7 +279,7 @@ const EnhancedTable = (props) => {
     const [dense, setDense] = useState(false);
     const {classes} = {...props};
 
-    const {columns, data, page, rowsPerPageOptions, rowsPerPage, count, allRowSelected,hidePagination, showSelection} = props;
+    const {columns, data, page, rowsPerPageOptions, rowsPerPage, count, allRowSelected,hidePagination, showSelection, mobileRender} = props;
     const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
     const handleResize = () => {
@@ -416,7 +416,10 @@ const EnhancedTable = (props) => {
             return data.map((row, index) => {
                 const isItemSelected = isSelected(row.name);
                 const labelId = `enhanced-table-checkbox-${index}`;
-
+                if (mobileRender) {
+                    const Entity = mobileRender;
+                    return (<Entity data={row} index={index} />);
+                }
                 return (
                     <div>
                         <Card key={row.id + "" + Math.random()} className={classNames(classes.mobileCard, 'dtMobCard')}>

@@ -65,7 +65,7 @@ const UpperInfo = ({
             <img src={data?.image} height={100} className={styles.imageContainer} />
           </div>
           <div className={styles.containerDataValue}>
-            <div style={{ display: "flex", marginTop: "10px"}} className={styles.upperCardWidthData}>
+            <div style={{ display: "flex", marginTop: "10px" }} className={styles.upperCardWidthData}>
               <div className={styles.profileInfo}>
                 <div className={styles.nameCap}>{data?.name?.toLowerCase()}</div>
                 <div>{data?.designation?.name}</div>
@@ -144,6 +144,38 @@ const UpperInfo = ({
                   >
                     <RepeatRounded fontSize={"small"} />
                     <span className={styles.actionBtnSpan}>Edit</span>
+                  </ActionButton>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className={styles.btnWrap2}>
+            {isAdmin && (
+              <div className={styles.actionWrap2}>
+                <div className={styles.btnContainerMobile}>
+                  <div className={styles.btnUpper2}>
+                    <ActionButton onClick={handleStatusToggle}>
+                      <InfoOutlined fontSize={"small"} />
+                      <span className={styles.actionBtnSpan2}>Update Status</span>
+                    </ActionButton>
+                  </div>
+                  <div className={styles.btnUpper2}>
+                    <ActionButton onClick={handleToggle}>
+                      <RepeatRounded fontSize={"small"} />
+                      <span className={styles.actionBtnSpan2}>Reset Password</span>
+                    </ActionButton>
+                  </div>
+                </div>
+                <div className={styles.btnUpper2}>
+                  <ActionButton
+                    onClick={() => {
+                      historyUtils.push(
+                        `${RouteName.EMPLOYEE_UPDATE}${data?.id}`
+                      );
+                    }}
+                  >
+                    <RepeatRounded fontSize={"small"} />
+                    <span className={styles.actionBtnSpan2}>Edit</span>
                   </ActionButton>
                 </div>
               </div>

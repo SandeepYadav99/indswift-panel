@@ -172,19 +172,69 @@
     justify-content: space-between;
 }
 
-@media (max-width: 1520px) {
+.GeneralInfoWrapeer {
+    padding: 1.2rem;
+    border-radius: 10px;
+    background: #e9f7fd 0% 0% no-repeat padding-box;
+    box-shadow: 0px 20px 80px #00000011;
+}
+.title {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.newLine {
+    height: 4px;
+    width: 30px;
+    border-radius: 10px;
+    margin-left: 1px;
+    background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.infoDetails {
+    font-size: 0.875rem;
+    margin-bottom: 0;
+}
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.infoStrong {
+    font-size: 0.875rem;
+}
+.alignDataToWrapper{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btnWrap2{
+    display: none !important;
+}
+
+@media only screen and (min-width:769px)and (max-width:1024px) {
+    .rightPartContainer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and  (max-width: 1520px) {
     .actionBtnSpan {
         display: none;
         margin-left: 0;
     }
 }
 
-@media (max-width: 769px) {
+@media only screen and (max-width: 769px) {
     .iconPositionResponsive {
         display: block;
         position: absolute;
         margin-left: 80%;
         margin-top: 10px;
+    }
+    .imageContainer{
+        height: 80px !important;
+        width: auto !important;
+        border-radius: 100% !important
     }
 
     .profileContainer {
@@ -249,6 +299,7 @@
     }
 
     .btnWrap .statusWrap {
+        margin-top: 30px !important;
         text-align: center;
         bottom: 0;
     }
@@ -272,10 +323,6 @@
         flex-direction: column-reverse !important;
     }
 
-    .btnUpper2 {
-        display: none !important;
-    }
-
     .imageContainer {
         border-radius: 100%;
         height: 100px !important;
@@ -284,46 +331,63 @@
     .upperCardWidthData{
          width: 100% !important;
     }
-}
-
-@media only screen and (min-width:769px)and (max-width:1024px) {
-    .rightPartContainer {
+    .btnWrap2{
+        display: block !important;
+        margin-top: 10px !important;
+    }
+    .btnContainerMobile{
+        display: flex !important;
+        gap:30px;
+        margin-bottom: 10px !important;
+    }
+    .btnUpper2{
         display: flex;
-        flex-wrap: wrap;
+        justify-content: center !important;
+    }
+    .btnUpper2>.MuiButton-root {
+        min-width: 30px !important;
+        background-color: red;
+    }
+    .actionBtnSpan2 {
+        font-style: normal;
+        font-size: 0.8rem;
+        letter-spacing: 0px;
+        color: #2896e9;
+        text-transform: uppercase;
+        opacity: 1;
+        padding: 0%;
+        font-weight: 570;
+        margin-left: 7px;
+        font-family: 'Montserrat'
     }
 }
 
+@media only screen and (max-width:448px){
+    .actionBtnSpan2 {
+        font-style: normal;
+        font-size: 8px;
+        letter-spacing: 0px;
+        color: #2896e9;
+        text-transform: uppercase;
+        opacity: 1;
+        padding: 0%;
+        font-weight: 570;
+        margin-left: 7px;
+        font-family: 'Montserrat'
+    }
+}
 
-.GeneralInfoWrapeer {
-    padding: 1.2rem;
-    border-radius: 10px;
-    background: #e9f7fd 0% 0% no-repeat padding-box;
-    box-shadow: 0px 20px 80px #00000011;
-}
-.title {
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-.newLine {
-    height: 4px;
-    width: 30px;
-    border-radius: 10px;
-    margin-left: 1px;
-    background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
-}
-.infoDetails {
-    font-size: 0.875rem;
-    margin-bottom: 0;
-}
-.infoContainer {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-.infoStrong {
-    font-size: 0.875rem;
-}
-.alignDataToWrapper{
-    display: flex;
-    justify-content: space-between;
+@media only screen and (max-width:331px){
+    .actionBtnSpan2 {
+        font-style: normal;
+        font-size: 6px;
+        letter-spacing: 0px;
+        color: #2896e9;
+        text-transform: uppercase;
+        opacity: 1;
+        padding: 0%;
+        font-weight: 570;
+        margin-left: 7px;
+        font-family: 'Montserrat'
+    }
 }
