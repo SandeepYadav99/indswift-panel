@@ -25,7 +25,7 @@ function OtherView({ data }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Booking By:</span>
-                {data?.booking_by ? data?.booking_by : '-'}
+                {data?.booking_by ? removeUnderScore(data?.booking_by) : '-'}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Expense Amount : </span>

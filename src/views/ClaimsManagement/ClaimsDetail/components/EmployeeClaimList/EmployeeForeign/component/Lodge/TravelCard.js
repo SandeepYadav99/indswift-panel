@@ -55,7 +55,7 @@ function TravelView({ data }) {
             <div className={styles.right}>
               <div className={styles.key}>
                 <span className={styles.value}>Booking By:</span>
-                {data?.booking_by}
+                {removeUnderScore(data?.booking_by)}
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Travel To:</span>
