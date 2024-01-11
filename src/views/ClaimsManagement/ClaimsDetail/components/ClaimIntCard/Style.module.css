@@ -257,4 +257,11 @@
     flex-direction: column;
     gap: 15px;
   }
+  .tapWrap{
+    width: 100%;
+    min-width: 200px;
+  }
+  .btnCont{
+    padding: 0 10px;
+  }
 }
