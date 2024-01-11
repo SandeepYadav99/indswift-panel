@@ -31,10 +31,15 @@ function EmployeeDashboard() {
       <div className={styles.secondRow}>
         <div className={styles.announcementRowWrapper}>
           <AnnouncementInfo />
-          <Members />
+          <div className={styles.desktopView}>
+            <Members />
+          </div>
         </div>
         <div className={styles.EmployeecolumnWrapper}>
           <EmployeeEventList />
+        </div>
+        <div className={styles.memberMobile}>
+        <Members />
         </div>
       </div>
       <div className={styles.RecentUpdateWrapper}>
