@@ -3,11 +3,13 @@
   min-width: 170px;
   margin: 0px 5px;
 }
+
 .flex12 {
   flex: 2;
   min-width: 170px;
   margin: 0px 5px;
 }
+
 .flex13 {
   flex: 1;
   min-width: 170px;
@@ -25,12 +27,14 @@
 .countryField {
   flex: 0.5;
 }
+
 .firstRow {
   flex: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
+
 .firstRow221 {
   display: flex;
   flex-wrap: wrap;
@@ -76,6 +80,7 @@
 .cell {
   margin-bottom: 40px;
 }
+
 .headerTitle {
   /*margin-bottom: 15px;*/
   /*padding-bottom: 5px;*/
@@ -87,12 +92,14 @@
   display: flex;
   align-items: center;
 }
+
 .heading {
   font-size: 0.8rem;
   margin-top: 20px;
   margin-bottom: 5px;
   font-weight: 600;
 }
+
 .sku {
   font-size: 0.8rem;
   margin-left: 40px;
@@ -107,11 +114,13 @@
 .rightBtn {
   width: 200px;
 }
+
 .btnWrapper {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
+
 .skuBtn {
   background: #f7a728 !important;
   padding: 11px 16px !important;
@@ -119,6 +128,7 @@
   border-radius: 5px !important;
   margin-bottom: 15px !important;
 }
+
 .totalWrap {
   width: 100%;
   height: 50px;
@@ -131,10 +141,12 @@
   font-size: 0.8rem;
   margin-top: 5px;
 }
+
 .inner {
   margin-left: 20px;
 }
-.inner > span {
+
+.inner>span {
   color: #2896e9;
 }
 
@@ -150,6 +162,56 @@
   font-size: 0.7rem !important;
   padding-top: 10px !important;
 }
+
 .radioWrapper {
   margin-bottom: 10px;
+}
+
+@media only screen and (max-width:769px) {
+  .flexContainer {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .textDetailPage {
+    font-size: 12px;
+  }
+
+  .lowerBtn {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .firstRow221 {
+    width: 100% !important;
+  }
+
+  #btnResponsive {
+    display: flex;
+    justify-content: flex-end;
+    width: 100% !important;
+  }
+
+  .firstRow {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .flex1 {
+    width: 100% !important;
+  }
+
+  .flex177 {
+    width: 100% !important;
+  }
+
+  .flex12231 {
+    width: 100% !important;
+  }
+  .flex12{
+    width: 100% !important;
+  }
+  .flex13{
+    width: 100% !important;
+  }
 }

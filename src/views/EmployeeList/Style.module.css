@@ -265,5 +265,18 @@
     justify-content: center !important;
    }
 }
+#colorIcon{
+  color: #2896E9 !important;
+}
+.colorText{
+  color: #2896E9 !important;
+  font-size: 11px !important;
+}
+@media only screen and (max-width:396px){
+  .colorText{
+    color: #2896E9 !important;
+    font-size: 10px !important;
+  } 
+}
 
 /* USC Create css */

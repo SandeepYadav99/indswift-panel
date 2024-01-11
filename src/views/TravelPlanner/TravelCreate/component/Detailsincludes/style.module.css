@@ -187,4 +187,17 @@
     justify-content: flex-end;
     width: 100% !important;
   }
+  .firstRow{
+    display: flex;
+    flex-direction: column !important;
+  }
+  .flex1{
+    width: 100% !important;
+  }
+  .flex177{
+    width: 100% !important;
+  }
+  .flex12231{
+    width: 100% !important;
+  }
 }
