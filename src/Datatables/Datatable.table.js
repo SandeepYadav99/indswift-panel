@@ -20,7 +20,8 @@ import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import {Card, CardContent, Divider} from "@material-ui/core";
-import PageBox from "../components/PageBox/PageBox.component";
+import StatusPill from "../Status/StatusPill.component";
+import PageBox from "../PageBox/PageBox.component";
 
 const createData = (name, calories, fat, carbs, protein) => {
     return {name, calories, fat, carbs, protein};
@@ -279,7 +280,7 @@ const EnhancedTable = (props) => {
     const [dense, setDense] = useState(false);
     const {classes} = {...props};
 
-    const {columns, data, page, rowsPerPageOptions, rowsPerPage, count, allRowSelected,hidePagination, showSelection} = props;
+    const {columns, data, page, rowsPerPageOptions, rowsPerPage, count, allRowSelected,hidePagination, showSelection, mobileRender} = props;
     const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
     const handleResize = () => {
@@ -416,7 +417,10 @@ const EnhancedTable = (props) => {
             return data.map((row, index) => {
                 const isItemSelected = isSelected(row.name);
                 const labelId = `enhanced-table-checkbox-${index}`;
-
+                if (mobileRender) {
+                    const Entity = mobileRender;
+                    return (<Entity data={row} index={index} />);
+                }
                 return (
                     <div>
                         <Card key={row.id + "" + Math.random()} className={classNames(classes.mobileCard, 'dtMobCard')}>
@@ -433,7 +437,7 @@ const EnhancedTable = (props) => {
                         classes={{root: classes.centerText}}
                     >
                         <img
-                            src={require("../assets/img/ic_search_empty@2x.png")}
+                            src={require("../../assets/img/ic_search_empty@2x.png")}
                             height={140}
                             style={{marginTop: "25px"}}
                         />
@@ -487,7 +491,7 @@ const EnhancedTable = (props) => {
                         classes={{root: classes.centerText}}
                     >
                         <img
-                            src={require("../assets/img/ic_search_empty@2x.png")}
+                            src={require("../../assets/img/ic_search_empty@2x.png")}
                             height={140}
                             style={{marginTop: "25px"}}
                         />
@@ -547,7 +551,8 @@ const EnhancedTable = (props) => {
         </PageBox>
 
     ) : (
-        <div className={classes.paper}>{renderCardContent()}
+        <div className={classes.paper}>{
+            renderCardContent()}
             <div className={'dTMobilePagination'}>
                 <TablePagination
                     rowsPerPageOptions={props.rowsPerPageOptions}
