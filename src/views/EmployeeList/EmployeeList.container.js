@@ -25,6 +25,14 @@ import OnBoardDialog from "./components/OnBoardPopUp/OnBoardDialog.view";
 import TraineeDialog from "./components/TraineePopUp copy/TraineeDialog.view";
 import RetiredDialog from "./components/RetiredPopUp/RetiredDialog.view";
 
+// const EmployeeMobileCard = ({data, index}) => {
+//   return (<div style={{ background: 'red', margin: '20px' }}>
+//     {data?.name} - {data?.emp_code}
+//     <br/>
+//     {data?.department?.name}
+//   </div>)
+// }
+
 const EmployeeList = ({}) => {
   const {
     handleSortOrderChange,
@@ -241,6 +249,7 @@ const EmployeeList = ({}) => {
       data: data,
       count: allData.length,
       page: currentPage,
+      // mobileRender: EmployeeMobileCard
     };
 
     return { datatableFunctions, datatable };
