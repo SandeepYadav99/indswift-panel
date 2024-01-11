@@ -59,8 +59,8 @@ const DetailsIncludeFields = ({
               label={"Travel From"}
             />
           </div>
-
-          <div className={styles.flex1}>
+        </div>
+        <div className={styles.flex1}>
             <TextField
               error={errors?.to}
               onChange={handleChange}
@@ -72,7 +72,6 @@ const DetailsIncludeFields = ({
               label={"Travel To"}
             />
           </div>
-        </div>
         <div className={styles.firstRow}>
           <div className={styles.flex177}>
             <CustomSelectField

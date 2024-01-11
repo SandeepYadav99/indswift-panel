@@ -357,4 +357,14 @@
     flex-direction: column !important;
     width: 80vw;
   }
+  .btnCont{
+    display: flex;
+    justify-content: center;
+  }
+  .chkwrapp{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start ;
+    align-items: flex-start !important;
+  }
 }

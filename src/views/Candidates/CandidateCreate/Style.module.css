@@ -79,3 +79,12 @@
     color: #2896E9;
     font-weight: 500;
 }
+@media only screen and (max-width:769px){
+    #mobileScreen{
+      display: flex;
+      flex-direction: column !important;
+    }
+    #mobileWidthCTC{
+        width:100% !important;
+    }
+}

@@ -202,8 +202,10 @@ const TravelList = ({ location }) => {
               onClick={() => {
                 handleViewDetails(all);
               }}
+              style={{display:'flex',gap:"3px"}}
             >
-              <InfoOutlined fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} className={styles.iconColorData} />
+              <span className={styles.mobileColor}>View Information</span>
             </IconButton>
           </div>
         ),
