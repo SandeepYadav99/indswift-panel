@@ -20,8 +20,7 @@ import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import {Card, CardContent, Divider} from "@material-ui/core";
-import StatusPill from "../Status/StatusPill.component";
-import PageBox from "../PageBox/PageBox.component";
+import PageBox from "../components/PageBox/PageBox.component";
 
 const createData = (name, calories, fat, carbs, protein) => {
     return {name, calories, fat, carbs, protein};
@@ -437,7 +436,7 @@ const EnhancedTable = (props) => {
                         classes={{root: classes.centerText}}
                     >
                         <img
-                            src={require("../../assets/img/ic_search_empty@2x.png")}
+                            src={require("../assets/img/ic_search_empty@2x.png")}
                             height={140}
                             style={{marginTop: "25px"}}
                         />
@@ -491,7 +490,7 @@ const EnhancedTable = (props) => {
                         classes={{root: classes.centerText}}
                     >
                         <img
-                            src={require("../../assets/img/ic_search_empty@2x.png")}
+                            src={require("../assets/img/ic_search_empty@2x.png")}
                             height={140}
                             style={{marginTop: "25px"}}
                         />
@@ -551,8 +550,7 @@ const EnhancedTable = (props) => {
         </PageBox>
 
     ) : (
-        <div className={classes.paper}>{
-            renderCardContent()}
+        <div className={classes.paper}>{renderCardContent()}
             <div className={'dTMobilePagination'}>
                 <TablePagination
                     rowsPerPageOptions={props.rowsPerPageOptions}
