@@ -95,6 +95,7 @@ import SuccessionAReducer from "./SuccessionA.reducer";
 import NextSuccessionPlanerReducer from "./NextSuccessionPlaner.reducer";
 import AfterNextSuccessionPlanerReducer from "./AfterNextSuccessionPlaner.reducer";
 import TravelAuthSpecReducer from "./TravelAuthSpec.reducer";
+import NotificationReducer from "./Notification.reducer";
 
 
 const rootReducer = combineReducers({
@@ -189,6 +190,7 @@ const rootReducer = combineReducers({
   final_form_approval: FinalFormApprovalReducer,
   succession_approval:SuccessionAReducer,
   travelAuthSpec: TravelAuthSpecReducer,
+  notification:NotificationReducer,
   // form: formReducer,
 });
 
