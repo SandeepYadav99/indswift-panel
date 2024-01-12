@@ -248,3 +248,9 @@
   border: 1px solid #b8c5d3;
   margin: 10px 0;
 }
+@media (max-width: 767px) {
+  .key {
+    display: flex;
+    flex-direction: column;
+  }
+}

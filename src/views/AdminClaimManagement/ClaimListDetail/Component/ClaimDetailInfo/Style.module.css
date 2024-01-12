@@ -173,6 +173,10 @@
     align-items: flex-start;
 }
 .value{
-    width: 150px;
+    width: 160px;
 }
+.key {
+    display: flex;
+    flex-direction: column;
+  }
 }

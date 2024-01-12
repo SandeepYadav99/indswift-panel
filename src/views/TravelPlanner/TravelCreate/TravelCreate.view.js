@@ -391,7 +391,6 @@ function TravelCreate() {
               <div className={styles.formWrap}>
                 <div className={styles.wrap}>
                   <CustomTextField
-                  className={styles.wrap}
                     isError={errorData?.imprest_comment}
                     errorText={errorData?.imprest_comment}
                     label={"Comment"}
