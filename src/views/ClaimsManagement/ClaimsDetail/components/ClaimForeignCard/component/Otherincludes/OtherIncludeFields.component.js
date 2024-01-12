@@ -141,7 +141,7 @@ const OtherIncludeFields = ({
               variant={"outlined"}
               label={"Choose currency of payment"}
             />
-            <div style={{ fontWeight: "500", textAlign: "start" }}>
+            <div className={styles.helpter}>
               Please mention the amount in spent currency and the exchange rate
               applied to reach at above currency.
             </div>

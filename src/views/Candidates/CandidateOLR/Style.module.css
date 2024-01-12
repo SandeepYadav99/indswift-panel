@@ -122,6 +122,14 @@
   .btnContainerCheckBox {
     padding-bottom: 40px;
   }
+  .isReviewBtnContainer{
+    width: 100%;
+    padding: 0 15px;
+    justify-content: space-between;
+  }
+  .btnCont1{
+    margin-top: 15px;
+  }
 
 }
 

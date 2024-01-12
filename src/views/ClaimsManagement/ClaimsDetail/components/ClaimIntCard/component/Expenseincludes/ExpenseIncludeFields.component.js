@@ -128,7 +128,7 @@ const ExpenseIncludeFields = ({
               ))}
             </CustomSelectField>
           </div>
-          <div className={styles.formGrp}>
+          <div className={styles.destop}>
             <TextField
               error={errors?.details}
               onChange={handleChange}
@@ -139,6 +139,20 @@ const ExpenseIncludeFields = ({
               variant={"outlined"}
               label={
                 "Details of Travel Medium (Train No, Flight No, Bus Type etc)"
+              }
+            />
+          </div>
+          <div className={styles.mobile}>
+            <TextField
+              error={errors?.details}
+              onChange={handleChange}
+              value={data?.details}
+              fullWidth={true}
+              name={"details"}
+              margin={"dense"}
+              variant={"outlined"}
+              label={
+                "Details of Travel Medium"
               }
             />
           </div>

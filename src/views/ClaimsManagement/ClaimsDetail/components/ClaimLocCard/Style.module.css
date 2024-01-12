@@ -222,4 +222,7 @@
   .radioWrap{
     flex-direction: column;
   }
+  .btnCont{
+    padding: 0 10px;
+}
 }

@@ -185,4 +185,7 @@
         width: 100%;
         padding: 7px 0;
     }
+    .btnCont{
+        padding: 0 10px;
+    }
   }
