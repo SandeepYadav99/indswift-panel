@@ -31,8 +31,8 @@ const CustomTable = ({ columns, data }) => {
               data?.length === index + 1
                 ? styles.blueField
                 : index % 2 === 0
-                  ? styles.evenRow
-                  : styles.oddRow
+                ? styles.evenRow
+                : styles.oddRow
             }
           >
             {columns?.map((column) => (
@@ -118,196 +118,206 @@ function GraphTable({ data, title }) {
 
 
   const _renderListDataMobile = () => {
-    const datalen = data?.length ;
-    const dataResult = data?.slice(0,datalen-1);
+    const datalen = data?.length;
+    const dataResult = data?.slice(0, datalen - 1);
 
     const tableRows = [];
     if (data) {
       tableRows.push(
         <>
-          {
-            dataResult?.map((val) => {
-              return (
-                <div
+          {dataResult?.map((val) => {
+            return (
+              <div
+                style={{
+                  padding: "10px",
+                  marginBottom: "20px",
+                  background: "#F7F7F7",
+                  borderRadius: "8px",
+                }}
+              >
+                <TableRow
+                  key={data.id}
                   style={{
-                    padding: "10px",
-                    marginBottom: "20px",
-                    background: "#F7F7F7",
-                    borderRadius:"8px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    borderBottom: "1px solid #00000029",
+                    alignItems: "center",
+                    gap: "10px",
                   }}
                 >
-                  <TableRow
-                    key={data.id}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid #00000029",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <span className={styles.textAdjust}>SR No</span>
-                    <span className={styles.textAdjust1}>{val?.SR_No}</span>
-                  </TableRow>
-                  <TableRow
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid #00000029",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <span className={styles.textAdjust}>LOAN AMOUNT</span>
-                    <span className={styles.textAdjust1}>{val?.amountRemaining}</span>
-                  </TableRow>
-                  <TableRow
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid #00000029",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <span className={styles.textAdjust}>EMI</span>
-                    <span className={styles.textAdjust1}> {val?.EMI}</span>
-                  </TableRow>
-                  <TableRow
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid #00000029",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <span className={styles.textAdjust}>INTEREST</span>
-                    <span className={styles.textAdjust1}>{val?.Interest}%</span>
-                  </TableRow>
-                  <TableRow
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid #00000029",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <span className={styles.textAdjust}>PRINCIPAL</span>
-                    <span className={styles.textAdjust1}>{val?.Principal}</span>
-                  </TableRow>
-                  <TableRow
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid #00000029",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <span className={styles.textAdjust}>OUTSTATION</span>
-                    <span className={styles.textAdjust1}>{val?.Outstation}</span>
-                  </TableRow>
-                  <TableRow
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid #00000029",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <span className={styles.textAdjust}>DATE</span>
-                    <span className={styles.textAdjust1}>{val?.loanSubmissionDate}</span>
-                  </TableRow>
-                </div>
-              )
-            })
-          }
-           <div
+                  <span className={styles.textAdjust}>SR No</span>
+                  <span className={styles.textAdjust1}>{val?.SR_No}</span>
+                </TableRow>
+                <TableRow
                   style={{
-                    padding: "10px",
-                    marginBottom: "20px",
-                    background: "#2896E9",
-                    borderRadius:"8px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    borderBottom: "1px solid #00000029",
+                    alignItems: "center",
+                    gap: "10px",
                   }}
                 >
-                  <TableRow
-                    key={data.id}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid whitesmoke",
-                      alignItems: "center",
-                      gap: "10px",
-                      color:"white"
-                    }}
-                  >
-                    <span className={styles.textAdjust}>TOTAL LOAN AMOUNT</span>
-                    <span className={styles.textAdjust1}>{data[datalen-1]?.amountRemaining}</span>
-                  </TableRow>
-                  <TableRow
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid whitesmoke",
-                      alignItems: "center",
-                      gap: "10px",
-                      color:"white"
-                    }}
-                  >
-                    <span className={styles.textAdjust}>TOTAL EMI</span>
-                    <span className={styles.textAdjust1}>{data[datalen-1]?.EMI}</span>
-                  </TableRow>
-                  <TableRow
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid whitesmoke",
-                      alignItems: "center",
-                      gap: "10px",
-                      color:"white"
-                    }}
-                  >
-                    <span className={styles.textAdjust}>TOTAL INTEREST</span>
-                    <span className={styles.textAdjust1}>{data[datalen-1]?.Interest} </span>
-                  </TableRow>
-                  <TableRow
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      borderBottom: "1px solid whitesmoke",
-                      alignItems: "center",
-                      gap: "10px",
-                      color:"white"
-                    }}
-                  >
-                    <span className={styles.textAdjust}>TOTAL PRINCIPAL</span>
-                    <span className={styles.textAdjust1}>{data[datalen-1]?.Principal}</span>
-                  </TableRow>
-                </div>
+                  <span className={styles.textAdjust}>LOAN AMOUNT</span>
+                  <span className={styles.textAdjust1}>
+                    {val?.amountRemaining === "Total"
+                      ? val?.amountRemaining
+                      : `₹ ${val?.amountRemaining}`}
+                  </span>
+                </TableRow>
+                <TableRow
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    borderBottom: "1px solid #00000029",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <span className={styles.textAdjust}>EMI</span>
+                  <span className={styles.textAdjust1}> {val?.EMI && `₹ ${val?.EMI}`}</span>
+                </TableRow>
+                <TableRow
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    borderBottom: "1px solid #00000029",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <span className={styles.textAdjust}>INTEREST</span>
+                  <span className={styles.textAdjust1}>{val?.Interest && `₹ ${val?.Interest} `}</span>
+                </TableRow>
+                <TableRow
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    borderBottom: "1px solid #00000029",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <span className={styles.textAdjust}>PRINCIPAL</span>
+                  <span className={styles.textAdjust1}>{val?.Principal && `₹ ${val?.Principal}`}</span>
+                </TableRow>
+                <TableRow
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    borderBottom: "1px solid #00000029",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <span className={styles.textAdjust}>OUTSTATION</span>
+                  <span className={styles.textAdjust1}>{val?.Outstation && `₹ ${val?.Outstation}`}</span>
+                </TableRow>
+                <TableRow
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    borderBottom: "1px solid #00000029",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <span className={styles.textAdjust}>DATE</span>
+                  <span className={styles.textAdjust1}>
+                    {val?.loanSubmissionDate}
+                  </span>
+                </TableRow>
+              </div>
+            );
+          })}
+          <div
+            style={{
+              padding: "10px",
+              marginBottom: "20px",
+              background: "#2896E9",
+              borderRadius: "8px",
+            }}
+          >
+            <TableRow
+              key={data.id}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                borderBottom: "1px solid whitesmoke",
+                alignItems: "center",
+                gap: "10px",
+                color: "white",
+              }}
+            >
+              <span className={styles.textAdjust}>TOTAL LOAN AMOUNT</span>
+              <span className={styles.textAdjust1}>
+               {data[datalen - 1]?.amountRemaining}
+              </span>
+            </TableRow>
+            <TableRow
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                borderBottom: "1px solid whitesmoke",
+                alignItems: "center",
+                gap: "10px",
+                color: "white",
+              }}
+            >
+              <span className={styles.textAdjust}>TOTAL EMI</span>
+              <span className={styles.textAdjust1}>
+              ₹ {data[datalen - 1]?.EMI}
+              </span>
+            </TableRow>
+            <TableRow
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                borderBottom: "1px solid whitesmoke",
+                alignItems: "center",
+                gap: "10px",
+                color: "white",
+              }}
+            >
+              <span className={styles.textAdjust}>TOTAL INTEREST</span>
+              <span className={styles.textAdjust1}>
+              ₹ {data[datalen - 1]?.Interest}{" "}
+              </span>
+            </TableRow>
+            <TableRow
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                borderBottom: "1px solid whitesmoke",
+                alignItems: "center",
+                gap: "10px",
+                color: "white",
+              }}
+            >
+              <span className={styles.textAdjust}>TOTAL PRINCIPAL</span>
+              <span className={styles.textAdjust1}>
+              ₹ {data[datalen - 1]?.Principal}
+              </span>
+            </TableRow>
+          </div>
         </>
       );
       return tableRows;
     } else {
       return (
         <TableRow>
-          <TableCell colSpan={6}>
-            No Details Found
-          </TableCell>
+          <TableCell colSpan={6}>No Details Found</TableCell>
         </TableRow>
       );
     }
   };
 
-
   return (
     <>
-      <div className={styles.desktopContainer}>{<CustomTable title={title} columns={columns} data={data} />}</div>
+      <div className={styles.desktopContainer}>
+        {<CustomTable title={title} columns={columns} data={data} />}
+      </div>
       <div className={styles.mobileContainer}>{_renderListDataMobile()}</div>
     </>
-
   );
 }
 
