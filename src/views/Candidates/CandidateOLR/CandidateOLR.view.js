@@ -41,30 +41,30 @@ function CandidateOLR({ location }) {
     handleCheckboxChange,
   } = CandidateOLRHook({ location });
 
-  useEffect(() => {
-    const handleKeyPress = async (event) => {
-      if (event.ctrlKey && event.key === "p") {
-        event.preventDefault();
+  // useEffect(() => {
+  //   const handleKeyPress = async (event) => {
+  //     if (event.ctrlKey && event.key === "p") {
+  //       event.preventDefault();
 
-        const content = document.getElementById("content-to-print");
+  //       const content = document.getElementById("content-to-print");
 
-        const canvas = await html2canvas(content);
+  //       const canvas = await html2canvas(content);
 
-        const pdf = new jsPDF("p", "mm", "a4");
+  //       const pdf = new jsPDF("p", "mm", "a4");
 
-        pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 210, 297);
+  //       pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 210, 297);
 
-        pdf.autoPrint();
-        window.open(pdf.output("bloburl"), "_blank");
-      }
-    };
+  //       pdf.autoPrint();
+  //       window.open(pdf.output("bloburl"), "_blank");
+  //     }
+  //   };
 
-    window.addEventListener("keydown", handleKeyPress);
+  //   window.addEventListener("keydown", handleKeyPress);
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyPress);
+  //   };
+  // }, []);
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {

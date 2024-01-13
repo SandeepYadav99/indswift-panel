@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styles from "./Style.module.css";
 import RouteName from "../../../../../../routes/Route.name";
 import { ButtonBase } from "@material-ui/core";
 import { Telegram } from "@material-ui/icons";
+import historyUtils from "../../../../../../libs/history.utils";
 
 const CandidateUploadCard = ({ data, handleSubmit, handleResendEafClick }) => {
   const checkStatus = () => {
@@ -22,6 +23,13 @@ const CandidateUploadCard = ({ data, handleSubmit, handleResendEafClick }) => {
     }
     return true;
   };
+  const olrPages = useCallback((data) => {
+    historyUtils.push(`${RouteName.CANDIDATES_OFFER_DETAILS}${data?.offer_id}`);
+  }, []);
+  const eafPages = useCallback((data) => {
+    historyUtils.push(`${RouteName.CANDIDATES_INFO}${data?.id}`);
+  }, []);
+
   return (
     <div>
       <div className={styles.plainPaper}>
@@ -41,22 +49,22 @@ const CandidateUploadCard = ({ data, handleSubmit, handleResendEafClick }) => {
               </div>
               {data?.offer_id && (
                 <div className={styles.key}>
-                  <a
+                  <div
                     className={styles.uploadTag}
-                    href={`${RouteName.CANDIDATES_OFFER_DETAILS}${data?.offer_id}`}
+                    onClick={()=>olrPages(data)}
                   >
                     OLR Sheet
-                  </a>
+                  </div>
                 </div>
               )}
               {data?.is_eaf && (
                 <div className={styles.key}>
-                  <a
+                  <div
                     className={styles.uploadTag}
-                    href={`${RouteName.CANDIDATES_INFO}${data?.id}`}
+                    onClick={()=>eafPages(data)}
                   >
                     EAF Form
-                  </a>
+                  </div>
                 </div>
               )}
               {data?.offer_letter_path && (
