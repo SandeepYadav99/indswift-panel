@@ -138,3 +138,12 @@
 .info{
     margin-left: 10px;
 }
+@media (max-width: 767px) {
+    .key {
+        display: flex;
+        flex-direction: column;
+      }
+      .vertical{
+        display: none;
+      }
+    }

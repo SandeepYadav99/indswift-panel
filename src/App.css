@@ -743,7 +743,7 @@ font-size: medium;
 }
 
 .bottomAction .MuiDrawer-paper{
-    z-index: 1 !important;
+    z-index: 10 !important;
 }
 
 .MuiCollapse-wrapperInner .MuiListItemText-root{
