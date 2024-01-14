@@ -467,6 +467,10 @@ const FullFinalApprovalJourney = lazy(()=>import("../views/Full&FinalApproval/Fu
 
 const PendingLeaveDetailApplication = lazy(()=>import("../views/PendingLeaveApplication/PendingApplicationDetail/PendingApplication.view.js"))
 
+const NotificationListModule = lazy(()=>import("../views/NotificationModule/NotificationList.module.js"));
+
+const NotificationCreateModule = lazy(()=>import("../views/NotificationModule/SendNotification/Create.module.js"))
+
 const Roles = Constants.ROLES;
 
 const dashboardRoutes = [
@@ -2754,7 +2758,23 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
 },
-  
+{
+  path: `${RouteName.APP_NOTIFICATION}`,
+  sidebarName: "Notification",
+  navbarName: "Notification",
+  icon: DashboardOutlined,
+  component: NotificationListModule,
+  is_sidebar: true,
+  is_protect: true,
+  roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
+},
+{
+  path: `${RouteName.APP_NOTIFICATION_CREATE}`,
+  icon: DashboardOutlined,
+  component: NotificationCreateModule,
+  is_sidebar: false,
+  is_protect: true,
+},
 ];
 
 export default dashboardRoutes;
