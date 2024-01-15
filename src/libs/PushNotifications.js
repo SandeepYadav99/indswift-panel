@@ -3,7 +3,7 @@
  */
 
 import {initializeApp} from 'firebase/app';
-import {getToken, getMessaging, onMessage} from 'firebase/messaging';
+import {getToken, getMessaging, onMessage, isSupported} from 'firebase/messaging';
 import LogUtils from "./LogUtils";
 // import {serviceCaptureFcmInformation} from "../services/Common.service";
 
@@ -17,8 +17,7 @@ const firebaseConfig = {
     measurementId: "G-66J09VX6XX"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const messaging = getMessaging(firebaseApp);
+
 
 export const initializeFirebase = () => {
     if ('serviceWorker' in navigator)  {
@@ -71,29 +70,38 @@ export const askForPermissioToReceiveNotifications = async () => {
 }
 
 export const getTokenFcm = () => {
-    return new Promise((res, rej) => {
-        getToken(messaging, {vapidKey: 'BOgFQDCb65uFZMu704IcZuDl0RvxP6libE_tCRSNyMtOXRSgvc-93VwCzirpGi3TxPpPd4z3oTk9sSLDPR09OXA'}).then((currentToken) => {
-            if (currentToken) {
-                LogUtils.log(`current token for client: ${currentToken}`);
-                res(currentToken);
-                // Track the token -> client mapping, by sending to backend server
-                // show on the UI that permission is secured
-            } else {
-                LogUtils.log('No registration token available. Request permission to generate one.');
+    return new Promise(async (res, rej) => {
+        const isSupport = await isSupported();
+        if (isSupport) {
+            const firebaseApp = initializeApp(firebaseConfig);
+            const messaging = getMessaging(firebaseApp);
+            getToken(messaging, {vapidKey: 'BOgFQDCb65uFZMu704IcZuDl0RvxP6libE_tCRSNyMtOXRSgvc-93VwCzirpGi3TxPpPd4z3oTk9sSLDPR09OXA'}).then((currentToken) => {
+                if (currentToken) {
+                    LogUtils.log(`current token for client: ${currentToken}`);
+                    res(currentToken);
+                    // Track the token -> client mapping, by sending to backend server
+                    // show on the UI that permission is secured
+                } else {
+                    LogUtils.log('No registration token available. Request permission to generate one.');
+                    res(null);
+                    // shows on the UI that permission is required
+                }
+            }).catch((err) => {
+                LogUtils.log(`An error occurred while retrieving token. ${err}`);
                 res(null);
-                // shows on the UI that permission is required
-            }
-        }).catch((err) => {
-            LogUtils.log(`An error occurred while retrieving token. ${err}` );
+                // catch error while creating client token
+            });
+        } else {
             res(null);
-            // catch error while creating client token
-        });
+        }
     })
 }
 
 
 export const onMessageListener = () => {
    return new Promise((resolve) => {
+       const firebaseApp = initializeApp(firebaseConfig);
+       const messaging = getMessaging(firebaseApp);
         onMessage(messaging, (payload) => {
             resolve(payload);
         });

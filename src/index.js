@@ -57,6 +57,25 @@ if ('serviceWorker' in navigator) {
         // console.log('messageSend', message);
         SnackbarUtils.info(message?.data?.data?.title, message?.data?.data?.NEXT_SCREEN);
     });
+    navigator.serviceWorker.addEventListener('fetch', function(event) {
+        event.respondWith(
+            caches.match(event.request).then(function(response) {
+                return response || fetch(event.request);
+            })
+        );
+    });
+    if ('serviceWorker' in navigator && 'BeforeInstallPromptEvent' in window) {
+        window.addEventListener('load', () => {
+            // Wait for the beforeinstallprompt event
+            window.addEventListener('beforeinstallprompt', (event) => {
+                // Prevent the default "Add to Home Screen" prompt
+                event.preventDefault();
+
+                // Automatically show the "Add to Home Screen" prompt on page load
+                event.prompt();
+            });
+        });
+    }
 }
 
 // If you want your app to work offline and load faster, you can change
