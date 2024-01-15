@@ -130,6 +130,14 @@
     aspect-ratio: 1/1;
     border-radius: 100% !important;
   }
+  .isReviewBtnContainer{
+    width: 100%;
+    padding: 0 15px;
+    justify-content: space-between;
+  }
+  .btnCont1{
+    margin-top: 15px;
+  }
 
 }
 

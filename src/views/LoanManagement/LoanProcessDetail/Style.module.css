@@ -263,6 +263,7 @@
     }
     .BtnWrap{
       width: 100%;
+      padding: 5px 15px;
     }
     .createBtn{
       width: 100%;

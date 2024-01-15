@@ -43,6 +43,9 @@
         display: flex;
         flex-direction: column !important; 
     }
+    .leftPartMarginMobile{
+        flex: 1;
+    }
     .imageContainer{
         display: flex;
         justify-content: center !important;
@@ -54,6 +57,13 @@
     .left{
         display: flex;
         justify-content: space-between !important;
+        margin-top: 10px;
+    }
+    .verticalLine{
+        border-left: 1px dashed #B8C5D3;
+        max-height: 120px;
+        margin: 0 40px;
+        width: 2px;
     }
     .value{
         font-weight: 600;
@@ -62,12 +72,13 @@
         width:100px !important;  
      }
      .nameHigher{
-        display: block !important;
+        flex: 1;
+        display: flex !important;
+        flex-direction: column;
     }
     .verticalLine {
         border-left: 1px dashed #B8C5D3;
         max-height: 100px;
-        flex: 0.3;
     }
     .key{
         display: flex;
@@ -76,6 +87,7 @@
     .claimimg{
         height: 100px;
         width: 100px !important;
+        border-radius: 50%
     }
 }
 
@@ -108,7 +120,6 @@
     font-weight: 500;
     margin-bottom: 7px;
 }
-
 .value{
     font-weight: 600;
     width: 150px;
@@ -132,6 +143,7 @@
 .claimimg{
     width: 50px;
     aspect-ratio: 1/1;
+    border-radius: 50%
 }
 .right{
     /*margin-left: 60px;*/

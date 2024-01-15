@@ -52,7 +52,12 @@
     color: black;
     display: inline-block;
 }
-
+.value21{
+    font-weight: 600;
+    width: 150px;
+    color: black;
+    display: inline-block; 
+}
 .newContainer{
     font-size: 0.7rem;
 }
@@ -145,5 +150,8 @@
       }
       .vertical{
         display: none;
+      }
+      .value21{
+        width: auto;
       }
     }

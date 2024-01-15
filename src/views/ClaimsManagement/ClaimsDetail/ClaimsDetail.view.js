@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Style.module.css";
-import { ButtonBase } from "@material-ui/core";
+import { ButtonBase, IconButton } from "@material-ui/core";
 import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useClaimsDetail from "./ClaimsDetailHook";
@@ -9,9 +9,13 @@ import EmployeeClaimList from "./components/EmployeeClaimList/EmployeeClaimList.
 import InformationCard from "../../../components/InformationCard/InformationCard.component";
 import { myClaimData } from "../../../helper/helper";
 import EmployeeLoanList from "./components/EmployeeLoanList/EmployeeLoanList.view";
+import ClaimDialog from "./components/ClaimDialog/ClaimDialog.view";
+import { InfoOutlined } from "@material-ui/icons";
 
 const ClaimsDetail = () => {
-  const { handleClaimPage, data } = useClaimsDetail({});
+  const { handleClaimPage, data, toggleStatusDialog, approveDialog } =
+    useClaimsDetail({});
+
   return (
     <div className={styles.claimsDetailWrapper}>
       <div className={styles.infoWrap}>
@@ -21,7 +25,16 @@ const ClaimsDetail = () => {
           isClaimPage={true}
         />
       </div>
-
+      <div className={styles.isMobile}>
+        <div>
+          My Claim
+          <div className={styles.newLine} />
+        </div>
+        <div>
+            <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}} onClick={()=>toggleStatusDialog()}/>
+        </div>
+      </div>
+      <ClaimDialog isOpen={approveDialog} handleToggle={toggleStatusDialog} />
       <div className={styles.claimContainer}>
         {data?.marriage_gift_claim?.is_show && (
           <ClaimCards
@@ -85,7 +98,7 @@ const ClaimsDetail = () => {
           enableBtn
           // isLoan={true}
         />
-         <ClaimCards
+        <ClaimCards
           title="International Travel Claim Form"
           subtitle="Claim the amount for your International Travel"
           handleClick={() => handleClaimPage(9)}

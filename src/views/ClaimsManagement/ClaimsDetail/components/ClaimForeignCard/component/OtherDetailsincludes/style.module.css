@@ -185,7 +185,14 @@
   display: flex;
   justify-content: flex-end;
 }
+.helpter{
+  font-weight: 500;
+  text-align: end;
+}
 @media (max-width:767px){
+  .helpter{
+    text-align: start;
+  }
   .formWrp {
       display: flex;
       flex-direction: column;

@@ -40,16 +40,16 @@ function UpperClaimInfo({ data,isLoc }) {
           <div className={styles.vertical}></div>
           <div className={styles.left}>
             <div className={styles.key}>
-              <span className={styles.value}>Designation:</span>
+              <span className={styles.value21}>Designation:</span>
               {data?.employee?.designation?.name}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>Grade/Cadre:</span>
+              <span className={styles.value21}>Grade/Cadre:</span>
               {data?.employee?.grade?.code &&
                 `${data?.employee?.grade?.code} / ${data?.employee?.cadre?.code}`}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>Department:</span>
+              <span className={styles.value21}>Department:</span>
               {data?.employee?.department?.name}
             </div>
           </div>

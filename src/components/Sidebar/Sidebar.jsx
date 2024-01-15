@@ -20,6 +20,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import CloseIcon from "@material-ui/icons/Close";
 import sidebarStyle from "../../assets/jss/material-dashboard-react/sidebarStyle.jsx";
 import FilterComponent from "../Filter/Filter.component.js";
+import { getNullPaths } from "../../helper/helper.js";
 
 class CustomListItem extends React.Component {
   constructor(props) {
@@ -217,6 +218,7 @@ const Sidebar = ({ ...props }) => {
           ...filteredParentRoute,
           ...getChildRoute,
         ];
+        const { nullPathObjects, uniquePathObjects } = getNullPaths(getValues);
         console.log("tempData", {
           tempData,
           parentRoute,
@@ -226,7 +228,7 @@ const Sidebar = ({ ...props }) => {
           getChildRoute,
           uniqueValuesInArr2,
         });
-        setData([...getValues]);
+        setData([...uniquePathObjects,...nullPathObjects]);
       } else {
         setData(routes);
       }
