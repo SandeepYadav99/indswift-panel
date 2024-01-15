@@ -37,11 +37,18 @@ if (localStorage.jwt_token) {
 ReactDOM.render(
   <Provider store={store}>
     <App />
+      <div id={'installPopUp'} className={'installDiv'}>
+          <div>
+              Add To Home Screen
+          </div>
+          <button id="install">Add +</button>
+      </div>
   </Provider>,
     document.getElementById('root'),
 );
 
 if ('serviceWorker' in navigator) {
+    let deferredPrompt = null;
     navigator.serviceWorker.addEventListener("message", (message) => {
         /*
         data:
@@ -57,6 +64,58 @@ if ('serviceWorker' in navigator) {
         // console.log('messageSend', message);
         SnackbarUtils.info(message?.data?.data?.title, message?.data?.data?.NEXT_SCREEN);
     });
+    navigator.serviceWorker.addEventListener('fetch', function(event) {
+        event.respondWith(
+            caches.match(event.request).then(function(response) {
+                return response || fetch(event.request);
+            })
+        );
+    });
+
+    window.addEventListener("DOMContentLoaded", async event => {
+        if ('BeforeInstallPromptEvent' in window) {
+            // showResult("⏳ BeforeInstallPromptEvent supported but not fired yet");
+        } else {
+            // showResult("❌ BeforeInstallPromptEvent NOT supported");
+        }
+        document.querySelector("#install").addEventListener("click", installApp);
+    });
+
+    if ('serviceWorker' in navigator && 'BeforeInstallPromptEvent' in window) {
+        window.addEventListener('load', () => {
+            // Wait for the beforeinstallprompt event
+            window.addEventListener('beforeinstallprompt', (event) => {
+                // Prevent the default "Add to Home Screen" prompt
+                event.preventDefault();
+                // Automatically show the "Add to Home Screen" prompt on page load
+                // event.prompt();
+                if (!deferredPrompt && window.screen.width < 1024) {
+                    document.querySelector("#installPopUp").style.display = "flex";
+                }
+                deferredPrompt = event;
+                // Show your customized install prompt for your PWA
+            });
+        });
+    }
+
+    async function installApp() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            // Find out whether the user confirmed the installation or not
+            const { outcome } = await deferredPrompt.userChoice;
+            // The deferredPrompt can only be used once.
+            // deferredPrompt = null;
+            // Act on the user's choice
+            if (outcome === 'accepted') {
+                // alert('accepted');
+            } else if (outcome === 'dismissed') {
+                // alert('dismissed');
+            }
+            // We hide the install button
+            document.querySelector("#installPopUp").style.display= 'none';
+
+        }
+    }
 }
 
 // If you want your app to work offline and load faster, you can change

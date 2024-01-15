@@ -1,6 +1,7 @@
 {
   "short_name": "Skynet Indswiftlabs",
   "name": "Skynet Indswiftlabs",
+  "id": "/?source=pwa",
   "icons": [
     {
       "src": "images/16.png",
@@ -63,12 +64,26 @@
       "type": "image/png"
     }
   ],
-
+  "display_override": ["fullscreen", "minimal-ui"],
   "display": "standalone",
   "theme_color": "#1f05a2",
   "background_color": "#ffffff",
   "start_url": "/",
   "scope": "/",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "screenshots": [
+    {
+      "src": "screenshots/screenshot_mobile.png",
+      "type": "image/png",
+      "sizes": "389x841",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "screenshots/screenshot_desktop.png",
+      "type": "image/png",
+      "sizes": "2003x1140",
+      "form_factor": "wide"
+    }
+  ]
 }
 

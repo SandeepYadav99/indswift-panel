@@ -185,6 +185,7 @@ class LoginView extends Component {
                     </div>
                 </div>
                 <DashboardSnackbar/>
+
             </div>
             </div>
         );
