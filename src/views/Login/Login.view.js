@@ -185,6 +185,12 @@ class LoginView extends Component {
                     </div>
                 </div>
                 <DashboardSnackbar/>
+                <div id={'installPopUp'} className={'installDiv'}>
+                    <div>
+                        Add To Home Screen
+                    </div>
+                    <button id="install">Add +</button>
+                </div>
             </div>
             </div>
         );

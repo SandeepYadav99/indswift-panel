@@ -37,7 +37,6 @@ if (localStorage.jwt_token) {
 ReactDOM.render(
   <Provider store={store}>
     <App />
-      <button id="install">Install this App</button>
   </Provider>,
     document.getElementById('root'),
 );
@@ -88,7 +87,7 @@ if ('serviceWorker' in navigator) {
 
                 deferredPrompt = event;
                 // Show your customized install prompt for your PWA
-                document.querySelector("#install").style.display="block";
+                document.querySelector("#installPopUp").style.display="flex";
             });
         });
     }
@@ -107,7 +106,7 @@ if ('serviceWorker' in navigator) {
                 alert('dismissed');
             }
             // We hide the install button
-            document.querySelector("#install").style.display="none";
+            document.querySelector("#installPopUp").style.display="none";
 
         }
     }

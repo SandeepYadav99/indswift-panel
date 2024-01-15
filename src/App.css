@@ -1018,6 +1018,27 @@ font-size: medium;
     color: rgba(0, 0, 0, 0.70) !important;
 }
 
+.installDiv {
+    display: none;
+    position: fixed;
+    bottom: 0px;
+    width: calc(100% - 30px);
+    background: white;
+    justify-content: space-between;
+    padding: 15px 15px;
+    align-items: center;
+}
+.installDiv > div {
+    font-size: 0.9rem;
+}
+.installDiv > button {
+    border: none;
+    background: #1f05a2;
+    color: white;
+    padding: 8px 15px;
+    font-weight: 800;
+    font-family: 'Montserrat'
+}
 @media (max-width: 767px) {
     .iconTabsEvents{
       padding: 6px 8px !important;
