@@ -37,6 +37,12 @@ if (localStorage.jwt_token) {
 ReactDOM.render(
   <Provider store={store}>
     <App />
+      <div id={'installPopUp'} className={'installDiv'}>
+          <div>
+              Add To Home Screen
+          </div>
+          <button id="install">Add +</button>
+      </div>
   </Provider>,
     document.getElementById('root'),
 );
@@ -81,13 +87,13 @@ if ('serviceWorker' in navigator) {
             window.addEventListener('beforeinstallprompt', (event) => {
                 // Prevent the default "Add to Home Screen" prompt
                 event.preventDefault();
-
                 // Automatically show the "Add to Home Screen" prompt on page load
                 // event.prompt();
-
+                if (!deferredPrompt) {
+                    document.querySelector("#installPopUp").style.display = "flex";
+                }
                 deferredPrompt = event;
                 // Show your customized install prompt for your PWA
-                document.querySelector("#installPopUp").style.display="flex";
             });
         });
     }
@@ -98,15 +104,15 @@ if ('serviceWorker' in navigator) {
             // Find out whether the user confirmed the installation or not
             const { outcome } = await deferredPrompt.userChoice;
             // The deferredPrompt can only be used once.
-            deferredPrompt = null;
+            // deferredPrompt = null;
             // Act on the user's choice
             if (outcome === 'accepted') {
-                alert('accepted');
+                // alert('accepted');
             } else if (outcome === 'dismissed') {
-                alert('dismissed');
+                // alert('dismissed');
             }
             // We hide the install button
-            document.querySelector("#installPopUp").style.display="none";
+            document.querySelector("#installPopUp").style.display= 'none';
 
         }
     }
