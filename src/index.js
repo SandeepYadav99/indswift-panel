@@ -37,11 +37,13 @@ if (localStorage.jwt_token) {
 ReactDOM.render(
   <Provider store={store}>
     <App />
+      <button id="install">Install this App</button>
   </Provider>,
     document.getElementById('root'),
 );
 
 if ('serviceWorker' in navigator) {
+    let deferredPrompt = null;
     navigator.serviceWorker.addEventListener("message", (message) => {
         /*
         data:
@@ -64,6 +66,16 @@ if ('serviceWorker' in navigator) {
             })
         );
     });
+
+    window.addEventListener("DOMContentLoaded", async event => {
+        if ('BeforeInstallPromptEvent' in window) {
+            // showResult("⏳ BeforeInstallPromptEvent supported but not fired yet");
+        } else {
+            // showResult("❌ BeforeInstallPromptEvent NOT supported");
+        }
+        document.querySelector("#install").addEventListener("click", installApp);
+    });
+
     if ('serviceWorker' in navigator && 'BeforeInstallPromptEvent' in window) {
         window.addEventListener('load', () => {
             // Wait for the beforeinstallprompt event
@@ -72,9 +84,32 @@ if ('serviceWorker' in navigator) {
                 event.preventDefault();
 
                 // Automatically show the "Add to Home Screen" prompt on page load
-                event.prompt();
+                // event.prompt();
+
+                deferredPrompt = event;
+                // Show your customized install prompt for your PWA
+                document.querySelector("#install").style.display="block";
             });
         });
+    }
+
+    async function installApp() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            // Find out whether the user confirmed the installation or not
+            const { outcome } = await deferredPrompt.userChoice;
+            // The deferredPrompt can only be used once.
+            deferredPrompt = null;
+            // Act on the user's choice
+            if (outcome === 'accepted') {
+                alert('accepted');
+            } else if (outcome === 'dismissed') {
+                alert('dismissed');
+            }
+            // We hide the install button
+            document.querySelector("#install").style.display="none";
+
+        }
     }
 }
 
