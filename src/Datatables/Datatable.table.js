@@ -395,9 +395,14 @@ const EnhancedTable = (props) => {
         const filteredColumns = props.columns.filter(column => (column.is_mobile !== false ));
         return filteredColumns.map((val, index) => (
             <div className={'dtMobCell'}>
+                {val?.ishideMobile ? 
+                <div className={'dtMobCellLabelHide'}>
+                    {val?.label}
+                </div> :
                 <div className={'dtMobCellLabel'}>
                     {val?.label}
-                </div>
+                 </div>
+                }
                 <div className={'dtMobCellValue'}>
                     {val?.mobileRender ? val.mobileRender(row[val.key], row, indexPr) : val.render(row[val.key], row, indexPr)}
                 </div>

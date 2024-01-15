@@ -5,6 +5,8 @@ import { serviceGetClaimDetail } from "../../../services/Claims.service";
 
 const useClaimsDetail = ({}) => {
   const [data, setData] = useState({});
+  const [approveDialog, setApproveDialog] = useState(false);
+
   useEffect(() => {
     let dataValues = serviceGetClaimDetail();
     dataValues
@@ -36,9 +38,14 @@ const useClaimsDetail = ({}) => {
     }
   }, []);
 
+  const toggleStatusDialog = useCallback(() => {
+    setApproveDialog((e) => !e);
+  }, [approveDialog]);
   return {
     handleClaimPage,
     data,
+    toggleStatusDialog,
+    approveDialog
   };
 };
 

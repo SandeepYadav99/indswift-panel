@@ -37,6 +37,7 @@ const TravelList = ({ location }) => {
         key: "Meaning",
         label: "MEANING",
         sortable: false,
+        ishideMobile:true,
         render: (temp, all) => <div>{all?.description}</div>,
       },
     ];

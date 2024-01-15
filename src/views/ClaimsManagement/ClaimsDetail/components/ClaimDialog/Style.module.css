@@ -1,0 +1,8 @@
+
+.resetWrapper {
+  display: flex;
+}
+.wrapper{
+  padding: .8rem;
+  background: #eaf8fe;
+}
