@@ -249,6 +249,9 @@ export default {
   SUCCESSION_SUCCESS:"/succession/success",
 
   PMS_MASTER:"/pms/master",
-  NOTIFICATION:"/notification"
+  NOTIFICATION:"/notification",
+
+  APP_NOTIFICATION:"/app/notification",
+  APP_NOTIFICATION_CREATE:"/app/notification/create"
 
 };

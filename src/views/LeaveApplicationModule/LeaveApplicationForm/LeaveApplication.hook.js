@@ -415,7 +415,6 @@ const useLeaveApplication = () => {
     [currentDate]
   );
 
-  console.log(monthhook, "it is here");
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {

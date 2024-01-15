@@ -1,30 +1,16 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import styles from "./Notification.module.css";
-import { ButtonBase } from "@material-ui/core";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import history from "../../libs/history.utils";
-import useNotificationList from "./Notification.hook";
-import DataTables from "../../components/Datatables/datatables";
-import { useSelector } from "react-redux";
+import React, { Component, useCallback, useEffect, useMemo,useState } from "react";
+import { ButtonBase, IconButton, Menu } from "@material-ui/core";
+import classNames from "classnames";
+import { connect, useSelector } from "react-redux";
+import PageBox from "../../components/PageBox/PageBox.component";
+import styles from "./Style.module.css";
 import Constants from "../../config/constants";
+import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
+import useNotificationList from "./NotificationList.hook";
+import Datatables from "../../components/Datatables/datatables";
 
-const EmployeeMobileCard = ({ data, index }) => {
-  return (
-    <div className={styles.downFlex}>
-      <div className={styles.cardDataTwo}>
-        <div className={styles.titleData}>{data?.notification_title}</div>
-        <div className={styles.descriptionData}>
-          {data?.title},
-          <br /> {data?.body}
-        </div>
-        <div style={{display:'flex',justifyContent:"flex-end",fontSize:"12px",color:"gray",marginTop:"5px"}}>{data?.time}</div>
-      </div>
-    </div>
-  );
-};
-
-const Notification = () => {
+const Notificationlist = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -42,7 +28,7 @@ const Notification = () => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.notification);
+  } = useSelector((state) => state.leave_list);
 
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
@@ -74,7 +60,7 @@ const Notification = () => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
-          <div>
+          <div className={classNames(styles.firstCellInfo, "openSans")}>
             <span className={styles.productName}>{obj?.candidate?.name}</span>{" "}
             <br />
             <span className={styles.productName}>
@@ -91,28 +77,52 @@ const Notification = () => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "type",
-        label: "Notification Type",
-        sortable: true,
-        render: (value, all) => <div>{all?.notification_title}</div>,
-      },
-      {
         key: "title",
-        label: "Title",
-        sortable: false,
-        render: (temp, all) => <div>{all?.title}</div>,
+        label: "Leave Type",
+        sortable: true,
+        render: (value, all) => <div></div>,
       },
       {
         key: "message",
-        label: "Message",
+        label: "Leave Dates",
         sortable: false,
-        render: (temp, all) => <div>{all?.body}</div>,
+        render: (temp, all) => (
+          <div>
+           
+          </div>
+        ),
       },
       {
-        key: "time",
-        label: "Time",
+        key: "created_on",
+        label: "Created On",
         sortable: false,
-        render: (temp, all) => <div>{all?.time}</div>,
+        render: (temp, all) => <div></div>,
+      },
+      {
+        key: "send_to",
+        label: "Send To",
+        sortable: false,
+        render: (temp, all) => <div></div>,
+      },
+      {
+        key: "is_sent",
+        label: "IS SENT",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+           
+          </div>
+        ),
+      },
+      {
+        key: "action",
+        label: "ACTION",
+        sortable: false,
+        render: (temp, all) => (
+          <div>
+          
+          </div>
+        ),
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, isCalling]);
@@ -130,7 +140,6 @@ const Notification = () => {
       data: data,
       count: allData.length,
       page: currentPage,
-      mobileRender: EmployeeMobileCard,
     };
 
     return { datatableFunctions, datatable };
@@ -145,20 +154,37 @@ const Notification = () => {
   ]);
 
   return (
-    <div className={styles.container}>
-      <div>
-        <ButtonBase onClick={() => history.goBack()}>
-          <ArrowBackIosIcon fontSize={"small"} />{" "}
-          <span className={"capitalize"}>
-            <b>Notification</b>
-          </span>
-        </ButtonBase>
-        <div className={styles.newLine} />
-      </div>
-      <br />
-      <DataTables {...tableData.datatable} {...tableData.datatableFunctions} />
+    <div>
+      <PageBox>
+        <div className={styles.headerContainer}>
+          <div>
+            <span className={styles.title}>Notification</span>
+            <div className={styles.newLine} />
+          </div>
+          <div className={styles.btnWrapperGap}>
+            <ButtonBase onClick={handleViewDetails} className={"createBtn"}>
+              SEND NOTIFICATION
+            </ButtonBase>
+          </div>
+        </div>
+        <div>
+          <FilterComponent
+            is_progress={isFetching}
+            filters={configFilter}
+            handleSearchValueChange={handleSearchValueChange}
+            handleFilterDataChange={handleFilterDataChange}
+          />
+          <div>
+      
+          </div>
+        </div>
+      </PageBox>
+        <Datatables
+          {...tableData.datatable}
+          {...tableData.datatableFunctions}
+        />
     </div>
   );
 };
 
-export default Notification;
+export default Notificationlist;
