@@ -1,4 +1,4 @@
-import React, { Component, useCallback, useEffect, useMemo,useState } from "react";
+import React, { Component, useCallback, useEffect, useMemo, useState } from "react";
 import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
@@ -9,8 +9,9 @@ import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
 import useNotificationList from "./NotificationList.hook";
 import Datatables from "../../components/Datatables/datatables";
+import { Edit } from "@material-ui/icons";
 
-const Notificationlist = ({}) => {
+const Notificationlist = ({ }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -20,7 +21,7 @@ const Notificationlist = ({}) => {
     handleViewDetails,
     isCalling,
     configFilter,
-    handleLeaveApplicationForm,
+    handleEdit,
   } = useNotificationList({});
 
   const {
@@ -28,25 +29,8 @@ const Notificationlist = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.leave_list);
+  } = useSelector((state) => state.notification_module);
 
-  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
-
-  const handleResize = () => {
-    setInnerWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const { user } = useSelector((state) => state.auth);
-  const removeUnderScore = (value) => {
-    return value ? value.replace(/_/g, " ") : "";
-  };
   const renderStatus = useCallback((status) => {
     return (
       <StatusPill
@@ -56,39 +40,23 @@ const Notificationlist = ({}) => {
     );
   }, []);
 
-  const renderFirstCell = useCallback((obj) => {
-    if (obj) {
-      return (
-        <div className={styles.firstCellFlex}>
-          <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.candidate?.name}</span>{" "}
-            <br />
-            <span className={styles.productName}>
-              {obj?.employee?.emp_code}
-            </span>{" "}
-            <br />
-          </div>
-        </div>
-      );
-    }
-    return null;
-  }, []);
-
   const tableStructure = useMemo(() => {
     return [
       {
         key: "title",
-        label: "Leave Type",
+        label: "Title",
         sortable: true,
-        render: (value, all) => <div></div>,
+        render: (value, all) => <div>
+          {all?.title}
+        </div>,
       },
       {
         key: "message",
-        label: "Leave Dates",
+        label: "Message",
         sortable: false,
         render: (temp, all) => (
           <div>
-           
+            {all?.message}
           </div>
         ),
       },
@@ -96,21 +64,21 @@ const Notificationlist = ({}) => {
         key: "created_on",
         label: "Created On",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
       {
         key: "send_to",
         label: "Send To",
         sortable: false,
-        render: (temp, all) => <div></div>,
+        render: (temp, all) => <div>{all?.send_to}</div>,
       },
       {
         key: "is_sent",
-        label: "IS SENT",
+        label: "Is Sent",
         sortable: false,
         render: (temp, all) => (
           <div>
-           
+            {all?.is_sent === true ? "True" :"False"}
           </div>
         ),
       },
@@ -120,12 +88,12 @@ const Notificationlist = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-          
+              <IconButton className={'tableActionBtn'} color='secondary' onClick={() => { handleEdit(all) }} ><Edit fontSize={'small'} /></IconButton>
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, isCalling]);
+  }, [renderStatus, handleViewDetails, isCalling]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -133,15 +101,13 @@ const Notificationlist = ({}) => {
       onPageChange: handlePageChange,
       onRowSizeChange: handleRowSize,
     };
-
     const datatable = {
       ...Constants.DATATABLE_PROPERTIES,
       columns: tableStructure,
       data: data,
-      count: allData.length,
+      count: allData?.length,
       page: currentPage,
     };
-
     return { datatableFunctions, datatable };
   }, [
     allData,
@@ -174,15 +140,12 @@ const Notificationlist = ({}) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-      
-          </div>
         </div>
       </PageBox>
-        <Datatables
-          {...tableData.datatable}
-          {...tableData.datatableFunctions}
-        />
+      <Datatables
+        {...tableData.datatable}
+        {...tableData.datatableFunctions}
+      />
     </div>
   );
 };

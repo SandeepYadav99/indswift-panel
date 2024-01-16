@@ -415,7 +415,6 @@ const useLeaveApplication = () => {
     [currentDate]
   );
 
-
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);

@@ -3,8 +3,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
-import { serviceGetList } from "../../services/Common.service";
-import Constants from "../../config/constants";
 import { actionFetchNotificationModule,actionSetPageNotificationModule } from "../../actions/NotificationModule.action";
 
 const useNotificationList = ({}) => {
@@ -99,6 +97,10 @@ const useNotificationList = ({}) => {
     ];
   }, []);
 
+  const handleEdit =(data)=>{
+    historyUtils.push(`${RouteName.APP_NOTIFICATION_CREATE}/${data?._id}`); 
+  }
+  
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -109,6 +111,7 @@ const useNotificationList = ({}) => {
     isCalling,
     editData,
     configFilter,
+    handleEdit,
   };
 };
 

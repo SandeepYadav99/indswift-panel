@@ -13,7 +13,7 @@ import {
     CREATE_DATA,
     UPDATE_DATA,
     DELETE_ITEM
-  } from '../actions/Notification.action';
+  } from '../actions/LeaveModule.action';
   import Constants from '../config/constants';
   
   function mapPresetPRequest(all, pageId) {
@@ -29,8 +29,8 @@ import {
     data: [{status:'ACTIVE'}],
     currentPage: 0,
     serverPage: 0,
-    query: null, // search text data
-    query_data: null, // popover filter data change
+    query: null, 
+    query_data: null, 
     sorting_data: { row: null, order: null },
     is_fetching: false
   };
