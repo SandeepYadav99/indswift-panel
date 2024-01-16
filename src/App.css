@@ -176,7 +176,12 @@ input[type=radio] + label:hover {
     padding: 6px !important;
     color: rgb(147, 154, 191) !important;
 }
-
+.tableActionBtnEdit{
+    padding: 6px !important;
+    color: black !important;
+    border: 1px solid #2896E9 !important;
+    border-radius: 3px !important;
+}
 .iconTabs .MuiTab-wrapper {
     display: flex;
     flex-direction: row;

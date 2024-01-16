@@ -49,6 +49,7 @@ const MyProfileEditView = ({}) => {
     submitToServer
   } = useMyProfileEdit({});
   const refQuarterly = null;
+  const isMobile = window.innerWidth <= 768;
   const image = useMemo(() => {
     return (
       <File
@@ -337,7 +338,7 @@ const MyProfileEditView = ({}) => {
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Fathers Passing Away Date"}
+                label={isMobile ? "Father's DOD": "Fathers Passing Away Date"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "father_dod");
@@ -397,7 +398,7 @@ const MyProfileEditView = ({}) => {
               <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Mother Passing Away Date"}
+                label={isMobile ? "Mother's DOD" : "Mother Passing Away Date"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "mother_dod");
