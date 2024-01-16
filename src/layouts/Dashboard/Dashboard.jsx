@@ -42,6 +42,10 @@ const Dashboard = ({title, ...props}) => {
     }, []);
 
     useEffect(() => {
+        const isMobile = window.innerWidth <= 768;
+        if(isMobile){
+            setDrawerOpen(false)
+        }
         // this.refs.mainPanel.scrollTop = 0;
     }, []);
 
