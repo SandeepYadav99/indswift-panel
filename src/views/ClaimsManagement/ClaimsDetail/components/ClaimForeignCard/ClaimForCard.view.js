@@ -55,8 +55,8 @@ function ClaimForCard() {
     setOfficeAmount3,
     setOfficeAmount4,
   } = useClaimForCard({});
+  const isMobile = window.innerWidth <= 768;
 
-  console.log("form", form);
   return (
     <>
       <div className={styles.outerFlex}>
@@ -88,7 +88,7 @@ function ClaimForCard() {
                   changeTextData(text, "travel_planner_id");
                 }}
                 variant={"outlined"}
-                label={"Choose your Travel Plan Application (TAP)"}
+                label={isMobile ? "Choose your Travel Plan Application" :"Choose your Travel Plan Application (TAP)"}
                 name={"travel_planner_id"}
                 isError={errorData?.travel_planner_id}
                 value={form?.travel_planner_id}
