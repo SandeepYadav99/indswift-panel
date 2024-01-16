@@ -13,6 +13,7 @@ import store from './store';
 import {AUTH_USER} from "./actions/auth_index.action";
 import {actionChangeTheme, actionGetAppSettings} from "./actions/AppSettings.action";
 import SnackbarUtils from "./libs/SnackbarUtils";
+import {isIosSafari} from "./libs/general.utils";
 
 setAxiosTimezone();
 if (localStorage.theme && false) {
@@ -34,18 +35,13 @@ if (localStorage.jwt_token) {
 } else {
     // connectToSocket();
 }
-const iOSIsInstalled = window?.navigator?.standalone;
+
+
+
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
-      <div id={'installPopUp'} className={'installDiv'}>
-          <div>
-              Add To Home Screen
-          </div>
-          <button id="install">Add +</button>
-          iosInstalled {iOSIsInstalled}
-      </div>
   </Provider>,
     document.getElementById('root'),
 );
