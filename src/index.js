@@ -34,6 +34,8 @@ if (localStorage.jwt_token) {
 } else {
     // connectToSocket();
 }
+const iOSIsInstalled = window?.navigator?.standalone;
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
@@ -42,6 +44,7 @@ ReactDOM.render(
               Add To Home Screen
           </div>
           <button id="install">Add +</button>
+          iosInstalled {iOSIsInstalled}
       </div>
   </Provider>,
     document.getElementById('root'),
