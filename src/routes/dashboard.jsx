@@ -2775,6 +2775,13 @@ const dashboardRoutes = [
   is_sidebar: false,
   is_protect: true,
 },
+{
+  path: `${RouteName.APP_NOTIFICATION_CREATE}`+`/:id`,
+  icon: DashboardOutlined,
+  component: NotificationCreateModule,
+  is_sidebar: false,
+  is_protect: true,
+},
 ];
 
 export default dashboardRoutes;
