@@ -15,9 +15,9 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
 import useCreate from "./Create.hook";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
-import { Autocomplete } from "@material-ui/lab";
+import CustomDateTimePicker from "../../../components/FormFields/DatePicker/CustomDateTimePicker";
+
 
 const NotificationCreate = () => {
   const {
@@ -27,8 +27,8 @@ const NotificationCreate = () => {
     changeTextData,
     errorData,
     listData,
+    isSubmitting,
   } = useCreate({});
-
 
   return (
     <div className={styles.container}>
@@ -127,7 +127,7 @@ const NotificationCreate = () => {
                   >
                     {listData?.LOCATIONS?.map((val) => {
                       return (
-                        <MenuItem value={val?.name} key={val?.id}>
+                        <MenuItem value={val?.id} key={val?.id}>
                           {val?.name}
                         </MenuItem>
                       );
@@ -147,7 +147,7 @@ const NotificationCreate = () => {
                   >
                     {listData?.GRADES?.map((val) => {
                       return (
-                        <MenuItem value={val?.name} key={val?.id}>
+                        <MenuItem value={val?.id} key={val?.id}>
                           {val?.name}
                         </MenuItem>
                       );
@@ -167,7 +167,7 @@ const NotificationCreate = () => {
                   >
                     {listData?.DESIGNATIONS?.map((val) => {
                       return (
-                        <MenuItem value={val?.name} key={val?.id}>
+                        <MenuItem value={val?.id} key={val?.id}>
                           {val?.name}
                         </MenuItem>
                       );
@@ -187,7 +187,7 @@ const NotificationCreate = () => {
                   >
                     {listData?.DEPARTMENTS?.map((val) => {
                       return (
-                        <MenuItem value={val?.name} key={val?.id}>
+                        <MenuItem value={val?.id} key={val?.id}>
                           {val?.name}
                         </MenuItem>
                       );
@@ -228,16 +228,18 @@ const NotificationCreate = () => {
               </div>
               <div>
                 {form?.send_priority === "LATTER" && (
-                  <CustomDatePicker
-                    className={styles.dropdownResponsive}
-                    clearable
-                    label={"Time"}
-                    onChange={(date) => {
-                      changeTextData(date, "send_timestamp");
-                    }}
-                    value={form?.send_timestamp}
-                    isError={errorData?.send_timestamp}
-                  />
+                  <div className={styles.dropdownResponsive}>
+                    <CustomDateTimePicker
+                      fullWidth={true}
+                      clearable
+                      label={"Time"}
+                      onChange={(date) => {
+                        changeTextData(date, "send_timestamp");
+                      }}
+                      value={form?.send_timestamp}
+                      isError={errorData?.send_timestamp}
+                    />
+                  </div>
                 )}
               </div>
             </div>
@@ -245,7 +247,11 @@ const NotificationCreate = () => {
         </div>
       </div>
       <div className={styles.btnContainer}>
-        <ButtonBase className={"createBtn"} onClick={handleSubmit}>
+        <ButtonBase
+          className={"createBtn"}
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+        >
           SEND
         </ButtonBase>
       </div>

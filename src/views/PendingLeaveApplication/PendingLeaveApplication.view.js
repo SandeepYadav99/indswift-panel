@@ -37,6 +37,7 @@ const PendingLeaveApplication = () => {
     is_fetching: isFetching,
   } = useSelector((state) => state.LeaveModule);
 
+
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
