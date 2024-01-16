@@ -1,22 +1,26 @@
-import React, {useMemo} from 'react';
-import {Router, Route, Switch} from "react-router-dom";
+import React, {Suspense, useCallback, useMemo, useRef, useState} from 'react';
+import {Router} from "react-router-dom";
 import {MuiThemeProvider, createTheme} from '@material-ui/core/styles';
 import RouteComponent from './routes/index.route';
 import './App.css';
 import themes, {overrides} from './themes';
 import history from './libs/history.utils';
-import {connect, useSelector} from "react-redux";
-import {bindActionCreators} from "redux";
+import {useSelector} from "react-redux";
 import {isIosSafari} from "./libs/general.utils";
+import InstructDialog from "./components/InstructDialog/InstructDialog.view";
 
 // const history = createBrowserHistory();
-
 
 
 const App = ({}) => {
     const { theme: themeType } = useSelector(state => state.app_setting);
     const themeDefault = themeType == 'dark' ? themes.dark : themes.default;
+    const [isDialog, setIsDialog] = useState(false);
 
+    const toggleDialog = useCallback(() => {
+
+        setIsDialog((e) => !e);
+    }, [isDialog]);
 // themeDefault['palette']['type'] = 'dark';
     const theme = createTheme({...themeDefault, ...overrides});
 
@@ -28,10 +32,11 @@ const App = ({}) => {
                 <div>
                     Add To Home Screen
                 </div>
-                <button>Add +</button>
+                <button onClick={toggleDialog}>Add +</button>
             </div>);
-        }
-    }, []);
+        } return null;
+    }, [toggleDialog]);
+
 
     return (
         <MuiThemeProvider theme={theme}>
@@ -46,6 +51,9 @@ const App = ({}) => {
 
             </div>
             {iosAddButton}
+            <Suspense fallback={<div></div>}>
+                <InstructDialog  isOpen={isDialog} handleToggle={toggleDialog} />
+            </Suspense>
         </MuiThemeProvider>
     );
 }
