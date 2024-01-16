@@ -162,7 +162,7 @@ const NotificationCreate = () => {
                     label={"Designation"}
                     value={form?.designation_id}
                     handleChange={(value) => {
-                      changeTextData(value, "designation_id");
+                      changeTextData(value,"designation_id");
                     }}
                   >
                     {listData?.DESIGNATIONS?.map((val) => {

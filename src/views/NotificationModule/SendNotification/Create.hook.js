@@ -76,15 +76,10 @@ const useCreate = () => {
       "send_to",
       "send_priority",
       form?.send_priority === "LATTER" ? "send_timestamp" : "",
-      form?.send_to === "LOCATION"
-        ? "location_id"
-        : form?.send_to === "DEPARTMENT"
-        ? "department_id"
-        : form?.send_to === "DESIGNATION"
-        ? "designation_id"
-        : form?.send_to === "GRDAE"
-        ? "grade_id"
-        : form?.send_to === "ALL" && "",
+      form?.send_to === "DEPARTMENT" ? "department_id" : "",
+      form?.send_to === "DESIGNATION" ? "designation_id" : "",
+      form?.send_to === "GRADE" ? "grade_id" : "",
+      form?.send_to === "LOCATION" ? "location_id" : "",
     ];
     required.forEach((val) => {
       if (!form?.[val]) {
