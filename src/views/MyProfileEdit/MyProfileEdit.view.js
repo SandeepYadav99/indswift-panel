@@ -108,7 +108,7 @@ const MyProfileEditView = ({}) => {
         <div className={styles.imageContainer}>
           {image}
           <div className={styles.nameWrapper}>
-            <div className={"formFlex"}>
+            <div className={"formFlex"} id={styles.mobileResponsiveData}>
               <div className={"formGroup"}>
                 <CustomTextField
                   disabled={true}
@@ -141,7 +141,7 @@ const MyProfileEditView = ({}) => {
                 />
               </div>
             </div>
-            <div className={"formFlex"}>
+            <div className={"formFlex"} id={styles.mobileResponsiveData}>
               <div className={"formGroup"}>
                 <CustomDatePicker
                   disabled={true}
@@ -502,7 +502,7 @@ const MyProfileEditView = ({}) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.personal_contact}
@@ -538,7 +538,7 @@ const MyProfileEditView = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.permanent_address}
