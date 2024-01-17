@@ -27,8 +27,44 @@ const useCreate = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
   const [listData, setListData] = useState({});
-
+  const [requiredField, setRequiredField] = useState([
+    "title",
+    "message",
+    "send_to",
+    "send_priority",
+  ]);
   const params = useParams();
+
+  useEffect(() => {
+    const dynamicFields =[];
+    setErrorData({})
+    if (form?.send_to === "DEPARTMENT") {
+      dynamicFields.push("department_id");
+    } else if (form?.send_to === "DESIGNATION") {
+      dynamicFields.push("designation_id");
+    } else if (form?.send_to === "GRADE") {
+      dynamicFields.push("grade_id");
+    } else if (form?.send_to === "LOCATION") {
+      dynamicFields.push("location_id");
+    }
+    if(form?.send_priority === "LATTER"){
+      dynamicFields.push("send_timestamp")
+    }
+    else if(form?.send_priority === "NOW"){
+      const index = dynamicFields.indexOf("send_timestamp");
+      if(index !== -1){
+        dynamicFields.splice(index,1)
+      }
+    }
+    setRequiredField([
+      "title",
+      "message",
+      "send_to",
+      "send_priority",
+      ...dynamicFields,
+    ]);
+
+  }, [params?.id, handleSubmit, checkFormValidation,form?.send_to,form?.send_priority]);
 
   useEffect(() => {
     serviceGetList(["DEPARTMENTS", "DESIGNATIONS", "LOCATIONS", "GRADES"]).then(
@@ -39,6 +75,8 @@ const useCreate = () => {
       }
     );
   }, []);
+
+
 
   useEffect(() => {
     serviceDetailNotificationModule({ id: params?.id }).then((res) => {
@@ -61,32 +99,15 @@ const useCreate = () => {
           send_timestamp: data?.send_timestamp,
           id: data?.id,
         });
-      }
-      else{
-        setForm({})
+      } else {
+        setForm({});
       }
     });
   }, [params?.id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [
-      "title",
-      "message",
-      "send_to",
-      "send_priority",
-      form?.send_priority === "LATTER" ? "send_timestamp" : "",
-      form?.send_to === "LOCATION"
-        ? "location_id"
-        : form?.send_to === "DEPARTMENT"
-        ? "department_id"
-        : form?.send_to === "DESIGNATION"
-        ? "designation_id"
-        : form?.send_to === "GRDAE"
-        ? "grade_id"
-        : form?.send_to === "ALL" && "",
-    ];
-    required.forEach((val) => {
+    requiredField.forEach((val) => {
       if (!form?.[val]) {
         errors[val] = true;
       }
@@ -97,7 +118,7 @@ const useCreate = () => {
       }
     });
     return errors;
-  }, [form, errorData, isSubmitting]);
+  }, [form, errorData, isSubmitting,form?.send_to,requiredField,form?.send_priority]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -114,7 +135,7 @@ const useCreate = () => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting]);
+  }, [form, isSubmitting, setIsSubmitting,errorData]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
