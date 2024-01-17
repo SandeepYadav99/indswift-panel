@@ -89,7 +89,7 @@ if ('serviceWorker' in navigator) {
                 // Automatically show the "Add to Home Screen" prompt on page load
                 // event.prompt();
                 if (!deferredPrompt && window.screen.width < 1024) {
-                    document.querySelector("#installPopUp").style.display = "flex";
+                    document.querySelector("#installPopUp").style.display = "block";
                 }
                 deferredPrompt = event;
                 // Show your customized install prompt for your PWA
