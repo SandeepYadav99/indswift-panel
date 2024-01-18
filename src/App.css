@@ -1035,6 +1035,9 @@ font-size: medium;
     display: flex;
     font-size: 12px;
     align-items: flex-end;
+    width: 100%;
+    text-align: end;
+    justify-content: end;
 }
 
 .dtMobCellLabel {
@@ -1078,5 +1081,10 @@ font-size: medium;
 @media (max-width: 767px) {
     .iconTabsEvents{
       padding: 6px 8px !important;
+    }
+    .mobileNoLabel {
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
   }
