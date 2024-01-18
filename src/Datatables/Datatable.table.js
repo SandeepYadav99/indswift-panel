@@ -395,9 +395,9 @@ const EnhancedTable = (props) => {
         const filteredColumns = props.columns.filter(column => (column.is_mobile !== false ));
         return filteredColumns.map((val, index) => (
             <div className={'dtMobCell'}>
-                <div className={'dtMobCellLabel'}>
+                {!val?.hide_label && (<div className={'dtMobCellLabel'}>
                     {val?.label}
-                </div>
+                </div>)}
                 <div className={'dtMobCellValue'}>
                     {val?.mobileRender ? val.mobileRender(row[val.key], row, indexPr) : val.render(row[val.key], row, indexPr)}
                 </div>
@@ -550,7 +550,8 @@ const EnhancedTable = (props) => {
         </PageBox>
 
     ) : (
-        <div className={classes.paper}>{renderCardContent()}
+        <div className={classes.paper}>
+            {renderCardContent()}
             <div className={'dTMobilePagination'}>
                 <TablePagination
                     rowsPerPageOptions={props.rowsPerPageOptions}

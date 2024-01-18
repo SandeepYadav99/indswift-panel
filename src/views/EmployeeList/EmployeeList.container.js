@@ -6,7 +6,7 @@ import { Add, CloudUpload, InfoOutlined, CloudDownload, PrintOutlined } from "@m
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
-import DataTables from "../../components/Datatables/datatables";
+import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
@@ -193,9 +193,10 @@ const EmployeeList = ({}) => {
       {
         key: "user_id",
         label: "Action",
+        hide_label: true,
         style: { width: "15%" },
         render: (temp, all) => (
-          <div>
+          <div className={'mobileNoLabel'}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
