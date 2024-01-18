@@ -1,7 +1,13 @@
 /**
  * Created by charnjeetelectrovese@gmail.com on 5/1/2020.
  */
-import React, { Component, useCallback, useMemo } from "react";
+import React, {
+  Component,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -21,10 +27,8 @@ import CurrencyView from "./components/Currency/CurrencyView.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: "flex",
-    // height: 224,
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -33,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HRSettings = ({}) => {
   const { handleTabs, tabIndex } = useHRSettings({});
+  const [width, setWidth] = useState(window.innerWidth);
   const classes = useStyles();
   const a11yProps = (index) => {
     return {
@@ -40,6 +45,14 @@ const HRSettings = ({}) => {
       "aria-controls": `vertical-tabpanel-${index}`,
     };
   };
+
+  useEffect(() => {
+    const Resize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", Resize);
+    return () => window.removeEventListener("resize", Resize);
+  });
 
   const renderPanel = useCallback((value) => {
     if (value == 0) {
@@ -50,14 +63,14 @@ const HRSettings = ({}) => {
       return <MonthlyTheme />;
     } else if (value === 3) {
       return <CAGRView />;
-    }else if (value === 4) {
+    } else if (value === 4) {
       return <LoanBudget />;
     } else if (value === 5) {
       return <EmailComp />;
-    }else if (value === 6){
-      return <USCView/>
-    }else if (value === 7){
-      return <CurrencyView/>
+    } else if (value === 6) {
+      return <USCView />;
+    } else if (value === 7) {
+      return <CurrencyView />;
     }
     return <h1>{value}</h1>;
   }, []);
@@ -65,24 +78,30 @@ const HRSettings = ({}) => {
   return (
     <PageBox>
       <div className={styles.mainContainer}>
-        <div className={classes.root}>
+        <div
+          className={
+            `${width}` > 1296 ? `${classes.root}` : `${styles.tabContainerView}`
+          }
+        >
           <Tabs
-            orientation="vertical"
+            orientation={
+              `${width}` > 1296 ? `vertical` : ``
+            }
             variant="scrollable"
             value={tabIndex}
             onChange={handleTabs}
             aria-label="Vertical tabs example"
-            className={classes.tabs}
+            className={classes.root}
+            id={styles.tabsResponsive}
           >
-            <Tab label="Employee Induction" {...a11yProps(0)} />
-            <Tab label="Monthly Theme" {...a11yProps(1)} />
-            <Tab label="Drishti Updates" {...a11yProps(2)} />
-            <Tab label="CAGR values" {...a11yProps(3)} />
-            {/* <Tab label="CPC File" {...a11yProps(4)} /> */}
-            <Tab label="Loan Budget" {...a11yProps(4)} />
-            <Tab label="Email Composer" {...a11yProps(5)} />
-            <Tab label="USC" {...a11yProps(6)} />
-            <Tab label="Currency Conversion" {...a11yProps(6)} />
+              <Tab label="Employee Induction" {...a11yProps(0)} />
+              <Tab label="Monthly Theme" {...a11yProps(1)} />
+              <Tab label="Drishti Updates" {...a11yProps(2)} />
+              <Tab label="CAGR values" {...a11yProps(3)} />
+              <Tab label="Loan Budget" {...a11yProps(4)} />
+              <Tab label="Email Composer" {...a11yProps(5)} />
+              <Tab label="USC" {...a11yProps(6)} />
+              <Tab label="Currency Conversion" {...a11yProps(6)} />
           </Tabs>
           <div className={styles.tabPanel}>{renderPanel(tabIndex)}</div>
         </div>
