@@ -65,7 +65,7 @@ const EmployeeInductionComponent = ({}) => {
                             }
                         }}
                     />
-                    <ButtonBase onClick={handleSubmit} disabled={!(document || coverImage) || isSubmitting} className={csx(classes.btnBorder, styles.btn)}>
+                    <ButtonBase onClick={handleSubmit} disabled={!(document || coverImage) || isSubmitting} className={csx(classes.btnBorder, styles.btn)} id={styles.mobileResponsiveWeb}>
                         Upload Files
                     </ButtonBase>
                 </div>
