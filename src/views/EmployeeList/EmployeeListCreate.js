@@ -63,6 +63,7 @@ const EmployeeListCreate = ({ location }) => {
       }, 0)
       : "-";
   };
+  const isMobile = window.innerWidth <= 768;
   const classes = useStyles();
   const image = useMemo(() => {
     return (
@@ -284,7 +285,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"} style={{ width: "50%" }} id={styles.mobileResponsiveData}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.higher_education}
@@ -299,6 +300,7 @@ const EmployeeListCreate = ({ location }) => {
               }}
             />
           </div>
+          <div className={"formGroup"}></div>
         </div>
       </div>
       <div className={"plainPaper"}>
@@ -782,7 +784,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Fathers Passing Away Date"}
+                label={isMobile ? "Father's DOD": "Fathers Passing Away Date"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "father_dod");
@@ -843,7 +845,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Mother Passing Away Date"}
+                label={isMobile ? "Mother's DOD" : "Mother Passing Away Date"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "mother_dod");
@@ -1098,7 +1100,7 @@ const EmployeeListCreate = ({ location }) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 disabled={empFlag ? true : false}
                 onClick={() => {
@@ -1110,7 +1112,7 @@ const EmployeeListCreate = ({ location }) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 disabled={empFlag ? true : false}
                 onClick={() => {
@@ -1154,7 +1156,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={styles.editBtnWrap}>
               <IconButton
                 disabled={role !== "CORPORATE_HR"}
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("YES", "is_basic_salary_manual");
@@ -1166,7 +1168,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={styles.editBtnWrap}>
               <IconButton
                 disabled={role !== "CORPORATE_HR"}
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("NO", "is_basic_salary_manual");
@@ -1274,7 +1276,7 @@ const EmployeeListCreate = ({ location }) => {
               {/* {form?.is_pug_manual == "NO" && ( */}
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -1286,7 +1288,7 @@ const EmployeeListCreate = ({ location }) => {
               </div>
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -1338,7 +1340,7 @@ const EmployeeListCreate = ({ location }) => {
               <div className={styles.editBtnWrap}>
                 <IconButton
                   disabled={empFlag ? true : false}
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   onClick={() => {
                     changeTextData("YES", "is_helper_manual");
@@ -1350,7 +1352,7 @@ const EmployeeListCreate = ({ location }) => {
               <div className={styles.editBtnWrap}>
                 <IconButton
                   disabled={empFlag ? true : false}
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   onClick={() => {
                     changeTextData("NO", "is_helper_manual");
@@ -1401,7 +1403,7 @@ const EmployeeListCreate = ({ location }) => {
               <div className={styles.editBtnWrap}>
                 <IconButton
                   disabled={empFlag ? true : false}
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   onClick={() => {
                     changeTextData("YES", "is_food_coupons_manual");
@@ -1413,7 +1415,7 @@ const EmployeeListCreate = ({ location }) => {
               <div className={styles.editBtnWrap}>
                 <IconButton
                   disabled={empFlag ? true : false}
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   onClick={() => {
                     changeTextData("NO", "is_food_coupons_manual");
@@ -1778,7 +1780,7 @@ const EmployeeListCreate = ({ location }) => {
               />
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -1790,7 +1792,7 @@ const EmployeeListCreate = ({ location }) => {
               </div>
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -1841,7 +1843,7 @@ const EmployeeListCreate = ({ location }) => {
               />
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -1853,7 +1855,7 @@ const EmployeeListCreate = ({ location }) => {
               </div>
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -1902,7 +1904,7 @@ const EmployeeListCreate = ({ location }) => {
               />
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -1914,7 +1916,7 @@ const EmployeeListCreate = ({ location }) => {
               </div>
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -1946,7 +1948,7 @@ const EmployeeListCreate = ({ location }) => {
               />
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -1958,7 +1960,7 @@ const EmployeeListCreate = ({ location }) => {
               </div>
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -2024,7 +2026,7 @@ const EmployeeListCreate = ({ location }) => {
               />
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -2036,7 +2038,7 @@ const EmployeeListCreate = ({ location }) => {
               </div>
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -2160,7 +2162,7 @@ const EmployeeListCreate = ({ location }) => {
               />
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -2172,7 +2174,7 @@ const EmployeeListCreate = ({ location }) => {
               </div>
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -2208,7 +2210,7 @@ const EmployeeListCreate = ({ location }) => {
               />
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
@@ -2220,7 +2222,7 @@ const EmployeeListCreate = ({ location }) => {
               </div>
               <div className={styles.editBtnWrap}>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={"tableActionBtnEdit"}
                   color="secondary"
                   disabled={empFlag ? true : false}
                   onClick={() => {
