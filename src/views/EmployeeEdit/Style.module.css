@@ -35,6 +35,7 @@
     padding: 10px 0;
     align-items: center;
     justify-content: center;
+    margin-left: 8px;
 }
 
 .firstCellFlex .driverImgCont {
