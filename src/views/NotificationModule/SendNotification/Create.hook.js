@@ -76,8 +76,6 @@ const useCreate = () => {
     );
   }, []);
 
-
-
   useEffect(() => {
     serviceDetailNotificationModule({ id: params?.id }).then((res) => {
       if (!res.error) {

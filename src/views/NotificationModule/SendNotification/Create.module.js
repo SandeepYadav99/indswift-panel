@@ -219,7 +219,7 @@ const NotificationCreate = () => {
                       label="Send Now"
                     />
                     <FormControlLabel
-                      value="LATTER"
+                      value="LATER"
                       control={<Radio />}
                       label="Send Later"
                     />
@@ -227,7 +227,7 @@ const NotificationCreate = () => {
                 </FormControl>
               </div>
               <div>
-                {form?.send_priority === "LATTER" && (
+                {form?.send_priority === "LATER" && (
                   <div className={styles.dropdownResponsive}>
                     <CustomDateTimePicker
                       fullWidth={true}
