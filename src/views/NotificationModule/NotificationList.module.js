@@ -88,7 +88,7 @@ const Notificationlist = ({ }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-              <IconButton className={'tableActionBtn'} color='secondary' onClick={() => { handleEdit(all) }} ><Edit fontSize={'small'} /></IconButton>
+              <IconButton className={'tableActionBtn'} color='secondary' onClick={() => { handleEdit(all) }} disabled={all?.is_sent}><Edit fontSize={'small'} /></IconButton>
           </div>
         ),
       },
