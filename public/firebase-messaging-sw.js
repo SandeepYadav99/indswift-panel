@@ -43,16 +43,18 @@ messaging.onBackgroundMessage(function(payload) {
 // });
 
 self.addEventListener('notificationclick', function(event) {
+    console.log('called notificationclick');
     var redirect_url = event.notification.data.NEXT_SCREEN;
     event.notification.close();
     event.waitUntil(clients.matchAll({
                 type: "window",
                 includeUncontrolled: true,
             }).then(function(clientList) {
+                console.log('clientList', clientList);
                 for (var i = 0; i < clientList.length; i++) {
                     var client = clientList[i];
                     if ("focus" in client) {
-                        return client.focus();
+                        // return client.focus();
                     }
                 }
                 if (clients.openWindow) {
