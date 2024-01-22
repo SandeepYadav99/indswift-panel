@@ -248,6 +248,10 @@
     flex-direction: column;
     height: 90%;
   }
+
+  #editBtnFade{
+    opacity: 0.3 !important;
+  }
   
   
   /* USC Create css */

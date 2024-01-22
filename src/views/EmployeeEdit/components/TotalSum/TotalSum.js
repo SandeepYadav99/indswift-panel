@@ -9,7 +9,7 @@ function TotalSum({ firstName, firstAmount, secondName, secondAmount ,reduceAmou
         <span className={styles.amountFonts}>{firstAmount}</span>
         <span className={styles.reductionFonts}>{reduceAmount}</span>
       </div>
-      <div>
+      <div className={styles.topWrapperTwo}>
         <span>{secondName}</span>
         <span>{secondAmount}</span>
       </div>
