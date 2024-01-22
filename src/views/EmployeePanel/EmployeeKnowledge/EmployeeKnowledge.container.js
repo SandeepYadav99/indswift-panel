@@ -42,6 +42,7 @@ function EmployeeKnowledge() {
   const tableStructure = useMemo(() => {
     return [
       {
+        is_mobile:false,
         key: "",
         label: "",
         sortable: false,

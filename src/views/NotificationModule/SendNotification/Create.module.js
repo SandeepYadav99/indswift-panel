@@ -198,7 +198,7 @@ const NotificationCreate = () => {
             </div>
           </div>
           <div style={{ marginTop: "10px" }}>
-            <span className={styles.radioTitle}>Send to</span>
+            <span className={styles.radioTitle}>When to Send</span>
             <div className={styles.radioButtonContainer}>
               <div>
                 <FormControl className={styles.btnRadio}>
