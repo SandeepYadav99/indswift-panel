@@ -75,7 +75,7 @@ const ImprestUpperTable = ({ location }) => {
         label: "ASSOCIATED TAP",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.textAlign}>
             {all?.travelPlanner?.code ? (
               <div>
                 {all?.travelPlanner?.code}
@@ -173,7 +173,7 @@ const ImprestUpperTable = ({ location }) => {
 
   return (
     <div>
-      <PageBox>
+      {/* <PageBox> */}
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -183,7 +183,7 @@ const ImprestUpperTable = ({ location }) => {
           />
          
         </div>
-      </PageBox>
+      {/* </PageBox> */}
       <div>
             <br />
             <div style={{ width: "100%" }}>

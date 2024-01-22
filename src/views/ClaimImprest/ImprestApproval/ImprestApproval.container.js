@@ -111,20 +111,20 @@ const ImprestApproval = ({ location }) => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
+        render: (temp, all) => <div className={styles.textAlign}>{all?.employee?.location?.name}</div>,
       },
       {
         key: "desigination",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.designation?.name}</div>,
+        render: (temp, all) => <div className={styles.textAlign}>{all?.employee?.designation?.name}</div>,
       },
       {
         key: "department",
         label: "DEPT & SUB-DEPT",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.textAlign}>
             {all?.employee?.department?.name} /{" "}
             {all?.employee?.sub_department?.name}
           </div>
@@ -143,7 +143,7 @@ const ImprestApproval = ({ location }) => {
         render: (temp, all) => (
           <>
             {all?.imprest?.travelPlanner?.code ? (
-              <div className={styles.naClass}>
+              <div className={styles.naClass} >
                 {all?.imprest?.travelPlanner?.code} <br />
                 <StatusPill
                   status={removeUnderScore(all?.imprest?.travelPlanner?.status)}
@@ -183,7 +183,7 @@ const ImprestApproval = ({ location }) => {
         label: "Current status /IMPREST STATUS",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.textAlign}>
             {renderStatus(removeUnderScore(all?.status))}
             <br /> <br />
             {renderStatus(removeUnderScore(all?.imprest?.status))}
