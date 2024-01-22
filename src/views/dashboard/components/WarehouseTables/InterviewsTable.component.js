@@ -90,7 +90,7 @@ const InterviewsTable = () => {
               gap:"10px",
             }}
           >
-            <span className={styles.textAdjust}>NAME</span>
+            <span className={styles.textAdjust}><b>NAME</b></span>
             <span
               className={styles.hyperlinkText}
               onClick={() => changeEmployeeRoute(val?.candidate)}
@@ -107,7 +107,7 @@ const InterviewsTable = () => {
               gap:"10px",
             }}
           >
-            <span className={styles.textAdjust}>LOCATION</span>
+            <span className={styles.textAdjust}><b>LOCATION</b></span>
             <span className={styles.textAdjust}>{val?.location}</span>
           </TableRow>
           <TableRow
@@ -119,7 +119,7 @@ const InterviewsTable = () => {
               gap:"10px",
             }}
           >
-            <span className={styles.textAdjust}> DESIGNATION/DEPARTMENT</span>
+            <span className={styles.textAdjust}><b> DESIGNATION/DEPARTMENT</b></span>
             <span className={styles.textAdjust}>{`${
               val?.designation ? val?.designation : ""
             } / ${val?.department ? val?.department : ""}`}</span>
@@ -133,7 +133,7 @@ const InterviewsTable = () => {
               gap:"10px",
             }}
           >
-            <span className={styles.textAdjust}>JOINING DATE</span>
+            <span className={styles.textAdjust}><b>JOINING DATE</b></span>
             <span className={styles.textAdjust}>{val?.joining_date}</span>
           </TableRow>
         </>

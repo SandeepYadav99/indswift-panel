@@ -8,10 +8,12 @@ import DataTables from "../../components/Datatables/datatables";
 import { useSelector } from "react-redux";
 import Constants from "../../config/constants";
 import StatusPill from "../../components/Status/StatusPill.component";
+import { Link } from "react-router-dom";
 
 const EmployeeMobileCard = ({ data, index }) => {
   return (
     <div className={styles.downFlex}>
+      <Link to={data?.next_screen  && data?.next_screen} className={styles.colorLinkData}>
       <div className={styles.cardDataTwo}>
         <div className={styles.titleData}>{data?.notification_title}</div>
         <div className={styles.descriptionData}>
@@ -20,6 +22,7 @@ const EmployeeMobileCard = ({ data, index }) => {
         </div>
         <div style={{display:'flex',justifyContent:"flex-end",fontSize:"12px",color:"gray",marginTop:"5px"}}>{data?.time}</div>
       </div>
+      </Link>
     </div>
   );
 };
