@@ -22,6 +22,7 @@ function Upper({ data }) {
           <img
             className={styles.applicationImage}
             src={data?.image}
+            alt=""
           />
         </div>
       </div>

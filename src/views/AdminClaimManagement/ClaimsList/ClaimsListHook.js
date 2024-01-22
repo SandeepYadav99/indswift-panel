@@ -187,14 +187,16 @@ const useClaimsList = ({}) => {
     // setSidePanel(e => !e);
     // setEditData(null);
   }, [setEditData, setSidePanel]);
-
+  
   const handleViewDetails = useCallback(
     (data) => {
       LogUtils.log("data", data);
       if (EmpId?.employee_id) {
         if (data?.claim?.claim_type === "TRAVEL") {
           historyUtils.push(`${RouteName.TRAVEL_HR_CLAIMS_DETAILS}${data?.id}`);
-        } else {
+        } else if (data?.claim?.claim_type === "FOREIGN_TRAVEL") {
+          historyUtils.push(`${RouteName.FOREIGN_HR_CLAIMS_DETAILS}${data?.id}`); //+data.id
+        }else {
           historyUtils.push(`${RouteName.CLAIMS_HR_DETAILS}${data?.id}`); //+data.id
         }
       } else {
@@ -256,6 +258,8 @@ const useClaimsList = ({}) => {
           "PHC",
           "LOCAL_TRAVEL",
           "RELOCATION",
+          "TRAVEL",
+          "FOREIGN_TRAVEL"
         ],
       },
     ];

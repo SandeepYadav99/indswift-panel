@@ -1,19 +1,9 @@
-import React, { useMemo } from "react";
-import {
-  serviceGetEmployeeDetails,
-  serviceUpdateForeignClaim,
-} from "../../../services/ClaimsManagement.service";
-import { serviceGetList } from "../../../services/Common.service";
+import  { useMemo } from "react";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useRef } from "react";
 import { useCallback } from "react";
-import nullImg from "../../../assets/img/null.png";
-import { dataURLtoFile } from "../../../helper/helper";
 import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import moment from "moment";
-import { serviceGetCurrencyList } from "../../../services/AppSettings.service";
 import { useParams } from "react-router-dom";
 import {
   serviceApproveCLaim,
@@ -23,6 +13,7 @@ import {
 const initialForm = {
   comment: "",
 };
+
 const amountKeys = {
   lodging_expenses_amount: "",
   lodging_expenses_amount_usd: "",
@@ -67,7 +58,7 @@ function useClaimForDetail() {
   const otherRef = useRef(null);
   const { id } = useParams();
 
-  const EmpId = window.location.pathname?.includes("/cm/hr/travel/details/")
+  const EmpId = window.location.pathname?.includes("/cm/hr/foreign/details/")
     ? { employee_id: "63d9267d3d18b8ce6e9b700c" }
     : {};
 
@@ -106,7 +97,7 @@ function useClaimForDetail() {
           conversion_rate: rest?.imprest_summary?.conversion_rate_usd,
         },
       ];
-      SetCurr([...FixCurrency])
+      SetCurr([...FixCurrency]);
     });
   }, [id]);
 
@@ -151,7 +142,7 @@ function useClaimForDetail() {
     return errors;
   }, [form, errorData]);
 
-  console.log("employeeDetails?.imprest", employeeDetails);
+ 
 
   const imprestAmount = useMemo(() => {
     if (employeeDetails?.imprest?.status === "FINANCE_APPROVED") {
@@ -163,9 +154,13 @@ function useClaimForDetail() {
   const imprestINRAmount = useMemo(() => {
     if (curr?.length > 0 && imprestAmount) {
       if (employeeDetails?.imprest?.currency === "USD") {
-        return Number(imprestAmount) * Number(curr[1]?.conversion_rate);
+        return Math.round(
+          Number(imprestAmount) * Number(curr[1]?.conversion_rate)
+        );
       } else if (employeeDetails?.imprest?.currency === "EUR") {
-        return Number(imprestAmount) * Number(curr[0]?.conversion_rate);
+        return Math.round(
+          Number(imprestAmount) * Number(curr[0]?.conversion_rate)
+        );
       } else {
         return Number(imprestAmount);
       }
@@ -195,7 +190,7 @@ function useClaimForDetail() {
     if (curr?.length > 0) {
       total = Number(USDAmount) * Number(curr[1]?.conversion_rate);
     }
-    return total;
+    return Math.round(total);
   }, [USDAmount, curr, SetCurr]);
 
   const EuroAmount = useMemo(() => {
@@ -217,7 +212,7 @@ function useClaimForDetail() {
     if (curr?.length > 0) {
       total = Number(EuroAmount) * Number(curr[0]?.conversion_rate);
     }
-    return total;
+    return Math.round(total);
   }, [EuroAmount, curr, SetCurr]);
 
   const InrAmount = useMemo(() => {
@@ -239,7 +234,7 @@ function useClaimForDetail() {
   const getTotalValue = useMemo(() => {
     let total = 0;
     total = Number(InrAmount) + Number(USDtoINR) + Number(EurotoINR);
-    return total;
+    return Math.round(total);
   }, [InrAmount, USDtoINR, EurotoINR]);
 
   const getOfficeAmount = useMemo(() => {
@@ -248,23 +243,18 @@ function useClaimForDetail() {
       Number(officeAmount2 ? officeAmount2 : 0) +
       Number(officeAmount3 ? officeAmount3 : 0) +
       Number(officeAmount4 ? officeAmount4 : 0);
-    return value ? value : 0;
+    return value ? Math.round(value) : 0;
   }, [officeAmount, officeAmount2, officeAmount3, officeAmount4]);
 
-  console.log(
-    ">>>>",
-    officeAmount,
-    officeAmount2,
-    officeAmount3,
-    officeAmount4,
-    getOfficeAmount
-  );
+
   const getRefundAmount = useMemo(() => {
     return imprestINRAmount
-      ? Number(getTotalValue) -
-          Number(getOfficeAmount) -
-          Number(imprestINRAmount)
-      : Number(getTotalValue) - Number(getOfficeAmount);
+      ? Math.round(
+          Number(getTotalValue) -
+            Number(getOfficeAmount) -
+            Number(imprestINRAmount)
+        )
+      : Math.round(Number(getTotalValue) - Number(getOfficeAmount));
   }, [
     form?.travel_planner_id,
     getTotalValue,
@@ -351,8 +341,9 @@ function useClaimForDetail() {
     EurotoINR,
     getOfficeAmount,
     refundData,
-    setRefundData
+    setRefundData,
   ]);
+
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
   }, [approveDialog]);
@@ -360,6 +351,7 @@ function useClaimForDetail() {
   const toggleRejectDialog = useCallback(() => {
     setRejectDialog((e) => !e);
   }, [rejectDialog]);
+
   const removeError = useCallback(
     (title) => {
       const temp = JSON.parse(JSON.stringify(errorData));
@@ -400,14 +392,7 @@ function useClaimForDetail() {
     const isdaRefValid = daRef.current.isValid();
     const isenterValid = enterRef.current.isValid();
     const isOtherValid = otherRef.current.isValid();
-    console.log(
-      "valid",
-      isIncludesValid,
-      islodgeValid,
-      isdaRefValid,
-      isenterValid,
-      isOtherValid
-    );
+
     if (
       !isIncludesValid ||
       !isOtherValid ||
@@ -440,7 +425,7 @@ function useClaimForDetail() {
     EurotoINR,
     getOfficeAmount,
     refundData,
-    setRefundData
+    setRefundData,
   ]);
 
   const changeTextData = useCallback(
@@ -466,7 +451,7 @@ function useClaimForDetail() {
     setForm({ ...initialForm });
   }, [form]);
 
-  console.log("part", officeAmount2);
+
   return {
     employeeDetails,
     employees,

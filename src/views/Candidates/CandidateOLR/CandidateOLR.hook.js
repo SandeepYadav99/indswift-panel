@@ -8,6 +8,7 @@ import historyUtils from "../../../libs/history.utils";
 import {serviceGetOfferLetterDetails,serviceGetPanelistDetails} from "../../../services/OfferLetter.service";
 import {useSelector} from "react-redux";
 import Constants from "../../../config/constants";
+import RouteName from "../../../routes/Route.name";
 
 function CandidateOLRHook({location}) {
   const isReview = location?.state?.isReview;
@@ -47,7 +48,7 @@ function CandidateOLRHook({location}) {
       })
     }
   }, [id]);
-
+  console.log(role)
   const isRecruiter = useMemo(() => {
     return role === Constants.ROLES.RECRUITER;
   }, [role]);
@@ -66,10 +67,12 @@ function CandidateOLRHook({location}) {
   const handleApproveReview = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
+
       serviceReviewOLRApprove({review_id: reviewId,'is_experience_hide':isChecked}).then((res) => {
         if (!res.error) {
           SnackbarUtils.success('Offer Letter Approved Successfully');
           historyUtils.goBack();
+
         }
         setIsSubmitting(false);
       });
@@ -95,7 +98,7 @@ function CandidateOLRHook({location}) {
     role,
     toggleCheckDialog,
     isCheckPopUp
-    
+
   };
 }
 

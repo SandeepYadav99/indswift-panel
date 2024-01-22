@@ -76,7 +76,6 @@ const initialForm = {
   mother_name: "",
   spouse_name: "",
   spouse_dob: "",
-  higher_education:"",
   permanent_address: "",
   current_address: "",
   pan_no: "",
@@ -269,7 +268,7 @@ function EmployeeListCreateHook() {
       setForm({...form,effective_date:"",salary_notes:""})
     }
   },[isUpdateDialog])
-  
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     const required = [
@@ -612,7 +611,7 @@ function EmployeeListCreateHook() {
               old_value: oldtrans ? oldtrans : false,
             });
           }else if ([...salaryInfo].includes(key)){
-            
+
           } else {
             changedData.push({
               is_json: false,
@@ -679,7 +678,7 @@ function EmployeeListCreateHook() {
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form]);
-  
+
   const filteredDepartments = useMemo(() => {
     const locations = listData?.LOCATION_DEPARTMENTS;
     const index = locations?.findIndex((l) => l.id === form?.location_id);
@@ -745,11 +744,12 @@ function EmployeeListCreateHook() {
     toggleStatusDialog,
     isUpdateDialog,
     SalaryField,
-    role
+    role,
+    isSubmitting
   };
 }
 
 export default EmployeeListCreateHook;
 
 
-//USC edit 
+//USC edit

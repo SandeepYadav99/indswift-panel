@@ -29,8 +29,16 @@ const container = {
   paddingRight: "15px",
   paddingLeft: "15px",
   marginRight: "auto",
-  marginLeft: "auto"
+  marginLeft: "auto",
+  "@media (max-width: 370px)": {
+    paddingRight: "0",
+    paddingLeft: "0",
+    marginRight: "0",
+    marginLeft: "0"
+  }
 };
+
+
 
 const boxShadow = {
   boxShadow:
@@ -157,6 +165,6 @@ export {
   cardActions,
   cardHeader,
   defaultBoxShadow,
-    sidebarColor,
-    textColor
+  sidebarColor,
+  textColor
 };

@@ -126,3 +126,23 @@
     font-size: 0.7rem;
     margin-left: 10px;
 }
+.ctcDetails{
+    display: flex;
+    flex-direction: column !important;
+}
+
+@media only screen and (max-width:769px) {
+    .mainFlex2{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .key21{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .ctcDetails{
+        display: flex;
+        flex-direction: row !important;
+        justify-content: space-between;
+    }
+}

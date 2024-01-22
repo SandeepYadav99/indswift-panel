@@ -413,8 +413,9 @@ function useMyProfileEdit() {
         SnackbarUtils.error("No Data Changed");
         return true;
       }
-      setIsOpen(false);
-      submitToServer();
+      setIsOpen(true);
+
+      //  submitToServer();
     }
   }, [checkFormValidation, setErrorData, ChildenRef.current, form]);
 
@@ -422,6 +423,7 @@ function useMyProfileEdit() {
     setForm({ ...initialForm });
   }, [form]);
 
+ 
   return {
     form,
     errorData,
@@ -440,6 +442,8 @@ function useMyProfileEdit() {
     refGt,
     refMc,
     refGg,
+   
+    submitToServer
   };
 }
 

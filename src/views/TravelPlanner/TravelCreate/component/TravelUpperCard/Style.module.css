@@ -12,7 +12,11 @@
     margin-left: 20px;
     background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
 }
-
+.infoCardUpper{
+    display: flex;
+    justify-content: space-between !important;
+    width: 100% !important;
+}
 
 .plainPaper{
     border-radius: 10px;
@@ -32,11 +36,13 @@
 .mainFlex{
     display: flex;
     /*align-items: center;*/
+    gap:30px;
+    width: 100% !important;
+    justify-content: flex-start !important;
 }
 
 .vertical {
     border-left: 1px dashed #B8C5D3;
-    max-height: 100px;
     flex: 0.3;
 }
 
@@ -48,7 +54,7 @@
 
 .value{
     font-weight: 600;
-    width: 220px;
+    width: 120px;
     color: black;
     display: inline-block;
 }
@@ -67,7 +73,7 @@
     gap: 15px;
 }
 .claimimg{
-    width: 50px;
+    width: 100px;
     aspect-ratio: 1/1;
 }
 .right{
@@ -137,4 +143,33 @@
 
 .info{
     margin-left: 10px;
+}
+
+@media only screen and (max-width:1196px) {
+    .mainFlex{
+        display: flex;
+        gap:30px;
+        justify-content: flex-start !important;
+    }
+}
+
+@media only screen and (max-width:769px){
+    .editFlex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .mainFlex{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .imageAlignMobile{
+        display: flex;
+        justify-content: center !important;
+    }
+    .key{
+        display: flex;
+        flex-direction: column !important;
+    }
+    
 }

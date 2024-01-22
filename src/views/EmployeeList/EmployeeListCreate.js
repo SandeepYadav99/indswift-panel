@@ -56,13 +56,14 @@ const EmployeeListCreate = ({ location }) => {
   const getSumValue = (...numbers) => {
     return numbers
       ? numbers.reduce((sum, value) => {
-          if (value) {
-            return sum + parseFloat(value);
-          }
-          return sum;
-        }, 0)
+        if (value) {
+          return sum + parseFloat(value);
+        }
+        return sum;
+      }, 0)
       : "-";
   };
+  const isMobile = window.innerWidth <= 768;
   const classes = useStyles();
   const image = useMemo(() => {
     return (
@@ -116,7 +117,7 @@ const EmployeeListCreate = ({ location }) => {
         <div className={styles.imageContainer}>
           {image}
           <div className={styles.nameWrapper}>
-            <div className={"formFlex"}>
+            <div className={"formFlex"} id={styles.mobileResponsiveData}>
               <div className={"formGroup"}>
                 <CustomTextField
                   isError={errorData?.name}
@@ -147,7 +148,7 @@ const EmployeeListCreate = ({ location }) => {
                 />
               </div>
             </div>
-            <div className={"formFlex"}>
+            <div className={"formFlex"} id={styles.mobileResponsiveData}>
               <div className={"formGroup"}>
                 <CustomDatePicker
                   clearable
@@ -177,7 +178,7 @@ const EmployeeListCreate = ({ location }) => {
             </div>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.state}
@@ -221,7 +222,7 @@ const EmployeeListCreate = ({ location }) => {
             </CustomSelectField>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.aadhar_no}
@@ -237,7 +238,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
 
-          <div className={"formGroup"}>
+          <div className={"formGroup"} id={styles.mobileResponsiveData}>
             <CustomTextField
               isError={errorData?.pan_no}
               errorText={errorData?.pan_no}
@@ -252,7 +253,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -284,7 +285,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"} style={{ width: "50%" }}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.higher_education}
@@ -299,6 +300,7 @@ const EmployeeListCreate = ({ location }) => {
               }}
             />
           </div>
+          <div className={"formGroup"}></div>
         </div>
       </div>
       <div className={"plainPaper"}>
@@ -308,7 +310,7 @@ const EmployeeListCreate = ({ location }) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.location_id}
@@ -348,7 +350,7 @@ const EmployeeListCreate = ({ location }) => {
             </CustomSelectField>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.sub_department_id}
@@ -382,7 +384,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.grade_id}
@@ -422,7 +424,7 @@ const EmployeeListCreate = ({ location }) => {
             </CustomSelectField>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               inputProps={{ disabled: true }}
@@ -457,7 +459,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomAutoComplete
               autoCompleteProps={{
@@ -495,7 +497,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.is_transport_facility}
@@ -525,7 +527,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.rc_number}
@@ -554,7 +556,7 @@ const EmployeeListCreate = ({ location }) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.official_contact}
@@ -589,7 +591,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.personal_contact}
@@ -610,7 +612,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
 
-          <div className={"formGroup"}>
+          <div className={"formGroup"} id={styles.mobileResponsiveData}>
             <CustomTextField
               isError={errorData?.personal_email}
               errorText={errorData?.personal_email}
@@ -625,7 +627,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.permanent_address}
@@ -680,7 +682,7 @@ const EmployeeListCreate = ({ location }) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.bank_name}
@@ -710,7 +712,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.ifsc}
@@ -735,7 +737,7 @@ const EmployeeListCreate = ({ location }) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.father_name}
@@ -763,7 +765,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.father_state}
@@ -782,7 +784,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Fathers Passing Away Date"}
+                label={isMobile ? "Father's DOD": "Fathers Passing Away Date"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "father_dod");
@@ -796,7 +798,7 @@ const EmployeeListCreate = ({ location }) => {
           )}
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.mother_name}
@@ -824,7 +826,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.mother_state}
@@ -843,7 +845,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Mother Passing Away Date"}
+                label={isMobile ? "Mother's DOD" : "Mother Passing Away Date"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "mother_dod");
@@ -856,7 +858,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={"formGroup"}></div>
           )}
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.martial_status}
@@ -887,7 +889,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.spouse_name}
@@ -917,7 +919,7 @@ const EmployeeListCreate = ({ location }) => {
             </CustomSelectField>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomDatePicker
               clearable
@@ -946,7 +948,7 @@ const EmployeeListCreate = ({ location }) => {
             </CustomSelectField> */}
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <ChildrenIncludeForm ref={ChildenRef} />
           </div>
@@ -962,7 +964,7 @@ const EmployeeListCreate = ({ location }) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.previous_organisation}
@@ -1003,7 +1005,7 @@ const EmployeeListCreate = ({ location }) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomAutoComplete
               autoCompleteProps={{
@@ -1037,7 +1039,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomDatePicker
               clearable
@@ -1059,7 +1061,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={"heading"}>Employee Monthly Salary Details</div>
           </h4>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -1077,47 +1079,49 @@ const EmployeeListCreate = ({ location }) => {
               }}
             />
           </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              disabled={
-                empFlag || form?.is_car_component_manual === "NO" ? true : false
-              }
-              type={"number"}
-              isError={errorData?.car_component}
-              errorText={errorData?.car_component}
-              label={"Car Component"}
-              value={form?.car_component}
-              onTextChange={(text) => {
-                changeTextData(text, "car_component");
-              }}
-              onBlur={() => {
-                onBlurHandler("car_component");
-              }}
-            />
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("YES", "is_car_component_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("NO", "is_car_component_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+          <div style={{ display: "flex" }}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                disabled={
+                  empFlag || form?.is_car_component_manual === "NO" ? true : false
+                }
+                type={"number"}
+                isError={errorData?.car_component}
+                errorText={errorData?.car_component}
+                label={"Car Component"}
+                value={form?.car_component}
+                onTextChange={(text) => {
+                  changeTextData(text, "car_component");
+                }}
+                onBlur={() => {
+                  onBlurHandler("car_component");
+                }}
+              />
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtnEdit"}
+                color="secondary"
+                disabled={empFlag ? true : false}
+                onClick={() => {
+                  changeTextData("YES", "is_car_component_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                className={"tableActionBtnEdit"}
+                color="secondary"
+                disabled={empFlag ? true : false}
+                onClick={() => {
+                  changeTextData("NO", "is_car_component_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
+            </div>
           </div>
         </div>
         <div className={"formFlex"}>
@@ -1131,46 +1135,48 @@ const EmployeeListCreate = ({ location }) => {
             <div className={"heading"}>Part A - Earnings 1</div>
           </h4>
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={"number"}
-              disabled={form?.is_basic_salary_manual === "NO" ? true : false}
-              isError={errorData?.basic_salary}
-              errorText={errorData?.basic_salary}
-              label={"Basic"}
-              value={form?.basic_salary}
-              onTextChange={(text) => {
-                changeTextData(text, "basic_salary");
-              }}
-              onBlur={() => {
-                onBlurHandler("basic_salary");
-              }}
-            />
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              disabled={role !== "CORPORATE_HR"}
-              className={"tableActionBtn"}
-              color="secondary"
-              onClick={() => {
-                changeTextData("YES", "is_basic_salary_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              disabled={role !== "CORPORATE_HR"}
-              className={"tableActionBtn"}
-              color="secondary"
-              onClick={() => {
-                changeTextData("NO", "is_basic_salary_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
+          <div style={{ display: "flex" }}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                type={"number"}
+                disabled={form?.is_basic_salary_manual === "NO" ? true : false}
+                isError={errorData?.basic_salary}
+                errorText={errorData?.basic_salary}
+                label={"Basic"}
+                value={form?.basic_salary}
+                onTextChange={(text) => {
+                  changeTextData(text, "basic_salary");
+                }}
+                onBlur={() => {
+                  onBlurHandler("basic_salary");
+                }}
+              />
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                disabled={role !== "CORPORATE_HR"}
+                className={"tableActionBtnEdit"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("YES", "is_basic_salary_manual");
+                }}
+              >
+                <Edit fontSize={"small"} />
+              </IconButton>
+            </div>
+            <div className={styles.editBtnWrap}>
+              <IconButton
+                disabled={role !== "CORPORATE_HR"}
+                className={"tableActionBtnEdit"}
+                color="secondary"
+                onClick={() => {
+                  changeTextData("NO", "is_basic_salary_manual");
+                }}
+              >
+                <Delete fontSize={"small"} />
+              </IconButton>
+            </div>
           </div>
           <div className={"formGroup"}>
             <CustomTextField
@@ -1189,7 +1195,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={true}
@@ -1235,7 +1241,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={"heading"}>Part B - Earnings 2</div>
           </h4>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -1252,49 +1258,51 @@ const EmployeeListCreate = ({ location }) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
-            <CustomTextField
-              disabled={empFlag || form?.is_pug_manual === "NO" ? true : false}
-              type={"number"}
-              isError={errorData?.pug}
-              errorText={errorData?.pug}
-              label={"Professional Upgradation"}
-              value={form?.pug}
-              onTextChange={(text) => {
-                changeTextData(text, "pug");
-              }}
-              onBlur={() => {
-                onBlurHandler("pug");
-              }}
-            />
-          </div>
-          {/* {form?.is_pug_manual == "NO" && ( */}
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("YES", "is_pug_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("NO", "is_pug_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+            <div style={{ display: "flex" }}>
+              <CustomTextField
+                disabled={empFlag || form?.is_pug_manual === "NO" ? true : false}
+                type={"number"}
+                isError={errorData?.pug}
+                errorText={errorData?.pug}
+                label={"Professional Upgradation"}
+                value={form?.pug}
+                onTextChange={(text) => {
+                  changeTextData(text, "pug");
+                }}
+                onBlur={() => {
+                  onBlurHandler("pug");
+                }}
+              />
+              {/* {form?.is_pug_manual == "NO" && ( */}
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("YES", "is_pug_manual");
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </div>
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("NO", "is_pug_manual");
+                  }}
+                >
+                  <Delete fontSize={"small"} />
+                </IconButton>
+              </div>
+            </div>
           </div>
           {/* )} */}
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -1311,51 +1319,53 @@ const EmployeeListCreate = ({ location }) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
-            <CustomTextField
-              disabled={
-                empFlag || form?.is_helper_manual === "NO" ? true : false
-              }
-              type={"number"}
-              isError={errorData?.helper}
-              errorText={errorData?.helper}
-              label={"Helper Allowance"}
-              value={form?.helper}
-              onTextChange={(text) => {
-                changeTextData(text, "helper");
-              }}
-              onBlur={() => {
-                onBlurHandler("helper");
-              }}
-            />
-          </div>
-          {/* {form?.is_helper_manual == "NO" && ( */}
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              disabled={empFlag ? true : false}
-              className={"tableActionBtn"}
-              color="secondary"
-              onClick={() => {
-                changeTextData("YES", "is_helper_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              disabled={empFlag ? true : false}
-              className={"tableActionBtn"}
-              color="secondary"
-              onClick={() => {
-                changeTextData("NO", "is_helper_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+            <div style={{ display: "flex" }}>
+              <CustomTextField
+                disabled={
+                  empFlag || form?.is_helper_manual === "NO" ? true : false
+                }
+                type={"number"}
+                isError={errorData?.helper}
+                errorText={errorData?.helper}
+                label={"Helper Allowance"}
+                value={form?.helper}
+                onTextChange={(text) => {
+                  changeTextData(text, "helper");
+                }}
+                onBlur={() => {
+                  onBlurHandler("helper");
+                }}
+              />
+              {/* {form?.is_helper_manual == "NO" && ( */}
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  disabled={empFlag ? true : false}
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  onClick={() => {
+                    changeTextData("YES", "is_helper_manual");
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </div>
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  disabled={empFlag ? true : false}
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  onClick={() => {
+                    changeTextData("NO", "is_helper_manual");
+                  }}
+                >
+                  <Delete fontSize={"small"} />
+                </IconButton>
+              </div>
+            </div>
           </div>
           {/* )} */}
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -1372,51 +1382,54 @@ const EmployeeListCreate = ({ location }) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
-            <CustomTextField
-              disabled={
-                empFlag || form?.is_food_coupons_manual === "NO" ? true : false
-              }
-              type={"number"}
-              isError={errorData?.food_coupons}
-              errorText={errorData?.food_coupons}
-              label={"Food Coupons"}
-              value={form?.food_coupons}
-              onTextChange={(text) => {
-                changeTextData(text, "food_coupons");
-              }}
-              onBlur={() => {
-                onBlurHandler("food_coupons");
-              }}
-            />
-          </div>
-          {/* {form?.is_food_coupons_manual == "NO" && ( */}
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              disabled={empFlag ? true : false}
-              className={"tableActionBtn"}
-              color="secondary"
-              onClick={() => {
-                changeTextData("YES", "is_food_coupons_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              disabled={empFlag ? true : false}
-              className={"tableActionBtn"}
-              color="secondary"
-              onClick={() => {
-                changeTextData("NO", "is_food_coupons_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+            <div style={{ display: "flex" }}>
+              <CustomTextField
+                disabled={
+                  empFlag || form?.is_food_coupons_manual === "NO" ? true : false
+                }
+                type={"number"}
+                isError={errorData?.food_coupons}
+                errorText={errorData?.food_coupons}
+                label={"Food Coupons"}
+                value={form?.food_coupons}
+                onTextChange={(text) => {
+                  changeTextData(text, "food_coupons");
+                }}
+                onBlur={() => {
+                  onBlurHandler("food_coupons");
+                }}
+              />
+              {/* {form?.is_food_coupons_manual == "NO" && ( */}
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  disabled={empFlag ? true : false}
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  onClick={() => {
+                    changeTextData("YES", "is_food_coupons_manual");
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </div>
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  disabled={empFlag ? true : false}
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  onClick={() => {
+                    changeTextData("NO", "is_food_coupons_manual");
+                  }}
+                >
+                  <Delete fontSize={"small"} />
+                </IconButton>
+              </div>
+
+            </div>
           </div>
           {/* )} */}
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -1449,7 +1462,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -1482,7 +1495,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -1516,7 +1529,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -1549,7 +1562,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -1582,7 +1595,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag ? true : false}
@@ -1616,7 +1629,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag ? true : false}
@@ -1635,7 +1648,7 @@ const EmployeeListCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}></div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <TotalSum
             firstName="Total Earning2: "
             firstAmount={getSumValue(form?.earning_two)}
@@ -1648,7 +1661,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={"heading"}>Part C - Earning 3</div>
           </h4>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag ? true : false}
@@ -1678,7 +1691,7 @@ const EmployeeListCreate = ({ location }) => {
             <div className={"heading"}>Part D - Deduction 1</div>
           </h4>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -1729,7 +1742,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -1747,50 +1760,52 @@ const EmployeeListCreate = ({ location }) => {
           </div>
 
           <div className={"formGroup"}>
-            <CustomTextField
-              disabled={
-                empFlag || form?.is_em_esi_manual === "NO" ? true : false
-              }
-              // disabled={true}
-              type={"number"}
-              isError={errorData?.em_esi}
-              errorText={errorData?.em_esi}
-              label={"Em ESI- Deduction Part"}
-              value={form?.em_esi}
-              onTextChange={(text) => {
-                changeTextData(text, "em_esi");
-              }}
-              onBlur={() => {
-                onBlurHandler("em_esi");
-              }}
-            />
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("YES", "is_em_esi_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("NO", "is_em_esi_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+            <div style={{ display: "flex" }}>
+              <CustomTextField
+                disabled={
+                  empFlag || form?.is_em_esi_manual === "NO" ? true : false
+                }
+                // disabled={true}
+                type={"number"}
+                isError={errorData?.em_esi}
+                errorText={errorData?.em_esi}
+                label={"Em ESI- Deduction Part"}
+                value={form?.em_esi}
+                onTextChange={(text) => {
+                  changeTextData(text, "em_esi");
+                }}
+                onBlur={() => {
+                  onBlurHandler("em_esi");
+                }}
+              />
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("YES", "is_em_esi_manual");
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </div>
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("NO", "is_em_esi_manual");
+                  }}
+                >
+                  <Delete fontSize={"small"} />
+                </IconButton>
+              </div>
+            </div>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={true}
@@ -1808,47 +1823,49 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
           <div className={"formGroup"}>
-            <CustomTextField
-              disabled={
-                empFlag || form?.is_em_pf_manual === "NO" ? true : false
-              }
-              // disabled={true}
-              type={"number"}
-              isError={errorData?.em_pf}
-              errorText={errorData?.em_pf}
-              label={"Em PF- Deduction Part"}
-              value={form?.em_pf}
-              onTextChange={(text) => {
-                changeTextData(text, "em_pf");
-              }}
-              onBlur={() => {
-                onBlurHandler("em_pf");
-              }}
-            />
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("YES", "is_em_pf_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("NO", "is_em_pf_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+            <div style={{ display: "flex" }}>
+              <CustomTextField
+                disabled={
+                  empFlag || form?.is_em_pf_manual === "NO" ? true : false
+                }
+                // disabled={true}
+                type={"number"}
+                isError={errorData?.em_pf}
+                errorText={errorData?.em_pf}
+                label={"Em PF- Deduction Part"}
+                value={form?.em_pf}
+                onTextChange={(text) => {
+                  changeTextData(text, "em_pf");
+                }}
+                onBlur={() => {
+                  onBlurHandler("em_pf");
+                }}
+              />
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("YES", "is_em_pf_manual");
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </div>
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("NO", "is_em_pf_manual");
+                  }}
+                >
+                  <Delete fontSize={"small"} />
+                </IconButton>
+              </div>
+            </div>
           </div>
         </div>
         <div className={"formFlex"}>
@@ -1865,94 +1882,98 @@ const EmployeeListCreate = ({ location }) => {
             </div>
           </h4>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
-            <CustomTextField
-              disabled={
-                empFlag || form?.is_er_pf_manual === "NO" ? true : false
-              }
-              // disabled={true}
-              type={"number"}
-              isError={errorData?.er_pf}
-              errorText={errorData?.er_pf}
-              label={"PF - Er Contribution Part"}
-              value={form?.er_pf}
-              onTextChange={(text) => {
-                changeTextData(text, "er_pf");
-              }}
-              onBlur={() => {
-                onBlurHandler("er_pf");
-              }}
-            />
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("YES", "is_er_pf_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("NO", "is_er_pf_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+            <div style={{ display: "flex" }}>
+              <CustomTextField
+                disabled={
+                  empFlag || form?.is_er_pf_manual === "NO" ? true : false
+                }
+                // disabled={true}
+                type={"number"}
+                isError={errorData?.er_pf}
+                errorText={errorData?.er_pf}
+                label={"PF - Er Contribution Part"}
+                value={form?.er_pf}
+                onTextChange={(text) => {
+                  changeTextData(text, "er_pf");
+                }}
+                onBlur={() => {
+                  onBlurHandler("er_pf");
+                }}
+              />
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("YES", "is_er_pf_manual");
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </div>
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("NO", "is_er_pf_manual");
+                  }}
+                >
+                  <Delete fontSize={"small"} />
+                </IconButton>
+              </div>
+            </div>
           </div>
           <div className={"formGroup"}>
-            <CustomTextField
-              disabled={
-                empFlag || form?.is_er_esi_manual === "NO" ? true : false
-              }
-              type={"number"}
-              isError={errorData?.er_esi}
-              errorText={errorData?.er_esi}
-              label={"ESI - Er Contribution Part"}
-              value={form?.er_esi}
-              onTextChange={(text) => {
-                changeTextData(text, "er_esi");
-              }}
-              onBlur={() => {
-                onBlurHandler("er_esi");
-              }}
-            />
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("YES", "is_er_esi_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("NO", "is_er_esi_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+            <div style={{ display: "flex" }}>
+              <CustomTextField
+                disabled={
+                  empFlag || form?.is_er_esi_manual === "NO" ? true : false
+                }
+                type={"number"}
+                isError={errorData?.er_esi}
+                errorText={errorData?.er_esi}
+                label={"ESI - Er Contribution Part"}
+                value={form?.er_esi}
+                onTextChange={(text) => {
+                  changeTextData(text, "er_esi");
+                }}
+                onBlur={() => {
+                  onBlurHandler("er_esi");
+                }}
+              />
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("YES", "is_er_esi_manual");
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </div>
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("NO", "is_er_esi_manual");
+                  }}
+                >
+                  <Delete fontSize={"small"} />
+                </IconButton>
+              </div>
+            </div>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag ? true : false}
@@ -1971,7 +1992,7 @@ const EmployeeListCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}></div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <TotalSum
             firstName="Total Earnings 4 :"
             firstAmount={getSumValue(form?.earning_four)}
@@ -1984,48 +2005,50 @@ const EmployeeListCreate = ({ location }) => {
             </div>
           </h4>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
-            <CustomTextField
-              disabled={
-                empFlag || form?.is_gratuity_manual === "NO" ? true : false
-              }
-              type={"number"}
-              isError={errorData?.gratuity}
-              errorText={errorData?.gratuity}
-              label={"Gratuity"}
-              value={form?.gratuity}
-              onTextChange={(text) => {
-                changeTextData(text, "gratuity");
-              }}
-              onBlur={() => {
-                onBlurHandler("gratuity");
-              }}
-            />
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("YES", "is_gratuity_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("NO", "is_gratuity_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+            <div style={{ display: "flex" }}>
+              <CustomTextField
+                disabled={
+                  empFlag || form?.is_gratuity_manual === "NO" ? true : false
+                }
+                type={"number"}
+                isError={errorData?.gratuity}
+                errorText={errorData?.gratuity}
+                label={"Gratuity"}
+                value={form?.gratuity}
+                onTextChange={(text) => {
+                  changeTextData(text, "gratuity");
+                }}
+                onBlur={() => {
+                  onBlurHandler("gratuity");
+                }}
+              />
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("YES", "is_gratuity_manual");
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </div>
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("NO", "is_gratuity_manual");
+                  }}
+                >
+                  <Delete fontSize={"small"} />
+                </IconButton>
+              </div>
+            </div>
           </div>
           <div className={"formGroup"}>
             <CustomTextField
@@ -2045,7 +2068,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag ? true : false}
@@ -2079,7 +2102,7 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag ? true : false}
@@ -2113,97 +2136,104 @@ const EmployeeListCreate = ({ location }) => {
             />
           </div>
         </div>{" "}
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
-            <CustomTextField
-              disabled={
-                form?.vehicle_maintenance ||
-                form?.fuel ||
-                (empFlag || form?.is_two_car_maintenance_manual === "NO"
-                  ? true
-                  : false)
-              }
-              type={"number"}
-              isError={errorData?.two_car_maintenance}
-              errorText={errorData?.two_car_maintenance}
-              label={"Type II Car Maint"}
-              value={form?.two_car_maintenance}
-              onTextChange={(text) => {
-                changeTextData(text, "two_car_maintenance");
-              }}
-              onBlur={() => {
-                onBlurHandler("two_car_maintenance");
-              }}
-            />
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("YES", "is_two_car_maintenance_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("NO", "is_two_car_maintenance_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+            <div style={{ display: "flex" }}>
+
+              <CustomTextField
+                disabled={
+                  form?.vehicle_maintenance ||
+                  form?.fuel ||
+                  (empFlag || form?.is_two_car_maintenance_manual === "NO"
+                    ? true
+                    : false)
+                }
+                type={"number"}
+                isError={errorData?.two_car_maintenance}
+                errorText={errorData?.two_car_maintenance}
+                label={"Type II Car Maint"}
+                value={form?.two_car_maintenance}
+                onTextChange={(text) => {
+                  changeTextData(text, "two_car_maintenance");
+                }}
+                onBlur={() => {
+                  onBlurHandler("two_car_maintenance");
+                }}
+              />
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("YES", "is_two_car_maintenance_manual");
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </div>
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("NO", "is_two_car_maintenance_manual");
+                  }}
+                >
+                  <Delete fontSize={"small"} />
+                </IconButton>
+              </div>
+            </div>
           </div>
           <div className={"formGroup"}>
-            <CustomTextField
-              disabled={
-                form?.vehicle_maintenance ||
-                form?.fuel ||
-                (empFlag || form?.is_two_fuel_manual === "NO" ? true : false)
-              }
-              //  disabled={empFlag || form?.is_two_fuel_manual === "NO" ? true : false}
-              type={"number"}
-              isError={errorData?.two_fuel}
-              errorText={errorData?.two_fuel}
-              label={"Type II Fuel"}
-              value={form?.two_fuel}
-              onTextChange={(text) => {
-                changeTextData(text, "two_fuel");
-              }}
-              onBlur={() => {
-                onBlurHandler("two_fuel");
-              }}
-            />
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("YES", "is_two_fuel_manual");
-              }}
-            >
-              <Edit fontSize={"small"} />
-            </IconButton>
-          </div>
-          <div className={styles.editBtnWrap}>
-            <IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={empFlag ? true : false}
-              onClick={() => {
-                changeTextData("NO", "is_two_fuel_manual");
-              }}
-            >
-              <Delete fontSize={"small"} />
-            </IconButton>
+            <div style={{ display: "flex" }}>
+
+              <CustomTextField
+                disabled={
+                  form?.vehicle_maintenance ||
+                  form?.fuel ||
+                  (empFlag || form?.is_two_fuel_manual === "NO" ? true : false)
+                }
+                //  disabled={empFlag || form?.is_two_fuel_manual === "NO" ? true : false}
+                type={"number"}
+                isError={errorData?.two_fuel}
+                errorText={errorData?.two_fuel}
+                label={"Type II Fuel"}
+                value={form?.two_fuel}
+                onTextChange={(text) => {
+                  changeTextData(text, "two_fuel");
+                }}
+                onBlur={() => {
+                  onBlurHandler("two_fuel");
+                }}
+              />
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("YES", "is_two_fuel_manual");
+                  }}
+                >
+                  <Edit fontSize={"small"} />
+                </IconButton>
+              </div>
+              <div className={styles.editBtnWrap}>
+                <IconButton
+                  className={"tableActionBtnEdit"}
+                  color="secondary"
+                  disabled={empFlag ? true : false}
+                  onClick={() => {
+                    changeTextData("NO", "is_two_fuel_manual");
+                  }}
+                >
+                  <Delete fontSize={"small"} />
+                </IconButton>
+              </div>
+
+            </div>
           </div>
         </div>
         <div className={"formFlex"}>
@@ -2248,7 +2278,7 @@ const EmployeeListCreate = ({ location }) => {
         </div>
       </div>
       <div className={"plainPaper"}>
-        <div className={"headerFlex wrapper"}>
+        <div className={"headerFlex wrapper"} id={styles.wrapperValueData}>
           <div className={"infoTitle inner"}>
             <div className="info_Status">
               <h4 className={"heading_stats"}>Status</h4>

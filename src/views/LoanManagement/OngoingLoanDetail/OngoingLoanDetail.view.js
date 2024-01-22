@@ -75,14 +75,7 @@ function OngoingLoanDetail() {
                         </div>
                       </div>
                     )}
-                </div>
-                <div className={styles.right}>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Amount Requested:</span>
-                    {employeeDetail?.amount &&
-                      `₹ ${employeeDetail?.amount}`}
-                  </div>
-                  {employeeDetail?.status !== "PENDING" && (
+                     {employeeDetail?.status !== "PENDING" && (
                     <div
                       className={styles.key7}
                       onClick={() => handleViewProcessing(employeeDetail)}
@@ -92,6 +85,13 @@ function OngoingLoanDetail() {
                       </div>
                     </div>
                   )}
+                </div>
+                <div className={styles.right}>
+                  <div className={styles.key}>
+                    <span className={styles.value}>Amount Requested:</span>
+                    {employeeDetail?.amount &&
+                      `₹ ${employeeDetail?.amount}`}
+                  </div>
                 </div>
               </div>
             </div>

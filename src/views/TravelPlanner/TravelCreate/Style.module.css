@@ -292,3 +292,20 @@
   flex: 1;
   color: #161616;
 }
+
+@media only screen and (max-width:769px){
+  #mobileResponsive{
+       display: flex;
+       flex-direction: column !important;
+  }
+  .btnCont{
+    display: flex;
+    justify-content: center;
+  }
+  .chkwrapp{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start ;
+    align-items: flex-start !important;
+  }
+}

@@ -1,53 +1,61 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import historyUtils from "../../../../../../libs/history.utils";
+import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { serviceCreateEmployeeRecord } from "../../../../../../services/EmployeeRecords.services";
 import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
 
-const useEmployeeView = ({ closeSidePanel, Formtype }) => {
+const useEmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
   const { employeeData } = useSelector((state) => state.employee);
+
   const initialForm = {
-    title: "",
-    date_of_issue: "",
     document: "",
-    letter_head_no: "",
-    star_type: "",
     record_type: Formtype,
     employee_id: employeeData?.id,
-    letter_type: "",
-    description:"",
+    new_values: {
+      title: "",
+      date_of_issue: "",
+      star_type: "",
+      letter_head_no: "",
+      description: "",
+      letter_type: "",
+    },
   };
+
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     let required = ["title", "date_of_issue", "document"];
+
     required.forEach((val) => {
       if (!form?.[val]) {
         errors[val] = true;
       }
     });
+
     if (Formtype === "RECORD") {
-      if (!form?.letter_type) {
+      if (!form?.new_values?.letter_type) {
         errors["letter_type"] = true;
       }
-      if (!form?.letter_head_no) {
+
+      if (!form?.new_values?.letter_head_no) {
         errors["letter_head_no"] = true;
       }
     }
+
     if (Formtype === "STAR") {
-      if (!form?.star_type) {
+      if (!form?.new_values?.star_type) {
         errors["star_type"] = true;
       }
     }
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
       }
     });
+
     return errors;
   }, [form, errorData]);
 
@@ -56,17 +64,30 @@ const useEmployeeView = ({ closeSidePanel, Formtype }) => {
       setIsSubmitting(true);
       let req = serviceCreateEmployeeRecord;
       const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        if (key !== "star_type" && key !== "letter_type" && key !=='description') {
-          fd.append(key, form[key]);
-        }
-      });
+
+      fd.append("document", form?.document || "");
+      fd.append("record_type", form?.record_type || "");
+      fd.append("employee_id", form?.employee_id || "");
+
       if (Formtype === "RECORD") {
-        fd.append("letter_type", form?.letter_type);
+        const updatedNewValues = {
+          title: form?.new_values?.title,
+          date_of_issue: form?.new_values?.date_of_issue,
+          letter_head_no: form?.new_values?.letter_head_no,
+          letter_type: form?.new_values?.letter_type,
+        };
+        fd.append("new_values", JSON.stringify(updatedNewValues));
       } else {
-        fd.append("star_type", form?.star_type);
-        fd.append("description",form?.description)
+        const updatedNewValues = {
+          title: form?.new_values?.title,
+          date_of_issue: form?.new_values?.date_of_issue,
+          star_type: form?.new_values?.star_type,
+          letter_head_no: form?.new_values?.letter_head_no,
+          description: form?.new_values?.description,
+        };
+        fd.append("new_values", JSON.stringify(updatedNewValues));
       }
+
       req(fd).then((res) => {
         if (!res.error) {
           closeSidePanel();
@@ -99,25 +120,32 @@ const useEmployeeView = ({ closeSidePanel, Formtype }) => {
       temp[title] = false;
       setErrorData(temp);
     },
+    
     [setErrorData, errorData]
   );
 
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
+      console.log(text, fieldName);
       const t = { ...form };
+
+      t.new_values[fieldName] = text;
       t[fieldName] = text;
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
+
     [removeError, form, setForm]
   );
+
   const onBlurHandler = useCallback(
     (type) => {
       if (form?.[type]) {
         changeTextData(form?.[type].trim(), type);
       }
     },
+
     [changeTextData]
   );
 
@@ -128,7 +156,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype }) => {
     removeError,
     handleSubmit,
     errorData,
-    isSubmitting
+    isSubmitting,
   };
 };
 

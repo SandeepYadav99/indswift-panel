@@ -5,6 +5,7 @@ import CustomDatePicker from "../../../../components/FormFields/DatePicker/Custo
 import { useEffect } from "react";
 import File from "../../../../components/FileComponent/FileComponent.component";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
+import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
 const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
   const handleChange = (e, fieldName) => {
@@ -13,6 +14,7 @@ const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
+
       if (name === "from" || name === "to") {
         if (value?.length <= 40) {
           changeData(index, { [name]: value });
@@ -131,7 +133,14 @@ const TravelDetailsIncludeFields = ({ index, changeData, data, errors }) => {
               placeholder={"Upload Payment proof"}
               onChange={(file) => {
                 if (file) {
-                  handleChange(file, "payment_proof");
+                  const { size, type } = file;
+                  const maxSize = 5 * 1024 * 1024; // 5 MB
+
+                  if (size <= maxSize) {
+                    handleChange(file, "payment_proof");
+                  } else {
+                    SnackbarUtils.error("Maximum upload  file size is 5 mb");
+                  }
                 }
               }}
             />

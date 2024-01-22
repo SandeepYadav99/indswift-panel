@@ -23,7 +23,7 @@ export async function serviceGetClaimDetail(params){
     return await getRequest('employee/claims/type',params)
 }
 export async function serviceApproveCLaim(params) {
-    return await postRequest('cr/accept', params);
+    return await postRequest('cr/accept', params);// remove s
 }
 export async function serviceRejectCLaim(params) {
     return await postRequest('cr/reject', params);

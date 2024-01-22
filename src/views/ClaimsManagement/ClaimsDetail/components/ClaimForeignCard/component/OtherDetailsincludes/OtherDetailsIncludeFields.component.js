@@ -41,8 +41,8 @@ const OtherDetailsIncludeFields = ({
   return (
     <div>
       <div className={styles.flexContainer}>
-      <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+      <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.currency}
               errorText={errors?.currency}
@@ -57,7 +57,7 @@ const OtherDetailsIncludeFields = ({
               <MenuItem value="INR">INR</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.booking_by}
               errorText={errors?.booking_by}
@@ -74,10 +74,10 @@ const OtherDetailsIncludeFields = ({
               </MenuItem>
             </CustomSelectField>
           </div>
-          {/* <div className={styles.flex1}></div> */}
+          {/* <div className={styles.formGrp}></div> */}
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.guest_name}
               onChange={handleChange}
@@ -89,7 +89,7 @@ const OtherDetailsIncludeFields = ({
               label={"Name of Guest"}
             />
           </div>
-          <div className={styles.flex12}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.guest_details}
               onChange={handleChange}
@@ -102,8 +102,8 @@ const OtherDetailsIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.expense_nature}
               errorText={errors?.expense_nature}
@@ -118,7 +118,7 @@ const OtherDetailsIncludeFields = ({
               <MenuItem value="GIFT">GIFT</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.amount}
               onChange={handleChange}
@@ -130,7 +130,7 @@ const OtherDetailsIncludeFields = ({
               label={"Bill Amount"}
             />
           </div>
-          <div className={styles.flex13}>
+          <div className={styles.formGrp}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -150,8 +150,8 @@ const OtherDetailsIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.payment_made_by}
               onChange={handleChange}
@@ -162,13 +162,13 @@ const OtherDetailsIncludeFields = ({
               variant={"outlined"}
               label={"Choose currency of payment"}
             />
-            <div style={{ fontWeight: "500", textAlign: "end" }}>
+            <div className={styles.helpter}>
               Please mention the amount in spent currency and the exchange rate
               applied to reach at above currency.
             </div>
           </div>
-          <div className={styles.flex1}></div>
-          {/* <div className={styles.flex1}></div> */}
+          <div className={styles.formGrp}></div>
+          {/* <div className={styles.formGrp}></div> */}
         </div>
        
         <div className={styles.firstRow221}>

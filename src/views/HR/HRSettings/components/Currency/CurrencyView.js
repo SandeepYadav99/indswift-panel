@@ -29,6 +29,7 @@ function CurrencyView() {
     onBlurHandler,
     handleSubmit,
     toggleStatusDialog,
+    isSubmitting
   } = useCurrencyHook({});
 
   const tableStructure = useMemo(() => {
@@ -114,6 +115,7 @@ function CurrencyView() {
         changeTextData={changeTextData}
         onBlurHandler={onBlurHandler}
         handleSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
       />
       <PageBox>
         <div className={styles.headerContainer}>

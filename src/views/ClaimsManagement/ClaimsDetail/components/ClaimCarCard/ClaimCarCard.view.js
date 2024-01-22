@@ -53,8 +53,8 @@ function ClaimCarCard() {
         <ClaimInfo idCards={claimInfo} />
 
         <div className={styles.formSelectWrapper}>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className="formGroup1">
+          <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
               <CustomTextField
                 disabled={true}
                 isError={errorData?.vehicle_no}
@@ -69,7 +69,7 @@ function ClaimCarCard() {
                 }}
               />
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <CustomDatePicker
                 clearable
                 label={"Bill Date"}
@@ -82,8 +82,8 @@ function ClaimCarCard() {
               />
             </div>
           </div>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomTextField
                 type="number"
                 isError={errorData?.bill_amount}
@@ -98,7 +98,7 @@ function ClaimCarCard() {
                 }}
               />
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <File
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -118,8 +118,8 @@ function ClaimCarCard() {
               />
             </div>
           </div>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className="formGroup1">
+          <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
               <CustomTextField
                 isError={errorData?.invoice_no}
                 errorText={errorData?.invoice_no}
@@ -134,8 +134,8 @@ function ClaimCarCard() {
               />
             </div>
           </div>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomSelectField
                 isError={errorData?.payment_mode}
                 errorText={errorData?.payment_mode}
@@ -152,7 +152,7 @@ function ClaimCarCard() {
                 <MenuItem value="Bank Transfer">Bank Transfer</MenuItem>
               </CustomSelectField>
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <File
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}

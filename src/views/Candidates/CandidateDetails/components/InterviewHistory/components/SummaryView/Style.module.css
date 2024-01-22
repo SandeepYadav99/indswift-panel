@@ -103,3 +103,20 @@
     width: 100%;
   }
 }
+
+@media only screen and (max-width:769px){
+  .nameContainer > span {
+    font-weight: 600;
+    font-size: 10px;
+  }
+  .date{
+    font-size:10px ;
+  }
+  .statusColor{
+    display: flex;
+    flex-direction: column !important;
+  }
+  .statusWrapperContainer{
+    font-size: 10px ;
+  }
+}

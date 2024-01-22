@@ -66,6 +66,15 @@
 .checkBoxWrapper{
     display: flex;
     flex-wrap: wrap;
-    padding-top: 1rem;
     /* padding: 1.2rem; */
+}
+.addSpaceCheckBox{
+  margin-top: 1rem;
+}
+
+@media only screen and (max-width:769px){
+  .checkBoxWrapper{
+    display: flex;
+    flex-direction: column !important;
+}
 }

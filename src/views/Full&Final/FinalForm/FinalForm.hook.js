@@ -323,7 +323,7 @@ function useFinalForm({ location }) {
     let required = [
       "pds",
       "dol",
-      "is_notice_period_manual",
+      // "is_notice_period_manual",
       "served_for",
       "notice_leave_availed",
       // "shortfall_remarks",
@@ -375,18 +375,18 @@ function useFinalForm({ location }) {
       // "vpf_comment",
       "el_balance",
       "el_balance_value",
-      "is_el_balance_manual",
+      // "is_el_balance_manual",
       // "el_balance_comment",
       "el_currnet_service_year",
       "el_currnet_service_year_value",
-      "is_el_currnet_service_year_manual",
+      // "is_el_currnet_service_year_manual",
       // "el_currnet_service_year_comment",
       "fel",
       "fel_value",
       // "fel_comment",
       "rbl",
       "rbl_value",
-      "is_rbl_manual",
+      // "is_rbl_manual",
       // "rbl_comment",
       "nfh",
       // "nfh_comment",
@@ -402,13 +402,13 @@ function useFinalForm({ location }) {
       "car_maintenance_recovery",
       // "car_maintenance_recovery_comment",
       "notice_period_recovery",
-      "is_notice_period_recovery_manual",
+      // "is_notice_period_recovery_manual",
       // "notice_period_recovery_comment",
       "bgv",
-      "is_bgv_manual",
+      // "is_bgv_manual",
       // "bgv_comment",
       "relocation_recovery",
-      "is_relocation_recovery_manual",
+      // "is_relocation_recovery_manual",
       // "relocation_recovery_comment",
       "transportation_deduction",
       // "transportation_deduction_comment",
@@ -419,7 +419,7 @@ function useFinalForm({ location }) {
       "canteen_recovery",
       // "canteen_recovery_comment",
       "imprest_recovery",
-      "is_imprest_recovery_manual",
+      // "is_imprest_recovery_manual",
       // "imprest_recovery_comment",
       "petro_card_recovery",
       // "petro_card_recovery_comment",
@@ -443,7 +443,7 @@ function useFinalForm({ location }) {
       "un_declared_pli_uphold",
       // "un_declared_pli_uphold_comment",
       "gratuity_uphold",
-      "is_gratuity_uphold_manual",
+      // "is_gratuity_uphold_manual",
       // "gratuity_uphold_comment",
       "statutory_bonus_uphold",
       // "statutory_bonus_uphold_comment",
@@ -564,6 +564,7 @@ function useFinalForm({ location }) {
       if (!isSubmitting) {
         setIsSubmitting(true);
         const fd = new FormData();
+        console.log("UpdatedFOrm",form)
         Object.keys(form).forEach((key) => {
           if (
             [
@@ -571,7 +572,7 @@ function useFinalForm({ location }) {
               "payroll_two_salary_slip",
               "payroll_three_salary_slip",
             ].indexOf(key) < 0 &&
-            form[key]
+            (form[key] || form[key] == 0)
           ) {
             LogUtils.log("key", key);
             if (BOOLEAN_KEYS.includes(key)) {
@@ -651,6 +652,7 @@ function useFinalForm({ location }) {
     LogUtils.log("errors==>", { errors, form });
     if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
       setErrorData(errors);
+      SnackbarUtils.error("Form Incomplete")
       return true;
     }
     submitToServer();

@@ -30,14 +30,14 @@ const ApprovePopUp = ({ handleClose, open, popUpType }) => {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div>
+    <div style={{width:"90vw"}}>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} className={styles.popUpContainerData}>
           <Typography
             id="modal-modal-title"
             variant="p"
@@ -114,10 +114,10 @@ const PendingApplication = () => {
     return data === "PATERNITY_LEAVE"
       ? "PATERNITY LEAVE"
       : data === "OCCASION_LEAVE"
-      ? "OCCASION LEAVE"
-      : data === "FACILITATION_LEAVE"
-      ? "FACILITATION LEAVE"
-      : "BEREAVEMENT LEAVE";
+        ? "OCCASION LEAVE"
+        : data === "FACILITATION_LEAVE"
+          ? "FACILITATION LEAVE"
+          : "BEREAVEMENT LEAVE";
   };
 
   return (
@@ -180,7 +180,7 @@ const PendingApplication = () => {
                 <span className={styles.adjustFont}>Leave Dates:</span>
                 <span className={styles.textFont}>
                   {detailData?.leave?.startDateText !==
-                  detailData?.leave?.endDateText
+                    detailData?.leave?.endDateText
                     ? `${detailData?.leave?.startDateText}-
                 ${detailData?.leave?.endDateText}`
                     : `${detailData?.leave?.startDateText}`}
@@ -220,7 +220,7 @@ const PendingApplication = () => {
               <div className={styles.marginEqual}>
                 <span className={styles.adjustFont}>Leave Type:</span>
                 <span className={styles.textFont}>
-                {transformData(detailData?.leave?.type)}
+                  {transformData(detailData?.leave?.type)}
                 </span>
               </div>
               <div className={styles.marginEqual}>
@@ -260,7 +260,7 @@ const PendingApplication = () => {
                 <span className={styles.adjustFont}>Leave Dates:</span>
                 <span className={styles.textFont}>
                   {detailData?.leave?.startDateText !==
-                  detailData?.leave?.endDateText
+                    detailData?.leave?.endDateText
                     ? `${detailData?.leave?.startDateText}-
                 ${detailData?.leave?.endDateText}`
                     : `${detailData?.leave?.startDateText}`}
@@ -291,14 +291,14 @@ const PendingApplication = () => {
                 <div className={styles.marginEqual}>
                   <span className={styles.adjustFont}>Leave Type:</span>
                   <span className={styles.textFont}>
-                  {transformData(detailData?.leave?.type)}
+                    {transformData(detailData?.leave?.type)}
                   </span>
                 </div>
                 <div className={styles.marginEqual}>
                   <span className={styles.adjustFont}>Leave Dates:</span>
                   <span className={styles.textFont}>
                     {detailData?.leave?.startDateText !==
-                    detailData?.leave?.endDateText
+                      detailData?.leave?.endDateText
                       ? `${detailData?.leave?.startDateText}-
                   ${detailData?.leave?.endDateText}`
                       : `${detailData?.leave?.startDateText}`}{" "}
@@ -310,14 +310,14 @@ const PendingApplication = () => {
                     {detailData?.createdAtText}
                   </span>
                 </div>
-                {detailData?.leave?.type === "BEREAVEMENT_LEAVE" ? "":
-                <div className={styles.marginEqual}>
-                  <span className={styles.adjustFont}>Comment:</span>
-                  <span className={styles.textFont}>
-                    {detailData?.leave?.comment}
-                  </span>
-                </div>
-                    }
+                {detailData?.leave?.type === "BEREAVEMENT_LEAVE" ? "" :
+                  <div className={styles.marginEqual}>
+                    <span className={styles.adjustFont}>Comment:</span>
+                    <span className={styles.textFont}>
+                      {detailData?.leave?.comment}
+                    </span>
+                  </div>
+                }
                 {detailData?.leave?.document ? (
                   <span className={styles.adjustFont}>
                     <a href={detailData?.leave?.document} target="_blank">
@@ -332,8 +332,8 @@ const PendingApplication = () => {
                 <div className={styles.marginEqual}>
                   <span className={styles.adjustFont}>Reason for leave:</span>
                   <span className={styles.textFont}>
-                 { (detailData?.leave?.type === "BEREAVEMENT_LEAVE") ? `${detailData?.leave?.comment}` :
-                    `${detailData?.leave?.reason}`}
+                    {(detailData?.leave?.type === "BEREAVEMENT_LEAVE") ? `${detailData?.leave?.comment}` :
+                      `${detailData?.leave?.reason}`}
                   </span>
                 </div>
                 <div className={styles.marginEqual}>
@@ -360,11 +360,7 @@ const PendingApplication = () => {
                 )}
               </div>
               <div
-                style={{
-                  position: "absolute",
-                  marginTop: "-35px",
-                  marginLeft: "64%",
-                }}
+                className={styles.detailStatusIcon}
               >
                 {<StatusPill status={detailData?.status} />}
               </div>

@@ -66,7 +66,26 @@ const EmployeeInformation = ({ empId }) => {
         changeTextData={changeTextData}
         isCOR={employeeDetail?.application?.status === "CORPORATE_SUBMITTED"}
       />
-
+      {employeeDetail?.application?.status === "EMPLOYEE_SUBMITTED" && (
+        <div className={styles.GeneralInfoWrapeer}>
+          <div>
+            <span className={styles.title}>General Information</span>
+            <div className={styles.newLine} />
+          </div>
+          <div className={styles.infoContainer}>
+            <p className={styles.infoDetails}>
+              1. If you do not have a replacement planned for this person, on date
+              of your recommendation, then select not in place.
+              <br />
+              2. If you have a replacement planned then select IN PLACE, further to
+              which if the replacement is internal to the organisation select
+              internal and give the name of the employee, if the replacement is
+              externally hired then select external. HR will add the detail of
+              hiring.
+            </p>
+          </div>
+        </div>
+      )}
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
@@ -412,17 +431,20 @@ const EmployeeInformation = ({ empId }) => {
               <div key={`History_${index}`}>
                 <div className={styles.mainFlex}>
                   <div className={styles.left}>
-                    <div className={styles.key}>
+                    {/* <div className={styles.key}>
                       <span className={styles.value}>
                         Employee Continuing With Company:
                       </span>
                       {item?.is_continuing ? "Yes" : "No"}
-                    </div>
+                    </div> */}
                     <div className={styles.key}>
-                      <span className={styles.value}>Extension Dates:</span>
+                      <span className={styles.value}>Extension/Retention Dates:</span>
                       {item?.extensionStartAt} - {item?.extensionEndAt}
                     </div>
-
+                    <div className={styles.key}>
+                      <span className={styles.value}>Succession Status:</span>
+                      {item?.nature_of_succession}
+                    </div>
                     <div className={styles.key}>
                       <span className={styles.value}>Replacing Place:</span>
                       {item?.replacing_employee_name}
@@ -451,9 +473,14 @@ const EmployeeInformation = ({ empId }) => {
                       <span className={styles.value}>
                         Nature of Succession:
                       </span>
-                      {item.nature_of_succession}
+                      {item.extension_status}
                     </div>
-
+                    <div className={styles.key}>
+                      <span className={styles.value}>
+                      Medical Condition :
+                      </span>
+                      {item?.medical_condition ? item?.medical_condition : "-"}
+                    </div>
                     <div className={styles.key}>
                       <a
                         href={item?.employee_form?.document}

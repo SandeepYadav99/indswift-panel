@@ -24,3 +24,12 @@
     margin-top: 30px;
     justify-content: space-around !important;
 }
+
+@media  screen and (max-width:769px) {
+    .width {
+        width: 80vw;
+    }
+    #mobileResponsiveWeb{
+        display: none !important;
+    }
+}

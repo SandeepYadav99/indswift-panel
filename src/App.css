@@ -176,7 +176,12 @@ input[type=radio] + label:hover {
     padding: 6px !important;
     color: rgb(147, 154, 191) !important;
 }
-
+.tableActionBtnEdit{
+    padding: 6px !important;
+    color: black !important;
+    border: 1px solid #2896E9 !important;
+    border-radius: 3px !important;
+}
 .iconTabs .MuiTab-wrapper {
     display: flex;
     flex-direction: row;
@@ -743,7 +748,7 @@ font-size: medium;
 }
 
 .bottomAction .MuiDrawer-paper{
-    z-index: 1 !important;
+    z-index: 10 !important;
 }
 
 .MuiCollapse-wrapperInner .MuiListItemText-root{
@@ -1017,6 +1022,45 @@ font-size: medium;
 .CandidateInfoWrappers .MuiInputLabel-outlined.MuiInputLabel-shrink{
     color: rgba(0, 0, 0, 0.70) !important;
 }
+.dtMobCard {
+
+}
+
+.dtMobCell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 8px;
+    border-bottom: 2px solid #f6f7fe;
+}
+.dtMobCard .dtMobCell:last-child {
+    border-bottom: 0px;
+}
+.dtMobCellValue {
+    display: flex;
+    font-size: 12px;
+    align-items: flex-end;
+    width: 100%;
+    text-align: end;
+    justify-content: end;
+}
+
+.dtMobCellLabel {
+    font-size: 12px;
+    font-weight: 600;
+    max-width: 50%;
+}
+.dtMobCellLabelHide {
+    display: none;
+}
+.dTMobilePagination {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background: white;
+    width: 100vw;
+
+}
 
 .installDiv {
     display: none;
@@ -1065,5 +1109,10 @@ font-size: medium;
 @media (max-width: 767px) {
     .iconTabsEvents{
       padding: 6px 8px !important;
+    }
+    .mobileNoLabel {
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
   }

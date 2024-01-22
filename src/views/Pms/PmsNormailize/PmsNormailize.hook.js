@@ -11,26 +11,30 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-import {serviceExportPMSBatch} from "../../../services/PmsBatch.service";
-import {serviceExportPmsNormalization} from "../../../services/PmsNormalize.service";
+import { serviceExportPMSBatch } from "../../../services/PmsBatch.service";
+import { serviceExportPmsNormalization } from "../../../services/PmsNormalize.service";
 
 const usePmsNormailize = ({ location }) => {
   const batchID = location?.state?.batch_id;
   const [isCalling, setIsCalling] = useState(false);
+
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
+
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
     query,
     query_data: queryData,
   } = useSelector((state) => state.PmsNormalize);
+
   // change store to PmsNormalize
-  const {role} = useSelector(state => state.auth);
+  const { role } = useSelector((state) => state.auth);
+
   useEffect(() => {
     dispatch(
       actionFetchPmsNormalize(1, sortingData, {
@@ -158,22 +162,38 @@ const usePmsNormailize = ({ location }) => {
         type: "select",
         fields: ["NORMALIZATION_DONE", "HOD_REVIEWED", "HOD_REVIEW_PENDING"],
       },
+      // {
+      //   label: "Financial Year",
+      //   name: "year",
+      //   // value:2023,
+      //   type: "select",
+      //   fields: [2023],
+      // },
+      {
+        label: "Batch",
+        name: "batch",
+        type: "select",
+        fields: ["APMS", "DTY"],
+      },
     ];
   }, [listData]);
 
-  const handleCsvDownload = useCallback((payload) => {
-    serviceExportPmsNormalization({
-      row: sortingData?.row,
-      order: sortingData?.order,
-      query: query,
-      query_data: queryData,
-    }).then((res) => {
-      if (!res.error) {
-        const data = res.data?.response;
-        window.open(data, "_blank");
-      }
-    });
-  }, [sortingData, query, queryData]);
+  const handleCsvDownload = useCallback(
+    (payload) => {
+      serviceExportPmsNormalization({
+        row: sortingData?.row,
+        order: sortingData?.order,
+        query: query,
+        query_data: queryData,
+      }).then((res) => {
+        if (!res.error) {
+          const data = res.data?.response;
+          window.open(data, "_blank");
+        }
+      });
+    },
+    [sortingData, query, queryData]
+  );
 
   return {
     handlePageChange,
@@ -194,7 +214,8 @@ const usePmsNormailize = ({ location }) => {
     configFilter,
     handleViewGraph,
     role,
-    handleCsvDownload
+    handleCsvDownload,
+    listData,
   };
 };
 

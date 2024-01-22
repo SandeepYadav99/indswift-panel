@@ -1,31 +1,21 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import {
   TextField,
   ButtonBase,
-  InputAdornment,
-  MenuItem,
-  IconButton,
+ 
 } from "@material-ui/core";
 import styles from "./style.module.css";
-import { isAlpha, isNum } from "../../../../libs/RegexUtils";
-import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
-import {
-  AddCircle as AddIcon,
-  Info as EditIcon,
-  RemoveCircleOutline as RemoveIcon,
-} from "@material-ui/icons";
-import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
-import LogUtils from "../../../../libs/LogUtils";
+
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 
 const EmployeeIncludeFields = ({
   index,
   changeData,
-  variants,
+ 
   handlePress,
   data,
   errors,
-  onBlur,
+ 
   isDisabled,
 }) => {
   const handleChange = (e) => {
@@ -68,7 +58,7 @@ const EmployeeIncludeFields = ({
                   name={"designation"}
                   margin={"dense"}
                   variant={"outlined"}
-                  label={"Designation"}
+                  label={"Department/Designation"}
                 />
               </div>
             </div>

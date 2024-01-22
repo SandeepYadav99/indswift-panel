@@ -46,3 +46,9 @@ export async function serviceLocationRoleUpdate(params) {
 export async function serviceLocationRoleDepartments(params) {
     return await postRequest('locations/roles', params);
 }
+export async function serviceLocationOlrUpdate(params) {
+    return await postRequest('locations/update/olr/panelists', params);
+}
+export async function serviceGetLocationOlr(params) {
+    return await postRequest('locations/olr/panelists', params);
+}

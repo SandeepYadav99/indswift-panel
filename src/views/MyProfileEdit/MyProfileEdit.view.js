@@ -46,8 +46,10 @@ const MyProfileEditView = ({}) => {
     refGg,
     setIsOpen,
     toggleDialog,
+    submitToServer
   } = useMyProfileEdit({});
   const refQuarterly = null;
+  const isMobile = window.innerWidth <= 768;
   const image = useMemo(() => {
     return (
       <File
@@ -89,7 +91,7 @@ const MyProfileEditView = ({}) => {
         </div>
       </div>
       <DisclaimerDialog
-        handleSubmit={handleSubmit}
+        handleSubmit={submitToServer}
         isOpen={isOpen}
         handleToggle={toggleDialog}
       />
@@ -106,7 +108,7 @@ const MyProfileEditView = ({}) => {
         <div className={styles.imageContainer}>
           {image}
           <div className={styles.nameWrapper}>
-            <div className={"formFlex"}>
+            <div className={"formFlex"} id={styles.mobileResponsiveData}>
               <div className={"formGroup"}>
                 <CustomTextField
                   disabled={true}
@@ -139,9 +141,10 @@ const MyProfileEditView = ({}) => {
                 />
               </div>
             </div>
-            <div className={"formFlex"}>
+            <div className={"formFlex"} id={styles.mobileResponsiveData}>
               <div className={"formGroup"}>
                 <CustomDatePicker
+                  disabled={true}
                   clearable
                   label={"Date of Birth"}
                   maxDate={new Date()}
@@ -335,7 +338,7 @@ const MyProfileEditView = ({}) => {
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Fathers Passing Away Date"}
+                label={isMobile ? "Father's DOD": "Fathers Passing Away Date"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "father_dod");
@@ -395,7 +398,7 @@ const MyProfileEditView = ({}) => {
               <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Mother Passing Away Date"}
+                label={isMobile ? "Mother's DOD" : "Mother Passing Away Date"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "mother_dod");
@@ -499,7 +502,7 @@ const MyProfileEditView = ({}) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.personal_contact}
@@ -535,7 +538,7 @@ const MyProfileEditView = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveData}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.permanent_address}
@@ -598,12 +601,12 @@ const MyProfileEditView = ({}) => {
         </div>
       </div>
       <div className={"plainPaper"}>
-        <div className={"headerFlex3 wrapper"}>
+        <div className={"headerFlex3 wrapper"} id={styles.alignCenterBtn}>
           <ButtonBase
             type={"button"}
             className={styles.createBtn}
-            onClick={() => setIsOpen(true)}
-            // onClick={handleSubmit}
+             //onClick={() => setIsOpen(true)}
+             onClick={handleSubmit}
           >
             UPDATE
           </ButtonBase>

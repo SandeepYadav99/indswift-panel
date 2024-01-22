@@ -68,6 +68,16 @@ const LocOtherDetailsIncludeForm = (
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
+        } else if (key === "amount" || key === "details") {
+          // Check for empty space in "amount" and "details"
+          if (val[key].trim() === "" ) { // || /^\s/.test(val[key]) if not want starting space
+            err[key] = true;
+          }
+        }
+      });
+      required.forEach((key) => {
+        if (!val[key]) {
+          err[key] = true;
         }
       });
       if(val?.payment_mode ==='Cash' && !val?.relocation_payment_proof){

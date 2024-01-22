@@ -20,7 +20,7 @@ import {
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
+import DataTables from "../../components/Datatables/datatables.js";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
@@ -171,15 +171,15 @@ const ReviewCandidate = ({}) => {
           />
           <div>
             <br />
-            <div style={{ width: "100%" }}>
+          </div>
+        </div>
+      </PageBox>
+      <div style={{ width: "100%" }}>
               <DataTables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
-        </div>
-      </PageBox>
     </div>
   );
 };

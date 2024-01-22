@@ -9,7 +9,7 @@ import SalaryDetails from "./components/SalaryDetails/SalaryDetails";
 import ApprovalDialog from "./components/ApprovalPopUp/ApprovalDialog.view";
 import CandidateOLRHook from "./CandidateOLR.hook";
 import RejectOLRDialog from "./components/RejectOLRPopUp/RejectOLRDialog.view";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables";
 import Constants from "../../../config/constants";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -41,37 +41,37 @@ function CandidateOLR({ location }) {
     handleCheckboxChange,
   } = CandidateOLRHook({ location });
 
-  useEffect(() => {
-    const handleKeyPress = async (event) => {
-      if (event.ctrlKey && event.key === "p") {
-        event.preventDefault();
+  // useEffect(() => {
+  //   const handleKeyPress = async (event) => {
+  //     if (event.ctrlKey && event.key === "p") {
+  //       event.preventDefault();
 
-        const content = document.getElementById("content-to-print");
+  //       const content = document.getElementById("content-to-print");
 
-        const canvas = await html2canvas(content);
+  //       const canvas = await html2canvas(content);
 
-        const pdf = new jsPDF("p", "mm", "a4");
+  //       const pdf = new jsPDF("p", "mm", "a4");
 
-        pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 210, 297);
+  //       pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 210, 297);
 
-        pdf.autoPrint();
-        window.open(pdf.output("bloburl"), "_blank");
-      }
-    };
+  //       pdf.autoPrint();
+  //       window.open(pdf.output("bloburl"), "_blank");
+  //     }
+  //   };
 
-    window.addEventListener("keydown", handleKeyPress);
+  //   window.addEventListener("keydown", handleKeyPress);
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyPress);
+  //   };
+  // }, []);
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>
           <div className={styles.firstFieldWrapper}>
-            <img className={styles.panelListImg} src={obj?.image} />
+            <img className={styles.panelListImg} src={obj?.image}  />
             <span>{obj?.name}</span>
             <br />
           </div>
@@ -112,6 +112,7 @@ function CandidateOLR({ location }) {
     return { datatable };
   }, [tableStructure, panelList]);
   return (
+    <>
     <div className={"container"} id="content-to-print">
       <div className={styles.outerFlex}>
         <div>
@@ -168,7 +169,7 @@ function CandidateOLR({ location }) {
           </div>
         </div>
       </div>
-    
+
       {isReview && (
         <div className={styles.plainPaper}>
           <div className={styles.heading}>Approval Authority</div>
@@ -177,57 +178,6 @@ function CandidateOLR({ location }) {
           </div>
         </div>
       )}
-      {/* {role === "CORPORATE_HR" && (
-        <div className={styles.chkwrapp}>
-          <Checkbox
-            disabled={false}
-            onChange={handleCheckboxChange}
-            checked={isChecked}
-            value="secondary"
-            color="primary"
-            size="small"
-            inputProps={{ "aria-label": "secondary checkbox" }}
-          />
-          <span className={styles.spanchk}>
-            Hide Replacing Experience Detail
-          </span>
-        </div>
-      )} */}
-
-      {isReview && !isRecruiter && (
-        <div className={styles.btnReviewWrapper}>
-          <div className={styles.isReviewBtnContainer}>
-            <ButtonBase
-              type={"button"}
-              onClick={toggleRejectDialog}
-              className={styles.RejectBtn}
-            >
-              Reject
-            </ButtonBase>
-            <ButtonBase
-              type={"button"}
-              onClick={toggleCheckDialog}
-              className={styles.createBtn}
-              disabled={isSubmitting}
-            >
-              Approve
-            </ButtonBase>
-          </div>
-        </div>
-      )}
-
-      {isApproval && (
-        <div className={styles.btnCont1}>
-          <ButtonBase
-            type={"button"}
-            onClick={toggleApprovalDialog}
-            className={styles.createBtn}
-          >
-            SHARE FOR APPROVAL
-          </ButtonBase>
-        </div>
-      )}
-
       <ApprovalDialog
         offerId={id}
         isOpen={isApprovalPopUp}
@@ -245,6 +195,59 @@ function CandidateOLR({ location }) {
         isChecked={isChecked}
       />
     </div>
+          <div className={styles.btnContainerCheckBox}>
+          {role === "CORPORATE_HR" && (
+            <div className={styles.chkwrapp}>
+              <Checkbox
+                disabled={false}
+                onChange={handleCheckboxChange}
+                checked={isChecked}
+                value="secondary"
+                color="primary"
+                size="small"
+                inputProps={{ "aria-label": "secondary checkbox" }}
+              />
+              <span className={styles.spanchk}>
+                Hide Replacing Experience Detail
+              </span>
+            </div>
+          )}
+  
+          {isReview && !isRecruiter && (
+            <div className={styles.btnReviewWrapper}>
+              <div className={styles.isReviewBtnContainer}>
+                <ButtonBase
+                  type={"button"}
+                  onClick={toggleRejectDialog}
+                  className={styles.RejectBtn}
+                >
+                  Reject
+                </ButtonBase>
+                <ButtonBase
+                  type={"button"}
+                  onClick={toggleCheckDialog}
+                  className={styles.createBtn}
+                  disabled={isSubmitting}
+                >
+                  Approve
+                </ButtonBase>
+              </div>
+            </div>
+          )}
+  
+          {isApproval && (
+            <div className={styles.btnCont1}>
+              <ButtonBase
+                type={"button"}
+                onClick={toggleApprovalDialog}
+                className={styles.createBtn}
+              >
+                SHARE FOR APPROVAL
+              </ButtonBase>
+            </div>
+          )}
+        </div>
+        </>
   );
 }
 

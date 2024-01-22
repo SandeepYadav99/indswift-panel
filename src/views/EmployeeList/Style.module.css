@@ -107,6 +107,7 @@
   padding: 10px 0;
   align-items: center;
   justify-content: center;
+  margin-left: 8px;
 }
 .newLine {
   height: 4px;
@@ -182,6 +183,7 @@
 }
 .nameWrapper {
   flex: 1;
+  width: 100%;
 }
 .checkBox {
   display: flex;
@@ -246,5 +248,36 @@
   height: 90%;
 }
 
+@media only screen and (max-width:769px) {
+   #btnHideResponsive{
+    display: none !important;
+   }
+   .imageContainer{
+    display: flex;
+    flex-direction: column !important;
+   }
+   #mobileResponsiveData{
+    display: flex;
+    flex-direction: column !important;
+   }
+   #wrapperValueData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+   }
+}
+#colorIcon{
+  color: #2896E9 !important;
+}
+.colorText{
+  color: #2896E9 !important;
+  font-size: 11px !important;
+}
+@media only screen and (max-width:396px){
+  .colorText{
+    color: #2896E9 !important;
+    font-size: 10px !important;
+  } 
+}
 
 /* USC Create css */

@@ -23,6 +23,7 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import usePmsNormailize from "./PmsNormailize.hook";
+import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 
 const PmsNormailize = ({ location }) => {
   const {
@@ -43,6 +44,14 @@ const PmsNormailize = ({ location }) => {
     handleViewGraph,
     role,
     handleCsvDownload,
+    listData,
+    fyYear,
+    graphLoc,
+    setGraphLoc,
+
+    setFyYear,
+    batch,
+    setBatch
   } = usePmsNormailize({ location });
 
   const {
@@ -52,6 +61,7 @@ const PmsNormailize = ({ location }) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.PmsNormalize);
 
+ 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
   };
@@ -215,7 +225,9 @@ const PmsNormailize = ({ location }) => {
             <span className={styles.title}>Normalized Employee Records</span>
             <div className={styles.newLine} />
           </div>
+         
           <div className={styles.rightFlex}>
+         
             {role === Constants.ROLES.CORPORATE_HR && (
               <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
                 Download

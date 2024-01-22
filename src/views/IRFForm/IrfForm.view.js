@@ -5,9 +5,12 @@ import UseIrfFrom from "./IrfFrom.hook";
 import TravelDetailsIncludeForm from "./Component/TravelDetailsincludes/TravelDetailsIncludes.component";
 import BankOtherDetailsIncludeForm from "./Component/BankDetailsincludes/BankOtherDetailsIncludes.component";
 import { ButtonBase, CircularProgress } from "@material-ui/core";
+
 function IrfForm() {
+
   const { travelRef, otherRef, handleSubmit, declaration, setDeclaration,data } =
     UseIrfFrom({});
+    
   return (
     <div className={styles.employeeLoginWrapper}>
       <div className={styles.employeeLoginContainer}>
@@ -15,6 +18,7 @@ function IrfForm() {
           <img
             src={require("../../assets/img/login logo@2x.png")}
             className={styles.sky}
+            alt=""
           />
         </div>
         <div className={styles.loginSignupText}>

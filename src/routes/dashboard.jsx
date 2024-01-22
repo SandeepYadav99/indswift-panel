@@ -12,12 +12,16 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+const EmpTravelDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpTravelDetail/EmpTravelDetail.view.js"));
+const EmpForeignDetail = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmployeeForeign/EmpForeignDetail.view.js"));
+const TravelAuthSpec = lazy (()=> import ("../views/TravelPlanner/TravelAuthSpec/TravelAuthSpec.container.js"));
 const  FinalDetail = lazy(()=> import ("../views/Full&Final/FinalDetail/FinalDetail.view.js"));
 const  FullDetail = lazy(()=> import ("../views/Full&FinalApproval/FullDetail/FullDetail.js"));
 const  EmpClaimDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpClaimDetail/EmpClaimDetail.view.js"));
 
 const PendingLeaveApplication  =lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view")) ;
 
+const PmsMaster = lazy(()=>import("../views/PmsMaster/PmsMasterView.js"))
 const EmployeeRecordApprovals =lazy(()=>import("../views/EmployeeRecordApprovals/EmployeeRecordApprovals")) ;
 
 const RelievingExpLetterDetail = lazy(()=>import("../views/Relieving&ExperienceLetter/component/RelievingExpLetterDetail")) ;
@@ -27,15 +31,7 @@ const BgvAnalysisReport = lazy(() =>
     "../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"
   )
 );
-const SuccessionPlannerList = lazy(() =>
-  import("../views/SuccessionPlaner/SuccessionPlanner_list")
-);
 
-const EmployeeInformation = lazy(() =>
-  import(
-    "../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"
-  )
-);
 const IncrementLetter = lazy(()=>  import("../views/Pms/IncrementLetter/IncrementLetter.view"));
 const USCEditView = lazy(()=>  import("../views/HR/HRSettings/components/USCEdit/USCEdit"));
 const SuccessionApproval_List = lazy(()=>  import("../views/SuccessionApproval/SuccessionApproval_List"));
@@ -52,6 +48,9 @@ const ExitInterviewList = lazy(()=>  import("../views/ExitInterview/ExitIntervie
 const FinalForm = lazy(()=>  import("../views/Full&Final/FinalForm/FinalForm.view.js"));
 
 
+// const BgvAnalysisReport =lazy(()=>import("../views/PendingBckgroundVerification/BgvAnalysisReport/BgvAnalysisReport"));
+const SuccessionPlannerList = lazy(()=>import("../views/SuccessionPlaner/SuccessionPlanner_list"));
+const EmployeeInformation = lazy(() =>import("../views/SuccessionApproval/SuccessionDetail/EmpInformation/EmpInformation"));
 const PendingLeaveApplicationList = lazy(()=>import("../views/PendingLeaveApplication/PendingLeaveApplication.view"));
 
 const LeaveApplicationForm = lazy(() =>
@@ -68,11 +67,7 @@ const CandidateInformation = lazy(() =>
     "../views/PendingBckgroundVerification/BGCandidateInformation/BG_CndidateInfo"
   )
 );
-const PendingBGVerification_View = lazy(() =>
-  import(
-    "../views/PendingBckgroundVerification/View/PendingBGVerification_View"
-  )
-);
+const PendingBGVerification_View = lazy(() => import("../views/PendingBckgroundVerification/View/PendingBGVerification_View"));
 const CandidateStatusGlossary_List = lazy(() =>
   import("../views/CandidateStatusGlossary/CandidateStatusGlossary_List")
 );
@@ -464,11 +459,17 @@ const IncrementPlanner = lazy(() =>
   import("../views/PmsIncrements/IncrementPlanner/IncrementPlanner.view")
 );
 
+const NotificationData = lazy(()=>import("../views/Notification/Notification.component.js"))
+
 const FullFinalComponent = lazy(()=>import("../views/Full&Final/FullFinal.component"));
 
 const FullFinalApprovalJourney = lazy(()=>import("../views/Full&FinalApproval/FullFinalApproval.component"))
 
 const PendingLeaveDetailApplication = lazy(()=>import("../views/PendingLeaveApplication/PendingApplicationDetail/PendingApplication.view.js"))
+
+const NotificationListModule = lazy(()=>import("../views/NotificationModule/NotificationList.module.js"));
+
+const NotificationCreateModule = lazy(()=>import("../views/NotificationModule/SendNotification/Create.module.js"))
 
 const Roles = Constants.ROLES;
 
@@ -533,76 +534,6 @@ const dashboardRoutes = [
     roles: [Roles.CORPORATE_HR],
   },
   {
-    path: RouteName.SUCCESSION_PLANING,
-    sidebarName: "Succession Planner",
-    navbarName: "Succession Planner",
-    icon: PeopleOutlined,
-    component: SuccessionPlanner_list,
-    is_sidebar: false,
-    is_protect: true,
-    should_regex: true,
-    // parent: 'employeedashboard',
-    roles:[Roles.CORPORATE_HR, Roles.ADMIN,Roles.HR]
-  },
-  {
-    path: RouteName.EXPIRING_OFFER_LETTER,
-    sidebarName: "Expiring Offer Letter",
-    navbarName: "Expiring Offer Letter",
-    icon: AssignmentOutlined,
-    component: ExpiringOfferLetterView,
-    is_sidebar: true,
-    is_protect: true,
-    should_regex: true,
-    // parent: 'employeedashboard',
-    roles: [Roles.RECRUITER, Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR],
-  },
-  {
-    path: RouteName.SUCCESSION_APPROVAL,
-    sidebarName: "Succession Approval",
-    navbarName: "Succession Approval",
-    icon: AssignmentOutlined,
-    component: SuccessionApproval_List,
-    is_sidebar: true,
-    is_protect: true,
-    should_regex: true,
-    // parent: 'employeedashboard',
-  },
-  {
-    path: `${RouteName.SUCCESSION_APPROVAL_DETAIL}:id`,
-    sidebarName: "Succession Approval",
-    navbarName: "Succession Approval",
-    icon: AssignmentOutlined,
-    component: EmployeeInformation,
-    is_sidebar: false,
-    is_protect: true,
-    should_regex: true,
-    // parent: 'employeedashboard',
-  },
-  {
-    path: RouteName.SUCCESSION_PLANNER,
-    sidebarName: "Succession Planner",
-    navbarName: "Succession Planner",
-    icon: AssignmentOutlined,
-    component: SuccessionPlannerList,
-    is_sidebar: true,
-    is_protect: true,
-    should_regex: true,
-    roles: [Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR,Roles.MD],
-    // parent: 'employeedashboard',
-  },
-
-  {
-    path: "/employeeInduction",
-    sidebarName: "Employee Induction",
-    navbarName: "Employee Induction",
-    icon: PeopleOutlined,
-    component: EmployeeInducation,
-    is_sidebar: true,
-    is_protect: true,
-    should_regex: true,
-    // parent: 'employeedashboard',
-  },
-  {
     path: "/hrpolicy",
     sidebarName: "HR Policies",
     navbarName: "HR Policies",
@@ -625,6 +556,17 @@ const dashboardRoutes = [
     // parent: 'employeedashboard',
   },
   {
+    path: "/employeeInduction",
+    sidebarName: "Employee Induction",
+    navbarName: "Employee Induction",
+    icon: PeopleOutlined,
+    component: EmployeeInducation,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    // parent: 'employeedashboard',
+  },
+  {
     path: "/employee/knowledge",
     sidebarName: "Knowledge Center",
     navbarName: "Knowledge Center",
@@ -634,6 +576,80 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     // parent: 'employeedashboard',
+  },
+  {
+    path: "/employee/learning",
+    sidebarName: " Learning Management System",
+    navbarName: " Learning Management System",
+    icon: PeopleOutlined,
+    component: EmployeeClaim,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    // parent: 'employeedashboard',
+  },
+  {
+    path: "null",
+    sidebarName: "Swift-HCM ",
+    navbarName: "Swift-HCM",
+    icon: EventNote,
+    is_sidebar: true,
+    slug: "swift",
+    is_parent: true,
+  },
+  {
+    path: "/employee/engagement",
+    sidebarName: "HCM Module",
+    navbarName: "Admin Dashboard",
+    icon: DashboardOutlined,
+    component: EmployeeEngagement,
+    is_sidebar: true,
+    parent: "swift",
+  },
+  {
+    path: "/employee/drishti",
+    sidebarName: "Drishti",
+    navbarName: "Admin Dashboard",
+    icon: DashboardOutlined,
+    component: EmployeeDrishti,
+    is_sidebar: true,
+    parent: "swift",
+  },
+  {
+    path: "/employee/deepak",
+    sidebarName: "Deepak",
+    navbarName: "Admin Dashboard",
+    icon: DashboardOutlined,
+    component: EmployeeDeepak,
+    is_sidebar: true,
+    parent: "swift",
+  },
+  {
+    path: "/employee/utsav",
+    sidebarName: "Utsav",
+    navbarName: "Admin Dashboard",
+    icon: DashboardOutlined,
+    component: EmployeeUtsav,
+    is_sidebar: true,
+    parent: "swift",
+  },
+  {
+    path: "/employee/utsav/:id",
+    sidebarName: "Utsav",
+    navbarName: "Admin Dashboard",
+    icon: DashboardOutlined,
+    component: EmployeeUtsavDetail,
+    is_sidebar: false,
+    parent: "swift",
+  },
+  {
+    path: "/employee/udeshya",
+    sidebarName: "Udeshya",
+    navbarName: "Admin Dashboard",
+    icon: DashboardOutlined,
+    component: EmployeeIkigai,
+    is_sidebar: true,
+    parent: "swift",
   },
   {
     path: "/employee/claim",
@@ -648,6 +664,78 @@ const dashboardRoutes = [
   },
   {
     path: "null",
+    sidebarName: "Imprest",
+    navbarName: "Imprest",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "imp",
+    is_parent: true,
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: "null",
+    sidebarName: "Travel Planner",
+    navbarName: "Travel Planner",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "tp",
+    is_parent: true,
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: "null",
+    sidebarName: "Claim Management",
+    navbarName: "Claim Management",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "cm",
+    is_parent: true,
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: "null",
+    sidebarName: "Employee Loans",
+    navbarName: "Employee Loans",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "emp_loan",
+    is_parent: true,
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: "null",
+    sidebarName: "Recruitment",
+    navbarName: "Recruitment",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "recure",
+    is_parent: true,
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: "null",
+    sidebarName: "Talent Acquistion",
+    navbarName: "Talent Acquistion",
+    icon: EventNote,
+    is_sidebar: true,
+    slug: "recruitment",
+    is_parent: true,
+    // roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD,Roles.OTHERS],
+  },
+  {
+    path: "null",
+    sidebarName: "PMS Planner",
+    navbarName: "PMS Planner",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "pm",
+    is_parent: true,
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+  },
+  {
+    path: "null",
     sidebarName: "Employee Performance",
     navbarName: "Employee Performance",
     icon: AssignmentOutlined,
@@ -655,6 +743,99 @@ const dashboardRoutes = [
     slug: "employee_pm",
     is_parent: true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.GENERAL],
+  },
+  {
+    path: "null",
+    sidebarName: "Increments",
+    navbarName: "Increments",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "pms_increments",
+    is_parent: true,
+    roles: [Roles.CORPORATE_HR],
+  },
+  {
+    path: "null",
+    sidebarName: "Manpower Budget & Planning",
+    navbarName: "Manpower Budget & Planning",
+    icon: EventNote,
+    is_sidebar: true,
+    slug: "budget",
+    is_parent: true,
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+  },
+  {
+    path: "null",
+    sidebarName: "Leave & Attendence",
+    navbarName: "Leave & Attendence",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "leave_attend",
+    is_parent: true,
+    // roles: [Roles.CORPORATE_HR],
+  },
+  {
+    path: "null",
+    sidebarName: "On-Boarding",
+    navbarName: "On-Boarding",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "onboard",
+    is_parent: true,
+    // roles: [Roles.CORPORATE_HR],
+  },
+  {
+    path: "null",
+    sidebarName: "Off-Boarding",
+    navbarName: "Off-Boarding",
+    icon: AssignmentOutlined,
+    is_sidebar: true,
+    slug: "offboard",
+    is_parent: true,
+    // roles: [Roles.CORPORATE_HR],
+  },
+  {
+    path: "null",
+    sidebarName: "HR Documents & Updates",
+    navbarName: "HR Documents & Updates",
+    icon: EventNote,
+    is_sidebar: true,
+    slug: "Hr",
+    is_parent: true,
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+  },
+  {
+    path: "null",
+    sidebarName: "Skynet Admin",
+    navbarName: "Skynet Admin",
+    icon: EventNote,
+    is_sidebar: true,
+    slug: "masters",
+    is_parent: true,
+    roles: [Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.EXPIRING_OFFER_LETTER,
+    sidebarName: "Expiring Offer Letter",
+    navbarName: "Expiring Offer Letter",
+    icon: AssignmentOutlined,
+    component: ExpiringOfferLetterView,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    // parent: 'employeedashboard',
+    roles: [Roles.RECRUITER, Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR],
+  },
+  {
+    path: `${RouteName.SUCCESSION_APPROVAL_DETAIL}:id`,
+    sidebarName: "Succession Approval",
+    navbarName: "Succession Approval",
+    icon: AssignmentOutlined,
+    component: EmployeeInformation,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    // parent: 'employeedashboard',
   },
   {
     path: "/employee/performance",
@@ -739,16 +920,16 @@ const dashboardRoutes = [
     should_regex: true,
     // parent: 'employeedashboard',
   },
-  {
-    path: "null",
-    sidebarName: "Talent Management",
-    navbarName: "Talent Management",
-    icon: AssignmentOutlined,
-    is_sidebar: true,
-    slug: "tm",
-    is_parent: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
-  },
+  // {
+  //   path: "null",
+  //   sidebarName: "Talent Management",
+  //   navbarName: "Talent Management",
+  //   icon: AssignmentOutlined,
+  //   is_sidebar: true,
+  //   slug: "tm",
+  //   is_parent: true,
+  //   roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+  // },
   {
     path: "/tm/review",
     sidebarName: "Review Candidates",
@@ -758,8 +939,8 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
-    parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    parent: "recure",
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: `${RouteName.CV_SHORTLIST_LIST}:id`,
@@ -771,7 +952,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
   {
     path: RouteName.INTERVIEW_SCHEDULE,
@@ -782,99 +963,13 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
-    parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR],
+    parent: "recure",
+    roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
   },
-  {
-    path: RouteName.REVIEW_OLR,
-    sidebarName: "Review OLR",
-    navbarName: "Review OLR",
-    icon: PeopleOutlined,
-    component: ReviewOLR,
-    is_sidebar: true,
-    is_protect: true,
-    should_regex: true,
-    parent: "tm",
-    roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR],
-  },
-  {
-    path: "null",
-    sidebarName: "Swift-HCM ",
-    navbarName: "Swift-HCM",
-    icon: EventNote,
-    is_sidebar: true,
-    slug: "swift",
-    is_parent: true,
-  },
-  {
-    path: "/employee/engagement",
-    sidebarName: "HCM Module",
-    navbarName: "Admin Dashboard",
-    icon: DashboardOutlined,
-    component: EmployeeEngagement,
-    is_sidebar: true,
-    parent: "swift",
-  },
-  {
-    path: "/employee/drishti",
-    sidebarName: "Drishti",
-    navbarName: "Admin Dashboard",
-    icon: DashboardOutlined,
-    component: EmployeeDrishti,
-    is_sidebar: true,
-    parent: "swift",
-  },
-  {
-    path: "/employee/deepak",
-    sidebarName: "Deepak",
-    navbarName: "Admin Dashboard",
-    icon: DashboardOutlined,
-    component: EmployeeDeepak,
-    is_sidebar: true,
-    parent: "swift",
-  },
-  {
-    path: "/employee/utsav",
-    sidebarName: "Utsav",
-    navbarName: "Admin Dashboard",
-    icon: DashboardOutlined,
-    component: EmployeeUtsav,
-    is_sidebar: true,
-    parent: "swift",
-  },
-  {
-    path: "/employee/utsav/:id",
-    sidebarName: "Utsav",
-    navbarName: "Admin Dashboard",
-    icon: DashboardOutlined,
-    component: EmployeeUtsavDetail,
-    is_sidebar: false,
-    parent: "swift",
-  },
-  {
-    path: "/employee/udeshya",
-    sidebarName: "Udeshya",
-    navbarName: "Admin Dashboard",
-    icon: DashboardOutlined,
-    component: EmployeeIkigai,
-    is_sidebar: true,
-    parent: "swift",
-  },
-  {
-    path: "null",
-    sidebarName: "Recruitment Management",
-    navbarName: "Recruitment Management",
-    icon: EventNote,
-    is_sidebar: true,
-    slug: "recruitment",
-    is_parent: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
-  },
-
   {
     path: RouteName.CANDIDATES,
-    sidebarName: "Interview Candidates",
-    navbarName: "Interview Candidates",
+    sidebarName: "Candidate Data-Base",
+    navbarName: "Candidate Data-Base",
     icon: PeopleOutlined,
     component: CandidateList,
     is_sidebar: true,
@@ -896,6 +991,18 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
+    path: RouteName.REVIEW_OLR,
+    sidebarName: "Review OLR",
+    navbarName: "Review OLR",
+    icon: PeopleOutlined,
+    component: ReviewOLR,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    parent: "recruitment",
+    roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD,Roles.OTHERS],
+  },
+  {
     path: RouteName.CANDIDATE_STATUS_GLOSSARY,
     sidebarName: "Candidate Status Glossary",
     navbarName: "Candidate Status Glossary",
@@ -905,17 +1012,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "recruitment",
-    // roles: [Roles.CORPORATE_HR],
-  },
-  {
-    path: "null",
-    sidebarName: "Performance Management",
-    navbarName: "Performance Management",
-    icon: AssignmentOutlined,
-    is_sidebar: true,
-    slug: "pm",
-    is_parent: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.PERFORMANCE_BATCH}`,
@@ -999,17 +1096,6 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "pm",
-    roles: [Roles.CORPORATE_HR],
-  },
-
-  {
-    path: "null",
-    sidebarName: "Increments",
-    navbarName: "Increments",
-    icon: AssignmentOutlined,
-    is_sidebar: true,
-    slug: "pms_increments",
-    is_parent: true,
     roles: [Roles.CORPORATE_HR],
   },
   {
@@ -1097,26 +1183,6 @@ const dashboardRoutes = [
     roles: [Roles.CORPORATE_HR],
   },
   {
-    path: "http://122.186.44.85/TOS7x1/frmLogin.aspx",
-    sidebarName: "Attendance Management",
-    navbarName: "",
-    icon: FingerprintOutlined,
-    is_external: true,
-    component: <div></div>,
-    is_sidebar: true,
-    is_protect: false,
-  },
-  {
-    path: "null",
-    sidebarName: "Skynet Admin",
-    navbarName: "Skynet Admin",
-    icon: EventNote,
-    is_sidebar: true,
-    slug: "masters",
-    is_parent: true,
-    roles: [Roles.CORPORATE_HR],
-  },
-  {
     path: RouteName.LOCATIONS,
     sidebarName: "Locations",
     navbarName: "Locations",
@@ -1165,6 +1231,18 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
+    path: RouteName.PMS_MASTER,
+    sidebarName: "PMS Master",
+    navbarName: "PMS Master",
+    icon: PeopleOutlined,
+    component: PmsMaster,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "masters",
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
     path: RouteName.NEW_EMPLOYEES,
     sidebarName: "New Employee Request",
     navbarName: "New Employee Request",
@@ -1189,6 +1267,7 @@ const dashboardRoutes = [
       ? [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
   },
+
   {
     path: RouteName.EMPLOYEE_RECORD_APPROVALs,
     sidebarName: "Employee Record Approval",
@@ -1197,11 +1276,13 @@ const dashboardRoutes = [
     component: EmployeeRecordApprovals,
     is_sidebar: true,
     is_protect: true,
-    // parent: "approval",
+    parent: "approval",
     roles: Constants.is_development
       ? [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
   },
+
+
   {
     path: `${RouteName.NEW_EMPLOYEE_DETAIL}:id`,
     sidebarName: "Employee Details",
@@ -1213,16 +1294,6 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
-    path: "null",
-    sidebarName: "Budget & Planning",
-    navbarName: "Budget & Planning",
-    icon: EventNote,
-    is_sidebar: true,
-    slug: "budget",
-    is_parent: true,
-    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
-  },
-  {
     path: "/annual",
     sidebarName: "Annual Budgets",
     navbarName: "Annual Budgets",
@@ -1232,7 +1303,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    roles: [Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR,Roles.CORPORATE_HR],
   },
   {
     path: "/manpower",
@@ -1247,6 +1318,18 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
+    path: RouteName.JOB_ROLES,
+    sidebarName: "Job Description",
+    navbarName: "Job Roles(Designation)",
+    icon: PeopleOutlined,
+    component: JobRolesList,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    parent:"budget",
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+  },
+  {
     path: "/budget/pending",
     sidebarName: "Pending Approvals",
     navbarName: "Pending Approvals",
@@ -1256,17 +1339,6 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
-  },
-  {
-    path: RouteName.JOB_ROLES,
-    sidebarName: "Job Description",
-    navbarName: "Job Roles(Designation)",
-    icon: PeopleOutlined,
-    component: JobRolesList,
-    is_sidebar: true,
-    is_protect: true,
-    should_regex: true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -1339,16 +1411,6 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: false,
   },
-  {
-    path: "null",
-    sidebarName: "Claim Management",
-    navbarName: "Claim Management",
-    icon: AssignmentOutlined,
-    is_sidebar: true,
-    slug: "cm",
-    is_parent: true,
-    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
-  },
 
   {
     path: `${RouteName.CLAIMS_LIST}`,
@@ -1364,8 +1426,8 @@ const dashboardRoutes = [
   },
   {
     path: `${RouteName.CLAIMS_HR_LIST}`,
-    sidebarName: "Spl claim list",
-    navbarName: "Spl claim list",
+    sidebarName: "Spl claim list (CEO Tab)",
+    navbarName: "Spl claim list (CEO Tab)",
     icon: PeopleOutlined,
     component: ClaimsList,
     is_sidebar: true,
@@ -1458,6 +1520,30 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
+    path: `${RouteName.EMPLOYEE_TRAVEL_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: EmpTravelDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.EMPLOYEE_FOREIGN_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: EmpForeignDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
+  {
     path: `${RouteName.FOREIGN_CLAIMS_DETAILS}:id`,
     sidebarName: "Claims List",
     navbarName: "Claims List",
@@ -1467,7 +1553,20 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
-    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.FOREIGN_HR_CLAIMS_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: ForeignClaimDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    roles: [Roles.CORPORATE_HR],
+    // roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.TRAVEL_HR_CLAIMS_DETAILS}:id`,
@@ -1531,15 +1630,15 @@ const dashboardRoutes = [
   },
   {
     path: `${RouteName.EMPLOYEES_IMPREST}`,
-    sidebarName: "Employee Imprest",
-    navbarName: "Employee Imprest",
+    sidebarName: "Employee Imprest Ledger",
+    navbarName: "Employee Imprest Ledger",
     icon: PeopleOutlined,
     component: EmployeeImprest,
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.HR, Roles.CASHIER],
   },
   {
     path: `${RouteName.EMPLOYEES_IMPREST_DETAILS}:id`,
@@ -1551,7 +1650,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN, Roles.HR,  Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CASHIER],
   },
   {
     path: `${RouteName.CLAIMS_IMPREST_CREATE}`,
@@ -1711,18 +1810,8 @@ const dashboardRoutes = [
   },
   {
     path: "null",
-    sidebarName: "Imprest",
-    navbarName: "Imprest",
-    icon: AssignmentOutlined,
-    is_sidebar: true,
-    slug: "imp",
-    is_parent: true,
-    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
-  },
-  {
-    path: "null",
-    sidebarName: "SkyNet Reports",
-    navbarName: "SkyNet Reports",
+    sidebarName: "Reports",
+    navbarName: "Reports",
     icon: EventNote,
     is_sidebar: true,
     slug: "reports",
@@ -1759,16 +1848,7 @@ const dashboardRoutes = [
     parent: "reports",
     roles: [Roles.CORPORATE_HR],
   },
-  {
-    path: "null",
-    sidebarName: "HR Documents & Updates",
-    navbarName: "HR Documents & Updates",
-    icon: EventNote,
-    is_sidebar: true,
-    slug: "Hr",
-    is_parent: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
-  },
+ 
   {
     path: RouteName.HR_POLICIES,
     sidebarName: "HR Policies",
@@ -1900,7 +1980,7 @@ const dashboardRoutes = [
     component: CandidateOfferLetter,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD,],
   },
   {
     path: `${RouteName.CANDIDATES_OFFER_DETAILS}:id`,
@@ -1915,6 +1995,7 @@ const dashboardRoutes = [
       Roles.CORPORATE_HR,
       Roles.OLR,
       Roles.GENERAL,
+      Roles.MD
     ],
   },
   {
@@ -2165,17 +2246,6 @@ const dashboardRoutes = [
   },
 
   {
-    path: "null",
-    sidebarName: "Travel Planner",
-    navbarName: "Travel Planner",
-    icon: AssignmentOutlined,
-    is_sidebar: true,
-    slug: "tp",
-    is_parent: true,
-    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
-  },
-
-  {
     path: `${RouteName.TRAVEL_PLANNER}`,
     sidebarName: "My Travel Planner",
     navbarName: "My Travel Planner",
@@ -2225,7 +2295,31 @@ const dashboardRoutes = [
     // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
+    path: `${RouteName.TRAVEL_AUTHEN_SPEC}`,
+    sidebarName: "Travel Authorization",
+    navbarName: "Travel Authorization",
+    icon: PeopleOutlined,
+    component: TravelAuthSpec,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "tp",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+  },
+  {
     path: `${RouteName.TRAVEL_AUTHEN_DETAILS}:id`,
+    sidebarName: "Interview Claims List",
+    navbarName: "Interview Claims List",
+    icon: PeopleOutlined,
+    component: TravelAuthDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "tp",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.TRAVEL_AUTHEN_DETAILS_SPEC}:id`,
     sidebarName: "Interview Claims List",
     navbarName: "Interview Claims List",
     icon: PeopleOutlined,
@@ -2244,6 +2338,7 @@ const dashboardRoutes = [
     component: LoanList,
     is_sidebar: true,
     is_protect: true,
+    parent:"emp_loan"
   },
   {
     path: `${RouteName.ADMIN_LOAN_LIST_DETAIL}:id`,
@@ -2304,6 +2399,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     roles: [Roles.CORPORATE_HR],
+    parent:"emp_loan"
   },
   {
     path: `${RouteName.ADMIN_ONGOING_LOANS_DETIALS}:id`,
@@ -2319,19 +2415,17 @@ const dashboardRoutes = [
   },
   {
     path: RouteName.PENDING_BACKGROUND_VERIFICATION,
-    sidebarName: "Pending Background Verification",
-    navbarName: "Pending Background Verification",
+    sidebarName: "Background Verification",
+    navbarName: "Background Verification",
     icon: AssignmentOutlined,
     component: PendingBGVerification_View,
     is_sidebar: true,
     is_protect: true,
-    // slug: 'tp',
-    // is_parent: true,
-    // parent: "skynetLetter",
-     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    parent: "onboard",
+     roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.RECRUITER, Roles.HR,],
   },
   {
-    path: `${RouteName.BGV_ANALYSI_REPOST}:id`,
+    path: `${RouteName.BGV_ANALYSI_REPOST}`,
     sidebarName: "Pending Background Verification",
     navbarName: "Pending Background Verification",
     icon: AssignmentOutlined,
@@ -2382,41 +2476,28 @@ const dashboardRoutes = [
     // parent: "skynetLetter",
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
-  {
-    path: "null",
-    sidebarName: "Skynet Letters",
-    navbarName: "Skynet Letters",
-    icon: AssignmentOutlined,
-    is_sidebar: true,
-    slug: "skynetLetter",
-    is_parent: true,
-    // roles: [Roles.CORPORATE_HR, Roles.ADMIN,Roles.HR, Roles.OTHERS],
-    roles: [
-      Roles.ADMIN,Roles.HR,
-      Roles.CORPORATE_HR,
-      Roles.ACCOUNTANT,
-      Roles.OTHERS,
-      Roles.CORPORATE_REVIEWER,
-      Roles.PMS,
-      Roles.GENERAL,
-      Roles.OLR,
-      Roles.RECRUITER,
+  // {
+  //   path: "null",
+  //   sidebarName: "Skynet Letters",
+  //   navbarName: "Skynet Letters",
+  //   icon: AssignmentOutlined,
+  //   is_sidebar: true,
+  //   slug: "skynetLetter",
+  //   is_parent: true,
+  //   // roles: [Roles.CORPORATE_HR, Roles.ADMIN,Roles.HR, Roles.OTHERS],
+  //   roles: [
+  //     Roles.ADMIN,Roles.HR,
+  //     Roles.CORPORATE_HR,
+  //     // Roles.ACCOUNTANT,
+  //     // Roles.OTHERS,
+  //     // Roles.CORPORATE_REVIEWER,
+  //     // Roles.PMS,
+  //     // Roles.GENERAL,
+  //     // Roles.OLR,
+  //     // Roles.RECRUITER,
 
-    ],
-  },
-  {
-    path: RouteName.NAPS_TRANING,
-    sidebarName: "NAPS Training Completion Letters",
-    navbarName: "NAPS Training Completion Letters",
-    icon: PeopleOutlined,
-    component: NAPS_Traning_View,
-    is_sidebar: true,
-    is_protect: true,
-    // slug: 'tp',
-    parent: "skynetLetter",
-     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
-  },
-
+  //   ],
+  // },
   {
     path: RouteName.APPOINTMENT_LETTER,
     sidebarName: "Appointment Letters",
@@ -2427,7 +2508,7 @@ const dashboardRoutes = [
     is_protect: true,
     // slug: 'tp',
     // is_parent: true,
-    parent: "skynetLetter",
+    parent: "onboard",
      roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -2440,8 +2521,20 @@ const dashboardRoutes = [
     is_protect: true,
     // slug: 'tp',
     // is_parent: true,
-    parent: "skynetLetter",
+    parent: "onboard",
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.NAPS_TRANING,
+    sidebarName: "NAPS Training Completion Letters",
+    navbarName: "NAPS Training Completion Letters",
+    icon: PeopleOutlined,
+    component: NAPS_Traning_View,
+    is_sidebar: true,
+    is_protect: true,
+    // slug: 'tp',
+    parent: "onboard",
+     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: RouteName.RELIEVING_EXPERIENCE_APPROVALS,
@@ -2471,31 +2564,7 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
-  {
-    path: RouteName.RELIEVING_EXPERIENCE_LETTER,
-    sidebarName: "Relieving & Experience Letter",
-    navbarName: "Relieving & Experience Letter",
-    icon: PeopleOutlined,
-    component: RelievingExpLetter_View,
-    is_sidebar: true,
-    is_protect: true,
-    // slug: 'tp',
-    // is_parent: true,
-    should_regex: true,
-    parent: "skynetLetter",
-    roles: [
-      Roles.ADMIN,Roles.HR,
-      Roles.CORPORATE_HR,
-      Roles.ACCOUNTANT,
-      Roles.OTHERS,
-      Roles.CORPORATE_REVIEWER,
-      Roles.PMS,
-      Roles.GENERAL,
-      Roles.OLR,
-      Roles.RECRUITER,
-
-    ],
-  },
+ 
   {
     path: `${RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL}:id`,
     sidebarName: "Relieving & Experience Letter",
@@ -2509,6 +2578,17 @@ const dashboardRoutes = [
     parent: "skynetLetter",
     //  roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
+  {
+    path: "http://122.186.44.85/TOS7x1/frmLogin.aspx",
+    sidebarName: "Attendance Gateway",
+    navbarName: "",
+    icon: FingerprintOutlined,
+    is_external: true,
+    component: <div></div>,
+    is_sidebar: true,
+    is_protect: false,
+    parent:"leave_attend"
+  },
   // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
   {
     path: RouteName.LEAVE_APPLICATION_LIST_VIEW,
@@ -2518,6 +2598,17 @@ const dashboardRoutes = [
     component: LeaveApplication,
     is_sidebar: true,
     is_protect: true,
+    parent:"leave_attend"
+  },
+  {
+    path: RouteName.PENDING_LEAVE_APPLICATION,
+    sidebarName: "Leave Approval",
+    navbarName: "Leave Approval",
+    icon: AssignmentOutlined,
+    component: PendingLeaveApplicationList,
+    is_sidebar: true,
+    is_protect: true,
+    parent:"leave_attend"
   },
   {
     path: RouteName.LEAVE_APPLICATION_FORM,
@@ -2536,16 +2627,33 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
+    parent:"offboard",
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
-    path: RouteName.PENDING_LEAVE_APPLICATION,
-    sidebarName: "Pending Leave Application",
-    navbarName: "Pending Leave Application",
-    icon: AssignmentOutlined,
-    component: PendingLeaveApplicationList,
+    path: RouteName.RELIEVING_EXPERIENCE_LETTER,
+    sidebarName: "Relieving & Experience Letter",
+    navbarName: "Relieving & Experience Letter",
+    icon: PeopleOutlined,
+    component: RelievingExpLetter_View,
     is_sidebar: true,
     is_protect: true,
+    // slug: 'tp',
+    // is_parent: true,
+    should_regex: true,
+    parent: "offboard",
+    roles: [
+      Roles.ADMIN,Roles.HR,
+      Roles.CORPORATE_HR,
+      Roles.ACCOUNTANT,
+      Roles.OTHERS,
+      Roles.CORPORATE_REVIEWER,
+      Roles.PMS,
+      Roles.GENERAL,
+      Roles.OLR,
+      Roles.RECRUITER,
+
+    ],
   },
   {
     path: `${RouteName.FULL_FINAL_FORM}:id`,
@@ -2555,7 +2663,7 @@ const dashboardRoutes = [
     component: FinalForm,
     is_sidebar: false,
     is_protect: true,
-    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.OTHERS, Roles.HR,Roles.RECRUITER,Roles.ACCOUNTANT],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL}:id`,
@@ -2585,6 +2693,7 @@ const dashboardRoutes = [
     component: FullFinalComponent,
     is_sidebar: true,
     is_protect: true,
+    parent:"offboard",
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -2595,7 +2704,43 @@ const dashboardRoutes = [
     component: FullFinalApprovalJourney,
     is_sidebar: true,
     is_protect: true,
+    parent:"offboard",
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.SUCCESSION_PLANING,
+    sidebarName: "Succession Planner",
+    navbarName: "Succession Planner",
+    icon: PeopleOutlined,
+    component: SuccessionPlanner_list,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    roles:[Roles.CORPORATE_HR, Roles.ADMIN,Roles.HR]
+  },
+  {
+    path: RouteName.SUCCESSION_PLANNER,
+    sidebarName: "Succession Planner",
+    navbarName: "Succession Planner",
+    icon: AssignmentOutlined,
+    component: SuccessionPlannerList,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    parent: 'offboard',
+    roles: [Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR,Roles.MD],
+    // parent: 'employeedashboard',
+  },
+  {
+    path: RouteName.SUCCESSION_APPROVAL,
+    sidebarName: "Succession Approval",
+    navbarName: "Succession Approval",
+    icon: AssignmentOutlined,
+    component: SuccessionApproval_List,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    parent: 'offboard',
   },
   {
       path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
@@ -2606,6 +2751,37 @@ const dashboardRoutes = [
       is_sidebar: false,
       is_protect: true,
   },
+  {
+    path: `${RouteName.NOTIFICATION}`,
+    icon: AssignmentOutlined,
+    component: NotificationData,
+    is_sidebar: false,
+    is_protect: true,
+},
+{
+  path: `${RouteName.APP_NOTIFICATION}`,
+  sidebarName: "Notification",
+  navbarName: "Notification",
+  icon: DashboardOutlined,
+  component: NotificationListModule,
+  is_sidebar: true,
+  is_protect: true,
+  roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
+},
+{
+  path: `${RouteName.APP_NOTIFICATION_CREATE}`,
+  icon: DashboardOutlined,
+  component: NotificationCreateModule,
+  is_sidebar: false,
+  is_protect: true,
+},
+{
+  path: `${RouteName.APP_NOTIFICATION_CREATE}`+`/:id`,
+  icon: DashboardOutlined,
+  component: NotificationCreateModule,
+  is_sidebar: false,
+  is_protect: true,
+},
 ];
 
 export default dashboardRoutes;

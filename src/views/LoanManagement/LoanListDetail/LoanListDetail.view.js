@@ -215,7 +215,7 @@ function LoanListDetail() {
         </div>
       </div>
       {employeeDetail?.status === "PENDING" && (
-        <div className={styles.approvedWrapper}>
+        <div className={employeeDetail?.loan?.status === "PENDING" ?  styles.pendingWrap : styles.approvedWrapper}>
           <div className={styles.editBtn2}>
             <ButtonBase className={styles.edit321} onClick={toggleRejectDialog}>
               REJECT

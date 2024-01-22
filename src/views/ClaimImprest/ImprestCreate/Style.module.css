@@ -269,10 +269,30 @@
     padding-left: 38px;
   }
   @media (max-width: 1000px) {
-    .formWrap2{
-      width: 100%;
-    }
     .AutoWrap{
       gap: 10px;
     }
+}
+
+@media only screen and (max-width:769px){
+  .formWrap2{
+    width: 100% !important;
+  }
+  .formCurr{
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+    width: 100% !important;
+  }
+
+  .formWrapInner{
+    width:100% !important;
+  }
+  .amountWrap{
+    width:100% !important;
+    padding: 0px;
+  }
+  .wrap{
+    width: 100% !important;
+  }
 }

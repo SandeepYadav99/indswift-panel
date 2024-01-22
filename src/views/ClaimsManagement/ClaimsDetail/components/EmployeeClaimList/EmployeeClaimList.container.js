@@ -163,7 +163,8 @@ const EmployeeClaimList = ({}) => {
                 handleViewDetails(all);
               }}
             >
-              <InfoOutlined fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}}/>
+              <div className={styles.textStyles}>View information</div>
             </IconButton>
           </div>
         ),

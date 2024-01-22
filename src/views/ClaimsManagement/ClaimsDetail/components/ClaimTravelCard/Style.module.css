@@ -155,6 +155,15 @@
     text-transform: uppercase !important;
     font-weight: 600 !important;
 }
+.formGrp{
+    flex: 1;
+    padding: 7px 10px
+}
+.formWrp{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
 .cleckboxWrapper{
     display: flex;
     font-size: .75rem;
@@ -199,3 +208,16 @@
     display: flex;
     align-items: center;
 }
+@media (max-width:767px){
+    .formWrp {
+        display: flex;
+        flex-direction: column;
+    }
+    .formGrp{
+        width: 100%;
+        padding: 7px 0;
+    }
+    .btnCont{
+        padding: 0 10px;
+    }
+  }

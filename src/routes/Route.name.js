@@ -74,7 +74,7 @@ export default {
   EMPLOYEE_CREATE: "/employees/create",
   EMPLOYEE_DETAIL: "/employees/details/",
   EMPLOYEE_VERSIONS: "/employee/versions",
-  EMPLOYEE_RECORD_APPROVALs:"/employee-record/approvals",
+  EMPLOYEE_RECORD_APPROVALs:"/employee/record/approvals",
   NEW_EMPLOYEES:"/new/employee",
   NEW_EMPLOYEE_DETAIL: "/new/employee/details/",
 
@@ -109,10 +109,14 @@ export default {
   CLAIMS_HR_DETAILS:'/cm/hr/details/',
   TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',
   FOREIGN_CLAIMS_DETAILS:'/cm/foreign/details/',
+  FOREIGN_HR_CLAIMS_DETAILS:'/cm/hr/foreign/details/',
   TRAVEL_HR_CLAIMS_DETAILS:'/cm/hr/travel/details/',
   CLAIMS_HR_LIST:'/cm/hr/claims' ,
 
   EMPLOYEE_CLAIMS_DETAILS:"/employee/claim/detail/",
+  EMPLOYEE_TRAVEL_DETAILS:"/employee/travel/details/",
+  EMPLOYEE_FOREIGN_DETAILS:"/employee/foreign/details/",
+
 
   CLAIMS_MARRIGE:'/employee/claim/marriage',
   CLAIMS_MOBILE:'/employee/claim/mobile',
@@ -150,6 +154,8 @@ export default {
   TRAVEL_PLANNER_DETAILS:'/travel/plan/details/',
   TRAVEL_AUTHEN:'/travel/auth',
   TRAVEL_AUTHEN_DETAILS: '/travel/auth/details/',
+  TRAVEL_AUTHEN_SPEC:'/spec/travel/auth',
+  TRAVEL_AUTHEN_DETAILS_SPEC: '/spec/travel/auth/details/',
 
 
   PERFORMANCE_BATCH:'/pm/batch',
@@ -213,10 +219,10 @@ export default {
   RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
   RELIEVING_EXPERIENCE_LETTER_DETAIL:"/relieving-exp-letter/detail/",
   PENDING_BACKGROUND_VERIFICATION:"/pending/verification",
-  BGV_ANALYSI_REPOST:"/pending-verification/detail/",
+  BGV_ANALYSI_REPOST:"/pending/verification/analysis/report",
 
   PENDING_VERIFICATION_CREATE:"/verification/create/",
-  PENDING_VERIFICATION_DETAIL:"/verification/detail",
+  PENDING_VERIFICATION_DETAIL:"/verification/detail/",
   PENDING_VERIFICATION_UPDATE:"/verification/update/",
 
 
@@ -224,7 +230,7 @@ export default {
   LEAVE_APPLICATION_FORM:"/leave-application-form",
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
 
-
+  HRESCALATIONMATRIX:"/hr/escalation",
   FULL_FINAL_APPLICATION:"/full-final",
   FULL_FINAL_APPROVAL:"/full-final-approval",
   FULL_FINAL_DETAIL_APPROVAL:"/full-final/detail/",
@@ -232,7 +238,6 @@ export default {
   FULL_FINAL_FORM:"/full/form/",
   FULL_FINAL_DETAIL:"/full/detail/",
 
-  HRESCALATIONMATRIX:"/hr/escalation",
   EXIT_LOGIN:"/exit/login",
   EXIT_SUCCESS:"/exit/success",
   EXIT_INTERVIEW_LIST:"/exit/interview/list",
@@ -241,6 +246,12 @@ export default {
 
   SUCCESSION_FORM:"/succession/form",
   SUCCESSION_FORM_INNER:"/succession/details",
-  SUCCESSION_SUCCESS:"/succession/success"
+  SUCCESSION_SUCCESS:"/succession/success",
+
+  PMS_MASTER:"/pms/master",
+  NOTIFICATION:"/notification",
+
+  APP_NOTIFICATION:"/app/notification",
+  APP_NOTIFICATION_CREATE:"/app/notification/create"
 
 };

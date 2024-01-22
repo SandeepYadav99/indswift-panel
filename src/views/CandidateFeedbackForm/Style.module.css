@@ -98,3 +98,39 @@
     text-transform: uppercase !important;
     font-weight: 600 !important;
   }
+
+@media only screen and (max-width:769px) {
+  .headingText {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: black;
+    font-size: 1.4rem;
+    margin-bottom: 2px;
+    /*font-family: CircularStd-Bold;*/
+  }
+  .heading{
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .headingDes{
+    font-size: 14px;
+  }
+  .btnContainer {
+    display: flex;
+    justify-content:center !important ;
+    width: 80%;
+    padding: 20px 0;
+    border-radius: 10px ;
+  }
+}
+
+@media only screen and (max-width:640px) {
+  .heading{
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .headingDes{
+    font-size: 12px;
+  }
+}

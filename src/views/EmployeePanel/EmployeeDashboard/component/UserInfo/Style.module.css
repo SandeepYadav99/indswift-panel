@@ -105,4 +105,10 @@
     padding-left: .8rem;
     padding-right: .4rem;
    }
+   .watermarkWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
 }

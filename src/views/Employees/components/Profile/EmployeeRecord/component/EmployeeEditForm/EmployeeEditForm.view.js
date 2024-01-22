@@ -19,7 +19,7 @@ const EmployeeEditForm = ({ closeSidePanel, data }) => {
     img,
   } = useEmployeeEditForm({ closeSidePanel, data });
 
-  console.log("drop", form?.star_type, form?.letter_type);
+  
   return (
     <div className={styles.editformWrapper}>
       <div className={"formFlex"}>

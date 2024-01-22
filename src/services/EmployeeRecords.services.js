@@ -1,11 +1,11 @@
 import { formDataRequest, postRequest } from "../libs/AxiosService.util";
 
 export async function serviceCreateEmployeeRecord(params) {
-  return await formDataRequest("employees/records/create", params);
+  return await formDataRequest("employees/records/versions/create", params);
 }
 
 export async function serviceUpdateEmployeeRecord(params) {
-  return await formDataRequest("employees/records/update", params);
+  return await formDataRequest("employees/records/versions/create", params);
 }
 
 export async function serviceGetEmployeeRecord(params) {

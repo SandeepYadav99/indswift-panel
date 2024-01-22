@@ -134,17 +134,17 @@ function useClaimForCard() {
   const imprestINRAmount = useMemo(() => {
     if (curr?.length > 0 && form?.travel_planner_id?.myImprest?.amount) {
       if (form?.travel_planner_id?.myImprest?.currency === "USD") {
-        return (
+        return Math.round(
           Number(form?.travel_planner_id?.myImprest?.amount) *
-          Number(curr[1]?.conversion_rate)
+            Number(curr[1]?.conversion_rate)
         );
       } else if (form?.travel_planner_id?.myImprest?.currency === "EUR") {
-        return (
+        return Math.round(
           Number(form?.travel_planner_id?.myImprest?.amount) *
-          Number(curr[0]?.conversion_rate)
+            Number(curr[0]?.conversion_rate)
         );
       } else {
-        return Number(form?.travel_planner_id?.myImprest?.amount);
+        return Math.round(Number(form?.travel_planner_id?.myImprest?.amount));
       }
     }
 
@@ -170,7 +170,7 @@ function useClaimForCard() {
     if (curr?.length > 0) {
       total = Number(USDAmount) * Number(curr[1]?.conversion_rate);
     }
-    return total;
+    return Math.round(total);
   }, [USDAmount, curr, SetCurr]);
 
   const EuroAmount = useMemo(() => {
@@ -192,7 +192,7 @@ function useClaimForCard() {
     if (curr?.length > 0) {
       total = Number(EuroAmount) * Number(curr[0]?.conversion_rate);
     }
-    return total;
+    return Math.round(total);
   }, [EuroAmount, curr, SetCurr]);
 
   const InrAmount = useMemo(() => {
@@ -214,7 +214,7 @@ function useClaimForCard() {
   const getTotalValue = useMemo(() => {
     let total = 0;
     total = Number(InrAmount) + Number(USDtoINR) + Number(EurotoINR);
-    return total;
+    return Math.round(total);
   }, [InrAmount, USDtoINR, EurotoINR]);
 
   const getOfficeAmount = useMemo(() => {
@@ -223,15 +223,17 @@ function useClaimForCard() {
       Number(officeAmount2 ? officeAmount2 : 0) +
       Number(officeAmount3 ? officeAmount3 : 0) +
       Number(officeAmount4 ? officeAmount4 : 0);
-    return value ? value : 0;
+    return value ? Math.round(value) : 0;
   }, [officeAmount, officeAmount2, officeAmount3, officeAmount4]);
 
   const getRefundAmount = useMemo(() => {
     return imprestINRAmount
-      ? Number(getTotalValue) -
-          Number(getOfficeAmount) -
-          Number(imprestINRAmount)
-      : Number(getTotalValue) - Number(getOfficeAmount);
+      ? Math.round(
+          Number(getTotalValue) -
+            Number(getOfficeAmount) -
+            Number(imprestINRAmount)
+        )
+      : Math.round(Number(getTotalValue) - Number(getOfficeAmount));
   }, [
     form?.travel_planner_id,
     getTotalValue,

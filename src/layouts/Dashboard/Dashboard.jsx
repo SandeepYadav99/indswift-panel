@@ -42,6 +42,10 @@ const Dashboard = ({title, ...props}) => {
     }, []);
 
     useEffect(() => {
+        const isMobile = window.innerWidth <= 768;
+        if(isMobile){
+            setDrawerOpen(false)
+        }
         // this.refs.mainPanel.scrollTop = 0;
     }, []);
 
@@ -55,7 +59,7 @@ const Dashboard = ({title, ...props}) => {
 
     const handleResize =  useCallback((e) => {
         if (window.innerWidth < 767) {
-            setDrawerOpen(false);
+            // setDrawerOpen(false);
         } else {
             setDrawerOpen(true);
         }
@@ -101,6 +105,7 @@ const Dashboard = ({title, ...props}) => {
                 logoText={title}
                 logo={logo}
                 handleDrawerToggle={handleDrawerToggle}
+                toggleSideBar={handleHeaderClick}
                 open={drawerOpen}
                 color="blue"
                 {...props}

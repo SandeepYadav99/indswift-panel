@@ -34,34 +34,28 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
           <div key={`History_${index}`}>
             <div className={styles.container}>
               <div className={styles.leftColumn}>
-                <p>
-                  Employee Continuing With Company:{" "}
-                  <b> {item?.is_continuing ? "Yes" : "No"}</b>
-                  <span style={{ marginLeft: "30%" }}>
-                    {<StatusPill status={item?.succession} />}
-                  </span>
-                </p>
-                <p>Intimated for Exit:
-                <b style={{marginLeft:"10px"}}>{item?.is_intimated_for_exit ? "Yes" : "No"}</b>
-                </p>
-                <p>Applied for R/E : 
-                <b style={{marginLeft:"10px"}}>{item?.is_applied_for_re ? "Yes" : "No"}</b>
-                </p>
-                <p>Medical Condition : 
-                <b style={{marginLeft:"10px"}}>{item?.medical_condition ? item?.medical_condition: "-"}</b>
+                <p style={{ textAlign: "end" }}>
+                  {/* Employee Continuing With Company:{" "}
+                  <b> {item?.is_continuing ? "Yes" : "No"}</b> */}
+                  <span>{<StatusPill status={item?.succession} />}</span>
                 </p>
                 <p>
-                  Extension Dates:{" "}
-                  <b>
-                    {item?.extensionStartAt ? item?.extensionStartAt : "N/A"} -{" "}
-                    {item?.extensionEndAt ? item?.extensionEndAt : "N/A"}
+                  Intimated for Exit:
+                  <b style={{ marginLeft: "10px" }}>
+                    {item?.is_intimated_for_exit ? "Yes" : "No"}
                   </b>
                 </p>
                 <p>
-                  Annual Salary: <b>{item?.ctc ? `₹ ${item?.ctc}` : "-"}</b>
+                  Applied for R/E :
+                  <b style={{ marginLeft: "10px" }}>
+                    {item?.is_applied_for_re ? "Yes" : "No"}
+                  </b>
                 </p>
                 <p>
-                  Type of Succession: <b>{item?.nature_of_succession}</b>
+                  Medical Condition :
+                  <b style={{ marginLeft: "10px" }}>
+                    {item?.medical_condition ? item?.medical_condition : "-"}
+                  </b>
                   {item?.employee_form?.document && (
                     <a
                       href={item?.employee_form?.document}
@@ -71,6 +65,20 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                       View certificate
                     </a>
                   )}
+                </p>
+                <p>
+                  Extension/Retention Dates:{" "}
+                  <b>
+                    {item?.extensionStartAt ? item?.extensionStartAt : "N/A"} -{" "}
+                    {item?.extensionEndAt ? item?.extensionEndAt : "N/A"}
+                  </b>
+                </p>
+                <p>
+                  Annual Salary: <b>{item?.ctc ? `₹ ${item?.ctc}` : "-"}</b>
+                </p>
+                <p>
+                  Succession Status: <b>{item?.nature_of_succession}</b>
+
                 </p>
                 <p>
                   Replacing Person:{" "}
@@ -96,18 +104,29 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   </b>
                 </p>
                 <p>
+                  Nature of Succession:{" "}
+                  {/* <b>{item?.extension_status ? item?.extension_status : "-"}</b> */}
+                  {item?.extension_status ? (
+                    <b>{item?.extension_status}</b>
+                  ) : (
+                    <b>- </b>
+                  )}
+                </p>
+                <p>
                   Succession's Cost WRT employee: <b>{item?.wrt}</b>
                 </p>
                 <p>
                   Pending Dues:{" "}
-                  <b>
-                    {item?.pending_dues
-                      ? item?.pending_dues
-                      : "-"}
-                  </b>
+                  <b>{item?.pending_dues ? item?.pending_dues : "-"}</b>
                 </p>
                 <p>
-                Decision from MD Office: <b>{item?.extension_status ? item?.extension_status : "-"}</b>
+                  Decision from MD Office:{" "}
+                  {/* <b>{item?.extension_status ? item?.extension_status : "-"}</b> */}
+                  {( ["MD_APPROVED", "MD_REJECTED", "CORPORATE_HR_REJECTED", "HOD_REJECTED"].indexOf(item?.status) >= 0) ? (
+                    <b>{item?.extension_status}</b>
+                  ) : (
+                    <b>"PENDING" </b>
+                  )}
                 </p>
                 <p>
                   Notes: <b>{item?.notes ? item?.notes : "-"}</b>

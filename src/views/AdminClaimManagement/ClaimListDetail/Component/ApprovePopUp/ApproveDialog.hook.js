@@ -91,8 +91,10 @@ const useApproveDialogHook = ({
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Approved");
-          historyUtils.push(RouteName.CLAIMS_LIST);
+          historyUtils.goBack()
+          // historyUtils.push(RouteName.CLAIMS_LIST);
           handleToggle();
+          SnackbarUtils.success("Request Approved");
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -110,9 +112,9 @@ const useApproveDialogHook = ({
         ...EmpId
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Approved");
           historyUtils.push(RouteName.CLAIMS_INTERVIEW);
           handleToggle();
+          SnackbarUtils.success("Request Approved");
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -133,7 +135,7 @@ const useApproveDialogHook = ({
     } else {
       submitToServerInterview();
     }
-  }, [checkFormValidation, setErrorData, form, submitToServer]);
+  }, [checkFormValidation, setErrorData, form, submitToServer, isInterview]);
 
   const onBlurHandler = useCallback(
     (type) => {

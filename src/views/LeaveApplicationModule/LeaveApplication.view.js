@@ -1,14 +1,14 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
+import React, { Component, useCallback, useEffect, useMemo,useState } from "react";
 import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
 import useLeaveList from "./LeaveApplication.hook";
+import Datatables from "../../components/Datatables/datatables";
 
 const LeaveApplication = ({}) => {
   const {
@@ -20,7 +20,7 @@ const LeaveApplication = ({}) => {
     handleViewDetails,
     isCalling,
     configFilter,
-    handleLeaveApplicationForm
+    handleLeaveApplicationForm,
   } = useLeaveList({});
 
   const {
@@ -29,6 +29,19 @@ const LeaveApplication = ({}) => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.leave_list);
+
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setInnerWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const { user } = useSelector((state) => state.auth);
   const removeUnderScore = (value) => {
@@ -147,10 +160,7 @@ const LeaveApplication = ({}) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrapperGap}>
-            <ButtonBase
-              onClick={handleViewDetails}
-              className={"createBtn"}
-            >
+            <ButtonBase onClick={handleViewDetails} className={"createBtn"}>
               APPLY LEAVE
             </ButtonBase>
           </div>
@@ -163,16 +173,14 @@ const LeaveApplication = ({}) => {
             handleFilterDataChange={handleFilterDataChange}
           />
           <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
+      
           </div>
         </div>
       </PageBox>
+        <Datatables
+          {...tableData.datatable}
+          {...tableData.datatableFunctions}
+        />
     </div>
   );
 };

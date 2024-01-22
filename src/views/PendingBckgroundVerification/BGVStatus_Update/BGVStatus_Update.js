@@ -1,7 +1,7 @@
 import React from "react";
 import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
 import useCandidateUpdate_Hook from "./BGVStatusUpdate_Hook";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, IconButton, MenuItem } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import styles from "./Style.module.css";
 import historyUtils from "../../../libs/history.utils";
@@ -9,8 +9,9 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
+import { EditOutlined } from "@material-ui/icons";
 const BGVStatus_Update = () => {
-  const { form, changeTextData, errorData, handleSubmit } =
+  const { form, changeTextData, errorData, handleSubmit,isEdit,setIsEdit } =
     useCandidateUpdate_Hook({});
 
   return (
@@ -207,7 +208,7 @@ const BGVStatus_Update = () => {
                 <MenuItem value="PENDING">Pending </MenuItem>
                 <MenuItem value="FAILED">Failed </MenuItem>
                 <MenuItem value="CLEAR">Clear </MenuItem>
-                <MenuItem value="IN_PROCESS">In Process</MenuItem>
+                <MenuItem value="INPROCESS">In Process</MenuItem>
               </CustomSelectField>
             </div>
           </div>
@@ -273,11 +274,38 @@ const BGVStatus_Update = () => {
 
           <div className={"formFlex"}>
             <div className={"formGroup"}>
-              <span>
+              <span style={{visibility:"hidden"}}>
                 <b>Cost: </b>
                 <span className={styles.right_gaps}>₹ {form?.cost}</span>
+
                 <div className={styles.gaps}></div>
               </span>
+              <div className={styles.Wrap}>
+              <div style={{flex:"1"}}>
+              <CustomTextField
+                  isError={errorData?.cost}
+                  errorText={errorData?.cost}
+                  label={"Cost"}
+                  type={"number"}
+                  value={form?.cost}
+                  disabled={!isEdit}
+                  onTextChange={(text) => {
+                    changeTextData(text, "cost");
+                  }}
+                />
+              </div>
+              <div>
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  // disabled={isCalling}
+                  onClick={()=>setIsEdit(true)}
+                  // onMouseDown={toggleCostEdit}
+                >
+                  <EditOutlined fontSize={"small"} />
+                </IconButton>
+              </div>
+              </div>
               <CustomSelectField
                 isError={errorData?.payment_status}
                 errorText={errorData?.payment_status}
@@ -287,7 +315,7 @@ const BGVStatus_Update = () => {
                   changeTextData(value, "payment_status");
                 }}
               >
-                <MenuItem value="IN_PROCESS">In Process</MenuItem>
+                <MenuItem value="INPROCESS">In Process</MenuItem>
                 <MenuItem value="CLEAR">Clear </MenuItem>
                 <MenuItem value="PENDING">Pending </MenuItem>
               </CustomSelectField>
@@ -298,18 +326,21 @@ const BGVStatus_Update = () => {
                 <span className={styles.right_gaps}> {form?.billing_to}</span>
               </span>
               <div className={styles.gaps}></div>
-            
-                  <CustomDatePicker
-                      clearable
-                      label={"Complete in "}
-                      maxDate={new Date()}
-                      onChange={(value) => {
-                        changeTextData(value, "payment_complete");
-                      }}
-                      value={form?.payment_complete}
-                      isError={errorData?.payment_complete}
-                      errorText={errorData?.payment_complete}
-                 />
+
+              <CustomDatePicker
+                clearable
+                label={"Complete in "}
+                maxDate={new Date()}
+                onChange={(value) => {
+                 
+                  changeTextData(value, "payment_complete");
+                }}
+                views={["month","year"]}
+                  format={"MM-yyyy"}
+                value={form?.payment_complete}
+                isError={errorData?.payment_complete}
+                errorText={errorData?.payment_complete}
+              />
             </div>
           </div>
         </div>

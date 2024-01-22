@@ -16,7 +16,15 @@
     margin-left: 20px;
     background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
 }
-
+.formGrp{
+    flex: 1;
+    padding: 7px 10px
+}
+.formWrp{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
 .plainPaper{
     border-radius: 10px;
@@ -168,3 +176,16 @@
     text-transform: uppercase !important;
     font-weight: 600 !important;
 }
+@media (max-width:767px){
+    .formWrp {
+        display: flex;
+        flex-direction: column;
+    }
+    .formGrp{
+        width: 100%;
+        padding: 7px 0;
+    }
+    .btnCont{
+        padding: 0 10px;
+    }
+  }

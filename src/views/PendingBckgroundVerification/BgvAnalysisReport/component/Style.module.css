@@ -5,22 +5,30 @@
     color: #000;
     overflow-x: auto; 
     display: block;
+    
   }
   
-  .myTable th,
+  .myTable th {
+    border: 1px solid #B8C5D3;
+    padding: 8px;
+    text-align: center;
+    
+  }
+ 
   .myTable td {
-    border: 1px solid black;
+    border: 1px solid #B8C5D3;
     padding: 8px;
     text-align: left;
+    
   }
   
-  @media  (min-width: 1068px) {
+  @media  (max-width: 500px) {
     .myTable {
       display: table;
       overflow-x: inherit;
     }
   }
-
+ 
   .noBorder {
     border: none;
   }
@@ -31,4 +39,14 @@
   .bgColorRow{
     background-color: #ECF7FF;
   }
-  
+  .bgColorRow> td{
+    font-weight: bold;
+  }
+
+  .totalCols{
+    background-color: #2896E9;
+    color: #FFFFFF;
+  }
+  .grayBgColor{
+    background-color: #F7F7F7;
+  }

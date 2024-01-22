@@ -8,7 +8,9 @@ function SalaryInfo({Empid, isPending}) {
   return (
     <div className={styles.wrapper}>
       <SalaryInfoTable Empid={Empid} isPending={isPending}/>
+      <div className={styles.innerWidthHide}>
       <GeneralInfo />
+      </div>
     </div>
   );
 }

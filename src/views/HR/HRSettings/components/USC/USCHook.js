@@ -138,6 +138,7 @@ function useUSCHook() {
     handleSubmit,
     isUpdateDialog,
     toggleStatusDialog,
+    isSubmitting
   };
 }
 
