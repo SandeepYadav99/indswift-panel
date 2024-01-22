@@ -243,10 +243,12 @@ const TravelList = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Travel Authorization & Planner</span>
+            <span className={styles.titleDesk}>Travel Authorization & Planner</span>
+            <span className={styles.titleMobile}>Travel Planner</span>
+
             <div className={styles.newLine} />
           </div>
-          <div className={styles.btnWrap}>
+          <div className={styles.btnWrap} style={{whiteSpace:"nowrap"}}>
             <ButtonBase
               aria-haspopup="true"
               onClick={handleViewCreate}

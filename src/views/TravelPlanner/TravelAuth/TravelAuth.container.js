@@ -107,7 +107,7 @@ const TravelAuth = ({ location }) => {
         key: "employee",
         label: "Employee",
         sortable: false,
-        render: (temp, all) => <div><b>{all?.employee?.name}</b><br/>{all?.employee?.designation?.name}<br/>{all?.employee?.emp_code}</div>,
+        render: (temp, all) => <div><b>{all?.employee?.name}</b><br/>{all?.employee?.emp_code}</div>,
       },
       {
         key: "grade",

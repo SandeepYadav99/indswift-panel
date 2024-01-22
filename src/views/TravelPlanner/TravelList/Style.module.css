@@ -6,7 +6,7 @@
     justify-content: space-between;
     align-items: center;
 }
-.headerContainer .title {
+.headerContainer .titleDesk {
     font-size: 0.8rem;
     font-weight: 600;
 }
@@ -123,4 +123,17 @@
     display: flex;
     align-items: center;
     gap: 20px;
+}
+.titleMobile{
+    display: none;
+}
+@media (max-width: 767px) {
+.titleMobile{
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.titleDesk{
+    display: none;
+}
 }
