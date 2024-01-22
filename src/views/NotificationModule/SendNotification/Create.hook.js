@@ -98,7 +98,10 @@ const useCreate = () => {
           id: data?.id,
         });
       } else {
-        setForm({});
+        setForm({
+          send_priority: "NOW",
+          send_to: "ALL",
+        });
       }
     });
   }, [params?.id]);

@@ -236,6 +236,7 @@ const NotificationCreate = () => {
                       onChange={(date) => {
                         changeTextData(date, "send_timestamp");
                       }}
+                      minDate={new Date()}
                       value={form?.send_timestamp}
                       isError={errorData?.send_timestamp}
                     />
