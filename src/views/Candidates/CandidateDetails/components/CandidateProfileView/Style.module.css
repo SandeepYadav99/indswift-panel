@@ -15,4 +15,12 @@
       display: flex;
       flex-direction: column !important;
     }
+    .rhs {
+      flex: 1;
+      margin-left: 0px;
+    }
+    .lhs {
+      flex: 1;
+      margin-right: 0px;
+    }
   }

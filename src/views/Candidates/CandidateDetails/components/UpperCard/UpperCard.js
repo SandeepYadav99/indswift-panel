@@ -39,15 +39,24 @@ const UpperCard = ({
   };
   const handlePRCPopUp = () => {
     handleToggleExtendPage();
-
   };
   return (
     <div>
       <div className={styles.blueBackground}>
         <div className={styles.innerContainer}>
           <div>
-            <img src={data?.image ? data?.image : DefaultImg} height={70} alt="" />
+            <img
+              src={data?.image ? data?.image : DefaultImg}
+              height={70}
+              alt=""
+            />
           </div>
+          <div className={styles.statusMobileData}>
+            <StatusPill
+              status={removeUnderScore(data?.status)}
+              // style={{ color: "#fff", borderColor: "#fff" }}
+            />
+          </div>{" "}
           <div className={styles.sub_conitainer}>
             <div className={styles.profileInfo}>
               <div className={styles.name}>{data?.name}</div>
@@ -80,10 +89,10 @@ const UpperCard = ({
           <div className={styles.btnWrap}>
             <div className={styles.statusWrap}>
               {data?.status !== Constants.JOB_CANDIDATE_STATUS.DROPPED &&
-                isRecruiter &&
-                data?.is_selected &&
-                !data?.is_offer_letter_sent &&
-                data?.status !== "SHORTLISTED" ? (
+              isRecruiter &&
+              data?.is_selected &&
+              !data?.is_offer_letter_sent &&
+              data?.status !== "SHORTLISTED" ? (
                 <ActionButton
                   onClick={() => handlePRCPopUp()}
                   className={styles.actionButtonTranspent}
@@ -97,7 +106,7 @@ const UpperCard = ({
               <div className={styles.statusWrapInner}>
                 <StatusPill
                   status={removeUnderScore(data?.status)}
-                // style={{ color: "#fff", borderColor: "#fff" }}
+                  // style={{ color: "#fff", borderColor: "#fff" }}
                 />
               </div>
             </div>
@@ -139,7 +148,7 @@ const UpperCard = ({
             </div>
           </div>
           <div className={styles.btnWrapMobile}>
-          <div className={styles.btnResponsiveData}>
+            <div className={styles.btnResponsiveData}>
               <div>
                 <ActionButton
                   onClick={handleStatusToggle}
@@ -160,13 +169,13 @@ const UpperCard = ({
                   </ActionButton>
                 </div>
               )}
-              </div>
-              <div className={styles.btnWrapValueRes}>
-               {data?.status !== Constants.JOB_CANDIDATE_STATUS.DROPPED &&
-                isRecruiter &&
-                data?.is_selected &&
-                !data?.is_offer_letter_sent &&
-                data?.status !== "SHORTLISTED" ? (
+            </div>
+            <div className={styles.btnWrapValueRes}>
+              {data?.status !== Constants.JOB_CANDIDATE_STATUS.DROPPED &&
+              isRecruiter &&
+              data?.is_selected &&
+              !data?.is_offer_letter_sent &&
+              data?.status !== "SHORTLISTED" ? (
                 <ActionButton
                   onClick={() => handlePRCPopUp()}
                   className={styles.actionButtonTranspent}
@@ -177,7 +186,7 @@ const UpperCard = ({
               ) : (
                 <div />
               )}
-              </div>
+            </div>
           </div>
         </div>
       </div>
