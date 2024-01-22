@@ -86,7 +86,7 @@ const EmployeeRecordApprovals = () => {
         label: "UPDATED BY",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.textAlign}>
             {all?.editedBy?.name} <br />
             {all?.createdAtText}
           </div>

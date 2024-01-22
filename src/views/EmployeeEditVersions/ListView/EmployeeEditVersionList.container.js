@@ -67,7 +67,7 @@ const EmployeeVersionList = ({}) => {
                 key: 'createdAt',
                 label: 'Changed By',
                 sortable: false,
-                render: (temp, all) => <div>{all?.editedBy?.name} <br/> {all?.createdAtText}</div>,
+                render: (temp, all) => <div className={styles.textAlign}>{all?.editedBy?.name} <br/> {all?.createdAtText}</div>,
             },
             {
                 key: 'status',
@@ -79,7 +79,7 @@ const EmployeeVersionList = ({}) => {
                 key: 'approvedAt',
                 label: 'Approved By',
                 sortable: true,
-                render: (temp, all) => <div>{all?.verifiedAt ? (<div>{all?.verifiedBy?.name}  <br/> {all?.verifiedAtText} </div>) : '-'}</div>,
+                render: (temp, all) => <div className={styles.textAlign}>{all?.verifiedAt ? (<div>{all?.verifiedBy?.name}  <br/> {all?.verifiedAtText} </div>) : '-'}</div>,
             },
             {
                 key: 'user_id',
