@@ -9,7 +9,7 @@ function SaleryInfoField({ className, component, annual, monthly }) {
   };
   return (
     <div className={className ? className : styles.grossSalaryWrapper}>
-      <div className={styles.tableComponentField}>{component}</div>
+      <div className={styles.tableComponentField} >{component}</div>
       <div className={styles.salaryWrapper}>
       <div className={styles.tableAnnualField}>{getAnnualValues(monthly)}</div>
       <div className={styles.tableMonthlyField}>

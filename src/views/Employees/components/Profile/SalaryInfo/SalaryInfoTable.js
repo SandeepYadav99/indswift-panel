@@ -242,7 +242,8 @@ function SalaryInfoTable({ Empid, isPending }) {
         <div className={styles.grossWrapper}>
           <SaleryInfoField
             className={styles.grossSalaryGreenWrapper}
-            component="Gross Salary (Part A + Part B)"
+            id={styles.salaryInfoId}
+            component=<span>Gross Salary <br/>(Part A + Part B)</span>
             monthly={getSumValue(data?.earning_one, data?.earning_two)}
           />
         </div>{" "}
