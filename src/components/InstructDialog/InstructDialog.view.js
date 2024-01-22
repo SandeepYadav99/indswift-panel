@@ -69,7 +69,7 @@ const InstructDialog = ({ isOpen, handleToggle }) => {
           </div>
           <div className={styles.fieldWrapper}>
             <div className={styles.text}>
-              1. Tap the <strong>Share</strong> button in your browser
+              1. Tap the <strong>Share</strong> button in your <strong>Safari browser</strong>
             </div>
             <div>
               <img src={share} className={styles.upperImg} />
