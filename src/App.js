@@ -24,15 +24,21 @@ const App = ({}) => {
 // themeDefault['palette']['type'] = 'dark';
     const theme = createTheme({...themeDefault, ...overrides});
 
+    const closeInstallPopup = () => {
+        document.querySelector(".installDiv").remove();
+    }
+
     const iosAddButton = useMemo(() => {
         const iOSIsInstalled = window?.navigator?.standalone;
         const isIos = isIosSafari();
         if (isIos && !iOSIsInstalled) {
-            return (<div className={'installDiv'} style={{display: 'flex'}}>
-                <div>
-                    Add To Home Screen
+            return (<div className={'installDiv'} style={{display: 'block'}}>
+                <button onClick={closeInstallPopup} className={'close'}></button>
+                <div className={'logoDiv'}>
+                    <img src={require('./assets/img/logos/ic_logo.png')} alt=""/>
+                    Skynet Indswiftlabs
                 </div>
-                <button onClick={toggleDialog}>Add +</button>
+                <button onClick={toggleDialog}>Add to Home Screen</button>
             </div>);
         } return null;
     }, [toggleDialog]);
@@ -44,11 +50,12 @@ const App = ({}) => {
                 <RouteComponent/>
             </Router>
             <div id={'installPopUp'} className={'installDiv'}>
-                <div>
-                    Add To Home Screen
+                <button onClick={closeInstallPopup} className={'close'}></button>
+                <div className={'logoDiv'}>
+                    <img src={require('./assets/img/logos/ic_logo.png')} alt=""/>
+                    Skynet Indswiftlabs
                 </div>
                 <button id="install">Add +</button>
-
             </div>
             {iosAddButton}
             <Suspense fallback={<div></div>}>
