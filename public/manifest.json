@@ -9,8 +9,13 @@
       "type": "image/png"
     },
     {
-      "src": "images/24.png",
-      "sizes": "24x24",
+      "src": "images/20.png",
+      "sizes": "20x20",
+      "type": "image/png"
+    },
+    {
+      "src": "images/29.png",
+      "sizes": "29x29",
       "type": "image/png"
     },
     {
@@ -19,13 +24,43 @@
       "type": "image/png"
     },
     {
-      "src": "images/64.png",
-      "sizes": "64x64",
+      "src": "images/40.png",
+      "sizes": "40x40",
+      "type": "image/png"
+    },
+    {
+      "src": "images/50.png",
+      "sizes": "50x50",
+      "type": "image/png"
+    },
+    {
+      "src": "images/57.png",
+      "sizes": "57x57",
       "type": "image/png"
     },
     {
       "src": "images/64.png",
       "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "images/72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "images/80.png",
+      "sizes": "80x80",
+      "type": "image/png"
+    },
+    {
+      "src": "images/100.png",
+      "sizes": "100x100",
+      "type": "image/png"
+    },
+    {
+      "src": "images/120.png",
+      "sizes": "120x120",
       "type": "image/png"
     },
     {
@@ -36,6 +71,11 @@
     {
       "src": "images/144.png",
       "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "images/180.png",
+      "sizes": "180x180",
       "type": "image/png"
     },
     {
