@@ -47,7 +47,7 @@ const useCreate = () => {
     } else if (form?.send_to === "LOCATION") {
       dynamicFields.push("location_id");
     }
-    if(form?.send_priority === "LATTER"){
+    if(form?.send_priority === "LATER"){
       dynamicFields.push("send_timestamp")
     }
     else if(form?.send_priority === "NOW"){
