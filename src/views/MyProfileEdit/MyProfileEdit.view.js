@@ -600,7 +600,7 @@ const MyProfileEditView = ({}) => {
         </div>
       </div>
       <div className={"plainPaper"}>
-        <div className={"headerFlex3 wrapper"}>
+        <div className={"headerFlex3 wrapper"} id={styles.alignCenterBtn}>
           <ButtonBase
             type={"button"}
             className={styles.createBtn}

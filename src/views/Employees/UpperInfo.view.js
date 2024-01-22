@@ -96,7 +96,7 @@ const UpperInfo = ({
                     />
                   </div>
                   {!isNew && (
-                    <div className={styles.btnUpper2}>
+                    <div className={styles.btnUpper2} id={styles.btnIdentityData}>
                       <ActionButton
                         onClick={() => {
                           historyUtils.push(`${RouteName.MY_PROFILE_UPDATE}`);
@@ -166,7 +166,7 @@ const UpperInfo = ({
                     </ActionButton>
                   </div>
                 </div>
-                <div className={styles.btnUpper2}>
+                <div className={styles.btnUpper2} id={styles.btnIdentityData}>
                   <ActionButton
                     onClick={() => {
                       historyUtils.push(
@@ -180,6 +180,16 @@ const UpperInfo = ({
                 </div>
               </div>
             )}
+          </div>
+          <div id={styles.desktopView}>
+            <ActionButton
+              onClick={() => {
+                historyUtils.push(`${RouteName.MY_PROFILE_UPDATE}`);
+              }}
+            >
+              <RepeatRounded fontSize={"small"} />
+              <span className={styles.actionBtnSpan2}>Edit</span>
+            </ActionButton>
           </div>
         </div>
       </div>

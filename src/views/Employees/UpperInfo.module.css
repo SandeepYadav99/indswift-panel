@@ -210,6 +210,10 @@
     display: none !important;
 }
 
+#desktopView{
+    display: none !important;
+}
+
 @media only screen and (min-width:769px)and (max-width:1024px) {
     .rightPartContainer {
         display: flex;
@@ -284,8 +288,7 @@
     }
 
     .rightInfo {
-        margin: 0;
-        text-align: center;
+       margin-left: 40px !important;
     }
 
     .rightInfo>div {
@@ -360,6 +363,13 @@
         margin-left: 7px;
         font-family: 'Montserrat'
     }
+
+    #btnIdentityData{
+        display: none !important;
+    }
+    #desktopView{
+        display: block !important;
+    }
 }
 
 @media only screen and (max-width:448px){
@@ -374,6 +384,11 @@
         font-weight: 570;
         margin-left: 7px;
         font-family: 'Montserrat'
+    }
+    .rightInfo {
+        margin: 0;
+        margin-left: 20px !important;
+        text-align: start !important;
     }
 }
 

@@ -106,11 +106,7 @@
 }
 
 /* Employee Records  */
-.generate {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
+
 .createBtn {
   background-color: #29cb97 !important;
   color: #ffffff !important;
@@ -370,3 +366,5 @@
     font-size: 0.785rem !important;
   }
 }
+
+
