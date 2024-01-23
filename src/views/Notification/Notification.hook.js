@@ -14,13 +14,16 @@ const useNotificationList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const { role } = useSelector((state) => state.auth);
+
   const [listData, setListData] = useState({
     LOCATIONS: [],
     HR: [],
     JOB_OPENINGS: [],
   });
+
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
+
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -29,12 +32,10 @@ const useNotificationList = ({}) => {
   } = useSelector((state) => state.notification);
 
   useEffect(() => {
-    dispatch(
-      actionFetchNotification(0, sortingData, {
+    dispatch(actionFetchNotification(0, sortingData, {
         query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : null,
-      })
-    );
+        query_data: isMountRef.current ? queryData : null
+    }));
     isMountRef.current = true;
   }, [isMountRef]);
 
@@ -52,12 +53,10 @@ const useNotificationList = ({}) => {
 
   const queryFilter = useCallback(
     (key, value) => {
-      dispatch(
-        actionFetchNotification(1, sortingData, {
+      dispatch(actionFetchNotification(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
-        })
-      );
+        }));
     },
     [sortingData, query, queryData]
   );
@@ -89,16 +88,14 @@ const useNotificationList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(
-        actionFetchNotification(
+      dispatch(actionFetchNotification(
           1,
           { row, order },
           {
             query: query,
             query_data: queryData,
           }
-        )
-      );
+        ));
     },
     [query, queryData]
   );
@@ -128,6 +125,7 @@ const useNotificationList = ({}) => {
       },
     ];
   }, [listData]);
+
   return {
     handlePageChange,
     handleFilterDataChange,
