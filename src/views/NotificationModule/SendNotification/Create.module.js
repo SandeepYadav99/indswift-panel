@@ -30,6 +30,7 @@ const NotificationCreate = () => {
     isSubmitting,
   } = useCreate({});
 
+
   return (
     <div className={styles.container}>
       <div>
@@ -148,7 +149,7 @@ const NotificationCreate = () => {
                     {listData?.GRADES?.map((val) => {
                       return (
                         <MenuItem value={val?.id} key={val?.id}>
-                          {val?.name}
+                          {val?.label}
                         </MenuItem>
                       );
                     })}
