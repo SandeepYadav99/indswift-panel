@@ -149,7 +149,7 @@ const NotificationCreate = () => {
                     {listData?.GRADES?.map((val) => {
                       return (
                         <MenuItem value={val?.id} key={val?.id}>
-                          {val?.label}
+                          {val?.code}{" "}({val?.name})
                         </MenuItem>
                       );
                     })}
@@ -199,7 +199,7 @@ const NotificationCreate = () => {
             </div>
           </div>
           <div style={{ marginTop: "10px" }}>
-            <span className={styles.radioTitle}>When to Send</span>
+            <span className={styles.radioTitle}>When to Send ?</span>
             <div className={styles.radioButtonContainer}>
               <div>
                 <FormControl className={styles.btnRadio}>
