@@ -4,7 +4,7 @@ import styles from "./Style.module.css";
 const EmployeeInfoComponent = ({ empInfoList }) => {
     
   return (
-    <div className={styles.flex}>
+    <div className={styles.flex} style={{gap:"10px"}}>
       <img src={empInfoList?.image} className={styles.image} alt="" />
       <div>
         <div className={styles.infoLabel}>
