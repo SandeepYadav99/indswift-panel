@@ -7,7 +7,6 @@ import {
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
-import { serviceGetList } from "../../services/Common.service";
 import Constants from "../../config/constants";
 
 const useNotificationList = ({}) => {
@@ -38,13 +37,6 @@ const useNotificationList = ({}) => {
     isMountRef.current = true;
   }, [isMountRef]);
 
-  useEffect(() => {
-    serviceGetList(["LOCATIONS", "HR", "JOB_OPENINGS"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
-    });
-  }, []);
 
   const handlePageChange = useCallback((type) => {
     dispatch(actionSetPageNotification(type));
