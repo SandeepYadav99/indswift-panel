@@ -132,6 +132,9 @@
     align-items: center;
     gap: 20px;
 }
+.textStyles{
+    display: none;
+}
 @media (max-width: 767px) {
     .textAlign{
       text-align: end;
@@ -141,5 +144,12 @@
     }
     .firstCellFlex{
       text-align: end;
+    }
+    .textStyles{
+        display: block;
+        font-size: .8rem;
+        margin-left: 5px;
+        font-weight: 500;
+        color: #2896E9;
     }
   }

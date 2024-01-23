@@ -94,6 +94,7 @@ const NewEmployeeList = ({ location }) => {
       {
         key: "user_id",
         label: "Action",
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton
@@ -104,7 +105,8 @@ const NewEmployeeList = ({ location }) => {
                 handleViewDetails(all);
               }}
             >
-              <RemoveRedEyeOutlinedIcon fontSize={"small"} />
+              <RemoveRedEyeOutlinedIcon fontSize={"small"} style={{color: "#2896E9"}}/>
+              <div className={styles.textStyles}>View Profile</div>
             </IconButton>
           </div>
         ),

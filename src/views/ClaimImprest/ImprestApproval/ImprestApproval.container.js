@@ -200,6 +200,7 @@ const ImprestApproval = ({ location }) => {
       {
         key: "user_id",
         label: "Action",
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton
@@ -210,7 +211,8 @@ const ImprestApproval = ({ location }) => {
                 handleViewDetails(all);
               }}
             >
-              <InfoOutlined fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}}/>
+              <div className={styles.textStyles}>View information</div>
             </IconButton>
           </div>
         ),
