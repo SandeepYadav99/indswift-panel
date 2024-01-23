@@ -18,7 +18,7 @@ import {
 } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -193,6 +193,7 @@ const TravelList = ({ location }) => {
       {
         key: "user_id",
         label: "Action",
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton
@@ -204,8 +205,8 @@ const TravelList = ({ location }) => {
               }}
               style={{display:'flex',gap:"3px"}}
             >
-              <InfoOutlined fontSize={"small"} className={styles.iconColorData} />
-              <span className={styles.mobileColor}>View Information</span>
+              <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}}/>
+              <div className={styles.textStyles}>View information</div>
             </IconButton>
           </div>
         ),

@@ -141,11 +141,21 @@
 .titleMobile{
     display: none;
 }
+.textStyles{
+    display: none;
+}
 @media (max-width: 767px) {
 .titleMobile{
     display: block;
     font-size: 0.8rem;
     font-weight: 600;
+}
+.textStyles{
+    display: block;
+    font-size: .8rem;
+    margin-left: 5px;
+    font-weight: 500;
+    color: #2896E9;
 }
 .titleDesk{
     display: none;

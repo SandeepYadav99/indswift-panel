@@ -16,7 +16,7 @@ import RouteName from "../../../../../routes/Route.name";
 import constants from "../../../../../config/constants";
 import useImprestUpperTable from "./ImprestUpperTable.hook";
 import { getCurrency, removeUnderScore } from "../../../../../helper/helper";
-import DataTables from "../../../../../Datatables/Datatable.table";
+import DataTables from "../../../../../components/Datatables/datatables";
 
 const ImprestUpperTable = ({ location }) => {
   const {
