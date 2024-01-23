@@ -58,7 +58,7 @@ const Notification = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [innerWidth]);
 
   const { user } = useSelector((state) => state.auth);
   const removeUnderScore = (value) => {
@@ -119,7 +119,7 @@ const Notification = () => {
         render: (temp, all) => <div><Link to={all?.next_screen ? all?.next_screen :"/notification"}  className={styles.colorLinkData}>{all?.time}</Link></div>,
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, isCalling,data,allData]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -145,6 +145,7 @@ const Notification = () => {
     handlePageChange,
     handleRowSize,
     data,
+    allData.length,
     currentPage,
   ]);
 

@@ -3,12 +3,15 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
-import { actionFetchNotificationModule,actionSetPageNotificationModule } from "../../actions/NotificationModule.action";
+import {
+  actionFetchNotificationModule,
+  actionSetPageNotificationModule,
+} from "../../actions/NotificationModule.action";
 
 const useNotificationList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
- 
+
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
 
@@ -81,7 +84,7 @@ const useNotificationList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.APP_NOTIFICATION_CREATE}`); 
+    historyUtils.push(`${RouteName.APP_NOTIFICATION_CREATE}`);
   }, []);
 
   const configFilter = useMemo(() => {
@@ -90,17 +93,15 @@ const useNotificationList = ({}) => {
         label: "Status",
         name: "status",
         type: "select",
-        fields: [
-          "TODAY"
-        ],
+        fields: ["TODAY"],
       },
     ];
   }, []);
 
-  const handleEdit =(data)=>{
-    historyUtils.push(`${RouteName.APP_NOTIFICATION_CREATE}/${data?._id}`); 
-  }
-  
+  const handleEdit = (data) => {
+    historyUtils.push(`${RouteName.APP_NOTIFICATION_CREATE}/${data?._id}`);
+  };
+
   return {
     handlePageChange,
     handleFilterDataChange,
