@@ -49,6 +49,7 @@ const UpperInfo = ({
     );
   };
 
+
   return (
     <div>
 
@@ -88,18 +89,14 @@ const UpperInfo = ({
               </div>
             </div>
             <div style={{display:"flex",justifyContent:'center'}}>
-            {isAdmin && (
               <div className={styles.statusWrap}>
                 <StatusPill
                   status={data?.status}
-                // style={{ color: "#fff", borderColor: "#fff" }}
                 />
               </div>
-            )}
             </div>
           </div>
           <div className={styles.btnWrap}>
-           
             {isAdmin && (
               <div className={styles.actionWrap}>
                 <div className={styles.btnUpper}>
