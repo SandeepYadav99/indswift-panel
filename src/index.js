@@ -122,6 +122,8 @@ if ('serviceWorker' in navigator) {
 
         }
     }
+} else {
+    console.log('there is no service worker')
 }
 
 // If you want your app to work offline and load faster, you can change
