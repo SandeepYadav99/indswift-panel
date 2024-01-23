@@ -15,12 +15,11 @@ const EmployeeMobileCard = ({ data, index }) => {
     <div className={styles.downFlex}>
       <Link to={data?.next_screen ? data?.next_screen : "/notification"} className={styles.colorLinkData}>
         <div className={styles.cardDataTwo}>
-          <div className={styles.titleData}>{data?.notification_title}</div>
+          <div className={styles.titleData}>{data?.title}</div>
           <div className={styles.descriptionData}>
-            {data?.title},
-            <br /> {data?.body}
+            {data?.body} <br />
           </div>
-          <div style={{ display: 'flex', justifyContent: "flex-end", fontSize: "12px", color: "gray", marginTop: "5px" }}>{data?.time}</div>
+          <div style={{ display: 'flex', justifyContent: "flex-end", fontSize: "12px", color: "gray", marginTop: "5px" }}>{data?.createdAt} | {data?.time}</div>
         </div>
       </Link>
     </div>
@@ -116,7 +115,7 @@ const Notification = () => {
         key: "time",
         label: "Time",
         sortable: false,
-        render: (temp, all) => <div><Link to={all?.next_screen ? all?.next_screen :"/notification"}  className={styles.colorLinkData}>{all?.time}</Link></div>,
+        render: (temp, all) => <div><Link to={all?.next_screen ? all?.next_screen :"/notification"}  className={styles.colorLinkData}>{all?.createdAt} | {all?.time}</Link></div>,
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, isCalling,data,allData]);
