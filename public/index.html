@@ -33,7 +33,8 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root">
-      Loading...
+      Loading... <br>
+      <button onclick="reloadWeb()">Reload</button>
     </div>
     <!--
       This HTML file is a template.
@@ -46,6 +47,11 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script>
+    function reloadWeb() {
+      window.location.reload();
+    }
+  </script>
 <!--  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8WHW9ER9C"></script>-->
 <!--  <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-H8WHW9ER9C'); </script>-->
 </html>
