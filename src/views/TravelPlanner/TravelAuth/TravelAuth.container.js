@@ -249,7 +249,7 @@ const TravelAuth = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Travel Authorization & Planner</span>
+            <span className={styles.title}>Travel Authorization & Planner </span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrap}>
@@ -264,7 +264,7 @@ const TravelAuth = ({ location }) => {
             </div>
             }
         
-          <div className={styles.rightFlex}>
+          <div className={styles.rightFlex211}>
               <ButtonBase
                 className={styles.download}
                 onClick={handleCsvDownload}

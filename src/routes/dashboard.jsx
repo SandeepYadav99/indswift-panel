@@ -732,6 +732,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "pm",
     is_parent: true,
+    hideMobileView:true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -742,6 +743,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "employee_pm",
     is_parent: true,
+    hideMobileView:true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.GENERAL],
   },
   {
@@ -752,6 +754,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "pms_increments",
     is_parent: true,
+    hideMobileView:true,
     roles: [Roles.CORPORATE_HR],
   },
   {
@@ -782,6 +785,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "onboard",
     is_parent: true,
+    hideMobileView:true,
     // roles: [Roles.CORPORATE_HR],
   },
   {
@@ -1303,6 +1307,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
+    hideMobileView:true,
     roles: [Roles.ADMIN,Roles.HR,Roles.CORPORATE_HR],
   },
   {
@@ -1315,6 +1320,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
+    hideMobileView:true,
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -1339,6 +1345,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
+    hideMobileView:true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -1816,6 +1823,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "reports",
     is_parent: true,
+    hideMobileView:true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -2694,6 +2702,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     parent:"offboard",
+    hideMobileView:true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -2705,6 +2714,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     parent:"offboard",
+    hideMobileView:true,
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -2728,6 +2738,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: 'offboard',
+    hideMobileView:true,
     roles: [Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR,Roles.MD],
     // parent: 'employeedashboard',
   },
@@ -2741,6 +2752,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: 'offboard',
+    hideMobileView:true,
   },
   {
       path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
@@ -2766,6 +2778,7 @@ const dashboardRoutes = [
   component: NotificationListModule,
   is_sidebar: true,
   is_protect: true,
+  hideMobileView:true,
   roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
 },
 {
