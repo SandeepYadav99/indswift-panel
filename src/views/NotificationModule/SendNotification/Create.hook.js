@@ -113,6 +113,17 @@ const useCreate = () => {
         errors[val] = true;
       }
     });
+    if(form?.send_priority === "LATER"){
+      if (form?.send_timestamp) {
+        const date = new Date(form?.send_timestamp);
+        const todayDate = new Date();
+        date.setHours(0, 0, 0, 0);
+        todayDate.setHours(0, 0, 0, 0);
+        if (date.getTime() < todayDate.getTime()) {
+          errors["send_timestamp"] = true;
+        }
+      }
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
