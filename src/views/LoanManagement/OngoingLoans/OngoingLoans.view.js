@@ -108,7 +108,7 @@ const OngoingLoans = () => {
         label: "DEPT & SUB-DEPT",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.statusWrap}>
             {all?.employee?.department.name} / {all?.employee?.sub_department?.name}
           </div>
         ),
@@ -180,7 +180,8 @@ const OngoingLoans = () => {
                 handleViewDetails(all);
               }}
             >
-              <InfoOutlined fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}} />
+              <div className={styles.textStyles}>View information</div>
             </IconButton>
           </div>
         ),

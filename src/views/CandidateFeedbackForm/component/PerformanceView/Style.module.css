@@ -42,9 +42,10 @@
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
-        flex-direction: column;
+        flex-direction: row;
         gap: 5px;
         cursor: pointer;
+        align-items: center;
     }
     .titleWrapper > span{
         font-weight: 600;

@@ -47,7 +47,7 @@ const useCreate = () => {
     } else if (form?.send_to === "LOCATION") {
       dynamicFields.push("location_id");
     }
-    if(form?.send_priority === "LATTER"){
+    if(form?.send_priority === "LATER"){
       dynamicFields.push("send_timestamp")
     }
     else if(form?.send_priority === "NOW"){
@@ -76,8 +76,6 @@ const useCreate = () => {
     );
   }, []);
 
-
-
   useEffect(() => {
     serviceDetailNotificationModule({ id: params?.id }).then((res) => {
       if (!res.error) {
@@ -100,7 +98,10 @@ const useCreate = () => {
           id: data?.id,
         });
       } else {
-        setForm({});
+        setForm({
+          send_priority: "NOW",
+          send_to: "ALL",
+        });
       }
     });
   }, [params?.id]);

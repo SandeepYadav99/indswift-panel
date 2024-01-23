@@ -274,3 +274,28 @@ margin-left: 20px;
   font-weight: 600;
   font-size: .8rem;
 }
+.ApproveMobile{
+  display: none;
+}
+@media (max-width: 767px) {
+.ApproveDesk{
+  display: none;
+}
+.ApproveMobile{
+  display: flex;
+  background: #ffffff;
+  /* width: 100%; */
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 1.2rem;
+}
+.editSuccessMobile {
+  color: #29cb97 !important;
+  border: 2px solid #29cb97 !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+  flex: 1;
+}
+}

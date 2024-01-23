@@ -40,6 +40,11 @@
   margin-bottom: 10px;
 }
 
+.colorLinkData{
+  text-decoration: none !important;
+  color: black !important;
+}
+
 @media only screen and (max-width:596px) {
   .descriptionData {
     font-size: 12px;

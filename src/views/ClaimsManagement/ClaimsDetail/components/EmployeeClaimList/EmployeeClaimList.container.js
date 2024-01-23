@@ -153,6 +153,7 @@ const EmployeeClaimList = ({}) => {
       {
         key: "user_id",
         label: "Action",
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton

@@ -1049,6 +1049,7 @@ font-size: medium;
     font-size: 12px;
     font-weight: 600;
     max-width: 50%;
+    text-transform: uppercase;
 }
 .dtMobCellLabelHide {
     display: none;

@@ -30,6 +30,7 @@ const NotificationCreate = () => {
     isSubmitting,
   } = useCreate({});
 
+
   return (
     <div className={styles.container}>
       <div>
@@ -148,7 +149,7 @@ const NotificationCreate = () => {
                     {listData?.GRADES?.map((val) => {
                       return (
                         <MenuItem value={val?.id} key={val?.id}>
-                          {val?.name}
+                          {val?.label}
                         </MenuItem>
                       );
                     })}
@@ -198,7 +199,7 @@ const NotificationCreate = () => {
             </div>
           </div>
           <div style={{ marginTop: "10px" }}>
-            <span className={styles.radioTitle}>Send to</span>
+            <span className={styles.radioTitle}>When to Send</span>
             <div className={styles.radioButtonContainer}>
               <div>
                 <FormControl className={styles.btnRadio}>
@@ -219,7 +220,7 @@ const NotificationCreate = () => {
                       label="Send Now"
                     />
                     <FormControlLabel
-                      value="LATTER"
+                      value="LATER"
                       control={<Radio />}
                       label="Send Later"
                     />
@@ -227,7 +228,7 @@ const NotificationCreate = () => {
                 </FormControl>
               </div>
               <div>
-                {form?.send_priority === "LATTER" && (
+                {form?.send_priority === "LATER" && (
                   <div className={styles.dropdownResponsive}>
                     <CustomDateTimePicker
                       fullWidth={true}
@@ -236,6 +237,7 @@ const NotificationCreate = () => {
                       onChange={(date) => {
                         changeTextData(date, "send_timestamp");
                       }}
+                      minDate={new Date()}
                       value={form?.send_timestamp}
                       isError={errorData?.send_timestamp}
                     />

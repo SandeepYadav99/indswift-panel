@@ -112,3 +112,18 @@
   margin-left: 1px;
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
+.textStyles{
+  display: none;
+}
+@media (max-width:767px){
+  .textAlign {
+    text-align: end;
+  }
+  .textStyles{
+    display: block;
+    font-size: .8rem;
+    margin-left: 5px;
+    font-weight: 500;
+    color: #2896E9;
+}
+}

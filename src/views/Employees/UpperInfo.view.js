@@ -49,6 +49,7 @@ const UpperInfo = ({
     );
   };
 
+
   return (
     <div>
 
@@ -87,39 +88,15 @@ const UpperInfo = ({
                 </div>
               </div>
             </div>
-            <div>
-              {!isAdmin && (
-                <div className={styles.activeEditWrapper}>
-                  <div className={styles.statusWrapper}>
-                    <StatusPill
-                      status={data?.status}
-                    />
-                  </div>
-                  {!isNew && (
-                    <div className={styles.btnUpper2} id={styles.btnIdentityData}>
-                      <ActionButton
-                        onClick={() => {
-                          historyUtils.push(`${RouteName.MY_PROFILE_UPDATE}`);
-                        }}
-                      >
-                        <RepeatRounded fontSize={"small"} />
-                        <span className={styles.actionBtnSpan2}>Edit</span>
-                      </ActionButton>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className={styles.btnWrap}>
-            {isAdmin && (
+            <div style={{display:"flex",justifyContent:'center'}}>
               <div className={styles.statusWrap}>
                 <StatusPill
                   status={data?.status}
-                // style={{ color: "#fff", borderColor: "#fff" }}
                 />
               </div>
-            )}
+            </div>
+          </div>
+          <div className={styles.btnWrap}>
             {isAdmin && (
               <div className={styles.actionWrap}>
                 <div className={styles.btnUpper}>

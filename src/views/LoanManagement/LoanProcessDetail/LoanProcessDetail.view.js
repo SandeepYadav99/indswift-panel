@@ -159,6 +159,7 @@ function LoanProcessDetail() {
                             style={{
                               border: "none",
                               background: "transparent",
+                              paddingLeft:"0"
                             }}
                           />
                         }
@@ -372,6 +373,12 @@ function LoanProcessDetail() {
                 <div className={styles.key}>
                   <span className={styles.value}>Proposed Loan:</span>
                   {form?.total_applied_loan}
+                </div>
+              </div>
+              <div className={styles.right}>
+                <div className={styles.key}>
+                  <span className={styles.value}></span>
+                  
                 </div>
               </div>
             </div>

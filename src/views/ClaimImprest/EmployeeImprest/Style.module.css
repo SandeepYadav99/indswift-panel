@@ -262,9 +262,15 @@
 @media only screen and (max-width:769px) {
     .yearFlex {
         display: flex;
-        flex-direction: column !important;
+        gap: 10px;
     }
-
+    .down{
+        flex: 1;
+    }
+    .download {
+        flex: 1;
+        padding: 5px 20px !important;
+    }
     .headerContainer .title {
         font-size: 0.8rem;
         font-weight: 600;

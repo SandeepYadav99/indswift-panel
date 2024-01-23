@@ -72,7 +72,7 @@ const PendingOfferTable = () => {
               gap:"10px",
             }}
           >
-            <span className={styles.textAdjust}>OFFER LETTER NO.</span>
+            <span className={styles.textAdjust}><b>OFFER LETTER NO.</b></span>
             <span className={styles.textAdjust}>{val?.code} </span>
           </TableRow>
           <TableRow
@@ -84,7 +84,7 @@ const PendingOfferTable = () => {
               gap:"10px",
             }}
           >
-            <span className={styles.textAdjust}>POSITION</span>
+            <span className={styles.textAdjust}><b>POSITION</b></span>
             <span className={styles.textAdjust}>{val?.position}</span>
           </TableRow>
           <TableRow
@@ -96,7 +96,7 @@ const PendingOfferTable = () => {
               gap:"10px",
             }}
           >
-            <span className={styles.textAdjust}>NAME</span>
+            <span className={styles.textAdjust}><b>NAME</b></span>
             <span className={styles.textAdjust}> {val?.candidate_name}</span>
           </TableRow>
           <TableRow
@@ -108,7 +108,7 @@ const PendingOfferTable = () => {
               gap:"10px",
             }}
           >
-            <span className={styles.textAdjust}>DATE</span>
+            <span className={styles.textAdjust}><b>DATE</b></span>
             <span className={styles.textAdjust}>{val?.createdAt}</span>
           </TableRow>
         </>

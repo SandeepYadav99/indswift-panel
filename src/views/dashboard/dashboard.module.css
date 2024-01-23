@@ -410,6 +410,16 @@
     display: flex;
     flex-direction: column !important;
     gap: 20px;
+    margin-left: 9px !important;
+    margin-right: 9px !important;
+  }
+  .lhsPending {
+    flex: 1;
+    margin-left: 0px !important;
+  }
+  .rhsInterview {
+    margin-right: 0;
+    margin-left: 0px !important;
   }
 }
 
@@ -452,7 +462,7 @@
     margin-right: 25px;
   }
   .number {
-    font-size: 0.8rem;
+    font-size: 1.2rem;
   }
   .num {
     font-size: 1.2rem !important;

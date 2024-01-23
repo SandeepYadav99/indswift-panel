@@ -8,18 +8,21 @@ import DataTables from "../../components/Datatables/datatables";
 import { useSelector } from "react-redux";
 import Constants from "../../config/constants";
 import StatusPill from "../../components/Status/StatusPill.component";
+import { Link } from "react-router-dom";
 
 const EmployeeMobileCard = ({ data, index }) => {
   return (
     <div className={styles.downFlex}>
-      <div className={styles.cardDataTwo}>
-        <div className={styles.titleData}>{data?.notification_title}</div>
-        <div className={styles.descriptionData}>
-          {data?.title},
-          <br /> {data?.body}
+      <Link to={data?.next_screen ? data?.next_screen : "/notification"} className={styles.colorLinkData}>
+        <div className={styles.cardDataTwo}>
+          <div className={styles.titleData}>{data?.notification_title}</div>
+          <div className={styles.descriptionData}>
+            {data?.title},
+            <br /> {data?.body}
+          </div>
+          <div style={{ display: 'flex', justifyContent: "flex-end", fontSize: "12px", color: "gray", marginTop: "5px" }}>{data?.time}</div>
         </div>
-        <div style={{display:'flex',justifyContent:"flex-end",fontSize:"12px",color:"gray",marginTop:"5px"}}>{data?.time}</div>
-      </div>
+      </Link>
     </div>
   );
 };
@@ -55,7 +58,7 @@ const Notification = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [innerWidth]);
 
   const { user } = useSelector((state) => state.auth);
   const removeUnderScore = (value) => {
@@ -94,28 +97,29 @@ const Notification = () => {
         key: "type",
         label: "Notification Type",
         sortable: true,
-        render: (value, all) => <div>{all?.notification_title}</div>,
+        render: (value, all) => <div><Link to={all?.next_screen ? all?.next_screen :"/notification"} className={styles.colorLinkData}>
+          {all?.notification_title}</Link></div>,
       },
       {
         key: "title",
         label: "Title",
         sortable: false,
-        render: (temp, all) => <div>{all?.title}</div>,
+        render: (temp, all) => <div><Link to={all?.next_screen ? all?.next_screen :"/notification"} className={styles.colorLinkData}>{all?.title}</Link></div>,
       },
       {
         key: "message",
         label: "Message",
         sortable: false,
-        render: (temp, all) => <div>{all?.body}</div>,
+        render: (temp, all) => <div><Link to={all?.next_screen ? all?.next_screen :"/notification"}  className={styles.colorLinkData}>{all?.body}</Link></div>,
       },
       {
         key: "time",
         label: "Time",
         sortable: false,
-        render: (temp, all) => <div>{all?.time}</div>,
+        render: (temp, all) => <div><Link to={all?.next_screen ? all?.next_screen :"/notification"}  className={styles.colorLinkData}>{all?.time}</Link></div>,
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, isCalling,data,allData]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -141,6 +145,7 @@ const Notification = () => {
     handlePageChange,
     handleRowSize,
     data,
+    allData.length,
     currentPage,
   ]);
 

@@ -63,8 +63,8 @@ function ImprestDetailInfo({ idCards }) {
                   <span className={styles.value}>Tour Type:</span>
                   {idCards?.tour_type}
                 </div>
-                <div className={styles.key}>
-                  <span className={styles.value}>Status:</span>
+                <div className={styles.key} >
+                  <span className={styles.value} style={{marginBottom:"10px"}}>Status:</span>
                   {<StatusPill status={idCards?.travelPlanner?.status} />}
                 </div>
                 <div className={styles.key}>

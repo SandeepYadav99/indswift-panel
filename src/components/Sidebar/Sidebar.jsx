@@ -174,13 +174,20 @@ const Sidebar = ({ ...props }) => {
     props;
 
   useEffect(() => {
-    setData(routes);
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      const filteredMobileRoute = routes?.filter((val) => !val?.hideMobileView);
+      setData(filteredMobileRoute);
+    } else {
+      setData(routes);
+    }
     const filteredRoute = routes?.filter((item) => item?.is_parent);
     setParentRoute(filteredRoute);
   }, [routes]);
 
   const handleSearchValueChange = useCallback(
     (value) => {
+      const isMobile = window.innerWidth <= 768;
       if (value) {
         const tempData = routes?.filter((val) => {
           if (
@@ -211,7 +218,7 @@ const Sidebar = ({ ...props }) => {
         );
 
         const filteredParentRoute = parentRoute?.filter((item) =>
-        uniqueValuesInArr2?.includes(item?.slug)
+          uniqueValuesInArr2?.includes(item?.slug)
         );
         const getValues = [
           ...tempData,
@@ -228,9 +235,24 @@ const Sidebar = ({ ...props }) => {
           getChildRoute,
           uniqueValuesInArr2,
         });
-        setData([...uniquePathObjects,...nullPathObjects]);
+        if (isMobile) {
+          const uniqueRoute = [
+            ...uniquePathObjects,
+            ...nullPathObjects,
+          ]?.filter((item) => !item.hideMobileView);
+          setData([...uniqueRoute]);
+        } else {
+          setData([...uniquePathObjects, ...nullPathObjects]);
+        }
       } else {
-        setData(routes);
+        if (isMobile) {
+          const filteredMobileRoute = routes?.filter(
+            (val) => !val?.hideMobileView
+          );
+          setData(filteredMobileRoute);
+        } else {
+          setData(routes);
+        }
       }
     },
     [routes, setData, parentRoute]

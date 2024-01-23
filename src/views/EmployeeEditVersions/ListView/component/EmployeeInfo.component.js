@@ -3,7 +3,7 @@ import styles from './Style.module.css';
 
 const EmployeeInfoComponent = ({data}) => {
     return (
-        <div className={styles.flex}>
+        <div className={styles.flex} style={{gap:"20px"}}>
             <img src={data?.image} className={styles.image} />
             <div>
                 <div className={styles.infoLabel}> <b>{data?.name}</b> </div>

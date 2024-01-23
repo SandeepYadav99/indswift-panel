@@ -95,7 +95,9 @@ const Header = (props) => {
       historyUtils.goBack();
     }
   };
-
+  const handleMyProfile = () => {
+    historyUtils.push(RouteName.MY_PROFILE);
+  };
   const { classes, color, themeType, userData } = props;
 
   return (
@@ -148,6 +150,7 @@ const Header = (props) => {
             width={30}
             style={{ borderRadius: "50%" }}
             alt="user avatar"
+            onClick={() => handleMyProfile()}
           />
         </div>
         <div className={styles.imageTag}>

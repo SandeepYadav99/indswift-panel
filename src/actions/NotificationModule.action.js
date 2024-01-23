@@ -72,12 +72,6 @@ export function actionUpdateNotificationModule(data) {
   };
 }
 
-// export function actionDeleteNotification(id) {
-//   const request = serviceDeleteNotification({ id: id });
-//   return (dispatch) => {
-//     dispatch({ type: DELETE_ITEM, payload: id });
-//   };
-// }
 
 export function actionChangePageNotificationModule(page) {
   return (dispatch) => {
@@ -110,7 +104,7 @@ export function actionResetFilterNotificationModule() {
 }
 
 export function actionSetPageNotificationModule(page) {
-  const stateData = store.getState().notification;
+  const stateData = store.getState().notification_module;
   const currentPage = stateData.currentPage;
   const totalLength = stateData.all.length;
   const sortingData = stateData.sorting_data;
