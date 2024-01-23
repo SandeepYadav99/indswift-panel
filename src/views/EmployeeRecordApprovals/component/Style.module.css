@@ -9,8 +9,8 @@
 
 .image {
     width: 80px;
-    height: 80px;
-    object-fit: cover;
+    height: 60px;
+    /* object-fit: cover; */
     border-radius: 50%;
 }
 
@@ -57,7 +57,7 @@
   
   .letterInfo span {
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 10px;
 
   }
  

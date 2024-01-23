@@ -104,55 +104,70 @@ function ImprestApprovalDetail() {
       )}
 
       {employeeDetail?.status === "PENDING" && (
-      <div
-        className={
-          employeeDetail?.imprest?.status === "APPROVED"
-            ? styles.approvedWrapper
-            : styles.PdfBtnWrapper
-        }
-      >
-        {employeeDetail?.imprest?.status !== "APPROVED" &&
-          employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && 
-          employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && 
-          (
-            <div className={styles.editBtn2}>
-              <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
-                REJECT
-              </ButtonBase>
-            </div>
-          )}
-
-        <div className={styles.btnApproveWrapper}>
+        <div
+          className={
+            employeeDetail?.imprest?.status === "APPROVED"
+              ? styles.approvedWrapper
+              : styles.PdfBtnWrapper
+          }
+        >
           {employeeDetail?.imprest?.status !== "APPROVED" &&
-            employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && 
-            employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && 
-            (
-              <div>
+            employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" &&
+            employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && (
+              <div className={styles.editBtn2}>
                 <ButtonBase
-                  // disabled={isSubmitting}
-                  className={styles.editSuccess}
-                  onClick={toggleChangeDialog}
+                  className={styles.edit}
+                  onClick={toggleRejectDialog}
                 >
-                  CHANGE & APPROVE
+                  REJECT
                 </ButtonBase>
               </div>
             )}
-          <div>
-            <ButtonBase
-              // disabled={isSubmitting}
-              className={styles.createBtn}
-              onClick={toggleStatusDialog}
-            >
-              {employeeDetail?.imprest?.status !== "APPROVED" &&
-              employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && 
-              employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED"
-                ? "APPROVE"
-                : "PROCESS"}
-            </ButtonBase>
+
+          <div className={styles.btnApproveWrapper}>
+            {employeeDetail?.imprest?.status !== "APPROVED" &&
+              employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" &&
+              employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && (
+                <div className={styles.ApproveDesk}>
+                  <ButtonBase
+                    // disabled={isSubmitting}
+                    className={styles.editSuccess}
+                    onClick={toggleChangeDialog}
+                  >
+                    CHANGE & APPROVE
+                  </ButtonBase>
+                </div>
+              )}
+            <div>
+              <ButtonBase
+                // disabled={isSubmitting}
+                className={styles.createBtn}
+                onClick={toggleStatusDialog}
+              >
+                {employeeDetail?.imprest?.status !== "APPROVED" &&
+                employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" &&
+                employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED"
+                  ? "APPROVE"
+                  : "PROCESS"}
+              </ButtonBase>
+            </div>
           </div>
         </div>
-      </div>
-)}
+      )}
+      {employeeDetail?.status === "PENDING" &&
+        employeeDetail?.imprest?.status !== "APPROVED" &&
+        employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" &&
+        employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && (
+          <div className={styles.ApproveMobile}>
+            <ButtonBase
+              // disabled={isSubmitting}
+              className={styles.editSuccessMobile}
+              onClick={toggleChangeDialog}
+            >
+              CHANGE & APPROVE
+            </ButtonBase>
+          </div>
+        )}
     </div>
   );
 }

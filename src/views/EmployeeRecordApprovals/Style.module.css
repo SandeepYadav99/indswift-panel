@@ -110,3 +110,8 @@
     margin-left: 1px;
     background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
 }
+@media (max-width:767px){
+    .textAlign {
+      text-align: end;
+    }
+  }

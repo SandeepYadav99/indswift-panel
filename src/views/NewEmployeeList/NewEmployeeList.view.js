@@ -67,14 +67,14 @@ const NewEmployeeList = ({ location }) => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.location.name}<br/>{all?.department.name}/{all?.sub_department.name}</div>,
+        render: (temp, all) => <div className={styles.textAlign}>{all?.location.name}<br/>{all?.department.name}/{all?.sub_department.name}</div>,
       },
       {
         key: "created_by",
         label: "CREATED BY",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.textAlign}>
             {all?.createdBy?.name}
             <br />
             {all?.createdBy?.code} <br />
@@ -94,6 +94,7 @@ const NewEmployeeList = ({ location }) => {
       {
         key: "user_id",
         label: "Action",
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton
@@ -104,7 +105,8 @@ const NewEmployeeList = ({ location }) => {
                 handleViewDetails(all);
               }}
             >
-              <RemoveRedEyeOutlinedIcon fontSize={"small"} />
+              <RemoveRedEyeOutlinedIcon fontSize={"small"} style={{color: "#2896E9"}}/>
+              <div className={styles.textStyles}>View Profile</div>
             </IconButton>
           </div>
         ),

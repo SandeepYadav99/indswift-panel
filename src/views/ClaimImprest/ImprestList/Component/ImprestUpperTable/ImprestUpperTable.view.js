@@ -8,9 +8,7 @@ import {
   InfoOutlined,
   PeopleOutlined,
 } from "@material-ui/icons";
-import PageBox from "../../../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../../../components/Datatables/datatables.js";
 import FilterComponent from "../../../../../components/Filter/Filter.component";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import historyUtils from "../../../../../libs/history.utils";
@@ -18,6 +16,7 @@ import RouteName from "../../../../../routes/Route.name";
 import constants from "../../../../../config/constants";
 import useImprestUpperTable from "./ImprestUpperTable.hook";
 import { getCurrency, removeUnderScore } from "../../../../../helper/helper";
+import DataTables from "../../../../../Datatables/Datatable.table";
 
 const ImprestUpperTable = ({ location }) => {
   const {
@@ -75,7 +74,7 @@ const ImprestUpperTable = ({ location }) => {
         label: "ASSOCIATED TAP",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.textAlign}>
             {all?.travelPlanner?.code ? (
               <div>
                 {all?.travelPlanner?.code}
@@ -126,7 +125,7 @@ const ImprestUpperTable = ({ location }) => {
       {
         key: "action_key",
         label: "Action",
-        sortable: false,
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton
@@ -137,7 +136,8 @@ const ImprestUpperTable = ({ location }) => {
                 handleViewDetails(all);
               }}
             >
-              <InfoOutlined fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}}/>
+              <div className={styles.textStyles}>View information</div>
             </IconButton>
           </div>
         ),
@@ -173,7 +173,7 @@ const ImprestUpperTable = ({ location }) => {
 
   return (
     <div>
-      <PageBox>
+      {/* <PageBox> */}
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -183,7 +183,7 @@ const ImprestUpperTable = ({ location }) => {
           />
          
         </div>
-      </PageBox>
+      {/* </PageBox> */}
       <div>
             <br />
             <div style={{ width: "100%" }}>

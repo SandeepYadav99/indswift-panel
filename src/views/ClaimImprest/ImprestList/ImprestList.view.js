@@ -32,8 +32,8 @@ const ImprestList = ({ jobId }) => {
             </ButtonBase>
           </div>
         </div>
-      </div>
       <ImprestUpperTable />
+      </div>
       <div className={styles.plainPaperTwo}>
         <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
@@ -55,8 +55,8 @@ const ImprestList = ({ jobId }) => {
             </div>
           </div>
         </div>
-      </div>
       <OtherTable jobId={user_id} Claimtype="OTHER" />
+      </div>
       <div className={styles.plainPaperTwo}>
         <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
@@ -81,8 +81,8 @@ const ImprestList = ({ jobId }) => {
             </div>
           </div>
         </div>
-      </div>
       <TravelTable jobId={user_id} Claimtype="TRAVEL" />
+      </div>
     </div>
   );
 };

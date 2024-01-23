@@ -187,12 +187,6 @@ function LoanRecovery({ location }) {
             </div>
           </div>
         </div>
-        <div className={styles.TableWrapper}>
-          {/* <DataTables
-            {...tableData.datatable}
-            {...tableData.datatableFunctions}
-          /> */}
-        </div>
         <br/>
         <EmiTable data={loanData?.loanEmi}/>
       </div>

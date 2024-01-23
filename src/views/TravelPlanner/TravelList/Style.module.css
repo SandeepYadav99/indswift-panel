@@ -7,8 +7,7 @@
     justify-content: space-between;
     align-items: center;
 }
-
-.headerContainer .title {
+.headerContainer .titleDesk {
     font-size: 0.8rem;
     font-weight: 600;
 }
@@ -139,23 +138,16 @@
     align-items: center;
     gap: 20px;
 }
-
-.mobileColor {
-    display: none !important;
+.titleMobile{
+    display: none;
 }
-
-.iconColorData {
-    color: black !important;
+@media (max-width: 767px) {
+.titleMobile{
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
 }
-
-@media only screen and (max-width :769px) {
-    .mobileColor {
-        display: block !important;
-        color: #2896E9 !important;
-        font-size: 12px !important;
-    }
-
-    .iconColorData {
-        color: #2896E9 !important;
-    }
+.titleDesk{
+    display: none;
+}
 }
