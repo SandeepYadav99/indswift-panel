@@ -63,7 +63,7 @@ const HRKnowledgeCreateView = ({}) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.name}
@@ -98,7 +98,7 @@ const HRKnowledgeCreateView = ({}) => {
             </CustomSelectField>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.department_id}
@@ -139,7 +139,7 @@ const HRKnowledgeCreateView = ({}) => {
             />
           </div>
         </div>
-        <div className={"formGroup file_Wrapper"}>
+        <div className={"formGroup file_Wrapper"} id={styles.uploadMobile}>
           <File
             max_size={2 * 1024 * 1024}
             type={["pdf"]}
@@ -164,7 +164,7 @@ const HRKnowledgeCreateView = ({}) => {
       </div>
 
       <div className={"plainPaper"}>
-        <div className={"headerFlex wrapper"}>
+        <div className={"headerFlex wrapper"} id={styles.marginBottomTop}>
           <div className={"infoTitle inner"}>
             <div className="info_Status">
               <h4 className={"heading_stats"}>Status</h4>

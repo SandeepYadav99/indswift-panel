@@ -53,6 +53,7 @@ const HRAnnouncement = ({}) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.hr_announcement);
 
+
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
@@ -71,7 +72,7 @@ const HRAnnouncement = ({}) => {
     if (obj) {
       return (
         <div>
-            <img className={styles.imageAnn} src={obj?.image}/>
+          <img className={styles.imageAnn} src={obj?.image} />
         </div>
       );
     }
@@ -100,9 +101,15 @@ const HRAnnouncement = ({}) => {
       },
       {
         key: "link",
-        label: "Link",
+        label: "LINK",
         sortable: false,
-        render: (temp, all) => <div><a className={styles.linkClass} target='_blank' href={all?.link}>{all?.link}</a></div>,
+        render: (temp, all) => (
+          <div>
+            <a className={styles.linkClass} target="_blank" href={all?.link}>
+              {all?.link}
+            </a>
+          </div>
+        ),
       },
       {
         key: "status",
@@ -112,7 +119,7 @@ const HRAnnouncement = ({}) => {
       },
       {
         key: "_id",
-        label: "Action",
+        label: "ACTION",
         render: (temp, all) => (
           <div>
             <IconButton
@@ -123,7 +130,8 @@ const HRAnnouncement = ({}) => {
               color="secondary"
               disabled={isCalling}
             >
-              <Edit fontSize={"small"} />
+              <Edit fontSize={"small"} style={{ color: "#2896E9" }} />
+              <div className={styles.textStyles}>Edit information</div>{" "}
             </IconButton>
           </div>
         ),

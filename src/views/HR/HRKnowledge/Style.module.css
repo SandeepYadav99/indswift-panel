@@ -185,3 +185,33 @@
   list-style-type: none;
   padding: 0;
 }
+
+.textStyles {
+  display: none !important;
+}
+
+@media only screen and (max-width: 769px) {
+  .textStyles {
+    display: block !important;
+    font-size: 0.8rem;
+    margin-left: 5px;
+    font-weight: 500;
+    color: #2896e9;
+  }
+  #mobileResponsive {
+    display: flex;
+    flex-direction: column !important;
+  }
+  .btnCont {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    margin-top: 10px;
+  }
+  #marginBottomTop {
+    margin-top: 10px !important;
+  }
+  #uploadMobile{
+    width: 90%;
+  }
+}
