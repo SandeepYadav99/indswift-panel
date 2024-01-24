@@ -31,12 +31,8 @@ const Notification = () => {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
-    handleFilterDataChange,
-    handleSearchValueChange,
     handleViewDetails,
     isCalling,
-    configFilter,
-    handleLeaveApplicationForm,
   } = useNotificationList({});
 
   const {
