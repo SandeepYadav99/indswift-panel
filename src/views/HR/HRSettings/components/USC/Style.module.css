@@ -44,3 +44,24 @@
   text-transform: uppercase !important;
   height: 40px !important;
 }
+
+.textStyles{
+  display: none !important;
+}
+@media only screen and (max-width:769px) {
+  .textStyles{
+    display: block !important;
+    font-size: .8rem;
+    margin-left: 5px;
+    font-weight: 500;
+    color: #2896E9;
+  }
+  .btnWrap{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: end;
+    gap: 20px;
+  }
+}
+
