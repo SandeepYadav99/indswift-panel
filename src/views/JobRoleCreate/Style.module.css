@@ -52,3 +52,17 @@
     margin-left: 20px;
     background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
 }
+
+#salary_range_field{
+    width: 50% !important;
+  }
+
+@media only screen and (max-width:769px){
+    #mobileResponsive{
+       display: flex;
+       flex-direction: column !important;
+    }
+    #salary_range_field{
+      width: 100% !important;
+    }
+}

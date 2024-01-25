@@ -139,7 +139,7 @@ function EmployeeImprestDetail() {
         <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
             <div>
-            <span>
+            <span className={styles.titleBalance}>
               <b>Non Travel Imprest Ledger</b>
             </span>
             <div className={styles.newLine2} />
@@ -164,7 +164,7 @@ function EmployeeImprestDetail() {
         <div className={styles.headingWrap}>
         <div className={styles.newLineWrap}>
             <div>
-            <span>
+            <span className={styles.titleBalance}>
               <b>Travel Imprest Ledger</b>
             </span>
             <div className={styles.newLine2} />
