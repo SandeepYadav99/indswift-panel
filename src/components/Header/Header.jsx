@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Menu as MenuIcon, MoreVert as OptionIcon } from "@material-ui/icons";
 import { connect } from "react-redux";
@@ -25,14 +25,18 @@ import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 import styles from "./Header.module.css";
 import notificationIcon from "../../assets/img/ic_notification_data.png";
+import notificationUnread from "../../assets/img/newNotificationIcon.png";
 import {
   useLocation,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min.js";
 
+import {serviceNotificationCountData} from "../../services/Notification.services.js"
+
 const Header = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [note, setNote] = useState(null);
+  const [unseen,setUnseen] = useState();
 
   const location = useLocation();
 
@@ -96,6 +100,15 @@ const Header = (props) => {
     }
   };
 
+  const dataCountNotifiication =()=>{
+    serviceNotificationCountData().then((res)=>{setUnseen(res?.data)})
+  }
+
+  useEffect(()=>{
+    dataCountNotifiication()
+  })
+
+
   const { classes, color, themeType, userData } = props;
 
   return (
@@ -151,11 +164,19 @@ const Header = (props) => {
           />
         </div>
         <div className={styles.imageTag}>
-          <img
+          {
+            unseen !== "0" ? 
+            <img
+            src={notificationUnread}
+            alt="default Img"
+            onClick={() => handlePushNotification()}
+          />: <img
             src={notificationIcon}
             alt="default Img"
             onClick={() => handlePushNotification()}
           />
+          }
+         
         </div>
         <div>
           <Button

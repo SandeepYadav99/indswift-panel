@@ -138,7 +138,7 @@ function CareerProgression({}) {
             <LineStatComponent data={lineStatistics} options={options} />
           </div>
           <div className={styles.viewGraphBtn}>
-            <Button onClick={handleOpen}> View Graph</Button>
+            <Button onClick={handleOpen} className={styles.btnColorDataValue}> View Graph</Button>
           </div>
         </div>
       </div>
