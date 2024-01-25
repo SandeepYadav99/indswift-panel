@@ -105,6 +105,13 @@ const ClaimsDetail = () => {
           enableBtn
           // isLoan={true}
         />
+        <ClaimCards
+          title="Tax Rebate Claim Form"
+          subtitle="Claim the amount for your paid taxes"
+          handleClick={() => handleClaimPage(10)}
+          enableBtn
+          // isLoan={true}
+        />
       </div>
       <div className={styles.tableWrapper}>
         <EmployeeClaimList />

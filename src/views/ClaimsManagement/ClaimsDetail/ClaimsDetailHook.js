@@ -33,8 +33,10 @@ const useClaimsDetail = ({}) => {
       historyUtils.push(RouteName.CLAIMS_LOAN);
     }else if(value === 8){
       historyUtils.push(RouteName.CLAIMS_INT);
-    }else{
+    }else if(value === 9){
       historyUtils.push(RouteName.CLAIMS_CURR);
+    }else {
+      historyUtils.push(RouteName.CLAIMS_TAX);
     }
   }, []);
 
