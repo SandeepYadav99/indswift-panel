@@ -188,6 +188,8 @@
   font-weight: 600;
   font-size: 0.8rem;
   gap: 40px;
+  margin-top: 10px !important;
+  flex-direction: column !important;
 }
 
 .plainPaperTwo{
