@@ -5,7 +5,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../libs/history.utils";
 import useNotificationList from "./Notification.hook";
 import DataTables from "../../components/Datatables/datatables";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Constants from "../../config/constants";
 import StatusPill from "../../components/Status/StatusPill.component";
 import { Link } from "react-router-dom";
@@ -13,11 +13,11 @@ import { serviceNotificationReadUnRead,serviceNotificationCountData } from "../.
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min.js";
 
 const EmployeeMobileCard = ({ data, index }) => {
+  const dispatch = useDispatch();
 
   const handleReadNotification = () => {
     if (data?.is_read === false) {
       serviceNotificationReadUnRead({ id: data?._id });
-      serviceNotificationCountData()
     }
   };
 
@@ -71,9 +71,6 @@ const Notification = () => {
   } = useNotificationList({});
 
   const location = useLocation();
-
-  useEffect(()=>{
-  },[])
 
 
   const {

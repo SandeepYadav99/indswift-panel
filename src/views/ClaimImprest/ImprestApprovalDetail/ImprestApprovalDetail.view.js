@@ -57,7 +57,7 @@ function ImprestApprovalDetail() {
       <UpperClaimInfo data={employeeDetail} />
       <div className={styles.plainPaper}>
         <div className={styles.newLineWrap}>
-          <span>
+          <span className={styles.titleBalance}>
             <b>Non Travel Imprest Ledger</b>
           </span>
           <div className={styles.newLine2} />
@@ -69,7 +69,7 @@ function ImprestApprovalDetail() {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.newLineWrap}>
-          <span>
+          <span className={styles.titleBalance}>
             <b>Travel Imprest Ledger</b>
           </span>
           <div className={styles.newLine2} />
@@ -82,7 +82,6 @@ function ImprestApprovalDetail() {
             ` EXPENSES : ${typeData?.expense_budget}`}
         </div>
         <TravelTable jobId={employeeDetail?.employee?.id} Claimtype="TRAVEL" />
-
       </div>
       <ClaimDetailInfo idCards={employeeDetail} isLoc={true} />
       {employeeDetail?.comments?.length > 0 && (
@@ -104,55 +103,56 @@ function ImprestApprovalDetail() {
       )}
 
       {employeeDetail?.status === "PENDING" && (
-      <div
-        className={
-          employeeDetail?.imprest?.status === "APPROVED"
-            ? styles.approvedWrapper
-            : styles.PdfBtnWrapper
-        }
-      >
-        {employeeDetail?.imprest?.status !== "APPROVED" &&
-          employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && 
-          employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && 
-          (
-            <div className={styles.editBtn2}>
-              <ButtonBase className={styles.edit} onClick={toggleRejectDialog}>
-                REJECT
-              </ButtonBase>
-            </div>
-          )}
-
-        <div className={styles.btnApproveWrapper}>
+        <div
+          className={
+            employeeDetail?.imprest?.status === "APPROVED"
+              ? styles.approvedWrapper
+              : styles.PdfBtnWrapper
+          }
+        >
           {employeeDetail?.imprest?.status !== "APPROVED" &&
-            employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && 
-            employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && 
-            (
-              <div>
+            employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" &&
+            employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && (
+              <div className={styles.editBtn2}>
                 <ButtonBase
-                  // disabled={isSubmitting}
-                  className={styles.editSuccess}
-                  onClick={toggleChangeDialog}
+                  className={styles.edit}
+                  onClick={toggleRejectDialog}
                 >
-                  CHANGE & APPROVE
+                  REJECT
                 </ButtonBase>
               </div>
             )}
-          <div>
-            <ButtonBase
-              // disabled={isSubmitting}
-              className={styles.createBtn}
-              onClick={toggleStatusDialog}
-            >
-              {employeeDetail?.imprest?.status !== "APPROVED" &&
-              employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" && 
-              employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED"
-                ? "APPROVE"
-                : "PROCESS"}
-            </ButtonBase>
+
+          <div className={styles.btnApproveWrapper}>
+            {employeeDetail?.imprest?.status !== "APPROVED" &&
+              employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" &&
+              employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED" && (
+                <div>
+                  <ButtonBase
+                    // disabled={isSubmitting}
+                    className={styles.editSuccess}
+                    onClick={toggleChangeDialog}
+                  >
+                    CHANGE & APPROVE
+                  </ButtonBase>
+                </div>
+              )}
+            <div>
+              <ButtonBase
+                // disabled={isSubmitting}
+                className={styles.createBtn}
+                onClick={toggleStatusDialog}
+              >
+                {employeeDetail?.imprest?.status !== "APPROVED" &&
+                employeeDetail?.imprest?.status !== "ACCOUNTS_APPROVED" &&
+                employeeDetail?.imprest?.status !== "CORPORATE_HR_APPROVED"
+                  ? "APPROVE"
+                  : "PROCESS"}
+              </ButtonBase>
+            </div>
           </div>
         </div>
-      </div>
-)}
+      )}
     </div>
   );
 }
