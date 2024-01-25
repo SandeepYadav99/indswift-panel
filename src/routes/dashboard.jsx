@@ -1308,7 +1308,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    hideMobileView:true,
+    // hideMobileView:true,
     roles: [Roles.ADMIN,Roles.HR,Roles.CORPORATE_HR],
   },
   {
@@ -1321,7 +1321,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    hideMobileView:true,
+    // hideMobileView:true,
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
