@@ -40,3 +40,6 @@ export async function serviceUpdateIntClaim(params) {
 export async function serviceUpdateForeignClaim(params) {
     return await formDataRequest('employee/claims/create/travel/foreign', params);
 }
+export async function serviceUpdateFile(params) {
+    return await formDataRequest('files/upload', params,{"folder": "tax_rebate"});
+}

@@ -12,6 +12,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+const ClaimTaxCard = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/ClaimTaxCard/ClaimTaxCard.view.js"));
 const EmpTravelDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpTravelDetail/EmpTravelDetail.view.js"));
 const EmpForeignDetail = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmployeeForeign/EmpForeignDetail.view.js"));
 const TravelAuthSpec = lazy (()=> import ("../views/TravelPlanner/TravelAuthSpec/TravelAuthSpec.container.js"));
@@ -1307,7 +1308,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    hideMobileView:true,
+    // hideMobileView:true,
     roles: [Roles.ADMIN,Roles.HR,Roles.CORPORATE_HR],
   },
   {
@@ -1320,7 +1321,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "budget",
-    hideMobileView:true,
+    // hideMobileView:true,
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -1761,6 +1762,18 @@ const dashboardRoutes = [
     navbarName: "Claims Int",
     icon: PeopleOutlined,
     component: ClaimForCard,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
+  },
+  {
+    path: `${RouteName.CLAIMS_TAX}`,
+    sidebarName: "Claims Int",
+    navbarName: "Claims Int",
+    icon: PeopleOutlined,
+    component: ClaimTaxCard,
     is_sidebar: false,
     is_protect: true,
     should_regex: true,
