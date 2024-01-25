@@ -78,7 +78,6 @@ function CareerProgression({}) {
         id={styles.paperwidthData}
         style={dialogStyle}
       >
-          {" "}
           <div className={styles.GeneralInfoWrapeer}>
             <div className={styles.alignDataToWrapper}>
               <div>

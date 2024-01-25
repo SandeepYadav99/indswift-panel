@@ -100,7 +100,7 @@
     display: none !important;
   }
   .chartWrapper{
-    width: calc(100vw - 300px);
+    width: calc(100vw - 100px);
   }
 }
 @media (max-width: 769px) {
@@ -112,8 +112,9 @@
     display: none;
   }
   .chartWrapper{
-    width: calc(100vw - 100px);
+    width: calc(100vw);
     display: none !important;
+    height: 400px !important;
   }
   .viewGraphBtn{
     display:  block !important;

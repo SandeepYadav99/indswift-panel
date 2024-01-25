@@ -21,7 +21,7 @@ const LineStat = ({ theme, classes, data }) => {
         bezierCurve: true,
         elements: {
             line: {
-                // tension: 100
+                tension: 100
             }
         },
         legend: {
