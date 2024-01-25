@@ -146,7 +146,8 @@ class SidePanelComponent extends Component {
             padding: "10px",
           }}
         >
-          <div className={styles.sideUpper}>
+          {
+            this.props.open &&   <div className={styles.sideUpper}>
             <ButtonBase className={styles.btnIcon} onClick={this._handleOpen}>
               {this.props.isBack ? <ArrowBackIosOutlined /> : <Close></Close>}
             </ButtonBase>
@@ -154,6 +155,7 @@ class SidePanelComponent extends Component {
               <h3 style={{}}>{this.props.title}</h3>
             </div>
           </div>
+          }
           <br />
           <br />
 
