@@ -97,6 +97,7 @@ const Header = (props) => {
       historyUtils.push(RouteName.NOTIFICATION);
     } else {
       historyUtils.goBack();
+      window. location. reload();
     }
   };
 

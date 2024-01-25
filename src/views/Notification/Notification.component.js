@@ -9,14 +9,15 @@ import { useSelector } from "react-redux";
 import Constants from "../../config/constants";
 import StatusPill from "../../components/Status/StatusPill.component";
 import { Link } from "react-router-dom";
-import { serviceNotificationReadUnRead } from "../../services/Notification.services.js";
+import { serviceNotificationReadUnRead,serviceNotificationCountData } from "../../services/Notification.services.js";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min.js";
 
 const EmployeeMobileCard = ({ data, index }) => {
 
   const handleReadNotification = () => {
     if (data?.is_read === false) {
       serviceNotificationReadUnRead({ id: data?._id });
-      
+      serviceNotificationCountData()
     }
   };
 
@@ -68,6 +69,12 @@ const Notification = () => {
     configFilter,
     handleLeaveApplicationForm,
   } = useNotificationList({});
+
+  const location = useLocation();
+
+  useEffect(()=>{
+  },[])
+
 
   const {
     data,
@@ -123,6 +130,7 @@ const Notification = () => {
   const handleReadNotification = (data) => {
     if (data?.is_read === false) {
       serviceNotificationReadUnRead({ id: data?._id });
+      serviceNotificationCountData()
     }
   };
 
