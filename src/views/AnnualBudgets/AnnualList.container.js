@@ -180,7 +180,7 @@ const AnnualList = ({}) => {
                   <InfoOutlined fontSize={"small"} />
                 </IconButton>
                 <IconButton
-                  className={"tableActionBtn"}
+                 className={styles.tableActionBtn}
                   color="secondary"
                   disabled={isCalling}
                   onClick={() => {
@@ -292,7 +292,7 @@ const AnnualList = ({}) => {
                   <InfoOutlined fontSize={"small"} />
                 </IconButton>
                 <IconButton
-                  className={"tableActionBtn"}
+                  className={styles.tableActionBtn}
                   color="secondary"
                   disabled={isCalling}
                   onClick={() => {
@@ -427,6 +427,31 @@ const AnnualList = ({}) => {
             {sanction?.estimated_spent && `${sanction?.estimated_spent}`} |
             DIFFERENCE :{" "}
             {sanction?.estimatedDiff && `${sanction?.estimatedDiff}`}
+          </div>
+          <div className={styles.experseWrapMobile}>
+            <div className={styles.innerWrapper}>
+              SANCTIONED : {sanction?.sanctioned && `${sanction?.sanctioned}`}
+            </div>
+            <div className={styles.innerWrapper}>
+              POSTED : {sanction?.posted && `${sanction?.posted} `}
+            </div>
+            <div className={styles.innerWrapper}>
+              VACANCY : {sanction?.vacancies && ` ${sanction?.vacancies} `}
+            </div>
+            <div className={styles.innerWrapper}>
+              EXPENSES :
+              {sanction?.expense_budget !== undefined &&
+                `  ${sanction?.expense_budget}`}
+            </div>
+            
+            <div className={styles.innerWrapper}>
+            ESTIMATED SPENT :{" "}
+              {sanction?.estimated_spent && `${sanction?.estimated_spent}`}
+            </div>
+            <div className={styles.innerWrapper}>
+              DIFFERENCE :
+              {sanction?.estimatedDiff && `${sanction?.estimatedDiff}`}
+            </div>
           </div>
           <div>
             <br />
