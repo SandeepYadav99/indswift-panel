@@ -83,3 +83,12 @@
 .searchInput:focus {
     outline: none;
 }
+
+@media only screen and (max-width:769px) {
+    .value{
+        font-weight: 600;
+        width: fit-content !important;
+        color: black;
+        display: inline-block;
+    }
+}

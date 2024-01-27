@@ -136,4 +136,12 @@
         display: flex;
         flex-direction:column !important;
     }
+    .mainFlex{
+        display: flex;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    .vertical{
+        display: none !important;
+    }
 }

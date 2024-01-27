@@ -13,6 +13,7 @@ import styles from "./UpperInfo.module.css";
 import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 const UpperInfo = ({
   data,
@@ -65,7 +66,9 @@ const UpperInfo = ({
     );
   };
 
-  console.log(isAdmin, "isAdmin is here");
+  const location = useLocation();
+
+  const pathUrl = location?.pathName;
 
   return (
     <div>
@@ -123,9 +126,10 @@ const UpperInfo = ({
           </div>
           <div id={styles.desktopView}>
             <div id={styles.iconStatusImage}>
-            <StatusPill status={data?.status} />
+              <StatusPill status={data?.status} />
             </div>
-            <br/><br/>
+            <br />
+            <br />
             <ActionButton
               onClick={() => {
                 historyUtils.push(`${RouteName.MY_PROFILE_UPDATE}`);
