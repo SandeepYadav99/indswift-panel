@@ -122,7 +122,6 @@
   .btnContainerCheckBox {
     padding-bottom: 40px;
     position:  relative !important;
-    z-index: -100000;
   }
 
   .panelListImg {
