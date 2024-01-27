@@ -44,3 +44,17 @@
     font-size: 0.8rem;
     margin: 5px 0px
 }
+.btnView{
+    display: flex;
+    justify-content: space-between !important;
+}
+
+@media only screen and (max-width:769px){
+    .btnView{
+        display: flex;
+        width: 40% !important;
+        gap: 10px;
+        flex-direction: column !important;
+    }
+    
+}

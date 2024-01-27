@@ -105,7 +105,9 @@
     text-align: right;
     position: relative;
     bottom: 10px;
+    display: none !important;
 }
+
 .upperCardWidthData{
     width: 70%;
 }
@@ -211,7 +213,11 @@
 }
 
 #desktopView{
-    display: none !important;
+    display: block !important;
+}
+
+#iconStatusImage{
+    display: block !important;
 }
 
 @media only screen and (min-width:769px)and (max-width:1024px) {
@@ -370,6 +376,15 @@
     }
     #desktopView{
         display: block !important;
+    }
+    .statusWrap {
+        text-align: right;
+        position: relative;
+        bottom: 10px;
+        display: block !important;
+    }
+    #iconStatusImage{
+        display: none !important;
     }
 }
 

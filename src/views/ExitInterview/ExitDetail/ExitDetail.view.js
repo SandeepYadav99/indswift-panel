@@ -10,7 +10,6 @@ import { ButtonBase } from "@material-ui/core";
 function ExitDetail() {
   const { employeeDetail, UpperTable, LowerTable,salary } = useExitDetail({});
 
-  console.log("employeeDetail", employeeDetail);
   return (
     <div className={styles.evaluationFormWrapper}>
       <div>

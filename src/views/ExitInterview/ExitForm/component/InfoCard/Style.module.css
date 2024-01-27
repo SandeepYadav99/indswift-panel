@@ -1,6 +1,7 @@
 .candidateInfoWrapper {
   display: flex;
   padding: 1.2rem;
+  width: 100% !important;
 }
 .leftField {
   flex: 1;
@@ -43,3 +44,56 @@
   flex-direction: column;
   gap: 10px;
 }
+.containerTop{
+  display: flex;
+  flex-direction: column !important;
+  width: 100% !important;
+}
+.secondContainer{
+  display: flex !important;
+  margin-top:  10px !important;
+  justify-content: space-around !important;
+  gap: 10px !important;
+}
+.thirdContainer{
+  display: flex !important;
+  justify-content: space-around;
+}
+
+@media only screen and (max-width:769px){
+  .imageDesWrapper{
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .secondContainer{
+    display: flex !important;
+    margin-top:  10px !important;
+    justify-content: space-around !important;
+    gap: 10px !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  .imageAlignCenter{
+    display: flex;
+    justify-content: center !important;
+  }
+  .key{
+    display: flex;
+    flex-direction: column !important;
+  }
+ 
+}
+
+@media only screen and (max-width:490px){
+  .thirdContainer{
+    display: flex;
+    flex-direction: column !important;
+  }
+  .imageAlignCenter{
+    display: flex;
+    justify-content: flex-start !important;
+  }
+}
+

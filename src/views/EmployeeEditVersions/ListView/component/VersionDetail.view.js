@@ -30,13 +30,14 @@ const VersionDetailView = ({id, isOpen, handleClose}) => {
             <EmployeeInfoComponent data={data?.employee} />
             <h4>Change Log</h4>
             {changeLog}
-            <div>
+            <div className={styles.btnView}>
                 {data?.status === 'PENDING' && (<>
                     <ButtonBase disabled={isSubmitting}
                         className={csx(classes.btnBorder, styles.rejectBtn)}
                         onClick={handleReject}>
                         Reject
                     </ButtonBase>
+                    
                     <ButtonBase  disabled={isSubmitting} onClick={handleApprove} className={classes.btnBorder}>Approve</ButtonBase>
                 </>)}
             </div>
