@@ -769,8 +769,8 @@ const dashboardRoutes = [
   },
   {
     path: "null",
-    sidebarName: "Leave & Attendence",
-    navbarName: "Leave & Attendence",
+    sidebarName: "Leave & Attandance",
+    navbarName: "Leave & Attendance",
     icon: AssignmentOutlined,
     is_sidebar: true,
     slug: "leave_attend",
