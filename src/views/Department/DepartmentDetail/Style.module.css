@@ -132,3 +132,15 @@
 .info{
     margin-left: 10px;
 }
+
+@media only screen and (max-width:769px) {
+    .mainFlex{
+        display: flex;
+        flex-direction: column-reverse !important;
+        margin-top:10px !important;
+        gap: 20px !important;
+    }
+    .vertical{
+        display: none !important;
+    }
+}

@@ -152,3 +152,47 @@
   .approveContainer{
    text-align: end;
   }
+  .adjustImageContainer{
+    display: flex;
+    flex-direction: row !important;
+}
+.detailContainer{
+    display: flex !important;
+}
+.mobileDropDown{
+    display: none !important;
+}
+
+ @media only screen and (max-width:769px) {
+    .adjustImageContainer{
+         display: flex;
+         flex-direction: column !important;
+    }
+    .vertical {
+        border-left: 1px dashed #B8C5D3;
+        max-height: 300px;
+        flex: 0.3;
+    }
+    .dropDownContainer{
+        display: none !important;
+    }
+    .value{
+        width:fit-content !important;
+    }
+    .key{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .mainFlex{
+        display: flex;
+        justify-content:center !important;
+    }
+    .mobileDropDown{
+        display: block !important;
+    }
+    .imageAlignCenter{
+        display: flex;
+        justify-content: center !important;
+        margin-bottom: 10px !important;
+    }
+ }

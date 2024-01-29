@@ -220,6 +220,10 @@
     display: block !important;
 }
 
+.hideEditBtnData{
+    display: block !important;
+}
+
 @media only screen and (min-width:769px)and (max-width:1024px) {
     .rightPartContainer {
         display: flex;
@@ -247,9 +251,6 @@
         border-radius: 100% !important
     }
 
-    .rightPartContainer{
-        text-align: end;
-    }
     .profileContainer {
         flex-direction: column;
     }
@@ -268,9 +269,8 @@
 
     .blueBackground {
         height: 100%;
-        border-radius: 25px !important;
-        /* border-top-left-radius: 25px !important;
-        border-top-right-radius: 25px !important; */
+        border-top-left-radius: 10px !important;
+        border-top-right-radius: 10px !important;
     }
 
     .blueBackground .innerContainer {
@@ -388,6 +388,9 @@
         display: block !important;
     }
     #iconStatusImage{
+        display: none !important;
+    }
+    .hideEditBtnData{
         display: none !important;
     }
 }
