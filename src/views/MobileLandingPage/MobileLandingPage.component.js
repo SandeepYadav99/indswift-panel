@@ -1,5 +1,4 @@
 import styles from "./styled.module.css";
-import indiSwiftIcon from "../../assets/img/indswift family illustration.png";
 import { useEffect } from "react";
 import history from "../../libs/history.utils";
 import { Link } from "react-router-dom";
@@ -15,6 +14,7 @@ import LeaveApplication from "../../assets/Mobile/ic_application.png";
 import Circular from "../../assets/Mobile/ic_circular.png";
 import Engagement from "../../assets/Mobile/ic_engage.png";
 import HCMModule from "../../assets/Mobile/ic_hcm.png";
+import IndiswiftBannerImage from "../../assets/Mobile/SkyNetBannerMobile.jpg";
 
 const MobileLandingPage = () => {
   useEffect(() => {
@@ -26,7 +26,7 @@ const MobileLandingPage = () => {
     <div className={styles.container}>
       <div className={styles.imageContainer}>
         <img
-          src={indiSwiftIcon}
+          src={IndiswiftBannerImage}
           alt="text"
           className={styles.widthImageAdjust}
         />

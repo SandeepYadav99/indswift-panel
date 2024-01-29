@@ -252,6 +252,7 @@ export default {
   NOTIFICATION:"/notification",
 
   APP_NOTIFICATION:"/app/notification",
-  APP_NOTIFICATION_CREATE:"/app/notification/create"
+  APP_NOTIFICATION_CREATE:"/app/notification/create",
+  HOMEPAGE_MOBILE:"/mobile/dashboard",
 
 };

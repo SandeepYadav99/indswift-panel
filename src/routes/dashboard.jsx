@@ -2786,7 +2786,7 @@ const dashboardRoutes = [
   is_protect: true,
 },
 {
-  path: "/mobile/dashboard",
+  path: `${RouteName.HOMEPAGE_MOBILE}`,
   icon: DashboardOutlined,
   component: MobileLandingPage,
   is_sidebar: false,
