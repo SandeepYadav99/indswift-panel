@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, useState} from "react";
 import {
   Dashboard,
   LocalOffer,
@@ -476,7 +476,17 @@ const MobileLandingPage = lazy(()=>import("../views/MobileLandingPage/MobileLand
 const Roles = Constants.ROLES;
 
 
+
 const dashboardRoutes = [
+  {
+    path: `${RouteName.HOMEPAGE_MOBILE}`,
+    icon: DashboardOutlined,
+    sidebarName: "Home Page",
+    navbarName: "Home Page",
+    component: MobileLandingPage,
+    is_sidebar:false,
+    is_protect: true,
+  },
   {
     path: RouteName.MY_PROFILE,
     sidebarName: "My Profile",
@@ -2785,13 +2795,7 @@ const dashboardRoutes = [
   is_sidebar: false,
   is_protect: true,
 },
-{
-  path: `${RouteName.HOMEPAGE_MOBILE}`,
-  icon: DashboardOutlined,
-  component: MobileLandingPage,
-  is_sidebar: false,
-  is_protect: true,
-},
+
 ];
 
 export default dashboardRoutes;
