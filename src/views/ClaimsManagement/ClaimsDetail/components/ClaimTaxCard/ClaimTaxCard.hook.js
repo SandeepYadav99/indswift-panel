@@ -48,21 +48,23 @@ const useTaxCard = ({}) => {
 
   //   serviceUpdateFile
   const getUrlfromFile = (text, fieldName) => {
-    console.log("data",typeof(text),text)
+    console.log("text, fieldName",text, fieldName)
     const fd = new FormData();
     text.forEach((item)=>{
         fd.append("files",item)
     })
-    // fd.append("file", text);
     let req = serviceUpdateFile(
       fd
     );
     req.then((res) => {
-      console.log(res);
-      //   console.log("bool", booleanData);
+      const data = res?.data
+      setForm({...form,[fieldName]:[...data]})
     });
   };
 
+  const deleteImage = (text,fieldName)=>{
+    setForm({...form,[fieldName]:[...text]})
+  }
   console.log("form", form);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -177,7 +179,8 @@ const useTaxCard = ({}) => {
     setDeclaration,
     employeeDetails,
     claimInfo,
-    getUrlfromFile
+    getUrlfromFile,
+    deleteImage
   };
 };
 
