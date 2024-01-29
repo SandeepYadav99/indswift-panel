@@ -6,13 +6,14 @@ const isProduction = process.env.REACT_APP_ENV === "production";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const socketUrl = process.env.REACT_APP_SOCKET_URL;
-
+const uploaderUrl = process.env.REACT_APP_UPLOADER_URL;
 export default {
   is_development: process.env.NODE_ENV === "development" || !isProduction,
   testing_env: process.env.REACT_APP_ENV,
   TIME_ZONE: -(tempDate.getTimezoneOffset() / 60),
   DEFAULT_TIME_FORMAT: "DD-MM-YYYY, HH:mm",
   APP_NAME: "IndSwift Panel",
+  UPLOADER_URL:uploaderUrl,
   DEFAULT_APP_URL: apiUrl,
   SOCKET_URL: socketUrl,
   // DEFAULT_APP_URL: 'http://35.154.147.169:5055/api/',

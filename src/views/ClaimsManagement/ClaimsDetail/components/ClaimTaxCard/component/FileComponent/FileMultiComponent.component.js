@@ -2,7 +2,7 @@ import React, { Component, useMemo } from "react";
 import styles from "./FileComponent.module.css";
 import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
 import EventEmitter from "../../../../../../../libs/Events.utils";
-
+import constants from "../../../../../../../config/constants";
 class MultiFile extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +76,7 @@ class MultiFile extends Component {
   _getImageUrl(value) {
     const { default_image, user_image } = this.props;
     if (value) {
-      return URL.createObjectURL(value);
+      return value;
     } else if (default_image) {
       return default_image;
     } else if (user_image) {
@@ -88,7 +88,7 @@ class MultiFile extends Component {
     const { value } = this.props;
     const filtered = [...value];
     filtered.splice(values, 1);
-    this.props.onChange(filtered);
+    this.props.deleteImage(filtered);
   }
 
   _removedefImages(values) {
@@ -144,7 +144,7 @@ class MultiFile extends Component {
             multiDef?.map((image, index) => (
               <div className={styles.imgWrapper}>
                 <a key={`Image_def_${index}`} href={image}>
-                  view
+                  viewss
                 </a>
                 {/* <img
                   key={`Image_def_${index}`}
@@ -162,12 +162,7 @@ class MultiFile extends Component {
           {value?.length > 0 &&
             value?.map((image, index) => (
               <div className={styles.imgWrapper}>
-                {/* <img
-                  key={index}
-                  src={URL.createObjectURL(image)}
-                  alt={`Image_${index}`}
-                /> */}
-                <a key={`Image_def_${index}`} href={URL.createObjectURL(image)} target="_blank">
+                <a key={`Image_def_${index}`} href={constants?.UPLOADER_URL + image} target="_blank">
                   view
                 </a>
                 <div
