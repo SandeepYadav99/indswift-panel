@@ -14,7 +14,7 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const SET_PROFILE = 'SET_PROFILE';
 export const GET_PROFILE_INIT = 'GET_PROFILE_INIT';
 
-
+const isMobile = window.innerWidth <= 768;
 export function actionLoginUser(data, isKeepLogin = null) {
     return (dispatch) => {
         if (data) {
@@ -30,8 +30,12 @@ export function actionLoginUser(data, isKeepLogin = null) {
             // dispatch(actionGetProfile());
             if (data?.should_reset_password) {
                 history.push(RouteName.RESET_PASSWORD_FIRST);
-            } else {
+            } else{
+                 if (isMobile){
+                    history.push(`/mobile/dashboard`);
+                }else{
                 history.push(`/`);
+                }
             }
         }
     };

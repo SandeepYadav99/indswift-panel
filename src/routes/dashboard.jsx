@@ -472,7 +472,10 @@ const NotificationListModule = lazy(()=>import("../views/NotificationModule/Noti
 
 const NotificationCreateModule = lazy(()=>import("../views/NotificationModule/SendNotification/Create.module.js"))
 
+const MobileLandingPage = lazy(()=>import("../views/MobileLandingPage/MobileLandingPage.component.js"))
+
 const Roles = Constants.ROLES;
+
 
 const dashboardRoutes = [
   {
@@ -770,8 +773,8 @@ const dashboardRoutes = [
   },
   {
     path: "null",
-    sidebarName: "Leave & Attendence",
-    navbarName: "Leave & Attendence",
+    sidebarName: "Leave & Attandance",
+    navbarName: "Leave & Attendance",
     icon: AssignmentOutlined,
     is_sidebar: true,
     slug: "leave_attend",
@@ -2805,6 +2808,13 @@ const dashboardRoutes = [
   path: `${RouteName.APP_NOTIFICATION_CREATE}`+`/:id`,
   icon: DashboardOutlined,
   component: NotificationCreateModule,
+  is_sidebar: false,
+  is_protect: true,
+},
+{
+  path: "/mobile/dashboard",
+  icon: DashboardOutlined,
+  component: MobileLandingPage,
   is_sidebar: false,
   is_protect: true,
 },

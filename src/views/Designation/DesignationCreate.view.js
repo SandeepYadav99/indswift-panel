@@ -61,7 +61,7 @@ const DesignationCreateView = ({}) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveness}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.name}
@@ -78,7 +78,7 @@ const DesignationCreateView = ({}) => {
           </div>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveness}>
           <div className="formGroup">
             <CustomSelectField
               isError={errorData?.grade_id}
@@ -118,7 +118,7 @@ const DesignationCreateView = ({}) => {
             </CustomSelectField>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsiveness}>
           <div className="formGroup">
             <CustomSelectField
               isError={errorData?.parent_id}
