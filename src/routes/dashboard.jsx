@@ -471,7 +471,10 @@ const NotificationListModule = lazy(()=>import("../views/NotificationModule/Noti
 
 const NotificationCreateModule = lazy(()=>import("../views/NotificationModule/SendNotification/Create.module.js"))
 
+const MobileLandingPage = lazy(()=>import("../views/MobileLandingPage/MobileLandingPage.component.js"))
+
 const Roles = Constants.ROLES;
+
 
 const dashboardRoutes = [
   {
@@ -2779,6 +2782,13 @@ const dashboardRoutes = [
   path: `${RouteName.APP_NOTIFICATION_CREATE}`+`/:id`,
   icon: DashboardOutlined,
   component: NotificationCreateModule,
+  is_sidebar: false,
+  is_protect: true,
+},
+{
+  path: "/mobile/dashboard",
+  icon: DashboardOutlined,
+  component: MobileLandingPage,
   is_sidebar: false,
   is_protect: true,
 },
