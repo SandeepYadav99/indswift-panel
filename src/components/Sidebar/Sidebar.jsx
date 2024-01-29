@@ -179,7 +179,8 @@ const Sidebar = ({ ...props }) => {
       const filteredMobileRoute = routes?.filter((val) => !val?.hideMobileView);
       setData(filteredMobileRoute);
     } else {
-      setData(routes);
+      const filteredDesktopRoute = routes?.filter((val) => !val?.isDesktopHide);
+      setData(filteredDesktopRoute);
     }
     const filteredRoute = routes?.filter((item) => item?.is_parent);
     setParentRoute(filteredRoute);
@@ -242,7 +243,11 @@ const Sidebar = ({ ...props }) => {
           ]?.filter((item) => !item.hideMobileView);
           setData([...uniqueRoute]);
         } else {
-          setData([...uniquePathObjects, ...nullPathObjects]);
+          const uniqueDeskRoute = [
+            ...uniquePathObjects,
+            ...nullPathObjects,
+          ]?.filter((item) => !item.isDesktopHide);
+          setData([...uniqueDeskRoute]);
         }
       } else {
         if (isMobile) {
@@ -251,7 +256,10 @@ const Sidebar = ({ ...props }) => {
           );
           setData(filteredMobileRoute);
         } else {
-          setData(routes);
+          const filteredDeskRoute = routes?.filter(
+            (val) => !val?.isDesktopHide
+          );
+          setData(filteredDeskRoute);
         }
       }
     },

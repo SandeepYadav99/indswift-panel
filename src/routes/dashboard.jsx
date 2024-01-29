@@ -485,8 +485,9 @@ const dashboardRoutes = [
     sidebarName: "Home Page",
     navbarName: "Home Page",
     component: MobileLandingPage,
-    is_sidebar:false,
+    is_sidebar:true,
     is_protect: true,
+    isDesktopHide:true,
   },
   {
     path: RouteName.MY_PROFILE,
