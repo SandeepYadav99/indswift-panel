@@ -8,12 +8,14 @@ function useEmployeeLoanDetail() {
   const [employeeDetail, setEmployeeDetail] = useState({});
 
   const { id } = useParams();
+
   useEffect(() => {
     let req = serviceGetEmployeeLoanDetails({ id: id });
     req.then((data) => {
       setEmployeeDetail(data?.data?.details);
     });
   }, [id]);
+
   return {
     id,
     employeeDetail,

@@ -69,7 +69,7 @@ const LoanList = () => {
         key: "id",
         label: "Loan id",
         sortable: false,
-        render: (temp, all) => <div>{all?.loan?.code}</div>,
+        render: (temp, all) => <div className={styles.statusWrap}>{all?.loan?.code}</div>,
       },
       {
         key: "name",
@@ -93,14 +93,14 @@ const LoanList = () => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.loan?.employee?.location?.name}</div>,
+        render: (temp, all) => <div className={styles.statusWrap}>{all?.loan?.employee?.location?.name}</div>,
       },
       {
         key: "desigination",
         label: "DESIGNATION",
         sortable: false,
         render: (temp, all) => (
-          <div>{all?.loan?.employee?.designation?.name}</div>
+          <div className={styles.statusWrap}>{all?.loan?.employee?.designation?.name}</div>
         ),
       },
       {
@@ -108,7 +108,7 @@ const LoanList = () => {
         label: "DEPT & SUB-DEPT",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.statusWrap}>
             {all?.loan?.employee?.department?.name} /{" "}
             {all?.loan?.employee?.sub_department?.name}
           </div>
@@ -161,7 +161,7 @@ const LoanList = () => {
         label: "Current status/Overall status",
         sortable: true,
         render: (temp, all) => (
-          <div>
+          <div className={styles.statusWrap}>
             {renderStatus(removeUnderScore(all?.status))}
             <br /> <br />
             {renderStatus(removeUnderScore(all?.loan?.status))}
@@ -182,7 +182,8 @@ const LoanList = () => {
                 handleViewDetails(all);
               }}
             >
-              <InfoOutlined fontSize={"small"} />
+                <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}} />
+              <div className={styles.textStyles}>View information</div>
             </IconButton>
             {/* <IconButton
               className={"tableActionBtn"}

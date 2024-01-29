@@ -60,6 +60,7 @@ const EmployeeListCreate = ({}) => {
       role,
       isSubmitting
   } = useEmployeeEditHook({});
+  const isMobile = window.innerWidth <= 768;
 
   const image = useMemo(() => {
     return (
@@ -790,7 +791,7 @@ const EmployeeListCreate = ({}) => {
             <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Fathers Passing Away Date"}
+                label={isMobile ? "Father's DOD": "Fathers Passing Away Date"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "father_dod");
@@ -850,7 +851,7 @@ const EmployeeListCreate = ({}) => {
               <div className={"formGroup"}>
               <CustomDatePicker
                 clearable
-                label={"Mother Passing Away Date"}
+                label={isMobile ? "Mother's DOD" : "Mother Passing Away Date"}
                 maxDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "mother_dod");
@@ -1088,7 +1089,7 @@ const EmployeeListCreate = ({}) => {
               />
             <div className={styles.editBtnWrap}>
               <IconButton
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("YES", "is_car_component_manual");
@@ -1099,7 +1100,7 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("NO", "is_car_component_manual");
@@ -1124,7 +1125,7 @@ const EmployeeListCreate = ({}) => {
               <div className={"heading"}>Part A - Earnings 1</div>
             </h4>
           </div>
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileResponsiveData}>
             {/* <div className={"formGroup"}>
                 <CustomTextField
                   disabled={true}
@@ -1160,7 +1161,7 @@ const EmployeeListCreate = ({}) => {
             <div className={styles.editBtnWrap}>
               <IconButton
                 disabled={role !=="CORPORATE_HR"}
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("YES", "is_basic_salary_manual");
@@ -1172,7 +1173,7 @@ const EmployeeListCreate = ({}) => {
             <div className={styles.editBtnWrap}>
               <IconButton
                 disabled={role !=="CORPORATE_HR"}
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("NO", "is_basic_salary_manual");
@@ -1281,7 +1282,7 @@ const EmployeeListCreate = ({}) => {
           {/* {form?.is_pug_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("YES", "is_pug_manual");
@@ -1292,7 +1293,7 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("NO", "is_pug_manual");
@@ -1340,7 +1341,7 @@ const EmployeeListCreate = ({}) => {
           {/* {form?.is_helper_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("YES", "is_helper_manual");
@@ -1351,7 +1352,7 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("NO", "is_helper_manual");
@@ -1398,7 +1399,7 @@ const EmployeeListCreate = ({}) => {
           {/* {form?.is_food_coupons_manual == "NO" && ( */}
             <div className={styles.editBtnWrap}>
               <IconButton
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("YES", "is_food_coupons_manual");
@@ -1409,7 +1410,7 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
-                className={"tableActionBtn"}
+                className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
                   changeTextData("NO", "is_food_coupons_manual");
@@ -1759,7 +1760,7 @@ const EmployeeListCreate = ({}) => {
             />
           <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("YES", "is_em_esi_manual");
@@ -1770,7 +1771,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("NO", "is_em_esi_manual");
@@ -1817,7 +1818,7 @@ const EmployeeListCreate = ({}) => {
             />
           <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("YES", "is_em_pf_manual");
@@ -1828,7 +1829,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("NO", "is_em_pf_manual");
@@ -1877,7 +1878,7 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("YES", "is_er_pf_manual");
@@ -1888,7 +1889,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("NO", "is_er_pf_manual");
@@ -1916,7 +1917,7 @@ const EmployeeListCreate = ({}) => {
               />
             <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("YES", "is_er_esi_manual");
@@ -1927,7 +1928,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("NO", "is_er_esi_manual");
@@ -1990,7 +1991,7 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("YES", "is_gratuity_manual");
@@ -2001,7 +2002,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("NO", "is_gratuity_manual");
@@ -2112,7 +2113,7 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("YES", "is_two_car_maintenance_manual");
@@ -2123,7 +2124,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("NO", "is_two_car_maintenance_manual");
@@ -2152,7 +2153,7 @@ const EmployeeListCreate = ({}) => {
               />
             <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("YES", "is_two_fuel_manual");
@@ -2163,7 +2164,7 @@ const EmployeeListCreate = ({}) => {
           </div>
           <div className={styles.editBtnWrap}>
             <IconButton
-              className={"tableActionBtn"}
+              className={"tableActionBtnEdit"}
               color="secondary"
               onClick={() => {
                 changeTextData("NO", "is_two_fuel_manual");

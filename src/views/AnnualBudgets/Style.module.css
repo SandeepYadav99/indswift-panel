@@ -260,3 +260,49 @@
     display: flex;
     align-items: center;
 }
+.experseWrapMobile{
+    display: none;
+}
+.tableActionBtn {
+    padding: 6px !important;
+    color: rgb(147, 154, 191) !important;
+}
+@media (max-width:767px){
+    .headerContainer{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .tableActionBtn{
+        display: none;
+    }
+    .rightFlex{
+        width: 100%;
+    }
+    .drop{
+        margin-left: 0;
+        flex: 1;
+    }
+    .yearFlex{
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 0;
+    }
+    .experseWrap{
+        display: none;
+    }
+    .experseWrapMobile{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        color: #2896E9;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: .8rem;
+        padding: 0 10px;
+    }
+    .innerWrapper{
+        width: 50%;
+    }
+    }

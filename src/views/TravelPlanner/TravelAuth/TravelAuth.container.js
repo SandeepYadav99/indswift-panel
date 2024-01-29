@@ -107,7 +107,7 @@ const TravelAuth = ({ location }) => {
         key: "employee",
         label: "Employee",
         sortable: false,
-        render: (temp, all) => <div><b>{all?.employee?.name}</b><br/>{all?.employee?.designation?.name}<br/>{all?.employee?.emp_code}</div>,
+        render: (temp, all) => <div><b>{all?.employee?.name}</b><br/>{all?.employee?.emp_code}</div>,
       },
       {
         key: "grade",
@@ -197,6 +197,7 @@ const TravelAuth = ({ location }) => {
       {
         key: "user_id",
         label: "Action",
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton
@@ -248,7 +249,7 @@ const TravelAuth = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Travel Authorization & Planner</span>
+            <span className={styles.title}>Travel Authorization & Planner </span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrap}>
@@ -263,7 +264,7 @@ const TravelAuth = ({ location }) => {
             </div>
             }
         
-          <div className={styles.rightFlex}>
+          <div className={styles.rightFlex211}>
               <ButtonBase
                 className={styles.download}
                 onClick={handleCsvDownload}

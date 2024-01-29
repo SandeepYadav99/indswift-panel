@@ -30,7 +30,7 @@ import RetiredDialog from "./components/RetiredPopUp/RetiredDialog.view";
 //     {data?.name} - {data?.emp_code}
 //     <br/>
 //     {data?.department?.name}
-//   </div>)
+//   </div>)z
 // }
 
 const EmployeeList = ({}) => {

@@ -137,7 +137,9 @@
 .iconColorData {
     color: black !important;
 }
-
+.mobileColor{
+    display: none;
+}
 @media only screen and (max-width :769px) {
     .mobileColor {
         display: block !important;
@@ -147,5 +149,8 @@
 
     .iconColorData {
         color: #2896E9 !important;
+    }
+    .rightFlex211{
+        display: none;
     }
 }

@@ -9,13 +9,13 @@ import { Visibility } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 
 import StatusPill from "../../components/Status/StatusPill.component";
 import useEmployeeRecordApprovals from "./EmployeeRecordApprovalHook";
 import RecordDetailView from "./component/RecordDetail";
+import Datatables from "../../components/Datatables/datatables";
 
 const EmployeeRecordApprovals = () => {
   const {
@@ -86,7 +86,7 @@ const EmployeeRecordApprovals = () => {
         label: "UPDATED BY",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.textAlign}>
             {all?.editedBy?.name} <br />
             {all?.createdAtText}
           </div>
@@ -127,6 +127,7 @@ const EmployeeRecordApprovals = () => {
       {
         key: "user_id",
         label: "Action",
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton
@@ -135,7 +136,8 @@ const EmployeeRecordApprovals = () => {
               disabled={isCalling}
               onClick={() => handleSideToggle(all)}
             >
-              <Visibility fontSize={"small"} />
+              <Visibility fontSize={"small"} style={{color: "#2896E9"}}/>
+              <div className={styles.textStyles}>View Employee Record</div>
             </IconButton>
           </div>
         ),
@@ -207,7 +209,7 @@ const EmployeeRecordApprovals = () => {
         </SidePanelComponent>
       </PageBox>
       <div style={{ width: "100%" }}>
-              <DataTables
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />

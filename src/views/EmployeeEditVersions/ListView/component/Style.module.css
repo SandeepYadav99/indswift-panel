@@ -10,7 +10,7 @@
 .image {
     width: 80px;
     height: 80px;
-    object-fit: cover;
+    /* object-fit: cover; */
     border-radius: 50%;
 }
 
@@ -23,6 +23,7 @@
     font-size: 0.9rem;
     font-weight: 500;
     margin-bottom: 10px;
+    text-transform: capitalize;
 }
 
 .infoContainer {
