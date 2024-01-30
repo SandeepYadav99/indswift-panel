@@ -19,6 +19,7 @@ import UpdateStatusDialog from "./components/UpdateStatusPopUp/UpdateStatusDialo
 import EmployeeRecord from "./components/Profile/EmployeeRecord/EmployeeRecord";
 import { useParams } from "react-router";
 import EmployeeClaim from "../EmployeePanel/EmployeeClaim/EmployeeClaim.container";
+import UpperInfo from "./UpperInfo.view";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -121,7 +122,7 @@ const EmployeeTab = () => {
         </div>)}
         <br />
         <div>
-          <UpperInfoNewEmployee
+          <UpperInfo
             isAdmin={isAdmin}
             data={employeeData}
             isResetDialog={isResetDialog}

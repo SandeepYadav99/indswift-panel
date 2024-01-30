@@ -53,7 +53,7 @@ const App = ({}) => {
                 <button onClick={closeInstallPopup} className={'close'}></button>
                 <div className={'logoDiv'}>
                     <img src={require('./assets/img/logos/ic_logo.png')} alt=""/>
-                    Skynet Indswiftlabs
+                    <span className='spanTextAnd'>Click on Add to Home Screen button and follow steps.</span>
                 </div>
                 <button id="install">Add +</button>
             </div>
