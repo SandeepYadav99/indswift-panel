@@ -286,6 +286,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
+              type="number"
               isError={errorData?.life_insurance}
               errorText={errorData?.life_insurance}
               label={"Life Insurance Amount"}

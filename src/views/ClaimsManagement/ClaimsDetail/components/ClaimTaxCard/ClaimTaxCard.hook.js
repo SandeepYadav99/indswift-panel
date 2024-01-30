@@ -125,7 +125,8 @@ const useTaxCard = ({}) => {
     });
     req.then((res) => {
       const data = res?.data?.details;
-      setForm({ ...form, ...data });
+      console.log("Form")
+      setForm({ ...form,...text, ...data });
     });
   };
   const deleteImage = (text, fieldName) => {
