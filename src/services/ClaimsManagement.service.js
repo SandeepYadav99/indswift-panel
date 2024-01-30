@@ -43,3 +43,6 @@ export async function serviceUpdateForeignClaim(params) {
 export async function serviceUpdateFile(params) {
     return await formDataRequest('files/upload', params,{"folder": "tax_rebate"});
 }
+export async function serviceCreateTaxForm(params) {
+    return await postRequest('tax/rebate/create', params,{"folder": "tax_rebate"});
+}

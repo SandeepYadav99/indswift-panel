@@ -1,4 +1,9 @@
-import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
+import {
+  ButtonBase,
+  Checkbox,
+  CircularProgress,
+  MenuItem,
+} from "@material-ui/core";
 import React from "react";
 import history from "../../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -11,6 +16,9 @@ import CustomDatePicker from "../../../../../components/FormFields/DatePicker/Cu
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import MultiFile from "./component/FileComponent/FileMultiComponent.component";
 import UpperCard from "./component/UpperCard/UpperCard";
+import RentFieldIncludeForm from "./component/RentField/RentFieldIncludes.component";  
+import ChildFieldIncludeForm from "./component/ChildField/ChildFieldIncludes.component";  
+
 function ClaimTaxCard() {
   const {
     form,
@@ -27,7 +35,7 @@ function ClaimTaxCard() {
     getUrlfromFile,
     deleteImage,
   } = useClaimMarrigeCard({});
-
+  
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -43,6 +51,7 @@ function ClaimTaxCard() {
       </div>
       <div className={styles.plainPaper}>
         <UpperCard data={employeeDetails} />
+       
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomSelectField
@@ -66,7 +75,13 @@ function ClaimTaxCard() {
             Deduction of Interest on Borrowing
           </div>
         </div>
+        <RentFieldIncludeForm
+              // ref={travelRef}
+              // grade={employeeDetails?.grade?.code}
+              // getAmount={getAmount}
+            />
         <div className={styles.formSelectWrapper}>
+
           <div className={styles.formWrp}>
             <div className={styles.formGrp}>
               <CustomTextField
@@ -177,11 +192,13 @@ function ClaimTaxCard() {
               <MultiFile
                 multiple
                 max_size={10 * 1024 * 1024}
-                type={["jpeg", "jpg", "png"]}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                // type={["jpeg", "jpg", "png","pdf"]}
                 fullWidth={true}
                 name="deduction_borrowing_evidences"
                 label="Attach Evidence"
-                accept={"image/*"}
+                accept={"application/pdf,application/msword,image/*"}
+                // accept={"image/*"}
                 error={errorData?.deduction_borrowing_evidences}
                 value={form?.deduction_borrowing_evidences}
                 placeholder={"Attach Evidence"}
@@ -344,6 +361,7 @@ function ClaimTaxCard() {
             />
           </div>
         </div>
+        <ChildFieldIncludeForm />
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
@@ -686,7 +704,277 @@ function ClaimTaxCard() {
             />
           </div>
         </div>
+        <div className={styles.checkboxWrapper}>
+          <Checkbox
+            style={{ padding: 0, marginRight: "10px" }}
+            name={"form?.is_parents_senior_citizen"}
+            checked={form?.is_parents_senior_citizen}
+            onChange={() =>
+              changeTextData(
+                !form?.is_parents_senior_citizen,
+                "is_parents_senior_citizen"
+              )
+            }
+          />
+          <div className={styles.lowerdec}>
+            <span>Parents are Senior Citizens?</span>
+          </div>
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              isError={errorData?.medical_expenditure}
+              errorText={errorData?.medical_expenditure}
+              label={"Medical Expenditure Amount"}
+              value={form?.medical_expenditure}
+              onTextChange={(text) => {
+                changeTextData(text, "medical_expenditure");
+              }}
+              onBlur={() => {
+                onBlurHandler("medical_expenditure");
+              }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="medical_expenditure_evidence"
+              label="Attach Evidence"
+              accept={"image/*"}
+              error={errorData?.medical_expenditure_evidence}
+              value={form?.medical_expenditure_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "medical_expenditure_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "medical_expenditure_evidence");
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              isError={errorData?.phc}
+              errorText={errorData?.phc}
+              label={"Preventive Health Check Up Amount"}
+              value={form?.phc}
+              onTextChange={(text) => {
+                changeTextData(text, "phc");
+              }}
+              onBlur={() => {
+                onBlurHandler("phc");
+              }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="phc_evidence"
+              label="Attach Evidence"
+              accept={"image/*"}
+              error={errorData?.phc_evidence}
+              value={form?.phc_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "phc_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "phc_evidence");
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.totalWrap}>
+          <div className={styles.inner}>
+            Total Amount for Self under (B):
+            <span>
+              {form?.total_eighty_d ? `₹ ${form?.total_eighty_d}` : 0}
+            </span>
+          </div>
+          <div className={styles.inner}>
+            Total Amount for Family under (B):
+            <span>
+              {form?.total_family_amount ? `₹ ${form?.total_family_amount}` : 0}
+            </span>
+          </div>
+          <div className={styles.inner} style={{ marginRight: "30px" }}>
+            Note: Maximum of (B) is for individual 25,000 & parents 50,000 per
+            annum
+          </div>
+        </div>
+        <div className={styles.heading} style={{ marginTop: "10px" }}>
+          (C) Other sections
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              isError={errorData?.employee_contribution}
+              errorText={errorData?.employee_contribution}
+              label={
+                "Section 80CCD(1B) Additional Employee Contribution Amount"
+              }
+              value={form?.employee_contribution}
+              onTextChange={(text) => {
+                changeTextData(text, "employee_contribution");
+              }}
+              onBlur={() => {
+                onBlurHandler("employee_contribution");
+              }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="employee_contribution_evidence"
+              label="Attach Evidence"
+              accept={"image/*"}
+              error={errorData?.employee_contribution_evidence}
+              value={form?.employee_contribution_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "employee_contribution_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "employee_contribution_evidence");
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              isError={errorData?.education_loan}
+              errorText={errorData?.education_loan}
+              label={"Section 80E Education Loan for Studies Amount"}
+              value={form?.education_loan}
+              onTextChange={(text) => {
+                changeTextData(text, "education_loan");
+              }}
+              onBlur={() => {
+                onBlurHandler("education_loan");
+              }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="education_loan_evidence"
+              label="Attach Evidence"
+              accept={"image/*"}
+              error={errorData?.education_loan_evidence}
+              value={form?.education_loan_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "education_loan_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "education_loan_evidence");
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              isError={errorData?.donations}
+              errorText={errorData?.donations}
+              label={"Section 80G Donations Paid Amount"}
+              value={form?.donations}
+              onTextChange={(text) => {
+                changeTextData(text, "donations");
+              }}
+              onBlur={() => {
+                onBlurHandler("donations");
+              }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="donations_evidence"
+              label="Attach Evidence"
+              accept={"image/*"}
+              error={errorData?.donations_evidence}
+              value={form?.donations_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "donations_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "donations_evidence");
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              isError={errorData?.disability}
+              errorText={errorData?.disability}
+              label={"Section 80U Person with Disability Amount"}
+              value={form?.disability}
+              onTextChange={(text) => {
+                changeTextData(text, "disability");
+              }}
+              onBlur={() => {
+                onBlurHandler("disability");
+              }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="disability_evidence"
+              label="Attach Evidence"
+              accept={"image/*"}
+              error={errorData?.disability_evidence}
+              value={form?.disability_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "disability_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "disability_evidence");
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.totalWrap}>
+          <div className={styles.inner}>
+            Total Amount under (C) :
+            <span>{form?.total_other ? `₹ ${form?.total_other}` : 0}</span>
+          </div>
+          <div className={styles.inner} style={{ marginRight: "30px" }}>
+            Total Amount under Deduction under Chapter VI-A:
+            <span>
+              {form?.total_under_deduction
+                ? `₹ ${form?.total_under_deduction}`
+                : 0}
+            </span>
+          </div>
+        </div>
       </div>
+
       <div className={styles.cleckboxWrapper}>
         <div className={styles.checkBox}>
           <input
@@ -699,19 +987,7 @@ function ClaimTaxCard() {
             }}
           />
           <label htmlFor="confirmation">
-            {" "}
-            I declare the information shared is best of knowledge and I have
-            submitted genuine claim will authenticate bills as and where
-            attached. I understand that any disparity found in claims/bills with
-            respect to the organizational policies may cause auto rejection of
-            claim with or without an opportunity of re-applying. I also
-            understand that if any part/bill of claim is found to be forged with
-            respect to laws of land or organizational policies then I will be
-            individually accountable for all related legal or organizational
-            consequences. I understand the submitted claim/bill is not part of
-            my earning and it is a subject of approval/rejection from
-            organization which can also be altered by organization as per my
-            entitlements before approval or rejection.
+            I certify that the information given above is complete and correct.
           </label>
           <br />
         </div>
