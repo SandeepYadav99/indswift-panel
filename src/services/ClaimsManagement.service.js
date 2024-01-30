@@ -44,8 +44,11 @@ export async function serviceUpdateFile(params) {
     return await formDataRequest('files/upload', params,{"folder": "tax_rebate"});
 }
 export async function serviceCreateTaxForm(params) {
-    return await postRequest('tax/rebate/create', params,{"folder": "tax_rebate"});
+    return await postRequest('tax/rebate/create', params);
 }
 export async function serviceGetTotalTaxForm(params) {
-    return await postRequest('tax/rebate/totals', params,{"folder": "tax_rebate"});
+    return await postRequest('tax/rebate/totals', params);
+}
+export async function serviceGetTaxDetail(params) {
+    return await postRequest('tax/rebate/drafted', params);
 }
