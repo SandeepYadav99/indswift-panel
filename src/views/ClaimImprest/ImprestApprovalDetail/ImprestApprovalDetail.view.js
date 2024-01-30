@@ -160,6 +160,7 @@ function ImprestApprovalDetail() {
           <div className={styles.ApproveMobile}>
             <ButtonBase
               // disabled={isSubmitting}
+              style={{width:"200px !important"}}
               className={styles.editSuccessMobile}
               onClick={toggleChangeDialog}
             >

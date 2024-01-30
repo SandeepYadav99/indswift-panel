@@ -301,4 +301,8 @@
     width: 100% !important;
     min-width: 100% !important;
   }
+  #formAlign{
+    display: flex;
+    flex-direction: column !important;
+  }
 }

@@ -48,7 +48,7 @@ function CadreDetails() {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -97,7 +97,7 @@ function CadreDetails() {
               }}
             />
           </div>
-          <div className={"formGroup"}></div>
+          <div className={"formGroup"} id={styles.mobileBlank}></div>
         </div>
       </div>
 

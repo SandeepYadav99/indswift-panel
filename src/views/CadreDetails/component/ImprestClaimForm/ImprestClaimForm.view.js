@@ -59,7 +59,7 @@ const ImprestClaimForm = ({ type, title, resetForm }, ref) => {
         </div>
         {form?.is_show && (
           <>
-            <div className={"formFlex"}>
+            <div className={"formFlex"} id={styles.mobileResponsiveData}>
               <div className={"formGroup"}>
                 <CustomTextField
                   type="number"
@@ -94,7 +94,7 @@ const ImprestClaimForm = ({ type, title, resetForm }, ref) => {
                 />
               </div>
             </div>
-            <div className={"formFlex"} style={{ width: "50%" }}>
+            <div className={"formFlex"}  id={styles.adjustWidthData}>
               <div className={"formGroup"}>
                 <CustomTextField
                   type="number"

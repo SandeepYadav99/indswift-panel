@@ -482,8 +482,8 @@ const dashboardRoutes = [
   {
     path: `${RouteName.HOMEPAGE_MOBILE}`,
     icon: DashboardOutlined,
-    sidebarName: "Home Page",
-    navbarName: "Home Page",
+    sidebarName: "HomePage",
+    navbarName: "HomePage",
     component: MobileLandingPage,
     is_sidebar:true,
     is_protect: true,

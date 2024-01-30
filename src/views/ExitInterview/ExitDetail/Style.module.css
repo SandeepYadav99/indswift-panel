@@ -44,7 +44,7 @@
   align-items: center;
 }
 .candidateInfoContainer {
-  width: 80%;
+  width: 100%;
   padding: 20px;
   padding-bottom: 2%;
   border-radius: 10px;
@@ -132,4 +132,17 @@
 }
 .tableWrap{
   margin: 20px 0;
+}
+
+@media only screen and (max-width:769px){
+  .candidateInfoContainer2 {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.8rem;
+  }
 }

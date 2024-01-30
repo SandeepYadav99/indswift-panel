@@ -218,7 +218,6 @@ input[type=radio] + label:hover {
 }
 
 .status {
-    min-width: 175px;
     display: inline!important;
     font-size: 12px;
     font-weight: 600;

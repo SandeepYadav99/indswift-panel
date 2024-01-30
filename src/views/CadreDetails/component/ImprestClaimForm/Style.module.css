@@ -69,3 +69,16 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
+
+#adjustWidthData{
+  width: 50%;
+}
+@media only screen and (max-width:769px) {
+  #mobileResponsiveData{
+    display: flex;
+    flex-direction: column;
+  }
+  #adjustWidthData{
+    width: 100%;
+  }
+}

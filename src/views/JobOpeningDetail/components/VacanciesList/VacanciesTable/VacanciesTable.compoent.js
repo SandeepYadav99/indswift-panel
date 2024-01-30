@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import {  IconButton} from "@material-ui/core";
-import DataTables from "../../../../../Datatables/Datatable.table";
+import DataTables from "../../../../../components/Datatables/datatables";
 import styles from "./Style.module.css";
 import classNames from "classnames";
 import {
