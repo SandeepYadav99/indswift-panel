@@ -19,7 +19,7 @@
 .subContainer {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap !important;
+  /* flex-wrap: wrap !important; */
   justify-content: center !important;
   height: 140px !important;
 }
@@ -63,13 +63,43 @@
 }
 .mobileTwo {
   display: none !important;
+  background-image: url("../../assets/Mobile/App\ BG-01.svg");
 }
+.mobileThree {
+    display: block   !important;
+    background-image: url("../../assets/Mobile/App\ BG-01.svg");
+    background-repeat: no-repeat;
+  }
 
 @media only screen and (max-width: 526px) {
   .mobileThree {
-    display: none   !important;
+    display: block   !important;
+    background-image: url("../../assets/Mobile/App\ BG-01.svg");
+    background-repeat: no-repeat;
+
   }
   .mobileTwo {
-    display: block !important;
+    display: none !important;
+    background-image: url("../../assets/Mobile/App\ BG-01.svg");
+    background-repeat: no-repeat;
+
   }
 }
+
+@media only screen and (max-width:489px){
+    .plainPaper {
+        border-radius: 10px;
+        padding: 0.2rem;
+        margin-bottom: 0px;
+        /* margin-bottom: 20px; */
+        /* background-color: #fff; */
+        /* box-shadow: 0 0 8px rgb(0 0 0 / 15%); */
+        /* margin-right: 10px; */
+        margin-left: 0px;
+        width: 80px;
+        text-decoration: none !important;
+        /* height: 200px !important; */
+      }
+}
+
+
