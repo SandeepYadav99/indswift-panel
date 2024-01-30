@@ -189,7 +189,6 @@
   font-size: 0.8rem;
   gap: 40px;
   margin-top: 10px !important;
-  flex-direction: column !important;
 }
 
 .plainPaperTwo{
@@ -208,5 +207,18 @@
     margin-bottom: 10px;
     background-color: #fff;
     box-shadow: 0px 20px 80px #00000011;
+  }
+  .experseWrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 10px;
+    color: #2896e9;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.8rem;
+    gap: 40px;
+    margin-top: 10px !important;
+    flex-direction: column !important;
   }
 }
