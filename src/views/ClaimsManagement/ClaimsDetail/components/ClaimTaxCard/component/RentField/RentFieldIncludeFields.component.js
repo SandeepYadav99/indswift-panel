@@ -25,7 +25,7 @@ const RentFieldIncludeFields = ({
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
-      if (name === "amount") {
+      if (name === "rent") {
         if (value >= 0) {
           changeData(index, { [name]: value });
         }
