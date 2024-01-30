@@ -1,60 +1,75 @@
-.container{
-    display: flex;
-    flex-wrap: wrap !important;
-    flex-direction: column !important;
+.container {
+  display: flex;
+  flex-wrap: wrap !important;
+  flex-direction: column !important;
 }
 
-.plainPaper{
-    border-radius: 10px;
-    padding: 1.2rem;
-    margin-bottom: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 250px;
-    text-decoration: none !important;
-    /* height: 200px !important; */
+.plainPaper {
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 20px;
+  /* background-color: #fff; */
+  /* box-shadow: 0 0 8px rgb(0 0 0 / 15%); */
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 100px;
+  text-decoration: none !important;
+  /* height: 200px !important; */
 }
-.subContainer{
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
+.subContainer {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  height: 140px !important;
 }
-.subPaper{
-    display: flex;
-    gap:10px;
+.subPaper {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
 }
-.text{
-    display: flex;
-    align-items: center;
-    justify-content: center !important;
-    font-size: 16px !important;
-    font-weight: 600 !important;
+.text {
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-align: center;
 }
-.imgBox{
-    background: #2896e9;
-    height: 70px;
-    width: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    margin-right: 25px;
+.imgBox {
+  background: #2896e9;
+  height: 70px;
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
 }
-.imageContainer{
-    display: flex;
-    justify-content: center !important;
-    margin-bottom: 30px !important;
-    margin-top: 10px !important;
-    background-color: #EBF9FF !important;
+.imageContainer {
+  display: flex;
+  justify-content: center !important;
+  margin-bottom: 30px !important;
+  margin-top: 10px !important;
+  background-color: #ebf9ff !important;
 }
-.widthImageAdjust{
-    width: 100% !important;
+.widthImageAdjust {
+  width: 100% !important;
 }
 
-.linkRoutes{
-    text-decoration: none !important;
-    color: black !important;
+.linkRoutes {
+  text-decoration: none !important;
+  color: black !important;
+}
+.mobileTwo {
+  display: none !important;
+}
+
+@media only screen and (max-width: 526px) {
+  .mobileThree {
+    display: none   !important;
+  }
+  .mobileTwo {
+    display: block !important;
+  }
 }
