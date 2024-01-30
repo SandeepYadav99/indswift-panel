@@ -1,4 +1,11 @@
-import { Button, ButtonBase, Dialog, DialogContent, DialogTitle, IconButton } from "@material-ui/core";
+import {
+  Button,
+  ButtonBase,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+} from "@material-ui/core";
 import React, { useState } from "react";
 import ActionButton from "../../components/ActionButton/ActionButton";
 import StatusPill from "../../components/Status/StatusPill.component";
@@ -22,11 +29,9 @@ const UpperInfo = ({
 
   const handleOpen = () => {
     setOpen(true);
-  }
-
+  };
 
   const PopupComponent = () => {
-
     return (
       <div>
         <Dialog open={open} onClose={handleClose} style={{ width: "100%" }}>
@@ -40,7 +45,18 @@ const UpperInfo = ({
             </div>
             <div className={styles.infoContainer}>
               <p className={styles.infoDetails}>
-                It is very important to note that Personal Information of employee and their family members is a complete responsibility of employee. Employee holds complete right to amend the same as per situation with employee. Group entitlements of employees and his/her family (for example- Group Medi claim, Group term insurance or other related coverages) depend on fact that employee has accurately maintained/updated his/her personal data on SkyNet. Organization do not scrutinize or interfere with personal information of employees. Organization is free of any responsibility or liability, if any insurance claim of any employee gets rejected due to inaccurate/old/obsolete personal data maintained by employee on SkyNet.
+                It is very important to note that Personal Information of
+                employee and their family members is a complete responsibility
+                of employee. Employee holds complete right to amend the same as
+                per situation with employee. Group entitlements of employees and
+                his/her family (for example- Group Medi claim, Group term
+                insurance or other related coverages) depend on fact that
+                employee has accurately maintained/updated his/her personal data
+                on SkyNet. Organization do not scrutinize or interfere with
+                personal information of employees. Organization is free of any
+                responsibility or liability, if any insurance claim of any
+                employee gets rejected due to inaccurate/old/obsolete personal
+                data maintained by employee on SkyNet.
               </p>
             </div>
           </div>
@@ -51,23 +67,33 @@ const UpperInfo = ({
 
   return (
     <div>
-
       <div className={styles.blueBackground}>
         <div className={styles.iconPositionResponsive}>
-          <InfoOutlined fontSize={"small"} style={{ color: "white" }} onClick={handleOpen} />
+          <InfoOutlined
+            fontSize={"small"}
+            style={{ color: "white" }}
+            onClick={handleOpen}
+          />
         </div>
 
-        {
-          open && <PopupComponent />
-        }
+        {open && <PopupComponent />}
         <div className={styles.innerContainer}>
           <div>
-            <img src={data?.image} height={100} className={styles.imageContainer} />
+            <img
+              src={data?.image}
+              height={100}
+              className={styles.imageContainer}
+            />
           </div>
           <div className={styles.containerDataValue}>
-            <div style={{ display: "flex", marginTop: "10px" }} className={styles.upperCardWidthData}>
+            <div
+              style={{ display: "flex", marginTop: "10px" }}
+              className={styles.upperCardWidthData}
+            >
               <div className={styles.profileInfo}>
-                <div className={styles.nameCap}>{data?.name?.toLowerCase()}</div>
+                <div className={styles.nameCap}>
+                  {data?.name?.toLowerCase()}
+                </div>
                 <div>{data?.designation?.name}</div>
                 <div>Employee Code: {data?.emp_code}</div>
               </div>
@@ -87,20 +113,19 @@ const UpperInfo = ({
                 </div>
               </div>
             </div>
-            <div style={{display:"flex",justifyContent:'center'}}>
-            {isAdmin && (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              {/* {isAdmin && ( */}
               <div className={styles.statusWrap}>
                 <StatusPill
                   status={data?.status}
-                // style={{ color: "#fff", borderColor: "#fff" }}
+                  // style={{ color: "#fff", borderColor: "#fff" }}
                 />
               </div>
-            )}
+              {/* )} */}
             </div>
           </div>
           <div className={styles.btnWrap}>
-           
-            {isAdmin && (
+            {isAdmin ? (
               <div className={styles.actionWrap}>
                 <div className={styles.btnUpper}>
                   <ActionButton onClick={handleStatusToggle}>
@@ -127,6 +152,17 @@ const UpperInfo = ({
                   </ActionButton>
                 </div>
               </div>
+            ) : (
+              <div className={styles.actionWrap}>
+                <ActionButton
+                  onClick={() => {
+                    historyUtils.push(`${RouteName.MY_PROFILE_UPDATE}`);
+                  }}
+                >
+                  <RepeatRounded fontSize={"small"} />
+                  <span className={styles.actionBtnSpan2}>Edit</span>
+                </ActionButton>
+              </div>
             )}
           </div>
           <div className={styles.btnWrap2}>
@@ -136,13 +172,17 @@ const UpperInfo = ({
                   <div className={styles.btnUpper2}>
                     <ActionButton onClick={handleStatusToggle}>
                       <InfoOutlined fontSize={"small"} />
-                      <span className={styles.actionBtnSpan2}>Update Status</span>
+                      <span className={styles.actionBtnSpan2}>
+                        Update Status
+                      </span>
                     </ActionButton>
                   </div>
                   <div className={styles.btnUpper2}>
                     <ActionButton onClick={handleToggle}>
                       <RepeatRounded fontSize={"small"} />
-                      <span className={styles.actionBtnSpan2}>Reset Password</span>
+                      <span className={styles.actionBtnSpan2}>
+                        Reset Password
+                      </span>
                     </ActionButton>
                   </div>
                 </div>
@@ -162,14 +202,25 @@ const UpperInfo = ({
             )}
           </div>
           <div id={styles.desktopView}>
-            <ActionButton
-              onClick={() => {
-                historyUtils.push(`${RouteName.MY_PROFILE_UPDATE}`);
-              }}
-            >
-              <RepeatRounded fontSize={"small"} />
-              <span className={styles.actionBtnSpan2}>Edit</span>
-            </ActionButton>
+            {isAdmin ? (
+              <ActionButton
+                onClick={() => {
+                  historyUtils.push(`${RouteName.EMPLOYEE_UPDATE}${data?.id}`);
+                }}
+              >
+                <RepeatRounded fontSize={"small"} />
+                <span className={styles.actionBtnSpan2}>Edit</span>
+              </ActionButton>
+            ) : (
+              <ActionButton
+                onClick={() => {
+                  historyUtils.push(`${RouteName.MY_PROFILE_UPDATE}`);
+                }}
+              >
+                <RepeatRounded fontSize={"small"} />
+                <span className={styles.actionBtnSpan2}>Edit</span>
+              </ActionButton>
+            )}
           </div>
         </div>
       </div>
