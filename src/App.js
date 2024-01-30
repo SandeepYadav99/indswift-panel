@@ -36,7 +36,7 @@ const App = ({}) => {
                 <button onClick={closeInstallPopup} className={'close'}></button>
                 <div className={'logoDiv'}>
                     <img src={require('./assets/img/logos/ic_logo.png')} alt=""/>
-                    Skynet Indswiftlabs
+                    SkyNet
                 </div>
                 <button onClick={toggleDialog}>Add to Home Screen</button>
             </div>);
@@ -53,7 +53,7 @@ const App = ({}) => {
                 <button onClick={closeInstallPopup} className={'close'}></button>
                 <div className={'logoDiv'}>
                     <img src={require('./assets/img/logos/ic_logo.png')} alt=""/>
-                    Skynet Indswiftlabs
+                    SkyNet
                 </div>
                 <button id="install">Add +</button>
             </div>
