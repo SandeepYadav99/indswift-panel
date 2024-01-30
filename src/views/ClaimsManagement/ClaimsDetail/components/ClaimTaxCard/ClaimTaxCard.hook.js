@@ -5,6 +5,7 @@ import historyUtils from "../../../../../libs/history.utils";
 import {
   serviceCreateTaxForm,
   serviceGetEmployeeDetails,
+  serviceGetTaxDetail,
   serviceGetTotalTaxForm,
   serviceUpdateFile,
 } from "../../../../../services/ClaimsManagement.service";
@@ -13,10 +14,10 @@ import debounce from "lodash.debounce";
 
 const initialForm = {
   fy_year: "",
-  lender_name:"",
-  lender_address:"",
-  interest_paid:"",
-  lender_address:"",
+  lender_name: "",
+  lender_address: "",
+  interest_paid: "",
+  lender_address: "",
   house_rent_total: "",
   leave_travel: "",
   leave_travel_evidence: "",
@@ -46,7 +47,6 @@ const initialForm = {
   family_insurance_evidence: "",
   parents_insurance: "",
   parents_insurance_evidence: "",
-  is_parents_senior_citizen: "",
   medical_expenditure: "",
   medical_expenditure_evidence: "",
   phc: "",
@@ -63,13 +63,13 @@ const initialForm = {
   disability_evidence: "",
   total_other: "",
   total_under_deduction: "",
-  is_family_senior_citizen: "",
+  is_family_senior_citizen: "NO",
   family_phc: "",
   family_phc_evidence: "",
   family_medical_expenditure: "",
   family_medical_expenditure_evidence: "",
   is_parents_details: "",
-  is_parents_senior_citizen: "",
+  is_parents_senior_citizen: "NO",
   parents_phc: "",
   parents_phc_evidence: "",
   parents_medical_expenditure: "",
@@ -105,6 +105,25 @@ const useTaxCard = ({}) => {
     }
   }, []);
 
+  useEffect(() => {
+    let req = serviceGetTaxDetail({
+      employee_id: user_id,
+      fy_year: "2023-2024",
+    });
+    req.then((data) => {
+      const res = data?.data?.details;
+      // const { attachments } = res;
+      const fd = {};
+      Object.keys({ ...res }).forEach((key) => {
+        if (key in initialForm && key !== "image") {
+          fd[key] = res[key];
+        }
+      });
+      // ChildenRef?.current?.setData(attachments);
+      setForm({ ...form, ...fd });
+    });
+  }, [user_id]);
+
   const getUrlfromFile = (text, fieldName) => {
     console.log("text, fieldName", text, fieldName);
     const fd = new FormData();
@@ -125,8 +144,8 @@ const useTaxCard = ({}) => {
     });
     req.then((res) => {
       const data = res?.data?.details;
-      console.log("Form")
-      setForm({ ...form,...text, ...data });
+      console.log("Form");
+      setForm({ ...form, ...text, ...data });
     });
   };
   const deleteImage = (text, fieldName) => {
@@ -161,22 +180,28 @@ const useTaxCard = ({}) => {
         setIsSubmitting(true);
         const rentData = rentRef.current.getData();
         const childData = childRef.current.getData();
-        const data = { ...form, house_rent: rentData, child_fees: childData };
-        console.log(">form", {form,data});
-        if(status){
+        const data = {
+          ...form,
+          house_rent: rentData,
+          child_fees: childData,
+          is_parents_senior_citizen: form?.is_parents_senior_citizen === "YES",
+          is_family_senior_citizen: form?.is_family_senior_citizen === "YES",
+        };
+        if (status) {
           data.is_drafted = true;
         }
-        
-        // let req = serviceCreateTaxForm;
-        // req(data).then((res) => {
-        //   if (!res.error) {
-        //     historyUtils.goBack();
-        //   } else {
-        //     SnackbarUtils.error(res?.message);
-        //   }
-        //   setIsLoading(false);
-        //   setIsSubmitting(false);
-        // });
+
+        console.log(">form", { form, data });
+        let req = serviceCreateTaxForm;
+        req(data).then((res) => {
+          if (!res.error) {
+            historyUtils.goBack();
+          } else {
+            SnackbarUtils.error(res?.message);
+          }
+          setIsLoading(false);
+          setIsSubmitting(false);
+        });
       }
     },
     [form, isSubmitting, setIsSubmitting, id]

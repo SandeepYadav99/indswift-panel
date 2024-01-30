@@ -11,11 +11,8 @@ import React from "react";
 import history from "../../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import styles from "./Style.module.css";
-import ClaimInfo from "../ClaimInfo/ClaimInfo";
 import useClaimMarrigeCard from "./ClaimTaxCard.hook";
 import CustomTextField from "../../../../../components/FormFields/TextField/TextField.component";
-import File from "../../../../../components/FileComponent/FileComponent.component";
-import CustomDatePicker from "../../../../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import MultiFile from "./component/FileComponent/FileMultiComponent.component";
 import UpperCard from "./component/UpperCard/UpperCard";
@@ -326,6 +323,7 @@ function ClaimTaxCard() {
               isError={errorData?.term_insurance}
               errorText={errorData?.term_insurance}
               label={"Term Insurance Amount"}
+              type="number"
               value={form?.term_insurance}
               onTextChange={(text) => {
                 changeTextData(text, "term_insurance");
@@ -359,6 +357,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
+            type="number"
               isError={errorData?.mutual_funds}
               errorText={errorData?.mutual_funds}
               label={"Mutual Insurance Amount"}
@@ -395,6 +394,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
+            type="number"
               isError={errorData?.sukanya_samriddhi}
               errorText={errorData?.sukanya_samriddhi}
               label={"Sukanya Samriddhi Scheme Amount"}
@@ -442,6 +442,7 @@ function ClaimTaxCard() {
               isError={errorData?.epf}
               errorText={errorData?.epf}
               label={"Employee Provident Fund Amount"}
+              type="number"
               value={form?.epf}
               onTextChange={(text) => {
                 changeTextData(text, "epf");
@@ -478,6 +479,7 @@ function ClaimTaxCard() {
               isError={errorData?.ppf}
               errorText={errorData?.ppf}
               label={"PPF Amount"}
+              type="number"
               value={form?.ppf}
               onTextChange={(text) => {
                 changeTextData(text, "ppf");
@@ -514,6 +516,7 @@ function ClaimTaxCard() {
               isError={errorData?.house_loan_principle}
               errorText={errorData?.house_loan_principle}
               label={"Principle of Housing Loan Repayment Amount"}
+              type="number"
               value={form?.house_loan_principle}
               onTextChange={(text) => {
                 changeTextData(text, "house_loan_principle");
@@ -550,6 +553,7 @@ function ClaimTaxCard() {
               isError={errorData?.fd_five_year}
               errorText={errorData?.fd_five_year}
               label={"Five year Fixed Deposit Amount"}
+              type="number"
               value={form?.fd_five_year}
               onTextChange={(text) => {
                 changeTextData(text, "fd_five_year");
@@ -588,6 +592,7 @@ function ClaimTaxCard() {
               isError={errorData?.eighty_ccc}
               errorText={errorData?.eighty_ccc}
               label={"Amount"}
+              type="number"
               value={form?.eighty_ccc}
               onTextChange={(text) => {
                 changeTextData(text, "eighty_ccc");
@@ -626,6 +631,7 @@ function ClaimTaxCard() {
               isError={errorData?.eighty_ccd}
               errorText={errorData?.eighty_ccd}
               label={"Amount"}
+              type="number"
               value={form?.eighty_ccd}
               onTextChange={(text) => {
                 changeTextData(text, "eighty_ccd");
@@ -771,6 +777,7 @@ function ClaimTaxCard() {
           <div className={styles.formWrp}>
             <div className={styles.formGrp}>
               <CustomTextField
+              type="number"
                 isError={errorData?.family_medical_expenditure}
                 errorText={errorData?.family_medical_expenditure}
                 label={"Medical Expenditure"}
@@ -850,6 +857,7 @@ function ClaimTaxCard() {
             <div className={styles.formWrp}>
               <div className={styles.formGrp}>
                 <CustomTextField
+                type="number"
                   isError={errorData?.parents_insurance}
                   errorText={errorData?.parents_insurance}
                   label={"Health Insurance"}
@@ -886,6 +894,7 @@ function ClaimTaxCard() {
             <div className={styles.formWrp}>
               <div className={styles.formGrp}>
                 <CustomTextField
+                type="number"
                   isError={errorData?.parents_phc}
                   errorText={errorData?.parents_phc}
                   label={"Preventive Health Check Up Amount"}
@@ -923,6 +932,7 @@ function ClaimTaxCard() {
               <div className={styles.formWrp}>
                 <div className={styles.formGrp}>
                   <CustomTextField
+                  type="number"
                     isError={errorData?.parents_medical_expenditure}
                     errorText={errorData?.parents_medical_expenditure}
                     label={"Medical Expenditure"}
@@ -987,6 +997,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
+            type="number"
               isError={errorData?.employee_contribution}
               errorText={errorData?.employee_contribution}
               label={
@@ -1025,6 +1036,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
+            type="number"
               isError={errorData?.education_loan}
               errorText={errorData?.education_loan}
               label={"Section 80E Education Loan for Studies Amount"}
@@ -1061,6 +1073,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
+            type="number"
               isError={errorData?.donations}
               errorText={errorData?.donations}
               label={"Section 80G Donations Paid Amount"}
@@ -1097,6 +1110,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
+            type="number"
               isError={errorData?.disability}
               errorText={errorData?.disability}
               label={"Section 80U Person with Disability Amount"}
@@ -1167,7 +1181,8 @@ function ClaimTaxCard() {
         <div className={"headerFlex wrapper"}>
           <ButtonBase
             type={"button"}
-            className={styles.createBtn}
+            disabled={!declaration || isLoading ? true : false}
+            className={declaration ? styles.createBtn : styles.disabledCreatebtn}
             onClick={() => submitToServer("draft")}
           >
             Save As Draft
@@ -1179,11 +1194,11 @@ function ClaimTaxCard() {
           className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >
-          {isLoading ? (
-            <CircularProgress color="success" size="20px" />
-          ) : (
+          {/* {isLoading ? ( */}
+            {/* <CircularProgress color="success" size="20px" />
+          ) : ( */}
             "Submit"
-          )}
+          {/* )} */}
         </ButtonBase>
       </div>
     </div>

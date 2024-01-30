@@ -128,7 +128,8 @@
 .btnCont {
   margin-top: 20px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  padding: 0 10px;
 }
 .createBtn {
   background-color: #29cb97 !important;
