@@ -98,7 +98,7 @@ const MobileLandingPage = () => {
             </Link>
           </div>
           <div className={styles.plainPaper}>
-            <Link to={"/cm/claims"} className={styles.linkRoutes}>
+            <Link to={"/employee/claim"} className={styles.linkRoutes}>
               <div className={styles.subPaper}>
                 <Example animation={claimsData} />
                 <div className={styles.text}>Claims</div>
@@ -165,7 +165,7 @@ const MobileLandingPage = () => {
             </a>
           </div>
           <div className={styles.plainPaper}>
-            <Link to={"/loan/list"} className={styles.linkRoutes}>
+            <Link to={"/employee/claim"} className={styles.linkRoutes}>
               <div className={styles.subPaper}>
                 <Example animation={loanlottie} />
                 <div className={styles.text}>Loan</div>
