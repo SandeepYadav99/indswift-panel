@@ -8,7 +8,7 @@ export default function Example({animation}) {
       loop
       animationData={animation}
       play
-      style={{ width: 60, height: 60,backgroundColor:"#2896e9",borderRadius:"10px"}}
+      style={{ width: 70, height: 70,backgroundColor:"#2896e9",borderRadius:"10px"}}
     />
   )
 }
