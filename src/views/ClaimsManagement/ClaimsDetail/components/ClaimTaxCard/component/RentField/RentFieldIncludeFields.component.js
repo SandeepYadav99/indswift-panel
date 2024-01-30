@@ -37,7 +37,6 @@ const RentFieldIncludeFields = ({
   const deleteImage = (e, fieldName) => {
     changeData(index, { [fieldName]: [...e] });
   };
-  console.log("datatata", data);
   return (
     <div>
       <div className={styles.flexContainer}>

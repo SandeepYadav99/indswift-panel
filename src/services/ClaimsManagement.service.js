@@ -46,3 +46,6 @@ export async function serviceUpdateFile(params) {
 export async function serviceCreateTaxForm(params) {
     return await postRequest('tax/rebate/create', params,{"folder": "tax_rebate"});
 }
+export async function serviceGetTotalTaxForm(params) {
+    return await postRequest('tax/rebate/totals', params,{"folder": "tax_rebate"});
+}

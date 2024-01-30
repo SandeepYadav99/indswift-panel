@@ -5,12 +5,18 @@ import historyUtils from "../../../../../libs/history.utils";
 import {
   serviceCreateTaxForm,
   serviceGetEmployeeDetails,
+  serviceGetTotalTaxForm,
   serviceUpdateFile,
 } from "../../../../../services/ClaimsManagement.service";
 import { useSelector } from "react-redux";
+import debounce from "lodash.debounce";
 
 const initialForm = {
   fy_year: "",
+  lender_name:"",
+  lender_address:"",
+  interest_paid:"",
+  lender_address:"",
   house_rent_total: "",
   leave_travel: "",
   leave_travel_evidence: "",
@@ -36,8 +42,6 @@ const initialForm = {
   eighty_ccd: "",
   eighty_ccd_evidence: "",
   total_eighty_c: "",
-  self_insurance: "",
-  self_insurance_evidence: "",
   family_insurance: "",
   family_insurance_evidence: "",
   parents_insurance: "",
@@ -59,7 +63,17 @@ const initialForm = {
   disability_evidence: "",
   total_other: "",
   total_under_deduction: "",
-  is_drafted: "",
+  is_family_senior_citizen: "",
+  family_phc: "",
+  family_phc_evidence: "",
+  family_medical_expenditure: "",
+  family_medical_expenditure_evidence: "",
+  is_parents_details: "",
+  is_parents_senior_citizen: "",
+  parents_phc: "",
+  parents_phc_evidence: "",
+  parents_medical_expenditure: "",
+  parents_medical_expenditure_evidence: "",
 };
 
 const useTaxCard = ({}) => {
@@ -72,12 +86,14 @@ const useTaxCard = ({}) => {
   const [declaration, setDeclaration] = useState(false);
   const [employeeDetails, setEmployeeDetails] = useState({});
   const [claimInfo, setClaimInfo] = useState({});
-
+  const rentRef = useRef(null);
+  const childRef = useRef(null);
   const { id } = useParams();
   const {
-    user: { emp_code },
+    user: { emp_code, user_id },
   } = useSelector((state) => state.auth);
 
+  console.log("user_id", user_id);
   useEffect(() => {
     if (emp_code) {
       let dataValues = serviceGetEmployeeDetails({ code: emp_code });
@@ -102,6 +118,16 @@ const useTaxCard = ({}) => {
     });
   };
 
+  const getAllowenceByRent = (text) => {
+    let req = serviceGetTotalTaxForm({
+      employee_id: user_id,
+      fy_rent_paid: text?.fy_rent_paid,
+    });
+    req.then((res) => {
+      const data = res?.data?.details;
+      setForm({ ...form, ...data });
+    });
+  };
   const deleteImage = (text, fieldName) => {
     setForm({ ...form, [fieldName]: [...text] });
   };
@@ -127,27 +153,39 @@ const useTaxCard = ({}) => {
     return errors;
   }, [form, errorData]);
 
-  const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-      setIsLoading(true);
-      setIsSubmitting(true);
-      console.log(">form", form);
-      let req = serviceCreateTaxForm;
-      // req(form).then((res) => {
-      //   if (!res.error) {
-      //     historyUtils.goBack();
-      //   } else {
-      //     SnackbarUtils.error(res?.message);
-      //   }
-      //   setIsLoading(false);
-      //   setIsSubmitting(false);
-      // });
-    }
-  }, [form, isSubmitting, setIsSubmitting, id]);
+  const submitToServer = useCallback(
+    (status) => {
+      if (!isSubmitting) {
+        setIsLoading(true);
+        setIsSubmitting(true);
+        const rentData = rentRef.current.getData();
+        const childData = childRef.current.getData();
+        const data = { ...form, house_rent: rentData, child_fees: childData };
+        console.log(">form", {form,data});
+        if(status){
+          data.is_drafted = true;
+        }
+        
+        // let req = serviceCreateTaxForm;
+        // req(data).then((res) => {
+        //   if (!res.error) {
+        //     historyUtils.goBack();
+        //   } else {
+        //     SnackbarUtils.error(res?.message);
+        //   }
+        //   setIsLoading(false);
+        //   setIsSubmitting(false);
+        // });
+      }
+    },
+    [form, isSubmitting, setIsSubmitting, id]
+  );
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    if (Object.keys(errors).length > 0) {
+    const isRentValid = rentRef.current.isValid();
+    const isChildValid = childRef.current.isValid();
+    if (Object.keys(errors).length > 0 || !isRentValid || !isChildValid) {
       setErrorData(errors);
       return true;
     }
@@ -162,6 +200,12 @@ const useTaxCard = ({}) => {
     },
     [setErrorData, errorData]
   );
+
+  const checkSalaryInfoDebouncer = useMemo(() => {
+    return debounce((e) => {
+      getAllowenceByRent(e);
+    }, 1000);
+  }, []);
 
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -180,8 +224,11 @@ const useTaxCard = ({}) => {
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
+      if (fieldName === "fy_rent_paid") {
+        checkSalaryInfoDebouncer(t);
+      }
     },
-    [removeError, form, setForm]
+    [removeError, form, setForm, checkSalaryInfoDebouncer]
   );
   const onBlurHandler = useCallback(
     (type) => {
@@ -209,6 +256,10 @@ const useTaxCard = ({}) => {
     claimInfo,
     getUrlfromFile,
     deleteImage,
+    rentRef,
+    childRef,
+    submitToServer,
+    checkSalaryInfoDebouncer,
   };
 };
 
