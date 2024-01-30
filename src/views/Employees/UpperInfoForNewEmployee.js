@@ -130,16 +130,6 @@ import {
               </div>
               <br />
               <br />
-              <div className={styles.hideEditBtnData}>
-              <ActionButton
-                onClick={() => {
-                  historyUtils.push(`${RouteName.MY_PROFILE_UPDATE}`);
-                }}
-              >
-                <RepeatRounded fontSize={"small"} />
-                <span className={styles.actionBtnSpan2}>Edit</span>
-              </ActionButton>
-              </div>
             </div>
           </div>
         </div>

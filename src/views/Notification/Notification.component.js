@@ -13,11 +13,13 @@ import { serviceNotificationReadUnRead,serviceNotificationCountData } from "../.
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min.js";
 
 const EmployeeMobileCard = ({ data, index }) => {
+
+  const location = useLocation();
   const dispatch = useDispatch();
 
   const handleReadNotification = () => {
     if (data?.is_read === false) {
-      serviceNotificationReadUnRead({ id: data?._id });
+      serviceNotificationReadUnRead({ id: data?._id }).then((res)=>window.location.reload());
     }
   };
 
