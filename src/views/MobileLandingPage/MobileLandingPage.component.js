@@ -38,7 +38,7 @@ const MobileLandingPage = () => {
           <div className={styles.plainPaper}>
             <Link to={"/my/profile"} className={styles.linkRoutes}>
               <div className={styles.subPaper}>
-                <Example animation={profilelottie}  style={{ height: "60px", width: "60px" }}/>
+                <Example animation={profilelottie}  style={{ height: "50px", width: "50px" }}/>
                 <div className={styles.text}> My Profile</div>
               </div>
             </Link>
