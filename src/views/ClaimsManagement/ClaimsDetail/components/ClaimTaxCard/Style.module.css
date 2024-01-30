@@ -153,9 +153,6 @@
   margin-top: 20px;
   font-size: 0.875rem;
 }
-.formSelectWrapper {
-  margin-top: 15px;
-}
 .createBtn {
   background-color: #29cb97 !important;
   color: #ffffff !important;
@@ -209,6 +206,34 @@
 .inner > span {
   margin-left: 10px;
   color: #2896e9;
+}
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  /* gap: 10px; */
+  margin-top: 10px;
+}
+.lowerdec {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.basicWrap{
+  display: flex;
+  padding: 0 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.salaryInner{
+  flex: 1;
+}
+.salaryInner > span {
+  margin-left: 10px;
+  color: #818181;
+}
+.dec{
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #818181;
 }
 @media (max-width: 767px) {
   .formWrp {

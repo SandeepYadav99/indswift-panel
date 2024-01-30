@@ -1,4 +1,12 @@
-import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
+import {
+  ButtonBase,
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 import React from "react";
 import history from "../../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -11,6 +19,9 @@ import CustomDatePicker from "../../../../../components/FormFields/DatePicker/Cu
 import CustomSelectField from "../../../../../components/FormFields/SelectField/SelectField.component";
 import MultiFile from "./component/FileComponent/FileMultiComponent.component";
 import UpperCard from "./component/UpperCard/UpperCard";
+import RentFieldIncludeForm from "./component/RentField/RentFieldIncludes.component";
+import ChildFieldIncludeForm from "./component/ChildField/ChildFieldIncludes.component";
+
 function ClaimTaxCard() {
   const {
     form,
@@ -26,6 +37,9 @@ function ClaimTaxCard() {
     employeeDetails,
     getUrlfromFile,
     deleteImage,
+    rentRef,
+    childRef,
+    submitToServer,
   } = useClaimMarrigeCard({});
 
   return (
@@ -43,6 +57,7 @@ function ClaimTaxCard() {
       </div>
       <div className={styles.plainPaper}>
         <UpperCard data={employeeDetails} />
+
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomSelectField
@@ -62,10 +77,76 @@ function ClaimTaxCard() {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.editFlex}>
+          <div className={styles.heading}>House Rent Allowance</div>
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              disabled={true}
+              isError={errorData?.hra_received}
+              errorText={errorData?.hra_received}
+              label={"HRA Received"}
+              value={form?.hra_received}
+              onTextChange={(text) => {
+                changeTextData(text, "hra_received");
+              }}
+              onBlur={() => {
+                onBlurHandler("hra_received");
+              }}
+              InputLabelProps={{ shrink: true }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              type="number"
+              isError={errorData?.fy_rent_paid}
+              errorText={errorData?.fy_rent_paid}
+              label={"Total Rent Paid in FY (All Landlords)"}
+              value={form?.fy_rent_paid}
+              onTextChange={(text) => {
+                changeTextData(text, "fy_rent_paid");
+              }}
+              // onBlur={() => {
+              //   onBlurHandler("fy_rent_paid");
+              // }}
+            />
+          </div>
+        </div>
+        <div className={styles.heading}>Max HRA Allowance</div>
+        <div className={styles.basicWrap}>
+          <div className={styles.salaryInner}>
+            50% of Basic Salary for Metro Cities (For Delhi, Mumbai):{" "}
+            <span>{form?.hra_allowance_fifty_pct}</span>
+          </div>
+          <div className={styles.salaryInner}>
+            40% of Basic Salary for Non-Metro Cities:{" "}
+            <span>{form?.hra_allowance_forty_pct}</span>
+          </div>
+          <div className={styles.salaryInner}>
+            Total Rent Paid - 10 % of Basic Salary:{" "}
+            <span>{form?.hra_allowance_rent_paid}</span>
+          </div>
+        </div>
+        <RentFieldIncludeForm
+          ref={rentRef}
+          // getAmount={getAmount}
+        />
+        <div className={styles.heading} style={{ marginBottom: "10px" }}>
+          Note :
+        </div>
+        <div className={styles.dec}>1. Only 2 Landlords can be added</div>
+        <div className={styles.dec}>
+          2. Permanent Account Number shall be furnished if the aggregate rent
+          paid during the previous year exceeds one lakh rupees
+        </div>
+      </div>
+      <div className={styles.plainPaper}>
+        <div className={styles.editFlex}>
           <div className={styles.heading}>
             Deduction of Interest on Borrowing
           </div>
         </div>
+
         <div className={styles.formSelectWrapper}>
           <div className={styles.formWrp}>
             <div className={styles.formGrp}>
@@ -177,11 +258,13 @@ function ClaimTaxCard() {
               <MultiFile
                 multiple
                 max_size={10 * 1024 * 1024}
-                type={["jpeg", "jpg", "png"]}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+                // type={["jpeg", "jpg", "png","pdf"]}
                 fullWidth={true}
                 name="deduction_borrowing_evidences"
                 label="Attach Evidence"
-                accept={"image/*"}
+                accept={"application/pdf,application/msword,image/*"}
+                // accept={"image/*"}
                 error={errorData?.deduction_borrowing_evidences}
                 value={form?.deduction_borrowing_evidences}
                 placeholder={"Attach Evidence"}
@@ -344,6 +427,14 @@ function ClaimTaxCard() {
             />
           </div>
         </div>
+        <div className={styles.heading} style={{ marginBottom: "10px" }}>
+          Tuition Fees of Child (max. 2)
+        </div>
+        <ChildFieldIncludeForm
+          ref={childRef}
+          // grade={employeeDetails?.grade?.code}
+          // getAmount={getAmount}
+        />
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
@@ -578,40 +669,29 @@ function ClaimTaxCard() {
         <div className={styles.heading} style={{ marginTop: "10px" }}>
           (B) Section 80D
         </div>
-        <div className={styles.formWrp}>
-          <div className={styles.formGrp}>
-            <CustomTextField
-              isError={errorData?.self_insurance}
-              errorText={errorData?.self_insurance}
-              label={"Self Insurance Amount"}
-              value={form?.self_insurance}
-              onTextChange={(text) => {
-                changeTextData(text, "self_insurance");
-              }}
-              onBlur={() => {
-                onBlurHandler("self_insurance");
-              }}
-            />
-          </div>
-          <div className={styles.formGrp}>
-            <MultiFile
-              multiple
-              max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
-              fullWidth={true}
-              name="self_insurance_evidence"
-              label="Attach Evidence"
-              accept={"image/*"}
-              error={errorData?.self_insurance_evidence}
-              value={form?.self_insurance_evidence}
-              placeholder={"Attach Evidence"}
-              onChange={(file) => {
-                getUrlfromFile(file, "self_insurance_evidence");
-              }}
-              deleteImage={(file) => {
-                deleteImage(file, "self_insurance_evidence");
-              }}
-            />
+        <div className={styles.formGrp}>
+          <div className={styles.radioWrapper}>
+            <RadioGroup
+              aria-label="option"
+              name="is_family_senior_citizen"
+              value={form?.is_family_senior_citizen}
+              onChange={(e) =>
+                changeTextData(e.target.value, "is_family_senior_citizen")
+              }
+              row
+              className={styles.radioWrap}
+            >
+              <FormControlLabel
+                value="NO"
+                control={<Radio />}
+                label="If you or any of your family member (Excluding parents) is NOT a senior citizen"
+              />
+              <FormControlLabel
+                value="YES"
+                control={<Radio />}
+                label="If you or any of your family member (Excluding parents) is a senior citizen"
+              />
+            </RadioGroup>
           </div>
         </div>
         <div className={styles.formWrp}>
@@ -619,7 +699,7 @@ function ClaimTaxCard() {
             <CustomTextField
               isError={errorData?.family_insurance}
               errorText={errorData?.family_insurance}
-              label={"Family Insurance Amount"}
+              label={"Health Insurance"}
               value={form?.family_insurance}
               onTextChange={(text) => {
                 changeTextData(text, "family_insurance");
@@ -653,15 +733,15 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
-              isError={errorData?.parents_insurance}
-              errorText={errorData?.parents_insurance}
-              label={"Parents medical Insurance Amount"}
-              value={form?.parents_insurance}
+              isError={errorData?.family_phc_evidence}
+              errorText={errorData?.family_phc_evidence}
+              label={"Preventive Health Check Up"}
+              value={form?.family_phc_evidence}
               onTextChange={(text) => {
-                changeTextData(text, "parents_insurance");
+                changeTextData(text, "family_phc_evidence");
               }}
               onBlur={() => {
-                onBlurHandler("parents_insurance");
+                onBlurHandler("family_phc_evidence");
               }}
             />
           </div>
@@ -671,22 +751,400 @@ function ClaimTaxCard() {
               max_size={10 * 1024 * 1024}
               type={["jpeg", "jpg", "png"]}
               fullWidth={true}
-              name="parents_insurance_evidence"
+              name="family_phc_evidence_evidence"
               label="Attach Evidence"
               accept={"image/*"}
-              error={errorData?.parents_insurance_evidence}
-              value={form?.parents_insurance_evidence}
+              error={errorData?.family_phc_evidence_evidence}
+              value={form?.family_phc_evidence_evidence}
               placeholder={"Attach Evidence"}
               onChange={(file) => {
-                getUrlfromFile(file, "parents_insurance_evidence");
+                getUrlfromFile(file, "family_phc_evidence_evidence");
               }}
               deleteImage={(file) => {
-                deleteImage(file, "parents_insurance_evidence");
+                deleteImage(file, "family_phc_evidence_evidence");
               }}
             />
           </div>
         </div>
+        {form?.is_family_senior_citizen === "YES" && (
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
+              <CustomTextField
+                isError={errorData?.family_medical_expenditure}
+                errorText={errorData?.family_medical_expenditure}
+                label={"Medical Expenditure"}
+                value={form?.family_medical_expenditure}
+                onTextChange={(text) => {
+                  changeTextData(text, "family_medical_expenditure");
+                }}
+                onBlur={() => {
+                  onBlurHandler("family_medical_expenditure");
+                }}
+              />
+            </div>
+            <div className={styles.formGrp}>
+              <MultiFile
+                multiple
+                max_size={10 * 1024 * 1024}
+                type={["jpeg", "jpg", "png"]}
+                fullWidth={true}
+                name="family_medical_expenditure_evidence"
+                label="Attach Evidence"
+                accept={"image/*"}
+                error={errorData?.family_medical_expenditure_evidence}
+                value={form?.family_medical_expenditure_evidence}
+                placeholder={"Attach Evidence"}
+                onChange={(file) => {
+                  getUrlfromFile(file, "family_medical_expenditure_evidence");
+                }}
+                deleteImage={(file) => {
+                  deleteImage(file, "family_medical_expenditure_evidence");
+                }}
+              />
+            </div>
+          </div>
+        )}
+
+        <div className={styles.checkboxWrapper}>
+          <Checkbox
+            style={{ padding: 0, marginRight: "10px" }}
+            name={"form?.is_parents_details"}
+            checked={form?.is_parents_details}
+            onChange={() =>
+              changeTextData(!form?.is_parents_details, "is_parents_details")
+            }
+          />
+          <div className={styles.lowerdec}>
+            <span>Fill Parents details</span>
+          </div>
+        </div>
+        {form?.is_parents_details && (
+          <>
+            <div className={styles.formGrp}>
+              <div className={styles.radioWrapper}>
+                <RadioGroup
+                  aria-label="option"
+                  name="is_parents_senior_citizen"
+                  value={form?.is_parents_senior_citizen}
+                  onChange={(e) =>
+                    changeTextData(e.target.value, "is_parents_senior_citizen")
+                  }
+                  row
+                  className={styles.radioWrap}
+                >
+                  <FormControlLabel
+                    // style={{ marginLeft: "20px" }}
+                    value="YES"
+                    control={<Radio />}
+                    label="If any of your parent is a Senior Citizen"
+                  />
+                  <FormControlLabel
+                    value="NO"
+                    control={<Radio />}
+                    label="If any of your parent is not a Senior Citizen"
+                  />
+                </RadioGroup>
+              </div>
+            </div>
+            <div className={styles.formWrp}>
+              <div className={styles.formGrp}>
+                <CustomTextField
+                  isError={errorData?.parents_insurance}
+                  errorText={errorData?.parents_insurance}
+                  label={"Health Insurance"}
+                  value={form?.parents_insurance}
+                  onTextChange={(text) => {
+                    changeTextData(text, "parents_insurance");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("parents_insurance");
+                  }}
+                />
+              </div>
+              <div className={styles.formGrp}>
+                <MultiFile
+                  multiple
+                  max_size={10 * 1024 * 1024}
+                  type={["jpeg", "jpg", "png"]}
+                  fullWidth={true}
+                  name="parents_insurance_evidence"
+                  label="Attach Evidence"
+                  accept={"image/*"}
+                  error={errorData?.parents_insurance_evidence}
+                  value={form?.parents_insurance_evidence}
+                  placeholder={"Attach Evidence"}
+                  onChange={(file) => {
+                    getUrlfromFile(file, "parents_insurance_evidence");
+                  }}
+                  deleteImage={(file) => {
+                    deleteImage(file, "parents_insurance_evidence");
+                  }}
+                />
+              </div>
+            </div>
+            <div className={styles.formWrp}>
+              <div className={styles.formGrp}>
+                <CustomTextField
+                  isError={errorData?.parents_phc}
+                  errorText={errorData?.parents_phc}
+                  label={"Preventive Health Check Up Amount"}
+                  value={form?.parents_phc}
+                  onTextChange={(text) => {
+                    changeTextData(text, "parents_phc");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("parents_phc");
+                  }}
+                />
+              </div>
+              <div className={styles.formGrp}>
+                <MultiFile
+                  multiple
+                  max_size={10 * 1024 * 1024}
+                  type={["jpeg", "jpg", "png"]}
+                  fullWidth={true}
+                  name="parents_phc_evidence"
+                  label="Attach Evidence"
+                  accept={"image/*"}
+                  error={errorData?.parents_phc_evidence}
+                  value={form?.parents_phc_evidence}
+                  placeholder={"Attach Evidence"}
+                  onChange={(file) => {
+                    getUrlfromFile(file, "parents_phc_evidence");
+                  }}
+                  deleteImage={(file) => {
+                    deleteImage(file, "parents_phc_evidence");
+                  }}
+                />
+              </div>
+            </div>
+            {form?.is_parents_senior_citizen === "YES" && (
+              <div className={styles.formWrp}>
+                <div className={styles.formGrp}>
+                  <CustomTextField
+                    isError={errorData?.parents_medical_expenditure}
+                    errorText={errorData?.parents_medical_expenditure}
+                    label={"Medical Expenditure"}
+                    value={form?.parents_medical_expenditure}
+                    onTextChange={(text) => {
+                      changeTextData(text, "parents_medical_expenditure");
+                    }}
+                    onBlur={() => {
+                      onBlurHandler("parents_medical_expenditure");
+                    }}
+                  />
+                </div>
+                <div className={styles.formGrp}>
+                  <MultiFile
+                    multiple
+                    max_size={10 * 1024 * 1024}
+                    type={["jpeg", "jpg", "png"]}
+                    fullWidth={true}
+                    name="parents_medical_expenditure_evidence"
+                    label="Attach Evidence"
+                    accept={"image/*"}
+                    error={errorData?.parents_medical_expenditure_evidence}
+                    value={form?.parents_medical_expenditure_evidence}
+                    placeholder={"Attach Evidence"}
+                    onChange={(file) => {
+                      getUrlfromFile(
+                        file,
+                        "parents_medical_expenditure_evidence"
+                      );
+                    }}
+                    deleteImage={(file) => {
+                      deleteImage(file, "parents_medical_expenditure_evidence");
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        <div className={styles.totalWrap}>
+          <div className={styles.inner}>
+            Total Amount for Self under (B):
+            <span>
+              {form?.total_eighty_d ? `₹ ${form?.total_eighty_d}` : 0}
+            </span>
+          </div>
+          <div className={styles.inner}>
+            Total Amount for Family under (B):
+            <span>
+              {form?.total_family_amount ? `₹ ${form?.total_family_amount}` : 0}
+            </span>
+          </div>
+          <div className={styles.inner} style={{ marginRight: "30px" }}>
+            Note: Maximum of (B) is for individual 25,000 & parents 50,000 per
+            annum
+          </div>
+        </div>
+        <div className={styles.heading} style={{ marginTop: "10px" }}>
+          (C) Other sections
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              isError={errorData?.employee_contribution}
+              errorText={errorData?.employee_contribution}
+              label={
+                "Section 80CCD(1B) Additional Employee Contribution Amount"
+              }
+              value={form?.employee_contribution}
+              onTextChange={(text) => {
+                changeTextData(text, "employee_contribution");
+              }}
+              onBlur={() => {
+                onBlurHandler("employee_contribution");
+              }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="employee_contribution_evidence"
+              label="Attach Evidence"
+              accept={"image/*"}
+              error={errorData?.employee_contribution_evidence}
+              value={form?.employee_contribution_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "employee_contribution_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "employee_contribution_evidence");
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              isError={errorData?.education_loan}
+              errorText={errorData?.education_loan}
+              label={"Section 80E Education Loan for Studies Amount"}
+              value={form?.education_loan}
+              onTextChange={(text) => {
+                changeTextData(text, "education_loan");
+              }}
+              onBlur={() => {
+                onBlurHandler("education_loan");
+              }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="education_loan_evidence"
+              label="Attach Evidence"
+              accept={"image/*"}
+              error={errorData?.education_loan_evidence}
+              value={form?.education_loan_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "education_loan_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "education_loan_evidence");
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              isError={errorData?.donations}
+              errorText={errorData?.donations}
+              label={"Section 80G Donations Paid Amount"}
+              value={form?.donations}
+              onTextChange={(text) => {
+                changeTextData(text, "donations");
+              }}
+              onBlur={() => {
+                onBlurHandler("donations");
+              }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="donations_evidence"
+              label="Attach Evidence"
+              accept={"image/*"}
+              error={errorData?.donations_evidence}
+              value={form?.donations_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "donations_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "donations_evidence");
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              isError={errorData?.disability}
+              errorText={errorData?.disability}
+              label={"Section 80U Person with Disability Amount"}
+              value={form?.disability}
+              onTextChange={(text) => {
+                changeTextData(text, "disability");
+              }}
+              onBlur={() => {
+                onBlurHandler("disability");
+              }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="disability_evidence"
+              label="Attach Evidence"
+              accept={"image/*"}
+              error={errorData?.disability_evidence}
+              value={form?.disability_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "disability_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "disability_evidence");
+              }}
+            />
+          </div>
+        </div>
+        <div className={styles.totalWrap}>
+          <div className={styles.inner}>
+            Total Amount under (C) :
+            <span>{form?.total_other ? `₹ ${form?.total_other}` : 0}</span>
+          </div>
+          <div className={styles.inner} style={{ marginRight: "30px" }}>
+            Total Amount under Deduction under Chapter VI-A:
+            <span>
+              {form?.total_under_deduction
+                ? `₹ ${form?.total_under_deduction}`
+                : 0}
+            </span>
+          </div>
+        </div>
       </div>
+
       <div className={styles.cleckboxWrapper}>
         <div className={styles.checkBox}>
           <input
@@ -699,36 +1157,25 @@ function ClaimTaxCard() {
             }}
           />
           <label htmlFor="confirmation">
-            {" "}
-            I declare the information shared is best of knowledge and I have
-            submitted genuine claim will authenticate bills as and where
-            attached. I understand that any disparity found in claims/bills with
-            respect to the organizational policies may cause auto rejection of
-            claim with or without an opportunity of re-applying. I also
-            understand that if any part/bill of claim is found to be forged with
-            respect to laws of land or organizational policies then I will be
-            individually accountable for all related legal or organizational
-            consequences. I understand the submitted claim/bill is not part of
-            my earning and it is a subject of approval/rejection from
-            organization which can also be altered by organization as per my
-            entitlements before approval or rejection.
+            I certify that the information given above is complete and correct.
           </label>
           <br />
         </div>
       </div>
       <div className={styles.btnCont}>
+        <div className={"headerFlex wrapper"}>
+          <ButtonBase
+            type={"button"}
+            className={styles.createBtn}
+            onClick={() => submitToServer("draft")}
+          >
+            Save As Draft
+          </ButtonBase>
+        </div>
         <ButtonBase
           type={"button"}
-          disabled={
-            !declaration || isLoading || !form?.official_contact?.length
-              ? true
-              : false
-          }
-          className={
-            declaration && form?.official_contact?.length
-              ? styles.createBtn
-              : styles.disabledCreatebtn
-          }
+          disabled={!declaration || isLoading ? true : false}
+          className={declaration ? styles.createBtn : styles.disabledCreatebtn}
           onClick={handleSubmit}
         >
           {isLoading ? (
