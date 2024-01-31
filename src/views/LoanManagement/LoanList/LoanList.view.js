@@ -1,5 +1,5 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton } from "@material-ui/core";
+import { ButtonBase, IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { InfoOutlined } from "@material-ui/icons";
@@ -21,7 +21,9 @@ const LoanList = () => {
     handleSearchValueChange,
     handleViewDetails,
     isCalling,
-    configFilter,handleViewDetails2
+    configFilter,
+    handleViewDetails2,
+    handleBankSheetDownload,
   } = useLoanList({});
 
   const {
@@ -30,6 +32,8 @@ const LoanList = () => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.loanList);
+
+  const { role } = useSelector((state) => state.auth);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -182,7 +186,7 @@ const LoanList = () => {
                 handleViewDetails(all);
               }}
             >
-                <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}} />
+              <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}} />
               <div className={styles.textStyles}>View information</div>
             </IconButton>
             {/* <IconButton
@@ -235,6 +239,18 @@ const LoanList = () => {
             <span className={styles.title}>Loan Application Management</span>
             <div className={styles.newLine} />
           </div>
+          {(role === "CORPORATE_HR" || role === "ACCOUNTANT") && (
+            <div className={styles.btnHide}>
+            <ButtonBase
+              aria-haspopup="true"
+              // onClick={handleAddCandidate}
+              onClick={handleBankSheetDownload}
+              className={"createBtn"}
+            >
+              Loan Bank Transfer Sheet
+            </ButtonBase>
+            </div>
+          )}
         </div>
         <div>
           <FilterComponent

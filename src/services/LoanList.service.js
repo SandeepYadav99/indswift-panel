@@ -58,3 +58,7 @@ export async function serviceGetLoanBudgetOutstanding(params) {
 export async function serviceGetLoanProcessDetails(params) {
   return await postRequest("employee/loans/details", params);
 }
+export async function serviceGetLoanBankSheetDetails(params) {
+  return await postRequest("employee/loans/export/bank/transfer", params);
+}
+
