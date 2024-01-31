@@ -13,10 +13,10 @@ import Example from "./Lotties.component";
 /*Looties Imported here*/
 import claimsData from "../../assets/Lotties/claims.json";
 import travellottie from "../../assets/Lotties/travel.json";
-import profilelottie from "../../assets/Lotties/profile_new.json";
 import loanlottie from "../../assets/Lotties/loan.json";
 import imprestlottie from "../../assets/Lotties/imprest.json";
 import policylotties from "../../assets/Lotties/policy.json";
+import NewProfile from "../../assets/Lotties/Profile_new_new.json";
 
 const MobileLandingPage = () => {
   useEffect(() => {
@@ -38,7 +38,7 @@ const MobileLandingPage = () => {
           <div className={styles.plainPaper}>
             <Link to={"/my/profile"} className={styles.linkRoutes}>
               <div className={styles.subPaper}>
-                <Example animation={profilelottie}  style={{ height: "50px", width: "50px" }}/>
+                <Example animation={NewProfile}  style={{ height: "50px", width: "50px" }}/>
                 <div className={styles.text}> My Profile</div>
               </div>
             </Link>
