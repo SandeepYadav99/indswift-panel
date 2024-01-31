@@ -25,6 +25,8 @@
         align-items: center;
         justify-content: center;
         height: 100vh;
+        opacity: 0;
+        transition: opacity 1s ease-in-out; 
       }
       button {
         background-color: #007bff;
@@ -49,6 +51,9 @@
         margin-top: 20px;
         margin-bottom: 20px;
       }
+      .visible {
+      opacity: 1;
+    }
     </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -66,7 +71,7 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root">
-      <div class="Wrapper">
+      <div class="Wrapper" id="delayedClass">
         <div class="ImgWrap">
           <!-- <img src={require('../src/assets/img/logos/ic_logo.png')} alt="" class="ImgReloadC"/> -->
           <img src='%PUBLIC_URL%/images/100.png' alt="" class="ImgReloadC">
@@ -91,6 +96,10 @@
     -->
   </body>
   <script>
+    setTimeout(function() {
+      document.getElementById('delayedClass').classList.add('visible');
+    }, 10000);
+
     function reloadWeb() {
       location.reload(true);
     }
