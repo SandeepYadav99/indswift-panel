@@ -275,7 +275,7 @@ class FilterComponent extends Component {
                 <div style={{ display: 'flex', width: '100%', alignItems: 'center', }}>
                     <div style={{ flex: 1 }}>
                         <div className={cstyles.inputContainer}>
-                            <input onBlur={this._handleSearchBlur} value={this.state.query} onChange={this._handleSearchChange} className={cstyles.searchInput} placeholder={'Search'}/>
+                            <input onBlur={this._handleSearchBlur} value={this.state.query} onChange={this._handleSearchChange} className={cstyles.searchInput} placeholder={'Search'} name={this.props?.name && this.props.name}/>
                             <div className={'filterSearchIcon'}>
                                 <SearchIcon fontSize={'medium'}/>
                             </div>

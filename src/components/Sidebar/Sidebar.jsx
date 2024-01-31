@@ -322,6 +322,7 @@ const Sidebar = ({ ...props }) => {
             <FilterComponent
               filters={[]}
               handleSearchValueChange={handleSearchValueChange}
+              name="searchSidebar"
               // handleFilterDataChange={handleFilterDataChange}
             />
           </div>

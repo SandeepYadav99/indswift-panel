@@ -490,10 +490,11 @@ const EnhancedTable = (props) => {
             });
         } else {
             return (
-                <TableRow style={{height: (dense ? 33 : 53) * emptyRows}}>
+                <TableRow style={{height: (dense ? 33 : 53) * 1}}>
                     <TableCell
                         colSpan={props.columns.length}
                         classes={{root: classes.centerText}}
+                        style={{textAlign:"center"}}
                     >
                         <img
                             src={require("../../assets/img/ic_search_empty@2x.png")}
