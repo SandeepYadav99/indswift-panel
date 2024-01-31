@@ -26,7 +26,7 @@ import RouteName from "../../routes/Route.name";
 import styles from "./Header.module.css";
 import notificationIcon from "../../assets/img/ic_notification_data.png";
 import notificationUnread from "../../assets/img/newNotificationIcon.png";
-import homePage from "../../assets/img/home.png";
+import homePage from "../../assets/img/home_black.png";
 
 import {
   useLocation,
@@ -163,7 +163,13 @@ const Header = (props) => {
             <div className={classes.innercontent}>James sent you a message</div>
           </Popover>
         </div>
-
+        <div className={styles.imageTagHome}> 
+          <img
+            className={styles.imgClassHome}
+            src={homePage}
+            alt="HomePage Img"
+            onClick={() => handleHomePage()}
+          /></div>
         <div className={classes.logoImage}>
           <img
             src={userData?.image}
@@ -209,13 +215,7 @@ const Header = (props) => {
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </div>
-        <div className={styles.imageTagHome}> 
-          <img
-            className={styles.imgClassHome}
-            src={homePage}
-            alt="HomePage Img"
-            onClick={() => handleHomePage()}
-          /></div>
+      
       </Toolbar>
     </AppBar>
   );
