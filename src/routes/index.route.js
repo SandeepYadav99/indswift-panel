@@ -4,7 +4,6 @@
 import React from "react";
 import Dashboard from "../layouts/Dashboard/Dashboard.jsx";
 import Login from "../views/Login/Login.view";
-// import Signup from '../views/Signup/Signup.view';
 import ForgotPassword from "../views/ForgotPassword/ForgotPassword.view";
 import ResetPassword from "../views/ForgotPassword/ResetPassword.view";
 import {Route, Switch} from "react-router-dom";

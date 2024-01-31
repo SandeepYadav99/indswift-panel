@@ -1,7 +1,7 @@
 {
   "short_name": "SkyNet",
   "name": "SkyNet",
-  "id": "/?source=pwa",
+  "id": "/mobile/dashboard?source=pwa",
   "icons": [
     {
       "src": "images/16.png",
@@ -108,7 +108,7 @@
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "start_url": "/",
+  "start_url": "/mobile/dashboard",
   "scope": "/",
   "orientation": "portrait",
   "screenshots": [
