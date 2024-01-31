@@ -8,6 +8,7 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
+import { serviceGetLoanBankSheetDetails } from "../../../services/LoanList.service";
 
 const useLoanList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -136,7 +137,15 @@ const useLoanList = ({}) => {
     ];
   }, [listData]);
 
- 
+  const handleBankSheetDownload = useCallback(() => {
+    serviceGetLoanBankSheetDetails({}).then((res) => {
+      if (!res.error) {
+        const data = res.data?.response;
+        window.open(data, "_blank");
+      }
+    });
+  }, []);
+
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -146,7 +155,8 @@ const useLoanList = ({}) => {
     handleViewDetails,
     isCalling,
     configFilter,
-    handleViewDetails2
+    handleViewDetails2,
+    handleBankSheetDownload
   };
 };
 

@@ -134,4 +134,7 @@ text-align: end;
   font-weight: 500;
   color: #2896E9;
 }
+.btnHide{
+  display: none;
+}
 }
