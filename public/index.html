@@ -26,7 +26,7 @@
         justify-content: center;
         height: 100vh;
         opacity: 0;
-        transition: opacity 1s ease-in-out; 
+        transition: opacity 1s ease-in-out;
       }
       button {
         background-color: #007bff;
@@ -51,9 +51,24 @@
         margin-top: 20px;
         margin-bottom: 20px;
       }
-      .visible {
-      opacity: 1;
+      #delayedClass {
+        animation: fadeIn 3s forwards;
+        -webkit-animation: fadeIn 3s forwards;
+        /*animation-duration: 0.7s;*/
+        animation-delay: 8s;
+        animation-iteration-count: 1;
+
+      /*opacity: 1;*/
     }
+      @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+
+      @-webkit-keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
     </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -96,10 +111,6 @@
     -->
   </body>
   <script>
-    setTimeout(function() {
-      document.getElementById('delayedClass').classList.add('visible');
-    }, 10000);
-
     function reloadWeb() {
       location.reload(true);
     }
