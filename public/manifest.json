@@ -108,7 +108,7 @@
   "display": "standalone",
   "theme_color": "#1f05a2",
   "background_color": "#ffffff",
-  "start_url": "/",
+  "start_url": "/mobile/dashboard",
   "scope": "/",
   "orientation": "portrait",
   "screenshots": [
