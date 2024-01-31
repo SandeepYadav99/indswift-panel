@@ -12,6 +12,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+
 const ClaimTaxCard = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/ClaimTaxCard/ClaimTaxCard.view.js"));
 const EmpTravelDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpTravelDetail/EmpTravelDetail.view.js"));
 const EmpForeignDetail = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmployeeForeign/EmpForeignDetail.view.js"));
@@ -1869,7 +1870,7 @@ const dashboardRoutes = [
     parent: "reports",
     roles: [Roles.CORPORATE_HR],
   },
- 
+
   {
     path: RouteName.HR_POLICIES,
     sidebarName: "HR Policies",
@@ -2585,7 +2586,7 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
- 
+
   {
     path: `${RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL}:id`,
     sidebarName: "Relieving & Experience Letter",
