@@ -14,9 +14,6 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min.js";
 
 const EmployeeMobileCard = ({ data, index }) => {
 
-  const location = useLocation();
-  const dispatch = useDispatch();
-
   const handleReadNotification = () => {
     if (data?.is_read === false) {
       serviceNotificationReadUnRead({ id: data?._id }).then((res)=>window.location.reload());
@@ -91,10 +88,7 @@ const Notification = () => {
     };
   }, [innerWidth]);
 
-  const { user } = useSelector((state) => state.auth);
-  const removeUnderScore = (value) => {
-    return value ? value.replace(/_/g, " ") : "";
-  };
+  
   const renderStatus = useCallback((status) => {
     return (
       <StatusPill
@@ -199,6 +193,7 @@ const Notification = () => {
     isCalling,
     data,
     allData,
+    EmployeeMobileCard
   ]);
 
   const tableData = useMemo(() => {
@@ -227,6 +222,7 @@ const Notification = () => {
     data,
     allData.length,
     currentPage,
+    EmployeeMobileCard
   ]);
 
   return (
