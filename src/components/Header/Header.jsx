@@ -105,7 +105,7 @@ const Header = (props) => {
 
   const handleHomePage = () => {
       historyUtils.push(RouteName.HOMEPAGE_MOBILE);
-    
+
   };
   const dataCountNotifiication =()=>{
     serviceNotificationCountData().then((res)=>{setUnseen(res?.data)})
@@ -113,7 +113,7 @@ const Header = (props) => {
 
   useEffect(()=>{
     dataCountNotifiication()
-  })
+  }, []);
 
 
   const handleMyProfile = () => {
@@ -163,7 +163,7 @@ const Header = (props) => {
             <div className={classes.innercontent}>James sent you a message</div>
           </Popover>
         </div>
-        <div className={styles.imageTagHome}> 
+        <div className={styles.imageTagHome}>
           <img
             className={styles.imgClassHome}
             src={homePage}
@@ -215,7 +215,7 @@ const Header = (props) => {
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </div>
-      
+
       </Toolbar>
     </AppBar>
   );
