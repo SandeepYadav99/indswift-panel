@@ -20,60 +20,60 @@ const initialForm = {
   lender_address: "",
   house_rent_total: "",
   leave_travel: "",
-  leave_travel_evidence: "",
-  deduction_borrowing_evidences: "",
+  leave_travel_evidence: null,
+  deduction_borrowing_evidences: null,
   life_insurance: "",
-  life_insurance_evidence: "",
+  life_insurance_evidence: null,
   term_insurance: "",
-  term_insurance_evidence: "",
+  term_insurance_evidence: null,
   mutual_funds: "",
-  mutual_funds_evidence: "",
+  mutual_funds_evidence: null,
   sukanya_samriddhi: "",
-  sukanya_samriddhi_evidence: "",
+  sukanya_samriddhi_evidence: null,
   epf: "",
-  epf_evidence: "",
+  epf_evidence: null,
   ppf: "",
-  ppf_evidence: "",
+  ppf_evidence: null,
   house_loan_principle: "",
-  house_loan_principle_evidence: "",
+  house_loan_principle_evidence: null,
   fd_five_year: "",
-  fd_five_year_evidence: "",
+  fd_five_year_evidence: null,
   eighty_ccc: "",
-  eighty_ccc_evidence: "",
+  eighty_ccc_evidence: null,
   eighty_ccd: "",
-  eighty_ccd_evidence: "",
+  eighty_ccd_evidence: null,
   total_eighty_c: "",
   family_insurance: "",
-  family_insurance_evidence: "",
+  family_insurance_evidence: null,
   parents_insurance: "",
-  parents_insurance_evidence: "",
+  parents_insurance_evidence: null,
   medical_expenditure: "",
-  medical_expenditure_evidence: "",
+  medical_expenditure_evidence: null,
   phc: "",
-  phc_evidence: "",
+  phc_evidence: null,
   total_eighty_d: "",
   total_family_amount: "",
   employee_contribution: "",
-  employee_contribution_evidence: "",
+  employee_contribution_evidence: null,
   education_loan: "",
-  education_loan_evidence: "",
+  education_loan_evidence: null,
   donations: "",
-  donations_evidence: "",
+  donations_evidence: null,
   disability: "",
-  disability_evidence: "",
+  disability_evidence: null,
   total_other: "",
   total_under_deduction: "",
   is_family_senior_citizen: "NO",
   family_phc: "",
-  family_phc_evidence: "",
+  family_phc_evidence: null,
   family_medical_expenditure: "",
-  family_medical_expenditure_evidence: "",
+  family_medical_expenditure_evidence: null,
   is_parents_details: "",
   is_parents_senior_citizen: "NO",
   parents_phc: "",
-  parents_phc_evidence: "",
+  parents_phc_evidence: null,
   parents_medical_expenditure: "",
-  parents_medical_expenditure_evidence: "",
+  parents_medical_expenditure_evidence: null,
 };
 
 const useTaxCard = ({}) => {
@@ -112,14 +112,17 @@ const useTaxCard = ({}) => {
     });
     req.then((data) => {
       const res = data?.data?.details;
-      // const { attachments } = res;
+      const { house_rent , ...other} = res;
       const fd = {};
-      Object.keys({ ...res }).forEach((key) => {
+      fd.id = res?.id;
+      Object.keys({ ...other }).forEach((key) => {
         if (key in initialForm && key !== "image") {
-          fd[key] = res[key];
+          fd[key] = other[key];
         }
       });
-      // ChildenRef?.current?.setData(attachments);
+      rentRef?.current?.setData(house_rent);
+      // childRef?.current?.setData(child_fees);
+
       setForm({ ...form, ...fd });
     });
   }, [user_id]);

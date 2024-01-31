@@ -139,26 +139,6 @@ class MultiFile extends Component {
           </div>
         </div>
         <div className={styles.WrapInner}>
-          {accept === "image/*" &&
-            multiDef?.length > 0 &&
-            multiDef?.map((image, index) => (
-              <div className={styles.imgWrapper}>
-                <a key={`Image_def_${index}`} href={image}>
-                  viewss
-                </a>
-                {/* <img
-                  key={`Image_def_${index}`}
-                  src={image}
-                  alt={`Images ${index}`}
-                /> */}
-                <div
-                  className={styles.removeCls}
-                  onClick={() => this._removedefImages(index)}
-                >
-                  Remove
-                </div>
-              </div>
-            ))}
           {value?.length > 0 &&
             value?.map((image, index) => (
               <div className={styles.imgWrapper}>
