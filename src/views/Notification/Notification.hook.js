@@ -36,7 +36,7 @@ const useNotificationList = ({}) => {
         query_data: isMountRef.current ? queryData : null
     }));
     isMountRef.current = true;
-  }, [isMountRef]);
+  }, []);
 
 
   const handlePageChange = useCallback((type) => {
