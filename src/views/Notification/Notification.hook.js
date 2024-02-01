@@ -31,7 +31,7 @@ const useNotificationList = ({}) => {
   } = useSelector((state) => state.notification);
 
   useEffect(() => {
-    dispatch(actionFetchNotification(0, sortingData, {
+    dispatch(actionFetchNotification(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null
     }));
