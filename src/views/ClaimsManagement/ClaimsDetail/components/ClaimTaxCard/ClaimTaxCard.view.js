@@ -443,7 +443,7 @@ function ClaimTaxCard() {
         <ChildFieldIncludeForm
           ref={childRef}
           // grade={employeeDetails?.grade?.code}
-          // getAmount={getAmount}
+          getAmount={changeTextData}
         />
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
@@ -749,15 +749,16 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
-              isError={errorData?.family_phc_evidence}
-              errorText={errorData?.family_phc_evidence}
+              type="number"
+              isError={errorData?.family_phc}
+              errorText={errorData?.family_phc}
               label={"Preventive Health Check Up"}
-              value={form?.family_phc_evidence}
+              value={form?.family_phc}
               onTextChange={(text) => {
-                changeTextData(text, "family_phc_evidence");
+                changeTextData(text, "family_phc");
               }}
               // onBlur={() => {
-              //   onBlurHandler("family_phc_evidence");
+              //   onBlurHandler("family_phc");
               // }}
             />
           </div>
@@ -1159,12 +1160,12 @@ function ClaimTaxCard() {
             <span>{form?.total_other ? `₹ ${form?.total_other}` : 0}</span>
           </div>
           <div className={styles.inner} style={{ marginRight: "30px" }}>
-            Total Amount under Deduction under Chapter VI-A:
-            <span>
+            Total Amount under Deduction under Chapter VI-A:  ₹80,000
+            {/* <span>
               {form?.total_under_deduction
                 ? `₹ ${form?.total_under_deduction}`
                 : 0}
-            </span>
+            </span> */}
           </div>
         </div>
       </div>

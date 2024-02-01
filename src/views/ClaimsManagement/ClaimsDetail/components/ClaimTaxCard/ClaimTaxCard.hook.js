@@ -85,6 +85,35 @@ const initialForm = {
   parents_medical_expenditure: "",
   parents_medical_expenditure_evidence: null,
 };
+const sectionCkeys = [
+  "employee_contribution",
+  "education_loan",
+  "donations",
+  "disability",
+];
+const sectionAkeys = [
+  "life_insurance",
+  "term_insurance",
+  "mutual_funds",
+  "sukanya_samriddhi",
+  "epf",
+  "ppf",
+  "house_loan_principle",
+  "fd_five_year",
+  "eighty_ccc",
+  "eighty_ccd",
+  "child_total",
+];
+const personalKey = [
+  "family_insurance",
+  "family_phc",
+  "family_medical_expenditure",
+];
+const ParentKey = [
+  "parents_insurance",
+  "parents_phc",
+  "parents_medical_expenditure",
+];
 
 const useTaxCard = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -112,6 +141,39 @@ const useTaxCard = ({}) => {
         .catch((err) => console.log(err));
     }
   }, []);
+
+  useEffect(() => {
+    if (!form?.is_parents_details) {
+      setForm({
+        ...form,
+        parents_insurance: "",
+        parents_phc: "",
+        parents_medical_expenditure: "",
+        parents_insurance_evidence: null,
+        parents_phc_evidence: null,
+        parents_medical_expenditure_evidence: null,
+        total_family_amount: "",
+      });
+    }
+    // if (form?.is_family_senior_citizen === "NO") {
+    //   setForm({
+    //     ...form,
+    //     family_medical_expenditure: "",
+    //     family_medical_expenditure_evidence: null,
+    //   });
+    // }
+    // if (form?.is_parents_senior_citizen === "NO") {
+    //   setForm({
+    //     ...form,
+    //     parents_medical_expenditure: "",
+    //     parents_medical_expenditure_evidence: null,
+    //   });
+    // }
+  }, [
+    form?.is_parents_details,
+    // form?.is_family_senior_citizen,
+    // form?.is_parents_senior_citizen,
+  ]);
 
   useEffect(() => {
     let req = serviceGetTaxDetail({
@@ -232,7 +294,7 @@ const useTaxCard = ({}) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log(">>>>",errors)
+    console.log(">>>>", errors);
     const isRentValid = rentRef.current.isValid();
     const isChildValid = childRef.current.isValid();
     if (Object.keys(errors).length > 0 || !isRentValid || !isChildValid) {
@@ -261,7 +323,7 @@ const useTaxCard = ({}) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "bill_amount") {
+      if ([...sectionCkeys, ...sectionAkeys]?.includes(fieldName)) {
         if (text >= 0) {
           t[fieldName] = text;
         }
@@ -271,6 +333,43 @@ const useTaxCard = ({}) => {
         }
       } else {
         t[fieldName] = text;
+      }
+      if (sectionCkeys?.includes(fieldName)) {
+        const sumOfSectionCKeys = sectionCkeys.reduce((sum, key) => {
+          const value = t[key];
+          if (value !== undefined && value !== "") {
+            sum += parseFloat(value);
+          }
+          return sum;
+        }, 0);
+        t["total_other"] = sumOfSectionCKeys;
+      } else if (sectionAkeys?.includes(fieldName)) {
+        const sumOfSectionAKeys = sectionAkeys.reduce((sum, key) => {
+          const value = t[key];
+          if (value !== undefined && value !== "") {
+            sum += parseFloat(value);
+          }
+          return sum;
+        }, 0);
+        t["total_eighty_c"] = sumOfSectionAKeys;
+      } else if (personalKey?.includes(fieldName)) {
+        const personalKeyValues = personalKey.reduce((sum, key) => {
+          const value = t[key];
+          if (value !== undefined && value !== "") {
+            sum += parseFloat(value);
+          }
+          return sum;
+        }, 0);
+        t["total_eighty_d"] = personalKeyValues;
+      } else if (ParentKey?.includes(fieldName)) {
+        const ParentKeyValues = ParentKey.reduce((sum, key) => {
+          const value = t[key];
+          if (value !== undefined && value !== "") {
+            sum += parseFloat(value);
+          }
+          return sum;
+        }, 0);
+        t["total_family_amount"] = ParentKeyValues;
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);

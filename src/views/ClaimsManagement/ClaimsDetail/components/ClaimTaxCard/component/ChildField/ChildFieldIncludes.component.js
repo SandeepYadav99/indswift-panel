@@ -163,9 +163,9 @@ const ChildFieldIncludeForm = (
       return acc;
     }
   }, 0);
-  // useEffect(() => {
-  //   getAmount(sum);
-  // }, [sum]);
+  useEffect(() => {
+    getAmount(sum,"child_total");
+  }, [sum]);
   return (
     <>
       {renderFields}
