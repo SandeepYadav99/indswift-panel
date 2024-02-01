@@ -13,6 +13,9 @@ import { useSelector } from "react-redux";
 import debounce from "lodash.debounce";
 
 const initialForm = {
+  hra_received: "",
+  fy_rent_paid: "",
+  hra_permitted:"",
   fy_year: "",
   lender_name: "",
   lender_address: "",
@@ -68,7 +71,7 @@ const initialForm = {
   family_phc_evidence: null,
   family_medical_expenditure: "",
   family_medical_expenditure_evidence: null,
-  is_parents_details: "",
+  is_parents_details: false,
   is_parents_senior_citizen: "NO",
   parents_phc: "",
   parents_phc_evidence: null,
@@ -112,15 +115,24 @@ const useTaxCard = ({}) => {
     });
     req.then((data) => {
       const res = data?.data?.details;
-      const { house_rent , ...other} = res;
       const fd = {};
       fd.id = res?.id;
-      Object.keys({ ...other }).forEach((key) => {
-        if (key in initialForm && key !== "image") {
-          fd[key] = other[key];
+      Object.keys({ ...res }).forEach((key) => {
+        if (key in initialForm) {
+          if (
+            ["is_parents_senior_citizen", "is_family_senior_citizen"].includes(
+              key
+            )
+          ) {
+            fd[key] = res[key] ? "YES" : "NO";
+          } else {
+            fd[key] = res[key];
+          }
         }
       });
-      rentRef?.current?.setData(house_rent);
+      if (res?.house_rent?.length > 0) {
+        rentRef?.current?.setData(res?.house_rent);
+      }
       // childRef?.current?.setData(child_fees);
 
       setForm({ ...form, ...fd });

@@ -87,9 +87,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "hra_received");
               }}
-              onBlur={() => {
-                onBlurHandler("hra_received");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("hra_received");
+              // }}
               InputLabelProps={{ shrink: true }}
             />
           </div>
@@ -103,9 +103,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "fy_rent_paid");
               }}
-              // onBlur={() => {
-              //   onBlurHandler("fy_rent_paid");
-              // }}
+              onBlur={() => {
+                onBlurHandler("fy_rent_paid");
+              }}
             />
           </div>
         </div>
@@ -124,10 +124,19 @@ function ClaimTaxCard() {
             <span>{form?.hra_allowance_rent_paid}</span>
           </div>
         </div>
-        <RentFieldIncludeForm
-          ref={rentRef}
-          // getAmount={getAmount}
-        />
+        <RentFieldIncludeForm ref={rentRef} getAmount={changeTextData} />
+        <div className={styles.totalWrap}>
+          <div className={styles.inner}>
+            Total Amount :
+            <span>
+              {form?.house_rent_total ? `₹ ${form?.house_rent_total}` : 0}
+            </span>
+          </div>
+          <div className={styles.inner} style={{ marginRight: "30px" }}>
+            Permitted HRA Allowance:
+            <span>{form?.hra_permitted ? `₹ ${form?.hra_permitted}` : 0}</span>
+          </div>
+        </div>
         <div className={styles.heading} style={{ marginBottom: "10px" }}>
           Note :
         </div>
@@ -155,9 +164,9 @@ function ClaimTaxCard() {
                 onTextChange={(text) => {
                   changeTextData(text, "lender_name");
                 }}
-                onBlur={() => {
-                  onBlurHandler("lender_name");
-                }}
+                // onBlur={() => {
+                //   onBlurHandler("lender_name");
+                // }}
               />
             </div>
             <div className={styles.formGrp}>
@@ -170,9 +179,9 @@ function ClaimTaxCard() {
                 onTextChange={(text) => {
                   changeTextData(text, "interest_paid");
                 }}
-                onBlur={() => {
-                  onBlurHandler("interest_paid");
-                }}
+                // onBlur={() => {
+                //   onBlurHandler("interest_paid");
+                // }}
               />
             </div>
           </div>
@@ -186,9 +195,9 @@ function ClaimTaxCard() {
                 onTextChange={(text) => {
                   changeTextData(text, "lender_address");
                 }}
-                onBlur={() => {
-                  onBlurHandler("lender_address");
-                }}
+                // onBlur={() => {
+                //   onBlurHandler("lender_address");
+                // }}
               />
             </div>
             <div className={styles.formGrp}>
@@ -200,9 +209,9 @@ function ClaimTaxCard() {
                 onTextChange={(text) => {
                   changeTextData(text, "lender_pan");
                 }}
-                onBlur={() => {
-                  onBlurHandler("lender_pan");
-                }}
+                // onBlur={() => {
+                //   onBlurHandler("lender_pan");
+                // }}
               />
             </div>
           </div>
@@ -216,9 +225,9 @@ function ClaimTaxCard() {
                 onTextChange={(text) => {
                   changeTextData(text, "financial_institutions");
                 }}
-                onBlur={() => {
-                  onBlurHandler("financial_institutions");
-                }}
+                // onBlur={() => {
+                //   onBlurHandler("financial_institutions");
+                // }}
               />
             </div>
             <div className={styles.formGrp}>
@@ -230,9 +239,9 @@ function ClaimTaxCard() {
                 onTextChange={(text) => {
                   changeTextData(text, "employer");
                 }}
-                onBlur={() => {
-                  onBlurHandler("employer");
-                }}
+                // onBlur={() => {
+                //   onBlurHandler("employer");
+                // }}
               />
             </div>
           </div>
@@ -246,9 +255,9 @@ function ClaimTaxCard() {
                 onTextChange={(text) => {
                   changeTextData(text, "others");
                 }}
-                onBlur={() => {
-                  onBlurHandler("others");
-                }}
+                // onBlur={() => {
+                //   onBlurHandler("others");
+                // }}
               />
             </div>
             <div className={styles.formGrp}>
@@ -291,9 +300,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "life_insurance");
               }}
-              onBlur={() => {
-                onBlurHandler("life_insurance");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("life_insurance");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -328,9 +337,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "term_insurance");
               }}
-              onBlur={() => {
-                onBlurHandler("term_insurance");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("term_insurance");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -357,7 +366,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
-            type="number"
+              type="number"
               isError={errorData?.mutual_funds}
               errorText={errorData?.mutual_funds}
               label={"Mutual Insurance Amount"}
@@ -365,9 +374,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "mutual_funds");
               }}
-              onBlur={() => {
-                onBlurHandler("mutual_funds");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("mutual_funds");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -394,7 +403,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
-            type="number"
+              type="number"
               isError={errorData?.sukanya_samriddhi}
               errorText={errorData?.sukanya_samriddhi}
               label={"Sukanya Samriddhi Scheme Amount"}
@@ -402,9 +411,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "sukanya_samriddhi");
               }}
-              onBlur={() => {
-                onBlurHandler("sukanya_samriddhi");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("sukanya_samriddhi");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -447,9 +456,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "epf");
               }}
-              onBlur={() => {
-                onBlurHandler("epf");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("epf");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -484,9 +493,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "ppf");
               }}
-              onBlur={() => {
-                onBlurHandler("ppf");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("ppf");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -521,9 +530,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "house_loan_principle");
               }}
-              onBlur={() => {
-                onBlurHandler("house_loan_principle");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("house_loan_principle");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -558,9 +567,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "fd_five_year");
               }}
-              onBlur={() => {
-                onBlurHandler("fd_five_year");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("fd_five_year");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -597,9 +606,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "eighty_ccc");
               }}
-              onBlur={() => {
-                onBlurHandler("eighty_ccc");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("eighty_ccc");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -636,9 +645,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "eighty_ccd");
               }}
-              onBlur={() => {
-                onBlurHandler("eighty_ccd");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("eighty_ccd");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -711,9 +720,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "family_insurance");
               }}
-              onBlur={() => {
-                onBlurHandler("family_insurance");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("family_insurance");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -747,9 +756,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "family_phc_evidence");
               }}
-              onBlur={() => {
-                onBlurHandler("family_phc_evidence");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("family_phc_evidence");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -758,17 +767,17 @@ function ClaimTaxCard() {
               max_size={10 * 1024 * 1024}
               type={["jpeg", "jpg", "png"]}
               fullWidth={true}
-              name="family_phc_evidence_evidence"
+              name="family_phc_evidence"
               label="Attach Evidence"
               accept={"image/*"}
-              error={errorData?.family_phc_evidence_evidence}
-              value={form?.family_phc_evidence_evidence}
+              error={errorData?.family_phc_evidence}
+              value={form?.family_phc_evidence}
               placeholder={"Attach Evidence"}
               onChange={(file) => {
-                getUrlfromFile(file, "family_phc_evidence_evidence");
+                getUrlfromFile(file, "family_phc_evidence");
               }}
               deleteImage={(file) => {
-                deleteImage(file, "family_phc_evidence_evidence");
+                deleteImage(file, "family_phc_evidence");
               }}
             />
           </div>
@@ -777,7 +786,7 @@ function ClaimTaxCard() {
           <div className={styles.formWrp}>
             <div className={styles.formGrp}>
               <CustomTextField
-              type="number"
+                type="number"
                 isError={errorData?.family_medical_expenditure}
                 errorText={errorData?.family_medical_expenditure}
                 label={"Medical Expenditure"}
@@ -785,9 +794,9 @@ function ClaimTaxCard() {
                 onTextChange={(text) => {
                   changeTextData(text, "family_medical_expenditure");
                 }}
-                onBlur={() => {
-                  onBlurHandler("family_medical_expenditure");
-                }}
+                // onBlur={() => {
+                //   onBlurHandler("family_medical_expenditure");
+                // }}
               />
             </div>
             <div className={styles.formGrp}>
@@ -857,7 +866,7 @@ function ClaimTaxCard() {
             <div className={styles.formWrp}>
               <div className={styles.formGrp}>
                 <CustomTextField
-                type="number"
+                  type="number"
                   isError={errorData?.parents_insurance}
                   errorText={errorData?.parents_insurance}
                   label={"Health Insurance"}
@@ -865,9 +874,9 @@ function ClaimTaxCard() {
                   onTextChange={(text) => {
                     changeTextData(text, "parents_insurance");
                   }}
-                  onBlur={() => {
-                    onBlurHandler("parents_insurance");
-                  }}
+                  // onBlur={() => {
+                  //   onBlurHandler("parents_insurance");
+                  // }}
                 />
               </div>
               <div className={styles.formGrp}>
@@ -894,7 +903,7 @@ function ClaimTaxCard() {
             <div className={styles.formWrp}>
               <div className={styles.formGrp}>
                 <CustomTextField
-                type="number"
+                  type="number"
                   isError={errorData?.parents_phc}
                   errorText={errorData?.parents_phc}
                   label={"Preventive Health Check Up Amount"}
@@ -902,9 +911,9 @@ function ClaimTaxCard() {
                   onTextChange={(text) => {
                     changeTextData(text, "parents_phc");
                   }}
-                  onBlur={() => {
-                    onBlurHandler("parents_phc");
-                  }}
+                  // onBlur={() => {
+                  //   onBlurHandler("parents_phc");
+                  // }}
                 />
               </div>
               <div className={styles.formGrp}>
@@ -932,7 +941,7 @@ function ClaimTaxCard() {
               <div className={styles.formWrp}>
                 <div className={styles.formGrp}>
                   <CustomTextField
-                  type="number"
+                    type="number"
                     isError={errorData?.parents_medical_expenditure}
                     errorText={errorData?.parents_medical_expenditure}
                     label={"Medical Expenditure"}
@@ -940,9 +949,9 @@ function ClaimTaxCard() {
                     onTextChange={(text) => {
                       changeTextData(text, "parents_medical_expenditure");
                     }}
-                    onBlur={() => {
-                      onBlurHandler("parents_medical_expenditure");
-                    }}
+                    // onBlur={() => {
+                    //   onBlurHandler("parents_medical_expenditure");
+                    // }}
                   />
                 </div>
                 <div className={styles.formGrp}>
@@ -997,7 +1006,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
-            type="number"
+              type="number"
               isError={errorData?.employee_contribution}
               errorText={errorData?.employee_contribution}
               label={
@@ -1007,9 +1016,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "employee_contribution");
               }}
-              onBlur={() => {
-                onBlurHandler("employee_contribution");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("employee_contribution");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -1036,7 +1045,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
-            type="number"
+              type="number"
               isError={errorData?.education_loan}
               errorText={errorData?.education_loan}
               label={"Section 80E Education Loan for Studies Amount"}
@@ -1044,9 +1053,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "education_loan");
               }}
-              onBlur={() => {
-                onBlurHandler("education_loan");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("education_loan");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -1073,7 +1082,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
-            type="number"
+              type="number"
               isError={errorData?.donations}
               errorText={errorData?.donations}
               label={"Section 80G Donations Paid Amount"}
@@ -1081,9 +1090,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "donations");
               }}
-              onBlur={() => {
-                onBlurHandler("donations");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("donations");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -1110,7 +1119,7 @@ function ClaimTaxCard() {
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <CustomTextField
-            type="number"
+              type="number"
               isError={errorData?.disability}
               errorText={errorData?.disability}
               label={"Section 80U Person with Disability Amount"}
@@ -1118,9 +1127,9 @@ function ClaimTaxCard() {
               onTextChange={(text) => {
                 changeTextData(text, "disability");
               }}
-              onBlur={() => {
-                onBlurHandler("disability");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("disability");
+              // }}
             />
           </div>
           <div className={styles.formGrp}>
@@ -1182,7 +1191,9 @@ function ClaimTaxCard() {
           <ButtonBase
             type={"button"}
             disabled={!declaration || isLoading ? true : false}
-            className={declaration ? styles.createBtn : styles.disabledCreatebtn}
+            className={
+              declaration ? styles.createBtn : styles.disabledCreatebtn
+            }
             onClick={() => submitToServer("draft")}
           >
             Save As Draft
@@ -1195,9 +1206,9 @@ function ClaimTaxCard() {
           onClick={handleSubmit}
         >
           {/* {isLoading ? ( */}
-            {/* <CircularProgress color="success" size="20px" />
+          {/* <CircularProgress color="success" size="20px" />
           ) : ( */}
-            "Submit"
+          "Submit"
           {/* )} */}
         </ButtonBase>
       </div>
