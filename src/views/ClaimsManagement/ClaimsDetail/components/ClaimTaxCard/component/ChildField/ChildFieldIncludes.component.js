@@ -14,7 +14,7 @@ import { useParams } from "react-router";
 import ChildFieldIncludeFields from "./ChildFieldIncludeFields.component";
 
 const TEMP_OBJ = {
-  rent: "",
+  amount: "",
   child_fees_evidence: null,
 };
 

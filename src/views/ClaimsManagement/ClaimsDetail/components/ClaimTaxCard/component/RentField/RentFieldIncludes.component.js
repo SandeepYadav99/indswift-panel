@@ -53,7 +53,7 @@ const RentFieldIncludeForm = (
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
-        } else if (key === "amount") {
+        } else if (key === "rent") {
           if (val[key].trim() === "") {
             err[key] = true;
           }
@@ -164,16 +164,17 @@ const RentFieldIncludeForm = (
     fields,
   ]);
   const sum = fields.reduce((acc, curr) => {
-    const value = curr["amount"];
+    const value = curr["rent"];
     if (value !== "") {
       return acc + parseFloat(value);
     } else {
       return acc;
     }
   }, 0);
-  // useEffect(() => {
-  //   getAmount(sum);
-  // }, [sum]);
+  useEffect(() => {
+    getAmount(sum,"house_rent_total");
+  }, [sum]);
+
   return (
     <>
       {renderFields}
@@ -191,11 +192,6 @@ const RentFieldIncludeForm = (
         </div>
       )}
 
-      <div className={styles.totalWrap}>
-        <div className={styles.inner}>
-          Total Claim Amount: <span>{sum || sum === 0 ? `₹ ${sum}` : ""}</span>
-        </div>
-      </div>
     </>
   );
 };

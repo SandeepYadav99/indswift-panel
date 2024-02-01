@@ -813,3 +813,11 @@ export function getNullPaths(data) {
 
 return { nullPathObjects, uniquePathObjects };
 }
+export const isDateInFiscalYear = (date) => {
+  const month = date.getMonth() + 1;
+  return (
+    (month === 1 && date.getDate() >= 7 && date.getDate() <= 31) ||
+    (month > 1 && month < 3) ||
+    (month === 3 && date.getDate() <= 25)
+  );
+};
