@@ -28,7 +28,6 @@ function ClaimTaxCard() {
     isLoading,
     isSubmitting,
     errorData,
-    editData,
     declaration,
     setDeclaration,
     employeeDetails,
@@ -37,6 +36,7 @@ function ClaimTaxCard() {
     rentRef,
     childRef,
     submitToServer,
+    isTodayInFiscalYear,
   } = useClaimMarrigeCard({});
 
   return (
@@ -1199,18 +1199,18 @@ function ClaimTaxCard() {
             Save As Draft
           </ButtonBase>
         </div>
-        <ButtonBase
-          type={"button"}
-          disabled={!declaration || isLoading ? true : false}
-          className={declaration ? styles.createBtn : styles.disabledCreatebtn}
-          onClick={handleSubmit}
-        >
-          {/* {isLoading ? ( */}
-          {/* <CircularProgress color="success" size="20px" />
-          ) : ( */}
-          "Submit"
-          {/* )} */}
-        </ButtonBase>
+        {isTodayInFiscalYear && (
+          <ButtonBase
+            type={"button"}
+            disabled={!declaration || isLoading ? true : false}
+            className={
+              declaration ? styles.createBtn : styles.disabledCreatebtn
+            }
+            onClick={handleSubmit}
+          >
+            Submit
+          </ButtonBase>
+        )}
       </div>
     </div>
   );

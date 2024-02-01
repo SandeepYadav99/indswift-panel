@@ -11,16 +11,23 @@ import {
 } from "../../../../../services/ClaimsManagement.service";
 import { useSelector } from "react-redux";
 import debounce from "lodash.debounce";
+import { isDateInFiscalYear } from "../../../../../helper/helper";
 
 const initialForm = {
   hra_received: "",
   fy_rent_paid: "",
-  hra_permitted:"",
+  hra_permitted: "",
+  employee_id: "",
+  is_taxable: false,
   fy_year: "",
   lender_name: "",
   lender_address: "",
   interest_paid: "",
   lender_address: "",
+  lender_pan: "",
+  financial_institutions: "",
+  employer: "",
+  others: "",
   house_rent_total: "",
   leave_travel: "",
   leave_travel_evidence: null,
@@ -84,19 +91,17 @@ const useTaxCard = ({}) => {
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
-  const [isEdit, setIsEdit] = useState(false);
-  const [editData, setEditData] = useState(null);
   const [declaration, setDeclaration] = useState(false);
   const [employeeDetails, setEmployeeDetails] = useState({});
-  const [claimInfo, setClaimInfo] = useState({});
   const rentRef = useRef(null);
   const childRef = useRef(null);
   const { id } = useParams();
   const {
     user: { emp_code, user_id },
   } = useSelector((state) => state.auth);
+  const today = new Date();
+  const isTodayInFiscalYear = isDateInFiscalYear(today);
 
-  console.log("user_id", user_id);
   useEffect(() => {
     if (emp_code) {
       let dataValues = serviceGetEmployeeDetails({ code: emp_code });
@@ -133,8 +138,9 @@ const useTaxCard = ({}) => {
       if (res?.house_rent?.length > 0) {
         rentRef?.current?.setData(res?.house_rent);
       }
-      // childRef?.current?.setData(child_fees);
-
+      if (res?.child_fees?.length > 0) {
+        childRef?.current?.setData(res?.child_fees);
+      }
       setForm({ ...form, ...fd });
     });
   }, [user_id]);
@@ -170,7 +176,7 @@ const useTaxCard = ({}) => {
   console.log("form", form);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [""];
+    let required = [];
 
     required.forEach((val) => {
       if (
@@ -204,6 +210,8 @@ const useTaxCard = ({}) => {
         };
         if (status) {
           data.is_drafted = true;
+        } else {
+          data.is_drafted = false;
         }
 
         console.log(">form", { form, data });
@@ -224,6 +232,7 @@ const useTaxCard = ({}) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
+    console.log(">>>>",errors)
     const isRentValid = rentRef.current.isValid();
     const isChildValid = childRef.current.isValid();
     if (Object.keys(errors).length > 0 || !isRentValid || !isChildValid) {
@@ -289,18 +298,16 @@ const useTaxCard = ({}) => {
     isLoading,
     isSubmitting,
     errorData,
-    isEdit,
-    editData,
     declaration,
     setDeclaration,
     employeeDetails,
-    claimInfo,
     getUrlfromFile,
     deleteImage,
     rentRef,
     childRef,
     submitToServer,
     checkSalaryInfoDebouncer,
+    isTodayInFiscalYear,
   };
 };
 
