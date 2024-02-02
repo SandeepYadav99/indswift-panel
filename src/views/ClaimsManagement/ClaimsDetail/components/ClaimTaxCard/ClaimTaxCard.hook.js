@@ -15,6 +15,9 @@ import { isDateInFiscalYear } from "../../../../../helper/helper";
 
 const initialForm = {
   hra_months: "",
+  hra_allowance_fifty_pct:"",
+  hra_allowance_forty_pct:"",
+  hra_allowance_rent_paid:"",
   hra_received: "",
   fy_rent_paid: "",
   hra_permitted: "",

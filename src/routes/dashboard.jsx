@@ -13,6 +13,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 
+const TaxList = lazy(()=>import ("../views/Tax/List/TaxList.component.js"));
 const ClaimTaxCard = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/ClaimTaxCard/ClaimTaxCard.view.js"));
 const EmpTravelDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpTravelDetail/EmpTravelDetail.view.js"));
 const EmpForeignDetail = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmployeeForeign/EmpForeignDetail.view.js"));
@@ -2823,7 +2824,16 @@ const dashboardRoutes = [
   is_sidebar: false,
   is_protect: true,
 },
-
+{
+  path: RouteName.TAX_LIST,
+  sidebarName: "Tax Rebate Approval",
+  navbarName: "Tax Rebate Approval",
+  icon: AssignmentOutlined,
+  component: TaxList,
+  is_sidebar: true,
+  is_protect: true,
+  roles: [Roles.ACCOUNTANT],
+},
 ];
 
 export default dashboardRoutes;
