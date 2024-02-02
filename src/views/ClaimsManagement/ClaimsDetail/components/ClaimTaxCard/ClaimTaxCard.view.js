@@ -37,7 +37,7 @@ function ClaimTaxCard() {
     childRef,
     submitToServer,
     isTodayInFiscalYear,
-    handleDraft
+    handleDraft,
   } = useClaimMarrigeCard({});
 
   return (
@@ -111,26 +111,40 @@ function ClaimTaxCard() {
           </div>
         </div>
         <div className={styles.heading}>Max HRA Allowance</div>
-        <div className={styles.totalWrap} style={{background:"none"}}>
+        <div className={styles.totalWrap} style={{ background: "none" }}>
           <div className={styles.salaryInner}>
             50% of Basic Salary for Metro Cities (For Delhi, Mumbai):{" "}
-            <span>{form?.hra_allowance_fifty_pct ? `₹ ${form?.hra_allowance_fifty_pct}` : 0}</span>
+            <span>
+              {form?.hra_allowance_fifty_pct
+                ? `₹ ${form?.hra_allowance_fifty_pct}`
+                : 0}
+            </span>
           </div>
           <div className={styles.salaryInner}>
             40% of Basic Salary for Non-Metro Cities:{" "}
-            <span>{form?.hra_allowance_forty_pct ? `₹ ${form?.hra_allowance_forty_pct}` : 0}</span>
+            <span>
+              {form?.hra_allowance_forty_pct
+                ? `₹ ${form?.hra_allowance_forty_pct}`
+                : 0}
+            </span>
           </div>
-          <div className={styles.salaryInner}>
-            Total Rent Paid - 10 % of Basic Salary:{" "}
-            <span>{form?.hra_allowance_rent_paid ? `₹ ${form?.hra_allowance_rent_paid}` : 0}</span>
-          </div>
+          {form?.fy_rent_paid && (
+            <div className={styles.salaryInner}>
+              Total Rent Paid - 10 % of Basic Salary:{" "}
+              <span>
+                {form?.hra_allowance_rent_paid
+                  ? `₹ ${form?.hra_allowance_rent_paid}`
+                  : 0}
+              </span>
+            </div>
+          )}
         </div>
         <RentFieldIncludeForm ref={rentRef} getAmount={changeTextData} />
         <div className={styles.heading} style={{ marginBottom: "10px" }}>
           Note :
         </div>
         <div className={styles.dec}>1. Only 2 Landlords can be added</div>
-        <div className={styles.dec} style={{marginBottom:"20px"}}>
+        <div className={styles.dec} style={{ marginBottom: "20px" }}>
           2. Permanent Account Number shall be furnished if the aggregate rent
           paid during the previous year exceeds one lakh rupees
         </div>
@@ -146,7 +160,6 @@ function ClaimTaxCard() {
             <span>{form?.hra_permitted ? `₹ ${form?.hra_permitted}` : 0}</span>
           </div>
         </div>
-       
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.editFlex}>
@@ -999,8 +1012,8 @@ function ClaimTaxCard() {
             </span>
           </div>
           <div className={styles.inner} style={{ marginRight: "30px" }}>
-            Note: Maximum of (B) is for individual ₹ 25,000 & parents ₹ 50,000 per
-            annum
+            Note: Maximum of (B) is for individual ₹ 25,000 & parents ₹ 50,000
+            per annum
           </div>
         </div>
         <div className={styles.heading} style={{ marginTop: "10px" }}>
@@ -1162,7 +1175,7 @@ function ClaimTaxCard() {
             <span>{form?.total_other ? `₹ ${form?.total_other}` : 0}</span>
           </div>
           <div className={styles.inner} style={{ marginRight: "30px" }}>
-            Total Amount under Deduction under Chapter VI-A:  ₹80,000
+            Total Amount under Deduction under Chapter VI-A: ₹80,000
             {/* <span>
               {form?.total_under_deduction
                 ? `₹ ${form?.total_under_deduction}`
@@ -1199,7 +1212,11 @@ function ClaimTaxCard() {
             }
             onClick={() => handleDraft("draft")}
           >
-            Save As Draft
+            {isLoading ? (
+              <CircularProgress color="success" size="20px" />
+            ) : (
+              "Save As Draft"
+            )}
           </ButtonBase>
         </div>
         {isTodayInFiscalYear && (
@@ -1211,7 +1228,11 @@ function ClaimTaxCard() {
             }
             onClick={handleSubmit}
           >
-            SEND FOR APPROVAL
+            {isLoading ? (
+              <CircularProgress color="success" size="20px" />
+            ) : (
+              "SEND FOR APPROVAL"
+            )}
           </ButtonBase>
         )}
       </div>

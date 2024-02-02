@@ -342,12 +342,30 @@ const useTaxCard = ({}) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if ([...sectionCkeys, ...sectionAkeys]?.includes(fieldName)) {
+      if (
+        [...sectionCkeys, ...sectionAkeys, ...personalKey]?.includes(fieldName)
+      ) {
         if (text >= 0) {
           t[fieldName] = text;
         }
       } else if (fieldName === "interest_paid") {
         if (text >= 0 && text <= 200000) {
+          t[fieldName] = text;
+        }
+      } else if (fieldName === "is_family_senior_citizen") {
+        if (text === "NO") {
+          t["family_medical_expenditure"] = "";
+          t["family_medical_expenditure_evidence"] = null;
+          t[fieldName] = text;
+        } else {
+          t[fieldName] = text;
+        }
+      } else if (fieldName === "is_parents_senior_citizen") {
+        if (text === "NO") {
+          t["parents_medical_expenditure"] = "";
+          t["parents_medical_expenditure_evidence"] = null;
+          t[fieldName] = text;
+        } else {
           t[fieldName] = text;
         }
       } else {
@@ -371,7 +389,10 @@ const useTaxCard = ({}) => {
           return sum;
         }, 0);
         t["total_eighty_c"] = sumOfSectionAKeys;
-      } else if (personalKey?.includes(fieldName)) {
+      } else if (
+        personalKey?.includes(fieldName) ||
+        fieldName === "is_family_senior_citizen"
+      ) {
         const personalKeyValues = personalKey.reduce((sum, key) => {
           const value = t[key];
           if (value !== undefined && value !== "") {
@@ -380,7 +401,10 @@ const useTaxCard = ({}) => {
           return sum;
         }, 0);
         t["total_eighty_d"] = personalKeyValues;
-      } else if (ParentKey?.includes(fieldName)) {
+      } else if (
+        ParentKey?.includes(fieldName) ||
+        fieldName === "is_parents_senior_citizen"
+      ) {
         const ParentKeyValues = ParentKey.reduce((sum, key) => {
           const value = t[key];
           if (value !== undefined && value !== "") {
