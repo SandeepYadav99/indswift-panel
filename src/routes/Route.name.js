@@ -237,6 +237,7 @@ export default {
   FULL_FINAL_DETAIL_APPROVAL:"/full-final/detail/",
 
   TAX_LIST:"/tax/list",
+  TAX_DETAIL:"/tax/detail/",
   
   FULL_FINAL_FORM:"/full/form/",
   FULL_FINAL_DETAIL:"/full/detail/",

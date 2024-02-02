@@ -125,7 +125,7 @@ const TaxList = ({}) => {
         key: "status",
         label: "STATUS",
         sortable: false,
-        render: (temp, all) => <div>{renderStatus(all?.employee?.status)}</div>,
+        render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
       },
       {
         key: "Last",
@@ -133,18 +133,7 @@ const TaxList = ({}) => {
         sortable: false,
         style: { width: "18%" },
         render: (temp, all) => (
-          <div>{all?.employee?.resign_data?.last_working_date}</div>
-        ),
-      },
-
-      {
-        key: "value",
-        label: "value",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.captialize}>
-            {all?.employee?.designation?.name}
-          </div>
+          <div>{all?.taxRebate?.fy_year}</div>
         ),
       },
       {
@@ -153,7 +142,7 @@ const TaxList = ({}) => {
         sortable: false,
         render: (temp, all) => (
           <div className={styles.captialize}>
-            {all?.employee?.designation?.name}
+            {all?.taxRebate?.claimDateText}
           </div>
         ),
       },
