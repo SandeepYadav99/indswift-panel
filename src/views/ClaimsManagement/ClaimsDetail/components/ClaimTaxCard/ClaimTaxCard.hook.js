@@ -14,6 +14,7 @@ import debounce from "lodash.debounce";
 import { isDateInFiscalYear } from "../../../../../helper/helper";
 
 const initialForm = {
+  hra_months: "",
   hra_received: "",
   fy_rent_paid: "",
   hra_permitted: "",
@@ -124,7 +125,6 @@ const useTaxCard = ({}) => {
   const [employeeDetails, setEmployeeDetails] = useState({});
   const rentRef = useRef(null);
   const childRef = useRef(null);
-  const { id } = useParams();
   const {
     user: { emp_code, user_id },
   } = useSelector((state) => state.auth);
@@ -183,7 +183,6 @@ const useTaxCard = ({}) => {
     req.then((data) => {
       const res = data?.data?.details;
       const fd = {};
-      fd.id = res?.id;
       Object.keys({ ...res }).forEach((key) => {
         if (key in initialForm) {
           if (
@@ -197,13 +196,16 @@ const useTaxCard = ({}) => {
           }
         }
       });
+      fd.id = res?.id ? res?.id : "";
       if (res?.house_rent?.length > 0) {
         rentRef?.current?.setData(res?.house_rent);
       }
       if (res?.child_fees?.length > 0) {
         childRef?.current?.setData(res?.child_fees);
       }
-      setForm({ ...form, ...fd });
+      setTimeout(() => {
+        setForm({ ...form, ...fd });
+      }, 500);
     });
   }, [user_id]);
 
@@ -235,10 +237,9 @@ const useTaxCard = ({}) => {
     setForm({ ...form, [fieldName]: [...text] });
   };
 
-  console.log("form", form);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [];
+    let required = ["fy_year"];
 
     required.forEach((val) => {
       if (
@@ -289,7 +290,7 @@ const useTaxCard = ({}) => {
         });
       }
     },
-    [form, isSubmitting, setIsSubmitting, id]
+    [form, isSubmitting, setIsSubmitting]
   );
 
   const handleSubmit = useCallback(async () => {
