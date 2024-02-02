@@ -37,6 +37,7 @@ function ClaimTaxCard() {
     childRef,
     submitToServer,
     isTodayInFiscalYear,
+    handleDraft
   } = useClaimMarrigeCard({});
 
   return (
@@ -110,21 +111,29 @@ function ClaimTaxCard() {
           </div>
         </div>
         <div className={styles.heading}>Max HRA Allowance</div>
-        <div className={styles.basicWrap}>
+        <div className={styles.totalWrap} style={{background:"none"}}>
           <div className={styles.salaryInner}>
             50% of Basic Salary for Metro Cities (For Delhi, Mumbai):{" "}
-            <span>{form?.hra_allowance_fifty_pct}</span>
+            <span>{form?.hra_allowance_fifty_pct ? `₹ ${form?.hra_allowance_fifty_pct}` : 0}</span>
           </div>
           <div className={styles.salaryInner}>
             40% of Basic Salary for Non-Metro Cities:{" "}
-            <span>{form?.hra_allowance_forty_pct}</span>
+            <span>{form?.hra_allowance_forty_pct ? `₹ ${form?.hra_allowance_forty_pct}` : 0}</span>
           </div>
           <div className={styles.salaryInner}>
             Total Rent Paid - 10 % of Basic Salary:{" "}
-            <span>{form?.hra_allowance_rent_paid}</span>
+            <span>{form?.hra_allowance_rent_paid ? `₹ ${form?.hra_allowance_rent_paid}` : 0}</span>
           </div>
         </div>
         <RentFieldIncludeForm ref={rentRef} getAmount={changeTextData} />
+        <div className={styles.heading} style={{ marginBottom: "10px" }}>
+          Note :
+        </div>
+        <div className={styles.dec}>1. Only 2 Landlords can be added</div>
+        <div className={styles.dec} style={{marginBottom:"20px"}}>
+          2. Permanent Account Number shall be furnished if the aggregate rent
+          paid during the previous year exceeds one lakh rupees
+        </div>
         <div className={styles.totalWrap}>
           <div className={styles.inner}>
             Total Amount :
@@ -137,14 +146,7 @@ function ClaimTaxCard() {
             <span>{form?.hra_permitted ? `₹ ${form?.hra_permitted}` : 0}</span>
           </div>
         </div>
-        <div className={styles.heading} style={{ marginBottom: "10px" }}>
-          Note :
-        </div>
-        <div className={styles.dec}>1. Only 2 Landlords can be added</div>
-        <div className={styles.dec}>
-          2. Permanent Account Number shall be furnished if the aggregate rent
-          paid during the previous year exceeds one lakh rupees
-        </div>
+       
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.editFlex}>
@@ -270,7 +272,7 @@ function ClaimTaxCard() {
                 name="deduction_borrowing_evidences"
                 label="Attach Evidence"
                 accept={"application/pdf,application/msword,image/*"}
-                // accept={"image/*"}
+                // accept={"application/pdf,application/msword,image/*"}
                 error={errorData?.deduction_borrowing_evidences}
                 value={form?.deduction_borrowing_evidences}
                 placeholder={"Attach Evidence"}
@@ -309,11 +311,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="life_insurance_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.life_insurance_evidence}
               value={form?.life_insurance_evidence}
               placeholder={"Attach Evidence"}
@@ -346,11 +348,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="term_insurance_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.term_insurance_evidence}
               value={form?.term_insurance_evidence}
               placeholder={"Attach Evidence"}
@@ -383,11 +385,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="mutual_funds_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.mutual_funds_evidence}
               value={form?.mutual_funds_evidence}
               placeholder={"Attach Evidence"}
@@ -420,11 +422,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="sukanya_samriddhi_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.sukanya_samriddhi_evidence}
               value={form?.sukanya_samriddhi_evidence}
               placeholder={"Attach Evidence"}
@@ -465,11 +467,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="epf_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.epf_evidence}
               value={form?.epf_evidence}
               placeholder={"Attach Evidence"}
@@ -502,11 +504,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="ppf_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.ppf_evidence}
               value={form?.ppf_evidence}
               placeholder={"Attach Evidence"}
@@ -539,11 +541,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="house_loan_principle_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.house_loan_principle_evidence}
               value={form?.house_loan_principle_evidence}
               placeholder={"Attach Evidence"}
@@ -576,11 +578,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="fd_five_year_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.fd_five_year_evidence}
               value={form?.fd_five_year_evidence}
               placeholder={"Attach Evidence"}
@@ -615,11 +617,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="eighty_ccc_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.eighty_ccc_evidence}
               value={form?.eighty_ccc_evidence}
               placeholder={"Attach Evidence"}
@@ -654,11 +656,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="eighty_ccd_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.eighty_ccd_evidence}
               value={form?.eighty_ccd_evidence}
               placeholder={"Attach Evidence"}
@@ -679,7 +681,7 @@ function ClaimTaxCard() {
             </span>
           </div>
           <div className={styles.inner} style={{ marginRight: "30px" }}>
-            Note: Maximum of (A) is 1.5 lacs
+            Note: Maximum of (A) is 1.5 lacs Rupees
           </div>
         </div>
         <div className={styles.heading} style={{ marginTop: "10px" }}>
@@ -729,11 +731,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="family_insurance_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.family_insurance_evidence}
               value={form?.family_insurance_evidence}
               placeholder={"Attach Evidence"}
@@ -766,11 +768,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="family_phc_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.family_phc_evidence}
               value={form?.family_phc_evidence}
               placeholder={"Attach Evidence"}
@@ -804,11 +806,11 @@ function ClaimTaxCard() {
               <MultiFile
                 multiple
                 max_size={10 * 1024 * 1024}
-                type={["jpeg", "jpg", "png"]}
+                type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
                 fullWidth={true}
                 name="family_medical_expenditure_evidence"
                 label="Attach Evidence"
-                accept={"image/*"}
+                accept={"application/pdf,application/msword,image/*"}
                 error={errorData?.family_medical_expenditure_evidence}
                 value={form?.family_medical_expenditure_evidence}
                 placeholder={"Attach Evidence"}
@@ -884,11 +886,11 @@ function ClaimTaxCard() {
                 <MultiFile
                   multiple
                   max_size={10 * 1024 * 1024}
-                  type={["jpeg", "jpg", "png"]}
+                  type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
                   fullWidth={true}
                   name="parents_insurance_evidence"
                   label="Attach Evidence"
-                  accept={"image/*"}
+                  accept={"application/pdf,application/msword,image/*"}
                   error={errorData?.parents_insurance_evidence}
                   value={form?.parents_insurance_evidence}
                   placeholder={"Attach Evidence"}
@@ -921,11 +923,11 @@ function ClaimTaxCard() {
                 <MultiFile
                   multiple
                   max_size={10 * 1024 * 1024}
-                  type={["jpeg", "jpg", "png"]}
+                  type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
                   fullWidth={true}
                   name="parents_phc_evidence"
                   label="Attach Evidence"
-                  accept={"image/*"}
+                  accept={"application/pdf,application/msword,image/*"}
                   error={errorData?.parents_phc_evidence}
                   value={form?.parents_phc_evidence}
                   placeholder={"Attach Evidence"}
@@ -959,11 +961,11 @@ function ClaimTaxCard() {
                   <MultiFile
                     multiple
                     max_size={10 * 1024 * 1024}
-                    type={["jpeg", "jpg", "png"]}
+                    type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
                     fullWidth={true}
                     name="parents_medical_expenditure_evidence"
                     label="Attach Evidence"
-                    accept={"image/*"}
+                    accept={"application/pdf,application/msword,image/*"}
                     error={errorData?.parents_medical_expenditure_evidence}
                     value={form?.parents_medical_expenditure_evidence}
                     placeholder={"Attach Evidence"}
@@ -997,7 +999,7 @@ function ClaimTaxCard() {
             </span>
           </div>
           <div className={styles.inner} style={{ marginRight: "30px" }}>
-            Note: Maximum of (B) is for individual 25,000 & parents 50,000 per
+            Note: Maximum of (B) is for individual ₹ 25,000 & parents ₹ 50,000 per
             annum
           </div>
         </div>
@@ -1026,11 +1028,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="employee_contribution_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.employee_contribution_evidence}
               value={form?.employee_contribution_evidence}
               placeholder={"Attach Evidence"}
@@ -1063,11 +1065,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="education_loan_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.education_loan_evidence}
               value={form?.education_loan_evidence}
               placeholder={"Attach Evidence"}
@@ -1100,11 +1102,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="donations_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.donations_evidence}
               value={form?.donations_evidence}
               placeholder={"Attach Evidence"}
@@ -1137,11 +1139,11 @@ function ClaimTaxCard() {
             <MultiFile
               multiple
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
               fullWidth={true}
               name="disability_evidence"
               label="Attach Evidence"
-              accept={"image/*"}
+              accept={"application/pdf,application/msword,image/*"}
               error={errorData?.disability_evidence}
               value={form?.disability_evidence}
               placeholder={"Attach Evidence"}
@@ -1195,7 +1197,7 @@ function ClaimTaxCard() {
             className={
               declaration ? styles.createBtn : styles.disabledCreatebtn
             }
-            onClick={() => submitToServer("draft")}
+            onClick={() => handleDraft("draft")}
           >
             Save As Draft
           </ButtonBase>
@@ -1209,7 +1211,7 @@ function ClaimTaxCard() {
             }
             onClick={handleSubmit}
           >
-            Submit
+            SEND FOR APPROVAL
           </ButtonBase>
         )}
       </div>

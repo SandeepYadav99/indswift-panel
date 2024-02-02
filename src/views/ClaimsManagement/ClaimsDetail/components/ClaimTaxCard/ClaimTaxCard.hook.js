@@ -15,9 +15,9 @@ import { isDateInFiscalYear } from "../../../../../helper/helper";
 
 const initialForm = {
   hra_months: "",
-  hra_allowance_fifty_pct:"",
-  hra_allowance_forty_pct:"",
-  hra_allowance_rent_paid:"",
+  hra_allowance_fifty_pct: "",
+  hra_allowance_forty_pct: "",
+  hra_allowance_rent_paid: "",
   hra_received: "",
   fy_rent_paid: "",
   hra_permitted: "",
@@ -252,6 +252,11 @@ const useTaxCard = ({}) => {
         errors[val] = true;
       }
     });
+    if (form?.interest_paid && Number(form?.interest_paid) > 100000) {
+      if (!form?.lender_pan) {
+        errors["lender_pan"] = true;
+      }
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -296,6 +301,16 @@ const useTaxCard = ({}) => {
     [form, isSubmitting, setIsSubmitting]
   );
 
+  const handleDraft = useCallback(
+    (status) => {
+      if (!form?.fy_year) {
+        SnackbarUtils.error("Please Select the Finacial Year");
+        return true;
+      }
+      submitToServer(status);
+    },
+    [checkFormValidation, setErrorData, form]
+  );
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     console.log(">>>>", errors);
@@ -411,6 +426,7 @@ const useTaxCard = ({}) => {
     submitToServer,
     checkSalaryInfoDebouncer,
     isTodayInFiscalYear,
+    handleDraft,
   };
 };
 
