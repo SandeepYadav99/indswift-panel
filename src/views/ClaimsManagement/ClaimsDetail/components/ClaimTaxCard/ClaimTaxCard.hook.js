@@ -11,13 +11,27 @@ import {
 } from "../../../../../services/ClaimsManagement.service";
 import { useSelector } from "react-redux";
 import debounce from "lodash.debounce";
+import { isDateInFiscalYear } from "../../../../../helper/helper";
 
 const initialForm = {
+  hra_months: "",
+  hra_allowance_fifty_pct:"",
+  hra_allowance_forty_pct:"",
+  hra_allowance_rent_paid:"",
+  hra_received: "",
+  fy_rent_paid: "",
+  hra_permitted: "",
+  employee_id: "",
+  is_taxable: false,
   fy_year: "",
   lender_name: "",
   lender_address: "",
   interest_paid: "",
   lender_address: "",
+  lender_pan: "",
+  financial_institutions: "",
+  employer: "",
+  others: "",
   house_rent_total: "",
   leave_travel: "",
   leave_travel_evidence: null,
@@ -68,32 +82,58 @@ const initialForm = {
   family_phc_evidence: null,
   family_medical_expenditure: "",
   family_medical_expenditure_evidence: null,
-  is_parents_details: "",
+  is_parents_details: false,
   is_parents_senior_citizen: "NO",
   parents_phc: "",
   parents_phc_evidence: null,
   parents_medical_expenditure: "",
   parents_medical_expenditure_evidence: null,
 };
+const sectionCkeys = [
+  "employee_contribution",
+  "education_loan",
+  "donations",
+  "disability",
+];
+const sectionAkeys = [
+  "life_insurance",
+  "term_insurance",
+  "mutual_funds",
+  "sukanya_samriddhi",
+  "epf",
+  "ppf",
+  "house_loan_principle",
+  "fd_five_year",
+  "eighty_ccc",
+  "eighty_ccd",
+  "child_total",
+];
+const personalKey = [
+  "family_insurance",
+  "family_phc",
+  "family_medical_expenditure",
+];
+const ParentKey = [
+  "parents_insurance",
+  "parents_phc",
+  "parents_medical_expenditure",
+];
 
 const useTaxCard = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
-  const [isEdit, setIsEdit] = useState(false);
-  const [editData, setEditData] = useState(null);
   const [declaration, setDeclaration] = useState(false);
   const [employeeDetails, setEmployeeDetails] = useState({});
-  const [claimInfo, setClaimInfo] = useState({});
   const rentRef = useRef(null);
   const childRef = useRef(null);
-  const { id } = useParams();
   const {
     user: { emp_code, user_id },
   } = useSelector((state) => state.auth);
+  const today = new Date();
+  const isTodayInFiscalYear = isDateInFiscalYear(today);
 
-  console.log("user_id", user_id);
   useEffect(() => {
     if (emp_code) {
       let dataValues = serviceGetEmployeeDetails({ code: emp_code });
@@ -106,24 +146,69 @@ const useTaxCard = ({}) => {
   }, []);
 
   useEffect(() => {
+    if (!form?.is_parents_details) {
+      setForm({
+        ...form,
+        parents_insurance: "",
+        parents_phc: "",
+        parents_medical_expenditure: "",
+        parents_insurance_evidence: null,
+        parents_phc_evidence: null,
+        parents_medical_expenditure_evidence: null,
+        total_family_amount: "",
+      });
+    }
+    // if (form?.is_family_senior_citizen === "NO") {
+    //   setForm({
+    //     ...form,
+    //     family_medical_expenditure: "",
+    //     family_medical_expenditure_evidence: null,
+    //   });
+    // }
+    // if (form?.is_parents_senior_citizen === "NO") {
+    //   setForm({
+    //     ...form,
+    //     parents_medical_expenditure: "",
+    //     parents_medical_expenditure_evidence: null,
+    //   });
+    // }
+  }, [
+    form?.is_parents_details,
+    // form?.is_family_senior_citizen,
+    // form?.is_parents_senior_citizen,
+  ]);
+
+  useEffect(() => {
     let req = serviceGetTaxDetail({
       employee_id: user_id,
       fy_year: "2023-2024",
     });
     req.then((data) => {
       const res = data?.data?.details;
-      const { house_rent , ...other} = res;
       const fd = {};
-      fd.id = res?.id;
-      Object.keys({ ...other }).forEach((key) => {
-        if (key in initialForm && key !== "image") {
-          fd[key] = other[key];
+      Object.keys({ ...res }).forEach((key) => {
+        if (key in initialForm) {
+          if (
+            ["is_parents_senior_citizen", "is_family_senior_citizen"].includes(
+              key
+            )
+          ) {
+            fd[key] = res[key] ? "YES" : "NO";
+          } else {
+            fd[key] = res[key];
+          }
         }
       });
-      rentRef?.current?.setData(house_rent);
-      // childRef?.current?.setData(child_fees);
-
-      setForm({ ...form, ...fd });
+      fd.id = res?.id ? res?.id : "";
+      if (res?.house_rent?.length > 0) {
+        rentRef?.current?.setData(res?.house_rent);
+      }
+      if (res?.child_fees?.length > 0) {
+        childRef?.current?.setData(res?.child_fees);
+      }
+      setTimeout(() => {
+        setForm({ ...form, ...fd });
+      }, 500);
     });
   }, [user_id]);
 
@@ -155,10 +240,9 @@ const useTaxCard = ({}) => {
     setForm({ ...form, [fieldName]: [...text] });
   };
 
-  console.log("form", form);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [""];
+    let required = ["fy_year"];
 
     required.forEach((val) => {
       if (
@@ -192,6 +276,8 @@ const useTaxCard = ({}) => {
         };
         if (status) {
           data.is_drafted = true;
+        } else {
+          data.is_drafted = false;
         }
 
         console.log(">form", { form, data });
@@ -207,11 +293,12 @@ const useTaxCard = ({}) => {
         });
       }
     },
-    [form, isSubmitting, setIsSubmitting, id]
+    [form, isSubmitting, setIsSubmitting]
   );
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
+    console.log(">>>>", errors);
     const isRentValid = rentRef.current.isValid();
     const isChildValid = childRef.current.isValid();
     if (Object.keys(errors).length > 0 || !isRentValid || !isChildValid) {
@@ -240,7 +327,7 @@ const useTaxCard = ({}) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "bill_amount") {
+      if ([...sectionCkeys, ...sectionAkeys]?.includes(fieldName)) {
         if (text >= 0) {
           t[fieldName] = text;
         }
@@ -250,6 +337,43 @@ const useTaxCard = ({}) => {
         }
       } else {
         t[fieldName] = text;
+      }
+      if (sectionCkeys?.includes(fieldName)) {
+        const sumOfSectionCKeys = sectionCkeys.reduce((sum, key) => {
+          const value = t[key];
+          if (value !== undefined && value !== "") {
+            sum += parseFloat(value);
+          }
+          return sum;
+        }, 0);
+        t["total_other"] = sumOfSectionCKeys;
+      } else if (sectionAkeys?.includes(fieldName)) {
+        const sumOfSectionAKeys = sectionAkeys.reduce((sum, key) => {
+          const value = t[key];
+          if (value !== undefined && value !== "") {
+            sum += parseFloat(value);
+          }
+          return sum;
+        }, 0);
+        t["total_eighty_c"] = sumOfSectionAKeys;
+      } else if (personalKey?.includes(fieldName)) {
+        const personalKeyValues = personalKey.reduce((sum, key) => {
+          const value = t[key];
+          if (value !== undefined && value !== "") {
+            sum += parseFloat(value);
+          }
+          return sum;
+        }, 0);
+        t["total_eighty_d"] = personalKeyValues;
+      } else if (ParentKey?.includes(fieldName)) {
+        const ParentKeyValues = ParentKey.reduce((sum, key) => {
+          const value = t[key];
+          if (value !== undefined && value !== "") {
+            sum += parseFloat(value);
+          }
+          return sum;
+        }, 0);
+        t["total_family_amount"] = ParentKeyValues;
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
@@ -277,18 +401,16 @@ const useTaxCard = ({}) => {
     isLoading,
     isSubmitting,
     errorData,
-    isEdit,
-    editData,
     declaration,
     setDeclaration,
     employeeDetails,
-    claimInfo,
     getUrlfromFile,
     deleteImage,
     rentRef,
     childRef,
     submitToServer,
     checkSalaryInfoDebouncer,
+    isTodayInFiscalYear,
   };
 };
 

@@ -14,7 +14,7 @@ import { useParams } from "react-router";
 import ChildFieldIncludeFields from "./ChildFieldIncludeFields.component";
 
 const TEMP_OBJ = {
-  rent: "",
+  amount: "",
   child_fees_evidence: null,
 };
 
@@ -163,9 +163,9 @@ const ChildFieldIncludeForm = (
       return acc;
     }
   }, 0);
-  // useEffect(() => {
-  //   getAmount(sum);
-  // }, [sum]);
+  useEffect(() => {
+    getAmount(sum,"child_total");
+  }, [sum]);
   return (
     <>
       {renderFields}

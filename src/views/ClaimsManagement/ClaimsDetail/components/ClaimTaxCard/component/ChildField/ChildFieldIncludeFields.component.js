@@ -43,11 +43,11 @@ const ChildFieldIncludeFields = ({
         <div className={styles.formWrp}>
           <div className={styles.formGrp}>
             <TextField
-              error={errors?.rent}
+              error={errors?.amount}
               onChange={handleChange}
-              value={data?.rent}
+              value={data?.amount}
               fullWidth={true}
-              name={"rent"}
+              name={"amount"}
               margin={"dense"}
               variant={"outlined"}
               label={"Child Fees Amount"}
