@@ -136,17 +136,6 @@ const TaxList = ({}) => {
           <div>{all?.taxRebate?.fy_year}</div>
         ),
       },
-
-      {
-        key: "value",
-        label: "value",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.captialize}>
-            -
-          </div>
-        ),
-      },
       {
         key: "cd",
         label: "CLAIM DATE",
