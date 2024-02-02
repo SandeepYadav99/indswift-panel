@@ -105,7 +105,7 @@ const useTaxList = ({}) => {
 
   const handleViewForm = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.FULL_FINAL_FORM}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.TAX_DETAIL}${data?.id}`); //+data.id
   }, []);
   const configFilter = useMemo(() => {
     return [

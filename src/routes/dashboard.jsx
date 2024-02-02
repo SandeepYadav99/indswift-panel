@@ -13,6 +13,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 
+const TaxDetail = lazy(()=>import ("../views/Tax/Detail/TaxDetail.view.js"));
 const TaxList = lazy(()=>import ("../views/Tax/List/TaxList.component.js"));
 const ClaimTaxCard = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/ClaimTaxCard/ClaimTaxCard.view.js"));
 const EmpTravelDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpTravelDetail/EmpTravelDetail.view.js"));
@@ -2697,6 +2698,16 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+  },
+  {
+    path: `${RouteName.TAX_DETAIL}:id`,
+    sidebarName: "Tax Detail",
+    navbarName: "Tax Detail",
+    icon: AssignmentOutlined,
+    component: TaxDetail,
+    is_sidebar: false,
+    is_protect: true,
+    roles: [Roles.ACCOUNTANT],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL_APPROVAL}:id`,

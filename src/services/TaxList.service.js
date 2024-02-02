@@ -5,21 +5,21 @@ import {
 } from "../libs/AxiosService.util";
 
 export async function serviceCreateTaxList(params) {
-  return await formDataRequest("tax/rebate/create", params);
+  return await formDataRequest("tax/rebate/review/create", params);
 }
 export async function serviceUpdateTaxList(params) {
-  return await postRequest("tax/rebate/form/submit", params);
+  return await postRequest("tax/rebate/review/form/submit", params);
 }
 
 export async function serviceDeleteTaxList(params) {
-  return await postRequest("tax/rebate/delete", params);
+  return await postRequest("tax/rebate/review/delete", params);
 }
 export async function serviceGetTaxListDetails(params) {
-  return await postRequest("tax/rebate/details", params);
+  return await postRequest("tax/rebate/review/details", params);
 }
 export async function serviceGetFormDebounceDetails(params) {
-  return await postRequest("tax/rebate/totals", params);
+  return await postRequest("tax/rebate/review/totals", params);
 }
 export async function serviceGetTaxList(params) {
-  return await postRequest("tax/rebate", params);
+  return await postRequest("tax/rebate/review", params);
 }
