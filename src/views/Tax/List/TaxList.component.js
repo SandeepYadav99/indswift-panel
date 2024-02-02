@@ -128,13 +128,20 @@ const TaxList = ({}) => {
         render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
       },
       {
+        key: "tax",
+        label: "Taxation",
+        sortable: false,
+        style: { width: "18%" },
+        render: (temp, all) => (
+          <div>{all?.taxRebate?.is_taxation ? "Taxable" : "Non taxable"}</div>
+        ),
+      },
+      {
         key: "Last",
         label: "FINANCIAL YEAR",
         sortable: false,
         style: { width: "18%" },
-        render: (temp, all) => (
-          <div>{all?.taxRebate?.fy_year}</div>
-        ),
+        render: (temp, all) => <div>{all?.taxRebate?.fy_year}</div>,
       },
       {
         key: "cd",
