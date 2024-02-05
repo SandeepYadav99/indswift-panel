@@ -1026,7 +1026,9 @@ function ClaimTaxCard() {
               isError={errorData?.employee_contribution}
               errorText={errorData?.employee_contribution}
               label={
-                isMobile ? "80CCD Addition Contribution" :"Section 80CCD(1B) Additional Employee Contribution Amount"
+                isMobile
+                  ? "80CCD Addition Contribution"
+                  : "Section 80CCD(1B) Additional Employee Contribution Amount"
               }
               value={form?.employee_contribution}
               onTextChange={(text) => {
@@ -1064,7 +1066,11 @@ function ClaimTaxCard() {
               type="number"
               isError={errorData?.education_loan}
               errorText={errorData?.education_loan}
-              label={isMobile ? "80E Education Loan Amount" :"Section 80E Education Loan for Studies Amount"}
+              label={
+                isMobile
+                  ? "80E Education Loan Interest"
+                  : "Section 80E Interest Paid on Education Loan"
+              }
               value={form?.education_loan}
               onTextChange={(text) => {
                 changeTextData(text, "education_loan");
@@ -1173,14 +1179,6 @@ function ClaimTaxCard() {
           <div className={styles.inner}>
             Total Amount under (C) :
             <span>{form?.total_other ? `₹ ${form?.total_other}` : 0}</span>
-          </div>
-          <div className={styles.inner} style={{ marginRight: "30px" }}>
-            Total Amount under Deduction under Chapter VI-A: ₹80,000
-            {/* <span>
-              {form?.total_under_deduction
-                ? `₹ ${form?.total_under_deduction}`
-                : 0}
-            </span> */}
           </div>
         </div>
       </div>

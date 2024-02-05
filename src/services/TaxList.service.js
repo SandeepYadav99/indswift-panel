@@ -23,3 +23,9 @@ export async function serviceGetFormDebounceDetails(params) {
 export async function serviceGetTaxList(params) {
   return await postRequest("tax/rebate/review", params);
 }
+export async function serviceGetTaxApprove(params) {
+  return await postRequest("tax/rebate/review/accept", params);
+}
+export async function serviceGetTaxReject(params) {
+  return await postRequest("tax/rebate/review/reject", params);
+}
