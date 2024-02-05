@@ -24,7 +24,7 @@ function TaxDetail() {
         </div>
       </div>
       <div className={styles.plainPaper}>
-        <UpperCard data={employeeDetail?.employee} />
+        <UpperCard data={employeeDetail?.employee} isDetail={employeeDetail?.status}/>
       </div>
       <TaxData employeeDetail={employeeDetail?.taxRebate} />
     </div>

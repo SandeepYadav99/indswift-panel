@@ -252,4 +252,11 @@
   .inner {
     margin-left: 10px;
   }
+  .value {
+    width: 180px;
+  }
+  .key{
+    display: flex;
+    flex-direction: column;
+  }
 }

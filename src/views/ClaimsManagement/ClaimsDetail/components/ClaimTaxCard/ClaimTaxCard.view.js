@@ -39,7 +39,7 @@ function ClaimTaxCard() {
     isTodayInFiscalYear,
     handleDraft,
   } = useClaimMarrigeCard({});
-
+  const isMobile = window.innerWidth <= 768;
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -1026,7 +1026,7 @@ function ClaimTaxCard() {
               isError={errorData?.employee_contribution}
               errorText={errorData?.employee_contribution}
               label={
-                "Section 80CCD(1B) Additional Employee Contribution Amount"
+                isMobile ? "80CCD Addition Contribution" :"Section 80CCD(1B) Additional Employee Contribution Amount"
               }
               value={form?.employee_contribution}
               onTextChange={(text) => {
@@ -1064,7 +1064,7 @@ function ClaimTaxCard() {
               type="number"
               isError={errorData?.education_loan}
               errorText={errorData?.education_loan}
-              label={"Section 80E Education Loan for Studies Amount"}
+              label={isMobile ? "80E Education Loan Amount" :"Section 80E Education Loan for Studies Amount"}
               value={form?.education_loan}
               onTextChange={(text) => {
                 changeTextData(text, "education_loan");

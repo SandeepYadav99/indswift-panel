@@ -416,7 +416,7 @@ const useTaxCard = ({}) => {
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
-      if (fieldName === "fy_rent_paid") {
+      if (fieldName === "fy_rent_paid" || fieldName === "fy_year") {
         checkSalaryInfoDebouncer(t);
       }
     },
