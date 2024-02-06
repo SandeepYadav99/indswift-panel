@@ -116,6 +116,7 @@ export default {
   EMPLOYEE_CLAIMS_DETAILS:"/employee/claim/detail/",
   EMPLOYEE_TRAVEL_DETAILS:"/employee/travel/details/",
   EMPLOYEE_FOREIGN_DETAILS:"/employee/foreign/details/",
+  EMPLOYEE_TAX_DETAILS:"/employee/tax/details/",
 
 
   CLAIMS_MARRIGE:'/employee/claim/marriage',

@@ -29,3 +29,9 @@ export async function serviceGetTaxApprove(params) {
 export async function serviceGetTaxReject(params) {
   return await postRequest("tax/rebate/review/reject", params);
 }
+export async function serviceGetEmployeeTaxList(params) {
+  return await postRequest("tax/rebate", params);
+}
+export async function serviceGetEmployeeTaxDetail(params) {
+  return await postRequest("tax/rebate/details", params);
+}
