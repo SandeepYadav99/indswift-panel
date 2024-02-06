@@ -97,6 +97,7 @@ import AfterNextSuccessionPlanerReducer from "./AfterNextSuccessionPlaner.reduce
 import TravelAuthSpecReducer from "./TravelAuthSpec.reducer";
 import NotificationReducer from "./Notification.reducer";
 import NotificationModuleReducer from "./NotificationModule.reducer";
+import TaxListReducer from "./TaxList.reducer";
 
 
 const rootReducer = combineReducers({
@@ -193,6 +194,7 @@ const rootReducer = combineReducers({
   travelAuthSpec: TravelAuthSpecReducer,
   notification:NotificationReducer,
   notification_module:NotificationModuleReducer,
+  tax_list:TaxListReducer
   // form: formReducer,
 });
 

@@ -12,6 +12,9 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+
+const TaxDetail = lazy(()=>import ("../views/Tax/Detail/TaxDetail.view.js"));
+const TaxList = lazy(()=>import ("../views/Tax/List/TaxList.component.js"));
 const ClaimTaxCard = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/ClaimTaxCard/ClaimTaxCard.view.js"));
 const EmpTravelDetail = lazy(()=> import ("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmpTravelDetail/EmpTravelDetail.view.js"));
 const EmpForeignDetail = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmployeeForeign/EmpForeignDetail.view.js"));
@@ -1883,7 +1886,7 @@ const dashboardRoutes = [
     parent: "reports",
     roles: [Roles.CORPORATE_HR],
   },
- 
+
   {
     path: RouteName.HR_POLICIES,
     sidebarName: "HR Policies",
@@ -2599,7 +2602,7 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
- 
+
   {
     path: `${RouteName.RELIEVING_EXPERIENCE_LETTER_DETAIL}:id`,
     sidebarName: "Relieving & Experience Letter",
@@ -2709,6 +2712,16 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+  },
+  {
+    path: `${RouteName.TAX_DETAIL}:id`,
+    sidebarName: "Tax Detail",
+    navbarName: "Tax Detail",
+    icon: AssignmentOutlined,
+    component: TaxDetail,
+    is_sidebar: false,
+    is_protect: true,
+    roles: [Roles.ACCOUNTANT],
   },
   {
     path: `${RouteName.FULL_FINAL_DETAIL_APPROVAL}:id`,
@@ -2822,7 +2835,16 @@ const dashboardRoutes = [
   is_sidebar: false,
   is_protect: true,
 },
-
+{
+  path: RouteName.TAX_LIST,
+  sidebarName: "Tax Rebate Approval",
+  navbarName: "Tax Rebate Approval",
+  icon: AssignmentOutlined,
+  component: TaxList,
+  is_sidebar: true,
+  is_protect: true,
+  roles: [Roles.ACCOUNTANT],
+},
 ];
 
 export default dashboardRoutes;

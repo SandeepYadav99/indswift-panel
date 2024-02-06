@@ -1,21 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionFetchLoanList,
-  actionSetPageLoanList,
-} from "../../../actions/LoanList.action";
+  actionFetchTaxList,
+  actionSetPageTaxList,
+} from "../../../actions/TaxList.action";
 import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
-import { serviceGetLoanBankSheetDetails } from "../../../services/LoanList.service";
 
-const useLoanList = ({}) => {
+const useTaxList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
+  const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     LOCATIONS: [],
-    HR: [],
-    JOB_OPENINGS: [],
+    GRADES: [],
+    DEPARTMENTS: [],
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -24,37 +24,34 @@ const useLoanList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.loanList);
+  } = useSelector((state) => state.tax_list);
   useEffect(() => {
     dispatch(
-      actionFetchLoanList(1, sortingData, {
+      actionFetchTaxList(1, sortingData, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
     );
     isMountRef.current = true;
   }, []);
- 
+
   useEffect(() => {
-    serviceGetList(["LOCATIONS", "HR", "JOB_OPENINGS"]).then((res) => {
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
     });
   }, []);
-  console.log("list", listData);
-
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageLoanList(type));
+    dispatch(actionSetPageTaxList(type));
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageLoanListRequests(1));
+      // dispatch(actionSetPageTaxListRequests(1));
       dispatch(
-        actionFetchLoanList(1, sortingData, {
+        actionFetchTaxList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -82,8 +79,9 @@ const useLoanList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
+      // dispatch(actionSetPageTaxList(1));
       dispatch(
-        actionFetchLoanList(
+        actionFetchTaxList(
           1,
           { row, order },
           {
@@ -102,15 +100,18 @@ const useLoanList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.ADMIN_LOAN_LIST_DETAIL}${data?.id}`); //+data.id
-  }, []);
-  const handleViewDetails2 = useCallback((data) => {
-    LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.ADMIN_LOAN_PROCESS}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.FULL_FINAL_DETAIL}${data?.id}`); //+data.id
   }, []);
 
+  const handleViewForm = useCallback((data) => {
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.TAX_DETAIL}${data?.id}`); //+data.id
+  }, []);
   const configFilter = useMemo(() => {
     return [
+      // {label: 'Country', name: 'country', type: 'text'},
+      // {label: 'City', name: 'city', type: 'text'},
+
       {
         label: "Location",
         name: "employeesObj.location_id",
@@ -118,34 +119,35 @@ const useLoanList = ({}) => {
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
+
+      {
+        label: "Grade",
+        name: "employeesObj.grade_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "label" } },
+        fields: listData?.GRADES,
+      },
+      {
+        label: "Department",
+        name: "employeesObj.department_id",
+        type: "selectObject",
+        custom: { extract: { id: "id", title: "name" } },
+        fields: listData?.DEPARTMENTS,
+      },
       {
         label: "Status",
-        name: "loanObj.status",
+        name: "status",
         type: "select",
         fields: [
-          "REJECTED",
-          "PENDING",
-          "APPROVED",
-          "PROCESSED",
-          "CORPORATE_HR_APPROVED"
-,          "MD_APPROVED",
-          "SITE_HR_APPROVED",
-          "CORPORATE_AUDIT_1_APPROVED",
           "CORPORATE_AUDIT_2_APPROVED",
+          "TAXATION_APPROVED",
+          "CORPORATE_HR_APPROVED",
+          "CAO_APPROVED",
+          "PROCESSED",
         ],
-      }
+      },
     ];
   }, [listData]);
-
-  const handleBankSheetDownload = useCallback(() => {
-    serviceGetLoanBankSheetDetails({}).then((res) => {
-      if (!res.error) {
-        const data = res.data?.response;
-        window.open(data, "_blank");
-      }
-    });
-  }, []);
-
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -154,10 +156,10 @@ const useLoanList = ({}) => {
     handleSortOrderChange,
     handleViewDetails,
     isCalling,
+    editData,
     configFilter,
-    handleViewDetails2,
-    handleBankSheetDownload
+    handleViewForm,
   };
 };
 
-export default useLoanList;
+export default useTaxList;

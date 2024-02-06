@@ -105,6 +105,9 @@
   flex-direction: column;
   gap: 10px;
 }
+.textStyles{
+  display: none;
+}
 .newLine {
   height: 4px;
   width: 30px;
