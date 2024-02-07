@@ -12,7 +12,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-
+const useEmployeeTaxDetail = lazy(()=>import("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmployeeTaxDetail/EmployeeTaxDetail.view.js"));
 const TaxDetail = lazy(()=>import ("../views/Tax/Detail/TaxDetail.view.js"));
 const TaxList = lazy(()=>import ("../views/Tax/List/TaxList.component.js"));
 const ClaimTaxCard = lazy(()=> import("../views/ClaimsManagement/ClaimsDetail/components/ClaimTaxCard/ClaimTaxCard.view.js"));
@@ -1562,6 +1562,18 @@ const dashboardRoutes = [
     navbarName: "Claims List",
     icon: PeopleOutlined,
     component: EmpForeignDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: "cm",
+    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+  },
+  {
+    path: `${RouteName.EMPLOYEE_TAX_DETAILS}:id`,
+    sidebarName: "Claims List",
+    navbarName: "Claims List",
+    icon: PeopleOutlined,
+    component: useEmployeeTaxDetail,
     is_sidebar: false,
     is_protect: true,
     should_regex: true,
