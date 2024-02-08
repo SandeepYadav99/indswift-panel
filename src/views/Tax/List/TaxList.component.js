@@ -24,6 +24,7 @@ const TaxList = ({}) => {
     isCalling,
     configFilter,
     handleResend,
+    handleBankSheetDownload
   } = useTaxList({});
 
   const {
@@ -222,6 +223,15 @@ const TaxList = ({}) => {
             <span className={styles.title}>Tax Rebate Approval</span>
             <div className={styles.newLine} />
           </div>
+          <ButtonBase
+                // aria-owns={downloadCL ? "downloadCL" : undefined}
+                aria-haspopup="true"
+                // onClick={handleAddCandidate}
+                onClick={handleBankSheetDownload}
+                className={"createBtn"}
+              >
+                Download
+              </ButtonBase>
         </div>
         <div>
           <FilterComponent

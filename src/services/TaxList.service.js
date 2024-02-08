@@ -35,3 +35,6 @@ export async function serviceGetEmployeeTaxList(params) {
 export async function serviceGetEmployeeTaxDetail(params) {
   return await postRequest("tax/rebate/details", params);
 }
+export async function serviceExportTaxList(params) {
+  return await postRequest('tax/rebate/excel/report', params);
+}

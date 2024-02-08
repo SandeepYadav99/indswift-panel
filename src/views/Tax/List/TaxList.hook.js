@@ -8,6 +8,7 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
+import { serviceExportTaxList } from "../../../services/TaxList.service";
 
 const useTaxList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -148,6 +149,16 @@ const useTaxList = ({}) => {
       },
     ];
   }, [listData]);
+
+  const handleBankSheetDownload = useCallback(() => {
+    serviceExportTaxList({}).then((res) => {
+      if (!res.error) {
+        const data = res.data;
+        window.open(data, "_blank");
+      }
+    });
+  }, []);
+
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -159,6 +170,7 @@ const useTaxList = ({}) => {
     editData,
     configFilter,
     handleViewForm,
+    handleBankSheetDownload
   };
 };
 
