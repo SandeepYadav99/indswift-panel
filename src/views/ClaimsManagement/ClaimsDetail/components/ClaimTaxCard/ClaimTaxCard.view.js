@@ -164,7 +164,7 @@ function ClaimTaxCard() {
       <div className={styles.plainPaper}>
         <div className={styles.editFlex}>
           <div className={styles.heading}>
-            Deduction of Interest on Borrowing
+            Deduction of Interest on House loan (Max. 2Lacs limit) 
           </div>
         </div>
 
@@ -384,7 +384,7 @@ function ClaimTaxCard() {
               type="number"
               isError={errorData?.mutual_funds}
               errorText={errorData?.mutual_funds}
-              label={"Mutual Insurance Amount"}
+              label={"Mutual Fund Amount (Equity Linked saving scheme-ELSS)"}
               value={form?.mutual_funds}
               onTextChange={(text) => {
                 changeTextData(text, "mutual_funds");
@@ -615,7 +615,7 @@ function ClaimTaxCard() {
             <CustomTextField
               isError={errorData?.eighty_ccc}
               errorText={errorData?.eighty_ccc}
-              label={"Amount"}
+              label={"Sec. 80CCC -  Payment towards Pension Fund"}
               type="number"
               value={form?.eighty_ccc}
               onTextChange={(text) => {
@@ -654,7 +654,7 @@ function ClaimTaxCard() {
             <CustomTextField
               isError={errorData?.eighty_ccd}
               errorText={errorData?.eighty_ccd}
-              label={"Amount"}
+              label={"Sec. 80CCD - Payment towards Atal Pension Yojana"}
               type="number"
               value={form?.eighty_ccd}
               onTextChange={(text) => {
@@ -1027,8 +1027,8 @@ function ClaimTaxCard() {
               errorText={errorData?.employee_contribution}
               label={
                 isMobile
-                  ? "80CCD Addition Contribution"
-                  : "Section 80CCD(1B) Additional Employee Contribution Amount"
+                  ? "80CCD Addition Contribution towards NPS"
+                  : "Section 80CCD(1B) Additional Employee Contribution Amount towards NPS"
               }
               value={form?.employee_contribution}
               onTextChange={(text) => {
