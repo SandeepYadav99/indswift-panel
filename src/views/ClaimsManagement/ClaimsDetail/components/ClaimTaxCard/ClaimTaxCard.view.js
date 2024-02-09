@@ -164,7 +164,7 @@ function ClaimTaxCard() {
       <div className={styles.plainPaper}>
         <div className={styles.editFlex}>
           <div className={styles.heading}>
-            Deduction of Interest on House loan (Max. 2Lacs limit) 
+            Deduction of Interest on House loan (Max. 2Lacs limit)
           </div>
         </div>
 
@@ -260,6 +260,43 @@ function ClaimTaxCard() {
               />
             </div>
           </div>
+          <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
+            <CustomTextField
+              type="number"
+              isError={errorData?.stamp_duty}
+              errorText={errorData?.stamp_duty}
+              label={isMobile ? "Stamp Duty & Registration charges" :"Stamp Duty & Registration charges on purchase of residential house."}
+              value={form?.stamp_duty}
+              onTextChange={(text) => {
+                changeTextData(text, "stamp_duty");
+              }}
+              // onBlur={() => {
+              //   onBlurHandler("stamp_duty");
+              // }}
+            />
+          </div>
+          <div className={styles.formGrp}>
+            <MultiFile
+              multiple
+              max_size={10 * 1024 * 1024}
+              type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
+              fullWidth={true}
+              name="stamp_duty_evidence"
+              label="Attach Evidence"
+              accept={"application/pdf,application/msword,image/*"}
+              error={errorData?.stamp_duty_evidence}
+              value={form?.stamp_duty_evidence}
+              placeholder={"Attach Evidence"}
+              onChange={(file) => {
+                getUrlfromFile(file, "stamp_duty_evidence");
+              }}
+              deleteImage={(file) => {
+                deleteImage(file, "stamp_duty_evidence");
+              }}
+            />
+          </div>
+        </div>
           <div className={styles.formWrp}>
             <div className={styles.formGrp}>
               <CustomTextField
@@ -998,7 +1035,7 @@ function ClaimTaxCard() {
           </>
         )}
 
-        <div className={styles.totalWrap}>
+        <div className={styles.totalWrap221}>
           <div className={styles.inner}>
             Total Amount for Self under (B):
             <span>
@@ -1012,8 +1049,11 @@ function ClaimTaxCard() {
             </span>
           </div>
           <div className={styles.inner} style={{ marginRight: "30px" }}>
-            Note: Maximum of (B) is for individual ₹ 25,000 & parents ₹ 50,000
-            per annum
+            Maximum of B for Individual is Rs 25000 (50000 in case of Senior
+            Citizen*) and for parents is Rs 25000 (50000 in case of Senior
+            Citizen)
+            <br/>
+            *Note : Senior Citizen age 60 and above
           </div>
         </div>
         <div className={styles.heading} style={{ marginTop: "10px" }}>
