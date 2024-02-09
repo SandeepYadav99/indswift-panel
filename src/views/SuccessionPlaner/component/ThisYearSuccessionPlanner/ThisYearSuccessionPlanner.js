@@ -20,8 +20,9 @@ import SendIcon from "@material-ui/icons/Send";
 import SendPopup from "./SendDialog/SendDialog.view";
 import RouteName from "../../../../routes/Route.name";
 import historyUtils from "../../../../libs/history.utils";
+import AccessibleIcon from "@material-ui/icons/Accessible";
 
-const ThisYearSuccessionPlanner = ({ listData }) => {
+const ThisYearSuccessionPlanner = ({ listData, toggleRetireDialog }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -50,6 +51,11 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.successionPlaner);
+  const { role } = useSelector((state) => state.auth);
+
+  const ValidUser = useMemo(() => {
+    return role === "CORPORATE_HR";
+  }, [role]);
 
   const UpperInfo = useCallback(
     (obj) => {
@@ -213,7 +219,12 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {( ["MD_APPROVED", "MD_REJECTED", "CORPORATE_HR_REJECTED", "HOD_REJECTED"].indexOf(all?.application_status) >= 0) ? (
+            {[
+              "MD_APPROVED",
+              "MD_REJECTED",
+              "CORPORATE_HR_REJECTED",
+              "HOD_REJECTED",
+            ].indexOf(all?.application_status) >= 0 ? (
               <StatusPill status={all?.extension_status} />
             ) : (
               <StatusPill status="PENDING" />
@@ -258,6 +269,25 @@ const ThisYearSuccessionPlanner = ({ listData }) => {
                 <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
               </IconButton>
             )}
+            {ValidUser &&
+              ["EMPLOYEE_SUBMITTED", "N/A", "PENDING"]?.includes(
+                all?.application_status
+              ) &&
+              all?.extension_status !== "RETIRE" && (
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    toggleRetireDialog(all?.id);
+                  }}
+                >
+                  <AccessibleIcon
+                    style={{ color: "#161616" }}
+                    fontSize={"small"}
+                  />
+                </IconButton>
+              )}
           </div>
         ),
       },
