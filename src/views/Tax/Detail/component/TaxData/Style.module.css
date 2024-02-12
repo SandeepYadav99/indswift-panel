@@ -240,6 +240,18 @@
   margin-bottom: 10px;
   font-weight: 500;
 }
+.totalWrap221 {
+  width: 100%;
+  height: 50px;
+  background: #f5f7fb 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
 @media (max-width: 767px) {
   .totalWrap {
     flex-direction: column;
@@ -258,5 +270,13 @@
   .key{
     display: flex;
     flex-direction: column;
+  }
+  .totalWrap221{
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+    gap: 5px;
+    height: 110px;
+    justify-content: center;
   }
 }

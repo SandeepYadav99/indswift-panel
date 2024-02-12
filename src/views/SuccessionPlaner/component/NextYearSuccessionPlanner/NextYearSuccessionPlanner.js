@@ -17,8 +17,9 @@ import SendPopup from "../ThisYearSuccessionPlanner/SendDialog/SendDialog.view";
 import SendIcon from "@material-ui/icons/Send";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
+import AccessibleIcon from "@material-ui/icons/Accessible";
 
-const NextYearSuccessionPlanner = ({ listData }) => {
+const NextYearSuccessionPlanner = ({ listData,toggleRetireDialog }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -47,6 +48,12 @@ const NextYearSuccessionPlanner = ({ listData }) => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.next_year);
+
+  const { role } = useSelector((state) => state.auth);
+
+  const ValidUser = useMemo(() => {
+    return role === "CORPORATE_HR";
+  }, [role]);
 
   const UpperInfo = useCallback(
     (obj) => {
@@ -254,6 +261,25 @@ const NextYearSuccessionPlanner = ({ listData }) => {
               <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
             </IconButton>
             )}
+             {ValidUser &&
+              ["EMPLOYEE_SUBMITTED", "N/A", "PENDING"]?.includes(
+                all?.application_status
+              ) &&
+              all?.extension_status !== "RETIRE" && (
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    toggleRetireDialog(all?.id);
+                  }}
+                >
+                  <AccessibleIcon
+                    style={{ color: "#161616" }}
+                    fontSize={"small"}
+                  />
+                </IconButton>
+              )}
           </div>
         ),
       },

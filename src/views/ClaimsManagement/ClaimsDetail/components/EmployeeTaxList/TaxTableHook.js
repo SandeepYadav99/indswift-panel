@@ -24,6 +24,10 @@ const useEmployeeTaxList = () => {
     historyUtils.push(`${RouteName.EMPLOYEE_TAX_DETAILS}${data?.id}`);
   }, []);
 
+  const handleViewUpdate = useCallback(() => {
+    historyUtils.push(`${RouteName.CLAIMS_TAX}`);
+  }, []);
+
   const _processData = useCallback(() => {
     const from = currentPage * totalShow - totalShow;
     let to = currentPage * totalShow;
@@ -58,6 +62,7 @@ const useEmployeeTaxList = () => {
     currentData,
     currentPage,
     handleViewDetails,
+    handleViewUpdate
   };
 };
 

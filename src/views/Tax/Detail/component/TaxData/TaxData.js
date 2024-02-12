@@ -97,6 +97,10 @@ function TaxData({ employeeDetail }) {
               {employeeDetail?.financial_institutions}
             </div>
             <div className={styles.key}>
+              <span className={styles.value}>Stamp Duty & Registration charges on purchase of residential house.:</span>
+              {employeeDetail?.stamp_duty && `₹ ${employeeDetail?.stamp_duty}`}
+            </div>
+            <div className={styles.key}>
               <span className={styles.value}>Others:</span>
               {employeeDetail?.others}
             </div>
@@ -117,6 +121,11 @@ function TaxData({ employeeDetail }) {
             <div className={styles.key}>
               <span className={styles.value}>Employer (if available):</span>
               {employeeDetail?.employer}
+            </div>
+            <div className={styles.key}>
+              <span className={styles.value}>
+                {getUrl(employeeDetail?.stamp_duty_evidence)}
+              </span>
             </div>
             <div className={styles.key}>
               <span className={styles.value}>
@@ -382,7 +391,7 @@ function TaxData({ employeeDetail }) {
             </div>
           </div>
         </div>
-        <div className={styles.totalWrap}>
+        <div className={styles.totalWrap221}>
           <div className={styles.inner}>
             Total Amount for Self under (B):
             <span>
@@ -400,8 +409,11 @@ function TaxData({ employeeDetail }) {
             </span>
           </div>
           <div className={styles.inner} style={{ marginRight: "30px" }}>
-            Note: Maximum of (B) is for individual 25,000 & parents 50,000 per
-            annum
+            Maximum of B for Individual is Rs 25000 (50000 in case of Senior
+            Citizen*) and for parents is Rs 25000 (50000 in case of Senior
+            Citizen)
+            <br/>
+            *Note : Senior Citizen age 60 and above
           </div>
         </div>
         <div className={styles.heading} style={{ marginTop: "10px" }}>
@@ -474,9 +486,9 @@ function TaxData({ employeeDetail }) {
                 : 0}
             </span>
           </div>
-          <div className={styles.inner} style={{ marginRight: "30px" }}>
+          {/* <div className={styles.inner} style={{ marginRight: "30px" }}>
             Total Amount under Deduction under Chapter VI-A: ₹80,000
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
