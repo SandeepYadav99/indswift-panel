@@ -201,6 +201,18 @@
   font-size: 0.8rem;
   margin-top: 5px;
 }
+.totalWrap221 {
+  width: 100%;
+  height: 50px;
+  background: #f5f7fb 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
 .inner {
   margin-left: 20px;
 }
@@ -254,6 +266,14 @@
     padding: 10px 0;
     gap: 5px;
     height: 60px;
+    justify-content: center;
+  }
+  .totalWrap221{
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+    gap: 5px;
+    height: 110px;
     justify-content: center;
   }
 }

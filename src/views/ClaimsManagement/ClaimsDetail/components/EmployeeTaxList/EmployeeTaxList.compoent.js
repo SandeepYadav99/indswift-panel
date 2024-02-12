@@ -5,7 +5,7 @@ import StatusPill from "../../../../../components/Status/StatusPill.component";
 import Constants from "../../../../../config/constants";
 import useEmployeeTaxList from "./TaxTableHook";
 import PageBox from "../../../../../components/PageBox/PageBox.component";
-import { InfoOutlined } from "@material-ui/icons";
+import { Edit, InfoOutlined } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
 
 function TaxTable() {
@@ -19,6 +19,7 @@ function TaxTable() {
     data,
     currentData,
     currentPage,
+    handleViewUpdate
   } = useEmployeeTaxList({});
 
   const renderStatus = useCallback((status) => {
@@ -74,6 +75,17 @@ function TaxTable() {
             >
               <InfoOutlined fontSize={"small"} style={{ color: "#2896E9" }} />
               <div className={styles.textStyles}>View information</div>
+            </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewUpdate();
+              }}
+            >
+              <Edit fontSize={"small"} style={{ color: "#2896E9" }}/>
+              <span className={styles.textStyles}>Edit Information</span>
             </IconButton>
           </div>
         ),

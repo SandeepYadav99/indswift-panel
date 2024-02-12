@@ -44,6 +44,8 @@ const initialForm = {
   mutual_funds_evidence: null,
   sukanya_samriddhi: "",
   sukanya_samriddhi_evidence: null,
+  stamp_duty:"",
+  stamp_duty_evidence:null,
   epf: "",
   epf_evidence: null,
   ppf: "",

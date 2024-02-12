@@ -4,16 +4,21 @@ import useSuccessionPlanner_hook from "./SuccessionPlanner_hook";
 import ThisYearSuccessionPlanner from "./component/ThisYearSuccessionPlanner/ThisYearSuccessionPlanner";
 import NextYearSuccessionPlanner from "./component/NextYearSuccessionPlanner/NextYearSuccessionPlanner";
 import NextToNextYearSuccessionPlanner from "./component/NextToNextYearSuccessionPlanner/NextToNextYearSuccessionPlanner";
-import { useSelector } from "react-redux";
+import RetireDialog from "./component/RetireDialog/RetireDialog.view";
 
 const SuccessionPlannerList = ({ jobId }) => {
-  const { listData } = useSuccessionPlanner_hook({
+  const { listData ,retireDialog,toggleRetireDialog,empId} = useSuccessionPlanner_hook({
     jobId,
   });
 
   return (
     <div>
       <div className={styles.plainPaper}>
+      <RetireDialog
+          candidateId={empId}
+          isOpen={retireDialog}
+          handleToggle={toggleRetireDialog}
+        />
         <div className={styles.headingWrap}>
           <div className={styles.newLineWrap}>
             <span>
@@ -23,7 +28,7 @@ const SuccessionPlannerList = ({ jobId }) => {
           </div>
         </div>
 
-        <ThisYearSuccessionPlanner listData={listData}/>
+        <ThisYearSuccessionPlanner listData={listData} toggleRetireDialog={toggleRetireDialog}/>
       </div>
 
       <div className={styles.plainPaper}>
@@ -35,7 +40,7 @@ const SuccessionPlannerList = ({ jobId }) => {
             <div className={styles.newLine2} />
           </div>
         </div>
-        <NextYearSuccessionPlanner listData={listData}/>
+        <NextYearSuccessionPlanner listData={listData} toggleRetireDialog={toggleRetireDialog}/>
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.headingWrap}>
@@ -46,7 +51,7 @@ const SuccessionPlannerList = ({ jobId }) => {
             <div className={styles.newLine2} />
           </div>
         </div>
-        <NextToNextYearSuccessionPlanner listData={listData}/>
+        <NextToNextYearSuccessionPlanner listData={listData} toggleRetireDialog={toggleRetireDialog}/>
       </div>
     </div>
   );
