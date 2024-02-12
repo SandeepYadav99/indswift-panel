@@ -11,6 +11,7 @@ import { removeUnderScore } from "../../../helper/helper";
 import ConfirmDialog from "./component/ConfirmDialog/ConfirmDialog.view";
 import LogUtils from "../../../libs/LogUtils";
 import FormInput from "../PmsForm/component/FormInput/FormInput";
+import MobileDialog from "../../../components/MobileDialog/MobileDialog.view"
 
 const useStyles = makeStyles((theme) => ({
     customTooltip: {
@@ -152,6 +153,7 @@ const TableHead = ({columns}) => {
 }
 
 const PmsHodForm = ({location}) => {
+    const isMobile = window.innerWidth <= 768;
     const {
         columns,
         rows,
@@ -168,7 +170,9 @@ const PmsHodForm = ({location}) => {
         totalAvg,
     } = usePmsHodForm({location});
 
-
+    if(isMobile){
+        return <MobileDialog isOpen={true}/>
+    }
     return (
         <div>
             <div className={styles.pmsformWrap}>

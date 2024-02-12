@@ -11,6 +11,7 @@ import ConfirmDialog from "./component/ConfirmDialog/ConfirmDialog.view";
 import LogUtils from "../../../libs/LogUtils";
 import FormInput from "../PmsForm/component/FormInput/FormInput";
 import usePMSSiteForm from "./PMSSiteForm.hook"
+import MobileDialog from "../../../components/MobileDialog/MobileDialog.view";
 const useStyles = makeStyles((theme) => ({
     customTooltip: {
       backgroundColor: 'white',
@@ -140,6 +141,8 @@ const TableHead = ({columns}) => {
 }
 
 const PMSSiteForm = ({location}) => {
+    const isMobile = window.innerWidth <= 768;
+
     const {
         columns,
         rows,
@@ -156,7 +159,9 @@ const PMSSiteForm = ({location}) => {
         onBlurHandler
     } = usePMSSiteForm({location});
 
-
+    if(isMobile){
+        return <MobileDialog isOpen={true}/>
+    }
     return (
         <div>
             <div className={styles.pmsformWrap}>

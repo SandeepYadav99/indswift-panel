@@ -266,7 +266,7 @@ function ClaimTaxCard() {
               type="number"
               isError={errorData?.stamp_duty}
               errorText={errorData?.stamp_duty}
-              label={isMobile ? "Stamp Duty & Registration charges" :"Stamp Duty & Registration charges on purchase of residential house."}
+              label={isMobile ? "Stamp Duty & Registration charges" :"Stamp duty & registration charges on purchase of House"}
               value={form?.stamp_duty}
               onTextChange={(text) => {
                 changeTextData(text, "stamp_duty");
