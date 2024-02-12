@@ -1,12 +1,18 @@
 import React from "react";
 import styles from "./Style.module.css";
 import image from "../../../../../../../assets/img/download.png";
+import StatusPill from "../../../../../../../components/Status/StatusPill.component";
 
-function UpperCard({ data }) {
+function UpperCard({ data ,isDetail}) {
   return (
       <div className={styles.newContainer}>
         <div className={styles.editFlex}>
           <div className={styles.heading}>Employee Information</div>
+            {
+              isDetail && <div>
+              <StatusPill status={isDetail}/>
+            </div>
+            }
         </div>
 
         <div className={styles.mainFlex}>

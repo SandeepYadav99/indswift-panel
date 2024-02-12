@@ -15,9 +15,9 @@ import { isDateInFiscalYear } from "../../../../../helper/helper";
 
 const initialForm = {
   hra_months: "",
-  hra_allowance_fifty_pct:"",
-  hra_allowance_forty_pct:"",
-  hra_allowance_rent_paid:"",
+  hra_allowance_fifty_pct: "",
+  hra_allowance_forty_pct: "",
+  hra_allowance_rent_paid: "",
   hra_received: "",
   fy_rent_paid: "",
   hra_permitted: "",
@@ -252,6 +252,11 @@ const useTaxCard = ({}) => {
         errors[val] = true;
       }
     });
+    if (form?.interest_paid && Number(form?.interest_paid) > 100000) {
+      if (!form?.lender_pan) {
+        errors["lender_pan"] = true;
+      }
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -296,6 +301,16 @@ const useTaxCard = ({}) => {
     [form, isSubmitting, setIsSubmitting]
   );
 
+  const handleDraft = useCallback(
+    (status) => {
+      if (!form?.fy_year) {
+        SnackbarUtils.error("Please Select the Finacial Year");
+        return true;
+      }
+      submitToServer(status);
+    },
+    [checkFormValidation, setErrorData, form]
+  );
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     console.log(">>>>", errors);
@@ -327,12 +342,30 @@ const useTaxCard = ({}) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if ([...sectionCkeys, ...sectionAkeys]?.includes(fieldName)) {
+      if (
+        [...sectionCkeys, ...sectionAkeys, ...personalKey]?.includes(fieldName)
+      ) {
         if (text >= 0) {
           t[fieldName] = text;
         }
       } else if (fieldName === "interest_paid") {
         if (text >= 0 && text <= 200000) {
+          t[fieldName] = text;
+        }
+      } else if (fieldName === "is_family_senior_citizen") {
+        if (text === "NO") {
+          t["family_medical_expenditure"] = "";
+          t["family_medical_expenditure_evidence"] = null;
+          t[fieldName] = text;
+        } else {
+          t[fieldName] = text;
+        }
+      } else if (fieldName === "is_parents_senior_citizen") {
+        if (text === "NO") {
+          t["parents_medical_expenditure"] = "";
+          t["parents_medical_expenditure_evidence"] = null;
+          t[fieldName] = text;
+        } else {
           t[fieldName] = text;
         }
       } else {
@@ -356,7 +389,10 @@ const useTaxCard = ({}) => {
           return sum;
         }, 0);
         t["total_eighty_c"] = sumOfSectionAKeys;
-      } else if (personalKey?.includes(fieldName)) {
+      } else if (
+        personalKey?.includes(fieldName) ||
+        fieldName === "is_family_senior_citizen"
+      ) {
         const personalKeyValues = personalKey.reduce((sum, key) => {
           const value = t[key];
           if (value !== undefined && value !== "") {
@@ -365,7 +401,10 @@ const useTaxCard = ({}) => {
           return sum;
         }, 0);
         t["total_eighty_d"] = personalKeyValues;
-      } else if (ParentKey?.includes(fieldName)) {
+      } else if (
+        ParentKey?.includes(fieldName) ||
+        fieldName === "is_parents_senior_citizen"
+      ) {
         const ParentKeyValues = ParentKey.reduce((sum, key) => {
           const value = t[key];
           if (value !== undefined && value !== "") {
@@ -377,7 +416,7 @@ const useTaxCard = ({}) => {
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
-      if (fieldName === "fy_rent_paid") {
+      if (fieldName === "fy_rent_paid" || fieldName === "fy_year") {
         checkSalaryInfoDebouncer(t);
       }
     },
@@ -411,6 +450,7 @@ const useTaxCard = ({}) => {
     submitToServer,
     checkSalaryInfoDebouncer,
     isTodayInFiscalYear,
+    handleDraft,
   };
 };
 

@@ -3,6 +3,7 @@ import styles from "./Style.module.css";
 import constants from "../../../../../config/constants";
 
 function TaxData({ employeeDetail }) {
+  console.log("data", employeeDetail);
   const getUrl = (data) => {
     if (data?.length > 0) {
       return (
@@ -168,6 +169,13 @@ function TaxData({ employeeDetail }) {
               {employeeDetail?.car_maintenance_recovery &&
                 `₹ ${employeeDetail?.car_maintenance_recovery}`}
             </div>
+            {employeeDetail?.child_fees?.length > 0 &&
+              employeeDetail?.child_fees?.map((item, index) => (
+                <div className={styles.key} key={`child_${index}`}>
+                  <span className={styles.value}>Amount :</span>
+                  {item?.amount && `₹ ${item?.amount}`}
+                </div>
+              ))}
             <div className={styles.key}>
               <span className={styles.value}>
                 Employee Provident Fund Amount :
@@ -214,11 +222,12 @@ function TaxData({ employeeDetail }) {
                 {getUrl(employeeDetail?.sukanya_samriddhi_evidence)}
               </span>
             </div>
-            <div className={styles.key}>
-              <span className={styles.value}>
-                {getUrl(employeeDetail?.car_maintenance_recovery_comment)}
-              </span>
-            </div>
+            {employeeDetail?.child_fees?.length > 0 &&
+              employeeDetail?.child_fees?.map((item, index) => (
+                <div className={styles.key} key={`child_URL${index}`}>
+                  {getUrl(item?.child_fees_evidence)}
+                </div>
+              ))}
             <div className={styles.key}>
               <span className={styles.value}>
                 {getUrl(employeeDetail?.epf_evidence)}
@@ -404,25 +413,33 @@ function TaxData({ employeeDetail }) {
               <span className={styles.value}>
                 Section 80CCD(1B) Additional Employee Contribution Amount:
               </span>
-              {employeeDetail?.employee_contribution}
+              {employeeDetail?.employee_contribution
+                ? `₹ ${employeeDetail?.employee_contribution}`
+                : "-"}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>
                 Section 80E Education Loan for Studies Amount:
               </span>
-              {employeeDetail?.education_loan}
+              {employeeDetail?.education_loan
+                ? `₹ ${employeeDetail?.education_loan}`
+                : "-"}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>
                 Section 80G Donations Paid Amount
               </span>
-              {employeeDetail?.donations}
+              {employeeDetail?.donations
+                ? `₹ ${employeeDetail?.donations}`
+                : "-"}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>
                 Section 80U Person with Disability Amount:
               </span>
-              {employeeDetail?.disability}
+              {employeeDetail?.disability
+                ? `₹ ${employeeDetail?.disability}`
+                : "-"}
             </div>
           </div>
           <div className={styles.right}>

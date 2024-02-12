@@ -1,8 +1,5 @@
 import React from "react";
 import styles from "./Style.module.css";
-import { ButtonBase, IconButton } from "@material-ui/core";
-import history from "../../../libs/history.utils";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import useClaimsDetail from "./ClaimsDetailHook";
 import ClaimCards from "./components/ClaimCards/ClaimCards";
 import EmployeeClaimList from "./components/EmployeeClaimList/EmployeeClaimList.container";
@@ -11,6 +8,7 @@ import { myClaimData } from "../../../helper/helper";
 import EmployeeLoanList from "./components/EmployeeLoanList/EmployeeLoanList.view";
 import ClaimDialog from "./components/ClaimDialog/ClaimDialog.view";
 import { InfoOutlined } from "@material-ui/icons";
+import TaxTable from "./components/EmployeeTaxList/EmployeeTaxList.compoent";
 
 const ClaimsDetail = () => {
   const { handleClaimPage, data, toggleStatusDialog, approveDialog } =
@@ -105,17 +103,19 @@ const ClaimsDetail = () => {
           enableBtn
           // isLoan={true}
         />
-        {/* <ClaimCards
+         {data?.tax_rebate?.is_show && (
+        <ClaimCards
           title="Tax Rebate Claim Form"
           subtitle="Claim the amount for your paid taxes"
           handleClick={() => handleClaimPage(10)}
           enableBtn
           // isLoan={true}
-        /> */}
+        />)}
       </div>
       <div className={styles.tableWrapper}>
         <EmployeeClaimList />
         <EmployeeLoanList />
+        <TaxTable/>
       </div>
     </div>
   );

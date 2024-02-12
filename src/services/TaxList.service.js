@@ -23,3 +23,18 @@ export async function serviceGetFormDebounceDetails(params) {
 export async function serviceGetTaxList(params) {
   return await postRequest("tax/rebate/review", params);
 }
+export async function serviceGetTaxApprove(params) {
+  return await postRequest("tax/rebate/review/accept", params);
+}
+export async function serviceGetTaxReject(params) {
+  return await postRequest("tax/rebate/review/reject", params);
+}
+export async function serviceGetEmployeeTaxList(params) {
+  return await postRequest("tax/rebate", params);
+}
+export async function serviceGetEmployeeTaxDetail(params) {
+  return await postRequest("tax/rebate/details", params);
+}
+export async function serviceExportTaxList(params) {
+  return await postRequest('tax/rebate/excel/report', params);
+}
