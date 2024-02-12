@@ -9,6 +9,7 @@ import FormDropdown from "./component/FormDropdown/FormDropdown";
 import SnackbarComponent from "../../../../components/Snackbar.component";
 import ConfirmDialog from "./component/ConfirmDialog/ConfirmDialog.view";
 import FormInput from "../../PmsForm/component/FormInput/FormInput";
+import MobileDialog from "../../../../components/MobileDialog/MobileDialog.view";
 
 const useStyles = makeStyles((theme) => ({
     customTooltip: {
@@ -150,6 +151,8 @@ const TableHead = ({columns}) => {
 }
 
 const PmsOverallHodForm = ({location}) => {
+    const isMobile = window.innerWidth <= 768;
+
     const {
         columns,
         rows,
@@ -166,7 +169,9 @@ const PmsOverallHodForm = ({location}) => {
         totalAvg,
     } = usePmsOverallHodForm({location});
 
-
+    if(isMobile){
+        return <MobileDialog isOpen={true} />
+    }
     return (
         <div>
             <div className={styles.pmsformWrap}>

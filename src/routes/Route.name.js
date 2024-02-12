@@ -181,7 +181,7 @@ export default {
   PMS_OVERALL_HOD_REVIEW_DETAIL: '/pms/overall/hod/detail/',
 
   PMS_SITE_PLANNER: '/pms/site',
-  PMS_SITE_PLANNER_FORM:'/pms/site/submission',
+  PMS_SITE_PLANNER_FORM:'/pms/site/submission/',
   PMS_SITE_PENDING: '/pm/site/pending',
   PMS_SITE_SUBMISSION_DETAIL: '/pms/site/form/detail/',
 

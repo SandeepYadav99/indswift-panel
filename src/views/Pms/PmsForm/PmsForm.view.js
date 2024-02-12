@@ -12,6 +12,7 @@ import FormDropdown from "./component/FormDropdown/FormDropdown";
 import SnackbarComponent from "../../../components/Snackbar.component";
 import { removeUnderScore } from "../../../helper/helper";
 import ConfirmDialog from "./component/ConfirmDialog/ConfirmDialog.view";
+import MobileDialog from "../../../components/MobileDialog/MobileDialog.view";
 
 const useStyles = makeStyles((theme) => ({
     customTooltip: {
@@ -151,6 +152,8 @@ const TableHead = ({columns}) => {
 }
 
 const PmsForm = ({location}) => {
+    const isMobile = window.innerWidth <= 768;
+
     const {
         columns,
         rows,
@@ -167,7 +170,9 @@ const PmsForm = ({location}) => {
     } = usePmsForm({location});
 
     const type=location?.state?.type
-    
+    if(isMobile){
+        return <MobileDialog isOpen={true} key={`Pms_4b`}/>
+    }
     return (
         <div>
             <div className={styles.pmsformWrap}>
