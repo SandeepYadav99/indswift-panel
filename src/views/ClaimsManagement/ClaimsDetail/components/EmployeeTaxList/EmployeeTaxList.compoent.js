@@ -76,7 +76,8 @@ function TaxTable() {
               <InfoOutlined fontSize={"small"} style={{ color: "#2896E9" }} />
               <div className={styles.textStyles}>View information</div>
             </IconButton>
-            <IconButton
+            {
+              all?.status === "DRAFTED" &&   <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -87,6 +88,7 @@ function TaxTable() {
               <Edit fontSize={"small"} style={{ color: "#2896E9" }}/>
               <span className={styles.textStyles}>Edit Information</span>
             </IconButton>
+            }
           </div>
         ),
       },
