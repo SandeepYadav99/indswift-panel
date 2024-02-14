@@ -102,6 +102,7 @@
     margin-top: 20px;
     display: flex;
     justify-content: flex-end;
+    padding-right: 10px !important;
   }
   .createBtn {
     background-color: #29cb97 !important;
@@ -294,5 +295,14 @@
   }
   .wrap{
     width: 100% !important;
+  }
+  .tapWrap{
+    display: flex;
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+  #formAlign{
+    display: flex;
+    flex-direction: column !important;
   }
 }

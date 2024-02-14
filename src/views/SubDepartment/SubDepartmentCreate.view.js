@@ -52,7 +52,7 @@ const SubDepartmentCreateView = ({location}) => {
                        </h4>
                    </div>
 
-                   <div className={'formFlex'}>
+                   <div className={'formFlex'} id={styles.mobileResponsive}>
                        <div className={'formGroup'}>
                            <CustomTextField
                                isError={errorData?.name}

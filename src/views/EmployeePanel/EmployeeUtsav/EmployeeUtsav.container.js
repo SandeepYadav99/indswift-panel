@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import InformationCard from "../../../components/InformationCard/InformationCard.component";
 import styles from "./Style.module.css";
 import UtsavImage from "../../../assets/img/utsav illustration.png";
@@ -8,6 +8,8 @@ import DownArrow from "../../../assets/img/ic_dropdown.png";
 import UpArrow from "../../../assets/img/ic_up_arrow.png";
 import GalleryImages from "./components/GalleryImages";
 import { Accordion } from "@material-ui/core";
+import { InfoOutlined } from "@material-ui/icons";
+import { Dialog } from "@material-ui/core";
 
 function EmployeeUtsav() {
   const {
@@ -17,9 +19,10 @@ function EmployeeUtsav() {
     handleItemClick,
   } = EmployeeUtsavHook({});
   const DeepakDescription = DeepakData;
+  const [open, setOpen] = useState(false);
   const reverseArray = (arr) => {
-    if (arr){
-      const newArr= [...arr]
+    if (arr) {
+      const newArr = [...arr];
       return newArr?.reverse();
     }
   };
@@ -29,6 +32,91 @@ function EmployeeUtsav() {
     backgroundColor: "none",
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const PopupComponent = () => {
+    return (
+      <div>
+        <Dialog open={open} onClose={handleClose} style={{ width: "100%" }}>
+          <div className={styles.GeneralInfoWrapeer}>
+            <div className={styles.alignDataToWrapper}>
+              <div>
+                <span className={styles.title2}>Utsav</span>
+                <div className={styles.newLine} />
+              </div>
+              <div onClick={handleClose}>X</div>
+            </div>
+            <div className={styles.infoContainer}>
+              <p className={styles.infoDetails}>
+                Life is just an another name of Celebrations. Apart from work,
+                recognition, growth and appreciation; organization make special
+                efforts to make the stay of employees at Ind-Swift not less than
+                a Celebration in itself.
+              </p>
+              <br />
+              <p className={styles.infoDetails}>
+                Based in this principle, Utsav Branch of “SkyNet” works for area
+                of Employee Engagement that works to organize various events and
+                celebrations on festivals, birthdays etc at different sites and
+                give time to employees for celebrating important events with
+                their family @ work.
+              </p>
+              <br />
+              <p className={styles.infoDetails}>
+                . Programs under Utsav UTSAV deals with propagating Employee
+                Engagement in organization by two means- -
+              </p>
+              <br />
+              <p className={styles.infoDetails}>
+                Events Organization observes every month on a certain Theme, all
+                site HRs organize at least one event per month that matches
+                theme of that month. This is apart from routine celebrations,
+                events and festivals. Subheksha Under this program, organization
+                is conducting 3 interventions- Alumni Relation Management (CFL)
+                Employees who leave the organization but have been performing
+                well are added in a special alumni group known as CFL
+                (Colleagues for Life). These employees are awarded with Alumni
+                Certificates on separation, and they are added in a special
+                WhatsApp group to keep them connected with organization. They
+                are also eligible to re-apply in organization after 6 months of
+                separation. Service Tenure Ceremonies One of the core strengths
+                of our great organization is our stable, confident, and
+                determined workforce. It is very easy to start a journey, but it
+                takes a great sense of responsibility to continue that journey
+                while overcoming all the obstacles and hurdles. In Today’s
+                unstable world, it takes a lot of courage to stay committed with
+                a single cause.
+              </p>
+              <br />
+              <p className={styles.infoDetails}>
+                Organization appreciates employees who have dedicated their
+                careers in making the dream “Ind-Swift” a reality, therefore
+                organisation commenced a monthly activity known as "Service
+                Award Ceremony" .
+              </p>
+              <br />
+              <p className={styles.infoDetails}>
+                This ceremony is organized on every 25th working date of the
+                month, where organization honour those employees who have
+                completed 5 years, 10 years, 15 year, 20 years, 25 years, 25+
+                years, or retirement of their journey with organization.
+                Organizational Tokens (Diaries, Calendars etc) Organization
+                distributes several appreciation and gestures tokens to
+                employees at set periodicity.
+              </p>
+              <br />
+            </div>
+          </div>
+        </Dialog>
+      </div>
+    );
+  };
   return (
     <div className={styles.employeeDrishtiWrapper}>
       <div className={styles.employeeInducationWrapper}>
@@ -151,6 +239,20 @@ function EmployeeUtsav() {
           </div>
         </div>
       </div>
+      <div className={styles.mobileRenderData}>
+        <div>
+          <span className={styles.title}>Utsav</span>
+          <div className={styles.newLine} />
+          <div className={styles.iconPositionResponsive}>
+            <InfoOutlined
+              fontSize={"small"}
+              style={{ color: "blue" }}
+              onClick={handleOpen}
+            />
+          </div>
+        </div>
+      </div>
+      {open && <PopupComponent />}
       {employeeUtsavData?.map((item, index) => {
         return (
           item?.items?.length > 0 && (

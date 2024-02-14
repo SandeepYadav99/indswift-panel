@@ -61,7 +61,6 @@ const ImageGalleryDialog = ({ isOpen, handleToggle, candidateId, data,currentInd
       },
     ],
   };
-  console.log("jd", data);
 
   return (
     <div>

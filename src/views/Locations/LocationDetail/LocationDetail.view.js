@@ -180,7 +180,7 @@ const LocationDetail = () => {
         </div>
         {form?.data?.map((item, index) => {
           return (
-            <div className={"formFlex"} key={`Location_${index}`}>
+            <div className={"formFlex"} key={`Location_${index}`} id={styles.locationField}>
               <div className="formGroup">
                 <CustomTextField
                   label={"Select Role"}
@@ -224,7 +224,7 @@ const LocationDetail = () => {
         </div>
         {olrForm?.data?.map((item, index) => {
           return (
-            <div className={"formFlex"} key={`Olr_${index}`}>
+            <div className={"formFlex"} key={`Olr_${index}`} id={styles.locationField} >
               <div className="formGroup">
                 <CustomAutoComplete
                   autoCompleteProps={{

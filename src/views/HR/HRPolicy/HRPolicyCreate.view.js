@@ -65,7 +65,7 @@ const HRCreateView = ({}) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.name}
@@ -95,7 +95,7 @@ const HRCreateView = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className={"formGroup"}>
             <CustomDatePicker
               clearable
@@ -123,7 +123,7 @@ const HRCreateView = ({}) => {
             />
           </div>
         </div>
-        <div className={"formGroup file_Wrapper"}>
+        <div className={"formGroup file_Wrapper"} id={styles.widthMobileResponsive}>
           <File
               max_size={5 * 1024 * 1024}
               type={['pdf']}

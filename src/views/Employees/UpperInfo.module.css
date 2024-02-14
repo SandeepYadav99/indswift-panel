@@ -105,7 +105,9 @@
     text-align: right;
     position: relative;
     bottom: 10px;
+    /* display: none !important; */
 }
+
 .upperCardWidthData{
     width: 70%;
 }
@@ -214,6 +216,10 @@
     display: none !important;
 }
 
+#iconStatusImage{
+    display: block !important;
+}
+
 @media only screen and (min-width:769px)and (max-width:1024px) {
     .rightPartContainer {
         display: flex;
@@ -299,6 +305,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: flex-start !important;
     }
 
     .rightInfo>div span {
@@ -374,6 +381,17 @@
     }
     #desktopView{
         display: block !important;
+    }
+    .statusWrap {
+        text-align: right;
+        position: relative;
+        bottom: 10px;
+        display: block !important;
+    }
+    #iconStatusImage{
+        display: none !important;
+    }.btnWrap{
+        display: none !important;
     }
 }
 

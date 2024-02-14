@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, useState} from "react";
 import {
   Dashboard,
   LocalOffer,
@@ -475,9 +475,24 @@ const NotificationListModule = lazy(()=>import("../views/NotificationModule/Noti
 
 const NotificationCreateModule = lazy(()=>import("../views/NotificationModule/SendNotification/Create.module.js"))
 
+const MobileLandingPage = lazy(()=>import("../views/MobileLandingPage/MobileLandingPage.component.js"))
+const TestView = lazy(()=>import("../views/test/Test.view"))
+
 const Roles = Constants.ROLES;
 
+
+
 const dashboardRoutes = [
+  {
+    path: `${RouteName.HOMEPAGE_MOBILE}`,
+    icon: DashboardOutlined,
+    sidebarName: "Homepage",
+    navbarName: "Homepage",
+    component: MobileLandingPage,
+    is_sidebar:true,
+    is_protect: true,
+    isDesktopHide:true,
+  },
   {
     path: RouteName.MY_PROFILE,
     sidebarName: "My Profile",
@@ -773,8 +788,8 @@ const dashboardRoutes = [
   },
   {
     path: "null",
-    sidebarName: "Leave & Attendence",
-    navbarName: "Leave & Attendence",
+    sidebarName: "Leave & Attandance",
+    navbarName: "Leave & Attendance",
     icon: AssignmentOutlined,
     is_sidebar: true,
     slug: "leave_attend",
@@ -2843,6 +2858,16 @@ const dashboardRoutes = [
   is_protect: true,
   roles: [Roles.ACCOUNTANT],
 },
+  {
+    path: '/testview',
+    sidebarName: "Tax Rebate Approval",
+    navbarName: "Tax Rebate Approval",
+    icon: AssignmentOutlined,
+    component: TestView,
+    is_sidebar: false,
+    is_protect: false,
+  },
+
 ];
 
 export default dashboardRoutes;

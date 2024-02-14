@@ -92,3 +92,10 @@
   border-radius: 10px;
   width: inherit;
 }
+
+@media only screen and (max-width:769px){
+  .customSliderWrapper{
+    display: flex;
+    width: 70vw;
+  }
+}

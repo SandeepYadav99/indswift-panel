@@ -38,6 +38,8 @@
   font-size: 14px;
   font-weight: 600 !important;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between !important;
 }
 
 .colorLinkData{
@@ -45,6 +47,17 @@
   color: black !important;
 }
 
+.blueDot{
+  height: 10px !important;
+  width: 10px !important;
+  border-radius: 100%;
+  background-color: #2896E9 !important;
+}
+.unreadWrap{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 @media only screen and (max-width:596px) {
   .descriptionData {
     font-size: 12px;
@@ -63,4 +76,11 @@
     color:"gray"; 
     margin-top:"5px";
   }
+}
+
+.cardUnRead{
+  background-color: #EBF9FF;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 10px !important;
 }

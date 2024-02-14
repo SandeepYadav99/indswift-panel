@@ -14,6 +14,8 @@ import {AUTH_USER} from "./actions/auth_index.action";
 import {actionChangeTheme, actionGetAppSettings} from "./actions/AppSettings.action";
 import SnackbarUtils from "./libs/SnackbarUtils";
 import {isIosSafari} from "./libs/general.utils";
+import historyUtils from "./libs/history.utils";
+import LogUtils from "./libs/LogUtils";
 
 setAxiosTimezone();
 if (localStorage.theme && false) {
@@ -59,17 +61,22 @@ if ('serviceWorker' in navigator) {
     body: "dsd"
     title: "Working Good"
          */
-
+        LogUtils.log(message);
         // console.log('messageSend', message);
-        SnackbarUtils.info(message?.data?.data?.title, message?.data?.data?.NEXT_SCREEN);
+        if (message?.data?.data?.title) {
+            SnackbarUtils.info(message?.data?.data?.title, message?.data?.data?.NEXT_SCREEN);
+        } else if (message?.data?.message?.PASSIVE_NEXT_SCREEN) {
+            LogUtils.log(message?.data?.message?.PASSIVE_NEXT_SCREEN);
+            historyUtils.push('/'+message?.data?.message?.PASSIVE_NEXT_SCREEN);
+        }
     });
-    navigator.serviceWorker.addEventListener('fetch', function(event) {
-        event.respondWith(
-            caches.match(event.request).then(function(response) {
-                return response || fetch(event.request);
-            })
-        );
-    });
+    // navigator.serviceWorker.addEventListener('fetch', function(event) {
+    //     event.respondWith(
+    //         caches.match(event.request).then(function(response) {
+    //             return response || fetch(event.request);
+    //         })
+    //     );
+    // });
 
     window.addEventListener("DOMContentLoaded", async event => {
         if ('BeforeInstallPromptEvent' in window) {
@@ -115,6 +122,8 @@ if ('serviceWorker' in navigator) {
 
         }
     }
+} else {
+    console.log('there is no service worker')
 }
 
 // If you want your app to work offline and load faster, you can change

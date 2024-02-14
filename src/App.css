@@ -218,7 +218,6 @@ input[type=radio] + label:hover {
 }
 
 .status {
-    min-width: 175px;
     display: inline!important;
     font-size: 12px;
     font-weight: 600;
@@ -1073,6 +1072,7 @@ font-size: medium;
     padding: 15px 15px;
     align-items: center;
     text-align: right;
+    box-shadow: 0 0 10px rgba(80, 78, 78, 0.15);
 }
 
 .installDiv > div {
@@ -1093,6 +1093,10 @@ font-size: medium;
     border-radius: 50%;
     width: 25px;
     height: 25px;
+}
+.spanTextAnd{
+    font-size: .75rem ;
+    font-weight: 500;
 }
 .installDiv .close:before {
     position: absolute;

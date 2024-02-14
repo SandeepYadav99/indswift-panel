@@ -65,7 +65,7 @@ const CircularCreateView = ({}) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.name}
@@ -93,7 +93,7 @@ const CircularCreateView = ({}) => {
             />
           </div>
         </div>
-        <div className={"formGroup file_Wrapper"}>
+        <div className={"formGroup file_Wrapper"} id={styles.uploadMobile}>
           <File
             max_size={5 * 1024 * 1024}
             type={["pdf"]}
@@ -119,7 +119,7 @@ const CircularCreateView = ({}) => {
 
       <div className={"plainPaper"}>
         <div className={"headerFlex wrapper"}>
-          <div className={"infoTitle inner"}>
+          <div className={"infoTitle inner"} id={styles.mobileDownPart}>
             <div className="info_Status">
               <h4 className={"heading_stats"}>Status</h4>
               <div className={"slider_wrap "}>

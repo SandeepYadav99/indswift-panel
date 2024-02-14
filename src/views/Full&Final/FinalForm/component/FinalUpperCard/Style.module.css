@@ -138,3 +138,38 @@
 .info{
     margin-left: 10px;
 }
+.mobileImageData{
+    display: none !important;
+}
+.mobileImageSize{
+    height: 100px !important;
+    width: 100px !important;
+}
+
+@media only screen and (max-width:769px) {
+    .claimimg{
+        display: none !important;
+    }
+    .vertical {
+        border-left: 1px dashed #B8C5D3;
+        max-height: 100%;
+        flex: 0.3;
+    }
+    .newContainer{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .mobileImageData{
+        display: block !important;
+        justify-content: center !important;
+        margin-left: 40% !important;
+        margin-bottom: 10px !important;
+    }
+    .key{
+        display: flex;
+        flex-direction: column !important;
+        color: #818181;
+        font-weight: 500;
+        margin-bottom: 7px;
+    }
+}

@@ -29,7 +29,7 @@
   color: #818181;
   font-size: 0.75rem;
 }
-.btnWrap{
+.btnWrap {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -43,4 +43,17 @@
   padding: 7px 25px !important;
   text-transform: uppercase !important;
   height: 40px !important;
+}
+
+.textStyles {
+  display: none !important;
+}
+@media only screen and (max-width: 769px) {
+  .textStyles {
+    display: block !important;
+    font-size: 0.8rem;
+    margin-left: 5px;
+    font-weight: 500;
+    color: #2896e9;
+  }
 }

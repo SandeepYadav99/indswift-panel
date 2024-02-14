@@ -1,80 +1,61 @@
-/**
- * Created by charnjeetelectrovese@gmail.com on 4/30/2020.
- */
-import React, { PureComponent } from "react";
+import React, { useEffect, useRef } from "react";
 import { Grid, Select, MenuItem, Input, withStyles, Typography } from "@material-ui/core";
 import { ArrowForward as ArrowForwardIcon } from "@material-ui/icons";
-import { BarChart, Bar } from "recharts";
-import classnames from "classnames";
 import { Line } from 'react-chartjs-2';
 
 import Widget from "../../../../components/Widget/WidgetView";
-// import { Typography } from "../../../../components/Wrappers/Wrappers";
 
 const getRandomData = () =>
-    Array(7)
-        ?.fill()
-        ?.map(() => ({ value: Math.floor(Math.random() * 10) + 1 }));
+    Array(7)?.fill()?.map(() => ({ value: Math.floor(Math.random() * 10) + 1 }));
 
-class LineStat extends PureComponent {
+const LineStat = ({ theme, classes, data }) => {
+    const options = {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    reverse: false,
+                    stepSize: 500000
+                },
+            }]
+        },
+        bezierCurve: true,
+        elements: {
+            line: {
+                tension: 100
+            }
+        },
+        legend: {
+            display: false
+        },
+        tooltips: {
+            backgroundColor: "rgba(255, 255, 255,0.9)",
+            titleFontColor: '#000',
+            bodyFontColor: '#000',
+            callbacks: {
+                label: function (tooltipItem) {
+                    return tooltipItem.yLabel;
+                }
+            }
+        },
+    };
 
-    constructor(props) {
-        super(props);
-        this.options = {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        reverse: false,
-                        stepSize: 500000
-                    },
-                }]
-            },
-            bezierCurve: true,
-            elements: {
-                line: {
-                    // tension: 100
-                }
-            },
-            legend: {
-                display: false
-            },
-            tooltips: {
-                backgroundColor: "rgba(255, 255, 255,0.9)",
-                titleFontColor: '#000',
-                bodyFontColor: '#000',
-                callbacks: {
-                    label: function (tooltipItem) {
-                        return tooltipItem.yLabel;
-                    }
-                }
-            },
-            // responsive: true,
-            // datasetStrokeWidth : 3,
-            // pointDotStrokeWidth : 4,
-            // tooltipFillColor: "rgba(0,0,0,0.8)",
-            // tooltipFontStyle: "bold",
-            // tooltipTemplate: "<%if (label){%><%=label + ' hod' %>: <%}%><%= value + '°C' %>",
-            // scaleLabel : "<%= Number(value).toFixed(0).replace('.', ',') + '°C'%>"
+    const chartRef = useRef(null);
+
+    useEffect(() => {
+        if (chartRef.current) {
+            const { datasets } = chartRef.current.chartInstance.data;
+            console.log(datasets[0].data);
         }
-        this._getData = this._getData.bind(this);
-        // console.log("===?",this.props.you)
-    }
+    }, [data]);
 
-
-    componentDidMount() {
-        const { datasets } = this.refs.chart.chartInstance.data
-        console.log(datasets[0].data);
-    }
-
-    _getData(canvas) {
-        const { data } = this.props;
-        const ctx = canvas.getContext("2d")
+    const getData = (canvas) => {
+        const ctx = canvas.getContext("2d");
         const gradient = ctx.createLinearGradient(0, 0, 0, 300);
         gradient.addColorStop(0, 'rgba(88,80,236,0.2)');
         gradient.addColorStop(1, 'rgba(88,80,236,0)');
 
         return {
-            labels: data?.map((val) => {  return val.date; }),
+            labels: data?.map((val) => val.date),
             datasets: [
                 {
                     label: 'My First dataset',
@@ -96,31 +77,25 @@ class LineStat extends PureComponent {
                     pointHoverBorderWidth: 2,
                     pointRadius: 7,
                     pointHitRadius: 10,
-                    data: data?.map((val) => { return val.count; })
+                    data: data?.map((val) => val.count)
                 }
             ],
         };
-    }
+    };
 
-    render() {
-        const {
-            theme,
-            classes
-        } = this.props;
-        return (
-            <Widget
-                header={
-                    <div className={classes.title}>
-                        {/* <Typography variant="h5">Weekly Data</Typography> */}
-                    </div>
-                }
-                upperTitle
-            >
-                <Line ref="chart" data={this._getData} options={this.options} height={80} />
-            </Widget>
-        );
-    }
-}
+    return (
+        <Widget
+            header={
+                <div className={classes.title}>
+                    {/* <Typography variant="h5">Weekly Data</Typography> */}
+                </div>
+            }
+            upperTitle
+        >
+            <Line ref={chartRef} data={getData} options={options} height={80} />
+        </Widget>
+    );
+};
 
 const styles = theme => ({
     title: {
@@ -128,7 +103,7 @@ const styles = theme => ({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        width: "100%",
+        width: "600px",
         marginBottom: theme.spacing.unit
     },
     bottomStatsContainer: {

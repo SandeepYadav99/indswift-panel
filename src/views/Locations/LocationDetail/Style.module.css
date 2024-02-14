@@ -130,3 +130,18 @@
 .info{
     margin-left: 10px;
 }
+
+@media screen and (max-width:769px){
+    #locationField{
+        display: flex;
+        flex-direction:column !important;
+    }
+    .mainFlex{
+        display: flex;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    .vertical{
+        display: none !important;
+    }
+}

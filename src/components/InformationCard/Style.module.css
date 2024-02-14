@@ -63,7 +63,7 @@
   text-decoration-line: underline;
   /* cursor: pointer; */
 }
-@media (max-width: 767px) {
+@media (max-width: 769px) {
   .employeeInducationWrapper{
     padding: 0.8rem;
   }
@@ -72,7 +72,7 @@
     width: 100%;
   }
   .contentWrapper {
-    flex-direction: column;
+    flex-direction: column-reverse !important;
   }
   .imageWrapper img{
     width: 100%;

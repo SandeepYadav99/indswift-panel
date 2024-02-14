@@ -7,7 +7,6 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import useRelievingExpLetterDetail from "./RelievingExpLetterDetailHook";
 
-
 function RelievingExpLetterDetail({ data, isImprest }) {
   const {
     form,
@@ -37,8 +36,8 @@ function RelievingExpLetterDetail({ data, isImprest }) {
             </div>
 
             <div className={styles.mainFlex}>
-              <div className={styles.left221}>
-                <div>
+              <div className={styles.adjustImageContainer}>
+                <div className={styles.imageAlignCenter}>
                   <img
                     alt=""
                     className={styles.claimimg}
@@ -49,85 +48,119 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                     }
                   />
                 </div>
-                <div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Name:</span>
-                    {relievingExpDetails?.employee?.name}
-                  </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>D.O.B:</span>
-                    {relievingExpDetails?.employee?.dob}
-                  </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Department:</span>
-                    {relievingExpDetails?.employee?.department?.name}
-                  </div>
+                <div className={styles.detailContainer}>
+                  <div className={styles.left221}>
+                    <div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Name:</span>
+                        {relievingExpDetails?.employee?.name}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>D.O.B:</span>
+                        {relievingExpDetails?.employee?.dob}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>Department:</span>
+                        {relievingExpDetails?.employee?.department?.name}
+                      </div>
 
-                  <div className={styles.key}>
-                    <span className={styles.value}>ESI Number:</span>
-                    {relievingExpDetails?.employee?.identity_date?.esi_no ||
-                      "N/A"}
+                      <div className={styles.key}>
+                        <span className={styles.value}>ESI Number:</span>
+                        {relievingExpDetails?.employee?.identity_date?.esi_no ||
+                          "N/A"}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>
+                          Days worked after resignation:{" "}
+                        </span>
+                        {relievingExpDetails?.employee?.workingDayResignation}
+                      </div>
+                      <div className={styles.key}>
+                        <span className={styles.value}>
+                          Reason for leaving:
+                        </span>
+                        {relievingExpDetails?.experienceLetter?.reason}
+                      </div>
+                      <div className={styles.dropDownContainer}>
+                      {relievingExpDetails?.experienceLetter?.status ===
+                        "SITE_HR_APPROVED" &&
+                        relievingExpDetails?.status === "PENDING" && (
+                          <CustomSelectField
+                            label={"General Conduct"}
+                            isError={errorData?.general_conduct}
+                            errorText={errorData?.general_conduct}
+                            value={form?.general_conduct}
+                            handleChange={(value) => {
+                              changeTextData(value, "general_conduct");
+                            }}
+                          >
+                            <MenuItem value={"CAN'T_ENDORSE"}>
+                              Can't Endorse
+                            </MenuItem>
+                            <MenuItem value={"POOR"}>Poor</MenuItem>
+                            <MenuItem value={"AVERAGE"}>Average</MenuItem>
+                            <MenuItem value={"GOOD"}>Good</MenuItem>
+                            <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
+                          </CustomSelectField>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>
-                      Days worked after resignation:{" "}
-                    </span>
-                    {relievingExpDetails?.employee?.workingDayResignation}
+                  <div className={styles.vertical}></div>
+                  <div className={styles.left}>
+                    <div className={styles.key}>
+                      <span className={styles.value}>Father's Name:</span>
+                      {relievingExpDetails?.employee?.family?.father_name}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>Employee Code:</span>
+                      {`${relievingExpDetails?.employee?.emp_code} `}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>Designation:</span>
+                      {relievingExpDetails?.employee?.designation?.name}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>UAN Number:</span>
+                      {relievingExpDetails?.employee?.identity_date?.uan_no}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>
+                        Worked in organisazation for:
+                      </span>
+                      {relievingExpDetails?.employee?.experience?.current}
+                    </div>
+                    <div className={styles.key}>
+                      <span className={styles.value}>Worked on NAPS</span>
+                      {relievingExpDetails?.employee?.trainee_id
+                        ? "Yes"
+                        : "N/A"}
+                    </div>
                   </div>
-                  <div className={styles.key}>
-                    <span className={styles.value}>Reason for leaving:</span>
-                    {relievingExpDetails?.experienceLetter?.reason}
-                  </div>
-
-                  {relievingExpDetails?.experienceLetter?.status ===
-                    "SITE_HR_APPROVED" &&
-                    relievingExpDetails?.status === "PENDING" && (
-                      <CustomSelectField
-                        label={"General Conduct"}
-                        isError={errorData?.general_conduct}
-                        errorText={errorData?.general_conduct}
-                        value={form?.general_conduct}
-                        handleChange={(value) => {
-                          changeTextData(value, "general_conduct");
-                        }}
-                      >
-                        <MenuItem value={"CAN'T_ENDORSE"}>Can't Endorse</MenuItem>
-                        <MenuItem value={"POOR"}>Poor</MenuItem>
-                        <MenuItem value={"AVERAGE"}>Average</MenuItem>
-                        <MenuItem value={"GOOD"}>Good</MenuItem>
-                        <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
-                      </CustomSelectField>
-                    )}
                 </div>
-              </div>
-              <div className={styles.vertical}></div>
-              <div className={styles.left}>
-                <div className={styles.key}>
-                  <span className={styles.value}>Father's Name:</span>
-                  {relievingExpDetails?.employee?.family?.father_name}
-                </div>
-                <div className={styles.key}>
-                  <span className={styles.value}>Employee Code:</span>
-                  {`${relievingExpDetails?.employee?.emp_code} `}
-                </div>
-                <div className={styles.key}>
-                  <span className={styles.value}>Designation:</span>
-                  {relievingExpDetails?.employee?.designation?.name}
-                </div>
-                <div className={styles.key}>
-                  <span className={styles.value}>UAN Number:</span>
-                  {relievingExpDetails?.employee?.identity_date?.uan_no}
-                </div>
-                <div className={styles.key}>
-                  <span className={styles.value}>
-                    Worked in organisazation for:
-                  </span>
-                  {relievingExpDetails?.employee?.experience?.current}
-                </div>
-                <div className={styles.key}>
-                  <span className={styles.value}>Worked on NAPS</span>
-                  {relievingExpDetails?.employee?.trainee_id ? "Yes" : "N/A"}
-                </div>
+                <div className={styles.mobileDropDown}>
+                      {relievingExpDetails?.experienceLetter?.status ===
+                        "SITE_HR_APPROVED" &&
+                        relievingExpDetails?.status === "PENDING" && (
+                          <CustomSelectField
+                            label={"General Conduct"}
+                            isError={errorData?.general_conduct}
+                            errorText={errorData?.general_conduct}
+                            value={form?.general_conduct}
+                            handleChange={(value) => {
+                              changeTextData(value, "general_conduct");
+                            }}
+                          >
+                            <MenuItem value={"CAN'T_ENDORSE"}>
+                              Can't Endorse
+                            </MenuItem>
+                            <MenuItem value={"POOR"}>Poor</MenuItem>
+                            <MenuItem value={"AVERAGE"}>Average</MenuItem>
+                            <MenuItem value={"GOOD"}>Good</MenuItem>
+                            <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
+                          </CustomSelectField>
+                        )}
+                      </div>
               </div>
             </div>
           </div>

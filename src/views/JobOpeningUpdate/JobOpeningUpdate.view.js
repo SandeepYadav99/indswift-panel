@@ -69,7 +69,7 @@ const JobOpeningUpdateView = ({}) => {
                        </div>
                    </div>
 
-                   <div className={"formFlex"}>
+                   <div className={"formFlex"} id={styles.mobileContainer}>
                        <div className="formGroup">
                            <CustomSelectField
                                 disabled={true}
@@ -105,7 +105,7 @@ const JobOpeningUpdateView = ({}) => {
                    </div>
 
 
-                   <div className={'formFlex'}>
+                   <div className={'formFlex'} id={styles.mobileContainer}>
                        <div className="formGroup">
                            <CustomSelectField
                                 disabled={true}
@@ -137,7 +137,7 @@ const JobOpeningUpdateView = ({}) => {
                        </div>
                    </div>
 
-                   <div className={'formFlex'}>
+                   <div className={'formFlex'} id={styles.mobileContainer}>
                        <div className="formGroup">
                            <CustomAutoComplete
                                 disabledList={true}
@@ -170,7 +170,7 @@ const JobOpeningUpdateView = ({}) => {
                        </div>
                    </div>
 
-                   <div className={'formFlex'} style={{alignItems:"center"}}>
+                   <div className={'formFlex'}  id={styles.mobileContainer}>
                        <div className="formGroup">
                            <CustomAutoComplete
                                 // disabledList={true}

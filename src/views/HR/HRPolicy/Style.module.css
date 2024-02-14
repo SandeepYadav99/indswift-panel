@@ -180,3 +180,14 @@
     margin-left: 20px;
     background-image: linear-gradient(265deg , #7467F0,#2896E9) !important;
 }
+
+@media only screen and (max-width:769px) {
+    #mobileResponsive{
+        display: flex;
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+    #widthMobileResponsive{
+        width: 90% !important;
+    }
+}

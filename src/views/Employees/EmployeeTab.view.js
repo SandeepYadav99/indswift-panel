@@ -8,10 +8,9 @@ import Tab from "@material-ui/core/Tab";
 import { useDispatch, useSelector } from "react-redux";
 import history from "../../libs/history.utils";
 import { Button, ButtonBase } from "@material-ui/core";
-import UpperInfo from "./UpperInfo.view";
+import UpperInfoNewEmployee from "./UpperInfoForNewEmployee";
 import ProfileView from "./Profile.view";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import useEmployeesTab from "./EmployeesTabHook";
 import { actionGetEmployeeDetails } from "../../actions/Employee.action";
 import SalaryInfo from "./components/Profile/SalaryInfo/SalaryInfo";
 import CareerProgression from "./components/Profile/CareerProgression/CareerProgression";
@@ -20,6 +19,7 @@ import UpdateStatusDialog from "./components/UpdateStatusPopUp/UpdateStatusDialo
 import EmployeeRecord from "./components/Profile/EmployeeRecord/EmployeeRecord";
 import { useParams } from "react-router";
 import EmployeeClaim from "../EmployeePanel/EmployeeClaim/EmployeeClaim.container";
+import UpperInfo from "./UpperInfo.view";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 

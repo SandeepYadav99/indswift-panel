@@ -210,4 +210,7 @@
   .left{
     flex:none !important;
   }
+  .titleBalance{
+    font-size: 0.856rem !important;
+ }
 }

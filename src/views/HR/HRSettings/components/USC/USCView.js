@@ -29,7 +29,7 @@ function USCView() {
     onBlurHandler,
     handleSubmit,
     toggleStatusDialog,
-    isSubmitting
+    isSubmitting,
   } = useUSCHook({});
 
   const tableStructure = useMemo(() => {
@@ -54,7 +54,7 @@ function USCView() {
       },
       {
         key: "user_id",
-        label: "Action",
+        label: "ACTION",
         render: (temp, all) => (
           <div className={styles.btnWrap}>
             <IconButton
@@ -65,7 +65,8 @@ function USCView() {
                 handleViewUpdate(all);
               }}
             >
-              <Edit fontSize={"small"} />
+              <Edit fontSize={"small"} style={{ color: "#2896E9" }} />
+              <div className={styles.textStyles}>Edit information</div>{" "}
             </IconButton>
             <div className={styles.rightFlex}>
               <ButtonBase
@@ -116,21 +117,19 @@ function USCView() {
         onBlurHandler={onBlurHandler}
         handleSubmit={handleSubmit}
         isSubmitting={isSubmitting}
-        
       />
       <PageBox>
         <div className={styles.headerContainer}>
           <span className={styles.title}>Universal Salary Calculator</span>
           <div className={styles.newLine} />
         </div>
-
-      </PageBox>
-      <div style={{ width: "100%", marginTop: "40px" }}>
+        <div style={{ width: "100%", marginTop: "20px" }}>
           <DataTables
             {...tableData.datatable}
             {...tableData.datatableFunctions}
           />
         </div>
+      </PageBox>
     </div>
   );
 }

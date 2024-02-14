@@ -69,3 +69,18 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
+#endAlign{
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media only screen and (max-width:769px) {
+  #mobileScreen{
+    display: flex;
+    flex-direction: column;
+  }
+  #endAlign{
+    display: flex;
+    justify-content: flex-start;
+  }
+}

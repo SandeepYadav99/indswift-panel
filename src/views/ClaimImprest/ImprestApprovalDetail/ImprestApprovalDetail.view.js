@@ -57,7 +57,7 @@ function ImprestApprovalDetail() {
       <UpperClaimInfo data={employeeDetail} />
       <div className={styles.plainPaper}>
         <div className={styles.newLineWrap}>
-          <span>
+          <span className={styles.titleBalance}>
             <b>Non Travel Imprest Ledger</b>
           </span>
           <div className={styles.newLine2} />
@@ -69,7 +69,7 @@ function ImprestApprovalDetail() {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.newLineWrap}>
-          <span>
+          <span className={styles.titleBalance}>
             <b>Travel Imprest Ledger</b>
           </span>
           <div className={styles.newLine2} />
@@ -82,7 +82,6 @@ function ImprestApprovalDetail() {
             ` EXPENSES : ${typeData?.expense_budget}`}
         </div>
         <TravelTable jobId={employeeDetail?.employee?.id} Claimtype="TRAVEL" />
-
       </div>
       <ClaimDetailInfo idCards={employeeDetail} isLoc={true} />
       {employeeDetail?.comments?.length > 0 && (
@@ -161,6 +160,7 @@ function ImprestApprovalDetail() {
           <div className={styles.ApproveMobile}>
             <ButtonBase
               // disabled={isSubmitting}
+              style={{width:"200px !important"}}
               className={styles.editSuccessMobile}
               onClick={toggleChangeDialog}
             >

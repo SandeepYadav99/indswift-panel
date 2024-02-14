@@ -9,7 +9,12 @@ function FinalUpperCard({ data, otherData }) {
       <div className={styles.editFlex}>
         <div className={styles.heading}>Employee Information</div>
       </div>
-
+      <div className={styles.mobileImageData}>
+        <img
+          className={styles.mobileImageSize}
+          src={data?.image ? data?.image : image}
+        />
+      </div>
       <div className={styles.mainFlex}>
         <div className={styles.left221}>
           <div>
@@ -32,7 +37,8 @@ function FinalUpperCard({ data, otherData }) {
               {data?.location?.name}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>F&F Case Number:</span>{otherData?.code}
+              <span className={styles.value}>F&F Case Number:</span>
+              {otherData?.code}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>DOB:</span>

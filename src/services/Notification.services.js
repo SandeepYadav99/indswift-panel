@@ -32,4 +32,13 @@ import { postRequest } from "../libs/AxiosService.util";
   export async function serviceLeaveCreate(params) {
     return await postRequest("notifications/my", params);
   }
+
+  export async function serviceNotificationReadUnRead(params){
+    return await postRequest("notifications/mark/read",params)
+  }
+
+  export async function serviceNotificationCountData(params){
+    return await postRequest("notifications/my/count",params)
+
+  }
   

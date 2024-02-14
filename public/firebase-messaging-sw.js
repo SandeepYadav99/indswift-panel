@@ -50,12 +50,15 @@ self.addEventListener('notificationclick', function(event) {
                 type: "window",
                 includeUncontrolled: true,
             }).then(function(clientList) {
-                console.log('clientList', clientList);
+                console.log(clientList);
                 for (var i = 0; i < clientList.length; i++) {
                     var client = clientList[i];
+                    client.postMessage({action: 'NOTIFICATION_CLICK', message: event.notification.data});
                     if ("focus" in client) {
-                        // return client.focus();
+                        client.focus();
+                        return true;
                     }
+
                 }
                 if (clients.openWindow) {
                     return clients.openWindow(redirect_url);
