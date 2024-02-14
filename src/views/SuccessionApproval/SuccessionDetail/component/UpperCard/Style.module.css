@@ -20,7 +20,7 @@
   background-color: #fff;
   box-shadow: 0px 20px 80px #00000011;
 }
-.dor{
+.dor {
   display: flex;
   align-items: center;
 }
@@ -184,4 +184,9 @@
 .hrline {
   border: 1px solid #b8c5d3;
   margin: 10px 0px 10px 0px;
+}
+@media (max-width: 767px) {
+  .vertical {
+    display: none;
+  }
 }

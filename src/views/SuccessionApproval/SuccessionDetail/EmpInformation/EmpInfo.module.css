@@ -236,3 +236,21 @@
   border: 1px solid #b8c5d3;
   margin: 10px 0px 10px 0px;
 }
+.formFlex{
+  display: flex;
+}
+@media (max-width: 767px) {
+  .key {
+    display: flex;
+    flex-direction: column;
+  }
+  .vertical{
+    display: none;
+  }
+  .value{
+    width: 130px;
+  }
+.formFlex{
+  flex-direction: column;
+}
+}

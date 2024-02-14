@@ -308,7 +308,7 @@ const PendingBGVerification_View = ({ location }) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
-          <div>
+          <div className={styles.upper}>
             <span className={styles.title}>
               Pending Background Verification List
             </span>
@@ -333,7 +333,7 @@ const PendingBGVerification_View = ({ location }) => {
               PAYMENTS RECORD
             </ButtonBase>
             <ButtonBase
-              className={styles.edit}
+              className={styles.download}
               onClick={() => {
                 handleBgvAnalysisReport();
               }}

@@ -132,3 +132,20 @@
   .rightFlex {
     gap: 2%;
   }
+@media (max-width: 767px) {
+  .headerContainer{
+    flex-direction: column;
+    gap: 15px;
+  }
+  .rightFlex{
+    flex-direction: column;
+    gap: 15px;
+  }
+  .download{
+    margin: 7px 0;
+    width: 100%;
+  }
+  .upper{
+    width: 100%;
+  }
+  }

@@ -225,7 +225,7 @@ const EmployeeInformation = ({ empId }) => {
         {employeeDetail?.application?.status === "EMPLOYEE_SUBMITTED" && (
           <>
             {" "}
-            <div className={"formFlex"}>
+            <div className={styles.formFlex}>
               <div className={"formGroup"}>
                 <CustomSelectField
                   disabled={employeeDetail?.saj_status !== "PENDING"}
@@ -260,7 +260,7 @@ const EmployeeInformation = ({ empId }) => {
             </div>
             {form?.nature_of_succession === "INTERNAL" && (
               <>
-                <div className={"formFlex"}>
+                <div className={styles.formFlex}>
                   <div className={"formGroup"}>
                     <CustomAutoComplete
                       autoCompleteProps={{
@@ -302,10 +302,10 @@ const EmployeeInformation = ({ empId }) => {
         )}
         {HODApprovalStatus && employeeDetail?.status === "PENDING" && (
           <>
-            <div className={"formFlex"} style={{ alignItems: "center" }}>
+            <div className={styles.formFlex}>
               {/* {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" ? ( */}
               <>
-                <div className="formGroup1">
+                <div className="formGroup">
                   <CustomDatePicker
                     clearable
                     label={"Extension/Retainer Start Date"}
@@ -317,7 +317,7 @@ const EmployeeInformation = ({ empId }) => {
                     isError={errorData?.extension_start_date}
                   />
                 </div>
-                <div className="formGroup1">
+                <div className="formGroup">
                   <CustomDatePicker
                     clearable
                     label={"Extension/Retainer End Date"}
@@ -348,7 +348,7 @@ const EmployeeInformation = ({ empId }) => {
             {employeeDetail?.application?.nature_of_succession ===
               "EXTERNAL" && (
               <div>
-                <div className={"formFlex"}>
+                <div className={styles.formFlex}>
                   <div className={"formGroup"}>
                     <CustomTextField
                       isError={errorData?.replacing_employee_name}
