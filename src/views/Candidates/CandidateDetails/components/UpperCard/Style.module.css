@@ -255,7 +255,7 @@
   }
   .statusMobileData{
     display: block !important;
-    background: white;
+    /* background: rgb(248, 248, 248); */
     padding: 5px;
     border-radius: 24px;  }
   
