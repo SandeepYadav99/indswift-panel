@@ -48,10 +48,15 @@
 }
 
 .blueDot{
-  height: 10px;
-  width: 10px;
+  height: 10px !important;
+  width: 10px !important;
   border-radius: 100%;
   background-color: #2896E9 !important;
+}
+.unreadWrap{
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 @media only screen and (max-width:596px) {
   .descriptionData {

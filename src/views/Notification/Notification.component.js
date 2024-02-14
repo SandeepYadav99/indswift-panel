@@ -130,7 +130,8 @@ const Notification = () => {
         label: "Notification Type",
         sortable: true,
         render: (value, all) => (
-          <div onClick={() => handleReadNotification(all)}>
+          <div onClick={() => handleReadNotification(all)} className={styles.unreadWrap}>
+            {!all?.is_read && <div className={styles.blueDot}></div>}
             <Link
               to={all?.next_screen ? all?.next_screen : "/notification"}
               className={styles.colorLinkData}
