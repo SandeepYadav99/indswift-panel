@@ -183,6 +183,7 @@ function FinalForm({ location }) {
               onBlur={() => {
                 onBlurHandler("notice_leave_availed");
               }}
+              InputLabelProps={{ shrink: true }}
             />
           </div>
           <div className={"formGroup"}></div>
@@ -2444,7 +2445,7 @@ function FinalForm({ location }) {
           </div>
         ) : (
           <div className={styles.btnWrap}>
-            <div className={"headerFlex wrapper"}>
+            <div className={styles.btnInner}>
               <ButtonBase
                 type={"button"}
                 className={styles.createBtn}
@@ -2453,7 +2454,7 @@ function FinalForm({ location }) {
                 Save As Draft
               </ButtonBase>
             </div>
-            <div className={"headerFlex wrapper"}>
+            <div className={styles.btnInner}>
               <ButtonBase
                 type={"button"}
                 className={styles.createBtn}

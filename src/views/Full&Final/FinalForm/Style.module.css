@@ -92,12 +92,26 @@
   display: flex;
   flex-direction: row;
 }
+.btnInner{
+  margin-top: 10px;
+}
 @media (max-width:769px){
   .formFlex{
     flex-direction: column;
   }
   .warp{
     display: flex;
+  }
+  .btnWrap{
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .btnInner{
+    width: 100%;
+  }
+  .createBtn{
+    width: 100%;
   }
 }
 @media print {

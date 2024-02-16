@@ -153,6 +153,7 @@
     .vertical {
         border: 1px dashed #B8C5D3;
         max-height: 100%;
+        display: none;
         /* width: 1px; */
         flex: 0;
         margin: 0 10px;
@@ -164,6 +165,7 @@
     .mobileImageData{
         display: flex !important;
         justify-content: center !important;
+        margin-bottom: 15px;
         /* margin-left: 40% !important;
         margin-bottom: 10px !important; */
     }
