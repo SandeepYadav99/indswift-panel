@@ -100,3 +100,8 @@
     display: flex;
   }
 }
+@media print {
+  .pWrapper{
+    max-width: 800px;
+  }
+}
