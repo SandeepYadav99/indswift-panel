@@ -106,8 +106,8 @@ function FinalUpperCard({ data, otherData }) {
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Separation By Virtue of:</span>
-            <StatusPill status={data?.status} />
-          </div>{" "}
+            <StatusPill status={data?.status} style={{width:"fit-content",marginTop:"7px"}}/>
+          </div>
           {otherData?.id && (
             <>
               <div className={styles.key}>
