@@ -52,7 +52,7 @@ function FinalForm({ location }) {
       </div>
       <div className={styles.plainPaper}>
         <FinalUpperCard data={employeeDetail?.employee} />
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomDatePicker
               clearable
@@ -78,6 +78,7 @@ function FinalForm({ location }) {
               isError={errorData?.dol}
             />
           </div>
+          <div className={styles.warp}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={
@@ -121,8 +122,11 @@ function FinalForm({ location }) {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
+          
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
+        <div className={styles.warp}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={
@@ -165,6 +169,7 @@ function FinalForm({ location }) {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -182,7 +187,7 @@ function FinalForm({ location }) {
           </div>
           <div className={"formGroup"}></div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.shortfall_remarks}
@@ -201,7 +206,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <span className={styles.heading}>Shortfall of Notice Period:</span>
             <span className={styles.teck}>{form?.shortfall_notice_period}</span>
@@ -212,7 +217,7 @@ function FinalForm({ location }) {
             <span className={styles.teck}>{form?.notice_leave_permitted}</span>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             {" "}
             <span className={styles.heading}>Applicable Shortfall:</span>
@@ -231,7 +236,7 @@ function FinalForm({ location }) {
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 1 : CTC of Employee</div>
         <FinalSalaryTable data={employeeDetail?.salary} />
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.salary_remark}
@@ -253,7 +258,7 @@ function FinalForm({ location }) {
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 2 : Dues to be Paid</div>
         <div className={styles.heading}>Payroll 1</div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -305,7 +310,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -342,7 +347,7 @@ function FinalForm({ location }) {
           </div>
         </div>
         <div className={styles.heading}>Payroll 2</div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -392,7 +397,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -429,7 +434,7 @@ function FinalForm({ location }) {
           </div>
         </div>
         <div className={styles.heading}>Payroll 3</div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -480,7 +485,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomSelectField
               disabled={empFlag ? true : false}
@@ -516,7 +521,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -547,7 +552,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -578,7 +583,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -609,7 +614,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -640,7 +645,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -671,7 +676,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -702,7 +707,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -733,7 +738,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -764,7 +769,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -795,7 +800,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -826,7 +831,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -857,7 +862,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -888,7 +893,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -919,7 +924,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -950,7 +955,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -966,6 +971,7 @@ function FinalForm({ location }) {
               // }}
             />
           </div>
+          <div className={styles.warp}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={
@@ -1008,6 +1014,7 @@ function FinalForm({ location }) {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.el_balance_comment}
@@ -1023,7 +1030,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -1039,6 +1046,7 @@ function FinalForm({ location }) {
               // }}
             />
           </div>
+          <div className={styles.warp}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={
@@ -1083,6 +1091,7 @@ function FinalForm({ location }) {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.el_currnet_service_year_comment}
@@ -1098,7 +1107,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -1145,7 +1154,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -1161,6 +1170,7 @@ function FinalForm({ location }) {
               // }}
             />
           </div>
+          <div className={styles.warp}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag || form?.is_rbl_manual === "NO" ? true : false}
@@ -1201,6 +1211,7 @@ function FinalForm({ location }) {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.rbl_comment}
@@ -1216,7 +1227,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type={"number"}
@@ -1248,7 +1259,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <TotalSum
             firstName="Total Dues to be Paid : "
             firstAmount={form?.total_dues ? `₹ ${form?.total_dues}` : 0}
@@ -1257,7 +1268,7 @@ function FinalForm({ location }) {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 3 : Dues to be Recovered</div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1288,7 +1299,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1319,7 +1330,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1350,7 +1361,8 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
+        <div className={styles.warp}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={
@@ -1395,6 +1407,7 @@ function FinalForm({ location }) {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.mobile_device_recovery_comment}
@@ -1410,7 +1423,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1441,7 +1454,8 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
+        <div className={styles.warp}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={
@@ -1486,6 +1500,7 @@ function FinalForm({ location }) {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.notice_period_recovery_comment}
@@ -1501,7 +1516,9 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
+        <div className={styles.warp}>
+
           <div className={"formGroup"}>
             <CustomTextField
               disabled={empFlag || form?.is_bgv_manual === "NO" ? true : false}
@@ -1542,6 +1559,7 @@ function FinalForm({ location }) {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.bgv_comment}
@@ -1557,7 +1575,8 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
+        <div className={styles.warp}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={
@@ -1602,6 +1621,7 @@ function FinalForm({ location }) {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.relocation_recovery_comment}
@@ -1617,7 +1637,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1648,7 +1668,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1679,7 +1699,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1710,7 +1730,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1741,7 +1761,8 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
+        <div className={styles.warp}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={
@@ -1786,6 +1807,7 @@ function FinalForm({ location }) {
               <Delete fontSize={"small"} />
             </IconButton>
           </div>
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.imprest_recovery_comment}
@@ -1801,7 +1823,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1832,7 +1854,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1863,7 +1885,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1894,7 +1916,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1925,7 +1947,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1956,7 +1978,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -1987,7 +2009,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -2018,7 +2040,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -2049,7 +2071,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -2080,7 +2102,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <TotalSum
             firstName="Total Dues to be Recovered :"
             reduceAmount={
@@ -2091,7 +2113,7 @@ function FinalForm({ location }) {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.heading}>Part 4 : Uphold Dues</div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -2122,7 +2144,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
          
           <div className={"formGroup"}>
             <CustomTextField
@@ -2178,7 +2200,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -2209,7 +2231,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -2240,7 +2262,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -2271,7 +2293,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -2302,7 +2324,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -2333,7 +2355,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className="formFlex">
+        <div className={styles.formFlex}>
           <div className={"formGroup"}>
             <CustomTextField
               type="number"
@@ -2364,7 +2386,7 @@ function FinalForm({ location }) {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <TotalSum
             firstName="Total Uphold Dues :"
             reduceAmount={
@@ -2376,7 +2398,7 @@ function FinalForm({ location }) {
 
       <div className={"plainPaper"}>
         <div className={styles.heading}>Part 5 : Net Payable</div>
-        <div className={"formFlex"}>
+        <div className={styles.formFlex}>
           <TotalSum
             firstName="Total Payable :"
             firstAmount={form?.net_payable ? `₹ ${form?.net_payable}` : 0}

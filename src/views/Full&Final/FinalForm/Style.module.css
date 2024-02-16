@@ -85,3 +85,18 @@
   max-height: 100px;
   flex: 0.3;
 }
+.warp{
+  display: flex;
+}
+.formFlex{
+  display: flex;
+  flex-direction: row;
+}
+@media (max-width:769px){
+  .formFlex{
+    flex-direction: column;
+  }
+  .warp{
+    display: flex;
+  }
+}

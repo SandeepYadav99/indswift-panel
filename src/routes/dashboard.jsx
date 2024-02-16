@@ -804,7 +804,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "onboard",
     is_parent: true,
-    hideMobileView:true,
+    // hideMobileView:true,
     // roles: [Roles.CORPORATE_HR],
   },
   {
@@ -2755,7 +2755,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     parent:"offboard",
-    hideMobileView:true,
+    // hideMobileView:true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -2767,7 +2767,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     parent:"offboard",
-    hideMobileView:true,
+    // hideMobileView:true,
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -2791,7 +2791,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: 'offboard',
-    hideMobileView:true,
+    // hideMobileView:true,
     roles: [Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR,Roles.MD],
     // parent: 'employeedashboard',
   },
@@ -2805,7 +2805,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: 'offboard',
-    hideMobileView:true,
+    // hideMobileView:true,
   },
   {
       path: `${RouteName.PENDING_LEAVE_APPLICATION}`+`/:id`,
