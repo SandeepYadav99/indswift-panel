@@ -484,8 +484,8 @@ const EmployeeInformation = ({ empId }) => {
                     <div className={styles.key}>
                       <a
                         href={item?.employee_form?.document}
-                        style={{ marginLeft: "30%" }}
                         target="_blank"
+                        className={styles.aTag}
                       >
                         View certificate
                       </a>
@@ -502,7 +502,7 @@ const EmployeeInformation = ({ empId }) => {
                     </div>
                   </div>
                 </div>
-                {item?.comments && (
+                {/* {item?.comments && (
                   <div className={styles.newContainer}>
                     <div className={styles.heading}>Comments</div>
                     <div className={styles.commentContainer}>
@@ -516,7 +516,7 @@ const EmployeeInformation = ({ empId }) => {
                       ))}
                     </div>
                   </div>
-                )}
+                )} */}
                 {historyData?.length !== index + 1 && (
                   <div className={styles.hrline}></div>
                 )}

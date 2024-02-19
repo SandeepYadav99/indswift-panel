@@ -75,7 +75,7 @@ const useRetireDialogHook = ({ isOpen, handleToggle, candidateId }) => {
         ...form,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Rejected");
+          SnackbarUtils.success("Approved successfully");
           handleToggle();
           window?.location?.reload();
           // historyUtils.push(RouteName.CLAIMS_LIST);

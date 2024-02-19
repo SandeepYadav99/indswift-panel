@@ -262,7 +262,7 @@ const NextYearSuccessionPlanner = ({ listData,toggleRetireDialog }) => {
             </IconButton>
             )}
              {ValidUser &&
-              ["EMPLOYEE_SUBMITTED", "N/A", "PENDING"]?.includes(
+              ["EMPLOYEE_PENDING", "N/A", "PENDING"]?.includes(
                 all?.application_status
               ) &&
               all?.extension_status !== "RETIRE" && (

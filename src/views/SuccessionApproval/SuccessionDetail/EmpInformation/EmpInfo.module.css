@@ -239,6 +239,9 @@
 .formFlex{
   display: flex;
 }
+.aTag{
+  margin-left: 30%;
+}
 @media (max-width: 767px) {
   .key {
     display: flex;
@@ -252,5 +255,8 @@
   }
 .formFlex{
   flex-direction: column;
+}
+.aTag{
+  margin-left: 0;
 }
 }

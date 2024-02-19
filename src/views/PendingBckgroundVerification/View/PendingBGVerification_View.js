@@ -141,9 +141,9 @@ const PendingBGVerification_View = ({ location }) => {
         label: "NAME",
         sortable: false,
         render: (value, all) => (
-          <>
+          <div>
             <b>{all?.emp_name}</b> <br /> <b>{all?.employeeObj?.emp_code}</b>
-          </>
+          </div>
         ),
       },
       {
