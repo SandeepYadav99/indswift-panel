@@ -2856,7 +2856,7 @@ const dashboardRoutes = [
   component: TaxList,
   is_sidebar: true,
   is_protect: true,
-  roles: [Roles.ACCOUNTANT],
+  roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
 },
   {
     path: '/testview',

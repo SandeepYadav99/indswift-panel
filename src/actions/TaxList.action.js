@@ -54,7 +54,7 @@ export function actionSetPageTaxList(page) {
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;
   
-  if (totalLength <= (page + 1) * Constants.PAGE_VALUE) {
+  if (totalLength <= (page + 1) * Constants.DEFAULT_PAGE_VALUE) {
     store.dispatch(
       actionFetchTaxList(serverPage + 1, sortingData, {
         query,
