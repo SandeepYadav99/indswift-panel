@@ -134,6 +134,7 @@ export default {
     NEGATIVE: "errorBg",
     NEUTRAL: "neutralBg",
     "INCREMENT FROZEN": "success",
+    PAID:"online"
   },
   JOB_OPENING_STATUS: {
     ACTIVE: "ACTIVE",

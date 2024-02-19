@@ -13,11 +13,11 @@ function PayData({ employeeDetail }) {
           <div className={styles.mainFlex}>
             <div className={styles.left}>
               <div className={styles.key}>
-                <span className={styles.value}>Month:</span>
+                <span className={styles.value221}>Month:</span>
                 {employeeDetail?.payroll_one_month}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Value:</span>
+                <span className={styles.value221}>Value:</span>
                 {employeeDetail?.payroll_one_value &&
                   `₹ ${employeeDetail?.payroll_one_value}`}
               </div>
@@ -32,11 +32,11 @@ function PayData({ employeeDetail }) {
             </div>
             <div className={styles.right}>
               <div className={styles.key}>
-                <span className={styles.value}>Paid Days:</span>
+                <span className={styles.value221}>Paid Days:</span>
                 {employeeDetail?.payroll_one_paid_days}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Status:</span>
+                <span className={styles.value221}>Status:</span>
                 {
                   <StatusPill
                     status={employeeDetail?.payroll_one_status}
@@ -52,11 +52,11 @@ function PayData({ employeeDetail }) {
           <div className={styles.mainFlex}>
             <div className={styles.left}>
               <div className={styles.key}>
-                <span className={styles.value}>Month:</span>
+                <span className={styles.value221}>Month:</span>
                 {employeeDetail?.payroll_two_month}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Value:</span>
+                <span className={styles.value221}>Value:</span>
                 {employeeDetail?.payroll_two_value &&
                   `₹ ${employeeDetail?.payroll_two_value}`}
               </div>
@@ -71,11 +71,11 @@ function PayData({ employeeDetail }) {
             </div>
             <div className={styles.right}>
               <div className={styles.key}>
-                <span className={styles.value}>Paid Days:</span>
+                <span className={styles.value221}>Paid Days:</span>
                 {employeeDetail?.payroll_two_paid_days}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Status:</span>
+                <span className={styles.value221}>Status:</span>
                 {
                   <StatusPill
                     status={employeeDetail?.payroll_two_status}
@@ -91,11 +91,11 @@ function PayData({ employeeDetail }) {
           <div className={styles.mainFlex}>
             <div className={styles.left}>
               <div className={styles.key}>
-                <span className={styles.value}>Month:</span>
+                <span className={styles.value221}>Month:</span>
                 {employeeDetail?.payroll_three_month}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Value:</span>
+                <span className={styles.value221}>Value:</span>
                 {employeeDetail?.payroll_three_value &&
                   `₹ ${employeeDetail?.payroll_three_value}`}
               </div>
@@ -110,11 +110,11 @@ function PayData({ employeeDetail }) {
             </div>
             <div className={styles.right}>
               <div className={styles.key}>
-                <span className={styles.value}>Paid Days:</span>
+                <span className={styles.value221}>Paid Days:</span>
                 {employeeDetail?.payroll_three_paid_days}
               </div>
               <div className={styles.key}>
-                <span className={styles.value}>Status:</span>
+                <span className={styles.value221}>Status:</span>
                 {
                   <StatusPill
                     status={employeeDetail?.payroll_three_status}
