@@ -676,7 +676,7 @@ function PayData({ employeeDetail }) {
       </div>
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
-          <div className={styles.heading}>Attachments</div>
+          <div className={styles.heading}>Part 5 : Net Payable</div>
           <div className={"formFlex"}>
             <TotalSum
               firstName="Total Payable :"
