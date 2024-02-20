@@ -170,7 +170,8 @@ const PmsPending = ({}) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
         />
-        <div>
+      </PageBox>
+      <div>
           <br />
           <div style={{ width: "100%" }}>
             <DataTables
@@ -179,7 +180,6 @@ const PmsPending = ({}) => {
             />
           </div>
         </div>
-      </PageBox>
     </div>
   );
 };
