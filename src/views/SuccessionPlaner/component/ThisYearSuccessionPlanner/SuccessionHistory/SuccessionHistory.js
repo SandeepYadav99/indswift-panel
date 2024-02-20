@@ -8,8 +8,7 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     isSidePanel,
     empId,
   });
-  console.log("empId", empId);
-  console.log("employeeDetails", employeeDetails[0]);
+  
   return (
     <div className={styles.successContainer}>
       <div>
@@ -59,15 +58,15 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   {item?.employee_form?.document && (
                     <a
                       href={item?.employee_form?.document}
-                      style={{ marginLeft: "30%" }}
+                      // style={{ marginLeft: "30%" }}
                       target="_blank"
                     >
                       View certificate
                     </a>
                   )}
                 </p>
-                <p>
-                  Extension/Retention Dates:{" "}
+                <p className={styles.datesValue}>
+                  <span>Extension/Retention Dates:{" "}</span>
                   <b>
                     {item?.extensionStartAt ? item?.extensionStartAt : "N/A"} -{" "}
                     {item?.extensionEndAt ? item?.extensionEndAt : "N/A"}
@@ -80,8 +79,8 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   Succession Status: <b>{item?.nature_of_succession}</b>
 
                 </p>
-                <p>
-                  Replacing Person:{" "}
+                <p className={styles.datesValue}>
+                 <span> Replacing Person:{" "}</span>
                   <b>
                     {item?.replacing_employee_name ? (
                       <>
