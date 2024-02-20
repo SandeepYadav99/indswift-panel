@@ -194,9 +194,8 @@
   align-items: center;
 }
 .headerContainer {
- display: grid;
- grid-template-columns: 1fr 1fr;
- gap: 20%;
+ display: flex;
+ justify-content: space-between;
  
 }
 .headerContainer .title {
@@ -217,7 +216,7 @@
   height: 100%;
 }
 .customSelectContainer{
-  margin-right: 30%;
+  /* margin-right: 30%; */
 }
 /* .content {
   display: flex;
@@ -230,3 +229,9 @@
   margin-top: 20px;
   margin-right: 20px;
 } */
+@media (max-width: 767px) {
+.headerContainer{
+flex-direction: column;
+gap: 20px;
+}
+}

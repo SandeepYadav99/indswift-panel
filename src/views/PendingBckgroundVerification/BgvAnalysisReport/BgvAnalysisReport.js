@@ -55,6 +55,7 @@ const BgvAnalysisReport = () => {
               format={"yyyy"}
               value={form?.date}
               views={["year"]}
+              InputLabelProps={{ shrink: true }}
               // isError={errorData?.date}
               // errorText={errorData?.date}
             />
