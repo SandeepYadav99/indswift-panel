@@ -751,7 +751,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "pm",
     is_parent: true,
-    hideMobileView:true,
+    // hideMobileView:true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
