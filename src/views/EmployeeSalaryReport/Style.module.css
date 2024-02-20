@@ -328,6 +328,14 @@
   font-weight: 500;
   width: 150px;
 }
+.mobFixed{
+  white-space: nowrap;
+  font-size: 0.8rem;
+  text-align: end;
+  padding: 12px 10px;
+  font-weight: 500;
+  width: 150px;
+}
 .noWrapheading {
   white-space: nowrap;
   font-size: 0.8rem;
@@ -477,7 +485,7 @@
   margin: 0;
   white-space: nowrap;
 }
-@media (max-width: 767px) {
+@media (max-width: 769px) {
   .yearFlex {
     width: 100%;
     flex-direction: column;
