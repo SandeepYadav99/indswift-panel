@@ -533,82 +533,6 @@ const EmployeeSalaryReport = ({ location }) => {
     ];
   }, [renderStatus, isCalling, formData, currentData, data]);
 
-  const renderDropDown = useMemo(() => {
-    return (
-      <CustomSelectField
-        label={"Filter By"}
-        value={type}
-        handleChange={(value) => {
-          setType(value);
-        }}
-      >
-        <MenuItem value={"LOCATION"}>LOCATION</MenuItem>
-        <MenuItem value={"DEPARTMENT"}>DEPARTMENT</MenuItem>
-        <MenuItem value={"DESIGNATION"}>DESIGNATION</MenuItem>
-      </CustomSelectField>
-    );
-  }, [type, setType]);
-
-  const renderLocation = useMemo(() => {
-    return (
-      <CustomSelectField
-        label={"Location"}
-        value={listType}
-        handleChange={(value) => {
-          setListType(value);
-        }}
-      >
-        {listData?.LOCATIONS?.map((dT) => {
-          return (
-            <MenuItem value={dT?.id} key={dT?.id}>
-              {dT?.name}
-            </MenuItem>
-          );
-        })}
-      </CustomSelectField>
-    );
-  }, [listType, listData, type]);
-
-  const renderDepartment = useMemo(() => {
-    return (
-      <CustomSelectField
-        label={"Department"}
-        value={listType}
-        handleChange={(value) => {
-          setListType(value);
-        }}
-      >
-        {listData?.DEPARTMENTS?.map((dT) => {
-          return (
-            <MenuItem value={dT?.id} key={dT?.id}>
-              {dT?.name}
-            </MenuItem>
-          );
-        })}
-      </CustomSelectField>
-    );
-  }, [listType, listData, type]);
-
-  const renderDesignation = useMemo(() => {
-    return (
-      <CustomSelectField
-        label={"Designation"}
-        value={listType}
-        handleChange={(value) => {
-          setListType(value);
-        }}
-      >
-        {listData?.DESIGNATIONS?.map((dT) => {
-          return (
-            <MenuItem value={dT?.id} key={dT?.id}>
-              {dT?.name}
-            </MenuItem>
-          );
-        })}
-      </CustomSelectField>
-    );
-  }, [listType, listData, type]);
-
   const renderStartDate = useMemo(() => {
     return (
       <CustomDatePicker
@@ -652,17 +576,6 @@ const EmployeeSalaryReport = ({ location }) => {
           <div className={styles.UpperWrap}>
             <div className={styles.down}>{renderStartDate}</div>
             <div className={styles.down}>{renderEndDate}</div>
-            {/* <div className={styles.down}>{renderDropDown}</div> */}
-
-            {/* {type && (
-              <div className={styles.down}>
-                {type === "LOCATION"
-                  ? renderLocation
-                  : type === "DEPARTMENT"
-                  ? renderDepartment
-                  : renderDesignation}
-              </div>
-            )} */}
           </div>
           {startDate && endDate && (
             <div className={styles.rightFlex}>
