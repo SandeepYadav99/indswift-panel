@@ -39,8 +39,8 @@ const BGVStatus_Update = () => {
         <div className={styles.newContainer}>
           <div className={styles.mainFlex}>
             <div className={styles.left}>
-              <div>
-                <div className={"formGroup"}>
+            <div className={styles.InnerWrap}>
+                <div className={styles.formGroup}>
                   <CustomCheckbox
                     color={"primary"}
                     label={"Education"}
@@ -53,8 +53,8 @@ const BGVStatus_Update = () => {
                   />
                 </div>
               </div>
-              <div>
-                <div className={"formGroup"}>
+              <div className={styles.InnerWrap}>
+                <div className={styles.formGroup}>
                   <CustomCheckbox
                     color={"primary"}
                     disabled={
@@ -67,10 +67,8 @@ const BGVStatus_Update = () => {
                   />
                 </div>
               </div>
-              <div>
-                <div className={"formGroup"}>
-                  <div>
-                    <div className={"formGroup"}>
+              <div className={styles.InnerWrap}>
+                <div className={styles.formGroup}>
                       <CustomCheckbox
                         color={"primary"}
                         disabled={
@@ -81,12 +79,10 @@ const BGVStatus_Update = () => {
                         label={"2nd Employment"}
                         checked={form?.is_secound_employment_verification}
                       />
-                    </div>
-                  </div>
                 </div>
               </div>
-              <div>
-                <div className={"formGroup"}>
+              <div className={styles.InnerWrap}>
+                <div className={styles.formGroup}>
                   <CustomCheckbox
                     color={"primary"}
                     disabled={
@@ -102,7 +98,7 @@ const BGVStatus_Update = () => {
             </div>
           </div>
 
-          <div className={"formFlex"}>
+          <div className={styles.formFlex}>
             <div className={"formGroup"}>
               {form?.is_education_verification && (
                 <CustomSelectField
@@ -271,15 +267,15 @@ const BGVStatus_Update = () => {
               <b> Payment Details</b>
             </div>
           </div>
-
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <span style={{visibility:"hidden"}}>
-                <b>Cost: </b>
-                <span className={styles.right_gaps}>₹ {form?.cost}</span>
-
-                <div className={styles.gaps}></div>
+          <div className={styles.billingWrap}>
+          <span>
+                <b>Billing To:</b>{" "}
+                <span className={styles.right_gaps}> {form?.billing_to}</span>
               </span>
+          </div>
+      
+          <div className={styles.formFlex}>
+            <div className={"formGroup"}>
               <div className={styles.Wrap}>
               <div style={{flex:"1"}}>
               <CustomTextField
@@ -298,9 +294,7 @@ const BGVStatus_Update = () => {
                 <IconButton
                   className={"tableActionBtn"}
                   color="secondary"
-                  // disabled={isCalling}
                   onClick={()=>setIsEdit(true)}
-                  // onMouseDown={toggleCostEdit}
                 >
                   <EditOutlined fontSize={"small"} />
                 </IconButton>
@@ -321,12 +315,6 @@ const BGVStatus_Update = () => {
               </CustomSelectField>
             </div>
             <div className={"formGroup"}>
-              <span>
-                <b>Billing To:</b>{" "}
-                <span className={styles.right_gaps}> {form?.billing_to}</span>
-              </span>
-              <div className={styles.gaps}></div>
-
               <CustomDatePicker
                 clearable
                 label={"Complete in "}

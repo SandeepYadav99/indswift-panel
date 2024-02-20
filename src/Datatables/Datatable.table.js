@@ -553,7 +553,7 @@ const EnhancedTable = (props) => {
     ) : (
         <div className={classes.paper}>
             {renderCardContent()}
-            <div className={'dTMobilePagination'}>
+            <div className={props?.MobilePagination ? '' : 'dTMobilePagination'}>
                 <TablePagination
                     rowsPerPageOptions={props.rowsPerPageOptions}
                     component="div"

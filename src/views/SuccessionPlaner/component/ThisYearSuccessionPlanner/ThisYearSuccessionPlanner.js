@@ -3,7 +3,6 @@
  */
 import React, { Component, useCallback, useMemo } from "react";
 import { Button, ButtonBase, IconButton, withStyles } from "@material-ui/core";
-import DataTables from "../../../../Datatables/Datatable.table";
 import Constants from "../../../../config/constants";
 import styles from "./Style.module.css";
 import classNames from "classnames";
@@ -21,6 +20,7 @@ import SendPopup from "./SendDialog/SendDialog.view";
 import RouteName from "../../../../routes/Route.name";
 import historyUtils from "../../../../libs/history.utils";
 import AccessibleIcon from "@material-ui/icons/Accessible";
+import Datatables from "../../../../components/Datatables/datatables";
 
 const ThisYearSuccessionPlanner = ({ listData, toggleRetireDialog }) => {
   const {
@@ -299,6 +299,7 @@ const ThisYearSuccessionPlanner = ({ listData, toggleRetireDialog }) => {
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
       onRowSizeChange: handleRowSize,
+      MobilePagination: true,
     };
 
     const datatable = {
@@ -337,7 +338,7 @@ const ThisYearSuccessionPlanner = ({ listData, toggleRetireDialog }) => {
           <div>
             <br />
             <div style={{ width: "100%" }}>
-              <DataTables
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />

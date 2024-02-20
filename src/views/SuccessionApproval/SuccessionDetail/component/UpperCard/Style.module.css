@@ -189,4 +189,8 @@
   .vertical {
     display: none;
   }
+  .dor{
+    flex-direction: column;
+    gap: 20px;
+  }
 }

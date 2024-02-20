@@ -18,6 +18,7 @@ import SendIcon from "@material-ui/icons/Send";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 import AccessibleIcon from "@material-ui/icons/Accessible";
+import Datatables from "../../../../components/Datatables/datatables";
 
 const NextYearSuccessionPlanner = ({ listData,toggleRetireDialog }) => {
   const {
@@ -291,6 +292,7 @@ const NextYearSuccessionPlanner = ({ listData,toggleRetireDialog }) => {
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
       onRowSizeChange: handleRowSize,
+      MobilePagination: true,
     };
 
     const datatable = {
@@ -329,7 +331,7 @@ const NextYearSuccessionPlanner = ({ listData,toggleRetireDialog }) => {
           <div>
             <br />
             <div style={{ width: "100%" }}>
-              <DataTables
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />

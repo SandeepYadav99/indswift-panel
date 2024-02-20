@@ -73,6 +73,7 @@ function FullDetail() {
       </div>
 
       {employeeDetail?.status === "PENDING" && (
+        <div className={styles.LowerApp}>
         <div
           className={
             employeeDetail?.status === "APPROVED"
@@ -90,7 +91,7 @@ function FullDetail() {
             {(employeeDetail?.fullAndFinal?.status === "PENDING" ||
               employeeDetail?.fullAndFinal?.status ===
                 "CORPORATE_AUDIT_2_APPROVED") && (
-              <div>
+              <div className= {styles.approvWrapp}>
                 <ButtonBase className={styles.editChange} onClick={EditForm}>
                   CHANGE AND APPROVE
                 </ButtonBase>
@@ -105,6 +106,18 @@ function FullDetail() {
                 APPROVE
               </ButtonBase>
             </div>
+          </div>  
+        </div>
+        <div className={styles.mobApprove}>
+        {(employeeDetail?.fullAndFinal?.status === "PENDING" ||
+              employeeDetail?.fullAndFinal?.status ===
+                "CORPORATE_AUDIT_2_APPROVED") && (
+              <div className= {styles.innerApprove}>
+                <ButtonBase className={styles.editChangeApp} onClick={EditForm}>
+                  CHANGE AND APPROVE
+                </ButtonBase>
+              </div>
+            )}
           </div>
         </div>
       )}

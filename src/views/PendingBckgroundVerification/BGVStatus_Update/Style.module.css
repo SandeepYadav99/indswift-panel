@@ -103,3 +103,40 @@
     font-size: 14px;
     color:  #818181;
   }
+  .formGroup {
+    flex: 1;
+    padding: 7px 10px
+  }
+  .formGroup221{
+      padding: 7px 10px;
+      flex: 1;
+    }
+    .formFlex{
+        display: flex;
+    }
+    .billingWrap{
+        text-align: end;
+    }
+  @media (max-width: 767px) {
+    .left {
+        flex-direction: column;
+      }
+      .formGroup {
+        flex: 1;
+        flex-direction: column;
+        padding: 7px 10px;
+      }
+      .InnerWrap {
+        width: 100%;
+      }
+      .formFlec {
+        flex-direction: column;
+      }
+      .formGroup221{
+        padding: 7px 10px;
+        flex: 1;
+      }
+      .formFlex{
+        flex-direction: column;
+    }
+  }
