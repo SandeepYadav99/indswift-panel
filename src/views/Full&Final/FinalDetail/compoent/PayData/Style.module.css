@@ -216,6 +216,13 @@
   margin-bottom: 7px;
 }
 
+#mobileView{
+  display: none !important;
+}
+
+#showDesktop{
+  display: block !important;
+}
 @media only screen and (max-width:769px) {
   .mainFlex {
     display: flex;
@@ -223,5 +230,11 @@
   }
   .value221 {
     width: 180px;
+  }
+  #mobileView{
+    display: block !important;
+  }
+  #showDesktop{
+    display: none !important;
   }
 }

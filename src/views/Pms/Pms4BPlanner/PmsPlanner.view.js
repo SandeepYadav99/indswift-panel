@@ -42,9 +42,9 @@ const PmsPlanner = ({}) => {
     toggleStatusDialog,
     approveDialog,
     handleAccept,
-      isLoading,
+    isLoading,
     isSubmitting,
-    canFreeze
+    canFreeze,
   } = usePmsPlanner({});
 
   const {
@@ -69,7 +69,10 @@ const PmsPlanner = ({}) => {
           <div className={styles.firstCellFlex}>
             <div className={styles.flex}>
               <Checkbox
-                disabled={obj?.type_four_status !== Constants?.PMS_4B_BATCH_STATUS?.PANEL_SET}
+                disabled={
+                  obj?.type_four_status !==
+                  Constants?.PMS_4B_BATCH_STATUS?.PANEL_SET
+                }
                 onChange={() => {
                   handleCheckbox(obj);
                 }}
@@ -77,6 +80,7 @@ const PmsPlanner = ({}) => {
                 value="secondary"
                 color="primary"
                 inputProps={{ "aria-label": "secondary checkbox" }}
+                className={styles.checkBoxMobile}
               />
             </div>
             <div className={classNames(styles.firstCellInfo, "openSans")}>
@@ -160,9 +164,7 @@ const PmsPlanner = ({}) => {
         key: "efficacy",
         label: "Efficacy",
         sortable: true,
-        render: (temp, all) => (
-            <div>{all?.efficacy}</div>
-        ),
+        render: (temp, all) => <div>{all?.efficacy}</div>,
       },
       {
         key: "status",
@@ -188,16 +190,17 @@ const PmsPlanner = ({}) => {
               <InfoOutlined fontSize={"small"} />
             </IconButton>
 
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  togglePanel(all);
-                }}
-              >
-                <RemoveRedEyeOutlinedIcon fontSize={"small"} />
-              </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                togglePanel(all);
+              }}
+              id={styles.eyeIconMobile}
+            >
+              <RemoveRedEyeOutlinedIcon fontSize={"small"} />
+            </IconButton>
           </div>
         ),
       },
@@ -237,19 +240,27 @@ const PmsPlanner = ({}) => {
     data,
     currentPage,
   ]);
-  const header=()=>{
-    console.log(selectedStatus)
-    return <div className={styles.headerWrap}>
-      <div>Review Planner</div>
-    
-      {
-        selectedStatus && <div><StatusPill status={removeUnderScore(selectedStatus)} /></div>
-      } 
-    </div>
-  }
+  const header = () => {
+    console.log(selectedStatus);
+    return (
+      <div className={styles.headerWrap}>
+        <div>Review Planner</div>
+
+        {selectedStatus && (
+          <div>
+            <StatusPill status={removeUnderScore(selectedStatus)} />
+          </div>
+        )}
+      </div>
+    );
+  };
   return (
     <div>
-      <FreezeDialog isOpen={approveDialog} handleToggle={toggleStatusDialog} handleConfirm={handleAccept}/>
+      <FreezeDialog
+        isOpen={approveDialog}
+        handleToggle={toggleStatusDialog}
+        handleConfirm={handleAccept}
+      />
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
@@ -257,14 +268,16 @@ const PmsPlanner = ({}) => {
             <div className={styles.newLine} />
           </div>
           <div>
-            {canFreeze && (<ButtonBase
-              aria-haspopup="true"
-              onClick={toggleStatusDialog}
-              className={"createBtn"}
-              disabled={isSubmitting}
-            >
-              FREEZE
-            </ButtonBase>)}
+            {canFreeze && (
+              <ButtonBase
+                aria-haspopup="true"
+                onClick={toggleStatusDialog}
+                className={"createBtn"}
+                disabled={isSubmitting}
+              >
+                FREEZE
+              </ButtonBase>
+            )}
           </div>
         </div>
         <div>
@@ -274,24 +287,30 @@ const PmsPlanner = ({}) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
+      <div>
+        <br />
+        <div style={{ width: "100%" }}>
+          <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          />
+        </div>
+      </div>
       <SidePanelComponent
         handleToggle={togglePanel}
         title={header()}
         open={isPannel}
         side={"right"}
       >
-        <ReviewerPlanner isOpen={isPannel} canEdit={selectedUser?.is_editable} togglePanel={togglePanel} reviewId={selectedUser?.review_id} selectedUser={selectedUser}/>
+        <ReviewerPlanner
+          isOpen={isPannel}
+          canEdit={selectedUser?.is_editable}
+          togglePanel={togglePanel}
+          reviewId={selectedUser?.review_id}
+          selectedUser={selectedUser}
+        />
       </SidePanelComponent>
       <BottomPanelComponent open={selected?.length > 0}>
         <BottomActionView

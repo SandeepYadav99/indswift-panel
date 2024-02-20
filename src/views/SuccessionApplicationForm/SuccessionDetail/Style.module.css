@@ -156,3 +156,26 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
+
+@media screen and (max-width:769px) {
+  .wrap{
+    width: 100% !important;
+  }
+  .candidateInfoContainer2 {
+    width: 90%;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.8rem;
+  }
+  .btnContainer {
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    background: white;
+    width: 90%;
+    padding: 20px 10px;
+    border-radius: 10px;
+  }
+}

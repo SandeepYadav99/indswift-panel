@@ -26,7 +26,7 @@ import usePmsOverallHod from "./PmsOverallHod.hook";
 import BottomPanelComponent from "../../../../components/BottomBar/BottomBar.component";
 import BottomActionView from "./components/BottomAction/BottomAction.view";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
-const PMSOverallHOD = ({}) => {
+const PMSOverallHOD = ({ }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -86,6 +86,7 @@ const PMSOverallHOD = ({}) => {
                 value="secondary"
                 color="primary"
                 inputProps={{ "aria-label": "secondary checkbox" }}
+                className={styles.checkBoxMobile}
               />
             </div>
             <div className={classNames(styles.firstCellInfo, "openSans")}>
@@ -251,17 +252,17 @@ const PMSOverallHOD = ({}) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
+      <div>
+        <br />
+        <div style={{ width: "100%" }}>
+          <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          />
+        </div>
+      </div>
       <BottomPanelComponent open={selected?.length > 0}>
         <BottomActionView
           reviewers={selected.length}
