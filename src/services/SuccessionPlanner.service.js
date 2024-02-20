@@ -10,5 +10,5 @@ export async function serviceGetSuccessionPlanerSend(params) {
     return await postRequest('employee/succession/send/form', params);
 }
 export async function serviceSuccessionRetire(params) {
-    return await postRequest('/employee/succession/retire/employee', params);
+    return await postRequest('employee/succession/retire/employee', params);
 }
