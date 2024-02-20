@@ -160,7 +160,6 @@ const TaxList = ({}) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          role !== "CORPORATE_HR" ? 
           <div>
             {all?.is_submitted ? (
               <IconButton
@@ -187,7 +186,6 @@ const TaxList = ({}) => {
               </IconButton>
             )}  
           </div>
-          :<div></div>
         ),
       },
     ];
