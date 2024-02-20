@@ -13,6 +13,7 @@ import { serviceExportTaxList } from "../../../services/TaxList.service";
 const useTaxList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const { role } = useSelector((state) => state.auth);
   const [listData, setListData] = useState({
     LOCATIONS: [],
     GRADES: [],
@@ -170,7 +171,8 @@ const useTaxList = ({}) => {
     editData,
     configFilter,
     handleViewForm,
-    handleBankSheetDownload
+    handleBankSheetDownload,
+    role
   };
 };
 
