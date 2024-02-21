@@ -6,6 +6,7 @@ import { ButtonBase, MenuItem } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import useRelievingExpLetterDetail from "./RelievingExpLetterDetailHook";
+import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 
 function RelievingExpLetterDetail({ data, isImprest }) {
   const {
@@ -103,6 +104,25 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                             <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
                           </CustomSelectField>
                         )}
+                        {(relievingExpDetails?.experienceLetter?.status ===
+                          "PENDING" ||
+                          relievingExpDetails?.experienceLetter?.status ===
+                            "SITE_HR_APPROVED") &&
+                          relievingExpDetails?.status === "PENDING" && (
+                            <div>
+                              <CustomTextField
+                                isError={errorData?.comment}
+                                errorText={errorData?.comment}
+                                label={"Add comments (Optional)"}
+                                value={form?.comment}
+                                onTextChange={(text) => {
+                                  changeTextData(text, "comment");
+                                }}
+                                multiline
+                                rows={3}
+                              />
+                            </div>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -160,7 +180,26 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                             <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
                           </CustomSelectField>
                         )}
+                  {(relievingExpDetails?.experienceLetter?.status ===
+                    "PENDING" ||
+                    relievingExpDetails?.experienceLetter?.status ===
+                      "SITE_HR_APPROVED") &&
+                    relievingExpDetails?.status === "PENDING" && (
+                      <div>
+                        <CustomTextField
+                          isError={errorData?.comment}
+                          errorText={errorData?.comment}
+                          label={"Add comments (Optional)"}
+                          value={form?.comment}
+                          onTextChange={(text) => {
+                            changeTextData(text, "comment");
+                          }}
+                          multiline
+                          rows={3}
+                        />
                       </div>
+                    )}
+                </div>
               </div>
             </div>
           </div>
