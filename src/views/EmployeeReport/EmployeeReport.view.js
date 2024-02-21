@@ -12,6 +12,7 @@ import CustomSelectField from "../../components/FormFields/SelectField/SelectFie
 import useEmployeeReport from "./EmployeeReport.hook";
 import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
 import FilterComponent from "../../components/Filter/Filter.component";
+import Datatables from "../../components/Datatables/datatables";
 
 const EmployeeReport = ({}) => {
   const {
@@ -242,7 +243,7 @@ const EmployeeReport = ({}) => {
         <div className={styles.yearFlex}>
           <div className={styles.down}>{renderDropDown}</div>
           <div className={styles.down}>{renderStartDate}</div>
-          <div className={styles.drop}>{renderEndDate}</div>
+          <div className={styles.down}>{renderEndDate}</div>
           <div className={styles.rightFlex}>
             <ButtonBase
               className={styles.downloadrun}
@@ -255,7 +256,6 @@ const EmployeeReport = ({}) => {
         <div>
           <div className={styles.totalWrap}>Total Count : {total}</div>
         </div>
-        <div>
           <div>
             <FilterComponent
               is_progress={isFetching}
@@ -263,16 +263,14 @@ const EmployeeReport = ({}) => {
               handleSearchValueChange={handleSearchValueChange}
               handleFilterDataChange={handleFilterDataChange}
             />
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
+        </div>
+      </PageBox>
+      <div style={{ width: "100%" }}>
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
-        </div>
-      </PageBox>
     </div>
   );
 };
