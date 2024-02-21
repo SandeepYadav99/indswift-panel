@@ -7,6 +7,8 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import useRelievingExpLetterDetail from "./RelievingExpLetterDetailHook";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
+import { removeUnderScore } from "../../../helper/helper";
+import StatusPill from "../../../components/Status/StatusPill.component";
 
 function RelievingExpLetterDetail({ data, isImprest }) {
   const {
@@ -83,27 +85,27 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                         {relievingExpDetails?.experienceLetter?.reason}
                       </div>
                       <div className={styles.dropDownContainer}>
-                      {relievingExpDetails?.experienceLetter?.status ===
-                        "SITE_HR_APPROVED" &&
-                        relievingExpDetails?.status === "PENDING" && (
-                          <CustomSelectField
-                            label={"General Conduct"}
-                            isError={errorData?.general_conduct}
-                            errorText={errorData?.general_conduct}
-                            value={form?.general_conduct}
-                            handleChange={(value) => {
-                              changeTextData(value, "general_conduct");
-                            }}
-                          >
-                            <MenuItem value={"CAN'T_ENDORSE"}>
-                              Can't Endorse
-                            </MenuItem>
-                            <MenuItem value={"POOR"}>Poor</MenuItem>
-                            <MenuItem value={"AVERAGE"}>Average</MenuItem>
-                            <MenuItem value={"GOOD"}>Good</MenuItem>
-                            <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
-                          </CustomSelectField>
-                        )}
+                        {relievingExpDetails?.experienceLetter?.status ===
+                          "SITE_HR_APPROVED" &&
+                          relievingExpDetails?.status === "PENDING" && (
+                            <CustomSelectField
+                              label={"General Conduct"}
+                              isError={errorData?.general_conduct}
+                              errorText={errorData?.general_conduct}
+                              value={form?.general_conduct}
+                              handleChange={(value) => {
+                                changeTextData(value, "general_conduct");
+                              }}
+                            >
+                              <MenuItem value={"CAN'T_ENDORSE"}>
+                                Can't Endorse
+                              </MenuItem>
+                              <MenuItem value={"POOR"}>Poor</MenuItem>
+                              <MenuItem value={"AVERAGE"}>Average</MenuItem>
+                              <MenuItem value={"GOOD"}>Good</MenuItem>
+                              <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
+                            </CustomSelectField>
+                          )}
                         {(relievingExpDetails?.experienceLetter?.status ===
                           "PENDING" ||
                           relievingExpDetails?.experienceLetter?.status ===
@@ -159,27 +161,27 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                   </div>
                 </div>
                 <div className={styles.mobileDropDown}>
-                      {relievingExpDetails?.experienceLetter?.status ===
-                        "SITE_HR_APPROVED" &&
-                        relievingExpDetails?.status === "PENDING" && (
-                          <CustomSelectField
-                            label={"General Conduct"}
-                            isError={errorData?.general_conduct}
-                            errorText={errorData?.general_conduct}
-                            value={form?.general_conduct}
-                            handleChange={(value) => {
-                              changeTextData(value, "general_conduct");
-                            }}
-                          >
-                            <MenuItem value={"CAN'T_ENDORSE"}>
-                              Can't Endorse
-                            </MenuItem>
-                            <MenuItem value={"POOR"}>Poor</MenuItem>
-                            <MenuItem value={"AVERAGE"}>Average</MenuItem>
-                            <MenuItem value={"GOOD"}>Good</MenuItem>
-                            <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
-                          </CustomSelectField>
-                        )}
+                  {relievingExpDetails?.experienceLetter?.status ===
+                    "SITE_HR_APPROVED" &&
+                    relievingExpDetails?.status === "PENDING" && (
+                      <CustomSelectField
+                        label={"General Conduct"}
+                        isError={errorData?.general_conduct}
+                        errorText={errorData?.general_conduct}
+                        value={form?.general_conduct}
+                        handleChange={(value) => {
+                          changeTextData(value, "general_conduct");
+                        }}
+                      >
+                        <MenuItem value={"CAN'T_ENDORSE"}>
+                          Can't Endorse
+                        </MenuItem>
+                        <MenuItem value={"POOR"}>Poor</MenuItem>
+                        <MenuItem value={"AVERAGE"}>Average</MenuItem>
+                        <MenuItem value={"GOOD"}>Good</MenuItem>
+                        <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
+                      </CustomSelectField>
+                    )}
                   {(relievingExpDetails?.experienceLetter?.status ===
                     "PENDING" ||
                     relievingExpDetails?.experienceLetter?.status ===
@@ -202,6 +204,45 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                 </div>
               </div>
             </div>
+            {/* <div className={styles.plainPaper}> */}
+              <div className={styles.newContainer}>
+                <div className={styles.headings}>Comments/Notes</div>
+                {console.log(">>>", relievingExpDetails)}
+                <div className={styles.commentContainer}>
+                  {relievingExpDetails?.comments &&
+                    relievingExpDetails?.comments?.map((item) => (
+                      <div className={styles.commentwrap}>
+                        {(item?.status || item?.panelist_role) && (
+                          <div
+                            style={{ marginTop: "5px", marginBottom: "5px" }}
+                          >
+                            <span style={{ fontWeight: "600" }}>
+                              {removeUnderScore(item?.panelist_role)}
+                            </span>
+                            <span style={{ marginLeft: "10px" }}>
+                              {
+                                <StatusPill
+                                  status={item?.status}
+                                  style={{ border: "none" }}
+                                />
+                              }
+                            </span>
+                          </div>
+                        )}
+                        {item?.status !== "WAITING" &&
+                          item?.status !== "PENDING" && (
+                            <>
+                              <div>{item?.comment}</div>
+                              <div className={styles.commentDate}>
+                                {`${item?.employee?.name} (${item?.employee?.code}) | ${item?.updatedAtText}`}
+                              </div>
+                            </>
+                          )}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            {/* </div> */}
           </div>
         </div>
       </div>

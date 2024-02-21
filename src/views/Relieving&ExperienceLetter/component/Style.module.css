@@ -27,7 +27,11 @@
   margin-bottom: 20px;
   font-weight: 600;
 }
-
+.headings{
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
 .mainFlex {
   display: flex;
   /*align-items: center;*/
@@ -54,6 +58,7 @@
 
 .newContainer {
   font-size: 0.7rem;
+  margin-top: 10px;
 }
 
 .left {
@@ -159,6 +164,30 @@
 }
 .mobileDropDown {
   display: none !important;
+}
+.commentContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: .7rem;
+  /* margin-top: 10px; */
+}
+.commentDate{
+  font-weight: 600;
+}
+.commentwrap{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.hyperlinkText{
+  color: #2896E9;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+.heading221{
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 769px) {
