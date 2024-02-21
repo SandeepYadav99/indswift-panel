@@ -54,7 +54,7 @@ const PmsSiteReview = ({}) => {
     toggleStatusDialog,
     approveDialog,
     toggleNormalizwDialog,
-        normalizeDialog
+    normalizeDialog,
   } = usePmsSiteBatch({});
 
   const {
@@ -90,6 +90,7 @@ const PmsSiteReview = ({}) => {
                 value="secondary"
                 color="primary"
                 inputProps={{ "aria-label": "secondary checkbox" }}
+                className={styles.checkBoxMobile}
               />
             </div>
             <div className={classNames(styles.firstCellInfo, "openSans")}>
@@ -218,6 +219,7 @@ const PmsSiteReview = ({}) => {
                 onClick={() => {
                   handleViewFormDetails(all);
                 }}
+                id={styles.hideEyeIcon}
               >
                 <RemoveRedEyeOutlinedIcon fontSize={"small"} />
               </IconButton>
@@ -305,17 +307,17 @@ const PmsSiteReview = ({}) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
+      <div>
+        <br />
+        <div style={{ width: "100%" }}>
+          <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          />
+        </div>
+      </div>
       <BottomPanelComponent open={selected?.length > 0}>
         <BottomActionView
           reviewers={selected.length}

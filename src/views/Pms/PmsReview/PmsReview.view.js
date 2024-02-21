@@ -28,7 +28,7 @@ import BottomActionView from "./components/BottomAction/BottomAction.view";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import UpdateDialog from "./components/UpdateDialog/UpdateDialog.view";
 import NoramlizeDialog from "./components/NoramlizePopUp/NoramlizeDialog.view";
-const PmsReview = ({}) => {
+const PmsReview = ({ }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -54,7 +54,7 @@ const PmsReview = ({}) => {
     toggleStatusDialog,
     approveDialog,
     toggleNormalizwDialog,
-        normalizeDialog
+    normalizeDialog
   } = usePmsReview({});
 
   const {
@@ -90,6 +90,7 @@ const PmsReview = ({}) => {
                 value="secondary"
                 color="primary"
                 inputProps={{ "aria-label": "secondary checkbox" }}
+                className={styles.checkBoxRemove}
               />
             </div>
             <div className={classNames(styles.firstCellInfo, "openSans")}>
@@ -305,17 +306,17 @@ const PmsReview = ({}) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
+      <div>
+        <br />
+        <div style={{ width: "100%" }}>
+          <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          />
+        </div>
+      </div>
       <BottomPanelComponent open={selected?.length > 0}>
         <BottomActionView
           reviewers={selected.length}

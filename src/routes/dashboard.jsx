@@ -1119,6 +1119,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "pm",
+    hideMobileView:true,
     roles: [Roles.CORPORATE_HR],
   },
   {
