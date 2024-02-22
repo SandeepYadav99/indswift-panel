@@ -207,7 +207,6 @@ function RelievingExpLetterDetail({ data, isImprest }) {
             {/* <div className={styles.plainPaper}> */}
               <div className={styles.newContainer}>
                 <div className={styles.headings}>Comments/Notes</div>
-                {console.log(">>>", relievingExpDetails)}
                 <div className={styles.commentContainer}>
                   {relievingExpDetails?.comments &&
                     relievingExpDetails?.comments?.map((item) => (
