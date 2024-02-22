@@ -117,7 +117,15 @@
     .billingWrap{
         text-align: end;
     }
-  @media (max-width: 767px) {
+
+    #notMobile{
+      display: block !important;
+    }
+
+    #Mobile{
+      display: none !important;
+    }
+  @media (max-width: 769px) {
     .left {
         flex-direction: column;
       }
@@ -138,5 +146,12 @@
       }
       .formFlex{
         flex-direction: column;
+    }
+    #notMobile{
+      display: none !important;
+    }
+    #Mobile{
+      display: block !important;
+      width: 100%;
     }
   }

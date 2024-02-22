@@ -159,6 +159,14 @@ display: flex;
     height: 50%;
     border-radius: 50%;
 }
+.candidateContainer{
+    display: flex;
+    width: 80% !important;
+}
+.imageHeightValue{
+    height: 70px;
+}
+
 @media (max-width: 767px) {
     .key {
         display: flex;
@@ -170,4 +178,14 @@ display: flex;
       .value{
         width: 130px;
       }
+      .mainFlex{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center !important;
+        /*align-items: center;*/
+    }
+    .imageHeightValue{
+        height: 120px;
+    }
     }
