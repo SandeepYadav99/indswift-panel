@@ -8,6 +8,7 @@ import UpperCard from "../../ClaimsManagement/ClaimsDetail/components/ClaimTaxCa
 import TaxData from "./component/TaxData/TaxData";
 import ApproveDialog from "./component/ApprovePopUp/ApproveDialog.view";
 import RejectDialog from "./component/RejectPopUp/RejectDialog.view";
+import { useSelector } from "react-redux";
 function TaxDetail() {
   const {
     employeeDetail,
@@ -17,6 +18,7 @@ function TaxDetail() {
     rejectDialog,
     id,
   } = useTaxDetail({});
+  const { role } = useSelector((state) => state.auth);
   return (
     <div>
       <ApproveDialog
@@ -63,7 +65,7 @@ function TaxDetail() {
           </div>
         </div>
       </div>
-      {employeeDetail?.status === "PENDING" && (
+      {employeeDetail?.status === "PENDING" && role !=="CORPORATE_HR" &&  (
         <div
           className={
             employeeDetail?.status === "APPROVED"

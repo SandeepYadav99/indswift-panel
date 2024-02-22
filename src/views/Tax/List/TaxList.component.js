@@ -11,6 +11,7 @@ import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import useTaxList from "./TaxList.hook";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
+import Datatables from "../../../components/Datatables/datatables";
 
 const TaxList = ({}) => {
   const {
@@ -24,7 +25,8 @@ const TaxList = ({}) => {
     isCalling,
     configFilter,
     handleResend,
-    handleBankSheetDownload
+    handleBankSheetDownload,
+    role,
   } = useTaxList({});
 
   const {
@@ -134,8 +136,7 @@ const TaxList = ({}) => {
         sortable: false,
         style: { width: "18%" },
         render: (temp, all) => (
-          <div>
-            {all?.taxRebate?.is_taxable ? "Taxable" : "Non taxable"}</div>
+          <div>{all?.taxRebate?.is_taxable ? "Taxable" : "Non taxable"}</div>
         ),
       },
       {
@@ -183,7 +184,7 @@ const TaxList = ({}) => {
               >
                 <InfoOutlined fontSize={"small"} />
               </IconButton>
-            )}
+            )}  
           </div>
         ),
       },
@@ -225,14 +226,14 @@ const TaxList = ({}) => {
             <div className={styles.newLine} />
           </div>
           <ButtonBase
-                // aria-owns={downloadCL ? "downloadCL" : undefined}
-                aria-haspopup="true"
-                // onClick={handleAddCandidate}
-                onClick={handleBankSheetDownload}
-                className={"createBtn"}
-              >
-                Download
-              </ButtonBase>
+            // aria-owns={downloadCL ? "downloadCL" : undefined}
+            aria-haspopup="true"
+            // onClick={handleAddCandidate}
+            onClick={handleBankSheetDownload}
+            className={"createBtn"}
+          >
+            Download
+          </ButtonBase>
         </div>
         <div>
           <FilterComponent
@@ -241,17 +242,9 @@ const TaxList = ({}) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
+      <Datatables {...tableData.datatable} {...tableData.datatableFunctions} />
     </div>
   );
 };

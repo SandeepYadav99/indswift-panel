@@ -1043,7 +1043,15 @@ font-size: medium;
     text-align: end;
     justify-content: end;
 }
-
+.dtMobCellValueMultiple{
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    align-items: flex-end;
+    width: 100%;
+    text-align: end;
+    justify-content: end;
+}
 .dtMobCellLabel {
     font-size: 12px;
     font-weight: 600;
