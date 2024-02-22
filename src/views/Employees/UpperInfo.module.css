@@ -20,7 +20,11 @@
     height: fit-content !important;
     color: white;
 }
-
+.hyperlinkText{
+    color: #ffffff;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
 .nameCap {
     font-size: 0.9rem;
     text-transform: capitalize !important;

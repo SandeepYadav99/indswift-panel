@@ -10,6 +10,7 @@ import { useParams } from "react-router";
 
 const initialForm = {
   general_conduct: "",
+  comment:""
 };
 
 const useRelievingExpLetterDetail = () => {
@@ -65,7 +66,7 @@ const useRelievingExpLetterDetail = () => {
 
     const updatedData = {
       review_id: id,
-      //  reason: "Terminated",
+       comment: form?.comment,
       general_conduct: form?.general_conduct,
     };
 
@@ -104,6 +105,7 @@ const useRelievingExpLetterDetail = () => {
     (value, fieldName) => {
       const fieldMappings = {
         general_conduct: "general_conduct",
+        comment:"comment"
       };
 
       if (fieldMappings.hasOwnProperty(fieldName)) {

@@ -1,10 +1,12 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   IconButton,
   MenuItem,
   ButtonBase,
   Tooltip,
   makeStyles,
+  Card,
+  CardContent,
 } from "@material-ui/core";
 import classNames from "classnames";
 import PageBox from "../../components/PageBox/PageBox.component";
@@ -19,6 +21,7 @@ import StatusPill from "../../components/Status/StatusPill.component";
 import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
 import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import { getFixedValue } from "../../helper/helper";
+import Typography from "@material-ui/core/es/Typography/Typography";
 
 const useStyles = makeStyles((theme) => ({
   customTooltip: {
@@ -28,6 +31,21 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "normal",
     fontFamily: "Montserrat",
     borderRadius: "10px",
+  },
+  paper: {
+    width: "100%",
+    marginBottom: theme.spacing(2),
+  },
+  card: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  mobileCard: {
+    marginTop: theme.spacing(2),
+  },
+  mobileCardContent: {
+    paddingLeft: theme.spacing(0),
+    paddingRight: theme.spacing(0),
   },
 }));
 
@@ -109,6 +127,18 @@ const TableHead = ({ columns }) => {
 };
 
 const IncrementEmployeeSalaryReport = ({ location }) => {
+  const classes = useStyles();
+
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const handleResize = () => {
+    setInnerWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const {
     handlePageChange,
     handleFilterDataChange,
@@ -127,6 +157,58 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
     startValid,
     setStartDate,
   } = useIncrementEmployeeSalaryReport({ location });
+  const renderCardContent = () => {
+    if (currentData?.length > 0) {
+      return currentData?.map((row, index) => {
+        return (
+          <div>
+            <Card
+              key={row.id + "" + Math.random()}
+              className={classNames(classes.mobileCard, "dtMobCard")}
+            >
+              <CardContent className={classes.mobileCardContent}>
+                {renderTableCellsMobile(row, index)}
+              </CardContent>
+            </Card>
+          </div>
+        );
+      });
+    } else {
+      return (
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography variant="h6">No Results Found</Typography>
+            <Typography variant="subtitle1">
+              No matching entries available in our record
+            </Typography>
+          </CardContent>
+        </Card>
+      );
+    }
+  };
+
+  const renderTableCellsMobile = (row, indexPr) => {
+    const filteredColumns = tableStructure?.filter(
+      (column) => column.is_mobile !== false
+    );
+    return filteredColumns.map((val, index) => (
+      <div className={"dtMobCell"}>
+        <div className={"dtMobCellLabel"}>{val?.label}</div>
+        <div className={"dtMobCellValueMultiple"}>
+          {index == 0 && (
+            <div className={styles.mobFixed}>
+              <b>{row._id?.name}</b>
+              <br />
+              {row._id?.emp_code}
+            </div>
+          )}
+          {row?.comparisionData?.map((item, index) => {
+            return val?.render(row[indexPr], item, index);
+          })}
+        </div>
+      </div>
+    ));
+  };
 
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
@@ -152,9 +234,11 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         sortable: true,
         fixed: true,
         render: (value, all) => (
-            <div className={styles.noWrapFixed}>
-              {all?.employee?.location}
-            </div>
+          <div
+            className={innerWidth > 769 ? styles.noWrapFixed : styles.mobFixed}
+          >
+            {all?.employee?.location}
+          </div>
         ),
       },
       {
@@ -163,7 +247,9 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         sortable: true,
         fixed: true,
         render: (value, all) => (
-          <div className={styles.noWrapFixed}>
+          <div
+            className={innerWidth > 769 ? styles.noWrapFixed : styles.mobFixed}
+          >
             {all?.grade?.code}/{all?.cadre?.name}
           </div>
         ),
@@ -174,7 +260,11 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         sortable: false,
         fixed: true,
         render: (temp, all) => (
-          <div className={styles.noWrapFixed}>{all?.effectiveDateText}</div>
+          <div
+            className={innerWidth > 769 ? styles.noWrapFixed : styles.mobFixed}
+          >
+            {all?.effectiveDateText}
+          </div>
         ),
       },
       {
@@ -579,7 +669,6 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
             <ButtonBase className={styles.download} onClick={handleDownload}>
               DOWNLOAD
             </ButtonBase>
-
           </div>
         </div>
         <div>
@@ -591,54 +680,72 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
               handleFilterDataChange={handleFilterDataChange}
             />
             <br />
-            <div style={{ width: "100%", marginBottom: "50px" }}>
-              <div className={styles.tableWrapper}>
-                <div className={styles.container}>
-                  <table
-                    style={{
-                      borderCollapse: "collapse",
-                      cellSpacing: "0",
-                      borderSpacing: "0",
-                      cellpadding: "0",
-                      height: "100px",
+            {innerWidth > 769 ? (
+              <div style={{ width: "100%", marginBottom: "50px" }}>
+                <div className={styles.tableWrapper}>
+                  <div className={styles.container}>
+                    <table
+                      style={{
+                        borderCollapse: "collapse",
+                        cellSpacing: "0",
+                        borderSpacing: "0",
+                        cellpadding: "0",
+                        height: "100px",
+                      }}
+                    >
+                      <TableHead columns={tableStructure} />
+                      <tbody>
+                        {currentData?.map((row, rowIndex) => (
+                          <tr key={row.id} className={styles.tr}>
+                            {tableStructure?.map(
+                              (
+                                { key, fixed, readOnly, render, ...props },
+                                index
+                              ) => (
+                                <TableCell
+                                  row={row}
+                                  key={key}
+                                  fixed={fixed}
+                                  render={render}
+                                  index={index}
+                                  {...props}
+                                />
+                              )
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <TablePagination
+                  rowsPerPageOptions={[]}
+                  component="div"
+                  count={data?.length}
+                  rowsPerPage={50}
+                  page={currentPage - 1}
+                  onChangePage={(event, newPage) => {
+                    handlePageChange(newPage);
+                  }}
+                />
+              </div>
+            ) : (
+              <div className={classes.paper}>
+                {renderCardContent()}
+                <div className={"dTMobilePagination"}>
+                  <TablePagination
+                    rowsPerPageOptions={[]}
+                    component="div"
+                    count={data?.length}
+                    rowsPerPage={50}
+                    page={currentPage - 1}
+                    onChangePage={(event, newPage) => {
+                      handlePageChange(newPage);
                     }}
-                  >
-                    <TableHead columns={tableStructure} />
-                    <tbody>
-                      {currentData?.map((row, rowIndex) => (
-                        <tr key={row.id} className={styles.tr}>
-                          {tableStructure?.map(
-                            (
-                              { key, fixed, readOnly, render, ...props },
-                              index
-                            ) => (
-                              <TableCell
-                                row={row}
-                                key={key}
-                                fixed={fixed}
-                                render={render}
-                                index={index}
-                                {...props}
-                              />
-                            )
-                          )}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  />
                 </div>
               </div>
-              <TablePagination
-                rowsPerPageOptions={[]}
-                component="div"
-                count={data?.length}
-                rowsPerPage={50}
-                page={currentPage - 1}
-                onChangePage={(event, newPage) => {
-                  handlePageChange(newPage);
-                }}
-              />
-            </div>
+            )}
           </div>
         </div>
       </PageBox>

@@ -479,4 +479,39 @@
   margin: 0;
   white-space: nowrap;
 }
+.mobFixed{
+  white-space: nowrap;
+  font-size: 0.8rem;
+  text-align: end;
+  padding: 12px 10px;
+  font-weight: 500;
+  width: 150px;
+}
 
+@media (max-width: 769px) {
+  .yearFlex {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .UpperWrap {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px !important;
+  }
+  .down {
+    width: 100%;
+  }
+  .rightFlex {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .downloadrun {
+    width: 100%;
+  }
+  .download {
+    width: 100%;
+  }
+}

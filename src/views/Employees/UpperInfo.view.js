@@ -96,6 +96,18 @@ const UpperInfo = ({
                 </div>
                 <div>{data?.designation?.name}</div>
                 <div>Employee Code: {data?.emp_code}</div>
+                {data?.candidate_id && (
+                  <div
+                    className={styles.hyperlinkText}
+                    onClick={() =>
+                      historyUtils.push(
+                        RouteName.CANDIDATES_DETAILS + data?.candidate_id
+                      )
+                    }
+                  >
+                    VIEW CANDIDATE PROFILE
+                  </div>
+                )}
               </div>
               <div className={styles.vertical}></div>
               <div className={styles.rightInfo}>
