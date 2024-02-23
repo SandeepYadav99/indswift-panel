@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionDeleteExitInterview,
   actionFetchExitInterview,
   actionSetPageExitInterview,
 } from "../../../actions/ExitInterview.action";
@@ -15,6 +14,8 @@ import SnackbarUtils from "../../../libs/SnackbarUtils";
 const useExitInterviewList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [commentDialog, setCommentDialog] = useState(false);
+  const [empId, setEmpId] = useState(null);
   const [listData, setListData] = useState({
     LOCATIONS: [],
     GRADES: [],
@@ -85,7 +86,7 @@ const useExitInterviewList = ({}) => {
       id: data?.id,
     }).then((res) => {
       if (!res.error) {
-        SnackbarUtils?.success("Resend Successfully")
+        SnackbarUtils?.success("Resend Successfully");
         window.location.reload();
       }
     });
@@ -153,6 +154,19 @@ const useExitInterviewList = ({}) => {
       },
     ];
   }, [listData]);
+  
+  const toggleCommentDialog = useCallback(
+    (data) => {
+      setCommentDialog((e) => !e);
+      if (typeof data === "string") {
+        setEmpId(data);
+      } else {
+        setEmpId(null);
+      }
+    },
+    [commentDialog]
+  );
+
   return {
     handlePageChange,
     handleFilterDataChange,
@@ -164,6 +178,9 @@ const useExitInterviewList = ({}) => {
     editData,
     configFilter,
     handleResend,
+    commentDialog,
+    toggleCommentDialog,
+    empId,
   };
 };
 
