@@ -22,15 +22,17 @@ function FullDetail() {
   } = useFullDetail({});
 
   useEffect(() => {
+
     const handleKeyDown = (event) => {
       if (event.ctrlKey && event.key === 'p') {
+        alert('called')
         event.preventDefault();
-        const divToPrint = document.querySelector("#content-to-print");
-        const printable = divToPrint.innerHTML;
-        const originalContents = document.body.innerHTML;
-        document.body.innerHTML = printable;
+        // const divToPrint = document.querySelector("#content-to-print");
+        // const printable = divToPrint.innerHTML;
+        // const originalContents = document.body.innerHTML;
+        // document.body.innerHTML = printable;
         window.print();
-        document.body.innerHTML = originalContents;
+        // document.body.innerHTML = originalContents;
       }
     };
 
@@ -127,7 +129,7 @@ function FullDetail() {
                 APPROVE
               </ButtonBase>
             </div>
-          </div>  
+          </div>
         </div>
         <div className={styles.mobApprove}>
         {(employeeDetail?.fullAndFinal?.status === "PENDING" ||
