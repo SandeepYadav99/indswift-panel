@@ -1131,7 +1131,8 @@ font-size: medium;
   }
 
   @media print {
-    body, .fullDetailWrapper {
+
+.fullDetailWrapper {
       display: block !important;
       position: relative !important;
       width: auto !important;
@@ -1140,3 +1141,18 @@ font-size: medium;
       margin-left: 0 !important;
     }
   }
+
+@media print {
+    body {
+        visibility: hidden;
+    }
+    #content-to-print {
+        visibility: visible;
+        position: absolute;
+        overflow: visible;
+        left: 0;
+        top: 0;
+        width: 100vw !important;
+        height: 900vh !important
+    }
+}
