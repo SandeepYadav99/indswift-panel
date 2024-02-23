@@ -23,3 +23,9 @@ export async function serviceDeleteEmployeeRecord(params) {
 export async function serviceCheckEmployeeRecord(params) {
   return await postRequest("hr/announcment/check", params);
 }
+export async function serviceGetDescriptionRecord(params) {
+  return await postRequest("employee/notes", params);
+}
+export async function serviceCreateDescriptionRecord(params) {
+  return await postRequest("employee/notes/create", params);
+}

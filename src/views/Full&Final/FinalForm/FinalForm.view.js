@@ -39,7 +39,7 @@ function FinalForm({ location }) {
   } = useFinalForm({ location });
   
   return (
-    <div className={styles.pWrapper}>
+    <div className={styles.pWrapper} id="content-to-print">
       <div className={styles.outerFlex}>
         <div>
           <ButtonBase onClick={() => history.goBack()}>
