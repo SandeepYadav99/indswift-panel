@@ -134,7 +134,7 @@ function PayData({ employeeDetail }) {
               </div>
               <div className={styles.key} id={styles.mobileView}>
                 <span className={styles.value}>Statuory Bonus Comments:</span>
-                {employeeDetail?.statutory_bonus_comment}
+                <span>{employeeDetail?.statutory_bonus_comment}</span>
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>Gratuity:</span>
