@@ -132,6 +132,9 @@
     #Mobile{
       display: none !important;
     }
+    #minWidth{
+      width: 150px !important;
+    }
   @media (max-width: 769px) {
     .left {
         flex-direction: column;
@@ -168,4 +171,9 @@
       gap:10px;
       height:fit-content;
     }
+    #minWidth{
+      min-width: 100%  !important;
+    }
   }
+
+ 

@@ -241,6 +241,7 @@
     display: flex;
     flex-direction: column !important;
     color: #818181;
+    gap:10px;
     font-weight: 500;
     margin-bottom: 7px;
   }
@@ -251,6 +252,9 @@
     width: 100% !important;
     color: black;
     display: inline-block;
+  }
+  #statusPillData{
+    width: 150px !important;
   }
   
 }
