@@ -9,8 +9,10 @@ import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import useExitInterviewList from "./ExitInterviewListHook";
+import CommentOutlinedIcon from "@material-ui/icons/CommentOutlined";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import SendIcon from "@material-ui/icons/Send";
+import CommentDialog from "./components/CommentDialog/CommentDialog.view";
 
 const ExitInterviewList = ({}) => {
   const {
@@ -23,6 +25,9 @@ const ExitInterviewList = ({}) => {
     isCalling,
     configFilter,
     handleResend,
+    commentDialog,
+    toggleCommentDialog,
+    empId,
   } = useExitInterviewList({});
 
   const {
@@ -147,10 +152,16 @@ const ExitInterviewList = ({}) => {
         render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
       },
       {
+        key: "hr_status",
+        label: "HR STATUS",
+        sortable: true,
+        render: (temp, all) => <div>{all?.hr_status ? renderStatus(all?.hr_status) : "-"}</div>,
+      },
+      {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div>
+          <div className={styles.btnWrap}>
             {all?.status === "PENDING" ? (
               <IconButton
                 className={"tableActionBtn"}
@@ -172,6 +183,18 @@ const ExitInterviewList = ({}) => {
                 }}
               >
                 <InfoOutlined fontSize={"small"} />
+              </IconButton>
+            )}
+            {all?.status === "SUBMITTED" && all?.hr_status === "PENDING" && (
+              <IconButton
+                className={"tableActionBtn"}
+                color="secondary"
+                disabled={isCalling}
+                onClick={() => {
+                  toggleCommentDialog(all?.id);
+                }}
+              >
+                <CommentOutlinedIcon fontSize={"small"} />
               </IconButton>
             )}
           </div>
@@ -208,6 +231,11 @@ const ExitInterviewList = ({}) => {
 
   return (
     <div>
+      <CommentDialog
+        candidateId={empId}
+        isOpen={commentDialog}
+        handleToggle={toggleCommentDialog}
+      />
       <PageBox>
         <div className={styles.headerContainer}>
           <div>

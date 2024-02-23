@@ -52,12 +52,13 @@
 .secondContainer{
   display: flex !important;
   margin-top:  10px !important;
-  justify-content: space-around !important;
+  /* justify-content: space-around !important; */
   gap: 10px !important;
 }
 .thirdContainer{
   display: flex !important;
   justify-content: space-around;
+  flex:1;
 }
 
 @media only screen and (max-width:769px){
