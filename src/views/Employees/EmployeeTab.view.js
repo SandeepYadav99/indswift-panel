@@ -20,6 +20,7 @@ import EmployeeRecord from "./components/Profile/EmployeeRecord/EmployeeRecord";
 import { useParams } from "react-router";
 import EmployeeClaim from "../EmployeePanel/EmployeeClaim/EmployeeClaim.container";
 import UpperInfo from "./UpperInfo.view";
+import DescriptionViewTable from "./components/Description/DescriptionViewTable";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -157,6 +158,8 @@ const EmployeeTab = () => {
               />
               <Tab className={"iconTabs"} label="Employee Records" />
               <Tab className={"iconTabs"} label="Job Description & Key Result Area" style={{ whiteSpace: 'nowrap' }} />
+              <Tab className={"iconTabs"} label="Description" style={{ whiteSpace: 'nowrap' }} />
+
             </Tabs>
           </AppBar>
 
@@ -175,6 +178,9 @@ const EmployeeTab = () => {
             </TabPanel>
             <TabPanel value={value} index={4} dir={"ltr"}>
               <EmployeeClaim />
+            </TabPanel>
+            <TabPanel value={value} index={5} dir={"ltr"}>
+              <DescriptionViewTable/>
             </TabPanel>
           </div>
         </div>
