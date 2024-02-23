@@ -237,4 +237,20 @@
   #showDesktop{
     display: none !important;
   }
+  .key {
+    display: flex;
+    flex-direction: column !important;
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 7px;
+  }
+  .value {
+    display: flex;
+    flex-direction: column !important;
+    font-weight: 600;
+    width: 100% !important;
+    color: black;
+    display: inline-block;
+  }
+  
 }

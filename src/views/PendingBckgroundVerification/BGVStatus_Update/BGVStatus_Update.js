@@ -39,254 +39,176 @@ const BGVStatus_Update = () => {
         <div className={styles.newContainer}>
           <div className={styles.mainFlex}>
             <div className={styles.left}>
-              <div className={styles.InnerWrap}>
-                <div className={styles.formGroup}>
-                  <CustomCheckbox
-                    color={"primary"}
-                    label={"Education"}
-                    disabled={
-                      form?.is_education_verification
-                        ? form?.is_education_verification
-                        : !form?.is_education_verification
-                    }
-                    checked={form?.is_education_verification}
-                  />
+              <div className={styles.alignOneColoumn}>
+                <div className={styles.InnerWrap}>
+                  <div className={styles.formGroup}>
+                    <CustomCheckbox
+                      color={"primary"}
+                      label={"Education"}
+                      disabled={
+                        form?.is_education_verification
+                          ? form?.is_education_verification
+                          : !form?.is_education_verification
+                      }
+                      checked={form?.is_education_verification}
+                    />
+                  </div>
+                </div>
+                <div className={"formGroup"}>
+                  {form?.is_education_verification && (
+                    <CustomSelectField
+                      isError={errorData?.is_education_verification_status}
+                      errorText={errorData?.is_education_verification_status}
+                      label={"Choose Status"}
+                      value={form?.is_education_verification_status}
+                      handleChange={(value) => {
+                        changeTextData(
+                          value,
+                          "is_education_verification_status"
+                        );
+                      }}
+                    >
+                      <MenuItem value="CLEAR">Clear</MenuItem>
+                      <MenuItem value="FAILED">Failed </MenuItem>
+                      <MenuItem value="UNABLE_TO_VERIFY">
+                        Unable to Verify
+                      </MenuItem>
+                      <MenuItem value="PENDING">Pending</MenuItem>
+                    </CustomSelectField>
+                  )}
                 </div>
               </div>
-              <div className={"formGroup"} id={styles.Mobile}>
-                {form?.is_education_verification && (
-                  <CustomSelectField
-                    isError={errorData?.is_education_verification_status}
-                    errorText={errorData?.is_education_verification_status}
-                    label={"Choose Status"}
-                    value={form?.is_education_verification_status}
-                    handleChange={(value) => {
-                      changeTextData(value, "is_education_verification_status");
-                    }}
-                  >
-                    <MenuItem value="CLEAR">Clear</MenuItem>
-                    <MenuItem value="FAILED">Failed </MenuItem>
-                    <MenuItem value="UNABLE_TO_VERIFY">
-                      Unable to Verify
-                    </MenuItem>
-                    <MenuItem value="PENDING">Pending</MenuItem>
-                  </CustomSelectField>
-                )}
-              </div>
-              <div className={styles.InnerWrap}>
-                <div className={styles.formGroup}>
-                  <CustomCheckbox
-                    color={"primary"}
-                    disabled={
-                      form?.is_first_employment_verification
-                        ? form?.is_first_employment_verification
-                        : !form?.is_first_employment_verification
-                    }
-                    label={"1st Employment"}
-                    checked={form?.is_first_employment_verification}
-                  />
+              <div className={styles.alignOneColoumn}>
+                <div className={styles.InnerWrap}>
+                  <div className={styles.formGroup}>
+                    <CustomCheckbox
+                      color={"primary"}
+                      disabled={
+                        form?.is_first_employment_verification
+                          ? form?.is_first_employment_verification
+                          : !form?.is_first_employment_verification
+                      }
+                      label={"1st Employment"}
+                      checked={form?.is_first_employment_verification}
+                    />
+                  </div>
+                </div>
+                <div className={"formGroup"}>
+                  {form?.is_first_employment_verification && (
+                    <CustomSelectField
+                      isError={
+                        errorData?.is_first_employment_verification_status
+                      }
+                      errorText={
+                        errorData?.is_first_employment_verification_status
+                      }
+                      label={"Choose Status"}
+                      value={form?.is_first_employment_verification_status}
+                      handleChange={(value) => {
+                        console.log(value);
+                        changeTextData(
+                          value.toUpperCase(),
+                          "is_first_employment_verification_status"
+                        );
+                      }}
+                    >
+                      <MenuItem value="CLEAR">Clear</MenuItem>
+                      <MenuItem value="FAILED">Failed </MenuItem>
+                      <MenuItem value="UNABLE_TO_VERIFY">
+                        Unable To Verify{" "}
+                      </MenuItem>
+                      <MenuItem value="PENDING">Pending</MenuItem>
+                    </CustomSelectField>
+                  )}
                 </div>
               </div>
-              <div className={"formGroup"} id={styles.Mobile}>
-                {form?.is_first_employment_verification && (
-                  <CustomSelectField
-                    isError={errorData?.is_first_employment_verification_status}
-                    errorText={
-                      errorData?.is_first_employment_verification_status
-                    }
-                    label={"Choose Status"}
-                    value={form?.is_first_employment_verification_status}
-                    handleChange={(value) => {
-                      console.log(value);
-                      changeTextData(
-                        value.toUpperCase(),
-                        "is_first_employment_verification_status"
-                      );
-                    }}
-                  >
-                    <MenuItem value="CLEAR">Clear</MenuItem>
-                    <MenuItem value="FAILED">Failed </MenuItem>
-                    <MenuItem value="UNABLE_TO_VERIFY">
-                      Unable To Verify{" "}
-                    </MenuItem>
-                    <MenuItem value="PENDING">Pending</MenuItem>
-                  </CustomSelectField>
-                )}
-              </div>
-              <div className={styles.InnerWrap}>
-                <div className={styles.formGroup}>
-                  <CustomCheckbox
-                    color={"primary"}
-                    disabled={
-                      form?.is_secound_employment_verification
-                        ? form?.is_secound_employment_verification
-                        : !form?.is_secound_employment_verification
-                    }
-                    label={"2nd Employment"}
-                    checked={form?.is_secound_employment_verification}
-                  />
+              <div className={styles.alignOneColoumn}>
+                <div className={styles.InnerWrap}>
+                  <div className={styles.formGroup}>
+                    <CustomCheckbox
+                      color={"primary"}
+                      disabled={
+                        form?.is_secound_employment_verification
+                          ? form?.is_secound_employment_verification
+                          : !form?.is_secound_employment_verification
+                      }
+                      label={"2nd Employment"}
+                      checked={form?.is_secound_employment_verification}
+                    />
+                  </div>
+                </div>
+                <div className={"formGroup"}>
+                  {form?.is_secound_employment_verification && (
+                    <CustomSelectField
+                      isError={
+                        errorData?.is_secound_employment_verification_status
+                      }
+                      errorText={
+                        errorData?.is_secound_employment_verification_status
+                      }
+                      label={"Choose Status"}
+                      value={form?.is_secound_employment_verification_status}
+                      handleChange={(value) => {
+                        changeTextData(
+                          value,
+                          "is_secound_employment_verification_status"
+                        );
+                      }}
+                    >
+                      <MenuItem value="CLEAR">Clear</MenuItem>
+                      <MenuItem value="FAILED">Failed </MenuItem>
+                      <MenuItem value="UNABLE_TO_VERIFY">
+                        Unable To Verify{" "}
+                      </MenuItem>
+                      <MenuItem value="PENDING">Pending</MenuItem>
+                    </CustomSelectField>
+                  )}
                 </div>
               </div>
-              <div className={"formGroup"} id={styles.Mobile}>
-                {form?.is_secound_employment_verification && (
-                  <CustomSelectField
-                    isError={
-                      errorData?.is_secound_employment_verification_status
-                    }
-                    errorText={
-                      errorData?.is_secound_employment_verification_status
-                    }
-                    label={"Choose Status"}
-                    value={form?.is_secound_employment_verification_status}
-                    handleChange={(value) => {
-                      changeTextData(
-                        value,
-                        "is_secound_employment_verification_status"
-                      );
-                    }}
-                  >
-                    <MenuItem value="CLEAR">Clear</MenuItem>
-                    <MenuItem value="FAILED">Failed </MenuItem>
-                    <MenuItem value="UNABLE_TO_VERIFY">
-                      Unable To Verify{" "}
-                    </MenuItem>
-                    <MenuItem value="PENDING">Pending</MenuItem>
-                  </CustomSelectField>
-                )}
-              </div>
-
-              <div className={styles.InnerWrap}>
-                <div className={styles.formGroup}>
-                  <CustomCheckbox
-                    color={"primary"}
-                    disabled={
-                      form?.is_criminal_verification
-                        ? form?.is_criminal_verification
-                        : !form?.is_criminal_verification
-                    }
-                    label={"Criminal"}
-                    checked={form?.is_criminal_verification}
-                  />
+              <div className={styles.alignOneColoumn}>
+                <div className={styles.InnerWrap}>
+                  <div className={styles.formGroup}>
+                    <CustomCheckbox
+                      color={"primary"}
+                      disabled={
+                        form?.is_criminal_verification
+                          ? form?.is_criminal_verification
+                          : !form?.is_criminal_verification
+                      }
+                      label={"Criminal"}
+                      checked={form?.is_criminal_verification}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className={"formGroup"} id={styles.Mobile}>
-                {form?.is_criminal_verification && (
-                  <CustomSelectField
-                    isError={errorData?.is_criminal_verification_status}
-                    errorText={errorData?.is_criminal_verification_status}
-                    label={"Choose Status"}
-                    value={form?.is_criminal_verification_status}
-                    handleChange={(value) => {
-                      changeTextData(value, "is_criminal_verification_status");
-                    }}
-                  >
-                    <MenuItem value="CLEAR">Clear</MenuItem>
-                    <MenuItem value="FAILED">Failed </MenuItem>
-                    <MenuItem value="UNABLE_TO_VERIFY">
-                      Unable To Verify{" "}
-                    </MenuItem>
-                    <MenuItem value="PENDING">Pending</MenuItem>
-                    {/* <MenuItem value="terminated">Terminated</MenuItem>
+                <div className={"formGroup"}>
+                  {form?.is_criminal_verification ? (
+                    <CustomSelectField
+                      isError={errorData?.is_criminal_verification_status}
+                      errorText={errorData?.is_criminal_verification_status}
+                      label={"Choose Status"}
+                      value={form?.is_criminal_verification_status}
+                      handleChange={(value) => {
+                        changeTextData(
+                          value,
+                          "is_criminal_verification_status"
+                        );
+                      }}
+                    >
+                      <MenuItem value="CLEAR">Clear</MenuItem>
+                      <MenuItem value="FAILED">Failed </MenuItem>
+                      <MenuItem value="UNABLE_TO_VERIFY">
+                        Unable To Verify{" "}
+                      </MenuItem>
+                      <MenuItem value="PENDING">Pending</MenuItem>
+                      {/* <MenuItem value="terminated">Terminated</MenuItem>
                 <MenuItem value="allowed_to_work">Allowed To Work </MenuItem> */}
-                  </CustomSelectField>
-                )}
+                    </CustomSelectField>
+                  ):<div></div>}
+                </div>
               </div>
             </div>
           </div>
-
-          <div className={styles.formFlex} id={styles.notMobile}>
-            <div className={"formGroup"}>
-              {form?.is_education_verification && (
-                <CustomSelectField
-                  isError={errorData?.is_education_verification_status}
-                  errorText={errorData?.is_education_verification_status}
-                  label={"Choose Status"}
-                  value={form?.is_education_verification_status}
-                  handleChange={(value) => {
-                    changeTextData(value, "is_education_verification_status");
-                  }}
-                >
-                  <MenuItem value="CLEAR">Clear</MenuItem>
-                  <MenuItem value="FAILED">Failed </MenuItem>
-                  <MenuItem value="UNABLE_TO_VERIFY">Unable to Verify</MenuItem>
-                  <MenuItem value="PENDING">Pending</MenuItem>
-                </CustomSelectField>
-              )}
-            </div>
-
-            <div className={"formGroup"}>
-              {form?.is_first_employment_verification && (
-                <CustomSelectField
-                  isError={errorData?.is_first_employment_verification_status}
-                  errorText={errorData?.is_first_employment_verification_status}
-                  label={"Choose Status"}
-                  value={form?.is_first_employment_verification_status}
-                  handleChange={(value) => {
-                    console.log(value);
-                    changeTextData(
-                      value.toUpperCase(),
-                      "is_first_employment_verification_status"
-                    );
-                  }}
-                >
-                  <MenuItem value="CLEAR">Clear</MenuItem>
-                  <MenuItem value="FAILED">Failed </MenuItem>
-                  <MenuItem value="UNABLE_TO_VERIFY">
-                    Unable To Verify{" "}
-                  </MenuItem>
-                  <MenuItem value="PENDING">Pending</MenuItem>
-                </CustomSelectField>
-              )}
-            </div>
-            <div className={"formGroup"}>
-              {form?.is_secound_employment_verification && (
-                <CustomSelectField
-                  isError={errorData?.is_secound_employment_verification_status}
-                  errorText={
-                    errorData?.is_secound_employment_verification_status
-                  }
-                  label={"Choose Status"}
-                  value={form?.is_secound_employment_verification_status}
-                  handleChange={(value) => {
-                    changeTextData(
-                      value,
-                      "is_secound_employment_verification_status"
-                    );
-                  }}
-                >
-                  <MenuItem value="CLEAR">Clear</MenuItem>
-                  <MenuItem value="FAILED">Failed </MenuItem>
-                  <MenuItem value="UNABLE_TO_VERIFY">
-                    Unable To Verify{" "}
-                  </MenuItem>
-                  <MenuItem value="PENDING">Pending</MenuItem>
-                </CustomSelectField>
-              )}
-            </div>
-            <div className={"formGroup"}>
-              {form?.is_criminal_verification && (
-                <CustomSelectField
-                  isError={errorData?.is_criminal_verification_status}
-                  errorText={errorData?.is_criminal_verification_status}
-                  label={"Choose Status"}
-                  value={form?.is_criminal_verification_status}
-                  handleChange={(value) => {
-                    changeTextData(value, "is_criminal_verification_status");
-                  }}
-                >
-                  <MenuItem value="CLEAR">Clear</MenuItem>
-                  <MenuItem value="FAILED">Failed </MenuItem>
-                  <MenuItem value="UNABLE_TO_VERIFY">
-                    Unable To Verify{" "}
-                  </MenuItem>
-                  <MenuItem value="PENDING">Pending</MenuItem>
-                  {/* <MenuItem value="terminated">Terminated</MenuItem>
-                <MenuItem value="allowed_to_work">Allowed To Work </MenuItem> */}
-                </CustomSelectField>
-              )}
-            </div>
-          </div>
-          <div className={"formFlex"} id={styles.notMobile}>
+          <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomSelectField
                 isError={errorData?.bgv_result}
@@ -304,6 +226,7 @@ const BGVStatus_Update = () => {
               </CustomSelectField>
             </div>
           </div>
+
           <div className={styles.requiredFooter}>
             <div className={styles.topText}>
               <b>BGV Status: {form?.bgv_status}</b>
