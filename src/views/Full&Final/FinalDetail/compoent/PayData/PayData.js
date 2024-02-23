@@ -38,10 +38,13 @@ function PayData({ employeeDetail }) {
               <div className={styles.key}>
                 <span className={styles.value221}>Status:</span>
                 {
-                  <StatusPill
-                    status={employeeDetail?.payroll_one_status}
-                    style={{ border: "none" }}
-                  />
+                  <div id={styles.statusPillData}>
+                    <StatusPill
+                      status={employeeDetail?.payroll_one_status}
+                      style={{ border: "none" }}
+                      id={styles.statusPillData}
+                    />
+                  </div>
                 }
               </div>
             </div>
@@ -77,10 +80,13 @@ function PayData({ employeeDetail }) {
               <div className={styles.key}>
                 <span className={styles.value221}>Status:</span>
                 {
-                  <StatusPill
-                    status={employeeDetail?.payroll_two_status}
-                    style={{ border: "none" }}
-                  />
+                  <div id={styles.statusPillData}>
+                    <StatusPill
+                      status={employeeDetail?.payroll_two_status}
+                      style={{ border: "none" }}
+                      id={styles.statusPillData}
+                    />
+                  </div>
                 }
               </div>
             </div>
@@ -116,10 +122,13 @@ function PayData({ employeeDetail }) {
               <div className={styles.key}>
                 <span className={styles.value221}>Status:</span>
                 {
-                  <StatusPill
-                    status={employeeDetail?.payroll_three_status}
-                    style={{ border: "none" }}
-                  />
+                  <div id={styles.statusPillData}>
+                    <StatusPill
+                      status={employeeDetail?.payroll_three_status}
+                      style={{ border: "none" }}
+                      id={styles.statusPillData}
+                    />
+                  </div>
                 }
               </div>
             </div>
@@ -488,8 +497,7 @@ function PayData({ employeeDetail }) {
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>BGV Recovery:</span>
-              {employeeDetail?.bgv &&
-                `₹ ${employeeDetail?.bgv}`}
+              {employeeDetail?.bgv && `₹ ${employeeDetail?.bgv}`}
             </div>{" "}
             <div className={styles.key} id={styles.mobileView}>
               <span className={styles.value}>BGV Recovery Comment:</span>

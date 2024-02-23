@@ -54,7 +54,7 @@ const BGVStatus_Update = () => {
                     />
                   </div>
                 </div>
-                <div className={"formGroup"}>
+                <div className={"formGroup"} id={styles.minWidth}>
                   {form?.is_education_verification && (
                     <CustomSelectField
                       isError={errorData?.is_education_verification_status}
@@ -93,7 +93,7 @@ const BGVStatus_Update = () => {
                     />
                   </div>
                 </div>
-                <div className={"formGroup"}>
+                <div className={"formGroup"} id={styles.minWidth}>
                   {form?.is_first_employment_verification && (
                     <CustomSelectField
                       isError={
@@ -123,7 +123,7 @@ const BGVStatus_Update = () => {
                 </div>
               </div>
               <div className={styles.alignOneColoumn}>
-                <div className={styles.InnerWrap}>
+                <div className={styles.InnerWrap} id={styles.minWidth}>
                   <div className={styles.formGroup}>
                     <CustomCheckbox
                       color={"primary"}
@@ -137,7 +137,7 @@ const BGVStatus_Update = () => {
                     />
                   </div>
                 </div>
-                <div className={"formGroup"}>
+                <div className={"formGroup"} id={styles.minWidth}>
                   {form?.is_secound_employment_verification && (
                     <CustomSelectField
                       isError={
@@ -180,7 +180,7 @@ const BGVStatus_Update = () => {
                     />
                   </div>
                 </div>
-                <div className={"formGroup"}>
+                <div className={"formGroup"} id={styles.minWidth}>
                   {form?.is_criminal_verification ? (
                     <CustomSelectField
                       isError={errorData?.is_criminal_verification_status}
