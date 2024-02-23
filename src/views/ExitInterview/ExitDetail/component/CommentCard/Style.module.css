@@ -2,6 +2,7 @@
   display: flex;
   padding: 1.2rem;
   width: 100% !important;
+  flex-direction: column;
 }
 .leftField {
   flex: 1;
@@ -18,6 +19,12 @@
   flex-direction: column;
   font-size: 0.75rem;
   gap: 2px;
+}
+.verticalLine{
+  border: 1px solid #B8C5D3;
+  margin: 20px 0 10px 0;
+  /* width: calc(100%-48.4px); */
+  width: calc(100% - 48px);
 }
 .key {
   color: #818181;
@@ -60,7 +67,11 @@
   justify-content: space-around;
   flex:1;
 }
-
+.quest{
+  font-weight: 600;
+  font-size: .8rem;
+  margin: 10px 0 3px 0;
+}
 @media only screen and (max-width:769px){
   .imageDesWrapper{
     display: flex;

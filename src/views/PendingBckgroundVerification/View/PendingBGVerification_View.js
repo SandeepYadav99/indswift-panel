@@ -333,7 +333,7 @@ const PendingBGVerification_View = ({ location }) => {
               PAYMENTS RECORD
             </ButtonBase>
             <ButtonBase
-              className={styles.download}
+              className={styles.downloadbgv}
               onClick={() => {
                 handleBgvAnalysisReport();
               }}

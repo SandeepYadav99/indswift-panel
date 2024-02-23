@@ -127,9 +127,18 @@
   border-radius: 30px !important;
   font-weight: 600 !important;
   margin-right: 10px;
+  font-size: 14px !important;
+
 }
-.rightFlex {
-  gap: 2%;
+.downloadbgv{
+  color: #29cb97 !important;
+  border: 2px solid #29cb97 !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+  margin-right: 10px;
+  font-size: 14px !important;
+
 }
 
 @media only screen and (max-width: 769px) {
@@ -145,6 +154,7 @@
   .rightFlex{
     flex-direction: column;
     gap: 15px;
+    width: 100%;
   }
   .download{
     margin: 7px 0;
@@ -152,6 +162,9 @@
   }
   .upper{
     width: 100%;
+  }
+  .downloadbgv{
+    display: none;
   }
   /* }
     display: flex;
