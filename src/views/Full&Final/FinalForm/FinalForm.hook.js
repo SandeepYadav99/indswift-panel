@@ -286,7 +286,17 @@ function useFinalForm({ location }) {
   const ChildenRef = useRef(null);
   const [approveDialog, setApproveDialog] = useState(false);
   const [rejectDialog, setRejectDialog] = useState(false);
-
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const handleResize = () => {
+  setInnerWidth(window.innerWidth);
+  };
+  useEffect(() => {
+   window.addEventListener("resize", handleResize);
+   return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+   }, []);
+  const isMobile = innerWidth <= 768;
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
   }, [approveDialog]);
@@ -680,6 +690,7 @@ function useFinalForm({ location }) {
     toggleRejectDialog,
     rejectDialog,
     id,
+    isMobile
   };
 }
 

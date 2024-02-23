@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FinalSalaryTable from "./component/SalaryTable/FinalSalaryTable";
 import history from "../../../libs/history.utils";
 import styles from "./Style.module.css";
@@ -34,9 +34,10 @@ function FinalForm({ location }) {
     approveDialog,
     toggleRejectDialog,
     rejectDialog,
-    id
+    id,
+    isMobile
   } = useFinalForm({ location });
-  const emp = {};
+  
   return (
     <div className={styles.pWrapper}>
       <div className={styles.outerFlex}>
@@ -175,7 +176,7 @@ function FinalForm({ location }) {
               type={"number"}
               isError={errorData?.notice_leave_availed}
               errorText={errorData?.notice_leave_availed}
-              label={"Access Leaves Availed on Notice Period + LOP"}
+              label={`Access Leaves Availed on Notice Period ${isMobile ? "" :`+LOP`}`}
               value={form?.notice_leave_availed}
               onTextChange={(text) => {
                 changeTextData(text, "notice_leave_availed");
