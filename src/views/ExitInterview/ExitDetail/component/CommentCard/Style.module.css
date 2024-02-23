@@ -1,0 +1,111 @@
+.candidateInfoWrapper {
+  display: flex;
+  padding: 1.2rem;
+  width: 100% !important;
+  flex-direction: column;
+}
+.leftField {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.imageDesWrapper {
+  display: flex;
+  gap: 10px;
+}
+.desWrapper {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  gap: 2px;
+}
+.verticalLine{
+  border: 1px solid #B8C5D3;
+  margin: 20px 0 10px 0;
+  /* width: calc(100%-48.4px); */
+  width: calc(100% - 48px);
+}
+.key {
+  color: #818181;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+.value {
+  font-weight: 600;
+  width: 180px;
+  color: black;
+  display: inline-block;
+}
+.candidateImg {
+  width: 3rem;
+  height: auto;
+}
+.headingWrapper > span {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.rightField {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.containerTop{
+  display: flex;
+  flex-direction: column !important;
+  width: 100% !important;
+}
+.secondContainer{
+  display: flex !important;
+  margin-top:  10px !important;
+  /* justify-content: space-around !important; */
+  gap: 10px !important;
+}
+.thirdContainer{
+  display: flex !important;
+  justify-content: space-around;
+  flex:1;
+}
+.quest{
+  font-weight: 600;
+  font-size: .8rem;
+  margin: 10px 0 3px 0;
+}
+@media only screen and (max-width:769px){
+  .imageDesWrapper{
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .secondContainer{
+    display: flex !important;
+    margin-top:  10px !important;
+    justify-content: space-around !important;
+    gap: 10px !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  .imageAlignCenter{
+    display: flex;
+    justify-content: center !important;
+  }
+  .key{
+    display: flex;
+    flex-direction: column !important;
+  }
+ 
+}
+
+@media only screen and (max-width:490px){
+  .thirdContainer{
+    display: flex;
+    flex-direction: column !important;
+  }
+  .imageAlignCenter{
+    display: flex;
+    justify-content: flex-start !important;
+  }
+}
+

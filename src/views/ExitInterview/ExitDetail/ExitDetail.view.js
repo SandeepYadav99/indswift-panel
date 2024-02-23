@@ -7,6 +7,7 @@ import LowerRankingTable from "./component/LowerRankingTable/LowerRankingTable.v
 import ExitRatingFeedback from "./component/ExitRatingFeedback/ExitRatingFeedback";
 import historyUtils from "../../../libs/history.utils";
 import { ButtonBase } from "@material-ui/core";
+import CommentCard from "./component/CommentCard/CommentCard";
 function ExitDetail() {
   const { employeeDetail, UpperTable, LowerTable,salary } = useExitDetail({});
 
@@ -225,6 +226,9 @@ function ExitDetail() {
             <div className={styles.commentWrap} style={{marginBottom:"20px",whiteSpace:"pre-line"}} >
               {employeeDetail?.would_you_rejoin_organisation}
             </div>
+          </div>
+          <div className={styles.candidateInfoContainer2}>
+            <CommentCard data={employeeDetail} />
           </div>
           <div className={styles.btnContainer}>
             <div className={styles.btnCont1}>
