@@ -205,46 +205,47 @@ function RelievingExpLetterDetail({ data, isImprest }) {
               </div>
             </div>
             {/* <div className={styles.plainPaper}> */}
-              <div className={styles.newContainer}>
-                <div className={styles.headings}>Comments/Notes</div>
-                <div className={styles.commentContainer}>
-                  {relievingExpDetails?.comments &&
-                    relievingExpDetails?.comments?.map((item) => (
-                      <div className={styles.commentwrap}>
-                        {(item?.status || item?.panelist_role) && (
-                          <div
-                            style={{ marginTop: "5px", marginBottom: "5px" }}
-                          >
-                            <span style={{ fontWeight: "600" }}>
-                              {removeUnderScore(item?.panelist_role)}
-                            </span>
-                            <span style={{ marginLeft: "10px" }}>
-                              {
-                                <StatusPill
-                                  status={item?.status}
-                                  style={{ border: "none" }}
-                                />
-                              }
-                            </span>
-                          </div>
-                        )}
-                        {item?.status !== "WAITING" &&
-                          item?.status !== "PENDING" && (
-                            <>
-                              <div>{item?.comment}</div>
-                              <div className={styles.commentDate}>
-                                {`${item?.employee?.name} (${item?.employee?.code}) | ${item?.updatedAtText}`}
-                              </div>
-                            </>
-                          )}
-                      </div>
-                    ))}
-                </div>
-              </div>
+
             {/* </div> */}
           </div>
         </div>
       </div>
+      {relievingExpDetails?.comments?.length > 0 && (
+        <div className={styles.plainPaper}>
+          <div className={styles.newContainer}>
+            <div className={styles.headings}>Comments/Notes</div>
+            <div className={styles.commentContainer}>
+              {relievingExpDetails?.comments?.map((item) => (
+                <div className={styles.commentwrap}>
+                  {(item?.status || item?.panelist_role) && (
+                    <div style={{ marginTop: "5px", marginBottom: "5px" }}>
+                      <span style={{ fontWeight: "600" }}>
+                        {removeUnderScore(item?.panelist_role)}
+                      </span>
+                      <span style={{ marginLeft: "10px" }}>
+                        {
+                          <StatusPill
+                            status={item?.status}
+                            style={{ border: "none" }}
+                          />
+                        }
+                      </span>
+                    </div>
+                  )}
+                  {item?.status !== "WAITING" && item?.status !== "PENDING" && (
+                    <>
+                      <div>{item?.comment}</div>
+                      <div className={styles.commentDate}>
+                        {`${item?.employee?.name} (${item?.employee?.code}) | ${item?.updatedAtText}`}
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className={styles.approveContainer}>
         {relievingExpDetails?.experienceLetter?.status === "PENDING" &&
