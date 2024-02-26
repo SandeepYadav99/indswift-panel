@@ -72,6 +72,9 @@
   font-size: .8rem;
   margin: 10px 0 3px 0;
 }
+.desCommment{
+  width: calc(100% - 39px);
+}
 @media only screen and (max-width:769px){
   .imageDesWrapper{
     display: flex;

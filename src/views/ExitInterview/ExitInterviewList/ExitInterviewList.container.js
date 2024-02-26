@@ -153,7 +153,7 @@ const ExitInterviewList = ({}) => {
       },
       {
         key: "hr_status",
-        label: "HR STATUS",
+        label: "HR Comment Status",
         sortable: true,
         render: (temp, all) => <div>{all?.hr_status ? renderStatus(all?.hr_status) : "-"}</div>,
       },

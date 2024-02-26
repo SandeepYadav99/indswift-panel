@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import SnackbarUtils from "../../../../../libs/SnackbarUtils";
 import { serviceHrComments } from "../../../../../services/ExitInterview.service";
+import { actionFetchExitInterview } from "../../../../../actions/ExitInterview.action";
+import { useDispatch } from "react-redux";
 
 const initialForm = {
   leaving_reason: "",
@@ -18,6 +20,7 @@ const useCommentDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [declaration, setDeclaration] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isOpen) {
@@ -57,7 +60,7 @@ const useCommentDialogHook = ({ isOpen, handleToggle, candidateId }) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["leaving_reason", "hr_comment", "exit_type"];
+    let required = ["leaving_reason", "exit_type"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -91,9 +94,9 @@ const useCommentDialogHook = ({ isOpen, handleToggle, candidateId }) => {
         ...form,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Commented added successfully");
+          SnackbarUtils.success("Comment added successfully");
           handleToggle();
-          window?.location?.reload();
+          dispatch(actionFetchExitInterview(1));
         } else {
           SnackbarUtils.error(res?.message);
         }

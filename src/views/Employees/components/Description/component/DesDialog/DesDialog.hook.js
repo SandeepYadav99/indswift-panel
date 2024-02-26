@@ -75,7 +75,7 @@ const useDesDialogHook = ({ isOpen, handleToggle ,fetchData}) => {
         ...form,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Approved successfully");
+          SnackbarUtils.success("Description added successfully");
           handleToggle();
           fetchData();
         } else {

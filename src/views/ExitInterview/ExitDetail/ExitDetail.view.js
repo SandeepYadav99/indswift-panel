@@ -227,9 +227,11 @@ function ExitDetail() {
               {employeeDetail?.would_you_rejoin_organisation}
             </div>
           </div>
-          <div className={styles.candidateInfoContainer2}>
+          {
+            employeeDetail?.hrCommentBy?.name && <div className={styles.candidateInfoContainer2}>
             <CommentCard data={employeeDetail} />
           </div>
+          }
           <div className={styles.btnContainer}>
             <div className={styles.btnCont1}>
               <ButtonBase

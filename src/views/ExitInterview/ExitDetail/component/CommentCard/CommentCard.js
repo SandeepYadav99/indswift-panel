@@ -50,7 +50,7 @@ const CommentCard = ({ data }) => {
       <div className={styles.verticalLine}></div>
       <div className={styles.lowerWrap}>
         <div className={styles.quest}>1. Reason of Leaving</div>
-        <div className={styles.des}>{data?.hr_comment}</div>
+        <div className={styles.des}>{data?.leaving_reason}</div>
         <div className={styles.quest}>2. Behaviour while Exit</div>
         <div className={styles.des}>
           {removeUnderScore(data?.exit_type)}
@@ -63,7 +63,7 @@ const CommentCard = ({ data }) => {
           <div className={styles.des}>{data?.new_company_name}</div>
         )}
         <div className={styles.quest}>4. HR Comments on Exit</div>
-        <div className={styles.des}>{data?.hr_comment}</div>
+        <div className={styles.desCommment}>{data?.hr_comment ? data?.hr_comment : "N/A"}</div>
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import StatusPill from "../../../../../components/Status/StatusPill.component";
 import styles from "./EmployeeList.module.css";
 
 function DesList({ data }) {
-  console.log(">>", data);
   return (
     <div className={styles.careerProgressionWrapper}>
       <div className={styles.recordItem}>
