@@ -184,7 +184,9 @@
   flex: 1;
 }
 .EmployeeListWrapper {
-  /*display: flex;*/
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   width: 100%;
 }
 .grossWrapper {

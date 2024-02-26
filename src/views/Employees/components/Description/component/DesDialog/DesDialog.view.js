@@ -31,10 +31,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DesDialog = ({ isOpen, handleToggle }) => {
+const DesDialog = ({ isOpen, handleToggle,fetchData }) => {
   const classes = useStyles();
   const { changeTextData, errorData, form, handleSubmit, onBlurHandler } =
-    useDesDialogHook({ isOpen, handleToggle });
+    useDesDialogHook({ isOpen, handleToggle ,fetchData});
 
   return (
     <div>

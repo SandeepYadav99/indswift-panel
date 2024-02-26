@@ -11,15 +11,26 @@ function DescriptionView({}) {
   const location = useLocation();
 
   useEffect(() => {
-    serviceGetDescriptionRecord({
-      employee_id: employeeData?.id,
-      index: 1,
-    }).then((res) => {
-      if (!res?.error) {
-        setData(res?.data);
-      }
-    });
+    fetchData()
   }, [employeeData]);
+
+  const fetchData = useCallback(() => {
+    async function fetchDataAsync() {
+      try {
+        const res = await serviceGetDescriptionRecord({
+          employee_id: employeeData?.id,
+          index: 1,
+        });
+        if (!res?.error) {
+          setData(res?.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchDataAsync();
+  }, [employeeData?.id]);
 
   const toggleDecDialog = useCallback(
     (data) => {
@@ -33,6 +44,7 @@ function DescriptionView({}) {
     location,
     decDialog,
     toggleDecDialog,
+    fetchData
   };
 }
 

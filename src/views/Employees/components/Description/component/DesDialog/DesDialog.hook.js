@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const initialForm = {
   description: "",
 };
-const useDesDialogHook = ({ isOpen, handleToggle }) => {
+const useDesDialogHook = ({ isOpen, handleToggle ,fetchData}) => {
   const [form, setForm] = useState(
     JSON.parse(JSON.stringify({ ...initialForm }))
   );
@@ -77,8 +77,7 @@ const useDesDialogHook = ({ isOpen, handleToggle }) => {
         if (!res.error) {
           SnackbarUtils.success("Approved successfully");
           handleToggle();
-          // window?.location?.reload();
-          // historyUtils.push(RouteName.CLAIMS_LIST);
+          fetchData();
         } else {
           SnackbarUtils.error(res?.message);
         }
