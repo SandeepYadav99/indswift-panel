@@ -8,7 +8,7 @@ import DesDialog from "./component/DesDialog/DesDialog.view.js";
 import DesList from "./List/DesList.js";
 
 function DescriptionViewTable() {
-  const { data, location, decDialog, toggleDecDialog, empId } = useEmployeeList(
+  const { data, location, decDialog, toggleDecDialog, empId,fetchData } = useEmployeeList(
     {}
   );
 
@@ -20,7 +20,7 @@ function DescriptionViewTable() {
 
   return (
     <div>
-      <DesDialog isOpen={decDialog} handleToggle={toggleDecDialog} />
+      <DesDialog isOpen={decDialog} handleToggle={toggleDecDialog} fetchData={fetchData}/>
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
@@ -40,8 +40,6 @@ function DescriptionViewTable() {
             </div>
           )}
         </div>
-        <br />
-        <br />
         <div className={styles.EmployeeListWrapper}>{listArr}</div>
       </PageBox>
     </div>

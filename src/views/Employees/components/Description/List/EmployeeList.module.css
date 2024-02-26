@@ -1,387 +1,237 @@
 .careerProgressionWrapper {
-    background: #ffffff 0% 0% no-repeat padding-box;
-    box-shadow: 0px 20px 80px #00000011;
-    border-radius: 10px;
-    padding: 1.2rem;
-  }
-  .title {
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  .newLine {
-    height: 4px;
-    width: 30px;
-    border-radius: 10px;
-    margin-left: 1px;
-    background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
-  }
-  .careerWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .editWrap{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .btnClass{
-    color: #2896E9;
-    font-size: medium;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .iconWrap{
-    display: flex;
-    align-items: center;
-    /* gap: 10px; */
-  }
-  .careerHeading {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-  .InfoContainer {
-    padding-top: 1.2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    /* justify-content: space-between; */
-  }
-  .InfoWrapper {
-    flex: 1.2;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    /* padding-top: 1.2rem; */
-  }
-  .chartWrapper {
-    flex: 3;
-  }
-  .CareerMonthlyCardWrapper {
-    display: flex;
-    margin-top: 25px;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    /* -webkit-overflow-scrolling: touch; */
-  }
-  .horizontalLine {
-    border-left: 1px dashed #b8c5d3;
-    /* margin-left: 15px; */
-    margin-right: 22px;
-  }
-  .careerWrapperCPc {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 25px;
-  }
-  .imageWrapperCpc {
-    /* background: blue; */
-    margin-top: 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .typeCont{
-    margin-left: 10px;
-    font-weight: 600;
-  }
-  .titleWrpapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-  }
-  .noCpcTitle {
-    font-weight: 600;
-  }
-  .noCpcdec {
-    font-size: 0.875rem;
-  }
-  
-  /* Employee Records  */
-  .generate {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-  .createBtn {
-    background-color: #29cb97 !important;
-    color: #ffffff !important;
-    padding: 12px 35px !important;
-    font-size: 0.8rem !important;
-    border-radius: 30px !important;
-    text-transform: uppercase !important;
-    font-weight: 600 !important;
-  }
-  .headerContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .headerContainer .title {
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  .employeeRecordWrapper {
-    background: #ffffff 0% 0% no-repeat padding-box;
-    box-shadow: 0px 20px 80px #00000011;
-    border-radius: 10px;
-    padding: 1.2rem;
-  }
-  
-  .title {
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  
-  .createButton {
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  .newLine {
-    height: 4px;
-    width: 30px;
-    border-radius: 10px;
-    margin-left: 1px;
-    background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
-  }
-  
-  .employeeRecordContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 1.2rem;
-  }
-  
-  .tableWrapper {
-    display: flex;
-    padding: 1.2rem;
-    border-bottom: 2px solid #ebedf4;
-    opacity: 1;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  
-  .tableComponentField {
-    flex: 4;
-    flex-wrap: wrap;
-  }
-  
-  .tableAnnualField {
-    /* background: yellow; */
-    flex: 1;
-  }
-  
-  .dateField {
-    text-align: right;
-  }
-  .tableMonthlyField {
-    /* background: green; */
-    flex: 1;
-  }
-  .EmployeeListWrapper {
-    display: flex;
-    flex-direction: column !important;
-    width: 100%;
-  }
-  .grossWrapper {
-    background: #f5f7fb;
-    border-radius: 10px;
-    padding: 1.2rem;
-  }
-  .grossWrapper21 {
-    width: 98%;
-    background: #f5f7fb;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-    padding: 1.2rem;
-  }
-  .colorCode {
-    width: 13px;
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
-    background: #28da65 0% 0% no-repeat padding-box;
-  }
-  .neutralColor{
-    width: 13px;
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
-    background: #F4881B 0% 0% no-repeat padding-box;
-  }
-  .decreaseColor {
-    width: 13px;
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
-    background: #e92828 0% 0% no-repeat padding-box;
-  }
-  
-  
-  .grossSalaryGreenWrapper {
-    display: flex;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #29cb97;
-    padding: 5px 0;
-    align-items: center;
-  }
-  
-  .salaryHeading {
-    font-size: 1.125rem;
-    color: #161616;
-    font-weight: 500;
-  }
-  
-  .grossSalaryRedWrapper {
-    display: flex;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: red;
-    padding: 5px 0;
-  }
-  
-  /* .grossSalaryGreenWrapperBg {
-      display: flex;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #29cb97;
-      padding: 5px 0;
-      background: green;
-    } */
-  .grossWrapperBg {
-    border-radius: 10px;
-    padding: 1.2rem;
-    background: #29cb97;
-  }
-  
-  .grossWrapperBg > div {
-    color: white;
-  }
-  
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .tableWrapper {
-    display: flex;
-    padding: 1.2rem;
-    border-bottom: 2px solid #ebedf4;
-    opacity: 1;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  
-  .tableComponentField {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    /* background: red; */
-    flex: 4;
-  }
-  .historyDes {
-    font-size: 0.785rem;
-  }
-  
-  .tableAnnualField {
-    /* background: yellow; */
-    flex: 1;
-  }
-  
-  .tableMonthlyField {
-    /* background: green; */
-    flex: 1;
-  }
-  
-  .grossSalaryWrapper {
-    display: flex;
-    flex-wrap: wrap !important;
-    font-size: 0.875rem;
-    padding: 5px 0;
-  }
-  
-  .recordItem {
-    width: 100%;
-    display: flex;
-    margin: 15px 0px;
-  }
-  
-  .letterLink {
-    color: #02cfff;
-    text-decoration: underline !important;
-    font-size: 0.7rem;
-    cursor: pointer;
-  }
-  .noteWrap {
-    background: #eaf0f4 0% 0% no-repeat padding-box;
-    box-shadow: 0px 20px 80px #00000011;
-    border-radius: 10px;
-    padding: 1.2rem;
-    font-size: 0.8rem;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 50px;
-    margin-left: 10px;
-  }
-  .heading {
-    font-weight: 600;
-  }
-  .responsiveView{
-    display: none !important;
-  }
-  
-  @media only screen and (max-width:769px){
-    .title {
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    .grossSalaryWrapper{
-      display:none !important;
-    }
-   
-    .responsiveView{
-     display: block !important;
-    }
-    .topContainerHeader{
-      display: flex;
-      justify-content: space-between;
-    }
-    .dateFieldMobile{
-      display: grid;
-      justify-content: flex-start !important;
-    }
-    .dateField{
-        display: flex;
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        text-align: left;
-    }
-    .historyDes {
-        font-size: 0.785rem;
-        width: 150px;
-    }
-    .hideEditIcon{
-        display: none !important;
-    }
-  
-    .btnClass{
-      color: #2896E9;
-      font-size: 0.785rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-  }
-  
+  background: #f7f7f7 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  padding: 1.2rem;
+
+}
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.recordItem{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dateWrap{
+  font-size: .8rem;
+  font-weight: 600;
+}
+.Image {
+  width: 50px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+.verticalLine {
+  border: 1px solid #b8c5d3;
+  margin: 20px 0 10px 0;
+}
+.careerWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.editWrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.btnClass {
+  color: #2896e9;
+  font-size: medium;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.iconWrap {
+  display: flex;
+  align-items: center;
+  /* gap: 10px; */
+}
+.careerHeading {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.InfoContainer {
+  padding-top: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  /* justify-content: space-between; */
+}
+.InfoWrapper {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /* padding-top: 1.2rem; */
+}
+.chartWrapper {
+  flex: 3;
+}
+.CareerMonthlyCardWrapper {
+  display: flex;
+  margin-top: 25px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  /* -webkit-overflow-scrolling: touch; */
+}
+.horizontalLine {
+  border-left: 1px dashed #b8c5d3;
+  /* margin-left: 15px; */
+  margin-right: 22px;
+}
+.careerWrapperCPc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+}
+.imageWrapperCpc {
+  /* background: blue; */
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.typeCont {
+  margin-left: 10px;
+  font-weight: 600;
+}
+.titleWrpapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.noCpcTitle {
+  font-weight: 600;
+}
+.noCpcdec {
+  font-size: 0.875rem;
+}
+
+/* Employee Records  */
+.generate {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerContainer .title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.employeeRecordWrapper {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  padding: 1.2rem;
+}
+
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.createButton {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+
+.employeeRecordContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 1.2rem;
+}
+
+.tableWrapper {
+  display: flex;
+  padding: 1.2rem;
+  border-bottom: 2px solid #ebedf4;
+  opacity: 1;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.tableAnnualField {
+  /* background: yellow; */
+  flex: 1;
+}
+
+.dateField {
+  text-align: right;
+}
+.tableMonthlyField {
+  /* background: green; */
+  flex: 1;
+}
+.EmployeeListWrapper {
+  display: flex;
+  flex-direction: column !important;
+  width: 100%;
+  gap: 10px;
+}
+.tableWrapper {
+  display: flex;
+  padding: 1.2rem;
+  border-bottom: 2px solid #ebedf4;
+  opacity: 1;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.tableComponentField {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.historyDes {
+  font-size: 0.785rem;
+  font-weight: 400;
+}
+.heading {
+  font-weight: 600;
+  font-size: .8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+@media only screen and (max-width: 769px) {
+}
