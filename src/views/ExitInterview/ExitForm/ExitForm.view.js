@@ -319,7 +319,7 @@ function ExitForm() {
                   </strong>
                 </span>
               </div>
-              <div className={styles.first}>
+              <div className={styles.first21}>
                 <div className={styles.headtitle2}>Salary & Perks</div>
                 <div className={styles.rank}>
                   <CustomSelectField
@@ -358,7 +358,7 @@ function ExitForm() {
                   </CustomSelectField>
                 </div>
               </div>
-              <div className={styles.first}>
+              <div className={styles.first21}>
                 <div className={styles.headtitle2}>Growth and Development</div>
                 <div className={styles.rank}>
                   <CustomSelectField
@@ -397,7 +397,7 @@ function ExitForm() {
                   </CustomSelectField>
                 </div>
               </div>
-              <div className={styles.first}>
+              <div className={styles.first21}>
                 <div className={styles.headtitle2}>Working condition</div>
                 <div className={styles.rank}>
                   <CustomSelectField
@@ -436,7 +436,7 @@ function ExitForm() {
                   </CustomSelectField>
                 </div>
               </div>
-              <div className={styles.first}>
+              <div className={styles.first21}>
                 <div className={styles.headtitle2}>
                   Job related responsibilities
                 </div>
@@ -477,7 +477,7 @@ function ExitForm() {
                   </CustomSelectField>
                 </div>
               </div>
-              <div className={styles.first}>
+              <div className={styles.first21}>
                 <div className={styles.headtitle2}>Working culture</div>
                 <div className={styles.rank}>
                   <CustomSelectField
@@ -696,7 +696,7 @@ function ExitForm() {
                 />
               </div>
               <div className={styles.lo}>
-                <div className={styles.commentWrap} style={{ flex: "1" }}>
+                <div className={styles.commentWrap21}>
                   <CustomSelectField
                     isError={errorData?.deographic_location_of_organization}
                     errorText={errorData?.deographic_location_of_organization}
@@ -714,7 +714,7 @@ function ExitForm() {
                     <MenuItem value="VERY_FAR">VERY FAR</MenuItem>
                   </CustomSelectField>
                 </div>
-                <div className={styles.commentWrap} style={{ flex: "1" }}>
+                <div className={styles.commentWrap21}>
                   <CustomTextField
                     type="number"
                     isError={errorData?.how_much_salary_growth}

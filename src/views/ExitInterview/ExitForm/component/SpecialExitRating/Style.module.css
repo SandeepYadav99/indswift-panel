@@ -30,3 +30,9 @@
 .performanceindex{
     font-weight: 600;
 }
+@media (max-width: 767px) {
+    .emojWrapper{
+        flex-direction: column;
+        gap: 10px;
+    }
+}
