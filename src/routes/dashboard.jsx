@@ -477,6 +477,7 @@ const NotificationCreateModule = lazy(()=>import("../views/NotificationModule/Se
 
 const MobileLandingPage = lazy(()=>import("../views/MobileLandingPage/MobileLandingPage.component.js"))
 const TestView = lazy(()=>import("../views/test/Test.view"))
+const SubscribeView = lazy(()=>import("../views/Subscribe/SubscribeView.js"))
 
 const Roles = Constants.ROLES;
 
@@ -2868,7 +2869,16 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: false,
   },
-
+  {
+    path: RouteName.SUBSCRIBE_PAGE,
+    sidebarName: "Tax Rebate Approval",
+    navbarName: "Tax Rebate Approval",
+    icon: AssignmentOutlined,
+    component: SubscribeView,
+    is_sidebar: false,
+    is_protect: false,
+  },
+  
 ];
 
 export default dashboardRoutes;

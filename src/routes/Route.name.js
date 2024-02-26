@@ -260,4 +260,5 @@ export default {
   APP_NOTIFICATION_CREATE:"/app/notification/create",
   HOMEPAGE_MOBILE:"/mobile/dashboard",
 
+  SUBSCRIBE_PAGE:'/subscribe'
 };
