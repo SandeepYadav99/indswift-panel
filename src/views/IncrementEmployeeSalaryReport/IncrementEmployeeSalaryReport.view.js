@@ -250,7 +250,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
           <div
             className={innerWidth > 769 ? styles.noWrapFixed : styles.mobFixed}
           >
-            {all?.grade?.code}/{all?.cadre?.name}
+            {all?.grade?.code}{all?.cadre?.name && ` / ${all?.cadre?.name}`}
           </div>
         ),
       },
@@ -272,7 +272,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "INCREMENTAL GROSS SALARY",
         sortable: true,
         render: (value, all) => (
-          <div className={styles.noWrap}>₹ {all?.incremental_gross_salary}</div>
+          <div className={styles.noWrap}>{all?.incremental_gross_salary ? `₹ ${all?.incremental_gross_salary}` : '0'}</div>
         ),
       },
 
@@ -281,7 +281,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "CAR COMPONENT",
         sortable: true,
         render: (value, all) => (
-          <div className={styles.noWrap}>₹ {all?.car_component}</div>
+          <div className={styles.noWrap}>{all?.car_component ? `₹ ${all?.car_component}` : '0'}</div>
         ),
       },
       {
@@ -289,7 +289,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "total",
         sortable: true,
         render: (value, all) => (
-          <div className={styles.noWrap}>₹ {all?.gross}</div>
+          <div className={styles.noWrap}>{all?.gross ? `₹ ${all?.gross}` : '0'}</div>
         ),
       },
       {
@@ -297,7 +297,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "BASIC",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>₹ {all?.basic_salary}</div>
+          <div className={styles.noWrap}>{all?.basic_salary ? `₹ ${all?.basic_salary}` : '0'}</div>
         ),
       },
       {
@@ -305,7 +305,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "HRA",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>₹ {all?.hra}</div>
+          <div className={styles.noWrap}>{all?.hra ? `₹ ${all?.hra}` : '0'}</div>
         ),
       },
       {
@@ -313,7 +313,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "EDUCATION ALLOWANCE",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>₹ {all?.education_allowance}</div>
+          <div className={styles.noWrap}>{all?.education_allowance ? `₹ ${all?.education_allowance}` : '0'}</div>
         ),
       },
       {
@@ -321,7 +321,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "SPECIAL ALLOWANCE",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>₹ {all?.special_allowance}</div>
+          <div className={styles.noWrap}>{all?.special_allowance ? `₹ ${all?.special_allowance}` : '0'}</div>
         ),
       },
       {
@@ -329,7 +329,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "total earning 1",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>₹ {all?.earning_one}</div>
+          <div className={styles.noWrap}>{all?.earning_one ? `₹ ${all?.earning_one}` : '0'}</div>
         ),
       },
       {
@@ -337,7 +337,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "PROFESSIONAL UPGRADATION",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>₹ {all?.pug}</div>
+          <div className={styles.noWrap}>{all?.pug ? `₹ ${all?.pug}` : '0'}</div>
         ),
       },
       {
@@ -345,7 +345,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "HELPER ALLOWANCE",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>₹ {all?.helper}</div>
+          <div className={styles.noWrap}>{all?.helper ? `₹ ${all?.helper}` : '0'}</div>
         ),
       },
       {
@@ -353,7 +353,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "Food Coupens",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>₹ {all?.food_coupons}</div>
+          <div className={styles.noWrap}>{all?.food_coupons ? `₹ ${all?.food_coupons}` : '0'}</div>
         ),
       },
       ,
@@ -362,7 +362,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "Gift Coupens",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}>₹ {all?.gift_coupons}</div>
+          <div className={styles.noWrap}>{all?.gift_coupons ? `₹ ${all?.gift_coupons}` : '0'}</div>
         ),
       },
       {
@@ -370,7 +370,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "LTA",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.lta}</div>
+          <div className={styles.noWrap}> {all?.lta ? `₹ ${all?.lta}` : '0'}</div>
         ),
       },
       {
@@ -378,7 +378,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "superannuation",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.super_annuation}</div>
+          <div className={styles.noWrap}> {all?.super_annuation ? `₹ ${all?.super_annuation}` : '0'}</div>
         ),
       },
       {
@@ -412,7 +412,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "fuel availed",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.fuel}</div>
+          <div className={styles.noWrap}> {all?.fuel ? `₹ ${all?.fuel}` : '0'}</div>
         ),
       },
       {
@@ -420,7 +420,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "vpf",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹{all?.earning2_vpf}</div>
+          <div className={styles.noWrap}> {all?.earning2_vpf ? `₹ ${all?.earning2_vpf}` : '0'}</div>
         ),
       },
       {
@@ -428,7 +428,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "total earning 2",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹{all?.earning_two}</div>
+          <div className={styles.noWrap}> {all?.earning_two ? `₹ ${all?.earning_two}` : '0'}</div>
         ),
       },
       {
@@ -436,7 +436,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "gross salary",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹{all?.gross_component}</div>
+          <div className={styles.noWrap}> {all?.gross_component ? `₹ ${all?.gross_component}` : '0'}</div>
         ),
       },
       {
@@ -444,7 +444,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "pli",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.earning_three_pli}</div>
+          <div className={styles.noWrap}> {all?.earning_three_pli ? `₹ ${all?.earning_three_pli}` : '0'}</div>
         ),
       },
       {
@@ -452,7 +452,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "em pf-deduction part",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.em_pf}</div>
+          <div className={styles.noWrap}> {all?.em_pf ? `₹ ${all?.em_pf}` : '0'}</div>
         ),
       },
       {
@@ -460,7 +460,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "em esi-deduction part",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.em_esi}</div>
+          <div className={styles.noWrap}> {all?.em_esi ? `₹ ${all?.em_esi}` : '0'}</div>
         ),
       },
 
@@ -469,7 +469,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "vpf",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.deduction_vpf}</div>
+          <div className={styles.noWrap}> {all?.deduction_vpf ? `₹ ${all?.deduction_vpf}` : '0'}</div>
         ),
       },
 
@@ -478,7 +478,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "em lwf",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.em_lwf}</div>
+          <div className={styles.noWrap}> {all?.em_lwf ? `₹ ${all?.em_lwf}` : '0'}</div>
         ),
       },
       {
@@ -486,7 +486,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "total deduction",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.total_deduction}</div>
+          <div className={styles.noWrap}> {all?.total_deduction ? `₹ ${all?.total_deduction}` : '0'}</div>
         ),
       },
       {
@@ -494,7 +494,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "pf -er contribution part",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.er_pf}</div>
+          <div className={styles.noWrap}> {all?.er_pf ? `₹ ${all?.er_pf}` : '0'}</div>
         ),
       },
       {
@@ -502,7 +502,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "esi -er contribution part",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.er_esi}</div>
+          <div className={styles.noWrap}> {all?.er_esi ? `₹ ${all?.er_esi}` : '0'}</div>
         ),
       },
       {
@@ -510,7 +510,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "er lwf",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.er_lwf}</div>
+          <div className={styles.noWrap}> {all?.er_lwf ? `₹ ${all?.er_lwf}` : '0'}</div>
         ),
       },
       {
@@ -518,7 +518,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "total earning 4",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.earning_four}</div>
+          <div className={styles.noWrap}> {all?.earning_four ? `₹ ${all?.earning_four}` : '0'}</div>
         ),
       },
       {
@@ -526,7 +526,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "gratuity",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.gratuity}</div>
+          <div className={styles.noWrap}> {all?.gratuity ? `₹ ${all?.gratuity}` : '0'}</div>
         ),
       },
 
@@ -535,7 +535,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "medical insurance premium",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.insurance}</div>
+          <div className={styles.noWrap}> {all?.insurance ? `₹ ${all?.insurance}` : '0'}</div>
         ),
       },
       {
@@ -543,7 +543,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "stability allowance",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.stability_incentive}</div>
+          <div className={styles.noWrap}> {all?.stability_incentive ? `₹ ${all?.stability_incentive}` : '0'}</div>
         ),
       },
       {
@@ -551,7 +551,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "retention allowance",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.retention_allowance}</div>
+          <div className={styles.noWrap}> {all?.retention_allowance ? `₹ ${all?.retention_allowance}` : '0'}</div>
         ),
       },
       {
@@ -559,7 +559,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "performance allowance",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.perf_bonus}</div>
+          <div className={styles.noWrap}> {all?.perf_bonus ? `₹ ${all?.perf_bonus}` : '0'}</div>
         ),
       },
       {
@@ -567,7 +567,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "bonus",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.annual_bonus}</div>
+          <div className={styles.noWrap}> {all?.annual_bonus ? `₹ ${all?.annual_bonus}` : '0'}</div>
         ),
       },
       {
@@ -575,7 +575,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "type 2 car maint",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.two_car_maintenance}</div>
+          <div className={styles.noWrap}> {all?.two_car_maintenance ? `₹ ${all?.two_car_maintenance}` : '0'}</div>
         ),
       },
       {
@@ -583,7 +583,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "type 2 fuel",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.two_fuel}</div>
+          <div className={styles.noWrap}> {all?.two_fuel ? `₹ ${all?.two_fuel}` : '0'}</div>
         ),
       },
       {
@@ -591,7 +591,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "nps",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.nps_part_e}</div>
+          <div className={styles.noWrap}> {all?.nps_part_e ? `₹ ${all?.nps_part_e}` : '0'}</div>
         ),
       },
       {
@@ -599,7 +599,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "deputation allowance",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.deputation_allowance}</div>
+          <div className={styles.noWrap}> {all?.deputation_allowance ? `₹ ${all?.deputation_allowance}` : '0'}</div>
         ),
       },
       {
@@ -607,7 +607,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "total earning 5",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.earning_five}</div>
+          <div className={styles.noWrap}> {all?.earning_five ? `₹ ${all?.earning_five}` : '0'}</div>
         ),
       },
       {
@@ -615,7 +615,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "net composite ctc",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.monthly_ctc}</div>
+          <div className={styles.noWrap}> {all?.monthly_ctc ? `₹ ${all?.monthly_ctc}` : '0'}</div>
         ),
       },
       {
@@ -623,7 +623,7 @@ const IncrementEmployeeSalaryReport = ({ location }) => {
         label: "net pay",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.noWrap}> ₹ {all?.net_pay}</div>
+          <div className={styles.noWrap}> {all?.net_pay ? `₹ ${all?.net_pay}` : '0'}</div>
         ),
       },
     ];
