@@ -12,6 +12,8 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+
+const PMSMasterAdmin = lazy(()=>import("../views/PMSMasterAdmin/PMSMasterAdmin.view.js"));
 const useEmployeeTaxDetail = lazy(()=>import("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmployeeTaxDetail/EmployeeTaxDetail.view.js"));
 const TaxDetail = lazy(()=>import ("../views/Tax/Detail/TaxDetail.view.js"));
 const TaxList = lazy(()=>import ("../views/Tax/List/TaxList.component.js"));
@@ -1249,6 +1251,18 @@ const dashboardRoutes = [
     navbarName: "Designation",
     icon: PeopleOutlined,
     component: DesignationList,
+    is_sidebar: true,
+    is_protect: true,
+    should_regex: true,
+    parent: "masters",
+    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.PMS_MASTER,
+    sidebarName: "PMS Master",
+    navbarName: "PMS Master",
+    icon: PeopleOutlined,
+    component: PMSMasterAdmin,
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
