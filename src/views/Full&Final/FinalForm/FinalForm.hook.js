@@ -130,7 +130,7 @@ function useFinalForm({ location }) {
     dol: "",
     is_notice_period_manual: "NO",
     served_for: "",
-    notice_period:"",
+    notice_period: "",
     notice_leave_availed: "",
     shortfall_remarks: "",
     shortfall_notice_period: "",
@@ -288,14 +288,14 @@ function useFinalForm({ location }) {
   const [rejectDialog, setRejectDialog] = useState(false);
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const handleResize = () => {
-  setInnerWidth(window.innerWidth);
+    setInnerWidth(window.innerWidth);
   };
   useEffect(() => {
-   window.addEventListener("resize", handleResize);
-   return () => {
-    window.removeEventListener("resize", handleResize);
-  };
-   }, []);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const isMobile = innerWidth <= 768;
   const toggleStatusDialog = useCallback(() => {
     setApproveDialog((e) => !e);
@@ -510,7 +510,7 @@ function useFinalForm({ location }) {
             "payroll_one_status",
             "payroll_two_status",
             "payroll_three_status",
-            "payroll_three_month"
+            "payroll_three_month",
           ].includes(key)
         ) {
           filteredForm[key] = data[key];
@@ -607,12 +607,17 @@ function useFinalForm({ location }) {
         }
         fd.append("is_drafted", draft ? true : false);
         const AttachData = ChildenRef.current.getData();
-        AttachData.forEach((val) => {
-          if (val?.attachment_documents) {
-            fd.append("attachment_documents", val?.attachment_documents);
+        const filteredDocument = [...AttachData]?.map((item) => {
+          if (item.hasOwnProperty("attachment_documents")) {
+            if(item.attachment_documents){
+              fd.append("attachment_documents", item.attachment_documents);
+            }
+            delete item.attachment_documents;
           }
+          return item;
         });
-        fd.append("attachments", JSON.stringify(AttachData));
+        console.log("AttachData", AttachData, filteredDocument);
+        fd.append("attachments", JSON.stringify(filteredDocument));
         let req;
         if (isEdit) {
           req = serviceUpdateFFForm(fd);
@@ -662,7 +667,7 @@ function useFinalForm({ location }) {
     LogUtils.log("errors==>", { errors, form });
     if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
       setErrorData(errors);
-      SnackbarUtils.error("Form Incomplete")
+      SnackbarUtils.error("Form Incomplete");
       return true;
     }
     submitToServer();
@@ -690,7 +695,7 @@ function useFinalForm({ location }) {
     toggleRejectDialog,
     rejectDialog,
     id,
-    isMobile
+    isMobile,
   };
 }
 

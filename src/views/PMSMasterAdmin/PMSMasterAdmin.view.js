@@ -1,8 +1,11 @@
 import React from 'react'
+import PerformanceTable from './components/PerformanceTable/PerformanceTable.compoent'
 
 function PMSMasterAdmin() {
   return (
-    <div>PMSMasterAdmin</div>
+    <div>
+      <PerformanceTable/>
+    </div>
   )
 }
 
