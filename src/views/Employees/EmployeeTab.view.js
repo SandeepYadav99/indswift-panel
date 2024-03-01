@@ -21,6 +21,7 @@ import { useParams } from "react-router";
 import EmployeeClaim from "../EmployeePanel/EmployeeClaim/EmployeeClaim.container";
 import UpperInfo from "./UpperInfo.view";
 import DescriptionViewTable from "./components/Description/DescriptionViewTable";
+import { useLocation } from "react-router-dom";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -70,6 +71,7 @@ const EmployeeTab = () => {
   const [isUpdateDialog, setIsUpdateDialog] = useState(false);
   const { user: { emp_code } } = useSelector(state => state.auth);
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -158,7 +160,9 @@ const EmployeeTab = () => {
               />
               <Tab className={"iconTabs"} label="Employee Records" />
               <Tab className={"iconTabs"} label="Job Description & Key Result Area" style={{ whiteSpace: 'nowrap' }} />
+              {location?.pathname !== "/my/profile" && (
               <Tab className={"iconTabs"} label="Description" style={{ whiteSpace: 'nowrap' }} />
+              )}
 
             </Tabs>
           </AppBar>

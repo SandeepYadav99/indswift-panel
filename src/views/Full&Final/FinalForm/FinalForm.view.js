@@ -176,7 +176,7 @@ function FinalForm({ location }) {
               type={"number"}
               isError={errorData?.notice_leave_availed}
               errorText={errorData?.notice_leave_availed}
-              label={`Access Leaves Availed on Notice Period ${isMobile ? "" :`+LOP`}`}
+              label={`Excess Leaves Availed on Notice Period ${isMobile ? "" :`+LOP`}`}
               value={form?.notice_leave_availed}
               onTextChange={(text) => {
                 changeTextData(text, "notice_leave_availed");

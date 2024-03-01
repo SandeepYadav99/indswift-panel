@@ -39,7 +39,6 @@ const RelievingExpLetter_View = ({ location }) => {
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
-    console.log(obj);
     if (obj) {
       return (
         <div className={styles.firstCellFlex}>

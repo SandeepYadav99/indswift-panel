@@ -134,7 +134,7 @@ function FinalUpperCard({ data, otherData }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>
-                  Leaves Availed on Notice/LOP:
+                Excess Leaves Availed on Notice/LOP:
                 </span>
                 {otherData?.notice_leave_availed}
               </div>

@@ -106,10 +106,8 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                               <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
                             </CustomSelectField>
                           )}
-                        {(relievingExpDetails?.experienceLetter?.status ===
-                          "PENDING" ||
-                          relievingExpDetails?.experienceLetter?.status ===
-                            "SITE_HR_APPROVED") &&
+                        {relievingExpDetails?.experienceLetter?.status ===
+                          "PENDING" &&
                           relievingExpDetails?.status === "PENDING" && (
                             <div>
                               <CustomTextField
@@ -182,10 +180,8 @@ function RelievingExpLetterDetail({ data, isImprest }) {
                         <MenuItem value={"EXCELLENT"}>Excellent</MenuItem>
                       </CustomSelectField>
                     )}
-                  {(relievingExpDetails?.experienceLetter?.status ===
-                    "PENDING" ||
-                    relievingExpDetails?.experienceLetter?.status ===
-                      "SITE_HR_APPROVED") &&
+                  {relievingExpDetails?.experienceLetter?.status ===
+                    "PENDING" &&
                     relievingExpDetails?.status === "PENDING" && (
                       <div>
                         <CustomTextField
