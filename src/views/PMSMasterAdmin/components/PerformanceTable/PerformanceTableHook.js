@@ -1,13 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { actionGetJobOpeningVacancies } from "../../../../actions/JobOpeningDetail.action";
 import { serviceGetVacancies } from "../../../../services/Vacancy.service";
 import { Snackbar } from "@material-ui/core";
 
 const totalShow = 10;
 const usePerformanceTable = ({ jobId }) => {
-  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const [type, setType] = useState("");
+  const [year, setYear] = useState("");
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
   const [ids, setIds] = useState(null);
@@ -62,6 +61,10 @@ const usePerformanceTable = ({ jobId }) => {
     currentData,
     currentPage,
     ids,
+    year,
+    type,
+    setType,
+    setYear
   };
 };
 
