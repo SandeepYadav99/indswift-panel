@@ -482,6 +482,7 @@ const TestView = lazy(()=>import("../views/test/Test.view"))
 const SubscribeView = lazy(()=>import("../views/Subscribe/SubscribeView.js"))
 
 const Roles = Constants.ROLES;
+const Modules= Constants.MODULES;
 
 
 
@@ -495,6 +496,7 @@ const dashboardRoutes = [
     is_sidebar:true,
     is_protect: true,
     isDesktopHide:true,
+    moduleName:Modules?.MOB_HOME
   },
   {
     path: RouteName.MY_PROFILE,
@@ -504,6 +506,7 @@ const dashboardRoutes = [
     component: EmployeeTab,
     is_sidebar: true,
     is_protect: true,
+    moduleName:Modules?.EMP_PROFILE
   },
   {
     path: `${RouteName.MY_PROFILE_UPDATE}`,
@@ -523,6 +526,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
+    moduleName:Modules?.EMP_DAHSBOARD
     // parent: 'employeedashboard',
   },
   {
@@ -532,6 +536,7 @@ const dashboardRoutes = [
     icon: DashboardOutlined,
     component: NewDashboard,
     is_sidebar: true,
+    moduleName:Modules?.HR_DASHBOARD,
     roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
@@ -544,6 +549,7 @@ const dashboardRoutes = [
     is_protect: true,
     // should_regex: true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    moduleName:Modules?.HR_EMP_RECORD,
   },
   {
     path: "null",
@@ -586,6 +592,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
+    moduleName:Modules?.EMP_INDUCTION
     // parent: 'employeedashboard',
   },
   {
@@ -597,6 +604,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
+    moduleName:Modules?.EMP_KNOWLEDGE
     // parent: 'employeedashboard',
   },
   {
@@ -608,6 +616,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
+    moduleName:Modules?.EMP_LMS
     // parent: 'employeedashboard',
   },
   {
@@ -627,6 +636,7 @@ const dashboardRoutes = [
     component: EmployeeEngagement,
     is_sidebar: true,
     parent: "swift",
+    moduleName:Modules?.EMP_HCM
   },
   {
     path: "/employee/drishti",
@@ -636,6 +646,7 @@ const dashboardRoutes = [
     component: EmployeeDrishti,
     is_sidebar: true,
     parent: "swift",
+    moduleName:Modules?.EMP_DRISHTI
   },
   {
     path: "/employee/deepak",
@@ -645,6 +656,7 @@ const dashboardRoutes = [
     component: EmployeeDeepak,
     is_sidebar: true,
     parent: "swift",
+    moduleName:Modules?.EMP_DEEPAK
   },
   {
     path: "/employee/utsav",
@@ -654,6 +666,7 @@ const dashboardRoutes = [
     component: EmployeeUtsav,
     is_sidebar: true,
     parent: "swift",
+    moduleName:Modules?.EMP_UTSAV
   },
   {
     path: "/employee/utsav/:id",
@@ -672,6 +685,7 @@ const dashboardRoutes = [
     component: EmployeeIkigai,
     is_sidebar: true,
     parent: "swift",
+    moduleName:Modules?.EMP_UDESHYA
   },
   {
     path: "/employee/claim",
@@ -682,6 +696,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     should_regex: true,
+    moduleName:Modules?.EMP_CLAIMS
     // parent: 'employeedashboard',
   },
   {
@@ -967,6 +982,7 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "recure",
     roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
+    moduleName:Modules?.HR_REVIEW_CANDIDATE
   },
   {
     path: `${RouteName.CV_SHORTLIST_LIST}:id`,
@@ -991,6 +1007,7 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "recure",
     roles: [Roles.ADMIN,Roles.HR, Roles.GENERAL, Roles.CORPORATE_HR,Roles.MD],
+    moduleName:Modules?.HR_INTERVIEW
   },
   {
     path: RouteName.CANDIDATES,
@@ -1003,6 +1020,7 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "recruitment",
     roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    moduleName:Modules?.HR_CANDIDATE
   },
   {
     path: RouteName.JOB_OPENINGS,
@@ -1015,6 +1033,7 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "recruitment",
     roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
+    moduleName:Modules?.HR_JOB_OPENING
   },
   {
     path: RouteName.REVIEW_OLR,
@@ -1026,6 +1045,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "recruitment",
+    moduleName:Modules?.HR_OLR_REVIEW,
     roles: [Roles.ADMIN,Roles.HR, Roles.OLR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD,Roles.OTHERS],
   },
   {
@@ -1038,6 +1058,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "recruitment",
+    moduleName:Modules?.GLOSSARY,
     roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
   {
@@ -1050,6 +1071,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "pm",
+    moduleName:Modules?.HR_EMP_PLANNER,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -1062,6 +1084,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "pm",
+    // moduleName:Modules?.,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
@@ -1305,6 +1328,8 @@ const dashboardRoutes = [
     roles: Constants.is_development
       ? [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
+    moduleName:Modules?.HR_EMP_CHANGE
+
   },
 
   {
@@ -1319,6 +1344,7 @@ const dashboardRoutes = [
     roles: Constants.is_development
       ? [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR]
       : [Roles.CORPORATE_HR],
+      moduleName:Modules?.HR_EMP_APPROVAL
   },
 
 
@@ -1331,6 +1357,7 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    moduleName:Modules?.HR_NEW_EMP
   },
   {
     path: "/annual",
@@ -1442,6 +1469,7 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    moduleName:Modules?.HR_EMP_PROFLE
   },
 
   {
@@ -1464,6 +1492,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
+    moduleName:Modules?.HR_CLAIM_APPROVE
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
@@ -1489,6 +1518,7 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "cm",
     roles: [Roles.CORPORATE_HR],
+    moduleName:Modules?.HR_CAR_REPORT
   },
   {
     path: `${RouteName.CLAIMS_REPORT}`,
@@ -1501,6 +1531,7 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "cm",
     roles: [Roles.CORPORATE_HR],
+    moduleName:Modules?.HR_CLAIM_REPORT
   },
   {
     path: `${RouteName.CLAIMS_INFO}`,
@@ -1644,6 +1675,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
+    moduleName:Modules?.EMP_IMPRESTLEDG
     // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
@@ -1668,7 +1700,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "imp",
-    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
+    moduleName:Modules?.HR_IMPRESTAPPROVAL    // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.CORPORATE_REVIEWER],
   },
   {
     path: `${RouteName.IMPREST_APPROVAL_DETAILS}:id`,
@@ -1693,6 +1725,7 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "imp",
     roles: [Roles.ADMIN, Roles.ACCOUNTANT, Roles.CORPORATE_HR, Roles.HR, Roles.CASHIER],
+    moduleName:Modules?.HR_IMPREST_LEDGER
   },
   {
     path: `${RouteName.EMPLOYEES_IMPREST_DETAILS}:id`,
@@ -1728,6 +1761,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "cm",
+    moduleName:Modules?.HR_INTERVIEW_CLAIM
     // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
   },
   {
@@ -1927,6 +1961,7 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "Hr",
     roles: [Roles.CORPORATE_HR],
+    moduleName:Modules?.EMP_HRPOLICY
   },
   {
     path: RouteName.HR_CIRCULARS,
@@ -1939,6 +1974,8 @@ const dashboardRoutes = [
     should_regex: true,
     parent: "Hr",
     roles: [Roles.CORPORATE_HR],
+    moduleName:Modules?.EMP_HRCIRCULARS
+
   },
   {
     path: RouteName.HR_SETTINGS,
@@ -2030,6 +2067,7 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
     roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.GENERAL, Roles.CORPORATE_HR],
+    moduleName:Modules?.HR_CANDIDATE_PROFILE
   },
   {
     path: `${RouteName.CANDIDATES_INFO}:id`,
@@ -2047,6 +2085,7 @@ const dashboardRoutes = [
     component: CandidateOfferLetter,
     is_sidebar: false,
     is_protect: true,
+    moduleName:Modules?.HR_OLR_DRAFT,
     roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR,Roles.MD,],
   },
   {
@@ -2251,6 +2290,7 @@ const dashboardRoutes = [
     component: JobOpeningDetail,
     is_sidebar: false,
     is_protect: true,
+    moduleName:Modules?.HR_JOB_DETAIL,
     roles: [Roles.ADMIN,Roles.HR, Roles.RECRUITER, Roles.CORPORATE_HR],
   },
 
@@ -2322,6 +2362,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tp",
+    moduleName:Modules?.EMP_TAP
     // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
@@ -2359,6 +2400,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "tp",
+    moduleName:Modules?.HR_TAP_APPROVE
     // roles: [Roles.ADMIN,Roles.HR, Roles.ACCOUNTANT, Roles.CORPORATE_HR],
   },
   {
@@ -2405,7 +2447,8 @@ const dashboardRoutes = [
     component: LoanList,
     is_sidebar: true,
     is_protect: true,
-    parent:"emp_loan"
+    parent:"emp_loan",
+    moduleName:Modules?.HR_LOAN_APPROVE
   },
   {
     path: `${RouteName.ADMIN_LOAN_LIST_DETAIL}:id`,
@@ -2466,7 +2509,8 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     roles: [Roles.CORPORATE_HR],
-    parent:"emp_loan"
+    parent:"emp_loan",
+    moduleName:Modules?.HR_ONGOING_LOAN
   },
   {
     path: `${RouteName.ADMIN_ONGOING_LOANS_DETIALS}:id`,
