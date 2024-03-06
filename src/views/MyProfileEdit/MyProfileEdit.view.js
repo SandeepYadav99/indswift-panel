@@ -19,6 +19,7 @@ import WaitingComponent from "../../components/Waiting.component";
 import useMyProfileEdit from "./MyProfileEditHook";
 import DisclaimerDialog from "./components/DisclaimerPopUp/DisclaimerDialog.view";
 import ValancyFieldView from "./components/ValancyField/ValancyField.view";
+import CompleteDialog from "./components/CompleteDialog/CompleteDialog.view";
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -46,7 +47,10 @@ const MyProfileEditView = ({}) => {
     refGg,
     setIsOpen,
     toggleDialog,
-    submitToServer
+    submitToServer,
+    toggleSuccessDialog,
+    successDialog,
+    isPending
   } = useMyProfileEdit({});
   const refQuarterly = null;
   const isMobile = window.innerWidth <= 768;
@@ -95,7 +99,11 @@ const MyProfileEditView = ({}) => {
         isOpen={isOpen}
         handleToggle={toggleDialog}
       />
-
+      <CompleteDialog
+      isPending={isPending}
+      isOpen={successDialog}
+      handleToggle={toggleSuccessDialog}
+      />
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>

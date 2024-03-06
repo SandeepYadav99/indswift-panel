@@ -61,6 +61,8 @@ function useMyProfileEdit() {
   const ChildenRef = useRef(null);
   const codeDebouncer = useDebounce(form?.emp_code, 500);
   const [isOpen, setIsOpen] = useState(false);
+  const [successDialog,setSuccessDialog] = useState(false);
+  const [isPending, setIsPending] = useState(false)
   const refEsi = useRef(null);
   const refPf = useRef(null);
   const refGt = useRef(null);
@@ -120,6 +122,11 @@ function useMyProfileEdit() {
   const toggleDialog = useCallback(() => {
     setIsOpen((e) => !e);
   }, [isOpen]);
+
+  const toggleSuccessDialog = useCallback(() => {
+    setSuccessDialog((e) => !e);
+  }, [successDialog]);
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     const required = [
@@ -278,7 +285,9 @@ function useMyProfileEdit() {
   }, [codeDebouncer]);
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
+      setIsOpen(false);
       setIsSubmitting(true);
+      setSuccessDialog(true)
       const fd = new FormData();
       const changedData = [];
       changedFields.current.forEach((key) => {
@@ -361,15 +370,18 @@ function useMyProfileEdit() {
       setIsSubmitting(false);
       serviceEditEmployeeVersion(fd).then((res) => {
         if (!res.error) {
+          setIsPending(true)
+          setTimeout(() => {
           SnackbarUtils.success("Request Raised!");
           historyUtils.goBack();
+          }, 2000);
         } else {
           SnackbarUtils.error(res?.message);
         }
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, id, editData, setIsSubmitting, nomineeDataIn]);
+  }, [form, isSubmitting, id, editData, setIsSubmitting, nomineeDataIn,successDialog,setSuccessDialog,isPending,setIsPending]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -417,7 +429,7 @@ function useMyProfileEdit() {
 
       //  submitToServer();
     }
-  }, [checkFormValidation, setErrorData, ChildenRef.current, form]);
+  }, [checkFormValidation, setErrorData, ChildenRef.current, form , successDialog,setSuccessDialog,isPending,setIsPending]);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
@@ -442,7 +454,9 @@ function useMyProfileEdit() {
     refGt,
     refMc,
     refGg,
-   
+    successDialog,
+    toggleSuccessDialog,
+    isPending,
     submitToServer
   };
 }
