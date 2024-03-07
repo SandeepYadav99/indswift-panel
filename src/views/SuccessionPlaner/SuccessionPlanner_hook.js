@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { serviceGetList } from "../../services/Common.service";
+import historyUtils from "../../libs/history.utils";
+import RouteName from "../../routes/Route.name";
 
 const useSuccessionPlanner_hook = () => {
   const [listData, setListData] = useState({
@@ -21,12 +23,14 @@ const useSuccessionPlanner_hook = () => {
 
   const toggleRetireDialog = useCallback(
     (data) => {
-      setRetireDialog((e) => !e);
-      if (typeof data === "string") {
-        setEmpId(data);
-      } else {
-        setEmpId(null);
-      }
+      // console.log(RouteName.SUCCESSION_DETAIL + data)
+      historyUtils.push(RouteName.SUCCESSION_DETAIL + data);
+      // setRetireDialog((e) => !e);
+      // if (typeof data === "string") {
+      //   setEmpId(data);
+      // } else {
+      //   setEmpId(null);
+      // }
     },
     [retireDialog]
   );
