@@ -15,6 +15,7 @@ import EventEmitter from "../../libs/Events.utils";
 import Constants from "../../config/constants";
 import {getTokenFcm, initializeFirebase} from '../../libs/PushNotifications';
 import {serviceCaptureInfo} from "../../services/Common.service";
+import RolesUtils from "../../libs/Roles.utils";
 const useStyles = makeStyles(appStyle);
 
 const Dashboard = ({title, ...props}) => {
@@ -88,13 +89,14 @@ const Dashboard = ({title, ...props}) => {
 
     const sideBarRoutes = useMemo(() => {
         return dashboardRoutes.filter((val, index) => {
-            if (val.roles) {
-                if (val.roles.indexOf(Constants.ROLES.GENERAL) >= 0) {
-                    return true;
-                }
-                const isThere = val.roles.indexOf(role);
-                return isThere >= 0;
-            } return true;
+            // if (val.roles) {
+            //     if (val.roles.indexOf(Constants.ROLES.GENERAL) >= 0) {
+            //         return true;
+            //     }
+            //     const isThere = val.roles.indexOf(role);
+            //     return isThere >= 0;
+            // } return true;
+            return RolesUtils.canAccess(val.roles, role);
         })
     }, [dashboardRoutes, role]);
 

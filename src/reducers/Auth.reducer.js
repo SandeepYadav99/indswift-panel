@@ -30,6 +30,7 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
                 is_authenticated: true,
                 user: action.payload,
                 role: action?.payload?.role,
+                role_location: action?.payload?.role_location
             }
         }
         case LOGOUT_USER: {
