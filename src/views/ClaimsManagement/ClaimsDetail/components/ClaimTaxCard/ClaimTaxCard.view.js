@@ -38,6 +38,7 @@ function ClaimTaxCard() {
     submitToServer,
     isTodayInFiscalYear,
     handleDraft,
+    listData
   } = useClaimMarrigeCard({});
   const isMobile = window.innerWidth <= 768;
   return (
@@ -67,7 +68,11 @@ function ClaimTaxCard() {
                 changeTextData(value, "fy_year");
               }}
             >
-              <MenuItem value="2023-2024">2023-2024</MenuItem>
+              {listData?.FY_YEAR?.map((item, index) => (
+               <MenuItem key={`fy_${index}`} value={item?.value}>
+                  {item?.label}
+                </MenuItem>
+              ))}
             </CustomSelectField>
           </div>
           <div className={styles.formGrp}></div>

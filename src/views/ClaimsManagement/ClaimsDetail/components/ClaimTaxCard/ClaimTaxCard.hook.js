@@ -12,6 +12,7 @@ import {
 import { useSelector } from "react-redux";
 import debounce from "lodash.debounce";
 import { isDateInFiscalYear } from "../../../../../helper/helper";
+import { serviceGetList } from "../../../../../services/Common.service";
 
 const initialForm = {
   hra_months: "",
@@ -133,8 +134,18 @@ const useTaxCard = ({}) => {
   const {
     user: { emp_code, user_id },
   } = useSelector((state) => state.auth);
+  const [listData, setListData] = useState({
+    FY_YEAR:[]
+  });
   const today = new Date();
   const isTodayInFiscalYear = isDateInFiscalYear(today);
+  useEffect(() => {
+    serviceGetList(["FY_YEAR"]).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (emp_code) {
@@ -183,7 +194,7 @@ const useTaxCard = ({}) => {
   useEffect(() => {
     let req = serviceGetTaxDetail({
       employee_id: user_id,
-      fy_year: "2023-2024",
+      fy_year: form?.fy_year,
     });
     req.then((data) => {
       const res = data?.data?.details;
@@ -212,7 +223,7 @@ const useTaxCard = ({}) => {
         setForm({ ...form, ...fd });
       }, 500);
     });
-  }, [user_id]);
+  }, [user_id,form?.fy_year]);
 
   const getUrlfromFile = (text, fieldName) => {
     console.log("text, fieldName", text, fieldName);
@@ -453,6 +464,7 @@ const useTaxCard = ({}) => {
     checkSalaryInfoDebouncer,
     isTodayInFiscalYear,
     handleDraft,
+    listData
   };
 };
 
