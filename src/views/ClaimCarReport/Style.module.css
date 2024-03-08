@@ -24,6 +24,17 @@
     display: flex;
     align-items: center;
 }
+.yearFlex{
+    display: flex;
+    padding-top: 20px;
+    gap: 25px;
+}
+
+.down{
+    flex: 0.2;
+    z-index: 0;
+}
+
 .download{
     border: 2px solid #29cb97!important;
     border-radius: 30px!important;

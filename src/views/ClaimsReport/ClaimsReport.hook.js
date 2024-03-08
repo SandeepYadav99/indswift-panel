@@ -24,12 +24,13 @@ const useClaimsReport = ({}) => {
   const [type, setType] = useState("");
   const [listData, setListData] = useState({
     LOCATIONS: [],
+    FY_YEAR:[]
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
 
   useEffect(() => {
-    serviceGetList(["LOCATIONS"]).then((res) => {
+    serviceGetList(["LOCATIONS","FY_YEAR"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }

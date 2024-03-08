@@ -1,7 +1,5 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
-import {
-  ButtonBase,
-} from "@material-ui/core";
+import { ButtonBase, MenuItem } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
@@ -11,6 +9,7 @@ import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
 import useClaimCarReport from "./ClaimsListHook";
 import Datatables from "../../components/Datatables/datatables";
+import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
 
 const ClaimCarReport = ({ location }) => {
   const {
@@ -27,7 +26,10 @@ const ClaimCarReport = ({ location }) => {
     isCalling,
     configFilter,
     warehouses,
-    handleCsvDownload
+    handleCsvDownload,
+    year,
+    setYear,
+    listData,
   } = useClaimCarReport({});
 
   const {
@@ -37,12 +39,13 @@ const ClaimCarReport = ({ location }) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.claimCarReport);
 
-  const {user}=useSelector((state)=>state.auth)
-  const removeUnderScore = (value) => {
-    return value ? value.replace(/_/g, " ") : "";
-  };
   const renderStatus = useCallback((status) => {
-    return <StatusPill status={status} style={status === 'PROCESSED' && {background:'#ceece2'}}/>;
+    return (
+      <StatusPill
+        status={status}
+        style={status === "PROCESSED" && { background: "#ceece2" }}
+      />
+    );
   }, []);
 
   const renderFirstCell = useCallback((obj) => {
@@ -115,29 +118,36 @@ const ClaimCarReport = ({ location }) => {
         key: "amount",
         label: "CLAIM AMOUNT",
         sortable: false,
-        render: (temp, all) => <div>{all?.totalValue && `₹ ${all?.totalValue}`}</div>,
+        render: (temp, all) => (
+          <div>{all?.totalValue && `₹ ${all?.totalValue}`}</div>
+        ),
       },
       {
         key: "entitled",
         label: "ENTITLED AMOUNT",
         sortable: false,
-        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>{all?.entitled_amount && `₹ ${all?.entitled_amount}`}</div>,
+        render: (temp, all) => (
+          <div style={{ whiteSpace: "nowrap" }}>
+            {all?.entitled_amount && `₹ ${all?.entitled_amount}`}
+          </div>
+        ),
       },
       {
         key: "balance",
         label: "BALANCE AMOUNT",
         sortable: false,
-        render: (temp, all) => <div>{all?.balance_amount && `₹ ${all?.balance_amount}`}</div>,
+        render: (temp, all) => (
+          <div>{all?.balance_amount && `₹ ${all?.balance_amount}`}</div>
+        ),
       },
-     
+
       {
         key: "year",
         label: "FINANCIAL YEAR",
         sortable: false,
         render: (temp, all) => <div>{all?.fy_year}</div>,
       },
-    ]
-      
+    ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
 
   const tableData = useMemo(() => {
@@ -166,7 +176,24 @@ const ClaimCarReport = ({ location }) => {
     data,
     currentPage,
   ]);
-
+  const renderDropDown = useMemo(() => {
+    return (
+      <CustomSelectField
+        label={"Financial Year"}
+        value={year}
+        handleChange={(value) => {
+          setYear(value);
+          sessionStorage.setItem("car_year", value);
+        }}
+      >
+        {listData?.FY_YEAR?.map((item, index) => (
+          <MenuItem key={`fy_${index}`} value={item?.value}>
+            {item?.label}
+          </MenuItem>
+        ))}
+      </CustomSelectField>
+    );
+  }, [year,setYear, listData]);
   return (
     <div>
       <PageBox>
@@ -176,10 +203,15 @@ const ClaimCarReport = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
-            <ButtonBase className={styles.download} onClick={handleCsvDownload}>DOWNLOAD</ButtonBase>
+            <ButtonBase className={styles.download} onClick={handleCsvDownload}>
+              DOWNLOAD
+            </ButtonBase>
           </div>
         </div>
-
+        <div className={styles.yearFlex}>
+          <div className={styles.down}>{renderDropDown}</div>
+          <div className={styles.down}></div>
+        </div>
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -190,11 +222,11 @@ const ClaimCarReport = ({ location }) => {
         </div>
       </PageBox>
       <div style={{ width: "100%" }}>
-              <Datatables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
+        <Datatables
+          {...tableData.datatable}
+          {...tableData.datatableFunctions}
+        />
+      </div>
     </div>
   );
 };

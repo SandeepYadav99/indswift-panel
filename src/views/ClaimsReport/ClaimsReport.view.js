@@ -33,7 +33,8 @@ const ClaimsReport = ({}) => {
     handleFilterDataChange,
     handleSearchValueChange,
     setType,
-    handleCsvDownload
+    handleCsvDownload,
+    listData
   } = useClaimsReport({});
 
   const {
@@ -178,10 +179,14 @@ const ClaimsReport = ({}) => {
           sessionStorage.setItem("year", value);
         }}
       >
-        <MenuItem value={"2023-2024"}>FY 2023-2024</MenuItem>
+         {listData?.FY_YEAR?.map((item, index) => (
+          <MenuItem key={`fy_claim_${index}`} value={item?.value}>
+            {item?.label}
+          </MenuItem>
+        ))}
       </CustomSelectField>
     );
-  }, [warehouseId]);
+  }, [warehouseId,listData]);
 
   const renderDropDownType = useMemo(() => {
     return (
