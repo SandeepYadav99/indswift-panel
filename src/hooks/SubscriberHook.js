@@ -4,7 +4,7 @@ import historyUtils from "../libs/history.utils";
 import RouteName from "../routes/Route.name";
 
 const useSubscriber = (title) => {
-  const { subscribed_to } = useSelector((state) => state.app_setting);
+  const { subscribed_to = [] } = useSelector((state) => state.app_setting);
   useEffect(() => {
     if (
       title &&
