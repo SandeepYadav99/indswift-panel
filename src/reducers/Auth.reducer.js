@@ -1,7 +1,7 @@
 /**
  * Created by charnjeetelectrovese@gmail.com on 9/20/2017.
  */
-import {AUTH_USER, LOGOUT_USER, SET_PROFILE, GET_PROFILE_INIT} from "../actions/auth_index.action";
+import {AUTH_USER, LOGOUT_USER, SET_PROFILE, GET_PROFILE_INIT, UPDATE_USER_PROFILE,GET_UPDATE_PROFILE_INIT} from "../actions/auth_index.action";
 import {browserHistory} from 'react-router';
 
 const initialState = {
@@ -48,6 +48,24 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
             tempProfile.is_fetching = false;
             tempProfile.is_verified = true;
             return {...state, user_profile: tempProfile };
+        }
+        case GET_UPDATE_PROFILE_INIT: {
+            const tempProfile = state.user_profile;
+            // tempProfile.is_fetching = true;
+            return {
+                ...state, user_profile: tempProfile
+            };
+        }
+        case UPDATE_USER_PROFILE: {
+            console.log("state",state)
+            const tempProfile = state.user;
+            tempProfile.role = action?.payload?.role ? action?.payload?.role :[];
+            tempProfile.role_location = action?.payload?.role_location ;
+            return {...state,
+                user:tempProfile,
+                role: action?.payload?.role,
+                role_location: action?.payload?.role_location,
+            };
         }
         default: {
             return state;
