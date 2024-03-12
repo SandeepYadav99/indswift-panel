@@ -3,8 +3,10 @@ import Constants from "../config/constants";
 import LogUtils from "./LogUtils";
 
 class RolesUtils {
-
     canAccess = (accessRequiredPr, myRolePr = null) => {
+        if (!accessRequiredPr) {
+            return true;
+        }
         let myRole = null;
         const accessRequired = accessRequiredPr ? accessRequiredPr : [Constants.ROLES.GENERAL];
         if (!myRolePr) {
