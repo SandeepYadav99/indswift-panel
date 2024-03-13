@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import RouteName from "../routes/Route.name";
 import WaitingComponent from "../components/Waiting.component";
 import Constants from "../config/constants";
+import RolesUtils from "./Roles.utils";
 
 
 const CustomRouter = (props) => {
@@ -25,7 +26,7 @@ const CustomRouter = (props) => {
       )
   }
   if (roles) {
-      const isThere = roles.indexOf(Constants.ROLES.GENERAL) >= 0 || roles.indexOf(role) >= 0;
+      const isThere = RolesUtils.canAccess(roles, role); //roles.indexOf(Constants.ROLES.GENERAL) >= 0 || roles.indexOf(role) >= 0;
       if (!isThere) {
          return (  <Route {...rest} render = {(childProps) => (
                  <Redirect to={{
