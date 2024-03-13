@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo } from "react";
 import styles from "./Style.module.css";
-import useVacancyList from "./PerformanceTableHook";
+import useVacancyList from "./ReviewerTableHook";
 import Constants from "../../../../config/constants";
 import Datatables from "../../../../components/Datatables/datatables";
 import { ButtonBase, MenuItem } from "@material-ui/core";
-import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
+import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 
-function PerformanceTable({ Renderdata, getPmsList }) {
+function ReviewerTable({ Renderdata, getPmsList }) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -17,11 +17,12 @@ function PerformanceTable({ Renderdata, getPmsList }) {
     data,
     currentData,
     currentPage,
-    year,
-    type,
-    setType,
-    setYear,
+    endDate,
+    startDate,
+    setStartDate,
+    setEndDate,
     handleCreateBatch,
+    handleFreeze
   } = useVacancyList({ Renderdata, getPmsList });
 
   const tableStructure = useMemo(() => {
@@ -33,16 +34,24 @@ function PerformanceTable({ Renderdata, getPmsList }) {
         render: (temp, all) => <div>{all?.batch}</div>,
       },
       {
-        key: "year",
-        label: "FINANCIAL YEAR",
+        key: "start",
+        label: "start date",
         sortable: false,
-        render: (temp, all) => <div>{all?.year}</div>,
+        render: (temp, all) => <div>{all?.reviewer_batch?.start_date}</div>,
       },
       {
-        key: "appliedDateText",
-        label: "Date Added",
+        key: "end",
+        label: "end date",
         sortable: false,
-        render: (temp, all) => <div> {all?.createdAtText}</div>,
+        render: (temp, all) => <div>{all?.reviewer_batch?.end_date}</div>,
+      },
+      {
+        key: "freezed_on",
+        label: "FREEZED ON",
+        sortable: false,
+        render: (temp, all) => (
+          <div> {all?.freezed_at ? all?.freezed_at : "-"}</div>
+        ),
       },
     ];
   }, [handleViewDetails, handleEdit, isCalling]);
@@ -76,53 +85,59 @@ function PerformanceTable({ Renderdata, getPmsList }) {
     data,
   ]); // allData, data, currentPage
 
-  const renderDropDown = useMemo(() => {
+  const renderStartDate = useMemo(() => {
     return (
-      <CustomSelectField
-        label={"Batch"}
-        value={type}
-        handleChange={(value) => {
-          setType(value);
+      <CustomDatePicker
+        clearable
+        label={"Start Date"}
+        onChange={(date) => {
+          setStartDate(date);
         }}
-      >
-        <MenuItem value={"APMS"}>APMS</MenuItem>
-        <MenuItem value={"DTY"}>DTY</MenuItem>
-      </CustomSelectField>
+        value={startDate}
+      />
     );
-  }, [type, setType]);
+  }, [startDate, setStartDate]);
 
-  const renderYear = useMemo(() => {
+  const renderEndDate = useMemo(() => {
     return (
-      <CustomSelectField
-        label={"Year"}
-        value={year}
-        handleChange={(value) => {
-          setYear(value);
+      <CustomDatePicker
+        clearable
+        label={"End Date"}
+        onChange={(date) => {
+          setEndDate(date);
         }}
-      >
-        <MenuItem value={"2023"}>2023</MenuItem>
-      </CustomSelectField>
+        value={endDate}
+      />
     );
-  }, [year]);
+  }, [endDate, setEndDate]);
   return (
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
         <div>
-          <span className={styles.title}>PMS Master</span>
-          <div className={styles.newLine} />
+          <span className={styles.title}>
+            Reviewer Batch (Type 1 - Type 4) - APMS
+          </span>
+          {/* <div className={styles.newLine} /> */}
         </div>
       </div>
       <div className={styles.decs}>
-        To create a new batch for the new performance review cycle.
+        Please choose the start date (email will be sent) and end date (review
+        submission last date) by reviewers.
+      </div>
+      <div className={styles.subDes}>
+        Note: Once batch is created, reviewers for employees cannot be changed.
       </div>
       <div className={styles.yearFlex}>
         <div className={styles.UpperWrap}>
-          <div className={styles.down}>{renderYear}</div>
-          <div className={styles.down}>{renderDropDown}</div>
+          <div className={styles.down}>{renderStartDate}</div>
+          <div className={styles.down}>{renderEndDate}</div>
         </div>
-        <div>
+        <div className={styles.btnWrap}>
           <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
             CREATE BATCH
+          </ButtonBase>
+          <ButtonBase onClick={handleFreeze} className={styles.freeze}>
+            Freeze
           </ButtonBase>
         </div>
       </div>
@@ -136,4 +151,4 @@ function PerformanceTable({ Renderdata, getPmsList }) {
   );
 }
 
-export default PerformanceTable;
+export default ReviewerTable;
