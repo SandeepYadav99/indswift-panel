@@ -3,9 +3,10 @@ import Constants from "../config/constants";
 import LogUtils from "./LogUtils";
 
 class RolesUtils {
-
     canAccess = (accessRequiredPr, myRolePr = null) => {
-        LogUtils.log('canAccess', accessRequired, myRolePr);
+        if (!accessRequiredPr) {
+            return true;
+        }
         let myRole = null;
         const accessRequired = accessRequiredPr ? accessRequiredPr : [Constants.ROLES.GENERAL];
         if (!myRolePr) {
@@ -15,9 +16,11 @@ class RolesUtils {
         }
         if (typeof myRolePr === "string") {
             myRole = [myRolePr, Constants.ROLES.GENERAL];
-        } else {
+        } else if (Array.isArray(myRolePr)) {
             myRole = [...myRolePr, Constants.ROLES.GENERAL]
         }
+
+        LogUtils.log('canAccess', accessRequiredPr, myRolePr);
         const isThere = accessRequired.findIndex(role => myRole.indexOf(role)>= 0);
         return isThere >= 0;
     }
