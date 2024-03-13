@@ -1,19 +1,24 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Snackbar } from "@material-ui/core";
-import { serviceCreatePmsBatchAdmin } from "../../../../services/PmsMaster.service";
+import {
+  serviceCreatePmsBatchType,
+  servicePmsBatchFreeze,
+} from "../../../../services/PmsMaster.service";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
 const totalShow = 10;
-const usePerformanceTable = ({ Renderdata, getPmsList }) => {
+const useHodBatchTable = ({ Renderdata, getPmsList }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [type, setType] = useState("");
-  const [year, setYear] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
 
   useEffect(() => {
     if (Renderdata?.length > 0) {
-      setData(Renderdata);
+      const filteredData = Renderdata?.filter(
+        (item) => item?.hod_batch?.is_created
+      );
+      setData(filteredData ? filteredData : []);
     }
   }, [Renderdata]);
 
@@ -45,11 +50,17 @@ const usePerformanceTable = ({ Renderdata, getPmsList }) => {
   };
 
   const handleCreateBatch = useCallback(() => {
-    if (year && type) {
-      console.log(year, type);
-      serviceCreatePmsBatchAdmin({
-        batch: type,
-        year: year,
+    if (endDate && startDate) {
+      const isStartDateGreaterThanEndDate =
+        new Date(startDate) > new Date(endDate);
+      if (isStartDateGreaterThanEndDate) {
+        SnackbarUtils.error("End Date cannot be smaller than Start Date");
+        return true;
+      }
+      serviceCreatePmsBatchType({
+        start_date: startDate,
+        end_date: endDate,
+        batch_type: "hod_batch",
       }).then((res) => {
         if (!res.error) {
           SnackbarUtils.success("Request Approved");
@@ -61,7 +72,20 @@ const usePerformanceTable = ({ Renderdata, getPmsList }) => {
     } else {
       SnackbarUtils.error("Please select year and Batch");
     }
-  }, [year, type, getPmsList]);
+  }, [endDate, startDate, getPmsList]);
+
+  const handleFreeze = useCallback(() => {
+    servicePmsBatchFreeze({
+      batch_type: "hod_batch",
+    }).then((res) => {
+      if (!res.error) {
+        SnackbarUtils.success("Request Approved");
+        getPmsList();
+      } else {
+        SnackbarUtils.error(res?.message);
+      }
+    });
+  }, [endDate, startDate, getPmsList]);
 
   const handleRowSize = (page) => {
     console.log(page);
@@ -74,12 +98,13 @@ const usePerformanceTable = ({ Renderdata, getPmsList }) => {
     data,
     currentData,
     currentPage,
-    year,
-    type,
-    setType,
-    setYear,
+    endDate,
+    startDate,
+    setStartDate,
+    setEndDate,
     handleCreateBatch,
+    handleFreeze,
   };
 };
 
-export default usePerformanceTable;
+export default useHodBatchTable;

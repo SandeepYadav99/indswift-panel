@@ -27,6 +27,25 @@
   font-size: 0.8rem;
   margin-top: 10px;
 }
+.subDes{
+  font-size: 0.8rem;
+  margin-top: 10px;
+  font-weight: 600;
+}
+.btnWrap{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.freeze{
+  color: #ffffff !important;
+  background: #2896E9 0% 0% no-repeat padding-box;
+  padding: 10px 30px !important;
+  border-radius: 30px !important;
+  font-size: .8rem;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+}
 .down {
   flex: 0.4;
 }
