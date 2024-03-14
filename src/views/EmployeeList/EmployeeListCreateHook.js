@@ -352,7 +352,7 @@ function EmployeeListCreateHook({ location }) {
             if (BOOLEAN_KEYS?.includes(key)) {
               salary[key] = salary[key] ? "YES" : "NO";
             } else {
-              salary[key] /= 12;
+              salary[key] = Math.round(salary[key]/12);
             }
           });
           const designationIndex = listData?.DESIGNATIONS.findIndex(
