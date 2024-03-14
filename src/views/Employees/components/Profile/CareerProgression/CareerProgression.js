@@ -1,4 +1,4 @@
-import React, { useMemo, useState,useEffect } from "react";
+import React, {useMemo, useState} from "react";
 import LineStatComponent from "../../../../dashboard/components/LineStat/LineStat.component";
 import CareerMonthlyCard from "./components/CareerMonthlyCard/CareerMonthlyCard";
 import CareerTile from "./components/CareerTile/CareerTile";
@@ -8,8 +8,7 @@ import secondImg from "../../../../../assets/img/ic_org cagr.png";
 import thirdImg from "../../../../../assets/img/ic_manpower cagr.png";
 import useCareerProgression from "./CareerProgressionHook";
 import noCPCimage from "./../../../../../assets/img/ic_no cpc info.png";
-import { Button, Dialog, useMediaQuery, useTheme } from "@material-ui/core";
-
+import {Button, Dialog, useMediaQuery, useTheme} from "@material-ui/core";
 
 
 function CareerProgression({}) {
@@ -70,7 +69,7 @@ function CareerProgression({}) {
   };
 
   const PopupComponent = () => {
-  
+
     return (
          <Dialog
         open={open}

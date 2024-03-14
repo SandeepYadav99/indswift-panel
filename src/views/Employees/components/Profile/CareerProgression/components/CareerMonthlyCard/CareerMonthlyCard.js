@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Style.module.css";
-import progressArrow  from '../../../../../../../assets/img/ic_arrow.png';
-import uparrow  from '../../../../../../../assets/img/ic_upwards_whitearrow.png'
+import progressArrow from '../../../../../../../assets/img/ic_arrow.png';
+import uparrow from '../../../../../../../assets/img/ic_upwards_whitearrow.png'
 
 
 function CareerMonthlyCard({isFirst, isLast, data}) {

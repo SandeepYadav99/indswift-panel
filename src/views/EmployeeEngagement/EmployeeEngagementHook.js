@@ -1,8 +1,5 @@
-import React, { useEffect } from "react";
 import { useState } from "react";
 import { EmployeeEngagementData } from "../../helper/helper";
-import { serviceGetEmployeeInduction } from "../../services/EmployeeInduction.service";
-
 function EmployeeEngagementHook() {
   const [employeeData, setemployeeData] = useState([]);
   const StaticEngagementData = EmployeeEngagementData;
@@ -18,6 +15,7 @@ function EmployeeEngagementHook() {
   return {
     StaticEngagementData,
     employeeData,
+    setemployeeData
   };
 }
 

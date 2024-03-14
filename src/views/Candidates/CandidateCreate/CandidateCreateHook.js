@@ -85,6 +85,7 @@ const useCandidateDetail = ({ location }) => {
         name: data?.name,
         contact: data?.contact,
         email: data?.email,
+        candidate_id: id,
       });
       req.then((res) => {
         if(!res.error){

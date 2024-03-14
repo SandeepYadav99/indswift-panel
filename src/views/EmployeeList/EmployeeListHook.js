@@ -1,20 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {
-  actionCreateEmployee,
-  actionDeleteEmployee,
-  actionFetchEmployee,
-  actionGetEmployeeDetails,
-  actionSetPageEmployeeRequests,
-  actionUpdateEmployee,
+    actionCreateEmployee,
+    actionDeleteEmployee,
+    actionFetchEmployee,
+    actionSetPageEmployeeRequests,
+    actionUpdateEmployee,
 } from "../../actions/Employee.action";
 import historyUtils from "../../libs/history.utils";
-import { serviceGetList } from "../../services/Common.service";
+import {serviceGetList} from "../../services/Common.service";
 import RouteName from "../../routes/Route.name";
-import { serviceExportEmployees } from "../../services/Employee.service";
+import {serviceExportEmployees} from "../../services/Employee.service";
 import Constants from "../../config/constants";
 
-const useEmployeeList = ({}) => {
+const useEmployeeList = () => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);

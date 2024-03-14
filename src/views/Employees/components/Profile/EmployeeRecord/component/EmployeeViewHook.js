@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import { serviceCreateEmployeeRecord } from "../../../../../../services/EmployeeRecords.services";
+import {useCallback, useState} from "react";
+import {useSelector} from "react-redux";
+import {serviceCreateEmployeeRecord} from "../../../../../../services/EmployeeRecords.services";
 import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
 
 const useEmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
@@ -57,7 +57,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
     });
 
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData, Formtype]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -98,7 +98,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting]);
+  }, [form, isSubmitting, setIsSubmitting, Formtype, closeSidePanel]);
 
   const handleSubmit = useCallback(
     async (e) => {
@@ -111,7 +111,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
       }
       submitToServer();
     },
-    [checkFormValidation, setErrorData, form, submitToServer]
+    [checkFormValidation, setErrorData, submitToServer]
   );
 
   const removeError = useCallback(
@@ -120,7 +120,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
       temp[title] = false;
       setErrorData(temp);
     },
-    
+
     [setErrorData, errorData]
   );
 
@@ -146,7 +146,7 @@ const useEmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
       }
     },
 
-    [changeTextData]
+    [changeTextData, form]
   );
 
   return {
