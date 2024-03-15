@@ -15,6 +15,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import CheckOLRDialog from "./components/CheckOLRPopUP/CheckOLRDialog.view";
 import StatusPill from "../../../components/Status/StatusPill.component";
+import RolesUtils from "../../../libs/Roles.utils";
 
 function CandidateOLR({ location }) {
   const {
@@ -40,6 +41,11 @@ function CandidateOLR({ location }) {
     isCheckPopUp,
     handleCheckboxChange,
   } = CandidateOLRHook({ location });
+
+  const isCorporateHr = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+  }, [role]);
+
 
   // useEffect(() => {
   //   const handleKeyPress = async (event) => {
@@ -196,7 +202,7 @@ function CandidateOLR({ location }) {
       />
     </div>
           <div className={styles.btnContainerCheckBox}>
-          {role === "CORPORATE_HR" && (
+          {isCorporateHr && (
             <div className={styles.chkwrapp}>
               <Checkbox
                 disabled={false}

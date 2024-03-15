@@ -19,6 +19,7 @@ import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 import AccessibleIcon from "@material-ui/icons/Accessible";
 import Datatables from "../../../../components/Datatables/datatables";
+import RolesUtils from "../../../../libs/Roles.utils";
 
 const NextYearSuccessionPlanner = ({ listData,toggleRetireDialog }) => {
   const {
@@ -53,7 +54,7 @@ const NextYearSuccessionPlanner = ({ listData,toggleRetireDialog }) => {
   const { role } = useSelector((state) => state.auth);
 
   const ValidUser = useMemo(() => {
-    return role === "CORPORATE_HR";
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);;
   }, [role]);
 
   const UpperInfo = useCallback(

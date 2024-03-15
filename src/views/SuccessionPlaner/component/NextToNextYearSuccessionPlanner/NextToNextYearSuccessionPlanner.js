@@ -20,6 +20,7 @@ import SendIcon from "@material-ui/icons/Send";
 import SendPopup from "../ThisYearSuccessionPlanner/SendDialog/SendDialog.view";
 import AccessibleIcon from "@material-ui/icons/Accessible";
 import Datatables from "../../../../components/Datatables/datatables";
+import RolesUtils from "../../../../libs/Roles.utils";
 
 const NextToNextYearSuccessionPlanner = ({ listData ,toggleRetireDialog}) => {
   const {
@@ -54,7 +55,7 @@ const NextToNextYearSuccessionPlanner = ({ listData ,toggleRetireDialog}) => {
   const { role } = useSelector((state) => state.auth);
 
   const ValidUser = useMemo(() => {
-    return role === "CORPORATE_HR";
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);;
   }, [role]);
 
   console.log({ data, allData });

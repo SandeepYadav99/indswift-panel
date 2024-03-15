@@ -10,6 +10,7 @@ import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import useLoanList from "./LoanList.hook";
 import Datatables from "../../../components/Datatables/datatables";
+import RolesUtils from "../../../libs/Roles.utils";
 
 const LoanList = () => {
   const {
@@ -230,7 +231,9 @@ const LoanList = () => {
     data,
     currentPage,
   ]);
-
+  const isCorporateAccountant = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR,Constants.ROLES.ACCOUNTANT], role);
+  }, [role]);
   return (
     <div>
       <PageBox>
@@ -239,7 +242,7 @@ const LoanList = () => {
             <span className={styles.title}>Loan Application Management</span>
             <div className={styles.newLine} />
           </div>
-          {(role === "CORPORATE_HR" || role === "ACCOUNTANT") && (
+          {isCorporateAccountant && (
             <div className={styles.btnHide}>
             <ButtonBase
               aria-haspopup="true"

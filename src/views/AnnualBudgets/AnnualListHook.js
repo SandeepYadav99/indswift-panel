@@ -11,6 +11,8 @@ import historyUtils from "../../libs/history.utils";
 import { serviceGetList } from "../../services/Common.service";
 import LogUtils from "../../libs/LogUtils";
 import { serviceGetSanctionDetail } from "../../services/Annual.service";
+import RolesUtils from "../../libs/Roles.utils";
+import Constants from "../../config/constants";
 
 const useAnnualList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -69,6 +71,10 @@ console.log('role',role)
     query,
     query_data: queryData,
   } = useSelector((state) => state.annual);
+
+  const isCorporateHr = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+}, [role]);
 
   const resetData = useCallback(
     (sort = {}, updateQuery = {}) => {
@@ -239,7 +245,8 @@ console.log('role',role)
     listData,
     locationId,
     setLocationId,
-    sanction,role
+    sanction,role,
+    isCorporateHr
   };
 };
 
