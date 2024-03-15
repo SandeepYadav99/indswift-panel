@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem, ButtonBase, CircularProgress } from "@material-ui/core";
+import {ButtonBase, CircularProgress, MenuItem} from "@material-ui/core";
 import styles from "./Style.module.css";
 import CustomSelectField from "../../../../../../../components/FormFields/SelectField/SelectField.component";
 import CustomDatePicker from "../../../../../../../components/FormFields/DatePicker/CustomDatePicker";
@@ -16,10 +16,10 @@ const EmployeeEditForm = ({ closeSidePanel, data }) => {
     onBlurHandler,
     isSubmitting,
     Formtype,
-    img,
+    // img,
   } = useEmployeeEditForm({ closeSidePanel, data });
 
-  
+
   return (
     <div className={styles.editformWrapper}>
       <div className={"formFlex"}>

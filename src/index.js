@@ -10,7 +10,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {setAuthorizationToken, setAxiosTimezone} from './libs/set_auth_token.utils';
 import store from './store';
-import {AUTH_USER} from "./actions/auth_index.action";
+import {AUTH_USER, actionUpdateProfile} from "./actions/auth_index.action";
 import { APP_SETTINGS_DONE } from './actions/AppSettings.action';
 import {actionChangeTheme, actionGetAppSettings} from "./actions/AppSettings.action";
 import SnackbarUtils from "./libs/SnackbarUtils";
@@ -39,6 +39,7 @@ if (localStorage.jwt_token) {
         })
     }
     // store.dispatch(actionGetDashboard());
+    store.dispatch(actionUpdateProfile());
     store.dispatch(actionGetAppSettings());
     // connectToSocket(localStorage.jwt_token);
 } else {

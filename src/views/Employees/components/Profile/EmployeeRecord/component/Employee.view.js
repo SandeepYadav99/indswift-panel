@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem, ButtonBase, CircularProgress } from "@material-ui/core";
+import {ButtonBase, CircularProgress, MenuItem} from "@material-ui/core";
 import styles from "../Style.module.css";
 import useEmployeeView from "./EmployeeViewHook.js";
 import CustomSelectField from "../../../../../../components/FormFields/SelectField/SelectField.component";

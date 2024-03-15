@@ -1,5 +1,4 @@
 import React from "react";
-import StatusPill from "../../../../../components/Status/StatusPill.component";
 import styles from "./EmployeeList.module.css";
 
 function DesList({ data }) {

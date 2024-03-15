@@ -27,7 +27,7 @@ function TravelDetail() {
 
   console.log("employeeDetail", employeeDetail);
   return (
-    <div className={styles.claimListWrapper}>
+    <div className={styles.claimListWrapper} id="content-to-print">
       <div style={{ marginBottom: "20px" }}>
         <ButtonBase onClick={() => history.goBack()}>
           <ArrowBackIosIcon fontSize={"small"} />{" "}

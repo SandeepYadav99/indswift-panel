@@ -6,7 +6,7 @@ import styles from "./Style.module.css";
 function SalaryInfo({Empid, isPending}) {
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper}  id="content-to-print">
       <SalaryInfoTable Empid={Empid} isPending={isPending}/>
       <div className={styles.innerWidthHide}>
       <GeneralInfo />

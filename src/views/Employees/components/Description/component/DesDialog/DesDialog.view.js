@@ -1,10 +1,10 @@
 import React from "react";
-import { ButtonBase } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
+import {ButtonBase} from "@material-ui/core";
+import {Close} from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./Style.module.css";
-import { makeStyles } from "@material-ui/styles";
+import {makeStyles} from "@material-ui/styles";
 import CustomTextField from "../../../../../../components/FormFields/TextField/TextField.component";
 import useDesDialogHook from "./DesDialog.hook";
 

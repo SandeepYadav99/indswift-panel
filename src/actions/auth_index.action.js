@@ -13,6 +13,8 @@ export const AUTH_USER = 'AUTH_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const SET_PROFILE = 'SET_PROFILE';
 export const GET_PROFILE_INIT = 'GET_PROFILE_INIT';
+export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
+export const GET_UPDATE_PROFILE_INIT = 'GET_UPDATE_PROFILE_INIT';
 
 const isMobile = window.innerWidth <= 768;
 export function actionLoginUser(data, isKeepLogin = null) {
@@ -73,3 +75,20 @@ export function actionGetProfile() {
         })
     }
 }
+export function actionUpdateProfile() {
+    const request = serviceGetProfile();
+    return (dispatch) => {
+      // dispatch({type:GET_UPDATE_PROFILE_INIT,payload:null});
+      request.then((data) => {
+        if (!data.error) {
+          const getUserData = JSON.parse(localStorage?.user);
+          if (getUserData?.data) {
+            getUserData.role = data?.data?.role ? data?.data?.role :[];
+            getUserData.role_location = data?.data?.role_location ? data?.data?.role_location :[];
+          }
+          localStorage.setItem("user", JSON.stringify(getUserData));
+          dispatch({ type: UPDATE_USER_PROFILE, payload: data.data });
+        }
+      });
+    };
+  }

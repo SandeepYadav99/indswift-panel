@@ -40,7 +40,7 @@ const useVersionDetails = ({id, isOpen, handleClose}) => {
                 setIsSubmitting(false);
             });
         }
-    }, [id, isSubmitting, setIsSubmitting, handleClose]);
+    }, [id, isSubmitting, setIsSubmitting, handleClose, dispatch]);
 
     const handleReject = useCallback(() => {
         if (!isSubmitting) {
@@ -55,7 +55,7 @@ const useVersionDetails = ({id, isOpen, handleClose}) => {
                 setIsSubmitting(false);
             });
         }
-    }, [id, isSubmitting, setIsSubmitting, handleClose]);
+    }, [id, isSubmitting, setIsSubmitting, handleClose, dispatch]);
 
     return {
         isLoading,
