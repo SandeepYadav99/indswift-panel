@@ -11,7 +11,7 @@ const useSubscriber = (title) => {
       Array.isArray(subscribed_to) &&
       subscribed_to?.indexOf(title) < 0
     ) {
-      historyUtils.push(RouteName.SUBSCRIBE_PAGE, {
+      historyUtils.replace(RouteName.SUBSCRIBE_PAGE, {
         page: title,
       });
     }
