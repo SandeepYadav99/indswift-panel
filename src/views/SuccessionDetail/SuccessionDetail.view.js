@@ -4,9 +4,10 @@ import styles from "./Style.module.css";
 import { ButtonBase } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../libs/history.utils";
+import useSuccessionDetail from "./SuccessionDetail.hook";
 
 function SuccessionPlanDetail() {
-  const employeeDetail = {};
+  const { employeeDetails } = useSuccessionDetail({});
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -20,7 +21,7 @@ function SuccessionPlanDetail() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <DesUpperCard employeeDetail={employeeDetail} />
+      <DesUpperCard employeeDetail={employeeDetails} />
     </div>
   );
 }
