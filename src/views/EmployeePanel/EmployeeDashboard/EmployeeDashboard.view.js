@@ -13,8 +13,10 @@ import styles from "./Style.module.css";
 import { useDispatch } from "react-redux";
 import { actionInitiateEmployeeDashboard } from "../../../actions/EmployeeDashboard.action";
 import CoverImageGallery from "./component/CoverImageGallery/CoverImageGallery";
+import useSubscriber from "../../../hooks/SubscriberHook";
 
-function EmployeeDashboard() {
+function EmployeeDashboard({moduleName}) {
+  const {} = useSubscriber(moduleName);
   const dispatch = useDispatch();
 
   useEffect(() => {

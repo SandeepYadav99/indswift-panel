@@ -24,6 +24,7 @@ import CPCDialogView from "./components/CPCDialog/CPCDialog.view";
 import OnBoardDialog from "./components/OnBoardPopUp/OnBoardDialog.view";
 import TraineeDialog from "./components/TraineePopUp copy/TraineeDialog.view";
 import RetiredDialog from "./components/RetiredPopUp/RetiredDialog.view";
+import useSubscriber from "../../hooks/SubscriberHook";
 
 // const EmployeeMobileCard = ({data, index}) => {
 //   return (<div style={{ background: 'red', margin: '20px' }}>
@@ -33,7 +34,8 @@ import RetiredDialog from "./components/RetiredPopUp/RetiredDialog.view";
 //   </div>)z
 // }
 
-const EmployeeList = ({}) => {
+const EmployeeList = ({moduleName}) => {
+  const {} = useSubscriber(moduleName);
   const {
     handleSortOrderChange,
     handleRowSize,

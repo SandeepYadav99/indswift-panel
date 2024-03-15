@@ -22,6 +22,7 @@ import EmployeeClaim from "../EmployeePanel/EmployeeClaim/EmployeeClaim.containe
 import UpperInfo from "./UpperInfo.view";
 import DescriptionViewTable from "./components/Description/DescriptionViewTable";
 import { useLocation } from "react-router-dom";
+import useSubscriber from "../../hooks/SubscriberHook";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -61,7 +62,7 @@ const useStyles = makeStyles({
   },
 });
 
-const EmployeeTab = () => {
+const EmployeeTab = ({moduleName}) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [empId, setEmpId] = useState(null);
@@ -72,7 +73,7 @@ const EmployeeTab = () => {
   const { user: { emp_code } } = useSelector(state => state.auth);
   const { id } = useParams();
   const location = useLocation();
-
+  const {} = useSubscriber(moduleName);
   useEffect(() => {
     if (id) {
       setEmpId(id);
