@@ -12,9 +12,11 @@ import { actionFetchEmployee } from "../../../actions/Employee.action";
 import { serviceGetList } from "../../../services/Common.service";
 import { serviceBGVDownload, serviceBGVDownloadAll } from "../../../services/PendingBGVerification.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
+import RolesUtils from "../../../libs/Roles.utils";
+import Constants from "../../../config/constants";
 
 const usePendingBGVerification_Hook = () => {
-  
+
   const [isCalling] = useState(false);
   const [editData] = useState(null);
   const { role } = useSelector((state) => state.auth);
@@ -173,9 +175,13 @@ const usePendingBGVerification_Hook = () => {
     });
   }, []);
 
+  const isCorporateHr = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+  }, [role]);
+
   const configFilter = useMemo(() => {
     return [
-      ...(role === constants.ROLES.CORPORATE_HR
+      ...(isCorporateHr
         ? [
             {
               label: "Location",
@@ -201,7 +207,7 @@ const usePendingBGVerification_Hook = () => {
         fields: ["FAILED", "PENDING", "CLEAR", "INPROCESS"],
       },
     ];
-  }, [listData]);
+  }, [listData, isCorporateHr]);
 
   return {
     handlePageChange,
