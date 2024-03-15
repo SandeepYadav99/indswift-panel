@@ -27,7 +27,9 @@ export function actionLoginUser(data, isKeepLogin = null) {
             // }
             setAuthorizationToken(data.token);
             dispatch({ type: AUTH_USER, payload: { ...data, token: data.token,  } });
-            localStorage.setItem("app_settings",JSON.stringify(data?.app_setting));
+            if (data?.app_setting) {
+                localStorage.setItem("app_settings", JSON.stringify(data?.app_setting));
+            }
             dispatch({
                 type:APP_SETTINGS_DONE,
                 payload:{...data?.app_setting}
