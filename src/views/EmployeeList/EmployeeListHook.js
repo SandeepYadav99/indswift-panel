@@ -12,6 +12,7 @@ import {serviceGetList} from "../../services/Common.service";
 import RouteName from "../../routes/Route.name";
 import {serviceExportEmployees} from "../../services/Employee.service";
 import Constants from "../../config/constants";
+import RolesUtils from "../../libs/Roles.utils";
 
 const useEmployeeList = () => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -211,11 +212,15 @@ const useEmployeeList = () => {
     historyUtils.push(`${RouteName.EMPLOYEE_UPDATE}${data?.id}`);
   }, []);
 
+  const isCorporateHr = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+  }, [role]);
+
   const configFilter = useMemo(() => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
       // {label: 'City', name: 'city', type: 'text'},
-      ...(role === Constants.ROLES.CORPORATE_HR
+      ...(isCorporateHr
         ? [
             {
               label: "Location",
@@ -248,7 +253,7 @@ const useEmployeeList = () => {
       },
       // {label: 'Status', name: 'status', type: 'select', fields: ['INACTIVE', 'ACTIVE']},
     ];
-  }, [listData, role]);
+  }, [listData, isCorporateHr]);
 
   const toggleCsvDialog = useCallback(() => {
     setIsCsvDialog((e) => !e);

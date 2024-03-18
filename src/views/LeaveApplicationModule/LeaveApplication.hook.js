@@ -10,6 +10,7 @@ import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
 import Constants from "../../config/constants";
+import RolesUtils from "../../libs/Roles.utils";
 
 const useLeaveList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -65,10 +66,7 @@ const useLeaveList = ({}) => {
 
   const isShowDownloadBtn = useMemo(() => {
     const Roles = Constants.ROLES;
-    if ([Roles.CORPORATE_HR, Roles.ACCOUNTANT].indexOf(role) >= 0) {
-      return true;
-    }
-    return false;
+    return RolesUtils.canAccess([Roles.CORPORATE_HR, Roles.ACCOUNTANT], role);
   }, [role]);
 
   const handleFilterDataChange = useCallback(
@@ -111,7 +109,7 @@ const useLeaveList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.LEAVE_APPLICATION_FORM}`); 
+    historyUtils.push(`${RouteName.LEAVE_APPLICATION_FORM}`);
   }, []);
 
   const configFilter = useMemo(() => {

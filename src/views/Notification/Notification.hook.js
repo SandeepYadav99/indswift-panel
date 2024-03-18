@@ -8,6 +8,7 @@ import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
 import Constants from "../../config/constants";
+import RolesUtils from "../../libs/Roles.utils";
 
 const useNotificationList = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
@@ -55,10 +56,7 @@ const useNotificationList = ({}) => {
 
   const isShowDownloadBtn = useMemo(() => {
     const Roles = Constants.ROLES;
-    if ([Roles.CORPORATE_HR, Roles.ACCOUNTANT].indexOf(role) >= 0) {
-      return true;
-    }
-    return false;
+    return RolesUtils.canAccess([Roles.CORPORATE_HR, Roles.ACCOUNTANT], role);
   }, [role]);
 
   const handleFilterDataChange = useCallback(

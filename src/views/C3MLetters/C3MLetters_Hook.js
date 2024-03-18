@@ -6,6 +6,8 @@ import { actionFetchC3MLetterList, actionSetPageC3MLetterList } from "../../acti
 import { serviceGetList } from "../../services/Common.service";
 import constants from "../../config/constants";
 import { actionFetchEmployee } from "../../actions/Employee.action";
+import RolesUtils from "../../libs/Roles.utils";
+import Constants from "../../config/constants";
 
 const useC3MLetters_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
@@ -55,7 +57,7 @@ const useC3MLetters_Hook = () => {
   }, []);
 
   const handlePageChange = useCallback((type) => {
-   
+
     dispatch(actionSetPageC3MLetterList(type));
   }, []);
 
@@ -74,7 +76,7 @@ const useC3MLetters_Hook = () => {
 
   const handleFilterDataChange = useCallback(
     (value) => {
-    
+
       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
@@ -82,7 +84,7 @@ const useC3MLetters_Hook = () => {
 
   const handleSearchValueChange = useCallback(
     (value) => {
-    
+
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -112,13 +114,17 @@ const useC3MLetters_Hook = () => {
   const openPDFInNewTab = useCallback((pdfUrl) => {
   if (pdfUrl) {
       window.open(pdfUrl?.joining_letter, "_blank")
-   
+
     }
   }, []);
 
+    const isCorporateHr = useMemo(() => {
+        return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+    }, [role]);
+
   const configFilter = useMemo(() => {
     return [
-      ...(role === constants.ROLES.CORPORATE_HR
+      ...(isCorporateHr
         ? [
             {
               label: "Location",
@@ -137,7 +143,7 @@ const useC3MLetters_Hook = () => {
         fields: listData?.DEPARTMENTS,
       },
     ];
-  }, [listData]);
+  }, [listData, isCorporateHr]);
 
   return {
     handlePageChange,

@@ -10,6 +10,8 @@ import {
 import constants from "../../config/constants";
 import { serviceGetList } from "../../services/Common.service";
 import { actionFetchEmployee } from "../../actions/Employee.action";
+import RolesUtils from "../../libs/Roles.utils";
+import Constants from "../../config/constants";
 
 const useNapsTraning_Hook = () => {
   const [isCalling, setIsCalling] = useState(false);
@@ -121,9 +123,13 @@ const useNapsTraning_Hook = () => {
     });
   }, []);
 
+  const isCorporateHr = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+  }, [role]);
+
   const configFilter = useMemo(() => {
     return [
-      ...(role === constants.ROLES.CORPORATE_HR
+      ...(isCorporateHr
         ? [
             {
               label: "Location",
@@ -142,7 +148,7 @@ const useNapsTraning_Hook = () => {
         fields: listData?.DEPARTMENTS,
       },
     ];
-  }, [listData]);
+  }, [listData, isCorporateHr]);
 
   return {
     handlePageChange,

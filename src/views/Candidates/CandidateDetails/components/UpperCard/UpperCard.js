@@ -7,6 +7,7 @@ import DefaultImg from "../../../../../assets/img/download.png";
 import ShareOfferDialog from "../ShareOfferPopUp/ShareOfferDialog.view";
 import { useSelector } from "react-redux";
 import Constants from "../../../../../config/constants";
+import RolesUtils from "../../../../../libs/Roles.utils";
 
 const UpperCard = ({
   data,
@@ -24,11 +25,7 @@ const UpperCard = ({
   }, [isShareDialog]);
 
   const isRecruiter = useMemo(() => {
-    const arr = [Constants.ROLES.RECRUITER, Constants.ROLES.CORPORATE_HR];
-    // if (Constants.is_development) {
-    arr.push(Constants.ROLES.ADMIN);
-    // }
-    return arr.indexOf(role) >= 0;
+    return RolesUtils.canAccess([Constants.ROLES.RECRUITER, Constants.ROLES.CORPORATE_HR, Constants.ROLES.ADMIN], role);
   }, [role]);
 
   const splitDate = (value) => {
