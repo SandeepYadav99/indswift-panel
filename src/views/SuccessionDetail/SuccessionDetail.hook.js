@@ -1,13 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  serviceGetEmployeeDetails,
-  serviceUpdateCarClaims,
-} from "../../services/ClaimsManagement.service";
+import { serviceGetEmployeeDetails } from "../../services/ClaimsManagement.service";
 import historyUtils from "../../libs/history.utils";
 import { serviceGetList } from "../../services/Common.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import LogUtils from "../../libs/LogUtils";
+import { serviceApproveRetireDirect } from "../../services/SuccessionA.service";
 
 const initialForm = {
   last_working_date: "",
@@ -38,6 +36,20 @@ const successionKeys = [
   "medical_condition",
   "retirement_date",
 ];
+const InPlaceRequired = [
+  "nature_of_succession",
+  "medical_condition",
+  "extension_start_date",
+  "extension_end_date",
+  "replacing_person_id",
+  "pending_dues",
+];
+const NotPlaceRequired = [
+  "pending_dues",
+  "medical_condition",
+  "extension_start_date",
+  "extension_end_date",
+];
 function useSuccessionDetail() {
   const [employeeDetails, setEmployeeDetails] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -63,9 +75,18 @@ function useSuccessionDetail() {
     }
   }, [id]);
 
+  useEffect(() => {
+    if (form?.extension_start_date) {
+      var extensionStartDate = new Date(form?.extension_start_date);
+      var oneYearAfter = new Date(extensionStartDate);
+      oneYearAfter.setFullYear(extensionStartDate.getFullYear() + 1);
+      setForm({ ...form, extension_end_date: oneYearAfter });
+    }
+  }, [form?.extension_start_date]);
+
   const checkFormValidation = useCallback(() => {
-    const errors = { ...errorData };
-    let required = [];
+    const errors = {};
+    let required = ["extension_status", "form_submitted_at"];
 
     required.forEach((val) => {
       if (
@@ -75,16 +96,49 @@ function useSuccessionDetail() {
         errors[val] = true;
       }
     });
-
-    if (form?.bill_date) {
-      const date = new Date(form?.bill_date);
-      const todayDate = new Date();
-      date.setHours(0, 0, 0, 0);
-      todayDate.setHours(0, 0, 0, 0);
-      if (date.getTime() > todayDate.getTime()) {
-        errors["bill_date"] = true;
+    if (form?.extension_status === "EXTENSION") {
+      if (!form?.succession) {
+        errors["succession"] = true;
       }
     }
+    if (form?.succession) {
+      const updatedRequired =
+        form?.succession === "IN_PLACE" ? InPlaceRequired : NotPlaceRequired;
+      console.log("updatedRequired", updatedRequired);
+      updatedRequired?.forEach((val) => {
+        if (
+          !form?.[val] ||
+          (Array.isArray(form?.[val]) && form?.[val].length === 0)
+        ) {
+          errors[val] = true;
+        }
+      });
+    }
+    // console.log(">>>>>1", form?.retirement_date);
+    
+    if (form?.nature_of_succession === "EXTERNAL") {
+      if (!form?.last_working_date) {
+        errors["last_working_date"] = true;
+      }
+    } else {
+      delete errors["last_working_date"];
+    }
+    if (form?.extension_status === "RETIRE") {
+      if (!form?.retirement_date) {
+        errors["retirement_date"] = true;
+      }
+    } else {
+      delete errors["retirement_date"];
+    }
+    // if (form?.bill_date) {
+    //   const date = new Date(form?.bill_date);
+    //   const todayDate = new Date();
+    //   date.setHours(0, 0, 0, 0);
+    //   todayDate.setHours(0, 0, 0, 0);
+    //   if (date.getTime() > todayDate.getTime()) {
+    //     errors["bill_date"] = true;
+    //   }
+    // }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -93,6 +147,7 @@ function useSuccessionDetail() {
     return errors;
   }, [form, errorData]);
 
+  console.log("errorData", errorData);
   const salaryCost = useMemo(() => {
     const x = employeeDetails?.application?.ctc
       ? employeeDetails?.application?.ctc
@@ -111,14 +166,26 @@ function useSuccessionDetail() {
       setIsLoading(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["fitness_cerificate"].indexOf(key) < 0 && form[key]) {
+        if (
+          ["fitness_cerificate", "replacing_person_id"].indexOf(key) < 0 &&
+          form[key]
+        ) {
           fd.append(key, form[key]);
         }
       });
       if (form?.fitness_cerificate) {
         fd.append("fitness_cerificate", form?.fitness_cerificate);
       }
-      let req = serviceUpdateCarClaims;
+      if (form?.replacing_person_id?.id) {
+        fd.append("replacing_person_id", form?.replacing_person_id?.id);
+        fd.append("replacing_employee_name", form?.replacing_person_id?.name);
+        fd.append("replacing_employee_code", form?.replacing_person_id?.code);
+        fd.append("replacing_employee_ctc", form?.replacing_person_id?.ctc);
+      }
+      if (employeeDetails?.id) {
+        fd.append("emp_id", employeeDetails?.id);
+      }
+      let req = serviceApproveRetireDirect;
       req(fd).then((res) => {
         if (!res.error) {
           historyUtils.goBack();
@@ -129,7 +196,7 @@ function useSuccessionDetail() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id]);
+  }, [form, isSubmitting, setIsSubmitting, id, employeeDetails]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -138,7 +205,7 @@ function useSuccessionDetail() {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form]);
+  }, [checkFormValidation, setErrorData, form, employeeDetails]);
 
   const removeError = useCallback(
     (title) => {

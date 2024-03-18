@@ -50,6 +50,7 @@ function SuccessionPlanDetail() {
               handleChange={(value) => {
                 changeTextData(value, "extension_status");
               }}
+              isError={errorData?.extension_status}
             >
               <MenuItem value="EXTENSION">EXTENSION</MenuItem>
               <MenuItem value="RETIRE">RETIRE</MenuItem>
@@ -319,13 +320,16 @@ function SuccessionPlanDetail() {
               onTextChange={(text) => {
                 changeTextData(text, "form_reason");
               }}
-              // onBlur={() => {
-              //   onBlurHandler("form_reason");
-              // }}
               multiline
               rows={2}
             />
           </div>
+        </div>
+
+        <div className={styles.confirmedWrapper}>
+          <ButtonBase onClick={handleSubmit} className={"createBtn"}>
+            Submit
+          </ButtonBase>
         </div>
       </div>
     </div>

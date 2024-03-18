@@ -64,6 +64,12 @@
     box-shadow: 0px 20px 80px #00000011;
     bottom: 0px;
   }
+  .confirmedWrapper{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+  }
   .heading {
     font-size: 0.8rem;
     margin-top: 5px;
