@@ -53,6 +53,9 @@
     background-color: #fff;
     box-shadow: 0px 20px 80px #00000011;
   }
+  .formFlex{
+    display: flex;
+  }
   .plainPaper_footer {
     border-radius: 10px;
     padding: 1.2rem;
