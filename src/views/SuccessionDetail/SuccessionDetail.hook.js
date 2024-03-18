@@ -6,6 +6,7 @@ import { serviceGetList } from "../../services/Common.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import LogUtils from "../../libs/LogUtils";
 import { serviceApproveRetireDirect } from "../../services/SuccessionA.service";
+import { getSajStatus } from "../../helper/helper";
 
 const initialForm = {
   last_working_date: "",
@@ -23,7 +24,7 @@ const initialForm = {
   pending_dues: "",
   notes: "",
   form_submitted_at: "",
-  fitness_cerificate: null,
+  document: null,
   form_reason: "",
 };
 const successionKeys = [
@@ -115,7 +116,7 @@ function useSuccessionDetail() {
       });
     }
     // console.log(">>>>>1", form?.retirement_date);
-    
+
     if (form?.nature_of_succession === "EXTERNAL") {
       if (!form?.last_working_date) {
         errors["last_working_date"] = true;
@@ -166,15 +167,12 @@ function useSuccessionDetail() {
       setIsLoading(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (
-          ["fitness_cerificate", "replacing_person_id"].indexOf(key) < 0 &&
-          form[key]
-        ) {
+        if (["document", "replacing_person_id"].indexOf(key) < 0 && form[key]) {
           fd.append(key, form[key]);
         }
       });
-      if (form?.fitness_cerificate) {
-        fd.append("fitness_cerificate", form?.fitness_cerificate);
+      if (form?.document) {
+        fd.append("document", form?.document);
       }
       if (form?.replacing_person_id?.id) {
         fd.append("replacing_person_id", form?.replacing_person_id?.id);
@@ -185,6 +183,11 @@ function useSuccessionDetail() {
       if (employeeDetails?.id) {
         fd.append("emp_id", employeeDetails?.id);
       }
+      const sajStatus = getSajStatus(
+        form?.succession,
+        form?.nature_of_succession
+      );
+      fd.append("saj_status", sajStatus);
       let req = serviceApproveRetireDirect;
       req(fd).then((res) => {
         if (!res.error) {

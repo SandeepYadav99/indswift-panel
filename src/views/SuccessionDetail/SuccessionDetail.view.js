@@ -299,12 +299,12 @@ function SuccessionPlanDetail() {
               name="image"
               label=""
               accept={"application/pdf,application/msword,image/*"}
-              error={errorData?.fitness_cerificate}
-              value={form?.fitness_cerificate}
+              error={errorData?.document}
+              value={form?.document}
               placeholder={"Upload Fitness Certificate"}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "fitness_cerificate");
+                  changeTextData(file, "document");
                 }
               }}
             />
