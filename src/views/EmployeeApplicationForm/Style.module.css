@@ -331,3 +331,23 @@
   padding: 10px 40px;
   cursor: pointer;
 }
+
+@media only screen and (max-width:1196px){
+
+  .firstRow {
+    display: flex;
+    align-items: center;
+    flex-direction: column !important;
+  }
+  .flex1 {
+    width: 100% !important;
+  }
+
+  .ProfileUpperWrapper {
+    width: 100%;
+    /* background-color: red; */
+    border-bottom: 2px solid #ebedf4;
+    display: flex;
+    flex-direction: column !important;
+  }
+}

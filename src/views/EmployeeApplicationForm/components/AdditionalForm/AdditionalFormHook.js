@@ -3,7 +3,7 @@ import {isAlphaNumChars} from "../../../../libs/RegexUtils";
 
 
 const initialForm = {
-    is_interviewed_before: '',
+    is_interviewed_before: 'NO',
     interviewed_for: '',
     interview_date: '',
     note: '',
