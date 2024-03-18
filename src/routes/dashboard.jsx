@@ -13,6 +13,7 @@ import {
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
 
+const SuccessionPlanDetail = lazy(()=>import ("../views/SuccessionDetail/SuccessionDetail.view.js"));
 const PMSMasterAdmin = lazy(()=>import("../views/PMSMasterAdmin/PMSMasterAdmin.view.js"));
 const useEmployeeTaxDetail = lazy(()=>import("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmployeeTaxDetail/EmployeeTaxDetail.view.js"));
 const TaxDetail = lazy(()=>import ("../views/Tax/Detail/TaxDetail.view.js"));
@@ -2811,6 +2812,19 @@ const dashboardRoutes = [
     roles: [Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR,Roles.MD],
     // parent: 'employeedashboard',
   },
+  {
+    path: `${RouteName.SUCCESSION_DETAIL}:id`,
+    sidebarName: "Succession Planner",
+    navbarName: "Succession Planner",
+    icon: AssignmentOutlined,
+    component: SuccessionPlanDetail,
+    is_sidebar: false,
+    is_protect: true,
+    should_regex: true,
+    parent: 'offboard',
+    roles: [Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR,Roles.MD],
+  },
+  
   {
     path: RouteName.SUCCESSION_APPROVAL,
     sidebarName: "Succession Approval",

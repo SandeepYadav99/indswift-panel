@@ -209,6 +209,7 @@ export default {
   SUCCESSION_APPROVAL_DETAIL:"/succession-approval/detail/",
 
   SUCCESSION_PLANNER:"/succession/planner",
+  SUCCESSION_DETAIL:"/succession/planner/details/",
   SUCCESSION_PLANNER_DETAIL_FORM:"/succession/detail/form",
   SUCCESSION_HISTORY:"/succession/history",
   EXPIRING_OFFER_LETTER:"/expiring-offer-letter",

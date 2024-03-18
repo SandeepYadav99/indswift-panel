@@ -12,12 +12,15 @@ import LogUtils from "../../libs/LogUtils";
 import RouteName from "../../routes/Route.name";
 import { serviceGetList } from "../../services/Common.service";
 import { serviceExportCarClaimReport } from "../../services/ClaimCarReport.service";
+import SnackbarUtils from "../../libs/SnackbarUtils";
 
 const useClaimCarReport = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
+  const [year, setYear] = useState("");
   const [editData, setEditData] = useState(null);
   const [listData, setListData] = useState({
     LOCATIONS: [],
+    FY_YEAR: [],
   });
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -28,19 +31,28 @@ const useClaimCarReport = ({}) => {
     query_data: queryData,
   } = useSelector((state) => state.claimCarReport);
   useEffect(() => {
-    dispatch(
-      actionFetchClaimCarReport(1, sortingData, {
-        query: isMountRef.current ? query : null,
-        query_data: isMountRef.current ? queryData : null,
-        fy_year: "2023-2024",
-        claim_type: "CAR",
-      })
-    );
-    isMountRef.current = true;
+    const storedYr = sessionStorage.getItem("car_year");
+    if (storedYr) {
+      setYear(storedYr);
+    }
   }, []);
 
   useEffect(() => {
-    serviceGetList(["LOCATIONS"]).then((res) => {
+    if (year) {
+      dispatch(
+        actionFetchClaimCarReport(1, sortingData, {
+          query: isMountRef.current ? query : null,
+          query_data: isMountRef.current ? queryData : null,
+          fy_year: year,
+          claim_type: "CAR",
+        })
+      );
+      isMountRef.current = true;
+    }
+  }, [year]);
+
+  useEffect(() => {
+    serviceGetList(["LOCATIONS", "FY_YEAR"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -67,18 +79,20 @@ const useClaimCarReport = ({}) => {
 
   const queryFilter = useCallback(
     (key, value) => {
-      console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageClaimCarReportRequests(1));
-      dispatch(
-        actionFetchClaimCarReport(1, sortingData, {
-          query: key == "SEARCH_TEXT" ? value : query,
-          query_data: key == "FILTER_DATA" ? value : queryData,
-          fy_year: "2023-2024",
-          claim_type: "CAR",
-        })
-      );
+      if(year){
+        console.log("_queryFilter", key, value);
+        // dispatch(actionSetPageClaimCarReportRequests(1));
+        dispatch(
+          actionFetchClaimCarReport(1, sortingData, {
+            query: key == "SEARCH_TEXT" ? value : query,
+            query_data: key == "FILTER_DATA" ? value : queryData,
+            fy_year: year,
+            claim_type: "CAR",
+          })
+        );
+      }
     },
-    [sortingData, query, queryData]
+    [sortingData, query, queryData, year]
   );
 
   const handleFilterDataChange = useCallback(
@@ -108,13 +122,13 @@ const useClaimCarReport = ({}) => {
           {
             query: query,
             query_data: queryData,
-            fy_year: "2023-2024",
+            fy_year: year,
             claim_type: "CAR",
           }
         )
       );
     },
-    [query, queryData]
+    [query, queryData, year]
   );
 
   const handleRowSize = (page) => {
@@ -137,17 +151,21 @@ const useClaimCarReport = ({}) => {
   );
 
   const handleCsvDownload = useCallback(() => {
-    serviceExportCarClaimReport({
-      fy_year: '2023-2024',
-      claim_type: 'CAR',
-    }).then(res => {
-      if (!res.error) {
-        const data = res.data?.response;
-        window.open(data, "_blank");
-      }
-    })
-  }, []);
-  
+    if (year) {
+      serviceExportCarClaimReport({
+        fy_year: year,
+        claim_type: "CAR",
+      }).then((res) => {
+        if (!res.error) {
+          const data = res.data?.response;
+          window.open(data, "_blank");
+        }
+      });
+    } else {
+      SnackbarUtils.error("Please select Finacial Year");
+    }
+  }, [year,setYear]);
+
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
     historyUtils.push(`${RouteName.CLAIMS_DETAILS}${data?.id}`); //+data.id
@@ -166,7 +184,7 @@ const useClaimCarReport = ({}) => {
         label: "Claim Category",
         name: "category",
         type: "select",
-        fields: ["PART B","PART E"],
+        fields: ["PART B", "PART E"],
       },
       {
         label: "Financial year",
@@ -174,7 +192,6 @@ const useClaimCarReport = ({}) => {
         type: "select",
         fields: ["2023-2024"],
       },
-      
     ];
   }, [listData]);
 
@@ -191,7 +208,10 @@ const useClaimCarReport = ({}) => {
     isCalling,
     editData,
     configFilter,
-    handleCsvDownload
+    handleCsvDownload,
+    year,
+    setYear,
+    listData
   };
 };
 
