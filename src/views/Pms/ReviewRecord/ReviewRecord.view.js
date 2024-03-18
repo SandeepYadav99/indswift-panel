@@ -23,6 +23,7 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import useReviewRecord from "./ReviewRecord.hook";
+import RolesUtils from "../../../libs/Roles.utils";
 
 const ReviewRecord = ({ location }) => {
   const {
@@ -181,6 +182,10 @@ const ReviewRecord = ({ location }) => {
     currentPage,
   ]);
 
+  const isCorporateHr = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+  }, [role]);
+
   return (
     <div>
       <PageBox>
@@ -190,7 +195,7 @@ const ReviewRecord = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
-            { role === Constants.ROLES.CORPORATE_HR && <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
+            { isCorporateHr  && <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
               Download
               <CloudDownload
                   fontSize={"small"}
@@ -198,7 +203,7 @@ const ReviewRecord = ({ location }) => {
               ></CloudDownload>
             </ButtonBase>}
             &nbsp; &nbsp; &nbsp;
-         { role === Constants.ROLES.CORPORATE_HR &&  <ButtonBase
+         { isCorporateHr &&  <ButtonBase
             className={styles.edit}
             onClick={() => {
               handleViewGraph();

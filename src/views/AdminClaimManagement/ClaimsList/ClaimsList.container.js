@@ -25,6 +25,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import CreateView from "./ClaimsList.view";
 import useClaimsList from "./ClaimsListHook";
 import Datatables from "../../../components/Datatables/datatables";
+import RolesUtils from "../../../libs/Roles.utils";
 
 const ClaimsList = ({ location }) => {
   const {
@@ -270,6 +271,10 @@ const ClaimsList = ({ location }) => {
     currentPage,
   ]);
 
+  const isCorporateHr = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], user?.role);
+}, [user?.role]);
+
   return (
     <div>
       <PageBox>
@@ -299,7 +304,7 @@ const ClaimsList = ({ location }) => {
                 open={Boolean(downloadCL)}
                 onClose={handleClosedownloadCL}
               >
-                {user?.role === "CORPORATE_HR" && (
+                {isCorporateHr && (
                   <MenuItem
                     onClick={() => {
                       handleCandidateMenu("ALL");

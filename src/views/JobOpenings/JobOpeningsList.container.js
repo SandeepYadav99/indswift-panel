@@ -25,8 +25,9 @@ import StatusPill from "../../components/Status/StatusPill.component";
 import CreateView from "./JobOpenings.view";
 import LogUtils from "../../libs/LogUtils";
 import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
+import useSubscriber from "../../hooks/SubscriberHook";
 
-const JobOpeningsList = ({}) => {
+const JobOpeningsList = ({moduleName}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -46,6 +47,7 @@ const JobOpeningsList = ({}) => {
     warehouses,
   } = useJobOpeningsList({});
 
+  const {} = useSubscriber(moduleName);
   const {
     data,
     all: allData,

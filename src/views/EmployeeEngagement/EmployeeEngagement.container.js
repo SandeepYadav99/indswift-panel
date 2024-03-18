@@ -85,8 +85,8 @@ function EmployeeEngagement() {
         />
       </div>
       <div className={styles.chartWrapper}>
-        <img className={styles.engagementModuleImage} src={Chart} />
-        <img className={styles.engagementMobileImage} src={HCM_MOBILE} />
+        <img alt={'skynet'} className={styles.engagementModuleImage} src={Chart} />
+        <img alt={'skynet'} className={styles.engagementMobileImage} src={HCM_MOBILE} />
         <div className={styles.iconPositionResponsive}>
           <InfoOutlined
             fontSize={"small"}

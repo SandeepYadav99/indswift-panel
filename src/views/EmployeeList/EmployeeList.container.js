@@ -1,21 +1,14 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton, MenuItem, ButtonBase, Menu } from "@material-ui/core";
+import React, {useCallback, useMemo} from "react";
+import {ButtonBase, IconButton, Menu, MenuItem} from "@material-ui/core";
 import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
-import {
-  Add,
-  CloudUpload,
-  InfoOutlined,
-  CloudDownload,
-  PrintOutlined,
-} from "@material-ui/icons";
+import {useSelector} from "react-redux";
+import {Add, CloudDownload, CloudUpload, Edit, InfoOutlined,} from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import useEmployeeList from "./EmployeeListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import CreateView from "./Employee.view";
@@ -24,6 +17,7 @@ import CPCDialogView from "./components/CPCDialog/CPCDialog.view";
 import OnBoardDialog from "./components/OnBoardPopUp/OnBoardDialog.view";
 import TraineeDialog from "./components/TraineePopUp copy/TraineeDialog.view";
 import RetiredDialog from "./components/RetiredPopUp/RetiredDialog.view";
+import useSubscriber from "../../hooks/SubscriberHook";
 
 // const EmployeeMobileCard = ({data, index}) => {
 //   return (<div style={{ background: 'red', margin: '20px' }}>
@@ -33,7 +27,8 @@ import RetiredDialog from "./components/RetiredPopUp/RetiredDialog.view";
 //   </div>)z
 // }
 
-const EmployeeList = ({}) => {
+const EmployeeList = ({moduleName}) => {
+  const {} = useSubscriber(moduleName);
   const {
     handleSortOrderChange,
     handleRowSize,

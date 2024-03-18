@@ -1,32 +1,29 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { useState } from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {
-  isAadhar,
-  isAccountNum,
-  isAlpha,
-  isAlphaNum,
-  isAlphaNumChars,
-  isEmail,
-  IsIFSCCode,
-  isNum,
-  isSpace,
+    isAadhar,
+    isAccountNum,
+    isAlpha,
+    isAlphaNumChars,
+    isEmail,
+    IsIFSCCode,
+    isNum,
+    isSpace,
 } from "../../libs/RegexUtils";
-import { useParams } from "react-router";
-import { serviceGetList } from "../../services/Common.service";
+import {useParams} from "react-router";
+import {serviceGetList} from "../../services/Common.service";
 import {
-  serviceCheckEmployeeExists,
-  serviceGetEmployeeConversionInfo,
-  serviceGetEmployeeEditInfo,
-  serviceGetSalaryInfoInfo,
+    serviceCheckEmployeeExists,
+    serviceGetEmployeeConversionInfo,
+    serviceGetEmployeeEditInfo,
+    serviceGetSalaryInfoInfo,
 } from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
-import { useMemo } from "react";
-import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
+import {serviceCreateEmployees} from "../../services/EmployeesCreate.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import debounce from "lodash.debounce";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
 const SALARY_KEYS = [
   "basic_salary",

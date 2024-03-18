@@ -1,16 +1,9 @@
-import {
-  Button,
-  ButtonBase,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-} from "@material-ui/core";
-import React, { useState } from "react";
+import {Dialog,} from "@material-ui/core";
+import React, {useState} from "react";
 import ActionButton from "../../components/ActionButton/ActionButton";
 import StatusPill from "../../components/Status/StatusPill.component";
 import styles from "./UpperInfo.module.css";
-import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
+import {InfoOutlined, RepeatRounded} from "@material-ui/icons";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
 

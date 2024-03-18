@@ -4,6 +4,8 @@ import { actionFetchAppointmentLetterList, actionFilterAppointmentLetterList } f
 import constants from "../../config/constants";
 import { actionFetchEmployee } from "../../actions/Employee.action";
 import { serviceGetList } from "../../services/Common.service";
+import RolesUtils from "../../libs/Roles.utils";
+import Constants from "../../config/constants";
 
 const useAppointemntLetter_Hook = () => {
   const dispatch = useDispatch();
@@ -15,7 +17,7 @@ const useAppointemntLetter_Hook = () => {
 
   const { role } = useSelector((state) => state.auth);
   const isMountRef = useRef(false);
-  
+
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -92,7 +94,7 @@ const useAppointemntLetter_Hook = () => {
   const handleViewDetails = useCallback((pdfUrl) => {
     if (pdfUrl) {
       window.open(pdfUrl?.letter, "_blank")
-   
+
     }
   }, []);
 
@@ -115,9 +117,13 @@ const useAppointemntLetter_Hook = () => {
     });
   }, []);
 
+  const isCorporateHr = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+  }, [role]);
+
   const configFilter = useMemo(() => {
     return [
-      ...(role === constants.ROLES.CORPORATE_HR
+      ...(isCorporateHr
         ? [
             {
               label: "Location",
@@ -143,7 +149,7 @@ const useAppointemntLetter_Hook = () => {
         fields: listData?.GRADES,
       },
     ];
-  }, [listData]);
+  }, [listData, isCorporateHr]);
 
   return {
     handlePageChange,

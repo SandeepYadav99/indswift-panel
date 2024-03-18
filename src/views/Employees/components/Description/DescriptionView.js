@@ -1,10 +1,9 @@
-import { useCallback, useEffect } from "react";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router";
-import { serviceGetDescriptionRecord } from "../../../../services/EmployeeRecords.services";
+import {useCallback, useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useLocation} from "react-router";
+import {serviceGetDescriptionRecord} from "../../../../services/EmployeeRecords.services";
 
-function DescriptionView({}) {
+function DescriptionView() {
   const { employeeData } = useSelector((state) => state.employee);
   const [decDialog, setDecDialog] = useState(false);
   const [data, setData] = useState([]);
@@ -36,8 +35,7 @@ function DescriptionView({}) {
     (data) => {
       setDecDialog((e) => !e);
     },
-    [decDialog]
-  );
+    [setDecDialog]);
 
   return {
     data,

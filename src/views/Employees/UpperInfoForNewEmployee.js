@@ -1,21 +1,11 @@
-import {
-    Button,
-    ButtonBase,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    IconButton,
-  } from "@material-ui/core";
-  import React, { useState } from "react";
-  import ActionButton from "../../components/ActionButton/ActionButton";
-  import StatusPill from "../../components/Status/StatusPill.component";
-  import styles from "./UpperInfoNewEmployee.module.css";
-  import { InfoOutlined, RepeatRounded } from "@material-ui/icons";
-  import historyUtils from "../../libs/history.utils";
-  import RouteName from "../../routes/Route.name";
-  import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
-  
-  const UpperInfoNewEmployee = ({
+import {Dialog,} from "@material-ui/core";
+import React, {useState} from "react";
+import StatusPill from "../../components/Status/StatusPill.component";
+import styles from "./UpperInfoNewEmployee.module.css";
+import {InfoOutlined} from "@material-ui/icons";
+import {useLocation} from "react-router-dom/cjs/react-router-dom.min";
+
+const UpperInfoNewEmployee = ({
     data,
     handleToggle,
     handleStatusToggle,
@@ -23,15 +13,15 @@ import {
     isNew,
   }) => {
     const [open, setOpen] = useState(false);
-  
+
     const handleClose = () => {
       setOpen(false);
     };
-  
+
     const handleOpen = () => {
       setOpen(true);
     };
-  
+
     const PopupComponent = () => {
       return (
         <div>
@@ -65,11 +55,11 @@ import {
         </div>
       );
     };
-  
+
     const location = useLocation();
-  
+
     const pathUrl = location?.pathName;
-  
+
     return (
       <div>
         <div className={styles.blueBackground}>
@@ -80,7 +70,7 @@ import {
               onClick={handleOpen}
             />
           </div>
-  
+
           {open && <PopupComponent />}
           <div className={styles.innerContainer}>
             <div>
@@ -136,6 +126,5 @@ import {
       </div>
     );
   };
-  
+
   export default UpperInfoNewEmployee;
-  

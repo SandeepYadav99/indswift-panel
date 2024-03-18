@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
-import historyUtils from "../../../../../../libs/history.utils";
+import {useCallback, useEffect, useState} from "react";
 import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
-import { serviceCreateDescriptionRecord } from "../../../../../../services/EmployeeRecords.services";
-import { useSelector } from "react-redux";
+import {serviceCreateDescriptionRecord} from "../../../../../../services/EmployeeRecords.services";
+import {useSelector} from "react-redux";
 
 const initialForm = {
   description: "",
@@ -84,17 +83,16 @@ const useDesDialogHook = ({ isOpen, handleToggle ,fetchData}) => {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, handleToggle, employeeData]);
+  }, [form, isSubmitting, setIsSubmitting, handleToggle, employeeData, fetchData]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log("===?", form, errors);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form, submitToServer, employeeData]);
+  }, [checkFormValidation, setErrorData, submitToServer]);
 
   const onBlurHandler = useCallback(
     (type) => {
@@ -102,8 +100,7 @@ const useDesDialogHook = ({ isOpen, handleToggle ,fetchData}) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData]
-  );
+    [changeTextData, form]);
 
   return {
     form,

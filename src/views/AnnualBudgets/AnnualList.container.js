@@ -42,6 +42,7 @@ const AnnualList = ({}) => {
     setLocationId,
     sanction,
     role,
+    isCorporateHr
   } = useAnnualList({});
 
   const {
@@ -167,7 +168,7 @@ const AnnualList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {role === "CORPORATE_HR" && (
+            {isCorporateHr && (
               <>
                 <IconButton
                   className={"tableActionBtn"}
@@ -202,6 +203,7 @@ const AnnualList = ({}) => {
     handleEdit,
     isCalling,
     type,
+    isCorporateHr
   ]);
 
   const tableStructure = useMemo(() => {
@@ -279,7 +281,7 @@ const AnnualList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {role === "CORPORATE_HR" && (
+            {isCorporateHr && (
               <>
                 <IconButton
                   className={"tableActionBtn"}
@@ -314,6 +316,7 @@ const AnnualList = ({}) => {
     handleEdit,
     isCalling,
     type,
+    isCorporateHr
   ]);
 
   const tableData = useMemo(() => {

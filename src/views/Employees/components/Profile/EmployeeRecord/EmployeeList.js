@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useMemo } from "react";
 import StatusPill from "../../../../../components/Status/StatusPill.component";
 import styles from "./EmployeeList.module.css";
 import { IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
+import RolesUtils from "../../../../../libs/Roles.utils";
+import Constants from "../../../../../config/constants";
 
 function EmployeeList({ className, data, handleEditToggle, role }) {
+  const isCorporateHr = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+  }, [role]);
+
   return (
     <div className={styles.editWrap}>
       <div className={styles.recordItem}>
@@ -83,7 +89,7 @@ function EmployeeList({ className, data, handleEditToggle, role }) {
               </div>
               <div>
                 {
-                  role === 'CORPORATE_HR' && <div >
+                  isCorporateHr && <div >
                     <IconButton
                       className={styles.btnClass}
                       color="secondary"
@@ -104,7 +110,7 @@ function EmployeeList({ className, data, handleEditToggle, role }) {
       </div>
       <div className={styles.hideEditIcon}>
         {
-          role === 'CORPORATE_HR' && <div className={styles.iconWrap}>
+          isCorporateHr && <div className={styles.iconWrap}>
             <IconButton
               className={styles.btnClass}
               color="secondary"

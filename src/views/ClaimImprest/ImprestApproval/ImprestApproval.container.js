@@ -21,6 +21,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import useImprestApproval from "./ImprestApprovalHook";
 import { Edit, InfoOutlined } from "@material-ui/icons";
 import { getCurrency } from "../../../helper/helper";
+import RolesUtils from "../../../libs/Roles.utils";
 
 const ImprestApproval = ({ location }) => {
   const {
@@ -247,6 +248,9 @@ const ImprestApproval = ({ location }) => {
     currentPage,
   ]);
 
+  const shouldShowDownload = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR, Constants.ROLES.ACCOUNTANT, Constants.ROLES.ADMIN], role);
+  }, [role]);
   return (
     <div>
       <PageBox>
@@ -256,7 +260,7 @@ const ImprestApproval = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
-            {(([Constants.ROLES.CORPORATE_HR, Constants.ROLES.ACCOUNTANT, Constants.ROLES.ADMIN]).indexOf(role) >= 0) && (
+            {shouldShowDownload && (
               <ButtonBase
                 className={styles.download}
                 onClick={handleCsvDownload}

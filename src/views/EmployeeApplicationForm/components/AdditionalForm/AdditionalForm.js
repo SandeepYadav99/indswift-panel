@@ -35,8 +35,10 @@ const AdditionalForm = ({isDisabled}, ref) => {
                 </div>
 
             </div>
-
-            <div className={"formFlex1"}>
+            {
+                form?.is_interviewed_before === "YES" &&
+                <>
+                <div className={"formFlex1"}>
                 <div className="formGroup1">
                     <CustomDatePicker
                         disabled={isDisabled ? true : false}
@@ -84,6 +86,57 @@ const AdditionalForm = ({isDisabled}, ref) => {
                     />
                 </div>
             </div>
+                </>
+            }
+
+            {/* <div className={"formFlex1"}>
+                <div className="formGroup1">
+                    <CustomDatePicker
+                        disabled={isDisabled ? true : false}
+                        clearable
+                        label={"Interview Date"}
+                        // minDate={new Date()}
+                        onChange={(date) => {
+                          changeTextData(date, "interview_date");
+                        }}
+                        value={form?.interview_date}
+                        isError={errorData?.interview_date}
+                    />
+                </div>
+                <div className="formGroup1">
+                    <CustomTextField
+                        disabled={isDisabled ? true : false}
+                        isError={errorData?.interviewed_for}
+                        errorText={errorData?.interviewed_for}
+                        label={"Position Interviewed For"}
+                        value={form?.interviewed_for}
+                        onTextChange={(text) => {
+                          changeTextData(text, "interviewed_for");
+                        }}
+                        onBlur={() => {
+                          onBlurHandler("interviewed_for");
+                        }}
+                    />
+                </div>
+            </div>
+
+            <div className={"formFlex1"}>
+                <div className="formGroup1">
+                    <CustomTextField
+                        disabled={isDisabled ? true : false}
+                        isError={errorData?.note}
+                        errorText={errorData?.note}
+                        label={"Any additonal Information"}
+                        value={form?.note}
+                        onTextChange={(text) => {
+                          changeTextData(text, "note");
+                        }}
+                        onBlur={() => {
+                          onBlurHandler("note");
+                        }}
+                    />
+                </div>
+            </div> */}
         </div>
     )
 };

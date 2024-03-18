@@ -11,6 +11,7 @@ import * as serviceWorker from './serviceWorker';
 import {setAuthorizationToken, setAxiosTimezone} from './libs/set_auth_token.utils';
 import store from './store';
 import {AUTH_USER, actionUpdateProfile} from "./actions/auth_index.action";
+import { APP_SETTINGS_DONE } from './actions/AppSettings.action';
 import {actionChangeTheme, actionGetAppSettings} from "./actions/AppSettings.action";
 import SnackbarUtils from "./libs/SnackbarUtils";
 import {isIosSafari} from "./libs/general.utils";
@@ -31,6 +32,12 @@ if (localStorage.jwt_token) {
         type: AUTH_USER,
         payload: { ...(JSON.parse(localStorage.user)), token: localStorage.jwt_token }
     });
+    if(localStorage?.app_settings){
+        store.dispatch({
+            type:APP_SETTINGS_DONE,
+            payload:{...(JSON.parse(localStorage.app_settings))}
+        })
+    }
     // store.dispatch(actionGetDashboard());
     store.dispatch(actionUpdateProfile());
     store.dispatch(actionGetAppSettings());

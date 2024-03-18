@@ -7,7 +7,7 @@ import { setAuthorizationToken } from '../libs/set_auth_token.utils';
 import history from '../libs/history.utils';
 import {serviceGetProfile} from "../services/index.services";
 import RouteName from "../routes/Route.name";
-
+import { APP_SETTINGS_DONE } from './AppSettings.action';
 
 export const AUTH_USER = 'AUTH_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
@@ -29,6 +29,13 @@ export function actionLoginUser(data, isKeepLogin = null) {
             // }
             setAuthorizationToken(data.token);
             dispatch({ type: AUTH_USER, payload: { ...data, token: data.token,  } });
+            if (data?.app_setting) {
+                localStorage.setItem("app_settings", JSON.stringify(data?.app_setting));
+            }
+            dispatch({
+                type:APP_SETTINGS_DONE,
+                payload:{...data?.app_setting}
+            })
             // dispatch(actionGetProfile());
             if (data?.should_reset_password) {
                 history.push(RouteName.RESET_PASSWORD_FIRST);

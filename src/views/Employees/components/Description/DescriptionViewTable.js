@@ -1,16 +1,14 @@
-import React, { useMemo } from "react";
+import React, {useMemo} from "react";
 import useEmployeeList from "./DescriptionView.js";
 import PageBox from "../../../../components/PageBox/PageBox.component";
-import { ButtonBase } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import {ButtonBase} from "@material-ui/core";
+import {Add} from "@material-ui/icons";
 import styles from "./Style.module.css";
 import DesDialog from "./component/DesDialog/DesDialog.view.js";
 import DesList from "./List/DesList.js";
 
 function DescriptionViewTable() {
-  const { data, location, decDialog, toggleDecDialog, empId,fetchData } = useEmployeeList(
-    {}
-  );
+  const { data, location, decDialog, toggleDecDialog,fetchData } = useEmployeeList({});
 
   const listArr = useMemo(() => {
     return data?.map((item, index) => {

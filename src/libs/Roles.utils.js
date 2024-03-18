@@ -20,7 +20,6 @@ class RolesUtils {
             myRole = [...myRolePr, Constants.ROLES.GENERAL]
         }
 
-        LogUtils.log('canAccess', accessRequiredPr, myRolePr);
         const isThere = accessRequired.findIndex(role => myRole.indexOf(role)>= 0);
         return isThere >= 0;
     }
