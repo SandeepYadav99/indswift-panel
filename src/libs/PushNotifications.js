@@ -75,7 +75,7 @@ export const getTokenFcm = () => {
         if (isSupport) {
             const firebaseApp = initializeApp(firebaseConfig);
             const messaging = getMessaging(firebaseApp);
-            getToken(messaging, {vapidKey: 'BCB7PgUriUR215fbz7mqo4CovMiWe5c8Ku4m3DT7ZhnJwe4tn8OtUMDbPJBcxk6d1eaFdDoHNWTzCswHz91sv0c'}).then((currentToken) => {
+            getToken(messaging, {vapidKey: 'BOgFQDCb65uFZMu704IcZuDl0RvxP6libE_tCRSNyMtOXRSgvc-93VwCzirpGi3TxPpPd4z3oTk9sSLDPR09OXA'}).then((currentToken) => {
                 if (currentToken) {
                     LogUtils.log(`current token for client: ${currentToken}`);
                     res(currentToken);
