@@ -262,6 +262,6 @@ export default {
   HOMEPAGE_MOBILE:"/mobile/dashboard",
 
   SUBSCRIBE_PAGE:'/subscribe',
-  PMS_MASTER: "/pms/master",
+  PMS_MASTER_ADMIN: "/pms/masters/admin",
 
 };
