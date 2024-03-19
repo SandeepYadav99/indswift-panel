@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Style.module.css";
 function DesUpperCard({ employeeDetail }) {
+  console.log("employeeDetail", employeeDetail);
   return (
     <div className={styles.plainPaper}>
       <div className={styles.newContainer}>
@@ -12,23 +13,23 @@ function DesUpperCard({ employeeDetail }) {
           <div className={styles.left}>
             <div className={styles.key}>
               <span className={styles.value}>Name:</span>
-              {employeeDetail?.application?.employee?.name}
+              {employeeDetail?.name}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Employee ID:</span>
-              {employeeDetail?.application?.employee?.emp_code}
+              {employeeDetail?.emp_code}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Location:</span>
-              {employeeDetail?.application?.employee?.location?.name}
+              {employeeDetail?.location?.name}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>D.O.B:</span>
-              {employeeDetail?.application?.employee?.dob}{" "}
+              {employeeDetail?.dob}{" "}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Age:</span>
-              {employeeDetail?.application?.employee?.age}
+              {employeeDetail?.age}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Annual Salary:</span>
@@ -42,32 +43,28 @@ function DesUpperCard({ employeeDetail }) {
           <div className={styles.right}>
             <div className={styles.key}>
               <span className={styles.value}>Designation:</span>
-              {employeeDetail?.application?.employee?.designation?.name
-                ? employeeDetail?.application?.employee?.designation?.name
+              {employeeDetail?.designation?.name
+                ? employeeDetail?.designation?.name
                 : "NA"}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Grade/Level:</span>
-              {employeeDetail?.application?.employee?.grade?.code}/
-              {employeeDetail?.application?.employee?.cadre?.name}
+              {employeeDetail?.grade?.code}/{employeeDetail?.cadre?.name}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Department:</span>
-              {employeeDetail?.application?.employee?.department?.name}
+              {employeeDetail?.department?.name}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Date of Retirement:</span>
-              {employeeDetail?.application?.employee?.expected_dor_text
-                ? `${employeeDetail?.application?.employee?.expected_dor_text}`
+              {employeeDetail?.expected_dor_text
+                ? `${employeeDetail?.expected_dor_text}`
                 : "NA"}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>D.O.J:</span>
-              {employeeDetail?.application?.employee?.doj
-                ? `${employeeDetail?.application?.employee?.doj}`
-                : "NA"}
+              {employeeDetail?.doj ? `${employeeDetail?.doj}` : "NA"}
             </div>
-          
           </div>
         </div>
       </div>

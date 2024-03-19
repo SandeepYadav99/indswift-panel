@@ -13,6 +13,7 @@ import { Add } from "@material-ui/icons";
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
 import LocOtherDetailsIncludeFields from "./LocOtherDetailsIncludeFields.component";
+import { isDate, isInvalidDateFormat } from "../../../../../../../libs/RegexUtils";
 
 const TEMP_OBJ = {
   bill_date: "",
@@ -82,6 +83,11 @@ const LocOtherDetailsIncludeForm = (
       });
       if(val?.payment_mode ==='Cash' && !val?.relocation_payment_proof){
         delete err['relocation_payment_proof'];
+      }
+      if (val?.bill_date && !isDate(val?.bill_date)) {
+        if (isInvalidDateFormat(val?.bill_date)) {
+          err["bill_date"] = true;
+        }
       }
       // if (val?.check_in && val?.check_out) {
       //   const joinDate = new Date(val?.check_in);

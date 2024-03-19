@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import LogUtils from "../../../../libs/LogUtils";
-import { isAadhar } from "../../../../libs/RegexUtils";
+import { isAadhar , isDate,isInvalidDateFormat } from "../../../../libs/RegexUtils";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 
 const initialForm = {
@@ -29,7 +29,11 @@ function useValancyField({ type }) {
         }
       });
     }
-
+    if (form?.dob && !isDate(form?.dob)) {
+      if (isInvalidDateFormat(form?.dob)) {
+        errors["dob"] = true;
+      }
+    }
     if (form?.aadhar_no && !isAadhar(form?.aadhar_no)) {
       errors["aadhar_no"] = true;
     }
