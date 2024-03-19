@@ -17,7 +17,7 @@ function RecentUpdate() {
   const listItems = useMemo(() => {
     let listLength = startfiveValues(circulars).length - 1;
     return startfiveValues(circulars)?.map((data, index) => {
-      if (data?.is_featured ) {
+      if (data?.is_featured) {
         return (
           <div key={` recent_event${index}`}>
             <div className={styles.descriptionContainer}>
