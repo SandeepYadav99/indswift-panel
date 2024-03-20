@@ -15,7 +15,7 @@ const NewView = ({newValues}) => {
     </div>
     <div>
       <span>Date of Issue:</span>
-      <span>{newValues?.date_of_issue}</span>
+      <span>{newValues?.issueDatetext}</span>
     </div>
     <div className={styles.letterHead}>
       <div className={styles.head}>

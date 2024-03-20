@@ -119,24 +119,26 @@ const HRKnowledgeCreateView = ({}) => {
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>
-            <Autocomplete
-              multiple
-              id="tags-outlined"
-              onChange={(e,value) => {
-                changeTextData(value, "submitted_by");
-              }}
-              // id="tags-standard"
-              options={listData?.EMPLOYEES}
-              getOptionLabel={(option) => option?.label}
-              defaultValue={form?.submitted_by}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label="Submitted By"
-                />
-              )}
-            />
+             <Autocomplete
+                multiple
+                id="tags-outlined"
+                onChange={(e, value) => {
+                  changeTextData(value, "submitted_by");
+                }}
+                value={form?.submitted_by}
+                options={listData?.EMPLOYEES ? listData?.EMPLOYEES : []}
+                getOptionLabel={(option) => option.name}
+                defaultValue={form?.submitted_by}
+                error={errorData?.submitted_by}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="Submitted By"
+                    error={errorData?.submitted_by}
+                  />
+                )}
+              />
           </div>
         </div>
         <div className={"formGroup file_Wrapper"} id={styles.uploadMobile}>

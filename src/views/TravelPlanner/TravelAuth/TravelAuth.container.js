@@ -163,7 +163,7 @@ const TravelAuth = ({ location }) => {
       },
       {
         key: "status",
-        label: " status",
+        label: "Current status /  overall status",
         sortable: true,
         render: (temp, all) => (
           <div>

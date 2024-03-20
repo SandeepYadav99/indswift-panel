@@ -48,7 +48,7 @@ function FinalUpperCard({ data, otherData }) {
               <span className={styles.value}>
                 Service Years with Org (round):
               </span>
-              {data?.experience?.current}
+              {data?.experience?.current }{data?.experience?.current >1 ? "yrs" :"yr"}
             </div>{" "}
             <div className={styles.key}>
               <span className={styles.value}>Date of Resignation:</span>
@@ -102,7 +102,7 @@ function FinalUpperCard({ data, otherData }) {
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Age on Separation Date:</span>
-            {data?.age}
+            {data?.age} {data?.age > 1 ? "yrs":"yr"}
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Separation By Virtue of:</span>
