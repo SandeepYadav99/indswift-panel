@@ -33,15 +33,25 @@ const DAincludesDetailForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      return fields;
+      let getUpdatedData = fields.map(obj => {
+        let newObj = { ...obj };
+        delete newObj.max_da_amount;
+        delete newObj.max_ie_amount;
+        return newObj;
+    });
+    return getUpdatedData;
     },
     setData(data) {
-      for (const item of data) {
-        if (item?.ie_amount === null) {
-          item.ie_amount = 0;
+      const updatedData = data?.map((item)=>{
+        return {
+          ...item,
+          da_amount : item?.da_amount ? item?.da_amount : 0,
+          max_da_amount : item?.da_amount ? item?.da_amount : 0,
+          ie_amount : item?.ie_amount ? item?.ie_amount : 0,
+          max_ie_amount : item?.ie_amount ? item?.ie_amount : 0
         }
-      }
-      setFields([...data]);
+      })
+      setFields([...updatedData]);
     },
   }));
 

@@ -47,15 +47,25 @@ const DAIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      return fields;
+      let getUpdatedData = fields.map(obj => {
+        let newObj = { ...obj };
+        delete newObj.max_da_amount;
+        delete newObj.max_ie_amount;
+        return newObj;
+    });
+    return getUpdatedData;
     },
     setData(data) {
-      for (const item of data) {
-        if (item?.ie_amount === null) {
-          item.ie_amount = 0;
+      const updatedData = data?.map((item)=>{
+        return {
+          ...item,
+          da_amount : item?.da_amount ? item?.da_amount : 0,
+          max_da_amount : item?.da_amount ? item?.da_amount : 0,
+          ie_amount : item?.ie_amount ? item?.ie_amount : 0,
+          max_ie_amount : item?.ie_amount ? item?.ie_amount : 0
         }
-      }
-      setFields([...data]);
+      })
+      setFields([...updatedData]);
     },
   }));
 
@@ -64,7 +74,7 @@ const DAIncludeForm = (
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["da_pct", "da_amount"];
+      const required = ["da_pct", "da_amount","ie_amount"];
 
       {
         required.forEach((key) => {
@@ -75,6 +85,9 @@ const DAIncludeForm = (
       }
       if(val?.da_amount == 0 && val?.da_amount !== ""){
         delete err['da_amount']
+      }
+      if(val?.ie_amount == 0 && val?.ie_amount !== ""){
+        delete err['ie_amount']
       }
       if (Object.keys(err)?.length > 0) {
         errors[index] = err;

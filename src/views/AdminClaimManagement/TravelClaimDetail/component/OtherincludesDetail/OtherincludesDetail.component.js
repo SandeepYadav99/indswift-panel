@@ -32,15 +32,22 @@ const OtherincludesDetailForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      return fields;
+      let getUpdatedData = fields.map(obj => {
+        let newObj = { ...obj };
+        delete newObj.max_amount;
+        return newObj;
+    });
+      return getUpdatedData;
     },
     setData(data) {
-      for (const item of data) {
-        if (item?.amount === null) {
-          item.amount = 0;
+      const updatedData = data?.map((item)=>{
+        return {
+          ...item,
+          amount : item?.amount ? item?.amount : 0,
+          max_amount : item?.amount ? item?.amount : 0
         }
-      }
-      setFields([...data]);
+      })
+      setFields([...updatedData]);
     },
   }));
 
