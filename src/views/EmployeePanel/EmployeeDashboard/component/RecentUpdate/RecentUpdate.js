@@ -11,47 +11,49 @@ function RecentUpdate() {
   );
   const startfiveValues = (value) => {
     if (value) {
-      return value.slice(0, 3);
+      return value.slice(0, 4);
     }
   };
   const listItems = useMemo(() => {
     let listLength = startfiveValues(circulars).length - 1;
     return startfiveValues(circulars)?.map((data, index) => {
-      return (
-        <div key={` recent_event${index}`}>
-          <div className={styles.descriptionContainer}>
-            <div>
-              <img
-                src={
-                  data?.type === "CIRCULAR"
-                    ? require("../../../../../assets/img/circular.png")
-                    : require("../../../../../assets/img/policy.png")
-                }
-              />
-            </div>
-            <div className={styles.description}>
-              <div
-                className={styles.descriptionName}
-                onClick={() => {
-                  historyUtils.push(RouteName.VIEW_DOCUMENTS, {
-                    url: data?.document,
-                  });
-                }}
-              >
-                {data?.name}
+      if (data?.is_featured) {
+        return (
+          <div key={` recent_event${index}`}>
+            <div className={styles.descriptionContainer}>
+              <div>
+                <img
+                  src={
+                    data?.type === "CIRCULAR"
+                      ? require("../../../../../assets/img/circular.png")
+                      : require("../../../../../assets/img/policy.png")
+                  }
+                />
               </div>
-              <span className={styles.effectiveDate}>
-                Effective Date: {data?.effectiveDateText}
-              </span>
+              <div className={styles.description}>
+                <div
+                  className={styles.descriptionName}
+                  onClick={() => {
+                    historyUtils.push(RouteName.VIEW_DOCUMENTS, {
+                      url: data?.document,
+                    });
+                  }}
+                >
+                  {data?.name}
+                </div>
+                <span className={styles.effectiveDate}>
+                  Effective Date: {data?.effectiveDateText}
+                </span>
+              </div>
             </div>
+            {listLength && listLength === index ? (
+              <></>
+            ) : (
+              <div className={styles.horizontalLine}></div>
+            )}
           </div>
-          {listLength && listLength === index ? (
-            <></>
-          ) : (
-            <div className={styles.horizontalLine}></div>
-          )}
-        </div>
-      );
+        );
+      }
     });
   }, [circulars]);
 
