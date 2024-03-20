@@ -18,6 +18,7 @@ const useEmployeeReport = ({}) => {
   const [type, setType] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [dateNotError, setDateNotError] = useState(true);
   const [listData, setListData] = useState({
     LOCATIONS: [],
   });
@@ -36,6 +37,7 @@ const useEmployeeReport = ({}) => {
     const type = sessionStorage.getItem("type");
     const start = sessionStorage.getItem("start");
     const end = sessionStorage.getItem("end");
+
     if (type) {
       setType(type);
     }
@@ -54,28 +56,52 @@ const useEmployeeReport = ({}) => {
     query_data: queryData,
   } = useSelector((state) => state.employeeReport);
 
+  function convert(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
+
+  useEffect(() => {
+    const startDateYearValue = convert(startDate);
+    const endDateYearValue = convert(endDate);
+    const prevYear = startDateYearValue.slice(0, 4);
+    const newYear = endDateYearValue.slice(0, 4);
+    const prevMonth = startDateYearValue.slice(5, 7);
+    const newMonth = endDateYearValue.slice(5, 7);
+    const prevDate = startDateYearValue.slice(8, 10);
+    const newDate = endDateYearValue.slice(8, 10);
+
+    if (newYear >= prevYear) {
+      if (newMonth > prevMonth) {
+        setDateNotError(true);
+      } else if (prevMonth === newMonth && newDate >= prevDate) {
+        setDateNotError(true);
+      } else {
+        setDateNotError(false);
+      }
+    }
+  });
+
+
   const handleDownload = useCallback(() => {
-    if (type && startDate && endDate) {
-      serviceEmployeeReportDownload({
-        start_date: startDate,
-        end_date: endDate,
-        type: type,
-      }).then((res) => {
-        if (!res.error) {
-          const data = res.data?.response;
-          window.open(data, "_blank");
-        }
-      });
-    } else {
-      SnackbarUtils.error("Please Enter StartDate EndDate and Type");
+    if (type && startDate && endDate ) {
+        serviceEmployeeReportDownload({
+          start_date: startDate,
+          end_date: endDate,
+          type: type,
+        }).then((res) => {
+          if (!res.error) {
+            const data = res.data?.response;
+            window.open(data, "_blank");
+          }
+        });
     }
   }, [query, queryData, startDate, endDate, type]);
 
   const resetData = useCallback(
     (sort = {}, updateQuery = {}) => {
-      console.log("other",{start_date: startDate,
-        end_date: endDate,
-        type: type,})
       dispatch(
         actionFetchEmployeeReport(
           1,
@@ -108,21 +134,28 @@ const useEmployeeReport = ({}) => {
   );
 
   const initialApiCall = useCallback(() => {
-    if (startDate && endDate && type) {
-      resetData();
+    if (startDate && endDate && type ) {
+      if(dateNotError){
+        resetData();
+      }
+      else {
+        SnackbarUtils.error("Start Date cannot be Greater than End Date")
+      }
     }
-  }, [type, setStartDate, endDate, endDate, setEndDate]);
+  }, [type, setStartDate, endDate, endDate, setEndDate,dateNotError]);
 
-  const handlePageChange = useCallback((type2) => {
-    console.log("_handlePageChange", type2);
-    dispatch(
-      actionSetPageEmployeeReportRequests(type2, {
-        start_date: startDate,
-        end_date: endDate,
-        type: type,
-      })
-    );
-  }, [endDate,endDate,type]);
+  const handlePageChange = useCallback(
+    (type2) => {
+      dispatch(
+        actionSetPageEmployeeReportRequests(type2, {
+          start_date: startDate,
+          end_date: endDate,
+          type: type,
+        })
+      );
+    },
+    [endDate, endDate, type]
+  );
 
   const queryFilter = useCallback(
     (key, value) => {
@@ -139,7 +172,6 @@ const useEmployeeReport = ({}) => {
 
   const handleFilterDataChange = useCallback(
     (value) => {
-      console.log("_handleFilterDataChange", value);
       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
@@ -147,7 +179,6 @@ const useEmployeeReport = ({}) => {
 
   const handleSearchValueChange = useCallback(
     (value) => {
-      console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -155,7 +186,6 @@ const useEmployeeReport = ({}) => {
 
   const handleSortOrderChange = useCallback(
     (row, order) => {
-      console.log(`handleSortOrderChange key:${row} order: ${order}`);
       dispatch(actionSetPageEmployeeReportRequests(1));
       resetData({ row, order }, {});
     },
@@ -169,9 +199,11 @@ const useEmployeeReport = ({}) => {
   const handleQueryInfo = useCallback((data) => {
     setInfoPanel(true);
   }, []);
+
   const handleViewDetails = useCallback((data) => {
     historyUtils.push(`/employees/details/${data?.emp_code}`);
   }, []);
+
   const configFilter = useMemo(() => {
     return [
       {

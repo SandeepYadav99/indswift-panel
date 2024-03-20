@@ -27,7 +27,7 @@ import RouteName from "../../routes/Route.name";
 
 const validate = (values) => {
   const errors = {};
-  const requiredFields = ["emp_id", "name", "reason"];
+  const requiredFields = ["emp_code", "name", "reason"];
 
   requiredFields.forEach((field) => {
     if (!values[field]) {
@@ -196,7 +196,7 @@ class ForgotPasswordHelpView extends Component {
                   <Field
                     fullWidth={true}
                     margin={"dense"}
-                    name="emp_id"
+                    name="emp_code"
                     component={renderOutlinedTextField}
                     label="Employee ID"
                   />

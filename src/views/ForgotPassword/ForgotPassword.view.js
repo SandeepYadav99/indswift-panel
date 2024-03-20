@@ -27,7 +27,7 @@ import SnackbarUtils from '../../libs/SnackbarUtils';
 
 const validate = (values) => {
     const errors = {}
-    const requiredFields = ['emp_id'];
+    const requiredFields = ['emp_code'];
 
     requiredFields.forEach(field => {
         if (!values[field]) {
@@ -182,7 +182,7 @@ class ForgotPasswordView extends Component {
                                 <div>
                                     <Field fullWidth={true}
                                            margin={'dense'}
-                                           name="emp_id"
+                                           name="emp_code"
                                            component={renderOutlinedTextField}
                                            label="Employee ID"/>
                                 </div>

@@ -211,7 +211,6 @@ const EmployeeReport = ({}) => {
       <CustomDatePicker
         clearable
         label={"End Date"}
-        maxDate={new Date()}
         onChange={(value) => {
           handleChangeDate(value, "end");
         }}
