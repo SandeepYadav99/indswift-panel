@@ -4,7 +4,7 @@ import IncludeSalary from "./IncludeSalary";
 import MonthlySalary from "../MonthlySalary/MonthlySalary";
 import useSalaryDetails from "./SalaryDetailsHook";
 
-function SalaryDetail({isDisabled}, ref) {
+function SalaryDetail({isDisabled,isFresher}, ref) {
   const { refBenefits, refAnnual, refQuarterly, refMonthly} = useSalaryDetails({}, ref);
   return (
     <>
@@ -13,7 +13,7 @@ function SalaryDetail({isDisabled}, ref) {
           <div className={"heading1"}>Current CTC Details</div>
         </h4>
         {/* <br /> */}
-        <MonthlySalary ref={refMonthly} isDisabled={isDisabled}/>
+        <MonthlySalary ref={refMonthly} isDisabled={isDisabled} isFresher={isFresher}/>
         <IncludeSalary
           isDisabled={isDisabled}
           ref={refQuarterly}

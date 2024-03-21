@@ -61,12 +61,12 @@ function EmploymentHistory({ isDisabled}) {
               }
             </div>
             <div style={{ display: isFresher ? 'none' : 'block' }} className={styles.signContainerExp} >
-              <EmployeeIncludeForm ref={refEmpHistory} isDisabled={isDisabled}/>
+              <EmployeeIncludeForm ref={refEmpHistory} isDisabled={isDisabled} isFresher={isFresher}/>
             </div>
           </div>
         </div>
         <div className={styles.signContainer} style={{ display: isFresher ? 'none' : 'block' }}>
-          <SalaryDetail isDisabled={isDisabled} ref={refSalary} />
+          <SalaryDetail isDisabled={isDisabled} ref={refSalary}  isFresher={isFresher}/>
         </div>
         <AdditionalForm ref={refAdditional} isDisabled={isDisabled}/>
         {
