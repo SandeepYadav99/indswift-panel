@@ -346,7 +346,7 @@ const NextToNextYearSuccessionPlanner = ({ listData ,toggleRetireDialog}) => {
           isOpen={isSend}
           handleToggle={handleToggleSend}
           handleSubmit={handleResend}
-          // empId={empId}
+          empId={empId}
         />
         <SidePanelComponent
           handleToggle={handleToggleSidePannel}

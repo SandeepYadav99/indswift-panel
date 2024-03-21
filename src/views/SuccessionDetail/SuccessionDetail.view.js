@@ -1,7 +1,7 @@
 import React from "react";
 import DesUpperCard from "./component/DesUpperCard/UpperCard";
 import styles from "./Style.module.css";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, MenuItem ,CircularProgress } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../libs/history.utils";
 import useSuccessionDetail from "./SuccessionDetail.hook";
@@ -177,9 +177,9 @@ function SuccessionPlanDetail() {
               <div className="formGroup"></div>
             </div>
           )}
-        {form?.extension_status === "EXTENSION" && (
+        {/* { && ( */}
           <div className={styles.formFlex}>
-            {form?.succession === "IN_PLACE" && (
+            {form?.extension_status === "EXTENSION" &&form?.succession === "IN_PLACE" && (
               <div className={"formGroup"}>
                 <div className={styles.costWrap}>
                   Succession's Cost WRT employee:{" "}
@@ -222,7 +222,7 @@ function SuccessionPlanDetail() {
                 </div>
               )}
           </div>
-        )}
+        {/* )} */}
 
         {form?.succession && form?.extension_status === "EXTENSION" && (
           <div className={styles.formFlex}>
@@ -327,8 +327,14 @@ function SuccessionPlanDetail() {
         </div>
 
         <div className={styles.confirmedWrapper}>
-          <ButtonBase onClick={handleSubmit} className={"createBtn"}>
-            Submit
+          <ButtonBase onClick={handleSubmit} className={"createBtn"}
+          disabled={isSubmitting ? true : false}
+          >
+          {isSubmitting ? (
+              <CircularProgress color="success" size="20px" />
+            ) : (
+              "Submit"
+            )}
           </ButtonBase>
         </div>
       </div>
