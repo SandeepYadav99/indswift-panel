@@ -27,7 +27,7 @@ const TEMP_OBJ = {
 };
 
 const EmployeeIncludeForm = (
-  { data, currency, listWarehouse, errorData: errorForm ,isDisabled},
+  { data, currency, listWarehouse, errorData: errorForm ,isDisabled,isFresher},
   ref
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
@@ -68,19 +68,15 @@ const EmployeeIncludeForm = (
     return fields;
   };
 
+  console.log(isFresher,"hello May be isFresher is here");
+
   const validateData = (index, type) => {
     const errors = {};
-    // if (type) {
-    //     if (errorData[index]) {
-    //         errorData[index][type] = false;
-    //     }
-    //     setErrorData(errorData);
-    //     return false;
-    // }
+  
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = [
+      const required = isFresher ? [] : [
         "employer_name",
         "designation",
         "joining_date",
@@ -110,9 +106,7 @@ const EmployeeIncludeForm = (
     }
   }, [data]);
 
-  const isValid = () => {
-    return validateData();
-  };
+ 
 
   const checkExists = useCallback(async (index, key, value) => {}, []);
 
