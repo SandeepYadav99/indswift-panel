@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useRef, useState} from "react";
-import handleSubmit from "redux-form/lib/handleSubmit";
 import LogUtils from "../../../libs/LogUtils";
 import {
   serviceCandidateEAFUpdateEmployment,
