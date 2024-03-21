@@ -67,9 +67,10 @@ const useSubDepartmentList = ({}) => {
         dispatch(actionFetchSubDepartment(1, sortingData, {
             query: key == 'SEARCH_TEXT' ? value : query,
             query_data: key == 'FILTER_DATA' ? value : queryData,
+            code: code
         }));
         // dispatch(actionFetchSubDepartment(1, sortingData))
-    }, [sortingData, query, queryData,]);
+    }, [sortingData, query, queryData,code]);
 
     const handleFilterDataChange = useCallback((value) => {
         console.log('_handleFilterDataChange', value);
@@ -88,8 +89,9 @@ const useSubDepartmentList = ({}) => {
         dispatch(actionFetchSubDepartment(1, {row, order}, {
             query: query,
             query_data: queryData,
+            code:code
         }))
-    }, [query, queryData]);
+    }, [query, queryData,code]);
 
     const handleRowSize = (page) => {
         console.log(page);

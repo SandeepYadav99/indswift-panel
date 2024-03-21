@@ -1282,7 +1282,7 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
-    path: RouteName.PMS_MASTER,
+    path: RouteName.PMS_MASTER_ADMIN,
     sidebarName: "PMS Master",
     navbarName: "PMS Master",
     icon: PeopleOutlined,
@@ -1291,7 +1291,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "masters",
-    roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+    roles: [Roles.CORPORATE_HR],
   },
   {
     path: RouteName.PMS_MASTER,

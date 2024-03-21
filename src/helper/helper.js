@@ -821,3 +821,19 @@ export const isDateInFiscalYear = (date) => {
     (month === 3 && date.getDate() <= 25)
   );
 };
+// "INTERNAL" "EXTERNAL" => nature
+// IN_PLACE NOT_IN_PLACE =>succession
+
+export const getSajStatus = (succession, nature) => {
+  if (succession === "IN_PLACE" && nature === "INTERNAL") {
+    return "REPLACEMENT_INTERNAL";
+  } else if (succession === "IN_PLACE" && nature === "EXTERNAL") {
+    return "REPLACEMENT_EXTERNAL";
+  } else if (succession === "REJECTED" && nature === "REJECTED") {
+    return "REJECTED";
+  } else if (succession === "NOT_IN_PLACE") {
+    return "NOT_IN_PLACE";
+  } else {
+    return "PENDING";
+  }
+};
