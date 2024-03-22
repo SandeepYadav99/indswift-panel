@@ -1,8 +1,14 @@
-import React, {useCallback, useMemo} from "react";
-import {ButtonBase, IconButton, Menu, MenuItem} from "@material-ui/core";
+import React, { useCallback, useMemo } from "react";
+import { ButtonBase, CircularProgress, IconButton, Menu, MenuItem } from "@material-ui/core";
 import classNames from "classnames";
-import {useSelector} from "react-redux";
-import {Add, CloudDownload, CloudUpload, Edit, InfoOutlined,} from "@material-ui/icons";
+import { useSelector } from "react-redux";
+import {
+  Add,
+  CloudDownload,
+  CloudUpload,
+  Edit,
+  InfoOutlined,
+} from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
@@ -27,7 +33,7 @@ import useSubscriber from "../../hooks/SubscriberHook";
 //   </div>)z
 // }
 
-const EmployeeList = ({moduleName}) => {
+const EmployeeList = ({ moduleName }) => {
   const {} = useSubscriber(moduleName);
   const {
     handleSortOrderChange,
@@ -64,6 +70,7 @@ const EmployeeList = ({moduleName}) => {
     isRetiredDialog,
     toggleRetiredDialog,
     listData,
+    downloading,
   } = useEmployeeList({});
 
   const {
@@ -201,7 +208,7 @@ const EmployeeList = ({moduleName}) => {
         hide_label: true,
         style: { width: "15%" },
         render: (temp, all) => (
-          <div className={'mobileNoLabel'}>
+          <div className={"mobileNoLabel"}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -275,11 +282,17 @@ const EmployeeList = ({moduleName}) => {
               className={"createBtn"}
               id={styles.btnHideResponsive}
             >
-              Download
-              <CloudDownload
-                fontSize={"small"}
-                className={"plusIcon"}
-              ></CloudDownload>
+              {downloading ? (
+                <CircularProgress />
+              ) : (
+                <>
+                  Download
+                  <CloudDownload
+                    fontSize={"small"}
+                    className={"plusIcon"}
+                  ></CloudDownload>
+                </>
+              )}
             </ButtonBase>
 
             <ButtonBase

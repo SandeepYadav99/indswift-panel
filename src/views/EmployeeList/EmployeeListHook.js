@@ -272,6 +272,7 @@ const useEmployeeList = () => {
   const handleCPCUpload = useCallback(() => {}, []);
 
   const handleCsvDownload = useCallback(() => {
+    setDownloading(true)
     serviceExportEmployees({
       query: query,
       query_data: queryData,
@@ -279,7 +280,6 @@ const useEmployeeList = () => {
       if (!res?.error) {
         const data = res?.data?.response;
         setCsvFile(data);
-        setDownloading(true)
       }
     })
   }, [query, queryData,csvFile]);
@@ -287,11 +287,11 @@ const useEmployeeList = () => {
 
 
   useEffect(()=>{
-    if(downloading){
+    if(csvFile && downloading){
       window.open(csvFile, "_blank");
       setDownloading(false);
     }
-  },[downloading])
+  },[downloading,csvFile])
 
   return {
     handlePageChange,
@@ -330,7 +330,8 @@ const useEmployeeList = () => {
     toggleTraineeDialog,
     isRetiredDialog,
     toggleRetiredDialog,
-    listData
+    listData,
+    downloading,
   };
 };
 
