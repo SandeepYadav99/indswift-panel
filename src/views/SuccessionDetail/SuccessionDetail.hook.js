@@ -20,7 +20,7 @@ const initialForm = {
   replacing_person_id: "",
   replacing_employee_name: "",
   succession: "",
-  replacing_employee_code: "",
+  // replacing_employee_code: "",
   replacing_employee_ctc: "",
   pending_dues: "",
   notes: "",
@@ -186,11 +186,11 @@ function useSuccessionDetail() {
     const x = salary ? salary : 1;
     const y = form?.replacing_person_id?.ctc
       ? Number(form?.replacing_person_id?.ctc)
-      : 1;
+      : Number(form?.replacing_employee_ctc ? form?.replacing_employee_ctc : 1);
     console.log("salaryCost", x, y, (y - x) / x);
 
     return Math.round((y - x) / x);
-  }, [employeeDetails, salary, setSalary, form?.replacing_person_id]);
+  }, [employeeDetails, salary, setSalary, form?.replacing_person_id,form?.replacing_employee_ctc]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -198,7 +198,7 @@ function useSuccessionDetail() {
       setIsLoading(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["document", "replacing_person_id"].indexOf(key) < 0 && form[key]) {
+        if (["document", "replacing_person_id","replacing_employee_ctc","replacing_employee_name"].indexOf(key) < 0 && form[key]) {
           fd.append(key, form[key]);
         }
       });
