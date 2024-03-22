@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import {
   Button,
   ButtonBase,
+  CircularProgress,
   MenuItem,
   Paper,
   Table,
@@ -90,7 +91,6 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
     );
   }, [resData]);
 
-
   return (
     <div>
       <Dialog
@@ -143,11 +143,15 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
           <div className={styles.printFlex}>
             <ButtonBase
               primary
-              disabled={isSubmitting}
+              disable={isSubmitting}
               onClick={handleSubmit}
               className={styles.btmBtn}
             >
-               Verify Csv
+              {isSubmitting ? (
+                <CircularProgress color="success" size="20px" />
+              ) : (
+                "Verify Csv"
+              )}
             </ButtonBase>
           </div>
         )}
@@ -156,11 +160,15 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
           <div className={styles.printFlex}>
             <ButtonBase
               primary
-              disabled={isSubmitting}
+              disable={isSubmitting}
               onClick={handleSubmit}
               className={styles.btmBtn}
             >
-              Upload Csv
+              {isSubmitting ? (
+                <CircularProgress color="success" size="20px" />
+              ) : (
+                "Upload Csv"
+              )}{" "}
             </ButtonBase>
           </div>
         )}
