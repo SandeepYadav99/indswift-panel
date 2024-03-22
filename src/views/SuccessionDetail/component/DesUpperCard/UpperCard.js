@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Style.module.css";
-function DesUpperCard({ employeeDetail }) {
+function DesUpperCard({ employeeDetail, salary }) {
   console.log("employeeDetail", employeeDetail);
   return (
     <div className={styles.plainPaper}>
@@ -33,9 +33,7 @@ function DesUpperCard({ employeeDetail }) {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Annual Salary:</span>
-              {employeeDetail?.application?.ctc
-                ? `₹ ${employeeDetail?.application?.ctc}`
-                : "-"}
+              {salary ? `₹ ${salary}` : "-"}
             </div>
           </div>
 
