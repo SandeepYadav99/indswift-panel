@@ -7,6 +7,7 @@ import SnackbarUtils from "../../libs/SnackbarUtils";
 import LogUtils from "../../libs/LogUtils";
 import { serviceApproveRetireDirect } from "../../services/SuccessionA.service";
 import { getSajStatus } from "../../helper/helper";
+import { serviceGetSalaryInfo } from "../../services/Employee.service";
 
 const initialForm = {
   last_working_date: "",
@@ -53,6 +54,7 @@ const NotPlaceRequired = [
 ];
 function useSuccessionDetail() {
   const [employeeDetails, setEmployeeDetails] = useState({});
+  const [salary, setSalary] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -77,6 +79,19 @@ function useSuccessionDetail() {
   }, [id]);
 
   useEffect(() => {
+    if (employeeDetails?.id) {
+      serviceGetSalaryInfo({ emp_id: employeeDetails?.id }).then((res) => {
+        if (!res.error) {
+          const tempData = res?.data;
+          if (tempData) {
+            setSalary(tempData?.monthly_ctc ? (Number(tempData?.monthly_ctc)*12) : 0);
+          }
+        }
+      });
+    }
+  }, [employeeDetails?.id]);
+
+  useEffect(() => {
     if (form?.extension_start_date) {
       var extensionStartDate = new Date(form?.extension_start_date);
       var oneYearAfter = new Date(extensionStartDate);
@@ -87,7 +102,7 @@ function useSuccessionDetail() {
 
   const checkFormValidation = useCallback(() => {
     const errors = {};
-    let required = ["extension_status", "form_submitted_at"];
+    let required = ["extension_status"];
 
     required.forEach((val) => {
       if (
@@ -140,6 +155,24 @@ function useSuccessionDetail() {
     //     errors["bill_date"] = true;
     //   }
     // }
+    if (form?.nature_of_succession === "EXTERNAL") {
+      if (!form?.replacing_employee_name) {
+        errors["replacing_employee_name"] = true;
+      } else {
+        delete errors["replacing_employee_name"];
+        delete errors["replacing_person_id"];
+      }
+    }
+    if (form?.form_submitted_at) {
+      if (!form?.document) {
+        errors["document"] = true;
+      }
+    }
+    if (form?.document) {
+      if (!form?.form_submitted_at) {
+        errors["form_submitted_at"] = true;
+      }
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -150,16 +183,14 @@ function useSuccessionDetail() {
 
   console.log("errorData", errorData);
   const salaryCost = useMemo(() => {
-    const x = employeeDetails?.application?.ctc
-      ? employeeDetails?.application?.ctc
-      : 1;
+    const x = salary ? salary : 1;
     const y = form?.replacing_person_id?.ctc
       ? Number(form?.replacing_person_id?.ctc)
       : 1;
     console.log("salaryCost", x, y, (y - x) / x);
 
     return Math.round((y - x) / x);
-  }, [employeeDetails, form?.replacing_person_id]);
+  }, [employeeDetails, salary, setSalary, form?.replacing_person_id]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -174,11 +205,16 @@ function useSuccessionDetail() {
       if (form?.document) {
         fd.append("document", form?.document);
       }
-      if (form?.replacing_person_id?.id) {
-        fd.append("replacing_person_id", form?.replacing_person_id?.id);
-        fd.append("replacing_employee_name", form?.replacing_person_id?.name);
-        fd.append("replacing_employee_code", form?.replacing_person_id?.code);
-        fd.append("replacing_employee_ctc", form?.replacing_person_id?.ctc);
+      if (form?.nature_of_succession) {
+        if (form?.replacing_person_id?.id) {
+          fd.append("replacing_person_id", form?.replacing_person_id?.id);
+          fd.append("replacing_employee_name", form?.replacing_person_id?.name);
+          fd.append("replacing_employee_code", form?.replacing_person_id?.code);
+          fd.append("replacing_employee_ctc", form?.replacing_person_id?.ctc);
+        } else {
+          fd.append("replacing_employee_name", form?.replacing_employee_name);
+          fd.append("replacing_employee_ctc", form?.replacing_employee_ctc);
+        }
       }
       if (employeeDetails?.id) {
         fd.append("emp_id", employeeDetails?.id);
@@ -244,7 +280,13 @@ function useSuccessionDetail() {
         if (text === "INTERNAL") {
           t["last_working_date"] = "";
         }
+        t["replacing_employee_name"] = "";
+        t["replacing_person_id"] = "";
         t[fieldName] = text;
+      } else if (fieldName === "replacing_employee_ctc") {
+        if (text >= 0) {
+          t[fieldName] = text;
+        }
       } else {
         t[fieldName] = text;
       }
@@ -271,6 +313,7 @@ function useSuccessionDetail() {
     errorData,
     listData,
     salaryCost,
+    salary,
   };
 }
 

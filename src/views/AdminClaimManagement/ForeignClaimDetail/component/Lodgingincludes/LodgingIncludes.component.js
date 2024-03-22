@@ -49,10 +49,22 @@ const LodgingIncludeForm = (
       setFields([JSON.parse(JSON.stringify(TEMP_OBJ))]);
     },
     getData() {
-      return fields;
+      let getUpdatedData = fields.map(obj => {
+        let newObj = { ...obj };
+        delete newObj.max_amount;
+        return newObj;
+    });
+      return getUpdatedData;
     },
     setData(data) {
-      setFields([...data]);
+      const updatedData = data?.map((item)=>{
+        return {
+          ...item,
+          max_amount : item?.amount ? item?.amount : 0
+        }
+      })
+      setFields([...updatedData])
+
     },
   }));
 

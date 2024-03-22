@@ -52,7 +52,7 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                 </p>
                 <p>
                   Medical Condition :
-                  <b style={{ marginLeft: "10px" }}>
+                  <b style={{ marginLeft: "10px" , marginRight:"10px" }}>
                     {item?.medical_condition ? item?.medical_condition : "-"}
                   </b>
                   {item?.employee_form?.document && (
@@ -76,7 +76,7 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   Annual Salary: <b>{item?.ctc ? `₹ ${item?.ctc}` : "-"}</b>
                 </p>
                 <p>
-                  Succession Status: <b>{item?.nature_of_succession}</b>
+                  Succession Status: <b>{item?.extension_status}</b>
 
                 </p>
                 <p className={styles.datesValue}>
@@ -105,8 +105,8 @@ const SuccessionHistory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                 <p>
                   Nature of Succession:{" "}
                   {/* <b>{item?.extension_status ? item?.extension_status : "-"}</b> */}
-                  {item?.extension_status ? (
-                    <b>{item?.extension_status}</b>
+                  {item?.nature_of_succession ? (
+                    <b>{item?.nature_of_succession}</b>
                   ) : (
                     <b>- </b>
                   )}

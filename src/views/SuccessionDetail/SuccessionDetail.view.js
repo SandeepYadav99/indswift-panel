@@ -1,7 +1,7 @@
 import React from "react";
 import DesUpperCard from "./component/DesUpperCard/UpperCard";
 import styles from "./Style.module.css";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, MenuItem, CircularProgress } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../libs/history.utils";
 import useSuccessionDetail from "./SuccessionDetail.hook";
@@ -21,6 +21,7 @@ function SuccessionPlanDetail() {
     errorData,
     listData,
     salaryCost,
+    salary,
   } = useSuccessionDetail({});
   return (
     <div>
@@ -35,7 +36,7 @@ function SuccessionPlanDetail() {
           <div className={styles.newLine} />
         </div>
       </div>
-      <DesUpperCard employeeDetail={employeeDetails} />
+      <DesUpperCard employeeDetail={employeeDetails} salary={salary} />
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
@@ -54,6 +55,7 @@ function SuccessionPlanDetail() {
             >
               <MenuItem value="EXTENSION">EXTENSION</MenuItem>
               <MenuItem value="RETIRE">RETIRE</MenuItem>
+              <MenuItem value="RETENTION">RETENTION</MenuItem>
             </CustomSelectField>
           </div>
           <div className="formGroup">
@@ -61,7 +63,7 @@ function SuccessionPlanDetail() {
               <CustomDatePicker
                 clearable
                 label={"Retirement Date"}
-                // maxDate={new Date()}
+                minDate={new Date()}
                 onChange={(date) => {
                   changeTextData(date, "retirement_date");
                 }}
@@ -84,7 +86,7 @@ function SuccessionPlanDetail() {
             )}
           </div>
         </div>
-        {form?.extension_status === "EXTENSION" && (
+        {form?.extension_status && form?.extension_status !== "RETIRE" && (
           <>
             <div className={styles.formFlex}>
               <div className="formGroup">
@@ -106,7 +108,8 @@ function SuccessionPlanDetail() {
                 )}
               </div>
               <div className="formGroup">
-                {form?.extension_status === "EXTENSION" &&
+                {form?.extension_status &&
+                  form?.extension_status !== "RETIRE" &&
                   form?.succession === "IN_PLACE" && (
                     <CustomSelectField
                       isError={errorData?.medical_condition}
@@ -125,40 +128,76 @@ function SuccessionPlanDetail() {
             </div>
             {form?.succession === "IN_PLACE" && (
               <div className={styles.formFlex}>
-                <div className={"formGroup"}>
-                  <CustomAutoComplete
-                    autoCompleteProps={{
-                      freeSolo: false,
-                      getOptionLabel: (option) => {
-                        return option?.label;
-                      },
-                    }}
-                    dataset={listData?.EMPLOYEE_SALARY}
-                    datasetKey={"label"}
-                    onTextChange={(text, value) => {
-                      changeTextData(text, "replacing_person_id");
-                    }}
-                    variant={"outlined"}
-                    label={"Replacing Employee"}
-                    name={"replacing_person_id"}
-                    isError={errorData?.replacing_person_id}
-                    value={form?.replacing_person_id}
-                  />
-                </div>
-                <div className={"formGroup"}>
-                  <CustomTextField
-                    disabled={true}
-                    label={"Replacing Person Current Salary"}
-                    value={form?.replacing_person_id?.ctc}
-                    InputLabelProps={{ shrink: true }}
-                  />
-                </div>
+                {form?.nature_of_succession === "INTERNAL" ? (
+                  <>
+                    <div className={"formGroup"}>
+                      <CustomAutoComplete
+                        autoCompleteProps={{
+                          freeSolo: false,
+                          getOptionLabel: (option) => {
+                            return option?.label;
+                          },
+                        }}
+                        dataset={listData?.EMPLOYEE_SALARY}
+                        datasetKey={"label"}
+                        onTextChange={(text, value) => {
+                          changeTextData(text, "replacing_person_id");
+                        }}
+                        variant={"outlined"}
+                        label={"Replacing Employee"}
+                        name={"replacing_person_id"}
+                        isError={errorData?.replacing_person_id}
+                        value={form?.replacing_person_id}
+                      />
+                    </div>
+                    <div className={"formGroup"}>
+                      <CustomTextField
+                        disabled={true}
+                        label={"Replacing Person Current Salary"}
+                        value={form?.replacing_person_id?.ctc}
+                        InputLabelProps={{ shrink: true }}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={"formGroup"}>
+                      <CustomTextField
+                        isError={errorData?.replacing_employee_name}
+                        errorText={errorData?.replacing_employee_name}
+                        label={"Replacing Person"}
+                        value={form?.replacing_employee_name}
+                        onTextChange={(text) => {
+                          changeTextData(text, "replacing_employee_name");
+                        }}
+                        // onBlur={() => {
+                        //   onBlurHandler("replacing_employee_name");
+                        // }}
+                      />
+                    </div>
+                    <div className={"formGroup"}>
+                      <CustomTextField
+                        isError={errorData?.replacing_employee_ctc}
+                        errorText={errorData?.replacing_employee_ctc}
+                        label={"Replacing Person Salary"}
+                        value={form?.replacing_employee_ctc}
+                        onTextChange={(text) => {
+                          changeTextData(text, "replacing_employee_ctc");
+                        }}
+                        // onBlur={() => {
+                        //   onBlurHandler("replacing_employee_ctc");
+                        // }}
+                      />
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </>
         )}
 
-        {form?.extension_status === "EXTENSION" &&
+        {form?.extension_status &&
+          form?.extension_status !== "RETIRE" &&
           form?.succession === "IN_PLACE" &&
           form?.nature_of_succession === "EXTERNAL" && (
             <div className={styles.formFlex}>
@@ -177,9 +216,11 @@ function SuccessionPlanDetail() {
               <div className="formGroup"></div>
             </div>
           )}
-        {form?.extension_status === "EXTENSION" && (
-          <div className={styles.formFlex}>
-            {form?.succession === "IN_PLACE" && (
+        {/* { && ( */}
+        <div className={styles.formFlex}>
+          {form?.extension_status &&
+            form?.extension_status !== "RETIRE" &&
+            form?.succession === "IN_PLACE" && (
               <div className={"formGroup"}>
                 <div className={styles.costWrap}>
                   Succession's Cost WRT employee:{" "}
@@ -189,69 +230,72 @@ function SuccessionPlanDetail() {
                 </div>
               </div>
             )}
-            <div className={"formGroup"}>
-              <CustomTextField
-                isError={errorData?.pending_dues}
-                errorText={errorData?.pending_dues}
-                label={"Pending Dues"}
-                value={form?.pending_dues}
-                onTextChange={(text) => {
-                  changeTextData(text, "pending_dues");
-                }}
-                // onBlur={() => {
-                //   onBlurHandler("pending_dues");
-                // }}
-              />
-            </div>
-
-            {form?.extension_status === "EXTENSION" &&
-              form?.succession === "NOT_IN_PLACE" && (
-                <div className={"formGroup"}>
-                  <CustomSelectField
-                    isError={errorData?.medical_condition}
-                    errorText={errorData?.medical_condition}
-                    label={"Medical Condition"}
-                    value={form?.medical_condition}
-                    handleChange={(value) => {
-                      changeTextData(value, "medical_condition");
-                    }}
-                  >
-                    <MenuItem value="FIT">FIT</MenuItem>
-                    <MenuItem value="UNFIT">UNFIT</MenuItem>
-                  </CustomSelectField>
-                </div>
-              )}
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.pending_dues}
+              errorText={errorData?.pending_dues}
+              label={"Pending Dues"}
+              value={form?.pending_dues}
+              onTextChange={(text) => {
+                changeTextData(text, "pending_dues");
+              }}
+              // onBlur={() => {
+              //   onBlurHandler("pending_dues");
+              // }}
+            />
           </div>
-        )}
 
-        {form?.succession && form?.extension_status === "EXTENSION" && (
-          <div className={styles.formFlex}>
-            <div className="formGroup">
-              <CustomDatePicker
-                clearable
-                label={"Extension/Retainer Start Date"}
-                // maxDate={new Date()}
-                onChange={(date) => {
-                  changeTextData(date, "extension_start_date");
-                }}
-                value={form?.extension_start_date}
-                isError={errorData?.extension_start_date}
-              />
+          {form?.extension_status &&
+            form?.extension_status !== "RETIRE" &&
+            form?.succession === "NOT_IN_PLACE" && (
+              <div className={"formGroup"}>
+                <CustomSelectField
+                  isError={errorData?.medical_condition}
+                  errorText={errorData?.medical_condition}
+                  label={"Medical Condition"}
+                  value={form?.medical_condition}
+                  handleChange={(value) => {
+                    changeTextData(value, "medical_condition");
+                  }}
+                >
+                  <MenuItem value="FIT">FIT</MenuItem>
+                  <MenuItem value="UNFIT">UNFIT</MenuItem>
+                </CustomSelectField>
+              </div>
+            )}
+        </div>
+        {/* )} */}
+
+        {form?.succession &&
+          form?.extension_status &&
+          form?.extension_status !== "RETIRE" && (
+            <div className={styles.formFlex}>
+              <div className="formGroup">
+                <CustomDatePicker
+                  clearable
+                  label={"Extension/Retainer Start Date"}
+                  // maxDate={new Date()}
+                  onChange={(date) => {
+                    changeTextData(date, "extension_start_date");
+                  }}
+                  value={form?.extension_start_date}
+                  isError={errorData?.extension_start_date}
+                />
+              </div>
+              <div className="formGroup">
+                <CustomDatePicker
+                  clearable
+                  label={"Extension/Retainer End Date"}
+                  // maxDate={new Date()}
+                  onChange={(date) => {
+                    changeTextData(date, "extension_end_date");
+                  }}
+                  value={form?.extension_end_date}
+                  isError={errorData?.extension_end_date}
+                />
+              </div>
             </div>
-            <div className="formGroup">
-              <CustomDatePicker
-                clearable
-                label={"Extension/Retainer End Date"}
-                // maxDate={new Date()}
-                onChange={(date) => {
-                  changeTextData(date, "extension_end_date");
-                }}
-                value={form?.extension_end_date}
-                isError={errorData?.extension_end_date}
-              />
-            </div>
-          </div>
-        )}
+          )}
 
         <div className={styles.formFlex}>
           <div className={"formGroup"}>
@@ -327,8 +371,16 @@ function SuccessionPlanDetail() {
         </div>
 
         <div className={styles.confirmedWrapper}>
-          <ButtonBase onClick={handleSubmit} className={"createBtn"}>
-            Submit
+          <ButtonBase
+            onClick={handleSubmit}
+            className={"createBtn"}
+            disabled={isSubmitting ? true : false}
+          >
+            {isSubmitting ? (
+              <CircularProgress color="success" size="20px" />
+            ) : (
+              "Submit"
+            )}
           </ButtonBase>
         </div>
       </div>
