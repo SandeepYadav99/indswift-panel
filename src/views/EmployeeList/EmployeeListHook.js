@@ -26,6 +26,8 @@ const useEmployeeList = () => {
   const [createDD, setCreateDD] = useState(null);
   const dispatch = useDispatch();
   const { role } = useSelector((state) => state.auth);
+  const [csvFile,setCsvFile] = useState();
+  const [downloading,setDownloading] = useState(false);
   const [listData, setListData] = useState({
     LOCATIONS: [],
     GRADES: [],
@@ -268,17 +270,28 @@ const useEmployeeList = () => {
   }, []);
 
   const handleCPCUpload = useCallback(() => {}, []);
+
   const handleCsvDownload = useCallback(() => {
     serviceExportEmployees({
       query: query,
       query_data: queryData,
     }).then(res => {
-      if (!res.error) {
-        const data = res.data?.response;
-        window.open(data, "_blank");
+      if (!res?.error) {
+        const data = res?.data?.response;
+        setCsvFile(data);
+        setDownloading(true)
       }
     })
-  }, [query, queryData]);
+  }, [query, queryData,csvFile]);
+
+
+
+  useEffect(()=>{
+    if(downloading){
+      window.open(csvFile, "_blank");
+      setDownloading(false);
+    }
+  },[downloading])
 
   return {
     handlePageChange,
