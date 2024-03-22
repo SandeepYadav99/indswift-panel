@@ -25,3 +25,11 @@
     max-height: 200px;
     overflow: scroll;
 }
+
+.btnFade{
+        background-color: #29CB97 !important;
+        padding: 15px 50px !important;
+        color: white !important;
+        opacity: 0.5 !important;
+        border-radius: 5px !important;
+}

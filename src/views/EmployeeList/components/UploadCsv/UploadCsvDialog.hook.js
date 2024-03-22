@@ -69,7 +69,7 @@ const useUploadCsvDialogHook = ({orderId, isOpen, handleToggle, handleCsvUpload}
                     setResData(res.data);
                 }
                 else {
-                    SnackbarUtils.error(res?.data);
+                    SnackbarUtils.error("Import Failed");
                 }
                 setIsSubmitting(false);
             })
