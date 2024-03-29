@@ -25,7 +25,7 @@ const initialState = {
 
 export default function (state = JSON.parse(JSON.stringify(initialState)), action) {
     switch (action.type) {
-        case AUTH_USER : {
+        case 'AUTH_USER' : {
             return {...state,
                 is_authenticated: true,
                 user: action.payload,
@@ -33,30 +33,30 @@ export default function (state = JSON.parse(JSON.stringify(initialState)), actio
                 role_location: action?.payload?.role_location
             }
         }
-        case LOGOUT_USER: {
+        case 'LOGOUT_USER': {
             return {...state, ...(JSON.parse(JSON.stringify(initialState)))};
         }
-        case GET_PROFILE_INIT: {
+        case 'GET_PROFILE_INIT': {
             const tempProfile = state.user_profile;
             tempProfile.is_fetching = true;
             return {
                 ...state, user_profile: tempProfile
             };
         }
-        case SET_PROFILE: {
+        case 'SET_PROFILE': {
             const tempProfile = action.payload;
             tempProfile.is_fetching = false;
             tempProfile.is_verified = true;
             return {...state, user_profile: tempProfile };
         }
-        case GET_UPDATE_PROFILE_INIT: {
+        case 'GET_UPDATE_PROFILE_INIT': {
             const tempProfile = state.user_profile;
             // tempProfile.is_fetching = true;
             return {
                 ...state, user_profile: tempProfile
             };
         }
-        case UPDATE_USER_PROFILE: {
+        case 'UPDATE_USER_PROFILE': {
             console.log("state",state)
             const tempProfile = state.user;
             tempProfile.role = action?.payload?.role ? action?.payload?.role :[];
