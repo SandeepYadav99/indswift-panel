@@ -33,7 +33,7 @@ let requiredFields = [];
 const validate = (values) => {
   const errors = {};
   requiredFields.forEach((field) => {
-    if (!values[field]) {
+    if (!values[field] && values[field] < 0) {
       errors[field] = "Required";
     }
   });
@@ -264,7 +264,9 @@ class UtsavFaq extends Component {
 
           <div className={styles.bottomFlex}>
             {this._renderStatus()}
-            <div>
+            {
+              data &&
+              <div>
               <IconButton
                 variant={"contained"}
                 className={this.props.classes.iconBtnError}
@@ -275,6 +277,8 @@ class UtsavFaq extends Component {
               </IconButton>
               {/*<span className={styles.delete}>Delete Permanently</span>*/}
             </div>
+            }
+           
           </div>
 
           <br />
