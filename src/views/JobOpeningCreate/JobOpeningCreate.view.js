@@ -42,6 +42,7 @@ const JobOpeningCreateView = ({}) => {
     filteredDepartments,
     filteredEmployees,
     isDesignationDisabled,
+    recruiterList
   } = useJobOpeningsDetail({});
   const classes = useStyles();
 
@@ -158,7 +159,8 @@ const JobOpeningCreateView = ({}) => {
                 freeSolo: false,
                 getOptionLabel: (option) => option.label,
               }}
-              dataset={listData.HR}
+              // dataset={listData.HR}
+              dataset={recruiterList?.RECRUITER ? recruiterList?.RECRUITER :[]}
               datasetKey={"label"}
               onTextChange={(text, value) => {
                 changeTextData(text, "assigned_to");
