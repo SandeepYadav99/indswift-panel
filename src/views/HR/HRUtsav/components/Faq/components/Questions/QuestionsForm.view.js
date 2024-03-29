@@ -127,6 +127,7 @@ class QuestionsFormView extends Component {
         "priority",
         "location_id",
         "date",
+        "images",
       ];
       Object.keys(data).forEach((val) => {
         if (["status", "images", "cover_image"].indexOf(val) < 0) {
@@ -394,7 +395,6 @@ class QuestionsFormView extends Component {
   }
 
   _handleDeleteImage(type, index, uniIndex) {
-    console.log(type, index);
     const { thumbnail_index, remote_images } = this.state;
     const { data } = this.props;
     // if (uniIndex <= thumbnail_index) {
@@ -502,7 +502,12 @@ class QuestionsFormView extends Component {
           <div className={styles.imgContainer}>
             <div className={styles.imgLikeBtn}>
               <ButtonBase
-                onClick={this._handleThumbnail.bind(this, "LOCAL", tempIndex)}
+                onClick={this._handleThumbnail.bind(
+                  this,
+                  "LOCAL",
+                  index,
+                  tempIndex
+                )}
               >
                 {thumbnail_index.indexOf(index) >= 0 ? (
                   <BookmarkFilled />
@@ -663,7 +668,10 @@ class QuestionsFormView extends Component {
               />
             </div>
           </div>
-            <div className={styles.cover_title}><b>Cover Image Tip:</b> Recommended Size for cover image is <b> 800 x 400 px</b></div>
+          <div className={styles.cover_title}>
+            <b>Cover Image Tip:</b> Recommended Size for cover image is{" "}
+            <b> 800 x 400 px</b>
+          </div>
 
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -676,17 +684,19 @@ class QuestionsFormView extends Component {
           </div>
           <div className={styles.bottomFlex}>
             {this._renderStatus()}
-            <div>
-              <IconButton
-                variant={"contained"}
-                className={this.props.classes.iconBtnError}
-                onClick={this._handleDelete}
-                type="button"
-              >
-                <DeleteIcon />
-              </IconButton>
-              {/*<span className={styles.delete}>Delete Permanently</span>*/}
-            </div>
+            {data && (
+              <div>
+                <IconButton
+                  variant={"contained"}
+                  className={this.props.classes.iconBtnError}
+                  onClick={this._handleDelete}
+                  type="button"
+                >
+                  <DeleteIcon />
+                </IconButton>
+                {/*<span className={styles.delete}>Delete Permanently</span>*/}
+              </div>
+            )}
           </div>
 
           <br />

@@ -48,6 +48,19 @@ const useJobOpeningsDetail = ({}) => {
     HR: [],
     DESIGNATIONS: [],
   });
+  const [recruiterList,setRecruiterList] = useState([])
+
+  useEffect(() => {
+    if (form?.location_id) {
+      serviceGetList(["RECRUITER"],{location_id:form?.location_id}).then((res) => {
+        if (!res.error) {
+          setRecruiterList({
+            ...res.data,
+          });
+        }
+      });
+    }
+  }, [form?.location_id]);
 
   useEffect(() => {
     if (form?.replacing_person) {
@@ -174,6 +187,7 @@ const useJobOpeningsDetail = ({}) => {
         t["department_id"] = "";
         t["sub_department_id"] = "";
         t["replacing_person"] = "";
+        t["assigned_to"] = ""
       }
       if (fieldName === "department_id") {
         t["sub_department_id"] = "";
@@ -253,7 +267,8 @@ const useJobOpeningsDetail = ({}) => {
     filteredSubDepartments,
     listData,
     filteredEmployees,
-    isDesignationDisabled
+    isDesignationDisabled,
+    recruiterList
   };
 };
 
