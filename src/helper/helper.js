@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 export const InductionData = {
   firstRow:
     "Time to time the booklet will undergo revisions and therefore all employees may also refer to this section to be aware about new added provisions. The Booklet does not contain all the information that employee’s may require during progression in organization, but the objective of this manual is to give basic orientation about the organization and its basic code of conduct ",
@@ -820,6 +822,21 @@ export const isDateInFiscalYear = (date) => {
     (month > 1 && month < 3) ||
     (month === 3 && date.getDate() <= 25)
   );
+};
+export const calculateFinancialYear = (date) => {
+  const currentMonth = date.getMonth() + 1; // Adding 1 to get month number starting from 1
+
+  let fyStartYear, fyEndYear;
+
+  if (currentMonth >= 4) {
+    fyStartYear = date.getFullYear();
+    fyEndYear = date.getFullYear() + 1;
+  } else {
+    fyStartYear = date.getFullYear() - 1;
+    fyEndYear = date.getFullYear();
+  }
+
+  return `${fyStartYear}-${fyEndYear}`;
 };
 // "INTERNAL" "EXTERNAL" => nature
 // IN_PLACE NOT_IN_PLACE =>succession
