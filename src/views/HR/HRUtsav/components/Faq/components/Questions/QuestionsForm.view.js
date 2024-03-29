@@ -127,6 +127,7 @@ class QuestionsFormView extends Component {
         "priority",
         "location_id",
         "date",
+        "images",
       ];
       Object.keys(data).forEach((val) => {
         if (["status", "images", "cover_image"].indexOf(val) < 0) {
@@ -394,7 +395,6 @@ class QuestionsFormView extends Component {
   }
 
   _handleDeleteImage(type, index, uniIndex) {
-    console.log(type, index);
     const { thumbnail_index, remote_images } = this.state;
     const { data } = this.props;
     // if (uniIndex <= thumbnail_index) {
@@ -664,7 +664,7 @@ class QuestionsFormView extends Component {
                 component={renderFileField}
                 label="Cover Image"
                 bannerLabel="Upload Cover Image"
-              // default_image={"../../../../../../../assets/img/profile.png"}
+                // default_image={"../../../../../../../assets/img/profile.png"}
               />
             </div>
           </div>
