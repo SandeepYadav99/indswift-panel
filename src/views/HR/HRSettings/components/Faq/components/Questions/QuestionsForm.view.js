@@ -309,9 +309,10 @@ class QuestionsFormView extends Component {
   }
 
   categoryNameFixed({ yourObject }) {
-    const truncatedName = yourObject?.name?.length > 60
-    ? yourObject?.name?.substring(0, 60) + '...'
-    : yourObject?.name;
+    const truncatedName =
+      yourObject?.name?.length > 60
+        ? yourObject?.name?.substring(0, 60) + "..."
+        : yourObject?.name;
     return `${truncatedName?.toUpperCase()} Name`;
   }
 
@@ -390,17 +391,19 @@ class QuestionsFormView extends Component {
 
           <div className={styles.bottomFlex}>
             {this._renderStatus()}
-            <div>
-              <IconButton
-                variant={"contained"}
-                className={this.props.classes.iconBtnError}
-                onClick={this._handleDelete}
-                type="button"
-              >
-                <DeleteIcon />
-              </IconButton>
-              {/*<span className={styles.delete}>Delete Permanently</span>*/}
-            </div>
+            {data && (
+              <div>
+                <IconButton
+                  variant={"contained"}
+                  className={this.props.classes.iconBtnError}
+                  onClick={this._handleDelete}
+                  type="button"
+                >
+                  <DeleteIcon />
+                </IconButton>
+                {/*<span className={styles.delete}>Delete Permanently</span>*/}
+              </div>
+            )}
           </div>
 
           <br />

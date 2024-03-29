@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { isAlphaNumChars, isDate, isUrl, validateUrl } from "../../../libs/RegexUtils";
+import {
+  isAlphaNumChars,
+  isDate,
+  isUrl,
+  validateUrl,
+} from "../../../libs/RegexUtils";
 import {
   serviceCheckHRAnnouncement,
   serviceCreateHRAnnouncement,
@@ -60,8 +65,14 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
   }, []);
   const handleImageChange = useCallback(
     (file) => {
-      if (file && Object.keys(file.target.files).length > 0) {
+      if (
+        file &&
+        Object.keys(file.target.files).length > 0 &&
+        file?.target?.files[0]?.size < 5 * 1024 * 1024
+      ) {
         setImage(file.target.files[0]);
+      } else if (file?.target?.files[0]?.size > 5 * 1024 * 1024) {
+        SnackbarUtils?.error("Maximum File Size Upload is 5 MB");
       }
     },
     [setImage, image]
@@ -96,15 +107,15 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
       errors["date"] = true;
     }
     if (form?.link && !validateUrl(form?.link)) {
-      SnackbarUtils.error('Please Enter the Valid Url')
+      SnackbarUtils.error("Please Enter the Valid Url");
       errors["link"] = true;
     }
-    if(!id){
-      if (!form?.image){
-        SnackbarUtils.error('Please Upload the Image')
-        errors['image'] = true
-      }else{
-        delete errors.image
+    if (!id) {
+      if (!form?.image) {
+        SnackbarUtils.error("Please Upload the Image");
+        errors["image"] = true;
+      } else {
+        delete errors.image;
       }
     }
     Object.keys(errors).forEach((key) => {
@@ -170,8 +181,8 @@ const useHRAnnouncementCreateViewDetail = ({}) => {
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "title") {
-        if(text?.length <=180){
-          t[fieldName]=text
+        if (text?.length <= 180) {
+          t[fieldName] = text;
         }
       } else {
         t[fieldName] = text;

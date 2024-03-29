@@ -502,7 +502,12 @@ class QuestionsFormView extends Component {
           <div className={styles.imgContainer}>
             <div className={styles.imgLikeBtn}>
               <ButtonBase
-                onClick={this._handleThumbnail.bind(this, "LOCAL", tempIndex)}
+                onClick={this._handleThumbnail.bind(
+                  this,
+                  "LOCAL",
+                  index,
+                  tempIndex
+                )}
               >
                 {thumbnail_index.indexOf(index) >= 0 ? (
                   <BookmarkFilled />
@@ -659,11 +664,14 @@ class QuestionsFormView extends Component {
                 component={renderFileField}
                 label="Cover Image"
                 bannerLabel="Upload Cover Image"
-                // default_image={"../../../../../../../assets/img/profile.png"}
+              // default_image={"../../../../../../../assets/img/profile.png"}
               />
             </div>
           </div>
-            <div className={styles.cover_title}><b>Cover Image Tip:</b> Recommended Size for cover image is <b> 800 x 400 px</b></div>
+          <div className={styles.cover_title}>
+            <b>Cover Image Tip:</b> Recommended Size for cover image is{" "}
+            <b> 800 x 400 px</b>
+          </div>
 
           <div className={"formFlex"}>
             <div className={"formGroup"}>
@@ -676,17 +684,19 @@ class QuestionsFormView extends Component {
           </div>
           <div className={styles.bottomFlex}>
             {this._renderStatus()}
-            <div>
-              <IconButton
-                variant={"contained"}
-                className={this.props.classes.iconBtnError}
-                onClick={this._handleDelete}
-                type="button"
-              >
-                <DeleteIcon />
-              </IconButton>
-              {/*<span className={styles.delete}>Delete Permanently</span>*/}
-            </div>
+            {data && (
+              <div>
+                <IconButton
+                  variant={"contained"}
+                  className={this.props.classes.iconBtnError}
+                  onClick={this._handleDelete}
+                  type="button"
+                >
+                  <DeleteIcon />
+                </IconButton>
+                {/*<span className={styles.delete}>Delete Permanently</span>*/}
+              </div>
+            )}
           </div>
 
           <br />
