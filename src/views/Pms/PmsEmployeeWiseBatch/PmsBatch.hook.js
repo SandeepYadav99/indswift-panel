@@ -102,8 +102,15 @@ const usePmsBatch = ({ location }) => {
 
   const handleFilterDataChange = useCallback(
     (value) => {
-      console.log("_handleFilterDataChange", value);
-      queryFilter("FILTER_DATA", value);
+      const updatedData = value?.map((item)=>{
+        return {
+          ...item,
+          value:item?.value?.id,
+          type:item?.type === "selectAuto" ? "selectObject" :item?.type 
+        }
+      })
+      console.log("_handleFilterDataChange",updatedData);
+      queryFilter("FILTER_DATA", updatedData);
     },
     [queryFilter]
   );
@@ -179,7 +186,7 @@ const usePmsBatch = ({ location }) => {
       {
         label: "PMS reviewer",
         name: "pms_reviewer_id",
-        type: "selectObject",
+        type: "selectAuto",
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.PMS_EMPLOYEES,
       },
