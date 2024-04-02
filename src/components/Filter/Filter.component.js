@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 // import Add from 'material-ui/svg-icons/content/add';
 import cstyles from './Style.module.css';
+import { Autocomplete } from "@material-ui/lab";
 
 const styles = {
     flatButton: {
@@ -76,7 +77,10 @@ class FilterComponent extends Component {
         if ((value[i]).type == 'text') {
             (value[i]).value = event.target.value;
         }
-        if ((value[i]).type == 'select' || (value[i]).type == 'selectObject') {
+        if ((value[i]).type == 'selectAuto') {
+            (value[i]).value = index;
+        }
+        if ((value[i]).type == 'select' || (value[i]).type == 'selectObject' ) {
             (value[i]).value = event.target.value;
         }
         if ((value[i]).type == 'date') {
@@ -163,6 +167,27 @@ class FilterComponent extends Component {
                         {uiItems}
                     </Select>
                 </FormControl>
+            );
+        }
+        if (val.type == 'selectAuto') {
+            const { classes } = this.props;
+            return (
+                <Autocomplete
+                  className={classes.formControl}
+                  id="tags-outlined"
+                  value={this.state.filter[i].value}
+                  onChange={this.detailhandleChange.bind(this, i)}
+                  options={val.fields ? val.fields : []}
+                  getOptionLabel={(option) => option.label}
+                  defaultValue={this.state.filter[i].value}
+                  renderInput={(params) => (
+                    <TextField
+                    {...params}
+                    variant="outlined"
+                    label={val.label}
+                  />
+                )}
+              />
             );
         }
         if (val.type == 'selectObject') {
