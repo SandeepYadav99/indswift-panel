@@ -118,6 +118,7 @@ const UploadCsvDialog = ({ isOpen, handleToggle, handleCsvUpload }) => {
         {/*</DialogTitle>*/}
         <DialogContent>
           <File
+            clearable
             max_size={100 * 1024 * 1024}
             type={["csv"]}
             fullWidth={true}

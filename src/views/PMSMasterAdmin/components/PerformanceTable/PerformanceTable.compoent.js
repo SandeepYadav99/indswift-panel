@@ -101,6 +101,7 @@ function PerformanceTable({ Renderdata, getPmsList }) {
         }}
       >
         <MenuItem value={"2023"}>2023</MenuItem>
+        <MenuItem value={"2024"}>2024</MenuItem>
       </CustomSelectField>
     );
   }, [year]);

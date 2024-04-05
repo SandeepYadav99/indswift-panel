@@ -24,6 +24,8 @@ import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import debounce from "lodash.debounce";
 import {useSelector} from "react-redux";
+import Constants from "../../config/constants";
+import RolesUtils from "../../libs/Roles.utils";
 
 const SALARY_KEYS = [
   "basic_salary",
@@ -260,6 +262,11 @@ function EmployeeListCreateHook({ location }) {
     CADRES: [],
   });
   const {role} = useSelector(state => state.auth);
+  
+  const isCorporateHR = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+  }, [role]);
+
   useEffect(() => {
     serviceGetList([
       "LOCATION_DEPARTMENTS",
@@ -787,6 +794,7 @@ function EmployeeListCreateHook({ location }) {
     toggleConfirmDialog,
     isDialog,
     submitToServer,
+    isCorporateHR
   };
 }
 
