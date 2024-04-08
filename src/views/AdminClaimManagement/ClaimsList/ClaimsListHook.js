@@ -273,6 +273,7 @@ const useClaimsList = ({}) => {
       Roles.CORPORATE_HR,
       Roles.ACCOUNTANT,
       Roles.CORPORATE_REVIEWER,
+      Roles.CORPORATE_ACCOUNTANT
     ], role);
   }, [role]);
 
