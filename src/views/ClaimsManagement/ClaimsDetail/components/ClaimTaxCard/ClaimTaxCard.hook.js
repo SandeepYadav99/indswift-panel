@@ -211,9 +211,16 @@ const useTaxCard = ({}) => {
       if (res?.child_fees?.length > 0) {
         childRef?.current?.setData(res?.child_fees);
       }
-      setTimeout(() => {
-        setForm({ ...form, ...fd });
-      }, 500);
+      let getTotal = serviceGetTotalTaxForm({
+        employee_id: user_id,
+        fy_rent_paid: fd?.fy_rent_paid ? fd?.fy_rent_paid : 0,
+      })
+      getTotal.then((data)=>{
+        const total = data?.data?.details
+        setTimeout(() => {
+          setForm({ ...form, ...fd,...total });
+        }, 500);
+      })
     });
   }, [user_id,financialYear]);
 
