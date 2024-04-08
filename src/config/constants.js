@@ -439,6 +439,7 @@ export default {
     CASHIER: "CASHIER",
     HR: "HR",
     MD: "MD",
+    CORPORATE_ACCOUNTANT:"CORPORATE_ACCOUNTANT"
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,
