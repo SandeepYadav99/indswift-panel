@@ -42,6 +42,23 @@ function EmployeeKnowledge() {
     return <StatusPill status={status} />;
   }, []);
 
+  const renderFirstCell = useCallback((obj) => {
+    if (obj) {
+      return (
+        <div className={styles.firstCellFlex}>
+          <div className={classNames(styles.firstCellInfo, "openSans")}>
+            <span className={styles.productName}>{obj?.name}</span> <br />
+            <span className={styles.productDate}>
+              {obj?.location.name}
+            </span>{" "}
+            <br />
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }, []);
+
   const tableStructure = useMemo(() => {
     return [
       {
@@ -79,22 +96,7 @@ function EmployeeKnowledge() {
       },
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
-  const renderFirstCell = useCallback((obj) => {
-    if (obj) {
-      return (
-        <div className={styles.firstCellFlex}>
-          <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span> <br />
-            <span className={styles.productDate}>
-              {obj?.location.name}
-            </span>{" "}
-            <br />
-          </div>
-        </div>
-      );
-    }
-    return null;
-  }, []);
+
 
   const handleClose = () => {
     setOpen(false);
