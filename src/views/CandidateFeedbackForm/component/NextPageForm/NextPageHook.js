@@ -28,6 +28,20 @@ const useNextPage = ({handleSubmitProp}) => {
         },
         [form, setForm, isDeclarationChecked]
     );
+    const checkFormValidation = useCallback(() => {
+        const errors = {...errorData};
+        ["overall"].forEach((val) => {
+            if (!form?.[val]["value"]) {
+                errors[val] = true;
+            }
+        });
+        Object.keys(errors).forEach((key) => {
+            if (!errors[key]) {
+                delete errors[key];
+            }
+        });
+        return errors;
+    }, [form, errorData, isDeclarationChecked]);
     const handleSubmit = useCallback(async () => {
         if(form.overall.value == '-1'){
             SnackbarUtils.error('Please Select the Overall Rating');
@@ -52,20 +66,6 @@ const useNextPage = ({handleSubmitProp}) => {
         setIsDeclarationChecked((e) => !e);
     }, []);
 
-    const checkFormValidation = useCallback(() => {
-        const errors = {...errorData};
-        ["overall"].forEach((val) => {
-            if (!form?.[val]["value"]) {
-                errors[val] = true;
-            }
-        });
-        Object.keys(errors).forEach((key) => {
-            if (!errors[key]) {
-                delete errors[key];
-            }
-        });
-        return errors;
-    }, [form, errorData, isDeclarationChecked]);
 
     const handlePasswordVerified = useCallback(() => {
         toggleResetDialog();
