@@ -465,6 +465,10 @@ function EmployeeListCreateHook() {
     }
   };
 
+  const checkSalaryInfoDebouncer = useMemo(() => {
+    return debounce((e) => {checkForSalaryInfo(e)}, 1000);
+      }, [listData]);
+      
   const changeTextData = useCallback(
       (text, fieldName) => {
         LogUtils.log('changeTextData', text, fieldName);
@@ -543,10 +547,6 @@ function EmployeeListCreateHook() {
       });
     }
   }, [errorData, setErrorData, form.emp_code, id]);
-
-  const checkSalaryInfoDebouncer = useMemo(() => {
-    return debounce((e) => {checkForSalaryInfo(e)}, 1000);
-      }, [listData]);
 
   useEffect(() => {
     if (codeDebouncer) {
