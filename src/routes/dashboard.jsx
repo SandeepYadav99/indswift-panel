@@ -2691,7 +2691,7 @@ const dashboardRoutes = [
     //  roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
-    path: "http://122.186.44.85/TOS7x1/frmLogin.aspx",
+    path: "http://192.168.147.67/TOS7x1/frmLogin.aspx?ReturnUrl=%2fTOS7xq1",
     sidebarName: "Attendance Gateway",
     navbarName: "",
     icon: FingerprintOutlined,
