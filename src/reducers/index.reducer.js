@@ -98,6 +98,7 @@ import TravelAuthSpecReducer from "./TravelAuthSpec.reducer";
 import NotificationReducer from "./Notification.reducer";
 import NotificationModuleReducer from "./NotificationModule.reducer";
 import TaxListReducer from "./TaxList.reducer";
+import CloneBGVReducer from "./CloneBGV.reducer";
 
 
 const rootReducer = combineReducers({
@@ -181,6 +182,7 @@ const rootReducer = combineReducers({
   expirOfferLetter: ExpirOfferLetterReducer,
   napsTraning: NAPS_TraningReducer,
   pendingBGV: PendingBGVReducer,
+  clone_pendingBGV: CloneBGVReducer,
   OngoingLoans: OngoingLoansReducer,
   LeaveModule: LeaveReducer,
   C3MLetter: C3MLetterReducer,
