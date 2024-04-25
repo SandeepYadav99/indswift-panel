@@ -71,21 +71,7 @@ const useResetPasswordFirst = ({}) => {
         [removeError, form, setForm]
     );
 
-    const handleSubmit = useCallback(async () => {
-        const errors = checkFormValidation();
-        if (Object.keys(errors).length > 0) {
-            setErrorData(errors);
-            return true;
-        }
-
-        submitToServer();
-    }, [
-        checkFormValidation,
-        setErrorData,
-        form,
-        submitToServer
-    ]);
-      const submitToServer = useCallback(() => {
+    const submitToServer = useCallback(() => {
         if (!isSubmitting) {
           setIsSubmitting(true);
           serviceChangePassword({
@@ -101,6 +87,22 @@ const useResetPasswordFirst = ({}) => {
           });
         }
       }, [form, isSubmitting, setIsSubmitting,]);
+      
+    const handleSubmit = useCallback(async () => {
+        const errors = checkFormValidation();
+        if (Object.keys(errors).length > 0) {
+            setErrorData(errors);
+            return true;
+        }
+
+        submitToServer();
+    }, [
+        checkFormValidation,
+        setErrorData,
+        form,
+        submitToServer
+    ]);
+      
 
     const onBlurHandler = useCallback(
         (type) => {
