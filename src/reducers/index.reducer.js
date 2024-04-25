@@ -99,6 +99,7 @@ import NotificationReducer from "./Notification.reducer";
 import NotificationModuleReducer from "./NotificationModule.reducer";
 import TaxListReducer from "./TaxList.reducer";
 import CloneBGVReducer from "./CloneBGV.reducer";
+import CloneFinalFormApprovalReducer from "./CloneFinalFormApproval.reducer";
 
 
 const rootReducer = combineReducers({
@@ -192,6 +193,7 @@ const rootReducer = combineReducers({
   next_next_year:AfterNextSuccessionPlanerReducer,
   employeRecordApproval:EmpRecordApprovalReducer,
   final_form_approval: FinalFormApprovalReducer,
+  clone_final_form_approval: CloneFinalFormApprovalReducer,
   succession_approval:SuccessionAReducer,
   travelAuthSpec: TravelAuthSpecReducer,
   notification:NotificationReducer,

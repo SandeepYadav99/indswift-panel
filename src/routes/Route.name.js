@@ -222,6 +222,7 @@ export default {
   RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
   RELIEVING_EXPERIENCE_LETTER_DETAIL:"/relieving-exp-letter/detail/",
   PENDING_BACKGROUND_VERIFICATION:"/pending/verification",
+  CLONE_BACKGROUND_VERIFICATION:"/slpl/pending/verification",
   BGV_ANALYSI_REPOST:"/pending/verification/analysis/report",
 
   PENDING_VERIFICATION_CREATE:"/verification/create/",
@@ -236,6 +237,7 @@ export default {
   HRESCALATIONMATRIX:"/hr/escalation",
   FULL_FINAL_APPLICATION:"/full-final",
   FULL_FINAL_APPROVAL:"/full-final-approval",
+  CLONE_FULL_FINAL_APPROVAL:"/slpl/full-final-approval",
   FULL_FINAL_DETAIL_APPROVAL:"/full-final/detail/",
 
   TAX_LIST:"/tax/list",
