@@ -12,7 +12,8 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-
+const CloneFullFinalApproval = lazy (()=> import ("../views/Full&FinalApproval/CloneFull&FInalApproval/CloneFullFinalApproval.component.js"));
+const CloneBGVerification_View = lazy(()=>import ("../views/PendingBckgroundVerification/CloneView/CloneBGVerification_View.js"));
 const SuccessionPlanDetail = lazy(()=>import ("../views/SuccessionDetail/SuccessionDetail.view.js"));
 const PMSMasterAdmin = lazy(()=>import("../views/PMSMasterAdmin/PMSMasterAdmin.view.js"));
 const useEmployeeTaxDetail = lazy(()=>import("../views/ClaimsManagement/ClaimsDetail/components/EmployeeClaimList/EmployeeTaxDetail/EmployeeTaxDetail.view.js"));
@@ -2691,7 +2692,7 @@ const dashboardRoutes = [
     //  roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
-    path: "http://122.186.44.85/TOS7x1/frmLogin.aspx",
+    path: "http://192.168.147.67/TOS7x1/frmLogin.aspx?ReturnUrl=%2fTOS7xq1",
     sidebarName: "Attendance Gateway",
     navbarName: "",
     icon: FingerprintOutlined,
@@ -2931,6 +2932,37 @@ const dashboardRoutes = [
   is_sidebar: true,
   is_protect: true,
   roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
+},
+{
+  path: "null",
+  sidebarName: "Shifted to SLPL tab",
+  navbarName: "Shifted to SLPL tab",
+  icon: EventNote,
+  is_sidebar: true,
+  slug: "slpl",
+  is_parent: true,
+  // roles: [Roles.CORPORATE_HR],
+},
+{
+  path: RouteName.CLONE_BACKGROUND_VERIFICATION,
+  sidebarName: "SLPL Background Verification",
+  navbarName: "SLPL Background Verification",
+  icon: AssignmentOutlined,
+  component: CloneBGVerification_View,
+  is_sidebar: true,
+  is_protect: true,
+  parent: "slpl",
+   roles: [Roles.ADMIN, Roles.CORPORATE_HR,Roles.RECRUITER, Roles.HR,],
+},
+{
+  path: RouteName.CLONE_FULL_FINAL_APPROVAL,
+  sidebarName: "SLPL Full & Final Approval",
+  navbarName: "SLPL Full & Final Approval",
+  icon: AssignmentOutlined,
+  component: CloneFullFinalApproval,
+  is_sidebar: true,
+  is_protect: true,
+  parent:"slpl",
 },
   {
     path: '/testview',

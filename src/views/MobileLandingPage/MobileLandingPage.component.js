@@ -147,7 +147,7 @@ const MobileLandingPage = () => {
         <div className={styles.subContainer}>
           <div className={styles.plainPaper}>
             <a
-              href={"http://122.186.44.85/TOS7x1/frmLogin.aspx"}
+              href={"http://192.168.147.67/TOS7x1/frmLogin.aspx?ReturnUrl=%2fTOS7xq1"}
               className={styles.linkRoutes}
               target="_blank"
             >

@@ -33,16 +33,6 @@ function useEvaluationFormHook({ handleNext }) {
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
 
-  const handleRatingChange = useCallback(
-    (type, text) => {
-      const t = { ...form };
-      t[type] = text;
-      setForm(t);
-      removeError(type);
-    },
-    [form, setForm, errorData]
-  );
-
   const removeError = useCallback(
     (key) => {
       if (errorData?.[key]) {
@@ -53,6 +43,16 @@ function useEvaluationFormHook({ handleNext }) {
     },
     [setErrorData, errorData]
   );
+  const handleRatingChange = useCallback(
+    (type, text) => {
+      const t = { ...form };
+      t[type] = text;
+      setForm(t);
+      removeError(type);
+    },
+    [form, setForm, errorData]
+  );
+  
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     KEYS.forEach((val) => {
