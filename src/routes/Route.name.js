@@ -249,6 +249,7 @@ export default {
   EXIT_LOGIN:"/exit/login",
   EXIT_SUCCESS:"/exit/success",
   EXIT_INTERVIEW_LIST:"/exit/interview/list",
+  CLONE_EXIT_INTERVIEW_LIST:"/slpl/exit/interview/list",
   EXIT_INTERVIEW_FORM:"/exit/interview/form",
   EXIT_DETAIL:"/exit/details/",
 

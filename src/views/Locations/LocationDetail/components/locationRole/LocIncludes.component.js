@@ -163,7 +163,7 @@ const LocIncludeForm = ({data, employees, locationId, departments, errorData: er
         <>
             <div className={'headerFlex'}>
                 <h4 className={'infoTitle'}>
-                    <div style={{fontSize: '0.8rem'}}>Location Departments</div>
+                    <div style={{fontSize: '0.8rem'}}>HR Rights</div>
                 </h4>
             </div>
             {renderFields}

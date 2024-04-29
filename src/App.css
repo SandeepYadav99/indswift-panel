@@ -1128,6 +1128,10 @@ font-size: medium;
         justify-content: center;
         width: 100%;
     }
+    .newMemberWrapper {
+       max-width: 700px;
+       width: 90vw;
+    }
   }
 
   @media print {
