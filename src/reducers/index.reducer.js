@@ -100,6 +100,7 @@ import NotificationModuleReducer from "./NotificationModule.reducer";
 import TaxListReducer from "./TaxList.reducer";
 import CloneBGVReducer from "./CloneBGV.reducer";
 import CloneFinalFormApprovalReducer from "./CloneFinalFormApproval.reducer";
+import CloneExitInterviewReducer from "./CloneExitInterview.reducer";
 
 
 const rootReducer = combineReducers({
@@ -175,6 +176,7 @@ const rootReducer = combineReducers({
   pmsOverallHodMyReviews: PmsOverallHodReviewReducer,
   RelievingExpLetter:RelievingExpLetterReducer,
   exit_interview:ExitInterviewReducer,
+  clone_exit_interview:CloneExitInterviewReducer,
   leave_list:LeaveListReducer,
   final_form:FinalFormReducer,
   emp_loanList: EmployeeLoanListReducer,

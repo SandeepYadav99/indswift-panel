@@ -12,6 +12,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+const CloneExitInterviewList = lazy(()=> import ("../views/ExitInterview/CloneExitInterviewList/CloneExitInterviewList.container.js"));
 const CloneFullFinalApproval = lazy (()=> import ("../views/Full&FinalApproval/CloneFull&FInalApproval/CloneFullFinalApproval.component.js"));
 const CloneBGVerification_View = lazy(()=>import ("../views/PendingBckgroundVerification/CloneView/CloneBGVerification_View.js"));
 const SuccessionPlanDetail = lazy(()=>import ("../views/SuccessionDetail/SuccessionDetail.view.js"));
@@ -2963,6 +2964,18 @@ const dashboardRoutes = [
   is_sidebar: true,
   is_protect: true,
   parent:"slpl",
+},
+{
+  path: RouteName.CLONE_EXIT_INTERVIEW_LIST,
+  sidebarName: "SLPL Exit Interview List",
+  navbarName: "SLPL Exit Interview List",
+  icon: PeopleOutlined,
+  component: CloneExitInterviewList,
+  is_sidebar: true,
+  is_protect: true,
+  should_regex: true,
+  parent:"slpl",
+  roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
 },
   {
     path: '/testview',
