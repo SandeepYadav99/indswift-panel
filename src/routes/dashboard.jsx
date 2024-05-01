@@ -2692,17 +2692,17 @@ const dashboardRoutes = [
     parent: "skynetLetter",
     //  roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
-  {
-    path: "http://192.168.147.67/TOS7x1/frmLogin.aspx?ReturnUrl=%2fTOS7xq1",
-    sidebarName: "Attendance Gateway",
-    navbarName: "",
-    icon: FingerprintOutlined,
-    is_external: true,
-    component: <div></div>,
-    is_sidebar: true,
-    is_protect: false,
-    parent:"leave_attend"
-  },
+  // {
+  //   path: "http://192.168.147.67/TOS7x1/frmLogin.aspx?ReturnUrl=%2fTOS7xq1",
+  //   sidebarName: "Attendance Gateway",
+  //   navbarName: "",
+  //   icon: FingerprintOutlined,
+  //   is_external: true,
+  //   component: <div></div>,
+  //   is_sidebar: true,
+  //   is_protect: false,
+  //   parent:"leave_attend"
+  // },
   // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
   {
     path: RouteName.LEAVE_APPLICATION_LIST_VIEW,
@@ -2942,7 +2942,7 @@ const dashboardRoutes = [
   is_sidebar: true,
   slug: "slpl",
   is_parent: true,
-  // roles: [Roles.CORPORATE_HR],
+  roles: [Roles.CORPORATE_HR],
 },
 {
   path: RouteName.CLONE_BACKGROUND_VERIFICATION,

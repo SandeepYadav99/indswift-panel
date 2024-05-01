@@ -211,7 +211,7 @@ const CloneFullFinalApproval = ({}) => {
             <span className={styles.title}>Full & Final Pending Approval</span>
             <div className={styles.newLine} />
           </div>
-          {isCorporateAccountant && (
+          {/* {isCorporateAccountant && (
             <ButtonBase
               // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
@@ -221,7 +221,7 @@ const CloneFullFinalApproval = ({}) => {
             >
               Bank Transfer Sheet
             </ButtonBase>
-          )}
+          )} */}
         </div>
         <div>
           <FilterComponent

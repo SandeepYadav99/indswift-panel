@@ -262,7 +262,7 @@ const CloneBGVerification_View = ({ location }) => {
                 </IconButton>
               )}
 
-            {button_VerificationHandler(all)}
+            {/* {button_VerificationHandler(all)} */}
           </div>
         ),
       },
@@ -315,7 +315,7 @@ const CloneBGVerification_View = ({ location }) => {
             <div className={styles.newLine} />
           </div>
 
-          <div className={styles.rightFlex}>
+          {/* <div className={styles.rightFlex}>
             <ButtonBase
               className={styles.download}
               onClick={() => {
@@ -340,7 +340,7 @@ const CloneBGVerification_View = ({ location }) => {
             >
               BGV ANALYSIS REPORT
             </ButtonBase>
-          </div>
+          </div> */}
         </div>
 
         <div>
