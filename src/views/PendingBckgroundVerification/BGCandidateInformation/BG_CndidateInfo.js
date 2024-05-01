@@ -7,11 +7,11 @@ import BGVDetails from "../BGVerificationForm/BGVForm";
 import CandidateInfor from "../component/CandidateInfor/CandidateInfor";
 
 
-const CandidateInformation = () => {
+const CandidateInformation = ({location}) => {
  
   const urlParams = new URLSearchParams(window.location.search);
   const empCode = urlParams.get('emp_code');
-  
+  const isCLonePage=location?.state?.isClonePage ;
   return (
     <div>
       <div className={styles.outerFlex}>
@@ -26,7 +26,7 @@ const CandidateInformation = () => {
         </div>
       </div>
       <CandidateInfor empId={empCode} />
-      <BGVDetails />
+      <BGVDetails isCLonePage={isCLonePage}/>
     </div>
   );
 };

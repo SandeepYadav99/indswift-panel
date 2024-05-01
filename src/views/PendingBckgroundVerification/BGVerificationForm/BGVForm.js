@@ -6,7 +6,7 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import useBGVForm_Hook from "./BGVForm_Hook";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 
-const BGVForm = () => {
+const BGVForm = ({isCLonePage}) => {
   const {
     form,
     changeTextData,
@@ -179,7 +179,8 @@ const BGVForm = () => {
           </div>
         </div>
       </div>
-      <div className={styles.btnCont}>
+      {
+        !isCLonePage &&   <div className={styles.btnCont}>
         <ButtonBase
           type={"button"}
           onClick={handleSubmit}
@@ -188,6 +189,7 @@ const BGVForm = () => {
           SUBMIT
         </ButtonBase>
       </div>
+      }
     </div>
   );
 };

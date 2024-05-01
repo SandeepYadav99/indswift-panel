@@ -10,7 +10,7 @@ import FinalSalaryTable from "../../Full&Final/FinalForm/component/SalaryTable/F
 import ApproveDialog from "./component/ApprovePopUp/ApproveDialog.view";
 import RejectDialog from "./component/RejectPopUp/RejectDialog.view";
 
-function FullDetail() {
+function FullDetail({location}) {
   const {
     employeeDetail,
     toggleStatusDialog,
@@ -20,8 +20,7 @@ function FullDetail() {
     id,
     EditForm,
   } = useFullDetail({});
-
-
+  const isClonePage = location?.state?.isCloneFinal
   return (
     <div className="fullDetailWrapper" id="content-to-print">
       <div className={styles.outerFlex}>
@@ -74,7 +73,7 @@ function FullDetail() {
         </div>
       </div>
 
-      {employeeDetail?.status === "PENDING" && (
+      {employeeDetail?.status === "PENDING" && !isClonePage && (
         <div className={styles.LowerApp}>
         <div
           className={

@@ -104,7 +104,10 @@ const useCloneBGVerification_Hook = () => {
   const handleViewDetails = useCallback((data) => {
     console.log(data);
     historyUtils.push(
-      `${RouteName.PENDING_VERIFICATION_CREATE}${data?._id}?emp_code=${data?.employeeObj?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`
+      `${RouteName.PENDING_VERIFICATION_CREATE}${data?._id}?emp_code=${data?.employeeObj?.emp_code}&offerDate=${data?.offerDate}&offerAcceptedDate=${data?.offerAcceptedDate}`,
+      {
+        isClonePage: true,
+      }
     );
   }, []);
 

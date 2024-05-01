@@ -110,7 +110,9 @@ const useCloneFullFinalApproval = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.FULL_FINAL_DETAIL_APPROVAL}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.FULL_FINAL_DETAIL_APPROVAL}${data?.id}`, {
+      isCloneFinal: true,
+    }); //+data.id
   }, []);
 
   const handleViewForm = useCallback((data) => {
@@ -169,7 +171,7 @@ const useCloneFullFinalApproval = ({}) => {
     editData,
     configFilter,
     handleViewForm,
-    handleBankSheetDownload
+    handleBankSheetDownload,
   };
 };
 
