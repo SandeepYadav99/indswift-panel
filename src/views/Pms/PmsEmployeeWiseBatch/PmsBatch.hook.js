@@ -102,11 +102,13 @@ const usePmsBatch = ({ location }) => {
 
   const handleFilterDataChange = useCallback(
     (value) => {
+      // onsole.log('_handleSearchValueChange', value);
+      // queryFilter('SEARCH_TEXT', value);
       const updatedData = value?.map((item)=>{
         return {
           ...item,
-          value:item?.value?.id,
-          type:item?.type === "selectAuto" ? "selectObject" :item?.type 
+          value: item?.type === "selectAuto" ?  item?.value?.id : item.value,
+          type:item?.type === "selectAuto" ? "selectObject" :item?.type
         }
       })
       console.log("_handleFilterDataChange",updatedData);

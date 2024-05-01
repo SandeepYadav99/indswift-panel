@@ -49,7 +49,7 @@ function Members() {
   const { isTilesCalling } = useSelector((state) => state.employeeDashboard);
 
   return (
-    <div className={styles.memberWrapper}>
+    <div className={"MemberWrapper"}>
       <AppBar position="static" className={styles.backgroundColor}>
         <Tabs
           value={value}
