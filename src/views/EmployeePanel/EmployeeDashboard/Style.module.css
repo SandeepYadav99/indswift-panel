@@ -81,6 +81,7 @@
   }
   .memberMobile{
     display: block !important;
+    width: 100%;
   }
 }
 

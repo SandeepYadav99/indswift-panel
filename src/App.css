@@ -1128,12 +1128,19 @@ font-size: medium;
         justify-content: center;
         width: 100%;
     }
+    .MemberWrapper{
+       max-width: 760px;
+    }
     .newMemberWrapper {
        max-width: 700px;
-       width: 90vw;
     }
   }
 
+  @media (min-width: 767px) and (max-width: 1200px) {
+    .MemberWrapper {
+        max-width: 12000px !important;
+     }
+}
   @media print {
 
 .fullDetailWrapper {
