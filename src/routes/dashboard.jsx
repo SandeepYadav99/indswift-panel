@@ -562,7 +562,7 @@ const dashboardRoutes = [
     is_sidebar: true,
     slug: "approval",
     is_parent: true,
-    roles: [Roles.CORPORATE_HR],
+    roles: [Roles.CORPORATE_HR, Roles.HR_CHANGE_APPROVER],
   },
   {
     path: "/hrpolicy",
@@ -1317,7 +1317,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "approval",
-    roles: [Roles.CORPORATE_HR],
+    roles: [Roles.CORPORATE_HR, Roles.HR_CHANGE_APPROVER],
   },
   {
     path: `${RouteName.EMPLOYEE_VERSIONS}`,
@@ -1329,8 +1329,8 @@ const dashboardRoutes = [
     is_protect: true,
     parent: "approval",
     roles: Constants.is_development
-      ? [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR]
-      : [Roles.CORPORATE_HR],
+      ? [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.HR_CHANGE_APPROVER]
+      : [Roles.CORPORATE_HR, Roles.HR_CHANGE_APPROVER],
     moduleName:Modules?.HR_EMP_CHANGE
 
   },
@@ -1345,8 +1345,8 @@ const dashboardRoutes = [
     is_protect: true,
     parent: "approval",
     roles: Constants.is_development
-      ? [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR]
-      : [Roles.CORPORATE_HR],
+      ? [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.HR_CHANGE_APPROVER]
+      : [Roles.CORPORATE_HR, Roles.HR_CHANGE_APPROVER],
       moduleName:Modules?.HR_EMP_APPROVAL
   },
 
@@ -2870,7 +2870,7 @@ const dashboardRoutes = [
     parent: 'offboard',
     roles: [Roles.CORPORATE_HR,Roles.ADMIN,Roles.HR,Roles.MD],
   },
-  
+
   {
     path: RouteName.SUCCESSION_APPROVAL,
     sidebarName: "Succession Approval",
@@ -2995,7 +2995,7 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: false,
   },
-  
+
 ];
 
 export default dashboardRoutes;

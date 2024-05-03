@@ -105,6 +105,10 @@ function PerformanceTable({ Renderdata, getPmsList }) {
       </CustomSelectField>
     );
   }, [year]);
+  const checkBatch = useMemo(()=>{
+    return Renderdata?.length > 0 ? Renderdata[Renderdata?.length -1]?.is_closed : true;
+  },[Renderdata]);
+  
   return (
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
@@ -122,9 +126,11 @@ function PerformanceTable({ Renderdata, getPmsList }) {
           <div className={styles.down}>{renderDropDown}</div>
         </div>
         <div>
-          <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
+          {
+            checkBatch && <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
             CREATE BATCH
           </ButtonBase>
+          }
         </div>
       </div>
       <div style={{ width: "100%" }}>
