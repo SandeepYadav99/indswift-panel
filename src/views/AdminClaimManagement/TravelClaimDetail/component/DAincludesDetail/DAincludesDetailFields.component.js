@@ -18,12 +18,14 @@ const DAincludesDetailFields = ({
       const name = e?.target?.name;
       const value = e?.target?.value;
       if (name === "da_amount") {
-        if (value >= 0 && value <= data?.max_da_amount) {
+        // if (value >= 0 && value <= data?.max_da_amount) {
+          if(value >= 0){
           changeData(index, { [name]: value });
         }
       }
       else if (name === 'ie_amount') {
-        if (value >= 0 && value <= data?.max_ie_amount) {
+        if(value >= 0){
+        // if (value >= 0 && value <= data?.max_ie_amount) {
         changeData(index, { [name]: value });
         }
       }else if (name === "da_pct") {
