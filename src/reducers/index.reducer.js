@@ -101,6 +101,7 @@ import TaxListReducer from "./TaxList.reducer";
 import CloneBGVReducer from "./CloneBGV.reducer";
 import CloneFinalFormApprovalReducer from "./CloneFinalFormApproval.reducer";
 import CloneExitInterviewReducer from "./CloneExitInterview.reducer";
+import CloneClaimsReducer from "./CloneClaims.reducer";
 
 
 const rootReducer = combineReducers({
@@ -137,6 +138,7 @@ const rootReducer = combineReducers({
   cadre: CadreReducer,
   candidate: CandidateReducer,
   claims: ClaimsReducer,
+  clone_claims: CloneClaimsReducer,
   emp_claimList: EmployeeClaimListReducer,
   interviewSchedule: InterviewScheduleReducer,
   annual: AnnualReducer,

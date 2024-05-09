@@ -36,6 +36,75 @@ const useCreate = () => {
   const params = useParams();
 
   useEffect(() => {
+    serviceGetList(["DEPARTMENTS", "DESIGNATIONS", "LOCATIONS", "GRADES"]).then(
+      (res) => {
+        if (!res.error) {
+          setListData(res?.data);
+        }
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    if(params?.id){
+      serviceDetailNotificationModule({ id: params?.id }).then((res) => {
+        if (!res.error) {
+          const data = res?.data;
+          const fd = {};
+          Object.keys({ ...initialForm }).forEach((val) => {
+            fd[val] = data[val];
+          });
+          setForm({
+            ...form,
+            title: data?.title,
+            message: data?.message,
+            send_to: data?.send_to,
+            send_priority: data?.send_priority,
+            department_id: data?.department?.id,
+            location_id: data?.location?.id,
+            grade_id: data?.grade?.id,
+            designation_id: data?.designation?.id,
+            send_timestamp: data?.send_timestamp,
+            id: data?.id,
+          });
+        } else {
+          setForm({
+            send_priority: "NOW",
+            send_to: "ALL",
+          });
+        }
+      });
+    }
+   
+  }, [params?.id]);
+
+  const checkFormValidation = useCallback(() => {
+    const errors = { ...errorData };
+    requiredField.forEach((val) => {
+      if (!form?.[val]) {
+        errors[val] = true;
+      }
+    });
+    if(form?.send_priority === "LATER"){
+      if (form?.send_timestamp) {
+        const date = new Date(form?.send_timestamp);
+        const todayDate = new Date();
+        date.setHours(0, 0, 0, 0);
+        todayDate.setHours(0, 0, 0, 0);
+        if (date.getTime() < todayDate.getTime()) {
+          errors["send_timestamp"] = true;
+        }
+      }
+    }
+    Object.keys(errors).forEach((key) => {
+      if (!errors[key]) {
+        delete errors[key];
+      }
+    });
+    return errors;
+  }, [form, errorData, isSubmitting,form?.send_to,requiredField,form?.send_priority]);
+
+  useEffect(() => {
     const dynamicFields =[];
     setErrorData({})
     if (form?.send_to === "DEPARTMENT") {
@@ -64,73 +133,7 @@ const useCreate = () => {
       ...dynamicFields,
     ]);
 
-  }, [params?.id, handleSubmit, checkFormValidation,form?.send_to,form?.send_priority]);
-
-  useEffect(() => {
-    serviceGetList(["DEPARTMENTS", "DESIGNATIONS", "LOCATIONS", "GRADES"]).then(
-      (res) => {
-        if (!res.error) {
-          setListData(res?.data);
-        }
-      }
-    );
-  }, []);
-
-  useEffect(() => {
-    serviceDetailNotificationModule({ id: params?.id }).then((res) => {
-      if (!res.error) {
-        const data = res?.data;
-        const fd = {};
-        Object.keys({ ...initialForm }).forEach((val) => {
-          fd[val] = data[val];
-        });
-        setForm({
-          ...form,
-          title: data?.title,
-          message: data?.message,
-          send_to: data?.send_to,
-          send_priority: data?.send_priority,
-          department_id: data?.department?.id,
-          location_id: data?.location?.id,
-          grade_id: data?.grade?.id,
-          designation_id: data?.designation?.id,
-          send_timestamp: data?.send_timestamp,
-          id: data?.id,
-        });
-      } else {
-        setForm({
-          send_priority: "NOW",
-          send_to: "ALL",
-        });
-      }
-    });
-  }, [params?.id]);
-
-  const checkFormValidation = useCallback(() => {
-    const errors = { ...errorData };
-    requiredField.forEach((val) => {
-      if (!form?.[val]) {
-        errors[val] = true;
-      }
-    });
-    if(form?.send_priority === "LATER"){
-      if (form?.send_timestamp) {
-        const date = new Date(form?.send_timestamp);
-        const todayDate = new Date();
-        date.setHours(0, 0, 0, 0);
-        todayDate.setHours(0, 0, 0, 0);
-        if (date.getTime() < todayDate.getTime()) {
-          errors["send_timestamp"] = true;
-        }
-      }
-    }
-    Object.keys(errors).forEach((key) => {
-      if (!errors[key]) {
-        delete errors[key];
-      }
-    });
-    return errors;
-  }, [form, errorData, isSubmitting,form?.send_to,requiredField,form?.send_priority]);
+  }, [form?.send_to,form?.send_priority]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {

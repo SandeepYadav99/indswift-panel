@@ -105,6 +105,7 @@ export default {
   CV_SHORTLIST_LIST: '/cv/shortlist/',
 
   CLAIMS_LIST:'/cm/claims' ,
+  CLONE_CLAIMS_LIST:'/clone/cm/claims' ,
   CLAIMS_DETAILS:'/cm/details/',
   CLAIMS_HR_DETAILS:'/cm/hr/details/',
   TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',

@@ -17,7 +17,7 @@ import OtherIncludeForm from "./component/Otherincludes/OtherIncludes.component"
 import ApproveDialog from "../TravelClaimDetail/component/ApproveDialog/ApproveDialog.view";
 import { useMemo } from "react";
 
-function ForeignClaimDetail() {
+function ForeignClaimDetail({location}) {
   const {
     employeeDetails,
     employees,
@@ -67,6 +67,10 @@ function ForeignClaimDetail() {
     setRefundData,
     onBlurHandler,
   } = useClaimForDetail({});
+
+  const isClonePage = useMemo(()=>{
+    return location?.state?.isClone ? true : false
+  },[location])
 
   const statusCheck=useMemo(()=>{
     if(employeeDetails){
@@ -452,7 +456,7 @@ function ForeignClaimDetail() {
           </div>
         </div>
       </div>
-      {employeeDetails?.panelist_status === "PENDING" && (
+      {!isClonePage && employeeDetails?.panelist_status === "PENDING" && (
         <div
           className={
             employeeDetails?.status === "APPROVED"

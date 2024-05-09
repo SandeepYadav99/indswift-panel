@@ -22,6 +22,7 @@ export default {
   GOOGLE_LOGIN_KEY:
     "1027293586426-qg6lv2vsp57m05tn32m9stku2ljsd1uh.apps.googleusercontent.com",
   GOOGLE_MAP_KEY: "AIzaSyDUTIV7DaCvMUMg3qElE-sxdj4zR-dxhFM",
+  SENTRY_KEY:"https://8c23074c7a1d2532a801cf5f5bb424f7@o4507224995594240.ingest.us.sentry.io/4507225029083136",
   FACEBOOK_LOGIN_KEY: "213504989180156",
   DATATABLE_PROPERTIES: {
     title: "Search",
