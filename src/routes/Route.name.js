@@ -105,7 +105,7 @@ export default {
   CV_SHORTLIST_LIST: '/cv/shortlist/',
 
   CLAIMS_LIST:'/cm/claims' ,
-  CLONE_CLAIMS_LIST:'/clone/cm/claims' ,
+  CLONE_CLAIMS_LIST:'/cm/clone/claims' ,
   CLAIMS_DETAILS:'/cm/details/',
   CLAIMS_HR_DETAILS:'/cm/hr/details/',
   TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',
@@ -223,7 +223,7 @@ export default {
   RELIEVING_EXPERIENCE_LETTER:"/relieving-exp-letter",
   RELIEVING_EXPERIENCE_LETTER_DETAIL:"/relieving-exp-letter/detail/",
   PENDING_BACKGROUND_VERIFICATION:"/pending/verification",
-  CLONE_BACKGROUND_VERIFICATION:"/slpl/pending/verification",
+  CLONE_BACKGROUND_VERIFICATION:"/pending/slpl/verification",
   BGV_ANALYSI_REPOST:"/pending/verification/analysis/report",
 
   PENDING_VERIFICATION_CREATE:"/verification/create/",
@@ -238,7 +238,7 @@ export default {
   HRESCALATIONMATRIX:"/hr/escalation",
   FULL_FINAL_APPLICATION:"/full-final",
   FULL_FINAL_APPROVAL:"/full-final-approval",
-  CLONE_FULL_FINAL_APPROVAL:"/slpl/full-final-approval",
+  CLONE_FULL_FINAL_APPROVAL:"/full/slpl/final-approval",
   FULL_FINAL_DETAIL_APPROVAL:"/full-final/detail/",
 
   TAX_LIST:"/tax/list",
@@ -250,7 +250,7 @@ export default {
   EXIT_LOGIN:"/exit/login",
   EXIT_SUCCESS:"/exit/success",
   EXIT_INTERVIEW_LIST:"/exit/interview/list",
-  CLONE_EXIT_INTERVIEW_LIST:"/slpl/exit/interview/list",
+  CLONE_EXIT_INTERVIEW_LIST:"/exit/slpl/interview/list",
   EXIT_INTERVIEW_FORM:"/exit/interview/form",
   EXIT_DETAIL:"/exit/details/",
 
