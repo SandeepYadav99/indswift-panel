@@ -17,7 +17,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import { useMemo } from "react";
 
-function TravelClaimListDetail() {
+function TravelClaimListDetail({location}) {
   const {
     id,
     employeeDetail,
@@ -55,6 +55,10 @@ function TravelClaimListDetail() {
     setOfficeAmount4,
   } = useTravelClaimListDetail({});
   
+  const isClonePage = useMemo(()=>{
+    return location?.state?.isClone ? true : false
+  },[location])
+
   const statusCheck=useMemo(()=>{
     if(employeeDetail){
       return employeeDetail?.panelist_status === "PENDING"
@@ -328,7 +332,7 @@ function TravelClaimListDetail() {
           </div>
         </div>
       </div>
-      {employeeDetail?.panelist_status === "PENDING" && (
+      { !isClonePage && employeeDetail?.panelist_status === "PENDING" && (
         <div
           className={
             employeeDetail?.status === "APPROVED"

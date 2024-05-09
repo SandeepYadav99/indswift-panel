@@ -12,6 +12,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+const CloneClaimsList = lazy(()=> import ("../views/AdminClaimManagement/CloneClaimsList/CloneClaimsList.container.js"));
 const CloneExitInterviewList = lazy(()=> import ("../views/ExitInterview/CloneExitInterviewList/CloneExitInterviewList.container.js"));
 const CloneFullFinalApproval = lazy (()=> import ("../views/Full&FinalApproval/CloneFull&FInalApproval/CloneFullFinalApproval.component.js"));
 const CloneBGVerification_View = lazy(()=>import ("../views/PendingBckgroundVerification/CloneView/CloneBGVerification_View.js"));
@@ -2976,6 +2977,19 @@ const dashboardRoutes = [
   should_regex: true,
   parent:"slpl",
   roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+},
+{
+  path: `${RouteName.CLONE_CLAIMS_LIST}`,
+  sidebarName: "SLPL Claim List",
+  navbarName: "SLPL Claim List",
+  icon: PeopleOutlined,
+  component: CloneClaimsList,
+  is_sidebar: true,
+  is_protect: true,
+  should_regex: true,
+  parent: "slpl",
+  moduleName:Modules?.HR_CLAIM_APPROVE
+  // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR, Roles.ACCOUNTANT, Roles.CORPORATE_REVIEWER],
 },
   {
     path: '/testview',
