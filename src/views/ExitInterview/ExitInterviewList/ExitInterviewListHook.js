@@ -152,6 +152,12 @@ const useExitInterviewList = ({}) => {
         type: "select",
         fields: ["PENDING", "SUBMITTED"],
       },
+      {
+        label: "HR Comments",
+        name: "hr_status",
+        type: "select",
+        fields: ["PENDING", "SUBMITTED"],
+      },
     ];
   }, [listData]);
   
