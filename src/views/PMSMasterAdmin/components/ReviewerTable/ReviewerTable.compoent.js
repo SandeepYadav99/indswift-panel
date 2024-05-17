@@ -6,7 +6,7 @@ import Datatables from "../../../../components/Datatables/datatables";
 import { ButtonBase, MenuItem } from "@material-ui/core";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 
-function ReviewerTable({ Renderdata, getPmsList }) {
+function ReviewerTable({ Renderdata, getPmsList ,currentBatch}) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -115,7 +115,7 @@ function ReviewerTable({ Renderdata, getPmsList }) {
       <div className={styles.headerContainer}>
         <div>
           <span className={styles.title}>
-            Reviewer Batch (Type 1 - Type 4) - APMS
+            Reviewer Batch (Type 1 - Type 4) - {currentBatch}
           </span>
           {/* <div className={styles.newLine} /> */}
         </div>

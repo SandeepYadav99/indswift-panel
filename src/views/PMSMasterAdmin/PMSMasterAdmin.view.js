@@ -25,29 +25,34 @@ function PMSMasterAdmin() {
     return filteredData ? filteredData : [];
   }, [data]);
 
+  const currentBatch=useMemo(()=>{
+    return data?.length > 0 ? data[data?.length - 1]?.batch : "";
+  },[data])
+
   return (
     <div>
       <PerformanceTable Renderdata={data} getPmsList={getPmsList} />
-      <ReviewerTable Renderdata={data} getPmsList={getPmsList} />
-      <TypeFiveTable Renderdata={data} getPmsList={getPmsList} />
+      <ReviewerTable Renderdata={data} getPmsList={getPmsList} currentBatch={currentBatch}/>
+      <TypeFiveTable Renderdata={data} getPmsList={getPmsList} currentBatch={currentBatch}/>
       <FirstNormalizeTable
         Renderdata={firstNormalizeData}
         getPmsList={getPmsList}
         normalizeType="REVIEWER"
-        placeholder="First Normalization - APMS"
+        placeholder={`First Normalization - ${currentBatch}`}
       />
-      <HodBatchTable Renderdata={data} getPmsList={getPmsList} />
-      <OverallHodBatchTable Renderdata={data} getPmsList={getPmsList} />
+      <HodBatchTable Renderdata={data} getPmsList={getPmsList} currentBatch={currentBatch}/>
+      <OverallHodBatchTable Renderdata={data} getPmsList={getPmsList} currentBatch={currentBatch}/>
       <FirstNormalizeTable
         Renderdata={secondNormalizeData}
         getPmsList={getPmsList}
         normalizeType="HOD"
-        placeholder="Second Normalization - APMS"
+        placeholder={`Second Normalization - ${currentBatch}`}
       />
       <CloseTable
         Renderdata={batchCloseData}
         getPmsList={getPmsList}
         normalizeType="HOD"
+        currentBatch={currentBatch}
       />
     </div>
   );

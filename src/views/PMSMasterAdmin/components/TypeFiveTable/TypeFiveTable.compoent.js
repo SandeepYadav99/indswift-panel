@@ -6,7 +6,7 @@ import { ButtonBase, MenuItem } from "@material-ui/core";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 import useTypeFiveTable from "./TypeFiveTableHook";
 
-function TypeFiveTable({ Renderdata, getPmsList }) {
+function TypeFiveTable({ Renderdata, getPmsList ,currentBatch}) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -114,9 +114,16 @@ function TypeFiveTable({ Renderdata, getPmsList }) {
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
         <div>
-          <span className={styles.title}>Type 5 Batch - APMS</span>
+          <span className={styles.title}>Type 5 Batch - {currentBatch}</span>
           {/* <div className={styles.newLine} /> */}
         </div>
+      </div>
+      <div className={styles.decs}>
+        Please choose the start date (email will be sent) and end date (review
+        submission last date) by reviewers.
+      </div>
+      <div className={styles.subDes}>
+        Note: Once batch is created, reviewers for employees cannot be changed.
       </div>
       <div className={styles.yearFlex}>
         <div className={styles.UpperWrap}>
