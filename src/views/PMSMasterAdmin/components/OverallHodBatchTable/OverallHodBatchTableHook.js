@@ -63,14 +63,14 @@ const useOverallHodBatchTable = ({ Renderdata, getPmsList }) => {
         batch_type: "overall_hod_batch",
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request Approved");
+          SnackbarUtils.success("Created successfully");
           getPmsList();
         } else {
           SnackbarUtils.error(res?.message);
         }
       });
     } else {
-      SnackbarUtils.error("Please select year and Batch");
+      SnackbarUtils.error("Please select Start Date and End Date");
     }
   }, [endDate, startDate, getPmsList]);
 
