@@ -6,7 +6,7 @@ import { ButtonBase, MenuItem } from "@material-ui/core";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 import useOverallHodBatchTable from "./OverallHodBatchTableHook";
 
-function OverallHodBatchTable({ Renderdata, getPmsList }) {
+function OverallHodBatchTable({ Renderdata, getPmsList ,currentBatch}) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -114,9 +114,16 @@ function OverallHodBatchTable({ Renderdata, getPmsList }) {
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
         <div>
-          <span className={styles.title}>Overall HOD Batch - APMS</span>
+          <span className={styles.title}>Overall HOD Batch - {currentBatch}</span>
           {/* <div className={styles.newLine} /> */}
         </div>
+      </div>
+      <div className={styles.decs}>
+        Please choose the start date (email will be sent) and end date (review
+        submission last date) by reviewers.
+      </div>
+      <div className={styles.subDes}>
+        Note: Once batch is created, reviewers for employees cannot be changed.
       </div>
       <div className={styles.yearFlex}>
         <div className={styles.UpperWrap}>

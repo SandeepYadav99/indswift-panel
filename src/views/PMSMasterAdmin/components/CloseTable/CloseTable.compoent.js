@@ -6,7 +6,7 @@ import { ButtonBase, MenuItem } from "@material-ui/core";
 import NormalizeDialog from "../NormalizeDialog/NormalizeDialog.view";
 import useCloseTable from "./CloseTableHook";
 
-function CloseTable({ Renderdata, getPmsList, normalizeType, placeholder }) {
+function CloseTable({ Renderdata, getPmsList, normalizeType, placeholder,currentBatch }) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -73,7 +73,7 @@ function CloseTable({ Renderdata, getPmsList, normalizeType, placeholder }) {
       /> */}
       <div className={styles.headerContainer}>
         <div>
-          <span className={styles.title}>Conclude PMS Cycle - APMS</span>
+          <span className={styles.title}>Conclude PMS Cycle - {currentBatch}</span>
           {/* <div className={styles.newLine} /> */}
         </div>
       </div>
