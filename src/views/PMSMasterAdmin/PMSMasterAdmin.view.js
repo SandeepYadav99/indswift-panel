@@ -49,6 +49,7 @@ function PMSMasterAdmin() {
       )}
       {data[0]?.type_five_batch?.is_freezed && (
         <FirstNormalizeTable
+        keyAt={"reviewerNormalizedAtText"}
           Renderdata={firstNormalizeData}
           getPmsList={getPmsList}
           normalizeType="REVIEWER"
@@ -71,6 +72,7 @@ function PMSMasterAdmin() {
       )}
       {data[0]?.overall_hod_batch?.is_freezed && (
         <FirstNormalizeTable
+          keyAt={"hodNormalizedAtText"}
           Renderdata={secondNormalizeData}
           getPmsList={getPmsList}
           normalizeType="HOD"

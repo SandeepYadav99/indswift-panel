@@ -37,20 +37,20 @@ function TypeFiveTable({ Renderdata, getPmsList, currentBatch }) {
         key: "start",
         label: "start date",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer_batch?.start_date}</div>,
+        render: (temp, all) => <div>{all?.type_five_batch?.startDateText}</div>,
       },
       {
         key: "end",
         label: "end date",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer_batch?.end_date}</div>,
+        render: (temp, all) => <div>{all?.type_five_batch?.endDateText}</div>,
       },
       {
         key: "freezed_on",
         label: "FREEZED ON",
         sortable: false,
         render: (temp, all) => (
-          <div> {all?.freezed_at ? all?.freezed_at : "-"}</div>
+          <div> {all?.type_five_batch?.freezedAtText ? all?.type_five_batch?.freezedAtText : "-"}</div>
         ),
       },
     ];
