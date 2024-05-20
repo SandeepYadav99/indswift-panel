@@ -88,6 +88,7 @@ function ReviewerTable({ Renderdata, getPmsList, currentBatch }) {
   const renderStartDate = useMemo(() => {
     return (
       <CustomDatePicker
+        minDate={new Date()}
         clearable
         label={"Start Date"}
         onChange={(date) => {
@@ -101,6 +102,7 @@ function ReviewerTable({ Renderdata, getPmsList, currentBatch }) {
   const renderEndDate = useMemo(() => {
     return (
       <CustomDatePicker
+        minDate={new Date()}
         clearable
         label={"End Date"}
         onChange={(date) => {

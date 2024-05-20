@@ -90,6 +90,7 @@ function OverallHodBatchTable({ Renderdata, getPmsList ,currentBatch}) {
       <CustomDatePicker
         clearable
         label={"Start Date"}
+        minDate={new Date()}
         onChange={(date) => {
           setStartDate(date);
         }}
@@ -103,6 +104,7 @@ function OverallHodBatchTable({ Renderdata, getPmsList ,currentBatch}) {
       <CustomDatePicker
         clearable
         label={"End Date"}
+        minDate={new Date()}
         onChange={(date) => {
           setEndDate(date);
         }}
