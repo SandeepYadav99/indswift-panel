@@ -37,20 +37,20 @@ function OverallHodBatchTable({ Renderdata, getPmsList ,currentBatch}) {
         key: "start",
         label: "start date",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer_batch?.start_date}</div>,
+        render: (temp, all) => <div>{all?.overall_hod_batch?.startDateText}</div>,
       },
       {
         key: "end",
         label: "end date",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer_batch?.end_date}</div>,
+        render: (temp, all) => <div>{all?.overall_hod_batch?.endDateText}</div>,
       },
       {
         key: "freezed_on",
         label: "FREEZED ON",
         sortable: false,
         render: (temp, all) => (
-          <div> {all?.freezed_at ? all?.freezed_at : "-"}</div>
+          <div> {all?.overall_hod_batch?.freezedAtText ? all?.overall_hod_batch?.freezedAtText : "-"}</div>
         ),
       },
     ];
@@ -90,6 +90,7 @@ function OverallHodBatchTable({ Renderdata, getPmsList ,currentBatch}) {
       <CustomDatePicker
         clearable
         label={"Start Date"}
+        minDate={new Date()}
         onChange={(date) => {
           setStartDate(date);
         }}
@@ -103,6 +104,7 @@ function OverallHodBatchTable({ Renderdata, getPmsList ,currentBatch}) {
       <CustomDatePicker
         clearable
         label={"End Date"}
+        minDate={new Date()}
         onChange={(date) => {
           setEndDate(date);
         }}
@@ -110,6 +112,13 @@ function OverallHodBatchTable({ Renderdata, getPmsList ,currentBatch}) {
       />
     );
   }, [endDate, setEndDate]);
+
+  const isFreeze = useMemo(()=>{
+    if(Renderdata?.length > 0){
+      return Renderdata[0]?.overall_hod_batch?.is_created
+    }
+    return false
+  },[Renderdata])
   return (
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
@@ -134,7 +143,9 @@ function OverallHodBatchTable({ Renderdata, getPmsList ,currentBatch}) {
           <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
             CREATE BATCH
           </ButtonBase>
-          <ButtonBase onClick={handleFreeze} className={styles.freeze}>
+          <ButtonBase onClick={handleFreeze}
+           disabled={!isFreeze}
+           className={isFreeze ? styles.freeze : styles.disabledBtn}>
             Freeze
           </ButtonBase>
         </div>

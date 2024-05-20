@@ -31,7 +31,7 @@ function CloseTable({ Renderdata, getPmsList, normalizeType, placeholder,current
         key: "date",
         label: "Date",
         sortable: false,
-        render: (temp, all) => <div> {all?.date ? all?.date : "-"}</div>,
+        render: (temp, all) => <div> {all?.closedAtText ? all?.closedAtText : "-"}</div>,
       },
     ];
   }, [isCalling]);

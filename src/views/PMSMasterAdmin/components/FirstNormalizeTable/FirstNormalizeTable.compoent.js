@@ -6,7 +6,7 @@ import { ButtonBase, MenuItem } from "@material-ui/core";
 import useFirstNormalizeTable from "./FirstNormalizeTableHook";
 import NormalizeDialog from "../NormalizeDialog/NormalizeDialog.view";
 
-function FirstNormalizeTable({ Renderdata, getPmsList,normalizeType,placeholder }) {
+function FirstNormalizeTable({ Renderdata, getPmsList,normalizeType,placeholder ,keyAt}) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -30,7 +30,8 @@ function FirstNormalizeTable({ Renderdata, getPmsList,normalizeType,placeholder 
         key: "date",
         label: "Date",
         sortable: false,
-        render: (temp, all) => <div> {all?.date ? all?.date : "-"}</div>,
+        render: (temp, all) => <div>
+           {all?.[keyAt] ? all?.[keyAt] : "-"}</div>,
       },
     ];
   }, [isCalling]);

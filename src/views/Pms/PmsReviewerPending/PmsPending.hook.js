@@ -12,9 +12,11 @@ import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
 import Constants from "../../../config/constants";
+import { serviceGetPmsCanReview } from "../../../services/PmsPending.service";
 const usePmsPending = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [enableAction,setEnableAction]= useState(false);
   const [listData, setListData] = useState({
     EMPLOYEES: [],
   });
@@ -39,10 +41,14 @@ const usePmsPending = ({}) => {
 
 
   useEffect(() => {
-    serviceGetList(["PMS_EMPLOYEES"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
+    Promise.allSettled([
+      serviceGetList(["PMS_EMPLOYEES"]),
+      serviceGetPmsCanReview({batch_type:"reviewer_batch"}),
+    ]).then((promises) => {
+      const listData = promises[0]?.value?.data;
+      const ActionData = promises[1]?.value?.data?.response?.can_review_batch;
+      setListData(listData)
+      setEnableAction(ActionData)
     });
   }, []);
   console.log("list", listData);
@@ -50,7 +56,7 @@ const usePmsPending = ({}) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPagePmsPending(type));
   }, []);
-
+  
   const handleDataSave = useCallback(
     (data, type) => {
       if (type == "CREATE") {
@@ -180,6 +186,7 @@ const usePmsPending = ({}) => {
     isCalling,
     editData,
     configFilter,
+    enableAction
   };
 };
 
