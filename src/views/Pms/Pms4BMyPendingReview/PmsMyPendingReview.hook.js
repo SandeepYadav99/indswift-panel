@@ -11,10 +11,12 @@ import historyUtils from "../../../libs/history.utils";
 import LogUtils from "../../../libs/LogUtils";
 import RouteName from "../../../routes/Route.name";
 import { serviceGetList } from "../../../services/Common.service";
+import { serviceGetPmsCanReview } from "../../../services/PmsPending.service";
 const usePmsPendingReview = ({ location }) => {
   const batchID = location?.state?.batch_id;
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [enableAction,setEnableAction]= useState(false);
 
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -32,6 +34,14 @@ const usePmsPendingReview = ({ location }) => {
       }, { batch_id: batchID })
     );
     isMountRef.current = true;
+  }, []);
+  useEffect(() => {
+    Promise.allSettled([
+      serviceGetPmsCanReview({batch_type:"reviewer_batch"}),
+    ]).then((promises) => {
+      const ActionData = promises[0]?.value?.data?.response?.can_review_batch;
+      setEnableAction(ActionData)
+    });
   }, []);
 
   const handlePageChange = useCallback((type) => {
@@ -143,7 +153,8 @@ const usePmsPendingReview = ({ location }) => {
     handleViewDetails,
     isCalling,
     editData,
-      handleRecordReview
+      handleRecordReview,
+      enableAction
   };
 };
 
