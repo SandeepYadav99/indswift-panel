@@ -6,7 +6,7 @@ import Datatables from "../../../../components/Datatables/datatables";
 import { ButtonBase, MenuItem } from "@material-ui/core";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 
-function ReviewerTable({ Renderdata, getPmsList ,currentBatch}) {
+function ReviewerTable({ Renderdata, getPmsList, currentBatch }) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -22,7 +22,7 @@ function ReviewerTable({ Renderdata, getPmsList ,currentBatch}) {
     setStartDate,
     setEndDate,
     handleCreateBatch,
-    handleFreeze
+    handleFreeze,
   } = useVacancyList({ Renderdata, getPmsList });
 
   const tableStructure = useMemo(() => {
@@ -110,6 +110,14 @@ function ReviewerTable({ Renderdata, getPmsList ,currentBatch}) {
       />
     );
   }, [endDate, setEndDate]);
+
+  const isFreeze = useMemo(()=>{
+    if(Renderdata?.length > 0){
+      return Renderdata[0]?.reviewer_batch?.is_created
+    }
+    return false
+  },[Renderdata])
+
   return (
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
@@ -136,9 +144,13 @@ function ReviewerTable({ Renderdata, getPmsList ,currentBatch}) {
           <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
             CREATE BATCH
           </ButtonBase>
-          <ButtonBase onClick={handleFreeze} className={styles.freeze}>
-            Freeze
-          </ButtonBase>
+        
+            <ButtonBase
+            onClick={handleFreeze}
+            disabled={!isFreeze}
+            className={isFreeze ? styles.freeze : styles.disabledBtn}>
+              Freeze
+            </ButtonBase>
         </div>
       </div>
       <div style={{ width: "100%" }}>

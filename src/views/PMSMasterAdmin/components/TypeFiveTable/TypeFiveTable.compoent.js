@@ -6,7 +6,7 @@ import { ButtonBase, MenuItem } from "@material-ui/core";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 import useTypeFiveTable from "./TypeFiveTableHook";
 
-function TypeFiveTable({ Renderdata, getPmsList ,currentBatch}) {
+function TypeFiveTable({ Renderdata, getPmsList, currentBatch }) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -110,6 +110,14 @@ function TypeFiveTable({ Renderdata, getPmsList ,currentBatch}) {
       />
     );
   }, [endDate, setEndDate]);
+
+  const isFreeze = useMemo(()=>{
+    if(Renderdata?.length > 0){
+      return Renderdata[0]?.type_five_batch?.is_created
+    }
+    return false
+  },[Renderdata])
+
   return (
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
@@ -134,7 +142,11 @@ function TypeFiveTable({ Renderdata, getPmsList ,currentBatch}) {
           <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
             CREATE BATCH
           </ButtonBase>
-          <ButtonBase onClick={handleFreeze} className={styles.freeze}>
+          <ButtonBase
+            onClick={handleFreeze}
+            disabled={!isFreeze}
+            className={isFreeze ? styles.freeze : styles.disabledBtn}
+          >
             Freeze
           </ButtonBase>
         </div>

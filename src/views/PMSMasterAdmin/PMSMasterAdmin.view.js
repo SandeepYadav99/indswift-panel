@@ -14,7 +14,7 @@ function PMSMasterAdmin() {
     const filteredData = data?.filter((item) => item?.is_reviewer_normalized);
     return filteredData ? filteredData : [];
   }, [data]);
-  
+
   const secondNormalizeData = useMemo(() => {
     const filteredData = data?.filter((item) => item?.is_hod_normalized);
     return filteredData ? filteredData : [];
@@ -25,35 +25,66 @@ function PMSMasterAdmin() {
     return filteredData ? filteredData : [];
   }, [data]);
 
-  const currentBatch=useMemo(()=>{
-    return data?.length > 0 ? data[data?.length - 1]?.batch : "";
-  },[data])
+  const currentBatch = useMemo(() => {
+    return data?.length > 0 ? data[0]?.batch : "";
+  }, [data]);
 
+  console.log("data",data)
   return (
     <div>
       <PerformanceTable Renderdata={data} getPmsList={getPmsList} />
-      <ReviewerTable Renderdata={data} getPmsList={getPmsList} currentBatch={currentBatch}/>
-      <TypeFiveTable Renderdata={data} getPmsList={getPmsList} currentBatch={currentBatch}/>
-      <FirstNormalizeTable
-        Renderdata={firstNormalizeData}
-        getPmsList={getPmsList}
-        normalizeType="REVIEWER"
-        placeholder={`First Normalization - ${currentBatch}`}
-      />
-      <HodBatchTable Renderdata={data} getPmsList={getPmsList} currentBatch={currentBatch}/>
-      <OverallHodBatchTable Renderdata={data} getPmsList={getPmsList} currentBatch={currentBatch}/>
-      <FirstNormalizeTable
-        Renderdata={secondNormalizeData}
-        getPmsList={getPmsList}
-        normalizeType="HOD"
-        placeholder={`Second Normalization - ${currentBatch}`}
-      />
-      <CloseTable
-        Renderdata={batchCloseData}
-        getPmsList={getPmsList}
-        normalizeType="HOD"
-        currentBatch={currentBatch}
-      />
+      {data[0]?.batch && (
+        <ReviewerTable
+          Renderdata={data}
+          getPmsList={getPmsList}
+          currentBatch={currentBatch}
+        />
+      )}
+      {data[0]?.reviewer_batch?.is_freezed && (
+        <TypeFiveTable
+          Renderdata={data}
+          getPmsList={getPmsList}
+          currentBatch={currentBatch}
+        />
+      )}
+      {data[0]?.type_five_batch?.is_freezed && (
+        <FirstNormalizeTable
+          Renderdata={firstNormalizeData}
+          getPmsList={getPmsList}
+          normalizeType="REVIEWER"
+          placeholder={`First Normalization - ${currentBatch}`}
+        />
+      )}
+      {data[0]?.is_reviewer_normalized && (
+        <HodBatchTable
+          Renderdata={data}
+          getPmsList={getPmsList}
+          currentBatch={currentBatch}
+        />
+      )}
+      {data[0]?.hod_batch?.is_freezed && (
+        <OverallHodBatchTable
+          Renderdata={data}
+          getPmsList={getPmsList}
+          currentBatch={currentBatch}
+        />
+      )}
+      {data[0]?.overall_hod_batch?.is_freezed && (
+        <FirstNormalizeTable
+          Renderdata={secondNormalizeData}
+          getPmsList={getPmsList}
+          normalizeType="HOD"
+          placeholder={`Second Normalization - ${currentBatch}`}
+        />
+      )}
+      {data[0]?.is_hod_normalized && (
+        <CloseTable
+          Renderdata={batchCloseData}
+          getPmsList={getPmsList}
+          normalizeType="HOD"
+          currentBatch={currentBatch}
+        />
+      )}
     </div>
   );
 }

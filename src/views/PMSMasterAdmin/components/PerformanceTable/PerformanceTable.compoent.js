@@ -106,7 +106,7 @@ function PerformanceTable({ Renderdata, getPmsList }) {
     );
   }, [year]);
   const checkBatch = useMemo(()=>{
-    return Renderdata?.length > 0 ? Renderdata[Renderdata?.length -1]?.is_closed : true;
+    return Renderdata?.length > 0 ? Renderdata[0]?.is_closed : true;
   },[Renderdata]);
   
   return (

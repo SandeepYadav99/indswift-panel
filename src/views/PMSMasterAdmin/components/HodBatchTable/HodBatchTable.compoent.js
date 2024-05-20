@@ -110,6 +110,12 @@ function HodBatchTable({ Renderdata, getPmsList,currentBatch }) {
       />
     );
   }, [endDate, setEndDate]);
+  const isFreeze = useMemo(()=>{
+    if(Renderdata?.length > 0){
+      return Renderdata[0]?.hod_batch?.is_created
+    }
+    return false
+  },[Renderdata])
   return (
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
@@ -134,7 +140,10 @@ function HodBatchTable({ Renderdata, getPmsList,currentBatch }) {
           <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
             CREATE BATCH
           </ButtonBase>
-          <ButtonBase onClick={handleFreeze} className={styles.freeze}>
+          <ButtonBase
+           onClick={handleFreeze}
+          disabled={!isFreeze}
+            className={isFreeze ? styles.freeze : styles.disabledBtn}>
             Freeze
           </ButtonBase>
         </div>
