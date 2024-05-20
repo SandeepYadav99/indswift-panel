@@ -28,6 +28,7 @@ const PmsPending = ({}) => {
     isCalling,
     configFilter,
     warehouses,
+    enableAction
   } = usePmsPending({});
 
   const {
@@ -109,7 +110,7 @@ const PmsPending = ({}) => {
         render: (temp, all) => (
            <>
              {
-               (all?.status === Constants.PMS_BATCH_STATUS.REVIEW_PENDING && canSubmit) ? (<div>
+               (enableAction && all?.status === Constants.PMS_BATCH_STATUS.REVIEW_PENDING && canSubmit) ? (<div>
                  <IconButton
                      className={"tableActionBtn"}
                      color="secondary"
@@ -120,13 +121,13 @@ const PmsPending = ({}) => {
                  >
                    <InfoOutlined fontSize={"small"}/>
                  </IconButton>
-               </div>) : (<></>)
+               </div>) : (<>-</>)
              }
              </>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, canSubmit]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling, canSubmit,enableAction]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

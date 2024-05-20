@@ -22,8 +22,8 @@ const PMSSitePendingReview = ({ location }) => {
     handleSideToggle,
     handleViewDetails,
     isCalling,
+    enableAction
   } = usePMSSitePendingReview({ location });
-
   const {
     data,
     all: allData,
@@ -96,7 +96,7 @@ const PMSSitePendingReview = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {canSubmit && (
+            {enableAction && canSubmit && (
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
@@ -119,6 +119,7 @@ const PMSSitePendingReview = ({ location }) => {
     handleEdit,
     isCalling,
     canSubmit,
+    enableAction
   ]);
 
   const tableData = useMemo(() => {

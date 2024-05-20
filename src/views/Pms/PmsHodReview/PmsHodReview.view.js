@@ -22,6 +22,7 @@ const PmsHodReview = ({ location }) => {
     handleSideToggle,
     handleViewDetails,
     isCalling,
+    enableAction
   } = usePmsHodReview({ location });
 
   const {
@@ -92,7 +93,7 @@ const PmsHodReview = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {!DateUtilsLib.hodFreezed() &&
+            {enableAction && !DateUtilsLib.hodFreezed() &&
               (all?.batch !== "APMS" ) && (
                 <IconButton
                   className={"tableActionBtn"}
@@ -109,7 +110,7 @@ const PmsHodReview = ({ location }) => {
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling,enableAction]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

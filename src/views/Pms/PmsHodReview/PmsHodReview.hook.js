@@ -9,10 +9,12 @@ import {
 } from "../../../actions/PmsHodReview.action";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
+import { serviceGetPmsCanReview } from "../../../services/PmsPending.service";
 const usePmsHodReview = ({ location }) => {
   const batchID = location?.state?.batch_id;
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [enableAction,setEnableAction]= useState(false);
 
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
@@ -32,6 +34,14 @@ const usePmsHodReview = ({ location }) => {
     isMountRef.current = true;
   }, []);
 
+  useEffect(() => {
+    Promise.allSettled([
+      serviceGetPmsCanReview({batch_type:"hod_batch"}),
+    ]).then((promises) => {
+      const listData = promises[0]?.value?.data?.response?.can_review_batch;
+      setEnableAction(listData)
+    });
+  }, []);
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
     dispatch(actionSetPagePmsHodReview(type));
@@ -138,6 +148,7 @@ const usePmsHodReview = ({ location }) => {
     handleViewDetails,
     isCalling,
     editData,
+    enableAction
   };
 };
 
