@@ -6,7 +6,8 @@ import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import { servicePmsBatchNormalize } from "../../../../services/PmsMaster.service";
 
 const initialForm = {
-  value: "",
+  value: 0,
+  type:"AUTOMATIC"
 };
 const useNormalizeDialogHook = ({
   isOpen,
@@ -39,7 +40,17 @@ const useNormalizeDialogHook = ({
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (text >= 0) {
+      if(fieldName === "value"){
+        if (text >= 0) {
+          t[fieldName] = text;
+        }
+      }
+      else if (fieldName === "type"){
+        if(text === "AUTOMATIC"){
+          t["value"] = 0;
+        }
+        t[fieldName] = text;
+      }else{
         t[fieldName] = text;
       }
       setForm(t);
@@ -73,7 +84,7 @@ const useNormalizeDialogHook = ({
     if (!isSubmitting) {
       setIsSubmitting(true);
       servicePmsBatchNormalize({
-        ...form,
+        value:form?.value ? form?.value : 0,
         normalization_type: normalizeType,
       }).then((res) => {
         if (!res.error) {
