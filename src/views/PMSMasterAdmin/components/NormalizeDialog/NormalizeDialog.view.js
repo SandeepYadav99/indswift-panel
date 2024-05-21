@@ -1,5 +1,10 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { ButtonBase } from "@material-ui/core";
+import {
+  ButtonBase,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 import { Close, Visibility, VisibilityOff } from "@material-ui/icons";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
@@ -31,15 +36,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const NormalizeDialog = ({ isOpen, handleToggle, normalizeType , getPmsList }) => {
+const NormalizeDialog = ({
+  isOpen,
+  handleToggle,
+  normalizeType,
+  getPmsList,
+}) => {
   const classes = useStyles();
-  const {
-    changeTextData,
-    errorData,
-    form,
-    handleSubmit,
-    onBlurHandler,
-  } = useNormalizeDialogHook({ isOpen, handleToggle, normalizeType , getPmsList });
+  const { changeTextData, errorData, form, handleSubmit, onBlurHandler } =
+    useNormalizeDialogHook({ isOpen, handleToggle, normalizeType, getPmsList });
 
   return (
     <div>
@@ -64,30 +69,52 @@ const NormalizeDialog = ({ isOpen, handleToggle, normalizeType , getPmsList }) =
             </ButtonBase>
           </div>
           <div className={styles.headingWrapper}>
-            <div className={styles.heading}>Company Average Details</div>
+            <div className={styles.heading}>{normalizeType === "REVIEWER" ? "FIRST" : "SECOND" } NORMALIZATION</div>
             <div className={styles.newLine}></div>
             <div className={styles.des}>
-              Please fill the below detail to proceed further
+              Please choose the required option to proceed further
             </div>
           </div>
 
-          <div className={styles.fieldWrapper}>
-            <div>
-              <CustomTextField
-                type="number"
-                isError={errorData?.value}
-                errorText={errorData?.value}
-                label={"Company Average Total"}
-                value={form?.value}
-                onTextChange={(text) => {
-                  changeTextData(text, "value");
-                }}
-                onBlur={() => {
-                  onBlurHandler("value");
-                }}
-              />
+          <RadioGroup
+            aria-label="option"
+            name="type"
+            value={form?.type}
+            onChange={(e) => changeTextData(e.target.value, "type")}
+            row
+            className={styles.radioWrap}
+          >
+            <FormControlLabel
+              // style={{ marginLeft: "20px" }}
+              value="AUTOMATIC"
+              control={<Radio />}
+              label="System Calculated Average"
+            />
+            <FormControlLabel
+              value="MANUAL"
+              control={<Radio />}
+              label="Manual Entry"
+            />
+          </RadioGroup>
+          {form?.type === "MANUAL" && (
+            <div className={styles.fieldWrapper}>
+              <div>
+                <CustomTextField
+                  type="number"
+                  isError={errorData?.value}
+                  errorText={errorData?.value}
+                  label={"Enter Value"}
+                  value={form?.value}
+                  onTextChange={(text) => {
+                    changeTextData(text, "value");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("value");
+                  }}
+                />
+              </div>
             </div>
-          </div>
+          )}
           <div className={styles.printFlex}>
             <ButtonBase onClick={handleSubmit} className={styles.createBtn}>
               Submit

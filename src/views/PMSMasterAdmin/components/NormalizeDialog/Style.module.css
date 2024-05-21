@@ -21,6 +21,11 @@
   color: white !important;
   border-radius: 5px !important;
 }
+.radioWrap{
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
 .tableCont {
   padding: 10px 10px;
   max-height: 200px;
