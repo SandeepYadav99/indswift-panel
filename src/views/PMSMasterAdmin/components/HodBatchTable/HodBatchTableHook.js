@@ -79,7 +79,7 @@ const useHodBatchTable = ({ Renderdata, getPmsList }) => {
       batch_type: "hod_batch",
     }).then((res) => {
       if (!res.error) {
-        SnackbarUtils.success("Request Approved");
+        SnackbarUtils.success("Freeze successfully");
         getPmsList();
       } else {
         SnackbarUtils.error(res?.message);
