@@ -83,7 +83,7 @@ const PmsHodReview = ({ location }) => {
       {
         key: "status",
         label: "Status",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div>{renderStatus(removeUnderScore(all?.status))}</div>
         ),
@@ -93,8 +93,7 @@ const PmsHodReview = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {enableAction && !DateUtilsLib.hodFreezed() &&
-              (all?.batch !== "APMS" ) && (
+            {enableAction && all?.status === "PENDING" && (
                 <IconButton
                   className={"tableActionBtn"}
                   color="secondary"
