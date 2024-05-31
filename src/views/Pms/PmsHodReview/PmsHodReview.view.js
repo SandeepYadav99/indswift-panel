@@ -93,7 +93,7 @@ const PmsHodReview = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {enableAction && all?.status === "PENDING" && (
+            {enableAction && all?.status === "HOD_PENDING" && (
                 <IconButton
                   className={"tableActionBtn"}
                   color="secondary"
