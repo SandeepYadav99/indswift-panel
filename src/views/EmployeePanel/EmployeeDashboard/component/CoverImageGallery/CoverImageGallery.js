@@ -14,7 +14,7 @@ function CoverImageGallery() {
         {tiles?.utsavEvents.map((item, index) => {
           return (
             <div className={styles.imgWrapper} key={`CoverImage_${index}`}>
-              <img className={styles.gallerImage} src={item.cover_image} />
+              <img className={styles.gallerImage} src={item?.cover_image} />
               <div className={styles.gallaryDesWrapper}>
                 <label className={styles.textName}>{item?.name}</label>
                 <label>{`${index + 1} / ${tilelength}`}</label>
