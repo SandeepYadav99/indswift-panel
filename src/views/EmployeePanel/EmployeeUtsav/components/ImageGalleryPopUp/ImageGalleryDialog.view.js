@@ -93,7 +93,7 @@ const ImageGalleryDialog = ({ isOpen, handleToggle, candidateId, data,currentInd
             >
               {data?.images?.map((item, index) => (
                 <div className={styles.imgWrapper} key={`galler_${index}`}>
-                  <img src={item.image} />
+                  <img src={item?.image} />
                 </div>
               ))}
             </Slider>

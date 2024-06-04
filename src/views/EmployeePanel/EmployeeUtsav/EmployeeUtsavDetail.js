@@ -5,7 +5,7 @@ import styles from "./Style.module.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import EmployeeUtsavDetailHook from "./EmployeeUtsavDetailHook";
 import ImageGalleryDialog from "./components/ImageGalleryPopUp/ImageGalleryDialog.view";
-
+import {convertDateToMonthAbbreviation} from "../../../helper/helper"
 function EmployeeUtsavDetail() {
   const { employeeUtsavDetailData, toggleDialog, isOpen,currentIndex } =
     EmployeeUtsavDetailHook();
@@ -14,28 +14,36 @@ function EmployeeUtsavDetail() {
       {employeeUtsavDetailData && (
         <div className={styles.outerFlex}>
           <div>
-            <ButtonBase onClick={() => historyUtils.goBack()}>
+            {/* <ButtonBase onClick={() => historyUtils.goBack()}>
               <ArrowBackIosIcon fontSize={"small"} />{" "}
               <span className={"capitalize"}>
                 <b>Utsav @IndSwift</b>
               </span>
-            </ButtonBase>
-            <div className={styles.newLineMargin} />
+            </ButtonBase> */}
+            {/* <div className={styles.newLineMargin} /> */}
             <div className={styles.employeeInducationWrapper21}>
               <div>
                 <div>
                   {employeeUtsavDetailData?.name && (
                     <>
                       <div className={styles.headingWrapper}>
-                        <div>
+                      <ButtonBase onClick={() => historyUtils.goBack()}>
+                       <ArrowBackIosIcon fontSize={"small"} />{" "}
+                         <span className={styles.title}>
+                            {employeeUtsavDetailData?.name}
+                          <div className={styles.newLine} />
+                          </span>
+                         </ButtonBase>
+                        {/* <div>
                           <span className={styles.title}>
                             {employeeUtsavDetailData?.name}
                           </span>
                           <div className={styles.newLine} />
-                        </div>
+                        </div> */}
 
                         <span className={styles.title}>
-                          {employeeUtsavDetailData?.eventDateText}
+                          
+                          {employeeUtsavDetailData?.eventDateText ? convertDateToMonthAbbreviation(employeeUtsavDetailData?.eventDateText) : "-"}
                         </span>
                       </div>
                     </>
@@ -67,7 +75,7 @@ function EmployeeUtsavDetail() {
         </div>
       )}
       <ImageGalleryDialog isOpen={isOpen} handleToggle={toggleDialog} data={employeeUtsavDetailData} currentIndex={currentIndex}/>
-      {employeeUtsavDetailData.images && (
+      {employeeUtsavDetailData?.images && (
         <div className={styles.galleryImageWrapper}>
           <div>
             <span className={styles.title}>Event Gallery</span>
@@ -78,7 +86,7 @@ function EmployeeUtsavDetail() {
               {employeeUtsavDetailData?.images?.map((item,index) => {
                 return (
                   <div key={`utasvImage_${index}`}>
-                    <img className={styles.imgdimesion} src={item.image} id={index} onClick={(e)=>toggleDialog(e)}/>
+                    <img className={styles.imgdimesion} src={item?.image} id={index} onClick={(e)=>toggleDialog(e)}/>
                   </div>
                 );
               })}
