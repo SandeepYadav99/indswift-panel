@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import moment from 'moment';
 
 export const InductionData = {
   firstRow:
@@ -854,3 +855,9 @@ export const getSajStatus = (succession, nature) => {
     return "PENDING";
   }
 };
+export const  convertDateToMonthAbbreviation = (dateString)=> {
+  const date = moment(dateString, "DD/MM/YYYY");
+  const formattedDate = date.format("DD/MMM/YYYY");
+  
+  return formattedDate;
+}
