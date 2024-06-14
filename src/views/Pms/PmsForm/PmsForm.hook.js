@@ -11,6 +11,7 @@ import styles from './Style.module.css';
 import {isNum, isNumDec} from "../../../libs/RegexUtils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import historyUtils from "../../../libs/history.utils";
+import Constants from "../../../config/constants";
 
 
 const usePmsForm = ({location}) => {
@@ -123,7 +124,7 @@ const usePmsForm = ({location}) => {
         rows.forEach((row, rowIndex) => {
             processedColumns.forEach((col, colIndex) => {
                 if (!col.is_static) {
-                    tForm[`${rowIndex}_${col.key}`] = '';
+                    tForm[`${rowIndex}_${col.key}`] = Constants.isProduction ? '' : '10';
                 }
             });
         });
