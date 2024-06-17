@@ -12,6 +12,8 @@ const useReviewerTable = ({ Renderdata, getPmsList }) => {
   const [endDate, setEndDate] = useState("");
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFrezzing, setIsFrezzing] = useState(false);
 
   useEffect(() => {
     if (Renderdata?.length > 0) {
@@ -56,6 +58,7 @@ const useReviewerTable = ({ Renderdata, getPmsList }) => {
         SnackbarUtils.error("End Date cannot be smaller than Start Date")
         return true
       }
+      setIsLoading(true);
       serviceCreatePmsBatchType({
         start_date: startDate,
         end_date: endDate,
@@ -67,13 +70,16 @@ const useReviewerTable = ({ Renderdata, getPmsList }) => {
         } else {
           SnackbarUtils.error(res?.message);
         }
+        setIsLoading(false)
       });
     } else {
       SnackbarUtils.error("Please select Start Date and End Date");
     }
-  }, [endDate, startDate, getPmsList]);
+  }, [endDate, startDate, getPmsList,isLoading,setIsLoading]);
+
 
   const handleFreeze = useCallback(() => {
+    setIsFrezzing(true)
     servicePmsBatchFreeze({
       batch_type: "reviewer_batch",
     }).then((res) => {
@@ -83,8 +89,9 @@ const useReviewerTable = ({ Renderdata, getPmsList }) => {
       } else {
         SnackbarUtils.error(res?.message);
       }
+      setIsFrezzing(false)
     });
-  }, [endDate, startDate, getPmsList]);
+  }, [endDate, startDate, getPmsList,isFrezzing,setIsFrezzing]);
 
   const handleRowSize = (page) => {
     console.log(page);
@@ -103,6 +110,8 @@ const useReviewerTable = ({ Renderdata, getPmsList }) => {
     setEndDate,
     handleCreateBatch,
     handleFreeze,
+    isFrezzing,
+    isLoading
   };
 };
 

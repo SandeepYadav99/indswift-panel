@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import styles from "./Style.module.css";
 import Constants from "../../../../config/constants";
 import Datatables from "../../../../components/Datatables/datatables";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 import useHodBatchTable from "./HodBatchTableHook";
 
@@ -23,6 +23,8 @@ function HodBatchTable({ Renderdata, getPmsList,currentBatch }) {
     setEndDate,
     handleCreateBatch,
     handleFreeze,
+    isFrezzing,
+    isLoading
   } = useHodBatchTable({ Renderdata, getPmsList });
 
   const tableStructure = useMemo(() => {
@@ -139,14 +141,14 @@ function HodBatchTable({ Renderdata, getPmsList,currentBatch }) {
           <div className={styles.down}>{renderEndDate}</div>
         </div>
         <div className={styles.btnWrap}>
-          <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
-            CREATE BATCH
+          <ButtonBase onClick={handleCreateBatch} className={"createBtn"} disabled={isLoading}>
+          {isLoading ? <CircularProgress color="success" size="20px" /> :"CREATE BATCH"}
           </ButtonBase>
           <ButtonBase
            onClick={handleFreeze}
-          disabled={!isFreeze}
+          disabled={!isFreeze || isFrezzing}
             className={isFreeze ? styles.freeze : styles.disabledBtn}>
-            Freeze
+           {isFrezzing ? <CircularProgress color="success" size="20px" /> :"Freeze"}
           </ButtonBase>
         </div>
       </div>

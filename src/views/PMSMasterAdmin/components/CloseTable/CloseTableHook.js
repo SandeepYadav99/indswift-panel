@@ -6,6 +6,7 @@ const useCloseTable = ({ Renderdata, getPmsList }) => {
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
   const [normalize, setNormalize] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleNormalize = useCallback(() => {
     setNormalize((e) => !e);
@@ -19,6 +20,7 @@ const useCloseTable = ({ Renderdata, getPmsList }) => {
   }, [Renderdata]);
 
   const handleCloseBatch = useCallback(() => {
+    setIsLoading(true)
     servicePmsBatchClose().then((res) => {
       if (!res.error) {
         SnackbarUtils.success("Closed Successfully");
@@ -26,8 +28,9 @@ const useCloseTable = ({ Renderdata, getPmsList }) => {
       } else {
         SnackbarUtils.error(res?.message);
       }
+    setIsLoading(false)
     });
-  }, [getPmsList]);
+  }, [getPmsList,isLoading,setIsLoading]);
 
   return {
     data,
@@ -35,6 +38,7 @@ const useCloseTable = ({ Renderdata, getPmsList }) => {
     toggleNormalize,
     normalize,
     handleCloseBatch,
+    isLoading
   };
 };
 

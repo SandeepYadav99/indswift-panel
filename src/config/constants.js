@@ -8,6 +8,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const socketUrl = process.env.REACT_APP_SOCKET_URL;
 const uploaderUrl = process.env.REACT_APP_UPLOADER_URL;
 export default {
+  isProduction,
   is_development: process.env.NODE_ENV === "development" || !isProduction,
   testing_env: process.env.REACT_APP_ENV,
   TIME_ZONE: -(tempDate.getTimezoneOffset() / 60),

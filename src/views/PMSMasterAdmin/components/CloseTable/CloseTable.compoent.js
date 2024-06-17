@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import styles from "./Style.module.css";
 import Constants from "../../../../config/constants";
 import Datatables from "../../../../components/Datatables/datatables";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import NormalizeDialog from "../NormalizeDialog/NormalizeDialog.view";
 import useCloseTable from "./CloseTableHook";
 
@@ -16,7 +16,8 @@ function CloseTable({ Renderdata, getPmsList, normalizeType, placeholder,current
     currentData,
     toggleNormalize,
     normalize,
-    handleCloseBatch
+    handleCloseBatch,
+    isLoading
   } = useCloseTable({ Renderdata, getPmsList });
 
   const tableStructure = useMemo(() => {
@@ -79,8 +80,8 @@ function CloseTable({ Renderdata, getPmsList, normalizeType, placeholder,current
       </div>
       <div className={styles.yearFlex}>
         <div className={styles.btnWrap}>
-          <ButtonBase onClick={handleCloseBatch} className={"createBtn"}>
-            MARK BATCH CLOSE
+          <ButtonBase onClick={handleCloseBatch} className={"createBtn"} disabled={isLoading}>
+          {isLoading ? <CircularProgress color="success" size="20px" /> :"MARK BATCH CLOSE"}
           </ButtonBase>
         </div>
       </div>
