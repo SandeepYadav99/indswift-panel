@@ -3,7 +3,7 @@ import styles from "./Style.module.css";
 import useVacancyList from "./ReviewerTableHook";
 import Constants from "../../../../config/constants";
 import Datatables from "../../../../components/Datatables/datatables";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 
 function ReviewerTable({ Renderdata, getPmsList, currentBatch }) {
@@ -23,6 +23,8 @@ function ReviewerTable({ Renderdata, getPmsList, currentBatch }) {
     setEndDate,
     handleCreateBatch,
     handleFreeze,
+    isFrezzing,
+    isLoading
   } = useVacancyList({ Renderdata, getPmsList });
 
   const tableStructure = useMemo(() => {
@@ -119,7 +121,7 @@ function ReviewerTable({ Renderdata, getPmsList, currentBatch }) {
     }
     return false
   },[Renderdata])
-
+// console.log("isLoading",isLoading)
   return (
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
@@ -143,15 +145,15 @@ function ReviewerTable({ Renderdata, getPmsList, currentBatch }) {
           <div className={styles.down}>{renderEndDate}</div>
         </div>
         <div className={styles.btnWrap}>
-          <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
-            CREATE BATCH
+          <ButtonBase onClick={handleCreateBatch} className={"createBtn"} disabled ={isLoading}>
+          {isLoading ? <CircularProgress color="success" size="20px" /> :"CREATE BATCH"}
           </ButtonBase>
         
             <ButtonBase
             onClick={handleFreeze}
-            disabled={!isFreeze}
+            disabled={!isFreeze || isFrezzing}
             className={isFreeze ? styles.freeze : styles.disabledBtn}>
-              Freeze
+                {isFrezzing ? <CircularProgress color="success" size="20px" /> :"Freeze"}
             </ButtonBase>
         </div>
       </div>

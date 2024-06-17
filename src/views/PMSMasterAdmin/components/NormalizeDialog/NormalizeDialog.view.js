@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import {
   ButtonBase,
+  CircularProgress,
   FormControlLabel,
   Radio,
   RadioGroup,
@@ -43,7 +44,7 @@ const NormalizeDialog = ({
   getPmsList,
 }) => {
   const classes = useStyles();
-  const { changeTextData, errorData, form, handleSubmit, onBlurHandler } =
+  const { changeTextData, errorData, form, handleSubmit, onBlurHandler,isSubmitting } =
     useNormalizeDialogHook({ isOpen, handleToggle, normalizeType, getPmsList });
 
   return (
@@ -116,8 +117,8 @@ const NormalizeDialog = ({
             </div>
           )}
           <div className={styles.printFlex}>
-            <ButtonBase onClick={handleSubmit} className={styles.createBtn}>
-              Submit
+            <ButtonBase onClick={handleSubmit} disabled={isSubmitting} className={styles.createBtn}>
+              {isSubmitting ? <CircularProgress color="success" size="20px" />: "Submit"}
             </ButtonBase>
           </div>
         </div>

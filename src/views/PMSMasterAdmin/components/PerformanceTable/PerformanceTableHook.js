@@ -10,6 +10,7 @@ const usePerformanceTable = ({ Renderdata, getPmsList }) => {
   const [year, setYear] = useState("");
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (Renderdata?.length > 0) {
@@ -46,6 +47,7 @@ const usePerformanceTable = ({ Renderdata, getPmsList }) => {
 
   const handleCreateBatch = useCallback(() => {
     if (year && type) {
+      setIsLoading(true)
       console.log(year, type);
       serviceCreatePmsBatchAdmin({
         batch: type,
@@ -57,11 +59,12 @@ const usePerformanceTable = ({ Renderdata, getPmsList }) => {
         } else {
           SnackbarUtils.error(res?.message);
         }
+      setIsLoading(false)
       });
     } else {
       SnackbarUtils.error("Please select year and Batch");
     }
-  }, [year, type, getPmsList]);
+  }, [year, type, getPmsList,isLoading,setIsLoading]);
 
   const handleRowSize = (page) => {
     console.log(page);
@@ -79,6 +82,7 @@ const usePerformanceTable = ({ Renderdata, getPmsList }) => {
     setType,
     setYear,
     handleCreateBatch,
+    isLoading
   };
 };
 
