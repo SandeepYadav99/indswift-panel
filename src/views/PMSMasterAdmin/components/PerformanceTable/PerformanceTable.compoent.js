@@ -3,7 +3,7 @@ import styles from "./Style.module.css";
 import useVacancyList from "./PerformanceTableHook";
 import Constants from "../../../../config/constants";
 import Datatables from "../../../../components/Datatables/datatables";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
 
 function PerformanceTable({ Renderdata, getPmsList }) {
@@ -22,6 +22,7 @@ function PerformanceTable({ Renderdata, getPmsList }) {
     setType,
     setYear,
     handleCreateBatch,
+    isLoading
   } = useVacancyList({ Renderdata, getPmsList });
 
   const tableStructure = useMemo(() => {
@@ -127,8 +128,8 @@ function PerformanceTable({ Renderdata, getPmsList }) {
         </div>
         <div>
           {
-            checkBatch && <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
-            CREATE BATCH
+            checkBatch && <ButtonBase onClick={handleCreateBatch} disabled ={isLoading} className={"createBtn"}>
+            {isLoading ? <CircularProgress color="success" size="20px" /> :"CREATE BATCH"}
           </ButtonBase>
           }
         </div>
