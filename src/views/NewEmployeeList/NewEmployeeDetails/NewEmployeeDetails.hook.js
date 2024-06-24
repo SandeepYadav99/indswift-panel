@@ -34,9 +34,9 @@ function useNewEmployeeDetails() {
     setRejectDialog((e) => !e);
   }, [rejectDialog]);
 
-  const handleDialogConfirm = useCallback(() => {
+  const handleDialogConfirm = useCallback((item) => {
     let req = serviceGetNewEmployeeApprove;
-    req({ emp_id: id }).then((res) => {
+    req({ emp_id: id ,pass_current_authorities:item === "YES"}).then((res) => {
       if (!res.error) {
         historyUtils.push(RouteName.NEW_EMPLOYEES);
       } else {
