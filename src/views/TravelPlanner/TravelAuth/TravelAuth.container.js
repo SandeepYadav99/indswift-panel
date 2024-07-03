@@ -18,7 +18,7 @@ import {
 } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables.js";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -36,7 +36,9 @@ const TravelAuth = ({ location }) => {
     handleViewCreate,
     isCalling,
     configFilter,
-    handleCsvDownload
+    handleCsvDownload,
+    handleViewSpecDetails,
+    ValidUser
   } = useTravelAuth({});
 
   const {
@@ -105,7 +107,7 @@ const TravelAuth = ({ location }) => {
         key: "employee",
         label: "Employee",
         sortable: false,
-        render: (temp, all) => <div><b>{all?.employee?.name}</b><br/>{all?.employee?.designation?.name}<br/>{all?.employee?.emp_code}</div>,
+        render: (temp, all) => <div><b>{all?.employee?.name}</b><br/>{all?.employee?.emp_code}</div>,
       },
       {
         key: "grade",
@@ -195,6 +197,7 @@ const TravelAuth = ({ location }) => {
       {
         key: "user_id",
         label: "Action",
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton
@@ -205,7 +208,8 @@ const TravelAuth = ({ location }) => {
                 handleViewDetails(all);
               }}
             >
-              <InfoOutlined fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} className={styles.iconColorData} />
+              <span className={styles.mobileColor}>View Information</span>
             </IconButton>
           </div>
         ),
@@ -245,11 +249,22 @@ const TravelAuth = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Travel Authorization & Planner</span>
+            <span className={styles.title}>Travel Authorization & Planner </span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrap}>
-          <div className={styles.rightFlex}>
+            {
+              ValidUser &&   <div className={styles.rightFlex}>
+              <ButtonBase
+                className={styles.download}
+                onClick={handleViewSpecDetails}
+              >
+                View Travel Authorization
+              </ButtonBase>
+            </div>
+            }
+        
+          <div className={styles.rightFlex211}>
               <ButtonBase
                 className={styles.download}
                 onClick={handleCsvDownload}
@@ -257,15 +272,8 @@ const TravelAuth = ({ location }) => {
                 DOWNLOAD
               </ButtonBase>
             </div>
-            {/* <ButtonBase
-              aria-haspopup="true"
-              onClick={handleViewCreate}
-              className={"createBtn"}
-            >
-              Create
-              <Add fontSize={"small"} className={"plusIcon"}></Add>
-            </ButtonBase> */}
           </div>
+          
         </div>
 
         <div>
@@ -275,7 +283,10 @@ const TravelAuth = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
+        
+        </div>
+      </PageBox>
+      <div>
             <br />
             <div style={{ width: "100%" }}>
               <DataTables
@@ -284,8 +295,6 @@ const TravelAuth = ({ location }) => {
               />
             </div>
           </div>
-        </div>
-      </PageBox>
     </div>
   );
 };

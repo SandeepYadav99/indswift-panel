@@ -35,8 +35,8 @@ const BGVForm = () => {
 
           <div className={styles.mainFlex}>
             <div className={styles.left}>
-              <div>
-                <div className={"formGroup"}>
+              <div className={styles.InnerWrap}>
+                <div className={styles.formGroup}>
                   <CustomCheckbox
                     color={"primary"}
                     handleChange={() => {
@@ -50,8 +50,8 @@ const BGVForm = () => {
                   />
                 </div>
               </div>
-              <div>
-                <div className={"formGroup"}>
+              <div className={styles.InnerWrap}>
+                <div className={styles.formGroup}>
                   <CustomCheckbox
                     color={"primary"}
                     handleChange={() => {
@@ -65,8 +65,8 @@ const BGVForm = () => {
                   />
                 </div>
               </div>
-              <div>
-                <div className={"formGroup"}>
+              <div className={styles.InnerWrap}>
+                <div className={styles.formGroup}>
                   <CustomCheckbox
                     color={"primary"}
                     handleChange={() => {
@@ -80,8 +80,8 @@ const BGVForm = () => {
                   />
                 </div>
               </div>
-              <div>
-                <div className={"formGroup"}>
+              <div className={styles.InnerWrap}>
+                <div className={styles.formGroup}>
                   <CustomCheckbox
                     color={"primary"}
                     handleChange={() => {
@@ -97,9 +97,9 @@ const BGVForm = () => {
               </div>
             </div>
           </div>
-          <div className={"formFlex"}>
+          <div className={styles.formFlec}>
             <div
-              className={"formGroup"}
+              className={styles.formGroup221}
               style={{
                 display: "flex",
                 gap: "10px",
@@ -143,7 +143,7 @@ const BGVForm = () => {
               </div>
             </div>
 
-            <div className={"formGroup"}>
+            <div className={styles.formGroup}>
               <CustomSelectField
                 isError={errorData?.billing_to}
                 errorText={errorData?.billing_to}
@@ -155,7 +155,7 @@ const BGVForm = () => {
               >
                 <MenuItem value="ISL">ISL</MenuItem>
                 <MenuItem value="ISLL">ISLL</MenuItem>
-                <MenuItem value="ESIX">ESIX </MenuItem>
+                <MenuItem value="ESIX">ESSIX </MenuItem>
               </CustomSelectField>
             </div>
           </div>

@@ -13,7 +13,7 @@ import { connect, useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import CreateView from "./ImprestApproval.view";
@@ -21,6 +21,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import useImprestApproval from "./ImprestApprovalHook";
 import { Edit, InfoOutlined } from "@material-ui/icons";
 import { getCurrency } from "../../../helper/helper";
+import RolesUtils from "../../../libs/Roles.utils";
 
 const ImprestApproval = ({ location }) => {
   const {
@@ -111,20 +112,20 @@ const ImprestApproval = ({ location }) => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.location?.name}</div>,
+        render: (temp, all) => <div className={styles.textAlign}>{all?.employee?.location?.name}</div>,
       },
       {
         key: "desigination",
         label: "DESIGNATION",
         sortable: false,
-        render: (temp, all) => <div>{all?.employee?.designation?.name}</div>,
+        render: (temp, all) => <div className={styles.textAlign}>{all?.employee?.designation?.name}</div>,
       },
       {
         key: "department",
         label: "DEPT & SUB-DEPT",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.textAlign}>
             {all?.employee?.department?.name} /{" "}
             {all?.employee?.sub_department?.name}
           </div>
@@ -143,7 +144,7 @@ const ImprestApproval = ({ location }) => {
         render: (temp, all) => (
           <>
             {all?.imprest?.travelPlanner?.code ? (
-              <div className={styles.naClass}>
+              <div className={styles.naClass} >
                 {all?.imprest?.travelPlanner?.code} <br />
                 <StatusPill
                   status={removeUnderScore(all?.imprest?.travelPlanner?.status)}
@@ -183,7 +184,7 @@ const ImprestApproval = ({ location }) => {
         label: "Current status /IMPREST STATUS",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.textAlign}>
             {renderStatus(removeUnderScore(all?.status))}
             <br /> <br />
             {renderStatus(removeUnderScore(all?.imprest?.status))}
@@ -200,6 +201,7 @@ const ImprestApproval = ({ location }) => {
       {
         key: "user_id",
         label: "Action",
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton
@@ -210,7 +212,8 @@ const ImprestApproval = ({ location }) => {
                 handleViewDetails(all);
               }}
             >
-              <InfoOutlined fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}}/>
+              <div className={styles.textStyles}>View information</div>
             </IconButton>
           </div>
         ),
@@ -245,6 +248,9 @@ const ImprestApproval = ({ location }) => {
     currentPage,
   ]);
 
+  const shouldShowDownload = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR, Constants.ROLES.ACCOUNTANT, Constants.ROLES.ADMIN], role);
+  }, [role]);
   return (
     <div>
       <PageBox>
@@ -254,7 +260,7 @@ const ImprestApproval = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div className={styles.rightFlex}>
-            {(([Constants.ROLES.CORPORATE_HR, Constants.ROLES.ACCOUNTANT, Constants.ROLES.ADMIN]).indexOf(role) >= 0) && (
+            {shouldShowDownload && (
               <ButtonBase
                 className={styles.download}
                 onClick={handleCsvDownload}
@@ -272,7 +278,9 @@ const ImprestApproval = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
+        </div>
+      </PageBox>
+      <div>
             <br />
             <div style={{ width: "100%" }}>
               <DataTables
@@ -281,8 +289,6 @@ const ImprestApproval = ({ location }) => {
               />
             </div>
           </div>
-        </div>
-      </PageBox>
     </div>
   );
 };

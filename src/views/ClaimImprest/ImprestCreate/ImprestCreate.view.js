@@ -99,7 +99,7 @@ function ImprestCreate() {
                       changeTextData(text, "tour_type");
                     }}
                     variant={"outlined"}
-                    label={"Choose your Travel Plan Application (TAP)"}
+                    label={"Choose your Travel Plan Application"}
                     name={"tour_type"}
                     isError={errorData?.tour_type}
                     value={form?.tour_type}
@@ -146,7 +146,7 @@ function ImprestCreate() {
             />
           </div>
         </div>
-        <div className={styles.formWrap2}>
+        <div className={styles.formWrap2} id={styles.formAlign}>
           <div className={styles.formCurr}>
             <div className={styles.formWrapInner}>
               <CustomSelectField
@@ -183,34 +183,35 @@ function ImprestCreate() {
               />
             </div>
           </div>
-
-          <div className={styles.maxWrap}>
-            {form?.currency && (
-              <div className={styles.entitledVa}>
-                <div className={styles.valuesV}>
-                  <div className={styles.flex1}>Max Entitled:</div>{" "}
-                  <div className={styles.flex12}>
-                    {getCurrency(form?.currency)}
-                    {amountDetail[form?.currency]?.entitled}
+          {form?.currency && (
+            <div className={styles.maxWrap}>
+              {form?.currency && (
+                <div className={styles.entitledVa} >
+                  <div className={styles.valuesV}>
+                    <div className={styles.flex1}>Max Entitled:</div>{" "}
+                    <div className={styles.flex12}>
+                      {getCurrency(form?.currency)}
+                      {amountDetail[form?.currency]?.entitled}
+                    </div>
+                  </div>
+                  <div className={styles.valuesV}>
+                    <div className={styles.flex1}>Balance Outstanding:</div>{" "}
+                    <div className={styles.flex12}>
+                      {getCurrency(form?.currency)}
+                      {amountDetail[form?.currency]?.balance}
+                    </div>
+                  </div>
+                  <div className={styles.valuesV}>
+                    <div className={styles.flex1}>Progress Amount:</div>{" "}
+                    <div className={styles.flex12}>
+                      {getCurrency(form?.currency)}
+                      {amountDetail[form?.currency]?.progress}
+                    </div>
                   </div>
                 </div>
-                <div className={styles.valuesV}>
-                  <div className={styles.flex1}>Balance Outstanding:</div>{" "}
-                  <div className={styles.flex12}>
-                    {getCurrency(form?.currency)}
-                    {amountDetail[form?.currency]?.balance}
-                  </div>
-                </div>
-                <div className={styles.valuesV}>
-                  <div className={styles.flex1}>Progress Amount:</div>{" "}
-                  <div className={styles.flex12}>
-                    {getCurrency(form?.currency)}
-                    {amountDetail[form?.currency]?.progress}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
         <div className={styles.formWrap}>
           <div className={styles.wrap}>
@@ -224,9 +225,9 @@ function ImprestCreate() {
               }}
               multiline
               rows={2}
-              // onBlur={() => {
-              //   onBlurHandler("comment");
-              // }}
+            // onBlur={() => {
+            //   onBlurHandler("comment");
+            // }}
             />
           </div>
         </div>

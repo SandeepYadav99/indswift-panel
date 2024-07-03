@@ -22,6 +22,12 @@
 .newContainer{
     font-size: 0.7rem;
 }
+.Wrap{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 10px;
+}
 .requiredFooter{
     background:  #F5F7FB 0% 0% no-repeat padding-box;
     padding: 2px;
@@ -36,6 +42,13 @@
 .topText {
     
     margin-left: 30px;
+  }
+
+  .alignOneColoumn{
+    display: flex;
+    flex-direction: column !important;
+    height: 150px;
+    justify-content: space-between;
   }
   .btnCont {
     display: flex;
@@ -97,3 +110,70 @@
     font-size: 14px;
     color:  #818181;
   }
+  .formGroup {
+    flex: 1;
+    padding: 7px 10px
+  }
+  .formGroup221{
+      padding: 7px 10px;
+      flex: 1;
+    }
+    .formFlex{
+        display: flex;
+    }
+    .billingWrap{
+        text-align: end;
+    }
+
+    #notMobile{
+      display: block !important;
+    }
+
+    #Mobile{
+      display: none !important;
+    }
+    #minWidth{
+      width: 150px !important;
+    }
+  @media (max-width: 769px) {
+    .left {
+        flex-direction: column;
+      }
+      .formGroup {
+        flex: 1;
+        flex-direction: column;
+        padding: 7px 10px;
+      }
+      .InnerWrap {
+        width: 100%;
+      }
+      .formFlec {
+        flex-direction: column;
+      }
+      .formGroup221{
+        padding: 7px 10px;
+        flex: 1;
+      }
+      .formFlex{
+        flex-direction: column;
+    }
+    #notMobile{
+      display: none !important;
+    }
+    #Mobile{
+      display: block !important;
+      width: 100%;
+    }
+    .alignOneColoumn{
+      display: flex;
+      flex-direction: column !important;
+      width: 100% !important;
+      gap:10px;
+      height:fit-content;
+    }
+    #minWidth{
+      min-width: 100%  !important;
+    }
+  }
+
+ 

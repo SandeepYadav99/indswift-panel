@@ -9,7 +9,7 @@ function CAGRView() {
   return (
     <div className={styles.cagrWrapper}>
       <div className={styles.Heading}>CAGR Values</div>
-      <div className={"formFlex"}>
+      <div className={"formFlex"} id={styles.mobileResponsive}>
         <div className={"formGroup"}>
           <CustomTextField
             isError={errorData?.company_cagr}

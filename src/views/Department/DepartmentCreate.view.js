@@ -45,7 +45,7 @@ const DepartmentCreateView = ({}) => {
                        </h4>
                    </div>
 
-                   <div className={'formFlex'}>
+                   <div className={'formFlex'} id={styles.mobileFlexDepartment}>
                        <div className={'formGroup'}>
                            <CustomTextField
                                isError={errorData?.name}

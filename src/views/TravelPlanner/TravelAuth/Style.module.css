@@ -134,3 +134,23 @@
     align-items: center;
     gap: 20px;
 }
+.iconColorData {
+    color: black !important;
+}
+.mobileColor{
+    display: none;
+}
+@media only screen and (max-width :769px) {
+    .mobileColor {
+        display: block !important;
+        color: #2896E9 !important;
+        font-size: 12px !important;
+    }
+
+    .iconColorData {
+        color: #2896E9 !important;
+    }
+    .rightFlex211{
+        display: none;
+    }
+}

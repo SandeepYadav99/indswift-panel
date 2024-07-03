@@ -100,3 +100,16 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
+
+@media only screen and (max-width:769px) {
+  #resposnsiveForm{
+     display: flex;
+     flex-direction: column !important;
+  }
+  .formWrapInner{
+    width: 100% !important;
+  }
+  #dropDownResponsive{
+    width: 100% !important;
+  }
+}

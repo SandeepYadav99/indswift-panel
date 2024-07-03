@@ -13,8 +13,10 @@ import styles from "./Style.module.css";
 import { useDispatch } from "react-redux";
 import { actionInitiateEmployeeDashboard } from "../../../actions/EmployeeDashboard.action";
 import CoverImageGallery from "./component/CoverImageGallery/CoverImageGallery";
+import useSubscriber from "../../../hooks/SubscriberHook";
 
-function EmployeeDashboard() {
+function EmployeeDashboard({moduleName}) {
+  const {} = useSubscriber(moduleName);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,10 +33,15 @@ function EmployeeDashboard() {
       <div className={styles.secondRow}>
         <div className={styles.announcementRowWrapper}>
           <AnnouncementInfo />
-          <Members />
+          <div className={styles.desktopView}>
+            <Members />
+          </div>
         </div>
         <div className={styles.EmployeecolumnWrapper}>
           <EmployeeEventList />
+        </div>
+        <div className={styles.memberMobile}>
+        <Members />
         </div>
       </div>
       <div className={styles.RecentUpdateWrapper}>

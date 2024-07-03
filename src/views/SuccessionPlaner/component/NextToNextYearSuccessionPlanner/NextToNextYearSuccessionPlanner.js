@@ -3,7 +3,6 @@
  */
 import React, { Component, useCallback, useMemo } from "react";
 import { Button, ButtonBase, IconButton, withStyles } from "@material-ui/core";
-import DataTables from "../../../../Datatables/Datatable.table";
 import Constants from "../../../../config/constants";
 import styles from "./Style.module.css";
 import classNames from "classnames";
@@ -19,8 +18,11 @@ import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 import SendIcon from "@material-ui/icons/Send";
 import SendPopup from "../ThisYearSuccessionPlanner/SendDialog/SendDialog.view";
+import AccessibleIcon from "@material-ui/icons/Accessible";
+import Datatables from "../../../../components/Datatables/datatables";
+import RolesUtils from "../../../../libs/Roles.utils";
 
-const NextToNextYearSuccessionPlanner = ({ listData }) => {
+const NextToNextYearSuccessionPlanner = ({ listData ,toggleRetireDialog}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -49,6 +51,12 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.next_next_year);
+
+  const { role } = useSelector((state) => state.auth);
+
+  const ValidUser = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);;
+  }, [role]);
 
   console.log({ data, allData });
   const UpperInfo = useCallback(
@@ -187,12 +195,12 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
         sortable: false,
         render: (temp, all) => <div>{all?.succession_wrt}</div>,
       },
-      {
-        key: "nature_of_succession",
-        label: "NATURE OF SUCCESSION",
-        sortable: false,
-        render: (temp, all) => <div><StatusPill status={all?.nature_of_succession} /></div>,
-      },
+      // {
+      //   key: "nature_of_succession",
+      //   label: "NATURE OF SUCCESSION",
+      //   sortable: false,
+      //   render: (temp, all) => <div><StatusPill status={all?.nature_of_succession} /></div>,
+      // },
       {
         key: "revert_by_date",
         label: "REVERT BY DATE",
@@ -213,22 +221,22 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
         sortable: false,
         render: (temp, all) => (
           <div>
-            {all?.extension_status ? (
+            {(all?.application_status === "MD_APPROVED" || all?.application_status === "MD_REJECTED") ? (
               <StatusPill status={all?.extension_status} />
             ) : (
-              "NA"
+              <StatusPill status="PENDING" />
             )}
           </div>
         ),
       },
-      {
-        key: "succession_status",
-        label: "SUCCESSION STATUS",
-        sortable: false,
-        render: (temp, all) => (
-          <div>{<StatusPill status={all?.succession_status} />}</div>
-        ),
-      },
+      // {
+      //   key: "succession_status",
+      //   label: "SUCCESSION STATUS",
+      //   sortable: false,
+      //   render: (temp, all) => (
+      //     <div>{<StatusPill status={all?.succession_status} />}</div>
+      //   ),
+      // },
       {
         key: "action_key",
         label: "Action",
@@ -258,6 +266,25 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
                 <SendIcon style={{ color: "#161616" }} fontSize={"small"} />
               </IconButton>
             )}
+              {ValidUser &&
+              ["EMPLOYEE_PENDING", "N/A", "PENDING"]?.includes(
+                all?.application_status
+              ) &&
+              all?.extension_status !== "RETIRE" && (
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    toggleRetireDialog(all?.id);
+                  }}
+                >
+                  <AccessibleIcon
+                    style={{ color: "#161616" }}
+                    fontSize={"small"}
+                  />
+                </IconButton>
+              )}
           </div>
         ),
       },
@@ -269,6 +296,7 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
       onRowSizeChange: handleRowSize,
+      MobilePagination: true,
     };
 
     const datatable = {
@@ -307,7 +335,7 @@ const NextToNextYearSuccessionPlanner = ({ listData }) => {
           <div>
             <br />
             <div style={{ width: "100%" }}>
-              <DataTables
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />

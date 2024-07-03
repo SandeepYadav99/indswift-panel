@@ -41,10 +41,10 @@ const PmsBatch = ({ location }) => {
     configFilter,
     warehouses,
     handleCsvDownload,
-      pmsSiteId,
-      hodBatchId,
-      overallHodBatchId
-  } = usePmsBatch({location});
+    pmsSiteId,
+    hodBatchId,
+    overallHodBatchId,
+  } = usePmsBatch({ location });
 
   const {
     data,
@@ -65,12 +65,8 @@ const PmsBatch = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.name}</span>{" "}
-            <br />
-            <span className={styles.productName}>
-              {obj?.emp_code}
-            </span>{" "}
-            <br />
+            <span className={styles.productName}>{obj?.name}</span> <br />
+            <span className={styles.productName}>{obj?.emp_code}</span> <br />
           </div>
         </div>
       );
@@ -78,17 +74,20 @@ const PmsBatch = ({ location }) => {
     return null;
   }, []);
 
-  const formType = useCallback((data) => {
-    if (pmsSiteId) {
-      return 'Type 5';
-    } else if (hodBatchId) {
-      return 'HOD';
-    } else if (overallHodBatchId) {
-      return 'Overall HOD';
-    } else {
-     return removeUnderScore(data?.pms_form_type);
-    }
-  }, [pmsSiteId, hodBatchId, overallHodBatchId]);
+  const formType = useCallback(
+    (data) => {
+      if (pmsSiteId) {
+        return "Type 5";
+      } else if (hodBatchId) {
+        return "HOD";
+      } else if (overallHodBatchId) {
+        return "Overall HOD";
+      } else {
+        return removeUnderScore(data?.pms_form_type);
+      }
+    },
+    [pmsSiteId, hodBatchId, overallHodBatchId]
+  );
 
   const tableStructure = useMemo(() => {
     return [
@@ -102,11 +101,7 @@ const PmsBatch = ({ location }) => {
         key: "grade",
         label: "GRADE",
         sortable: false,
-        render: (temp, all) => (
-          <div>
-            {all?.grade?.code}
-          </div>
-        ),
+        render: (temp, all) => <div>{all?.grade?.code}</div>,
       },
       {
         key: "location",
@@ -134,15 +129,23 @@ const PmsBatch = ({ location }) => {
         key: "reviewer",
         label: "REVIEWER",
         sortable: false,
-        render: (temp, all) => <div>{all?.pms?.name} <br/>
-          {all?.pms?.code}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.pms?.name} <br />
+            {all?.pms?.code}
+          </div>
+        ),
       },
       {
         key: "hod",
         label: "HOD",
         sortable: false,
-        render: (temp, all) => <div>{all?.hod?.hod_name} <br/>
-          {all?.hod?.hod_code}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.hod?.hod_name} <br />
+            {all?.hod?.hod_code}
+          </div>
+        ),
       },
       {
         key: "doj",
@@ -160,18 +163,16 @@ const PmsBatch = ({ location }) => {
         key: "pms_form_type",
         label: "TYPE",
         sortable: false,
-        render: (temp, all) => <div style={{whiteSpace:'nowrap'}}>
-          {formType(all)}
-        </div>,
+        render: (temp, all) => (
+          <div style={{ whiteSpace: "nowrap" }}>{formType(all)}</div>
+        ),
       },
       {
         key: "status",
         label: "Status",
         sortable: true,
         render: (temp, all) => (
-          <div>
-            {renderStatus(removeUnderScore(all?.pms_status))}
-          </div>
+          <div>{renderStatus(removeUnderScore(all?.pms_status))}</div>
         ),
       },
       {
@@ -243,7 +244,6 @@ const PmsBatch = ({ location }) => {
                 className={"plusIcon"}
               ></CloudDownload>
             </ButtonBase>
-
           </div>
         </div>
 
@@ -254,18 +254,17 @@ const PmsBatch = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
-
+      <div>
+        <br />
+        <div style={{ width: "100%" }}>
+          <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          />
+        </div>
+      </div>
     </div>
   );
 };

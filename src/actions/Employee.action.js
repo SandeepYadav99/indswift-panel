@@ -71,8 +71,8 @@ export function actionUpdateEmployee(data) {
     }
 }
 
-export function  actionGetEmployeeDetails  (data) {
-    const request =  serviceEmployeeCodeSubmit({ code: data });
+export function  actionGetEmployeeDetails  (data,islocation) {
+    const request =  serviceEmployeeCodeSubmit({ code: data ,...islocation});
     return  (dispatch) => {
         request.then((data) => {
             if (!data.error) {

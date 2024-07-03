@@ -20,6 +20,7 @@ const useTravelAuth = ({}) => {
     JOB_OPENINGS: [],
   });
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
@@ -36,7 +37,9 @@ const useTravelAuth = ({}) => {
     );
     isMountRef.current = true;
   }, []);
-
+  const ValidUser = useMemo(() => {
+    return user?.user_id === "63d9267d3d18b8ce6e9b7002";
+  }, [user]);
   useEffect(() => {
     serviceGetList(["LOCATIONS", "HR", "JOB_OPENINGS"]).then((res) => {
       if (!res.error) {
@@ -119,6 +122,11 @@ const useTravelAuth = ({}) => {
     historyUtils.push(`${RouteName.TRAVEL_AUTHEN_DETAILS}${data?.id}`); //+data.id
   }, []);
 
+  const handleViewSpecDetails = useCallback((data) => {
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.TRAVEL_AUTHEN_SPEC}`); //+data.id
+  }, []);
+  
   const handleCsvDownload = useCallback(() => {
     serviceTravelAuthRepord().then(res => {
       if (!res.error) {
@@ -159,7 +167,9 @@ const useTravelAuth = ({}) => {
     isCalling,
     configFilter,
     handleEdit,
-    handleCsvDownload
+    handleCsvDownload,
+    handleViewSpecDetails,
+    ValidUser
   };
 };
 

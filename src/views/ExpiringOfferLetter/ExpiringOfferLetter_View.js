@@ -12,7 +12,7 @@ import { connect, useSelector } from "react-redux";
 import { AssignmentOutlined, PeopleOutlined } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
+import DataTables from "../../components/Datatables/datatables";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
@@ -97,12 +97,12 @@ const ExpiringOfferLetterView = ({ location }) => {
               onClick={() => changeEmployeeRoute(obj?.job?.replacing_person)}
             >
               {obj?.job?.replacing_person?.name} <br/>
-           
+
             </div>
           ) : (
             <div>N/A</div>
           )}
-        
+
         {obj?.job?.replacing_person?.code}
         </div>
       );
@@ -195,7 +195,7 @@ const ExpiringOfferLetterView = ({ location }) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-              
+
                 toggleIsOpenDialog(all);
               }}
             >
@@ -266,18 +266,14 @@ const ExpiringOfferLetterView = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
-
+      <div style={{ width: "100%" }}>
+        <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+        />
+      </div>
       <ExpireOffer_PopUp
         candidateId={expireLetter}
         isOpen={isOpenDialog}

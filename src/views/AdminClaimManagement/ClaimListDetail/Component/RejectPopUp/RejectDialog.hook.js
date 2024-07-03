@@ -27,6 +27,9 @@ const useRejectDialogHook = ({ isOpen, handleToggle, candidateId }) => {
   if (window.location.pathname?.includes("/cm/hr/travel/details/")) {
     EmpId.employee_id = "63d9267d3d18b8ce6e9b700c";
   }
+  if (window.location.pathname?.includes("/cm/hr/foreign/details/")) {
+    EmpId.employee_id = "63d9267d3d18b8ce6e9b700c";
+  }
   console.log("window.location.pathname", EmpId);
   useEffect(() => {
     if (isOpen) {

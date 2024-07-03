@@ -37,12 +37,12 @@ const ClaimForm = ({ type, title, resetForm }, ref) => {
   return (
     <div>
       <div className={"plainPaper"}>
-        <div className={"headerFlex"}>
+        <div className={"headerFlex"}  id={styles.mobileScreen}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>{title}</div>
           </h4>
-          <div className={"infoTitle"} style={{ justifyContent: "flex-end" }}>
-            <div className="info_Status">
+          <div className={"infoTitle"}  id={styles.endAlign}>
+            <div className="info_Status" >
               <div className={"heading"}>Show to Employees:</div>
               <div className={styles.toggleWrapper}>
                 <p className="tags">NO</p>
@@ -58,7 +58,7 @@ const ClaimForm = ({ type, title, resetForm }, ref) => {
           </div>
         </div>
         {form?.is_show && (
-          <div className={"formFlex"}>
+          <div className={"formFlex"} id={styles.mobileScreen}>
             <div className={"formGroup"}>
               <CustomTextField
                 type="number"

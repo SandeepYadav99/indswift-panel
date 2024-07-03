@@ -52,8 +52,8 @@ const GradeCreateView = ({}) => {
                        </h4>
                    </div>
 
-                   <div className={'formFlex'} style={{alignItems:'center'}}>
-                       <div className={'formGroup'}>
+                   <div className={'formFlex'} id={styles.mobileResponsiveness}>
+                       <div className={'formGroup'} style={{display:'flex'}}>
                            <CustomTextField
                                isError={errorData?.name}
                                errorText={errorData?.name}

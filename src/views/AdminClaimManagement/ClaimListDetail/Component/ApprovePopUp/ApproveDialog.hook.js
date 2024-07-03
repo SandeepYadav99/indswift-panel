@@ -90,7 +90,9 @@ const useApproveDialogHook = ({
         ...EmpId
       }).then((res) => {
         if (!res.error) {
-          historyUtils.push(RouteName.CLAIMS_LIST);
+          SnackbarUtils.success("Request Approved");
+          historyUtils.goBack()
+          // historyUtils.push(RouteName.CLAIMS_LIST);
           handleToggle();
           SnackbarUtils.success("Request Approved");
         } else {

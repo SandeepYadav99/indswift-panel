@@ -100,7 +100,7 @@ const CandidateCreateView = ({ location }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileScreen}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.contact}
@@ -137,7 +137,7 @@ const CandidateCreateView = ({ location }) => {
           </div>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileScreen}>
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.source}
@@ -172,7 +172,7 @@ const CandidateCreateView = ({ location }) => {
           </div>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileScreen}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.email}
@@ -203,7 +203,7 @@ const CandidateCreateView = ({ location }) => {
           </div>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileScreen}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.city}
@@ -239,7 +239,7 @@ const CandidateCreateView = ({ location }) => {
           </div>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileScreen}>
           <div className={"formGroup"}>
             <CustomDatePicker
               clearable
@@ -272,7 +272,7 @@ const CandidateCreateView = ({ location }) => {
           </div>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileScreen}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.permanent_address}
@@ -317,8 +317,8 @@ const CandidateCreateView = ({ location }) => {
           </div>
         </div>
 
-        <div className={"formFlex"} style={{ alignItems: "center" }}>
-          <div className={"formGroup"}>
+        <div className={"formFlex"} style={{ alignItems: "center" }} id={styles.mobileScreen}>
+          <div className={"formGroup"} id={styles.mobileWidthCTC}>
             <File
               max_size={4 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -340,9 +340,10 @@ const CandidateCreateView = ({ location }) => {
               }}
             />
           </div>
-          <div className={"formGroup"}>
+          <div className={"formGroup"} id={styles.mobileWidthCTC}>
             <CustomTextField
               type={"number"}
+              fullWidth={true}
               isError={errorData?.previous_ctc}
               errorText={errorData?.previous_ctc}
               label={"Previous Annual CTC"}

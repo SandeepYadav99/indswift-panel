@@ -7,14 +7,16 @@ import { setAuthorizationToken } from '../libs/set_auth_token.utils';
 import history from '../libs/history.utils';
 import {serviceGetProfile} from "../services/index.services";
 import RouteName from "../routes/Route.name";
-
+import { APP_SETTINGS_DONE } from './AppSettings.action';
 
 export const AUTH_USER = 'AUTH_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const SET_PROFILE = 'SET_PROFILE';
 export const GET_PROFILE_INIT = 'GET_PROFILE_INIT';
+export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
+export const GET_UPDATE_PROFILE_INIT = 'GET_UPDATE_PROFILE_INIT';
 
-
+const isMobile = window.innerWidth <= 768;
 export function actionLoginUser(data, isKeepLogin = null) {
     return (dispatch) => {
         if (data) {
@@ -27,11 +29,22 @@ export function actionLoginUser(data, isKeepLogin = null) {
             // }
             setAuthorizationToken(data.token);
             dispatch({ type: AUTH_USER, payload: { ...data, token: data.token,  } });
+            if (data?.app_setting) {
+                localStorage.setItem("app_settings", JSON.stringify(data?.app_setting));
+            }
+            dispatch({
+                type:APP_SETTINGS_DONE,
+                payload:{...data?.app_setting}
+            })
             // dispatch(actionGetProfile());
             if (data?.should_reset_password) {
                 history.push(RouteName.RESET_PASSWORD_FIRST);
-            } else {
+            } else{
+                 if (isMobile){
+                    history.push(`/mobile/dashboard`);
+                }else{
                 history.push(`/`);
+                }
             }
         }
     };
@@ -62,3 +75,20 @@ export function actionGetProfile() {
         })
     }
 }
+export function actionUpdateProfile() {
+    const request = serviceGetProfile();
+    return (dispatch) => {
+      // dispatch({type:GET_UPDATE_PROFILE_INIT,payload:null});
+      request.then((data) => {
+        if (!data.error) {
+          const getUserData = JSON.parse(localStorage?.user);
+          if (getUserData?.data) {
+            getUserData.role = data?.data?.role ? data?.data?.role :[];
+            getUserData.role_location = data?.data?.role_location ? data?.data?.role_location :[];
+          }
+          localStorage.setItem("user", JSON.stringify(getUserData));
+          dispatch({ type: UPDATE_USER_PROFILE, payload: data.data });
+        }
+      });
+    };
+  }

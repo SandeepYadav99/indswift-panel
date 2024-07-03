@@ -13,6 +13,7 @@
     margin-top: 10px;
     margin-bottom: 20px;
     font-size: 0.7rem;
+    flex-wrap: wrap !important;    
 }
 
 .mainFlex>div{
@@ -71,3 +72,42 @@
     min-width: 25rem;
     flex: 1 1;
 }
+.rightPartContainer{
+   margin-left: 40px;
+}
+
+@media only screen and (max-width:769px) {
+    .plainPaper{
+        border-radius: 10px;
+        padding: 1.0rem;
+        margin-bottom: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    .name{
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    .locationCont {
+        min-width: 100%;
+        flex: 1 1;
+    }
+    .rightPartContainer{
+        margin-left: 20px;
+     }
+
+}
+
+@media only screen and (max-width:469px){
+    .imageHeight{
+        height: 20px !important;
+    }
+    .title{
+        font-weight: 600;
+        font-size: 0.6rem;
+    }
+}
+
+

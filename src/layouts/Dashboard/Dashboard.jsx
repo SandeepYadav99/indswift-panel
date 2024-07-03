@@ -13,7 +13,9 @@ import DashboardSnackbar from '../../components/Snackbar.component';
 import {makeStyles} from "@material-ui/styles";
 import EventEmitter from "../../libs/Events.utils";
 import Constants from "../../config/constants";
-
+import {getTokenFcm, initializeFirebase} from '../../libs/PushNotifications';
+import {serviceCaptureInfo} from "../../services/Common.service";
+import RolesUtils from "../../libs/Roles.utils";
 const useStyles = makeStyles(appStyle);
 
 const Dashboard = ({title, ...props}) => {
@@ -28,6 +30,12 @@ const Dashboard = ({title, ...props}) => {
     useEffect(() => {
         window.addEventListener('resize', handleResize);
         EventEmitter.subscribe(EventEmitter.MOVE_TO_TOP, moveToTop);
+        initializeFirebase();
+        getTokenFcm().then((token) => {
+            if (token) {
+                serviceCaptureInfo({ fcm_token: token });
+            }
+        });
         return () => {
             EventEmitter.unsubscribe(EventEmitter.MOVE_TO_TOP);
             window.removeEventListener('resize', handleResize);
@@ -35,6 +43,10 @@ const Dashboard = ({title, ...props}) => {
     }, []);
 
     useEffect(() => {
+        const isMobile = window.innerWidth <= 768;
+        if(isMobile){
+            setDrawerOpen(false)
+        }
         // this.refs.mainPanel.scrollTop = 0;
     }, []);
 
@@ -48,7 +60,7 @@ const Dashboard = ({title, ...props}) => {
 
     const handleResize =  useCallback((e) => {
         if (window.innerWidth < 767) {
-            setDrawerOpen(false);
+            // setDrawerOpen(false);
         } else {
             setDrawerOpen(true);
         }
@@ -77,13 +89,14 @@ const Dashboard = ({title, ...props}) => {
 
     const sideBarRoutes = useMemo(() => {
         return dashboardRoutes.filter((val, index) => {
-            if (val.roles) {
-                if (val.roles.indexOf(Constants.ROLES.GENERAL) >= 0) {
-                    return true;
-                }
-                const isThere = val.roles.indexOf(role);
-                return isThere >= 0;
-            } return true;
+            // if (val.roles) {
+            //     if (val.roles.indexOf(Constants.ROLES.GENERAL) >= 0) {
+            //         return true;
+            //     }
+            //     const isThere = val.roles.indexOf(role);
+            //     return isThere >= 0;
+            // } return true;
+            return RolesUtils.canAccess(val.roles, role);
         })
     }, [dashboardRoutes, role]);
 
@@ -94,6 +107,7 @@ const Dashboard = ({title, ...props}) => {
                 logoText={title}
                 logo={logo}
                 handleDrawerToggle={handleDrawerToggle}
+                toggleSideBar={handleHeaderClick}
                 open={drawerOpen}
                 color="blue"
                 {...props}

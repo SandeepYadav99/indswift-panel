@@ -140,7 +140,7 @@
 }
 
 .down{
-    flex: 0.2;
+    z-index: 0;
 }
 
 .newLine{
@@ -178,6 +178,7 @@
 
 .drop{
     width: 250px;
+    z-index: 0;
 }
 
 .totalWrap{
@@ -262,3 +263,31 @@
     display: flex;
     align-items: center;
 }
+@media (max-width: 769px) {
+    .headerContainer {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .yearFlex {
+      flex-direction: column;
+      width: 100%;
+      gap: 10px !important;
+    }
+    .down {
+      width: 100%;
+    }
+    .rightFlex {
+      flex-direction: column;
+      width: 100%;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .downloadrun {
+      width: 100%;
+    }
+    .download {
+      width: 100%;
+    }
+  }

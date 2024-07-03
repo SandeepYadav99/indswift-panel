@@ -10,6 +10,7 @@ import {
     IconButton
 } from "@material-ui/core";
 import { MoreVert as MoreIcon } from "@material-ui/icons";
+import classNames from "classnames";
 
 const Widget = ({
                     classes,
@@ -19,13 +20,11 @@ const Widget = ({
                     bodyClass,
                     className,
                     disableWidgetMenu,
+    classStyles,
                     ...props
                 }) => (
-    <div className={classes.widgetWrapper}>
-        <Paper className={classes.paper} classes={{ root: classes.widgetRoot }}>
-            {/*<div className={classes.widgetHeader}>*/}
-            {/*    {props.header}*/}
-            {/*</div>*/}
+    <div className={classNames(classes.widgetWrapper ,(classStyles ? classStyles : ''))}>
+        <Paper className={classNames(classes.paper)} classes={{ root: classes.widgetRoot }}>
             <div
                 className={classnames(classes.widgetBody, {
                     [classes.noPadding]: noBodyPadding,

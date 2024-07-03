@@ -1,9 +1,11 @@
 .backIcon {
   color: #919bb0 !important;
 }
+
 .outerFlex {
   display: flex;
 }
+
 .newLine {
   height: 4px;
   width: 30px;
@@ -11,43 +13,51 @@
   margin-left: 1px;
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
-.plainPaper{
+
+.plainPaper {
   border-radius: 10px;
   padding: 1.2rem;
   margin-bottom: 20px;
   background-color: #fff;
   box-shadow: 0px 20px 80px #00000011;
 }
-.commentDate{
+
+.commentDate {
   font-weight: 600;
 }
-.commentContainer{
+
+.commentContainer {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.commentwrap{
+
+.commentwrap {
   display: flex;
   flex-direction: column;
   gap: 5px;
   font-size: .8rem;
 }
-.heading{
+
+.heading {
   font-size: 0.8rem;
   margin-top: 5px;
   margin-bottom: 20px;
   font-weight: 600;
 }
-.spanWrapper{
+
+.spanWrapper {
   font-size: .875rem;
   color: #818181;
 }
+
 .btnCont1 {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   /* margin-top: 15px; */
 }
+
 .createBtn {
   background-color: #29cb97 !important;
   color: #ffffff !important;
@@ -57,24 +67,28 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
-.btnReviewWrapper{
+
+.btnReviewWrapper {
   display: flex;
   width: 100%;
   justify-content: flex-end;
 }
-.isReviewBtnContainer{
-  width: 30%;
+
+.isReviewBtnContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 30px;
+  position: relative;
 }
-.firstFieldWrapper{
+
+.firstFieldWrapper {
   display: flex;
   align-items: center;
   gap: 15px;
 }
-.RejectBtn{
+
+.RejectBtn {
   color: #E92828 !important;
   border: 2px solid #E92828;
   padding: 12px 35px !important;
@@ -83,15 +97,54 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
-.panelListImg{
+
+.panelListImg {
   width: 40px;
   aspect-ratio: 1/1;
 }
-.spanchk{
+
+.spanchk {
   font-size: 0.8rem;
   font-weight: 500;
 }
-.chkwrapp{
+
+.chkwrapp {
   display: flex;
   align-items: center;
+}
+
+@media only screen and (max-width:769px) {
+  .spanchk {
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  .btnContainerCheckBox {
+    padding-bottom: 40px;
+    position:  relative !important;
+  }
+
+  .panelListImg {
+    width: 40px;
+    aspect-ratio: 1/1;
+    border-radius: 100% !important;
+  }
+  .isReviewBtnContainer{
+    width: 100%;
+    padding: 0 15px;
+    justify-content: space-between;
+  }
+  .btnCont1{
+    margin-top: 15px;
+  }
+
+}
+
+@media only screen and (max-width:1156px) {
+  .btnReviewWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    position:  relative !important;
+  }
 }

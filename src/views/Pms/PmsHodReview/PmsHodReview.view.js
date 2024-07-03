@@ -1,6 +1,6 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
 import classNames from "classnames";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
@@ -43,8 +43,12 @@ const PmsHodReview = ({ location }) => {
       return (
         <div className={styles.firstCellFlex}>
           <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>{obj?.employee?.name}</span> <br />
-            <span className={styles.productName}>{obj?.employee?.code}</span> <br />
+            <span className={styles.productName}>{obj?.employee?.name}</span>{" "}
+            <br />
+            <span className={styles.productName}>
+              {obj?.employee?.code}
+            </span>{" "}
+            <br />
           </div>
         </div>
       );
@@ -66,9 +70,7 @@ const PmsHodReview = ({ location }) => {
         label: "NO. OF REVIEWS",
         sortable: false,
         render: (temp, all) => (
-          <div style={{ whiteSpace: "nowrap" }}>
-            {(all?.total_employees)}
-          </div>
+          <div style={{ whiteSpace: "nowrap" }}>{all?.total_employees}</div>
         ),
       },
       {
@@ -90,16 +92,19 @@ const PmsHodReview = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {!DateUtilsLib.hodFreezed() && (<IconButton
-              className={"tableActionBtn"}
-              color="secondary"
-              disabled={isCalling}
-              onClick={() => {
-                handleViewDetails(all);
-              }}
-            >
-              <InfoOutlined fontSize={"small"} />
-            </IconButton>)}
+            {!DateUtilsLib.hodFreezed() &&
+              (all?.batch !== "APMS" ) && (
+                <IconButton
+                  className={"tableActionBtn"}
+                  color="secondary"
+                  disabled={isCalling}
+                  onClick={() => {
+                    handleViewDetails(all);
+                  }}
+                >
+                  <InfoOutlined fontSize={"small"} />
+                </IconButton>
+              )}
           </div>
         ),
       },
@@ -142,8 +147,8 @@ const PmsHodReview = ({ location }) => {
             <div className={styles.newLine} />
           </div>
         </div>
-
-        <div>
+      </PageBox>
+      <div>
           <div>
             <br />
             <div style={{ width: "100%" }}>
@@ -154,7 +159,6 @@ const PmsHodReview = ({ location }) => {
             </div>
           </div>
         </div>
-      </PageBox>
     </div>
   );
 };

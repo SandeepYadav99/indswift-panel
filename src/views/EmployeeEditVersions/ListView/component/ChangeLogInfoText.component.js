@@ -3,6 +3,7 @@ import styles from './Style.module.css';
 import csx from 'classnames';
 import ChildrenListComponent from "./ChildrenList.component";
 import NomineeListComponent from "./NomineeList.component";
+import { validImageUrl } from '../../../../libs/RegexUtils';
 
 const ChangeLogInfoTextComponent = ({data}) => {
     const removeUnderScore = (value) => {
@@ -17,6 +18,20 @@ const ChangeLogInfoTextComponent = ({data}) => {
             if (data?.old_value) {
                 return (<NomineeListComponent data={data?.old_value} />)
             } return (<div>-</div>);
+        } else if (data?.key === "image") {
+            if (validImageUrl(data?.old_value)) {
+              return (
+                <div>
+                  <img
+                    src={data?.old_value}
+                    className={styles.imgClass}
+                    alt="image"
+                  />
+                </div>
+              );
+            } else {
+              <div>PROFILE_IMAGE_UPDATED</div>;
+            }
         } else {
             return (<div>{data?.old_value ? data?.old_value : 'N/A'}</div>);
         }
@@ -27,7 +42,22 @@ const ChangeLogInfoTextComponent = ({data}) => {
             return (<ChildrenListComponent data={(data?.new_value)} />)
         } else if (data?.key === 'nominees') {
             return (<NomineeListComponent data={data?.new_value} />)
-        } else {
+        } else if (data?.key === "image") {
+            if (validImageUrl(data?.new_value)) {
+              return (
+                <div>
+                  <img
+                    src={data?.new_value}
+                    className={styles.imgClass}
+                    alt="image"
+                  />
+                </div>
+              );
+            } else {
+              <div>PROFILE_IMAGE_UPDATED</div>;
+            }
+        } 
+         else {
             return (<div>{data?.new_value}</div>);
         }
     }, [data]);

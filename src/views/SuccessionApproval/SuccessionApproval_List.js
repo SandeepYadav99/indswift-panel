@@ -11,7 +11,7 @@ import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import useSuccessionApprovalHook from "./SuccessionApproval_hook";
-
+import DataTablesNew from "../../components/Datatables/datatables";
 const SuccessionApproval_List = ({}) => {
   const {
     handleSortOrderChange,
@@ -130,7 +130,9 @@ const SuccessionApproval_List = ({}) => {
         key: "nature",
         label: "NATURE OF ASSOCIATION",
         sortable: false,
+        is_mobile: true,
         render: (temp, all) => <div>{all?.application?.extension_status}</div>,
+        mobileRender: (temp, all) => (<div>{all?.application?.extension_status}</div>)
       },
 
       {
@@ -207,17 +209,14 @@ const SuccessionApproval_List = ({}) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
+      <div style={{ width: "100%" }}>
+        <DataTablesNew
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+        />
+      </div>
     </div>
   );
 };

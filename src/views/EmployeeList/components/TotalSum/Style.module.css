@@ -23,3 +23,22 @@
 .lowerWrapper{
     margin-right: 20px;
 }
+@media only screen and (max-width:769px) {
+    .TotalSumWrapper{
+        background: #F5F7FB 0% 0% no-repeat padding-box;
+        flex: 1;
+        display: flex;
+        flex-direction: column !important;
+        justify-content: space-between;
+        padding: 15px 10px;
+        border-radius: 10px;
+        gap:5px !important;
+    }
+    .topWrapper{
+        font-size: .875rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: 0px !important;
+    }
+}

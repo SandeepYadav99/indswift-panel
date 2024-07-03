@@ -112,14 +112,13 @@ const ManpowerList = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{all?.vacancies}</div>,
       },
-      
       {
         key: "hiring",
         label: "ACTIVE HIRING",
         sortable: false,
         render: (temp, all) => <div>{all?.active_hiring}</div>,
       },
-     
+
       // {
       //   key: "user_id",
       //   label: "Action",
@@ -265,10 +264,33 @@ const ManpowerList = ({}) => {
             {sanction?.offered && `${sanction?.offered}`}| VACANCY :
             {sanction?.vacancies && ` ${sanction?.vacancies} `} | ACTIVE HIRING:
             {sanction?.active_hiring && `${sanction?.active_hiring}`}
-            {/* EXPENSES
-            :
-            {sanction?.expense_budget !== undefined &&
-              `  ${sanction?.expense_budget}`} */}
+          </div>
+          <div className={styles.experseWrapMobile}>
+            <div className={styles.innerWrapper}>
+              {" "}
+              SANCTIONED : {sanction?.sanctioned && `${sanction?.sanctioned}`}
+            </div>
+            <div className={styles.innerWrapper}>
+              {" "}
+              POSTED :{sanction?.posted && `${sanction?.posted} `}
+            </div>
+            <div className={styles.innerWrapper}>
+              {" "}
+              RESIGNATION :{sanction?.resigned && `${sanction?.resigned}`}
+            </div>
+            <div className={styles.innerWrapper}>
+              {" "}
+              OFFERED : {sanction?.offered && `${sanction?.offered}`}
+            </div>
+            <div className={styles.innerWrapper}>
+              {" "}
+              VACANCY : {sanction?.vacancies && ` ${sanction?.vacancies} `}
+            </div>
+            <div className={styles.innerWrapper}>
+              {" "}
+              ACTIVE HIRING:{" "}
+              {sanction?.active_hiring && `${sanction?.active_hiring}`}
+            </div>
           </div>
           <div>
             <br />

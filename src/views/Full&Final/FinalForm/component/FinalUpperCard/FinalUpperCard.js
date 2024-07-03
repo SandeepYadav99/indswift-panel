@@ -9,7 +9,12 @@ function FinalUpperCard({ data, otherData }) {
       <div className={styles.editFlex}>
         <div className={styles.heading}>Employee Information</div>
       </div>
-
+      <div className={styles.mobileImageData}>
+        <img
+          className={styles.mobileImageSize}
+          src={data?.image ? data?.image : image}
+        />
+      </div>
       <div className={styles.mainFlex}>
         <div className={styles.left221}>
           <div>
@@ -32,7 +37,8 @@ function FinalUpperCard({ data, otherData }) {
               {data?.location?.name}
             </div>
             <div className={styles.key}>
-              <span className={styles.value}>F&F Case Number:</span>{otherData?.code}
+              <span className={styles.value}>F&F Case Number:</span>
+              {otherData?.code}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>DOB:</span>
@@ -100,8 +106,8 @@ function FinalUpperCard({ data, otherData }) {
           </div>{" "}
           <div className={styles.key}>
             <span className={styles.value}>Separation By Virtue of:</span>
-            <StatusPill status={data?.status} />
-          </div>{" "}
+            <StatusPill status={data?.status} style={{width:"fit-content",marginTop:"7px"}}/>
+          </div>
           {otherData?.id && (
             <>
               <div className={styles.key}>
@@ -128,7 +134,7 @@ function FinalUpperCard({ data, otherData }) {
               </div>
               <div className={styles.key}>
                 <span className={styles.value}>
-                  Leaves Availed on Notice/LOP:
+                Excess Leaves Availed on Notice/LOP:
                 </span>
                 {otherData?.notice_leave_availed}
               </div>

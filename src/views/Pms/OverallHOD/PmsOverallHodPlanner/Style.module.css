@@ -115,3 +115,13 @@
     display: flex;
     gap: 5px;
 }
+
+.checkBoxMobile{
+    display: block !important;
+}
+
+@media  only screen and (max-width:769px) {
+    .checkBoxMobile{
+        display: none !important;
+    }
+}

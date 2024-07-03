@@ -40,3 +40,15 @@ export async function serviceUpdateIntClaim(params) {
 export async function serviceUpdateForeignClaim(params) {
     return await formDataRequest('employee/claims/create/travel/foreign', params);
 }
+export async function serviceUpdateFile(params) {
+    return await formDataRequest('files/upload', params,{"folder": "tax_rebate"});
+}
+export async function serviceCreateTaxForm(params) {
+    return await postRequest('tax/rebate/create', params);
+}
+export async function serviceGetTotalTaxForm(params) {
+    return await postRequest('tax/rebate/totals', params);
+}
+export async function serviceGetTaxDetail(params) {
+    return await postRequest('tax/rebate/drafted', params);
+}

@@ -794,3 +794,30 @@ export const number_Keys = [
   "rbl_uphold",
   "superannuation_uphold",
 ];
+
+export function getNullPaths(data) {
+  const nullPathObjects = [];
+    const uniquePathObjects = [];
+    const uniquePaths = new Set();
+
+  data.forEach(item => {
+    const path = item.path;
+
+    if (path === "null") {
+        nullPathObjects.push(item);
+    } else if (path && path !== "null" && !uniquePaths.has(path)) {
+        uniquePaths.add(path);
+        uniquePathObjects.push(item);
+    }
+});
+
+return { nullPathObjects, uniquePathObjects };
+}
+export const isDateInFiscalYear = (date) => {
+  const month = date.getMonth() + 1;
+  return (
+    (month === 1 && date.getDate() >= 7 && date.getDate() <= 31) ||
+    (month > 1 && month < 3) ||
+    (month === 3 && date.getDate() <= 25)
+  );
+};

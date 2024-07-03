@@ -247,6 +247,7 @@ const ProfessionalDetail = ({ isDisabled }, ref) => {
                 <MenuItem value="Physical Disability">
                   Physical Disability
                 </MenuItem>
+                <MenuItem value="Chronic Disease">Chronic Disease</MenuItem>
                 <MenuItem value="Other">Other</MenuItem>
               </CustomSelectField>
             </div>

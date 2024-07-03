@@ -3,17 +3,20 @@
   gap: 20px;
   flex-wrap: wrap;
 }
+
 .EmployeeDashboardWrapper {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
+
 .secondRow {
   display: flex;
   gap: 25px;
   flex-wrap: wrap;
   /* flex-direction: column; */
 }
+
 .announcementRowWrapper {
   display: flex;
   flex-direction: column;
@@ -21,43 +24,78 @@
   flex: 2;
   overflow: hidden;
 }
+
 .EmployeecolumnWrapper {
   display: flex;
   flex: 1;
 }
+
 .RecentUpdateWrapper {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
+
 .RecentUpdateUpperCard {
   display: flex;
-  flex-wrap: wrap;
   gap: 25px;
 }
+
 .RecentUpdateLowerCard {
   display: flex;
   gap: 25px;
 }
+
 .SocialMediaOuterWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1;
 }
+
+.desktopView{
+  display: block;
+}
+.memberMobile{
+  display: none !important;
+}
+
 @media (max-width: 1200px) {
   .RecentUpdateLowerCard {
     flex-direction: column;
-}
-}
-@media (max-width: 767px) {
+  }
+
   .EmployeeDashboardFlex {
-      flex-direction: column;
-  }
-  .RecentUpdateUpperCard{
     flex-direction: column;
   }
-  .secondRow{
+
+  .RecentUpdateUpperCard {
     flex-direction: column;
   }
+
+  .secondRow {
+    flex-direction: column;
+  }
+  .desktopView{
+    display: none !important;
+  }
+  .memberMobile{
+    display: block !important;
+  }
+}
+
+@media (max-width: 769px) {
+  .EmployeeDashboardFlex {
+    flex-direction: column;
+  }
+
+  .RecentUpdateUpperCard {
+    flex-direction: column;
+  }
+
+  .secondRow {
+    flex-direction: column;
+  }
+
+  
 }

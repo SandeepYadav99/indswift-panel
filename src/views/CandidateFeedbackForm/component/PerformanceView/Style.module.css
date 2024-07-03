@@ -30,3 +30,44 @@
 .performanceindex{
     font-weight: 600;
 }
+
+@media only screen and (max-width:769px) {
+    .emojWrapper{
+        display: flex;
+        flex-direction: column !important;
+        justify-content: flex-start;
+    }
+    .emojCard{
+        /* flex: 1; */
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: row;
+        gap: 5px;
+        cursor: pointer;
+        align-items: center;
+    }
+    .titleWrapper > span{
+        font-weight: 600;
+        font-size: 14px;
+    }
+    .emojCard >span{
+        font-size: 14px;
+    }
+    .questionWrapper > span{
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width:640px) {
+    .titleWrapper > span{
+        font-weight: 600;
+        font-size: 12px;
+    }
+    .emojCard >span{
+        font-size: 12px;
+    }
+    .questionWrapper > span{
+        font-size: 12px;
+    }
+}

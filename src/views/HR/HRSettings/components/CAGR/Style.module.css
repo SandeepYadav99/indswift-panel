@@ -26,3 +26,10 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
+
+@media only screen and (max-width:769px){
+  #mobileResponsive{
+      display: flex;
+      flex-direction: column !important;
+  }
+}

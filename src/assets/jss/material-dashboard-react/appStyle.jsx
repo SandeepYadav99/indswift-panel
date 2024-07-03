@@ -26,13 +26,13 @@ const appStyle = theme => ({
 		overflowScrolling: 'touch',
 	},
 	appBar: {
-		width: `calc(100% - ${50}px)`,
-		marginLeft: 45,
-		[theme.breakpoints.down("xs")]: {
+		width: `100%`,
+		// marginLeft: 45,
+		[theme.breakpoints.down("sm")]: {
 		marginLeft:0,
 		  width: `calc(100% - ${0}px)`
 		},
-		
+
 		// transition: theme.transitions.create(['margin', 'width'], {
 		//     easing: theme.transitions.easing.sharp,
 		//     duration: theme.transitions.duration.leavingScreen,
@@ -69,6 +69,9 @@ const appStyle = theme => ({
 	content: {
 		// marginTop: '70px',
 		padding: '30px 15px',
+		[theme.breakpoints.down("xs")]: {
+			padding: '30px 0px',
+		},
 		minHeight: 'calc(100% - 123px)',
 	},
 	container,

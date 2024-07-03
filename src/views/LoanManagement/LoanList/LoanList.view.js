@@ -1,15 +1,16 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton } from "@material-ui/core";
+import { ButtonBase, IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { InfoOutlined } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import useLoanList from "./LoanList.hook";
+import Datatables from "../../../components/Datatables/datatables";
+import RolesUtils from "../../../libs/Roles.utils";
 
 const LoanList = () => {
   const {
@@ -21,7 +22,9 @@ const LoanList = () => {
     handleSearchValueChange,
     handleViewDetails,
     isCalling,
-    configFilter,handleViewDetails2
+    configFilter,
+    handleViewDetails2,
+    handleBankSheetDownload,
   } = useLoanList({});
 
   const {
@@ -30,6 +33,8 @@ const LoanList = () => {
     currentPage,
     is_fetching: isFetching,
   } = useSelector((state) => state.loanList);
+
+  const { role } = useSelector((state) => state.auth);
 
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -69,7 +74,7 @@ const LoanList = () => {
         key: "id",
         label: "Loan id",
         sortable: false,
-        render: (temp, all) => <div>{all?.loan?.code}</div>,
+        render: (temp, all) => <div className={styles.statusWrap}>{all?.loan?.code}</div>,
       },
       {
         key: "name",
@@ -93,14 +98,14 @@ const LoanList = () => {
         key: "location",
         label: "Location",
         sortable: false,
-        render: (temp, all) => <div>{all?.loan?.employee?.location?.name}</div>,
+        render: (temp, all) => <div className={styles.statusWrap}>{all?.loan?.employee?.location?.name}</div>,
       },
       {
         key: "desigination",
         label: "DESIGNATION",
         sortable: false,
         render: (temp, all) => (
-          <div>{all?.loan?.employee?.designation?.name}</div>
+          <div className={styles.statusWrap}>{all?.loan?.employee?.designation?.name}</div>
         ),
       },
       {
@@ -108,7 +113,7 @@ const LoanList = () => {
         label: "DEPT & SUB-DEPT",
         sortable: false,
         render: (temp, all) => (
-          <div>
+          <div className={styles.statusWrap}>
             {all?.loan?.employee?.department?.name} /{" "}
             {all?.loan?.employee?.sub_department?.name}
           </div>
@@ -161,7 +166,7 @@ const LoanList = () => {
         label: "Current status/Overall status",
         sortable: true,
         render: (temp, all) => (
-          <div>
+          <div className={styles.statusWrap}>
             {renderStatus(removeUnderScore(all?.status))}
             <br /> <br />
             {renderStatus(removeUnderScore(all?.loan?.status))}
@@ -182,7 +187,8 @@ const LoanList = () => {
                 handleViewDetails(all);
               }}
             >
-              <InfoOutlined fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}} />
+              <div className={styles.textStyles}>View information</div>
             </IconButton>
             {/* <IconButton
               className={"tableActionBtn"}
@@ -225,7 +231,9 @@ const LoanList = () => {
     data,
     currentPage,
   ]);
-
+  const isCorporateAccountant = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR,Constants.ROLES.ACCOUNTANT], role);
+  }, [role]);
   return (
     <div>
       <PageBox>
@@ -234,6 +242,18 @@ const LoanList = () => {
             <span className={styles.title}>Loan Application Management</span>
             <div className={styles.newLine} />
           </div>
+          {isCorporateAccountant && (
+            <div className={styles.btnHide}>
+            <ButtonBase
+              aria-haspopup="true"
+              // onClick={handleAddCandidate}
+              onClick={handleBankSheetDownload}
+              className={"createBtn"}
+            >
+              Loan Bank Transfer Sheet
+            </ButtonBase>
+            </div>
+          )}
         </div>
         <div>
           <FilterComponent
@@ -242,17 +262,14 @@ const LoanList = () => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
+        </div>
+      </PageBox>
+      <div style={{ width: "100%" }}>
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
-          </div>
-        </div>
-      </PageBox>
     </div>
   );
 };

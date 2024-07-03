@@ -54,10 +54,10 @@ function ClaimMobileCard() {
         <ClaimInfo idCards={claimInfo} />
 
         <div className={styles.formSelectWrapper}>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className="formGroup1">
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomTextField
-                disabled= {true}
+                disabled={true}
                 type="number"
                 isError={errorData?.official_contact}
                 errorText={errorData?.official_contact}
@@ -71,7 +71,7 @@ function ClaimMobileCard() {
                 }}
               />
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <CustomDatePicker
                 clearable
                 label={"Bill Date"}
@@ -84,8 +84,8 @@ function ClaimMobileCard() {
               />
             </div>
           </div>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomTextField
                 type="number"
                 isError={errorData?.bill_amount}
@@ -100,7 +100,7 @@ function ClaimMobileCard() {
                 }}
               />
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <File
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -120,8 +120,8 @@ function ClaimMobileCard() {
               />
             </div>
           </div>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className="formGroup1">
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomTextField
                 isError={errorData?.invoice_no}
                 errorText={errorData?.invoice_no}
@@ -136,8 +136,8 @@ function ClaimMobileCard() {
               />
             </div>
           </div>
-          <div className={"formFlex"} style={{ alignItems: "center" }}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomSelectField
                 isError={errorData?.payment_mode}
                 errorText={errorData?.payment_mode}
@@ -154,7 +154,7 @@ function ClaimMobileCard() {
                 <MenuItem value="Bank Transfer">Bank Transfer</MenuItem>
               </CustomSelectField>
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <File
                 max_size={10 * 1024 * 1024}
                 type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -208,11 +208,23 @@ function ClaimMobileCard() {
       <div className={styles.btnCont}>
         <ButtonBase
           type={"button"}
-          disabled={(!declaration || isLoading) || !form?.official_contact?.length ? true : false}
-          className={declaration && form?.official_contact?.length ? styles.createBtn : styles.disabledCreatebtn}
+          disabled={
+            !declaration || isLoading || !form?.official_contact?.length
+              ? true
+              : false
+          }
+          className={
+            declaration && form?.official_contact?.length
+              ? styles.createBtn
+              : styles.disabledCreatebtn
+          }
           onClick={handleSubmit}
         >
-          {isLoading ? <CircularProgress color="success" size="20px"/>: 'Submit'}
+          {isLoading ? (
+            <CircularProgress color="success" size="20px" />
+          ) : (
+            "Submit"
+          )}
         </ButtonBase>
       </div>
     </div>

@@ -1,15 +1,14 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton, MenuItem, ButtonBase, Menu } from "@material-ui/core";
+import React, {useCallback, useMemo} from "react";
+import {ButtonBase, IconButton, Menu, MenuItem} from "@material-ui/core";
 import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
-import { Add, CloudUpload, InfoOutlined, CloudDownload, PrintOutlined } from "@material-ui/icons";
+import {useSelector} from "react-redux";
+import {Add, CloudDownload, CloudUpload, Edit, InfoOutlined,} from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
 import SidePanelComponent from "../../components/SidePanel/SidePanel.component";
 import styles from "./Style.module.css";
 import DataTables from "../../Datatables/Datatable.table";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
-import { Edit, RemoveRedEyeOutlined as ViewIcon } from "@material-ui/icons";
 import useEmployeeList from "./EmployeeListHook";
 import StatusPill from "../../components/Status/StatusPill.component";
 import CreateView from "./Employee.view";
@@ -17,8 +16,19 @@ import UploadCsvDialog from "./components/UploadCsv/UploadCsvDialog.view";
 import CPCDialogView from "./components/CPCDialog/CPCDialog.view";
 import OnBoardDialog from "./components/OnBoardPopUp/OnBoardDialog.view";
 import TraineeDialog from "./components/TraineePopUp copy/TraineeDialog.view";
+import RetiredDialog from "./components/RetiredPopUp/RetiredDialog.view";
+import useSubscriber from "../../hooks/SubscriberHook";
 
-const EmployeeList = ({}) => {
+// const EmployeeMobileCard = ({data, index}) => {
+//   return (<div style={{ background: 'red', margin: '20px' }}>
+//     {data?.name} - {data?.emp_code}
+//     <br/>
+//     {data?.department?.name}
+//   </div>)z
+// }
+
+const EmployeeList = ({moduleName}) => {
+  const {} = useSubscriber(moduleName);
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -51,14 +61,16 @@ const EmployeeList = ({}) => {
     toggleExtendDialog,
     isTraineeDialog,
     toggleTraineeDialog,
-    listData
+    isRetiredDialog,
+    toggleRetiredDialog,
+    listData,
   } = useEmployeeList({});
 
   const {
     data,
     all: allData,
     currentPage,
-      total,
+    total,
     is_fetching: isFetching,
   } = useSelector((state) => state.employee);
 
@@ -130,7 +142,9 @@ const EmployeeList = ({}) => {
         label: "Grade/Cadre",
         sortable: false,
         render: (temp, all) => (
-          <div className={styles.captialize}>{all?.grade?.code} / {all?.cadre?.code}</div>
+          <div className={styles.captialize}>
+            {all?.grade?.code} / {all?.cadre?.code}
+          </div>
         ),
       },
       {
@@ -171,7 +185,9 @@ const EmployeeList = ({}) => {
         key: "hod",
         label: "HOD",
         sortable: false,
-        render: (temp, all) => <div className={styles.HODUpperCase}>{all?.hod?.hod_name}</div>,
+        render: (temp, all) => (
+          <div className={styles.HODUpperCase}>{all?.hod?.hod_name}</div>
+        ),
       },
       {
         key: "status",
@@ -182,9 +198,10 @@ const EmployeeList = ({}) => {
       {
         key: "user_id",
         label: "Action",
+        hide_label: true,
         style: { width: "15%" },
         render: (temp, all) => (
-          <div>
+          <div className={'mobileNoLabel'}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -192,22 +209,23 @@ const EmployeeList = ({}) => {
               onClick={() => {
                 handleViewDetails(all);
               }}
+              id={styles.colorIcon}
             >
               <InfoOutlined fontSize={"small"} />
+              <span className={styles.colorText}>View Information</span>
             </IconButton>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              onClick={
-                ()=>{
-                  handleViewUpdate(all)
-                }
-              }
+              onClick={() => {
+                handleViewUpdate(all);
+              }}
+              id={styles.colorIcon}
             >
               <Edit fontSize={"small"} />
+              <span className={styles.colorText}>Edit Information</span>
             </IconButton>
-            {/* onClick={() => { handleEdit(all) }} */}
           </div>
         ),
       },
@@ -216,12 +234,8 @@ const EmployeeList = ({}) => {
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
-      // onCellClick: this.handleCellClick,
-      // onCellDoubleClick: this.handleCellDoubleClick,
-      // onFilterValueChange: this._handleSearchValueChange.bind(this),
       onSortOrderChange: handleSortOrderChange,
       onPageChange: handlePageChange,
-      // onRowSelection: this.handleRowSelection,
       onRowSizeChange: handleRowSize,
     };
 
@@ -231,6 +245,7 @@ const EmployeeList = ({}) => {
       data: data,
       count: allData.length,
       page: currentPage,
+      // mobileRender: EmployeeMobileCard
     };
 
     return { datatableFunctions, datatable };
@@ -249,72 +264,92 @@ const EmployeeList = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Total Employee Records: {total}</span>
+            <span className={styles.title}>
+              Total Employee Records: {total}
+            </span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.btnWrapperGap}>
-
-            <ButtonBase onClick={handleCsvDownload} className={"createBtn"}>
+            <ButtonBase
+              onClick={handleCsvDownload}
+              className={"createBtn"}
+              id={styles.btnHideResponsive}
+            >
               Download
               <CloudDownload
-                  fontSize={"small"}
-                  className={"plusIcon"}
+                fontSize={"small"}
+                className={"plusIcon"}
               ></CloudDownload>
             </ButtonBase>
 
-            <ButtonBase onClick={toggleCsvDialog} className={"createBtn"}>
+            <ButtonBase
+              onClick={toggleCsvDialog}
+              className={"createBtn"}
+              id={styles.btnHideResponsive}
+            >
               Upload
               <CloudUpload
                 fontSize={"small"}
                 className={"plusIcon"}
               ></CloudUpload>
             </ButtonBase>
-            <ButtonBase onClick={toggleCPCDialog} className={"createBtn"}>
+            <ButtonBase
+              onClick={toggleCPCDialog}
+              className={"createBtn"}
+              id={styles.btnHideResponsive}
+            >
               Upload CPC
               <CloudUpload
-                  fontSize={"small"}
-                  className={"plusIcon"}
+                fontSize={"small"}
+                className={"plusIcon"}
               ></CloudUpload>
             </ButtonBase>
-           <div>
-            <ButtonBase
-              aria-owns={createDD ? "createDD" : undefined}
-              aria-haspopup="true"
-              onClick={handleAddCandidate}
-              className={"createBtn"}
-            >
-              Create
-              <Add fontSize={"small"} className={'plusIcon'}></Add>
-            </ButtonBase>
-            <Menu
-              id="createDD"
-              anchorEl={createDD}
-              open={Boolean(createDD)}
-              onClose={handleClosedownloadCL}
-            >
+            <div>
+              <ButtonBase
+                aria-owns={createDD ? "createDD" : undefined}
+                aria-haspopup="true"
+                onClick={handleAddCandidate}
+                className={"createBtn"}
+              >
+                Create
+                <Add fontSize={"small"} className={"plusIcon"}></Add>
+              </ButtonBase>
+              <Menu
+                id="createDD"
+                anchorEl={createDD}
+                open={Boolean(createDD)}
+                onClose={handleClosedownloadCL}
+              >
                 <MenuItem
-                onClick={() => {
-                  handleCandidateMenu("NEW");
-                }}
-              >
-                New Employee
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  toggleExtendDialog();
-                }}
-              >
-                Onboard Candidate
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  toggleTraineeDialog();
-                }}
-              >
-                NAPS Trainee
-              </MenuItem>
-            </Menu>
-          </div>
+                  onClick={() => {
+                    handleCandidateMenu("NEW");
+                  }}
+                >
+                  New Employee
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    toggleExtendDialog();
+                  }}
+                >
+                  Onboard Candidate
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    toggleTraineeDialog();
+                  }}
+                >
+                  NAPS Trainee
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    toggleRetiredDialog();
+                  }}
+                >
+                  Retired
+                </MenuItem>
+              </Menu>
+            </div>
           </div>
         </div>
         <OnBoardDialog
@@ -324,9 +359,16 @@ const EmployeeList = ({}) => {
           handleToggle={toggleExtendDialog}
         />
         <TraineeDialog
-        listData={listData}
-        isOpen={isTraineeDialog}
-        handleToggle={toggleTraineeDialog}/>
+          listData={listData}
+          isOpen={isTraineeDialog}
+          handleToggle={toggleTraineeDialog}
+        />
+
+        <RetiredDialog
+          listData={listData}
+          isOpen={isRetiredDialog}
+          handleToggle={toggleRetiredDialog}
+        />
         <div>
           <FilterComponent
             is_progress={isFetching}
@@ -334,17 +376,14 @@ const EmployeeList = ({}) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
+      <div style={{ width: "100%" }}>
+        <DataTables
+          {...tableData.datatable}
+          {...tableData.datatableFunctions}
+        />
+      </div>
       <SidePanelComponent
         handleToggle={handleSideToggle}
         title={"New Employee"}
@@ -359,9 +398,9 @@ const EmployeeList = ({}) => {
         handleCsvUpload={handleCsvUpload}
       />
       <CPCDialogView
-          isOpen={isCPCDialog}
-          handleToggle={toggleCPCDialog}
-          handleCsvUpload={handleCPCUpload}
+        isOpen={isCPCDialog}
+        handleToggle={toggleCPCDialog}
+        handleCsvUpload={handleCPCUpload}
       />
     </div>
   );

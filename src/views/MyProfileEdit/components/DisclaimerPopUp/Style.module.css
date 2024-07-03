@@ -62,6 +62,15 @@
   gap: 10px;
   margin-top: 10px;
 }
+.fieldWrapper21{
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+}
+.heading21{
+  font-weight: 600;
+  font-size: .875rem;
+}
 .checkBox > label {
   font-size: 0.75rem;
 }

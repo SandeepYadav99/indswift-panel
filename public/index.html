@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png">
-    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<!--    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,6 +17,59 @@
       homescreen on Android. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <style>
+      .Wrapper{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+      button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+      }
+      .ImgWrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .ImgReloadC{
+        width: 50px;
+        aspect-ratio: 1/1;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .textDec{
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      #delayedClass {
+        animation: fadeIn 3s forwards;
+        -webkit-animation: fadeIn 3s forwards;
+        /*animation-duration: 0.7s;*/
+        animation-delay: 8s;
+        animation-iteration-count: 1;
+
+      /*opacity: 1;*/
+    }
+      @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+
+      @-webkit-keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+    </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -32,7 +85,20 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="Wrapper" id="delayedClass">
+        <div class="ImgWrap">
+          <!-- <img src={require('../src/assets/img/logos/ic_logo.png')} alt="" class="ImgReloadC"/> -->
+          <img src='%PUBLIC_URL%/images/100.png' alt="" class="ImgReloadC">
+
+          <br/>
+          <div class="textDec">Skynet update in progress.</div>
+        </div>
+
+        <button onclick="reloadWeb()">Reload</button>
+      </div>
+
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -44,6 +110,11 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8WHW9ER9C"></script>
-  <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-H8WHW9ER9C'); </script>
+  <script>
+    function reloadWeb() {
+      location.reload(true);
+    }
+  </script>
+<!--  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8WHW9ER9C"></script>-->
+<!--  <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-H8WHW9ER9C'); </script>-->
 </html>

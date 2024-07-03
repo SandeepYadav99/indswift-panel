@@ -130,8 +130,15 @@
     width: 55vw;
   }
 }
-@media (max-width:767px){
+@media (max-width:769px){
   .RequestShortlistWrapper {
     width: 94vw;
+  }
+  #mobileResponsiveDataValue{
+    display: flex;
+    flex-direction: column !important;
+  }
+  #formIdentity{
+    display: none !important;
   }
 }

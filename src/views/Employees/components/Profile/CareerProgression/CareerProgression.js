@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, {useMemo, useState} from "react";
 import LineStatComponent from "../../../../dashboard/components/LineStat/LineStat.component";
 import CareerMonthlyCard from "./components/CareerMonthlyCard/CareerMonthlyCard";
 import CareerTile from "./components/CareerTile/CareerTile";
@@ -8,11 +8,15 @@ import secondImg from "../../../../../assets/img/ic_org cagr.png";
 import thirdImg from "../../../../../assets/img/ic_manpower cagr.png";
 import useCareerProgression from "./CareerProgressionHook";
 import noCPCimage from "./../../../../../assets/img/ic_no cpc info.png";
+import {Button, Dialog, useMediaQuery, useTheme} from "@material-ui/core";
+
 
 function CareerProgression({}) {
-  const { otherData, history, lineStatistics,isLoading } = useCareerProgression({});
-  let otherValues=  otherData ? Object.values(otherData):[];
-  console.log(otherData,history,lineStatistics)
+  const { otherData, history, lineStatistics, isLoading } =
+    useCareerProgression({});
+  const [open, setOpen] = useState(false);
+
+  let otherValues = otherData ? Object.values(otherData) : [];
   const options = {
     scales: {
       y: {
@@ -39,12 +43,56 @@ function CareerProgression({}) {
   const annualTransition = useMemo(() => {
     return [...history].reverse().map((data, index) => {
       return (
-        <CareerMonthlyCard data={data} isFirst={index === 0} isLast={index + 1 === history.length} />
+        <CareerMonthlyCard
+          data={data}
+          isFirst={index === 0}
+          isLast={index + 1 === history.length}
+        />
       );
     });
   }, [history]);
 
-  return ( !history.length ) ? (
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const theme = useTheme();
+  const isBelow769 = useMediaQuery(theme.breakpoints.down(768));
+
+  const dialogStyle = {
+    width: isBelow769 ? '100vw' : 'auto',
+    maxWidth: isBelow769 ? '100vw' : 'md',
+  };
+
+  const PopupComponent = () => {
+
+    return (
+         <Dialog
+        open={open}
+        onClose={handleClose}
+        id={styles.paperwidthData}
+        style={dialogStyle}
+      >
+          <div className={styles.GeneralInfoWrapeer}>
+            <div className={styles.alignDataToWrapper}>
+              <div>
+                <span className={styles.title2}> </span>
+              </div>
+              <div onClick={handleClose}>X</div>
+            </div>
+            <div className={styles.infoContainer}>
+              <LineStatComponent data={lineStatistics} options={options} />
+            </div>
+          </div>
+        </Dialog>
+    );
+  };
+
+  return !history.length ? (
     <div className={styles.careerWrapperCPc}>
       <div className={styles.imageWrapperCpc}>
         <img src={noCPCimage} />
@@ -88,6 +136,9 @@ function CareerProgression({}) {
           <div className={styles.chartWrapper}>
             <LineStatComponent data={lineStatistics} options={options} />
           </div>
+          <div className={styles.viewGraphBtn}>
+            <Button onClick={handleOpen} className={styles.btnColorDataValue}> View Graph</Button>
+          </div>
         </div>
       </div>
       <div className={styles.careerProgressionWrapper}>
@@ -101,6 +152,7 @@ function CareerProgression({}) {
           {annualTransition}
         </div>
       </div>
+      {open && <PopupComponent />}
     </div>
   );
 }

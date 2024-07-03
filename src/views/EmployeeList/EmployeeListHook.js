@@ -1,20 +1,20 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {
-  actionCreateEmployee,
-  actionDeleteEmployee,
-  actionFetchEmployee,
-  actionGetEmployeeDetails,
-  actionSetPageEmployeeRequests,
-  actionUpdateEmployee,
+    actionCreateEmployee,
+    actionDeleteEmployee,
+    actionFetchEmployee,
+    actionSetPageEmployeeRequests,
+    actionUpdateEmployee,
 } from "../../actions/Employee.action";
 import historyUtils from "../../libs/history.utils";
-import { serviceGetList } from "../../services/Common.service";
+import {serviceGetList} from "../../services/Common.service";
 import RouteName from "../../routes/Route.name";
-import { serviceExportEmployees } from "../../services/Employee.service";
+import {serviceExportEmployees} from "../../services/Employee.service";
 import Constants from "../../config/constants";
+import RolesUtils from "../../libs/Roles.utils";
 
-const useEmployeeList = ({}) => {
+const useEmployeeList = () => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -22,6 +22,7 @@ const useEmployeeList = ({}) => {
   const [isCPCDialog, setIsCPCDialog] = useState(false);
   const [isExtendDialog, setIsExtendDialog] = useState(false);
   const [isTraineeDialog, setIsTraineeDialog] = useState(false);
+  const [isRetiredDialog, setIsRetiredDialog] = useState(false);
   const [createDD, setCreateDD] = useState(null);
   const dispatch = useDispatch();
   const { role } = useSelector((state) => state.auth);
@@ -30,7 +31,8 @@ const useEmployeeList = ({}) => {
     GRADES: [],
     DEPARTMENTS: [],
     JOINING_CANDIDATES:[],
-    TRAINEE_EMPLOYEES:[]
+    TRAINEE_EMPLOYEES:[],
+    RETIRED_EMPLOYEES:[]
   });
   const isMountRef = useRef(false);
   const {
@@ -61,10 +63,16 @@ const useEmployeeList = ({}) => {
 
   }, [isTraineeDialog]);
 
+  const toggleRetiredDialog = useCallback(() => {
+    setIsRetiredDialog((e) => !e);
+    setCreateDD(false)
+
+  }, [isRetiredDialog]);
+
   useEffect(() => {
     initData();
     isMountRef.current = true;
-    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS","JOINING_CANDIDATES","TRAINEE_EMPLOYEES"]).then((res) => {
+    serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS","JOINING_CANDIDATES","TRAINEE_EMPLOYEES","RETIRED_EMPLOYEES"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -204,11 +212,15 @@ const useEmployeeList = ({}) => {
     historyUtils.push(`${RouteName.EMPLOYEE_UPDATE}${data?.id}`);
   }, []);
 
+  const isCorporateHr = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+  }, [role]);
+
   const configFilter = useMemo(() => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
       // {label: 'City', name: 'city', type: 'text'},
-      ...(role === Constants.ROLES.CORPORATE_HR
+      ...(isCorporateHr
         ? [
             {
               label: "Location",
@@ -241,7 +253,7 @@ const useEmployeeList = ({}) => {
       },
       // {label: 'Status', name: 'status', type: 'select', fields: ['INACTIVE', 'ACTIVE']},
     ];
-  }, [listData, role]);
+  }, [listData, isCorporateHr]);
 
   const toggleCsvDialog = useCallback(() => {
     setIsCsvDialog((e) => !e);
@@ -303,6 +315,8 @@ const useEmployeeList = ({}) => {
     toggleExtendDialog,
     isTraineeDialog,
     toggleTraineeDialog,
+    isRetiredDialog,
+    toggleRetiredDialog,
     listData
   };
 };

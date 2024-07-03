@@ -34,7 +34,13 @@ const AttachmentIncludeDetailForm = ({ data, errorData: errorForm }, ref) => {
       return fields;
     },
     setData(data) {
-      setFields([...data]);
+      const updatedData= data?.map((item)=> {
+        return {
+          ...item,
+          attachment_documents: null,
+        }
+      })
+      setFields([...updatedData]);
     },
   }));
 
@@ -47,7 +53,12 @@ const AttachmentIncludeDetailForm = ({ data, errorData: errorForm }, ref) => {
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ["file_name", "attachment_documents"];
+      const required = ["file_name"];
+      if(!val?.document && !val?.attachment_documents){
+        err['attachment_documents'] = true;
+      }else{
+        delete ['attachment_documents']
+      }
 
       {
         required.forEach((key) => {

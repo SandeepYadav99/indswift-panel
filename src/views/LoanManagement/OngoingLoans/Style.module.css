@@ -105,6 +105,9 @@
   flex-direction: column;
   gap: 10px;
 }
+.textStyles{
+  display: none;
+}
 .newLine {
   height: 4px;
   width: 30px;
@@ -117,3 +120,18 @@
   align-items: center;
   gap: 20px;
 }
+@media (max-width:767px){
+  .firstCellFlex{
+  text-align: end;
+  }
+  .statusWrap{
+  text-align: end;
+  }
+  .textStyles{
+        display: block;
+        font-size: .8rem;
+        margin-left: 5px;
+        font-weight: 500;
+        color: #2896E9;
+    }
+  }

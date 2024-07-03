@@ -159,8 +159,8 @@ const PmsPendingReview = ({ location }) => {
             </ButtonBase>)}
           </div>
         </div>
-
-        <div>
+      </PageBox>
+      <div>
           <div>
             <br />
             <div style={{ width: "100%" }}>
@@ -171,7 +171,6 @@ const PmsPendingReview = ({ location }) => {
             </div>
           </div>
         </div>
-      </PageBox>
     </div>
   );
 };

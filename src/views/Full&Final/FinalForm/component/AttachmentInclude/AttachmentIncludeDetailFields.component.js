@@ -56,6 +56,7 @@ const AttachmentIncludeDetailFields = ({
                   handleChange(file, "attachment_documents");
                 }
               }}
+              link={!data?.attachment_documents && data?.document}
             />
           </div>
         </div>

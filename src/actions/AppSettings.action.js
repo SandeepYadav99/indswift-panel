@@ -17,6 +17,9 @@ export function actionGetAppSettings(data) {
         req.then((data) => {
             if (!data.error) {
                 const tempData = data.data;
+                if (tempData) {
+                    localStorage?.setItem("app_settings", JSON.stringify(tempData));
+                }
                 dispatch({ type: APP_SETTINGS_DONE, payload: tempData });
             }
         });

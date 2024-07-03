@@ -249,3 +249,19 @@
   flex-wrap: wrap;
   gap: 80px;
 }
+@media (max-width:767px){
+  .AutoWrap{
+    gap:20px;
+  }
+  .lowerWrapImprest{
+    flex-direction: column;
+    gap: 15px;
+  }
+  .tapWrap{
+    width: 100%;
+    min-width: 200px;
+  }
+  .btnCont{
+    padding: 0 10px;
+  }
+}

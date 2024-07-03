@@ -10,7 +10,7 @@
 .image {
     width: 80px;
     height: 80px;
-    object-fit: cover;
+    /* object-fit: cover; */
     border-radius: 50%;
 }
 
@@ -23,12 +23,17 @@
     font-size: 0.9rem;
     font-weight: 500;
     margin-bottom: 10px;
+    text-transform: capitalize;
 }
 
 .infoContainer {
     padding: 15px !important;
 }
-
+.imgClass{
+    width: 70px;
+    aspect-ratio: 1/1;
+    margin-top: 15px;
+}
 .rejectBtn {
     margin-right: 20px !important;
     border-color: red !important;
@@ -43,4 +48,18 @@
     flex: 1;
     font-size: 0.8rem;
     margin: 5px 0px
+}
+.btnView{
+    display: flex;
+    justify-content: space-between !important;
+}
+
+@media only screen and (max-width:769px){
+    .btnView{
+        display: flex;
+        width: 40% !important;
+        gap: 10px;
+        flex-direction: column !important;
+    }
+    
 }

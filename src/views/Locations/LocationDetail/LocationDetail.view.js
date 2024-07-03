@@ -35,6 +35,8 @@ const LocationDetail = () => {
     form,
     errorData,
     changeTextData,
+    olrForm,
+    errorDataOlr
   } = useLocationDetail({});
   const removeUnderScore = (value) => {
     return value ? value.replace(/_/g, " ") : "";
@@ -178,7 +180,7 @@ const LocationDetail = () => {
         </div>
         {form?.data?.map((item, index) => {
           return (
-            <div className={"formFlex"} key={`Location_${index}`}>
+            <div className={"formFlex"} key={`Location_${index}`} id={styles.locationField}>
               <div className="formGroup">
                 <CustomTextField
                   label={"Select Role"}
@@ -215,6 +217,68 @@ const LocationDetail = () => {
           ref={includerefLoc}
           handleUpdate={handleDepartmentUpdate}
         />
+      </div>   
+      <div className={styles.plainPaper}>
+        <div className={styles.editFlex}>
+          <div className={styles.heading}>OLR Approvers</div>
+        </div>
+        {olrForm?.data?.map((item, index) => {
+          return (
+            <div className={"formFlex"} key={`Olr_${index}`} id={styles.locationField} >
+              <div className="formGroup">
+                <CustomAutoComplete
+                  autoCompleteProps={{
+                    freeSolo: false,
+                    getOptionLabel: (option) => option?.label,
+                  }}
+                  dataset={employees}
+                  datasetKey={"label"}
+                  onTextChange={(text, value) => {
+                    changeTextData(text, "employee_id", index, "olr");
+                  }}
+                  variant={"outlined"}
+                  label={removeUnderScore(item?.panelist_role)}
+                  name={"employee_id"}
+                  isError={errorDataOlr[index]?.employee_id}
+                  value={item?.employee_id}
+                />
+              </div>
+              {item?.panelist_role !== "CORPORATE_HR" ? (
+                <>
+                  <div className="formGroup">
+                    <CustomTextField
+                      type="number"
+                      isError={errorDataOlr[index]?.min_salary}
+                      errorText={errorDataOlr[index]?.min_salary}
+                      label={"Minimum Salary"}
+                      value={item?.min_salary}
+                      onTextChange={(text, value) => {
+                        changeTextData(text, "min_salary", index, "olr");
+                      }}
+                    />
+                  </div>
+                  <div className="formGroup">
+                    <CustomTextField
+                      type="number"
+                      isError={errorDataOlr[index]?.max_salary}
+                      errorText={errorDataOlr[index]?.max_salary}
+                      label={"Maximum Salary"}
+                      value={item?.max_salary}
+                      onTextChange={(text, value) => {
+                        changeTextData(text, "max_salary", index, "olr");
+                      }}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="formGroup"></div>
+                  <div className="formGroup"></div>
+                </>
+              )}
+            </div>
+          );
+        })}
       </div>
       <div className={styles.btnCont}>
         <ButtonBase

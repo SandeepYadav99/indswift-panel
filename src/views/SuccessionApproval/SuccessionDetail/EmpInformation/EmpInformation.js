@@ -66,7 +66,26 @@ const EmployeeInformation = ({ empId }) => {
         changeTextData={changeTextData}
         isCOR={employeeDetail?.application?.status === "CORPORATE_SUBMITTED"}
       />
-
+      {employeeDetail?.application?.status === "EMPLOYEE_SUBMITTED" && (
+        <div className={styles.GeneralInfoWrapeer}>
+          <div>
+            <span className={styles.title}>General Information</span>
+            <div className={styles.newLine} />
+          </div>
+          <div className={styles.infoContainer}>
+            <p className={styles.infoDetails}>
+              1. If you do not have a replacement planned for this person, on date
+              of your recommendation, then select not in place.
+              <br />
+              2. If you have a replacement planned then select IN PLACE, further to
+              which if the replacement is internal to the organisation select
+              internal and give the name of the employee, if the replacement is
+              externally hired then select external. HR will add the detail of
+              hiring.
+            </p>
+          </div>
+        </div>
+      )}
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.editFlex}>
@@ -206,7 +225,7 @@ const EmployeeInformation = ({ empId }) => {
         {employeeDetail?.application?.status === "EMPLOYEE_SUBMITTED" && (
           <>
             {" "}
-            <div className={"formFlex"}>
+            <div className={styles.formFlex}>
               <div className={"formGroup"}>
                 <CustomSelectField
                   disabled={employeeDetail?.saj_status !== "PENDING"}
@@ -241,7 +260,7 @@ const EmployeeInformation = ({ empId }) => {
             </div>
             {form?.nature_of_succession === "INTERNAL" && (
               <>
-                <div className={"formFlex"}>
+                <div className={styles.formFlex}>
                   <div className={"formGroup"}>
                     <CustomAutoComplete
                       autoCompleteProps={{
@@ -283,10 +302,10 @@ const EmployeeInformation = ({ empId }) => {
         )}
         {HODApprovalStatus && employeeDetail?.status === "PENDING" && (
           <>
-            <div className={"formFlex"} style={{ alignItems: "center" }}>
+            <div className={styles.formFlex}>
               {/* {employeeDetail?.application?.saj_status === "NOT_IN_PLACE" ? ( */}
               <>
-                <div className="formGroup1">
+                <div className="formGroup">
                   <CustomDatePicker
                     clearable
                     label={"Extension/Retainer Start Date"}
@@ -298,7 +317,7 @@ const EmployeeInformation = ({ empId }) => {
                     isError={errorData?.extension_start_date}
                   />
                 </div>
-                <div className="formGroup1">
+                <div className="formGroup">
                   <CustomDatePicker
                     clearable
                     label={"Extension/Retainer End Date"}
@@ -329,7 +348,7 @@ const EmployeeInformation = ({ empId }) => {
             {employeeDetail?.application?.nature_of_succession ===
               "EXTERNAL" && (
               <div>
-                <div className={"formFlex"}>
+                <div className={styles.formFlex}>
                   <div className={"formGroup"}>
                     <CustomTextField
                       isError={errorData?.replacing_employee_name}
@@ -412,17 +431,20 @@ const EmployeeInformation = ({ empId }) => {
               <div key={`History_${index}`}>
                 <div className={styles.mainFlex}>
                   <div className={styles.left}>
-                    <div className={styles.key}>
+                    {/* <div className={styles.key}>
                       <span className={styles.value}>
                         Employee Continuing With Company:
                       </span>
                       {item?.is_continuing ? "Yes" : "No"}
-                    </div>
+                    </div> */}
                     <div className={styles.key}>
-                      <span className={styles.value}>Extension Dates:</span>
+                      <span className={styles.value}>Extension/Retention Dates:</span>
                       {item?.extensionStartAt} - {item?.extensionEndAt}
                     </div>
-
+                    <div className={styles.key}>
+                      <span className={styles.value}>Succession Status:</span>
+                      {item?.nature_of_succession}
+                    </div>
                     <div className={styles.key}>
                       <span className={styles.value}>Replacing Place:</span>
                       {item?.replacing_employee_name}
@@ -451,14 +473,19 @@ const EmployeeInformation = ({ empId }) => {
                       <span className={styles.value}>
                         Nature of Succession:
                       </span>
-                      {item.nature_of_succession}
+                      {item.extension_status}
                     </div>
-
+                    <div className={styles.key}>
+                      <span className={styles.value}>
+                      Medical Condition :
+                      </span>
+                      {item?.medical_condition ? item?.medical_condition : "-"}
+                    </div>
                     <div className={styles.key}>
                       <a
                         href={item?.employee_form?.document}
-                        style={{ marginLeft: "30%" }}
                         target="_blank"
+                        className={styles.aTag}
                       >
                         View certificate
                       </a>
@@ -475,7 +502,7 @@ const EmployeeInformation = ({ empId }) => {
                     </div>
                   </div>
                 </div>
-                {item?.comments && (
+                {/* {item?.comments && (
                   <div className={styles.newContainer}>
                     <div className={styles.heading}>Comments</div>
                     <div className={styles.commentContainer}>
@@ -489,7 +516,7 @@ const EmployeeInformation = ({ empId }) => {
                       ))}
                     </div>
                   </div>
-                )}
+                )} */}
                 {historyData?.length !== index + 1 && (
                   <div className={styles.hrline}></div>
                 )}

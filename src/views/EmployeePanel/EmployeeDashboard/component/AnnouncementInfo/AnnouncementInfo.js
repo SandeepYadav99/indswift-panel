@@ -3,6 +3,7 @@ import styles from "./Style.module.css";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import GenricSlider from "../Members/GenricSlider";
 
 function AnnouncementInfo() {
   const [showImage, setShowImage] = useState(0);
@@ -29,9 +30,49 @@ function AnnouncementInfo() {
                 ? selectedImage()
                 : require("../../../../../assets/img/cert.png")
             }
+            className={styles.componentData}
           />
         </div>
       )}
+      <div className={styles.sliderBlock}>
+        <div className={styles.titleWrapper}>
+          <span className={styles.title}>Latest Announcements</span>
+          <div className={styles.newLine} />
+        </div>
+        <>
+          {announcements?.length > 0 &&
+            announcements?.map((item, index) => (
+              <>
+                <a href={item?.link} target="_blank">
+                  <div
+                    className={styles.description}
+                    key={`announcement_${index}`}
+                  >
+                    <p>{item?.title}</p>
+                    <KeyboardArrowRightIcon />
+                  </div>
+                </a>
+                {index !== 2 && <div className={styles.verticalLine}></div>}
+              </>
+            ))}
+        </>
+          <GenricSlider
+            sliderSettings={{ slidesToShow: 1, className: "myCustomClass",speed: 3000   }}
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            {announcements?.map((item, index) => {
+              return (
+                <div className={styles.imgWrapper} key={`Engagement_${index}`}>
+                  <img
+                    className={styles.componentData}
+                    src={item?.image}
+                    style={{ height: "200px" }}
+                  />
+                </div>
+              );
+            })}
+          </GenricSlider>
+      </div>
 
       <div className={styles.announcementDes}>
         <div className={styles.titleWrapper}>

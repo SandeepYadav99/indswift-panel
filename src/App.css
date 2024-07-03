@@ -176,7 +176,12 @@ input[type=radio] + label:hover {
     padding: 6px !important;
     color: rgb(147, 154, 191) !important;
 }
-
+.tableActionBtnEdit{
+    padding: 6px !important;
+    color: black !important;
+    border: 1px solid #2896E9 !important;
+    border-radius: 3px !important;
+}
 .iconTabs .MuiTab-wrapper {
     display: flex;
     flex-direction: row;
@@ -213,7 +218,6 @@ input[type=radio] + label:hover {
 }
 
 .status {
-    min-width: 175px;
     display: inline!important;
     font-size: 12px;
     font-weight: 600;
@@ -743,7 +747,7 @@ font-size: medium;
 }
 
 .bottomAction .MuiDrawer-paper{
-    z-index: 1 !important;
+    z-index: 10 !important;
 }
 
 .MuiCollapse-wrapperInner .MuiListItemText-root{
@@ -1017,9 +1021,141 @@ font-size: medium;
 .CandidateInfoWrappers .MuiInputLabel-outlined.MuiInputLabel-shrink{
     color: rgba(0, 0, 0, 0.70) !important;
 }
+.dtMobCard {
 
+}
+
+.dtMobCell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 8px;
+    border-bottom: 2px solid #f6f7fe;
+}
+.dtMobCard .dtMobCell:last-child {
+    border-bottom: 0px;
+}
+.dtMobCellValue {
+    display: flex;
+    font-size: 12px;
+    align-items: flex-end;
+    width: 100%;
+    text-align: end;
+    justify-content: end;
+}
+.dtMobCellValueMultiple{
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    align-items: flex-end;
+    width: 100%;
+    text-align: end;
+    justify-content: end;
+}
+.dtMobCellLabel {
+    font-size: 12px;
+    font-weight: 600;
+    max-width: 50%;
+    text-transform: uppercase;
+}
+.dtMobCellLabelHide {
+    display: none;
+}
+.dTMobilePagination {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background: white;
+    width: 100vw;
+
+}
+
+.installDiv {
+    display: none;
+    position: fixed;
+    bottom: 0px;
+    width: calc(100% - 30px);
+    background: white;
+    justify-content: space-between;
+    padding: 15px 15px;
+    align-items: center;
+    text-align: right;
+    box-shadow: 0 0 10px rgba(80, 78, 78, 0.15);
+}
+
+.installDiv > div {
+    font-size: 0.9rem;
+}
+.installDiv > button {
+    border: none;
+    background: #1f05a2;
+    color: white;
+    padding: 8px 15px;
+    font-weight: 800;
+    font-family: 'Montserrat'
+}
+.installDiv .close {
+    border: none;
+    background: rgba(128, 128, 128, 0.3);
+    padding: 5px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+}
+.spanTextAnd{
+    font-size: .75rem ;
+    font-weight: 500;
+}
+.installDiv .close:before {
+    position: absolute;
+    content: 'x';
+    top: 21px;
+    right: 23px;
+}
+.installDiv img {
+    width: 60px;
+}
+.logoDiv {
+    display: flex;
+    align-items: center;
+}
 @media (max-width: 767px) {
     .iconTabsEvents{
       padding: 6px 8px !important;
     }
+    .mobileNoLabel {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
   }
+
+  @media print {
+
+.fullDetailWrapper {
+      display: block !important;
+      position: relative !important;
+      width: auto !important;
+      height: auto !important;
+      overflow: visible !important;
+      margin-left: 0 !important;
+    }
+  }
+
+@media print {
+    body {
+        visibility: hidden;
+    }
+    #content-to-print {
+        visibility: visible;
+        position: absolute !important;
+        overflow: visible !important;
+        left: 0;
+        top: 0;
+        width: 100vw !important;
+        /*height: 900vh !important*/
+    }
+    .bottomAction {
+     overflow: visible !important;
+    }
+}

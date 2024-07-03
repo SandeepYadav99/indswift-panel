@@ -115,7 +115,7 @@ const HRKnowledge = ({}) => {
       },
       {
         key: "user_id",
-        label: "Action",
+        label: "ACTION",
         render: (temp, all) => (
           <div>
             <IconButton
@@ -126,7 +126,8 @@ const HRKnowledge = ({}) => {
               color="secondary"
               disabled={isCalling}
             >
-              <Edit fontSize={"small"} />
+              <Edit fontSize={"small"} style={{ color: "#2896E9" }} />
+              <div className={styles.textStyles}>Edit information</div>{" "}
             </IconButton>
           </div>
         ),
@@ -165,7 +166,7 @@ const HRKnowledge = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>knowledge Center</span>
+            <span className={styles.title}>Knowledge Center</span>
             <div className={styles.newLine} />
           </div>
           <div>

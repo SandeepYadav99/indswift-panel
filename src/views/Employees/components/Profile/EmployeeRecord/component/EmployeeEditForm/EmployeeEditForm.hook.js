@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 
-import { serviceUpdateEmployeeRecord } from "../../../../../../../services/EmployeeRecords.services";
+import {serviceUpdateEmployeeRecord} from "../../../../../../../services/EmployeeRecords.services";
 import SnackbarUtils from "../../../../../../../libs/SnackbarUtils";
 
 const useEmployeeEditForm = ({ closeSidePanel, data }) => {
@@ -36,7 +36,7 @@ const useEmployeeEditForm = ({ closeSidePanel, data }) => {
   useEffect(() => {
     if (data) {
       const editData = data;
-      
+
       if (data?.star_type) {
         const pmsData = { document: "" };
 

@@ -16,6 +16,7 @@ import {
   serviceExportClaimList,
 } from "../../../services/Claims.service";
 import Constants from "../../../config/constants";
+import RolesUtils from "../../../libs/Roles.utils";
 const useClaimsList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [downloadCL, setdownloadCL] = useState(null);
@@ -194,7 +195,9 @@ const useClaimsList = ({}) => {
       if (EmpId?.employee_id) {
         if (data?.claim?.claim_type === "TRAVEL") {
           historyUtils.push(`${RouteName.TRAVEL_HR_CLAIMS_DETAILS}${data?.id}`);
-        } else {
+        } else if (data?.claim?.claim_type === "FOREIGN_TRAVEL") {
+          historyUtils.push(`${RouteName.FOREIGN_HR_CLAIMS_DETAILS}${data?.id}`); //+data.id
+        }else {
           historyUtils.push(`${RouteName.CLAIMS_HR_DETAILS}${data?.id}`); //+data.id
         }
       } else {
@@ -256,6 +259,8 @@ const useClaimsList = ({}) => {
           "PHC",
           "LOCAL_TRAVEL",
           "RELOCATION",
+          "TRAVEL",
+          "FOREIGN_TRAVEL"
         ],
       },
     ];
@@ -263,17 +268,12 @@ const useClaimsList = ({}) => {
 
   const isShowDownloadBtn = useMemo(() => {
     const Roles = Constants.ROLES;
-    if (
-      [
-        Roles.ADMIN,
-        Roles.CORPORATE_HR,
-        Roles.ACCOUNTANT,
-        Roles.CORPORATE_REVIEWER,
-      ].indexOf(role) >= 0
-    ) {
-      return true;
-    }
-    return false;
+    return RolesUtils.canAccess([
+      Roles.ADMIN,
+      Roles.CORPORATE_HR,
+      Roles.ACCOUNTANT,
+      Roles.CORPORATE_REVIEWER,
+    ], role);
   }, [role]);
 
   return {

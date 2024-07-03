@@ -112,8 +112,8 @@ const LodgingIncludeFields = ({
     <div>
       <div className={styles.heading}>Travel Type</div>
       <div className={styles.flexContainer}>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomDatePicker
               disabled={!startDate ? true : false}
               clearable
@@ -125,7 +125,7 @@ const LodgingIncludeFields = ({
               isError={errors?.check_in}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <CustomDatePicker
               disabled={!endDate ? true : false}
               clearable
@@ -137,7 +137,7 @@ const LodgingIncludeFields = ({
               isError={errors?.check_out}
             />
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.booking_by}
               errorText={errors?.booking_by}
@@ -154,21 +154,11 @@ const LodgingIncludeFields = ({
               </MenuItem>
             </CustomSelectField>
           </div>
-          <div className={"textCenter"}>
-            <ButtonBase
-              className={styles.removeBtn}
-              // label={this.props.index == 0 ? "+" : '-'}
-              onClick={() => {
-                handlePress(index == 0 ? "-" : "-", index);
-              }}
-            >
-              {index == 0 ? "Remove" : "Remove"}
-            </ButtonBase>
-          </div>
+         
         </div>
-        <div className={styles.firstRow}>
+        <div className={styles.formWrp}>
           <>
-            <div className={styles.flex1}>
+            <div className={styles.formGrp}>
               <CustomSelectField
                 isError={errors?.country}
                 errorText={errors?.country}
@@ -183,10 +173,11 @@ const LodgingIncludeFields = ({
                 <MenuItem value="UKRAINE">UKRAINE</MenuItem>
                 <MenuItem value="UK">UK</MenuItem>
                 <MenuItem value="TURKEY">TURKEY</MenuItem>
+                <MenuItem value="EUROPE">EUROPE</MenuItem>
                 <MenuItem value="OTHERS">OTHERS</MenuItem>
               </CustomSelectField>
             </div>
-            <div className={styles.flex1}>
+            <div className={styles.formGrp}>
               <TextField
                 error={errors?.country_name}
                 onChange={handleChange}
@@ -199,7 +190,7 @@ const LodgingIncludeFields = ({
               />
             </div>
           </>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.stay_at}
               errorText={errors?.stay_at}
@@ -217,9 +208,9 @@ const LodgingIncludeFields = ({
           </div>
         </div>
 
-        <div className={styles.firstRow221}>
+        <div className={styles.formWrp}>
           {data?.stay_at === "HOTEL" && (
-            <div className={styles.flex122}>
+            <div className={styles.formGrp}>
               <TextField
                 error={errors?.hotel}
                 onChange={handleChange}
@@ -233,7 +224,7 @@ const LodgingIncludeFields = ({
             </div>
           )}
           {CoPass?.length > 0 && (
-            <div className={styles.flex1}>
+            <div className={styles.formGrp}>
               <Autocomplete
                 multiple
                 id="tags-outlined"
@@ -259,8 +250,8 @@ const LodgingIncludeFields = ({
             </div>
           )}
         </div>
-        <div className={styles.firstRowent}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               disabled={true}
               isError={errors?.currency}
@@ -297,8 +288,8 @@ const LodgingIncludeFields = ({
             </div>
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.payment_made_by}
               onChange={handleChange}
@@ -309,17 +300,17 @@ const LodgingIncludeFields = ({
               variant={"outlined"}
               label={"Choose currency of payment"}
             />
-            <div style={{ fontWeight: "500", textAlign: "end" }}>
+            <div className={styles.helpter}>
               Please mention the amount in spent currency and the exchange rate
               applied to reach at above currency.
             </div>
           </div>
-          <div className={styles.flex1}></div>
+          <div className={styles.formGrp}></div>
         </div>
         {data?.stay_at !== "N/A" && data?.stay_at !== "GUEST_HOUSE" && (
           <>
-            <div className={styles.firstRow}>
-              <div className={styles.flex1}>
+            <div className={styles.formWrp}>
+              <div className={styles.formGrp}>
                 <CustomSelectField
                   isError={errors?.payment_by}
                   errorText={errors?.payment_by}
@@ -334,7 +325,7 @@ const LodgingIncludeFields = ({
                   <MenuItem value="OTHER">OTHER</MenuItem>
                 </CustomSelectField>
               </div>
-              <div className={styles.flex1}>
+              <div className={styles.formGrp}>
                 <TextField
                   type="number"
                   error={errors?.amount}
@@ -348,8 +339,8 @@ const LodgingIncludeFields = ({
                 />
               </div>
             </div>
-            <div className={styles.firstRow}>
-              <div className={styles.flex1}>
+            <div className={styles.formWrp}>
+              <div className={styles.formGrp}>
                 <File
                   max_size={10 * 1024 * 1024}
                   type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -368,7 +359,7 @@ const LodgingIncludeFields = ({
                   }}
                 />
               </div>
-              <div className={styles.flex1}>
+              <div className={styles.formGrp}>
                 <File
                   max_size={10 * 1024 * 1024}
                   type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -399,6 +390,17 @@ const LodgingIncludeFields = ({
           </span>
         </div>
       </div>
+      <div className={styles.btnWrap}>
+            <ButtonBase
+              className={styles.removeBtn}
+              // label={this.props.index == 0 ? "+" : '-'}
+              onClick={() => {
+                handlePress(index == 0 ? "-" : "-", index);
+              }}
+            >
+              {index == 0 ? "Remove" : "Remove"}
+            </ButtonBase>
+          </div>
     </div>
   );
 };

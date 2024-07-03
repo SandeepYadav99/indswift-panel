@@ -29,6 +29,7 @@ const PendingOfferTable = () => {
   const OlrPage = useCallback(() => {
     historyUtils.push(`${RouteName.REVIEW_OLR}`);
   }, []);
+
   const _renderListData = () => {
     const tableRows = [];
     if (data) {
@@ -56,31 +57,139 @@ const PendingOfferTable = () => {
     }
   };
 
+  const _renderListDataMobile = (val) => {
+    const tableRows = [];
+    if (val) {
+      tableRows.push(
+        <>
+          <TableRow
+            key={val.id}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "2px solid whitesmoke",
+              alignItems: "center",
+              gap:"10px",
+            }}
+          >
+            <span className={styles.textAdjust}><b>OFFER LETTER NO.</b></span>
+            <span className={styles.textAdjust}>{val?.code} </span>
+          </TableRow>
+          <TableRow
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "2px solid whitesmoke",
+              alignItems: "center",
+              gap:"10px",
+            }}
+          >
+            <span className={styles.textAdjust}><b>POSITION</b></span>
+            <span className={styles.textAdjust}>{val?.position}</span>
+          </TableRow>
+          <TableRow
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "2px solid whitesmoke",
+              alignItems: "center",
+              gap:"10px",
+            }}
+          >
+            <span className={styles.textAdjust}><b>NAME</b></span>
+            <span className={styles.textAdjust}> {val?.candidate_name}</span>
+          </TableRow>
+          <TableRow
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "2px solid whitesmoke",
+              alignItems: "center",
+              gap:"10px",
+            }}
+          >
+            <span className={styles.textAdjust}><b>DATE</b></span>
+            <span className={styles.textAdjust}>{val?.createdAt}</span>
+          </TableRow>
+        </>
+      );
+      return tableRows;
+    } else {
+      return (
+        <TableRow>
+          <TableCell colSpan={6} className={classes.textCenter}>
+            No Details Found
+          </TableCell>
+        </TableRow>
+      );
+    }
+  };
+
   return (
-    <div className={classes.bgWhite}>
-      <div className={classes.upperFlex}>
-        <div className={styles.titles}>Pending Offer Letters</div>
-        <div className={styles.newLine} />
+    <>
+      <div className={classes.bgWhite}>
+        <div className={styles.upperFlexData}>
+          <div>
+            <div className={styles.titles}>Pending Offer Letters</div>
+            <div className={styles.newLine} />
+          </div>
+          <div className={styles.responsiveBtn}>
+            <ButtonBase className={"viewBtn"} onClick={() => OlrPage()}>
+              View All
+            </ButtonBase>
+          </div>
+        </div>
+        <div className={styles.desktopTable}>
+          <TableContainer className={classes.container}>
+            <Table stickyHeader className="mb-0">
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classes.row}>
+                    OFFER LETTER NO.
+                  </TableCell>
+                  <TableCell className={classes.row}>POSITION</TableCell>
+                  <TableCell className={classes.row}>NAME</TableCell>
+                  <TableCell className={classes.row}>DATE</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{_renderListData()}</TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+        <div className={styles.responsiveBtn2}>
+          <div className={"txtCenter"}>
+            <ButtonBase className={"viewBtn"} onClick={() => OlrPage()}>
+              View All
+            </ButtonBase>
+          </div>
+        </div>
+        <div className={styles.moileTable}>
+          {data?.map((val) => {
+            return (
+              <TableContainer className={classes.container} key={val?.id}>
+                <Table
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <TableBody
+                    style={{
+                      width: "100%",
+                      background: "#F7F7F7",
+                      marginBottom: "10px",
+                      marginTop: "10px",
+                      padding: "10px",
+                      borderRadius: "12px",
+                      boxShadow: "0 0 8px rgb(0 0 0 / 15%)",
+                    }}
+                  >
+                    {_renderListDataMobile(val)}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            );
+          })}
+        </div>
       </div>
-      <div>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader className="mb-0">
-            <TableHead>
-              <TableRow>
-                <TableCell className={classes.row}>OFFER LETTER NO.</TableCell>
-                <TableCell className={classes.row}>POSITION</TableCell>
-                <TableCell className={classes.row}>NAME</TableCell>
-                <TableCell className={classes.row}>DATE</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>{_renderListData()}</TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-      <div className={"txtCenter"}>
-        <ButtonBase className={"viewBtn"}  onClick={() => OlrPage()}>View All</ButtonBase>
-      </div>
-    </div>
+    </>
   );
 };
 

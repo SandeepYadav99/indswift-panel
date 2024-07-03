@@ -1,23 +1,19 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  IconButton,
-  MenuItem,
   ButtonBase,
-  Tooltip,
   makeStyles,
+  Card,
+  CardContent,
+  Typography,
 } from "@material-ui/core";
 import classNames from "classnames";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import Constants from "../../config/constants";
-import CustomSelectField from "../../components/FormFields/SelectField/SelectField.component";
 import FilterComponent from "../../components/Filter/Filter.component";
 import useEmployeeSalaryReport from "./EmployeeSalaryReport.hook";
-import { InfoOutlined } from "@material-ui/icons";
 import TablePagination from "@material-ui/core/TablePagination";
 import StatusPill from "../../components/Status/StatusPill.component";
 import CustomDatePicker from "../../components/FormFields/DatePicker/CustomDatePicker";
-import CustomAutoComplete from "../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import { getFixedValue } from "../../helper/helper";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +24,21 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "normal",
     fontFamily: "Montserrat",
     borderRadius: "10px",
+  },
+  paper: {
+    width: "100%",
+    marginBottom: theme.spacing(2),
+  },
+  card: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  mobileCard: {
+    marginTop: theme.spacing(2),
+  },
+  mobileCardContent: {
+    paddingLeft: theme.spacing(0),
+    paddingRight: theme.spacing(0),
   },
 }));
 
@@ -94,7 +105,10 @@ const TableHead = ({ columns }) => {
               }}
               className={styles.thead}
             >
-              <div className={styles.tipWrap} style={{width:fixed && '150px'}}>
+              <div
+                className={styles.tipWrap}
+                style={{ width: fixed && "150px" }}
+              >
                 {label}
               </div>
             </th>
@@ -106,6 +120,18 @@ const TableHead = ({ columns }) => {
 };
 
 const EmployeeSalaryReport = ({ location }) => {
+  const classes = useStyles();
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const handleResize = () => {
+    setInnerWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const {
     handlePageChange,
     handleFilterDataChange,
@@ -134,6 +160,59 @@ const EmployeeSalaryReport = ({ location }) => {
     endValid,
   } = useEmployeeSalaryReport({ location });
 
+  const renderCardContent = () => {
+    if (currentData?.length > 0) {
+      return currentData?.map((row, index) => {
+        return (
+          <div>
+            <Card
+              key={row.id + "" + Math.random()}
+              className={classNames(classes.mobileCard, "dtMobCard")}
+            >
+              <CardContent className={classes.mobileCardContent}>
+                {renderTableCellsMobile(row, index)}
+              </CardContent>
+            </Card>
+          </div>
+        );
+      });
+    } else {
+      return (
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography variant="h6">No Results Found</Typography>
+            <Typography variant="subtitle1">
+              No matching entries available in our record
+            </Typography>
+          </CardContent>
+        </Card>
+      );
+    }
+  };
+
+  const renderTableCellsMobile = (row, indexPr) => {
+    const filteredColumns = tableStructure?.filter(
+      (column) => column.is_mobile !== false
+    );
+    return filteredColumns.map((val, index) => (
+      <div className={"dtMobCell"}>
+        <div className={"dtMobCellLabel"}>{val?.label}</div>
+        <div className={"dtMobCellValueMultiple"}>
+        {index == 0 && (
+        <div className={styles.mobFixed}>
+          <b>{row._id?.name}</b>
+          <br />
+          {row._id?.emp_code}
+        </div>
+      )}
+          {row?.comparisionData?.map((item, index) => {
+            return val?.render(row[indexPr], item, index);
+          })}
+        </div>
+      </div>
+    ));
+  };
+
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
@@ -146,8 +225,7 @@ const EmployeeSalaryReport = ({ location }) => {
         sortable: false,
         fixed: true,
         render: (temp, all) => (
-          <>
-          </>
+          <></>
           // <div className={styles.noWrapEmp}>
           //   {/* {all?.incremental_gross_salary} */}
           // </div>
@@ -159,7 +237,7 @@ const EmployeeSalaryReport = ({ location }) => {
         sortable: true,
         fixed: true,
         render: (value, all) => (
-          <div className={styles.noWrapFixed}>
+          <div className={innerWidth > 769 ? styles.noWrapFixed : styles.mobFixed}>
             {all?.grade?.code}/{all?.cadre?.name}
           </div>
         ),
@@ -170,7 +248,7 @@ const EmployeeSalaryReport = ({ location }) => {
         sortable: false,
         fixed: true,
         render: (temp, all) => (
-          <div className={styles.noWrapFixed}>{all?.effectiveDateText}</div>
+          <div className={innerWidth > 769 ? styles.noWrapFixed : styles.mobFixed}>{all?.effectiveDateText}</div>
         ),
       },
       {
@@ -369,7 +447,7 @@ const EmployeeSalaryReport = ({ location }) => {
           <div className={styles.noWrap}> ₹ {all?.em_esi}</div>
         ),
       },
-      
+
       {
         key: "vpf2",
         label: "vpf",
@@ -378,7 +456,7 @@ const EmployeeSalaryReport = ({ location }) => {
           <div className={styles.noWrap}> ₹ {all?.deduction_vpf}</div>
         ),
       },
-     
+    
       {
         key: "emlwf",
         label: "em lwf",
@@ -435,7 +513,7 @@ const EmployeeSalaryReport = ({ location }) => {
           <div className={styles.noWrap}> ₹ {all?.gratuity}</div>
         ),
       },
-      
+
       {
         key: "medipre",
         label: "medical insurance premium",
@@ -515,14 +593,16 @@ const EmployeeSalaryReport = ({ location }) => {
         render: (temp, all) => (
           <div className={styles.noWrap}> ₹ {all?.earning_five}</div>
         ),
-      }, {
+      },
+      {
         key: "net_composite",
         label: "net composite ctc",
         sortable: false,
         render: (temp, all) => (
           <div className={styles.noWrap}> ₹ {all?.monthly_ctc}</div>
         ),
-      }, {
+      },
+      {
         key: "net_pay",
         label: "net pay",
         sortable: false,
@@ -531,83 +611,7 @@ const EmployeeSalaryReport = ({ location }) => {
         ),
       },
     ];
-  }, [renderStatus, isCalling, formData, currentData, data]);
-
-  const renderDropDown = useMemo(() => {
-    return (
-      <CustomSelectField
-        label={"Filter By"}
-        value={type}
-        handleChange={(value) => {
-          setType(value);
-        }}
-      >
-        <MenuItem value={"LOCATION"}>LOCATION</MenuItem>
-        <MenuItem value={"DEPARTMENT"}>DEPARTMENT</MenuItem>
-        <MenuItem value={"DESIGNATION"}>DESIGNATION</MenuItem>
-      </CustomSelectField>
-    );
-  }, [type, setType]);
-
-  const renderLocation = useMemo(() => {
-    return (
-      <CustomSelectField
-        label={"Location"}
-        value={listType}
-        handleChange={(value) => {
-          setListType(value);
-        }}
-      >
-        {listData?.LOCATIONS?.map((dT) => {
-          return (
-            <MenuItem value={dT?.id} key={dT?.id}>
-              {dT?.name}
-            </MenuItem>
-          );
-        })}
-      </CustomSelectField>
-    );
-  }, [listType, listData, type]);
-
-  const renderDepartment = useMemo(() => {
-    return (
-      <CustomSelectField
-        label={"Department"}
-        value={listType}
-        handleChange={(value) => {
-          setListType(value);
-        }}
-      >
-        {listData?.DEPARTMENTS?.map((dT) => {
-          return (
-            <MenuItem value={dT?.id} key={dT?.id}>
-              {dT?.name}
-            </MenuItem>
-          );
-        })}
-      </CustomSelectField>
-    );
-  }, [listType, listData, type]);
-
-  const renderDesignation = useMemo(() => {
-    return (
-      <CustomSelectField
-        label={"Designation"}
-        value={listType}
-        handleChange={(value) => {
-          setListType(value);
-        }}
-      >
-        {listData?.DESIGNATIONS?.map((dT) => {
-          return (
-            <MenuItem value={dT?.id} key={dT?.id}>
-              {dT?.name}
-            </MenuItem>
-          );
-        })}
-      </CustomSelectField>
-    );
-  }, [listType, listData, type]);
+  }, [renderStatus, isCalling, formData, currentData, data,innerWidth]);
 
   const renderStartDate = useMemo(() => {
     return (
@@ -622,7 +626,7 @@ const EmployeeSalaryReport = ({ location }) => {
         isError={startValid}
       />
     );
-  }, [startDate,startValid]);
+  }, [startDate, startValid]);
 
   const renderEndDate = useMemo(() => {
     return (
@@ -637,7 +641,20 @@ const EmployeeSalaryReport = ({ location }) => {
         isError={endValid}
       />
     );
-  }, [endDate,endValid]);
+  }, [endDate, endValid]);
+
+  // const processedData = useMemo(() => {
+  //   const data = [];
+  //   if (currentData && currentData.length > 0) {
+  //     currentData.forEach((dT) => {
+  //       dT.comparisionData.forEach((cDt) => {
+  //         data.push({ ...cDt, _id: dT._id });
+  //       });
+  //     });
+  //   }
+  //   return data;
+  // }, [currentData]);
+
   return (
     <div>
       <PageBox>
@@ -652,17 +669,6 @@ const EmployeeSalaryReport = ({ location }) => {
           <div className={styles.UpperWrap}>
             <div className={styles.down}>{renderStartDate}</div>
             <div className={styles.down}>{renderEndDate}</div>
-            {/* <div className={styles.down}>{renderDropDown}</div> */}
-
-            {/* {type && (
-              <div className={styles.down}>
-                {type === "LOCATION"
-                  ? renderLocation
-                  : type === "DEPARTMENT"
-                  ? renderDepartment
-                  : renderDesignation}
-              </div>
-            )} */}
           </div>
           {startDate && endDate && (
             <div className={styles.rightFlex}>
@@ -687,54 +693,72 @@ const EmployeeSalaryReport = ({ location }) => {
               handleFilterDataChange={handleFilterDataChange}
             />
             <br />
-            <div style={{ width: "100%", marginBottom: "50px" }}>
-              <div className={styles.tableWrapper}>
-                <div className={styles.container}>
-                  <table
-                    style={{
-                      borderCollapse: "collapse",
-                      cellSpacing: "0",
-                      borderSpacing: "0",
-                      cellpadding: "0",
-                      height: "100px",
-                    }}
-                  >
-                    <TableHead columns={tableStructure} />
-                    <tbody>
-                      {currentData?.map((row, rowIndex) => (
-                        <tr key={row.id} className={styles.tr}>
-                          {tableStructure?.map(
-                            (
-                              { key, fixed, readOnly, render, ...props },
-                              index
-                            ) => (
-                              <TableCell
-                                row={row}
-                                key={key}
-                                fixed={fixed}
-                                render={render}
-                                index={index}
-                                {...props}
-                              />
-                            )
-                          )}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+            {innerWidth > 769 ? (
+              <div style={{ width: "100%", marginBottom: "50px" }}>
+                <div className={styles.tableWrapper}>
+                  <div className={styles.container}>
+                    <table
+                      style={{
+                        borderCollapse: "collapse",
+                        cellSpacing: "0",
+                        borderSpacing: "0",
+                        cellpadding: "0",
+                        height: "100px",
+                      }}
+                    >
+                      <TableHead columns={tableStructure} />
+                      <tbody>
+                        {currentData?.map((row, rowIndex) => (
+                          <tr key={row.id} className={styles.tr}>
+                            {tableStructure?.map(
+                              (
+                                { key, fixed, readOnly, render, ...props },
+                                index
+                              ) => (
+                                <TableCell
+                                  row={row}
+                                  key={key}
+                                  fixed={fixed}
+                                  render={render}
+                                  index={index}
+                                  {...props}
+                                />
+                              )
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <TablePagination
+                  rowsPerPageOptions={[]}
+                  component="div"
+                  count={data?.length}
+                  rowsPerPage={50}
+                  page={currentPage - 1}
+                  onChangePage={(event, newPage) => {
+                    handlePageChange(newPage);
+                  }}
+                />
+              </div>
+            ) : (
+              <div className={classes.paper}>
+                {renderCardContent()}
+                <div className={"dTMobilePagination"}>
+                <TablePagination
+                  rowsPerPageOptions={[]}
+                  component="div"
+                  count={data?.length}
+                  rowsPerPage={50}
+                  page={currentPage - 1}
+                  onChangePage={(event, newPage) => {
+                    handlePageChange(newPage);
+                  }}
+                />
                 </div>
               </div>
-              <TablePagination
-                rowsPerPageOptions={[]}
-                component="div"
-                count={data?.length}
-                rowsPerPage={50}
-                page={currentPage - 1}
-                onChangePage={(event, newPage) => {
-                  handlePageChange(newPage);
-                }}
-              />
-            </div>
+            )}
           </div>
         </div>
       </PageBox>

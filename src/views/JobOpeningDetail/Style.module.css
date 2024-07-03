@@ -151,3 +151,16 @@
     justify-content: space-between;
     /*align-items: center;*/
 }
+
+@media only screen and (max-width:769px){
+    .value{
+        font-weight: 600;
+        width: fit-content !important;
+        color: black;
+        display: inline-block;
+    }
+    .vertical {
+        max-height: fit-content !important;
+        flex: 0.3;
+    }
+}

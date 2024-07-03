@@ -12,7 +12,7 @@ import {
     warningColor,
     dangerColor,
     sidebarColor,
-    textColor
+    textColor,
 } from "../material-dashboard-react.jsx";
 
 const headerStyle = theme => ({

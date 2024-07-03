@@ -1,0 +1,96 @@
+.firstCellFlex {
+  display: flex;
+  align-items: center;
+}
+.heading {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.plainPaper {
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0px 20px 80px #00000011;
+}
+.newContainer {
+  font-size: 0.7rem;
+}
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.decs {
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+.subDes{
+  font-size: 0.8rem;
+  margin-top: 10px;
+  font-weight: 600;
+}
+.btnWrap{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.freeze{
+  color: #ffffff !important;
+  background: #2896E9 0% 0% no-repeat padding-box;
+  padding: 10px 30px !important;
+  border-radius: 30px !important;
+  font-size: .8rem;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+}
+.down {
+  flex: 0.4;
+}
+.UpperWrap {
+  flex: 0.5;
+  display: flex;
+  gap: 20px !important;
+  align-items: center;
+  /* justify-content: space-around;   */
+}
+.yearFlex {
+  display: flex;
+  padding-top: 20px;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.headerContainer .title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.firstCellInfo {
+  margin-left: 10px;
+}
+
+.headerFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tableInactive {
+  border: 1px solid #2896e9;
+}
+.tableInActionBtn {
+  color: #e92828;
+  font-size: 20px;
+}
+.subText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-left: 10px;
+}

@@ -225,22 +225,24 @@
   background-color: #ffffff;
 }
 .PdfBtnWrapper {
-  background: #ffffff;
-  width: 100%;
+  /* background: #ffffff; */
+  width:calc(100% - 20px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 10px;
-  padding: 1.2rem 0;
+  padding: 0 10px;
+  /* border-radius: 10px; */
+  /* padding: 1.2rem 0; */
 }
 .approvedWrapper {
-  background: #ffffff;
-  width: 100%;
+  /* background: #ffffff; */
+  width:calc(100% - 20px);
+  padding: 0 10px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  border-radius: 10px;
-  padding: 1.2rem 0;
+  /* border-radius: 10px; */
+  /* padding: 1.2rem 0; */
 }
 .edit {
   color: #e92828 !important;
@@ -262,4 +264,44 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+.mobApprove{
+  display: none;
+}
+.LowerApp{
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  width: 100%;
+  border-radius: 10px;
+  padding: 1.2rem 0;
+}
+.editChangeApp{
+  color: #29cb97 !important;
+  border: 2px solid #29cb97 !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+}
+@media (max-width: 767px) {
+.approvWrapp{
+display: none;
+}
+.LowerApp{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mobApprove{
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+}
+.editChangeApp{
+  width: 100%;
+}
+.innerApprove{
+  width: 100%;
+}
+
 }

@@ -1,32 +1,29 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { useState } from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {
-  isAadhar,
-  isAccountNum,
-  isAlpha,
-  isAlphaNum,
-  isAlphaNumChars,
-  isEmail,
-  IsIFSCCode,
-  isNum,
-  isSpace,
+    isAadhar,
+    isAccountNum,
+    isAlpha,
+    isAlphaNumChars,
+    isEmail,
+    IsIFSCCode,
+    isNum,
+    isSpace,
 } from "../../libs/RegexUtils";
-import { useParams } from "react-router";
-import { serviceGetList } from "../../services/Common.service";
+import {useParams} from "react-router";
+import {serviceGetList} from "../../services/Common.service";
 import {
-  serviceCheckEmployeeExists,
-  serviceGetEmployeeConversionInfo,
-  serviceGetEmployeeEditInfo,
-  serviceGetSalaryInfoInfo,
+    serviceCheckEmployeeExists,
+    serviceGetEmployeeConversionInfo,
+    serviceGetEmployeeEditInfo,
+    serviceGetSalaryInfoInfo,
 } from "../../services/Employee.service";
 import useDebounce from "../../hooks/DebounceHook";
-import { useMemo } from "react";
-import { serviceCreateEmployees } from "../../services/EmployeesCreate.service";
+import {serviceCreateEmployees} from "../../services/EmployeesCreate.service";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
 import debounce from "lodash.debounce";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
 const SALARY_KEYS = [
   "basic_salary",
@@ -249,6 +246,7 @@ function EmployeeListCreateHook({ location }) {
   const candidateId = location?.state?.empId;
   const empFlag = location?.state?.isOnboard;
   const traineeId = location?.state?.traineeId;
+  const retiredId = location?.state?.retiredId
   const [listData, setListData] = useState({
     LOCATION_DEPARTMENTS: [],
     EMPLOYEES: [],
@@ -289,12 +287,14 @@ function EmployeeListCreateHook({ location }) {
   );
 
   useEffect(() => {
-    if (listData?.EMPLOYEES?.length > 0 && (candidateId || traineeId)) {
+    if (listData?.EMPLOYEES?.length > 0 && (candidateId || traineeId || retiredId)) {
       let req;
       if (candidateId) {
         req = serviceGetEmployeeConversionInfo({ candidate_id: candidateId });
       } else if (traineeId) {
         req = serviceGetEmployeeEditInfo({ emp_id: traineeId });
+      }else if(retiredId){
+        req = serviceGetEmployeeEditInfo({ emp_id: retiredId });
       }
       req.then((res) => {
         const empData = res?.data;
@@ -333,7 +333,11 @@ function EmployeeListCreateHook({ location }) {
             if (key in initialForm && key !== "image") {
               if (key === "state") {
                 data[key] = empData[key].toUpperCase();
-              } else {
+              }else if (BOOLEAN_KEYS?.includes(key)){
+                data[key] = empData[key] ? "YES" : "NO";
+              } else if (key === "is_transport_facility"){
+                data[key] = empData[key] ? "availed" : "notavailed"
+              }else {
                 data[key] = empData[key];
               }
             }
@@ -345,7 +349,7 @@ function EmployeeListCreateHook({ location }) {
             if (BOOLEAN_KEYS?.includes(key)) {
               salary[key] = salary[key] ? "YES" : "NO";
             } else {
-              salary[key] /= 12;
+              salary[key] = Math.round(salary[key]/12);
             }
           });
           const designationIndex = listData?.DESIGNATIONS.findIndex(
@@ -385,7 +389,7 @@ function EmployeeListCreateHook({ location }) {
         }
       });
     }
-  }, [candidateId, traineeId, listData]);
+  }, [candidateId, traineeId, listData,retiredId]);
 
   const checkSalaryInfoDebouncer = useMemo(() => {
     return debounce((e) => {
@@ -681,6 +685,7 @@ function EmployeeListCreateHook({ location }) {
       fd.append("nominee", JSON.stringify([]));
       candidateId && fd.append("candidate_id", candidateId);
       traineeId && fd.append("trainee_id", traineeId);
+      retiredId && fd.append("retired_emp_id", retiredId);
       serviceCreateEmployees(fd).then((res) => {
         if (!res.error) {
           historyUtils.push("/employees");
@@ -690,7 +695,7 @@ function EmployeeListCreateHook({ location }) {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, candidateId, traineeId]);
+  }, [form, isSubmitting, setIsSubmitting, candidateId, traineeId,retiredId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();

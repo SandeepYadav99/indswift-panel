@@ -87,7 +87,7 @@ const HRAnnouncementCreateView = ({}) => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className={"formGroup"}>
             <CustomDatePicker
               clearable
@@ -139,7 +139,7 @@ const HRAnnouncementCreateView = ({}) => {
       </div>
 
       <div className={"plainPaper"}>
-        <div className={"headerFlex wrapper"}>
+        <div className={"headerFlex wrapper"} id={styles.marginBottomTop}>
           <div className={"infoTitle inner"}>
             <div className="info_Status">
               <h4 className={"heading_stats"}>Status</h4>

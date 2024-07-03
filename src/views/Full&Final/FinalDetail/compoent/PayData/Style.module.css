@@ -112,7 +112,12 @@
   color: black;
   display: inline-block;
 }
-
+.value221{
+  font-weight: 600;
+  width: 270px;
+  color: black;
+  display: inline-block;
+}
 .newContainer {
   font-size: 0.7rem;
 }
@@ -209,4 +214,47 @@
   color: #818181;
   font-weight: 500;
   margin-bottom: 7px;
+}
+
+#mobileView{
+  display: none !important;
+}
+
+#showDesktop{
+  display: block !important;
+}
+@media only screen and (max-width:769px) {
+  .mainFlex {
+    display: flex;
+    flex-direction: column !important;
+  }
+  .value221 {
+    width: 180px;
+  }
+  #mobileView{
+    display: block !important;
+  }
+  #showDesktop{
+    display: none !important;
+  }
+  .key {
+    display: flex;
+    flex-direction: column !important;
+    color: #818181;
+    gap:10px;
+    font-weight: 500;
+    margin-bottom: 7px;
+  }
+  .value {
+    display: flex;
+    flex-direction: column !important;
+    font-weight: 600;
+    width: 100% !important;
+    color: black;
+    display: inline-block;
+  }
+  #statusPillData{
+    width: 150px !important;
+  }
+  
 }

@@ -64,6 +64,7 @@
     margin-top: 20px;
     font-size: 0.8rem;
     margin-left: 15px;
+    margin-bottom: 15px !important;
 }
 
 .emp{
@@ -79,4 +80,32 @@
 
 .caderFlex{
     display: flex;
+}
+
+#widthFieldAdjust{
+    width: 50% !important;
+}
+
+@media only screen and (max-width:769px){
+    #mobileResponsive{
+        display: flex;
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+    #widthFieldAdjust{
+        width: 100% !important;
+    }
+    #widthFieldAdjustDataValue{
+        width: 95% !important;
+    }
+    .btm{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        font-size: 0.8rem;
+        margin-left: 15px;
+        margin-bottom: 15px !important;
+        flex-direction: column !important;
+    }
 }

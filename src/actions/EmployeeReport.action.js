@@ -44,7 +44,7 @@ export function actionFetchEmployeeReport(
       dispatch({ type: SET_FILTER, payload: filter });
       dispatch({ type: SET_SORTING, payload: sorting });
       if (!data.error) {
-        dispatch({ type: FETCHED, payload: { data: data.data.data, page: index } });
+        dispatch({ type: FETCHED, payload: { data: data.data.data,total: data?.data?.total, page: index } });
         dispatch({ type: SET_SERVER_PAGE, payload: index });
         if (index == 1) {
           dispatch({ type: CHANGE_PAGE, payload: index - 1 });
@@ -138,7 +138,7 @@ export function actionResetFilterEmployeeReportRequests() {
   };
 }
 
-export function actionSetPageEmployeeReportRequests(page) {
+export function actionSetPageEmployeeReportRequests(page,other) {
   const stateData = store.getState().employeeReport;
   const currentPage = stateData.currentPage;
   const totalLength = stateData.all.length;
@@ -146,12 +146,13 @@ export function actionSetPageEmployeeReportRequests(page) {
   const query = stateData.query;
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;
-
+  console.log("ohter",other)
   if (totalLength <= (page + 1) * Constants.DEFAULT_PAGE_VALUE) {
     store.dispatch(
       actionFetchEmployeeReport(serverPage + 1, sortingData, {
         query,
         query_data: queryData,
+        ...other
       })
     );
     // this.props.fetchNextUsers(this.props.serverPage + 1, this.props.sorting_data.row, this.props.sorting_data.order, { query: this.props.query, query_data: this.props.query_data });

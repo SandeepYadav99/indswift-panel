@@ -124,69 +124,110 @@
   display: flex;
   flex-direction: column;
 }
-.adjustFont{
+.adjustFont {
   font-size: 12px !important;
   width: 150px !important;
   font-weight: 600 !important;
 }
-.marginEqual{
+.marginEqual {
   display: flex;
 }
-.headingDetails{
+.headingDetails {
   font-size: 14px;
 }
-.textFont{
+.textFont {
   font-size: 12px !important;
   color: #818181;
   font-weight: 500;
 }
 
-.rejectButton{
-  border: 1px solid #E92828;
-  background-color: #F6F7FF;
-  color: #E92828;
+.rejectButton {
+  border: 1px solid #e92828;
+  background-color: #f6f7ff;
+  color: #e92828;
   padding: 10px;
   padding-right: 30px;
   padding-left: 30px;
   border-radius: 24px;
 }
-.headerModal{
+.headerModal {
   display: flex;
   justify-content: center !important;
   flex-direction: column;
   align-items: center !important;
   margin-bottom: 10px;
 }
-.marginCheckbox{
+.marginCheckbox {
   margin-top: 20px !important;
 }
-.alignButtonEnd{
+.alignButtonEnd {
   margin-top: 10px;
- display: flex;
- justify-content: flex-end !important;
+  display: flex;
+  justify-content: flex-end !important;
 }
-.closeIcon{
+.closeIcon {
   display: flex;
   justify-content: flex-end !important;
   cursor: alias !important;
 }
-.submitBtn{
-  background-color: #29CB97 !important;
-    color: #ffffff !important;
-    padding: 10px 20px !important;
-    font-size: 0.8rem !important;
-    border-radius: 30px !important;
-    text-transform: uppercase !important;
-    font-weight: 600 !important;
+.submitBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 10px 20px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
 }
 
-.submitBtnFade{
-  background-color: #29CB97 !important;
-    color: #ffffff !important;
-    padding: 10px 20px !important;
-    font-size: 0.8rem !important;
-    border-radius: 30px !important;
-    text-transform: uppercase !important;
-    font-weight: 600 !important;
-    opacity: 0.4 !important;
+.submitBtnFade {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 10px 20px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  opacity: 0.4 !important;
+}
+.detailStatusIcon {
+  position: absolute;
+  margin-top: -35px;
+  margin-left: 64% !important;
+}
+
+@media only screen and (max-width: 769px) {
+  .marginEqual {
+    display: flex;
+    flex-direction: column !important;
+  }
+  .popUpContainerData {
+    width: 70vw !important;
+  }
+}
+
+@media only screen and (max-width: 396px) {
+  .adjustFont {
+    font-size: 11px !important;
+  }
+  .marginEqual {
+    font-size: 11px !important;
+  }
+  .textFont {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 11px !important;
+  }
+  .detailStatusIcon {
+    position: absolute !important;
+    margin-top: -35px !important;
+    margin-left: 60% !important;
+  }
+ 
+}
+
+@media only screen and (max-width:496px){
+  .popUpContainerData {
+    width: 80vw !important;
+  }
 }

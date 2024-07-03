@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+
+.downFlex {
+  display: flex;
+  flex-direction: column !important;
+  gap: 30px;
+}
+
+.cardData {
+  background-color: #EBF9FF !important;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.cardDataTwo {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 10px !important;
+}
+
+.descriptionData {
+  font-size: 14px;
+}
+
+.titleData {
+  font-size: 14px;
+  font-weight: 600 !important;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between !important;
+}
+
+.colorLinkData{
+  text-decoration: none !important;
+  color: black !important;
+}
+
+.blueDot{
+  height: 10px !important;
+  width: 10px !important;
+  border-radius: 100%;
+  background-color: #2896E9 !important;
+}
+.unreadWrap{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+@media only screen and (max-width:596px) {
+  .descriptionData {
+    font-size: 12px;
+  }
+
+  .titleData {
+    font-size: 12px;
+    font-weight: 600 !important;
+    margin-bottom: 10px;
+  }
+
+  .timeStamp {
+    display: 'flex'; 
+    justify-content:"flex-end";
+    font-size:"12px";
+    color:"gray"; 
+    margin-top:"5px";
+  }
+}
+
+.cardUnRead{
+  background-color: #EBF9FF;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 10px !important;
+}

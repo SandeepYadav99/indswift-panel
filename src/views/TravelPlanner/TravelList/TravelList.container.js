@@ -18,7 +18,7 @@ import {
 } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -193,6 +193,7 @@ const TravelList = ({ location }) => {
       {
         key: "user_id",
         label: "Action",
+        ishideMobile:true,
         render: (temp, all) => (
           <div>
             <IconButton
@@ -202,8 +203,10 @@ const TravelList = ({ location }) => {
               onClick={() => {
                 handleViewDetails(all);
               }}
+              style={{display:'flex',gap:"3px"}}
             >
-              <InfoOutlined fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}}/>
+              <div className={styles.textStyles}>View information</div>
             </IconButton>
           </div>
         ),
@@ -243,10 +246,12 @@ const TravelList = ({ location }) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Travel Authorization & Planner</span>
+            <span className={styles.titleDesk}>Travel Authorization & Planner</span>
+            <span className={styles.titleMobile}>Travel Planner</span>
+
             <div className={styles.newLine} />
           </div>
-          <div className={styles.btnWrap}>
+          <div className={styles.btnWrap} style={{whiteSpace:"nowrap"}}>
             <ButtonBase
               aria-haspopup="true"
               onClick={handleViewCreate}

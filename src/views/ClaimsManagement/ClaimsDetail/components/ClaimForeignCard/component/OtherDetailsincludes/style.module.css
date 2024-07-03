@@ -172,3 +172,47 @@
 .radioWrapper {
   margin-bottom: 10px;
 }
+.formGrp{
+  flex: 1;
+  padding: 7px 10px
+}
+.formWrp{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btnWrap{
+  display: flex;
+  justify-content: flex-end;
+}
+.helpter{
+  font-weight: 500;
+  text-align: end;
+}
+@media (max-width:767px){
+  .helpter{
+    text-align: start;
+  }
+  .formWrp {
+      display: flex;
+      flex-direction: column;
+  }
+  .formGrp{
+      width: 100%;
+      padding: 7px 0;
+  }
+  .btnWrap{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .totalWrap{
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+    height: 80px;
+  }
+  .inner{
+    width: 100%;
+  }
+}

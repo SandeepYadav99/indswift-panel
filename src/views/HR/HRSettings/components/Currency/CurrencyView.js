@@ -29,32 +29,32 @@ function CurrencyView() {
     onBlurHandler,
     handleSubmit,
     toggleStatusDialog,
-    isSubmitting
+    isSubmitting,
   } = useCurrencyHook({});
 
   const tableStructure = useMemo(() => {
     return [
       {
         key: "currency",
-        label: "currency",
+        label: "CURRENCY",
         sortable: false,
         render: (temp, all) => <div>{all?.currency}</div>,
       },
       {
         key: "updated",
-        label: "updated on",
+        label: "UPDATED ON",
         sortable: false,
         render: (value, all) => <div>{all?.updatedAtText}</div>,
       },
       {
         key: "rate",
-        label: "exchange rate",
+        label: "EXCHANGE RATE",
         sortable: false,
         render: (value, all) => <div>{all?.conversion_rate}</div>,
       },
       {
         key: "user_id",
-        label: "Action",
+        label: "ACTION",
         render: (temp, all) => (
           <div className={styles.btnWrap}>
             <IconButton
@@ -65,7 +65,8 @@ function CurrencyView() {
                 handleViewUpdate(all);
               }}
             >
-              <Edit fontSize={"small"} />
+              <Edit fontSize={"small"} style={{ color: "#2896E9" }} />
+              <div className={styles.textStyles}>Edit information</div>{" "}
             </IconButton>
             {/* <div className={styles.rightFlex}>
               <ButtonBase
@@ -122,8 +123,7 @@ function CurrencyView() {
           <span className={styles.title}>Currency Conversion</span>
           <div className={styles.newLine} />
         </div>
-
-        <div style={{ width: "100%", marginTop: "40px" }}>
+        <div style={{ width: "100%", marginTop: "20px" }}>
           <DataTables
             {...tableData.datatable}
             {...tableData.datatableFunctions}

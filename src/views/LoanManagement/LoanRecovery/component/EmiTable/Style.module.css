@@ -53,6 +53,12 @@
   text-align: center;
   font-size: 0.875rem;
 }
+.textAdjust{
+  font-weight: 600;
+}
+.textAdjust1{
+  font-weight: 500;
+}
 .tableWrapper {
   display: flex;
   flex-direction: column;
@@ -140,4 +146,15 @@
   min-height: 40px;
   border: none;
 
+}
+.mobileContainer{
+  display: none !important;
+}
+@media only screen and (max-width:769px){
+  .desktopContainer{
+    display: none !important;
+  }
+  .mobileContainer{
+    display: block !important;
+  }
 }

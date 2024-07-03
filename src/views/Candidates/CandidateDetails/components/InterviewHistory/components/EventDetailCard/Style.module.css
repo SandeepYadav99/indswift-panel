@@ -48,3 +48,32 @@
   font-size: 0.75rem;
   font-weight: 500;
 }
+.rowtags2 {
+  font-weight: 600;
+}
+.mobileRenderData{
+  display: none !important;
+}
+
+.rowtags3{
+  font-weight: 200;
+  font-size: 12px !important;
+}
+
+@media only screen and (max-width:769px)  {
+  .rowtags2 {
+    font-weight: 600;
+    display: none !important;
+  }
+  .rowtagsLower1 {
+    display: none !important;
+  }
+  .mobileRenderData{
+    display: block !important;
+  }
+  .mobileSub{
+    display: flex;
+    justify-content: space-between !important;
+  }
+
+}

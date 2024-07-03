@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import styles from "./Style.module.css";
 import logo from "../../../assets/img/login logo@2x.png";
 import {IconButton, Tooltip,makeStyles } from "@material-ui/core";
@@ -10,6 +10,7 @@ import FormDropdown from "./component/FormDropdown/FormDropdown";
 import SnackbarComponent from "../../../components/Snackbar.component";
 import { removeUnderScore } from "../../../helper/helper";
 import ConfirmDialog from "./component/ConfirmDialog/ConfirmDialog.view";
+import MobileDialog from "../../../components/MobileDialog/MobileDialog.view";
 
 const useStyles = makeStyles((theme) => ({
     customTooltip: {
@@ -134,6 +135,18 @@ const TableHead = ({columns}) => {
 }
 
 const PmsForm = ({location}) => {
+
+    const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+    const handleResize = () => {
+    setInnerWidth(window.innerWidth);
+    };
+    useEffect(() => {
+     window.addEventListener("resize", handleResize);
+     return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+     }, []);
+    const isMobile = innerWidth <= 768;
     const {
         columns,
         rows,
@@ -149,8 +162,11 @@ const PmsForm = ({location}) => {
         submitToServer
     } = usePms4BForm({location});
 
-    const type=location?.state?.type
+    const type=location?.state?.type;
 
+    if(isMobile){
+        return <MobileDialog isOpen={true} key={`Pms_4b`}/>
+    }
     return (
         <div>
             <div className={styles.pmsformWrap}>

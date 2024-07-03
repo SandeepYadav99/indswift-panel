@@ -5,6 +5,8 @@ import { serviceGetClaimDetail } from "../../../services/Claims.service";
 
 const useClaimsDetail = ({}) => {
   const [data, setData] = useState({});
+  const [approveDialog, setApproveDialog] = useState(false);
+
   useEffect(() => {
     let dataValues = serviceGetClaimDetail();
     dataValues
@@ -31,14 +33,21 @@ const useClaimsDetail = ({}) => {
       historyUtils.push(RouteName.CLAIMS_LOAN);
     }else if(value === 8){
       historyUtils.push(RouteName.CLAIMS_INT);
-    }else{
+    }else if(value === 9){
       historyUtils.push(RouteName.CLAIMS_CURR);
+    }else {
+      historyUtils.push(RouteName.CLAIMS_TAX);
     }
   }, []);
 
+  const toggleStatusDialog = useCallback(() => {
+    setApproveDialog((e) => !e);
+  }, [approveDialog]);
   return {
     handleClaimPage,
     data,
+    toggleStatusDialog,
+    approveDialog
   };
 };
 

@@ -67,7 +67,7 @@ const EmployeeVersionList = ({}) => {
                 key: 'createdAt',
                 label: 'Changed By',
                 sortable: false,
-                render: (temp, all) => <div>{all?.editedBy?.name} <br/> {all?.createdAtText}</div>,
+                render: (temp, all) => <div className={styles.textAlign}>{all?.editedBy?.name} <br/> {all?.createdAtText}</div>,
             },
             {
                 key: 'status',
@@ -79,13 +79,17 @@ const EmployeeVersionList = ({}) => {
                 key: 'approvedAt',
                 label: 'Approved By',
                 sortable: true,
-                render: (temp, all) => <div>{all?.verifiedAt ? (<div>{all?.verifiedBy?.name}  <br/> {all?.verifiedAtText} </div>) : '-'}</div>,
+                render: (temp, all) => <div className={styles.textAlign}>{all?.verifiedAt ? (<div>{all?.verifiedBy?.name}  <br/> {all?.verifiedAtText} </div>) : '-'}</div>,
             },
             {
                 key: 'user_id',
                 label: 'Action',
+                ishideMobile:true,
                 render: (temp, all) => (<div>
-                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={()=> handleSideToggle(all)}><Edit fontSize={'small'} /></IconButton>
+                    <IconButton className={'tableActionBtn'} color='secondary' disabled={isCalling} onClick={()=> handleSideToggle(all)}>
+                    <InfoOutlined fontSize={"small"} style={{color: "#2896E9"}}/>
+                    <div className={styles.textStyles}>View information</div>
+                    </IconButton>
                 </div>),
             },
 
@@ -134,13 +138,7 @@ const EmployeeVersionList = ({}) => {
                             handleFilterDataChange={handleFilterDataChange}
                         />
                         <div>
-                            <br/>
-                            <div style={{width: '100%'}}>
-                                <DataTables
-                                    {...tableData.datatable}
-                                    {...tableData.datatableFunctions}
-                                />
-                            </div>
+                           
                         </div>
                     </div>
                     <SidePanelComponent
@@ -152,6 +150,12 @@ const EmployeeVersionList = ({}) => {
                         <VersionDetailView handleClose={handleSideToggle} id={editData} isOpen={isSidePanel} />
                     </SidePanelComponent>
                 </PageBox>
+                <div style={{width: '100%'}}>
+                                <DataTables
+                                    {...tableData.datatable}
+                                    {...tableData.datatableFunctions}
+                                />
+                            </div>
             </div>
         )
 }

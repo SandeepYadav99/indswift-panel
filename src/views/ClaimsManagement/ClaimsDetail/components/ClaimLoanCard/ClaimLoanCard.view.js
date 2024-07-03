@@ -65,8 +65,8 @@ function ClaimLoanCard() {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Loan Request Form</div>
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomSelectField
                 isError={errorData?.loan_type}
                 errorText={errorData?.loan_type}
@@ -81,7 +81,7 @@ function ClaimLoanCard() {
                 ))}
               </CustomSelectField>
             </div>
-            <div className={"formGroup"}>
+            <div className={styles.formGrp}>
               <CustomTextField
                 type="number"
                 isError={errorData?.amount}
@@ -94,8 +94,8 @@ function ClaimLoanCard() {
               />
             </div>
           </div>
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomTextField
                 isError={errorData?.description}
                 errorText={errorData?.description}
@@ -125,8 +125,8 @@ function ClaimLoanCard() {
       <div className={styles.plainPaper}>
         <div className={styles.newContainer}>
           <div className={styles.heading}>Loan Guarantees</div>
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomAutoComplete
                 autoCompleteProps={{
                   freeSolo: false,
@@ -144,10 +144,7 @@ function ClaimLoanCard() {
                 value={form?.g1}
               />
             </div>
-            <div
-              className={"formGroup"}
-              style={{ marginLeft: 36, marginTop: 7 }}
-            >
+            <div className={styles.formGrp}>
               <div className={styles.mainFlex}>
                 <div className={styles.left221}>
                   <div>
@@ -167,7 +164,7 @@ function ClaimLoanCard() {
                 </div>
               </div>
             </div>
-            <div className={"formGroup"} style={{ marginTop: 7 }}>
+            <div className={styles.formGrp}>
               <div className={styles.mainFlex}>
                 <div className={styles.left221}>
                   <div>
@@ -187,7 +184,7 @@ function ClaimLoanCard() {
                 </div>
               </div>
             </div>
-            <div className={"formGroup"} style={{ marginTop: 7 }}>
+            <div className={styles.formGrp}>
               <div className={styles.mainFlex}>
                 <div className={styles.left221}>
                   <div>
@@ -202,8 +199,8 @@ function ClaimLoanCard() {
               </div>
             </div>
           </div>
-          <div className={"formFlex"}>
-            <div className={"formGroup"}>
+          <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomAutoComplete
                 autoCompleteProps={{
                   freeSolo: false,
@@ -221,10 +218,7 @@ function ClaimLoanCard() {
                 value={form?.g2}
               />
             </div>
-            <div
-              className={"formGroup"}
-              style={{ marginLeft: 36, marginTop: 7 }}
-            >
+            <div className={styles.formGrp}>
               <div className={styles.mainFlex}>
                 <div className={styles.left221}>
                   <div>
@@ -244,7 +238,7 @@ function ClaimLoanCard() {
                 </div>
               </div>
             </div>
-            <div className={"formGroup"} style={{ marginTop: 7 }}>
+            <div className={styles.formGrp}>
               <div className={styles.mainFlex}>
                 <div className={styles.left221}>
                   <div>
@@ -264,7 +258,7 @@ function ClaimLoanCard() {
                 </div>
               </div>
             </div>
-            <div className={"formGroup"} style={{ marginTop: 7 }}>
+            <div className={styles.formGrp}>
               <div className={styles.mainFlex}>
                 <div className={styles.left221}>
                   <div>
@@ -279,8 +273,8 @@ function ClaimLoanCard() {
               </div>
             </div>
           </div>
-          {/* <div className={"formFlex"}>
-            <div className={"formGroup"}>
+          {/* <div className={styles.formWrp}>
+            <div className={styles.formGrp}>
               <CustomAutoComplete
                 autoCompleteProps={{
                   freeSolo: false,
@@ -298,10 +292,7 @@ function ClaimLoanCard() {
                 value={form?.g3}
               />
             </div>
-            <div
-              className={"formGroup"}
-              style={{ marginLeft: 36, marginTop: 7 }}
-            >
+            <div className={styles.formGrp}>
               <div className={styles.mainFlex}>
                 <div className={styles.left221}>
                   <div>
@@ -321,7 +312,7 @@ function ClaimLoanCard() {
                 </div>
               </div>
             </div>
-            <div className={"formGroup"} style={{ marginTop: 7 }}>
+            <div className={styles.formGrp}>
               <div className={styles.mainFlex}>
                 <div className={styles.left221}>
                   <div>
@@ -341,7 +332,7 @@ function ClaimLoanCard() {
                 </div>
               </div>
             </div>
-            <div className={"formGroup"} style={{ marginTop: 7 }}>
+            <div className={styles.formGrp}>
               <div className={styles.mainFlex}>
                 <div className={styles.left221}>
                   <div>

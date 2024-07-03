@@ -29,3 +29,6 @@ export async function serviceGetExitFormDetails(params) {
 export async function serviceResendExitForm(params) {
   return await postRequest("exit/interview/share", params);
 }
+export async function serviceHrComments(params) {
+  return await postRequest("exit/interview/comment/submit", params);
+}

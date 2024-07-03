@@ -35,6 +35,7 @@ const initialForm = {
 const useCandidateUpdate_Hook = () => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const[isEdit,setIsEdit]=useState(false)
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -151,6 +152,7 @@ const useCandidateUpdate_Hook = () => {
 
       payment_complete: form?.payment_complete,
       payment_status: form?.payment_status,
+      is_cost_manual:isEdit ? true : false
     };
 
     try {
@@ -168,7 +170,7 @@ const useCandidateUpdate_Hook = () => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [form, isSubmitting, setIsSubmitting]); // EmpID
+  }, [form, isSubmitting, setIsSubmitting,isEdit,setIsEdit]); // EmpID
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -178,7 +180,7 @@ const useCandidateUpdate_Hook = () => {
     } else {
       await submitToServer();
     }
-  }, [checkFormValidation, setErrorData, form, submitToServer, id]);
+  }, [checkFormValidation, setErrorData, form, submitToServer, id,isEdit,setIsEdit]);
 
   const removeError = useCallback(
     (title) => {
@@ -230,6 +232,7 @@ const useCandidateUpdate_Hook = () => {
     changeTextData,
     form,
     handleSubmit,
+    isEdit,setIsEdit
   };
 };
 

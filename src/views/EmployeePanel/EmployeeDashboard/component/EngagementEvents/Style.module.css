@@ -69,10 +69,23 @@
   }
   .engagementContainer{
     max-width: 100vw;
-    width: calc(100vw - 100px); 
    }
    
 }
 .myCustomClass{
   /* background-color: red; */
+}
+
+@media (max-width: 1200px) {
+  .img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .engagementContainer{
+    max-width: 100vw;
+   }
+   
 }

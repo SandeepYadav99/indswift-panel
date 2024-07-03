@@ -109,8 +109,15 @@ export default {
   CLAIMS_HR_DETAILS:'/cm/hr/details/',
   TRAVEL_CLAIMS_DETAILS:'/cm/travel/details/',
   FOREIGN_CLAIMS_DETAILS:'/cm/foreign/details/',
+  FOREIGN_HR_CLAIMS_DETAILS:'/cm/hr/foreign/details/',
   TRAVEL_HR_CLAIMS_DETAILS:'/cm/hr/travel/details/',
   CLAIMS_HR_LIST:'/cm/hr/claims' ,
+
+  EMPLOYEE_CLAIMS_DETAILS:"/employee/claim/detail/",
+  EMPLOYEE_TRAVEL_DETAILS:"/employee/travel/details/",
+  EMPLOYEE_FOREIGN_DETAILS:"/employee/foreign/details/",
+  EMPLOYEE_TAX_DETAILS:"/employee/tax/details/",
+
 
   CLAIMS_MARRIGE:'/employee/claim/marriage',
   CLAIMS_MOBILE:'/employee/claim/mobile',
@@ -120,11 +127,12 @@ export default {
   CLAIMS_TRAVEL:'/employee/claim/travel',
   CLAIMS_INT:'/employee/claim/int',
   CLAIMS_CURR:'/employee/claim/foreign',
+  CLAIMS_TAX:'/employee/claim/tax',
   CLAIMS_INTERVIEW:'/cm/interview',
   CLAIMS_INTERVIEW_DETAILS:'/cm/interview/details/',
   CLAIMS_LOC:'/employee/claim/loc',
   CLAIMS_IMPREST:'/employees/claim/imprest',
-  CLAIMS_IMPREST_DETAILS:'/employees/claim/imprest/details',
+  CLAIMS_IMPREST_DETAILS:'/employees/claim/imprest/details/',
   CLAIMS_IMPREST_CREATE:'/employees/claim/imprest/create',
   CLAIMS_REPORT:'/cm/report',
   CLAIMS_CAR_REPORT:'/cm/car/report',
@@ -148,6 +156,8 @@ export default {
   TRAVEL_PLANNER_DETAILS:'/travel/plan/details/',
   TRAVEL_AUTHEN:'/travel/auth',
   TRAVEL_AUTHEN_DETAILS: '/travel/auth/details/',
+  TRAVEL_AUTHEN_SPEC:'/spec/travel/auth',
+  TRAVEL_AUTHEN_DETAILS_SPEC: '/spec/travel/auth/details/',
 
 
   PERFORMANCE_BATCH:'/pm/batch',
@@ -171,7 +181,7 @@ export default {
   PMS_OVERALL_HOD_REVIEW_DETAIL: '/pms/overall/hod/detail/',
 
   PMS_SITE_PLANNER: '/pms/site',
-  PMS_SITE_PLANNER_FORM:'/pms/site/submission',
+  PMS_SITE_PLANNER_FORM:'/pms/site/submission/',
   PMS_SITE_PENDING: '/pm/site/pending',
   PMS_SITE_SUBMISSION_DETAIL: '/pms/site/form/detail/',
 
@@ -199,6 +209,7 @@ export default {
   SUCCESSION_APPROVAL_DETAIL:"/succession-approval/detail/",
 
   SUCCESSION_PLANNER:"/succession/planner",
+  SUCCESSION_DETAIL:"/succession/planner/details/",
   SUCCESSION_PLANNER_DETAIL_FORM:"/succession/detail/form",
   SUCCESSION_HISTORY:"/succession/history",
   EXPIRING_OFFER_LETTER:"/expiring-offer-letter",
@@ -222,15 +233,17 @@ export default {
   LEAVE_APPLICATION_FORM:"/leave-application-form",
   PENDING_LEAVE_APPLICATION:"/pending-application/list",
 
-
+  HRESCALATIONMATRIX:"/hr/escalation",
   FULL_FINAL_APPLICATION:"/full-final",
   FULL_FINAL_APPROVAL:"/full-final-approval",
   FULL_FINAL_DETAIL_APPROVAL:"/full-final/detail/",
 
+  TAX_LIST:"/tax/list",
+  TAX_DETAIL:"/tax/detail/",
+  
   FULL_FINAL_FORM:"/full/form/",
   FULL_FINAL_DETAIL:"/full/detail/",
 
-  HRESCALATIONMATRIX:"/hr/escalation",
   EXIT_LOGIN:"/exit/login",
   EXIT_SUCCESS:"/exit/success",
   EXIT_INTERVIEW_LIST:"/exit/interview/list",
@@ -241,6 +254,14 @@ export default {
   SUCCESSION_FORM_INNER:"/succession/details",
   SUCCESSION_SUCCESS:"/succession/success",
 
-  PMS_MASTER:"/pms/master"
+  PMS_MASTER:"/pms/master",
+  NOTIFICATION:"/notification",
+
+  APP_NOTIFICATION:"/app/notification",
+  APP_NOTIFICATION_CREATE:"/app/notification/create",
+  HOMEPAGE_MOBILE:"/mobile/dashboard",
+
+  SUBSCRIBE_PAGE:'/subscribe',
+  PMS_MASTER: "/pms/master",
 
 };

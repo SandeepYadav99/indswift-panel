@@ -43,11 +43,11 @@ const LeaveApplicationForm = () => {
   } = useLeaveApplication({});
   let Designation = ["G1", "G2", "G3", "G4", "G5", "G6", "G0"];
   let gradeLevel = employeeDetails?.grade?.code;
-  let FacilitationCondition = ["0.1", "0.2", "0.3", "0.4"];
-  let ExperienceInCompany = employeeDetails?.experience?.current;
+  let FacilitationCondition = ["0.0","0.1", "0.2", "0.3", "0.4"];
+  let ExperienceInCompany = employeeDetails?.experience?.current ?  Number(employeeDetails?.experience?.current) : 0;
 
   function FacilitationGiven() {
-    if (FacilitationCondition.includes(ExperienceInCompany)) {
+    if (ExperienceInCompany <= .4) {
       return false;
     } else {
       return true;
@@ -55,7 +55,7 @@ const LeaveApplicationForm = () => {
   }
 
   function BearvementLeave() {
-    if (ExperienceInCompany < "1.0") {
+    if (ExperienceInCompany < 1) {
       return true;
     } else {
       return false;
@@ -78,7 +78,6 @@ const LeaveApplicationForm = () => {
     }
   }
 
-  console.log("leaveCount", leaveCount);
   return (
     <div className={styles.container}>
       <div>
@@ -93,10 +92,10 @@ const LeaveApplicationForm = () => {
       <br />
       <ClaimUpperCard data={employeeDetails} />
       <div className={styles.plainPaper}>
-        <div className={styles.heading}>Employee Information</div>
+        <div className={styles.heading}>Leave Detail</div>
         <div className={styles.leaveForm}>
           <div className={styles.heading}>Type of Leave</div>
-          <FormControl>
+          <FormControl  className={styles.btnRadio}>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               aria-label="option"
@@ -201,7 +200,7 @@ const LeaveApplicationForm = () => {
                 accept={"application/pdf,application/msword,image/*"}
                 error={errorData?.document}
                 value={form?.document}
-                placeholder={"Add Attachment (optional)"}
+                placeholder={<p className={styles.attachment}>Add Attachment (optional)</p>}
                 onChange={(file) => {
                   if (file) {
                     changeTextData(file, "document");
@@ -279,7 +278,7 @@ const LeaveApplicationForm = () => {
                 label="Attachments"
                 accept={"application/pdf,application/msword,image/*"}
                 value={form?.document}
-                placeholder={`Add Attachments (optional)`}
+                placeholder={<p className={styles.attachment}>Add Attachment (optional)</p>}
                 onChange={(file) => {
                   if (file) {
                     changeTextData(file, "document");
@@ -357,7 +356,7 @@ const LeaveApplicationForm = () => {
                 label="Attachments"
                 accept={"application/pdf,application/msword,image/*"}
                 value={form?.document}
-                placeholder={`Add Attachments (optional)`}
+                placeholder={<p className={styles.attachment}>Add Attachment (optional)</p>}
                 onChange={(file) => {
                   if (file) {
                     changeTextData(file, "document");
@@ -451,7 +450,7 @@ const LeaveApplicationForm = () => {
                 label="Attachments"
                 accept={"application/pdf,application/msword,image/*"}
                 value={form?.document}
-                placeholder={`Add Attachments (optional)`}
+                placeholder={<p className={styles.attachment}>Add Attachment (optional)</p>}
                 onChange={(file) => {
                   if (file) {
                     changeTextData(file, "document");

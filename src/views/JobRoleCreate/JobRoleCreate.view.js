@@ -75,7 +75,7 @@ const JobRoleCreateView = ({ onlyShow }) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={isDisabled}
@@ -112,7 +112,7 @@ const JobRoleCreateView = ({ onlyShow }) => {
             </CustomSelectField>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className="formGroup">
             <CustomSelectField
               disabled={id ? true : false}
@@ -155,7 +155,7 @@ const JobRoleCreateView = ({ onlyShow }) => {
           </div>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className={"formGroup"}>
             <CustomTextField
               disabled={isDisabled}
@@ -194,7 +194,7 @@ const JobRoleCreateView = ({ onlyShow }) => {
             </CustomSelectField>
           </div>
         </div>
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className="formGroup">
             <CustomTextField
               disabled={isDisabled}
@@ -227,7 +227,7 @@ const JobRoleCreateView = ({ onlyShow }) => {
             />
           </div>
         </div>
-        <div className={"formFlex"} style={{ width: "50%" }}>
+        <div className={"formFlex"} id={styles.salary_range_field}>
           {/* form field need to be added on F.E */}
           <div className="formGroup">
             <CustomTextField
@@ -283,7 +283,7 @@ const JobRoleCreateView = ({ onlyShow }) => {
           </h4>
         </div>
 
-        <div className={"formFlex"}>
+        <div className={"formFlex"} id={styles.mobileResponsive}>
           <div className={"formGroup"}>
             <CustomSwitch
               disabled={isDisabled}

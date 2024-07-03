@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
+import DataTables from "../../components/Datatables/datatables";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 
@@ -195,17 +195,17 @@ const NapsTraning_View = ({ location }) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
+      <div>
+        <br />
+        <div style={{ width: "100%" }}>
+          <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          />
+        </div>
+      </div>
     </div>
   );
 };

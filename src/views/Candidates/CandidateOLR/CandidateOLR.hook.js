@@ -9,6 +9,7 @@ import {serviceGetOfferLetterDetails,serviceGetPanelistDetails} from "../../../s
 import {useSelector} from "react-redux";
 import Constants from "../../../config/constants";
 import RouteName from "../../../routes/Route.name";
+import RolesUtils from "../../../libs/Roles.utils";
 
 function CandidateOLRHook({location}) {
   const isReview = location?.state?.isReview;
@@ -50,7 +51,7 @@ function CandidateOLRHook({location}) {
   }, [id]);
   console.log(role)
   const isRecruiter = useMemo(() => {
-    return role === Constants.ROLES.RECRUITER;
+    return RolesUtils.canAccess([Constants.ROLES.RECRUITER], role);
   }, [role]);
   const toggleApprovalDialog = useCallback(() => {
     setIsApprovalPopUp((e) => !e);

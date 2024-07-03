@@ -249,4 +249,23 @@
   }
   .Wrap{
     display: flex;
+    flex-wrap: wrap;
+  }
+  .formFlex{
+    display: flex;
+  }
+  @media (max-width:767px){
+    .formFlex {
+      flex-direction: column;
+    }
+    .value{
+      width: 160px;
+    }
+    .BtnWrap{
+      width: 100%;
+      padding: 5px 15px;
+    }
+    .createBtn{
+      width: 100%;
+    }
   }

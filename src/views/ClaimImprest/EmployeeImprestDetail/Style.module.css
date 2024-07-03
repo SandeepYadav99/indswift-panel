@@ -30,7 +30,7 @@
 
 .mainFlex {
   display: flex;
-  /*align-items: center;*/
+  margin-top: 30px !important;
 }
 
 .vertical {
@@ -56,11 +56,8 @@
   font-size: 0.7rem;
 }
 
-.left {
-  flex: 1.4;
-}
+
 .left221 {
-  flex: 1.4;
   display: flex;
   gap: 15px;
 }
@@ -121,14 +118,14 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
-.headingWrap2{
+.headingWrap2 {
   margin: 10px 0;
 }
-.headingWrap{
+.headingWrap {
   display: flex;
   flex-direction: column;
   /* margin: 10px 0; */
-  font-size: .875rem;
+  font-size: 0.875rem;
   font-weight: 600;
 }
 .addBtn {
@@ -147,7 +144,7 @@
 .detailFlex {
   display: flex;
 }
-.newLineWrap{
+.newLineWrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -156,23 +153,64 @@
 .info {
   margin-left: 10px;
 }
-.download{
-  border: 2px solid #29cb97!important;
-  border-radius: 30px!important;
-  color: #29cb97!important;
-  font-size: .8rem!important;
-  font-weight: 600!important;
-  padding: 7px 50px!important;
-  text-transform: uppercase!important;
+.download {
+  border: 2px solid #29cb97 !important;
+  border-radius: 30px !important;
+  color: #29cb97 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  padding: 7px 50px !important;
+  text-transform: uppercase !important;
   height: 40px !important;
 }
-.experseWrap{
+.experseWrap {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   margin-right: 10px;
-  color: #2896E9;
+  color: #2896e9;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: .8rem;
+  font-size: 0.8rem;
+}
+.dataContainer {
+  display: flex;
+  justify-content: space-evenly !important;
+  width: 100% !important;
+}
+
+@media only screen and (max-width: 769px) {
+  .mainFlex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .left221 {
+    display: flex;
+    gap: 15px;
+    justify-content: center !important;
+  }
+  .key {
+    display: flex;
+    flex-direction: column !important;
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 7px;
+  }
+  .vertical {
+    border-left: 1px dashed #b8c5d3;
+    max-height: 100px;
+    flex: none !important;
+  }
+  .dataContainer {
+    display: flex;
+    justify-content: space-around !important;
+  }
+  .left{
+    flex:none !important;
+  }
+  .titleBalance{
+    font-size: 0.856rem !important;
+ }
 }

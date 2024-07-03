@@ -8,14 +8,18 @@ const CandidateInfor = ({ empId }) => {
   const dispatch = useDispatch();
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
-  const offerDate = queryParams.get('offerDate') !== 'Invalid date' ? queryParams.get('offerDate') : 'N/A';
-  const offerAcceptedDate = queryParams.get('offerAcceptedDate') !== 'Invalid date' ? queryParams.get('offerAcceptedDate') : 'N/A';
-  
-
+  const offerDate =
+    queryParams.get("offerDate") !== "Invalid date"
+      ? queryParams.get("offerDate")
+      : "N/A";
+  const offerAcceptedDate =
+    queryParams.get("offerAcceptedDate") !== "Invalid date"
+      ? queryParams.get("offerAcceptedDate")
+      : "N/A";
 
   useEffect(() => {
     if (empId) {
-      dispatch(actionGetEmployeeDetails(empId));
+      dispatch(actionGetEmployeeDetails(empId, { check_location: false }));
     }
   }, [empId]);
 
@@ -29,15 +33,12 @@ const CandidateInfor = ({ empId }) => {
             Candidate Information - <span>{employeeData?.code}</span>
           </div>
         </div>
-      
+
         <div className={styles.mainFlex}>
-        <div>
-          <img
-            src={employeeData?.image}
-            alt=""
-          height={70}
-          />
-        </div>
+          <div>
+            <img src={employeeData?.image} alt=""  className={styles.imageHeightValue}/>
+          </div>
+          <div className={styles.candidateContainer}>
           <div className={styles.left}>
             <div className={styles.key}>
               <span className={styles.value}>Name:</span>
@@ -74,14 +75,13 @@ const CandidateInfor = ({ empId }) => {
             </div>
             <div className={styles.key}>
               <span className={styles.value}>Offer Date:</span>
-              {offerDate
-                ? offerDate
-                : "NA"}
+              {offerDate ? offerDate : "NA"}
             </div>
             <div className={styles.key}>
               <span className={styles.value}>DOJ:</span>
               {employeeData?.doj ? `${employeeData?.doj}` : "NA"}
             </div>
+          </div>
           </div>
         </div>
       </div>

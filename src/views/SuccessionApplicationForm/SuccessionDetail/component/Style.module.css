@@ -1,5 +1,6 @@
 .candidateInfoWrapper {
   display: flex;
+  flex-direction: column !important;
   padding: 1.2rem;
 }
 .leftField {
@@ -43,4 +44,60 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+.mobileViewImage{
+  display: none !important;
+}
+
+.bioData{
+  display: flex !important;
+  margin-top: 10px;
+}
+.imageWrapperContMobile{
+  display: none !important;
+}
+
+@media screen and (max-width:769px) {
+  .imageWrapperCont{
+    display: none !important;
+  }
+  .key {
+    display: flex;
+    flex-direction: column;
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .candidateInfoWrapper {
+    display: flex;
+    flex-direction: column !important;
+    padding: 1.2rem;
+    justify-content: space-between !important;
+  }
+  .value {
+    font-weight: 600;
+    width: fit-content !important;
+    color: black;
+    display: inline-block;
+  }
+  .mobileViewImage{
+    display: block !important;
+  }
+  .imageWrapperContMobile{
+    display: block !important;
+  }
+  .imageAlignCenter{
+    display: flex;
+    justify-content: center !important;
+  }
+  .candidateImgMobile{
+    height:100px;
+    width: 100px;
+  }
+  .bioData{
+    display: flex !important;
+    margin-top: 10px;
+    justify-content: center;
+    width: 100%;
+  }
 }

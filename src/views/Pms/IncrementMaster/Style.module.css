@@ -20,6 +20,19 @@
     justify-content: space-between;
     align-items: center;
 }
+.rightFlex{
+    display: flex;
+    align-items: center;
+  }
+.yearFlex{
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    padding-top: 20px;
+  }
+  .down{
+    flex: 0.3;
+  }
 .firstCellFlex {
     display: flex;
     align-items: center;

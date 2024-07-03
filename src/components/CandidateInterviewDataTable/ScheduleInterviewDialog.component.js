@@ -47,7 +47,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                 <div>
                     <p>Please fill the below details to schedule the interview</p>
                 </div>
-                <div className={"formFlex2"}>
+                <div className={"formFlex2"} id={styles.mobileResponsiveDataValue}>
                     <div className={"formGroup1"}>
                         <CustomDateTimePicker
                             clearable
@@ -76,7 +76,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                         />
                     </div>
                 </div >
-                <div className={"formFlex2"}>
+                <div className={"formFlex2"} id={styles.mobileResponsiveDataValue}>
                     <div className={"formGroup221"}>
                         {
                             isRecurring ? 
@@ -145,7 +145,7 @@ const ScheduleInterviewDialogComponent = ({isOpen, handleInterviewSchedule, sele
                             }}
                         />
                     </div>
-                    <div className={"formGroup1"}> </div>
+                    <div className={"formGroup1"} id={styles.formIdentity}> </div>
                 </div>
 
                 <div className={styles.cleckboxWrapper}>

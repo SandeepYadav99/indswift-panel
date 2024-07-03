@@ -63,6 +63,9 @@ const IsVehicleNo=(value)=>{
 function validateUrl(value) {
     return /^https?:\/\/[^\s/$.?#].[^\s]*$/i.test(value);
   }
+function validImageUrl(value){
+    return /^https?:\/\/.*\.(jpeg|jpg|png|gif|webp)$/i.test(value);
+}
 export {
     isUrl,
     isEmail,
@@ -78,5 +81,6 @@ export {
     IsVehicleNo,
     validateUrl,
     isNumDec,
-    isNumDecTwoPlaces
+    isNumDecTwoPlaces,
+    validImageUrl
 };

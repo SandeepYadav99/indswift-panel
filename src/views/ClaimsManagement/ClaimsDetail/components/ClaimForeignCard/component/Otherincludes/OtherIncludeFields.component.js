@@ -43,8 +43,8 @@ const OtherIncludeFields = ({
   return (
     <div>
       <div className={styles.flexContainer}>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.currency}
               errorText={errors?.currency}
@@ -59,7 +59,7 @@ const OtherIncludeFields = ({
               <MenuItem value="INR">INR</MenuItem>
             </CustomSelectField>
           </div>
-          <div className={styles.flex1}>
+          <div className={styles.formGrp}>
             <CustomSelectField
               isError={errors?.booking_by}
               errorText={errors?.booking_by}
@@ -77,8 +77,8 @@ const OtherIncludeFields = ({
             </CustomSelectField>
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <CustomDatePicker
               // disabled={!startDate ? true : false}
               clearable
@@ -90,7 +90,7 @@ const OtherIncludeFields = ({
               isError={errors?.date}
             />
           </div>
-          <div className={styles.flex12}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.details}
               onChange={handleChange}
@@ -103,8 +103,8 @@ const OtherIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.amount}
               onChange={handleChange}
@@ -116,7 +116,7 @@ const OtherIncludeFields = ({
               label={"Amount"}
             />
           </div>
-          <div className={styles.flex12}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.reason}
               onChange={handleChange}
@@ -129,8 +129,8 @@ const OtherIncludeFields = ({
             />
           </div>
         </div>
-        <div className={styles.firstRow}>
-          <div className={styles.flex1}>
+        <div className={styles.formWrp}>
+          <div className={styles.formGrp}>
             <TextField
               error={errors?.payment_made_by}
               onChange={handleChange}
@@ -141,12 +141,12 @@ const OtherIncludeFields = ({
               variant={"outlined"}
               label={"Choose currency of payment"}
             />
-            <div style={{ fontWeight: "500", textAlign: "start" }}>
+            <div className={styles.helpter}>
               Please mention the amount in spent currency and the exchange rate
               applied to reach at above currency.
             </div>
           </div>
-          <div className={styles.flex121}>
+          <div className={styles.formGrp}>
             <File
               max_size={10 * 1024 * 1024}
               type={["pdf", "jpeg", "doc", "docx", "jpg", "png"]}
@@ -167,7 +167,7 @@ const OtherIncludeFields = ({
           </div>
         </div>
         <div className={styles.firstRow221}>
-          <div className={"textCenter"}>
+        <div className={styles.btnWrap}>
             <ButtonBase
               className={styles.removeBtn}
               // label={this.props.index == 0 ? "+" : '-'}

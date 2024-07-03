@@ -1,0 +1,21 @@
+.imageTag{
+    display: block !important;
+    margin-left: 14px !important;
+}
+.imageTagHome{
+    display: none;
+}
+.imgClassHome{
+    width: 20px;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+}
+@media (max-width: 769px) {
+    .imageTagHome{
+        display: block !important;
+        width: 20px;
+        aspect-ratio: 1/1;
+        padding: 0 5px;
+    }
+}
+

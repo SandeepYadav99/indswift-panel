@@ -71,3 +71,10 @@
     margin-left: 10px;
     overflow: hidden;
 }
+
+@media only screen and (max-width:769px){
+    .outerFlex{
+        display: flex;
+        flex-direction: column !important;
+    } 
+}

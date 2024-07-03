@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem, ButtonBase, CircularProgress } from "@material-ui/core";
+import {ButtonBase, CircularProgress, MenuItem} from "@material-ui/core";
 import styles from "../Style.module.css";
 import useEmployeeView from "./EmployeeViewHook.js";
 import CustomSelectField from "../../../../../../components/FormFields/SelectField/SelectField.component";
@@ -7,7 +7,7 @@ import CustomDatePicker from "../../../../../../components/FormFields/DatePicker
 import CustomTextField from "../../../../../../components/FormFields/TextField/TextField.component";
 import File from "../../../../../../components/FileComponent/FileComponent.component";
 
-const EmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
+const EmployeeView = ({ closeSidePanel, Formtype, employee_record_id }) => {
   const {
     form,
     changeTextData,
@@ -17,7 +17,6 @@ const EmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
     isSubmitting,
   } = useEmployeeView({ closeSidePanel, Formtype, employee_record_id });
 
-  
   return (
     <div>
       <div className={"formFlex"}>
@@ -78,7 +77,7 @@ const EmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
         </div>
         <div className={"formGroup2"}>
           <CustomDatePicker
-            clearable
+            cleara
             name="date_of_issue"
             label={"Date Of issue"}
             maxDate={new Date()}
@@ -91,7 +90,7 @@ const EmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
         </div>
       </div>
 
-      <div className={"formFlex"} style={{alignItems:'center'}}>
+      <div className={"formFlex"} style={{ alignItems: "center" }}>
         <div className={"formGroup2"}>
           <File
             max_size={5 * 1024 * 1024}
@@ -132,29 +131,28 @@ const EmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
           />
         </div>
       </div>
-      {
-        Formtype === "STAR" && <div className={"formFlex"}>
-        <div className={"formGroup2"}>
-          <CustomTextField
-            isError={errorData?.description}
-            errorText={errorData?.description}
-            label={'Description'}
-            name="description"
-            value={form?.new_values?.description}
-            onTextChange={(text) => {
-              changeTextData(text, "description");
-            }}
-            onBlur={() => {
-              onBlurHandler("description");
-            }}
-            multiline
-            rows={2}
-          />
+      {Formtype === "STAR" && (
+        <div className={"formFlex"}>
+          <div className={"formGroup2"}>
+            <CustomTextField
+              isError={errorData?.description}
+              errorText={errorData?.description}
+              label={"Description"}
+              name="description"
+              value={form?.new_values?.description}
+              onTextChange={(text) => {
+                changeTextData(text, "description");
+              }}
+              onBlur={() => {
+                onBlurHandler("description");
+              }}
+              multiline
+              rows={2}
+            />
+          </div>
+          {/* <div className={"formGroup2"}></div> */}
         </div>
-        {/* <div className={"formGroup2"}></div> */}
-      </div>
-      }
-      
+      )}
 
       <div className={styles.generate}>
         <ButtonBase
@@ -169,7 +167,6 @@ const EmployeeView = ({ closeSidePanel, Formtype , employee_record_id}) => {
           ) : (
             "ADD"
           )}
-
         </ButtonBase>
       </div>
       {Formtype !== "RECORD" && (

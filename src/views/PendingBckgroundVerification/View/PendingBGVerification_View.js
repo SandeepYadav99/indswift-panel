@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+import DataTables from "../../../components/Datatables/datatables";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
@@ -141,9 +141,9 @@ const PendingBGVerification_View = ({ location }) => {
         label: "NAME",
         sortable: false,
         render: (value, all) => (
-          <>
-            <b>{all?.emp_name}</b> <br /> {all?.emp_code}
-          </>
+          <div>
+            <b>{all?.emp_name}</b> <br /> <b>{all?.employeeObj?.emp_code}</b>
+          </div>
         ),
       },
       {
@@ -200,7 +200,7 @@ const PendingBGVerification_View = ({ location }) => {
       },
       {
         key: "status",
-        label: "STATUS",
+        label: "BGV STATUS",
         sortable: false,
         render: (temp, all) => (
           <div style={{ width: "8rem" }}>
@@ -308,7 +308,7 @@ const PendingBGVerification_View = ({ location }) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
-          <div>
+          <div className={styles.upper}>
             <span className={styles.title}>
               Pending Background Verification List
             </span>
@@ -316,7 +316,7 @@ const PendingBGVerification_View = ({ location }) => {
           </div>
 
           <div className={styles.rightFlex}>
-          <ButtonBase
+            <ButtonBase
               className={styles.download}
               onClick={() => {
                 handleBgvReportDownloadAll();
@@ -333,7 +333,7 @@ const PendingBGVerification_View = ({ location }) => {
               PAYMENTS RECORD
             </ButtonBase>
             <ButtonBase
-              className={styles.edit}
+              className={styles.downloadbgv}
               onClick={() => {
                 handleBgvAnalysisReport();
               }}
@@ -351,14 +351,14 @@ const PendingBGVerification_View = ({ location }) => {
             handleFilterDataChange={handleFilterDataChange}
           />
 
-          <div style={{ width: "100%" }}>
-            <DataTables
-              {...tableData.datatable}
-              {...tableData.datatableFunctions}
-            />
-          </div>
         </div>
       </PageBox>
+      <div style={{ width: "100%" }}>
+        <DataTables
+          {...tableData.datatable}
+          {...tableData.datatableFunctions}
+        />
+      </div>
     </div>
   );
 };

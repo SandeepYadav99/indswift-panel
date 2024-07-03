@@ -4,13 +4,14 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../Datatables/Datatable.table";
+import DataTables from "../../components/Datatables/datatables";
 import Constants from "../../config/constants";
 import FilterComponent from "../../components/Filter/Filter.component";
 import StatusPill from "../../components/Status/StatusPill.component";
 import useFullFinalApproval from "./FullFinalApproval.hook";
 import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import { InfoOutlined } from "@material-ui/icons";
+import RolesUtils from "../../libs/Roles.utils";
 
 const FullFinalApproval = ({}) => {
   const {
@@ -198,6 +199,9 @@ const FullFinalApproval = ({}) => {
     data,
     currentPage,
   ]);
+  const isCorporateAccountant = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR,Constants.ROLES.ACCOUNTANT], user?.role);
+  }, [user?.role]);
 
   return (
     <div>
@@ -207,7 +211,7 @@ const FullFinalApproval = ({}) => {
             <span className={styles.title}>Full & Final Pending Approval</span>
             <div className={styles.newLine} />
           </div>
-          {(user?.role === "CORPORATE_HR" || user?.role === "ACCOUNTANT") && (
+          {isCorporateAccountant && (
             <ButtonBase
               // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
@@ -226,17 +230,17 @@ const FullFinalApproval = ({}) => {
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
-          <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <DataTables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
         </div>
       </PageBox>
+      <div>
+        <br />
+        <div style={{ width: "100%" }}>
+          <DataTables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          />
+        </div>
+      </div>
     </div>
   );
 };

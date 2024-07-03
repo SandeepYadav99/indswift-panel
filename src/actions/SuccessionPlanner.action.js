@@ -57,7 +57,7 @@ export function actionSetPageSuccessionPlaner(page,year) {
   const query = stateData.query;
   const queryData = stateData.query_data;
   const serverPage = stateData.serverPage;
-  
+
   if (totalLength <= (page + 1) * constants.PAGE_VALUE) {
     store.dispatch(
       actionFetchSuccessionPlaner(serverPage + 1, sortingData, {

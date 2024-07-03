@@ -1,7 +1,7 @@
 /**
  * Created by charnjeetelectrovese@gmail.com on 12/17/2019.
  */
-import React, { Component } from 'react';
+import React, {Component, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
@@ -13,8 +13,10 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import {Snackbar} from "@material-ui/core";
+import {Button, Snackbar} from "@material-ui/core";
 import EventEmitter from "../libs/Events.utils";
+import historyUtils from "../libs/history.utils";
+import LogUtils from "../libs/LogUtils";
 
 const variantIcon = {
     success: CheckCircleIcon,
@@ -47,6 +49,9 @@ const useStyles1 = makeStyles(theme => ({
         opacity: 0.9,
         marginRight: theme.spacing(1),
     },
+    bgColor: {
+        color: theme.palette.white.light
+    },
     message: {
         display: 'flex',
         alignItems: 'center',
@@ -57,6 +62,25 @@ function MySnackbarContentWrapper(props) {
     const classes = useStyles1();
     const { className, message, onClose, variant, ...other } = props;
     const Icon = variantIcon[variant];
+
+    const action = useMemo(() => {
+        if (props?.link) {
+            return (
+                <Button onClick={() => {
+                    const link = props.link;
+                    const url = new URL(link);
+                    if (url) {
+                        historyUtils.push(url.pathname);
+                        onClose();
+                    }
+                }} color="bgColor" className={classes.bgColor} size="small">
+                    Open
+                </Button>
+            );
+        } else {
+            return null;
+        }
+    }, [props.link, onClose]);
 
     return (
         <SnackbarContent
@@ -69,6 +93,7 @@ function MySnackbarContentWrapper(props) {
         </span>
             }
             action={[
+                props?.link ? action : (<></>),
                 <IconButton key="close" aria-label="close" color="inherit" onClick={onClose}>
                     <CloseIcon className={classes.icon} />
                 </IconButton>,
@@ -93,6 +118,7 @@ class DashboardSnackbar extends Component {
             snackbar: false,
             message: '',
             variant: 'none',
+            link: ''
         }
         this._handleError = this._handleError.bind(this);
         this._handleSnackBarClose = this._handleSnackBarClose.bind(this);
@@ -106,6 +132,7 @@ class DashboardSnackbar extends Component {
             snackbar: true,
             message: data.error,
             variant: data.type,
+            link: data.link
         })
     }
     _handleSnackBarClose () {
@@ -139,6 +166,7 @@ class DashboardSnackbar extends Component {
                     onClose={this._handleSnackBarClose}
                     variant={this.state.variant}
                     message={this.state.message}
+                    link={this.state.link}
                 />
             </Snackbar>
         )

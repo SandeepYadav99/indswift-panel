@@ -195,7 +195,7 @@ const useNextYearSuccessionPlanner = ({ jobId ,listData}) => {
       if (!res.error) {
         SnackbarUtils?.success("Send Successfully");
         setIsSend(false);
-        // window.location.reload();
+        window.location.reload();
       }
     });
   }, []);

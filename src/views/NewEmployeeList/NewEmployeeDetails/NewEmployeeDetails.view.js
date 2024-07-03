@@ -14,6 +14,7 @@ import SalaryInfo from "../../Employees/components/Profile/SalaryInfo/SalaryInfo
 import useNewEmployeeDetails from "./NewEmployeeDetails.hook";
 import RejectDialog from "./component/RejectPopUp/RejectDialog.view";
 import DialogComponent from "./component/Dialog.component";
+import UpperInfoNewEmployee from "../../Employees/UpperInfoForNewEmployee";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -87,7 +88,7 @@ const NewEmployeeDetail = () => {
         </div>
         <br />
         <div>
-          <UpperInfo
+          <UpperInfoNewEmployee
             data={employeeData}
             // isResetDialog={isResetDialog}
             handleStatusToggle={toggleStatusDialog}

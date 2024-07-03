@@ -52,7 +52,12 @@
     color: black;
     display: inline-block;
 }
-
+.value21{
+    font-weight: 600;
+    width: 150px;
+    color: black;
+    display: inline-block; 
+}
 .newContainer{
     font-size: 0.7rem;
 }
@@ -138,3 +143,15 @@
 .info{
     margin-left: 10px;
 }
+@media (max-width: 767px) {
+    .key {
+        display: flex;
+        flex-direction: column;
+      }
+      .vertical{
+        display: none;
+      }
+      .value21{
+        width: auto;
+      }
+    }

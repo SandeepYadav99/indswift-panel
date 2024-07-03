@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import useFullDetail from "./FullDetail.hook";
 import styles from "./Style.module.css";
 import history from "../../../libs/history.utils";
@@ -20,8 +20,10 @@ function FullDetail() {
     id,
     EditForm,
   } = useFullDetail({});
+
+
   return (
-    <div>
+    <div className="fullDetailWrapper" id="content-to-print">
       <div className={styles.outerFlex}>
         <ApproveDialog
           candidateId={id}
@@ -73,6 +75,7 @@ function FullDetail() {
       </div>
 
       {employeeDetail?.status === "PENDING" && (
+        <div className={styles.LowerApp}>
         <div
           className={
             employeeDetail?.status === "APPROVED"
@@ -90,7 +93,7 @@ function FullDetail() {
             {(employeeDetail?.fullAndFinal?.status === "PENDING" ||
               employeeDetail?.fullAndFinal?.status ===
                 "CORPORATE_AUDIT_2_APPROVED") && (
-              <div>
+              <div className= {styles.approvWrapp}>
                 <ButtonBase className={styles.editChange} onClick={EditForm}>
                   CHANGE AND APPROVE
                 </ButtonBase>
@@ -105,6 +108,18 @@ function FullDetail() {
                 APPROVE
               </ButtonBase>
             </div>
+          </div>
+        </div>
+        <div className={styles.mobApprove}>
+        {(employeeDetail?.fullAndFinal?.status === "PENDING" ||
+              employeeDetail?.fullAndFinal?.status ===
+                "CORPORATE_AUDIT_2_APPROVED") && (
+              <div className= {styles.innerApprove}>
+                <ButtonBase className={styles.editChangeApp} onClick={EditForm}>
+                  CHANGE AND APPROVE
+                </ButtonBase>
+              </div>
+            )}
           </div>
         </div>
       )}

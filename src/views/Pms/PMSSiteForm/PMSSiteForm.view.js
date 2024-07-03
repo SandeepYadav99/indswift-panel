@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import styles from "./Style.module.css";
 import logo from "../../../assets/img/login logo@2x.png";
 import {IconButton, Tooltip,makeStyles } from "@material-ui/core";
@@ -11,6 +11,7 @@ import ConfirmDialog from "./component/ConfirmDialog/ConfirmDialog.view";
 import LogUtils from "../../../libs/LogUtils";
 import FormInput from "../PmsForm/component/FormInput/FormInput";
 import usePMSSiteForm from "./PMSSiteForm.hook"
+import MobileDialog from "../../../components/MobileDialog/MobileDialog.view";
 const useStyles = makeStyles((theme) => ({
     customTooltip: {
       backgroundColor: 'white',
@@ -140,6 +141,18 @@ const TableHead = ({columns}) => {
 }
 
 const PMSSiteForm = ({location}) => {
+    const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+    const handleResize = () => {
+    setInnerWidth(window.innerWidth);
+    };
+    useEffect(() => {
+     window.addEventListener("resize", handleResize);
+     return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+     }, []);
+    const isMobile = innerWidth <= 768;
+
     const {
         columns,
         rows,
@@ -156,7 +169,9 @@ const PMSSiteForm = ({location}) => {
         onBlurHandler
     } = usePMSSiteForm({location});
 
-
+    if(isMobile){
+        return <MobileDialog isOpen={true}/>
+    }
     return (
         <div>
             <div className={styles.pmsformWrap}>

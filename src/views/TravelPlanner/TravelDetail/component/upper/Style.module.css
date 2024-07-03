@@ -74,7 +74,7 @@
 }
 .value {
   font-weight: 600;
-  width: 180px;
+  width: 120px;
   color: black;
   display: inline-block;
 }
@@ -175,4 +175,14 @@
   color: #818181;
   font-weight: 500;
   margin-bottom: 7px;
+}
+
+@media only screen and (max-width:769px){
+  .key{
+    display: flex;
+    flex-direction: column;
+    color: #818181;
+    font-weight: 500;
+    margin-bottom: 7px;
+  }
 }
