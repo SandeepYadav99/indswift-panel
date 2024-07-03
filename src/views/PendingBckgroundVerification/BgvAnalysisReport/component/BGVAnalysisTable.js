@@ -56,13 +56,13 @@ const TableView = ({ tableDatas }) => {
                   <td>{groupedData[date]?.bgv_status?.INCOMPLETE}</td>
                   <td>{groupedData[date]?.count}</td>
                   {/* BGV REULT LIST */}
-                  <td>{groupedData[date]?.bgv_result?.CLEAR}</td>
+                  <td>{groupedData[date]?.bgv_result?.CLEAR || 0}</td>
                   <td>{groupedData[date]?.bgv_result?.FAILED || 0}</td>
                   <td>{groupedData[date]?.bgv_result?.INPROCESS || 0}</td>
                   <td>{groupedData[date]?.bgv_result?.PENDING || 0}</td>
                   <td>{groupedData[date]?.count}</td>
                   {/* BGV PAYMENT STATUS */}
-                  <td>{groupedData[date]?.payment_status?.CLEAR}</td>
+                  <td>{groupedData[date]?.payment_status?.CLEAR || 0}</td>
                   <td>{groupedData[date]?.payment_status?.PENDING || 0}</td>
                   <td>{groupedData[date]?.payment_status?.INPROGRESS || 0}</td>
                   <td>{groupedData[date]?.count}</td>
