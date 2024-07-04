@@ -2,7 +2,14 @@ import React, { useMemo, useState } from "react";
 import styles from "./Style.module.css";
 import { removeUnderScore } from "../../../../../helper/helper";
 
-const CustomTable = ({ columns, data, title, prevYear, sheetData , isSheet}) => {
+const CustomTable = ({
+  columns,
+  currentYearData,
+  title,
+  prevYearData,
+  sheetData,
+  isSheet,
+}) => {
   const renderCell = (item, column) => {
     if (typeof column.render === "function") {
       return column.render(item);
@@ -12,28 +19,28 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData , isSheet}) => 
 
   const reducedPercentageSum = useMemo(
     () =>
-      data?.reduce((acc, item) => {
+      currentYearData?.reduce((acc, item) => {
         return acc + item?.ratings?.percentage || 0;
       }, 0),
-    [data]
+    [currentYearData]
   );
 
-  const averagePercentage = reducedPercentageSum / data?.length;
+  const averagePercentage = reducedPercentageSum / currentYearData?.length;
 
   const reducedPrevYearPercentageSum = useMemo(
     () =>
-      prevYear?.reduce((acc, item) => {
+      prevYearData?.reduce((acc, item) => {
         return acc + item?.ratings?.percentage || 0;
       }, 0),
-    [prevYear]
+    [prevYearData]
   );
 
-  const averagePrevYear = reducedPrevYearPercentageSum / prevYear?.length;
+  const averagePrevYear = reducedPrevYearPercentageSum / prevYearData?.length;
 
-  const changeBy = averagePercentage - averagePrevYear;
+  const changeBy = averagePercentage || 0 - averagePrevYear || 0;
 
   const changeBySheed =
-    sheetData?.final_rating - sheetData?.last_year_final_rating;
+    sheetData?.final_rating || 0 - sheetData?.last_year_final_rating || 0;
 
   return (
     <table className={styles.table}>
@@ -52,16 +59,21 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData , isSheet}) => 
             column.key === "test" ? (
               <th key={column.key}>{column.title}</th>
             ) : (
-              <th key={column.key} className={styles.thead}>
+              <th
+                key={column.key}
+                colSpan={
+                  column.key === "test" ? 1 : columns?.length > 2 ? 1 : 2
+                }
+                className={styles.thead}
+              >
                 {column.title}
-               
               </th>
             )
           )}
         </tr>
       </thead>
       <tbody>
-        {data?.map((item, index) => (
+        {currentYearData?.map((item, index) => (
           <tr
             key={index}
             className={
@@ -72,7 +84,13 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData , isSheet}) => 
           >
             {columns?.map((column) => (
               <>
-                <td key={column.key} className={styles.columData}>
+                <td
+                  key={column.key}
+                  className={styles.columData}
+                  colSpan={
+                    column.key === "test" ? 1 : columns?.length > 2 ? 1 : 2
+                  }
+                >
                   {renderCell(
                     column?.dataSource ? column?.dataSource[index] : item,
                     column
@@ -88,23 +106,31 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData , isSheet}) => 
           <td className={styles.columData}>
             <div className={styles.labelhead}>Total</div>
           </td>
-          <td className={styles.columData}>
-            <div className={styles.label}>
-              {isSheet
-                ? sheetData?.last_year_final_rating
-                : averagePrevYear?.toFixed(2)}
-              %
-            </div>
-          </td>
-          <td className={styles.columData}>
-            <div className={styles.label}>
-              {" "}
-              {isSheet
-                ? sheetData?.final_rating
-                : averagePercentage?.toFixed(2)}
-              %
-            </div>
-          </td>
+          {sheetData?.last_year || averagePrevYear ? (
+            <td className={styles.columData}>
+              <div className={styles.label}>
+                {isSheet
+                  ? sheetData?.last_year_final_rating
+                  : averagePrevYear?.toFixed(2)}
+                %
+              </div>
+            </td>
+          ) : (
+            ""
+          )}
+          {sheetData?.year || averagePercentage ? (
+            <td className={styles.columData}>
+              <div className={styles.label}>
+                {" "}
+                {isSheet
+                  ? sheetData?.final_rating
+                  : averagePercentage?.toFixed(2)}
+                %
+              </div>
+            </td>
+          ) : (
+            ""
+          )}
         </tr>
         <tr className={styles.blueField}>
           <td className={styles.columData}>
@@ -113,10 +139,7 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData , isSheet}) => 
 
           <td className={styles.columData} colSpan="2">
             <div className={styles.label}>
-              {isSheet
-                ? changeBySheed.toFixed(2)
-                : changeBy?.toFixed(2)}
-              %
+              {isSheet ? changeBySheed.toFixed(2) : changeBy?.toFixed(2)}%
             </div>
           </td>
         </tr>
@@ -125,7 +148,13 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData , isSheet}) => 
   );
 };
 
-function AwardTable({ data, title, prevYear, sheetData , isSheet}) {
+function AwardTable({
+  currentYearData,
+  title,
+  prevYearData,
+  sheetData,
+  isSheet,
+}) {
   const [columns, setColumns] = useState([
     {
       key: "test",
@@ -134,23 +163,31 @@ function AwardTable({ data, title, prevYear, sheetData , isSheet}) {
         <div className={styles.labelhead}>{removeUnderScore(all?.title)}</div>
       ),
     },
-    {
-      key: sheetData?.last_year,
-      title: sheetData?.last_year,
-      dataSource: prevYear,
-      render: (all) => (
-        <div className={styles.label}>{all?.ratings?.percentage}%</div>
-      ),
-    },
-    {
-      key: sheetData?.year,
-      title: sheetData?.year,
-      
-      dataSource: data,
-      render: (all) => (
-        <div className={styles.label}>{all?.ratings?.percentage}%</div>
-      ),
-    },
+    ...(sheetData?.last_year
+      ? [
+          {
+            key: "2023",
+            title: "2023",
+            dataSource: prevYearData,
+            render: (all) => (
+              <div className={styles.label}>{all?.ratings?.percentage}%</div>
+            ),
+          },
+        ]
+      : []),
+    ...(sheetData?.year
+      ? [
+          {
+            key: "2024",
+            title: "2024",
+
+            dataSource: currentYearData,
+            render: (all) => (
+              <div className={styles.label}>{all?.ratings?.percentage}%</div>
+            ),
+          },
+        ]
+      : []),
   ]);
   return (
     <div>
@@ -158,8 +195,8 @@ function AwardTable({ data, title, prevYear, sheetData , isSheet}) {
         <CustomTable
           title={title}
           columns={columns}
-          data={data}
-          prevYear={prevYear}
+          currentYearData={currentYearData}
+          prevYearData={prevYearData}
           sheetData={sheetData}
           isSheet={isSheet}
         />
