@@ -48,40 +48,10 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
             {renderCell(item, column)}
           </td>
           </>
-           
           )}
         </tr>
       ))}
-      {/* {prevYear?.map((prevItem, index) => (
-        <tr
-          key={`${prevItem.key}-${index}`}
-          className={
-            prevItem?.key === "avg" || prevItem?.key === "count"
-              ? styles.blueField
-              : styles.evenRow
-          }
-        >
-          {columns?.map((column) => {
-            if (column.key === "2023") {
-              return (
-                <td
-                  key={`${prevItem.key}-${column.key}`}
-                  className={styles.columData}
-                >
-                  {renderCell(prevItem, column)}
-                </td>
-              );
-            } else {
-              return (
-                <td
-                  key={`${prevItem.key}-${column.key}`}
-                  className={styles.columData}
-                ></td>
-              );
-            }
-          })}
-        </tr>
-      ))} */}
+
     </>
   );
 
@@ -110,7 +80,7 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
         </tr>
       </thead>
       <tbody>
-        {/* {data?.map((item, index) => (
+     {data?.map((item, index) => (
           <tr
             key={index}
             className={
@@ -120,17 +90,19 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
             }
           >
             {columns?.map((column) => (
-              <td key={column.key} className={styles.columData}>
-                {renderCell(item, column)}
-              </td>
+                <>
+                  <td key={column.key} className={styles.columData}>
+                    {renderCell(column?.dataSource ? column?.dataSource[index] : item, column)}
+                  </td>
+                </>
             ))}
           </tr>
-        ))} */}
+     ))}
 
-        {renderTableBody()}
+     {/*{renderTableBody()}*/}
       </tbody>
       <tfoot>
-        <tr className={styles.blueField}>
+      <tr className={styles.blueField}>
           <td className={styles.columData}>
             <div className={styles.labelhead}>Total</div>
           </td>
@@ -170,13 +142,15 @@ function AwardTable({ data, title, prevYear, sheetData }) {
     {
       key: "2023",
       title: "2023",
-      // render: (all) => (
-      //   <div className={styles.label}>{all?.ratings?.percentage}%</div>
-      // ),
+      dataSource: prevYear,
+      render: (all) => (
+        <div className={styles.label}>{all?.ratings?.percentage}%</div>
+      ),
     },
     {
       key: "2024",
       title: "2024",
+      dataSource: data,
       render: (all) => (
         <div className={styles.label}>{all?.ratings?.percentage}%</div>
       ),
