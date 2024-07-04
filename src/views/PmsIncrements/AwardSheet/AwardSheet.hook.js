@@ -46,16 +46,20 @@ const useAwardSheet = ({}) => {
     const { id } = useParams();
     const [isFetching, setIsFetching] = useState(true);
     const [ratingData, setRatingData] = useState([]);
+    const [prevYearRatingData, setPrevYearRatingData] = useState([]);
     const [group4Data, setGroup4Data] = useState(data);
     const [empData, setEmpData] = useState({form_type: 'TYPE_4'});
     const [isLoad, setIsLoad] = useState(false);
-
+const [sheetData, setSheetData]=useState(null)
     useEffect(() => {
         serviceGetEmployeePmsRatings({employee_id: id}).then((res) => {
             if (!res.error) {
+               
                 setGroup4Data(res?.data?.four_b_ratings);
                 setRatingData(res?.data?.ratings);
                 setEmpData(res?.data?.employee);
+                setPrevYearRatingData(res?.data?.last_year_ratings)
+                setSheetData(res?.data)
                 // if (res?.data?.employee?.form_type === 'TYPE_4') {
                 //     setTimeout(() => {
                 //         setIsLoad(true);
@@ -72,7 +76,9 @@ const useAwardSheet = ({}) => {
         group4Data,
         isFetching,
         empData,
-        isLoad
+        isLoad,
+        prevYearRatingData,
+        sheetData
     };
 };
 

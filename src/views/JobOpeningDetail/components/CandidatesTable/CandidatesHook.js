@@ -38,6 +38,7 @@ const useCandidatesList = ({jobId}) => {
         //         return val;
         //     }
         // });
+        console.log(data)
         if (from <= data.length) {
             to = to <= data.length ? to : data.length;
             setCurrentData(data.slice(from, to));

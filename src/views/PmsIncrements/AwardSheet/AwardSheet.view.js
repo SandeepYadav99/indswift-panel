@@ -56,7 +56,7 @@ const Header = ({ empData }) => {
   );
 };
 const AwardSheetView = ({}) => {
-  const { group4Data, ratingData, isFetching, empData, isLoad } = useAwardSheet(
+  const { group4Data, ratingData, isFetching, empData, isLoad , prevYearRatingData, sheetData} = useAwardSheet(
     {}
   );
 
@@ -82,10 +82,21 @@ const AwardSheetView = ({}) => {
         <AwardTable
           title="Functional Performance Index (FARS)"
           data={ratingData?.fars}
+          prevYear={prevYearRatingData?.fars}
+          sheetData={sheetData}
+          isSheet={false}
         />
         <AwardTable
           title="Behavioural Performance Index (BARS)"
           data={ratingData?.bars}
+          prevYear={prevYearRatingData?.bars}
+          sheetData={sheetData}
+          isSheet={false}
+        />
+         <AwardTable
+          title="Total Score on Goal Sheet-A"
+          sheetData={sheetData}
+          isSheet={true}
         />
         <p className={styles.txtJustify}>
           Any competency that scores less than 85 % is an improvement area for
