@@ -9,51 +9,31 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
     }
     return item[column.key];
   };
-  let reducedPercentageSum = data?.reduce((acc, item) => {
-    return acc + item?.ratings?.percentage || 0;
-  }, 0);
-  let averagePercentage = reducedPercentageSum / data?.length;
-  console.log(averagePercentage);
 
-  let reducedPrevYearPercentageSum = prevYear?.reduce((acc, item) => {
-    return acc + item?.ratings?.percentage || 0;
-  }, 0);
-  let averagePrevYear = reducedPrevYearPercentageSum / prevYear?.length;
+  const reducedPercentageSum = useMemo(
+    () =>
+      data?.reduce((acc, item) => {
+        return acc + item?.ratings?.percentage || 0;
+      }, 0),
+    [data]
+  );
+
+  const averagePercentage = reducedPercentageSum / data?.length;
+
+  const reducedPrevYearPercentageSum = useMemo(
+    () =>
+      prevYear?.reduce((acc, item) => {
+        return acc + item?.ratings?.percentage || 0;
+      }, 0),
+    [prevYear]
+  );
+
+  const averagePrevYear = reducedPrevYearPercentageSum / prevYear?.length;
 
   const changeBy = averagePercentage - averagePrevYear;
 
-  const renderTableBody = () => (
-    <>
-      {data?.map((item, index) => (
-        <tr
-          key={index}
-          className={
-            item?.key === "avg" || item?.key === "count"
-              ? styles.blueField
-              : styles.evenRow
-          }
-        >
-          {columns?.map((column) =>
-          <>
-           <td
-            key={`${item.key}-${column.key}`}
-            className={styles.columData}
-          >
-            {renderCell(prevYear[index], column)}
-          </td>
-           <td
-            key={`${item.key}-${column.key}`}
-            className={styles.columData}
-          >
-            {renderCell(item, column)}
-          </td>
-          </>
-          )}
-        </tr>
-      ))}
-
-    </>
-  );
+  const changeBySheed =
+    sheetData?.final_rating - sheetData?.last_year_final_rating;
 
   return (
     <table className={styles.table}>
@@ -80,7 +60,7 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
         </tr>
       </thead>
       <tbody>
-     {data?.map((item, index) => (
+        {data?.map((item, index) => (
           <tr
             key={index}
             className={
@@ -90,29 +70,38 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
             }
           >
             {columns?.map((column) => (
-                <>
-                  <td key={column.key} className={styles.columData}>
-                    {renderCell(column?.dataSource ? column?.dataSource[index] : item, column)}
-                  </td>
-                </>
+              <>
+                <td key={column.key} className={styles.columData}>
+                  {renderCell(
+                    column?.dataSource ? column?.dataSource[index] : item,
+                    column
+                  )}
+                </td>
+              </>
             ))}
           </tr>
-     ))}
-
-     {/*{renderTableBody()}*/}
+        ))}
       </tbody>
       <tfoot>
-      <tr className={styles.blueField}>
+        <tr className={styles.blueField}>
           <td className={styles.columData}>
             <div className={styles.labelhead}>Total</div>
           </td>
           <td className={styles.columData}>
-            <div className={styles.label}>{averagePrevYear?.toFixed(2)}%</div>
+            <div className={styles.label}>
+              {sheetData?.last_year
+                ? sheetData?.last_year_final_rating
+                : averagePrevYear?.toFixed(2)}
+              %
+            </div>
           </td>
           <td className={styles.columData}>
             <div className={styles.label}>
               {" "}
-              {averagePercentage?.toFixed(2)}%
+              {sheetData?.year
+                ? sheetData?.final_rating
+                : averagePercentage?.toFixed(2)}
+              %
             </div>
           </td>
         </tr>
@@ -122,7 +111,12 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
           </td>
 
           <td className={styles.columData} colSpan="2">
-            <div className={styles.label}>{changeBy?.toFixed(2)}%</div>
+            <div className={styles.label}>
+              {sheetData?.year && sheetData?.last_year
+                ? changeBySheed.toFixed(2)
+                : changeBy?.toFixed(2)}
+              %
+            </div>
           </td>
         </tr>
       </tfoot>
