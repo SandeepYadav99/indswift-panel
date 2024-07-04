@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import styles from "./Style.module.css";
 import { removeUnderScore } from "../../../../../helper/helper";
 
-const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
+const CustomTable = ({ columns, data, title, prevYear, sheetData , isSheet}) => {
   const renderCell = (item, column) => {
     if (typeof column.render === "function") {
       return column.render(item);
@@ -54,6 +54,7 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
             ) : (
               <th key={column.key} className={styles.thead}>
                 {column.title}
+               
               </th>
             )
           )}
@@ -89,7 +90,7 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
           </td>
           <td className={styles.columData}>
             <div className={styles.label}>
-              {sheetData?.last_year
+              {isSheet
                 ? sheetData?.last_year_final_rating
                 : averagePrevYear?.toFixed(2)}
               %
@@ -98,7 +99,7 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
           <td className={styles.columData}>
             <div className={styles.label}>
               {" "}
-              {sheetData?.year
+              {isSheet
                 ? sheetData?.final_rating
                 : averagePercentage?.toFixed(2)}
               %
@@ -112,7 +113,7 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
 
           <td className={styles.columData} colSpan="2">
             <div className={styles.label}>
-              {sheetData?.year && sheetData?.last_year
+              {isSheet
                 ? changeBySheed.toFixed(2)
                 : changeBy?.toFixed(2)}
               %
@@ -124,7 +125,7 @@ const CustomTable = ({ columns, data, title, prevYear, sheetData }) => {
   );
 };
 
-function AwardTable({ data, title, prevYear, sheetData }) {
+function AwardTable({ data, title, prevYear, sheetData , isSheet}) {
   const [columns, setColumns] = useState([
     {
       key: "test",
@@ -134,16 +135,17 @@ function AwardTable({ data, title, prevYear, sheetData }) {
       ),
     },
     {
-      key: "2023",
-      title: "2023",
+      key: sheetData?.last_year,
+      title: sheetData?.last_year,
       dataSource: prevYear,
       render: (all) => (
         <div className={styles.label}>{all?.ratings?.percentage}%</div>
       ),
     },
     {
-      key: "2024",
-      title: "2024",
+      key: sheetData?.year,
+      title: sheetData?.year,
+      
       dataSource: data,
       render: (all) => (
         <div className={styles.label}>{all?.ratings?.percentage}%</div>
@@ -159,6 +161,7 @@ function AwardTable({ data, title, prevYear, sheetData }) {
           data={data}
           prevYear={prevYear}
           sheetData={sheetData}
+          isSheet={isSheet}
         />
       }
     </div>
