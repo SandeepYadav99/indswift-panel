@@ -19,6 +19,7 @@ const CustomTable = ({
 
   const reducedPercentageSum = useMemo(
     () =>
+      sheetData?.last_year &&
       currentYearData?.reduce((acc, item) => {
         return acc + item?.ratings?.percentage || 0;
       }, 0),
@@ -29,7 +30,7 @@ const CustomTable = ({
 
   const reducedPrevYearPercentageSum = useMemo(
     () =>
-      prevYearData?.reduce((acc, item) => {
+    sheetData?.prevYearData &&  prevYearData?.reduce((acc, item) => {
         return acc + item?.ratings?.percentage || 0;
       }, 0),
     [prevYearData]
