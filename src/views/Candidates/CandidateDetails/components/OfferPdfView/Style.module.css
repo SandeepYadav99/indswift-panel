@@ -18,6 +18,10 @@
   width: 100%;
   background: #16161663 0% 0% no-repeat padding-box;
 }
+.pdfWrap{
+  display: flex;
+  flex-direction: column;
+}
 .editBtn2 {
   display: flex;
   justify-content: space-between;
@@ -46,12 +50,27 @@
   background: #ffffff;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 20px;
   padding: 1.2rem 0;
   position: absolute;
   /* top: 0; */
   bottom: 0px;
+}
+.checkBox {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 0.8rem;
+  align-items: center;
+  margin-left: 20px;
+  color: #161616;
+  /* color: #2896E9; */
+  font-weight: 500;
+}
+.btnWrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .pdfBtnShared{
   background: #ffffff;
