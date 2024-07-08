@@ -19,30 +19,37 @@ const CustomTable = ({
 
   const reducedPercentageSum = useMemo(
     () =>
-      sheetData?.last_year &&
+      currentYearData &&
       currentYearData?.reduce((acc, item) => {
         return acc + item?.ratings?.percentage || 0;
       }, 0),
     [currentYearData]
   );
 
-  const averagePercentage = reducedPercentageSum / currentYearData?.length;
+  const averageCurrentYearPercentage =
+    reducedPercentageSum / currentYearData?.length;
 
   const reducedPrevYearPercentageSum = useMemo(
     () =>
-    sheetData?.prevYearData &&  prevYearData?.reduce((acc, item) => {
+      prevYearData &&
+      prevYearData?.reduce((acc, item) => {
         return acc + item?.ratings?.percentage || 0;
       }, 0),
     [prevYearData]
   );
 
   const averagePrevYear = reducedPrevYearPercentageSum / prevYearData?.length;
+  
+// Change by
+const changeBy = useMemo(()=>{
+  return averageCurrentYearPercentage || 0 - averagePrevYear || 0;
+},[averageCurrentYearPercentage, averagePrevYear]);
 
-  const changeBy = averagePercentage || 0 - averagePrevYear || 0;
-
-  const changeBySheed =
-    sheetData?.final_rating || 0 - sheetData?.last_year_final_rating || 0;
-
+// Goal Sheet-A
+    const changeBySheed = useMemo(()=>{
+      return sheetData?.final_rating || 0 - sheetData?.last_year_final_rating || 0;
+    },[sheetData?.final_rating, sheetData?.last_year_final_rating]);
+    
   return (
     <table className={styles.table}>
       <thead>
@@ -119,13 +126,13 @@ const CustomTable = ({
           ) : (
             ""
           )}
-          {sheetData?.year || averagePercentage ? (
+          {sheetData?.year || averageCurrentYearPercentage ? (
             <td className={styles.columData}>
               <div className={styles.label}>
                 {" "}
                 {isSheet
                   ? sheetData?.final_rating
-                  : averagePercentage?.toFixed(2)}
+                  : averageCurrentYearPercentage?.toFixed(2)}
                 %
               </div>
             </td>
