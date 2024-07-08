@@ -17,7 +17,7 @@ import WaitingComponent from "../../../components/Waiting.component";
 import sign from "../../../assets/img/sign.png";
 
 const Header = ({ empData , sheetData}) => {
-  const {year}=sheetData;
+  const {year}=sheetData || {};
   
   const lostTwoDeigit = useMemo(()=>{
     const currentYear = year?.toString()
