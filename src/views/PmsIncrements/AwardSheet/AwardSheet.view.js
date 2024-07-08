@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Radar,
   RadarChart,
@@ -16,7 +16,14 @@ import GroupCTable from "./component/GroupCTable/GroupCTable.view";
 import WaitingComponent from "../../../components/Waiting.component";
 import sign from "../../../assets/img/sign.png";
 
-const Header = ({ empData }) => {
+const Header = ({ empData , sheetData}) => {
+  const {year}=sheetData || {};
+  
+  const lostTwoDeigit = useMemo(()=>{
+    const currentYear = year?.toString()
+    return currentYear?.slice(-2)
+  },[year])
+ 
   return (
     <>
       <div className={styles.upperWrapper}>
@@ -27,7 +34,7 @@ const Header = ({ empData }) => {
           <div className={styles.textWrap}>
             <div className={styles.wrap}>
               <strong>Performance Feedback Sheet</strong>
-              <span>For Performance cycle: Apr-22 to Mar-23</span>
+              <span>For Performance cycle: Apr-{lostTwoDeigit-1} to Mar-{lostTwoDeigit}</span>
             </div>
           </div>
         </div>
@@ -67,7 +74,7 @@ const AwardSheetView = ({}) => {
   return (
     <div id="content-to-print" className={styles.awardWrrap}>
       <div className={styles.mainContainer}>
-        <Header empData={empData} />
+        <Header empData={empData} sheetData={sheetData}/>
         <span className={styles.heading}>
           <u>Goal Sheet-A</u>
         </span>
@@ -81,15 +88,15 @@ const AwardSheetView = ({}) => {
 
         <AwardTable
           title="Functional Performance Index (FARS)"
-          data={ratingData?.fars}
-          prevYear={prevYearRatingData?.fars}
+          currentYearData={ratingData?.fars}
+          prevYearData={prevYearRatingData?.fars}
           sheetData={sheetData}
           isSheet={false}
         />
         <AwardTable
           title="Behavioural Performance Index (BARS)"
-          data={ratingData?.bars}
-          prevYear={prevYearRatingData?.bars}
+          currentYearData={ratingData?.bars}
+          prevYearData={prevYearRatingData?.bars}
           sheetData={sheetData}
           isSheet={false}
         />
