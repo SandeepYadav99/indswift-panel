@@ -15,6 +15,8 @@ import useNewEmployeeDetails from "./NewEmployeeDetails.hook";
 import RejectDialog from "./component/RejectPopUp/RejectDialog.view";
 import DialogComponent from "./component/Dialog.component";
 import UpperInfoNewEmployee from "../../Employees/UpperInfoForNewEmployee";
+import historyUtils from "../../../libs/history.utils";
+import RouteName from "../../../routes/Route.name";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -67,6 +69,12 @@ const NewEmployeeDetail = () => {
     },
     [setValue, value]
   );
+  const handleRouteChange = useCallback(()=>{
+    historyUtils.push(
+      `${RouteName.NEW_EMPLOYEE_UPDATE}${employeeData?.id}`,
+    );
+  },[employeeData])
+
   return (
     <div>
       <div className={"container"}>
@@ -133,10 +141,19 @@ const NewEmployeeDetail = () => {
                   </div>
 
                   <div className={styles.btnApproveWrapper}>
-                    <div>
+                  <div>
                       <ButtonBase
                         // disabled={isSubmitting}
                         className={styles.editSuccess}
+                        onClick={handleRouteChange}
+                      >
+                        CHANGE & APPROVE
+                      </ButtonBase>
+                    </div>
+                    <div>
+                      <ButtonBase
+                        // disabled={isSubmitting}
+                        className={styles.editSuccessBg}
                         onClick={toggleStatusDialog}
                       >
                         APPROVE

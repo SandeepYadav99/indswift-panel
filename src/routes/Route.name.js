@@ -77,6 +77,7 @@ export default {
   EMPLOYEE_RECORD_APPROVALs:"/employee/record/approvals",
   NEW_EMPLOYEES:"/new/employee",
   NEW_EMPLOYEE_DETAIL: "/new/employee/details/",
+  NEW_EMPLOYEE_UPDATE: "/new/employees/update/",
 
 
   EAF_LOGIN: '/eaf/login',

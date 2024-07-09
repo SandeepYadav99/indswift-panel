@@ -159,6 +159,14 @@
   border-radius: 30px !important;
   font-weight: 600 !important;
 }
+.editSuccessBg{
+  color: #ffffff !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+  background: #29CB97 0% 0% no-repeat padding-box;
+border: 2px solid #29CB97;
+}
 .pdfBtnShared {
   background: #ffffff;
   width: 100%;

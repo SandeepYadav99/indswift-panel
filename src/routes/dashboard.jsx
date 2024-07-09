@@ -12,6 +12,7 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+const NewEmployeeEdit = lazy(()=> import("../views/NewEmployeeList/NewEmployeeDetails/NewEmployeeEdit/NewEmployeeEdit.js"));
 const CloneClaimsList = lazy(()=> import ("../views/AdminClaimManagement/CloneClaimsList/CloneClaimsList.container.js"));
 const CloneExitInterviewList = lazy(()=> import ("../views/ExitInterview/CloneExitInterviewList/CloneExitInterviewList.container.js"));
 const CloneFullFinalApproval = lazy (()=> import ("../views/Full&FinalApproval/CloneFull&FInalApproval/CloneFullFinalApproval.component.js"));
@@ -1463,6 +1464,15 @@ const dashboardRoutes = [
     is_protect: true,
     // should_regex: true,
     roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
+  },
+  {
+    path: `${RouteName.NEW_EMPLOYEE_UPDATE}:id`,
+    icon: AssignmentOutlined,
+    component: NewEmployeeEdit,
+    is_sidebar: false,
+    is_protect: true,
+    // should_regex: true,
+    // roles: [Roles.ADMIN,Roles.HR, Roles.CORPORATE_HR],
   },
   {
     path: `${RouteName.EMPLOYEE_DETAIL}:id`,
