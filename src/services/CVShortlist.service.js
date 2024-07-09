@@ -20,3 +20,6 @@ export async function serviceSendOlrReminder(params) {
 export async function serviceSendIrfReminder(params) {
     return await postRequest('candidate/irf/share', params);
 }
+export async function serviceRejectUpdateJO(params) {
+    return await postRequest('job/openings/update/send/rejection', params);
+}

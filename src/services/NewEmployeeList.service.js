@@ -23,3 +23,6 @@ export async function serviceGetNewEmployeeReject(params) {
 export async function serviceGetNewEmployeeApprove(params) {
   return await postRequest("employees/pending/approve", params);
 }
+export async function serviceGetNewEmployeeApproveFD(params) {
+  return await formDataRequest("employees/pending/approve", params);
+}
