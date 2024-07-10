@@ -73,7 +73,7 @@ const AttendanceReportInputFiled = () => {
               changeTextData(value, "location_id");
             }}
           >
-            <MenuItem value={"All_Employees"}>All Employees</MenuItem>;
+            <MenuItem value={"All_Designation"}>All Designation</MenuItem>;
           </CustomSelectField>
         </div>
         <div className={"formGroup"}>
