@@ -128,7 +128,7 @@ function useCandidateDetails() {
         id: candidateData?.id,
       }).then((res) => {
         if (!res.error) {
-          SnackbarUtils.success("Request send");
+          // SnackbarUtils.success("Request send");
         }
       });
     }
