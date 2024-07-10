@@ -320,8 +320,12 @@ function NewEmployeeEditHook() {
       listData.EMPLOYEES = listData.EMPLOYEES.filter((emp) => emp.id !== id);
       setListData(listData);
       const updatedSalValue = {};
-      SALARY_KEYS?.forEach((key) => {
-        updatedSalValue[key] = salaryRes[key];
+      salaryInfo?.forEach((key) => {
+        if (BOOLEAN_KEYS.includes(key)) {
+          updatedSalValue[key] = salaryRes[key] ? "YES" : "NO";
+        } else {
+          updatedSalValue[key] = salaryRes[key];
+        }
       });
       const data = { image: "" };
       const hodIndex = listData?.EMPLOYEES.findIndex(
@@ -352,7 +356,7 @@ function NewEmployeeEditHook() {
       Object.keys({ ...initialForm }).forEach((key) => {
         if (
           key in initialForm &&
-          ![...SALARY_KEYS, ...AutoCompKeys]?.includes(key) &&
+          ![...salaryInfo, ...AutoCompKeys]?.includes(key) &&
           key !== "image"
         ) {
           if (key === "is_transport_facility") {
@@ -365,8 +369,6 @@ function NewEmployeeEditHook() {
             data[key] = empData?.[DropDownKeys[key]]?.id || "";
           } else if (Object.keys({ ...bankInfo }).includes(key)) {
             data[key] = empData?.bank?.[bankInfo[key]] || "";
-          } else if (BOOLEAN_KEYS.includes(key)) {
-            data[key] = empData[key] ? "YES" : "NO";
           } else if (key === "state") {
             data[key] = empData[key]?.toUpperCase();
           } else if (key === "current_address") {
@@ -392,6 +394,7 @@ function NewEmployeeEditHook() {
           }
         }
       });
+      const childrenInfo = empData?.children?.length > 0 ? empData?.children : []
       const IdentityData = empData?.identity_date;
       const contactInfo = empData?.contact;
       const familyInfo = empData?.family;
@@ -402,6 +405,7 @@ function NewEmployeeEditHook() {
         ...contactInfo,
         ...familyInfo,
         ...updatedSalValue,
+        children:childrenInfo
       });
       setImage(empData?.image ? empData?.image : null);
       setIsLoading(false);

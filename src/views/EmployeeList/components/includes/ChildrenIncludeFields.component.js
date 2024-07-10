@@ -103,7 +103,7 @@ const changeTextData=(value,key)=>{
               name="dob"
               clearable
               label={"Child DOB"}
-              maxDate={new Date()}
+              // maxDate={new Date()}
               // onChange={handleChange}
               // minDate={new Date()}
                 onChange={(date) => {
