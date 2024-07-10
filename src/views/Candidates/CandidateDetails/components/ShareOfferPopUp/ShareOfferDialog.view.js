@@ -51,9 +51,11 @@ const ShareOfferDialog = ({ isOpen, handleToggle, offerId, pdf,candidateStatus,h
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <PdfViewer isSubmitting={isSubmitting} handleShare={handleShare} handleToggle={handleToggle} candidateStatus={candidateStatus} handleCheckbox={handleCheckbox}>
+        {
+          isOpen &&  <PdfViewer isSubmitting={isSubmitting} handleShare={handleShare} handleToggle={handleToggle} candidateStatus={candidateStatus} handleCheckbox={handleCheckbox}>
           <ViewDocuments location={{state: { url: pdf }}} />
         </PdfViewer>
+        }
       </Dialog>
     </div>
   );

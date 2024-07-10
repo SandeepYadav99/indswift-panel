@@ -41,7 +41,6 @@ const NewEmployeeEdit = ({}) => {
     filteredCadres,
     getLevelValues,
     ChildenRef,
-    editData,
     isLoading,
     toggleStatusDialog,
     isUpdateDialog,
@@ -76,7 +75,7 @@ const NewEmployeeEdit = ({}) => {
         }}
       />
     );
-  }, [form?.image, editData?.image, changeTextData]);
+  }, [form?.image, changeTextData]);
 
   if (isLoading) {
     return <WaitingComponent />;
@@ -2227,7 +2226,7 @@ const NewEmployeeEdit = ({}) => {
                 <p className="tags">Inactive</p>
                 <CustomSwitch
                   disabled
-                  value={editData?.status === Constants.GENERAL_STATUS.ACTIVE}
+                  // value={editData?.status === Constants.GENERAL_STATUS.ACTIVE}
                   handleChange={() => {
                     changeTextData(!form?.is_active, "is_active");
                   }}

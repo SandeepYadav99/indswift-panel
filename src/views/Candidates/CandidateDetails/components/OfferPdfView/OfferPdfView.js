@@ -1,6 +1,6 @@
 import { ButtonBase } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Style.module.css";
 function PdfViewer({
   children,
@@ -11,6 +11,11 @@ function PdfViewer({
   handleCheckbox,
 }) {
   const [checkBox, setCheckBox] = useState(true);
+
+  useEffect(()=>{
+    handleCheckbox(checkBox)
+  },[])
+  
   return (
     <div className={styles.PdfViewWrapper}>
       <div className={styles.innerPdfCont}>

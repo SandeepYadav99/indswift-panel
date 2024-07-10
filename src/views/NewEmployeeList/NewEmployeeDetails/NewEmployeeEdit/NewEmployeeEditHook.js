@@ -31,8 +31,12 @@ import debounce from "lodash.debounce";
 import { useSelector } from "react-redux";
 import Constants from "../../../../config/constants";
 import RolesUtils from "../../../../libs/Roles.utils";
-import { serviceGetNewEmployeeApproveFD, serviceGetNewEmployeeDetails } from "../../../../services/NewEmployeeList.service";
+import {
+  serviceGetNewEmployeeApproveFD,
+  serviceGetNewEmployeeDetails,
+} from "../../../../services/NewEmployeeList.service";
 import RouteName from "../../../../routes/Route.name";
+import { serviceGetPendingEmployeeSalaryInfo } from "../../../../services/employeeSalaryInfo.service";
 
 const SALARY_KEYS = [
   "basic_salary",
@@ -235,13 +239,30 @@ const initialForm = {
   gross_component: 0,
   deputation_allowance: 0,
   nps_part_e: 0,
-  salary_notes: "",
+};
+
+const DropDownKeys = {
+  location_id: "location",
+  grade_id: "grade",
+  department_id: "department",
+  sub_department_id: "sub_department",
+  cadre_id: "cadre",
+};
+const AutoCompKeys = [
+  "hod_id",
+  "pms_reviewer_id",
+  "job_role_id",
+  "designation_id",
+];
+const bankInfo = {
+  bank_account_no: "account_no",
+  bank_name: "name",
+  ifsc: "ifsc",
 };
 
 function NewEmployeeEditHook() {
   const [isLoading, setIsLoading] = useState(true);
   const [form, setForm] = useState({ ...initialForm });
-  const [editData, setEditData] = useState({});
   const [errorData, setErrorData] = useState({});
   const [isUpdateDialog, setIsUpdateDialog] = useState(false);
   const [isAcceptDialog, setIsAcceptDialog] = useState(false);
@@ -291,74 +312,101 @@ function NewEmployeeEditHook() {
         "LEVEL",
       ]),
       serviceGetNewEmployeeDetails({ emp_id: id }),
+      serviceGetPendingEmployeeSalaryInfo({ emp_id: id, index: 1 }),
     ]).then((promises) => {
       const listData = promises[0]?.value?.data;
       const empData = promises[1]?.value?.data;
+      const salaryRes = promises[2]?.value?.data;
       listData.EMPLOYEES = listData.EMPLOYEES.filter((emp) => emp.id !== id);
       setListData(listData);
+      const updatedSalValue = {};
+      SALARY_KEYS?.forEach((key) => {
+        updatedSalValue[key] = salaryRes[key];
+      });
+      const data = { image: "" };
       const hodIndex = listData?.EMPLOYEES.findIndex(
         (val) => val.id === empData?.hod_id
       );
       if (hodIndex >= 0) {
-        empData.hod_id = listData?.EMPLOYEES[hodIndex];
+        data.hod_id = listData?.EMPLOYEES[hodIndex];
       }
       const pmsIndex = listData?.EMPLOYEES.findIndex(
-        (val) => val.id === empData?.pms_reviewer_id
+        (val) => val.id === empData?.pms_reviewer?.id
       );
       if (pmsIndex >= 0) {
-        empData.pms_reviewer_id = listData?.EMPLOYEES[pmsIndex];
+        data.pms_reviewer_id = listData?.EMPLOYEES[pmsIndex];
       }
       const jobRoleIndex = listData?.JOB_ROLES.findIndex(
         (val) => val.id === empData?.job_role_id
       );
       if (jobRoleIndex >= 0) {
-        empData.job_role_id = listData?.JOB_ROLES[jobRoleIndex];
+        data.job_role_id = listData?.JOB_ROLES[jobRoleIndex];
       }
 
       const designationIndex = listData?.DESIGNATIONS.findIndex(
         (val) => val.id === empData?.designation_id
       );
       if (designationIndex >= 0) {
-        empData.designation_id = listData?.DESIGNATIONS[designationIndex];
+        data.designation_id = listData?.DESIGNATIONS[designationIndex];
       }
-      const transportvalue = empData?.is_transport_facility
-        ? "availed"
-        : "notavailed";
-      const updatedForm = {};
-      for (const key in empData) {
-        if (BOOLEAN_KEYS.includes(key)) {
-          updatedForm[key] = empData[key] ? "YES" : "NO";
+      Object.keys({ ...initialForm }).forEach((key) => {
+        if (
+          key in initialForm &&
+          ![...SALARY_KEYS, ...AutoCompKeys]?.includes(key) &&
+          key !== "image"
+        ) {
+          if (key === "is_transport_facility") {
+            data[key] = empData["is_transport_facility"]
+              ? "availed"
+              : "notavailed";
+          } else if (["rc_number", "variant"]?.includes(key)) {
+            data[key] = empData?.vehicle?.[key] || "";
+          } else if (Object.keys({ ...DropDownKeys }).includes(key)) {
+            data[key] = empData?.[DropDownKeys[key]]?.id || "";
+          } else if (Object.keys({ ...bankInfo }).includes(key)) {
+            data[key] = empData?.bank?.[bankInfo[key]] || "";
+          } else if (BOOLEAN_KEYS.includes(key)) {
+            data[key] = empData[key] ? "YES" : "NO";
+          } else if (key === "state") {
+            data[key] = empData[key]?.toUpperCase();
+          } else if (key === "current_address") {
+            data[key] = empData?.address?.["current"];
+          } else if (key === "permanent_address") {
+            data[key] = empData?.address?.["permanent"];
+          } else if (key === "previous_organisation") {
+            data[key] = empData?.experience?.["previous_organisation"];
+          } else if (key === "before_experience") {
+            data[key] = empData?.experience?.["before"];
+          } else if (key === "previous_review_date") {
+            data[key] =
+              (empData?.pms_reviewer?.["previous_review_date"] !== "N/A" &&
+                empData?.pms_reviewer?.["previous_review_date"]) ||
+              null;
+          } else if (key === "next_review_date") {
+            data[key] =
+              (empData?.pms_reviewer?.["next_review_date"] !== "N/A" &&
+                empData?.pms_reviewer?.["next_review_date"]) ||
+              null;
+          } else {
+            data[key] = (empData[key] !== "N/A" && empData[key]) || "";
+          }
         }
-      }
-      const vehicleValue = empData?.vehicle;
-      delete empData?.vehicle;
+      });
+      const IdentityData = empData?.identity_date;
+      const contactInfo = empData?.contact;
+      const familyInfo = empData?.family;
       setForm({
         ...initialForm,
-        ...empData,
-        image: "",
-        is_transport_facility: transportvalue,
-        ...vehicleValue,
-        ...updatedForm,
-        salary_notes: "",
-      });
-      setEditData({
-        ...initialForm,
-        ...empData,
-        image: "",
-        is_transport_facility: transportvalue,
-        ...vehicleValue,
-        ...updatedForm,
+        ...data,
+        ...IdentityData,
+        ...contactInfo,
+        ...familyInfo,
+        ...updatedSalValue,
       });
       setImage(empData?.image ? empData?.image : null);
       setIsLoading(false);
     });
   }, [id]);
-
-  useEffect(() => {
-    if (!isUpdateDialog) {
-      setForm({ ...form, salary_notes: "" });
-    }
-  }, [isUpdateDialog]);
 
   console.log("form", form);
   const checkFormValidation = useCallback(() => {
@@ -374,42 +422,25 @@ function NewEmployeeEditHook() {
       "sub_department_id",
       "hod_id",
       "pms_reviewer_id",
-      // "next_review_date",
-      // "previous_review_date",
       "gender",
       "dob",
-      // "job_role_id",
       "state",
       "blood_group",
-      // "official_contact",
       "personal_contact",
-      // "official_email",
-      // "personal_email",
-      // "higher_education",
       "martial_status",
-      // "dom",
       "father_name",
       "mother_name",
-      // "spouse_name",
-      // "spouse_dob",
       "permanent_address",
       "current_address",
       "pan_no",
       "aadhar_no",
-      // "bank_account_name",
-      // "bank_account_no",
-      // "bank_name",
-      // "ifsc",
       "before_experience",
-      // "company_experience",
-      // "total_experience",
       "previous_organisation",
       "uan_no",
       "father_state",
       "father_dob",
       "mother_dob",
       "mother_state",
-      // "esi_no",
       ...SALARY_KEYS,
     ];
     required.forEach((val) => {
@@ -667,7 +698,7 @@ function NewEmployeeEditHook() {
       const vehicleObj = {};
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if(key !=="image"){
+        if (key !== "image") {
           LogUtils.log("key", key);
           if (
             [
@@ -686,12 +717,12 @@ function NewEmployeeEditHook() {
             fd.append(key, form[key] === "YES");
           } else if (["variant", "rc_number"].includes(key)) {
             vehicleObj[key] = form[key];
-          } else if (typeof(form[key]) === "string") {
+          } else if (typeof form[key] === "string") {
             fd.append(key, form[key]);
           }
         }
       });
-      fd.append("is_update",true)
+      fd.append("is_update", true);
       if (vehicleObj) {
         fd.append("vehicle", JSON.stringify(vehicleObj));
       }
@@ -714,7 +745,7 @@ function NewEmployeeEditHook() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, id, editData, setIsSubmitting, SalaryField]);
+  }, [form, isSubmitting, id, setIsSubmitting, SalaryField]);
 
   const handleSubmit = useCallback(
     async (status) => {
@@ -797,7 +828,6 @@ function NewEmployeeEditHook() {
     getLevelValues,
     filteredAssociateJobRole,
     ChildenRef,
-    editData,
     isLoading,
     toggleStatusDialog,
     isUpdateDialog,
