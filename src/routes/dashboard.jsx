@@ -481,7 +481,7 @@ const NotificationCreateModule = lazy(()=>import("../views/NotificationModule/Se
 const MobileLandingPage = lazy(()=>import("../views/MobileLandingPage/MobileLandingPage.component.js"))
 const TestView = lazy(()=>import("../views/test/Test.view"))
 const SubscribeView = lazy(()=>import("../views/Subscribe/SubscribeView.js"))
-
+const CalendarList = lazy(()=>import("../views/PayrollManagement/Calendar/List/CalendarList.js"))
 const Roles = Constants.ROLES;
 const Modules= Constants.MODULES;
 
@@ -2950,7 +2950,26 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: false,
   },
-  
+  {
+    path: "null",
+    sidebarName: "Payroll Management",
+    navbarName: "Payroll Management",
+    icon: EventNote,
+    is_sidebar: true,
+    slug: "payroll",
+    is_parent: true,
+    // roles: [Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.CALENDAR,
+    sidebarName: "Calendar",
+    navbarName: "Calendar",
+    icon: EventNote,
+    is_sidebar: true,
+    parent:"payroll",
+    component:CalendarList
+    // roles: [Roles.CORPORATE_HR],
+  },
 ];
 
 export default dashboardRoutes;
