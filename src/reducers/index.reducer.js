@@ -98,6 +98,8 @@ import TravelAuthSpecReducer from "./TravelAuthSpec.reducer";
 import NotificationReducer from "./Notification.reducer";
 import NotificationModuleReducer from "./NotificationModule.reducer";
 import TaxListReducer from "./TaxList.reducer";
+import ShiftsReducer from "./Shifts.reducer";
+import AssociatedEmployeesReducer from "./AssociatedEmployees.reducer";
 
 
 const rootReducer = combineReducers({
@@ -194,8 +196,10 @@ const rootReducer = combineReducers({
   travelAuthSpec: TravelAuthSpecReducer,
   notification:NotificationReducer,
   notification_module:NotificationModuleReducer,
-  tax_list:TaxListReducer
+  tax_list:TaxListReducer,
   // form: formReducer,
+  Shifts:ShiftsReducer, 
+   associatedEmployee:AssociatedEmployeesReducer
 });
 
 export default rootReducer;

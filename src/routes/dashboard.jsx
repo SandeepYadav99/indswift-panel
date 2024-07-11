@@ -12,6 +12,8 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+import ShiftDetail from "../views/PayrollManagement/ShiftManagement/ShiftDetail/ShiftDetail.js";
+import AddEmployeeTable from "../views/PayrollManagement/ShiftManagement/AssociatedEmployees/Component/AddEmployeeTable/AddEmployeeTable.component.js";
 
 const SuccessionPlanDetail = lazy(()=>import ("../views/SuccessionDetail/SuccessionDetail.view.js"));
 const PMSMasterAdmin = lazy(()=>import("../views/PMSMasterAdmin/PMSMasterAdmin.view.js"));
@@ -483,6 +485,8 @@ const TestView = lazy(()=>import("../views/test/Test.view"))
 const SubscribeView = lazy(()=>import("../views/Subscribe/SubscribeView.js"))
 const CalendarList = lazy(()=>import("../views/PayrollManagement/Calendar/List/CalendarList.js"));
 const AttendanceReport = lazy(()=>import("../views/PayrollManagement/AttendanceReport/AttendanceReport.js"))
+
+const ShiftsLists = lazy(()=>import("../views/PayrollManagement/ShiftManagement/Lists/ShiftsLists.js"))
 const Roles = Constants.ROLES;
 const Modules= Constants.MODULES;
 
@@ -2980,6 +2984,34 @@ const dashboardRoutes = [
     parent:"payroll",
     component:AttendanceReport
     // roles: [Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.SHIFTS,
+    sidebarName: "Shift Management",
+    navbarName: "Shift Management",
+    icon: EventNote,
+    is_sidebar: true,
+    parent:"payroll",
+    component:ShiftsLists
+    // roles: [Roles.CORPORATE_HR], AddEmployeeTable
+  },
+  {
+    path: `${RouteName.SHIFTS_DETAILS}:id`,
+    navbarName: "Shift Management",
+    component: ShiftDetail,
+    is_protect: true,
+    should_regex: true,
+    parent: "payroll",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
+    path: `${RouteName.ADD_EMPLOYEE}`,
+    navbarName: "Shift Management",
+    component: AddEmployeeTable,
+    is_protect: true,
+    should_regex: true,
+    parent: "payroll",
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
 ];
 
