@@ -26,7 +26,6 @@ import useDebounce from "../../../../hooks/DebounceHook";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../libs/history.utils";
 import LogUtils from "../../../../libs/LogUtils";
-import { serviceEditEmployeeVersion } from "../../../../services/EmployeeEdit.service";
 import debounce from "lodash.debounce";
 import { useSelector } from "react-redux";
 import Constants from "../../../../config/constants";
@@ -266,7 +265,6 @@ function NewEmployeeEditHook() {
   const [errorData, setErrorData] = useState({});
   const [isUpdateDialog, setIsUpdateDialog] = useState(false);
   const [isAcceptDialog, setIsAcceptDialog] = useState(false);
-  const [SalaryField, setSalaryField] = useState(false);
   const { id } = useParams();
   const changedFields = useRef([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -394,7 +392,8 @@ function NewEmployeeEditHook() {
           }
         }
       });
-      const childrenInfo = empData?.children?.length > 0 ? empData?.children : []
+      const childrenInfo =
+        empData?.children?.length > 0 ? empData?.children : [];
       const IdentityData = empData?.identity_date;
       const contactInfo = empData?.contact;
       const familyInfo = empData?.family;
@@ -404,15 +403,23 @@ function NewEmployeeEditHook() {
         ...IdentityData,
         ...contactInfo,
         ...familyInfo,
+        father_dod:
+          (familyInfo?.father_dod !== "N/A" && familyInfo?.father_dod) || null,
+        mother_dod:
+          (familyInfo?.mother_dod !== "N/A" && familyInfo?.mother_dod) || null,
+        spouse_dob:
+          (familyInfo?.spouse_dob !== "N/A" && familyInfo?.spouse_dob) || null,
+        spouse_gender:
+          (familyInfo?.spouse_gender !== "-" && familyInfo?.spouse_gender) ||
+          null,
         ...updatedSalValue,
-        children:childrenInfo
+        children: childrenInfo,
       });
       setImage(empData?.image ? empData?.image : null);
       setIsLoading(false);
     });
   }, [id]);
 
-  console.log("form", form);
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
     const required = [
@@ -498,7 +505,7 @@ function NewEmployeeEditHook() {
       }
     });
     return errors;
-  }, [form, errorData, SalaryField]);
+  }, [form, errorData]);
 
   const removeError = useCallback(
     (title) => {
@@ -641,17 +648,6 @@ function NewEmployeeEditHook() {
       if (changedFields.current.indexOf(fieldName) < 0) {
         changedFields.current = [...changedFields.current, fieldName];
       }
-      if (
-        [
-          ...salaryInfo,
-          "grade_id",
-          "cadre_id",
-          "designation_id",
-          "location_id",
-        ]?.includes(fieldName)
-      ) {
-        setSalaryField(true);
-      }
       shouldRemoveError && removeError(fieldName);
     },
     [
@@ -659,8 +655,6 @@ function NewEmployeeEditHook() {
       form,
       setForm,
       checkSalaryInfoDebouncer,
-      SalaryField,
-      setSalaryField,
     ]
   );
   const checkCodeValidation = useCallback(() => {
@@ -749,12 +743,11 @@ function NewEmployeeEditHook() {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, id, setIsSubmitting, SalaryField]);
+  }, [form, isSubmitting, id, setIsSubmitting]);
 
   const handleSubmit = useCallback(
     async (status) => {
       const errors = checkFormValidation();
-      console.log("errors", errors);
       const isIncludesValid = ChildenRef.current.isValid();
       if (Object.keys(errors)?.length > 0 || !isIncludesValid) {
         setErrorData(errors);
@@ -767,8 +760,6 @@ function NewEmployeeEditHook() {
       setErrorData,
       ChildenRef.current,
       form,
-      SalaryField,
-      // includeRef.current
     ]
   );
 
@@ -835,7 +826,6 @@ function NewEmployeeEditHook() {
     isLoading,
     toggleStatusDialog,
     isUpdateDialog,
-    SalaryField,
     role,
     isSubmitting,
     isCorporateHR,

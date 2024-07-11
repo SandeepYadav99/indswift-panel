@@ -44,7 +44,6 @@ const NewEmployeeEdit = ({}) => {
     isLoading,
     toggleStatusDialog,
     isUpdateDialog,
-    SalaryField,
     role,
     isSubmitting,
     isCorporateHR,
