@@ -269,4 +269,6 @@ export default {
   SUBSCRIBE_PAGE:'/subscribe',
   PMS_MASTER_ADMIN: "/pms/masters/admin",
 
+  CONTENT_LIST:"/content/list",
+  LETTERHEAD_LIST:"/letterhead/list"
 };
