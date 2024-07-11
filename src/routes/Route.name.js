@@ -269,4 +269,6 @@ export default {
   SUBSCRIBE_PAGE:'/subscribe',
   PMS_MASTER_ADMIN: "/pms/masters/admin",
 
+  CALENDAR:"/calendar",
+  ATTENDANCE_REPORT:"/attendance/report"
 };
