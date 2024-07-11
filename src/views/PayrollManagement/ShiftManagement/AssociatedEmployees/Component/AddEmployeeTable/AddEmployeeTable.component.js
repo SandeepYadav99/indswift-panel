@@ -1,5 +1,5 @@
 import React, { Component, useCallback, useMemo, useState } from "react";
-import { ButtonBase, Checkbox, CircularProgress } from "@material-ui/core";
+import { ButtonBase, Checkbox, CircularProgress, TextField } from "@material-ui/core";
 import styles from "./Style.module.css";
 import DataTables from "../../../../../../Datatables/Datatable.table";
 import Constants from "../../../../../../config/constants";
@@ -9,6 +9,11 @@ import StatusPill from "../../../../../../components/Status/StatusPill.component
 import { removeUnderScore } from "../../../../../../helper/helper";
 import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../../../../libs/history.utils";
+import CustomSelectField from "../../../../../../components/FormFields/SelectField/SelectField.component";
+import AutoCompleteText from "../../../../../../components/FormFields/AutoCompleteText/AutoCompleteText";
+import CustomAutoComplete from "../../../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
+import AutoCompleteChip from "../../../../../../components/FormFields/AutoCompleteText/AutoCompleteChip";
+import { Autocomplete } from "@material-ui/lab";
 const AddEmployeeTable = ({ handleClose }) => {
   const {
     handleSortOrderChange,
@@ -29,6 +34,10 @@ const AddEmployeeTable = ({ handleClose }) => {
     isFetching,
     isSubmitting,
     handleSubmit,
+    changeTextData,
+    form,
+    employees,
+    errorData
   } = useAddEmployeeTable({ handleClose });
 
   const renderStatus = useCallback((status) => {
@@ -156,7 +165,30 @@ const AddEmployeeTable = ({ handleClose }) => {
       <div className={styles.sliderWrapperContainer}>
         <div className={styles.empDetails}>Employee Details</div>
         <div>
-          
+        <div className={"formGroup"}>
+        <Autocomplete
+           freeSolo
+           multiple
+             value={form?.location_aplly}
+              options={employees ? employees : []}
+              getOptionLabel={(option) => option?.label}
+              // onChange={(event, newValue) => {
+              //   changeTextData()
+              // })
+              onChange={(event, newValue) => {
+                changeTextData(newValue, "location_aplly");
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Locations Applicable"
+                 
+                />
+              )}
+              size="small"
+            />
+          </div>
         </div>
         <div>
           <FilterComponent

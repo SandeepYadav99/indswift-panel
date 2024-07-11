@@ -12,8 +12,6 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
-import ShiftDetail from "../views/PayrollManagement/ShiftManagement/ShiftDetail/ShiftDetail.js";
-import AddEmployeeTable from "../views/PayrollManagement/ShiftManagement/AssociatedEmployees/Component/AddEmployeeTable/AddEmployeeTable.component.js";
 
 const SuccessionPlanDetail = lazy(()=>import ("../views/SuccessionDetail/SuccessionDetail.view.js"));
 const PMSMasterAdmin = lazy(()=>import("../views/PMSMasterAdmin/PMSMasterAdmin.view.js"));
@@ -487,6 +485,9 @@ const CalendarList = lazy(()=>import("../views/PayrollManagement/Calendar/List/C
 const AttendanceReport = lazy(()=>import("../views/PayrollManagement/AttendanceReport/AttendanceReport.js"))
 
 const ShiftsLists = lazy(()=>import("../views/PayrollManagement/ShiftManagement/Lists/ShiftsLists.js"))
+const AddEmployeeTable = lazy(()=>import("../views/PayrollManagement/ShiftManagement/AssociatedEmployees/Component/AddEmployeeTable/AddEmployeeTable.component.js"))
+
+const ShiftDetail = lazy(()=>import("../views/PayrollManagement/ShiftManagement/ShiftDetail/ShiftDetail.js"))
 const Roles = Constants.ROLES;
 const Modules= Constants.MODULES;
 
@@ -3011,6 +3012,7 @@ const dashboardRoutes = [
     is_protect: true,
     should_regex: true,
     parent: "payroll",
+   
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
 ];

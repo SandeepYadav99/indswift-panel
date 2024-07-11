@@ -10,6 +10,7 @@ import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
 import { serviceAddEmployeeShift } from "../../../../../../services/Shifts.service";
 import { useParams } from "react-router";
 import { serviceGetListData } from "../../../../../../services/index.services";
+import { serviceGetList } from "../../../../../../services/Common.service";
 const employeStaticData ={
   "EMPLOYEES": [
       {
@@ -10536,6 +10537,10 @@ const employeStaticData ={
       }
   ]
 }
+
+const initForm={
+    location_aplly:[]
+}
 const useAddEmployeeTable = ({ handleClose }) => {
   const [selected, setSelected] = useState([]);
   const [allData, setAllData] = useState([]);
@@ -10546,6 +10551,18 @@ const useAddEmployeeTable = ({ handleClose }) => {
   const [isFetching, setIsFetching] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { id } = useParams();
+  const [form, setForm]=useState({...initForm});
+  const [errorData, setErrorData] = useState({});
+  const [employees, setEmployees] = useState([]);
+
+    useEffect(() => {
+    serviceGetList(["EMPLOYEES"]).then((res) => {
+      if (!res.error) {
+        setEmployees(res?.data?.EMPLOYEES);
+      }
+    });
+  }, []);
+
   const renderList = useCallback(() => {
     serviceGetListData(["EMPLOYEES"]).then((res) => {
       if (!res.error) {
@@ -10600,7 +10617,29 @@ const useAddEmployeeTable = ({ handleClose }) => {
     },
     [queryFilter]
   );
+  const removeError = useCallback(
+    (title) => {
+      const temp = JSON.parse(JSON.stringify(errorData));
+      temp[title] = false;
+      setErrorData(temp);
+    },
+    [setErrorData, errorData]
+  );
 
+  const changeTextData = useCallback(
+    (text, fieldName) => {
+      let shouldRemoveError = true;
+      const t = { ...form };
+      if (fieldName === "location_aplly") {
+        t[fieldName] = text;
+      }  else {
+        t[fieldName] = text;
+      }
+      setForm(t);
+      shouldRemoveError && removeError(fieldName);
+    },
+    [removeError, form, setForm]
+  );
   const handleSearchValueChange = useCallback(
     (value) => {
       console.log("_handleSearchValueChange", value);
@@ -10684,6 +10723,11 @@ const useAddEmployeeTable = ({ handleClose }) => {
     isFetching,
     isSubmitting,
     handleSubmit,
+    changeTextData,
+    form,
+    errorData,
+    employees
+
   };
 };
 
