@@ -5,28 +5,28 @@ import {
 } from "../libs/AxiosService.util";
 
 export async function serviceCreateLetterHead(params) {
-  return await formDataRequest("letterhead/create", params);
+  return await formDataRequest("letter/heads/create", params);
 }
 export async function serviceUpdateLetterHead(params) {
-  return await postRequest("letterhead/form/submit", params);
+  return await postRequest("letter/heads/form/submit", params);
 }
 
 export async function serviceDeleteLetterHead(params) {
-  return await postRequest("letterhead/delete", params);
+  return await postRequest("letter/heads/delete", params);
 }
 export async function serviceGetLetterHeadDetails(params) {
-  return await postRequest("letterhead/details", params);
+  return await postRequest("letter/heads/details", params);
 }
 export async function serviceGetFormDebounceDetails(params) {
-  return await postRequest("letterhead/totals", params);
+  return await postRequest("letter/heads/totals", params);
 }
 export async function serviceGetLetterHead(params) {
-  return await postRequest("letterhead", params);
+  return await postRequest("letter/heads", params);
 }
 
 export async function serviceGetEmployeeLetterHead(params) {
-  return await postRequest("letterhead");
+  return await postRequest("letter/heads");
 }
 export async function serviceExportLetterHead(params) {
-  return await postRequest("letterhead/report", params);
+  return await postRequest("letter/heads/report", params);
 }
