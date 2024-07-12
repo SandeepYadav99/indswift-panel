@@ -11,14 +11,16 @@ const UpdateAttendance = () => {
       <PageBoxComponent>
         <div className={styles.subContainer}>
           <div>
-            <AttendanceTime/>
-          </div>
-          <div><AttendaceText/></div>
-          <div>
-            <SwipButton/>
+            <AttendanceTime />
           </div>
           <div>
-            <PunchInOutBox/>
+            <AttendaceText />
+          </div>
+          <div>
+            <SwipButton />
+          </div>
+          <div>
+            <PunchInOutBox />
           </div>
         </div>
       </PageBoxComponent>

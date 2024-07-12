@@ -36,7 +36,7 @@
   margin-top: 25px !important;
 }
 .swipBtn {
-  background-color: #29cb97 !important;
+  background: transparent linear-gradient(265deg, #29CB97 0%, #12B27F 100%) 0% 0% no-repeat padding-box;
   color: #ffffff !important;
   padding: 10px 20px !important;
   font-size: 0.8rem !important;
