@@ -102,6 +102,8 @@ import CloneBGVReducer from "./CloneBGV.reducer";
 import CloneFinalFormApprovalReducer from "./CloneFinalFormApproval.reducer";
 import CloneExitInterviewReducer from "./CloneExitInterview.reducer";
 import CloneClaimsReducer from "./CloneClaims.reducer";
+import ShiftsReducer from "./Shifts.reducer";
+import AssociatedEmployeesReducer from "./AssociatedEmployees.reducer";
 
 
 const rootReducer = combineReducers({
@@ -202,8 +204,10 @@ const rootReducer = combineReducers({
   travelAuthSpec: TravelAuthSpecReducer,
   notification:NotificationReducer,
   notification_module:NotificationModuleReducer,
-  tax_list:TaxListReducer
+  tax_list:TaxListReducer,
   // form: formReducer,
+  Shifts:ShiftsReducer, 
+   associatedEmployee:AssociatedEmployeesReducer
 });
 
 export default rootReducer;

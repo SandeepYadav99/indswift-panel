@@ -270,5 +270,8 @@ export default {
   PMS_MASTER_ADMIN: "/pms/masters/admin",
 
   CALENDAR:"/calendar",
-  ATTENDANCE_REPORT:"/attendance/report"
+  ATTENDANCE_REPORT:"/attendance/report",
+   SHIFTS:"/shifts",
+     SHIFTS_DETAILS:"/shifts/detail/",
+     ADD_EMPLOYEE:"/add/employees",// Add Employees
 };
