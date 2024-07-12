@@ -170,7 +170,19 @@
     font-weight: 600 !important;
     white-space: nowrap !important;
   }
-  
+  .edit {
+    color: #29CB97 !important;
+    border: 2px solid #29CB97 !important;
+    padding: 10px 20px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+    font-size: .875rem;
+  }
+  .btnWrap{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
   .newLines {
     height: 4px;
     width: 30px;

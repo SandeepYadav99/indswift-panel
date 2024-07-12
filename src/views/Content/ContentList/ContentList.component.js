@@ -2,7 +2,7 @@ import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import { InfoOutlined, Telegram } from "@material-ui/icons";
+import { Add, InfoOutlined, Telegram } from "@material-ui/icons";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
@@ -27,6 +27,7 @@ const ContentList = ({}) => {
     handleResend,
     handleBankSheetDownload,
     role,
+    handleLetterHead
   } = useContentList({});
 
   const {
@@ -69,23 +70,13 @@ const ContentList = ({}) => {
     return [
       {
         key: "name",
-        label: "EMPLOYEE",
+        label: "REF NAME",
         sortable: false,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
-        key: "grade",
-        label: "Grade/Cadre",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.captialize}>
-            {all?.employee?.grade?.code} / {all?.employee?.cadre?.code}
-          </div>
-        ),
-      },
-      {
-        key: "location",
-        label: "Location",
+        key: "journey",
+        label: "JOURNEY",
         sortable: false,
         render: (temp, all) => (
           <div className={styles.captialize}>
@@ -94,8 +85,8 @@ const ContentList = ({}) => {
         ),
       },
       {
-        key: "designation",
-        label: "Designation",
+        key: "letterHead",
+        label: "LETTER HEAD",
         sortable: false,
         render: (temp, all) => (
           <div className={styles.captialize}>
@@ -104,20 +95,8 @@ const ContentList = ({}) => {
         ),
       },
       {
-        key: "dept",
-        label: "Dept & Sub Dept.",
-        sortable: false,
-        style: { width: "12%" },
-        render: (temp, all) => (
-          <div className={styles.captialize}>
-            {all?.employee?.department?.name}/
-            {all?.employee?.sub_department?.name}
-          </div>
-        ),
-      },
-      {
-        key: "contact",
-        label: "Contact",
+        key: "date",
+        label: "DATE",
         sortable: false,
         style: { width: "18%" },
         render: (temp, all) => (
@@ -129,32 +108,6 @@ const ContentList = ({}) => {
         label: "STATUS",
         sortable: false,
         render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
-      },
-      {
-        key: "is_taxation",
-        label: "Taxation",
-        sortable: false,
-        style: { width: "18%" },
-        render: (temp, all) => (
-          <div>{all?.taxRebate?.is_taxable ? "Taxable" : "Non taxable"}</div>
-        ),
-      },
-      {
-        key: "Last",
-        label: "FINANCIAL YEAR",
-        sortable: false,
-        style: { width: "18%" },
-        render: (temp, all) => <div>{all?.taxRebate?.fy_year}</div>,
-      },
-      {
-        key: "cd",
-        label: "CLAIM DATE",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.captialize}>
-            {all?.taxRebate?.claimDateText}
-          </div>
-        ),
       },
       {
         key: "user_id",
@@ -184,7 +137,7 @@ const ContentList = ({}) => {
               >
                 <InfoOutlined fontSize={"small"} />
               </IconButton>
-            )}  
+            )}
           </div>
         ),
       },
@@ -225,6 +178,13 @@ const ContentList = ({}) => {
             <span className={styles.title}>Content Customization</span>
             <div className={styles.newLine} />
           </div>
+          <div className={styles.btnWrap}>
+          <ButtonBase
+            className={styles.edit}
+            onClick={() => {handleLetterHead('Accept')}}
+          >
+            MANAGE LETTER HEAD
+          </ButtonBase>
           <ButtonBase
             // aria-owns={downloadCL ? "downloadCL" : undefined}
             aria-haspopup="true"
@@ -232,8 +192,11 @@ const ContentList = ({}) => {
             onClick={handleBankSheetDownload}
             className={"createBtn"}
           >
-            Download
+            <Add fontSize={"small"} className={"plusIcon"}></Add>
+            Add COntent
           </ButtonBase>
+          </div>
+         
         </div>
         <div>
           <FilterComponent

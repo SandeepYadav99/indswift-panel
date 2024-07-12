@@ -26,7 +26,8 @@ const useContentList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.tax_list);
+  } = useSelector((state) => state.content_list);
+
   useEffect(() => {
     dispatch(
       actionFetchContentList(1, sortingData, {
@@ -100,20 +101,23 @@ const useContentList = ({}) => {
     console.log(page);
   };
 
+  const handleLetterHead = useCallback((data) => {
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.LETTERHEAD_LIST}`); //+data.id
+  }, []);
+
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.FULL_FINAL_DETAIL}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.LETTERHEAD_LIST}${data?.id}`); //+data.id
   }, []);
 
   const handleViewForm = useCallback((data) => {
     LogUtils.log("data", data);
     historyUtils.push(`${RouteName.TAX_DETAIL}${data?.id}`); //+data.id
   }, []);
+
   const configFilter = useMemo(() => {
     return [
-      // {label: 'Country', name: 'country', type: 'text'},
-      // {label: 'City', name: 'city', type: 'text'},
-
       {
         label: "Location",
         name: "employeesObj.location_id",
@@ -121,7 +125,6 @@ const useContentList = ({}) => {
         custom: { extract: { id: "id", title: "name" } },
         fields: listData?.LOCATIONS,
       },
-
       {
         label: "Grade",
         name: "employeesObj.grade_id",
@@ -167,6 +170,7 @@ const useContentList = ({}) => {
     handleViewForm,
     handleBankSheetDownload,
     role,
+    handleLetterHead
   };
 };
 
