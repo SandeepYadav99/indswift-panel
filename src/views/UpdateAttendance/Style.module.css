@@ -1,0 +1,8 @@
+.container{
+    width: 45rem !important;
+    max-width: 70% !important;
+    margin: 20px auto !important;
+}
+.subContainer{
+    margin: auto !important;
+}

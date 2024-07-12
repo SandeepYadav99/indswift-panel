@@ -488,10 +488,11 @@ const ShiftsLists = lazy(()=>import("../views/PayrollManagement/ShiftManagement/
 const AddEmployeeTable = lazy(()=>import("../views/PayrollManagement/ShiftManagement/AssociatedEmployees/Component/AddEmployeeTable/AddEmployeeTable.component.js"))
 
 const ShiftDetail = lazy(()=>import("../views/PayrollManagement/ShiftManagement/ShiftDetail/ShiftDetail.js"))
+const UpdateAttendance = lazy(()=>import("../views/UpdateAttendance/UpdateAttendance.js"))
+
+
 const Roles = Constants.ROLES;
 const Modules= Constants.MODULES;
-
-
 
 const dashboardRoutes = [
   {
@@ -2958,6 +2959,26 @@ const dashboardRoutes = [
   },
   {
     path: "null",
+    sidebarName: "Leave & Attendance",
+    navbarName: "",
+    icon: EventNote,
+    is_sidebar: true,
+    slug: "mark_attendance",
+    is_parent: true,
+    // roles: [Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.MARK_ATTENDANCE,
+    sidebarName: "Update Attendance",
+    navbarName: "",
+    icon: EventNote,
+    is_sidebar: true,
+    parent:"mark_attendance",
+    component:UpdateAttendance
+    // roles: [Roles.CORPORATE_HR],
+  },
+  {
+    path: "null",
     sidebarName: "Payroll Management",
     navbarName: "Payroll Management",
     icon: EventNote,
@@ -2966,6 +2987,7 @@ const dashboardRoutes = [
     is_parent: true,
     // roles: [Roles.CORPORATE_HR],
   },
+
   {
     path: RouteName.CALENDAR,
     sidebarName: "Calendar",
@@ -3015,6 +3037,7 @@ const dashboardRoutes = [
    
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
+ 
 ];
 
 export default dashboardRoutes;
