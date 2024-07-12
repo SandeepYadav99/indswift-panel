@@ -29,12 +29,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const AcceptDialog = ({
-  isOpen,
-  handleToggle,
-  handleSubmit,
-  isSubmitting,
-}) => {
+const AcceptDialog = ({ isOpen, handleToggle, handleSubmit, isSubmitting }) => {
   const classes = useStyles();
 
   return (
@@ -64,24 +59,39 @@ const AcceptDialog = ({
             <div className={styles.upperFlex21}>Approval Confirmation</div>
             <div className={styles.newLine}></div>
             <div className={styles.upperFlex2}>
-              <br/>
-              Are you sure you want to approve this employee record creation?
-              <br/>
-              <br/>
-
+              <br />
+              Are you sure you want to approve the employee record creation, the
+              new employee would be taking over the assigned roles and position
+              of reviewer/HOD/Overall HOD/ Site Head for the locations?
+              <br />
+              <br /> *This step is non reversible and the access would be
+              updated accordingly
+              <br />
+              <br />
             </div>
           </div>
 
-          <div className={styles.printFlex}>
+          <div className={styles.printFlex21}>
+          <ButtonBase
+              onClick={() => handleSubmit("NO")}
+              disabled={isSubmitting}
+              className={styles.editGreen}
+            >
+              {isSubmitting ? (
+                <CircularProgress color="success" size="20px" />
+              ) : (
+                "CREATE ONLY"
+              )}
+            </ButtonBase>
             <ButtonBase
-              onClick={()=>handleSubmit()}
+              onClick={() => handleSubmit("YES")}
               disabled={isSubmitting}
               className={"createBtnreset"}
             >
               {isSubmitting ? (
                 <CircularProgress color="success" size="20px" />
               ) : (
-                "APPROVE"
+                "CREATE & APPROVE"
               )}
             </ButtonBase>
           </div>
