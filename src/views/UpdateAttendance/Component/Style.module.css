@@ -79,6 +79,7 @@
   width: 80%;
   text-align: center !important;
 }
+
 .itemFlex {
   display: flex !important;
   gap: 15px !important;
@@ -88,7 +89,12 @@
   flex: 1 1 40% !important;
   padding: 10px !important;
 }
-
+@media (max-width:768px) {
+  .punchInOutSubContainer{
+    flex-wrap: wrap !important;
+  }
+  
+}
 .punchImage {
   background: #2896e9 0% 0% no-repeat padding-box;
   border-radius: 12px;
