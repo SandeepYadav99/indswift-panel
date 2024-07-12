@@ -14,7 +14,21 @@
     padding-bottom: 30px;
     padding-top: 10px;
 }
-
+.printFlex21{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+.editGreen {
+    color: #29CB97 !important;
+    border: 2px solid #29CB97 !important;
+    padding: 10px 20px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+    font-size: .875rem;
+  }
 .btmBtn{
     background-color: #29CB97 !important;
     padding: 15px 50px !important;

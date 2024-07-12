@@ -690,7 +690,7 @@ function NewEmployeeEditHook() {
     },
     [changeTextData, checkCodeValidation]
   );
-  const submitToServer = useCallback(() => {
+  const submitToServer = useCallback((status) => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const vehicleObj = {};
@@ -720,6 +720,7 @@ function NewEmployeeEditHook() {
           }
         }
       });
+      fd.append("pass_current_authorities", status === "YES")
       fd.append("is_update", true);
       if (vehicleObj) {
         fd.append("vehicle", JSON.stringify(vehicleObj));
@@ -753,7 +754,7 @@ function NewEmployeeEditHook() {
         setErrorData(errors);
         return true;
       }
-      submitToServer();
+      submitToServer(status);
     },
     [
       checkFormValidation,
