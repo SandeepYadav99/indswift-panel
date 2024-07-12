@@ -2,7 +2,7 @@ import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { ButtonBase, IconButton, Menu } from "@material-ui/core";
 import classNames from "classnames";
 import { connect, useSelector } from "react-redux";
-import { InfoOutlined, Telegram } from "@material-ui/icons";
+import { Add, InfoOutlined, Telegram } from "@material-ui/icons";
 import styles from "./Style.module.css";
 import Constants from "../../../../config/constants";
 import FilterComponent from "../../../../components/Filter/Filter.component";
@@ -68,55 +68,13 @@ const LetterHead = ({}) => {
     return [
       {
         key: "name",
-        label: "EMPLOYEE",
+        label: "REF NAME",
         sortable: false,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },
       {
-        key: "grade",
-        label: "Grade/Cadre",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.captialize}>
-            {all?.employee?.grade?.code} / {all?.employee?.cadre?.code}
-          </div>
-        ),
-      },
-      {
-        key: "location",
-        label: "Location",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.captialize}>
-            {all?.employee?.location?.name}
-          </div>
-        ),
-      },
-      {
-        key: "designation",
-        label: "Designation",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.captialize}>
-            {all?.employee?.designation?.name}
-          </div>
-        ),
-      },
-      {
-        key: "dept",
-        label: "Dept & Sub Dept.",
-        sortable: false,
-        style: { width: "12%" },
-        render: (temp, all) => (
-          <div className={styles.captialize}>
-            {all?.employee?.department?.name}/
-            {all?.employee?.sub_department?.name}
-          </div>
-        ),
-      },
-      {
-        key: "contact",
-        label: "Contact",
+        key: "date",
+        label: "DATE",
         sortable: false,
         style: { width: "18%" },
         render: (temp, all) => (
@@ -129,32 +87,7 @@ const LetterHead = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{renderStatus(all?.status)}</div>,
       },
-      {
-        key: "is_taxation",
-        label: "Taxation",
-        sortable: false,
-        style: { width: "18%" },
-        render: (temp, all) => (
-          <div>{all?.taxRebate?.is_taxable ? "Taxable" : "Non taxable"}</div>
-        ),
-      },
-      {
-        key: "Last",
-        label: "FINANCIAL YEAR",
-        sortable: false,
-        style: { width: "18%" },
-        render: (temp, all) => <div>{all?.taxRebate?.fy_year}</div>,
-      },
-      {
-        key: "cd",
-        label: "CLAIM DATE",
-        sortable: false,
-        render: (temp, all) => (
-          <div className={styles.captialize}>
-            {all?.taxRebate?.claimDateText}
-          </div>
-        ),
-      },
+
       {
         key: "user_id",
         label: "Action",
@@ -221,17 +154,18 @@ const LetterHead = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Content Customization</span>
+            <span className={styles.title}>Manage Letter Heads</span>
             <div className={styles.newLine} />
           </div>
           <ButtonBase
             // aria-owns={downloadCL ? "downloadCL" : undefined}
             aria-haspopup="true"
             // onClick={handleAddCandidate}
-            onClick={handleBankSheetDownload}
+            // onClick={handleBankSheetDownload}
             className={"createBtn"}
           >
-            Download
+            <Add fontSize={"small"} className={"plusIcon"}></Add>
+            ADD LETTER HEAD
           </ButtonBase>
         </div>
         <div>

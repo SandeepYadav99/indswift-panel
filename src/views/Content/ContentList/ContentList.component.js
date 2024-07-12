@@ -193,7 +193,7 @@ const ContentList = ({}) => {
             className={"createBtn"}
           >
             <Add fontSize={"small"} className={"plusIcon"}></Add>
-            Add COntent
+            Add Content
           </ButtonBase>
           </div>
          

@@ -26,7 +26,7 @@ const useLetterHeadHook = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.tax_list);
+  } = useSelector((state) => state.letter_head);
   useEffect(() => {
     dispatch(
       actionFetchLetterHead(1, sortingData, {
