@@ -270,5 +270,7 @@ export default {
   PMS_MASTER_ADMIN: "/pms/masters/admin",
 
   CONTENT_LIST:"/content/list",
-  LETTERHEAD_LIST:"/letterhead/list"
+  LETTERHEAD_LIST:"/letterhead/list",
+  LETTERHEAD_CREATE:"/letterhead/create"
+
 };

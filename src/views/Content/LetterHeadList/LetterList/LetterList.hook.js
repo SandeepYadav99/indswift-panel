@@ -109,6 +109,9 @@ const useLetterHeadHook = ({}) => {
     LogUtils.log("data", data);
     historyUtils.push(`${RouteName.TAX_DETAIL}${data?.id}`); //+data.id
   }, []);
+  const handleCreate = useCallback(() => {
+    historyUtils.push(`${RouteName.LETTERHEAD_CREATE}`); //+data.id
+  }, []);
   const configFilter = useMemo(() => {
     return [
       // {label: 'Country', name: 'country', type: 'text'},
@@ -167,6 +170,7 @@ const useLetterHeadHook = ({}) => {
     handleViewForm,
     handleBankSheetDownload,
     role,
+    handleCreate
   };
 };
 

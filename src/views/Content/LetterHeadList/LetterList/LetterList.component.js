@@ -1,8 +1,7 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { ButtonBase, IconButton, Menu } from "@material-ui/core";
-import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
-import { Add, InfoOutlined, Telegram } from "@material-ui/icons";
+import {  useSelector } from "react-redux";
+import { Add, Edit, InfoOutlined, Telegram } from "@material-ui/icons";
 import styles from "./Style.module.css";
 import Constants from "../../../../config/constants";
 import FilterComponent from "../../../../components/Filter/Filter.component";
@@ -23,8 +22,7 @@ const LetterHead = ({}) => {
     handleViewForm,
     isCalling,
     configFilter,
-    handleResend,
-    handleBankSheetDownload,
+    handleCreate,
     role,
   } = useLetterHeadHook({});
 
@@ -46,20 +44,8 @@ const LetterHead = ({}) => {
 
   const renderFirstCell = useCallback((obj) => {
     if (obj) {
-      return (
-        <div className={styles.firstCellFlex}>
-          <div className={classNames(styles.firstCellInfo, "openSans")}>
-            <span className={styles.productName}>
-              <strong>{obj?.employee?.name}</strong>
-            </span>
-            <br />
-            <span className={styles.productName}>
-              {obj?.employee?.emp_code}
-            </span>{" "}
-            <br />
-          </div>
-        </div>
-      );
+      console.log("all", obj);
+      return <div className={styles.firstCellFlex}>{obj?.name}</div>;
     }
     return null;
   }, []);
@@ -78,7 +64,7 @@ const LetterHead = ({}) => {
         sortable: false,
         style: { width: "18%" },
         render: (temp, all) => (
-          <div>{all?.employee?.contact?.official_contact}</div>
+          <div>{all?.createdAtText}</div>
         ),
       },
       {
@@ -93,30 +79,27 @@ const LetterHead = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            {all?.is_submitted ? (
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  handleViewDetails(all);
-                }}
-              >
-                {/* <InfoOutlined fontSize={"small"} /> */}
-                <RemoveRedEyeOutlinedIcon fontSize={"small"} />
-              </IconButton>
-            ) : (
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={() => {
-                  handleViewForm(all);
-                }}
-              >
-                <InfoOutlined fontSize={"small"} />
-              </IconButton>
-            )}
+          
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewForm(all);
+              }}
+            >
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleViewDetails(all);
+              }}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
           </div>
         ),
       },
@@ -157,13 +140,7 @@ const LetterHead = ({}) => {
             <span className={styles.title}>Manage Letter Heads</span>
             <div className={styles.newLine} />
           </div>
-          <ButtonBase
-            // aria-owns={downloadCL ? "downloadCL" : undefined}
-            aria-haspopup="true"
-            // onClick={handleAddCandidate}
-            // onClick={handleBankSheetDownload}
-            className={"createBtn"}
-          >
+          <ButtonBase aria-haspopup="true" className={"createBtn"} onClick={handleCreate}>
             <Add fontSize={"small"} className={"plusIcon"}></Add>
             ADD LETTER HEAD
           </ButtonBase>
