@@ -125,7 +125,7 @@ function useCandidateDetails() {
     if (candidateData) {
       serviceRejectUpdateJO({
         is_send_rejection_update:data,
-        id: candidateData?.id,
+        id: candidateData?.job_opening_id,
       }).then((res) => {
         if (!res.error) {
           // SnackbarUtils.success("Request send");
