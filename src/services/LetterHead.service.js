@@ -8,14 +8,14 @@ export async function serviceCreateLetterHead(params) {
   return await formDataRequest("letter/heads/create", params);
 }
 export async function serviceUpdateLetterHead(params) {
-  return await postRequest("letter/heads/form/submit", params);
+  return await formDataRequest("letter/heads/update", params);
 }
 
 export async function serviceDeleteLetterHead(params) {
   return await postRequest("letter/heads/delete", params);
 }
 export async function serviceGetLetterHeadDetails(params) {
-  return await postRequest("letter/heads/details", params);
+  return await postRequest("letter/heads/detail", params);
 }
 export async function serviceGetFormDebounceDetails(params) {
   return await postRequest("letter/heads/totals", params);

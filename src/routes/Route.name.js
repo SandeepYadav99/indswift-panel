@@ -271,6 +271,7 @@ export default {
 
   CONTENT_LIST:"/content/list",
   LETTERHEAD_LIST:"/letterhead/list",
-  LETTERHEAD_CREATE:"/letterhead/create"
+  LETTERHEAD_CREATE:"/letterhead/create",
+  LETTERHEAD_UPDATE:"/letterhead/update/"
 
 };

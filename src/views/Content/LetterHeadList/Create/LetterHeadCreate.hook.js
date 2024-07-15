@@ -1,8 +1,13 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import LogUtils from "../../../../libs/LogUtils";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import historyUtils from "../../../../libs/history.utils";
-import { serviceCreateLetterHead } from "../../../../services/LetterHead.service";
+import {
+  serviceCreateLetterHead,
+  serviceGetLetterHeadDetails,
+  serviceUpdateLetterHead,
+} from "../../../../services/LetterHead.service";
+import { useParams } from "react-router";
 
 const initialForm = {
   name: "",
@@ -17,21 +22,33 @@ const useLetterHeadCreate = ({}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [declaration, setDeclaration] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
+  const [editData, setEditData] = useState({});
+  const { id } = useParams();
 
-  // useEffect(() => {
-  //   if (emp_code) {
-  //     let dataValues = serviceGetEmployeeDetails({ code: emp_code });
-  //     dataValues
-  //       .then((data) => {
-  //         // setEmployeeDetails(data?.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (id) {
+      let dataValues = serviceGetLetterHeadDetails({ id: id });
+      dataValues
+        .then((data) => {
+          const detail = data?.data?.details;
+          setEditData(detail);
+          setForm({
+            ...form,
+            name: detail?.name,
+            is_active: detail?.status === "ACTIVE",
+          });
+          console.log(">>>>", detail);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "header_image", "footer_image"];
+    let required = ["name"];
+    if (!id) {
+      required.push("header_image", "footer_image");
+    }
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -46,7 +63,7 @@ const useLetterHeadCreate = ({}) => {
       }
     });
     return errors;
-  }, [form, errorData]);
+  }, [form, errorData, id]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
@@ -65,6 +82,10 @@ const useLetterHeadCreate = ({}) => {
         fd.append("footer_image", form?.footer_image);
       }
       let req = serviceCreateLetterHead;
+      if (id) {
+        fd.append("id", id);
+        req = serviceUpdateLetterHead;
+      }
       req(fd).then((res) => {
         if (!res.error) {
           historyUtils.goBack();
@@ -75,7 +96,7 @@ const useLetterHeadCreate = ({}) => {
         setIsLoading(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting]);
+  }, [form, isSubmitting, setIsSubmitting, id]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -93,7 +114,7 @@ const useLetterHeadCreate = ({}) => {
       temp[title] = false;
       setErrorData(temp);
     },
-    [setErrorData, errorData]
+    [setErrorData, errorData, id]
   );
 
   const changeTextData = useCallback(
@@ -136,6 +157,7 @@ const useLetterHeadCreate = ({}) => {
     handleReset,
     declaration,
     setDeclaration,
+    editData,
   };
 };
 

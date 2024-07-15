@@ -2979,6 +2979,16 @@ const dashboardRoutes = [
   // roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
 },
 {
+  path: `${RouteName.LETTERHEAD_UPDATE}:id`,
+  sidebarName: "Content Customization",
+  navbarName: "Content Customization",
+  icon: AssignmentOutlined,
+  component: LetterHeadCreate,
+  is_sidebar: false,
+  is_protect: true,
+  // roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
+},
+{
   path: "null",
   sidebarName: "Shifted to SLPL tab",
   navbarName: "Shifted to SLPL tab",
