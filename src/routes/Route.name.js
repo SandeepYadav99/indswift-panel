@@ -263,5 +263,6 @@ export default {
   SHIFTS: "/shifts",
   SHIFTS_DETAILS: "/shifts/detail/",
   ADD_EMPLOYEE: "/add/employees", 
-  MARK_ATTENDANCE:"/mark/attendace"
+  MARK_ATTENDANCE:"/mark/attendace",
+  MUSTER_REPORT:"/muster/report",
 };
