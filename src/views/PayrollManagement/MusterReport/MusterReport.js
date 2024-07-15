@@ -327,7 +327,7 @@ const MusterReport = ({}) => {
   return (
     <div>
       <PageBox>
-        <div className={styles.headerContainer}>
+      <div className={styles.headerContainer}>
           <div>
             <span className={styles.title}>Muster Report</span>
             <div className={styles.newLine} />
@@ -348,8 +348,11 @@ const MusterReport = ({}) => {
           </div>
         </div>
 
-        <div>
           <MusterReportFiled />
+      </PageBox> <br/>
+      <PageBox>
+        
+        <div>
           <div>
             <div style={{ width: "100%" }}>
               <div className={styles.tableWrapper}>
