@@ -4,11 +4,12 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
+
 import Constants from "../../../config/constants";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import useAttendanceReportHook from "./AttendanceReportHook";
 import AttendanceReportInputFiled from "./component/AttendanceReportInputFiled";
+import Datatables from "../../../components/Datatables/datatables";
 
 const AttendanceReport = ({}) => {
   const {
@@ -178,17 +179,18 @@ const AttendanceReport = ({}) => {
 
         <div>
          <AttendanceReportInputFiled/>
-          <div>
+       
+        </div>
+      </PageBox>
+      <div>
             <br />
             <div style={{ width: "100%" }}>
-              <DataTables
+              <Datatables
                 {...tableData.datatable}
                 {...tableData.datatableFunctions}
               />
             </div>
           </div>
-        </div>
-      </PageBox>
       {/* <SidePanelComponent
         handleToggle={handleToggleSidePannel}
         title={renderTile()}
