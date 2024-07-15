@@ -13,6 +13,7 @@ import { serviceExportLetterHead } from "../../../../services/LetterHead.service
 const useLetterHeadHook = ({}) => {
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const { role } = useSelector((state) => state.auth);
   const [listData, setListData] = useState({
     LOCATIONS: [],
@@ -36,6 +37,14 @@ const useLetterHeadHook = ({}) => {
     );
     isMountRef.current = true;
   }, []);
+
+  const handleToggle = useCallback(
+    (data) => {
+      data?.id ? setEditData(data) : setEditData(null);
+      setIsOpen((s) => !s);
+    },
+    [isOpen, editData]
+  );
 
   useEffect(() => {
     serviceGetList(["LOCATIONS", "GRADES", "DEPARTMENTS"]).then((res) => {
@@ -109,29 +118,13 @@ const useLetterHeadHook = ({}) => {
     LogUtils.log("data", data);
     historyUtils.push(`${RouteName.TAX_DETAIL}${data?.id}`); //+data.id
   }, []);
+
   const handleCreate = useCallback(() => {
     historyUtils.push(`${RouteName.LETTERHEAD_CREATE}`); //+data.id
   }, []);
+  
   const configFilter = useMemo(() => {
     return [
-      // {label: 'Country', name: 'country', type: 'text'},
-      // {label: 'City', name: 'city', type: 'text'},
-
-      {
-        label: "Location",
-        name: "employeesObj.location_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.LOCATIONS,
-      },
-
-      {
-        label: "Grade",
-        name: "employeesObj.grade_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "label" } },
-        fields: listData?.GRADES,
-      },
       {
         label: "Department",
         name: "employeesObj.department_id",
@@ -170,7 +163,9 @@ const useLetterHeadHook = ({}) => {
     handleViewForm,
     handleBankSheetDownload,
     role,
-    handleCreate
+    handleCreate,
+    handleToggle,
+    isOpen,
   };
 };
 

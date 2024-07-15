@@ -11,6 +11,7 @@ import PageBox from "../../../../components/PageBox/PageBox.component";
 import useLetterHeadHook from "./LetterList.hook";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import historyUtils from "../../../../libs/history.utils";
+import ImageDialog from "./Component/ImageDialog";
 
 const LetterHead = ({}) => {
   const {
@@ -24,7 +25,9 @@ const LetterHead = ({}) => {
     isCalling,
     configFilter,
     handleCreate,
-    role,
+    handleToggle,
+    isOpen,
+    editData,
   } = useLetterHeadHook({});
 
   const {
@@ -83,7 +86,7 @@ const LetterHead = ({}) => {
               color="secondary"
               disabled={isCalling}
               onClick={() => {
-                handleViewForm(all);
+                handleToggle(all);
               }}
             >
               <InfoOutlined fontSize={"small"} />
@@ -159,6 +162,11 @@ const LetterHead = ({}) => {
           />
         </div>
       </PageBox>
+      <ImageDialog
+        handleToggle={handleToggle}
+        isOpen={isOpen}
+        editData={editData}
+      />
       <Datatables {...tableData.datatable} {...tableData.datatableFunctions} />
     </div>
   );
