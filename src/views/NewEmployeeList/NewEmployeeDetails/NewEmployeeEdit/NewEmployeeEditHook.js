@@ -531,7 +531,7 @@ function NewEmployeeEditHook() {
       data?.designation_id?.id &&
       data?.location_id
     ) {
-      let filteredForm = { employee_id: id };
+      let filteredForm = {};
       for (let key in data) {
         if (salaryInfo.includes(key)) {
           if (BOOLEAN_KEYS.includes(key)) {
