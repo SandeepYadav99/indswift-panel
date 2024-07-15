@@ -1,15 +1,16 @@
 import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { ButtonBase, IconButton, Menu } from "@material-ui/core";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Add, Edit, InfoOutlined, Telegram } from "@material-ui/icons";
 import styles from "./Style.module.css";
 import Constants from "../../../../config/constants";
 import FilterComponent from "../../../../components/Filter/Filter.component";
 import StatusPill from "../../../../components/Status/StatusPill.component";
-import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import Datatables from "../../../../components/Datatables/datatables";
 import PageBox from "../../../../components/PageBox/PageBox.component";
 import useLetterHeadHook from "./LetterList.hook";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import historyUtils from "../../../../libs/history.utils";
 
 const LetterHead = ({}) => {
   const {
@@ -63,9 +64,7 @@ const LetterHead = ({}) => {
         label: "DATE",
         sortable: false,
         style: { width: "18%" },
-        render: (temp, all) => (
-          <div>{all?.createdAtText}</div>
-        ),
+        render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
       {
         key: "status",
@@ -79,7 +78,6 @@ const LetterHead = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-          
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -136,11 +134,18 @@ const LetterHead = ({}) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
-          <div>
-            <span className={styles.title}>Manage Letter Heads</span>
-            <div className={styles.newLine} />
-          </div>
-          <ButtonBase aria-haspopup="true" className={"createBtn"} onClick={handleCreate}>
+          <ButtonBase onClick={() => historyUtils.goBack()}>
+            <ArrowBackIosIcon fontSize={"small"} />{" "}
+            <div>
+              <span className={styles.title}>Manage Letter Heads</span>
+              <div className={styles.newLine} />
+            </div>
+          </ButtonBase>
+          <ButtonBase
+            aria-haspopup="true"
+            className={"createBtn"}
+            onClick={handleCreate}
+          >
             <Add fontSize={"small"} className={"plusIcon"}></Add>
             ADD LETTER HEAD
           </ButtonBase>
