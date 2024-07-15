@@ -274,4 +274,9 @@ export default {
    SHIFTS:"/shifts",
      SHIFTS_DETAILS:"/shifts/detail/",
      ADD_EMPLOYEE:"/add/employees",// Add Employees
+  CONTENT_LIST:"/content/list",
+  LETTERHEAD_LIST:"/letterhead/list",
+  LETTERHEAD_CREATE:"/letterhead/create",
+  LETTERHEAD_UPDATE:"/letterhead/update/"
+
 };

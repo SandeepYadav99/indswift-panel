@@ -12,6 +12,9 @@ import {
 } from "@material-ui/icons";
 import RouteName from "./Route.name";
 import Constants from "../config/constants";
+import ContentList from "../views/Content/ContentList/ContentList.component.js";
+import LetterHead from "../views/Content/LetterHeadList/LetterList/LetterList.component.js";
+import LetterHeadCreate from "../views/Content/LetterHeadList/Create/LetterHeadCreate.view.js";
 const NewEmployeeEdit = lazy(()=> import("../views/NewEmployeeList/NewEmployeeDetails/NewEmployeeEdit/NewEmployeeEdit.js"));
 const CloneClaimsList = lazy(()=> import ("../views/AdminClaimManagement/CloneClaimsList/CloneClaimsList.container.js"));
 const CloneExitInterviewList = lazy(()=> import ("../views/ExitInterview/CloneExitInterviewList/CloneExitInterviewList.container.js"));
@@ -2950,6 +2953,46 @@ const dashboardRoutes = [
   is_sidebar: true,
   is_protect: true,
   roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
+},
+{
+  path: RouteName.CONTENT_LIST,
+  sidebarName: "Content Customization",
+  navbarName: "Content Customization",
+  icon: AssignmentOutlined,
+  component: ContentList,
+  is_sidebar: true,
+  is_protect: true,
+  // roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
+},
+{
+  path: RouteName.LETTERHEAD_LIST,
+  sidebarName: "Content Customization",
+  navbarName: "Content Customization",
+  icon: AssignmentOutlined,
+  component: LetterHead,
+  is_sidebar: false,
+  is_protect: true,
+  // roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
+},
+{
+  path: RouteName.LETTERHEAD_CREATE,
+  sidebarName: "Content Customization",
+  navbarName: "Content Customization",
+  icon: AssignmentOutlined,
+  component: LetterHeadCreate,
+  is_sidebar: false,
+  is_protect: true,
+  // roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
+},
+{
+  path: `${RouteName.LETTERHEAD_UPDATE}:id`,
+  sidebarName: "Content Customization",
+  navbarName: "Content Customization",
+  icon: AssignmentOutlined,
+  component: LetterHeadCreate,
+  is_sidebar: false,
+  is_protect: true,
+  // roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
 },
 {
   path: "null",

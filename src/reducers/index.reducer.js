@@ -104,6 +104,8 @@ import CloneExitInterviewReducer from "./CloneExitInterview.reducer";
 import CloneClaimsReducer from "./CloneClaims.reducer";
 import ShiftsReducer from "./Shifts.reducer";
 import AssociatedEmployeesReducer from "./AssociatedEmployees.reducer";
+import LetterHeadReducer from "./LetterHead.reducer";
+import ContentListReducer from "./ContentList.reducer";
 
 
 const rootReducer = combineReducers({
@@ -205,6 +207,8 @@ const rootReducer = combineReducers({
   notification:NotificationReducer,
   notification_module:NotificationModuleReducer,
   tax_list:TaxListReducer,
+  letter_head:LetterHeadReducer,
+  content_list:ContentListReducer,
   // form: formReducer,
   Shifts:ShiftsReducer, 
    associatedEmployee:AssociatedEmployeesReducer
