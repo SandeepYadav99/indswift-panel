@@ -3,9 +3,9 @@ import { TextField } from "@material-ui/core";
 import styles from "./style.module.css";
 
 import { Autocomplete } from "@mui/material";
-import CustomDateTimePicker from "../../../../../../components/FormFields/DatePicker/CustomDateTimePicker";
 import { getWorkingDays } from "../../../../../../helper/helper";
 import CustomCheckbox from "../../../../../../components/FormFields/CustomCheckbox";
+import CustomTimePicker from "../../../../../../components/FormFields/DatePicker/CustomTimePicker";
 
 const ShiftDetailsIncludeFields = ({
   index,
@@ -72,76 +72,24 @@ const ShiftDetailsIncludeFields = ({
         <div className={styles.formWrp}>
           <div className={styles.formGrphours}>{data?.name}</div>
           <div className={styles.formGrp1}>
-            <CustomDateTimePicker
+            <CustomTimePicker
               disabled={data?.is_week_off && !data?.is_occasional_working}
               label={"Choose Time"}
               value={data?.start_time}
               onChange={(e) => handleChangedebounce(e, "start_time", index)}
               isError={errors?.start_time}
             />
-            {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <TimePicker
-                margin="dense"
-                variant="inline"
-                id="time-picker"
-                fullWidth
-                label={"Choose Time"}
-                value={data?.start_time}
-                onChange={(e) => handleChange(e, "start_time")}
-                inputVariant={"outlined"}
-                minutesStep={5}
-                // format="HH:mm"
-                format="h:mm a"
-                error={errors?.start_time}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        style={errors?.end_time ? { color: "#ff493f" } : {}}
-                      >
-                        <AccessTimeIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </MuiPickersUtilsProvider> */}
+          
           </div>
           <div className={styles.formGrp1}>
-            <CustomDateTimePicker
+            <CustomTimePicker
               disabled={data?.is_week_off && !data?.is_occasional_working}
               label={"Choose Time"}
               value={data?.end_time}
               onChange={(e) => handleChange(e, "end_time")}
               isError={errors?.end_time}
             />
-            {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <TimePicker
-                margin="dense"
-                variant="inline"
-                id="time-picker"
-                fullWidth
-                label={"Choose Time"}
-                value={data?.end_time}
-                onChange={(e) => handleChange(e, "end_time")}
-                inputVariant={"outlined"}
-                minutesStep={5}
-                // format="HH:mm"
-                format="h:mm a"
-                error={errors?.end_time}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        style={errors?.end_time ? { color: "#ff493f" } : {}}
-                      >
-                        <AccessTimeIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </MuiPickersUtilsProvider> */}
+           
           </div>
           <div className={styles.formGrphours}>
             {data?.total_hours ? data?.total_hours : 0}
