@@ -490,6 +490,7 @@ const AddEmployeeTable = lazy(()=>import("../views/PayrollManagement/ShiftManage
 const ShiftDetail = lazy(()=>import("../views/PayrollManagement/ShiftManagement/ShiftDetail/ShiftDetail.js"))
 const UpdateAttendance = lazy(()=>import("../views/UpdateAttendance/UpdateAttendance.js"))
 const MusterReport = lazy(()=>import("../views/PayrollManagement/MusterReport/MusterReport.js"))
+const ShiftWiseReport = lazy(()=>import("../views/PayrollManagement/ShiftWiseReport/ShiftWiseReport.js"))
 
 
 const Roles = Constants.ROLES;
@@ -3038,6 +3039,7 @@ const dashboardRoutes = [
    
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
+
   {
     path: RouteName.MUSTER_REPORT,
     sidebarName: "Muster Report",
@@ -3048,6 +3050,16 @@ const dashboardRoutes = [
     component:MusterReport
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   }, 
+  {
+    path: RouteName.SHIFTS_WISE_REPORT,
+    sidebarName: "Shift  Report",
+    navbarName: "Shift  Report",
+    icon: PeopleOutlined,
+    is_sidebar: true,
+    parent: "payroll",
+    component:ShiftWiseReport
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
 ];
 
 export default dashboardRoutes;

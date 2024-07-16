@@ -265,4 +265,5 @@ export default {
   ADD_EMPLOYEE: "/add/employees", 
   MARK_ATTENDANCE:"/mark/attendace",
   MUSTER_REPORT:"/muster/report",
+  SHIFTS_WISE_REPORT:"/shifts/report",
 };
