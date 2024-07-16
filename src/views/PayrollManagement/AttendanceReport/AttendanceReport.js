@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import {  ButtonBase } from "@material-ui/core";
+import { ButtonBase } from "@material-ui/core";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
@@ -70,9 +70,7 @@ const AttendanceReport = ({}) => {
         key: "date_day",
         label: "DATE/DAY",
         sortable: false,
-        render: (temp, all) => (
-          <div >{all?.t_id}</div>
-        ),
+        render: (temp, all) => <div>{all?.t_id}</div>,
       },
       {
         key: "department",
@@ -92,7 +90,7 @@ const AttendanceReport = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{}</div>,
       },
-    
+
       {
         key: "grade_cadre",
         label: "GRADE/ CADRE",
@@ -129,7 +127,6 @@ const AttendanceReport = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
       },
-      
     ];
   }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
 
@@ -172,25 +169,23 @@ const AttendanceReport = ({}) => {
               onClick={handleToggleSidePannel}
               className={"createBtnOutland"}
             >
-             DOWNLOAD
+              DOWNLOAD
             </ButtonBase>
           </div>
         </div>
 
         <div>
-         <AttendanceReportInputFiled/>
-       
+          <AttendanceReportInputFiled />
         </div>
       </PageBox>
-      <div>
-            <br />
-            <div style={{ width: "100%" }}>
-              <Datatables
-                {...tableData.datatable}
-                {...tableData.datatableFunctions}
-              />
-            </div>
-          </div>
+    
+        <div style={{ width: "100%" }}>
+          <Datatables
+            {...tableData.datatable}
+            {...tableData.datatableFunctions}
+          />
+        </div>
+  
       {/* <SidePanelComponent
         handleToggle={handleToggleSidePannel}
         title={renderTile()}
