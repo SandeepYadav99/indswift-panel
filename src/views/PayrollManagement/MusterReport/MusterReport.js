@@ -349,11 +349,11 @@ const MusterReport = ({}) => {
         </div>
 
           <MusterReportFiled />
-      </PageBox> <br/>
+      </PageBox> 
+      <div className={styles.gaps}/>
       <PageBox>
         
-        <div>
-          <div>
+       
             <div style={{ width: "100%" }}>
               <div className={styles.tableWrapper}>
                 <div className={styles.container}>
@@ -403,8 +403,7 @@ const MusterReport = ({}) => {
                   handlePageChange(newPage);
                 }}
               />
-            </div>
-          </div>
+           
           <DownloadBankSheet
           isOpen={isApprovalPopUp}
           handleToggle={toggleApprovalDialog}

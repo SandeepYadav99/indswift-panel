@@ -4,26 +4,29 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-
+import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
-import StatusPill from "../../../components/Status/StatusPill.component";
-import useAttendanceReportHook from "./AttendanceReportHook";
-import AttendanceReportInputFiled from "./component/AttendanceReportInputFiled";
-import Datatables from "../../../components/Datatables/datatables";
 
-const AttendanceReport = ({}) => {
+import StatusPill from "../../../components/Status/StatusPill.component";
+
+import useShiftWiseReportHook from "./ShiftWiseReportHook";
+import ShiftWiseFiled from "./component/ShiftWiseFiled";
+
+const ShiftWiseReport = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
     handlePageChange,
     handleEdit,
+    handleFilterDataChange,
+    handleSearchValueChange,
     handleViewDetails,
     isSidePanel,
     isCalling,
     configFilter,
     id,
     handleToggleSidePannel,
-  } = useAttendanceReportHook({});
+  } = useShiftWiseReportHook({});
 
   const {
     data,
@@ -64,14 +67,10 @@ const AttendanceReport = ({}) => {
         key: "employee",
         label: "EMPLOYEE",
         sortable: false,
+
         render: (value, all) => <div>{all?.name}</div>,
       },
-      {
-        key: "date_day",
-        label: "DATE/DAY",
-        sortable: false,
-        render: (temp, all) => <div>{all?.t_id}</div>,
-      },
+
       {
         key: "department",
         label: "DEPARTMENT",
@@ -90,36 +89,29 @@ const AttendanceReport = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{}</div>,
       },
-
       {
         key: "grade_cadre",
         label: "GRADE/ CADRE",
         sortable: false,
-        render: (temp, all) => <div>{all?.serial_no}</div>,
+        render: (temp, all) => <div>{}</div>,
       },
       {
-        key: "punch_out_time",
-        label: "PUNCH OUT TIME",
+        key: "shift_name",
+        label: "SHIFT NAME",
         sortable: false,
         render: (temp, all) => <div>{all?.serial_no}</div>,
       },
       {
-        key: "working_hours",
-        label: "WORKING HOURS",
+        key: "from",
+        label: "FROM",
         sortable: false,
         render: (temp, all) => <div>{all?.serial_no}</div>,
       },
       {
-        key: "working_hours",
-        label: "WORKING HOURS",
+        key: "to",
+        label: "TO",
         sortable: false,
         render: (temp, all) => <div>{all?.serial_no}</div>,
-      },
-      {
-        key: "status",
-        label: "STATUS",
-        sortable: false,
-        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
       },
       {
         key: "employee_status",
@@ -161,7 +153,7 @@ const AttendanceReport = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Attendance Report</span>
+            <span className={styles.title}>Shift Wise Report</span>
             <div className={styles.newLine} />
           </div>
           <div>
@@ -175,17 +167,17 @@ const AttendanceReport = ({}) => {
         </div>
 
         <div>
-          <AttendanceReportInputFiled />
+          <ShiftWiseFiled />
         </div>
       </PageBox>
-    
-        <div style={{ width: "100%" }}>
-          <Datatables
-            {...tableData.datatable}
-            {...tableData.datatableFunctions}
-          />
-        </div>
-  
+
+      <div style={{ width: "100%" }}>
+        <DataTables
+          {...tableData.datatable}
+          {...tableData.datatableFunctions}
+        />
+      </div>
+
       {/* <SidePanelComponent
         handleToggle={handleToggleSidePannel}
         title={renderTile()}
@@ -203,4 +195,4 @@ const AttendanceReport = ({}) => {
   );
 };
 
-export default AttendanceReport;
+export default ShiftWiseReport;

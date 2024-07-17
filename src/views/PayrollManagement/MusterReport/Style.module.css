@@ -469,4 +469,6 @@
     white-space: nowrap;
   }
   
-  
+  .gaps{
+    margin-top: 12px;
+  }
