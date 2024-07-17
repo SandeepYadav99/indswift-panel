@@ -41,8 +41,9 @@ const ExpenseIncludeFields = ({
     } else {
       const name = e?.target?.name;
       const value = e?.target?.value;
-      if (name === "amount" || name === "total_kms") {
-        if (value >= 0) {
+      if (name === "amount") {
+        // if (value >= 0 && value <= data?.max_amount) {
+          if (value >= 0 ){
           changeData(index, { [name]: value });
         }
       } else {

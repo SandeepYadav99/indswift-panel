@@ -3,7 +3,7 @@ import styles from "./Style.module.css";
 import useVacancyList from "./PerformanceTableHook";
 import Constants from "../../../../config/constants";
 import Datatables from "../../../../components/Datatables/datatables";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import CustomSelectField from "../../../../components/FormFields/SelectField/SelectField.component";
 
 function PerformanceTable({ Renderdata, getPmsList }) {
@@ -22,6 +22,7 @@ function PerformanceTable({ Renderdata, getPmsList }) {
     setType,
     setYear,
     handleCreateBatch,
+    isLoading
   } = useVacancyList({ Renderdata, getPmsList });
 
   const tableStructure = useMemo(() => {
@@ -100,10 +101,15 @@ function PerformanceTable({ Renderdata, getPmsList }) {
           setYear(value);
         }}
       >
-        <MenuItem value={"2023"}>2023</MenuItem>
+        {/* <MenuItem value={"2023"}>2023</MenuItem> */}
+        <MenuItem value={"2024"}>2024</MenuItem>
       </CustomSelectField>
     );
   }, [year]);
+  const checkBatch = useMemo(()=>{
+    return Renderdata?.length > 0 ? Renderdata[0]?.is_closed : true;
+  },[Renderdata]);
+  
   return (
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
@@ -121,9 +127,11 @@ function PerformanceTable({ Renderdata, getPmsList }) {
           <div className={styles.down}>{renderDropDown}</div>
         </div>
         <div>
-          <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
-            CREATE BATCH
+          {
+            checkBatch && <ButtonBase onClick={handleCreateBatch} disabled ={isLoading} className={"createBtn"}>
+            {isLoading ? <CircularProgress color="success" size="20px" /> :"CREATE BATCH"}
           </ButtonBase>
+          }
         </div>
       </div>
       <div style={{ width: "100%" }}>

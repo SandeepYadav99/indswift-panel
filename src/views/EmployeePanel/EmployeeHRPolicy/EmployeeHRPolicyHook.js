@@ -17,14 +17,16 @@ function EmployeeHRPolicyHook() {
       .catch((err) => console.log(err));
   }, []);
 
+  const queryFilter = useCallback((key, value) => {
+  }, []);
+  
   const handleFilterDataChange = useCallback(
     (value) => {
       queryFilter("FILTER_DATA", value);
     },
     [queryFilter]
   );
-  const queryFilter = useCallback((key, value) => {
-  }, []);
+
   const handleSearchValueChange = useCallback(
     (value) => {
       if (value) {

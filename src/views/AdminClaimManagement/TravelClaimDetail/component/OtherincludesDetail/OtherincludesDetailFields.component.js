@@ -17,7 +17,8 @@ const OtherincludesDetailFields = ({
       const name = e?.target?.name;
       const value = e?.target?.value;
       if (name === "amount") {
-        if (value >= 0) {
+        // if (value >= 0 && value <= data?.max_amount) {
+          if(value >= 0){
           changeData(index, { [name]: value });
         }
       } else {

@@ -252,6 +252,9 @@
 }
 .utsavimage{
   border-radius: 10px;
+  max-width: 500px;
+  min-width: 400px;
+  max-height: 500px;
   /* width: 90%;
   aspect-ratio: 16/9; */
 }

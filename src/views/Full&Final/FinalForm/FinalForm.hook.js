@@ -324,8 +324,10 @@ function useFinalForm({ location }) {
           fd[key] = res[key];
         }
       });
-      ChildenRef?.current?.setData(attachments);
-      setForm({ ...form, ...fd });
+      ChildenRef?.current?.setData(attachments ? attachments : []);
+      const values = {...form,...fd,employee_id:res?.employee?.id}
+      checkForSalaryInfo(values,res?.employee?.id)
+      // setForm({ ...form, ...fd });
     });
   }, [id]);
   const checkFormValidation = useCallback(() => {
@@ -497,8 +499,8 @@ function useFinalForm({ location }) {
     },
     [setErrorData, errorData]
   );
-  const checkForSalaryInfo = (data) => {
-    let filteredForm = { employee_id: employeeDetail?.employee?.id };
+  const checkForSalaryInfo = (data,empId) => {
+    let filteredForm = { employee_id: empId ? empId :employeeDetail?.employee?.id };
     for (let key in data) {
       if (salaryInfo.includes(key)) {
         if (BOOLEAN_KEYS.includes(key)) {

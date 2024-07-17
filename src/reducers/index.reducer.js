@@ -98,8 +98,14 @@ import TravelAuthSpecReducer from "./TravelAuthSpec.reducer";
 import NotificationReducer from "./Notification.reducer";
 import NotificationModuleReducer from "./NotificationModule.reducer";
 import TaxListReducer from "./TaxList.reducer";
+import CloneBGVReducer from "./CloneBGV.reducer";
+import CloneFinalFormApprovalReducer from "./CloneFinalFormApproval.reducer";
+import CloneExitInterviewReducer from "./CloneExitInterview.reducer";
+import CloneClaimsReducer from "./CloneClaims.reducer";
 import ShiftsReducer from "./Shifts.reducer";
 import AssociatedEmployeesReducer from "./AssociatedEmployees.reducer";
+import LetterHeadReducer from "./LetterHead.reducer";
+import ContentListReducer from "./ContentList.reducer";
 
 
 const rootReducer = combineReducers({
@@ -136,6 +142,7 @@ const rootReducer = combineReducers({
   cadre: CadreReducer,
   candidate: CandidateReducer,
   claims: ClaimsReducer,
+  clone_claims: CloneClaimsReducer,
   emp_claimList: EmployeeClaimListReducer,
   interviewSchedule: InterviewScheduleReducer,
   annual: AnnualReducer,
@@ -175,6 +182,7 @@ const rootReducer = combineReducers({
   pmsOverallHodMyReviews: PmsOverallHodReviewReducer,
   RelievingExpLetter:RelievingExpLetterReducer,
   exit_interview:ExitInterviewReducer,
+  clone_exit_interview:CloneExitInterviewReducer,
   leave_list:LeaveListReducer,
   final_form:FinalFormReducer,
   emp_loanList: EmployeeLoanListReducer,
@@ -183,6 +191,7 @@ const rootReducer = combineReducers({
   expirOfferLetter: ExpirOfferLetterReducer,
   napsTraning: NAPS_TraningReducer,
   pendingBGV: PendingBGVReducer,
+  clone_pendingBGV: CloneBGVReducer,
   OngoingLoans: OngoingLoansReducer,
   LeaveModule: LeaveReducer,
   C3MLetter: C3MLetterReducer,
@@ -192,11 +201,14 @@ const rootReducer = combineReducers({
   next_next_year:AfterNextSuccessionPlanerReducer,
   employeRecordApproval:EmpRecordApprovalReducer,
   final_form_approval: FinalFormApprovalReducer,
+  clone_final_form_approval: CloneFinalFormApprovalReducer,
   succession_approval:SuccessionAReducer,
   travelAuthSpec: TravelAuthSpecReducer,
   notification:NotificationReducer,
   notification_module:NotificationModuleReducer,
   tax_list:TaxListReducer,
+  letter_head:LetterHeadReducer,
+  content_list:ContentListReducer,
   // form: formReducer,
   Shifts:ShiftsReducer, 
    associatedEmployee:AssociatedEmployeesReducer

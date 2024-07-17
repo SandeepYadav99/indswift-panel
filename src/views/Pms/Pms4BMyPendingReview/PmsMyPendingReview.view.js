@@ -36,7 +36,8 @@ const PmsPendingReview = ({ location }) => {
     handleSideToggle,
     handleViewDetails,
     isCalling,
-    handleRecordReview
+    handleRecordReview,
+    enableAction
   } = usePmsPendingReview({ location });
 
   const {
@@ -149,7 +150,7 @@ const PmsPendingReview = ({ location }) => {
             <div className={styles.newLine} />
           </div>
           <div>
-            {canSubmit && (<ButtonBase
+            {enableAction && canSubmit && (<ButtonBase
               // aria-owns={downloadCL ? "downloadCL" : undefined}
               aria-haspopup="true"
                 onClick={handleRecordReview}

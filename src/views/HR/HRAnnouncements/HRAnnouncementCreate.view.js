@@ -8,7 +8,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import useHRAnnouncementCreateViewDetail from "./HRAnnouncementCreateHook";
 import CustomDatePicker from "../../../components/FormFields/DatePicker/CustomDatePicker";
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -165,7 +165,7 @@ const HRAnnouncementCreateView = ({}) => {
               onClick={handleSubmit}
               className={styles.createBtn}
             >
-              <CircularProgress color="success" size="20px"/> 
+              <CircularProgress color="success" size="20px" />
             </ButtonBase>
           ) : (
             <ButtonBase

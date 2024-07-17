@@ -79,7 +79,8 @@ function CandidateDetails() {
     toggleEafDialog,
     handleCVShortlistReminder,
     handleResendEafClick,
-    checkPrc
+    checkPrc,
+    handleCheckbox
   } = useCandidateDetails({});
 
   return (
@@ -93,6 +94,7 @@ function CandidateDetails() {
         handleToggleExtendPage={toggleExtendDialog}
         handleToggleRPDialog={toggleReoccuringDialog}
         handleToggleShareDialog={toggleShareDialog}
+        handleCheckbox={handleCheckbox}
         checkPrc={checkPrc}
       />
       <div>

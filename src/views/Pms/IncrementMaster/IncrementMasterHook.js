@@ -81,11 +81,10 @@ const useDepartmentDetail = ({}) => {
                             tForm['grade_ids_two'] = grades;
                         }
                         setForm(tForm);
-                        setTimeout(() => {
-                            setIsLoading(false);
-                        }, 1000);
-
                     });
+                    setTimeout(() => {
+                        setIsLoading(false);
+                    }, 1000);
                 }
             });
         }

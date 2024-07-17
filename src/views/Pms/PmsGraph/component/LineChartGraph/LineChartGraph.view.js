@@ -12,7 +12,7 @@ import {
 function LineChartGraph({dataValues}) {
   return (
     <LineChart
-      width={800}
+      width={600}
       height={600}
       data={[...dataValues].slice(0,13)}
       margin={{

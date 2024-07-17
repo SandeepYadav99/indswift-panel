@@ -104,7 +104,7 @@ const initialForm = {
 const roles = [
   {
     name: "SITE HR",
-    id: "SITE_HR",
+    id: "ADMIN",
   },
   {
     name: "Recruiter",

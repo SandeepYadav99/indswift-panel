@@ -72,7 +72,7 @@ const AwardSheetView = ({}) => {
   }
 
   return (
-    <div className={styles.awardWrrap}>
+    <div id="content-to-print" className={styles.awardWrrap}>
       <div className={styles.mainContainer}>
         <Header empData={empData} sheetData={sheetData}/>
         <span className={styles.heading}>

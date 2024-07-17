@@ -1,0 +1,48 @@
+.resetPasswordWrapper {
+  padding: 1.2rem;
+}
+.resetWrapper {
+  display: flex;
+}
+.imgWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.imgWrap img {
+  width: 60px;
+  aspect-ratio: 1/1;
+}
+
+.headerWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 20px;
+}
+.headerImg {
+  max-width: calc(100% - 39px);
+  max-height: 70px;
+  object-fit: contain;
+}
+.footerWrap {
+  height: 60px;
+  background: transparent linear-gradient(257deg, #7467f0 0%, #2896e9 100%) 0%
+    0% no-repeat padding-box;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: white;
+  font-weight: 500;
+}
+.info {
+  height: 50px;
+  color: "#919BB0";
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+}

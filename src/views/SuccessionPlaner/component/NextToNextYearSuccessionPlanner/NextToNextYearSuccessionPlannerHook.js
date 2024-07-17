@@ -17,6 +17,7 @@ const useNextToNextYearSuccessionPlanner = ({ listData }) => {
   const isMountRef = useRef(false);
   const [empId, setEmpId] = useState("");
   const [isSend, setIsSend] = useState(false);
+  const [isLoading,setIsLoading] = useState(false)
 
   const {
     sorting_data: sortingData,
@@ -67,17 +68,21 @@ const useNextToNextYearSuccessionPlanner = ({ listData }) => {
   );
 
   const handleResend = useCallback((data) => {
-    // LogUtils.log("resend", data);
-    serviceGetSuccessionPlanerSend({
-      employee_id: data,
-    }).then((res) => {
-      if (!res.error) {
-        SnackbarUtils?.success("Send Successfully");
-        setIsSend(false);
-        window.location.reload();
-      }
-    });
-  }, []);
+    if(!isLoading){
+      setIsLoading(true)
+      // LogUtils.log("resend", data);
+      serviceGetSuccessionPlanerSend({
+        employee_id: data,
+      }).then((res) => {
+        if (!res.error) {
+          SnackbarUtils?.success("Send Successfully");
+          setIsSend(false);
+          setIsLoading(false)
+          window.location.reload();
+        }
+      });
+    }
+  }, [isLoading,setIsLoading]);
   const handleSearchValueChange = useCallback(
     (value) => {
       console.log("_handleSearchValueChange", value);

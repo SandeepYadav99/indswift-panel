@@ -238,14 +238,7 @@ function useMyProfileEdit() {
     [removeError, form, setForm, form.current_address]
   );
 
-  const onBlurHandler = useCallback(
-    (type) => {
-      if (form?.[type]) {
-        changeTextData(form?.[type].trim(), type);
-      }
-    },
-    [changeTextData, checkCodeValidation]
-  );
+  
   const checkCodeValidation = useCallback(() => {
     if (form?.emp_code) {
       serviceCheckEmployeeExists({
@@ -266,6 +259,15 @@ function useMyProfileEdit() {
     }
   }, [errorData, setErrorData, form.emp_code, id]);
 
+  const onBlurHandler = useCallback(
+    (type) => {
+      if (form?.[type]) {
+        changeTextData(form?.[type].trim(), type);
+      }
+    },
+    [changeTextData, checkCodeValidation]
+  );
+  
   const getSelectedValue = (arr1, arr2) => {
     let matchingObjects = [];
     for (let obj1 of arr1) {

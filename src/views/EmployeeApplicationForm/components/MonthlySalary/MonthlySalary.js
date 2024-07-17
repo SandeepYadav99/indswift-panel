@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import {  ButtonBase,} from "@material-ui/core";
+import { ButtonBase } from "@material-ui/core";
 import LogUtils from "../../../../libs/LogUtils";
 import {
   RemoveCircleOutline as RemoveIcon,
@@ -21,7 +21,7 @@ const TEMP_OBJ = {
   ctc: "",
   in_hand: "",
   payment_type: "",
-  amount: ""
+  amount: "",
 };
 
 const MonthlySalary = (
@@ -30,15 +30,15 @@ const MonthlySalary = (
     currency,
     listWarehouse,
     errorData: errorForm,
-   
+
     firstfield,
     Secondfield,
     thirdfield,
     forthfield,
-    isDisabled
+    isDisabled,
+    isFresher,
   },
   ref
-  
 ) => {
   const [fields, setFields] = useState([JSON.parse(JSON.stringify(TEMP_OBJ))]);
   const [errorData, setErrorData] = useState({});
@@ -57,6 +57,12 @@ const MonthlySalary = (
     });
     // updateInventory(sku, qty);
   }, [fields]);
+
+  useEffect(() => {
+    if (isFresher) {
+      setFields([]);
+    }
+  }, [isFresher]);
 
   useImperativeHandle(ref, () => ({
     isValid() {
@@ -77,13 +83,15 @@ const MonthlySalary = (
     return fields;
   };
 
+  console.log(isFresher, "Month Form");
+
   const validateData = (index, type) => {
     const errors = {};
 
     fields.forEach((val, index) => {
       const err =
         index in errorData ? JSON.parse(JSON.stringify(errorData[index])) : {};
-      const required = ['ctc', 'in_hand'];
+      const required = isFresher ? [] : ["ctc", "in_hand"];
       required.forEach((key) => {
         if (!val[key]) {
           err[key] = true;
@@ -105,10 +113,6 @@ const MonthlySalary = (
       setFields(data);
     }
   }, [data]);
-
-  const isValid = () => {
-    return validateData();
-  };
 
   const checkExists = useCallback(async (index, key, value) => {}, []);
 
@@ -177,7 +181,6 @@ const MonthlySalary = (
 
       return (
         <div>
-  
           <IncludSalaryField
             isDisabled={isDisabled}
             variants={tempFilters}
@@ -213,20 +216,20 @@ const MonthlySalary = (
   return (
     <>
       {renderFields}
-      {
-        !isDisabled && <div>
-        <ButtonBase
-          className={styles.addition}
-          label={"+"}
-          onClick={() => {
-            handlePress("ADDITION", 0);
-          }}
-        >
-          <Add fontSize={"small"} /> <span>Add Monthly Payment</span>
-        </ButtonBase>
-      </div>
-      }
-      
+      {!isDisabled && (
+        <div>
+          <ButtonBase
+            className={styles.addition}
+            label={"+"}
+            onClick={() => {
+              handlePress("ADDITION", 0);
+            }}
+          >
+            <Add fontSize={"small"} /> <span>Add Monthly Payment</span>
+          </ButtonBase>
+        </div>
+      )}
+
       {/*</div>*/}
     </>
   );

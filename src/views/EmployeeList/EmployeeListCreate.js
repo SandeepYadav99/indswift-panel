@@ -46,7 +46,8 @@ const EmployeeListCreate = ({ location }) => {
     toggleConfirmDialog,
     isDialog,
     submitToServer,
-    role
+    role,
+    isCorporateHR
   } = EmployeeListCreateHook({ location });
   const getSumValue = (...numbers) => {
     return numbers
@@ -1150,7 +1151,8 @@ const EmployeeListCreate = ({ location }) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
-                disabled={role !== "CORPORATE_HR"}
+                // disabled={role !== "CORPORATE_HR"}
+                disabled={!isCorporateHR}
                 className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
@@ -1162,7 +1164,8 @@ const EmployeeListCreate = ({ location }) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
-                disabled={role !== "CORPORATE_HR"}
+                // disabled={role !== "CORPORATE_HR"}
+                disabled={!isCorporateHR}
                 className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {

@@ -11,8 +11,7 @@ import {
 } from "../../../../../services/ClaimsManagement.service";
 import { useSelector } from "react-redux";
 import debounce from "lodash.debounce";
-import { isDateInFiscalYear } from "../../../../../helper/helper";
-import { serviceGetList } from "../../../../../services/Common.service";
+import { calculateFinancialYear, isDateInFiscalYear } from "../../../../../helper/helper";
 
 const initialForm = {
   hra_months: "",
@@ -134,19 +133,12 @@ const useTaxCard = ({}) => {
   const {
     user: { emp_code, user_id },
   } = useSelector((state) => state.auth);
-  const [listData, setListData] = useState({
-    FY_YEAR:[]
-  });
+  
   const today = new Date();
   const isTodayInFiscalYear = isDateInFiscalYear(today);
-  useEffect(() => {
-    serviceGetList(["FY_YEAR"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
-    });
-  }, []);
-
+  // const financialYear = calculateFinancialYear(today)
+  const financialYear = useMemo(() => calculateFinancialYear(today), [today, calculateFinancialYear]);
+  console.log("financialYear",financialYear)
   useEffect(() => {
     if (emp_code) {
       let dataValues = serviceGetEmployeeDetails({ code: emp_code });
@@ -194,7 +186,7 @@ const useTaxCard = ({}) => {
   useEffect(() => {
     let req = serviceGetTaxDetail({
       employee_id: user_id,
-      fy_year: form?.fy_year,
+      fy_year: financialYear,
     });
     req.then((data) => {
       const res = data?.data?.details;
@@ -219,11 +211,18 @@ const useTaxCard = ({}) => {
       if (res?.child_fees?.length > 0) {
         childRef?.current?.setData(res?.child_fees);
       }
-      setTimeout(() => {
-        setForm({ ...form, ...fd });
-      }, 500);
+      let getTotal = serviceGetTotalTaxForm({
+        employee_id: user_id,
+        fy_rent_paid: fd?.fy_rent_paid ? fd?.fy_rent_paid : 0,
+      })
+      getTotal.then((data)=>{
+        const total = data?.data?.details
+        setTimeout(() => {
+          setForm({ ...form, ...fd,...total });
+        }, 500);
+      })
     });
-  }, [user_id,form?.fy_year]);
+  }, [user_id,financialYear]);
 
   const getUrlfromFile = (text, fieldName) => {
     console.log("text, fieldName", text, fieldName);
@@ -464,7 +463,7 @@ const useTaxCard = ({}) => {
     checkSalaryInfoDebouncer,
     isTodayInFiscalYear,
     handleDraft,
-    listData
+    financialYear
   };
 };
 

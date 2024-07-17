@@ -58,7 +58,8 @@ const EmployeeListCreate = ({}) => {
       isUpdateDialog,
       SalaryField,
       role,
-      isSubmitting
+      isSubmitting,
+      isCorporateHR
   } = useEmployeeEditHook({});
   const isMobile = window.innerWidth <= 768;
 
@@ -1160,7 +1161,8 @@ const EmployeeListCreate = ({}) => {
               />
             <div className={styles.editBtnWrap}>
               <IconButton
-                disabled={role !=="CORPORATE_HR"}
+               disabled={!isCorporateHR}
+               // disabled={role !=="CORPORATE_HR"}
                 className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {
@@ -1172,7 +1174,8 @@ const EmployeeListCreate = ({}) => {
             </div>
             <div className={styles.editBtnWrap}>
               <IconButton
-                disabled={role !=="CORPORATE_HR"}
+               disabled={!isCorporateHR}
+               // disabled={role !=="CORPORATE_HR"}
                 className={"tableActionBtnEdit"}
                 color="secondary"
                 onClick={() => {

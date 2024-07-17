@@ -95,7 +95,7 @@ const usePms4BForm = ({location}) => {
         rows.forEach((row, rowIndex) => {
             processedColumns.forEach((col, colIndex) => {
                 if (!col.is_static) {
-                    tForm[`${row.id}_${col.key}`] = '';
+                    tForm[`${row.id}_${col.key}`] = Constants.isProduction ? '' : "10";
                 }
             });
         });

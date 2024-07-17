@@ -17,6 +17,7 @@ const UpperCard = ({
   handleToggleExtendPage,
   handleShare,
   checkPrc,
+  handleCheckbox
 }) => {
   const [isShareDialog, setIsShareDialog] = useState(false);
   const { user_profile, role } = useSelector((state) => state.auth);
@@ -195,6 +196,7 @@ const UpperCard = ({
         candidateId={data?.id}
         isOpen={isShareDialog}
         handleToggle={toggleShareDialog}
+        handleCheckbox={handleCheckbox}
       />
     </div>
   );

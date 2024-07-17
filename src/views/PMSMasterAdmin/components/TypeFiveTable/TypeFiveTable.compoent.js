@@ -2,11 +2,11 @@ import React, { useCallback, useMemo } from "react";
 import styles from "./Style.module.css";
 import Constants from "../../../../config/constants";
 import Datatables from "../../../../components/Datatables/datatables";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 import useTypeFiveTable from "./TypeFiveTableHook";
 
-function TypeFiveTable({ Renderdata, getPmsList }) {
+function TypeFiveTable({ Renderdata, getPmsList, currentBatch }) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -23,6 +23,8 @@ function TypeFiveTable({ Renderdata, getPmsList }) {
     setEndDate,
     handleCreateBatch,
     handleFreeze,
+    isLoading,
+    isFrezzing
   } = useTypeFiveTable({ Renderdata, getPmsList });
 
   const tableStructure = useMemo(() => {
@@ -37,20 +39,20 @@ function TypeFiveTable({ Renderdata, getPmsList }) {
         key: "start",
         label: "start date",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer_batch?.start_date}</div>,
+        render: (temp, all) => <div>{all?.type_five_batch?.startDateText}</div>,
       },
       {
         key: "end",
         label: "end date",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer_batch?.end_date}</div>,
+        render: (temp, all) => <div>{all?.type_five_batch?.endDateText}</div>,
       },
       {
         key: "freezed_on",
         label: "FREEZED ON",
         sortable: false,
         render: (temp, all) => (
-          <div> {all?.freezed_at ? all?.freezed_at : "-"}</div>
+          <div> {all?.type_five_batch?.freezedAtText ? all?.type_five_batch?.freezedAtText : "-"}</div>
         ),
       },
     ];
@@ -90,6 +92,7 @@ function TypeFiveTable({ Renderdata, getPmsList }) {
       <CustomDatePicker
         clearable
         label={"Start Date"}
+        minDate={new Date()}
         onChange={(date) => {
           setStartDate(date);
         }}
@@ -103,6 +106,7 @@ function TypeFiveTable({ Renderdata, getPmsList }) {
       <CustomDatePicker
         clearable
         label={"End Date"}
+        minDate={new Date()}
         onChange={(date) => {
           setEndDate(date);
         }}
@@ -110,13 +114,28 @@ function TypeFiveTable({ Renderdata, getPmsList }) {
       />
     );
   }, [endDate, setEndDate]);
+
+  const isFreeze = useMemo(()=>{
+    if(Renderdata?.length > 0){
+      return Renderdata[0]?.type_five_batch?.is_created
+    }
+    return false
+  },[Renderdata])
+
   return (
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
         <div>
-          <span className={styles.title}>Type 5 Batch - APMS</span>
+          <span className={styles.title}>Type 5 Batch - {currentBatch}</span>
           {/* <div className={styles.newLine} /> */}
         </div>
+      </div>
+      <div className={styles.decs}>
+        Please choose the start date (email will be sent) and end date (review
+        submission last date) by reviewers.
+      </div>
+      <div className={styles.subDes}>
+        Note: Once batch is created, reviewers for employees cannot be changed.
       </div>
       <div className={styles.yearFlex}>
         <div className={styles.UpperWrap}>
@@ -124,11 +143,15 @@ function TypeFiveTable({ Renderdata, getPmsList }) {
           <div className={styles.down}>{renderEndDate}</div>
         </div>
         <div className={styles.btnWrap}>
-          <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
-            CREATE BATCH
+          <ButtonBase onClick={handleCreateBatch} className={"createBtn"} disabled={isLoading}>
+          {isLoading ? <CircularProgress color="success" size="20px" /> :"CREATE BATCH"}
           </ButtonBase>
-          <ButtonBase onClick={handleFreeze} className={styles.freeze}>
-            Freeze
+          <ButtonBase
+            onClick={handleFreeze}
+            disabled={!isFreeze || isFrezzing}
+            className={isFreeze ? styles.freeze : styles.disabledBtn}
+          >
+              {isFrezzing ? <CircularProgress color="success" size="20px" /> :"Freeze"}
           </ButtonBase>
         </div>
       </div>

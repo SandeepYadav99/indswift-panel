@@ -159,6 +159,14 @@
   border-radius: 30px !important;
   font-weight: 600 !important;
 }
+.editSuccessBg{
+  color: #ffffff !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+  background: #29CB97 0% 0% no-repeat padding-box;
+border: 2px solid #29CB97;
+}
 .pdfBtnShared {
   background: #ffffff;
   width: 100%;
@@ -198,11 +206,11 @@
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 20px 80px #00000011;
   border-radius: 10px;
-  padding: 35px 25px;
+  padding: 25px 25px;
 }
 .headingText{
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 .closeWrap {
   width: 100%;
@@ -213,7 +221,26 @@
   margin-top: 20px;
   margin-bottom: 30px;
 }
-
+.titlewrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.desc{
+  font-size: .75rem;
+  text-align: center;
+}
+.desc1{
+  font-size: .7rem;
+  text-align: center;
+}
+.confirmedWrapper{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
 @media (max-width: 1520px) {
   .actionBtnSpan {
     display: none;

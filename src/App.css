@@ -1,23 +1,22 @@
-body {
-  background-color: #f6f7ff;
-  font-family: "Montserrat", sans-serif;
+body{
+  background-color: #F6F7FF;
+  font-family: 'Montserrat', sans-serif;
 }
 
 @font-face {
-  font-family: "CircularStd-Bold";
+  font-family: 'CircularStd-Bold';
   src: url("./assets/fonts/CircularStd-Bold.otf");
 }
 
 @font-face {
-  font-family: "CircularStd-Book";
+  font-family: 'CircularStd-Book';
   src: url("./assets/fonts/CircularStd-Book.otf");
 }
 
 @font-face {
-  font-family: "CircularStd-Medium";
+  font-family: 'CircularStd-Medium';
   src: url("./assets/fonts/CircularStd-Medium.otf");
 }
-
 .formFlex {
   display: flex;
   /*margin-bottom: 10px;*/
@@ -221,6 +220,7 @@ input[type="radio"] + label:hover {
   padding: 4.5px 11.85px;
   border-radius: 15px;
 }
+
 .AutoCompleteWrap {
   margin: 10px 0;
   padding-left: 7.5px;
@@ -230,7 +230,13 @@ input[type="radio"] + label:hover {
   .MuiAutocomplete-input {
   padding: 4px;
 }
-
+.AutoCompleteWrap .MuiInputLabel-formControl {
+  top: -5px;
+}
+.AutoCompleteWrap .MuiInputLabel-outlined.MuiInputLabel-shrink {
+  position: absolute;
+  top: 0;
+}
 .createBtn {
   background-color: #29cb97 !important;
   color: #ffffff !important;
@@ -1119,6 +1125,28 @@ input[type="radio"] + label:hover {
     justify-content: center;
     width: 100%;
   }
+  .MemberWrapper {
+    max-width: 760px;
+  }
+  .newMemberWrapper {
+    max-width: 700px;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1200px) {
+  .MemberWrapper {
+    max-width: 12000px !important;
+  }
+}
+@media print {
+  .fullDetailWrapper {
+    display: block !important;
+    position: relative !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    margin-left: 0 !important;
+  }
 }
 
 @media print {
@@ -1176,18 +1204,17 @@ input[type="radio"] + label:hover {
   font-family: Montserrat !important;
   border-bottom: 1px solid #b8c5d3 !important;
 }
-.rbc-time-content{
-    border-top: 1px solid #b8c5d3  !important;
+.rbc-time-content {
+  border-top: 1px solid #b8c5d3 !important;
 }
 .rbc-day-slot .rbc-events-container {
-   
-    border-left: 1px solid #b8c5d3 !important;
+  border-left: 1px solid #b8c5d3 !important;
 }
-.rbc-day-slot .rbc-time-slot{
-    border-top: none !important;
+.rbc-day-slot .rbc-time-slot {
+  border-top: none !important;
 }
-.rbc-timeslot-group{
-    border-bottom: 1px solid #b8c5d3 !important;
+.rbc-timeslot-group {
+  border-bottom: 1px solid #b8c5d3 !important;
 }
 .rbc-month-view {
   position: relative !important;
@@ -1220,10 +1247,9 @@ input[type="radio"] + label:hover {
   margin-bottom: 10px !important;
 }
 .rbc-time-slot {
-text-align: right !important;
+  text-align: right !important;
   font-weight: 14px !important;
   font-family: Montserrat !important;
-
 }
 .rbc-event-content {
   font-size: 0.875rem !important;
@@ -1300,12 +1326,10 @@ text-align: right !important;
 }
 
 .rbc-time-view .rbc-row {
-    box-sizing: border-box !important;
-    /* min-height: none !important; */
-    min-height: 35px !important;
-   
-   
+  box-sizing: border-box !important;
+  /* min-height: none !important; */
+  min-height: 35px !important;
 }
-.rbc-time-content{
-    margin-top: -70px !important;
+.rbc-time-content {
+  margin-top: -70px !important;
 }

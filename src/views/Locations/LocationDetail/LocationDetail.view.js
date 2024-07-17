@@ -10,6 +10,7 @@ import useLocationDetail from "./LocationDetailHook";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import LocIncludeFields from "./components/locationRole/LocIncludes.component";
+import StatusPill from "../../../components/Status/StatusPill.component";
 
 const LocationDetail = () => {
   const {
@@ -86,6 +87,10 @@ const LocationDetail = () => {
                 <span className={styles.value}>Email:</span>
                 {data?.head?.email}
               </div>
+              <div className={styles.key} style={{marginTop:"10px"}}>
+                <span className={styles.value}>Status:</span>
+                <StatusPill status={data?.status}/>
+              </div>
             </div>
           </div>
         </div>
@@ -149,10 +154,11 @@ const LocationDetail = () => {
             <div className={styles.right}>{_renderInfo()}</div>
           </div>
 
-          <div className={styles.statusFlex}>
+          {/* <div className={styles.statusFlex}>
             <div className={"formFlex"} style={{ alignItems: "center" }}>
               <div className={"formGroup"}>Status:</div>
               <div className={"formGroup"}>
+                <StatusPill status={data?.status}/>
                 <CustomSwitch
                   value={isActive}
                   handleChange={handleSwitchChange}
@@ -160,7 +166,7 @@ const LocationDetail = () => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

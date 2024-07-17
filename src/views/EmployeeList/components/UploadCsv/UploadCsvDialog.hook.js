@@ -58,11 +58,18 @@ const useUploadCsvDialogHook = ({orderId, isOpen, handleToggle, handleCsvUpload}
                         handleToggle();
                         SnackbarUtils.success('Employee Data Imported Successfully');
                     }
-                    if (res.data.length === 0) {
+                    else if (res?.data[0]?.required?.length > 0) {
+                        setIsVerified(false)
+                        SnackbarUtils?.error("Verification failed");
+                    }
+                    else {
                         setIsVerified(e => !e);
                     }
                     setIsSubmitted(true);
                     setResData(res.data);
+                }
+                else {
+                    SnackbarUtils.error("Import Failed");
                 }
                 setIsSubmitting(false);
             })

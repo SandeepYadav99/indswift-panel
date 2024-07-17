@@ -8,6 +8,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const socketUrl = process.env.REACT_APP_SOCKET_URL;
 const uploaderUrl = process.env.REACT_APP_UPLOADER_URL;
 export default {
+  isProduction,
   is_development: process.env.NODE_ENV === "development" || !isProduction,
   testing_env: process.env.REACT_APP_ENV,
   TIME_ZONE: -(tempDate.getTimezoneOffset() / 60),
@@ -22,6 +23,7 @@ export default {
   GOOGLE_LOGIN_KEY:
     "1027293586426-qg6lv2vsp57m05tn32m9stku2ljsd1uh.apps.googleusercontent.com",
   GOOGLE_MAP_KEY: "AIzaSyDUTIV7DaCvMUMg3qElE-sxdj4zR-dxhFM",
+  SENTRY_KEY:"https://8c23074c7a1d2532a801cf5f5bb424f7@o4507224995594240.ingest.us.sentry.io/4507225029083136",
   FACEBOOK_LOGIN_KEY: "213504989180156",
   DATATABLE_PROPERTIES: {
     title: "Search",
@@ -439,6 +441,8 @@ export default {
     CASHIER: "CASHIER",
     HR: "HR",
     MD: "MD",
+    CORPORATE_ACCOUNTANT:"CORPORATE_ACCOUNTANT",
+    HR_CHANGE_APPROVER: "HR_CHANGE_APPROVER"
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,

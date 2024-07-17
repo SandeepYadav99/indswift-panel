@@ -20,6 +20,9 @@ export async function serviceGetExitInterviewDetails(params) {
 export async function serviceGetExitInterview(params) {
   return await postRequest("exit/interview", params);
 }
+export async function serviceGetCloneExitInterview(params) {
+  return await postRequest("exit/interview/clone", params);
+}
 export async function serviceExitInterviewLogin(params) {
   return await postRequest("exit/interview/authenticate", params);
 }

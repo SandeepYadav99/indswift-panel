@@ -3,10 +3,10 @@ import styles from "./Style.module.css";
 import useVacancyList from "./ReviewerTableHook";
 import Constants from "../../../../config/constants";
 import Datatables from "../../../../components/Datatables/datatables";
-import { ButtonBase, MenuItem } from "@material-ui/core";
+import { ButtonBase, CircularProgress, MenuItem } from "@material-ui/core";
 import CustomDatePicker from "../../../../components/FormFields/DatePicker/CustomDatePicker";
 
-function ReviewerTable({ Renderdata, getPmsList }) {
+function ReviewerTable({ Renderdata, getPmsList, currentBatch }) {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -22,7 +22,9 @@ function ReviewerTable({ Renderdata, getPmsList }) {
     setStartDate,
     setEndDate,
     handleCreateBatch,
-    handleFreeze
+    handleFreeze,
+    isFrezzing,
+    isLoading
   } = useVacancyList({ Renderdata, getPmsList });
 
   const tableStructure = useMemo(() => {
@@ -37,20 +39,20 @@ function ReviewerTable({ Renderdata, getPmsList }) {
         key: "start",
         label: "start date",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer_batch?.start_date}</div>,
+        render: (temp, all) => <div>{all?.reviewer_batch?.startDateText}</div>,
       },
       {
         key: "end",
         label: "end date",
         sortable: false,
-        render: (temp, all) => <div>{all?.reviewer_batch?.end_date}</div>,
+        render: (temp, all) => <div>{all?.reviewer_batch?.endDateText}</div>,
       },
       {
         key: "freezed_on",
         label: "FREEZED ON",
         sortable: false,
         render: (temp, all) => (
-          <div> {all?.freezed_at ? all?.freezed_at : "-"}</div>
+          <div> {all?.reviewer_batch?.freezedAtText ? all?.reviewer_batch?.freezedAtText : "-"}</div>
         ),
       },
     ];
@@ -88,6 +90,7 @@ function ReviewerTable({ Renderdata, getPmsList }) {
   const renderStartDate = useMemo(() => {
     return (
       <CustomDatePicker
+        minDate={new Date()}
         clearable
         label={"Start Date"}
         onChange={(date) => {
@@ -101,6 +104,7 @@ function ReviewerTable({ Renderdata, getPmsList }) {
   const renderEndDate = useMemo(() => {
     return (
       <CustomDatePicker
+        minDate={new Date()}
         clearable
         label={"End Date"}
         onChange={(date) => {
@@ -110,12 +114,20 @@ function ReviewerTable({ Renderdata, getPmsList }) {
       />
     );
   }, [endDate, setEndDate]);
+
+  const isFreeze = useMemo(()=>{
+    if(Renderdata?.length > 0){
+      return Renderdata[0]?.reviewer_batch?.is_created
+    }
+    return false
+  },[Renderdata])
+// console.log("isLoading",isLoading)
   return (
     <div className={styles.plainPaper}>
       <div className={styles.headerContainer}>
         <div>
           <span className={styles.title}>
-            Reviewer Batch (Type 1 - Type 4) - APMS
+            Reviewer Batch (Type 1 - Type 4) - {currentBatch}
           </span>
           {/* <div className={styles.newLine} /> */}
         </div>
@@ -133,12 +145,16 @@ function ReviewerTable({ Renderdata, getPmsList }) {
           <div className={styles.down}>{renderEndDate}</div>
         </div>
         <div className={styles.btnWrap}>
-          <ButtonBase onClick={handleCreateBatch} className={"createBtn"}>
-            CREATE BATCH
+          <ButtonBase onClick={handleCreateBatch} className={"createBtn"} disabled ={isLoading}>
+          {isLoading ? <CircularProgress color="success" size="20px" /> :"CREATE BATCH"}
           </ButtonBase>
-          <ButtonBase onClick={handleFreeze} className={styles.freeze}>
-            Freeze
-          </ButtonBase>
+        
+            <ButtonBase
+            onClick={handleFreeze}
+            disabled={!isFreeze || isFrezzing}
+            className={isFreeze ? styles.freeze : styles.disabledBtn}>
+                {isFrezzing ? <CircularProgress color="success" size="20px" /> :"Freeze"}
+            </ButtonBase>
         </div>
       </div>
       <div style={{ width: "100%" }}>

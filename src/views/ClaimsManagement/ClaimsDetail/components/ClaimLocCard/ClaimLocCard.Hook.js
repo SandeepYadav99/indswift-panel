@@ -12,6 +12,7 @@ import { serviceGetClaimDetail } from "../../../../../services/Claims.service";
 import nullImg from "../../../../../assets/img/null.png";
 import { dataURLtoFile } from "../../../../../helper/helper";
 import { serviceGetList } from "../../../../../services/Common.service";
+import { isDate, isInvalidDateFormat } from "../../../../../libs/RegexUtils";
 
 const initialForm = {
   relocation_type: "",
@@ -73,6 +74,11 @@ const useClaimLocCard = ({}) => {
       errors["relocation_type"] = true;
       SnackbarUtils.error("Please Select the Type");
     }
+    if (form?.relocation_date && !isDate(form?.relocation_date)) {
+      if (isInvalidDateFormat(form?.relocation_date)) {
+        errors["relocation_date"] = true;
+      }
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -82,8 +88,8 @@ const useClaimLocCard = ({}) => {
   }, [form, errorData]);
 
   useEffect(()=>{
-    if(employeeDetails.doj && form?.relocation_type === 'NEW_JOINEE'){
-      setForm({...form,relocation_date : employeeDetails.doj})
+    if(employeeDetails?.dojDate && form?.relocation_type === 'NEW_JOINEE'){
+      setForm({...form,relocation_date : employeeDetails?.dojDate})
     }
   },[form.relocation_type])
 

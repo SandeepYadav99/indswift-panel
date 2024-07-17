@@ -280,7 +280,8 @@ const ThisYearSuccessionPlanner = ({ listData, toggleRetireDialog }) => {
                   color="secondary"
                   disabled={isCalling}
                   onClick={() => {
-                    toggleRetireDialog(all?.id);
+                    // console.log(">>>",all)
+                    toggleRetireDialog(all?.emp_code);
                   }}
                 >
                   <AccessibleIcon

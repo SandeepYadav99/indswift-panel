@@ -13,3 +13,6 @@ export async function serviceDeletePmsPending(params) {
 export async function serviceGetPmsPending(params) {
     return await postRequest('pms/my/batches', params);
 }
+export async function serviceGetPmsCanReview(params) {
+    return await postRequest('pms/master/can/review/batch', params);
+}

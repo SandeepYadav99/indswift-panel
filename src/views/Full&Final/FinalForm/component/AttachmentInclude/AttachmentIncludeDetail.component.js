@@ -34,7 +34,8 @@ const AttachmentIncludeDetailForm = ({ data, errorData: errorForm }, ref) => {
       return fields;
     },
     setData(data) {
-      const updatedData= data?.map((item)=> {
+      const values = data?.length > 0 ? data : fields;
+      const updatedData= values?.map((item)=> {
         return {
           ...item,
           attachment_documents: null,

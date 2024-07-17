@@ -5,17 +5,17 @@ import { bindActionCreators } from "redux";
 import classnames from "classnames";
 import styles from "./Forgot.module.css";
 import {
-    renderOutlinedSelectField,
+  renderOutlinedSelectField,
   renderOutlinedTextField,
   renderTextField,
 } from "../../libs/redux-material.utils";
-import {
-  CircularProgress,
-  MenuItem,
-} from "@material-ui/core";
+import { CircularProgress, MenuItem } from "@material-ui/core";
 import { Button, withStyles, ButtonBase } from "@material-ui/core";
 import { ArrowBack } from "@material-ui/icons";
-import {serviceForgotPassword, serviceLoginSupport} from "../../services/index.services";
+import {
+  serviceForgotPassword,
+  serviceLoginSupport,
+} from "../../services/index.services";
 import DashboardSnackbar from "../../components/Snackbar.component";
 import { Link } from "react-router-dom";
 
@@ -27,7 +27,7 @@ import RouteName from "../../routes/Route.name";
 
 const validate = (values) => {
   const errors = {};
-  const requiredFields = ["emp_id",'name','reason'];
+  const requiredFields = ["emp_code", "name", "reason"];
 
   requiredFields.forEach((field) => {
     if (!values[field]) {
@@ -111,7 +111,7 @@ class ForgotPasswordHelpView extends Component {
             is_sent: true,
             is_calling: false,
           });
-          historyUtils.push(RouteName.LOGIN)
+          historyUtils.push(RouteName.LOGIN);
         } else {
           this.setState({
             is_calling: false,
@@ -196,23 +196,27 @@ class ForgotPasswordHelpView extends Component {
                   <Field
                     fullWidth={true}
                     margin={"dense"}
-                    name="emp_id"
+                    name="emp_code"
                     component={renderOutlinedTextField}
                     label="Employee ID"
                   />
                 </div>
-                 <div>
+                <div>
                   <Field
-                  fullWidth={true}
-                  margin={"dense"}
-                  name="reason"
-                  component={renderOutlinedSelectField}
-                  label="Reason"
-                >
-                    <MenuItem value='1'>abc</MenuItem>
-                    <MenuItem value='2'>xyz</MenuItem>
-                    <MenuItem value='3'>123</MenuItem>
-                </Field>
+                    fullWidth={true}
+                    margin={"dense"}
+                    name="reason"
+                    component={renderOutlinedSelectField}
+                    label="Reason"
+                  >
+                    <MenuItem value="NOT_ABLE_LOGIN">
+                      Not able to login
+                    </MenuItem>
+                    <MenuItem value="NEW_DEVICE">New device</MenuItem>
+                    <MenuItem value="PASSWORD_NOT_RECEIVED">
+                      Password not received
+                    </MenuItem>
+                  </Field>
                 </div>
                 <br />
                 <div
@@ -245,10 +249,10 @@ class ForgotPasswordHelpView extends Component {
                     color: "#2896e9",
                     fontSize: "14px",
                     cursor: "pointer",
-                    marginTop:"25px"
+                    marginTop: "25px",
                   }}
                 >
-                    <a href="/login">Login Now</a>
+                  <a href="/login">Login Now</a>
                 </div>
               </div>
             </form>

@@ -276,7 +276,7 @@ const NextToNextYearSuccessionPlanner = ({ listData ,toggleRetireDialog}) => {
                   color="secondary"
                   disabled={isCalling}
                   onClick={() => {
-                    toggleRetireDialog(all?.id);
+                    toggleRetireDialog(all?.emp_code);
                   }}
                 >
                   <AccessibleIcon
@@ -346,7 +346,7 @@ const NextToNextYearSuccessionPlanner = ({ listData ,toggleRetireDialog}) => {
           isOpen={isSend}
           handleToggle={handleToggleSend}
           handleSubmit={handleResend}
-          // empId={empId}
+          empId={empId}
         />
         <SidePanelComponent
           handleToggle={handleToggleSidePannel}

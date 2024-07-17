@@ -21,6 +21,7 @@ const PmsOverallHodReview = ({ location }) => {
     handleSideToggle,
     handleViewDetails,
     isCalling,
+    enableAction
   } = usePmsOverallHodReview({ location });
 
   const {
@@ -91,7 +92,8 @@ const PmsOverallHodReview = ({ location }) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <IconButton
+            {
+              enableAction &&   <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
@@ -101,11 +103,12 @@ const PmsOverallHodReview = ({ location }) => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
+            }
           </div>
         ),
       },
     ];
-  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling]);
+  }, [renderStatus, renderFirstCell, handleViewDetails, handleEdit, isCalling,enableAction]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

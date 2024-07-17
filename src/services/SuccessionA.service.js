@@ -29,3 +29,6 @@ export async function serviceGetApprovalDetail(params) {
 export async function serviceGetApprovalSubmit(params) {
   return await formDataRequest("employee/succession/panelist/submit", params);
 }
+export async function serviceApproveRetireDirect(params) {
+  return await formDataRequest("/employee/succession/direct", params);
+}

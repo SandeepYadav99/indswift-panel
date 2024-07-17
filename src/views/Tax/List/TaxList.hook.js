@@ -141,11 +141,9 @@ const useTaxList = ({}) => {
         name: "status",
         type: "select",
         fields: [
-          "CORPORATE_AUDIT_2_APPROVED",
-          "TAXATION_APPROVED",
-          "CORPORATE_HR_APPROVED",
-          "CAO_APPROVED",
-          "PROCESSED",
+          "PENDING",
+          "APPROVED",
+          "REJECTED"
         ],
       },
     ];

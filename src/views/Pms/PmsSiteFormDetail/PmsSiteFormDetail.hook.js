@@ -93,7 +93,8 @@ const UsePmsFormDetail = ({}) => {
     setForm(tForm);
   }, [rows, processedColumns]);
   const handleReviewPage = useCallback(() => {
-    historyUtils.push(RouteName.PERFORMANCE_REVIEW);
+    historyUtils.goBack()
+    // historyUtils.push(RouteName.PERFORMANCE_REVIEW);
   }, []);
   return {
     columns,

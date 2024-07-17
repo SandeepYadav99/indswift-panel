@@ -1,5 +1,5 @@
 import { ButtonBase } from "@material-ui/core";
-import React from "react";
+import React, { useMemo } from "react";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../libs/history.utils";
 import styles from "./Style.module.css";
@@ -11,7 +11,7 @@ import ChangeDialog from "./Component/ChangePopUp/ChangeDialog.view";
 import RejectDialog from "./Component/RejectPopUp/RejectDialog.view";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import { removeUnderScore } from "../../../helper/helper";
-function ClaimListDetail() {
+function ClaimListDetail({location}) {
   const {
     id,
     employeeDetail,
@@ -22,6 +22,11 @@ function ClaimListDetail() {
     toggleRejectDialog,
     rejectDialog,
   } = useClaimListDetail({});
+
+  const isClonePage = useMemo(()=>{
+    return location?.state?.isClone ? true : false
+  },[location])
+
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -297,7 +302,7 @@ function ClaimListDetail() {
           </div>
         </div>
       </div>
-      {employeeDetail?.panelist_status === "PENDING" && (
+      {!isClonePage && employeeDetail?.panelist_status === "PENDING" && (
         <div
           className={
             employeeDetail?.status === "APPROVED"

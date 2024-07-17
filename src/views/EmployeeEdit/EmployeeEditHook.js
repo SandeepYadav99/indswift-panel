@@ -20,6 +20,8 @@ import LogUtils from "../../libs/LogUtils";
 import {serviceEditEmployeeVersion} from "../../services/EmployeeEdit.service";
 import debounce from 'lodash.debounce';
 import { useSelector } from "react-redux";
+import Constants from "../../config/constants";
+import RolesUtils from "../../libs/Roles.utils";
 
 const SALARY_KEYS = ['basic_salary', 'hra', 'education_allowance', 'medical_allowance', 'special_allowance', 'earning_one', 'pug', 'helper', 'food_coupons', 'gift_coupons', 'lta', 'super_annuation', 'nps', 'vehicle_maintenance', 'vehicle_emi', 'fuel', 'vpf', 'earning_two', 'gross', 'earning_three_pli', 'er_pf', 'er_esi', 'er_lwf', 'earning_four', 'gratuity', 'insurance', 'driver_incentive', 'perf_bonus', 'annual_bonus', 'two_car_maintenance', 'two_fuel', 'earning_five', 'monthly_ctc', 'em_pf', 'em_esi', 'em_lwf', 'total_deduction', 'total_pf', 'retention_allowance', 'car_component', 'incremental_gross_salary', 'earning2_vpf', 'deduction_vpf','stability_incentive','deduction_vpf_pct','gross_component','nps_part_e','deputation_allowance'];
 
@@ -194,6 +196,10 @@ function EmployeeListCreateHook() {
     ...BOOLEAN_KEYS,
   ]);
   const {role} = useSelector(state => state.auth);
+  
+  const isCorporateHR = useMemo(() => {
+    return RolesUtils.canAccess([Constants.ROLES.CORPORATE_HR], role);
+  }, [role]);
 
   const [listData, setListData] = useState({
     LOCATION_DEPARTMENTS: [],
@@ -459,6 +465,10 @@ function EmployeeListCreateHook() {
     }
   };
 
+  const checkSalaryInfoDebouncer = useMemo(() => {
+    return debounce((e) => {checkForSalaryInfo(e)}, 1000);
+      }, [listData]);
+      
   const changeTextData = useCallback(
       (text, fieldName) => {
         LogUtils.log('changeTextData', text, fieldName);
@@ -537,10 +547,6 @@ function EmployeeListCreateHook() {
       });
     }
   }, [errorData, setErrorData, form.emp_code, id]);
-
-  const checkSalaryInfoDebouncer = useMemo(() => {
-    return debounce((e) => {checkForSalaryInfo(e)}, 1000);
-      }, [listData]);
 
   useEffect(() => {
     if (codeDebouncer) {
@@ -745,7 +751,8 @@ function EmployeeListCreateHook() {
     isUpdateDialog,
     SalaryField,
     role,
-    isSubmitting
+    isSubmitting,
+    isCorporateHR
   };
 }
 

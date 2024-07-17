@@ -43,14 +43,24 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
     DEPARTMENTS: [],
     EMPLOYEES: [],
   });
+
+  useEffect(() => {
+    if (id) {
+      setForm({
+        ...initialForm,
+      });
+    }
+  }, [id]);
   useEffect(() => {
     if (id) {
       serviceGetHRKnowledgeDetails({ id: id }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
+          const { submitted } = data;
           setForm({
             ...data,
             document: null,
+            submitted_by: data?.submitted,
             is_active: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
@@ -73,7 +83,6 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
     if (!id) {
       required.push("document");
     }
-    console.log(form, errors);
     required.forEach(
       (val) => {
         if (
@@ -104,7 +113,7 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
       const fd = new FormData();
       const submittedIDs =
         Array.isArray(form.submitted_by) && form.submitted_by.length > 0
-          ? form.submitted_by.map((item)=>item.id)
+          ? form.submitted_by.map((item) => item.id)
           : [];
       form.submitted_by = submittedIDs;
       Object.keys(form).forEach((key) => {
@@ -127,7 +136,6 @@ const useHRKnowledgeCreateViewDetail = ({}) => {
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
-    console.log(">===", errors, form);
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
       return true;

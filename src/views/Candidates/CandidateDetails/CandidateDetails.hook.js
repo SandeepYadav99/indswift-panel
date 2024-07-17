@@ -10,7 +10,7 @@ import RouteName from "../../../routes/Route.name";
 import historyUtils from "../../../libs/history.utils";
 import { useParams } from "react-router";
 import { useCallback } from "react";
-import { serviceSendIrfReminder } from "../../../services/CVShortlist.service";
+import { serviceRejectUpdateJO, serviceSendIrfReminder } from "../../../services/CVShortlist.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 
 function useCandidateDetails() {
@@ -121,6 +121,19 @@ function useCandidateDetails() {
     });
   }, [candidateData, setCandidateData, toggleStatusDialog]);
 
+  const handleCheckbox = useCallback((data)=>{
+    if (candidateData) {
+      serviceRejectUpdateJO({
+        is_send_rejection_update:data,
+        id: candidateData?.job_opening_id,
+      }).then((res) => {
+        if (!res.error) {
+          // SnackbarUtils.success("Request send");
+        }
+      });
+    }
+  },[candidateData])
+  
   return {
     value,
     candidateData,
@@ -145,7 +158,8 @@ function useCandidateDetails() {
     toggleEafDialog,
     handleCVShortlistReminder,
     handleResendEafClick,
-    checkPrc
+    checkPrc,
+    handleCheckbox
   };
 }
 
