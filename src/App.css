@@ -225,14 +225,21 @@ input[type=radio] + label:hover {
     padding: 4.5px 11.85px;
     border-radius: 15px;
 }
-.AutoCompleteWrap{
+
+.AutoCompleteWrap {
     margin: 10px 0;
     padding-left: 7.5px;
 }
-.AutoCompleteWrap .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input{
+.AutoCompleteWrap .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input {
     padding: 4px;
 }
-
+.AutoCompleteWrap .MuiInputLabel-formControl {
+    top: -5px;
+}
+.AutoCompleteWrap .MuiInputLabel-outlined.MuiInputLabel-shrink {
+    position: absolute;
+    top: 0;
+}
 .createBtn{
     background-color: #29CB97 !important;
     color: #ffffff !important;

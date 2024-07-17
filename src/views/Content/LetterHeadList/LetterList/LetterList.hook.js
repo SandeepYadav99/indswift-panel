@@ -114,11 +114,6 @@ const useLetterHeadHook = ({}) => {
     historyUtils.push(`${RouteName.LETTERHEAD_UPDATE}${data?.id}`); //+data.id
   }, []);
 
-  const handleViewForm = useCallback((data) => {
-    LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.TAX_DETAIL}${data?.id}`); //+data.id
-  }, []);
-
   const handleCreate = useCallback(() => {
     historyUtils.push(`${RouteName.LETTERHEAD_CREATE}`); //+data.id
   }, []);
@@ -141,14 +136,7 @@ const useLetterHeadHook = ({}) => {
     ];
   }, [listData]);
 
-  const handleBankSheetDownload = useCallback(() => {
-    serviceExportLetterHead({}).then((res) => {
-      if (!res.error) {
-        const data = res.data;
-        window.open(data, "_blank");
-      }
-    });
-  }, []);
+ 
 
   return {
     handlePageChange,
@@ -160,8 +148,6 @@ const useLetterHeadHook = ({}) => {
     isCalling,
     editData,
     configFilter,
-    handleViewForm,
-    handleBankSheetDownload,
     role,
     handleCreate,
     handleToggle,

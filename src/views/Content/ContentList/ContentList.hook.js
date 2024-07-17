@@ -108,30 +108,15 @@ const useContentList = ({}) => {
 
   const handleViewDetails = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.LETTERHEAD_LIST}${data?.id}`); //+data.id
+    historyUtils.push(`${RouteName.CONTENT_UPDATE}${data?.id}`); //+data.id
   }, []);
 
-  const handleViewForm = useCallback((data) => {
-    LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.TAX_DETAIL}${data?.id}`); //+data.id
+  const handleCreate = useCallback(() => {
+    historyUtils.push(`${RouteName.CONTENT_CREATE}`); //+data.id
   }, []);
 
   const configFilter = useMemo(() => {
     return [
-      {
-        label: "Location",
-        name: "employeesObj.location_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "name" } },
-        fields: listData?.LOCATIONS,
-      },
-      {
-        label: "Grade",
-        name: "employeesObj.grade_id",
-        type: "selectObject",
-        custom: { extract: { id: "id", title: "label" } },
-        fields: listData?.GRADES,
-      },
       {
         label: "Department",
         name: "employeesObj.department_id",
@@ -167,10 +152,10 @@ const useContentList = ({}) => {
     isCalling,
     editData,
     configFilter,
-    handleViewForm,
     handleBankSheetDownload,
     role,
-    handleLetterHead
+    handleLetterHead,
+    handleCreate
   };
 };
 
