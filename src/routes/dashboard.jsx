@@ -499,6 +499,7 @@ const ShiftDetail = lazy(()=>import("../views/PayrollManagement/ShiftManagement/
 const UpdateAttendance = lazy(()=>import("../views/UpdateAttendance/UpdateAttendance.js"))
 const MusterReport = lazy(()=>import("../views/PayrollManagement/MusterReport/MusterReport.js"))
 const ShiftWiseReport = lazy(()=>import("../views/PayrollManagement/ShiftWiseReport/ShiftWiseReport.js"))
+const PayslipsGeneration = lazy(()=>import("../views/PayrollManagement/PayslipsGeneration/PayslipsGeneration.js"))
 
 
 const Roles = Constants.ROLES;
@@ -3191,6 +3192,16 @@ const dashboardRoutes = [
     is_sidebar: true,
     parent: "payroll",
     component:ShiftWiseReport
+    // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
+  },
+  {
+    path: RouteName.PAYSLIPS_GENERATION,
+    sidebarName: "Payslips Generation",
+    navbarName: "Payslips Generation",
+    icon: PeopleOutlined,
+    is_sidebar: true,
+    parent: "payroll",
+    component:PayslipsGeneration
     // roles: [Roles.ADMIN, Roles.CORPORATE_HR],
   },
 ];

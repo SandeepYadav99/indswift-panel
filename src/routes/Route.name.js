@@ -270,5 +270,6 @@ export default {
   LETTERHEAD_CREATE:"/letterhead/create",
   LETTERHEAD_UPDATE:"/letterhead/update/",
   MUSTER_REPORT:"/muster/report",
-  SHIFTS_WISE_REPORT:"/shifts/report",
+  SHIFTS_WISE_REPORT:"/shifts/report",// PayslipsGeneration
+  PAYSLIPS_GENERATION:"/payslips/genration"
 };
