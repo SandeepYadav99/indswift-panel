@@ -3,7 +3,8 @@ import styles from "./Style.module.css";
 import { ButtonBase } from "@material-ui/core";
 import rightSwip from "../../../assets/img/ic_right_swipe.png";
 import leftSwip from "../../../assets/img/ic_left_swipe.png";
-import SlideButton from 'rn-slide-button';
+import SlideButton from "rn-slide-button-updated";
+
 const SwipButton = ({ swipRightPunch, swipLeftPunch, isSwip, isLeftSwip }) => {
   console.log(isSwip);
   return (

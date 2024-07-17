@@ -3,7 +3,7 @@ import styles from "./Style.module.css";
 import CustomTextField from "../../../../../../components/FormFields/TextField/TextField.component";
 import useEventFormHook from "./EventForm.hook";
 import CustomSelectField from "../../../../../../components/FormFields/SelectField/SelectField.component";
-// import { MenuItem,Autocomplete } from "@mui/material";
+
 import CustomDatePicker from "../../../../../../components/FormFields/DatePicker/CustomDatePicker";
 import {
   Button,

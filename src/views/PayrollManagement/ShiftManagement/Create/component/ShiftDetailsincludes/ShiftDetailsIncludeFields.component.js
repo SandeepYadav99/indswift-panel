@@ -2,10 +2,11 @@ import React, { useEffect, useMemo } from "react";
 import { TextField } from "@material-ui/core";
 import styles from "./style.module.css";
 
-import { Autocomplete } from "@mui/material";
+
 import { getWorkingDays } from "../../../../../../helper/helper";
 import CustomCheckbox from "../../../../../../components/FormFields/CustomCheckbox";
 import CustomTimePicker from "../../../../../../components/FormFields/DatePicker/CustomTimePicker";
+import { Autocomplete } from "@material-ui/lab";
 
 const ShiftDetailsIncludeFields = ({
   index,
