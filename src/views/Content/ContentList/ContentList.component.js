@@ -25,7 +25,7 @@ const ContentList = ({}) => {
     isCalling,
     configFilter,
     handleResend,
-    handleBankSheetDownload,
+    handleCreate,
     role,
     handleLetterHead
   } = useContentList({});
@@ -188,8 +188,7 @@ const ContentList = ({}) => {
           <ButtonBase
             // aria-owns={downloadCL ? "downloadCL" : undefined}
             aria-haspopup="true"
-            // onClick={handleAddCandidate}
-            onClick={handleBankSheetDownload}
+            onClick={handleCreate}
             className={"createBtn"}
           >
             <Add fontSize={"small"} className={"plusIcon"}></Add>

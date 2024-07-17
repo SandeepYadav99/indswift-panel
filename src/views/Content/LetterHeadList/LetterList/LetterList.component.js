@@ -21,7 +21,6 @@ const LetterHead = ({}) => {
     handleFilterDataChange,
     handleSearchValueChange,
     handleViewDetails,
-    handleViewForm,
     isCalling,
     configFilter,
     handleCreate,

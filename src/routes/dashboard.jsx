@@ -15,6 +15,7 @@ import Constants from "../config/constants";
 import ContentList from "../views/Content/ContentList/ContentList.component.js";
 import LetterHead from "../views/Content/LetterHeadList/LetterList/LetterList.component.js";
 import LetterHeadCreate from "../views/Content/LetterHeadList/Create/LetterHeadCreate.view.js";
+import ContentCreate from "../views/Content/Create/ContentCreate.js";
 const NewEmployeeEdit = lazy(()=> import("../views/NewEmployeeList/NewEmployeeDetails/NewEmployeeEdit/NewEmployeeEdit.js"));
 const CloneClaimsList = lazy(()=> import ("../views/AdminClaimManagement/CloneClaimsList/CloneClaimsList.container.js"));
 const CloneExitInterviewList = lazy(()=> import ("../views/ExitInterview/CloneExitInterviewList/CloneExitInterviewList.container.js"));
@@ -2971,6 +2972,26 @@ const dashboardRoutes = [
   navbarName: "Content Customization",
   icon: AssignmentOutlined,
   component: LetterHead,
+  is_sidebar: false,
+  is_protect: true,
+  // roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
+},
+{
+  path: RouteName.CONTENT_CREATE,
+  sidebarName: "Content Customization",
+  navbarName: "Content Customization",
+  icon: AssignmentOutlined,
+  component: ContentCreate,
+  is_sidebar: false,
+  is_protect: true,
+  // roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],
+},
+{
+  path: `${RouteName.CONTENT_UPDATE}:id`,
+  sidebarName: "Content Customization",
+  navbarName: "Content Customization",
+  icon: AssignmentOutlined,
+  component: ContentCreate,
   is_sidebar: false,
   is_protect: true,
   // roles: [Roles.ACCOUNTANT,Roles.CORPORATE_HR],

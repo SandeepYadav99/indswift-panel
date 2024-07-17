@@ -3,7 +3,7 @@ import React from "react";
 import history from "../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import styles from "./Style.module.css";
-import useClaimMarrigeCard from "./LetterHeadCreate.hook";
+import useLetterHeadCreate from "./LetterHeadCreate.hook";
 import CustomTextField from "../../../../components/FormFields/TextField/TextField.component";
 import File from "../../../../components/FileComponent/FileComponent.component";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
@@ -17,7 +17,7 @@ function LetterHeadCreate() {
     isSubmitting,
     errorData,
     editData,
-  } = useClaimMarrigeCard({});
+  } = useLetterHeadCreate({});
 
   return (
     <div>
