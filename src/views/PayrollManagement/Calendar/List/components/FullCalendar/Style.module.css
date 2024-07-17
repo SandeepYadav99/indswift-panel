@@ -17,6 +17,12 @@
   height: 100%;
 }
 .label{
-  font-weight: 600;
-  font-size: .9rem;
+  font-weight: 600 !important;
+  font-size: 1.13rem !important;
+  font-family:  Montserrat !important;
+}
+.fontSize{
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-family:  Montserrat !important;
 }

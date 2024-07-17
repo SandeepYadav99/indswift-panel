@@ -24,9 +24,9 @@ function CalendarList() {
     renderList,
   } = useCalendarList({});
   const checkboxLabel = {
-    color: "#636578",
-    fontWeight: "bold",
+    color: "#161616",
     fontSize: "14px",
+    fontFamily: "Montserrat",
     fontWeight: "500",
   };
   return (
@@ -39,8 +39,8 @@ function CalendarList() {
               onClick={() => handleSideToggle()}
               className={styles.createBtn}
             >
-              <Add fontSize={"small"} className={"plusIcon"}></Add>
               ADD HOLIDAY
+              <Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
             <div className="calender_Wrapper">
               <CalendarMui
@@ -55,56 +55,56 @@ function CalendarList() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    style={{ color: "#636578", borderColor: "#636578" }}
+                    style={{ color: "#2896E9", borderColor: "#2896E9" }}
                     name="all"
                     checked={checkedItems?.all}
                     onChange={handleCheckboxChange}
                   />
                 }
-                style={checkboxLabel}
-                label="View All"
+                label={<span style={checkboxLabel}>View All</span>}
               />
             </div>
             <div className={styles.discriptionWrap}>
               <FormControlLabel
                 control={
                   <Checkbox
-                    style={{ color: "#72e128" }}
+                    style={{ color: "#66BA27", borderColor: "#66BA27" }}
                     name="GAZETTED"
                     checked={checkedItems?.GAZETTED}
                     onChange={handleCheckboxChange}
                   />
                 }
-                style={checkboxLabel}
-                label="Holiday"
+                label={<span style={checkboxLabel}>Holiday</span>}
               />
             </div>
             <div className={styles.discriptionWrap}>
               <FormControlLabel
                 control={
                   <Checkbox
-                    style={{ color: "#ff4d49" }}
+                    style={{ color: "#FF493F", borderColor: "#FF493F" }}
                     name="RESTRICTED"
                     checked={checkedItems?.RESTRICTED}
                     onChange={handleCheckboxChange}
                   />
                 }
-                style={checkboxLabel}
-                label="Restricted Holiday"
+                label={<span style={checkboxLabel}>Restricted Holiday</span>}
               />
             </div>
             <div className={styles.discriptionWrap}>
               <FormControlLabel
                 control={
                   <Checkbox
-                    style={{ color: "#666cff" }}
+                    style={{ color: "#7848CB", borderColor: "#7848CB" }}
                     name="OPTIONAL"
                     checked={checkedItems?.OPTIONAL}
                     onChange={handleCheckboxChange}
                   />
                 }
-                style={checkboxLabel}
-                label="Optional (only 1 can be taken)"
+                label={
+                  <span style={checkboxLabel}>
+                    Optional (only 1 can be taken)
+                  </span>
+                }
               />
             </div>
           </div>
@@ -113,7 +113,6 @@ function CalendarList() {
           <CalendarDetail
             data={filteredData}
             selectedDate={selectedDate}
-           
             handleSideToggle={handleSideToggle}
           />
         </div>

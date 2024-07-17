@@ -10,7 +10,7 @@ const PunchInOutBox = ({ isSwip, punchTime, punchOutTime, isLeftSwip }) => {
         <div className={styles.itemFlex}>
           <img src={punchIn} alt="" className={styles.punchImage} />
           <div className={styles.subBoxContainer}>
-            <div className={styles.punchTime}>{isSwip ? punchTime : "__"}</div>
+            <div className={styles.punchTime}>{isSwip ? punchTime : "-"}</div>
             <div
               className={
                 isSwip === "true"
@@ -26,7 +26,7 @@ const PunchInOutBox = ({ isSwip, punchTime, punchOutTime, isLeftSwip }) => {
           <img src={punchOut} alt="" className={styles.punchImage} />
           <div className={styles.subBoxContainer}>
             <div className={styles.punchTime}>
-              {isLeftSwip ? punchOutTime : "__"}
+              {isLeftSwip ? punchOutTime : "-"}
             </div>
             <div
               className={

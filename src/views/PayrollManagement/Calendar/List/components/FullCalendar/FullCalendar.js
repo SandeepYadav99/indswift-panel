@@ -90,14 +90,14 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
               onClick={() => onView("month")}
               style={activeMonth === "month" ? activeClass : {}}
             >
-              <Typography variant="body1">MONTH</Typography>
+              <Typography  className={styles.fontSize}>MONTH</Typography>
             </Button>
             <Button
             className={classes.button}
               onClick={() => onView("week")}
               style={activeMonth === "week" ? activeClass : {}}
             >
-              <Typography variant="body1">WEEK</Typography>
+              <Typography className={styles.fontSize}>WEEK</Typography>
             </Button>
             {/* <Button
             className={classes.button}
@@ -111,7 +111,7 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
               onClick={() => onView("agenda")}
               style={activeMonth === "agenda" ? activeClass : {}}
             >
-              <Typography variant="body1">LIST</Typography>
+              <Typography className={styles.fontSize}>LIST</Typography>
             </Button>
           </ButtonGroup>
         </div>
@@ -145,6 +145,7 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
         defaultView="month"
         eventPropGetter={eventStyleGetter}
         popup
+        resizable
         style={{ padding: "10px" }}
         components={{
           toolbar: CustomToolbar,
