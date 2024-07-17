@@ -270,6 +270,13 @@ export default {
   LETTERHEAD_CREATE:"/letterhead/create",
   LETTERHEAD_UPDATE:"/letterhead/update/",
   MUSTER_REPORT:"/muster/report",
-  SHIFTS_WISE_REPORT:"/shifts/report",// PayslipsGeneration
-  PAYSLIPS_GENERATION:"/payslips/genration"
+  SHIFTS_WISE_REPORT:"/shifts/report",
+  PAYSLIPS_GENERATION:"/payslips/genration",
+  NEW_EMPLOYEE_UPDATE: "/new/employees/update/",
+  CLONE_CLAIMS_LIST:'/cm/clone/claims' ,
+  CLONE_BACKGROUND_VERIFICATION:"/pending/slpl/verification",
+  CLONE_FULL_FINAL_APPROVAL:"/full/slpl/final-approval",
+  CLONE_EXIT_INTERVIEW_LIST:"/exit/slpl/interview/list",
+  PMS_MASTER:"/pms/master",
+  PMS_MASTER_ADMIN: "/pms/masters/admin",
 };
