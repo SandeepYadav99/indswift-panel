@@ -113,6 +113,7 @@ function CalendarList() {
           <CalendarDetail
             data={filteredData}
             selectedDate={selectedDate}
+           
             handleSideToggle={handleSideToggle}
           />
         </div>

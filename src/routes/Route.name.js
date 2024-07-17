@@ -268,5 +268,6 @@ export default {
   CONTENT_UPDATE:"/content/update/",
   LETTERHEAD_LIST:"/letterhead/list",
   LETTERHEAD_CREATE:"/letterhead/create",
-  LETTERHEAD_UPDATE:"/letterhead/update/"
+  LETTERHEAD_UPDATE:"/letterhead/update/",
+  MUSTER_REPORT:"/muster/report",
 };
