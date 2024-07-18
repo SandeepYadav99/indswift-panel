@@ -10696,15 +10696,15 @@ const useAddEmployeeTable = ({ handleClose }) => {
           if (!res.error) {
             handleClose();
             // renderList();
-            SnackbarUtils.success("Added successfully");
+            // SnackbarUtils.success("Added successfully");
           } else {
-            SnackbarUtils.error(res?.message);
+            // SnackbarUtils.error(res?.message);
           }
           setIsSubmitting(false);
         });
       }
     } else {
-      SnackbarUtils.error("Please select atlest one Employee");
+    //   SnackbarUtils.error("Please select atlest one Employee");
     }
   }, [selected, setSelected, isSubmitting, setIsSubmitting, handleClose]);
 
