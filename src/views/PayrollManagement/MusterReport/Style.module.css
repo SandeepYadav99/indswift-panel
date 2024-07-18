@@ -8,8 +8,7 @@
     margin: 15px 5px 10px  8px !important;
 }
 .headerContainer .title {
-    font-size: 0.8rem;
-    font-weight: 600;
+  font: normal normal 600 0.8rem Montserrat !important; 
    
 }
 .bottomLine {
@@ -471,4 +470,13 @@
   
   .gaps{
     margin-top: 12px;
+  }
+  .createBtnReport{
+    background-color: #29cb97 !important;
+    color: #ffffff !important;
+    padding: 10px 20px !important;
+    width: auto !important;
+    border-radius: 23px !important;
+    text-transform: uppercase !important;
+    font: normal normal 600 1.125rem Montserrat !important;
   }

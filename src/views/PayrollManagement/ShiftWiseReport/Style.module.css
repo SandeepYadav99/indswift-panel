@@ -5,10 +5,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 4px !important;
 }
 .headerContainer .title {
-    font-size: 0.8rem;
-    font-weight: 600;
+    font: normal normal 600 0.8rem Montserrat !important; 
    
 }
 .bottomLine {

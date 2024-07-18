@@ -149,26 +149,26 @@ const ShiftWiseReport = ({}) => {
   ]);
 
   return (
-    <div>
+    <>
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
             <span className={styles.title}>Shift Wise Report</span>
             <div className={styles.newLine} />
           </div>
-          <div>
+        
             <ButtonBase
               onClick={handleToggleSidePannel}
               className={"createBtnOutland"}
             >
               DOWNLOAD
             </ButtonBase>
-          </div>
+         
         </div>
 
-        <div>
+       
           <ShiftWiseFiled />
-        </div>
+       
       </PageBox>
 
       <div style={{ width: "100%" }}>
@@ -191,7 +191,7 @@ const ShiftWiseReport = ({}) => {
           machineId={id}
         />
       </SidePanelComponent> */}
-    </div>
+    </>
   );
 };
 

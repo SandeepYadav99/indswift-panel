@@ -33,7 +33,7 @@ const MusterReport = ({}) => {
     handleToggleSidePannel,
     currentData,
     isApprovalPopUp,
-        toggleApprovalDialog
+    toggleApprovalDialog,
   } = useMusterReportHook({});
 
   const {
@@ -61,7 +61,7 @@ const MusterReport = ({}) => {
                     position: "sticky",
                     left: fixed ? 0 : undefined,
                     top: 0,
-                    zIndex: fixed ? 100 : 9,
+                    zIndex: fixed ? 2 : 1,
                   }}
                   className={styles.thead}
                 >
@@ -327,13 +327,13 @@ const MusterReport = ({}) => {
   return (
     <div>
       <PageBox>
-      <div className={styles.headerContainer}>
+        <div className={styles.headerContainer}>
           <div>
             <span className={styles.title}>Muster Report</span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.actionButton}>
-          <ButtonBase
+            <ButtonBase
               onClick={toggleApprovalDialog}
               className={"createBtnOutland"}
             >
@@ -341,75 +341,70 @@ const MusterReport = ({}) => {
             </ButtonBase>
             <ButtonBase
               onClick={handleToggleSidePannel}
-              className={"createBtn"}
+              className={styles.createBtnReport}
             >
-              DOWNLOAD
+              DOWNLOAD REPORT
             </ButtonBase>
           </div>
         </div>
 
-          <MusterReportFiled />
-      </PageBox> 
-      <div className={styles.gaps}/>
+        <MusterReportFiled />
+      </PageBox>
+      <div className={styles.gaps} />
       <PageBox>
-        
-       
-            <div style={{ width: "100%" }}>
-              <div className={styles.tableWrapper}>
-                <div className={styles.container}>
-                  <table
-                    style={{
-                      borderCollapse: "collapse",
-                      cellSpacing: "0",
-                      borderSpacing: "0",
-                      cellpadding: "0",
-                      height: "50vh",
-                    }}
-                  >
-                    <TableHead columns={tableStructure} />
-                    <tbody>
-                      {currentData.map((row, rowIndex) => (
-                        <tr key={row.id}>
-                          {tableStructure.map(
-                            (
-                              { key, fixed, readOnly, render, ...props },
-                              index
-                            ) => (
-                              <TableCell
-                                row={row}
-                                key={key}
-                                fixed={fixed}
-                                render={render}
-                                index={index}
-                                {...props}
-                              />
-                            )
-                          )}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <TablePagination
-                rowsPerPageOptions={[]}
-                component="div"
-                // count={data?.length}
-                count={1}
-                rowsPerPage={50}
-                // page={currentPage - 1}
-                page={0}
-                onChangePage={(event, newPage) => {
-                  handlePageChange(newPage);
+        <div style={{ width: "100%" }}>
+          <div className={styles.tableWrapper}>
+            <div className={styles.container}>
+              <table
+                style={{
+                  borderCollapse: "collapse",
+                  cellSpacing: "0",
+                  borderSpacing: "0",
+                  cellpadding: "0",
+                  height: "50vh",
                 }}
-              />
-           
+              >
+                <TableHead columns={tableStructure} />
+                <tbody>
+                  {currentData.map((row, rowIndex) => (
+                    <tr key={row.id}>
+                      {tableStructure.map(
+                        ({ key, fixed, readOnly, render, ...props }, index) => (
+                          <TableCell
+                            row={row}
+                            key={key}
+                            fixed={fixed}
+                            render={render}
+                            index={index}
+                            {...props}
+                          />
+                        )
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <TablePagination
+            rowsPerPageOptions={[]}
+            component="div"
+            // count={data?.length}
+            count={1}
+            rowsPerPage={50}
+            // page={currentPage - 1}
+            page={0}
+            onChangePage={(event, newPage) => {
+              handlePageChange(newPage);
+            }}
+          />
+
           <DownloadBankSheet
-          isOpen={isApprovalPopUp}
-          handleToggle={toggleApprovalDialog}
-          empId={id}
-          data={allData}
-        />
+            isOpen={isApprovalPopUp}
+            handleToggle={toggleApprovalDialog}
+            empId={id}
+            data={allData}
+          />
         </div>
       </PageBox>
     </div>

@@ -42,8 +42,9 @@
     font-size: 14px !important;
   }
   .fontSize{
-    font-size: 12px !important;
-    font-weight: 500 !important;
+    /* font-size: 12px !important;
+    font-weight: 500 !important; */
+    font: normal normal 500 0.875rem Montserrat !important; 
    
   }
   .mainContainer{

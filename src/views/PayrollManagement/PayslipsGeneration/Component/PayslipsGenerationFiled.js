@@ -38,11 +38,11 @@ const PayslipsGenerationFiled = ({handleToggleSlipDetail}) => {
           </CustomSelectField>
         </div>
         <div className={"formGroup"}>
-          {form?.year === "2024" && (
+          {(form?.year  && form?.month) && (
             <div className={styles.actionButton}>
               <ButtonBase
                 onClick={handleToggleSlipDetail}
-                className={"createBtn"}
+                className={styles.createBtnPaylip}
               >
                 GENERATE PAYSLIPS
               </ButtonBase>

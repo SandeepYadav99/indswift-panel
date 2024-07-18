@@ -785,7 +785,7 @@ const ShiftsLists = ({}) => {
             </ButtonBase>
             <ButtonBase
               onClick={() => handleToggleSidePannel()}
-              className={"createBtn"}
+              className={"creatBTN"}
             >
               ADD SHIFT<Add fontSize={"small"} className={"plusIcon"}></Add>
             </ButtonBase>
