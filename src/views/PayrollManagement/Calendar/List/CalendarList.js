@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import CalendarMui from "./components/CalendarMui/CalendarMui";
 import styles from "./Style.module.css";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
@@ -29,6 +29,14 @@ function CalendarList() {
     fontFamily: "Montserrat",
     fontWeight: "500",
   };
+  const upperTitle =useCallback(()=>{
+    return (
+      <div>
+      <div>{`${editData?.id ? "Edit " : "Add"} Holiday`}</div>
+      <div className={styles.newLine}/>
+      </div>
+    )
+  },[editData])
   return (
     <PageBox>
       <div className={styles.mainFlex}>
@@ -119,7 +127,7 @@ function CalendarList() {
       </div>
       <SidePanelComponent
         handleToggle={handleSideToggle}
-        title={`${editData?.id ? "Edit " : "Add"} Holiday`}
+        title={upperTitle()}
         open={isSidePanel}
         side={"right"}
       >

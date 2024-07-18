@@ -53,6 +53,7 @@ const EventForm = ({ isOpen, handleToggle, editData, renderList }) => {
             errorText={errorData?.holiday_type}
             label={"Choose Holiday Type*"}
             value={form?.holiday_type}
+            disabled={editData?.id}
             handleChange={(value) => {
               changeTextData(value, "holiday_type");
             }}
@@ -71,38 +72,47 @@ const EventForm = ({ isOpen, handleToggle, editData, renderList }) => {
               className={styles.radioWrap}
             >
               <FormControlLabel
+                disabled={editData?.id}
                 value="FULL_DAY"
                 control={<Radio />}
                 label="Full Day"
               />
               <FormControlLabel
+                disabled={editData?.id}
                 value="HALF_DAY"
                 control={<Radio />}
                 label="Half Day"
               />
             </RadioGroup>
             {form?.type === "HALF_DAY" && (
-              <RadioGroup
-                aria-label="option"
-                name="half_day_type"
-                value={form?.half_day_type}
-                onChange={(e) =>
-                  changeTextData(e.target.value, "half_day_type")
-                }
-                row
-                className={styles.radioWrap}
-              >
-                <FormControlLabel
-                  value="FIRST_HALF"
-                  control={<Radio />}
-                  label="First Half"
-                />
-                <FormControlLabel
-                  value="SECOND_HALF"
-                  control={<Radio />}
-                  label="Second Half"
-                />
-              </RadioGroup>
+              <div className={styles.halfDayType}>
+                <div className={styles.halfDayTitle}>
+                  Holiday for which half of the day?
+                </div>
+                <div>
+                  <RadioGroup
+                    aria-label="option"
+                    name="half_day_type"
+                    value={form?.half_day_type}
+                    onChange={(e) =>
+                      changeTextData(e.target.value, "half_day_type")
+                    }
+                    row
+                    className={styles.radioWrap}
+                  >
+                    <FormControlLabel
+                      value="FIRST_HALF"
+                      control={<Radio />}
+                      label="First Half"
+                    />
+                    <FormControlLabel
+                      value="SECOND_HALF"
+                      control={<Radio />}
+                      label="Second Half"
+                    />
+                  </RadioGroup>
+                </div>
+              </div>
             )}
           </div>
           <CustomDatePicker
@@ -112,6 +122,7 @@ const EventForm = ({ isOpen, handleToggle, editData, renderList }) => {
             onChange={(date) => {
               changeTextData(date, "start_date");
             }}
+            disabled={editData?.id}
             value={form?.start_date}
             isError={errorData?.start_date}
           />
@@ -121,6 +132,8 @@ const EventForm = ({ isOpen, handleToggle, editData, renderList }) => {
             onChange={(e, value) => {
               changeTextData(value, "applies_locations");
             }}
+            disabled={editData?.id}
+            size="small"
             value={form?.applies_locations}
             // id="tags-standard"
             options={locationList}
@@ -137,16 +150,16 @@ const EventForm = ({ isOpen, handleToggle, editData, renderList }) => {
           />
         </div>
         <div className={styles.printFlex}>
-          {editData?.id ? (
+          {/* {editData?.id ? (
             <ButtonBase
               className={styles.edit}
               onClick={() => handleDelete(editData?.id)}
             >
-              Delete
+              DELETE
             </ButtonBase>
           ) : (
             <div></div>
-          )}
+          )} */}
           <Button
             className={styles.createBtn}
             onClick={handleSubmit}
@@ -154,6 +167,8 @@ const EventForm = ({ isOpen, handleToggle, editData, renderList }) => {
           >
             {isSubmitting ? (
               <CircularProgress color="success" size="20px" />
+            ) : editData?.id ? (
+              "UPDATE"
             ) : (
               "ADD"
             )}

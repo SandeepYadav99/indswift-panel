@@ -8,12 +8,14 @@
 }
 
 .printFlex {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; */
   padding-bottom: 10px;
   padding-top: 30px;
+  text-align: right !important;
 }
+
 .tableCont {
   padding: 10px 10px;
   max-height: 200px;
@@ -25,6 +27,8 @@
   padding: 10px 40px !important;
   border-radius: 30px !important;
   font-weight: 600 !important;
+  font-size: 1.1rem !important;
+  font-family: Montserrat !important;
 }
 .resetWrapper {
   display: flex;
@@ -71,14 +75,20 @@
   display: flex;
   font-size: 0.75rem;
 }
+.holidayTitle{
+  
+}
 .createBtn {
   background-color: #29cb97 !important;
   color: #ffffff !important;
-  padding: 7px 35px !important;
-  font-size: 0.8rem !important;
+  padding: 10px 40px !important;
+  font-size: 1rem !important;
   border-radius: 30px !important;
   text-transform: uppercase !important;
   font-weight: 600 !important;
+  font-family: Montserrat !important;
+  letter-spacing: 0px !important;
+ 
 }
 .disabledCreatebtn {
   background-color: #bec0bf !important;
@@ -100,8 +110,17 @@
 }
 .radioWrapper{
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap:100px
+  flex-direction: column;
+  align-items: left;
+  /* gap:100px */
   /* justify-content: space-between; */
+}
+.halfDayType{
+  display: flex;
+  flex-direction: column ;
+  /* gap: 5px; */
+}
+.halfDayTitle{
+  font-weight: 600;
+  font-size: 14px;
 }

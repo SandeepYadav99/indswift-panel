@@ -1,11 +1,11 @@
 export const getTextColor = (title) => {
   switch (title) {
     case "RESTRICTED":
-      return "#ff4d49"; // Personal events color
+      return "#E92828"; // Personal events color
     case "OPTIONAL":
-      return "#666cff"; // Business events color
+      return "#7848CB"; // Business events color
     case "GAZETTED":
-      return "#72e128"; // Holiday events color
+      return "#66BA27"; // Holiday events color
 
     default:
       return "#3174ad";
@@ -14,12 +14,12 @@ export const getTextColor = (title) => {
 export const getBgColor = (title) => {
   switch (title) {
     case "RESTRICTED":
-      return "#ffe4e4"; // Personal events color
+      return "#FFE8E8"; // Personal events color
     case "OPTIONAL":
-      return "#e8e9ff"; // Business events color
+      return "#EADEFF"; // Business events color
     // Family events color
     case "GAZETTED":
-      return "#eafbdf"; // Holiday events color
+      return "#E4FED1"; // Holiday events color
 
     default:
       return "#3174ad";

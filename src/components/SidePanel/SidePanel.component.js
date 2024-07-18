@@ -153,6 +153,7 @@ class SidePanelComponent extends Component {
             </ButtonBase>
             <div style={{ padding: "0px 15px", flex: 1 }}>
               <h3 style={{}}>{this.props.title}</h3>
+              <div className={styles.newLine}/>
             </div>
           </div>
           }

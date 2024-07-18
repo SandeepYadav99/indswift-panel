@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import { ButtonBase, Typography ,Button,ButtonGroup} from "@material-ui/core";
+import { ButtonBase, Typography, Button, ButtonGroup } from "@material-ui/core";
 import styles from "./Style.module.css";
-import { getBgColor, getTextColor } from "../../../../../../helper/calenderData";
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  getBgColor,
+  getTextColor,
+} from "../../../../../../helper/calenderData";
+import { makeStyles } from "@material-ui/core/styles";
 import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
 
 const localizer = momentLocalizer(moment);
 const useStyles = makeStyles((theme) => ({
   buttonGroup: {
-    border: '#1285F9',
-    borderRadius: '4px',
-    overflow: 'hidden',
+    border: "#1285F9",
+    borderRadius: "4px",
+    overflow: "hidden",
   },
   button: {
-    color: '#2896E9',
-    borderColor: '#2896E9',
+    color: "#2896E9",
+    borderColor: "#2896E9",
   },
 }));
 const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
@@ -86,14 +89,14 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
             aria-label="Medium-sized button group"
           >
             <Button
-            className={classes.button}
+              className={classes.button}
               onClick={() => onView("month")}
               style={activeMonth === "month" ? activeClass : {}}
             >
-              <Typography  className={styles.fontSize}>MONTH</Typography>
+              <Typography className={styles.fontSize}>MONTH</Typography>
             </Button>
             <Button
-            className={classes.button}
+              className={classes.button}
               onClick={() => onView("week")}
               style={activeMonth === "week" ? activeClass : {}}
             >
@@ -107,7 +110,7 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
               <Typography variant="body1">DAY</Typography>
             </Button> */}
             <Button
-            className={classes.button}
+              className={classes.button}
               onClick={() => onView("agenda")}
               style={activeMonth === "agenda" ? activeClass : {}}
             >
@@ -118,17 +121,37 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
       </div>
     );
   };
+  const CustomAgenda = useCallback(
+    ({ }) => {
+    
+      return (
+     
+          
+          <table >
+            <tbody>
+              <tr>
+                <td>Hi</td>
+                <td>Hi</td>
+                <td>Hi</td>
+              </tr>
+            </tbody>
+          </table>
+       
+      );
+    },
+    []
+  );
   const handleSlotSelect = (slotInfo) => {
     const hasExistingEvent = events?.some((event) =>
-      moment(event?.start)?.isSame(slotInfo?.start, 'day')
+      moment(event?.start)?.isSame(slotInfo?.start, "day")
     );
     const values = {
       start_date: slotInfo?.start,
       end_date: slotInfo?.end,
     };
-    if(hasExistingEvent){
-      SnackbarUtils.error("An holiday already exists for this day.")
-    }else{
+    if (hasExistingEvent) {
+      SnackbarUtils.error("An holiday already exists for this day.");
+    } else {
       handleSideToggle(values);
     }
   };
@@ -146,13 +169,17 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
         eventPropGetter={eventStyleGetter}
         popup
         resizable
+ 
         style={{ padding: "10px" }}
         components={{
           toolbar: CustomToolbar,
+        
         }}
+       
         onView={(view) => setActiveMonth(view)}
         date={selectedDate?.$d && selectedDate?.$d}
         drilldownView={null}
+        messages={{ date: "Date", time: "Slot", event: "Holiday" }}
       />
     </div>
   );
