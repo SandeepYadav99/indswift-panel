@@ -10554,7 +10554,7 @@ const useAddEmployeeTable = ({ handleClose }) => {
   const [form, setForm]=useState({...initForm});
   const [errorData, setErrorData] = useState({});
   const [employees, setEmployees] = useState([]);
-
+  const [allSelect, setAllSelect]=useState(false);
     useEffect(() => {
     serviceGetList(["EMPLOYEES"]).then((res) => {
       if (!res.error) {
@@ -10726,7 +10726,9 @@ const useAddEmployeeTable = ({ handleClose }) => {
     changeTextData,
     form,
     errorData,
-    employees
+    employees,
+    allSelect,
+    setAllSelect
 
   };
 };

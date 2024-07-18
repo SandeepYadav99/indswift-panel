@@ -37,13 +37,28 @@ const AddEmployeeTable = ({ handleClose }) => {
     changeTextData,
     form,
     employees,
-    errorData
+    errorData,
+    allSelect,
+    setAllSelect
   } = useAddEmployeeTable({ handleClose });
 
+  const handleAllDataChange = useCallback(
+    (event) => {
+      const checked = event.target.checked;
+      setAllSelect(checked);
+      const updatedPermissions = selected?.map((permission) => ({
+        ...permission,
+        id: checked,
+      }));
+
+      handleCheckbox(updatedPermissions);
+    },
+    [data, setAllSelect, handleCheckbox, selected, allSelect]
+  );
   const renderStatus = useCallback((status) => {
     return <StatusPill status={status} />;
   }, []);
-
+console.log(allSelect)
   const renderFirstCell = useCallback(
     (data) => {
       const selectedIndex = selected.findIndex((sel) => sel.id === data.id);
@@ -52,7 +67,8 @@ const AddEmployeeTable = ({ handleClose }) => {
           <Checkbox
             disabled={false}
             onChange={() => handleCheckbox(data)}
-            checked={selectedIndex >= 0}
+            checked={ allSelect &&
+              selected.every((permission) => permission?.id) ? allSelect : selectedIndex >= 0 }
             value="secondary"
             color="primary"
             inputProps={{ "aria-label": "secondary checkbox" }}
@@ -60,7 +76,7 @@ const AddEmployeeTable = ({ handleClose }) => {
         </div>
       );
     },
-    [handleCheckbox, selected]
+    [handleCheckbox, selected, allSelect]
   );
 
   const renderProfile = useCallback((data) => {
@@ -78,7 +94,9 @@ const AddEmployeeTable = ({ handleClose }) => {
     return [
       {
         key: "select",
-        label: "Select",
+        label:<Checkbox  checked={allSelect && selected.every((permission) => permission.id)} onChange={handleAllDataChange}  value="secondary"
+        color="primary"
+        inputProps={{ "aria-label": "secondary checkbox" }}/>,
         sortable: false,
         render: (value, all) => <div>{renderFirstCell(all)}</div>,
       },

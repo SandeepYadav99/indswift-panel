@@ -698,7 +698,7 @@ const ShiftsLists = ({}) => {
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
-            {!all?.is_default && (
+            {/* {!all?.is_default && ( */}
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
@@ -709,7 +709,7 @@ const ShiftsLists = ({}) => {
               >
                 <Edit fontSize={"small"} />
               </IconButton>
-            )}
+            {/* )} */}
 
             {!all?.is_default && (
               <IconButton
