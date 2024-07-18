@@ -158,9 +158,19 @@ const AddEmployeeTable = ({ handleClose }) => {
   return (
     <div className={styles.sliderWrapper}>
       <div className={styles.listAction}>
-        <ButtonBase onClick={() => historyUtils.goBack()}>
-          <ArrowBackIos fontSize={"small"} /> <span><b>Add Employees</b></span>
+        {/* <ButtonBase onClick={() => historyUtils.goBack()}>
+          <ArrowBackIos fontSize={"small"} /> 
         </ButtonBase>
+       
+        <div><b>Add Employees</b></div>
+          <div className={styles.newLine}/> */}
+            <ButtonBase onClick={() => historyUtils.goBack()}>
+          <ArrowBackIos fontSize={"small"} />{" "}
+        </ButtonBase>
+        <div className={styles.actionTitle}>
+          <div className={styles.addEmployeeTitle}>Add Employees</div>
+          <div className={styles.newLine}/>
+        </div>
       </div>
       <div className={styles.sliderWrapperContainer}>
         <div className={styles.empDetails}>Employee Details</div>
@@ -205,7 +215,7 @@ const AddEmployeeTable = ({ handleClose }) => {
         </div>
       </div>
       <div className={styles.actionButton}>
-        <ButtonBase className={"createBtnreset"} onClick={handleSubmit}>
+        <ButtonBase className={"creatBTN"} onClick={handleSubmit}>
           {isSubmitting ? (
             <CircularProgress color="success" size="20px" />
           ) : (

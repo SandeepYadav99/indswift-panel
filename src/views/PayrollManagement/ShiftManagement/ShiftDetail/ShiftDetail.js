@@ -157,15 +157,21 @@ const ShiftDetail = () => {
   if (shiftDetail) {
     return <WaitingComponent />;
   }
-  
+  const toTitleCase = (phrase) => {
+    return phrase
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
   return (
     <div>
       <div className={styles.container}>
         <ButtonBase onClick={() => historyUtils.goBack()}>
           <ArrowBackIos fontSize={"small"} />{" "}
-          <span className={"capitalize"}>
-            <b> {staticShiftDetail?.details?.name}</b>
-          </span>
+          <div className={styles.titleShiftDetail}>
+          {toTitleCase(staticShiftDetail?.details?.name)}
+          </div>
         </ButtonBase>
         <div className={styles.newLine} />
       </div>

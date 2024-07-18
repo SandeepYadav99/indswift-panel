@@ -187,8 +187,9 @@
   flex: 1;
   padding: 7px 10px;
   color: #161616;
-  font-size: .75rem;
-  font-weight: 500;
+  /* font-size: .75rem;
+  font-weight: 500; */
+  font: normal normal 500 0.875 Montserrat !important;
 }
 .horizontalLine {
   border: 1px solid #B8C5D3;

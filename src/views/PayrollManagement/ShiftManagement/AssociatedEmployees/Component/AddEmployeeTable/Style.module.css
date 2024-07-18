@@ -18,6 +18,7 @@
   align-items: center;
   gap: 30px;
 }
+
 .help {
   font-size: 0.75rem;
   font-weight: 500;
@@ -72,8 +73,8 @@
   height: 5px;
   width: 30px;
   border-radius: 10px;
-  text-align: center;
-  margin: auto;
+  text-align: left;
+ 
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
 }
 .InterviewPopUpWrapper {
@@ -153,16 +154,27 @@
     display: none !important;
   }
 }
-
+.addEmployeeTitle{
+  font: normal normal 600 1.125rem Montserrat !important; 
+}
 .listAction{
   margin-bottom: 20px !important;
   color: #161616 !important;
   font-weight: 600 !important;
   font-size: 18px !important;
+  display: flex !important;
+
+
+}
+.actionTitle{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 .empDetails{
   font-weight: 500 !important;
   color: #161616 !important;
   font-size: 18px !important;
   margin: 10px 0px !important;
+  font: normal normal 500 1.125rem Montserrat !important; 
 }

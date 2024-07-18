@@ -176,7 +176,7 @@ const AssociatedEmployees = ({ listData, id }) => {
           Associated Employees ({data?.length || 0})
         </div>
         <div>
-          <ButtonBase onClick={handleSideToggle} className={"createBtn"}>
+          <ButtonBase onClick={handleSideToggle} className={"creatBTN"}>
             ADD EMPLOYEE<Add fontSize={"small"} className={"plusIcon"}></Add>
           </ButtonBase>
         </div>

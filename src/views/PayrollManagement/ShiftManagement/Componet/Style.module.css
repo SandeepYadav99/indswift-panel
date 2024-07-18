@@ -35,7 +35,7 @@
 }
 .container{
     margin-bottom: 24px !important;
-    font-weight: 600 !important;
+    font: normal normal 500 1.125rem Montserrat !important; 
   }
   .title{
     color: #161616 !important;
