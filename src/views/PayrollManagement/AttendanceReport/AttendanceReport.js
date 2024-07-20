@@ -98,6 +98,12 @@ const AttendanceReport = ({}) => {
         render: (temp, all) => <div>{all?.serial_no}</div>,
       },
       {
+        key: "punch_in_time",
+        label: "PUNCH IN TIME",
+        sortable: false,
+        render: (temp, all) => <div>{all?.serial_no}</div>,
+      },
+      {
         key: "punch_out_time",
         label: "PUNCH OUT TIME",
         sortable: false,

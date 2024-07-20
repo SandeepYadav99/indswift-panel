@@ -1212,9 +1212,7 @@ input[type="radio"] + label:hover {
   font-family: Montserrat !important;
   border-bottom: 1px solid #b8c5d3 !important;
 }
-.rbc-time-content {
-  border-top: 1px solid #b8c5d3 !important;
-}
+
 .rbc-day-slot .rbc-events-container {
   border-left: 1px solid #b8c5d3 !important;
 }
@@ -1330,6 +1328,9 @@ input[type="radio"] + label:hover {
     padding: 6px 8px !important;
   }
 }
+.rbc-row-bg{
+  /* display: none !important; */
+}
 .css-23p0if-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected) {
   background: #ecf7ff !important;
   border: none !important;
@@ -1339,14 +1340,23 @@ input[type="radio"] + label:hover {
   border: none !important;
   color: #ffffff !important;
 }
-
+.rbc-time-view{
+ 
+  display: block !important;
+}
 .rbc-time-view .rbc-row {
   box-sizing: border-box !important;
   /* min-height: none !important; */
   min-height: 35px !important;
+ 
+}
+
+.toolWrapper{
+  /* width: 50% !important; */
 }
 .rbc-time-content {
   margin-top: -70px !important;
+  border-top: 0  !important;
 }
 
 .MuiOutlinedInput-adornedEnd {

@@ -150,7 +150,7 @@ const EventForm = ({ isOpen, handleToggle, editData, renderList }) => {
           />
         </div>
         <div className={styles.printFlex}>
-          {/* {editData?.id ? (
+           {editData?.id ? (
             <ButtonBase
               className={styles.edit}
               onClick={() => handleDelete(editData?.id)}
@@ -159,7 +159,7 @@ const EventForm = ({ isOpen, handleToggle, editData, renderList }) => {
             </ButtonBase>
           ) : (
             <div></div>
-          )} */}
+          )} 
           <Button
             className={styles.createBtn}
             onClick={handleSubmit}

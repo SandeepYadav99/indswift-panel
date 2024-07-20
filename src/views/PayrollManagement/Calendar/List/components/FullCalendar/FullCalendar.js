@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     borderColor: "#2896E9",
   },
 }));
+const LISTMESSAGE={date: "Date", time: "Slot", event: "Holiday"}
 const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
   const classes = useStyles();
   const [events, setEvents] = useState([...data]);
@@ -68,7 +69,7 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
   };
   const CustomToolbar = ({ label, onNavigate, onView }) => {
     return (
-      <div className={styles.toolWrapper}>
+      <div className={activeMonth === "week" ? styles.toolWrapperWeek : styles.toolWrapper}>
         <div className={styles.upperWrap}>
           <ButtonBase onClick={() => onNavigate("PREV")}>
             <ArrowBackIosIcon fontSize={"small"} className={styles.backIcon} />
@@ -131,8 +132,7 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
             <tbody>
               <tr>
                 <td>Hi</td>
-                <td>Hi</td>
-                <td>Hi</td>
+               
               </tr>
             </tbody>
           </table>
@@ -141,6 +141,7 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
     },
     []
   );
+  
   const handleSlotSelect = (slotInfo) => {
     const hasExistingEvent = events?.some((event) =>
       moment(event?.start)?.isSame(slotInfo?.start, "day")
@@ -155,9 +156,11 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
       handleSideToggle(values);
     }
   };
+  let allViews = Object.keys(Views).map((k) => Views[k])
   return (
     <div className={styles.detailWrap}>
       <Calendar
+      
         localizer={localizer}
         events={events}
         startAccessor="start"
@@ -165,21 +168,28 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
         selectable={true}
         onSelectSlot={handleSlotSelect}
         onSelectEvent={handleEventRemove}
-        defaultView="month"
+        // defaultView="month"
         eventPropGetter={eventStyleGetter}
         popup
         resizable
- 
-        style={{ padding: "10px" }}
+        defaultView={Views.MONTH}
+        style={{ padding: "10px", marginLeft:activeMonth === "week" && "-10px" }}
         components={{
           toolbar: CustomToolbar,
-        
+          agenda: {
+            event: CustomAgenda
+           }
         }}
-       
+        // views={{
+        //   week: true,
+        //   month: true,
+        //   // list: true,
+        //   agenda: CustomAgenda
+        // }}
         onView={(view) => setActiveMonth(view)}
         date={selectedDate?.$d && selectedDate?.$d}
         drilldownView={null}
-        messages={{ date: "Date", time: "Slot", event: "Holiday" }}
+        messages={LISTMESSAGE}
       />
     </div>
   );

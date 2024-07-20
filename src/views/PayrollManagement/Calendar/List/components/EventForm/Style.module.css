@@ -8,12 +8,12 @@
 }
 
 .printFlex {
-  /* display: flex;
+  display: flex;
   align-items: center;
-  justify-content: space-between; */
+  justify-content: space-between;
   padding-bottom: 10px;
   padding-top: 30px;
-  text-align: right !important;
+  /* text-align: right !important; */
 }
 
 .tableCont {
