@@ -132,3 +132,46 @@
   background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
   margin: auto !important;
 }
+.swipeableButton {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+  position: relative;
+  overflow: hidden;
+  width: 80%;
+}
+
+.swipeImageContainer {
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease-out;
+}
+
+.swipeImage {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+
+}
+
+.successImage {
+  width: 24px;
+  height: 24px;
+  margin-left: 80%;
+ 
+}
+.text{
+margin-left: 30% ;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
