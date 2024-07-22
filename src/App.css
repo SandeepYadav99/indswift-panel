@@ -1362,3 +1362,12 @@ input[type="radio"] + label:hover {
 .MuiOutlinedInput-adornedEnd {
   padding-right: 0 !important;
 }
+table.rbc-agenda-table  .rbc-header{
+  background-color: #EBEDF4 !important;
+  border: none !important;
+
+}
+ table.rbc-agenda-table tbody > tr > td + td {
+  border-left: none !important;
+  border-bottom: 1px solid #B8C5D3 !important;
+}

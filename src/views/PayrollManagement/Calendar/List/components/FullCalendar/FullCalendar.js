@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     borderColor: "#2896E9",
   },
 }));
-const LISTMESSAGE={date: "Date", time: "Slot", event: "Holiday"}
+const LISTMESSAGE = { time: "Slot", event: "Holiday" };
 const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
   const classes = useStyles();
   const [events, setEvents] = useState([...data]);
@@ -45,31 +45,33 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
     }
   }, [data]);
 
-  console.log("data21", data);
-
   const handleEventRemove = (eventToRemove) => {
     if (eventToRemove) {
       handleSideToggle(eventToRemove);
     }
   };
-  console.log("events", activeMonth);
 
   const eventStyleGetter = (event) => {
     let backgroundColor = getBgColor(event?.holiday_type); // Default color
     let textColor = getTextColor(event?.holiday_type);
     return {
       style: {
-        backgroundColor: backgroundColor,
-        color: textColor,
+        backgroundColor: activeMonth !== "agenda" && backgroundColor,
+        color: activeMonth !== "agenda" && textColor,
       },
     };
   };
+
   const activeClass = {
     background: "#ECF7FF 0% 0% no-repeat padding-box",
   };
   const CustomToolbar = ({ label, onNavigate, onView }) => {
     return (
-      <div className={activeMonth === "week" ? styles.toolWrapperWeek : styles.toolWrapper}>
+      <div
+        className={
+          activeMonth === "week" ? styles.toolWrapperWeek : styles.toolWrapper
+        }
+      >
         <div className={styles.upperWrap}>
           <ButtonBase onClick={() => onNavigate("PREV")}>
             <ArrowBackIosIcon fontSize={"small"} className={styles.backIcon} />
@@ -122,27 +124,35 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
       </div>
     );
   };
-  const CustomAgenda = useCallback(
-    ({ }) => {
-    
-      return (
-     
-          
-          <table >
-            <tbody>
-              <tr>
-                <td>Hi</td>
-               
-              </tr>
-            </tbody>
-          </table>
-       
-      );
-    },
-    []
-  );
-  
+  const CustomAgendaEvent = ({ event }) => {
+    console.log(event);
+    return (
+      <div className={styles.agendaContainer}>
+        <div
+          style={{
+            backgroundColor: getTextColor(event?.holiday_type),
+            height: "12px",
+            width: "12px",
+            borderRadius: "12px",
+            borderLeft: "none",
+          }}
+        />
+        <div>{event?.title}</div>
+      </div>
+    );
+  };
+  const CustomAgendaTime = ({ event }) => {
+    console.log(event);
+    return (
+      <div className={styles.typeText}>{event?.type?.replaceAll("_", " ")}</div>
+    );
+  };
+  const CustomAgendaDate = ({ date }) => {
+    return <div>{"Hi"} </div>;
+  };
+
   const handleSlotSelect = (slotInfo) => {
+    console.log(slotInfo);
     const hasExistingEvent = events?.some((event) =>
       moment(event?.start)?.isSame(slotInfo?.start, "day")
     );
@@ -156,11 +166,10 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
       handleSideToggle(values);
     }
   };
-  let allViews = Object.keys(Views).map((k) => Views[k])
+
   return (
     <div className={styles.detailWrap}>
       <Calendar
-      
         localizer={localizer}
         events={events}
         startAccessor="start"
@@ -168,28 +177,27 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
         selectable={true}
         onSelectSlot={handleSlotSelect}
         onSelectEvent={handleEventRemove}
-        // defaultView="month"
         eventPropGetter={eventStyleGetter}
         popup
         resizable
         defaultView={Views.MONTH}
-        style={{ padding: "10px", marginLeft:activeMonth === "week" && "-10px" }}
+        style={{
+          padding: "10px",
+          marginLeft: activeMonth === "week" && "-10px",
+        }}
         components={{
           toolbar: CustomToolbar,
           agenda: {
-            event: CustomAgenda
-           }
+            event: CustomAgendaEvent,
+            time: CustomAgendaTime,
+            // date: CustomAgendaDate,
+          },
         }}
-        // views={{
-        //   week: true,
-        //   month: true,
-        //   // list: true,
-        //   agenda: CustomAgenda
-        // }}
         onView={(view) => setActiveMonth(view)}
         date={selectedDate?.$d && selectedDate?.$d}
         drilldownView={null}
         messages={LISTMESSAGE}
+       
       />
     </div>
   );
