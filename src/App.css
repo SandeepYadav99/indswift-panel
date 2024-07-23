@@ -1314,14 +1314,20 @@ input[type="radio"] + label:hover {
 .calender_Wrapper .MuiPickersYear-yearButton {
   font-size: 0.875rem;
   font-family: Montserrat !important;
+ 
 }
-
+.MuiPickersDay-dayOutsideMonth {
+  color: #d8d8dd !important;
+}
 .calender_Wrapper .MuiPickersYear-yearButton {
   font-size: 0.8rem;
 }
 
-.MuiPickersDay-dayOutsideMonth {
-  color: #d8d8dd;
+.MuiDayCalendar-weekDayLabel{
+font-weight: 600 !important;
+}
+.MuiPickersCalendarHeader-label{
+  font-weight: 600 !important;
 }
 @media (max-width: 767px) {
   .iconTabsEvents {
