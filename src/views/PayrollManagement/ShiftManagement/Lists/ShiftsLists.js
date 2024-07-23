@@ -811,13 +811,13 @@ const ShiftsLists = ({}) => {
           />  */}
 
         </div>
-      </PageBox>
           <div style={{ width: "100%" }}>
             <DataTables
               {...tableData.datatable}
               {...tableData.datatableFunctions}
             />
           </div>
+      </PageBox>
       <SidePanelComponent
         handleToggle={() => handleToggleSidePannel()}
         title={renderTile()}
