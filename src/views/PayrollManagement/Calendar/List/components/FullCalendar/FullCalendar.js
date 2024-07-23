@@ -125,7 +125,7 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
     );
   };
   const CustomAgendaEvent = ({ event }) => {
-    console.log(event);
+ 
     return (
       <div className={styles.agendaContainer}>
         <div
@@ -142,7 +142,7 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
     );
   };
   const CustomAgendaTime = ({ event }) => {
-    console.log(event);
+  
     return (
       <div className={styles.typeText}>{event?.type?.replaceAll("_", " ")}</div>
     );
