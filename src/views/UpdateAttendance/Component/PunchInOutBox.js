@@ -3,17 +3,18 @@ import styles from "./Style.module.css";
 import punchIn from "../../../assets/img/ic_punch_in.png";
 import punchOut from "../../../assets/img/ic_punch_out.png";
 
-const PunchInOutBox = ({ isSwip, punchTime, punchOutTime, isLeftSwip }) => {
+const PunchInOutBox = ({ isSwip, punchTime, punchOutTime, isLeftSwip, isRightSwipDone, isLeftSwipDone }) => {
+
   return (
     <div className={styles.punchInOutContainer}>
       <div className={styles.punchInOutSubContainer}>
         <div className={styles.itemFlex}>
           <img src={punchIn} alt="" className={styles.punchImage} />
           <div className={styles.subBoxContainer}>
-            <div className={styles.punchTime}>{isSwip ? punchTime : "-"}</div>
+            <div className={styles.punchTime}>{isRightSwipDone === "Done" ? punchTime : "-"}</div>
             <div
               className={
-                isSwip === "true"
+                isRightSwipDone === "Done"
                   ? styles.punchTimeTextPunchIn
                   : styles.punchTimeText
               }
@@ -26,13 +27,11 @@ const PunchInOutBox = ({ isSwip, punchTime, punchOutTime, isLeftSwip }) => {
           <img src={punchOut} alt="" className={styles.punchImage} />
           <div className={styles.subBoxContainer}>
             <div className={styles.punchTime}>
-              {isLeftSwip ? punchOutTime : "-"}
+              {isLeftSwipDone === "Done" ? punchOutTime : "-"}
             </div>
             <div
               className={
-                isLeftSwip === "true"
-                  ? styles.punchTimeTextPunchIn
-                  : styles.punchTimeText
+                isLeftSwipDone === "Done" ? styles.punchTimeTextPunchIn : styles.punchTimeText
               }
             >
               Punch Out

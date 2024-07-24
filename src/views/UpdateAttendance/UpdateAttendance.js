@@ -11,34 +11,46 @@ const UpdateAttendance = () => {
   const [punchTime, setPunchTime] = useState("10:00 AM");
   const [punchOutTime, setPunchOutTime] = useState("07:00 PM");
   const [punchDate, setPunchDate] = useState("05/07/2024 | Friday");
+  const [isRightSwipDone, setIsRightSwipDone] = useState("");
+  const [isLeftSwipDone, setIsLeftSwipDone] = useState("");
 
-  const swipRightPunch = useCallback(() => {
-    setIsSwip(true);
-  }, [isSwip]);
+  const swipeDone = () => {
+    setIsRightSwipDone("Done");
+  };
 
-  const swipLeftPunch = useCallback(() => {
-    setIsLeftSwip(true);
-  }, [isLeftSwip]);
+  const leftSwipeDone = () => {
+    setIsLeftSwipDone("Done");
+  };
 
+ 
   return (
     <div className={styles.container}>
       <div className={styles.boxShadow}>
         <div className={styles.subContainer}>
-          <AttendanceTime punchTime={punchTime}  punchOutTime={punchOutTime}    isSwip={isSwip}
-            isLeftSwip={isLeftSwip} punchDate={punchDate} />
+          <AttendanceTime
+            punchTime={punchTime}
+            punchOutTime={punchOutTime}
+            leftSwipeDone={leftSwipeDone}
+            isRightSwipDone={isRightSwipDone}
+            punchDate={punchDate}
+            isLeftSwipDone={isLeftSwipDone}
+          />
 
           <AttendaceText />
 
           <SwipButton
-            isSwip={isSwip}
-            isLeftSwip={isLeftSwip}
-            swipRightPunch={swipRightPunch}
-            swipLeftPunch={swipLeftPunch}
+           
+           
+            leftSwipeDone={leftSwipeDone}
+            isRightSwipDone={isRightSwipDone}
+            isLeftSwipDone={isLeftSwipDone}
+            swipeDone={swipeDone}
           />
 
           <PunchInOutBox
-            isSwip={isSwip}
-            isLeftSwip={isLeftSwip}
+             isLeftSwipDone={isLeftSwipDone}
+            isRightSwipDone={isRightSwipDone}
+           
             punchTime={punchTime}
             punchOutTime={punchOutTime}
           />

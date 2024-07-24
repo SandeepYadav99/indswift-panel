@@ -1341,11 +1341,11 @@ font-weight: 600 !important;
   background: #ecf7ff !important;
   border: none !important;
 }
-.Mui-selected {
+/* .Mui-selected {
   background: #2896e9 !important;
   border: none !important;
   color: #ffffff !important;
-}
+} */
 .rbc-time-view{
  
   display: block !important;
@@ -1377,3 +1377,22 @@ table.rbc-agenda-table  .rbc-header{
   border-left: none !important;
   border-bottom: 1px solid #B8C5D3 !important;
 }
+
+/* Swip button */
+.swipezor-but{
+  
+  border: none !important ;
+  color: #ffffff !important;
+}
+.Style_buttonContainer__oAUlr {
+  display: block !important;
+  padding: 0 10% !important;
+}
+.swipezor-overlay {
+  background:none !important;
+  left: 10px !important;
+}
+.swipezor-caret-wrapper{
+  background: none !important;
+}
+/* ///////////////////////// */
