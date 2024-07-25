@@ -5,7 +5,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import styles from "./Style.module.css";
 
 function CalendarMui({ selectedDate, handleDateChange }) {
-  console.log("selectedDate", selectedDate);
+ 
   return (
     <div className={styles.calWrapper}>
       <LocalizationProvider
@@ -18,19 +18,19 @@ function CalendarMui({ selectedDate, handleDateChange }) {
             fixedWeekNumber={6}
             className="custom-date-calendar"
             value={selectedDate}
-            sx={{
-              "& .MuiPickersDay-root": {
-                fontFamily: "Montserrat",
-                color: "#161616",
-              },
-              "& .MuiDayCalendar-weekDayLabel": {
-                fontFamily: "Montserrat",
-                color: "#161616",
-                fontWeight: "500",
-              },
+            // sx={{
+            //   "& .MuiPickersDay-root": {
+            //     fontFamily: "Montserrat",
+            //     color: "#161616",
+            //   },
+            //   "& .MuiDayCalendar-weekDayLabel": {
+            //     fontFamily: "Montserrat",
+            //     color: "#161616",
+            //     fontWeight: "500",
+            //   },
              
               
-            }}
+            // }}
             onChange={handleDateChange}
             format={"dd-MM-yyyy"}
           />

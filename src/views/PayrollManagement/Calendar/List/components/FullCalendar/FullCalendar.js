@@ -12,6 +12,7 @@ import {
 } from "../../../../../../helper/calenderData";
 import { makeStyles } from "@material-ui/core/styles";
 import SnackbarUtils from "../../../../../../libs/SnackbarUtils";
+import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 
 const localizer = momentLocalizer(moment);
 const useStyles = makeStyles((theme) => ({
@@ -74,10 +75,10 @@ const CalendarDetail = ({ data, selectedDate, handleSideToggle }) => {
       >
         <div className={styles.upperWrap}>
           <ButtonBase onClick={() => onNavigate("PREV")}>
-            <ArrowBackIosIcon fontSize={"small"} className={styles.backIcon} />
+            <ArrowBackIos fontSize={"small"} className={styles.backIcon} />
           </ButtonBase>
           <ButtonBase onClick={() => onNavigate("NEXT")}>
-            <ArrowForwardIosIcon
+            <ArrowForwardIos
               fontSize={"small"}
               className={styles.backIcon}
             />
