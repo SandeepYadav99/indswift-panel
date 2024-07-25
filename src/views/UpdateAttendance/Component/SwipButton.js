@@ -1,14 +1,15 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React  from "react";
 import styles from "./Style.module.css";
 import SwipInComponent from "./SwipInComponent";
 import SwipOutComponent from "./SwiptOutComponent";
 
-const SwipButton = ({ swipeDone, isRightSwipDone , leftSwipeDone, isLeftSwipDone}) => {
+const SwipButton = ({ swipeDone, isRightSwipDone , leftSwipeDone, isLeftSwipDone, isDone}) => {
  
+  
 
   return (
     <div className={styles.buttonContainer}>
-      {isRightSwipDone !== "Done" ? (
+      {isDone === false ? (
         <SwipInComponent
           swipeDone={swipeDone}
           isRightSwipDone={isRightSwipDone}
@@ -20,4 +21,4 @@ const SwipButton = ({ swipeDone, isRightSwipDone , leftSwipeDone, isLeftSwipDone
   );
 };
 
-export default SwipButton;
+export default React.memo(SwipButton);

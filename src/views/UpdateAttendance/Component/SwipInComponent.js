@@ -1,32 +1,34 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import SwipeButton from "react-swipezor";
-import rightSwip from "../../../assets/img/ic_right_swipe.png";
-import successImage from "../../../assets/img/ic_punch_out_success@2x.png";
-import successPunchIn from "../../../assets/img/ic_punch_in_success@2x.png";
+import rightSwip from "../../../assets/img/ic_right_swipe_green@2x.png";
+import successImage from "../../../assets/img/ic_done_green@2x.png";
+
 import styles from "./Style.module.css";
-const SwipInComponent = ({ swipeDone, isRightSwipDone }) => {
- 
+const SwipInComponent = ({ swipeDone, isRightSwipDone, isDoneSwipeRight }) => {
+
+
 
   return (
-    <div >
+    <div>
       <SwipeButton
         mainText="SWIPE RIGHT TO PUNCH IN"
         overlayText=""
         onSwipeDone={() => {
           swipeDone();
         }}
-      
-        classList={styles.swipBtn}
        
-         caretClassList={styles.cartList}
+        minSwipeWidth="0.7"
+        minSwipeVelocity="0.5"
+        classList={isRightSwipDone !== "Done" ? styles.swipBtn : styles.isClickCaret}
+        caretClassList={styles.cartList}
         caret={
-          isRightSwipDone === "Done" ? (
-            <img src={successPunchIn} className={styles.punchIn} />
+          isRightSwipDone !== "Done" ? (
+            <img src={rightSwip} className={styles.swipeImg} alt="" />
           ) : (
-            <img src={rightSwip} />
+            <img src={successImage} className={styles.swipeImg} alt=""   />
           )
         }
-        // reset={reset}
+        // reset={isRightSwipDone === "Done"}
       />
     </div>
   );
