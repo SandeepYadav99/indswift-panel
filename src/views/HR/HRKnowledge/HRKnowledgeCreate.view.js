@@ -12,7 +12,7 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import LogUtils from "../../../libs/LogUtils";
 import useHRKnowledgeCreateViewDetail from "./HRKnowledgeCreateHook";
 import { Autocomplete } from "@material-ui/lab";
-// import Autocomplete from '@mui/material/Autocomplete';
+
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {

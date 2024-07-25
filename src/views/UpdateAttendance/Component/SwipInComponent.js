@@ -16,8 +16,7 @@ const SwipInComponent = ({ swipeDone, isRightSwipDone, isDoneSwipeRight }) => {
         onSwipeDone={() => {
           swipeDone();
         }}
-       
-        minSwipeWidth="0.7"
+        maxSwipeWidth="0.8"
         minSwipeVelocity="0.5"
         classList={isRightSwipDone !== "Done" ? styles.swipBtn : styles.isClickCaret}
         caretClassList={styles.cartList}

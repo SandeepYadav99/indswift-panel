@@ -58,7 +58,7 @@
 }
 .swipeImg{
   height: 35px !important;
-  margin-left: -6px !important;
+  margin-left: -5px !important;
   
 }
 .swipBtn {
@@ -83,6 +83,7 @@ border-radius: 30px !important;
 text-transform: uppercase !important;
 font-weight: 600 !important;
 /* width: 80% !important; */
+width: 97% !important;
 font-family: Montserrat !important;
 }
 .swipLeftBtn {
@@ -107,6 +108,7 @@ font-family: Montserrat !important;
   text-transform: uppercase !important;
   font-weight: 600 !important;
   /* width: 80% !important; */
+  width: 97% !important;
   font-family: Montserrat !important;
 }
 .swipImage {
