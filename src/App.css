@@ -1390,7 +1390,7 @@ table.rbc-agenda-table  .rbc-header{
 }
 .swipezor-overlay {
   background:none !important;
-  left: 10px !important;
+  left: 5px !important;
 }
 .swipezor-caret-wrapper{
   background: none !important;
