@@ -51,8 +51,7 @@
   height: 30px !important;
 }
 .cartList{
-  /* left: 6px !important; */
-  /* left: 90% !important; */
+ 
  
 
 }
@@ -62,8 +61,7 @@
   
 }
 .swipBtn {
-  /* background: transparent linear-gradient(265deg, #29cb97 0%, #12b27f 100%) 0%
-    0% no-repeat padding-box !important; */
+
     background: #29CB97 0% 0% no-repeat padding-box !important;
   color: #ffffff !important;
   padding: 10px 20px !important;
@@ -82,13 +80,12 @@ font-size: 14px !important;
 border-radius: 30px !important;
 text-transform: uppercase !important;
 font-weight: 600 !important;
-/* width: 80% !important; */
+
 width: 95% !important;
 font-family: Montserrat !important;
 }
 .swipLeftBtn {
-  /* background: transparent linear-gradient(265deg, #ef3939 0%, #f67373 100%) 0%
-    0% no-repeat padding-box; */
+
     background: #F67373 0% 0% no-repeat padding-box !important;
   color: #ffffff !important;
   padding: 10px 20px !important;
@@ -96,7 +93,7 @@ font-family: Montserrat !important;
   border-radius: 30px !important;
   text-transform: uppercase !important;
   font-weight: 600 !important;
-  /* width: 80% !important; */
+
   font-family: Montserrat !important;
 }
 .swipLeftBtnDone{
@@ -107,7 +104,7 @@ font-family: Montserrat !important;
   border-radius: 30px !important;
   text-transform: uppercase !important;
   font-weight: 600 !important;
-  /* width: 80% !important; */
+
   width: 95% !important;
   font-family: Montserrat !important;
 }
