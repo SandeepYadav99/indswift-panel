@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-
+import React  from "react";
 import {
   DatePicker,
-
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import styles from "./Style.module.css";
@@ -21,7 +19,6 @@ const useStyles = makeStyles({
     },
     "& .MuiPickersCalendarHeader-dayLabel": {
       font: "normal normal 600 14px/20px Montserrat",
-     
       color: "#161616",
     },
     "& .MuiTypography-alignCenter":{
@@ -46,7 +43,7 @@ function CalendarMui({ selectedDate, handleDateChange }) {
             variant="static"
             disabled={true}
             open={true}
-             
+           
             value={selectedDate}
             disableToolbar={true}
             onChange={handleDateChange}
