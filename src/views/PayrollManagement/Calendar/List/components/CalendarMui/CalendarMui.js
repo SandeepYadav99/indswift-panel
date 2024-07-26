@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import styles from "./Style.module.css";
 
 function CalendarMui({ selectedDate, handleDateChange }) {
  
   return (
     <div className={styles.calWrapper}>
-      <LocalizationProvider
+      {/* <LocalizationProvider
         dateAdapter={AdapterDayjs}
         className={styles.calContainer}
       >
@@ -35,7 +35,7 @@ function CalendarMui({ selectedDate, handleDateChange }) {
             format={"dd-MM-yyyy"}
           />
         </div>
-      </LocalizationProvider>
+      </LocalizationProvider> */}
     </div>
   );
 }
