@@ -1,8 +1,12 @@
 .calWrapper{
     display: flex;
+    margin-top: 10px;
+  
 }
 .calContainer{
     margin: 0;
-    
-    /* background-color: yellow; */
+
+}
+.dateHeaderHide{
+    font-weight: 900 !important;
 }

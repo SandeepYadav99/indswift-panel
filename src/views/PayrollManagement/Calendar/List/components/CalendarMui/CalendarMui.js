@@ -1,41 +1,60 @@
 import React, { useState } from "react";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+
+import {
+  DatePicker,
+
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import styles from "./Style.module.css";
+import DateFnsUtils from "@date-io/date-fns";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    "& .MuiTypography-colorInherit": {
+      font: "normal normal normal 14px Montserrat !important",
+      color: "#161616",
+    },
+    "& .MuiPickersDay-daySelected": {
+      backgroundColor: "#ECF7FF",
+      color: "#2896E9 !important",
+    },
+    "& .MuiPickersCalendarHeader-dayLabel": {
+      font: "normal normal 600 14px/20px Montserrat",
+     
+      color: "#161616",
+    },
+    "& .MuiTypography-alignCenter":{
+      font: "normal normal 600 14px Montserrat !important",
+      color: "#161616",
+     
+    }
+   
+  },
+});
 
 function CalendarMui({ selectedDate, handleDateChange }) {
- 
+  const classes = useStyles();
   return (
     <div className={styles.calWrapper}>
-      {/* <LocalizationProvider
-        dateAdapter={AdapterDayjs}
+      <MuiPickersUtilsProvider
+        utils={DateFnsUtils}
         className={styles.calContainer}
       >
-        <div>
-          <DateCalendar
-            showDaysOutsideCurrentMonth
-            fixedWeekNumber={6}
-            className="custom-date-calendar"
-            value={selectedDate}
-            // sx={{
-            //   "& .MuiPickersDay-root": {
-            //     fontFamily: "Montserrat",
-            //     color: "#161616",
-            //   },
-            //   "& .MuiDayCalendar-weekDayLabel": {
-            //     fontFamily: "Montserrat",
-            //     color: "#161616",
-            //     fontWeight: "500",
-            //   },
+        <div className={classes.root}>
+          <DatePicker
+            variant="static"
+            disabled={true}
+            open={true}
              
-              
-            // }}
+            value={selectedDate}
+            disableToolbar={true}
             onChange={handleDateChange}
             format={"dd-MM-yyyy"}
+           
           />
         </div>
-      </LocalizationProvider> */}
+      </MuiPickersUtilsProvider>
     </div>
   );
 }
